@@ -1,0 +1,31 @@
+{
+  "anti_claim": "The scan checks configured body-sensitive public roots for forbidden class terms; it does not prove future organs are safe.",
+  "authority_ceiling": "receipt_is_evidence_not_source_authority",
+  "body_sensitive_file_count": 4,
+  "body_sensitive_roots": [
+    "fixtures",
+    "atlas",
+    "standards",
+    "paper_modules",
+    "receipts"
+  ],
+  "command": "python -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json",
+  "forbidden_class_hits": [],
+  "generated_at": "2026-05-17T22:57:50+00:00",
+  "receipt_type": "private_state_scan",
+  "root": "/Users/willcook/src/ai_workflow/microcosm-substrate",
+  "rule_carrier_file_count": 7,
+  "rule_carrier_files": [
+    "core/private_state_forbidden_classes.json",
+    "src/microcosm_core/__init__.py",
+    "src/microcosm_core/cold_clone_probe.py",
+    "src/microcosm_core/private_state_scan.py",
+    "src/microcosm_core/receipts.py",
+    "src/microcosm_core/validators/__init__.py",
+    "src/microcosm_core/validators/private_state_scan.py"
+  ],
+  "scanned_file_count": 24,
+  "schema_version": "microcosm_receipt_v0",
+  "status": "pass",
+  "unreadable_files": []
+}

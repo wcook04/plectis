@@ -1,0 +1,26 @@
+{
+  "schema_version": "fixture_manifest_v0",
+  "organ_id": "private_state_scan",
+  "purpose": "Verify that the root can scan public fixture bodies for forbidden private-state classes.",
+  "fixture_id": "public_safe_boundary_fixture",
+  "synthetic_input_files": [
+    "fixtures/first_wave/private_state_scan/input/public_safe_fixture.json"
+  ],
+  "negative_case": {
+    "id": "forbidden_class_terms_absent",
+    "expected_error_codes_if_broken": [
+      "FORBIDDEN_PRIVATE_STATE_CLASS"
+    ]
+  },
+  "receipt_schema": {
+    "required_fields": [
+      "status",
+      "root",
+      "scanned_file_count",
+      "body_sensitive_file_count",
+      "forbidden_class_hits"
+    ]
+  },
+  "anti_claim": "This fixture proves local boundary scanning mechanics, not total disclosure safety for future organs."
+}
+

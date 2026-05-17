@@ -1,0 +1,94 @@
+{
+  "schema_version": "microcosm_entry_packet_v0",
+  "surface_role": "CONTROL_ENTRY",
+  "authority_boundary": "public_microcosm_root_entry",
+  "first_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+  "claim_ceiling": "Runnable seed root. Wave 1 organs are planned until their validators and receipts land.",
+  "routes": [
+    {
+      "route_id": "cold_clone_probe",
+      "kind": "bootstrap",
+      "command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+      "receipt_ref": "receipts/cold_clone_probe.json"
+    },
+    {
+      "route_id": "private_state_scan",
+      "kind": "validator",
+      "command": "python -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json",
+      "receipt_ref": "receipts/first_wave/private_state_scan.json"
+    },
+    {
+      "route_id": "organ_registry",
+      "kind": "contract",
+      "path": "core/organ_registry.json"
+    },
+    {
+      "route_id": "acceptance_plan",
+      "kind": "contract",
+      "path": "core/acceptance/first_wave_acceptance.json"
+    }
+  ],
+  "organs": [
+    {
+      "organ_id": "private_state_scan",
+      "status": "implemented",
+      "validator_ref": "src/microcosm_core/validators/private_state_scan.py",
+      "fixture_ref": "fixtures/first_wave/private_state_scan/input/public_safe_fixture.json",
+      "receipt_ref": "receipts/first_wave/private_state_scan.json",
+      "anti_claim": "Local scan coverage only."
+    },
+    {
+      "organ_id": "pattern_binding_contract",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/pattern_binding_contract.py"
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/executable_doctrine_grammar.py"
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+    },
+    {
+      "organ_id": "formal_math_lean_proof_organ",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/formal_math_lean_proof_organ.py"
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/navigation_hologram_route_plane.py"
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/mission_transaction_work_spine.py"
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "status": "missing",
+      "next_required_path": "src/microcosm_core/organs/agent_route_observability_runtime.py"
+    }
+  ],
+  "standards": [
+    "std_microcosm_standard",
+    "std_microcosm_validator",
+    "std_microcosm_receipt",
+    "std_microcosm_fixture",
+    "std_microcosm_cold_clone_probe"
+  ],
+  "paper_modules": [],
+  "receipts": [
+    "receipts/cold_clone_probe.json",
+    "receipts/first_wave/private_state_scan.json"
+  ],
+  "anti_claims": [
+    "Synthetic fixtures prove mechanics only.",
+    "Generated receipts are evidence, not source authority.",
+    "Missing Wave 1 organs remain blockers until implemented."
+  ]
+}
+
