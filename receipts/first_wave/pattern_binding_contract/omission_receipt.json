@@ -21,7 +21,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "private_source_body_sentinel"
       },
@@ -29,7 +29,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -37,7 +37,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -45,7 +45,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "private_source_body_sentinel"
       }

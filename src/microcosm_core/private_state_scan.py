@@ -21,12 +21,78 @@ TEXT_SUFFIXES = {
     ".txt",
 }
 
+PUBLIC_ROOT_DIR_NAME = "microcosm-substrate"
+PUBLIC_ROOT_RELATIVE_PREFIXES = (
+    "AGENTS.md",
+    "ANTI_PRINCIPLES.md",
+    "AXIOMS.md",
+    "CONSTITUTION.md",
+    "PRINCIPLES.md",
+    "README.md",
+    "bootstrap.sh",
+    "core/",
+    "fixtures/",
+    "pyproject.toml",
+    "receipts/",
+    "src/",
+    "tests/",
+)
+
 
 def load_forbidden_classes(path: str | Path) -> dict[str, Any]:
     payload = read_json_strict(path)
     if not isinstance(payload, dict):
         raise ValueError(f"{path}: forbidden class policy must be a JSON object")
     return payload
+
+
+def _resolved(path: Path) -> Path:
+    return path.expanduser().resolve(strict=False)
+
+
+def _public_root_for_path(path: str | Path) -> Path | None:
+    raw_path = Path(path)
+    resolved = _resolved(raw_path)
+    start = resolved if raw_path.is_dir() else resolved.parent
+    for candidate in (start, *start.parents):
+        if candidate.name == PUBLIC_ROOT_DIR_NAME:
+            return candidate
+
+    cwd = Path.cwd().resolve(strict=False)
+    try:
+        resolved.relative_to(cwd)
+    except ValueError:
+        return None
+    return cwd
+
+
+def public_relative_path(path: str | Path, *, display_root: str | Path | None = None) -> str:
+    raw_path = Path(path)
+    if not raw_path.is_absolute():
+        return raw_path.as_posix()
+
+    resolved = _resolved(raw_path)
+    roots: list[Path] = []
+    if display_root is not None:
+        roots.append(_resolved(Path(display_root)))
+    inferred_root = _public_root_for_path(raw_path)
+    if inferred_root is not None:
+        roots.append(inferred_root)
+
+    for root in roots:
+        try:
+            return resolved.relative_to(root).as_posix()
+        except ValueError:
+            continue
+    return resolved.as_posix()
+
+
+def _infer_display_root(paths: list[Path]) -> Path | None:
+    for path in paths:
+        root = _public_root_for_path(path)
+        if root is not None:
+            return root
+    return None
 
 
 def _terms(forbidden_classes: dict[str, Any]) -> list[dict[str, str]]:
@@ -76,7 +142,11 @@ def _path_hit(path: str, source_context: str) -> dict[str, Any] | None:
     if source_context == "target":
         return None
     normalized = path.replace("\\", "/")
-    if "microcosm-substrate" in normalized:
+    is_public_root_path = "microcosm-substrate" in normalized or any(
+        normalized == prefix.rstrip("/") or normalized.startswith(prefix)
+        for prefix in PUBLIC_ROOT_RELATIVE_PREFIXES
+    )
+    if is_public_root_path:
         return {
             "path": path,
             "forbidden_class": "target_only_not_source",
@@ -155,18 +225,20 @@ def scan_paths(
     *,
     forbidden_classes: dict[str, Any],
     source_context: str = "target",
+    display_root: str | Path | None = None,
 ) -> dict[str, Any]:
     results: list[dict[str, Any]] = []
     scanned = 0
-    for raw_path in paths:
-        path = Path(raw_path)
+    scan_paths = [Path(raw_path) for raw_path in paths]
+    root = Path(display_root).resolve(strict=False) if display_root is not None else _infer_display_root(scan_paths)
+    for path in scan_paths:
         if not path.is_file() or path.suffix not in TEXT_SUFFIXES:
             continue
         scanned += 1
         results.append(
             scan_text(
                 path.read_text(encoding="utf-8"),
-                path=path.as_posix(),
+                path=public_relative_path(path, display_root=root),
                 forbidden_classes=forbidden_classes,
                 source_context=source_context,
             )

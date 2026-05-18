@@ -2,7 +2,7 @@
   "anti_claim": "This receipt proves only the named public-safe first-slice command over synthetic fixtures; it is not public runtime completeness or source-body authority.",
   "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
   "command": "./bootstrap.sh --suite first-wave",
-  "created_at": "2026-05-18T09:26:12+00:00",
+  "created_at": "2026-05-18T09:43:50+00:00",
   "first_wave_receipts_observed": [
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
     "receipts/first_wave/pattern_binding_contract/source_capsules.json",
@@ -25,7 +25,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "path": "core/private_state_forbidden_classes.json",
         "remediation": "replace with a synthetic replacement fixture or schema-only projection",
         "term_id": "raw_seed_body_sentinel"
       },
@@ -33,7 +33,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "path": "core/private_state_forbidden_classes.json",
         "remediation": "replace with a synthetic replacement fixture or schema-only projection",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -41,7 +41,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "path": "core/private_state_forbidden_classes.json",
         "remediation": "replace with a synthetic replacement fixture or schema-only projection",
         "term_id": "release_packet_body_sentinel"
       },
@@ -49,7 +49,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "live_operator_state",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "path": "core/private_state_forbidden_classes.json",
         "remediation": "exclude or replace with a synthetic fixture",
         "term_id": "operator_thread_body_sentinel"
       },
@@ -57,7 +57,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "live_operator_state",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "path": "core/private_state_forbidden_classes.json",
         "remediation": "exclude or replace with a synthetic fixture",
         "term_id": "hud_browser_cockpit_state_sentinel"
       },
@@ -65,7 +65,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "non_public_evidence_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "path": "core/private_state_forbidden_classes.json",
         "remediation": "emit path-level lineage or an omission receipt",
         "term_id": "private_source_body_sentinel"
       },
@@ -73,7 +73,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/tests/test_private_state_scan.py",
+        "path": "tests/test_private_state_scan.py",
         "remediation": "replace with a synthetic replacement fixture or schema-only projection",
         "term_id": "raw_seed_body_sentinel"
       },
@@ -81,7 +81,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
         "remediation": "replace with a synthetic replacement fixture or schema-only projection",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -89,7 +89,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "non_public_evidence_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
         "remediation": "emit path-level lineage or an omission receipt",
         "term_id": "private_source_body_sentinel"
       },
@@ -97,7 +97,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
         "remediation": "replace with a synthetic replacement fixture or schema-only projection",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -105,7 +105,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "non_public_evidence_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
         "remediation": "emit path-level lineage or an omission receipt",
         "term_id": "private_source_body_sentinel"
       }

@@ -15,7 +15,7 @@
   },
   "authority_chain_resolution_status": "pass",
   "command": "bootstrap pattern_binding_contract validate",
-  "created_at": "2026-05-18T09:26:12+00:00",
+  "created_at": "2026-05-18T09:43:50+00:00",
   "duplicate_pattern_ids": [
     "pb_duplicate_conflict"
   ],
@@ -173,7 +173,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "private_source_body_sentinel"
       },
@@ -181,7 +181,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -189,7 +189,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "provider_payload_body_sentinel"
       },
@@ -197,7 +197,7 @@
         "body_redacted": true,
         "expected_negative_case": true,
         "forbidden_class": "forbidden_content_body",
-        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
         "remediation": "replace with a synthetic replacement fixture",
         "term_id": "private_source_body_sentinel"
       }
@@ -211,11 +211,11 @@
   },
   "receipt_id": "pattern_binding_contract_receipt_v1",
   "receipt_paths": [
-    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
-    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/source_capsules.json",
-    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/omission_receipt.json",
-    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
-    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
   ],
   "reference_capsule_resolution_status": "pass",
   "rejected_count": 3,

@@ -29,6 +29,27 @@ def test_scanner_blocks_synthetic_forbidden_token_without_excerpt(tmp_path: Path
     assert result["hits"][0]["body_redacted"] is True
 
 
+def test_public_root_scan_paths_are_public_relative() -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+    fixture = (
+        MICROCOSM_ROOT
+        / "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json"
+    )
+
+    result = scan_paths([fixture.resolve()], forbidden_classes=policy)
+
+    assert result["status"] == PASS
+    assert result["hits"]
+    for hit in result["hits"]:
+        assert hit["path"] == "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json"
+        assert not Path(hit["path"]).is_absolute()
+        assert "/Users/" not in hit["path"]
+        assert "src/ai_workflow" not in hit["path"]
+        assert hit["body_redacted"] is True
+        assert "matched_excerpt" not in hit
+        assert "body" not in hit
+
+
 def test_expected_negative_fixture_does_not_block_root_scan() -> None:
     policy = load_forbidden_classes(POLICY_PATH)
     text = '{"expected_negative_case": true, "body": "SYNTHETIC_RAW_SEED_BODY_SENTINEL"}'

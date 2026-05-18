@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.fixture_registry import load_pattern_binding_fixture
-from microcosm_core.private_state_scan import PASS, scan_json_payload, scan_paths
+from microcosm_core.private_state_scan import PASS, public_relative_path, scan_json_payload, scan_paths
 from microcosm_core.receipts import AUTHORITY_CEILING, base_receipt, write_json_atomic
 
 
@@ -420,9 +420,9 @@ def write_receipts(out_dir: str | Path, validation_result: dict[str, Any]) -> di
         "authority_chain_receipt",
     ):
         result_payload.pop(internal_key, None)
-    result_payload["receipt_paths"] = [path.as_posix() for path in paths.values()]
+    result_payload["receipt_paths"] = [public_relative_path(path) for path in paths.values()]
     write_json_atomic(paths["pattern_binding_validation_result"], result_payload)
-    return {key: path.as_posix() for key, path in paths.items()}
+    return {key: public_relative_path(path) for key, path in paths.items()}
 
 
 def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
