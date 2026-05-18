@@ -12,8 +12,12 @@ from microcosm_core.private_state_scan import (
 )
 
 
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+POLICY_PATH = MICROCOSM_ROOT / "core/private_state_forbidden_classes.json"
+
+
 def test_scanner_blocks_synthetic_forbidden_token_without_excerpt(tmp_path: Path) -> None:
-    policy = load_forbidden_classes("core/private_state_forbidden_classes.json")
+    policy = load_forbidden_classes(POLICY_PATH)
     fixture = tmp_path / "body.txt"
     fixture.write_text("SYNTHETIC_RAW_SEED_BODY_SENTINEL", encoding="utf-8")
 
@@ -26,7 +30,7 @@ def test_scanner_blocks_synthetic_forbidden_token_without_excerpt(tmp_path: Path
 
 
 def test_expected_negative_fixture_does_not_block_root_scan() -> None:
-    policy = load_forbidden_classes("core/private_state_forbidden_classes.json")
+    policy = load_forbidden_classes(POLICY_PATH)
     text = '{"expected_negative_case": true, "body": "SYNTHETIC_RAW_SEED_BODY_SENTINEL"}'
 
     result = scan_text(
@@ -40,7 +44,7 @@ def test_expected_negative_fixture_does_not_block_root_scan() -> None:
 
 
 def test_public_root_is_allowed_as_target_and_blocked_as_source() -> None:
-    policy = load_forbidden_classes("core/private_state_forbidden_classes.json")
+    policy = load_forbidden_classes(POLICY_PATH)
 
     target = scan_text("", path="microcosm-substrate/README.md", forbidden_classes=policy)
     source = scan_text(

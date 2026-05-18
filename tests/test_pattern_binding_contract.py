@@ -9,10 +9,14 @@ from microcosm_core.organs.pattern_binding_contract import EXPECTED_NEGATIVE_CAS
 from microcosm_core.schemas import DuplicateJsonKeyError, loads_json_strict
 
 
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+PATTERN_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/pattern_binding_contract/input"
+
+
 def test_pattern_binding_validator_observes_required_negative_cases(tmp_path: Path) -> None:
     out_dir = tmp_path / "receipts"
 
-    result = validate("fixtures/first_wave/pattern_binding_contract/input", out_dir, command="pytest")
+    result = validate(PATTERN_FIXTURE_INPUT, out_dir, command="pytest")
 
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
@@ -31,7 +35,7 @@ def test_pattern_binding_validator_observes_required_negative_cases(tmp_path: Pa
 def test_pattern_binding_receipts_are_redacted_and_complete(tmp_path: Path) -> None:
     out_dir = tmp_path / "receipts"
 
-    validate("fixtures/first_wave/pattern_binding_contract/input", out_dir, command="pytest")
+    validate(PATTERN_FIXTURE_INPUT, out_dir, command="pytest")
 
     result = json.loads((out_dir / "pattern_binding_validation_result.json").read_text(encoding="utf-8"))
     capsules = json.loads((out_dir / "source_capsules.json").read_text(encoding="utf-8"))
