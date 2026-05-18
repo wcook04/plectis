@@ -25,8 +25,9 @@
     "toy_schema_check",
     "toy_schema_check_broken"
   ],
+  "claim_ceiling": "proof_diagnostic_evidence_spine_public_fixture_receipt_only_not_formal_proof_authority_or_runtime_correctness",
   "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-18T11:09:03+00:00",
+  "created_at": "2026-05-18T11:22:55+00:00",
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
     "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",
@@ -201,6 +202,15 @@
     "toy_schema_check_broken": "rejected_expected_negative"
   },
   "schema_version": "proof_diagnostic_evidence_spine_proof_receipts_v1",
+  "source_fingerprint_status": "stale",
+  "source_fingerprints": [
+    {
+      "body_redacted": true,
+      "current_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "recorded_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_ref": "synthetic_source_ref:toy_schema_check"
+    }
+  ],
   "source_pattern_ids": [
     "evidence_cells_not_proof_bodies",
     "provider_advisory_payloads_not_authority",

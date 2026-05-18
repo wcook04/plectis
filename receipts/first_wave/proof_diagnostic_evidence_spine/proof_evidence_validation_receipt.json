@@ -2,6 +2,7 @@
   "accepted_check_ids": [
     "toy_schema_check"
   ],
+  "accepted_count": 1,
   "advisory_payload_ids": [
     "provider_advisory_metadata_only"
   ],
@@ -14,6 +15,7 @@
     "runtime_correctness_claim_rejected": true,
     "status": "pass"
   },
+  "authority_rejection_count": 3,
   "body_safe_lineage_status": {
     "body_redacted": true,
     "forbidden_body_key_values_omitted": true,
@@ -21,7 +23,8 @@
     "status": "pass"
   },
   "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-18T11:09:03+00:00",
+  "created_at": "2026-05-18T11:22:55+00:00",
+  "diagnostic_board_source_authority_rejected": true,
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
     "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",
@@ -109,6 +112,22 @@
     }
   ],
   "fixture_id": "first_wave.proof_diagnostic_evidence_spine",
+  "forbidden_key_scan": {
+    "body_redacted": true,
+    "forbidden_key_hit_count": 1,
+    "forbidden_key_hits": [
+      {
+        "body_redacted": true,
+        "forbidden_keys": [
+          "ground_truth_proof",
+          "proof_body",
+          "provider_output_body"
+        ],
+        "payload_id": "provider_payload_with_forbidden_body_keys"
+      }
+    ],
+    "status": "pass"
+  },
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "diagnostic_board_claims_source_authority": [
@@ -143,6 +162,7 @@
     ]
   },
   "proof_receipt_count": 2,
+  "provider_payload_authority_rejected": true,
   "provider_policy_rejection_count": 1,
   "provider_policy_rejection_ids": [
     "provider_payload_with_forbidden_body_keys"
@@ -172,6 +192,8 @@
   "rejected_check_ids": [
     "toy_schema_check_broken"
   ],
+  "rejected_count": 1,
+  "runtime_correctness_claim_rejected": true,
   "schema_version": "proof_diagnostic_evidence_spine_validation_receipt_v1",
   "source_fingerprint_status": "stale",
   "source_fingerprints": [

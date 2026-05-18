@@ -18,6 +18,7 @@
     "status": "pass"
   },
   "authority_rejection_count": 1,
+  "body_redacted": true,
   "body_safe_lineage_status": {
     "body_redacted": true,
     "forbidden_body_key_values_omitted": true,
@@ -25,7 +26,7 @@
     "status": "pass"
   },
   "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-18T11:09:03+00:00",
+  "created_at": "2026-05-18T11:22:55+00:00",
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
     "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",
@@ -173,6 +174,7 @@
       "payload_id": "provider_payload_with_forbidden_body_keys"
     }
   ],
+  "provider_payload_authority_rejected": true,
   "provider_payload_policy": [
     {
       "advisory_metadata_preserved": true,
@@ -198,6 +200,16 @@
   "provider_policy_rejection_count": 1,
   "provider_policy_rejection_ids": [
     "provider_payload_with_forbidden_body_keys"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/provider_advisory_payloads.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/receipt_missing_claim_validator_and_anti_claim.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_board_source_authority_claim.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/stale_proof_receipt_fingerprint.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/passing_check_overclaims_runtime.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/formal_prover_policy_reducer_packet.json"
   ],
   "receipt_id": "proof_diagnostic_evidence_spine_provider_payload_policy_result_v1",
   "receipt_paths": [

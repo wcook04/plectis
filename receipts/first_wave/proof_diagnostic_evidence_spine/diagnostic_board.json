@@ -27,7 +27,8 @@
   },
   "claim_ceiling": "proof_diagnostic_evidence_spine_public_fixture_receipt_only_not_formal_proof_authority_or_runtime_correctness",
   "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-18T11:09:03+00:00",
+  "created_at": "2026-05-18T11:22:55+00:00",
+  "diagnostic_board_source_authority_rejected": true,
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
     "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",

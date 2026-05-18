@@ -14,6 +14,30 @@ from microcosm_core.organs.proof_diagnostic_evidence_spine import (
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 PROOF_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine/input"
+PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json": [
+        "source_fingerprints",
+        "source_fingerprint_status",
+        "claim_ceiling",
+    ],
+    "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json": [
+        "provider_payload_authority_rejected",
+        "body_redacted",
+        "public_replacement_refs",
+    ],
+    "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json": [
+        "diagnostic_board_source_authority_rejected",
+    ],
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json": [
+        "accepted_count",
+        "rejected_count",
+        "authority_rejection_count",
+        "forbidden_key_scan",
+        "provider_payload_authority_rejected",
+        "runtime_correctness_claim_rejected",
+        "diagnostic_board_source_authority_rejected",
+    ],
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -162,3 +186,37 @@ def test_proof_diagnostic_evidence_spine_diagnostic_board_keeps_weak_edges(
     assert diagnostic_board["runtime_correctness_claim_rejected"] is True
     assert len(diagnostic_board["validator_asserted_feeds_patterns"]) == 3
     assert result["body_safe_lineage_status"]["status"] == "pass"
+
+
+def test_proof_diagnostic_evidence_spine_receipts_satisfy_macro_field_floor(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine",
+        public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine",
+    )
+    run(
+        public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine/input",
+        public_root / "receipts/first_wave/proof_diagnostic_evidence_spine",
+        command="pytest",
+    )
+
+    for receipt_path, required_fields in PER_OUTPUT_RECEIPT_FIELD_FLOOR.items():
+        payload = json.loads((public_root / receipt_path).read_text(encoding="utf-8"))
+        missing = [field for field in required_fields if field not in payload]
+        assert missing == []
+
+    validation_receipt = json.loads(
+        (
+            public_root
+            / "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert validation_receipt["accepted_count"] == 1
+    assert validation_receipt["rejected_count"] == 1
+    assert validation_receipt["forbidden_key_scan"]["body_redacted"] is True
+    assert validation_receipt["provider_payload_authority_rejected"] is True
+    assert validation_receipt["runtime_correctness_claim_rejected"] is True
+    assert validation_receipt["diagnostic_board_source_authority_rejected"] is True

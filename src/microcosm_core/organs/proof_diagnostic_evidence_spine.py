@@ -564,6 +564,9 @@ def write_receipts(
             },
             "accepted_check_count": len(validation_result["accepted_check_ids"]),
             "rejected_check_count": len(validation_result["rejected_check_ids"]),
+            "source_fingerprints": validation_result["source_fingerprints"],
+            "source_fingerprint_status": validation_result["source_fingerprint_status"],
+            "claim_ceiling": PROOF_AUTHORITY_CEILING["authority_ceiling"],
         }
     )
 
@@ -588,6 +591,11 @@ def write_receipts(
             "proof_body_forbidden_key_hits": validation_result["proof_body_forbidden_key_hits"],
             "provider_policy_rejection_count": len(validation_result["provider_policy_rejection_ids"]),
             "authority_rejection_count": len(validation_result["provider_policy_rejection_ids"]),
+            "provider_payload_authority_rejected": PROOF_AUTHORITY_CEILING[
+                "provider_payload_authority_rejected"
+            ],
+            "body_redacted": True,
+            "public_replacement_refs": validation_result["public_replacement_refs"],
         }
     )
 
@@ -597,6 +605,9 @@ def write_receipts(
         receipt_paths=receipt_paths,
     )
     diagnostic_board.update(build_diagnostic_board(validation_result))
+    diagnostic_board["diagnostic_board_source_authority_rejected"] = validation_result[
+        "diagnostic_board_source_authority_rejected"
+    ]
 
     validation_receipt = _common_receipt(
         validation_result,
@@ -606,12 +617,34 @@ def write_receipts(
     validation_receipt.update(
         {
             "proof_receipt_count": len(validation_result["proof_receipts"]),
+            "accepted_count": len(validation_result["accepted_check_ids"]),
+            "rejected_count": len(validation_result["rejected_check_ids"]),
             "provider_policy_rejection_count": len(validation_result["provider_policy_rejection_ids"]),
+            "authority_rejection_count": (
+                len(validation_result["provider_policy_rejection_ids"])
+                + int(bool(validation_result["diagnostic_board_source_authority_rejected"]))
+                + int(bool(validation_result["runtime_correctness_claim_rejected"]))
+            ),
             "receipt_field_gaps": validation_result["receipt_field_gaps"],
             "source_fingerprint_status": validation_result["source_fingerprint_status"],
             "source_fingerprints": validation_result["source_fingerprints"],
+            "forbidden_key_scan": {
+                "status": PASS,
+                "body_redacted": True,
+                "forbidden_key_hits": validation_result["proof_body_forbidden_key_hits"],
+                "forbidden_key_hit_count": len(validation_result["proof_body_forbidden_key_hits"]),
+            },
             "stale_evidence_ids": validation_result["stale_evidence_ids"],
             "public_replacement_refs": validation_result["public_replacement_refs"],
+            "provider_payload_authority_rejected": PROOF_AUTHORITY_CEILING[
+                "provider_payload_authority_rejected"
+            ],
+            "runtime_correctness_claim_rejected": validation_result[
+                "runtime_correctness_claim_rejected"
+            ],
+            "diagnostic_board_source_authority_rejected": validation_result[
+                "diagnostic_board_source_authority_rejected"
+            ],
             "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
         }
     )
