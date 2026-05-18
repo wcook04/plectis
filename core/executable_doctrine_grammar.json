@@ -1,0 +1,67 @@
+{
+  "schema_version": "executable_doctrine_grammar_contract_v1",
+  "organ_id": "executable_doctrine_grammar",
+  "fixture_id": "first_wave.executable_doctrine_grammar",
+  "status": "public_slice_contract",
+  "authority_ceiling": "executable_doctrine_grammar_public_fixture_receipt_only_not_macro_doctrine_authority",
+  "anti_claim": "Executable doctrine grammar validates public synthetic fixture structure only; it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
+  "public_inputs": [
+    "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json",
+    "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md",
+    "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+    "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+  ],
+  "expected_negative_cases": {
+    "duplicate_standard_slug_conflict": [
+      "DUPLICATE_STANDARD_SLUG_CONFLICT"
+    ],
+    "grammar_index_pass_overclaims_doctrine_complete": [
+      "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+    ],
+    "invalid_standard_and_module": [
+      "MISSING_TELEOLOGY",
+      "MISSING_RECEIPT_EXPECTATIONS",
+      "MISSING_GOVERNING_STANDARD",
+      "MISSING_ANTI_CLAIM"
+    ],
+    "macro_doctrine_body_copied_into_fixture": [
+      "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE"
+    ],
+    "prose_standard_claims_runtime_authority": [
+      "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY"
+    ]
+  },
+  "stable_error_codes": [
+    "DUPLICATE_STANDARD_SLUG_CONFLICT",
+    "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE",
+    "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE",
+    "MISSING_ANTI_CLAIM",
+    "MISSING_GOVERNING_STANDARD",
+    "MISSING_RECEIPT_EXPECTATIONS",
+    "MISSING_TELEOLOGY",
+    "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY"
+  ],
+  "public_replacement_contract": {
+    "source_posture": "project_and_refactor_named_algorithmic_shapes_only",
+    "synthetic_fixture_only": true,
+    "forbidden_source_authority": [
+      "macro doctrine body text",
+      "raw seed voice",
+      "prompt/provider/operator/HUD content",
+      "self-indexing-cognitive-substrate source bodies",
+      "current microcosm-substrate scratch contents as source authority"
+    ],
+    "pass_predicates": [
+      "standards registry required fields are validated",
+      "prose-only standards cannot claim executable runtime authority",
+      "paper-module fixtures are toy public modules or expected negative cases",
+      "receipt paths are public-root-relative",
+      "missing_negative_cases is empty"
+    ]
+  }
+}

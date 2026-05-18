@@ -1,0 +1,38 @@
+{
+  "schema_version": "executable_doctrine_grammar_fixture_manifest_v1",
+  "organ_id": "executable_doctrine_grammar",
+  "fixture_id": "first_wave.executable_doctrine_grammar",
+  "status": "public_synthetic_fixture_manifest",
+  "authority_ceiling": "fixture_manifest_only_not_macro_doctrine_authority",
+  "anti_claim": "This fixture manifest covers only public synthetic grammar fixtures and does not certify macro doctrine completeness or later public organs.",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json",
+      "kind": "synthetic_standards_registry",
+      "body_policy": "public_safe_synthetic_only"
+    },
+    {
+      "path": "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md",
+      "kind": "toy_public_paper_module",
+      "body_policy": "public_safe_synthetic_only"
+    },
+    {
+      "path": "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md",
+      "kind": "expected_negative_toy_paper_module",
+      "body_policy": "public_safe_synthetic_only"
+    }
+  ],
+  "expected_negative_cases": [
+    "duplicate_standard_slug_conflict",
+    "grammar_index_pass_overclaims_doctrine_complete",
+    "invalid_standard_and_module",
+    "macro_doctrine_body_copied_into_fixture",
+    "prose_standard_claims_runtime_authority"
+  ],
+  "expected_receipts": [
+    "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+    "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+  ]
+}

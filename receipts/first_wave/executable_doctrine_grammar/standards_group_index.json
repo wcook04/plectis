@@ -1,0 +1,233 @@
+{
+  "anti_claim": "Executable doctrine grammar validates public synthetic fixture structure only; it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
+  "authority_ceiling": {
+    "authority_ceiling": "executable_doctrine_grammar_public_fixture_receipt_only_not_macro_doctrine_authority",
+    "doctrine_completeness_overclaim_rejected": true,
+    "prose_runtime_authority_rejected": true,
+    "status": "pass"
+  },
+  "command": "python -m microcosm_core.organs.executable_doctrine_grammar validate --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar",
+  "created_at": "2026-05-18T10:19:44+00:00",
+  "error_codes": [
+    "DUPLICATE_STANDARD_SLUG_CONFLICT",
+    "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE",
+    "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE",
+    "MISSING_ANTI_CLAIM",
+    "MISSING_GOVERNING_STANDARD",
+    "MISSING_RECEIPT_EXPECTATIONS",
+    "MISSING_TELEOLOGY",
+    "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY"
+  ],
+  "expected_negative_cases": {
+    "duplicate_standard_slug_conflict": [
+      "DUPLICATE_STANDARD_SLUG_CONFLICT"
+    ],
+    "grammar_index_pass_overclaims_doctrine_complete": [
+      "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+    ],
+    "invalid_standard_and_module": [
+      "MISSING_TELEOLOGY",
+      "MISSING_RECEIPT_EXPECTATIONS",
+      "MISSING_GOVERNING_STANDARD",
+      "MISSING_ANTI_CLAIM"
+    ],
+    "macro_doctrine_body_copied_into_fixture": [
+      "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE"
+    ],
+    "prose_standard_claims_runtime_authority": [
+      "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "DUPLICATE_STANDARD_SLUG_CONFLICT",
+      "message": "Duplicate standard slug rejected deterministically.",
+      "negative_case_id": "duplicate_standard_slug_conflict",
+      "subject_id": "std_duplicate_a",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DUPLICATE_STANDARD_SLUG_CONFLICT",
+      "message": "Duplicate standard slug rejected deterministically.",
+      "negative_case_id": "duplicate_standard_slug_conflict",
+      "subject_id": "std_duplicate_b",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE",
+      "message": "Grammar fixture attempted to claim doctrine completeness.",
+      "negative_case_id": "grammar_index_pass_overclaims_doctrine_complete",
+      "subject_id": "std_grammar_overclaim",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_ANTI_CLAIM",
+      "message": "Paper module lacks an Anti-Claim section.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "broken_module",
+      "subject_kind": "paper_module"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_GOVERNING_STANDARD",
+      "message": "Paper module lacks a Governing Standard section.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "broken_module",
+      "subject_kind": "paper_module"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_RECEIPT_EXPECTATIONS",
+      "message": "Paper module lacks a Receipt Expectations section.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "broken_module",
+      "subject_kind": "paper_module"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_TELEOLOGY",
+      "message": "Paper module lacks a Teleology section.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "broken_module",
+      "subject_kind": "paper_module"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_ANTI_CLAIM",
+      "message": "Standard row lacks anti-claim binding.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "std_invalid_missing_contract_fields",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_GOVERNING_STANDARD",
+      "message": "Standard row lacks governing standard binding.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "std_invalid_missing_contract_fields",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_RECEIPT_EXPECTATIONS",
+      "message": "Standard row lacks receipt expectations.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "std_invalid_missing_contract_fields",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_TELEOLOGY",
+      "message": "Standard row lacks a teleology field.",
+      "negative_case_id": "invalid_standard_and_module",
+      "subject_id": "std_invalid_missing_contract_fields",
+      "subject_kind": "standard"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE",
+      "message": "Paper module fixture contains the synthetic macro-body-copy marker.",
+      "negative_case_id": "macro_doctrine_body_copied_into_fixture",
+      "subject_id": "broken_module",
+      "subject_kind": "paper_module"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY",
+      "message": "Prose-only standard attempted to claim executable authority.",
+      "negative_case_id": "prose_standard_claims_runtime_authority",
+      "subject_id": "std_prose_runtime_authority",
+      "subject_kind": "standard"
+    }
+  ],
+  "fixture_id": "first_wave.executable_doctrine_grammar",
+  "invalid_module_slugs": [
+    "broken_module"
+  ],
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "duplicate_standard_slug_conflict": [
+      "DUPLICATE_STANDARD_SLUG_CONFLICT"
+    ],
+    "grammar_index_pass_overclaims_doctrine_complete": [
+      "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE"
+    ],
+    "invalid_standard_and_module": [
+      "MISSING_ANTI_CLAIM",
+      "MISSING_GOVERNING_STANDARD",
+      "MISSING_RECEIPT_EXPECTATIONS",
+      "MISSING_TELEOLOGY"
+    ],
+    "macro_doctrine_body_copied_into_fixture": [
+      "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE"
+    ],
+    "prose_standard_claims_runtime_authority": [
+      "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY"
+    ]
+  },
+  "organ_id": "executable_doctrine_grammar",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 3,
+    "status": "pass",
+    "synthetic_private_boundary_negative_cases_observed": [
+      "macro_doctrine_body_copied_into_fixture"
+    ]
+  },
+  "receipt_expectation_coverage": {
+    "paper_module_validation_report": 1,
+    "standards_validation_report": 1
+  },
+  "receipt_id": "executable_doctrine_grammar_standards_group_index_v1",
+  "receipt_paths": [
+    "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+    "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+  ],
+  "rejected_module_ids": [
+    "broken_module"
+  ],
+  "rejected_standard_ids": [
+    "std_duplicate_a",
+    "std_duplicate_b",
+    "std_grammar_overclaim",
+    "std_invalid_missing_contract_fields",
+    "std_prose_runtime_authority"
+  ],
+  "schema_version": "executable_doctrine_grammar_standards_group_index_v1",
+  "source_pattern_ids": [
+    "standards_registry",
+    "paper_modules"
+  ],
+  "standard_group_count": 1,
+  "standard_group_index": {
+    "toy_navigation": [
+      {
+        "anti_claim_ref": "anti_grammar_fixture_not_macro_doctrine",
+        "governing_standard": "std_public_grammar_contract",
+        "receipt_expectations": [
+          "standards_validation_report",
+          "paper_module_validation_report"
+        ],
+        "slug": "toy_navigation_route_plane",
+        "standard_id": "std_toy_navigation_route_plane"
+      }
+    ]
+  },
+  "status": "pass",
+  "valid_module_slugs": [
+    "toy_navigation_route_plane"
+  ]
+}

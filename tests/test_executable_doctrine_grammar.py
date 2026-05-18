@@ -1,0 +1,123 @@
+from __future__ import annotations
+
+import json
+import shutil
+from pathlib import Path
+
+from microcosm_core.organs.executable_doctrine_grammar import (
+    EXPECTED_NEGATIVE_CASES,
+    EXPECTED_RECEIPT_PATHS,
+    validate,
+)
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+GRAMMAR_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/executable_doctrine_grammar/input"
+
+
+def test_executable_doctrine_grammar_observes_required_negative_cases(tmp_path: Path) -> None:
+    result = validate(
+        GRAMMAR_FIXTURE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+        acceptance_out=tmp_path / "acceptance.json",
+    )
+
+    assert result["status"] == "pass"
+    assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+    assert result["missing_negative_cases"] == []
+    assert result["accepted_standard_ids"] == ["std_toy_navigation_route_plane"]
+    assert result["valid_module_slugs"] == ["toy_navigation_route_plane"]
+    assert result["invalid_module_slugs"] == ["broken_module"]
+    assert "MISSING_TELEOLOGY" in result["error_codes"]
+    assert "MISSING_RECEIPT_EXPECTATIONS" in result["error_codes"]
+    assert "MISSING_GOVERNING_STANDARD" in result["error_codes"]
+    assert "MISSING_ANTI_CLAIM" in result["error_codes"]
+    assert "PROSE_STANDARD_NOT_EXECUTABLE_AUTHORITY" in result["error_codes"]
+    assert "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE" in result["error_codes"]
+    assert "DUPLICATE_STANDARD_SLUG_CONFLICT" in result["error_codes"]
+    assert "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE" in result["error_codes"]
+
+
+def test_executable_doctrine_grammar_receipts_are_public_relative_and_redacted(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/executable_doctrine_grammar",
+        public_root / "fixtures/first_wave/executable_doctrine_grammar",
+    )
+
+    result = validate(
+        public_root / "fixtures/first_wave/executable_doctrine_grammar/input",
+        public_root / "receipts/first_wave/executable_doctrine_grammar",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [
+        "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+        "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+        "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+        "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
+    ]
+    assert result["receipt_paths"] == EXPECTED_RECEIPT_PATHS
+
+    for receipt_path in EXPECTED_RECEIPT_PATHS:
+        receipt_file = public_root / receipt_path
+        assert receipt_file.is_file()
+        text = receipt_file.read_text(encoding="utf-8")
+        assert str(public_root) not in text
+        assert "/Users/" not in text
+        assert "/Users/willcook" not in text
+        assert "src/ai_workflow" not in text
+        payload = json.loads(text)
+        for key in (
+            "status",
+            "organ_id",
+            "fixture_id",
+            "expected_negative_cases",
+            "observed_negative_cases",
+            "missing_negative_cases",
+            "error_codes",
+            "findings",
+            "private_state_scan",
+            "authority_ceiling",
+            "anti_claim",
+            "receipt_paths",
+        ):
+            assert key in payload
+        assert payload["missing_negative_cases"] == []
+        assert set(payload["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+
+    standards = json.loads(
+        (
+            public_root
+            / "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert standards["private_state_scan"]["status"] == "pass"
+    assert standards["private_state_scan"]["body_redacted"] is True
+    for hit in standards["private_state_scan"]["hits"]:
+        assert "matched_excerpt" not in hit
+        assert "body" not in hit
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_executable_doctrine_grammar_reports_duplicate_slug_and_overclaim(
+    tmp_path: Path,
+) -> None:
+    result = validate(
+        GRAMMAR_FIXTURE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+        acceptance_out=tmp_path / "acceptance.json",
+    )
+
+    assert result["duplicate_standard_slugs"] == ["duplicate_toy_standard"]
+    assert "std_duplicate_a" in result["rejected_standard_ids"]
+    assert "std_duplicate_b" in result["rejected_standard_ids"]
+    assert "std_grammar_overclaim" in result["rejected_standard_ids"]
+    assert result["authority_ceiling"]["doctrine_completeness_overclaim_rejected"] is True

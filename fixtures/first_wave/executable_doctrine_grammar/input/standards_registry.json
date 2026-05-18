@@ -1,0 +1,94 @@
+{
+  "schema_version": "executable_doctrine_grammar_fixture_registry_v1",
+  "fixture_id": "first_wave.executable_doctrine_grammar",
+  "standards": [
+    {
+      "anti_claim": "This toy standard validates fixture grammar only and does not certify macro doctrine completeness.",
+      "anti_claim_ref": "anti_grammar_fixture_not_macro_doctrine",
+      "claims_executable_authority": true,
+      "governing_standard": "std_public_grammar_contract",
+      "purpose": "Exercise the public grammar over a toy paper-module fixture.",
+      "receipt_expectations": [
+        "standards_validation_report",
+        "paper_module_validation_report"
+      ],
+      "slug": "toy_navigation_route_plane",
+      "standard_group": "toy_navigation",
+      "standard_id": "std_toy_navigation_route_plane",
+      "standard_kind": "executable",
+      "teleology": "Keep a public-safe toy doctrine module bound to receipts and anti-claims."
+    },
+    {
+      "expected_negative_case_id": "invalid_standard_and_module",
+      "slug": "invalid_missing_contract_fields",
+      "standard_id": "std_invalid_missing_contract_fields",
+      "standard_kind": "executable"
+    },
+    {
+      "anti_claim": "This row is expected to fail because prose advice is not runtime authority.",
+      "anti_claim_ref": "anti_prose_runtime_authority",
+      "claims_executable_authority": true,
+      "expected_negative_case_id": "prose_standard_claims_runtime_authority",
+      "governing_standard": "std_public_grammar_contract",
+      "purpose": "Show that prose-only standards cannot claim executable authority.",
+      "receipt_expectations": [
+        "standards_validation_report"
+      ],
+      "slug": "prose_runtime_authority",
+      "standard_group": "authority_negative",
+      "standard_id": "std_prose_runtime_authority",
+      "standard_kind": "prose",
+      "teleology": "Reject an authority upgrade from prose to executable runtime authority."
+    },
+    {
+      "anti_claim": "This row participates in an expected duplicate slug conflict only.",
+      "anti_claim_ref": "anti_duplicate_slug_fixture",
+      "claims_executable_authority": true,
+      "expected_negative_case_id": "duplicate_standard_slug_conflict",
+      "governing_standard": "std_public_grammar_contract",
+      "purpose": "Exercise deterministic duplicate slug rejection.",
+      "receipt_expectations": [
+        "standards_validation_report"
+      ],
+      "slug": "duplicate_toy_standard",
+      "standard_group": "duplicate_negative",
+      "standard_id": "std_duplicate_a",
+      "standard_kind": "executable",
+      "teleology": "Reject ambiguous standard lookup rows before indexing."
+    },
+    {
+      "anti_claim": "This row participates in an expected duplicate slug conflict only.",
+      "anti_claim_ref": "anti_duplicate_slug_fixture",
+      "claims_executable_authority": true,
+      "expected_negative_case_id": "duplicate_standard_slug_conflict",
+      "governing_standard": "std_public_grammar_contract",
+      "purpose": "Exercise deterministic duplicate slug rejection.",
+      "receipt_expectations": [
+        "standards_validation_report"
+      ],
+      "slug": "duplicate_toy_standard",
+      "standard_group": "duplicate_negative",
+      "standard_id": "std_duplicate_b",
+      "standard_kind": "executable",
+      "teleology": "Reject ambiguous standard lookup rows before indexing."
+    },
+    {
+      "anti_claim": "This row is expected to fail because a grammar pass is not doctrine completeness.",
+      "anti_claim_ref": "anti_grammar_not_doctrine_complete",
+      "claims_doctrine_complete": true,
+      "claims_executable_authority": true,
+      "expected_negative_case_id": "grammar_index_pass_overclaims_doctrine_complete",
+      "governing_standard": "std_public_grammar_contract",
+      "purpose": "Exercise happy-path overclaim rejection.",
+      "receipt_expectations": [
+        "standards_validation_report",
+        "standards_group_index"
+      ],
+      "slug": "grammar_overclaim",
+      "standard_group": "overclaim_negative",
+      "standard_id": "std_grammar_overclaim",
+      "standard_kind": "executable",
+      "teleology": "Reject any claim that fixture grammar proves complete doctrine."
+    }
+  ]
+}
