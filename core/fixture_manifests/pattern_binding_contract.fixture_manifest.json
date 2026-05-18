@@ -1,0 +1,79 @@
+{
+  "schema_version": "fixture_manifest_v1",
+  "fixture_manifest_id": "pattern_binding_contract.fixture_manifest",
+  "organ_id": "pattern_binding_contract",
+  "fixture_id": "first_wave.pattern_binding_contract",
+  "input_files": [
+    "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl",
+    "fixtures/first_wave/pattern_binding_contract/input/source_capsules.json",
+    "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+    "fixtures/first_wave/pattern_binding_contract/input/authority_chain_handles.json",
+    "fixtures/first_wave/pattern_binding_contract/input/generated_projection_authority_upgrade.json",
+    "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+    "fixtures/first_wave/pattern_binding_contract/input/duplicate_pattern_id_conflict.jsonl",
+    "fixtures/first_wave/pattern_binding_contract/input/valid_binding_overclaim_public_leaf.json",
+    "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json"
+  ],
+  "expected_receipts": [
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
+  ],
+  "negative_cases": [
+    {
+      "negative_case_id": "missing_binding_contract_fields",
+      "expected_error_codes": [
+        "MISSING_GOVERNING_STANDARD",
+        "MISSING_ANTI_CLAIM_REF"
+      ]
+    },
+    {
+      "negative_case_id": "pattern_binding_projection_claims_source_authority",
+      "expected_error_codes": [
+        "PROJECTION_NOT_SOURCE_AUTHORITY"
+      ]
+    },
+    {
+      "negative_case_id": "source_capsule_private_body_leak",
+      "expected_error_codes": [
+        "SOURCE_CAPSULE_PRIVATE_BODY_LEAK"
+      ]
+    },
+    {
+      "negative_case_id": "duplicate_pattern_binding_conflict",
+      "expected_error_codes": [
+        "DUPLICATE_PATTERN_BINDING_CONFLICT"
+      ]
+    },
+    {
+      "negative_case_id": "binding_success_overclaims_public_leaf",
+      "expected_error_codes": [
+        "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF"
+      ]
+    },
+    {
+      "negative_case_id": "reference_capsule_unresolved_supported_kind",
+      "expected_error_codes": [
+        "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND"
+      ]
+    },
+    {
+      "negative_case_id": "reference_capsule_private_body_leak",
+      "expected_error_codes": [
+        "REFERENCE_BODY_LEAK"
+      ]
+    },
+    {
+      "negative_case_id": "authority_chain_unsupported_handle_implies_authority",
+      "expected_error_codes": [
+        "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY"
+      ]
+    }
+  ],
+  "validator_command_shape": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
+  "private_state_scan_required": true,
+  "authority_ceiling": "synthetic_fixture_manifest_contract",
+  "anti_claim": "A public fixture manifest proves synthetic fixture coverage; it is not evidence that macro fixture bodies or live run traces are public."
+}

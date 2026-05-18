@@ -1,0 +1,25 @@
+{
+  "schema_version": "reference_capsules_fixture_v1",
+  "reference_capsules": [
+    {
+      "reference_id": "ref_supported_unresolved",
+      "supported_kind": true,
+      "resolved": false,
+      "body_redacted": true,
+      "expected_negative_case_id": "reference_capsule_unresolved_supported_kind",
+      "expected_negative_case": true,
+      "synthetic_negative_fixture": true
+    },
+    {
+      "reference_id": "ref_body_leak",
+      "supported_kind": true,
+      "resolved": true,
+      "body_redacted": false,
+      "body": "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL",
+      "expected_negative_case_id": "reference_capsule_private_body_leak",
+      "expected_negative_case": true,
+      "synthetic_negative_fixture": true
+    }
+  ],
+  "anti_claim": "Reference capsules are synthetic and body-redacted except for expected negative fixtures."
+}

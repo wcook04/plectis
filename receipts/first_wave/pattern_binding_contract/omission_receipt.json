@@ -1,0 +1,59 @@
+{
+  "anti_claim": "Omission counts are class-level metadata and do not expose omitted bodies.",
+  "omitted_classes": [
+    "forbidden_content_body",
+    "non_public_evidence_body"
+  ],
+  "omitted_edges": 0,
+  "omitted_files": 1,
+  "omitted_overlays": 0,
+  "organ_id": "pattern_binding_contract",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 4,
+    "hits": [
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "private_source_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "private_source_body_sentinel"
+      }
+    ],
+    "scanned_path_count": 9,
+    "status": "pass"
+  },
+  "reason": "source bodies intentionally omitted; synthetic fixture metadata retained",
+  "schema_version": "omission_receipt_v1",
+  "status": "pass"
+}

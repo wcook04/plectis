@@ -1,0 +1,21 @@
+{
+  "schema_version": "private_state_forbidden_classes_v1",
+  "classes": [
+    {
+      "class_id": "forbidden_content_body",
+      "label": "forbidden content body",
+      "remediation": "replace with a synthetic replacement fixture",
+      "terms": [
+        {
+          "term_id": "private_source_body_sentinel",
+          "token": "SYNTHETIC_PRIVATE_SOURCE_BODY_SENTINEL"
+        },
+        {
+          "term_id": "provider_payload_body_sentinel",
+          "token": "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL"
+        }
+      ]
+    }
+  ],
+  "anti_claim": "These are synthetic scanner sentinels, not non-public bodies."
+}

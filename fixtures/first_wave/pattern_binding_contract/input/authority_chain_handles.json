@@ -1,0 +1,20 @@
+{
+  "schema_version": "authority_chain_handles_fixture_v1",
+  "handles": [
+    {
+      "handle_id": "supported_schema_handle",
+      "supported": true,
+      "implies_authority": false,
+      "authority_class": "schema_only_projection"
+    },
+    {
+      "handle_id": "unsupported_handle",
+      "supported": false,
+      "implies_authority": true,
+      "expected_negative_case_id": "authority_chain_unsupported_handle_implies_authority",
+      "expected_negative_case": true,
+      "synthetic_negative_fixture": true
+    }
+  ],
+  "anti_claim": "Authority-chain handles are metadata and do not upgrade unsupported handles to authority."
+}

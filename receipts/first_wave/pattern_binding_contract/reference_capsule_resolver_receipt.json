@@ -1,0 +1,31 @@
+{
+  "anti_claim": "Reference capsules are schema-only or redacted metadata; no source body is emitted.",
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND",
+      "message": "Supported reference capsule kind did not resolve.",
+      "negative_case_id": "reference_capsule_unresolved_supported_kind",
+      "pattern_id": "ref_supported_unresolved"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "REFERENCE_BODY_LEAK",
+      "message": "Reference capsule body is not redacted.",
+      "negative_case_id": "reference_capsule_private_body_leak",
+      "pattern_id": "ref_body_leak"
+    }
+  ],
+  "observed_negative_cases": {
+    "reference_capsule_private_body_leak": [
+      "REFERENCE_BODY_LEAK"
+    ],
+    "reference_capsule_unresolved_supported_kind": [
+      "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND"
+    ]
+  },
+  "organ_id": "pattern_binding_contract",
+  "reference_capsule_resolution_status": "pass",
+  "schema_version": "reference_capsule_resolver_receipt_v1",
+  "status": "pass"
+}

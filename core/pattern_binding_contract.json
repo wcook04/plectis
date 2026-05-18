@@ -1,0 +1,38 @@
+{
+  "schema_version": "pattern_binding_contract_v1",
+  "organ_id": "pattern_binding_contract",
+  "required_pattern_fields": [
+    "pattern_id",
+    "organ_id",
+    "governing_standard",
+    "source_refs",
+    "public_projection_posture",
+    "anti_claim_ref"
+  ],
+  "projection_posture_values": [
+    "direct_public",
+    "synthetic_only",
+    "schema_only",
+    "forbidden"
+  ],
+  "expected_error_codes": [
+    "MISSING_GOVERNING_STANDARD",
+    "MISSING_ANTI_CLAIM_REF",
+    "PROJECTION_NOT_SOURCE_AUTHORITY",
+    "SOURCE_CAPSULE_PRIVATE_BODY_LEAK",
+    "DUPLICATE_PATTERN_BINDING_CONFLICT",
+    "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF",
+    "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND",
+    "REFERENCE_BODY_LEAK",
+    "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY"
+  ],
+  "receipt_outputs": [
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
+  ],
+  "authority_ceiling": "binding validation is a contract check over synthetic fixtures, not source authority or public leaf readiness",
+  "anti_claim": "Pattern binding accepts only public-safe synthetic rows and source-capsule metadata."
+}

@@ -1,0 +1,233 @@
+{
+  "accepted_count": 1,
+  "accepted_pattern_ids": [
+    "pb_valid_synthetic_binding"
+  ],
+  "anti_claim": "This receipt proves only the named public-safe first-slice command over synthetic fixtures; it is not public runtime completeness or source-body authority.",
+  "anti_claim_refs": [
+    "anti_claim.pattern_binding.synthetic_fixture_only"
+  ],
+  "authority_ceiling": {
+    "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
+    "projection_not_source_authority_observed": true,
+    "public_leaf_overclaim_observed": true,
+    "status": "pass"
+  },
+  "authority_chain_resolution_status": "pass",
+  "command": "bootstrap pattern_binding_contract validate",
+  "created_at": "2026-05-18T09:07:40+00:00",
+  "duplicate_pattern_ids": [
+    "pb_duplicate_conflict"
+  ],
+  "error_codes": [
+    "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF",
+    "DUPLICATE_PATTERN_BINDING_CONFLICT",
+    "MISSING_ANTI_CLAIM_REF",
+    "MISSING_GOVERNING_STANDARD",
+    "PROJECTION_NOT_SOURCE_AUTHORITY",
+    "REFERENCE_BODY_LEAK",
+    "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND",
+    "SOURCE_CAPSULE_PRIVATE_BODY_LEAK",
+    "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY"
+  ],
+  "expected_negative_cases": {
+    "authority_chain_unsupported_handle_implies_authority": [
+      "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY"
+    ],
+    "binding_success_overclaims_public_leaf": [
+      "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF"
+    ],
+    "duplicate_pattern_binding_conflict": [
+      "DUPLICATE_PATTERN_BINDING_CONFLICT"
+    ],
+    "missing_binding_contract_fields": [
+      "MISSING_GOVERNING_STANDARD",
+      "MISSING_ANTI_CLAIM_REF"
+    ],
+    "pattern_binding_projection_claims_source_authority": [
+      "PROJECTION_NOT_SOURCE_AUTHORITY"
+    ],
+    "reference_capsule_private_body_leak": [
+      "REFERENCE_BODY_LEAK"
+    ],
+    "reference_capsule_unresolved_supported_kind": [
+      "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND"
+    ],
+    "source_capsule_private_body_leak": [
+      "SOURCE_CAPSULE_PRIVATE_BODY_LEAK"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_GOVERNING_STANDARD",
+      "message": "Pattern row lacks governing standard binding.",
+      "negative_case_id": "missing_binding_contract_fields",
+      "pattern_id": "pb_missing_contract_fields"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_ANTI_CLAIM_REF",
+      "message": "Pattern row lacks anti-claim reference.",
+      "negative_case_id": "missing_binding_contract_fields",
+      "pattern_id": "pb_missing_contract_fields"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PROJECTION_NOT_SOURCE_AUTHORITY",
+      "message": "Projection row claims source authority.",
+      "negative_case_id": "pattern_binding_projection_claims_source_authority",
+      "pattern_id": "pb_projection_claims_source_authority"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SOURCE_CAPSULE_PRIVATE_BODY_LEAK",
+      "message": "Source capsule body is not redacted.",
+      "negative_case_id": "source_capsule_private_body_leak",
+      "pattern_id": "capsule.synthetic_private_body_leak"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SOURCE_CAPSULE_PRIVATE_BODY_LEAK",
+      "message": "Source capsule contains a forbidden body marker.",
+      "negative_case_id": "source_capsule_private_body_leak",
+      "pattern_id": "capsule.synthetic_private_body_leak"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DUPLICATE_PATTERN_BINDING_CONFLICT",
+      "message": "Duplicate pattern id rejected deterministically.",
+      "negative_case_id": "duplicate_pattern_binding_conflict",
+      "pattern_id": "pb_duplicate_conflict"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF",
+      "message": "Binding row overclaims public leaf readiness.",
+      "negative_case_id": "binding_success_overclaims_public_leaf",
+      "pattern_id": "pb_overclaims_public_leaf"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND",
+      "message": "Supported reference capsule kind did not resolve.",
+      "negative_case_id": "reference_capsule_unresolved_supported_kind",
+      "pattern_id": "ref_supported_unresolved"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "REFERENCE_BODY_LEAK",
+      "message": "Reference capsule body is not redacted.",
+      "negative_case_id": "reference_capsule_private_body_leak",
+      "pattern_id": "ref_body_leak"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY",
+      "message": "Unsupported authority-chain handle implied authority.",
+      "negative_case_id": "authority_chain_unsupported_handle_implies_authority",
+      "pattern_id": "unsupported_handle"
+    }
+  ],
+  "fixture_id": "first_wave.pattern_binding_contract",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "authority_chain_unsupported_handle_implies_authority": [
+      "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY"
+    ],
+    "binding_success_overclaims_public_leaf": [
+      "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF"
+    ],
+    "duplicate_pattern_binding_conflict": [
+      "DUPLICATE_PATTERN_BINDING_CONFLICT"
+    ],
+    "missing_binding_contract_fields": [
+      "MISSING_ANTI_CLAIM_REF",
+      "MISSING_GOVERNING_STANDARD"
+    ],
+    "pattern_binding_projection_claims_source_authority": [
+      "PROJECTION_NOT_SOURCE_AUTHORITY"
+    ],
+    "reference_capsule_private_body_leak": [
+      "REFERENCE_BODY_LEAK"
+    ],
+    "reference_capsule_unresolved_supported_kind": [
+      "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND"
+    ],
+    "source_capsule_private_body_leak": [
+      "SOURCE_CAPSULE_PRIVATE_BODY_LEAK"
+    ]
+  },
+  "omission_receipt_count": 1,
+  "organ_id": "pattern_binding_contract",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 4,
+    "hits": [
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "private_source_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "remediation": "replace with a synthetic replacement fixture",
+        "term_id": "private_source_body_sentinel"
+      }
+    ],
+    "scanned_path_count": 9,
+    "status": "pass"
+  },
+  "projection_mode_counts": {
+    "direct_public": 1,
+    "synthetic_only": 2
+  },
+  "receipt_id": "pattern_binding_contract_receipt_v1",
+  "receipt_paths": [
+    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "/Users/willcook/src/ai_workflow/microcosm-substrate/receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
+  ],
+  "reference_capsule_resolution_status": "pass",
+  "rejected_count": 3,
+  "rejected_pattern_ids": [
+    "pb_duplicate_conflict",
+    "pb_missing_contract_fields",
+    "pb_projection_claims_source_authority"
+  ],
+  "schema_version": "pattern_binding_contract_receipt_v1",
+  "source_capsule_count": 1,
+  "source_pattern_ids": [
+    "pb_valid_synthetic_binding"
+  ],
+  "status": "pass"
+}

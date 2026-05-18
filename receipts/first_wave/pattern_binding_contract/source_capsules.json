@@ -1,0 +1,16 @@
+{
+  "anti_claim": "Source capsules are redacted metadata over synthetic fixture rows, not source bodies.",
+  "organ_id": "pattern_binding_contract",
+  "schema_version": "pattern_binding_source_capsules_receipt_v1",
+  "source_capsule_count": 1,
+  "source_capsules": [
+    {
+      "authority_class": "synthetic_replacement_fixture",
+      "body_redacted": true,
+      "replacement_fixture_ref": "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl::pb_valid_synthetic_binding",
+      "source_ref": "capsule.synthetic_pattern_contract",
+      "source_sha256": "synthetic-fixture-hash-basis"
+    }
+  ],
+  "status": "pass"
+}

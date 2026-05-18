@@ -1,0 +1,10 @@
+{
+  "source_ref": "capsule.synthetic_private_body_leak",
+  "authority_class": "forbidden_content_body",
+  "body_redacted": false,
+  "body": "SYNTHETIC_PRIVATE_SOURCE_BODY_SENTINEL",
+  "replacement_fixture_ref": "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+  "expected_negative_case_id": "source_capsule_private_body_leak",
+  "expected_negative_case": true,
+  "synthetic_negative_fixture": true
+}

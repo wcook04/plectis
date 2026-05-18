@@ -1,0 +1,20 @@
+{
+  "schema_version": "authority_boundary_v1",
+  "public_substrate_rule": "public-safe projection over synthetic fixtures and redacted lineage only",
+  "allowed_roots": [
+    "microcosm-substrate/**"
+  ],
+  "forbidden_source_authority_roots": [
+    "self-indexing-cognitive-substrate/**",
+    "raw_seed.md",
+    "obsidian/**",
+    "prompt shelf bodies",
+    "provider payload bodies",
+    "operator thread content",
+    "HUD/browser/cockpit live state",
+    "release/dissemination/publication/recipient/hosted-public/website surfaces"
+  ],
+  "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
+  "synthetic_fixture_policy": "fixture bodies are synthetic replacements and never copied non-public evidence bodies",
+  "anti_claim": "This boundary manifest does not authorize later organs, publication, hosted public surfaces, or source-body projection."
+}

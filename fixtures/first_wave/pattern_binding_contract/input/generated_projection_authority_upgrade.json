@@ -1,0 +1,9 @@
+{
+  "schema_version": "generated_projection_authority_upgrade_fixture_v1",
+  "pattern_id": "pb_projection_claims_source_authority",
+  "public_projection_posture": "direct_public",
+  "claims_source_authority": true,
+  "expected_negative_case_id": "pattern_binding_projection_claims_source_authority",
+  "expected_negative_case": true,
+  "synthetic_negative_fixture": true
+}
