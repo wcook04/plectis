@@ -1,57 +1,127 @@
 {
-  "anti_claim": "This bootstrap proves the seed root can run and emit typed receipts; it does not prove Wave 1 organ acceptance until missing organs land.",
-  "authority_ceiling": "receipt_is_evidence_not_source_authority",
-  "command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
-  "error_class": "MISSING_WAVE_1_ORGAN",
-  "first_missing_organ_or_validator": {
-    "error_class": "MISSING_WAVE_1_ORGAN",
-    "missing_paths": [
-      "src/microcosm_core/organs/pattern_binding_contract.py",
-      "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json"
-    ],
-    "organ_id": "pattern_binding_contract",
-    "unblock_condition": "Implement pattern_binding_contract with its fixture manifest, validator command, negative case, and receipt outputs."
-  },
-  "generated_at": "2026-05-17T22:57:43+00:00",
-  "missing_root_paths": [],
-  "next_best_mission": "Implement pattern_binding_contract as the first Wave 1 organ with synthetic fixtures, expected negative cases, validator output, and receipts.",
+  "anti_claim": "This receipt proves only the named public-safe first-slice command over synthetic fixtures; it is not public runtime completeness or source-body authority.",
+  "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
+  "command": "./bootstrap.sh --suite first-wave",
+  "created_at": "2026-05-18T09:07:40+00:00",
+  "first_wave_receipts_observed": [
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
+  ],
+  "fixture_id": "first-wave",
+  "organ_id": "cold_clone_probe",
   "private_state_scan": {
-    "forbidden_class_hit_count": 0,
-    "receipt_ref": "receipts/first_wave/private_state_scan.json",
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 11,
+    "hits": [
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+        "term_id": "raw_seed_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+        "term_id": "release_packet_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "live_operator_state",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "remediation": "exclude or replace with a synthetic fixture",
+        "term_id": "operator_thread_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "live_operator_state",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "remediation": "exclude or replace with a synthetic fixture",
+        "term_id": "hud_browser_cockpit_state_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "non_public_evidence_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/core/private_state_forbidden_classes.json",
+        "remediation": "emit path-level lineage or an omission receipt",
+        "term_id": "private_source_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/tests/test_private_state_scan.py",
+        "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+        "term_id": "raw_seed_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "non_public_evidence_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "remediation": "emit path-level lineage or an omission receipt",
+        "term_id": "private_source_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_redacted": true,
+        "expected_negative_case": true,
+        "forbidden_class": "non_public_evidence_body",
+        "path": "/Users/willcook/src/ai_workflow/microcosm-substrate/fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "emit path-level lineage or an omission receipt",
+        "term_id": "private_source_body_sentinel"
+      }
+    ],
+    "scanned_path_count": 43,
     "status": "pass"
   },
-  "receipt_refs": [
+  "receipt_id": "cold_clone_probe_receipt_v1",
+  "receipt_paths": [
     "receipts/cold_clone_probe.json",
-    "receipts/first_wave/private_state_scan.json"
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
   ],
-  "receipt_type": "cold_clone_probe",
-  "root": "/Users/willcook/src/ai_workflow/microcosm-substrate",
-  "root_required_paths": [
-    "README.md",
-    "AGENTS.md",
-    "CONSTITUTION.md",
-    "AXIOMS.md",
-    "PRINCIPLES.md",
-    "ANTI_PRINCIPLES.md",
-    "pyproject.toml",
-    "bootstrap.sh",
-    "src/microcosm_core/__init__.py",
-    "src/microcosm_core/receipts.py",
-    "src/microcosm_core/private_state_scan.py",
-    "src/microcosm_core/validators/private_state_scan.py",
-    "core/private_state_forbidden_classes.json",
-    "atlas/entry_packet.json"
-  ],
-  "schema_version": "microcosm_receipt_v0",
-  "status": "blocked",
-  "suite": "first-wave",
-  "wave_1_expected_organs": [
-    "pattern_binding_contract",
-    "executable_doctrine_grammar",
-    "proof_diagnostic_evidence_spine",
-    "formal_math_lean_proof_organ",
-    "navigation_hologram_route_plane",
-    "mission_transaction_work_spine",
-    "agent_route_observability_runtime"
-  ]
+  "schema_version": "cold_clone_probe_receipt_v1",
+  "status": "pass"
 }

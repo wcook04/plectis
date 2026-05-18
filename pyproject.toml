@@ -1,21 +1,20 @@
 [build-system]
-requires = ["setuptools>=69"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "microcosm-substrate"
 version = "0.1.0"
-description = "Standalone public-safe substrate microcosm prototype."
+description = "Public-safe microcosm first-slice substrate."
 requires-python = ">=3.11"
-dependencies = []
 
 [project.scripts]
-microcosm-private-state-scan = "microcosm_core.validators.private_state_scan:main"
-microcosm-cold-clone-probe = "microcosm_core.cold_clone_probe:main"
+microcosm = "microcosm_core.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
-
+testpaths = ["tests"]
+addopts = "-q"

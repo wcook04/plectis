@@ -1,58 +1,22 @@
 {
-  "schema_version": "microcosm_organ_registry_v0",
-  "authority_boundary": "public_root_planned_organs",
-  "status": "seed_root_waiting_for_wave_1_organs",
-  "organs": [
-    {
-      "organ_id": "private_state_scan",
-      "kind": "validator",
-      "status": "implemented",
-      "command": "python -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json",
-      "receipt_ref": "receipts/first_wave/private_state_scan.json",
-      "anti_claim": "This scan proves fixture-body boundary checks for this root only."
-    },
+  "schema_version": "organ_registry_v1",
+  "authority_boundary": "public_first_slice_registry_not_whole_wave_authority",
+  "implemented_organs": [
     {
       "organ_id": "pattern_binding_contract",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/pattern_binding_contract.py"
-    },
-    {
-      "organ_id": "executable_doctrine_grammar",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/executable_doctrine_grammar.py"
-    },
-    {
-      "organ_id": "proof_diagnostic_evidence_spine",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
-    },
-    {
-      "organ_id": "formal_math_lean_proof_organ",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/formal_math_lean_proof_organ.py"
-    },
-    {
-      "organ_id": "navigation_hologram_route_plane",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/navigation_hologram_route_plane.py"
-    },
-    {
-      "organ_id": "mission_transaction_work_spine",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/mission_transaction_work_spine.py"
-    },
-    {
-      "organ_id": "agent_route_observability_runtime",
-      "kind": "wave_1_organ",
-      "status": "missing",
-      "first_required_path": "src/microcosm_core/organs/agent_route_observability_runtime.py"
+      "status": "implemented_first_slice",
+      "runner": "microcosm_core.organs.pattern_binding_contract",
+      "validator_command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract"
     }
-  ]
+  ],
+  "stop_before_organs": [
+    "executable_doctrine_grammar",
+    "proof_diagnostic_evidence_spine",
+    "formal_math_lean_proof_witness",
+    "navigation_hologram_route_plane",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime",
+    "pattern_assimilation_step"
+  ],
+  "anti_claim": "This registry names the first-slice public organ only; it does not implement or authorize later organs."
 }
-

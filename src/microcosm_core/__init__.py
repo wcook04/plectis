@@ -1,6 +1,3 @@
-"""Public microcosm substrate runtime."""
+"""Public-safe first-slice runtime for the microcosm substrate."""
 
-__all__ = ["__version__"]
-
-__version__ = "0.1.0"
-
+__all__: list[str] = []

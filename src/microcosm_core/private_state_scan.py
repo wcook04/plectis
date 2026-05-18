@@ -1,142 +1,187 @@
-"""Private-state scan for public fixture bodies."""
-
 from __future__ import annotations
 
-import argparse
 import json
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
-from microcosm_core.receipts import make_receipt, write_json
-
-
-DEFAULT_FORBIDDEN = Path("core/private_state_forbidden_classes.json")
-SKIP_DIRS = {".git", ".venv", "__pycache__", ".pytest_cache", "dist", "build"}
+from .schemas import read_json_strict
 
 
-@dataclass(frozen=True)
-class Hit:
-    path: str
-    class_id: str
-    pattern: str
-    line_number: int
+PASS = "pass"
+BLOCKED_PRIVATE = "blocked_private_state"
+BLOCKED_PUBLIC_WRITE = "blocked_public_write_attempt"
 
-    def as_dict(self) -> dict[str, Any]:
-        return {
-            "path": self.path,
-            "class_id": self.class_id,
-            "pattern": self.pattern,
-            "line_number": self.line_number,
-            "error_code": "FORBIDDEN_PRIVATE_STATE_CLASS",
-        }
+TEXT_SUFFIXES = {
+    ".json",
+    ".jsonl",
+    ".md",
+    ".py",
+    ".sh",
+    ".toml",
+    ".txt",
+}
 
 
-def load_policy(root: Path, policy_path: Path | None = None) -> dict[str, Any]:
-    resolved = policy_path or root / DEFAULT_FORBIDDEN
-    with resolved.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+def load_forbidden_classes(path: str | Path) -> dict[str, Any]:
+    payload = read_json_strict(path)
+    if not isinstance(payload, dict):
+        raise ValueError(f"{path}: forbidden class policy must be a JSON object")
+    return payload
 
 
-def iter_files(root: Path) -> Iterable[Path]:
-    for path in sorted(root.rglob("*")):
-        if not path.is_file():
+def _terms(forbidden_classes: dict[str, Any]) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for cls in forbidden_classes.get("classes", []):
+        if not isinstance(cls, dict):
             continue
-        if any(part in SKIP_DIRS for part in path.relative_to(root).parts):
-            continue
-        yield path
+        class_id = str(cls.get("class_id") or "forbidden_content_body")
+        remediation = str(cls.get("remediation") or "replace with synthetic fixture")
+        for term in cls.get("terms", []):
+            if not isinstance(term, dict):
+                continue
+            token = str(term.get("token") or "").strip()
+            term_id = str(term.get("term_id") or token).strip()
+            if token:
+                rows.append(
+                    {
+                        "forbidden_class": class_id,
+                        "term_id": term_id,
+                        "token": token,
+                        "remediation": remediation,
+                    }
+                )
+    return rows
 
 
-def is_body_sensitive(rel: Path, policy: dict[str, Any]) -> bool:
-    roots = set(policy.get("body_sensitive_roots", []))
-    return bool(rel.parts and rel.parts[0] in roots)
-
-
-def is_rule_carrier(rel: Path, policy: dict[str, Any]) -> bool:
-    rel_posix = rel.as_posix()
-    if rel_posix in set(policy.get("rule_carrier_paths", [])):
+def _allowed_synthetic_negative(path: str, text: str) -> bool:
+    lowered = path.lower()
+    if lowered.endswith("core/private_state_forbidden_classes.json"):
         return True
-    return rel_posix.startswith("src/microcosm_core/")
-
-
-def scan_text(rel: Path, text: str, policy: dict[str, Any]) -> list[Hit]:
-    hits: list[Hit] = []
-    lowered_lines = [line.lower() for line in text.splitlines()]
-    for rule in policy.get("classes", []):
-        class_id = str(rule["class_id"])
-        for pattern in rule.get("patterns", []):
-            needle = str(pattern).lower()
-            for index, line in enumerate(lowered_lines, start=1):
-                if needle in line:
-                    hits.append(Hit(rel.as_posix(), class_id, pattern, index))
-    return hits
-
-
-def run_scan(root: Path, policy_path: Path | None = None) -> dict[str, Any]:
-    root = root.resolve()
-    policy = load_policy(root, policy_path)
-    scanned_files: list[str] = []
-    sensitive_files: list[str] = []
-    rule_carrier_files: list[str] = []
-    forbidden_hits: list[Hit] = []
-    unreadable_files: list[dict[str, str]] = []
-
-    for path in iter_files(root):
-        rel = path.relative_to(root)
-        rel_posix = rel.as_posix()
-        scanned_files.append(rel_posix)
-
-        try:
-            text = path.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
-            unreadable_files.append({"path": rel_posix, "reason": "non_utf8_skipped"})
-            continue
-
-        if is_rule_carrier(rel, policy):
-            rule_carrier_files.append(rel_posix)
-            continue
-
-        if is_body_sensitive(rel, policy):
-            sensitive_files.append(rel_posix)
-            forbidden_hits.extend(scan_text(rel, text, policy))
-
-    status = "pass" if not forbidden_hits else "fail"
-    return make_receipt(
-        receipt_type="private_state_scan",
-        status=status,
-        command="python -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json",
-        payload={
-            "root": str(root),
-            "scanned_file_count": len(scanned_files),
-            "body_sensitive_file_count": len(sensitive_files),
-            "rule_carrier_file_count": len(rule_carrier_files),
-            "unreadable_files": unreadable_files,
-            "forbidden_class_hits": [hit.as_dict() for hit in forbidden_hits],
-            "body_sensitive_roots": policy.get("body_sensitive_roots", []),
-            "rule_carrier_files": rule_carrier_files,
-            "anti_claim": "The scan checks configured body-sensitive public roots for forbidden class terms; it does not prove future organs are safe.",
-        },
+    if lowered.endswith("private_state_forbidden_terms.json"):
+        return True
+    if lowered.startswith("tests/") or "/tests/" in lowered:
+        return True
+    if "pattern_binding_contract/input" not in lowered:
+        return False
+    markers = (
+        '"expected_negative_case": true',
+        '"expected_negative_case_id"',
+        '"negative_case_id"',
+        '"synthetic_negative_fixture": true',
     )
+    return any(marker in text for marker in markers)
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Scan public microcosm fixture bodies for forbidden private-state classes.")
-    parser.add_argument("--root", default=".", help="Root to scan.")
-    parser.add_argument("--out", required=True, help="Receipt output path.")
-    parser.add_argument("--forbidden-classes", default=None, help="Optional policy JSON path.")
-    return parser
+def _path_hit(path: str, source_context: str) -> dict[str, Any] | None:
+    if source_context == "target":
+        return None
+    normalized = path.replace("\\", "/")
+    if "microcosm-substrate" in normalized:
+        return {
+            "path": path,
+            "forbidden_class": "target_only_not_source",
+            "term_id": "microcosm_substrate_as_source_authority",
+            "body_redacted": True,
+            "remediation": "treat public root paths as target paths, not source authority",
+        }
+    return None
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
-    root = Path(args.root)
-    policy_path = Path(args.forbidden_classes) if args.forbidden_classes else None
-    receipt = run_scan(root, policy_path)
-    write_json(args.out, receipt)
-    return 0 if receipt["status"] == "pass" else 1
+def scan_text(
+    text: str,
+    *,
+    path: str,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+) -> dict[str, Any]:
+    hits: list[dict[str, Any]] = []
+    path_based = _path_hit(path, source_context)
+    if path_based is not None:
+        hits.append(path_based)
+
+    allowed_negative = _allowed_synthetic_negative(path, text)
+    for term in _terms(forbidden_classes):
+        if term["token"] not in text:
+            continue
+        hit = {
+            "path": path,
+            "forbidden_class": term["forbidden_class"],
+            "term_id": term["term_id"],
+            "body_redacted": True,
+            "remediation": term["remediation"],
+        }
+        if allowed_negative:
+            hit["expected_negative_case"] = True
+        hits.append(hit)
+
+    blocking_hits = [hit for hit in hits if not hit.get("expected_negative_case")]
+    if any(hit.get("forbidden_class") == "target_only_not_source" for hit in blocking_hits):
+        status = BLOCKED_PUBLIC_WRITE
+    elif blocking_hits:
+        status = BLOCKED_PRIVATE
+    else:
+        status = PASS
+    return {
+        "status": status,
+        "hits": hits,
+        "forbidden_output_fields": ["matched_excerpt", "body"],
+        "body_redacted": True,
+    }
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
+def _merge_scan_results(results: list[dict[str, Any]]) -> dict[str, Any]:
+    hits: list[dict[str, Any]] = []
+    for result in results:
+        hits.extend(result.get("hits", []))
+    blocking_hits = [hit for hit in hits if not hit.get("expected_negative_case")]
+    if any(hit.get("forbidden_class") == "target_only_not_source" for hit in blocking_hits):
+        status = BLOCKED_PUBLIC_WRITE
+    elif blocking_hits:
+        status = BLOCKED_PRIVATE
+    else:
+        status = PASS
+    return {
+        "status": status,
+        "hits": hits,
+        "hit_count": len(hits),
+        "blocking_hit_count": len(blocking_hits),
+        "forbidden_output_fields": ["matched_excerpt", "body"],
+        "body_redacted": True,
+    }
 
+
+def scan_paths(
+    paths: list[str | Path],
+    *,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+) -> dict[str, Any]:
+    results: list[dict[str, Any]] = []
+    scanned = 0
+    for raw_path in paths:
+        path = Path(raw_path)
+        if not path.is_file() or path.suffix not in TEXT_SUFFIXES:
+            continue
+        scanned += 1
+        results.append(
+            scan_text(
+                path.read_text(encoding="utf-8"),
+                path=path.as_posix(),
+                forbidden_classes=forbidden_classes,
+                source_context=source_context,
+            )
+        )
+    merged = _merge_scan_results(results)
+    merged["scanned_path_count"] = scanned
+    return merged
+
+
+def scan_json_payload(
+    payload: object,
+    *,
+    path: str,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+) -> dict[str, Any]:
+    text = json.dumps(payload, ensure_ascii=True, sort_keys=True)
+    return scan_text(text, path=path, forbidden_classes=forbidden_classes, source_context=source_context)

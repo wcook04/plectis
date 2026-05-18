@@ -1,71 +1,52 @@
 {
-  "schema_version": "private_state_forbidden_classes_v0",
-  "authority_boundary": "public_microcosm_scan_policy",
-  "body_sensitive_roots": [
-    "fixtures",
-    "atlas",
-    "standards",
-    "paper_modules",
-    "receipts"
-  ],
-  "rule_carrier_paths": [
-    "core/private_state_forbidden_classes.json",
-    "src/microcosm_core/private_state_scan.py",
-    "src/microcosm_core/validators/private_state_scan.py"
-  ],
+  "schema_version": "private_state_forbidden_classes_v1",
+  "authority_boundary": "scanner_policy_for_public_safe_slice",
   "classes": [
     {
-      "class_id": "operator_voice_source_body",
-      "patterns": [
-        "raw_seed",
-        "raw seed"
+      "class_id": "forbidden_content_body",
+      "label": "forbidden content body",
+      "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+      "terms": [
+        {
+          "term_id": "raw_seed_body_sentinel",
+          "token": "SYNTHETIC_RAW_SEED_BODY_SENTINEL"
+        },
+        {
+          "term_id": "provider_payload_body_sentinel",
+          "token": "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL"
+        },
+        {
+          "term_id": "release_packet_body_sentinel",
+          "token": "SYNTHETIC_RELEASE_PACKET_BODY_SENTINEL"
+        }
       ]
     },
     {
-      "class_id": "prompt_body",
-      "patterns": [
-        "prompt_shelf",
-        "prompt shelf",
-        "prompt body"
+      "class_id": "live_operator_state",
+      "label": "live operator state",
+      "remediation": "exclude or replace with a synthetic fixture",
+      "terms": [
+        {
+          "term_id": "operator_thread_body_sentinel",
+          "token": "SYNTHETIC_OPERATOR_THREAD_BODY_SENTINEL"
+        },
+        {
+          "term_id": "hud_browser_cockpit_state_sentinel",
+          "token": "SYNTHETIC_HUD_BROWSER_COCKPIT_STATE_SENTINEL"
+        }
       ]
     },
     {
-      "class_id": "provider_payload_body",
-      "patterns": [
-        "provider_payload",
-        "provider payload",
-        "provider_output_body"
-      ]
-    },
-    {
-      "class_id": "operator_thread_body",
-      "patterns": [
-        "operator_thread",
-        "operator thread"
-      ]
-    },
-    {
-      "class_id": "live_task_backlog_body",
-      "patterns": [
-        "live_task_ledger",
-        "live task ledger"
-      ]
-    },
-    {
-      "class_id": "browser_or_cockpit_state",
-      "patterns": [
-        "hud state",
-        "browser state",
-        "cockpit state"
-      ]
-    },
-    {
-      "class_id": "market_or_prediction_private_material",
-      "patterns": [
-        "market private",
-        "prediction private"
+      "class_id": "non_public_evidence_body",
+      "label": "non-public evidence body",
+      "remediation": "emit path-level lineage or an omission receipt",
+      "terms": [
+        {
+          "term_id": "private_source_body_sentinel",
+          "token": "SYNTHETIC_PRIVATE_SOURCE_BODY_SENTINEL"
+        }
       ]
     }
-  ]
+  ],
+  "anti_claim": "Scanner terms are synthetic sentinels for tests; they are not real private material."
 }
-

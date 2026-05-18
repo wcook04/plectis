@@ -1,2 +1,3 @@
-"""Validator entry points for the public microcosm root."""
+"""Validator entrypoints for the public-safe first slice."""
 
+__all__: list[str] = []

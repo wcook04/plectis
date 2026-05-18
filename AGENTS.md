@@ -1,27 +1,32 @@
-# AGENTS.md - Microcosm Substrate Entry Contract
+# AGENTS.md - Microcosm Substrate
 
-You are inside the standalone public microcosm substrate root.
+This public root is intentionally smaller than the source reconstruction
+workspace. Treat it as a runnable public-safe slice, not as the private control
+plane.
 
-Start from the local atlas and the bootstrap probe, not from private macro paths:
+## Rules
 
-```bash
-./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
-```
+1. Start with the first commands in `README.md`.
+2. Use only synthetic fixtures under `fixtures/first_wave/**`.
+3. Generate receipts by running validators or `bootstrap.sh`; do not edit
+   receipts by hand.
+4. Do not add later organs while working in this slice. The only implemented
+   organ here is `pattern_binding_contract`.
+5. Do not import private reconstruction tools, host-local state, prompt bodies,
+   provider payloads, operator threads, HUD/browser/cockpit state, or the old
+   scratch public root as source authority.
 
-If the command exits nonzero, inspect the emitted receipt first. A typed `blocked` receipt is a valid substrate state when it names the first missing organ or validator, the receipt path, and the exact unblock condition.
+## Stop-Before Organs
 
-## Operating Rules
+- `executable_doctrine_grammar`
+- `proof_diagnostic_evidence_spine`
+- `formal_math_lean_proof_witness`
+- `navigation_hologram_route_plane`
+- `mission_transaction_work_spine`
+- `agent_route_observability_runtime`
+- `pattern_assimilation_step`
 
-- Use `atlas/entry_packet.json` before opening source files.
-- Treat JSON as contract and markdown as projection.
-- Fixture-backed claims require a validator, receipt, negative-case rule, source pattern IDs, and anti-claim.
-- Generated receipts are evidence, not authority.
-- Public fixtures use synthetic data only.
-- Do not add egress, recipient, hosted, or current-public wrapper surfaces to this root.
-- Do not create one directory per pattern row. Organs are typed runtime contracts; pattern rows bind into organs.
-- If a local build teaches a reusable rule, update `skills/pattern_assimilation.md` or emit a typed `nothing_to_refine` receipt.
+## Receipt Floor
 
-## Mutation Boundaries
-
-Safe local write roots are `core/`, `standards/`, `paper_modules/`, `skills/`, `fixtures/`, `atlas/`, `src/`, `tests/`, `formal_math/`, and `receipts/`. Keep private source bodies, live operator material, provider bodies, and private backlog rows out of this tree.
-
+Every validator receipt must include `status`, `organ_id`, `fixture_id`,
+`private_state_scan`, `authority_ceiling`, `anti_claim`, and `receipt_paths`.
