@@ -2,7 +2,7 @@
   "anti_claim": "This receipt proves only the named public-safe first-slice command over synthetic fixtures; it is not public runtime completeness or source-body authority.",
   "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
   "command": null,
-  "created_at": "2026-05-18T10:31:45+00:00",
+  "created_at": "2026-05-18T10:54:54+00:00",
   "fixture_id": "first_wave",
   "organ_id": "private_state_scan",
   "private_state_scan": {
@@ -103,7 +103,7 @@
         "term_id": "private_source_body_sentinel"
       }
     ],
-    "scanned_path_count": 54,
+    "scanned_path_count": 70,
     "status": "pass"
   },
   "receipt_id": "private_state_scan_receipt_v1",

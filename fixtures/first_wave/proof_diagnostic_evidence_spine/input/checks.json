@@ -1,0 +1,24 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_checks_fixture_v1",
+  "checks": [
+    {
+      "check_id": "toy_schema_check",
+      "claim_id": "claim.synthetic.schema_row_has_required_fields",
+      "validator_id": "validator.microcosm.synthetic_schema_check",
+      "expected_result": "pass",
+      "command": "synthetic-check --fixture toy_schema_check",
+      "toolchain": "synthetic_python_fixture",
+      "authority_ceiling": "accepted evidence cell only"
+    },
+    {
+      "check_id": "toy_schema_check_broken",
+      "claim_id": "claim.synthetic.schema_row_missing_required_field",
+      "validator_id": "validator.microcosm.synthetic_schema_check",
+      "expected_result": "fail",
+      "command": "synthetic-check --fixture toy_schema_check_broken",
+      "toolchain": "synthetic_python_fixture",
+      "expected_error_code": "MISSING_REQUIRED_FIELD",
+      "authority_ceiling": "rejected expected-negative evidence cell only"
+    }
+  ]
+}

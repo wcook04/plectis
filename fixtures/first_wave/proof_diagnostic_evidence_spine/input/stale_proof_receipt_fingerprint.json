@@ -1,0 +1,10 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_stale_fingerprint_fixture_v1",
+  "receipt_id": "receipt.synthetic.stale_proof_fingerprint",
+  "expected_negative_case_id": "stale_proof_receipt_source_coupling",
+  "source_ref": "synthetic_source_ref:toy_schema_check",
+  "source_fingerprint_status": "stale",
+  "recorded_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "current_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "authority_ceiling": "stale coupling is diagnostic evidence only"
+}

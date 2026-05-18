@@ -1,0 +1,9 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_runtime_overclaim_fixture_v1",
+  "receipt_id": "receipt.synthetic.pass_overclaims_runtime_correctness",
+  "expected_negative_case_id": "passing_check_overclaims_runtime_correctness",
+  "check_id": "toy_schema_check",
+  "status": "pass",
+  "claims_runtime_correctness": true,
+  "authority_ceiling": "passing synthetic checks do not prove runtime correctness"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_provider_payloads_fixture_v1",
+  "payloads": [
+    {
+      "payload_id": "provider_advisory_metadata_only",
+      "payload_kind": "provider_advisory_metadata",
+      "strategy_summary": "Synthetic advisory metadata says a later reducer may inspect typed evidence cells.",
+      "premise_refs": [
+        "premise.synthetic.schema_required_fields",
+        "premise.synthetic.authority_ceiling"
+      ],
+      "authority_ceiling": "advisory metadata only; not proof authority"
+    },
+    {
+      "payload_id": "provider_payload_with_forbidden_body_keys",
+      "payload_kind": "provider_advisory_negative_fixture",
+      "expected_negative_case_id": "provider_proof_body_payload_rejected",
+      "proof_body": "redacted synthetic forbidden proof payload value",
+      "ground_truth_proof": "redacted synthetic forbidden ground truth value",
+      "provider_output_body": "redacted synthetic forbidden provider output value",
+      "authority_ceiling": "must be rejected before proof authority"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_diagnostic_rows_fixture_v1",
+  "diagnostic_rows": [
+    {
+      "row_id": "diag.accepted.synthetic_schema_check",
+      "evidence_ref": "toy_schema_check",
+      "diagnostic_class": "accepted_evidence_cell",
+      "claim_ceiling": "accepted check result only"
+    },
+    {
+      "row_id": "diag.rejected.synthetic_schema_check_broken",
+      "evidence_ref": "toy_schema_check_broken",
+      "diagnostic_class": "rejected_expected_negative",
+      "claim_ceiling": "negative evidence retained"
+    },
+    {
+      "row_id": "diag.provider_policy_rejection",
+      "evidence_ref": "provider_payload_with_forbidden_body_keys",
+      "diagnostic_class": "provider_payload_policy_rejection",
+      "claim_ceiling": "provider payload is not proof authority"
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "accepted_check_ids": [
+    "toy_schema_check"
+  ],
+  "advisory_payload_ids": [
+    "provider_advisory_metadata_only"
+  ],
+  "anti_claim": "Proof diagnostic evidence spine validates synthetic public evidence-cell fixtures only; it does not run Lean, call providers, publish proof bodies, prove runtime correctness, or authorize later organs.",
+  "authority_ceiling": {
+    "authority_ceiling": "proof_diagnostic_evidence_spine_public_fixture_receipt_only_not_formal_proof_authority_or_runtime_correctness",
+    "diagnostic_board_source_authority_rejected": true,
+    "formal_prover_execution_authorized": false,
+    "provider_payload_authority_rejected": true,
+    "runtime_correctness_claim_rejected": true,
+    "status": "pass"
+  },
+  "body_safe_lineage_status": {
+    "body_redacted": true,
+    "forbidden_body_key_values_omitted": true,
+    "hashes_cover_metadata_only": true,
+    "status": "pass"
+  },
+  "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+  "created_at": "2026-05-18T10:54:54+00:00",
+  "error_codes": [
+    "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
+    "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",
+    "FORBIDDEN_PROOF_BODY",
+    "MISSING_RECEIPT_ANTI_CLAIM",
+    "MISSING_VALIDATOR_ID",
+    "PROOF_RECEIPT_SOURCE_COUPLING_STALE",
+    "PROVIDER_PAYLOAD_NOT_AUTHORITY"
+  ],
+  "expected_negative_cases": {
+    "diagnostic_board_claims_source_authority": [
+      "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE"
+    ],
+    "evidence_receipt_missing_required_fields": [
+      "MISSING_VALIDATOR_ID",
+      "MISSING_RECEIPT_ANTI_CLAIM"
+    ],
+    "passing_check_overclaims_runtime_correctness": [
+      "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS"
+    ],
+    "provider_proof_body_payload_rejected": [
+      "FORBIDDEN_PROOF_BODY",
+      "PROVIDER_PAYLOAD_NOT_AUTHORITY"
+    ],
+    "stale_proof_receipt_source_coupling": [
+      "PROOF_RECEIPT_SOURCE_COUPLING_STALE"
+    ]
+  },
+  "expected_receipt_paths": [
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
+      "message": "Diagnostic board attempted to claim source authority.",
+      "negative_case_id": "diagnostic_board_claims_source_authority",
+      "subject_id": "diagnostic_board.synthetic.source_authority_overclaim",
+      "subject_kind": "diagnostic_board"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_RECEIPT_ANTI_CLAIM",
+      "message": "Evidence receipt lacks anti_claim.",
+      "negative_case_id": "evidence_receipt_missing_required_fields",
+      "subject_id": "receipt.synthetic.missing_validator_and_anti_claim",
+      "subject_kind": "evidence_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_VALIDATOR_ID",
+      "message": "Evidence receipt lacks validator_id.",
+      "negative_case_id": "evidence_receipt_missing_required_fields",
+      "subject_id": "receipt.synthetic.missing_validator_and_anti_claim",
+      "subject_kind": "evidence_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",
+      "message": "Passing synthetic check attempted to claim runtime correctness.",
+      "negative_case_id": "passing_check_overclaims_runtime_correctness",
+      "subject_id": "receipt.synthetic.pass_overclaims_runtime_correctness",
+      "subject_kind": "evidence_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "FORBIDDEN_PROOF_BODY",
+      "message": "Provider advisory payload includes forbidden proof-body fields.",
+      "negative_case_id": "provider_proof_body_payload_rejected",
+      "subject_id": "provider_payload_with_forbidden_body_keys",
+      "subject_kind": "provider_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PROVIDER_PAYLOAD_NOT_AUTHORITY",
+      "message": "Provider payload is rejected as proof authority.",
+      "negative_case_id": "provider_proof_body_payload_rejected",
+      "subject_id": "provider_payload_with_forbidden_body_keys",
+      "subject_kind": "provider_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PROOF_RECEIPT_SOURCE_COUPLING_STALE",
+      "message": "Proof receipt source fingerprint is stale and retained as diagnostic evidence.",
+      "negative_case_id": "stale_proof_receipt_source_coupling",
+      "subject_id": "receipt.synthetic.stale_proof_fingerprint",
+      "subject_kind": "proof_receipt"
+    }
+  ],
+  "fixture_acceptance_status": "pass",
+  "fixture_id": "first_wave.proof_diagnostic_evidence_spine",
+  "generated_receipts": [
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+  ],
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "diagnostic_board_claims_source_authority": [
+      "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE"
+    ],
+    "evidence_receipt_missing_required_fields": [
+      "MISSING_RECEIPT_ANTI_CLAIM",
+      "MISSING_VALIDATOR_ID"
+    ],
+    "passing_check_overclaims_runtime_correctness": [
+      "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS"
+    ],
+    "provider_proof_body_payload_rejected": [
+      "FORBIDDEN_PROOF_BODY",
+      "PROVIDER_PAYLOAD_NOT_AUTHORITY"
+    ],
+    "stale_proof_receipt_source_coupling": [
+      "PROOF_RECEIPT_SOURCE_COUPLING_STALE"
+    ]
+  },
+  "organ_id": "proof_diagnostic_evidence_spine",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_private_boundary_negative_cases_observed": [
+      "provider_proof_body_payload_rejected"
+    ]
+  },
+  "proof_receipt_count": 2,
+  "provider_policy_rejection_ids": [
+    "provider_payload_with_forbidden_body_keys"
+  ],
+  "receipt_id": "proof_diagnostic_evidence_spine_fixture_acceptance_v1",
+  "receipt_paths": [
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+  ],
+  "rejected_check_ids": [
+    "toy_schema_check_broken"
+  ],
+  "schema_version": "proof_diagnostic_evidence_spine_fixture_acceptance_v1",
+  "source_pattern_ids": [
+    "evidence_cells_not_proof_bodies",
+    "provider_advisory_payloads_not_authority",
+    "diagnostic_board_retains_negative_evidence",
+    "authority_ceiling_blocks_runtime_correctness_overclaim"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
+  "validator_version": "proof_diagnostic_evidence_spine_validator_v1"
+}

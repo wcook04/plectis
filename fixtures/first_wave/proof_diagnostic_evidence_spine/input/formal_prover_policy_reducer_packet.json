@@ -1,0 +1,34 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_formal_prover_policy_reducer_packet_fixture_v1",
+  "packet_id": "formal_prover_policy_reducer_packet.synthetic.no_provider_call",
+  "synthetic_only": true,
+  "model_facing_payload": {
+    "task_id": "synthetic_no_solve_task",
+    "problem_statement_ref": "synthetic_problem_statement_hash_only",
+    "allowed_context_refs": [
+      "premise.synthetic.schema_required_fields"
+    ]
+  },
+  "redaction_receipt_id": "redaction_receipt.synthetic_proof_spine",
+  "hash_receipts": [
+    {
+      "ref": "synthetic_truth_side_omitted",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "provider_receipt_id": "provider_receipt.synthetic_not_called",
+  "row_patch_id": "row_patch.synthetic_not_applied",
+  "transform_job_id": "transform_job.synthetic_public_fixture",
+  "allowed_premise_ids": [
+    "premise.synthetic.schema_required_fields"
+  ],
+  "premise_ids_used": [
+    "premise.synthetic.schema_required_fields"
+  ],
+  "truth_side_leakage_hits": [],
+  "provider_calls_by_reducer": 0,
+  "recipe_policy_passed": true,
+  "row_patch_review_outcome": "synthetic_policy_pass_without_provider_call",
+  "authority_ceiling": "policy reducer packet fixture only; no formal prover, provider, or Lean execution",
+  "anti_claim": "This synthetic packet does not authorize formal proof witness implementation or provider execution."
+}

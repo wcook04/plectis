@@ -1,0 +1,65 @@
+{
+  "schema_version": "public_fixture_manifest_v1",
+  "fixture_id": "fixture::proof_diagnostic_evidence_spine::first_wave_contract_v1",
+  "organ_id": "proof_diagnostic_evidence_spine",
+  "status": "public_synthetic_fixture_manifest",
+  "purpose": "Validate public-safe proof diagnostic evidence cells, provider advisory boundaries, diagnostic-board authority ceilings, stale source coupling, and runtime-overclaim rejection without proof bodies or provider calls.",
+  "synthetic_input_files": [
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/provider_advisory_payloads.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/receipt_missing_claim_validator_and_anti_claim.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_board_source_authority_claim.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/stale_proof_receipt_fingerprint.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/passing_check_overclaims_runtime.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/formal_prover_policy_reducer_packet.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+  "expected_negative_cases": [
+    "provider_proof_body_payload_rejected",
+    "evidence_receipt_missing_required_fields",
+    "diagnostic_board_claims_source_authority",
+    "stale_proof_receipt_source_coupling",
+    "passing_check_overclaims_runtime_correctness"
+  ],
+  "stable_error_codes": [
+    "FORBIDDEN_PROOF_BODY",
+    "PROVIDER_PAYLOAD_NOT_AUTHORITY",
+    "MISSING_VALIDATOR_ID",
+    "MISSING_RECEIPT_ANTI_CLAIM",
+    "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
+    "PROOF_RECEIPT_SOURCE_COUPLING_STALE",
+    "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "forbidden; fixtures may carry synthetic forbidden-key rows only and generated receipts may record key names only",
+    "provider_payload_bodies": "forbidden; advisory metadata may retain ids, premise refs, strategy summaries, and policy status",
+    "source_bodies": "forbidden; stale source coupling uses path-class refs and hashes only",
+    "operator_or_hud_state": "forbidden"
+  },
+  "authority_ceiling": "public synthetic proof diagnostic fixture only; not formal proof authority, provider authority, runtime correctness, or later-organ authorization",
+  "anti_claim": "This manifest describes only synthetic proof-spine fixture expectations. It does not authorize Lean witness, provider calls, proof bodies, route plane, mission spine, observability, pattern assimilation, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}
