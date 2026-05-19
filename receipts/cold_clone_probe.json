@@ -2,7 +2,7 @@
   "anti_claim": "This receipt proves only the named public-safe first-slice command over synthetic fixtures; it is not public runtime completeness or source-body authority.",
   "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
   "command": "./bootstrap.sh --suite first-wave",
-  "created_at": "2026-05-19T12:38:28+00:00",
+  "created_at": "2026-05-19T14:52:31+00:00",
   "first_wave_receipts_observed": [
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
     "receipts/first_wave/pattern_binding_contract/source_capsules.json",
