@@ -1,0 +1,75 @@
+{
+  "accepted_standard_ids": [
+    "std_public_runtime_doctrine_grammar",
+    "std_public_runtime_paper_module"
+  ],
+  "anti_claim": "The exported standards bundle validates public runtime-shaped standards metadata. It does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
+  "authority_ceiling": {
+    "authority_ceiling": "executable_doctrine_grammar_exported_bundle_validation_not_doctrine_authority",
+    "doctrine_completeness_overclaim_rejected": true,
+    "status": "pass"
+  },
+  "bundle_id": "public_executable_doctrine_grammar_runtime_example",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-20T19:57:11+00:00",
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.executable_doctrine_grammar.exported_standards_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "input_mode": "exported_standards_bundle",
+  "invalid_module_slugs": [],
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "executable_doctrine_grammar",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 2,
+    "status": "pass"
+  },
+  "receipt_expectation_coverage": {
+    "paper_module_validation_report": 2,
+    "standards_validation_report": 1
+  },
+  "receipt_id": "executable_doctrine_grammar_exported_standards_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/executable_doctrine_grammar/exported_standards_bundle_validation_result.json"
+  ],
+  "rejected_module_ids": [],
+  "rejected_standard_ids": [],
+  "schema_version": "executable_doctrine_grammar_exported_standards_bundle_validation_v1",
+  "source_pattern_ids": [
+    "exported_standards_registry",
+    "exported_paper_modules"
+  ],
+  "standard_group_index": {
+    "runtime_grammar": [
+      {
+        "anti_claim_ref": "anti_claim.grammar.runtime_metadata_only",
+        "governing_standard": "std_executable_doctrine_grammar",
+        "receipt_expectations": [
+          "standards_validation_report",
+          "paper_module_validation_report"
+        ],
+        "slug": "public_runtime_doctrine_grammar",
+        "standard_id": "std_public_runtime_doctrine_grammar"
+      },
+      {
+        "anti_claim_ref": "anti_claim.grammar.paper_module_metadata_only",
+        "governing_standard": "std_executable_doctrine_grammar",
+        "receipt_expectations": [
+          "paper_module_validation_report"
+        ],
+        "slug": "public_runtime_paper_module",
+        "standard_id": "std_public_runtime_paper_module"
+      }
+    ]
+  },
+  "status": "pass",
+  "valid_module_slugs": [
+    "public_runtime_doctrine_grammar"
+  ]
+}

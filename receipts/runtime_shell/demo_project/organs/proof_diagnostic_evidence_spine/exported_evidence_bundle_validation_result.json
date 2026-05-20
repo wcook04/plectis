@@ -1,0 +1,99 @@
+{
+  "accepted_check_ids": [
+    "public_schema_contract_check"
+  ],
+  "accepted_count": 1,
+  "advisory_payload_ids": [
+    "public_provider_advisory_metadata_only"
+  ],
+  "anti_claim": "The exported evidence bundle validates public proof/evidence metadata. It does not run Lean, call providers, publish proof bodies, or claim runtime correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "proof_diagnostic_evidence_spine_exported_bundle_metadata_not_formal_proof",
+    "diagnostic_board_source_authority_rejected": true,
+    "formal_prover_execution_authorized": false,
+    "provider_payload_authority_rejected": true,
+    "runtime_correctness_claim_rejected": true,
+    "status": "pass"
+  },
+  "body_safe_lineage_status": {
+    "body_redacted": true,
+    "forbidden_body_key_values_omitted": true,
+    "hashes_cover_metadata_only": true,
+    "status": "pass"
+  },
+  "bundle_id": "public_proof_diagnostic_evidence_runtime_example",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-20T19:57:11+00:00",
+  "diagnostic_board_source_authority_rejected": true,
+  "diagnostic_row_count": 1,
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.proof_diagnostic_evidence_spine.exported_evidence_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "formal_policy_packet_status": "public_policy_packet_consumed_without_provider_call",
+  "input_mode": "exported_evidence_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "proof_diagnostic_evidence_spine",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "proof_receipt_count": 1,
+  "proof_receipts": [
+    {
+      "authority_ceiling": "synthetic_public_check_result_only",
+      "body_redacted": true,
+      "check_id": "public_schema_contract_check",
+      "claim_id": "claim.public_schema_contract_is_parseable",
+      "command": "python -m microcosm_core.validators.standards_registry --help",
+      "evidence_sha256": "222d199ee352d42d12e0fcffb636e7b74b78a6ba41c9c36721c1d41e0c83c751",
+      "exit_code": 0,
+      "result_class": "accepted_machine_check",
+      "toolchain": "python_metadata_check",
+      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine"
+    }
+  ],
+  "provider_payload_authority_rejected": true,
+  "provider_payload_policy": [
+    {
+      "advisory_metadata_preserved": true,
+      "authority_ceiling": "provider_advisory_metadata_only_not_proof_authority",
+      "body_redacted": true,
+      "forbidden_keys_detected": [],
+      "payload_id": "public_provider_advisory_metadata_only",
+      "policy_status": "advisory_metadata_preserved"
+    }
+  ],
+  "provider_policy_rejection_ids": [],
+  "public_replacement_refs": [
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/provider_advisory_payloads.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/formal_prover_policy_reducer_packet.json"
+  ],
+  "receipt_id": "proof_diagnostic_evidence_spine_exported_evidence_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
+  ],
+  "rejected_check_ids": [],
+  "rejected_count": 0,
+  "runtime_correctness_claim_rejected": true,
+  "schema_version": "proof_diagnostic_evidence_spine_exported_evidence_bundle_validation_v1",
+  "source_pattern_ids": [
+    "evidence_cells_not_proof_bodies",
+    "provider_advisory_payloads_not_authority",
+    "diagnostic_board_retains_negative_evidence",
+    "authority_ceiling_blocks_runtime_correctness_overclaim"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
+  "validator_version": "proof_diagnostic_evidence_spine_validator_v1"
+}

@@ -1,0 +1,149 @@
+{
+  "accepted_adapter_backed_organ_ids": [
+    "pattern_binding_contract",
+    "executable_doctrine_grammar",
+    "proof_diagnostic_evidence_spine",
+    "navigation_hologram_route_plane",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime",
+    "pattern_assimilation_step"
+  ],
+  "anti_claim": "The exported assimilation bundle validates public organ-landing, refinement, nothing-to-refine, stewardship, re-entry, and next-best-lane metadata. It does not read raw seed bodies, mutate live Task Ledger, promote global doctrine, authorize release, call providers, or prove live learning behavior.",
+  "assimilation_policy": {
+    "body_redacted": true,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "metadata_projection_not_live_learning_authority": true,
+    "policy_id": "public_pattern_assimilation_metadata_policy",
+    "status": "pass"
+  },
+  "authority_ceiling": {
+    "authority_ceiling": "pattern_assimilation_bundle_metadata_not_live_learning_authority",
+    "behavior_change_overclaims_allowed": false,
+    "global_doctrine_promotion_authorized": false,
+    "later_organs_authorized": false,
+    "live_learning_authority": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_seed_body_read": false,
+    "release_or_publication_authorized": false,
+    "status": "pass"
+  },
+  "bundle_fingerprint": "d55b304935acc56b521476b129c6b99cf441f97318708cd24206db9009f376d7",
+  "bundle_id": "public_pattern_assimilation_step_runtime_example",
+  "bundle_manifest_schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
+  "closeout_by_organ": {
+    "agent_route_observability_runtime": "validator_contract_refined",
+    "executable_doctrine_grammar": "standard_refined",
+    "mission_transaction_work_spine": "nothing_to_refine",
+    "navigation_hologram_route_plane": "validator_contract_refined",
+    "pattern_assimilation_step": "validator_contract_refined",
+    "pattern_binding_contract": "validator_contract_refined",
+    "proof_diagnostic_evidence_spine": "nothing_to_refine"
+  },
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-20T19:57:11+00:00",
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.pattern_assimilation_step.exported_assimilation_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "input_mode": "exported_assimilation_bundle",
+  "landed_organ_ids": [
+    "agent_route_observability_runtime",
+    "executable_doctrine_grammar",
+    "mission_transaction_work_spine",
+    "navigation_hologram_route_plane",
+    "pattern_assimilation_step",
+    "pattern_binding_contract",
+    "proof_diagnostic_evidence_spine"
+  ],
+  "landing_receipt_refs": [
+    "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_real_substrate_adapter_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_real_substrate_adapter_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_real_substrate_adapter_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/pattern_binding_real_substrate_adapter_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_real_substrate_adapter_receipt_v1.json"
+  ],
+  "metadata_projection_not_live_learning_authority": true,
+  "missing_negative_cases": [],
+  "next_best_lane_check_count": 1,
+  "next_best_lane_result": "ordered_adapter_lane_completion_reducer",
+  "next_routes": [
+    "ordered_adapter_lane_completion_reducer"
+  ],
+  "next_seed_paths": [
+    "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_ORDERED_ADAPTER_LANE_COMPLETION_REDUCER_SEED.md"
+  ],
+  "nothing_to_refine_receipt_count": 2,
+  "nothing_to_refine_receipt_ids": [
+    "nothing_to_refine_mission_spine_adapter",
+    "nothing_to_refine_proof_spine_adapter"
+  ],
+  "observed_negative_cases": {},
+  "ordered_adapter_lane_status": "complete_pending_completion_reducer",
+  "organ_id": "pattern_assimilation_step",
+  "organ_landing_count": 7,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "public_replacement_refs": [
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/bundle_manifest.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/organ_landing_summaries.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/refinement_receipts.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/nothing_to_refine_receipts.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/stewardship_checks.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/reentry_conditions.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/next_best_lane_checks.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/assimilation_policy.json"
+  ],
+  "receipt_id": "pattern_assimilation_step_exported_assimilation_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json"
+  ],
+  "reentry_condition_count": 2,
+  "reentry_condition_ids": [
+    "ordered_adapter_lane_completion_audit_reentry",
+    "release_boundary_reentry"
+  ],
+  "refined_owner_surfaces": [
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "microcosm-substrate/src/microcosm_core/organs/executable_doctrine_grammar.py",
+    "microcosm-substrate/src/microcosm_core/organs/navigation_hologram_route_plane.py",
+    "microcosm-substrate/src/microcosm_core/organs/pattern_binding_contract.py",
+    "microcosm-substrate/src/microcosm_core/validators/acceptance.py"
+  ],
+  "refinement_receipt_count": 5,
+  "refinement_receipt_ids": [
+    "refine_doctrine_grammar_exported_bundle",
+    "refine_navigation_route_plane_exported_bundle",
+    "refine_observability_exported_bundle",
+    "refine_pattern_assimilation_exported_bundle",
+    "refine_pattern_binding_exported_bundle"
+  ],
+  "refinement_result_by_organ": {
+    "agent_route_observability_runtime": "validator_contract_refined",
+    "executable_doctrine_grammar": "standard_refined",
+    "navigation_hologram_route_plane": "validator_contract_refined",
+    "pattern_assimilation_step": "validator_contract_refined",
+    "pattern_binding_contract": "validator_contract_refined"
+  },
+  "release_authorized": false,
+  "schema_version": "pattern_assimilation_step_exported_assimilation_bundle_validation_v1",
+  "status": "pass",
+  "stewardship_check_count": 2,
+  "stewardship_check_ids": [
+    "stewardship_assimilation_metadata_not_live_learning",
+    "stewardship_fixtures_remain_regression_only"
+  ],
+  "validator_id": "validator.microcosm.validators.acceptance.pattern_assimilation_step"
+}

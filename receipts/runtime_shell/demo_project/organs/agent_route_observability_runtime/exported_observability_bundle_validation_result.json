@@ -1,0 +1,206 @@
+{
+  "actor_axis_checks": {
+    "actor_axis_check_count": 2,
+    "actor_axis_decisions": [
+      {
+        "actor_axis": "type_a_substrate",
+        "body_redacted": true,
+        "check_id": "actor_axis_type_a_public_metadata",
+        "mutation_authority_claim_rejected": false
+      },
+      {
+        "actor_axis": "type_b_advisory",
+        "body_redacted": true,
+        "check_id": "actor_axis_type_b_advisory_boundary",
+        "mutation_authority_claim_rejected": false
+      }
+    ],
+    "actor_axis_projection_not_authority": true,
+    "authority_rejection_count": 0,
+    "findings": [],
+    "status": "pass"
+  },
+  "agent_path_decisions": [
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_public_route_feedback",
+      "observation_id": "path_public_route_feedback",
+      "route_lease_id": "lease_public_observability_runtime"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_public_advisory_boundary",
+      "observation_id": "path_public_advisory_boundary",
+      "route_lease_id": "lease_public_advisory_boundary"
+    }
+  ],
+  "agent_path_observation_count": 2,
+  "anti_claim": "The exported observability bundle validates public route-event, agent-path, session-diagnostic, hook-shadow, actor-axis, debt, and process-audit metadata. It does not read live telemetry, provider payloads, browser/HUD/cockpit state, authorize release, or prove behavior change outside declared evidence ids.",
+  "authority_ceiling": {
+    "authority_ceiling": "agent_observability_bundle_metadata_not_live_telemetry_authority",
+    "behavior_change_overclaims_allowed": false,
+    "browser_hud_cockpit_state_read": false,
+    "later_organs_authorized": false,
+    "live_operator_state_read": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "bundle_fingerprint": "74918654018cb031ad7e16198dfa0c3f7092fdc3a18802134082cad481b8ba58",
+  "bundle_id": "public_agent_route_observability_runtime_example",
+  "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "consumed_route_lease_ids": [
+    "lease_public_advisory_boundary",
+    "lease_public_observability_runtime"
+  ],
+  "created_at": "2026-05-20T19:57:11+00:00",
+  "debt_retirement": {
+    "anti_pattern_debt_decisions": [
+      {
+        "behavior_change_evidence_trace_ids": [
+          "trace_public_route_feedback"
+        ],
+        "body_redacted": true,
+        "debt_id": "debt_public_direct_action_after_route_lease",
+        "decision": "retired_metadata_projection",
+        "evidence_only_trace_ids": []
+      }
+    ],
+    "behavior_change_evidence_trace_ids": [
+      "trace_public_route_feedback"
+    ],
+    "debt_retirement_count": 1,
+    "debt_rows_projection_not_authority": true,
+    "evidence_only_trace_ids": [],
+    "findings": [],
+    "status": "pass"
+  },
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime.exported_observability_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "hook_shadow_coverage": {
+    "covered_hook_ids": [
+      "public_actor_axis_boundary_shadow",
+      "public_route_lease_feedback_shadow"
+    ],
+    "findings": [],
+    "hook_shadow_coverage_status": "public_metadata_coverage_only",
+    "hook_shadow_projection_not_authority": true,
+    "status": "pass"
+  },
+  "input_mode": "exported_observability_bundle",
+  "metadata_projection_not_live_telemetry_authority": true,
+  "missing_negative_cases": [],
+  "observability_policy": {
+    "body_redacted": true,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "metadata_projection_not_live_telemetry_authority": true,
+    "policy_id": "public_observability_metadata_policy",
+    "status": "pass"
+  },
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 9,
+    "status": "pass"
+  },
+  "process_audit_rows": {
+    "findings": [],
+    "process_audit_anti_pattern_ids": [
+      "anti_pattern_deep_without_ladder",
+      "anti_pattern_grep_before_kernel"
+    ],
+    "process_audit_row_count": 2,
+    "process_audit_rows_projection_not_authority": true,
+    "status": "pass"
+  },
+  "public_replacement_refs": [
+    "examples/agent_route_observability_runtime/exported_observability_bundle/bundle_manifest.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/route_events.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/agent_path_observations.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/session_diagnostics.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/hook_shadow_coverage.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/actor_axis_checks.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/anti_pattern_debt.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/process_audit_rows.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/observability_policy.json"
+  ],
+  "receipt_id": "agent_route_observability_runtime_exported_observability_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_observability_bundle_validation_result.json"
+  ],
+  "route_compliance_decisions": [
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_public_route_feedback",
+      "route_id": "public_observability_route_feedback",
+      "route_lease_id": "lease_public_observability_runtime"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_public_advisory_boundary",
+      "route_id": "public_observability_advisory_boundary",
+      "route_lease_id": "lease_public_advisory_boundary"
+    }
+  ],
+  "route_event_count": 2,
+  "route_event_ids": [
+    "trace_public_advisory_boundary",
+    "trace_public_route_feedback"
+  ],
+  "schema_version": "agent_route_observability_runtime_exported_observability_bundle_validation_v1",
+  "session_diagnostic_count": 1,
+  "session_diagnostic_decisions": [
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "diagnostic_status": "metadata_projection_pass",
+      "error_codes": [],
+      "session_id": "public_observability_session_projection"
+    }
+  ],
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate"
+  ],
+  "status": "pass",
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime"
+}

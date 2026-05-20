@@ -1,0 +1,38 @@
+{
+  "authority_ceiling": {
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "release_authorized": false
+  },
+  "blocked_workitem_ids": [],
+  "created_at": "2026-05-20T19:58:30+00:00",
+  "evidence_ref": "receipts/runtime_shell/work_demo/organs/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+  "schedulable_workitem_ids": [
+    "cap_public_mission_adapter_runtime"
+  ],
+  "schema_version": "microcosm_runtime_work_demo_v1",
+  "status": "pass",
+  "transaction_id": "mtx_public_mission_adapter_runtime",
+  "workitems": [
+    {
+      "depends_on": [
+        "cap_navigation_adapter_accepted"
+      ],
+      "projection_not_authority": true,
+      "receipt_refs": [
+        "receipt_navigation_adapter_accepted"
+      ],
+      "state": "ready",
+      "work_item_id": "cap_public_mission_adapter_runtime"
+    },
+    {
+      "depends_on": [],
+      "projection_not_authority": true,
+      "receipt_refs": [
+        "receipt_navigation_adapter_accepted"
+      ],
+      "state": "closed",
+      "work_item_id": "cap_navigation_adapter_accepted"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "microcosm_runtime_demo_project_v1",
+  "project_id": "demo_project",
+  "title": "Public runtime shell demo project",
+  "projection_not_authority": true,
+  "purpose": "Run the accepted adapter-backed organs as a local substrate workflow.",
+  "steps": [
+    {
+      "organ_id": "pattern_binding_contract",
+      "input_mode": "exported_substrate_bundle",
+      "input_ref": "examples/pattern_binding_contract/exported_substrate_bundle"
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "input_mode": "exported_standards_bundle",
+      "input_ref": "examples/executable_doctrine_grammar/exported_standards_bundle"
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "input_mode": "exported_evidence_bundle",
+      "input_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "input_mode": "exported_route_plane_bundle",
+      "input_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle"
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "input_mode": "exported_mission_transaction_bundle",
+      "input_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "input_mode": "exported_observability_bundle",
+      "input_ref": "examples/agent_route_observability_runtime/exported_observability_bundle"
+    },
+    {
+      "organ_id": "pattern_assimilation_step",
+      "input_mode": "exported_assimilation_bundle",
+      "input_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle"
+    }
+  ],
+  "outputs": {
+    "trace_ref": "receipts/runtime_shell/demo_project/demo_project_trace.json",
+    "result_ref": "receipts/runtime_shell/demo_project/demo_project_result.json"
+  },
+  "authority_ceiling": {
+    "release_authorized": false,
+    "provider_calls_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_data_equivalence_claim": false
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "created_at": "2026-05-20T19:57:11+00:00",
+  "events": [
+    {
+      "event_id": "evt_01_pattern_binding_contract",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/pattern_binding_contract/exported_substrate_bundle_validation_result.json",
+      "input_mode": "exported_substrate_bundle",
+      "inputs": "examples/pattern_binding_contract/exported_substrate_bundle",
+      "organ_id": "pattern_binding_contract",
+      "outputs": "receipts/runtime_shell/demo_project/organs/pattern_binding_contract",
+      "span": "pattern_binding.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_02_executable_doctrine_grammar",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/executable_doctrine_grammar/exported_standards_bundle_validation_result.json",
+      "input_mode": "exported_standards_bundle",
+      "inputs": "examples/executable_doctrine_grammar/exported_standards_bundle",
+      "organ_id": "executable_doctrine_grammar",
+      "outputs": "receipts/runtime_shell/demo_project/organs/executable_doctrine_grammar",
+      "span": "doctrine_grammar.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_03_proof_diagnostic_evidence_spine",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json",
+      "input_mode": "exported_evidence_bundle",
+      "inputs": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle",
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "outputs": "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+      "span": "proof_evidence.run",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_04_navigation_hologram_route_plane",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+      "input_mode": "exported_route_plane_bundle",
+      "inputs": "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+      "organ_id": "navigation_hologram_route_plane",
+      "outputs": "receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane",
+      "span": "navigation_route_plane.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_05_mission_transaction_work_spine",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "input_mode": "exported_mission_transaction_bundle",
+      "inputs": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "organ_id": "mission_transaction_work_spine",
+      "outputs": "receipts/runtime_shell/demo_project/organs/mission_transaction_work_spine",
+      "span": "mission_transaction.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_06_agent_route_observability_runtime",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
+      "input_mode": "exported_observability_bundle",
+      "inputs": "examples/agent_route_observability_runtime/exported_observability_bundle",
+      "organ_id": "agent_route_observability_runtime",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+      "span": "observability.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_07_pattern_assimilation_step",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json",
+      "input_mode": "exported_assimilation_bundle",
+      "inputs": "examples/pattern_assimilation_step/exported_assimilation_bundle",
+      "organ_id": "pattern_assimilation_step",
+      "outputs": "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
+      "span": "assimilation.validate",
+      "status": "pass"
+    }
+  ],
+  "otel_shape": {
+    "logs_as_events": true,
+    "metrics": {
+      "runtime_steps_passed": 7,
+      "runtime_steps_total": 7
+    },
+    "span_count": 7,
+    "trace_id": "runtime_shell_demo_project"
+  },
+  "project_id": "demo_project",
+  "schema_version": "microcosm_runtime_trace_v1",
+  "status": "pass"
+}

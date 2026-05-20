@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 
+from microcosm_core import runtime_shell
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import executable_doctrine_grammar
 from microcosm_core.organs import mission_transaction_work_spine
@@ -35,6 +36,27 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="microcosm")
     subparsers = parser.add_subparsers(dest="command")
+    subparsers.add_parser("status")
+    run_parser = subparsers.add_parser("run")
+    run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
+    serve_parser = subparsers.add_parser("serve")
+    serve_parser.add_argument("--host", default="127.0.0.1")
+    serve_parser.add_argument("--port", type=int, default=8765)
+    subparsers.add_parser("patterns")
+    route_parser = subparsers.add_parser("route")
+    route_subparsers = route_parser.add_subparsers(dest="route_command")
+    route_subparsers.add_parser("list")
+    route_inspect_parser = route_subparsers.add_parser("inspect")
+    route_inspect_parser.add_argument("route_id")
+    work_parser = subparsers.add_parser("work")
+    work_subparsers = work_parser.add_subparsers(dest="work_command")
+    work_subparsers.add_parser("demo")
+    evidence_parser = subparsers.add_parser("evidence")
+    evidence_subparsers = evidence_parser.add_subparsers(dest="evidence_command")
+    evidence_subparsers.add_parser("list")
+    evidence_inspect_parser = evidence_subparsers.add_parser("inspect")
+    evidence_inspect_parser.add_argument("receipt_ref")
+
     scan_parser = subparsers.add_parser("private-state-scan")
     scan_parser.add_argument("--root", required=True)
     scan_parser.add_argument("--out", required=True)
@@ -86,6 +108,27 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(assimilation_parser)
 
     args = parser.parse_args(argv)
+    if args.command == "status":
+        return runtime_shell.main(["status"])
+    if args.command == "run":
+        return runtime_shell.main(["run", args.project])
+    if args.command == "serve":
+        return runtime_shell.main(["serve", "--host", args.host, "--port", str(args.port)])
+    if args.command == "patterns":
+        return runtime_shell.main(["patterns"])
+    if args.command == "route":
+        if args.route_command == "list":
+            return runtime_shell.main(["route", "list"])
+        if args.route_command == "inspect":
+            return runtime_shell.main(["route", "inspect", args.route_id])
+    if args.command == "work":
+        if args.work_command == "demo":
+            return runtime_shell.main(["work", "demo"])
+    if args.command == "evidence":
+        if args.evidence_command == "list":
+            return runtime_shell.main(["evidence", "list"])
+        if args.evidence_command == "inspect":
+            return runtime_shell.main(["evidence", "inspect", args.receipt_ref])
     if args.command == "private-state-scan":
         return private_state_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
     if args.command == "public-entry-docs":

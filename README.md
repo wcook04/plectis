@@ -1,14 +1,18 @@
 # Microcosm Substrate
 
 This repository slice is a standalone runtime substrate for the accepted
-first-wave control spine. It runs from this root, exposes public commands, and
-emits command-owned receipts from validators.
+first-wave control spine. It runs from this root, exposes public commands,
+serves a local JSON shell, and emits command-owned evidence as a drilldown.
 
 ## Standalone Runtime Substrate
 
 Fixtures are regression inputs: examples, bootstrap data, and negative cases.
 They are not the product runtime and should not be used to hide missing
 substrate-shaped input paths.
+
+The runtime shell is the first user-facing surface. A fresh clone should be
+able to inspect the substrate, run a small workflow, browse routes and
+patterns, and then open evidence only when a receipt-level drilldown is useful.
 
 ## Accepted Public Runtime Spine
 
@@ -25,7 +29,7 @@ The current accepted organs are:
 `formal_math_lean_proof_witness` remains deferred. Lean/Lake is not authorized
 by this public root.
 
-## First Commands
+## First Run
 
 From this directory:
 
@@ -33,6 +37,41 @@ From this directory:
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -e '.[test]'
+microcosm status
+microcosm run examples/runtime_shell/demo_project
+microcosm route list
+microcosm evidence list
+microcosm serve --host 127.0.0.1 --port 8765
+```
+
+The same commands work without installing the console script:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core.cli status
+PYTHONPATH=src python3 -m microcosm_core.cli run examples/runtime_shell/demo_project
+PYTHONPATH=src python3 -m microcosm_core.cli serve --host 127.0.0.1 --port 8765
+```
+
+`microcosm run` executes this chain over the exported public bundles:
+
+```text
+pattern binding
+-> doctrine grammar
+-> proof/evidence membrane
+-> navigation route plane
+-> mission transaction metadata
+-> observability metadata
+-> assimilation closeout
+```
+
+The primary output is a runtime summary and trace under
+`receipts/runtime_shell/demo_project/**`. Evidence receipts remain available
+through `microcosm evidence`, but they are the black-box recorder, not the
+cockpit.
+
+## Validation Commands
+
+```bash
 PYTHONPATH=src python3 -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json
 PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
 PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
@@ -42,7 +81,7 @@ python -m pytest -q
 ```
 
 Use the organ commands in `core/organ_registry.json` for individual validation
-runs. Receipts under `receipts/**` are generated evidence from commands and
+runs. Receipts under `receipts/**` are generated evidence from commands. They
 should not be edited by hand.
 
 ## Public Entry Map

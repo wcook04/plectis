@@ -1,0 +1,270 @@
+{
+  "affordance_passport_selection": {
+    "affordance_compatibility": {
+      "selected_row_id": "route_card_candidate",
+      "status": "pass"
+    },
+    "anti_trigger_hits": [
+      {
+        "body_redacted": true,
+        "row_id": "atlas_projection_antitrigger"
+      }
+    ],
+    "demoted_rows": [
+      {
+        "body_redacted": true,
+        "reason_code": "AFFORDANCE_PASSPORT_ANTITRIGGER_DEMOTED",
+        "row_id": "atlas_projection_antitrigger"
+      }
+    ],
+    "demotion_receipt": {
+      "body_redacted": true,
+      "demoted_row_count": 1,
+      "status": "pass"
+    },
+    "findings": [],
+    "observed_negative_cases": {},
+    "passport_coverage": {
+      "atlas_projection_antitrigger": true,
+      "route_card_candidate": true
+    },
+    "safe_drilldown": "microcosm option-surface route-plane --cluster entry_surface",
+    "selected_row_id": "route_card_candidate",
+    "selection_decision": "select_compatible_passport_after_demotion",
+    "status": "pass"
+  },
+  "anti_claim": "The exported route-plane bundle validates public route projection metadata. It does not grant source authority, publish live operator state, authorize release, or complete later organs.",
+  "authority_allowed": false,
+  "authority_ceiling": {
+    "atlas_projection_control_entry_rejected": true,
+    "authority_ceiling": "navigation_route_plane_bundle_projection_metadata_not_source_authority",
+    "release_authorized": false,
+    "route_lease_source_authority_rejected": true,
+    "status": "pass"
+  },
+  "bundle_id": "public_navigation_hologram_route_plane_runtime_example",
+  "bundle_manifest_schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v1",
+  "card": {
+    "anti_claim": "Navigation route-plane receipts validate public route projections and regression fixtures; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
+    "band_payload": {
+      "route_hint": "Use the entry packet floor before route-card drilldown.",
+      "route_lease_ref": "route_lease_policy.public_runtime_option_surface"
+    },
+    "omission_receipt": {
+      "body_redacted": true,
+      "omitted_classes": [
+        "full_source_files",
+        "live_runtime_state"
+      ],
+      "replacement": "public_projection_metadata"
+    },
+    "row_id": "option_surface_cluster_public_runtime",
+    "source_refs": [
+      "pattern:navigation_hologram_unified_route_plane",
+      "pattern:agent_entry_surfaces_canonical_first_move"
+    ],
+    "stable_handle": "route-plane:public_runtime_option_surface:option_surface_cluster_public_runtime",
+    "title": "Public runtime option surface"
+  },
+  "cluster_flag": {
+    "clusters": [
+      {
+        "cluster_id": "entry_surface",
+        "drilldown_command": "microcosm option-surface route-plane --cluster entry_surface",
+        "row_count": 2,
+        "row_ids": [
+          "option_surface_cluster_public_runtime",
+          "entry_packet_floor_public_runtime"
+        ]
+      },
+      {
+        "cluster_id": "projection_boundary",
+        "drilldown_command": "microcosm option-surface route-plane --cluster projection_boundary",
+        "row_count": 1,
+        "row_ids": [
+          "route_card_boundary_public_runtime"
+        ]
+      },
+      {
+        "cluster_id": "route_selection",
+        "drilldown_command": "microcosm option-surface route-plane --cluster route_selection",
+        "row_count": 1,
+        "row_ids": [
+          "affordance_passport_public_runtime"
+        ]
+      }
+    ],
+    "drilldown_commands": [
+      "microcosm option-surface route-plane --cluster entry_surface",
+      "microcosm option-surface route-plane --cluster projection_boundary",
+      "microcosm option-surface route-plane --cluster route_selection"
+    ],
+    "row_counts": {
+      "entry_surface": 2,
+      "projection_boundary": 1,
+      "route_selection": 1
+    },
+    "source_coupling_status": "exported_route_plane_bundle_current"
+  },
+  "code_architecture_projection_packet": {
+    "body_redacted": true,
+    "known_limits": [
+      "projection_packet_is_not_source_authority",
+      "route_rows_require_fresh_source_coupling_for_release"
+    ],
+    "omission_receipt": {
+      "body_redacted": true,
+      "omitted_classes": [
+        "full_source_graph",
+        "live_runtime_state"
+      ],
+      "receipt_id": "code_architecture_projection_boundary",
+      "replacement": "public_projection_packet"
+    },
+    "packet_producer_id": "public_runtime_route_plane_projection_packet",
+    "renderer_schema_match_status": "pass",
+    "reverse_bfs_depth_buckets": {
+      "0": [
+        "navigation_hologram_route_plane"
+      ],
+      "1": [
+        "entry_packet_floor",
+        "option_surface_contract"
+      ]
+    },
+    "source_fingerprint": {
+      "source_coupling_status": "current",
+      "source_kind": "public_route_projection"
+    },
+    "suggested_verification": [
+      "validate-route-plane-bundle",
+      "fixture-regression-negative-cases"
+    ]
+  },
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-20T19:57:11+00:00",
+  "entry_payload_admission": {
+    "after_bytes": 11200,
+    "before_bytes": 14500,
+    "dropped_control_fields": [],
+    "entry_payload_admission_status": "pass",
+    "findings": [],
+    "inline_target_bytes": 12000,
+    "omission_receipts": [
+      {
+        "body_redacted": true,
+        "omitted_classes": [
+          "full_live_entry_context"
+        ],
+        "receipt_id": "entry_packet_projection_boundary",
+        "replacement": "field_presence_floor"
+      }
+    ],
+    "preserved_non_negotiable_fields": [
+      "banned_routes",
+      "route_lease.permitted_direct_actions",
+      "ceremony_budget.required_proof",
+      "surface_contract",
+      "navigation_index_spine.currentness",
+      "navigation_index_spine.source_coupling",
+      "navigation_index_spine.omission_receipt"
+    ],
+    "saved_bytes": 3300,
+    "status": "pass"
+  },
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "expected_sha256": "abb5b29858f6101dee09e337f4b350942ea82cd1fe5f7313ea8b9d538bf97b1c",
+  "findings": [],
+  "fixture_id": "first_wave.navigation_hologram_route_plane.exported_route_plane_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "input_mode": "exported_route_plane_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "observed_sha256": "abb5b29858f6101dee09e337f4b350942ea82cd1fe5f7313ea8b9d538bf97b1c",
+  "organ_id": "navigation_hologram_route_plane",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "public_replacement_refs": [
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/bundle_manifest.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/option_surface_contract.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_coupling_manifest.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/entry_packet_floor.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_lease_policy.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/affordance_passports.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/code_architecture_projection_packet.json"
+  ],
+  "receipt_id": "navigation_hologram_route_plane_exported_route_plane_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json"
+  ],
+  "route_lease": {
+    "authority_allowed": false,
+    "banned_route_replacements": [
+      {
+        "body_redacted": true,
+        "reason_code": "PROJECTION_NOT_CONTROL_ENTRY",
+        "replacement_route": "entry_packet_floor",
+        "route_id": "atlas_projection_as_first_contact"
+      }
+    ],
+    "findings": [],
+    "invalidation_inputs": {
+      "navigation_index_currentness": "source_coupled",
+      "projection_boundary": "omission_receipt_required",
+      "source_coupling_status": "current"
+    },
+    "lease_id": "public_runtime_navigation_route_lease",
+    "permitted_direct_actions": [
+      "read_seed",
+      "run_context_pack",
+      "open_named_route_card"
+    ],
+    "route_lease_ref": "route_lease_policy.public_runtime_option_surface",
+    "selected_lane_id": "public_runtime_option_surface",
+    "status": "pass"
+  },
+  "route_row_count": 4,
+  "route_rows_projection_not_authority": true,
+  "schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_validation_v1",
+  "selected_row_ids": [
+    "option_surface_cluster_public_runtime"
+  ],
+  "source_coupling_status": "pass",
+  "source_pattern_ids": [
+    "navigation_hologram_unified_route_plane",
+    "agent_entry_surfaces_canonical_first_move",
+    "omission_receipt_reversible_projection_boundary",
+    "semantic_routing_plane",
+    "system_atlas_source_coupling_gate",
+    "entry_payload_admission_nonnegotiable_floor",
+    "affordance_passport_selection_gate"
+  ],
+  "status": "pass",
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "cluster_first_route_feeds_agent_entry_surface",
+      "source_pattern_id": "navigation_hologram_unified_route_plane",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "omission_receipt_boundary_feeds_card_drilldown",
+      "source_pattern_id": "omission_receipt_reversible_projection_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "affordance_passport_gate_feeds_route_selection",
+      "source_pattern_id": "affordance_passport_selection_gate",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.navigation_hologram_route_plane"
+}
