@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import unquote, urlparse
 
+from microcosm_core import project_substrate
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import executable_doctrine_grammar
 from microcosm_core.organs import mission_transaction_work_spine
@@ -245,10 +246,18 @@ class RuntimeShell:
             "public_root": _public_relative(self.root, self.root),
             "runtime_surface": {
                 "commands": [
+                    "microcosm init <project>",
+                    "microcosm index <project>",
+                    "microcosm catalog <project>",
+                    "microcosm patterns <project>",
+                    "microcosm route <project>",
+                    "microcosm work create <project>",
+                    "microcosm work run <project>",
+                    "microcosm observe <project>",
+                    "microcosm evidence list <project>",
                     "microcosm status",
                     "microcosm run examples/runtime_shell/demo_project",
                     "microcosm serve",
-                    "microcosm patterns",
                     "microcosm route list",
                     "microcosm route inspect <id>",
                     "microcosm work demo",
@@ -268,8 +277,9 @@ class RuntimeShell:
             "evidence_count": len(evidence),
             "release_authorized": False,
             "next_actions": [
-                "run demo workflow",
-                "inspect route public_runtime_option_surface",
+                "run microcosm init <project>",
+                "run microcosm index <project>",
+                "run microcosm route <project>",
                 "open evidence only when drilldown is needed",
             ],
         }
@@ -434,8 +444,9 @@ class RuntimeShell:
         write_json_atomic(self.runtime_receipt_dir / "work_demo" / "work_demo_result.json", payload)
         return payload
 
-    def serve(self, host: str, port: int) -> ThreadingHTTPServer:
+    def serve(self, host: str, port: int, project: str | Path | None = None) -> ThreadingHTTPServer:
         shell = self
+        project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
 
         class Handler(BaseHTTPRequestHandler):
             def _send(self, status_code: int, payload: dict[str, Any] | list[dict[str, Any]]) -> None:
@@ -453,6 +464,25 @@ class RuntimeShell:
                 path = urlparse(self.path).path
                 if path == "/status":
                     self._send(200, shell.status())
+                elif path == "/project/status" and project_path is not None:
+                    self._send(200, project_substrate.observe_project(project_path))
+                elif path == "/project/catalog" and project_path is not None:
+                    self._send(200, project_substrate.catalog_project(project_path))
+                elif path == "/project/patterns" and project_path is not None:
+                    self._send(200, project_substrate.discover_patterns(project_path))
+                elif path == "/project/routes" and project_path is not None:
+                    self._send(200, project_substrate.propose_routes(project_path))
+                elif path == "/project/workitems" and project_path is not None:
+                    self._send(
+                        200,
+                        {
+                            "schema_version": "microcosm_project_workitems_view_v1",
+                            "status": PASS,
+                            "work_items": project_substrate._load_work_items(project_path),
+                        },
+                    )
+                elif path == "/project/evidence" and project_path is not None:
+                    self._send(200, project_substrate.list_evidence(project_path))
                 elif path == "/organs":
                     self._send(200, {"schema_version": "microcosm_runtime_organs_v1", "organs": shell.organs()})
                 elif path == "/patterns":
@@ -473,6 +503,9 @@ class RuntimeShell:
                 if path == "/demo/run":
                     self._send(200, shell.run_demo())
                     return
+                if path == "/project/work/run" and project_path is not None:
+                    self._send(200, project_substrate.run_work(project_path))
+                    return
                 self._send(404, {"status": "not_found", "path": path})
 
         return ThreadingHTTPServer((host, port), Handler)
@@ -492,6 +525,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve_parser = subparsers.add_parser("serve")
     serve_parser.add_argument("--host", default="127.0.0.1")
     serve_parser.add_argument("--port", type=int, default=8765)
+    serve_parser.add_argument("project", nargs="?")
     subparsers.add_parser("patterns")
     route_parser = subparsers.add_parser("route")
     route_sub = route_parser.add_subparsers(dest="route_command")
@@ -534,7 +568,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.evidence_command == "inspect":
             return _print_json(shell.inspect_evidence(args.receipt_ref))
     if args.command == "serve":
-        server = shell.serve(args.host, args.port)
+        server = shell.serve(args.host, args.port, args.project)
         print(f"microcosm runtime shell listening on http://{args.host}:{args.port}", flush=True)
         try:
             server.serve_forever()

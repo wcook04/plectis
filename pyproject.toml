@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "microcosm-substrate"
 version = "0.1.0"
-description = "Public-safe microcosm runtime-spine substrate."
+description = "Microcosm local project operating substrate."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
@@ -19,7 +19,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
-  "Topic :: Software Development :: Testing"
+  "Topic :: Software Development :: Libraries :: Application Frameworks"
 ]
 
 [project.urls]

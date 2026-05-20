@@ -29,7 +29,7 @@ def test_package_metadata_describes_runtime_spine() -> None:
     project = payload["project"]
     description = project["description"]
 
-    assert "runtime-spine" in description
+    assert "local project operating substrate" in description
     assert "first-slice" not in description
     assert project["readme"] == "README.md"
     assert project["license"] == {"file": "LICENSE"}
@@ -47,6 +47,14 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
     assert excinfo.value.code == 0
     output = capsys.readouterr().out
     for command in [
+        "init",
+        "index",
+        "catalog",
+        "patterns",
+        "route",
+        "work",
+        "observe",
+        "evidence",
         "private-state-scan",
         "public-entry-docs",
         "standards-registry",

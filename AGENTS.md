@@ -1,8 +1,10 @@
 # AGENTS.md - Microcosm Substrate
 
-This root is a standalone runnable substrate. Treat it as the runtime surface
-in front of you: public commands, public input bundles, validators, receipts,
-tests, and docs all live here.
+This root is a local project operating substrate. Treat it as the public
+runtime surface in front of you: a user can bring a project folder, initialize
+`.microcosm/` state, index files, discover patterns, propose routes, record
+work transactions, observe events, and inspect evidence only when drilldown is
+needed.
 
 ## Accepted Public Runtime Spine
 
@@ -18,19 +20,24 @@ tests, and docs all live here.
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. Fixtures Are Tests: fixtures under `fixtures/first_wave/**` are examples,
+2. The primary product loop is `microcosm init <project>`, `microcosm index
+   <project>`, `microcosm route <project>`, `microcosm work run <project>`,
+   `microcosm observe <project>`, and `microcosm evidence list <project>`.
+   Public input bundles and organ demos are compatibility/regression surfaces,
+   not the product center.
+3. Fixtures Are Tests: fixtures under `fixtures/first_wave/**` are examples,
    bootstrap data, and negative cases. Do not treat fixture-only behavior as
    product-complete runtime behavior.
-3. Receipts Are Evidence: generate receipts by running validators or
+4. Receipts Are Evidence: generate receipts by running validators or
    `bootstrap.sh`; do not edit receipts by hand.
-4. Treat `core/organ_registry.json`, `core/acceptance/first_wave_acceptance.json`,
+5. Treat `core/organ_registry.json`, `core/acceptance/first_wave_acceptance.json`,
    generated receipts, and public paper modules as public-root navigation
    surfaces.
-5. Do not run Lean/Lake. `formal_math_lean_proof_witness` remains deferred.
-6. Do not import parent-repository-only tools, host-local state, prompt bodies,
+6. Do not run Lean/Lake. `formal_math_lean_proof_witness` remains deferred.
+7. Do not import parent-repository-only tools, host-local state, prompt bodies,
    provider payloads, operator threads, HUD/browser/cockpit state, or old
    scratch public-root content as source authority.
-7. Do not add release, hosted-public, publication, recipient, provider-call, or
+8. Do not add release, hosted-public, publication, recipient, provider-call, or
    private-data-equivalence surfaces from this root.
 
 ## Receipt Floor

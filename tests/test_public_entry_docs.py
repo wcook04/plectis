@@ -87,7 +87,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     text = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
-    assert "Accepted Public Runtime Spine" in text
+    assert "Internal Runtime Spine" in text
     assert "Accepted Public Runtime Spine" in agents
     assert "only implemented organ here is `pattern_binding_contract`" not in text
     assert "only implemented organ here is `pattern_binding_contract`" not in agents
@@ -100,8 +100,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Use only synthetic fixtures" not in agents
     assert "Receipts Are Authority" not in agents
     assert "macro reconstruction contracts" not in agents
-    assert "Standalone Runtime Substrate" in text
-    assert "Fixtures are regression inputs" in text
+    assert "local project operating substrate" in text
+    assert "Evidence receipts are the black-box recorder" in text
     assert "Fixtures Are Tests" in agents
     assert "Receipts Are Evidence" in agents
 

@@ -1,22 +1,80 @@
 # Microcosm Substrate
 
-This repository slice is a standalone runtime substrate for the accepted
-first-wave control spine. It runs from this root, exposes public commands,
-serves a local JSON shell, and emits command-owned evidence as a drilldown.
+Microcosm is a local project operating substrate: it catalogs a folder you
+bring, discovers repo-shape patterns, proposes routes, records governed work
+transactions, and emits observable events with evidence available as drilldown.
 
-## Standalone Runtime Substrate
+## What You Bring
 
-Fixtures are regression inputs: examples, bootstrap data, and negative cases.
-They are not the product runtime and should not be used to hide missing
-substrate-shaped input paths.
+A project folder. It can be a tiny scratch repo, an application, a library, or
+any directory with code, docs, tests, scripts, or package metadata.
 
-The runtime shell is the first user-facing surface. A fresh clone should be
-able to inspect the substrate, run a small workflow, browse routes and
-patterns, and then open evidence only when a receipt-level drilldown is useful.
+## What You Get
 
-## Accepted Public Runtime Spine
+Microcosm creates project-local state in `.microcosm/`:
 
-The current accepted organs are:
+- `project_manifest.json`
+- `catalog.json`
+- `patterns.json`
+- `routes.json`
+- `work_items.json`
+- `events.jsonl`
+- `evidence/*.json`
+
+The state is a local projection over your project. It does not mutate your
+source files, call providers, publish anything, or claim source authority.
+
+## First Run
+
+From this directory:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -e '.[test]'
+mkdir -p /tmp/microcosm-scratch/src/app /tmp/microcosm-scratch/tests
+printf '# Scratch Project\n' > /tmp/microcosm-scratch/README.md
+printf '[project]\nname = "scratch-project"\nversion = "0.1.0"\n' > /tmp/microcosm-scratch/pyproject.toml
+printf 'VALUE = 1\n' > /tmp/microcosm-scratch/src/app/__init__.py
+printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' > /tmp/microcosm-scratch/tests/test_app.py
+
+microcosm init /tmp/microcosm-scratch
+microcosm index /tmp/microcosm-scratch
+microcosm catalog /tmp/microcosm-scratch
+microcosm patterns /tmp/microcosm-scratch
+microcosm route /tmp/microcosm-scratch
+microcosm work create /tmp/microcosm-scratch
+microcosm work run /tmp/microcosm-scratch
+microcosm observe /tmp/microcosm-scratch
+microcosm evidence list /tmp/microcosm-scratch
+```
+
+The same commands work without installing the console script:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core.cli init /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli index /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli route /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli observe /tmp/microcosm-scratch
+```
+
+The older organ-adapter demo still exists for internal evidence and regression:
+
+```bash
+microcosm status
+microcosm run examples/runtime_shell/demo_project
+microcosm route list
+microcosm evidence list
+microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
+```
+
+Evidence receipts are the black-box recorder, not the cockpit. Start with the
+project loop; open receipts only when you need a drilldown.
+
+## Internal Runtime Spine
+
+The public package still carries seven adapter-backed runtime organs behind
+the local substrate loop:
 
 1. `pattern_binding_contract`
 2. `executable_doctrine_grammar`
@@ -27,47 +85,8 @@ The current accepted organs are:
 7. `pattern_assimilation_step`
 
 `formal_math_lean_proof_witness` remains deferred. Lean/Lake is not authorized
-by this public root.
-
-## First Run
-
-From this directory:
-
-```bash
-python3 -m venv .venv
-. .venv/bin/activate
-python -m pip install -e '.[test]'
-microcosm status
-microcosm run examples/runtime_shell/demo_project
-microcosm route list
-microcosm evidence list
-microcosm serve --host 127.0.0.1 --port 8765
-```
-
-The same commands work without installing the console script:
-
-```bash
-PYTHONPATH=src python3 -m microcosm_core.cli status
-PYTHONPATH=src python3 -m microcosm_core.cli run examples/runtime_shell/demo_project
-PYTHONPATH=src python3 -m microcosm_core.cli serve --host 127.0.0.1 --port 8765
-```
-
-`microcosm run` executes this chain over the exported public bundles:
-
-```text
-pattern binding
--> doctrine grammar
--> proof/evidence membrane
--> navigation route plane
--> mission transaction metadata
--> observability metadata
--> assimilation closeout
-```
-
-The primary output is a runtime summary and trace under
-`receipts/runtime_shell/demo_project/**`. Evidence receipts remain available
-through `microcosm evidence`, but they are the black-box recorder, not the
-cockpit.
+by this public root. Fixtures and exported bundles are regression inputs and
+examples; they are not the primary product runtime.
 
 ## Validation Commands
 

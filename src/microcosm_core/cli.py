@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 
+from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import executable_doctrine_grammar
@@ -36,25 +37,40 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="microcosm")
     subparsers = parser.add_subparsers(dest="command")
+    init_parser = subparsers.add_parser("init")
+    init_parser.add_argument("project")
+    index_parser = subparsers.add_parser("index")
+    index_parser.add_argument("project")
+    catalog_parser = subparsers.add_parser("catalog")
+    catalog_parser.add_argument("project")
     subparsers.add_parser("status")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
     serve_parser = subparsers.add_parser("serve")
+    serve_parser.add_argument("project", nargs="?")
     serve_parser.add_argument("--host", default="127.0.0.1")
     serve_parser.add_argument("--port", type=int, default=8765)
-    subparsers.add_parser("patterns")
+    patterns_parser = subparsers.add_parser("patterns")
+    patterns_parser.add_argument("project", nargs="?")
     route_parser = subparsers.add_parser("route")
-    route_subparsers = route_parser.add_subparsers(dest="route_command")
-    route_subparsers.add_parser("list")
-    route_inspect_parser = route_subparsers.add_parser("inspect")
-    route_inspect_parser.add_argument("route_id")
+    route_parser.add_argument("route_args", nargs="*")
     work_parser = subparsers.add_parser("work")
     work_subparsers = work_parser.add_subparsers(dest="work_command")
     work_subparsers.add_parser("demo")
+    work_create_parser = work_subparsers.add_parser("create")
+    work_create_parser.add_argument("project")
+    work_create_parser.add_argument("--route")
+    work_run_parser = work_subparsers.add_parser("run")
+    work_run_parser.add_argument("project")
+    work_run_parser.add_argument("--work-id")
+    observe_parser = subparsers.add_parser("observe")
+    observe_parser.add_argument("project")
     evidence_parser = subparsers.add_parser("evidence")
     evidence_subparsers = evidence_parser.add_subparsers(dest="evidence_command")
-    evidence_subparsers.add_parser("list")
+    evidence_list_parser = evidence_subparsers.add_parser("list")
+    evidence_list_parser.add_argument("project", nargs="?")
     evidence_inspect_parser = evidence_subparsers.add_parser("inspect")
+    evidence_inspect_parser.add_argument("--project")
     evidence_inspect_parser.add_argument("receipt_ref")
 
     scan_parser = subparsers.add_parser("private-state-scan")
@@ -108,26 +124,55 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(assimilation_parser)
 
     args = parser.parse_args(argv)
+    if args.command == "init":
+        return project_substrate.main(["init", args.project])
+    if args.command == "index":
+        return project_substrate.main(["index", args.project])
+    if args.command == "catalog":
+        return project_substrate.main(["catalog", args.project])
     if args.command == "status":
         return runtime_shell.main(["status"])
     if args.command == "run":
         return runtime_shell.main(["run", args.project])
     if args.command == "serve":
-        return runtime_shell.main(["serve", "--host", args.host, "--port", str(args.port)])
+        serve_args = ["serve", "--host", args.host, "--port", str(args.port)]
+        if args.project:
+            serve_args.append(args.project)
+        return runtime_shell.main(serve_args)
     if args.command == "patterns":
+        if args.project:
+            return project_substrate.main(["patterns", args.project])
         return runtime_shell.main(["patterns"])
     if args.command == "route":
-        if args.route_command == "list":
+        if args.route_args == ["list"]:
             return runtime_shell.main(["route", "list"])
-        if args.route_command == "inspect":
-            return runtime_shell.main(["route", "inspect", args.route_id])
+        if len(args.route_args) == 2 and args.route_args[0] == "inspect":
+            return runtime_shell.main(["route", "inspect", args.route_args[1]])
+        if len(args.route_args) == 1:
+            return project_substrate.main(["route", args.route_args[0]])
     if args.command == "work":
         if args.work_command == "demo":
             return runtime_shell.main(["work", "demo"])
+        if args.work_command == "create":
+            work_args = ["work", "create", args.project]
+            if args.route:
+                work_args.extend(["--route", args.route])
+            return project_substrate.main(work_args)
+        if args.work_command == "run":
+            work_args = ["work", "run", args.project]
+            if args.work_id:
+                work_args.extend(["--work-id", args.work_id])
+            return project_substrate.main(work_args)
+    if args.command == "observe":
+        return project_substrate.main(["observe", args.project])
     if args.command == "evidence":
         if args.evidence_command == "list":
+            if args.project:
+                return project_substrate.main(["evidence", "list", args.project])
             return runtime_shell.main(["evidence", "list"])
         if args.evidence_command == "inspect":
+            if args.project:
+                return project_substrate.main(["evidence", "inspect", args.project, args.receipt_ref])
             return runtime_shell.main(["evidence", "inspect", args.receipt_ref])
     if args.command == "private-state-scan":
         return private_state_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))

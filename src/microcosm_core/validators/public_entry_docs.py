@@ -37,14 +37,16 @@ ACCEPTED_ORGAN_IDS = [
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
-        "Standalone Runtime Substrate",
-        "Accepted Public Runtime Spine",
-        "Fixtures are regression inputs",
+        "local project operating substrate",
+        ".microcosm/",
+        "Evidence receipts are the black-box recorder",
+        "Internal Runtime Spine",
         "formal_math_lean_proof_witness",
         "not authorize release",
     ],
     "AGENTS.md": [
-        "standalone runnable substrate",
+        "local project operating substrate",
+        "microcosm init <project>",
         "Accepted Public Runtime Spine",
         "Do not run Lean/Lake",
         "Fixtures Are Tests",
