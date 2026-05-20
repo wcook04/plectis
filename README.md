@@ -48,6 +48,14 @@ edited by hand.
 - `skills/cold_start_navigation.md` gives the shortest safe path for a fresh
   public clone.
 
+## License Posture
+
+This public synthetic microcosm is licensed under Apache-2.0. That license
+posture applies only to this public-safe substrate and included synthetic
+fixtures. It does not change the private root posture and does not authorize a
+public release switch, hosting, publication, recipient work, provider calls, or
+private-data equivalence.
+
 ## Boundary
 
 The public substrate may carry public-safe projection contracts, schema-only

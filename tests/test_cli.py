@@ -26,10 +26,17 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
 
 def test_package_metadata_describes_runtime_spine() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    description = payload["project"]["description"]
+    project = payload["project"]
+    description = project["description"]
 
     assert "runtime-spine" in description
     assert "first-slice" not in description
+    assert project["readme"] == "README.md"
+    assert project["license"] == {"file": "LICENSE"}
+    assert project["authors"] == [{"name": "Microcosm Substrate Contributors"}]
+    assert "License :: OSI Approved :: Apache Software License" in project["classifiers"]
+    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/ai-workflow-proof"
+    assert (MICROCOSM_ROOT / "LICENSE").read_text(encoding="utf-8").startswith("Apache License")
 
 
 def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixture[str]) -> None:

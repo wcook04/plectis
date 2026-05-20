@@ -6,7 +6,25 @@ build-backend = "setuptools.build_meta"
 name = "microcosm-substrate"
 version = "0.1.0"
 description = "Public-safe microcosm runtime-spine substrate."
+readme = "README.md"
 requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Microcosm Substrate Contributors" }
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Testing"
+]
+
+[project.urls]
+Homepage = "https://github.com/wcook04/ai-workflow-proof"
+Source = "https://github.com/wcook04/ai-workflow-proof"
 
 [project.scripts]
 microcosm = "microcosm_core.cli:main"
