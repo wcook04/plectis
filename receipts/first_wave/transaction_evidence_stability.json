@@ -10,7 +10,7 @@
   },
   "blocking_codes": [],
   "checker_id": "checker.microcosm.validators.transaction_evidence_stability",
-  "command": "python -m microcosm_core.validators.transaction_evidence_stability --root . --project microcosm-transaction-evidence-stability-scratch --out receipts/first_wave/transaction_evidence_stability.json",
+  "command": "python -m microcosm_core.validators.transaction_evidence_stability --root . --project microcosm-observatory-legibility-scratch --out receipts/first_wave/transaction_evidence_stability.json",
   "consistency_summary": {
     "events_are_append_only": true,
     "events_reference_existing_evidence": true,
@@ -23,7 +23,7 @@
     "source_mutation_default": false,
     "work_event_evidence_refs_resolve": true
   },
-  "event_count": 12,
+  "event_count": 10,
   "evidence_count": 7,
   "findings": [],
   "pattern_count": 7,
@@ -35,7 +35,7 @@
     "scanned_path_count": 17,
     "status": "pass"
   },
-  "project_ref": "microcosm-transaction-evidence-stability-scratch",
+  "project_ref": "microcosm-observatory-legibility-scratch",
   "public_boundary_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,

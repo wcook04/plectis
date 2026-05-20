@@ -40,6 +40,8 @@ explanation, and assimilation primitives, not through production claims.
    The causal chain must stay stable across `route`, `explain`, `work run`,
    `observe`, `graph`, and `evidence`: route refs, pattern bindings, standard
    bindings, work state, event ids, and evidence refs should agree.
+   The local observatory is the first browser-facing cockpit for that chain:
+   keep causal-chain sections legible before raw JSON drilldowns.
 3. Fixtures Are Tests: fixtures under `fixtures/first_wave/**` are examples,
    bootstrap data, and negative cases. Do not treat fixture-only behavior as
    product-complete runtime behavior.

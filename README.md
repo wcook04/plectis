@@ -116,9 +116,10 @@ bindings, kernel primitives, resolved standard pressure, work transaction
 contracts, event refs, and evidence refs.
 
 `microcosm serve <project> --host 127.0.0.1 --port 8765` opens a tiny local
-observatory. It is intentionally dependency-free and static: a browser view
-over the same JSON substrate returned by `architecture`, `catalog`, `patterns`,
-`route`, `explain`, `observe`, and `evidence`.
+observatory. The first screen shows the causal chain before raw JSON: project
+summary, resolved pattern bindings, standard pressure, selected route, work
+state history, event refs, and evidence drilldowns. The JSON endpoints remain
+available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
@@ -146,6 +147,7 @@ PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readines
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json
 PYTHONPATH=src python3 -m microcosm_core.validators.research_kernel_density --root . --project /tmp/microcosm-scratch --out receipts/first_wave/research_kernel_density.json
 PYTHONPATH=src python3 -m microcosm_core.validators.transaction_evidence_stability --root . --project /tmp/microcosm-scratch --out receipts/first_wave/transaction_evidence_stability.json
+PYTHONPATH=src python3 -m microcosm_core.validators.observatory_legibility --root . --project /tmp/microcosm-scratch --out receipts/first_wave/observatory_legibility.json
 ./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
 python -m pytest -q
 ```

@@ -6,6 +6,7 @@ import threading
 from pathlib import Path
 from urllib.request import urlopen
 
+from microcosm_core import project_substrate
 from microcosm_core.runtime_shell import RuntimeShell
 
 
@@ -97,24 +98,46 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     (project / "README.md").write_text("# Scratch\n", encoding="utf-8")
     (project / "pyproject.toml").write_text("[project]\nname='scratch'\nversion='0.1.0'\n", encoding="utf-8")
     (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
+    project_substrate.init_project(project)
+    project_substrate.index_project(project)
+    project_substrate.propose_routes(project)
+    project_substrate.explain_route(project, "readme_onboarding_route")
+    created = project_substrate.create_work(project, "readme_onboarding_route")
+    project_substrate.run_work(project, str(created["work_id"]))
     server = shell.serve("127.0.0.1", 0, project)
     host, port = server.server_address
-    thread = threading.Thread(target=lambda: [server.handle_request(), server.handle_request(), server.handle_request()])
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     try:
         with urlopen(f"http://{host}:{port}/", timeout=5) as response:
             html = response.read().decode("utf-8")
         with urlopen(f"http://{host}:{port}/status", timeout=5) as response:
             payload = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/observatory", timeout=5) as response:
+            observatory = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/explain/readme_onboarding_route", timeout=5) as response:
             explanation = json.loads(response.read().decode("utf-8"))
     finally:
+        server.shutdown()
         thread.join(timeout=5)
         server.server_close()
 
     assert "Microcosm Observatory" in html
-    assert "Project Architecture" in html
+    assert "Causal Chain" in html
+    assert "readme_onboarding_route" in html
+    assert "repo_has_readme" in html
+    assert "reversible_work_transaction" in html
+    assert "created -&gt; selected -&gt; planned -&gt; executed_simulation -&gt; closed" in html
+    assert "Evidence is drilldown" in html
+    assert "Release remains unauthorized" in html
+    assert "<details>" in html
+    assert html.find("Causal Chain") < html.find("<pre>")
+    assert "/Users/" not in html
+    assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
     assert payload["adapter_backed_organ_count"] == 7
+    assert observatory["status"] == "pass"
+    assert observatory["selected_route_id"] == "readme_onboarding_route"
+    assert observatory["causal_chain"]["work_transaction"]["work_id"] == "work_0001"
     assert explanation["status"] == "pass"
     assert explanation["route_id"] == "readme_onboarding_route"

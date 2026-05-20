@@ -1,0 +1,98 @@
+{
+  "anti_claim": "Observatory legibility validates only the local browser/read model over public project state. It does not authorize release, hosting, provider calls, source mutation, private-data equivalence, live Task Ledger mutation, or production readiness.",
+  "authority_ceiling": {
+    "hosting_authorized": false,
+    "private_data_equivalence_authorized": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "blocking_codes": [],
+  "causal_chain_proof": {
+    "event_count": 6,
+    "evidence_count": 7,
+    "pattern_binding_ids": [
+      "repo_has_readme"
+    ],
+    "route_id": "readme_onboarding_route",
+    "standard_binding_ids": [
+      "json_contract_markdown_projection",
+      "substrate_derived_projection",
+      "projection_lineage_not_authority",
+      "reversible_work_transaction",
+      "evidence_as_black_box_recorder",
+      "assimilation_without_promotion"
+    ],
+    "state_history": [
+      "created",
+      "selected",
+      "planned",
+      "executed_simulation",
+      "closed"
+    ],
+    "work_id": "work_0001"
+  },
+  "checker_id": "checker.microcosm.validators.observatory_legibility",
+  "command": "python -m microcosm_core.validators.observatory_legibility --root . --project microcosm-observatory-legibility-scratch --out receipts/first_wave/observatory_legibility.json",
+  "endpoint_summary": {
+    "evidence": "/project/evidence",
+    "explain": "/project/explain/readme_onboarding_route",
+    "graph": "/project/graph",
+    "kernel": "/kernel",
+    "workitems": "/project/workitems"
+  },
+  "html_assertions": {
+    "causal_chain_section_present": true,
+    "event_refs_visible": true,
+    "evidence_marked_drilldown": true,
+    "evidence_refs_visible": true,
+    "pattern_binding_visible": true,
+    "private_paths_absent": true,
+    "provider_ceiling_visible": true,
+    "release_ceiling_visible": true,
+    "root_is_not_raw_json_only": true,
+    "route_id_visible": true,
+    "source_mutation_ceiling_visible": true,
+    "standard_binding_visible": true,
+    "work_state_history_visible": true
+  },
+  "html_sections_present": {
+    "causal_chain": true,
+    "events_and_evidence": true,
+    "json_drilldowns": true,
+    "kernel_and_standards": true,
+    "project_graph": true,
+    "project_summary": true,
+    "work_transaction": true
+  },
+  "model_assertions": {
+    "events_present": true,
+    "evidence_present": true,
+    "model_status_pass": true,
+    "pattern_bindings_resolve": true,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "route_pattern_refs_present": true,
+    "route_standard_refs_present": true,
+    "source_mutation_authorized": false,
+    "standard_bindings_resolve": true,
+    "work_state_history_present": true,
+    "work_transaction_present": true
+  },
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 4,
+    "status": "pass"
+  },
+  "project_ref": "microcosm-observatory-legibility-scratch",
+  "receipt_paths": [
+    "receipts/first_wave/observatory_legibility.json"
+  ],
+  "schema_version": "observatory_legibility_receipt_v1",
+  "selected_route_id": "readme_onboarding_route",
+  "status": "pass"
+}

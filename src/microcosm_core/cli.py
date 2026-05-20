@@ -13,6 +13,7 @@ from microcosm_core.organs import proof_diagnostic_evidence_spine
 from microcosm_core.validators import acceptance
 from microcosm_core.validators import dependency_preflight
 from microcosm_core.validators import fixture_freshness
+from microcosm_core.validators import observatory_legibility
 from microcosm_core.validators import private_state_scan
 from microcosm_core.validators import public_entry_docs
 from microcosm_core.validators import research_kernel_density
@@ -95,6 +96,9 @@ def main(argv: list[str] | None = None) -> int:
     stability_parser = subparsers.add_parser("transaction-evidence-stability")
     _add_root_out(stability_parser)
     stability_parser.add_argument("--project", required=True)
+    observatory_parser = subparsers.add_parser("observatory-legibility")
+    _add_root_out(observatory_parser)
+    observatory_parser.add_argument("--project", required=True)
 
     standards_parser = subparsers.add_parser("standards-registry")
     standards_parser.add_argument("--registry", required=True)
@@ -208,6 +212,10 @@ def main(argv: list[str] | None = None) -> int:
         return research_kernel_density.main(density_args)
     if args.command == "transaction-evidence-stability":
         return transaction_evidence_stability.main(
+            ["--root", args.root, "--project", args.project, "--out", args.out]
+        )
+    if args.command == "observatory-legibility":
+        return observatory_legibility.main(
             ["--root", args.root, "--project", args.project, "--out", args.out]
         )
     if args.command == "standards-registry":
