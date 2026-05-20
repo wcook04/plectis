@@ -26,6 +26,11 @@ classifiers = [
 Homepage = "https://github.com/wcook04/ai-workflow-proof"
 Source = "https://github.com/wcook04/ai-workflow-proof"
 
+[project.optional-dependencies]
+test = [
+  "pytest>=8,<9"
+]
+
 [project.scripts]
 microcosm = "microcosm_core.cli:main"
 

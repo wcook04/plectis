@@ -34,6 +34,7 @@ def test_package_metadata_describes_runtime_spine() -> None:
     assert project["readme"] == "README.md"
     assert project["license"] == {"file": "LICENSE"}
     assert project["authors"] == [{"name": "Microcosm Substrate Contributors"}]
+    assert project["optional-dependencies"]["test"] == ["pytest>=8,<9"]
     assert "License :: OSI Approved :: Apache Software License" in project["classifiers"]
     assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/ai-workflow-proof"
     assert (MICROCOSM_ROOT / "LICENSE").read_text(encoding="utf-8").startswith("Apache License")
