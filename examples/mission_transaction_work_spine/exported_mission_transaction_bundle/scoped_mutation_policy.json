@@ -1,0 +1,16 @@
+{
+  "schema_version": "mission_transaction_work_spine_scoped_mutation_policy_v1",
+  "policy_id": "public_mission_adapter_scoped_mutation_policy",
+  "owned_paths": [
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+  ],
+  "mutation_status": "metadata_projection_only_no_live_mutation",
+  "live_state_mutation_authorized": false,
+  "live_task_ledger_mutation_authorized": false,
+  "live_work_ledger_mutation_authorized": false,
+  "broad_stage_authorized": false,
+  "authority_upgrade_rejected": true,
+  "body_redacted": true
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "mission_transaction_work_spine_receipt_drain_plan_v1",
+  "drain_id": "public_mission_adapter_receipt_drain",
+  "drain_mode": "metadata_projection_only",
+  "declared_receipt_refs": [
+    "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+    "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json"
+  ],
+  "receipt_refs_drained": [
+    "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+    "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json"
+  ],
+  "live_task_ledger_mutation_authorized": false,
+  "body_redacted": true
+}

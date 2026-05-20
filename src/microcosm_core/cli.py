@@ -74,7 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(navigation_parser)
 
     mission_parser = subparsers.add_parser("mission-transaction-work-spine")
-    mission_parser.add_argument("action", choices=["run"])
+    mission_parser.add_argument("action", choices=["run", "validate-mission-transaction-bundle"])
     _add_input_out(mission_parser)
 
     observability_parser = subparsers.add_parser("agent-route-observability-runtime")

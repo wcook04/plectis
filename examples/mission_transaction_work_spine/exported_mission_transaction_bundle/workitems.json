@@ -1,0 +1,35 @@
+{
+  "schema_version": "mission_transaction_work_spine_workitems_v1",
+  "projection_not_authority": true,
+  "workitems": [
+    {
+      "work_item_id": "cap_public_mission_adapter_runtime",
+      "state": "ready",
+      "depends_on": [
+        "cap_navigation_adapter_accepted"
+      ],
+      "receipt_refs": [
+        "receipt_navigation_adapter_accepted"
+      ],
+      "projection_not_authority": true,
+      "source_authority_allowed": false,
+      "live_ledger_authority": false,
+      "owned_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py"
+      ]
+    },
+    {
+      "work_item_id": "cap_navigation_adapter_accepted",
+      "state": "closed",
+      "depends_on": [],
+      "receipt_refs": [
+        "receipt_navigation_adapter_accepted"
+      ],
+      "projection_not_authority": true,
+      "source_authority_allowed": false,
+      "live_ledger_authority": false,
+      "owned_paths": []
+    }
+  ]
+}

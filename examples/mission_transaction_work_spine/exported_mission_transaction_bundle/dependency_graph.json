@@ -1,0 +1,17 @@
+{
+  "schema_version": "mission_transaction_work_spine_dependency_graph_v1",
+  "derived_not_authority": true,
+  "dependency_resolution_receipts": [
+    {
+      "dependency_id": "cap_navigation_adapter_accepted",
+      "status": "resolved",
+      "receipt_ref": "state/microcosm_portfolio/reconstruction/post_navigation_hologram_route_plane_real_substrate_adapter_reducer_v1.json",
+      "body_redacted": true
+    }
+  ],
+  "unlock_policy": {
+    "scheduler_mode": "metadata_projection_only",
+    "live_task_ledger_mutation_authorized": false,
+    "body_redacted": true
+  }
+}

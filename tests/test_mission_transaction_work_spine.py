@@ -6,14 +6,20 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.mission_transaction_work_spine import (
+    EXPORTED_MISSION_TRANSACTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
+    run_mission_transaction_bundle,
 )
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MISSION_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/mission_transaction_work_spine/input"
+MISSION_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+)
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",
@@ -254,3 +260,88 @@ def test_mission_transaction_work_spine_receipts_satisfy_macro_field_floor(
         "recompute_status_projection",
     ]
     assert reconcile["mutation_policy"]["live_state_mutation"] is False
+
+
+def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_mission_transaction_bundle(
+        MISSION_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/mission_transaction_work_spine",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_mission_transaction_bundle"
+    assert result["bundle_id"] == "public_mission_transaction_work_spine_runtime_example"
+    assert result["expected_negative_cases"] == {}
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["metadata_projection_not_live_ledger_authority"] is True
+    assert result["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
+    assert result["authority_ceiling"]["live_work_ledger_mutation_authorized"] is False
+    assert result["workitem_rows_projection_not_authority"] is True
+    assert result["claim_rows_projection_not_authority"] is True
+    assert result["accepted_claim_ids"] == ["claim_public_mission_adapter_runtime"]
+    assert result["schedulable_workitem_ids"] == ["cap_public_mission_adapter_runtime"]
+    assert result["resolved_dependency_refs"] == ["cap_navigation_adapter_accepted"]
+    assert result["claim_preflight_result"]["replan_required"] is False
+    assert result["scoped_mutation_receipt"]["broad_stage_used"] is False
+    assert result["closeout_status_projection"]["derived_not_authority"] is True
+    assert result["receipt_drain_plan"]["receipt_drain_exclusivity_status"] == (
+        "only_declared_receipts_drained"
+    )
+    assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == [
+        "record_scoped_commit_landing",
+        "intake_exact_receipt_refs",
+        "drain_exact_receipts",
+        "closeout_landing_attempt",
+        "release_claims",
+        "recompute_status_projection",
+    ]
+    assert result["work_landing_reconcile_plan"]["mutation_policy"]["live_state_mutation"] is False
+    assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+
+
+def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/mission_transaction_work_spine",
+        public_root / "examples/mission_transaction_work_spine",
+    )
+
+    result = run_mission_transaction_bundle(
+        public_root
+        / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+        public_root / "receipts/first_wave/mission_transaction_work_spine",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [EXPORTED_MISSION_TRANSACTION_BUNDLE_RECEIPT_PATH]
+    receipt_file = public_root / EXPORTED_MISSION_TRANSACTION_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "matched_excerpt" not in text
+    assert '"body":' not in text
+    payload = json.loads(text)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_mission_transaction_bundle"
+    assert payload["fixture_regression_required_elsewhere"] is True
+    assert payload["private_state_scan"]["body_redacted"] is True
+    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["expected_negative_cases"] == {}
+    assert payload["metadata_projection_not_live_ledger_authority"] is True
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    assert "matched_excerpt" not in _walk_keys(payload)
+    assert "body" not in _walk_keys(payload)
+    for hit in payload["private_state_scan"]["hits"]:
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()

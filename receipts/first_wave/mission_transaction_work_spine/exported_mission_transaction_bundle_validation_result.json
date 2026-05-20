@@ -1,0 +1,268 @@
+{
+  "accepted_claim_ids": [
+    "claim_public_mission_adapter_runtime"
+  ],
+  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, receipt-drain, and closeout metadata. It does not mutate live Task Ledger or Work Ledger state, authorize release, or complete later organs.",
+  "authority_ceiling": {
+    "authority_ceiling": "mission_transaction_bundle_metadata_not_live_ledger_authority",
+    "broad_stage_authorized": false,
+    "later_organs_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "live_work_state_mutation_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "blocked_workitem_ids": [],
+  "bundle_fingerprint": "c7fa07e06b18ed22210bc40ec547fce44e45adfdfd02469a56d3cc254fa86ee0",
+  "bundle_id": "public_mission_transaction_work_spine_runtime_example",
+  "bundle_manifest_schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
+  "cannot_fake_predicate_status": "pass",
+  "claim_preflight_result": {
+    "accepted_claim_ids": [
+      "claim_public_mission_adapter_runtime"
+    ],
+    "claim_conflict_recheck_status": "metadata_projection_only_no_live_claim_recheck",
+    "decision": "pass_metadata_claims_no_live_conflict",
+    "expected_parent_status": "not_applicable_metadata_projection",
+    "replan_required": false,
+    "same_path_conflict_claim_ids": []
+  },
+  "claim_rows_projection_not_authority": true,
+  "closeout_status_projection": {
+    "body_redacted": true,
+    "claims_live_closeout": false,
+    "derived_not_authority": true,
+    "exact_receipt_drain_scope": [
+      "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json"
+    ],
+    "findings": [],
+    "receipt_drain_exclusivity_status": "only_declared_receipts_drained",
+    "receipt_refs_drained": [
+      "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json"
+    ],
+    "status": "pass",
+    "status_after": "closed_metadata_projection",
+    "status_before": "ready",
+    "work_item_id": "cap_public_mission_adapter_runtime"
+  },
+  "command": "python -m microcosm_core.organs.mission_transaction_work_spine validate-mission-transaction-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle --out receipts/first_wave/mission_transaction_work_spine",
+  "created_at": "2026-05-20T16:34:57+00:00",
+  "dependency_refs": [
+    "cap_navigation_adapter_accepted"
+  ],
+  "dependency_resolution_receipt": {
+    "accepted_refs": [
+      "cap_navigation_adapter_accepted"
+    ],
+    "body_redacted": true,
+    "rejected_refs": []
+  },
+  "dependency_status_by_workitem": {
+    "cap_navigation_adapter_accepted": {
+      "dependency_refs": [],
+      "derived_not_authority": true,
+      "schedulable": false,
+      "state": "closed"
+    },
+    "cap_public_mission_adapter_runtime": {
+      "dependency_refs": [
+        "cap_navigation_adapter_accepted"
+      ],
+      "derived_not_authority": true,
+      "schedulable": true,
+      "state": "ready"
+    }
+  },
+  "downstream_unlock_edges": [
+    {
+      "body_redacted": true,
+      "downstream_ids": [
+        "cap_public_mission_adapter_runtime"
+      ],
+      "upstream_id": "cap_navigation_adapter_accepted"
+    }
+  ],
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.mission_transaction_work_spine.exported_mission_transaction_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "input_mode": "exported_mission_transaction_bundle",
+  "metadata_projection_not_live_ledger_authority": true,
+  "missing_negative_cases": [],
+  "negative_case_binding_status": "pass",
+  "observed_negative_cases": {},
+  "organ_id": "mission_transaction_work_spine",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "public_replacement_refs": [
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/workitems.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/claim_table.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/dependency_graph.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/transaction_plan.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/receipt_drain_plan.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/closeout_projection_packet.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/scoped_mutation_policy.json"
+  ],
+  "receipt_drain_plan": {
+    "derived_not_authority": true,
+    "exact_receipt_drain_scope": [
+      "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json"
+    ],
+    "findings": [],
+    "receipt_drain_exclusivity_status": "only_declared_receipts_drained",
+    "receipt_refs_drained": [
+      "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json"
+    ],
+    "status": "pass"
+  },
+  "receipt_field_floor_status": "pass",
+  "receipt_id": "mission_transaction_work_spine_exported_mission_transaction_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+  ],
+  "resolved_dependency_refs": [
+    "cap_navigation_adapter_accepted"
+  ],
+  "schedulable_workitem_ids": [
+    "cap_public_mission_adapter_runtime"
+  ],
+  "schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_validation_v1",
+  "scoped_mutation_receipt": {
+    "authority_upgrade_rejected": true,
+    "body_redacted": true,
+    "broad_stage_used": false,
+    "findings": [],
+    "mutation_status": "metadata_projection_only_no_live_mutation",
+    "owned_paths": [
+      "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+    ],
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "task_ledger_workitem_spine",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims",
+    "task_ledger_exact_receipt_drain",
+    "work_landing_reconcile_finalizer_plan",
+    "workitem_dependency_unlock_scheduler"
+  ],
+  "status": "pass",
+  "synthetic_fixture_payload_policy": "synthetic_fixture_metadata_only_no_live_state",
+  "transaction_id": "mtx_public_mission_adapter_runtime",
+  "validator_contract_ratchet_refs": [
+    "fixture_manifests/mission_transaction_work_spine.fixture_manifest.json::validator_contract_ratchet_v1",
+    "fixture_negative_case_matrix_v1.json::negative_cases[organ_id=mission_transaction_work_spine]",
+    "error_code_taxonomy_v1.json::error_codes[organ_ids contains mission_transaction_work_spine]"
+  ],
+  "validator_contract_ratchet_status": "pass",
+  "validator_id": "validator.microcosm.organs.mission_transaction_work_spine",
+  "work_landing_reconcile_plan": {
+    "actions": [
+      {
+        "action_id": "record_scoped_commit_landing",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "scoped_commit_receipt"
+        ],
+        "idempotency_key": "mission-public-1",
+        "would_mutate": false
+      },
+      {
+        "action_id": "intake_exact_receipt_refs",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "receipt_drain_plan"
+        ],
+        "idempotency_key": "mission-public-2",
+        "would_mutate": false
+      },
+      {
+        "action_id": "drain_exact_receipts",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "receipt_refs_drained"
+        ],
+        "idempotency_key": "mission-public-3",
+        "would_mutate": false
+      },
+      {
+        "action_id": "closeout_landing_attempt",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "closeout_projection_packet"
+        ],
+        "idempotency_key": "mission-public-4",
+        "would_mutate": false
+      },
+      {
+        "action_id": "release_claims",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "claim_table"
+        ],
+        "idempotency_key": "mission-public-5",
+        "would_mutate": false
+      },
+      {
+        "action_id": "recompute_status_projection",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "closeout_status_projection"
+        ],
+        "idempotency_key": "mission-public-6",
+        "would_mutate": false
+      }
+    ],
+    "apply_result": "metadata_projection_no_live_mutation",
+    "body_redacted": true,
+    "claim_release_order_status": "release_after_closeout_only",
+    "mode": "metadata_projection_only",
+    "mutation_policy": {
+      "broad_stage_used": false,
+      "live_state_mutation": false,
+      "live_task_ledger_mutation": false,
+      "live_work_ledger_mutation": false,
+      "provider_execution_authorized": false,
+      "release_authorized": false
+    },
+    "ordered_controller_action_ids": [
+      "record_scoped_commit_landing",
+      "intake_exact_receipt_refs",
+      "drain_exact_receipts",
+      "closeout_landing_attempt",
+      "release_claims",
+      "recompute_status_projection"
+    ],
+    "receipt_drain_prerequisite_status": "metadata_receipts_declared",
+    "recommended_next_action": "validate_exported_mission_transaction_bundle_then_reduce",
+    "transaction_id": "mtx_public_mission_adapter_runtime",
+    "work_landing_reconcile_status": "ordered_metadata_plan_emitted"
+  },
+  "workitem_ids": [
+    "cap_navigation_adapter_accepted",
+    "cap_public_mission_adapter_runtime"
+  ],
+  "workitem_rows_projection_not_authority": true
+}

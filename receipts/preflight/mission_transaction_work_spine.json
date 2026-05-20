@@ -1,14 +1,15 @@
 {
   "ambient_pressure_count": 0,
-  "anti_claim": "Mission transaction receipts validate synthetic work, claim, dependency, landing, receipt-drain, and schedulability fixtures only; they do not mutate live state, certify live closeout, authorize later organs, or prove whole Wave 1.",
+  "anti_claim": "Mission transaction receipts validate public work, claim, dependency, landing, receipt-drain, and schedulability metadata plus regression fixtures; they do not mutate live state, certify live closeout, authorize later organs, or prove whole Wave 1.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_mission_transaction_fixture_only_not_live_closeout_authority",
+    "authority_ceiling": "mission_transaction_metadata_not_live_closeout_authority",
     "broad_stage_authorized": false,
     "derived_status_projection_is_authority": false,
     "later_organs_authorized": false,
     "live_work_state_mutation_authorized": false,
     "status": "pass"
   },
+  "bundle_id": null,
   "cannot_fake_predicate_status": "pass",
   "canonical_transaction_state": "synthetic_closeout_pending_exact_receipt_drain",
   "claim_preflight_status": "blocked_replan_required",
@@ -24,7 +25,7 @@
     "release_claims": "dry_run_not_mutated"
   },
   "controller_action_order_status": "pass",
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "created_at": "2026-05-20T16:33:35+00:00",
   "error_codes": [
     "DANGLING_DEPENDENCY_REF",
     "EXPECTED_PARENT_MISMATCH",
@@ -143,6 +144,7 @@
     }
   ],
   "fixture_id": "first_wave.mission_transaction_work_spine",
+  "input_mode": null,
   "missing_negative_cases": [],
   "negative_case_binding_status": "pass",
   "observed_negative_cases": {

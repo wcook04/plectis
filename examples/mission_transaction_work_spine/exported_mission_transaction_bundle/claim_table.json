@@ -1,0 +1,21 @@
+{
+  "schema_version": "mission_transaction_work_spine_claim_table_v1",
+  "projection_not_authority": true,
+  "claims": [
+    {
+      "claim_id": "claim_public_mission_adapter_runtime",
+      "work_item_id": "cap_public_mission_adapter_runtime",
+      "session_id": "public_runtime_metadata_session",
+      "owned_paths": [
+        "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+      ],
+      "status": "metadata_projection",
+      "expected_parent_sha": "metadata_only_not_live_head",
+      "projection_not_authority": true,
+      "source_authority_allowed": false,
+      "live_claim_authority": false
+    }
+  ]
+}
