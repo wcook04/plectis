@@ -11,7 +11,7 @@
   "body_redacted": true,
   "cannot_fake_predicate_status": "pass",
   "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-  "created_at": "2026-05-20T12:30:36+00:00",
+  "created_at": "2026-05-20T12:35:07+00:00",
   "derived_not_authority": true,
   "error_codes": [
     "DANGLING_DEPENDENCY_REF",

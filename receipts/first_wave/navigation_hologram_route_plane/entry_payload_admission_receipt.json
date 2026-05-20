@@ -10,7 +10,7 @@
   },
   "before_bytes": 24776,
   "command": "navigation_hologram_route_plane run",
-  "created_at": "2026-05-20T12:30:27+00:00",
+  "created_at": "2026-05-20T12:35:07+00:00",
   "dropped_control_fields": [
     "banned_routes",
     "route_lease.permitted_direct_actions",

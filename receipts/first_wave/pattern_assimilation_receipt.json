@@ -21,7 +21,7 @@
   "changed_surface_ref": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
   "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
   "concrete_improvement_made": true,
-  "created_at": "2026-05-20T12:30:46+00:00",
+  "created_at": "2026-05-20T12:35:07+00:00",
   "duplicate_receipt_ids": [
     "assimilation_duplicate_receipt"
   ],

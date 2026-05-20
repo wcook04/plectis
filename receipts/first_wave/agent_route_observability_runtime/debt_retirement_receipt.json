@@ -34,7 +34,7 @@
     "trace_fix_001"
   ],
   "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
-  "created_at": "2026-05-20T12:30:41+00:00",
+  "created_at": "2026-05-20T12:35:07+00:00",
   "debt_id": "agent_route_observability_runtime.synthetic_debt_set",
   "debt_retirement_count": 1,
   "error_codes": [

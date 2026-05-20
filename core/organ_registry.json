@@ -1,22 +1,140 @@
 {
   "schema_version": "organ_registry_v1",
-  "authority_boundary": "public_first_slice_registry_not_whole_wave_authority",
+  "registry_status": "current_authority_public_runtime_spine_registry",
+  "authority_boundary": "public_target_registry_generated_from_current_authority_receipts_not_source_authority_above_macro_contracts",
   "implemented_organs": [
     {
       "organ_id": "pattern_binding_contract",
-      "status": "implemented_first_slice",
+      "status": "accepted_current_authority",
       "runner": "microcosm_core.organs.pattern_binding_contract",
-      "validator_command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract"
+      "validator_command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+        "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+        "receipts/first_wave/pattern_binding_contract/omission_receipt.json"
+      ]
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "status": "accepted_current_authority",
+      "runner": "microcosm_core.organs.executable_doctrine_grammar",
+      "validator_command": "python -m microcosm_core.organs.executable_doctrine_grammar validate --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+        "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+        "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+        "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+      ]
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "status": "accepted_current_authority",
+      "runner": "microcosm_core.organs.proof_diagnostic_evidence_spine",
+      "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+        "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+      ]
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "status": "accepted_current_authority",
+      "runner": "microcosm_core.organs.navigation_hologram_route_plane",
+      "validator_command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
+        "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json",
+        "receipts/first_wave/navigation_hologram_route_plane/entry_payload_admission_receipt.json",
+        "receipts/first_wave/navigation_hologram_route_plane/route_lease.json",
+        "receipts/first_wave/navigation_hologram_route_plane/source_coupling_result.json",
+        "receipts/first_wave/navigation_hologram_route_plane/toy_kind_card.json",
+        "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json"
+      ]
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "status": "accepted_current_authority",
+      "runner": "microcosm_core.organs.mission_transaction_work_spine",
+      "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+        "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+        "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+        "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
+        "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+        "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+        "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+      ]
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "status": "accepted_current_authority",
+      "runner": "microcosm_core.organs.agent_route_observability_runtime",
+      "validator_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+        "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+        "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+        "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+      ]
+    },
+    {
+      "organ_id": "pattern_assimilation_step",
+      "status": "accepted_current_authority",
+      "runner": "microcosm_core.validators.acceptance",
+      "validator_command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
+      "current_authority_receipt": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
+      "generated_receipts": [
+        "receipts/first_wave/pattern_assimilation_acceptance.json",
+        "receipts/first_wave/pattern_assimilation_receipt.json",
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+      ]
     }
   ],
-  "stop_before_organs": [
-    "executable_doctrine_grammar",
-    "proof_diagnostic_evidence_spine",
-    "formal_math_lean_proof_witness",
-    "navigation_hologram_route_plane",
-    "mission_transaction_work_spine",
-    "agent_route_observability_runtime",
-    "pattern_assimilation_step"
+  "deferred_organs": [
+    {
+      "organ_id": "formal_math_lean_proof_witness",
+      "compatibility_ids": [
+        "formal_math_lean_proof_organ"
+      ],
+      "status": "deferred_not_current_authority_accepted",
+      "reason": "Lean/Lake remains strategically deferred; proof_diagnostic_evidence_spine is accepted as a body-safe evidence membrane but does not authorize formal proof authority."
+    }
   ],
-  "anti_claim": "This registry names the first-slice public organ only; it does not implement or authorize later organs."
+  "unauthorized_surfaces": [
+    "release",
+    "hosted_public_readiness",
+    "publication",
+    "recipient_work",
+    "provider_calls",
+    "private_data_equivalence",
+    "whole_system_correctness_claim"
+  ],
+  "authority_ceiling": {
+    "registry_can_claim": [
+      "which public target organs have current-authority acceptance receipts",
+      "which commands regenerate their public receipts",
+      "which generated receipts are public-relative and body-redacted"
+    ],
+    "registry_cannot_claim": [
+      "macro source authority above current reconstruction receipts",
+      "Lean/Lake proof authority",
+      "release readiness",
+      "hosted-public readiness",
+      "publication readiness",
+      "recipient readiness",
+      "private-data equivalence",
+      "whole-system correctness"
+    ]
+  },
+  "anti_claim": "This registry records current-authority accepted public target organs and deferred surfaces only. It does not authorize new implementation, Lean/Lake execution, release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness."
 }
