@@ -28,8 +28,8 @@ python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -e '.[test]'
 PYTHONPATH=src python3 -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json
-PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
-PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --mission-dag ../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json --receipt-coverage ../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
+PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
+PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json
 ./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
 python -m pytest -q

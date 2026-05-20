@@ -44,7 +44,7 @@
     "receipts/first_wave/pattern_assimilation_receipt.json"
   ],
   "checker_id": "checker.microcosm.validators.fixture_freshness",
-  "command": "python -m microcosm_core.validators.fixture_freshness --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --mission-dag ../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json --receipt-coverage ../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
+  "command": "python -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
   "fixture_manifest_sha256_by_organ": {
     "agent_route_observability_runtime": "6210d5009758be863a756d55a1e3065a681ba46590fb2ab169127d0dfb840f94",
     "executable_doctrine_grammar": "8e4823de0700ab1628e241e96f1d3f844683bbf93117773fcd28bcda22901bec",
@@ -113,7 +113,7 @@
     }
   },
   "mission_dag_node_refs": {
-    "path": "../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json",
+    "path": "core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
     "status": "read_for_freshness_context"
   },
   "private_state_scan": {
@@ -125,7 +125,7 @@
     "status": "pass"
   },
   "receipt_coverage_refs": {
-    "path": "../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json",
+    "path": "core/preflight_support/validator_receipt_coverage_map_v1.json",
     "status": "read_for_freshness_context"
   },
   "receipt_paths": [

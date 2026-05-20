@@ -92,3 +92,17 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "only implemented organ here is `pattern_binding_contract`" not in agents
     assert "formal_math_lean_proof_witness" in text
     assert "Do not run Lean/Lake" in agents
+
+
+def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
+    docs = [
+        MICROCOSM_ROOT / "README.md",
+        MICROCOSM_ROOT / "skills/cold_start_navigation.md",
+    ]
+
+    for path in docs:
+        text = path.read_text(encoding="utf-8")
+        assert "../state/" not in text
+        assert "state/microcosm_portfolio/reconstruction" not in text
+        assert "core/preflight_support/organ_fixture_validator_readiness_v1.json" in text
+        assert "core/preflight_support/fixture_negative_case_matrix_v1.json" in text

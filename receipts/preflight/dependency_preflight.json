@@ -19,7 +19,7 @@
     "pattern_assimilation_step"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
-  "command": "python -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
+  "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
   "dependency_checks": [
     {
       "build_dependencies": [],
@@ -102,7 +102,7 @@
       "fixture_input_count": 3,
       "fixture_manifest": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
-      "macro_fixture_input_ref_count": 7,
+      "macro_fixture_input_ref_count": 3,
       "missing_fixture_inputs": [],
       "organ_id": "executable_doctrine_grammar",
       "status": "pass"
@@ -128,7 +128,7 @@
       "status": "pass"
     },
     {
-      "fixture_id": null,
+      "fixture_id": "fixture::mission_transaction_work_spine::first_wave_contract_v1",
       "fixture_input_count": 3,
       "fixture_manifest": "core/fixture_manifests/mission_transaction_work_spine.fixture_manifest.json",
       "input_source": "macro_readiness_fixture_inputs",
@@ -138,7 +138,7 @@
       "status": "pass"
     },
     {
-      "fixture_id": null,
+      "fixture_id": "fixture::agent_route_observability_runtime::first_wave_contract_v1",
       "fixture_input_count": 3,
       "fixture_manifest": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
       "input_source": "macro_readiness_fixture_inputs",
@@ -148,7 +148,7 @@
       "status": "pass"
     },
     {
-      "fixture_id": null,
+      "fixture_id": "fixture::pattern_assimilation_step::first_wave_contract_v1",
       "fixture_input_count": 4,
       "fixture_manifest": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
       "input_source": "macro_readiness_fixture_inputs",
@@ -158,7 +158,7 @@
       "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 76,
+  "negative_matrix_case_count": 1,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
