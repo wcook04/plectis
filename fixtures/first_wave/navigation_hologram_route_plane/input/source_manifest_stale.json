@@ -1,0 +1,16 @@
+{
+  "schema_version": "toy_source_manifest_v1",
+  "manifest_id": "stale_navigation_source_manifest",
+  "rendered_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "current_source_rows": [
+    {
+      "row_id": "toy_route_card",
+      "source_ref": "synthetic://navigation/toy_route_card"
+    },
+    {
+      "row_id": "toy_grammar_card",
+      "source_ref": "synthetic://navigation/toy_grammar_card"
+    }
+  ],
+  "expected_negative_case_id": "stale_source_and_banned_first_contact"
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "banned_route_request_v1",
+  "route_id": "option_surface_all_rows_first_contact",
+  "surface_role": "ATLAS_PROJECTION",
+  "first_contact_requested": true,
+  "expected_replacement_route": "entry_packet",
+  "expected_negative_case_id": "stale_source_and_banned_first_contact"
+}

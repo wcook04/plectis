@@ -1,0 +1,7 @@
+{
+  "schema_version": "atlas_projection_as_control_entry_v1",
+  "route_id": "atlas_projection_first_contact_attempt",
+  "surface_role": "ATLAS_PROJECTION",
+  "claims_control_entry": true,
+  "expected_negative_case_id": "atlas_projection_claims_control_entry_authority"
+}

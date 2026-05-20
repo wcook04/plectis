@@ -1,0 +1,18 @@
+{
+  "schema_version": "duplicate_route_ids_v1",
+  "routes": [
+    {
+      "route_id": "duplicate_route",
+      "title": "First duplicate"
+    },
+    {
+      "route_id": "duplicate_route",
+      "title": "Second duplicate"
+    },
+    {
+      "route_id": "unique_route",
+      "title": "Unique route"
+    }
+  ],
+  "expected_negative_case_id": "duplicate_route_id_conflict"
+}

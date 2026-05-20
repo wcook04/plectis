@@ -1,0 +1,54 @@
+{
+  "schema_version": "entry_packet_admission_floor_v1",
+  "inline_target_bytes": 18000,
+  "before_bytes": 24776,
+  "after_bytes": 16219,
+  "required_non_negotiable_fields": [
+    "banned_routes",
+    "route_lease.permitted_direct_actions",
+    "ceremony_budget.required_proof",
+    "surface_contract",
+    "navigation_index_spine.currentness",
+    "navigation_index_spine.source_coupling",
+    "navigation_index_spine.omission_receipt"
+  ],
+  "admitted_payload": {
+    "banned_routes": [],
+    "route_lease": {
+      "permitted_direct_actions": [
+        "read_known_paths"
+      ]
+    },
+    "ceremony_budget": {
+      "required_proof": [
+        "receipt"
+      ]
+    },
+    "surface_contract": {
+      "surface_role": "CONTROL_ENTRY"
+    },
+    "navigation_index_spine": {
+      "currentness": {
+        "status": "checked"
+      },
+      "source_coupling": {
+        "status": "checked"
+      },
+      "omission_receipt": {
+        "omitted": []
+      }
+    }
+  },
+  "negative_compacted_payload": {
+    "summary": "trimmed payload missing the required control floor"
+  },
+  "omission_receipts": [
+    {
+      "omitted": [
+        "long explanatory prose"
+      ],
+      "reason": "entry admission trim"
+    }
+  ],
+  "expected_negative_case_id": "entry_admission_dropped_control_floor"
+}

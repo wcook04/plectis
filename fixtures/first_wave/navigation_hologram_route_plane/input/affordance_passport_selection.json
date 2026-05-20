@@ -1,0 +1,38 @@
+{
+  "schema_version": "affordance_passport_selection_v1",
+  "rows": [
+    {
+      "row_id": "route_card_candidate",
+      "affordance_passport": {
+        "compatibility": "compatible",
+        "when_to_open": [
+          "navigation route plane fixture"
+        ],
+        "when_not_to_open": [],
+        "safe_drilldown": "microcosm option-surface toy --ids route_card_candidate"
+      }
+    },
+    {
+      "row_id": "anti_trigger_overlap",
+      "affordance_passport": {
+        "compatibility": "compatible",
+        "anti_trigger_hit": true,
+        "when_not_to_open": [
+          "lexical overlap without route authority"
+        ],
+        "safe_drilldown": "microcosm option-surface toy --ids anti_trigger_overlap"
+      },
+      "expected_negative_case_id": "affordance_passport_antitrigger_ignored"
+    },
+    {
+      "row_id": "semantic_similarity_only",
+      "affordance_passport": {
+        "compatibility": "similarity_only",
+        "safe_drilldown": "microcosm option-surface toy --ids semantic_similarity_only"
+      }
+    },
+    {
+      "row_id": "absent_passport"
+    }
+  ]
+}

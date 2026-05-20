@@ -1,0 +1,13 @@
+{
+  "schema_version": "std_toy_option_surface_v1",
+  "surface_id": "toy_option_surface",
+  "owned_bands": [
+    "cluster_flag",
+    "flag",
+    "card"
+  ],
+  "first_contact_allowed": false,
+  "control_replacement": "entry_packet",
+  "card_row_id": "toy_route_card",
+  "anti_claim": "Toy option surface rows are public synthetic route fixtures only."
+}

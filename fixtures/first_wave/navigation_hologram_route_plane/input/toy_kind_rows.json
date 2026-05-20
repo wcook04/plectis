@@ -1,0 +1,93 @@
+{
+  "schema_version": "toy_kind_rows_v1",
+  "rows": [
+    {
+      "row_id": "toy_route_card",
+      "kind_id": "toy_routes",
+      "cluster_id": "route",
+      "title": "Toy Route Card",
+      "band_payloads": {
+        "atom": "Toy route card atom",
+        "flag": "Toy route card flag",
+        "card": {
+          "summary": "Public toy route card with stable handle and omitted details."
+        }
+      },
+      "source_refs": [
+        "synthetic://navigation/toy_route_card"
+      ],
+      "omission_receipt": {
+        "omitted": [
+          "example row internals"
+        ],
+        "reason": "cluster/card compression"
+      }
+    },
+    {
+      "row_id": "toy_grammar_card",
+      "kind_id": "toy_routes",
+      "cluster_id": "grammar",
+      "title": "Toy Grammar Card",
+      "band_payloads": {
+        "atom": "Toy grammar atom",
+        "flag": "Toy grammar flag",
+        "card": {
+          "summary": "Public toy grammar route card."
+        }
+      },
+      "source_refs": [
+        "synthetic://navigation/toy_grammar_card"
+      ],
+      "omission_receipt": {
+        "omitted": [
+          "example row internals"
+        ],
+        "reason": "cluster/card compression"
+      }
+    },
+    {
+      "row_id": "toy_proof_card",
+      "kind_id": "toy_routes",
+      "cluster_id": "proof",
+      "title": "Toy Proof Card",
+      "band_payloads": {
+        "atom": "Toy proof atom",
+        "flag": "Toy proof flag",
+        "card": {
+          "summary": "Public toy proof route card."
+        }
+      },
+      "source_refs": [
+        "synthetic://navigation/toy_proof_card"
+      ],
+      "omission_receipt": {
+        "omitted": [
+          "example row internals"
+        ],
+        "reason": "cluster/card compression"
+      }
+    },
+    {
+      "row_id": "toy_work_card",
+      "kind_id": "toy_routes",
+      "cluster_id": "work",
+      "title": "Toy Work Card",
+      "band_payloads": {
+        "atom": "Toy work atom",
+        "flag": "Toy work flag",
+        "card": {
+          "summary": "Public toy work route card."
+        }
+      },
+      "source_refs": [
+        "synthetic://navigation/toy_work_card"
+      ],
+      "omission_receipt": {
+        "omitted": [
+          "example row internals"
+        ],
+        "reason": "cluster/card compression"
+      }
+    }
+  ]
+}

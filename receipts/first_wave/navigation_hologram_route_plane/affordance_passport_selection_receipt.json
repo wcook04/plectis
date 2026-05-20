@@ -1,0 +1,292 @@
+{
+  "affordance_compatibility": {
+    "selected_row_id": "route_card_candidate",
+    "status": "pass"
+  },
+  "anti_claim": "Navigation route-plane receipts validate synthetic public route fixtures only; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
+  "anti_trigger_hits": [
+    {
+      "body_redacted": true,
+      "row_id": "anti_trigger_overlap"
+    }
+  ],
+  "authority_ceiling": {
+    "atlas_projection_control_entry_rejected": true,
+    "authority_ceiling": "navigation_receipts_are_public_toy_route_projections_not_source_authority",
+    "banned_first_contact_route_replaced": true,
+    "route_lease_source_authority_rejected": true,
+    "status": "pass"
+  },
+  "command": "navigation_hologram_route_plane run",
+  "created_at": "2026-05-20T11:54:25+00:00",
+  "demoted_rows": [
+    {
+      "body_redacted": true,
+      "reason_code": "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED",
+      "row_id": "anti_trigger_overlap"
+    },
+    {
+      "body_redacted": true,
+      "reason_code": "AFFORDANCE_PASSPORT_NOT_COMPATIBLE",
+      "row_id": "semantic_similarity_only"
+    },
+    {
+      "body_redacted": true,
+      "reason_code": "AFFORDANCE_PASSPORT_ABSENT",
+      "row_id": "absent_passport"
+    }
+  ],
+  "demotion_receipt": {
+    "body_redacted": true,
+    "demoted_row_count": 3,
+    "status": "pass"
+  },
+  "error_codes": [
+    "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED",
+    "ATLAS_PROJECTION_NOT_CONTROL_ENTRY",
+    "BANNED_FIRST_CONTACT_ROUTE",
+    "DUPLICATE_ROUTE_ID_CONFLICT",
+    "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+    "MISSING_OMISSION_RECEIPT",
+    "ROUTE_CARD_PRIVATE_BODY_LEAK",
+    "ROUTE_SUMMARY_OVERCLAIMS_FRESHNESS",
+    "SOURCE_COUPLING_STALE"
+  ],
+  "expected_negative_cases": {
+    "affordance_passport_antitrigger_ignored": [
+      "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED"
+    ],
+    "atlas_projection_claims_control_entry_authority": [
+      "ATLAS_PROJECTION_NOT_CONTROL_ENTRY"
+    ],
+    "duplicate_route_id_conflict": [
+      "DUPLICATE_ROUTE_ID_CONFLICT"
+    ],
+    "entry_admission_dropped_control_floor": [
+      "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED"
+    ],
+    "route_card_private_body_leak": [
+      "ROUTE_CARD_PRIVATE_BODY_LEAK"
+    ],
+    "route_packet_missing_omission_receipt": [
+      "MISSING_OMISSION_RECEIPT"
+    ],
+    "route_summary_overclaims_freshness": [
+      "ROUTE_SUMMARY_OVERCLAIMS_FRESHNESS"
+    ],
+    "stale_source_and_banned_first_contact": [
+      "BANNED_FIRST_CONTACT_ROUTE",
+      "SOURCE_COUPLING_STALE"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED",
+      "message": "Anti-trigger row is demoted before similarity can select authority.",
+      "negative_case_id": "affordance_passport_antitrigger_ignored",
+      "subject_id": "anti_trigger_overlap",
+      "subject_kind": "affordance_row"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ATLAS_PROJECTION_NOT_CONTROL_ENTRY",
+      "message": "Atlas projection attempted to act as first-contact control entry.",
+      "negative_case_id": "atlas_projection_claims_control_entry_authority",
+      "subject_id": "atlas_projection_first_contact_attempt",
+      "subject_kind": "route_request"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DUPLICATE_ROUTE_ID_CONFLICT",
+      "message": "Route table contains a duplicate route id.",
+      "negative_case_id": "duplicate_route_id_conflict",
+      "subject_id": "duplicate_route",
+      "subject_kind": "route_table"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "banned_routes",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "ceremony_budget.required_proof",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "navigation_index_spine.currentness",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "navigation_index_spine.omission_receipt",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "navigation_index_spine.source_coupling",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "route_lease.permitted_direct_actions",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED",
+      "message": "Entry payload compaction dropped a required control-floor field.",
+      "negative_case_id": "entry_admission_dropped_control_floor",
+      "subject_id": "surface_contract",
+      "subject_kind": "entry_payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ROUTE_CARD_PRIVATE_BODY_LEAK",
+      "message": "Route card fixture marks a forbidden content value class and is rejected.",
+      "negative_case_id": "route_card_private_body_leak",
+      "subject_id": "route_card_boundary_marker",
+      "subject_kind": "route_card"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_OMISSION_RECEIPT",
+      "message": "Compressed route card lacks an omission receipt.",
+      "negative_case_id": "route_packet_missing_omission_receipt",
+      "subject_id": "route_card_missing_omission_receipt",
+      "subject_kind": "route_card"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ROUTE_SUMMARY_OVERCLAIMS_FRESHNESS",
+      "message": "Route summary claimed current authority while source coupling is stale.",
+      "negative_case_id": "route_summary_overclaims_freshness",
+      "subject_id": "stale_summary_claims_current",
+      "subject_kind": "route_summary"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BANNED_FIRST_CONTACT_ROUTE",
+      "message": "First contact attempted to start from a drilldown projection.",
+      "negative_case_id": "stale_source_and_banned_first_contact",
+      "subject_id": "option_surface_all_rows_first_contact",
+      "subject_kind": "route_request"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SOURCE_COUPLING_STALE",
+      "message": "Source-coupling fingerprint is stale, so projection authority is denied.",
+      "negative_case_id": "stale_source_and_banned_first_contact",
+      "subject_id": "stale_navigation_source_manifest",
+      "subject_kind": "source_manifest"
+    }
+  ],
+  "fixture_id": "first_wave.navigation_hologram_route_plane",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "affordance_passport_antitrigger_ignored": [
+      "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED"
+    ],
+    "atlas_projection_claims_control_entry_authority": [
+      "ATLAS_PROJECTION_NOT_CONTROL_ENTRY"
+    ],
+    "duplicate_route_id_conflict": [
+      "DUPLICATE_ROUTE_ID_CONFLICT"
+    ],
+    "entry_admission_dropped_control_floor": [
+      "ENTRY_ADMISSION_CONTROL_FLOOR_DROPPED"
+    ],
+    "route_card_private_body_leak": [
+      "ROUTE_CARD_PRIVATE_BODY_LEAK"
+    ],
+    "route_packet_missing_omission_receipt": [
+      "MISSING_OMISSION_RECEIPT"
+    ],
+    "route_summary_overclaims_freshness": [
+      "ROUTE_SUMMARY_OVERCLAIMS_FRESHNESS"
+    ],
+    "stale_source_and_banned_first_contact": [
+      "BANNED_FIRST_CONTACT_ROUTE",
+      "SOURCE_COUPLING_STALE"
+    ]
+  },
+  "organ_id": "navigation_hologram_route_plane",
+  "passport_coverage": {
+    "absent_passport": false,
+    "anti_trigger_overlap": true,
+    "route_card_candidate": true,
+    "semantic_similarity_only": true
+  },
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 13,
+    "status": "pass"
+  },
+  "receipt_id": "navigation_hologram_route_plane_affordance_passport_selection_v1",
+  "receipt_paths": [
+    "receipts/preflight/navigation_hologram_route_plane.json",
+    "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json",
+    "receipts/first_wave/navigation_hologram_route_plane/toy_kind_card.json",
+    "receipts/first_wave/navigation_hologram_route_plane/source_coupling_result.json",
+    "receipts/first_wave/navigation_hologram_route_plane/route_lease.json",
+    "receipts/first_wave/navigation_hologram_route_plane/entry_payload_admission_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json"
+  ],
+  "safe_drilldown": "microcosm option-surface toy --ids route_card_candidate",
+  "schema_version": "navigation_hologram_route_plane_affordance_passport_selection_v1",
+  "selected_row_id": "route_card_candidate",
+  "selection_decision": "select_compatible_passport_after_demotion",
+  "source_pattern_ids": [
+    "navigation_hologram_unified_route_plane",
+    "agent_entry_surfaces_canonical_first_move",
+    "omission_receipt_reversible_projection_boundary",
+    "semantic_routing_plane",
+    "system_atlas_source_coupling_gate",
+    "entry_payload_admission_nonnegotiable_floor",
+    "affordance_passport_selection_gate"
+  ],
+  "status": "pass",
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "cluster_first_route_feeds_agent_entry_surface",
+      "source_pattern_id": "navigation_hologram_unified_route_plane",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "omission_receipt_boundary_feeds_card_drilldown",
+      "source_pattern_id": "omission_receipt_reversible_projection_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "affordance_passport_gate_feeds_route_selection",
+      "source_pattern_id": "affordance_passport_selection_gate",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.navigation_hologram_route_plane"
+}

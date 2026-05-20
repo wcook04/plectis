@@ -1,0 +1,6 @@
+{
+  "schema_version": "route_card_missing_omission_receipt_v1",
+  "route_id": "route_card_missing_omission_receipt",
+  "stable_handle": "toy:route:missing_omission",
+  "expected_negative_case_id": "route_packet_missing_omission_receipt"
+}

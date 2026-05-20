@@ -1,0 +1,31 @@
+{
+  "schema_version": "code_architecture_projection_packet_fixture_v1",
+  "packet_producer_id": "toy_code_architecture_projection_packet",
+  "source_fingerprint": {
+    "source_ref": "synthetic://navigation/code_architecture_projection",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "source text"
+    ],
+    "reason": "metadata-only code architecture projection"
+  },
+  "known_limits": [
+    "toy fixture only",
+    "no runtime execution claim"
+  ],
+  "renderer_schema_match_status": "pass",
+  "reverse_bfs_depth_buckets": {
+    "0": [
+      "toy_symbol"
+    ],
+    "1": [
+      "toy_caller"
+    ]
+  },
+  "suggested_verification": [
+    "run focused pytest for navigation route plane"
+  ],
+  "body_redacted": true
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": "stale_summary_claims_current_v1",
+  "summary_id": "stale_summary_claims_current",
+  "source_coupling_status": "stale",
+  "claims_current_source_authority": true,
+  "expected_negative_case_id": "route_summary_overclaims_freshness"
+}

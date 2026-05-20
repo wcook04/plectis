@@ -1,0 +1,16 @@
+{
+  "schema_version": "route_lease_baseline_v1",
+  "lease_id": "lease_first_wave_navigation_toy",
+  "selected_lane_id": "navigation_hologram_route_plane",
+  "route_lease_ref": "route_lease://first_wave/navigation_hologram_route_plane",
+  "invalidation_inputs": {
+    "source_coupling_status": "stale",
+    "surface_role": "ATLAS_PROJECTION"
+  },
+  "permitted_direct_actions": [
+    "read_known_paths",
+    "rg_known_scope",
+    "focused_pytest_or_builder_check",
+    "scoped_patch_owned_paths"
+  ]
+}

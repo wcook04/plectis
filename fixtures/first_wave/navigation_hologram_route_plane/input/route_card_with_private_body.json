@@ -1,0 +1,7 @@
+{
+  "schema_version": "route_card_with_private_boundary_marker_v1",
+  "route_id": "route_card_boundary_marker",
+  "forbidden_content_class": "non_public_content_value",
+  "forbidden_content_value_present": true,
+  "expected_negative_case_id": "route_card_private_body_leak"
+}
