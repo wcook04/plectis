@@ -23,6 +23,14 @@ REQUIRED_PRIMITIVE_FIELDS = [
     "macro_analogue",
     "public_boundary",
 ]
+REQUIRED_PATTERN_SURFACE_FIELDS = [
+    "surface_id",
+    "state_ref",
+    "evidence_ref",
+    "binding_standard_refs",
+    "projection_rule",
+    "private_source_bodies_included",
+]
 REQUIRED_README_PHRASES = [
     "executable research prototype",
     "Bring a folder",
@@ -54,6 +62,23 @@ def _kernel_findings(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
         blocking_codes.append("KERNEL_POSTURE_NOT_RESEARCH_PROTOTYPE")
     if manifest.get("release_authorized") is not False:
         blocking_codes.append("KERNEL_RELEASE_CEILING_MISSING")
+    pattern_surface = manifest.get("pattern_surface")
+    if not isinstance(pattern_surface, dict):
+        blocking_codes.append("KERNEL_PATTERN_SURFACE_MISSING")
+    else:
+        missing = [field for field in REQUIRED_PATTERN_SURFACE_FIELDS if field not in pattern_surface]
+        if missing:
+            blocking_codes.append("KERNEL_PATTERN_SURFACE_FIELD_MISSING")
+            findings.append(
+                {
+                    "finding_id": "kernel_pattern_surface_field_missing",
+                    "missing_fields": missing,
+                }
+            )
+        if pattern_surface.get("state_ref") != ".microcosm/patterns.json":
+            blocking_codes.append("KERNEL_PATTERN_SURFACE_STATE_REF_INVALID")
+        if pattern_surface.get("private_source_bodies_included") is not False:
+            blocking_codes.append("KERNEL_PATTERN_SURFACE_PRIVATE_BODY_CEILING_MISSING")
     if len(primitive_rows) < 7:
         blocking_codes.append("KERNEL_PRIMITIVE_SET_TOO_THIN")
     for row in primitive_rows:
@@ -76,6 +101,13 @@ def _kernel_findings(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
     if "microcosm explain <project> <route_id>" not in commands:
         blocking_codes.append("KERNEL_EXPLAIN_COMMAND_MISSING")
     return findings, blocking_codes
+
+
+def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
+    value = payload.get(key, [])
+    if not isinstance(value, list):
+        return []
+    return [row for row in value if isinstance(row, dict)]
 
 
 def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
@@ -104,6 +136,73 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
     graph = read_json_if_exists(state / "graph.json")
     if graph and graph.get("edge_count", 0) < 6:
         blocking_codes.append("PROJECT_GRAPH_TOO_THIN")
+    architecture = read_json_if_exists(state / "architecture.json")
+    if not isinstance(architecture.get("pattern_surface"), dict):
+        blocking_codes.append("PROJECT_PATTERN_SURFACE_MISSING")
+    patterns_payload = read_json_if_exists(state / "patterns.json")
+    routes_payload = read_json_if_exists(state / "routes.json")
+    pattern_ids = {
+        str(row.get("pattern_id"))
+        for row in _rows(patterns_payload, "patterns")
+        if row.get("pattern_id")
+    }
+    unresolved_routes: list[dict[str, Any]] = []
+    for route in _rows(routes_payload, "routes"):
+        pattern_refs = route.get("pattern_refs", [])
+        if not isinstance(pattern_refs, list):
+            pattern_refs = []
+        unresolved = [
+            str(ref)
+            for ref in pattern_refs
+            if ref is not None and str(ref) not in pattern_ids
+        ]
+        if unresolved:
+            unresolved_routes.append(
+                {
+                    "route_id": route.get("route_id"),
+                    "unresolved_pattern_refs": unresolved,
+                }
+            )
+    if unresolved_routes:
+        blocking_codes.append("PROJECT_ROUTE_PATTERN_REF_UNRESOLVED")
+        findings.append(
+            {
+                "finding_id": "project_route_pattern_ref_unresolved",
+                "routes": unresolved_routes,
+            }
+        )
+    missing_bindings: list[str] = []
+    unresolved_bindings: list[dict[str, Any]] = []
+    for path in sorted(explanations.glob("*.json")) if explanations.is_dir() else []:
+        payload = read_json_if_exists(path)
+        bindings = _rows(payload, "pattern_bindings")
+        if not bindings:
+            missing_bindings.append(path.name)
+            continue
+        unresolved = [row.get("pattern_id") for row in bindings if row.get("resolved") is not True]
+        if unresolved:
+            unresolved_bindings.append(
+                {
+                    "explanation_ref": f".microcosm/explanations/{path.name}",
+                    "unresolved_pattern_refs": unresolved,
+                }
+            )
+    if missing_bindings:
+        blocking_codes.append("PROJECT_EXPLANATION_PATTERN_BINDINGS_MISSING")
+        findings.append(
+            {
+                "finding_id": "project_explanation_pattern_bindings_missing",
+                "explanation_files": missing_bindings,
+            }
+        )
+    if unresolved_bindings:
+        blocking_codes.append("PROJECT_EXPLANATION_PATTERN_BINDING_UNRESOLVED")
+        findings.append(
+            {
+                "finding_id": "project_explanation_pattern_binding_unresolved",
+                "explanations": unresolved_bindings,
+            }
+        )
     return findings, blocking_codes
 
 
@@ -167,6 +266,11 @@ def validate_density(
         "density_assertions": {
             "readme_declares_research_prototype": "README_RESEARCH_POSTURE_MISSING" not in blocking_codes,
             "kernel_primitives_have_runtime_hooks": "KERNEL_PRIMITIVE_FIELD_MISSING" not in blocking_codes,
+            "kernel_declares_pattern_surface": "KERNEL_PATTERN_SURFACE_MISSING" not in blocking_codes
+            and "KERNEL_PATTERN_SURFACE_FIELD_MISSING" not in blocking_codes,
+            "route_pattern_refs_resolve": "PROJECT_ROUTE_PATTERN_REF_UNRESOLVED" not in blocking_codes,
+            "explanations_include_pattern_bindings": "PROJECT_EXPLANATION_PATTERN_BINDINGS_MISSING"
+            not in blocking_codes,
             "route_explanation_available": "PROJECT_ROUTE_EXPLANATION_MISSING" not in blocking_codes,
             "evidence_is_drilldown": True,
             "release_authorized": False,

@@ -9,6 +9,19 @@
   "provider_calls_authorized": false,
   "receipts_are_drilldown_evidence": true,
   "anti_claim": "This kernel describes the public research-prototype substrate only. It does not authorize production readiness, release, hosting, publication, provider calls, source mutation, private-data equivalence, or whole-system correctness.",
+  "pattern_surface": {
+    "surface_id": "public_microcosm_pattern_surface",
+    "state_ref": ".microcosm/patterns.json",
+    "evidence_ref": ".microcosm/evidence/patterns.json",
+    "binding_standard_refs": [
+      "standards/std_microcosm_pattern.json",
+      "standards/std_microcosm_pattern_binding_contract.json"
+    ],
+    "assimilation_policy_ref": "core/pattern_assimilation_policy.json",
+    "organ_refs": ["pattern_binding_contract", "pattern_assimilation_step"],
+    "projection_rule": "Catalog role observations become public pattern rows; routes carry pattern_refs that must resolve against local .microcosm/patterns.json before explanation.",
+    "private_source_bodies_included": false
+  },
   "primitive_count": 10,
   "primitives": [
     {
@@ -42,7 +55,7 @@
     {
       "primitive_id": "pattern",
       "public_name": "Pattern",
-      "what_it_does": "Maps catalog roles into repo-shape pattern observations.",
+      "what_it_does": "Maps catalog roles into repo-shape pattern observations through the public pattern surface.",
       "input": "catalog",
       "output": ".microcosm/patterns.json",
       "state_ref": ".microcosm/patterns.json",
@@ -70,7 +83,7 @@
     {
       "primitive_id": "route",
       "public_name": "Route",
-      "what_it_does": "Turns project-grounded patterns into reversible next-action candidates.",
+      "what_it_does": "Turns project-grounded pattern_refs into reversible next-action candidates after resolving them against .microcosm/patterns.json.",
       "input": "catalog + pattern observations",
       "output": ".microcosm/routes.json",
       "state_ref": ".microcosm/routes.json",
@@ -126,7 +139,7 @@
     {
       "primitive_id": "explanation",
       "public_name": "Explanation",
-      "what_it_does": "Connects a route to grounded refs, patterns, primitives, standards, work shape, events, and evidence.",
+      "what_it_does": "Connects a route to grounded refs, resolved pattern bindings, primitives, standards, work shape, events, and evidence.",
       "input": "route id + local state",
       "output": ".microcosm/explanations/<route_id>.json",
       "state_ref": ".microcosm/explanations/",

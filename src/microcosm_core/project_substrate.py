@@ -292,6 +292,9 @@ def discover_patterns(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project)
     roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
+    pattern_surface = architecture_kernel.pattern_surface_contract()
+    standard_refs = pattern_surface.get("binding_standard_refs", [])
+    standard_refs = standard_refs if isinstance(standard_refs, list) else []
 
     def present(role: str) -> bool:
         value = roles.get(role, [])
@@ -316,10 +319,16 @@ def discover_patterns(project_path: str | Path) -> dict[str, Any]:
                 "status": PASS if refs else "missing",
                 "grounded_refs": refs[:12],
                 "source": "project_index",
+                "pattern_surface_id": pattern_surface.get("surface_id"),
+                "state_ref": f"{STATE_DIR}/patterns.json::{pattern_id}",
+                "evidence_ref": pattern_surface.get("evidence_ref", f"{STATE_DIR}/{EVIDENCE_DIR}/patterns.json"),
+                "standard_refs": standard_refs,
+                "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
             }
         )
     payload = {
         **_base_payload("microcosm_project_patterns_v1", project),
+        "pattern_surface": pattern_surface,
         "patterns": candidates,
         "passing_pattern_count": sum(1 for row in candidates if row["status"] == PASS),
         "missing_pattern_count": sum(1 for row in candidates if row["status"] != PASS),
@@ -344,6 +353,7 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
     catalog = catalog_project(project)
     patterns = discover_patterns(project)
     roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
+    pattern_surface = architecture_kernel.pattern_surface_contract()
 
     routes: list[dict[str, Any]] = []
 
@@ -364,6 +374,8 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
                 "grounded_refs": refs[:12],
                 "action": action,
                 "pattern_refs": pattern_refs,
+                "pattern_surface_id": pattern_surface.get("surface_id"),
+                "pattern_resolution_ref": pattern_surface.get("state_ref", f"{STATE_DIR}/patterns.json"),
                 "kernel_primitive_refs": ["catalog", "pattern", "route", "work", "event", "evidence"],
                 "route_definition_ref": f"{STATE_DIR}/routes.json::{route_id}",
                 "explain_command": f"microcosm explain <project> {route_id}",

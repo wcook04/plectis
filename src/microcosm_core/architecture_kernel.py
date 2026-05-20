@@ -23,6 +23,24 @@ _PATTERN_BY_ROUTE = {
     "docs_route": "repo_has_docs",
 }
 
+_PATTERN_SURFACE_CONTRACT = {
+    "surface_id": "public_microcosm_pattern_surface",
+    "state_ref": ".microcosm/patterns.json",
+    "evidence_ref": ".microcosm/evidence/patterns.json",
+    "binding_standard_refs": [
+        "standards/std_microcosm_pattern.json",
+        "standards/std_microcosm_pattern_binding_contract.json",
+    ],
+    "assimilation_policy_ref": "core/pattern_assimilation_policy.json",
+    "organ_refs": ["pattern_binding_contract", "pattern_assimilation_step"],
+    "projection_rule": (
+        "Catalog role observations become public pattern rows; routes carry "
+        "pattern_refs that must resolve against local .microcosm/patterns.json "
+        "before explanation."
+    ),
+    "private_source_bodies_included": False,
+}
+
 _DEFAULT_KERNEL = {
     "schema_version": "microcosm_architecture_kernel_v1",
     "kernel_id": "microcosm_executable_research_kernel",
@@ -42,6 +60,7 @@ _DEFAULT_KERNEL = {
         "not authorize production readiness, release, hosting, publication, provider "
         "calls, source mutation, private-data equivalence, or whole-system correctness."
     ),
+    "pattern_surface": _PATTERN_SURFACE_CONTRACT,
     "primitives": [
         {
             "primitive_id": "project",
@@ -74,7 +93,10 @@ _DEFAULT_KERNEL = {
         {
             "primitive_id": "pattern",
             "public_name": "Pattern",
-            "what_it_does": "Maps catalog roles into repo-shape pattern observations.",
+            "what_it_does": (
+                "Maps catalog roles into repo-shape pattern observations through "
+                "the public pattern surface."
+            ),
             "input": "catalog",
             "output": ".microcosm/patterns.json",
             "state_ref": ".microcosm/patterns.json",
@@ -102,7 +124,10 @@ _DEFAULT_KERNEL = {
         {
             "primitive_id": "route",
             "public_name": "Route",
-            "what_it_does": "Turns project-grounded patterns into reversible next-action candidates.",
+            "what_it_does": (
+                "Turns project-grounded pattern_refs into reversible next-action "
+                "candidates after resolving them against .microcosm/patterns.json."
+            ),
             "input": "catalog + pattern observations",
             "output": ".microcosm/routes.json",
             "state_ref": ".microcosm/routes.json",
@@ -158,7 +183,10 @@ _DEFAULT_KERNEL = {
         {
             "primitive_id": "explanation",
             "public_name": "Explanation",
-            "what_it_does": "Connects a route to grounded refs, patterns, primitives, standards, work shape, events, and evidence.",
+            "what_it_does": (
+                "Connects a route to grounded refs, resolved pattern bindings, "
+                "primitives, standards, work shape, events, and evidence."
+            ),
             "input": "route id + local state",
             "output": ".microcosm/explanations/<route_id>.json",
             "state_ref": ".microcosm/explanations/",
@@ -233,6 +261,54 @@ def load_kernel_manifest(root: str | Path | None = None) -> dict[str, Any]:
     return manifest
 
 
+def pattern_surface_contract(root: str | Path | None = None) -> dict[str, Any]:
+    surface = load_kernel_manifest(root).get("pattern_surface")
+    if isinstance(surface, dict) and surface:
+        return dict(surface)
+    return dict(_PATTERN_SURFACE_CONTRACT)
+
+
+def _route_pattern_refs(route: dict[str, Any]) -> list[str]:
+    refs = route.get("pattern_refs", [])
+    if isinstance(refs, list):
+        return [str(ref) for ref in refs if ref is not None and str(ref)]
+    fallback = _PATTERN_BY_ROUTE.get(str(route.get("route_id") or ""))
+    return [fallback] if fallback else []
+
+
+def _pattern_rows_by_id(pattern_payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    rows = pattern_payload.get("patterns", [])
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row.get("pattern_id")): row
+        for row in rows
+        if isinstance(row, dict) and row.get("pattern_id")
+    }
+
+
+def _pattern_bindings(pattern_payload: dict[str, Any], pattern_refs: list[str]) -> list[dict[str, Any]]:
+    rows_by_id = _pattern_rows_by_id(pattern_payload)
+    surface = pattern_surface_contract()
+    standard_refs = surface.get("binding_standard_refs", [])
+    standard_refs = standard_refs if isinstance(standard_refs, list) else []
+    bindings: list[dict[str, Any]] = []
+    for pattern_id in pattern_refs:
+        row = rows_by_id.get(pattern_id)
+        bindings.append(
+            {
+                "pattern_id": pattern_id,
+                "resolved": row is not None,
+                "pattern": row,
+                "state_ref": f"{surface.get('state_ref', '.microcosm/patterns.json')}::{pattern_id}",
+                "evidence_ref": surface.get("evidence_ref", ".microcosm/evidence/patterns.json"),
+                "standard_refs": standard_refs,
+                "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
+            }
+        )
+    return bindings
+
+
 def _base(project: Path, schema_version: str) -> dict[str, Any]:
     return {
         "schema_version": schema_version,
@@ -250,6 +326,7 @@ def _base(project: Path, schema_version: str) -> dict[str, Any]:
 def build_state_index(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
+    pattern_surface = pattern_surface_contract()
     assets = [
         ("project", "project_manifest.json", "project root manifest"),
         ("architecture", "architecture.json", "public architecture kernel projection"),
@@ -281,11 +358,14 @@ def build_state_index(project_path: str | Path) -> dict[str, Any]:
         }
         if count is not None:
             row["item_count"] = count
+        if kind == "pattern":
+            row["surface_contract"] = pattern_surface
         rows.append(row)
     payload = {
         **_base(project, "microcosm_project_state_index_v1"),
         "asset_count": len(rows),
         "assets": rows,
+        "pattern_surface": pattern_surface,
         "authority_ceiling": {
             "project_local_projection_not_source_authority": True,
             "source_mutation_authorized": False,
@@ -302,16 +382,44 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
     routes = read_json_if_exists(state / "routes.json").get("routes", [])
     work_items = read_json_if_exists(state / "work_items.json").get("work_items", [])
     patterns = read_json_if_exists(state / "patterns.json").get("patterns", [])
+    pattern_surface = pattern_surface_contract()
     nodes: list[dict[str, Any]] = [
         {"node_id": "project", "kind": "primitive", "label": "Project"},
         {"node_id": "catalog", "kind": "primitive", "label": "Catalog"},
         {"node_id": "pattern", "kind": "primitive", "label": "Pattern"},
+        {
+            "node_id": "pattern_surface",
+            "kind": "surface",
+            "label": "Public Pattern Surface",
+            "state_ref": pattern_surface.get("state_ref"),
+            "evidence_ref": pattern_surface.get("evidence_ref"),
+        },
         {"node_id": "route", "kind": "primitive", "label": "Route"},
         {"node_id": "work", "kind": "primitive", "label": "Work"},
         {"node_id": "event", "kind": "primitive", "label": "Event"},
         {"node_id": "evidence", "kind": "primitive", "label": "Evidence"},
         {"node_id": "explanation", "kind": "primitive", "label": "Explanation"},
     ]
+    for ref in pattern_surface.get("binding_standard_refs", []):
+        if isinstance(ref, str) and ref:
+            nodes.append(
+                {
+                    "node_id": f"standard:{Path(ref).stem}",
+                    "kind": "standard",
+                    "label": Path(ref).stem,
+                    "state_ref": ref,
+                }
+            )
+    assimilation_ref = pattern_surface.get("assimilation_policy_ref")
+    if isinstance(assimilation_ref, str) and assimilation_ref:
+        nodes.append(
+            {
+                "node_id": "assimilation_policy",
+                "kind": "policy",
+                "label": "Pattern Assimilation Policy",
+                "state_ref": assimilation_ref,
+            }
+        )
     for row in patterns if isinstance(patterns, list) else []:
         if isinstance(row, dict):
             nodes.append({"node_id": f"pattern:{row.get('pattern_id')}", "kind": "pattern", "label": row.get("title")})
@@ -324,16 +432,30 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
     edges: list[dict[str, Any]] = [
         {"from": "project", "to": "catalog", "relation": "indexes"},
         {"from": "catalog", "to": "pattern", "relation": "grounds"},
+        {"from": "pattern", "to": "pattern_surface", "relation": "projects_to"},
+        {"from": "pattern_surface", "to": "route", "relation": "opens"},
+        {"from": "route", "to": "pattern_surface", "relation": "resolves_pattern_refs_against"},
         {"from": "pattern", "to": "route", "relation": "opens"},
         {"from": "route", "to": "work", "relation": "selects"},
         {"from": "work", "to": "event", "relation": "emits"},
         {"from": "event", "to": "evidence", "relation": "references"},
         {"from": "route", "to": "explanation", "relation": "explains"},
+        {"from": "explanation", "to": "pattern_surface", "relation": "explains_against"},
     ]
+    for ref in pattern_surface.get("binding_standard_refs", []):
+        if isinstance(ref, str) and ref:
+            edges.append(
+                {
+                    "from": "pattern_surface",
+                    "to": f"standard:{Path(ref).stem}",
+                    "relation": "governed_by",
+                }
+            )
+    if isinstance(assimilation_ref, str) and assimilation_ref:
+        edges.append({"from": "pattern_surface", "to": "assimilation_policy", "relation": "closed_by"})
     for row in routes if isinstance(routes, list) else []:
         if isinstance(row, dict):
-            pattern_id = _PATTERN_BY_ROUTE.get(str(row.get("route_id") or ""))
-            if pattern_id:
+            for pattern_id in _route_pattern_refs(row):
                 edges.append(
                     {
                         "from": f"pattern:{pattern_id}",
@@ -356,6 +478,7 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
         "edge_count": len(edges),
         "nodes": nodes,
         "edges": edges,
+        "pattern_surface": pattern_surface,
         "graph_ref": f"{STATE_DIR}/graph.json",
     }
     write_json_atomic(state / "graph.json", payload)
@@ -369,6 +492,7 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
     (state / EVIDENCE_DIR).mkdir(parents=True, exist_ok=True)
     (state / EXPLANATION_DIR).mkdir(parents=True, exist_ok=True)
     manifest = dict(load_kernel_manifest())
+    pattern_surface = pattern_surface_contract()
     payload = {
         **_base(project, "microcosm_project_architecture_v1"),
         "kernel": manifest,
@@ -389,6 +513,19 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
             f"{STATE_DIR}/{EVENT_STREAM}",
             f"{STATE_DIR}/{EVIDENCE_DIR}/",
             f"{STATE_DIR}/{EXPLANATION_DIR}/",
+        ],
+        "pattern_surface": pattern_surface,
+        "pattern_state_ref": pattern_surface.get("state_ref", ".microcosm/patterns.json"),
+        "architecture_lineage": [
+            "project folder",
+            ".microcosm local state",
+            "architecture kernel",
+            "public pattern surface",
+            "route graph",
+            "route explanation",
+            "work transaction",
+            "event stream",
+            "evidence membrane",
         ],
         "research_prototype_posture": {
             "small_on_purpose": True,
@@ -427,12 +564,10 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
             "route_id": route_id,
             "reason": "route_not_found",
         }
-    pattern_id = _PATTERN_BY_ROUTE.get(str(route.get("route_id") or ""))
-    patterns = [
-        row
-        for row in pattern_payload.get("patterns", [])
-        if isinstance(row, dict) and (not pattern_id or row.get("pattern_id") == pattern_id)
-    ]
+    pattern_refs = _route_pattern_refs(route)
+    pattern_bindings = _pattern_bindings(pattern_payload, pattern_refs)
+    patterns = [row["pattern"] for row in pattern_bindings if isinstance(row.get("pattern"), dict)]
+    pattern_surface = pattern_surface_contract()
     work_items = [
         row
         for row in work_payload.get("work_items", [])
@@ -457,6 +592,13 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
             "next action from those grounded refs."
         ),
         "grounded_refs": route.get("grounded_refs", []),
+        "pattern_refs": pattern_refs,
+        "pattern_surface": pattern_surface,
+        "pattern_bindings": pattern_bindings,
+        "pattern_evidence_refs": [
+            pattern_surface.get("state_ref", ".microcosm/patterns.json"),
+            pattern_surface.get("evidence_ref", ".microcosm/evidence/patterns.json"),
+        ],
         "detected_patterns": patterns,
         "kernel_primitives": ["catalog", "pattern", "route", "work", "event", "evidence", "explanation"],
         "standard_pressure": [

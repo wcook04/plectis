@@ -49,15 +49,24 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert catalog["role_counts"]["test"] == 1
     assert architecture["kernel"]["posture"] == "executable_research_prototype"
     assert "route" in architecture["primitive_ids"]
+    assert architecture["pattern_surface"]["state_ref"] == ".microcosm/patterns.json"
     assert patterns["passing_pattern_count"] >= 4
+    assert patterns["pattern_surface"]["surface_id"] == "public_microcosm_pattern_surface"
+    pattern_ids = {row["pattern_id"] for row in patterns["patterns"]}
+    assert all(row["standard_refs"] for row in patterns["patterns"])
     assert {row["route_id"] for row in routes["routes"]} >= {
         "readme_onboarding_route",
         "package_runtime_route",
         "source_core_route",
         "test_behavior_route",
     }
+    assert all(set(row["pattern_refs"]).issubset(pattern_ids) for row in routes["routes"])
     assert explanation["status"] == "pass"
     assert explanation["route_id"] == "readme_onboarding_route"
+    assert explanation["pattern_refs"] == ["repo_has_readme"]
+    assert explanation["pattern_surface"]["state_ref"] == ".microcosm/patterns.json"
+    assert explanation["pattern_bindings"][0]["pattern_id"] == "repo_has_readme"
+    assert explanation["pattern_bindings"][0]["resolved"] is True
     assert explanation["kernel_primitives"] == [
         "catalog",
         "pattern",
@@ -74,6 +83,12 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert observed["event_count"] >= 6
     assert observed["architecture_ref"] == ".microcosm/architecture.json"
     assert graph["edge_count"] >= 7
+    assert {node["node_id"] for node in graph["nodes"]} >= {
+        "pattern_surface",
+        "standard:std_microcosm_pattern",
+        "standard:std_microcosm_pattern_binding_contract",
+    }
+    assert any(edge["relation"] == "resolves_pattern_refs_against" for edge in graph["edges"])
     assert evidence["evidence_count"] >= 6
     assert inspected["status"] == "pass"
     assert inspected["body_redacted"] is True

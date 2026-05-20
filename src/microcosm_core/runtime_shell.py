@@ -242,6 +242,7 @@ class RuntimeShell:
         routes = self.routes()
         workitems = self.workitems()
         evidence = self.evidence()
+        pattern_surface = architecture_kernel.pattern_surface_contract(self.root)
         return {
             "schema_version": "microcosm_runtime_status_v1",
             "status": PASS if len(adapter_backed) == len(RUNTIME_STEPS) else "blocked",
@@ -279,6 +280,7 @@ class RuntimeShell:
             "accepted_adapter_backed_organs": adapter_backed,
             "route_count": len(routes),
             "pattern_count": len(self.patterns()),
+            "pattern_surface": pattern_surface,
             "workitem_count": len(workitems),
             "evidence_count": len(evidence),
             "kernel_primitive_count": architecture_kernel.load_kernel_manifest(self.root).get("primitive_count"),
@@ -529,7 +531,7 @@ class RuntimeShell:
 <body>
   <header>
     <h1>Microcosm Observatory</h1>
-    <p>{html.escape(project_title)} is shown as an executable research prototype: local state, architecture primitives, routes, work, events, and evidence drilldowns. Release remains unauthorized.</p>
+    <p>{html.escape(project_title)} is shown as an executable research prototype: local state, architecture primitives, resolved pattern bindings, routes, work, events, and evidence drilldowns. Release remains unauthorized.</p>
   </header>
   <main>
     {body}

@@ -35,5 +35,8 @@ def test_research_kernel_density_validator_passes_with_scratch_project(tmp_path:
     assert receipt["blocking_codes"] == []
     assert receipt["density_assertions"]["readme_declares_research_prototype"] is True
     assert receipt["density_assertions"]["kernel_primitives_have_runtime_hooks"] is True
+    assert receipt["density_assertions"]["kernel_declares_pattern_surface"] is True
+    assert receipt["density_assertions"]["route_pattern_refs_resolve"] is True
+    assert receipt["density_assertions"]["explanations_include_pattern_bindings"] is True
     assert receipt["density_assertions"]["route_explanation_available"] is True
     assert receipt["density_assertions"]["release_authorized"] is False

@@ -45,6 +45,12 @@ standard, route, work, event, evidence, explanation, and assimilation. They
 are defined in `core/architecture_kernel.json` and projected into each project
 as `.microcosm/architecture.json`.
 
+The architecture kernel does not replace the pattern surface. Catalog roles
+become rows in `.microcosm/patterns.json`, routes carry `pattern_refs`, and
+`explain` resolves those refs before showing work, events, and evidence. This
+keeps the miniature architecture tied to the same public pattern-binding
+surface used by the adapter spine.
+
 ## First Run
 
 From this directory:
@@ -99,9 +105,9 @@ project loop; open receipts only when you need a drilldown.
 ## Architecture Kernel
 
 `microcosm explain <project> <route_id>` is the main density surface. It shows
-why a route exists by connecting grounded project refs, detected patterns,
-kernel primitives, standard pressure, work transaction shape, event refs, and
-evidence refs.
+why a route exists by connecting grounded project refs, resolved pattern
+bindings, kernel primitives, standard pressure, work transaction shape, event
+refs, and evidence refs.
 
 `microcosm serve <project> --host 127.0.0.1 --port 8765` opens a tiny local
 observatory. It is intentionally dependency-free and static: a browser view

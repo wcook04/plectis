@@ -31,6 +31,9 @@ explanation, and assimilation primitives, not through production claims.
    `microcosm observe <project>`, and `microcosm evidence list <project>`.
    Public input bundles and organ demos are compatibility/regression surfaces,
    not the product center.
+   Architecture primitives must resolve through the project-local pattern
+   surface: catalog observations become `.microcosm/patterns.json`, routes
+   carry `pattern_refs`, and explanations show resolved pattern bindings.
 3. Fixtures Are Tests: fixtures under `fixtures/first_wave/**` are examples,
    bootstrap data, and negative cases. Do not treat fixture-only behavior as
    product-complete runtime behavior.
