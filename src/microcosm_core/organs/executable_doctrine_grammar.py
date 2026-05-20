@@ -23,6 +23,7 @@ STANDARDS_REPORT_NAME = "standards_validation_report.json"
 GROUP_INDEX_NAME = "standards_group_index.json"
 PAPER_REPORT_NAME = "paper_module_validation_report.json"
 ACCEPTANCE_RECEIPT_REL = "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+STANDARDS_BUNDLE_RESULT_NAME = "exported_standards_bundle_validation_result.json"
 
 GRAMMAR_AUTHORITY_CEILING = {
     "status": PASS,
@@ -31,7 +32,7 @@ GRAMMAR_AUTHORITY_CEILING = {
     "doctrine_completeness_overclaim_rejected": True,
 }
 GRAMMAR_ANTI_CLAIM = (
-    "Executable doctrine grammar validates public synthetic fixture structure only; "
+    "Executable doctrine grammar validates public standards and paper-module structure only; "
     "it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs."
 )
 MACRO_BODY_SENTINEL = "SYNTHETIC_MACRO_DOCTRINE_BODY_COPY"
@@ -424,6 +425,12 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     return scan_paths(paths, forbidden_classes=policy, display_root=public_root)
 
 
+def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
+    safe = dict(scan_result)
+    safe.pop("forbidden_output_fields", None)
+    return safe
+
+
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     return [public_relative_path(path, display_root=public_root) for path in paths.values()]
 
@@ -447,6 +454,8 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "rejected_module_ids",
         "rejected_standard_ids",
         "source_pattern_ids",
+        "input_mode",
+        "bundle_id",
     )
     payload = {
         "schema_version": schema_version,
@@ -543,6 +552,40 @@ def write_receipts(
     return {key: public_relative_path(path, display_root=public_root) for key, path in paths.items()}
 
 
+def _write_standards_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / STANDARDS_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version="executable_doctrine_grammar_exported_standards_bundle_validation_v1",
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "accepted_standard_ids": validation_result["accepted_standard_ids"],
+            "valid_module_slugs": validation_result["valid_module_slugs"],
+            "standard_group_index": validation_result["standard_group_index"],
+            "receipt_expectation_coverage": validation_result["receipt_expectation_coverage"],
+            "fixture_regression_required_elsewhere": True,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
 def validate(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -556,7 +599,7 @@ def validate(
     standards_path = input_path / "standards_registry.json"
     standards_payload = read_json_strict(standards_path)
 
-    scan_result = _scan_fixture_inputs(input_path, public_root)
+    scan_result = _receipt_safe_scan_result(_scan_fixture_inputs(input_path, public_root))
     standards_result = validate_standard_registry(standards_payload)
     paper_result = validate_paper_modules(input_path)
     observed = _merge_observed(standards_result, paper_result)
@@ -620,20 +663,120 @@ def validate(
     return result
 
 
+def validate_standards_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    manifest_path = input_path / "bundle_manifest.json"
+    standards_path = input_path / "standards_registry.json"
+    manifest = read_json_strict(manifest_path)
+    standards_payload = read_json_strict(standards_path)
+
+    scan_result = _receipt_safe_scan_result(_scan_fixture_inputs(input_path, public_root))
+    standards_result = validate_standard_registry(standards_payload)
+    paper_result = validate_paper_modules(input_path)
+    observed = _merge_observed(standards_result, paper_result)
+    all_findings = sorted(
+        [*standards_result["findings"], *paper_result["findings"]],
+        key=lambda item: (
+            str(item.get("negative_case_id") or ""),
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    accepted_rows = standards_result["accepted_rows"]
+    standard_group_index = _standard_group_index(accepted_rows)
+    receipt_expectation_coverage = _receipt_expectation_coverage(accepted_rows)
+    bundle_id = str(manifest.get("bundle_id") or "executable_doctrine_grammar_exported_standards_bundle")
+    status = (
+        PASS
+        if scan_result["status"] == PASS and not all_findings and accepted_rows and paper_result["valid_module_slugs"]
+        else "blocked"
+    )
+
+    result = base_receipt(
+        ORGAN_ID,
+        f"{FIXTURE_ID}.exported_standards_bundle",
+        command=command,
+    )
+    result.update(
+        {
+            "status": status,
+            "input_mode": "exported_standards_bundle",
+            "bundle_id": bundle_id,
+            "anti_claim": (
+                "The exported standards bundle validates public runtime-shaped standards metadata. "
+                "It does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": "executable_doctrine_grammar_exported_bundle_validation_not_doctrine_authority",
+                "doctrine_completeness_overclaim_rejected": True,
+            },
+            "expected_negative_cases": {},
+            "observed_negative_cases": observed,
+            "missing_negative_cases": [],
+            "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
+            "findings": all_findings,
+            "private_state_scan": scan_result,
+            "accepted_standard_ids": sorted(str(row["standard_id"]) for row in accepted_rows),
+            "rejected_standard_ids": standards_result["rejected_standard_ids"],
+            "duplicate_standard_slugs": standards_result["duplicate_standard_slugs"],
+            "standard_group_index": standard_group_index,
+            "grammar_error_counts": dict(
+                sorted(Counter(str(finding["error_code"]) for finding in all_findings).items())
+            ),
+            "receipt_expectation_coverage": receipt_expectation_coverage,
+            "paper_module_results": paper_result["module_results"],
+            "valid_module_slugs": paper_result["valid_module_slugs"],
+            "invalid_module_slugs": paper_result["invalid_module_slugs"],
+            "rejected_module_ids": paper_result["invalid_module_slugs"],
+            "source_pattern_ids": ["exported_standards_registry", "exported_paper_modules"],
+            "bundle_inputs": [
+                public_relative_path(manifest_path, display_root=public_root),
+                public_relative_path(standards_path, display_root=public_root),
+                *[
+                    public_relative_path(path, display_root=public_root)
+                    for path in sorted((input_path / "paper_modules").glob("*.md"))
+                ],
+            ],
+        }
+    )
+    receipt_path = _write_standards_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("--input", required=True)
     validate_parser.add_argument("--out", required=True)
+    bundle_parser = subparsers.add_parser("validate-standards-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
-    if args.command_name != "validate":
-        parser.error("expected subcommand: validate")
-    command = (
-        "python -m microcosm_core.organs.executable_doctrine_grammar "
-        f"validate --input {args.input} --out {args.out}"
-    )
-    result = validate(args.input, args.out, command=command)
+    if args.command_name == "validate":
+        command = (
+            "python -m microcosm_core.organs.executable_doctrine_grammar "
+            f"validate --input {args.input} --out {args.out}"
+        )
+        result = validate(args.input, args.out, command=command)
+    elif args.command_name == "validate-standards-bundle":
+        command = (
+            "python -m microcosm_core.organs.executable_doctrine_grammar "
+            f"validate-standards-bundle --input {args.input} --out {args.out}"
+        )
+        result = validate_standards_bundle(args.input, args.out, command=command)
+    else:
+        parser.error("expected subcommand: validate or validate-standards-bundle")
     return 0 if result["status"] == PASS else 1
 
 

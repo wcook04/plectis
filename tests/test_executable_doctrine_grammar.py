@@ -8,11 +8,13 @@ from microcosm_core.organs.executable_doctrine_grammar import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     validate,
+    validate_standards_bundle,
 )
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 GRAMMAR_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/executable_doctrine_grammar/input"
+GRAMMAR_EXPORTED_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/executable_doctrine_grammar/exported_standards_bundle"
 
 
 def test_executable_doctrine_grammar_observes_required_negative_cases(tmp_path: Path) -> None:
@@ -37,6 +39,36 @@ def test_executable_doctrine_grammar_observes_required_negative_cases(tmp_path: 
     assert "MACRO_DOCTRINE_BODY_IN_PUBLIC_FIXTURE" in result["error_codes"]
     assert "DUPLICATE_STANDARD_SLUG_CONFLICT" in result["error_codes"]
     assert "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE" in result["error_codes"]
+
+
+def test_executable_doctrine_grammar_accepts_exported_standards_bundle(tmp_path: Path) -> None:
+    result = validate_standards_bundle(
+        GRAMMAR_EXPORTED_BUNDLE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_standards_bundle"
+    assert result["bundle_id"] == "public_executable_doctrine_grammar_runtime_example"
+    assert result["accepted_standard_ids"] == [
+        "std_public_runtime_doctrine_grammar",
+        "std_public_runtime_paper_module",
+    ]
+    assert result["valid_module_slugs"] == ["public_runtime_doctrine_grammar"]
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["private_state_scan"]["body_redacted"] is True
+    assert result["receipt_paths"] == [
+        "receipts/exported_standards_bundle_validation_result.json"
+    ]
+
+    receipt = json.loads((tmp_path / "receipts/exported_standards_bundle_validation_result.json").read_text(encoding="utf-8"))
+    assert receipt["input_mode"] == "exported_standards_bundle"
+    assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
+    text = json.dumps(receipt, sort_keys=True)
+    assert "matched_excerpt" not in text
+    assert '"body"' not in text
 
 
 def test_executable_doctrine_grammar_receipts_are_public_relative_and_redacted(

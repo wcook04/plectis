@@ -1,13 +1,14 @@
 {
-  "anti_claim": "Executable doctrine grammar validates public synthetic fixture structure only; it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
+  "anti_claim": "Executable doctrine grammar validates public standards and paper-module structure only; it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
   "authority_ceiling": {
     "authority_ceiling": "executable_doctrine_grammar_public_fixture_receipt_only_not_macro_doctrine_authority",
     "doctrine_completeness_overclaim_rejected": true,
     "prose_runtime_authority_rejected": true,
     "status": "pass"
   },
+  "bundle_id": null,
   "command": "python -m microcosm_core.organs.executable_doctrine_grammar validate --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar",
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "created_at": "2026-05-20T15:09:25+00:00",
   "error_codes": [
     "DUPLICATE_STANDARD_SLUG_CONFLICT",
     "GRAMMAR_PASS_OVERCLAIMS_DOCTRINE_COMPLETE",
@@ -145,6 +146,7 @@
     }
   ],
   "fixture_id": "first_wave.executable_doctrine_grammar",
+  "input_mode": null,
   "invalid_module_slugs": [
     "broken_module"
   ],
@@ -173,10 +175,6 @@
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
-    "forbidden_output_fields": [
-      "matched_excerpt",
-      "body"
-    ],
     "hit_count": 0,
     "hits": [],
     "scanned_path_count": 3,

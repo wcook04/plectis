@@ -62,7 +62,7 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(organ_parser)
 
     grammar_parser = subparsers.add_parser("executable-doctrine-grammar")
-    grammar_parser.add_argument("action", choices=["validate"])
+    grammar_parser.add_argument("action", choices=["validate", "validate-standards-bundle"])
     _add_input_out(grammar_parser)
 
     proof_parser = subparsers.add_parser("proof-diagnostic-evidence-spine")

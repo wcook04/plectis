@@ -1,0 +1,12 @@
+{
+  "schema_version": "executable_doctrine_grammar_exported_standards_bundle_v1",
+  "bundle_id": "public_executable_doctrine_grammar_runtime_example",
+  "bundle_kind": "exported_standards_bundle",
+  "organ_id": "executable_doctrine_grammar",
+  "runtime_surfaces": [
+    "standards_registry",
+    "paper_modules"
+  ],
+  "authority_ceiling": "public standards metadata validation only",
+  "anti_claim": "This bundle is standalone runtime-shaped input. It does not expose doctrine bodies or claim doctrine completeness."
+}

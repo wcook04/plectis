@@ -1,0 +1,33 @@
+{
+  "schema_version": "executable_standards_registry_bundle_v1",
+  "standards": [
+    {
+      "standard_id": "std_public_runtime_doctrine_grammar",
+      "slug": "public_runtime_doctrine_grammar",
+      "standard_group": "runtime_grammar",
+      "standard_kind": "executable",
+      "teleology": "Keep public standards and paper modules parseable, bounded, and receipt-backed.",
+      "governing_standard": "std_executable_doctrine_grammar",
+      "receipt_expectations": [
+        "standards_validation_report",
+        "paper_module_validation_report"
+      ],
+      "anti_claim_ref": "anti_claim.grammar.runtime_metadata_only",
+      "anti_claim": "Runtime grammar validates metadata shape and does not claim doctrine completeness."
+    },
+    {
+      "standard_id": "std_public_runtime_paper_module",
+      "slug": "public_runtime_paper_module",
+      "standard_group": "runtime_grammar",
+      "standard_kind": "executable",
+      "teleology": "Keep public paper modules tied to governing standards, receipt expectations, and anti-claims.",
+      "governing_standard": "std_executable_doctrine_grammar",
+      "receipt_expectations": [
+        "paper_module_validation_report"
+      ],
+      "anti_claim_ref": "anti_claim.grammar.paper_module_metadata_only",
+      "anti_claim": "Paper-module validation does not publish macro doctrine bodies."
+    }
+  ],
+  "anti_claim": "The exported standards registry is public metadata, not macro doctrine body text."
+}

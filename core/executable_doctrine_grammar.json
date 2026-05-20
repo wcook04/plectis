@@ -3,8 +3,12 @@
   "organ_id": "executable_doctrine_grammar",
   "fixture_id": "first_wave.executable_doctrine_grammar",
   "status": "public_slice_contract",
-  "authority_ceiling": "executable_doctrine_grammar_public_fixture_receipt_only_not_macro_doctrine_authority",
-  "anti_claim": "Executable doctrine grammar validates public synthetic fixture structure only; it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
+  "authority_ceiling": "executable_doctrine_grammar_public_runtime_metadata_validation_not_macro_doctrine_authority",
+  "anti_claim": "Executable doctrine grammar validates public standards and paper-module metadata; it does not publish macro doctrine bodies, prove doctrine completeness, or authorize later organs.",
+  "input_modes": [
+    "first_wave_fixture_regression",
+    "exported_standards_bundle"
+  ],
   "public_inputs": [
     "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json",
     "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md",
@@ -14,6 +18,7 @@
     "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
     "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
     "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+    "receipts/first_wave/executable_doctrine_grammar/exported_standards_bundle_validation_result.json",
     "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
   ],
   "expected_negative_cases": {
