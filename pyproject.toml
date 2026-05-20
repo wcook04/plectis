@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "microcosm-substrate"
 version = "0.1.0"
-description = "Public-safe microcosm first-slice substrate."
+description = "Public-safe microcosm runtime-spine substrate."
 requires-python = ">=3.11"
 
 [project.scripts]
