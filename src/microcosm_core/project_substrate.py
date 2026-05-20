@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -95,10 +96,26 @@ def _append_event(project: Path, event: dict[str, Any]) -> None:
         fh.write(json.dumps(event, ensure_ascii=True, sort_keys=True) + "\n")
 
 
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def _write_evidence(project: Path, action_id: str, payload: dict[str, Any]) -> str:
     ref = f"{EVIDENCE_DIR}/{action_id}.json"
-    write_json_atomic(_state_dir(project) / ref, payload)
-    return f"{STATE_DIR}/{ref}"
+    evidence_path = _state_dir(project) / ref
+    stable_ref = f"{STATE_DIR}/{ref}"
+    previous_sha256 = _sha256_file(evidence_path) if evidence_path.is_file() else None
+    evidence_payload = dict(payload)
+    evidence_payload.setdefault("evidence_ref", stable_ref)
+    evidence_payload["evidence_replacement"] = {
+        "stable_ref": stable_ref,
+        "policy": "stable_ref_latest_body",
+        "previous_sha256": previous_sha256,
+        "replacement_recorded": previous_sha256 is not None,
+        "append_only_event_history_ref": f"{STATE_DIR}/{EVENT_STREAM}",
+    }
+    write_json_atomic(evidence_path, evidence_payload)
+    return stable_ref
 
 
 def _base_payload(schema_version: str, project: Path) -> dict[str, Any]:
@@ -750,6 +767,11 @@ def list_evidence(project_path: str | Path) -> dict[str, Any]:
                 "status": payload.get("status", "unknown"),
                 "project_id": payload.get("project_id", _project_name(project)),
                 "created_at": payload.get("created_at"),
+                "replacement_policy": (
+                    payload.get("evidence_replacement", {}).get("policy")
+                    if isinstance(payload.get("evidence_replacement"), dict)
+                    else None
+                ),
             }
         )
     return {
@@ -782,6 +804,7 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
         "file_count",
         "role_counts",
         "release_authorized",
+        "evidence_replacement",
     }
     return {
         **_base_payload("microcosm_project_evidence_card_v1", project),

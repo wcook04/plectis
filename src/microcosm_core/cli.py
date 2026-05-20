@@ -17,6 +17,7 @@ from microcosm_core.validators import private_state_scan
 from microcosm_core.validators import public_entry_docs
 from microcosm_core.validators import research_kernel_density
 from microcosm_core.validators import standards_registry
+from microcosm_core.validators import transaction_evidence_stability
 
 
 def _add_root_out(parser: argparse.ArgumentParser) -> None:
@@ -91,6 +92,9 @@ def main(argv: list[str] | None = None) -> int:
     density_parser = subparsers.add_parser("research-kernel-density")
     _add_root_out(density_parser)
     density_parser.add_argument("--project")
+    stability_parser = subparsers.add_parser("transaction-evidence-stability")
+    _add_root_out(stability_parser)
+    stability_parser.add_argument("--project", required=True)
 
     standards_parser = subparsers.add_parser("standards-registry")
     standards_parser.add_argument("--registry", required=True)
@@ -202,6 +206,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.project:
             density_args.extend(["--project", args.project])
         return research_kernel_density.main(density_args)
+    if args.command == "transaction-evidence-stability":
+        return transaction_evidence_stability.main(
+            ["--root", args.root, "--project", args.project, "--out", args.out]
+        )
     if args.command == "standards-registry":
         return standards_registry.main(
             [
