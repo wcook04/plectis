@@ -42,7 +42,7 @@
     }
   ],
   "command": "navigation_hologram_route_plane run",
-  "created_at": "2026-05-20T12:20:50+00:00",
+  "created_at": "2026-05-20T12:30:27+00:00",
   "drilldown_commands": [
     "microcosm option-surface toy --cluster grammar",
     "microcosm option-surface toy --cluster proof",

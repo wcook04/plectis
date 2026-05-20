@@ -1,0 +1,708 @@
+{
+  "schema_version": "organ_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "pattern_assimilation_step",
+  "fixture_id": "fixture::pattern_assimilation_step::first_wave_contract_v1",
+  "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+  "source_ledger_row_count_verified": 309,
+  "source_portfolio_refs": [
+    "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json::pattern_assimilation_step",
+    "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::organ_landing_without_refinement_or_typed_nothing",
+    "state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json::mission_w1_pattern_assimilation_closeout",
+    "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json::std_microcosm_pattern_assimilation_step"
+  ],
+  "wave_status": {
+    "first_wave": "required_closeout_after_all_wave_1_runtime_organs",
+    "second_wave": "consume for external boundary, bridge continuity, and voice-to-doctrine organs after their manifests exist",
+    "deferred": "real private lesson ingestion, live Task Ledger consumption, raw seed assimilation, and operator-thread learning"
+  },
+  "purpose": "Prove that every landed organ produces either a concrete pattern-surface refinement or a typed nothing_to_refine receipt with stewardship checks, next-best-lane evidence, and a reentry condition.",
+  "synthetic_input_files": [
+    {
+      "path": "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl",
+      "kind": "jsonl",
+      "records": [
+        "landing_refinement: landed_organ_id=navigation_hologram_route_plane, refinement_result=fixture_manifest_refined, owner_surface=core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json, receipt_ref=receipts/first_wave/pattern_assimilation_receipt.json",
+        "landing_nothing_to_refine: landed_organ_id=formal_math_lean_proof_witness, refinement_result=nothing_to_refine, stewardship_checked=true, next_best_lane_checked=proof_diagnostic_evidence_spine, reentry_condition=lean_toolchain_or_negative_case_contract_changes",
+        "landing_missing_closeout: landed_organ_id=mission_transaction_work_spine, refinement_result=null, stewardship_checked=false, next_best_lane_checked=null, reentry_condition=null"
+      ]
+    },
+    {
+      "path": "fixtures/first_wave/pattern_assimilation_step/input/refinement_case.json",
+      "kind": "json",
+      "records": [
+        "one synthetic organ landing that updates a fixture manifest, validator contract, skill, standard, paper module, doctrine candidate, or pattern binding row",
+        "must cite changed_surface_ref, source_pattern_ids, receipt_ref, and anti_claim"
+      ]
+    },
+    {
+      "path": "fixtures/first_wave/pattern_assimilation_step/input/nothing_to_refine_case.json",
+      "kind": "json",
+      "records": [
+        "one synthetic organ landing with refinement_result=nothing_to_refine",
+        "must carry stewardship_checked=true, next_best_lane_checked, next_best_lane_result, and reentry_condition"
+      ]
+    },
+    {
+      "path": "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json",
+      "kind": "json",
+      "records": [
+        "one landed organ with no refinement and no typed nothing_to_refine receipt",
+        "expected to fail with MISSING_PATTERN_ASSIMILATION_CLOSEOUT, MISSING_STEWARDSHIP_CHECK, and MISSING_REENTRY_CONDITION"
+      ]
+    },
+    {
+      "path": "fixtures/first_wave/pattern_assimilation_step/input/private_state_forbidden_terms.json",
+      "kind": "json",
+      "records": [
+        "denylist class ids only: real_raw_seed, prompt_body, provider_payload_body, live_task_ledger_row, operator_thread_content, chatgpt_hud_live_data, cockpit_live_state, prediction_market_private_material, private_memory_body, release_or_publication_packet_body"
+      ]
+    }
+  ],
+  "validator_rules": [
+    "Every Wave 1 organ listed in core/acceptance/first_wave_acceptance.json must have exactly one pattern-assimilation decision row.",
+    "A refinement decision passes only when it names an allowed owner surface and records a changed_surface_ref or receipt_ref.",
+    "A nothing_to_refine decision passes only when stewardship_checked is true, next_best_lane_checked is non-empty, next_best_lane_result is recorded, and reentry_condition is concrete.",
+    "The missing_closeout_case must fail with all expected stable error codes and must not be counted as an accepted closeout.",
+    "A decision row that cites private raw seed, prompt bodies, provider payloads, live Task Ledger rows, operator thread bodies, HUD/browser/cockpit state, prediction/market material, or release/publication surfaces fails private_state_scan.",
+    "The acceptance receipt must retain anti_claim and authority_ceiling so closeout learning cannot be mistaken for public implementation proof.",
+    "Autonomy-seed closeout rows must cite the macro pattern autonomy process contract, latest same-lane receipt detection, a concrete edit or exact blocker capture, validation commands, validation status, and a self_refire_target.",
+    "If adjacent same-lane autonomy receipts repeat the same self_refire_target.target_artifact_ref, the later receipt must either change that target artifact or cite residual_capture_refs with exact unblock conditions.",
+    "A pass_with_residual_capture same-lane run must carry residual_lifecycle_review evidence, resolve each residual ref through Task Ledger authority, prove durable unblock/acceptance text, and recheck any reused residual refs."
+  ],
+  "expected_outputs": [
+    {
+      "path": "receipts/first_wave/pattern_assimilation_acceptance.json",
+      "must_include": [
+        "wave_1_organ_ids",
+        "landing_decision_count",
+        "refinement_count",
+        "typed_nothing_to_refine_count",
+        "missing_closeout_count",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "status"
+      ]
+    },
+    {
+      "path": "receipts/first_wave/pattern_assimilation_receipt.json",
+      "must_include": [
+        "organ_id",
+        "fixture_id",
+        "landed_organ_id",
+        "refinement_result",
+        "owner_surface",
+        "changed_surface_ref",
+        "stewardship_checked",
+        "next_best_lane_checked",
+        "next_best_lane_result",
+        "reentry_condition",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "assigned_lane",
+        "already_run_lane_detection",
+        "concrete_improvement_made",
+        "changed_artifact_refs",
+        "validation_commands",
+        "validation_status",
+        "residual_capture_refs",
+        "self_refire_target",
+        "next_self_refire_direction"
+      ]
+    },
+    {
+      "path": "core/pattern_assimilation_policy.json",
+      "must_include": [
+        "allowed_refinement_surfaces",
+        "nothing_to_refine_required_fields",
+        "private_state_exclusions",
+        "negative_case_ids",
+        "receipt_schema_ref"
+      ]
+    },
+    {
+      "path": "skills/pattern_assimilation.md",
+      "must_include": [
+        "when_to_refine",
+        "when_to_emit_nothing_to_refine",
+        "capture_before_prose_rule",
+        "forbidden_private_inputs"
+      ]
+    },
+    {
+      "path": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+      "must_include": [
+        "assigned_lane",
+        "already_run_lane_detection",
+        "concrete_improvement_made",
+        "changed_artifact_refs",
+        "validation_commands",
+        "validation_status",
+        "residual_capture_refs",
+        "self_refire_target",
+        "next_self_refire_direction",
+        "anti_claim"
+      ]
+    }
+  ],
+  "receipt_schema": {
+    "receipt_id": "pattern_assimilation_receipt_v1",
+    "required_fields": [
+      "organ_id",
+      "fixture_id",
+      "status",
+      "source_pattern_ids",
+      "validator_id",
+      "command",
+      "expected_negative_cases",
+      "observed_negative_cases",
+      "landed_organ_id",
+      "refinement_result",
+      "stewardship_checked",
+      "next_best_lane_checked",
+      "next_best_lane_result",
+      "reentry_condition",
+      "owner_surface",
+      "anti_claim",
+      "private_state_scan",
+      "authority_ceiling",
+      "assigned_lane",
+      "already_run_lane_detection",
+      "concrete_improvement_made",
+      "changed_artifact_refs",
+      "validation_commands",
+      "validation_status",
+      "residual_capture_refs",
+      "self_refire_target",
+      "next_self_refire_direction",
+      "receipt_paths",
+      "schema_version"
+    ],
+    "status_values": [
+      "pass",
+      "fail",
+      "blocked"
+    ],
+    "refinement_result_values": [
+      "fixture_manifest_refined",
+      "validator_contract_refined",
+      "skill_refined",
+      "standard_refined",
+      "paper_module_refined",
+      "doctrine_candidate_refined",
+      "pattern_binding_refined",
+      "typed_gap_captured",
+      "nothing_to_refine"
+    ]
+  },
+  "autonomy_process_ratchet_contract_v1": {
+    "status": "active",
+    "contract_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
+    "run_receipt_log_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+    "assigned_lane": "pattern_assimilation_autonomy_process_ratchet",
+    "required_closeout_fields": [
+      "assigned_lane",
+      "already_run_lane_detection",
+      "concrete_improvement_made",
+      "changed_artifact_refs",
+      "validation_commands",
+      "validation_status",
+      "residual_capture_refs",
+      "self_refire_target",
+      "next_self_refire_direction"
+    ],
+    "failure_modes_bound_by_contract": [
+      "AUTONOMY_SEED_DUPLICATE_TARGET_WITHOUT_REFINEMENT",
+      "AUTONOMY_SEED_STALE_OUTPUT_SURFACE",
+      "AUTONOMY_RUN_NO_CONCRETE_EDIT_OR_BLOCKER_CAPTURE",
+      "AUTONOMY_PROMPT_SEQUENTIAL_LOCK_IN_CONCURRENT_BATCH",
+      "AUTONOMY_SEED_FIXED_POINT_COMMAND_MISSING",
+      "AUTONOMY_SEED_FIXED_POINT_COMMAND_ORDER_GAP",
+      "AUTONOMY_SEED_FIXED_POINT_CHANGED_REF_MISSING",
+      "AUTONOMY_SEED_READINESS_RECEIPT_DID_NOT_CONSUME_LATEST_SAME_LANE_ROW",
+      "AUTONOMY_RUN_RESIDUAL_LIFECYCLE_REVIEW_MISSING",
+      "AUTONOMY_RUN_RESIDUAL_CAPTURE_REF_NOT_FOUND",
+      "AUTONOMY_RUN_RESIDUAL_CAPTURE_MISSING_UNBLOCK_CONDITION",
+      "AUTONOMY_RUN_RESIDUAL_REUSE_WITHOUT_RECHECK"
+    ],
+    "anti_claim": "This binding extends pattern-assimilation closeout to macro autonomy process receipts only. It does not execute future public builders or authorize public-root writes."
+  },
+  "autonomy_fixed_point_negative_case_contract_v1": {
+    "status": "active",
+    "negative_case_id": "same_lane_fixed_point_closeout_out_of_order",
+    "contract_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json::validation_fixed_point_policy",
+    "run_receipt_log_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+    "checker_invariant": "macro_pattern_autonomy_process_contract_consumed_by_readiness",
+    "failure_codes": [
+      "AUTONOMY_SEED_FIXED_POINT_COMMAND_MISSING",
+      "AUTONOMY_SEED_FIXED_POINT_COMMAND_ORDER_GAP",
+      "AUTONOMY_SEED_FIXED_POINT_CHANGED_REF_MISSING",
+      "AUTONOMY_SEED_READINESS_RECEIPT_DID_NOT_CONSUME_LATEST_SAME_LANE_ROW"
+    ],
+    "required_receipt_evidence_fields": [
+      "validation_fixed_point_command_gaps",
+      "validation_fixed_point_changed_ref_gaps",
+      "latest_run_consumed_by_readiness_receipt",
+      "latest_run_validation_fixed_point_passed"
+    ],
+    "fixture_input_ref": "fixtures/first_wave/pattern_assimilation_step/input/same_lane_fixed_point_closeout_out_of_order.json",
+    "synthetic_fixture_payload_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::coverage_contract_v1.synthetic_fixture_payload_contract_v1",
+    "expected_rejection": "A same-lane autonomy run that appends its receipt but skips ordered dry-run, truth-index, and readiness refresh, omits required changed refs, or closes before readiness consumes the latest same-lane JSONL row must be rejected as stale fixed-point closeout.",
+    "public_private_boundary_note": "This negative case is schema-only and synthetic. It may reference macro-side artifact paths and failure-code ids, but it must not include raw seed text, prompt bodies, provider payloads, operator thread bodies, live Task Ledger rows, cockpit/HUD/browser state, release packets, recipient packets, website surfaces, prediction material, or market-private evidence.",
+    "anti_claim": "This binding sharpens macro-side pattern-assimilation fixture coverage for autonomy seed closeout only. It does not execute public builders, write public code, authorize public-root writes, or certify public runtime behavior."
+  },
+  "autonomy_residual_lifecycle_negative_case_contract_v1": {
+    "status": "active",
+    "negative_case_id": "pass_with_residual_capture_lifecycle_gap",
+    "contract_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json::residual_capture_lifecycle_policy",
+    "run_receipt_log_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+    "checker_invariant": "macro_pattern_autonomy_process_contract_consumed_by_readiness",
+    "failure_codes": [
+      "AUTONOMY_RUN_RESIDUAL_LIFECYCLE_REVIEW_MISSING",
+      "AUTONOMY_RUN_RESIDUAL_CAPTURE_REF_NOT_FOUND",
+      "AUTONOMY_RUN_RESIDUAL_CAPTURE_MISSING_UNBLOCK_CONDITION",
+      "AUTONOMY_RUN_RESIDUAL_REUSE_WITHOUT_RECHECK"
+    ],
+    "required_receipt_evidence_fields": [
+      "residual_capture_lifecycle_review_missing_fields",
+      "residual_capture_lifecycle_unresolved_refs",
+      "residual_capture_lifecycle_refs_missing_acceptance",
+      "residual_capture_lifecycle_review_missing_reused_refs",
+      "residual_capture_lifecycle_reuse_without_recheck",
+      "residual_capture_lifecycle_latest_run_accepted"
+    ],
+    "fixture_input_ref": "fixtures/first_wave/pattern_assimilation_step/input/pass_with_residual_capture_lifecycle_gap.json",
+    "synthetic_fixture_payload_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::coverage_contract_v1.synthetic_fixture_payload_contract_v1",
+    "expected_rejection": "A pass_with_residual_capture same-lane autonomy row that lacks residual_lifecycle_review, cites a residual ref outside Task Ledger authority, lacks durable unblock/acceptance text, or reuses an old residual without recheck commands must be rejected as stale residual closeout.",
+    "public_private_boundary_note": "This negative case is schema-only and synthetic. It may reference macro-side artifact paths, Task Ledger id shapes, and failure-code ids, but it must not include raw seed text, prompt bodies, provider payloads, operator thread bodies, live Task Ledger rows, cockpit/HUD/browser state, release packets, recipient packets, website surfaces, prediction material, or market-private evidence.",
+    "anti_claim": "This binding sharpens macro-side residual lifecycle coverage for autonomy seed closeout only. It does not execute public builders, write public code, authorize public-root writes, resolve the residual itself, or certify public runtime behavior."
+  },
+  "negative_case": {
+    "id": "organ_landing_without_refinement_or_typed_nothing",
+    "input_ref": "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json",
+    "expected_result": "A landed organ without refinement and without a typed nothing_to_refine receipt is rejected by acceptance and recorded as a closeout failure.",
+    "required_error_codes": [
+      "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+      "MISSING_STEWARDSHIP_CHECK",
+      "MISSING_REENTRY_CONDITION"
+    ]
+  },
+  "negative_case_coverage_contract_v1": {
+    "status": "bound_to_expanded_negative_case_matrix",
+    "organ_id": "pattern_assimilation_step",
+    "manifest_organ_id": "pattern_assimilation_step",
+    "fixture_manifest_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+    "matrix_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::negative_cases[organ_id=pattern_assimilation_step]",
+    "taxonomy_ref": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json",
+    "coverage_report_ref": "state/microcosm_portfolio/reconstruction/negative_case_coverage_report_v1.md",
+    "checker_invariant": "fixture_manifest_negative_case_attachment_ready",
+    "observed_case_count": 5,
+    "minimum_case_target": 4,
+    "minimum_target_met": true,
+    "negative_case_ids": [
+      "organ_landing_without_refinement_or_typed_nothing",
+      "assimilation_receipt_missing_owner_surface",
+      "local_lesson_claims_global_doctrine_authority",
+      "assimilation_private_raw_seed_body",
+      "duplicate_refinement_receipt_conflict"
+    ],
+    "failure_classes": [
+      "authority_upgrade",
+      "duplicate_conflict_concurrency",
+      "happy_path_overclaim",
+      "missing_required_field",
+      "private_boundary"
+    ],
+    "required_failure_classes": [
+      "missing_required_field",
+      "authority_upgrade",
+      "private_boundary",
+      "happy_path_overclaim",
+      "duplicate_conflict_concurrency"
+    ],
+    "missing_required_failure_classes": [],
+    "expected_error_codes": [
+      "DUPLICATE_REFINEMENT_RECEIPT_ID",
+      "LOCAL_LESSON_AUTHORITY_UPGRADE",
+      "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+      "MISSING_REENTRY_CONDITION",
+      "MISSING_REFINEMENT_OWNER_SURFACE",
+      "MISSING_STEWARDSHIP_CHECK",
+      "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+    ],
+    "validators_that_catch_cases": [
+      "validate_nothing_to_refine_receipt",
+      "validate_pattern_assimilation_closeout",
+      "validate_pattern_assimilation_private_state_scan"
+    ],
+    "receipt_fields_proving_observed": [
+      "authority_ceiling",
+      "duplicate_receipt_ids",
+      "private_state_scan",
+      "refinement_result"
+    ],
+    "anti_principle_ids": [
+      "anti_authority_upgrade_by_local_pass",
+      "anti_late_redaction_boundary",
+      "anti_local_pass_ends_learning",
+      "anti_narrative_claim_without_receipt",
+      "anti_private_trace_redacted_as_proof"
+    ],
+    "fixture_input_refs": [
+      "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json",
+      "fixtures/first_wave/pattern_assimilation_step/input/refinement_missing_owner_surface.json",
+      "fixtures/first_wave/pattern_assimilation_step/input/local_lesson_global_authority_claim.json",
+      "fixtures/first_wave/pattern_assimilation_step/input/raw_seed_body_in_assimilation_case.json",
+      "fixtures/first_wave/pattern_assimilation_step/input/duplicate_refinement_receipt_id.json"
+    ],
+    "public_private_boundary_note": "Public fixtures may use synthetic rows, metadata-only handles, schema-only examples, and path/class refs; non-public content bodies, live operator state, private source bodies, and forbidden live evidence remain excluded.",
+    "anti_claim": "This fixture manifest attachment enumerates macro-side negative-case coverage only. It does not execute validators, build public code, authorize public-root writes, or certify public runtime behavior.",
+    "synthetic_fixture_payload_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::coverage_contract_v1.synthetic_fixture_payload_contract_v1",
+    "synthetic_fixture_payload_ids": [
+      "negative_fixture_payload::organ_landing_without_refinement_or_typed_nothing",
+      "negative_fixture_payload::assimilation_receipt_missing_owner_surface",
+      "negative_fixture_payload::local_lesson_claims_global_doctrine_authority",
+      "negative_fixture_payload::assimilation_private_raw_seed_body",
+      "negative_fixture_payload::duplicate_refinement_receipt_conflict"
+    ],
+    "synthetic_fixture_payload_count": 5,
+    "synthetic_fixture_payload_checker_invariant": "synthetic_fixture_payload_contract_ready"
+  },
+  "validator_contract_ratchet_v1": {
+    "contract_id": "pattern_assimilation_step_receipt_field_floor_v1",
+    "status": "macro_side_required_before_public_implementation",
+    "validator_id": "validator.microcosm.validators.acceptance.pattern_assimilation_step",
+    "stable_fixture_id": "fixture::pattern_assimilation_step::first_wave_contract_v1",
+    "acceptance_test_id": "accept_pattern_assimilation_step_closeout_contract",
+    "primary_command_shape": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --out receipts/first_wave/pattern_assimilation_acceptance.json",
+    "expected_output_paths": [
+      "receipts/first_wave/pattern_assimilation_acceptance.json",
+      "receipts/first_wave/pattern_assimilation_receipt.json",
+      "core/pattern_assimilation_policy.json",
+      "skills/pattern_assimilation.md",
+      "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+    ],
+    "receipt_paths_requiring_field_floor": [
+      "receipts/first_wave/pattern_assimilation_acceptance.json",
+      "receipts/first_wave/pattern_assimilation_receipt.json",
+      "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+    ],
+    "shared_receipt_field_floor": [
+      "schema_version",
+      "organ_id",
+      "fixture_id",
+      "validator_id",
+      "command",
+      "status",
+      "expected_negative_cases",
+      "observed_negative_cases",
+      "error_codes",
+      "anti_claim",
+      "private_state_scan",
+      "authority_ceiling",
+      "receipt_paths"
+    ],
+    "pattern_assimilation_specific_receipt_fields": [
+      "wave_1_organ_ids",
+      "landing_decision_count",
+      "refinement_count",
+      "typed_nothing_to_refine_count",
+      "missing_closeout_count",
+      "landed_organ_id",
+      "refinement_result",
+      "owner_surface",
+      "changed_surface_ref",
+      "stewardship_checked",
+      "next_best_lane_checked",
+      "next_best_lane_result",
+      "reentry_condition",
+      "assigned_lane",
+      "already_run_lane_detection",
+      "same_lane_receipt_selection",
+      "latest_same_lane_receipt_ref",
+      "latest_same_lane_receipt_source_line_no",
+      "latest_same_lane_receipt_append_index",
+      "concrete_improvement_made",
+      "changed_artifact_refs",
+      "validation_commands",
+      "validation_status",
+      "residual_capture_refs",
+      "residual_lifecycle_review",
+      "fixed_point_closeout_evidence",
+      "duplicate_target_refinement_decision",
+      "no_concrete_edit_failure_reason",
+      "self_refire_target",
+      "next_self_refire_direction",
+      "duplicate_receipt_ids"
+    ],
+    "per_output_receipt_field_floor": {
+      "receipts/first_wave/pattern_assimilation_acceptance.json": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "wave_1_organ_ids",
+        "landing_decision_count",
+        "refinement_count",
+        "typed_nothing_to_refine_count",
+        "missing_closeout_count",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "receipt_paths"
+      ],
+      "receipts/first_wave/pattern_assimilation_receipt.json": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "landed_organ_id",
+        "refinement_result",
+        "owner_surface",
+        "changed_surface_ref",
+        "stewardship_checked",
+        "next_best_lane_checked",
+        "next_best_lane_result",
+        "reentry_condition",
+        "assigned_lane",
+        "already_run_lane_detection",
+        "same_lane_receipt_selection",
+        "latest_same_lane_receipt_ref",
+        "latest_same_lane_receipt_source_line_no",
+        "latest_same_lane_receipt_append_index",
+        "concrete_improvement_made",
+        "changed_artifact_refs",
+        "validation_commands",
+        "validation_status",
+        "residual_capture_refs",
+        "residual_lifecycle_review",
+        "fixed_point_closeout_evidence",
+        "duplicate_target_refinement_decision",
+        "no_concrete_edit_failure_reason",
+        "self_refire_target",
+        "next_self_refire_direction",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "receipt_paths"
+      ],
+      "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "assigned_lane",
+        "already_run_lane_detection",
+        "same_lane_receipt_selection",
+        "latest_same_lane_receipt_ref",
+        "latest_same_lane_receipt_source_line_no",
+        "latest_same_lane_receipt_append_index",
+        "concrete_improvement_made",
+        "changed_artifact_refs",
+        "validation_commands",
+        "validation_status",
+        "residual_capture_refs",
+        "residual_lifecycle_review",
+        "fixed_point_closeout_evidence",
+        "duplicate_target_refinement_decision",
+        "no_concrete_edit_failure_reason",
+        "self_refire_target",
+        "next_self_refire_direction",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "authority_ceiling",
+        "private_state_scan",
+        "receipt_paths"
+      ]
+    },
+    "required_negative_case_source": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::negative_cases[organ_id=pattern_assimilation_step]",
+  "required_error_code_source": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json::error_codes[organ_ids contains pattern_assimilation_step]",
+  "required_receipt_assertion_source": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json::negative_case_receipt_assertion_contract_v1.assertion_rows[organ_id=pattern_assimilation_step]",
+  "required_negative_case_ids": [
+    "organ_landing_without_refinement_or_typed_nothing",
+    "assimilation_receipt_missing_owner_surface",
+    "local_lesson_claims_global_doctrine_authority",
+    "assimilation_private_raw_seed_body",
+      "duplicate_refinement_receipt_conflict"
+    ],
+  "required_error_codes": [
+    "DUPLICATE_REFINEMENT_RECEIPT_ID",
+    "LOCAL_LESSON_AUTHORITY_UPGRADE",
+    "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+      "MISSING_REENTRY_CONDITION",
+      "MISSING_REFINEMENT_OWNER_SURFACE",
+      "MISSING_STEWARDSHIP_CHECK",
+      "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+    ],
+    "anti_claim_assertions": [
+      "a landed organ is not closed by success alone; it must emit a concrete refinement or typed nothing_to_refine receipt",
+      "nothing_to_refine cannot pass without stewardship_checked, next_best_lane_checked, next_best_lane_result, and reentry_condition",
+      "a local lesson cannot upgrade itself into global doctrine without evidence-gated propagation through the owning surface",
+      "synthetic closeout fixtures must reject raw seed bodies, prompt bodies, provider payload bodies, live Task Ledger rows, operator thread bodies, HUD/browser/cockpit state, prediction material, release material, hosted-public material, and website material",
+      "duplicate refinement receipt ids fail rather than double-counting learning closure",
+      "a repeated self_refire_target must either change that target artifact or cite residual_capture_refs with exact unblock conditions",
+      "same-lane closeout must select the latest receipt for the assigned lane by append/source-line evidence before reading global latest-run state",
+      "a pass claim with no concrete edit must be typed as nothing_to_refine or blocked_with_residual_recheck and must carry residual lifecycle or fixed-point evidence"
+    ],
+    "private_state_boundary_assertions": [
+      "private_state_scan is path/class-reference-only",
+      "fixture inputs may contain synthetic landing summaries, schema-only rows, class ids, redacted handles, and macro reconstruction paths only",
+      "receipt rows must not embed real raw seed text, prompt shelf bodies, provider payload bodies, live Task Ledger rows, operator thread bodies, HUD/browser/cockpit state, private memory bodies, prediction material, release packets, recipient packets, hosted-public artifacts, or website surfaces"
+    ],
+    "acceptance_predicates_cannot_fake": [
+      "wave_1_organ_ids must have exactly one closeout decision row per landed organ",
+      "refinement_result=fixture_manifest_refined or validator_contract_refined must name owner_surface and changed_surface_ref",
+      "refinement_result=nothing_to_refine must carry stewardship_checked=true, next_best_lane_checked, next_best_lane_result, and reentry_condition",
+      "missing_closeout_count must remain non-zero for the missing-closeout negative fixture and observed_negative_cases must name organ_landing_without_refinement_or_typed_nothing",
+      "error_codes must be a subset of normalized pattern_assimilation_step taxonomy rows",
+      "duplicate_receipt_ids must be present when duplicate_refinement_receipt_conflict is observed",
+      "macro_pattern_autonomy_process_runs_v1 rows must record validation_status and next_self_refire_direction before a run can claim closure",
+      "same_lane_receipt_selection must prove the latest row was selected within assigned_lane or operator_assigned_lane using latest_same_lane_receipt_ref, source line, and append index evidence",
+      "fixed_point_closeout_evidence must show ordered dry-run, truth-index, and readiness validation and must show readiness consumed the latest same-lane receipt before closure",
+      "residual_lifecycle_review must resolve every residual_capture_refs entry through Task Ledger authority, name reused refs, and include recheck commands before pass_with_residual_capture or blocked_with_residual_recheck can close",
+      "duplicate_target_refinement_decision must reject repeated self_refire_target.target_artifact_ref unless the target artifact changed or exact residual unblock conditions are cited",
+      "validation_status=pass with concrete_improvement_made=false must fail unless no_concrete_edit_failure_reason records typed nothing_to_refine or blocked_with_residual_recheck with the required receipt floor"
+    ],
+    "same_lane_closeout_receipt_predicate_contract_v1": {
+      "status": "active",
+      "scope": "macro_side_pattern_assimilation_closeout_receipts_only",
+      "source_contract_refs": [
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json::validation_fixed_point_policy",
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json::residual_capture_lifecycle_policy",
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+        "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json::autonomy_process_ratchet_contract_v1"
+      ],
+      "applies_to_output_paths": [
+        "receipts/first_wave/pattern_assimilation_receipt.json",
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+      ],
+      "required_selection_fields": [
+        "same_lane_receipt_selection",
+        "latest_same_lane_receipt_ref",
+        "latest_same_lane_receipt_source_line_no",
+        "latest_same_lane_receipt_append_index",
+        "already_run_lane_detection",
+        "assigned_lane"
+      ],
+      "required_closeout_evidence_fields": [
+        "fixed_point_closeout_evidence",
+        "residual_lifecycle_review",
+        "duplicate_target_refinement_decision",
+        "no_concrete_edit_failure_reason"
+      ],
+      "cannot_fake_predicates": [
+        {
+          "predicate_id": "select_latest_same_lane_before_global_latest",
+          "failure_codes": [
+            "AUTONOMY_SEED_READINESS_RECEIPT_DID_NOT_CONSUME_LATEST_SAME_LANE_ROW"
+          ],
+          "required_evidence": "selection basis filters macro_pattern_autonomy_process_runs_v1.jsonl by assigned_lane or operator_assigned_lane and records the selected row ref, source line, and append index",
+          "rejection": "A receipt that reasons from global_latest_run_id without proving latest same-lane selection fails closed."
+        },
+        {
+          "predicate_id": "fixed_point_closeout_is_ordered_and_consumed",
+          "failure_codes": [
+            "AUTONOMY_SEED_FIXED_POINT_COMMAND_MISSING",
+            "AUTONOMY_SEED_FIXED_POINT_COMMAND_ORDER_GAP",
+            "AUTONOMY_SEED_FIXED_POINT_CHANGED_REF_MISSING",
+            "AUTONOMY_SEED_READINESS_RECEIPT_DID_NOT_CONSUME_LATEST_SAME_LANE_ROW"
+          ],
+          "required_evidence": "fixed_point_closeout_evidence records ordered validation command positions, changed refs, readiness latest_run fields, and latest_run_validation_status",
+          "rejection": "A closeout that appends or edits a receipt but does not prove ordered dry-run, truth-index, readiness, and latest same-lane consumption is stale."
+        },
+        {
+          "predicate_id": "residual_lifecycle_is_current_not_chat_only",
+          "failure_codes": [
+            "AUTONOMY_RUN_RESIDUAL_LIFECYCLE_REVIEW_MISSING",
+            "AUTONOMY_RUN_RESIDUAL_CAPTURE_REF_NOT_FOUND",
+            "AUTONOMY_RUN_RESIDUAL_CAPTURE_MISSING_UNBLOCK_CONDITION",
+            "AUTONOMY_RUN_RESIDUAL_REUSE_WITHOUT_RECHECK"
+          ],
+          "required_evidence": "residual_lifecycle_review resolves residual_capture_refs through Task Ledger authority, classifies new/reused/retired refs, records durable unblock text, and includes recheck commands for reused refs",
+          "rejection": "A pass_with_residual_capture or blocked_with_residual_recheck row without current residual lifecycle evidence cannot close."
+        },
+        {
+          "predicate_id": "duplicate_target_requires_refinement_or_exact_blocker",
+          "failure_codes": [
+            "AUTONOMY_SEED_DUPLICATE_TARGET_WITHOUT_REFINEMENT"
+          ],
+          "required_evidence": "duplicate_target_refinement_decision proves the repeated self_refire_target target was changed by this run or cites residual_capture_refs with exact unblock conditions",
+          "rejection": "A repeated target with no artifact change and no exact blocker capture is a duplicate-target failure, not a closeout."
+        },
+        {
+          "predicate_id": "no_concrete_edit_cannot_pass_untyped",
+          "failure_codes": [
+            "AUTONOMY_RUN_NO_CONCRETE_EDIT_OR_BLOCKER_CAPTURE"
+          ],
+          "required_evidence": "no_concrete_edit_failure_reason is empty only when concrete_improvement_made=true; otherwise it must type nothing_to_refine or blocked_with_residual_recheck and cite the receipt evidence that makes the no-edit outcome durable",
+          "rejection": "validation_status=pass with concrete_improvement_made=false and no typed no-concrete-edit evidence fails."
+        }
+      ],
+      "public_private_boundary_note": "This predicate contract may cite macro reconstruction artifact paths, source-line numbers, append indexes, Task Ledger ids, and stable failure-code ids only. It must not include raw seed text, prompt/provider/operator bodies, HUD/browser/cockpit state, release packets, recipient packets, website artifacts, private memory bodies, prediction material, or market-private evidence.",
+      "anti_claim": "This predicate contract strengthens macro-side pattern-assimilation closeout receipts only. It does not implement pattern assimilation, run public builders, authorize public-root writes, resolve residuals, or certify public runtime behavior."
+    },
+    "authority_ceiling": "synthetic_pattern_assimilation_closeout_fixture_only_not_public_build_readiness_or_global_doctrine_promotion",
+    "anti_claim": "Pattern-assimilation receipt-field coverage proves only synthetic closeout-learning contract shape, negative cases, and claim ceilings. It does not ingest private lessons, promote doctrine, execute public code, consume live Task Ledger state, or authorize public-root writes."
+  },
+  "anti_claim": "This fixture proves organ-closeout learning mechanics over synthetic landing summaries; it does not prove that every macro lesson is public-safe, does not authorize public projection, and does not copy private doctrine, raw seed, operator content, provider payloads, or live Task Ledger state.",
+  "private_state_exclusion_rules": [
+    "Use synthetic organ landing summaries only.",
+    "Do not include real raw seed text, prompt shelf bodies, provider payload bodies, operator thread bodies, live Task Ledger rows, HUD/browser/cockpit state, prediction or market material, private memory bodies, release packets, publication packets, recipient packets, hosted-public artifacts, or website surfaces.",
+    "Allowed references are class ids, schema ids, synthetic fixture ids, redacted source capsules, and macro-side reconstruction artifact paths.",
+    "A private-state scan hit makes the fixture fail even if the closeout fields are otherwise complete."
+  ],
+  "source_pattern_ids": [
+    "agent_principle_failure_cap_assimilation_loop",
+    "raw_seed_shard_assimilation_controller_walk",
+    "up_propagation_intake",
+    "peer_propagation_record",
+    "idea_microcosm_metabolism_meta_loop",
+    "task_sign_off",
+    "cap_reflex_capture_before_prose"
+  ],
+  "source_refs": [
+    "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+    "codex/doctrine/paper_modules/local_to_general_propagation.md",
+    "codex/standards/std_uppropagation_intake.json",
+    "codex/standards/std_peer_propagation_record.json",
+    "codex/standards/std_task_ledger.json",
+    "codex/standards/std_task_sign_off.json",
+    "codex/doctrine/skills/task_ledger/task_ledger.md",
+    "codex/doctrine/skills/doctrine/agent_principle_cap_assimilation.md",
+    "codex/doctrine/skills/doctrine/principles_curation.md",
+    "codex/doctrine/paper_modules/raw_seed_shard_assimilation.md",
+    "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+    "state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json",
+    "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json"
+  ],
+  "command_or_transformation": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --out receipts/first_wave/pattern_assimilation_acceptance.json",
+  "minimum_public_safe_proof": [
+    "all Wave 1 organ ids have one closeout decision row",
+    "one refinement case passes and names an owner surface",
+    "one typed nothing_to_refine case passes with stewardship and reentry fields",
+    "missing closeout case fails with the stable expected error codes",
+    "private-state scan is clean",
+    "receipt carries anti_claim and authority_ceiling"
+  ],
+  "implementation_notes": [
+    "Implement after all Wave 1 runtime organ receipts exist; this is the acceptance closeout, not a runtime organ.",
+    "Write the public skill and policy fresh from this manifest and synthetic fixtures.",
+    "Do not import live macro doctrine, raw seed text, live Task Ledger rows, operator transcripts, prompt bodies, provider payloads, release material, or hosted-public surfaces.",
+    "This manifest closes the first-wave fixture-manifest gap for pattern_assimilation_step; second-wave top-level organs still need their own canonical manifests before implementation."
+  ]
+}

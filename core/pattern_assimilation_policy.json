@@ -1,0 +1,18 @@
+{
+  "schema_version": "pattern_assimilation_policy_v1",
+  "organ_id": "pattern_assimilation_step",
+  "status": "synthetic_closeout_contract_active",
+  "required_closeout_results": [
+    "fixture_manifest_refined",
+    "validator_contract_refined",
+    "nothing_to_refine"
+  ],
+  "nothing_to_refine_floor": [
+    "stewardship_checked",
+    "next_best_lane_checked",
+    "next_best_lane_result",
+    "reentry_condition"
+  ],
+  "authority_ceiling": "synthetic_pattern_assimilation_closeout_fixture_only_not_live_learning_authority",
+  "anti_claim": "Pattern assimilation policy validates synthetic closeout contract shape only; it does not promote doctrine, mutate live ledgers, or authorize release work."
+}

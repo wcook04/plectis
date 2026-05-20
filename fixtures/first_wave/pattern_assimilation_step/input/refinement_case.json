@@ -1,0 +1,50 @@
+{
+  "fixture_id": "fixture::pattern_assimilation_step::refinement_case_v1",
+  "refinement_receipts": [
+    {
+      "receipt_id": "assimilation_refinement_navigation",
+      "landed_organ_id": "navigation_hologram_route_plane",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
+      "changed_surface_ref": "microcosm-substrate/tests/test_navigation_hologram_route_plane.py",
+      "claims_global_doctrine_authority": false,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "assimilation_missing_owner_surface",
+      "landed_organ_id": "agent_route_observability_runtime",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "",
+      "changed_surface_ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py",
+      "claims_global_doctrine_authority": false,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "assimilation_global_authority_upgrade",
+      "landed_organ_id": "mission_transaction_work_spine",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/core/fixture_manifests/mission_transaction_work_spine.fixture_manifest.json",
+      "changed_surface_ref": "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
+      "claims_global_doctrine_authority": true,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "assimilation_duplicate_receipt",
+      "landed_organ_id": "pattern_binding_contract",
+      "refinement_result": "fixture_manifest_refined",
+      "owner_surface": "microcosm-substrate/core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
+      "changed_surface_ref": "microcosm-substrate/tests/test_pattern_binding_contract.py",
+      "claims_global_doctrine_authority": false,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "assimilation_duplicate_receipt",
+      "landed_organ_id": "executable_doctrine_grammar",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+      "changed_surface_ref": "microcosm-substrate/tests/test_executable_doctrine_grammar.py",
+      "claims_global_doctrine_authority": false,
+      "body_redacted": true
+    }
+  ]
+}

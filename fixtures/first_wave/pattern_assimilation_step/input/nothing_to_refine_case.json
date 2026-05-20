@@ -1,0 +1,25 @@
+{
+  "fixture_id": "fixture::pattern_assimilation_step::nothing_to_refine_case_v1",
+  "nothing_to_refine_receipts": [
+    {
+      "receipt_id": "assimilation_nothing_proof_spine",
+      "landed_organ_id": "proof_diagnostic_evidence_spine",
+      "refinement_result": "nothing_to_refine",
+      "stewardship_checked": true,
+      "next_best_lane_checked": true,
+      "next_best_lane_result": "post_pattern_assimilation_reducer_required",
+      "reentry_condition": "reread when a later reducer authorizes release or publication",
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "assimilation_nothing_missing_floor",
+      "landed_organ_id": "mission_transaction_work_spine",
+      "refinement_result": "nothing_to_refine",
+      "stewardship_checked": false,
+      "next_best_lane_checked": true,
+      "next_best_lane_result": "blocked_missing_floor",
+      "reentry_condition": "",
+      "body_redacted": true
+    }
+  ]
+}

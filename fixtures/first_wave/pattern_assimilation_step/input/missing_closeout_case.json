@@ -1,0 +1,8 @@
+{
+  "case_id": "assimilation_seed_origin_payload_marker",
+  "landed_organ_id": "agent_route_observability_runtime",
+  "closeout_present": false,
+  "forbidden_payload_class": "seed_origin_payload",
+  "expected_negative_case": "assimilation_private_raw_seed_body",
+  "body_redacted": true
+}

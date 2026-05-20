@@ -1,0 +1,153 @@
+{
+  "anti_claim": "Pattern assimilation receipts validate synthetic closeout-learning fixtures only; they do not promote global doctrine, mutate live ledgers, authorize release work, or prove public runtime behavior.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_pattern_assimilation_closeout_fixture_only_not_live_learning_authority",
+    "global_doctrine_promotion_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "release_or_publication_authorized": false,
+    "status": "pass"
+  },
+  "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
+  "created_at": "2026-05-20T12:30:46+00:00",
+  "error_codes": [
+    "DUPLICATE_REFINEMENT_RECEIPT_ID",
+    "LOCAL_LESSON_AUTHORITY_UPGRADE",
+    "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+    "MISSING_REENTRY_CONDITION",
+    "MISSING_REFINEMENT_OWNER_SURFACE",
+    "MISSING_STEWARDSHIP_CHECK",
+    "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+  ],
+  "expected_negative_cases": {
+    "assimilation_private_raw_seed_body": [
+      "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+    ],
+    "assimilation_receipt_missing_owner_surface": [
+      "MISSING_REFINEMENT_OWNER_SURFACE",
+      "MISSING_REENTRY_CONDITION",
+      "MISSING_STEWARDSHIP_CHECK"
+    ],
+    "duplicate_refinement_receipt_conflict": [
+      "DUPLICATE_REFINEMENT_RECEIPT_ID"
+    ],
+    "local_lesson_claims_global_doctrine_authority": [
+      "LOCAL_LESSON_AUTHORITY_UPGRADE"
+    ],
+    "organ_landing_without_refinement_or_typed_nothing": [
+      "MISSING_PATTERN_ASSIMILATION_CLOSEOUT"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE",
+      "message": "Seed-origin payload class is rejected and redacted.",
+      "negative_case_id": "assimilation_private_raw_seed_body",
+      "subject_id": "assimilation_seed_origin_payload_marker",
+      "subject_kind": "synthetic_fixture"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_REFINEMENT_OWNER_SURFACE",
+      "message": "Concrete refinement must name the owner surface.",
+      "negative_case_id": "assimilation_receipt_missing_owner_surface",
+      "subject_id": "assimilation_missing_owner_surface",
+      "subject_kind": "assimilation_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_REENTRY_CONDITION",
+      "message": "Nothing-to-refine must name a re-entry condition.",
+      "negative_case_id": "assimilation_receipt_missing_owner_surface",
+      "subject_id": "assimilation_nothing_missing_floor",
+      "subject_kind": "nothing_to_refine_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_STEWARDSHIP_CHECK",
+      "message": "Nothing-to-refine must prove stewardship was checked.",
+      "negative_case_id": "assimilation_receipt_missing_owner_surface",
+      "subject_id": "assimilation_nothing_missing_floor",
+      "subject_kind": "nothing_to_refine_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DUPLICATE_REFINEMENT_RECEIPT_ID",
+      "message": "Duplicate refinement receipt ids cannot double-count closeout learning.",
+      "negative_case_id": "duplicate_refinement_receipt_conflict",
+      "subject_id": "assimilation_duplicate_receipt",
+      "subject_kind": "assimilation_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "LOCAL_LESSON_AUTHORITY_UPGRADE",
+      "message": "Local closeout lesson cannot claim global doctrine authority.",
+      "negative_case_id": "local_lesson_claims_global_doctrine_authority",
+      "subject_id": "assimilation_global_authority_upgrade",
+      "subject_kind": "assimilation_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+      "message": "Landed organ lacks concrete refinement or typed nothing-to-refine closeout.",
+      "negative_case_id": "organ_landing_without_refinement_or_typed_nothing",
+      "subject_id": "agent_route_observability_runtime",
+      "subject_kind": "organ_landing"
+    }
+  ],
+  "fixture_id": "first_wave.pattern_assimilation_step",
+  "landing_decision_count": 6,
+  "missing_closeout_count": 1,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "assimilation_private_raw_seed_body": [
+      "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+    ],
+    "assimilation_receipt_missing_owner_surface": [
+      "MISSING_REENTRY_CONDITION",
+      "MISSING_REFINEMENT_OWNER_SURFACE",
+      "MISSING_STEWARDSHIP_CHECK"
+    ],
+    "duplicate_refinement_receipt_conflict": [
+      "DUPLICATE_REFINEMENT_RECEIPT_ID"
+    ],
+    "local_lesson_claims_global_doctrine_authority": [
+      "LOCAL_LESSON_AUTHORITY_UPGRADE"
+    ],
+    "organ_landing_without_refinement_or_typed_nothing": [
+      "MISSING_PATTERN_ASSIMILATION_CLOSEOUT"
+    ]
+  },
+  "organ_id": "pattern_assimilation_step",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_boundary_negative_cases_observed": [
+      "assimilation_private_raw_seed_body"
+    ]
+  },
+  "receipt_id": "pattern_assimilation_step_acceptance_v1",
+  "receipt_paths": [
+    "receipts/first_wave/pattern_assimilation_acceptance.json",
+    "receipts/first_wave/pattern_assimilation_receipt.json",
+    "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+  ],
+  "refinement_count": 1,
+  "schema_version": "pattern_assimilation_step_acceptance_v1",
+  "status": "pass",
+  "typed_nothing_to_refine_count": 1,
+  "validator_id": "validator.microcosm.validators.acceptance.pattern_assimilation_step",
+  "wave_1_organ_ids": [
+    "pattern_binding_contract",
+    "executable_doctrine_grammar",
+    "proof_diagnostic_evidence_spine",
+    "navigation_hologram_route_plane",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime"
+  ]
+}
