@@ -1,0 +1,14 @@
+{
+  "schema_version": "proof_diagnostic_rows_bundle_v1",
+  "diagnostic_rows": [
+    {
+      "diagnostic_id": "public_schema_contract_check_retained",
+      "check_id": "public_schema_contract_check",
+      "diagnostic_class": "accepted_public_metadata_evidence",
+      "claims_source_authority": false,
+      "claims_runtime_correctness": false,
+      "body_redacted": true
+    }
+  ],
+  "anti_claim": "Diagnostic rows retain public evidence metadata and do not upgrade it to source authority."
+}

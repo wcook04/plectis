@@ -28,6 +28,7 @@ VALIDATION_RECEIPT_NAME = "proof_evidence_validation_receipt.json"
 ACCEPTANCE_RECEIPT_REL = (
     "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
 )
+EVIDENCE_BUNDLE_RESULT_NAME = "exported_evidence_bundle_validation_result.json"
 
 PROOF_AUTHORITY_CEILING = {
     "status": PASS,
@@ -41,7 +42,7 @@ PROOF_AUTHORITY_CEILING = {
     "formal_prover_execution_authorized": False,
 }
 PROOF_ANTI_CLAIM = (
-    "Proof diagnostic evidence spine validates synthetic public evidence-cell fixtures only; "
+    "Proof diagnostic evidence spine validates public evidence-cell metadata only; "
     "it does not run Lean, call providers, publish proof bodies, prove runtime correctness, "
     "or authorize later organs."
 )
@@ -128,9 +129,25 @@ def _input_file_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _bundle_input_file_paths(input_dir: Path) -> list[Path]:
+    names = (
+        "bundle_manifest.json",
+        "checks.json",
+        "provider_advisory_payloads.json",
+        "diagnostic_rows.json",
+        "formal_prover_policy_reducer_packet.json",
+    )
+    return [input_dir / name for name in names]
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_file_paths(input_dir), forbidden_classes=policy, display_root=public_root)
+
+
+def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(_bundle_input_file_paths(input_dir), forbidden_classes=policy, display_root=public_root)
 
 
 def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
@@ -146,6 +163,18 @@ def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
         ),
         "stale_receipt": read_json_strict(input_dir / "stale_proof_receipt_fingerprint.json"),
         "runtime_overclaim": read_json_strict(input_dir / "passing_check_overclaims_runtime.json"),
+        "formal_policy_packet": read_json_strict(
+            input_dir / "formal_prover_policy_reducer_packet.json"
+        ),
+    }
+
+
+def _load_evidence_bundle_payloads(input_dir: Path) -> dict[str, Any]:
+    return {
+        "bundle_manifest": read_json_strict(input_dir / "bundle_manifest.json"),
+        "checks": read_json_strict(input_dir / "checks.json"),
+        "provider_payloads": read_json_strict(input_dir / "provider_advisory_payloads.json"),
+        "diagnostic_rows": read_json_strict(input_dir / "diagnostic_rows.json"),
         "formal_policy_packet": read_json_strict(
             input_dir / "formal_prover_policy_reducer_packet.json"
         ),
@@ -506,6 +535,8 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "source_pattern_ids",
         "validator_version",
         "body_safe_lineage_status",
+        "input_mode",
+        "bundle_id",
     )
     payload = {
         "schema_version": schema_version,
@@ -672,6 +703,47 @@ def write_receipts(
     return {key: public_relative_path(path, display_root=public_root) for key, path in paths.items()}
 
 
+def _write_evidence_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / EVIDENCE_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version="proof_diagnostic_evidence_spine_exported_evidence_bundle_validation_v1",
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "proof_receipts": validation_result["proof_receipts"],
+            "proof_receipt_count": len(validation_result["proof_receipts"]),
+            "accepted_count": len(validation_result["accepted_check_ids"]),
+            "rejected_count": len(validation_result["rejected_check_ids"]),
+            "provider_payload_policy": validation_result["provider_payload_policy"],
+            "diagnostic_row_count": validation_result["diagnostic_row_count"],
+            "formal_policy_packet_status": validation_result["formal_policy_packet_status"],
+            "provider_payload_authority_rejected": True,
+            "runtime_correctness_claim_rejected": True,
+            "diagnostic_board_source_authority_rejected": True,
+            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "fixture_regression_required_elsewhere": True,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
 def run(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -785,20 +857,133 @@ def run(
     return result
 
 
+def run_evidence_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_evidence_bundle_payloads(input_path)
+    scan_result = _scan_bundle_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    proof_result = validate_evidence_receipts(payloads["checks"])
+    provider_result = validate_provider_payload_policy(payloads["provider_payloads"])
+    observed = _merge_observed(provider_result)
+    all_findings = sorted(
+        provider_result["findings"],
+        key=lambda item: (
+            str(item.get("negative_case_id") or ""),
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    formal_packet = payloads["formal_policy_packet"]
+    provider_calls = formal_packet.get("provider_calls_by_reducer")
+    bundle_id = str(
+        payloads["bundle_manifest"].get("bundle_id")
+        or "proof_diagnostic_evidence_spine_exported_evidence_bundle"
+    )
+    diagnostic_rows = _rows(payloads["diagnostic_rows"], "diagnostic_rows")
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and proof_result["accepted_check_ids"]
+        and provider_calls == 0
+        else "blocked"
+    )
+
+    result = base_receipt(
+        ORGAN_ID,
+        f"{FIXTURE_ID}.exported_evidence_bundle",
+        command=command,
+    )
+    result.update(
+        {
+            "status": status,
+            "input_mode": "exported_evidence_bundle",
+            "bundle_id": bundle_id,
+            "validator_id": VALIDATOR_ID,
+            "anti_claim": (
+                "The exported evidence bundle validates public proof/evidence metadata. "
+                "It does not run Lean, call providers, publish proof bodies, or claim runtime correctness."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": "proof_diagnostic_evidence_spine_exported_bundle_metadata_not_formal_proof",
+                "provider_payload_authority_rejected": True,
+                "diagnostic_board_source_authority_rejected": True,
+                "runtime_correctness_claim_rejected": True,
+                "formal_prover_execution_authorized": False,
+            },
+            "expected_negative_cases": {},
+            "observed_negative_cases": observed,
+            "missing_negative_cases": [],
+            "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "proof_receipts": proof_result["proof_receipts"],
+            "accepted_check_ids": proof_result["accepted_check_ids"],
+            "rejected_check_ids": proof_result["rejected_check_ids"],
+            "provider_payload_policy": provider_result["payload_rows"],
+            "advisory_payload_ids": provider_result["advisory_payload_ids"],
+            "provider_policy_rejection_ids": provider_result["provider_policy_rejection_ids"],
+            "source_pattern_ids": SOURCE_PATTERN_IDS,
+            "validator_version": "proof_diagnostic_evidence_spine_validator_v1",
+            "diagnostic_row_count": len(diagnostic_rows),
+            "body_safe_lineage_status": {
+                "status": PASS,
+                "forbidden_body_key_values_omitted": True,
+                "hashes_cover_metadata_only": True,
+                "body_redacted": True,
+            },
+            "public_replacement_refs": [
+                public_relative_path(path, display_root=public_root)
+                for path in _bundle_input_file_paths(input_path)
+            ],
+            "formal_policy_packet_status": (
+                "public_policy_packet_consumed_without_provider_call"
+                if provider_calls == 0
+                else "blocked_provider_call_claim"
+            ),
+        }
+    )
+    receipt_path = _write_evidence_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    bundle_parser = subparsers.add_parser("run-evidence-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
-    if args.command_name != "run":
-        parser.error("expected subcommand: run")
-    command = (
-        "python -m microcosm_core.organs.proof_diagnostic_evidence_spine "
-        f"run --input {args.input} --out {args.out}"
-    )
-    result = run(args.input, args.out, command=command)
+    if args.command_name == "run":
+        command = (
+            "python -m microcosm_core.organs.proof_diagnostic_evidence_spine "
+            f"run --input {args.input} --out {args.out}"
+        )
+        result = run(args.input, args.out, command=command)
+    elif args.command_name == "run-evidence-bundle":
+        command = (
+            "python -m microcosm_core.organs.proof_diagnostic_evidence_spine "
+            f"run-evidence-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_evidence_bundle(args.input, args.out, command=command)
+    else:
+        parser.error("expected subcommand: run or run-evidence-bundle")
     return 0 if result["status"] == PASS else 1
 
 

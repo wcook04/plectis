@@ -6,7 +6,7 @@
   "advisory_payload_ids": [
     "provider_advisory_metadata_only"
   ],
-  "anti_claim": "Proof diagnostic evidence spine validates synthetic public evidence-cell fixtures only; it does not run Lean, call providers, publish proof bodies, prove runtime correctness, or authorize later organs.",
+  "anti_claim": "Proof diagnostic evidence spine validates public evidence-cell metadata only; it does not run Lean, call providers, publish proof bodies, prove runtime correctness, or authorize later organs.",
   "authority_ceiling": {
     "authority_ceiling": "proof_diagnostic_evidence_spine_public_fixture_receipt_only_not_formal_proof_authority_or_runtime_correctness",
     "diagnostic_board_source_authority_rejected": true,
@@ -22,8 +22,9 @@
     "hashes_cover_metadata_only": true,
     "status": "pass"
   },
+  "bundle_id": null,
   "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "created_at": "2026-05-20T15:14:43+00:00",
   "diagnostic_board_source_authority_rejected": true,
   "error_codes": [
     "DIAGNOSTIC_BOARD_AUTHORITY_UPGRADE",
@@ -128,6 +129,7 @@
     ],
     "status": "pass"
   },
+  "input_mode": null,
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "diagnostic_board_claims_source_authority": [

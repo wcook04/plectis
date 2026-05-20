@@ -1,0 +1,14 @@
+{
+  "schema_version": "proof_diagnostic_evidence_spine_exported_evidence_bundle_v1",
+  "bundle_id": "public_proof_diagnostic_evidence_runtime_example",
+  "bundle_kind": "exported_evidence_bundle",
+  "organ_id": "proof_diagnostic_evidence_spine",
+  "runtime_surfaces": [
+    "checks",
+    "provider_advisory_payloads",
+    "diagnostic_rows",
+    "formal_prover_policy"
+  ],
+  "authority_ceiling": "public evidence metadata validation only",
+  "anti_claim": "This bundle is standalone runtime-shaped evidence metadata. It does not expose proof bodies, call providers, run Lean, or claim runtime correctness."
+}

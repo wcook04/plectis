@@ -66,7 +66,7 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(grammar_parser)
 
     proof_parser = subparsers.add_parser("proof-diagnostic-evidence-spine")
-    proof_parser.add_argument("action", choices=["run"])
+    proof_parser.add_argument("action", choices=["run", "run-evidence-bundle"])
     _add_input_out(proof_parser)
 
     navigation_parser = subparsers.add_parser("navigation-hologram-route-plane")

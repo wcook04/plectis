@@ -9,11 +9,13 @@ from microcosm_core.organs.proof_diagnostic_evidence_spine import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
+    run_evidence_bundle,
 )
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 PROOF_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine/input"
+PROOF_EXPORTED_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json": [
         "source_fingerprints",
@@ -77,6 +79,40 @@ def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+
+def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
+    tmp_path: Path,
+) -> None:
+    result = run_evidence_bundle(
+        PROOF_EXPORTED_BUNDLE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_evidence_bundle"
+    assert result["bundle_id"] == "public_proof_diagnostic_evidence_runtime_example"
+    assert result["accepted_check_ids"] == ["public_schema_contract_check"]
+    assert result["rejected_check_ids"] == []
+    assert result["advisory_payload_ids"] == ["public_provider_advisory_metadata_only"]
+    assert result["provider_policy_rejection_ids"] == []
+    assert result["formal_policy_packet_status"] == "public_policy_packet_consumed_without_provider_call"
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["private_state_scan"]["body_redacted"] is True
+    assert result["authority_ceiling"]["formal_prover_execution_authorized"] is False
+    assert result["receipt_paths"] == [
+        "receipts/exported_evidence_bundle_validation_result.json"
+    ]
+
+    receipt = json.loads((tmp_path / "receipts/exported_evidence_bundle_validation_result.json").read_text(encoding="utf-8"))
+    assert receipt["input_mode"] == "exported_evidence_bundle"
+    assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
+    text = json.dumps(receipt, sort_keys=True)
+    assert "matched_excerpt" not in text
+    assert '"body"' not in text
+    assert "provider output body" not in text
 
 
 def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_redacted(

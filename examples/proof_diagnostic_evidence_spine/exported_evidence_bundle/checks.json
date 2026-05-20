@@ -1,0 +1,14 @@
+{
+  "schema_version": "proof_diagnostic_evidence_checks_bundle_v1",
+  "checks": [
+    {
+      "check_id": "public_schema_contract_check",
+      "claim_id": "claim.public_schema_contract_is_parseable",
+      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
+      "expected_result": "pass",
+      "command": "python -m microcosm_core.validators.standards_registry --help",
+      "toolchain": "python_metadata_check"
+    }
+  ],
+  "anti_claim": "Checks record public metadata evidence only and do not prove runtime correctness."
+}

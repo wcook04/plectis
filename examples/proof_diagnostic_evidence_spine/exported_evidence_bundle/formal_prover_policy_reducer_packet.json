@@ -1,0 +1,8 @@
+{
+  "schema_version": "formal_prover_policy_reducer_packet_v1",
+  "packet_id": "public_evidence_bundle_no_formal_prover",
+  "provider_calls_by_reducer": 0,
+  "lean_or_lake_execution_authorized": false,
+  "formal_prover_status": "not_invoked",
+  "anti_claim": "The proof-spine evidence bundle does not authorize Lean, Lake, provider calls, or formal proof authority."
+}

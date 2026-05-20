@@ -1,0 +1,16 @@
+{
+  "schema_version": "provider_advisory_payloads_bundle_v1",
+  "payloads": [
+    {
+      "payload_id": "public_provider_advisory_metadata_only",
+      "advisory_kind": "metadata_only",
+      "premise_refs": [
+        "claim.public_schema_contract_is_parseable"
+      ],
+      "strategy_summary": "Use only public metadata and command receipts as advisory context.",
+      "body_redacted": true,
+      "authority_ceiling": "provider_advisory_metadata_only_not_proof_authority"
+    }
+  ],
+  "anti_claim": "Provider advisory rows are metadata only and carry no provider output body."
+}
