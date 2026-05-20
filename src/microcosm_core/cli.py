@@ -15,6 +15,7 @@ from microcosm_core.validators import dependency_preflight
 from microcosm_core.validators import fixture_freshness
 from microcosm_core.validators import private_state_scan
 from microcosm_core.validators import public_entry_docs
+from microcosm_core.validators import research_kernel_density
 from microcosm_core.validators import standards_registry
 
 
@@ -43,6 +44,13 @@ def main(argv: list[str] | None = None) -> int:
     index_parser.add_argument("project")
     catalog_parser = subparsers.add_parser("catalog")
     catalog_parser.add_argument("project")
+    architecture_parser = subparsers.add_parser("architecture")
+    architecture_parser.add_argument("project")
+    graph_parser = subparsers.add_parser("graph")
+    graph_parser.add_argument("project")
+    explain_parser = subparsers.add_parser("explain")
+    explain_parser.add_argument("project")
+    explain_parser.add_argument("route_id")
     subparsers.add_parser("status")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
@@ -80,6 +88,9 @@ def main(argv: list[str] | None = None) -> int:
 
     public_entry_parser = subparsers.add_parser("public-entry-docs")
     _add_root_out(public_entry_parser)
+    density_parser = subparsers.add_parser("research-kernel-density")
+    _add_root_out(density_parser)
+    density_parser.add_argument("--project")
 
     standards_parser = subparsers.add_parser("standards-registry")
     standards_parser.add_argument("--registry", required=True)
@@ -130,6 +141,12 @@ def main(argv: list[str] | None = None) -> int:
         return project_substrate.main(["index", args.project])
     if args.command == "catalog":
         return project_substrate.main(["catalog", args.project])
+    if args.command == "architecture":
+        return project_substrate.main(["architecture", args.project])
+    if args.command == "graph":
+        return project_substrate.main(["graph", args.project])
+    if args.command == "explain":
+        return project_substrate.main(["explain", args.project, args.route_id])
     if args.command == "status":
         return runtime_shell.main(["status"])
     if args.command == "run":
@@ -148,6 +165,8 @@ def main(argv: list[str] | None = None) -> int:
             return runtime_shell.main(["route", "list"])
         if len(args.route_args) == 2 and args.route_args[0] == "inspect":
             return runtime_shell.main(["route", "inspect", args.route_args[1]])
+        if len(args.route_args) == 3 and args.route_args[0] == "inspect":
+            return project_substrate.main(["explain", args.route_args[1], args.route_args[2]])
         if len(args.route_args) == 1:
             return project_substrate.main(["route", args.route_args[0]])
     if args.command == "work":
@@ -178,6 +197,11 @@ def main(argv: list[str] | None = None) -> int:
         return private_state_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
     if args.command == "public-entry-docs":
         return public_entry_docs.main(["--root", args.root, "--out", args.out])
+    if args.command == "research-kernel-density":
+        density_args = ["--root", args.root, "--out", args.out]
+        if args.project:
+            density_args.extend(["--project", args.project])
+        return research_kernel_density.main(density_args)
     if args.command == "standards-registry":
         return standards_registry.main(
             [

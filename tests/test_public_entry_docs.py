@@ -86,6 +86,8 @@ def test_public_entry_docs_block_missing_paper_module(tmp_path: Path) -> None:
 def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     text = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    normalized_text = " ".join(text.split())
+    normalized_agents = " ".join(agents.split())
 
     assert "Internal Runtime Spine" in text
     assert "Accepted Public Runtime Spine" in agents
@@ -100,8 +102,13 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Use only synthetic fixtures" not in agents
     assert "Receipts Are Authority" not in agents
     assert "macro reconstruction contracts" not in agents
-    assert "local project operating substrate" in text
+    assert "local project operating substrate" in normalized_text
+    assert "executable research prototype" in text
+    assert "Architecture Kernel" in text
+    assert "microcosm explain <project> <route_id>" in text
     assert "Evidence receipts are the black-box recorder" in text
+    assert "executable research prototype" in normalized_agents
+    assert "local project operating substrate" in normalized_agents
     assert "Fixtures Are Tests" in agents
     assert "Receipts Are Evidence" in agents
 

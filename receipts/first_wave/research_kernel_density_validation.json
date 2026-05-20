@@ -1,0 +1,37 @@
+{
+  "anti_claim": "Research-kernel density validation proves only public prototype posture and local-state architecture density. It does not authorize release, hosting, provider calls, source mutation, private-data equivalence, or production readiness.",
+  "authority_ceiling": {
+    "hosting_authorized": false,
+    "private_data_equivalence_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "blocking_codes": [],
+  "checker_id": "checker.microcosm.validators.research_kernel_density",
+  "command": "python -m microcosm_core.validators.research_kernel_density --root . --out receipts/first_wave/research_kernel_density_validation.json --project microcosm-research-kernel-Yfge5k",
+  "density_assertions": {
+    "evidence_is_drilldown": true,
+    "kernel_primitives_have_runtime_hooks": true,
+    "readme_declares_research_prototype": true,
+    "release_authorized": false,
+    "route_explanation_available": true
+  },
+  "findings": [],
+  "forbidden_readme_phrases": [],
+  "missing_readme_phrases": [],
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 3,
+    "status": "pass"
+  },
+  "project_ref": "microcosm-research-kernel-Yfge5k",
+  "receipt_paths": [
+    "receipts/first_wave/research_kernel_density_validation.json"
+  ],
+  "schema_version": "research_kernel_density_receipt_v1",
+  "status": "pass"
+}

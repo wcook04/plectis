@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "microcosm-substrate"
 version = "0.1.0"
-description = "Microcosm local project operating substrate."
+description = "Executable research prototype of a local project operating substrate."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }

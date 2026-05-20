@@ -30,11 +30,14 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     init_result = project_substrate.init_project(project)
     index_result = project_substrate.index_project(project)
     catalog = project_substrate.catalog_project(project)
+    architecture = project_substrate.architecture_project(project)
     patterns = project_substrate.discover_patterns(project)
     routes = project_substrate.propose_routes(project)
+    explanation = project_substrate.explain_route(project, "readme_onboarding_route")
     created = project_substrate.create_work(project)
     run = project_substrate.run_work(project, str(created["work_id"]))
     observed = project_substrate.observe_project(project)
+    graph = project_substrate.state_graph(project)
     evidence = project_substrate.list_evidence(project)
     inspected = project_substrate.inspect_evidence(project, str(run["evidence_ref"]))
 
@@ -44,6 +47,8 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert catalog["role_counts"]["package_manifest"] == 1
     assert catalog["role_counts"]["source"] == 1
     assert catalog["role_counts"]["test"] == 1
+    assert architecture["kernel"]["posture"] == "executable_research_prototype"
+    assert "route" in architecture["primitive_ids"]
     assert patterns["passing_pattern_count"] >= 4
     assert {row["route_id"] for row in routes["routes"]} >= {
         "readme_onboarding_route",
@@ -51,20 +56,39 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "source_core_route",
         "test_behavior_route",
     }
+    assert explanation["status"] == "pass"
+    assert explanation["route_id"] == "readme_onboarding_route"
+    assert explanation["kernel_primitives"] == [
+        "catalog",
+        "pattern",
+        "route",
+        "work",
+        "event",
+        "evidence",
+        "explanation",
+    ]
+    assert explanation["authority_boundary"] == "project_local_projection_not_source_authority"
     assert created["work_id"] == "work_0001"
     assert run["transaction_status"] == "pass"
+    assert run["state_machine"] == ["created", "selected", "planned", "executed_simulation", "closed"]
     assert observed["event_count"] >= 6
+    assert observed["architecture_ref"] == ".microcosm/architecture.json"
+    assert graph["edge_count"] >= 7
     assert evidence["evidence_count"] >= 6
     assert inspected["status"] == "pass"
     assert inspected["body_redacted"] is True
 
     state_files = {
         ".microcosm/project_manifest.json",
+        ".microcosm/architecture.json",
+        ".microcosm/state_index.json",
+        ".microcosm/graph.json",
         ".microcosm/catalog.json",
         ".microcosm/patterns.json",
         ".microcosm/routes.json",
         ".microcosm/work_items.json",
         ".microcosm/events.jsonl",
+        ".microcosm/explanations/readme_onboarding_route.json",
     }
     for rel in state_files:
         assert (project / rel).is_file()
@@ -81,8 +105,11 @@ def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
         ["init", project.as_posix()],
         ["index", project.as_posix()],
         ["catalog", project.as_posix()],
+        ["architecture", project.as_posix()],
         ["patterns", project.as_posix()],
         ["route", project.as_posix()],
+        ["explain", project.as_posix(), "readme_onboarding_route"],
+        ["graph", project.as_posix()],
         ["work", "create", project.as_posix()],
         ["work", "run", project.as_posix()],
         ["observe", project.as_posix()],

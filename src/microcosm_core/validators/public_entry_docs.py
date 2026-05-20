@@ -37,16 +37,21 @@ ACCEPTED_ORGAN_IDS = [
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
+        "executable research prototype",
         "local project operating substrate",
         ".microcosm/",
+        "Architecture Kernel",
+        "microcosm explain <project> <route_id>",
         "Evidence receipts are the black-box recorder",
         "Internal Runtime Spine",
         "formal_math_lean_proof_witness",
         "not authorize release",
     ],
     "AGENTS.md": [
+        "executable research prototype",
         "local project operating substrate",
         "microcosm init <project>",
+        "microcosm explain <project> <route_id>",
         "Accepted Public Runtime Spine",
         "Do not run Lean/Lake",
         "Fixtures Are Tests",
@@ -83,6 +88,10 @@ def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
     return safe
 
 
+def _normalized_text(text: str) -> str:
+    return " ".join(text.split())
+
+
 def _accepted_organs(public_root: Path) -> list[str]:
     registry = read_json_strict(public_root / "core/organ_registry.json")
     return [
@@ -112,8 +121,11 @@ def validate_public_entry_docs(
             missing_docs.append(rel)
             continue
         text = path.read_text(encoding="utf-8")
+        normalized = _normalized_text(text)
         missing_phrases = [
-            phrase for phrase in REQUIRED_PHRASES_BY_DOC.get(rel, []) if phrase not in text
+            phrase
+            for phrase in REQUIRED_PHRASES_BY_DOC.get(rel, [])
+            if phrase not in normalized
         ]
         if missing_phrases:
             missing_required_phrases_by_doc[rel] = missing_phrases

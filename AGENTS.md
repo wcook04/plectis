@@ -1,10 +1,15 @@
 # AGENTS.md - Microcosm Substrate
 
-This root is a local project operating substrate. Treat it as the public
-runtime surface in front of you: a user can bring a project folder, initialize
-`.microcosm/` state, index files, discover patterns, propose routes, record
-work transactions, observe events, and inspect evidence only when drilldown is
+This root is an executable research prototype of a local project operating
+substrate. Treat it as the public runtime surface in front of you: a user can
+bring a project folder, initialize `.microcosm/` state, index files, discover
+patterns, propose routes, inspect route explanations, record work
+transactions, observe events, and inspect evidence only when drilldown is
 needed.
+
+It is small on purpose: the public root should make the architecture legible
+through project, catalog, pattern, standard, route, work, event, evidence,
+explanation, and assimilation primitives, not through production claims.
 
 ## Accepted Public Runtime Spine
 
@@ -21,7 +26,8 @@ needed.
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
 2. The primary product loop is `microcosm init <project>`, `microcosm index
-   <project>`, `microcosm route <project>`, `microcosm work run <project>`,
+   <project>`, `microcosm architecture <project>`, `microcosm route <project>`,
+   `microcosm explain <project> <route_id>`, `microcosm work run <project>`,
    `microcosm observe <project>`, and `microcosm evidence list <project>`.
    Public input bundles and organ demos are compatibility/regression surfaces,
    not the product center.
@@ -39,6 +45,9 @@ needed.
    scratch public-root content as source authority.
 8. Do not add release, hosted-public, publication, recipient, provider-call, or
    private-data-equivalence surfaces from this root.
+9. Keep research-prototype posture explicit. Do not describe this root as
+   production infrastructure, a hosted service, or a release-ready agent
+   platform.
 
 ## Receipt Floor
 

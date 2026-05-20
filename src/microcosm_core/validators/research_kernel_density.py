@@ -1,0 +1,209 @@
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+from typing import Any
+
+from microcosm_core.architecture_kernel import load_kernel_manifest, read_json_if_exists
+from microcosm_core.private_state_scan import PASS, load_forbidden_classes, scan_paths
+from microcosm_core.receipts import write_json_atomic
+
+
+CHECKER_ID = "checker.microcosm.validators.research_kernel_density"
+REQUIRED_PRIMITIVE_FIELDS = [
+    "primitive_id",
+    "public_name",
+    "what_it_does",
+    "input",
+    "output",
+    "state_ref",
+    "runtime_commands",
+    "event_span",
+    "evidence_relation",
+    "macro_analogue",
+    "public_boundary",
+]
+REQUIRED_README_PHRASES = [
+    "executable research prototype",
+    "Bring a folder",
+    "Inspect the architecture",
+    "small on purpose",
+    "Evidence receipts are the black-box recorder",
+]
+FORBIDDEN_README_PHRASES = [
+    "production-ready developer platform",
+    "release-ready agent platform",
+    "Receipts Are Authority",
+]
+
+
+def _public_relative(root: Path, path: Path) -> str:
+    try:
+        return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _kernel_findings(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
+    manifest = load_kernel_manifest(root)
+    findings: list[dict[str, Any]] = []
+    blocking_codes: list[str] = []
+    primitives = manifest.get("primitives", [])
+    primitive_rows = [row for row in primitives if isinstance(row, dict)] if isinstance(primitives, list) else []
+    if manifest.get("posture") != "executable_research_prototype":
+        blocking_codes.append("KERNEL_POSTURE_NOT_RESEARCH_PROTOTYPE")
+    if manifest.get("release_authorized") is not False:
+        blocking_codes.append("KERNEL_RELEASE_CEILING_MISSING")
+    if len(primitive_rows) < 7:
+        blocking_codes.append("KERNEL_PRIMITIVE_SET_TOO_THIN")
+    for row in primitive_rows:
+        missing = [field for field in REQUIRED_PRIMITIVE_FIELDS if not row.get(field)]
+        if missing:
+            blocking_codes.append("KERNEL_PRIMITIVE_FIELD_MISSING")
+            findings.append(
+                {
+                    "finding_id": "kernel_primitive_field_missing",
+                    "primitive_id": row.get("primitive_id"),
+                    "missing_fields": missing,
+                }
+            )
+    commands = [
+        command
+        for row in primitive_rows
+        for command in row.get("runtime_commands", [])
+        if isinstance(command, str)
+    ]
+    if "microcosm explain <project> <route_id>" not in commands:
+        blocking_codes.append("KERNEL_EXPLAIN_COMMAND_MISSING")
+    return findings, blocking_codes
+
+
+def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
+    findings: list[dict[str, Any]] = []
+    blocking_codes: list[str] = []
+    state = project / ".microcosm"
+    required_state = [
+        "architecture.json",
+        "state_index.json",
+        "graph.json",
+        "routes.json",
+        "events.jsonl",
+    ]
+    for rel in required_state:
+        if not (state / rel).is_file():
+            blocking_codes.append("PROJECT_RESEARCH_KERNEL_STATE_MISSING")
+            findings.append(
+                {
+                    "finding_id": "project_research_kernel_state_missing",
+                    "state_ref": f".microcosm/{rel}",
+                }
+            )
+    explanations = state / "explanations"
+    if not explanations.is_dir() or not list(explanations.glob("*.json")):
+        blocking_codes.append("PROJECT_ROUTE_EXPLANATION_MISSING")
+    graph = read_json_if_exists(state / "graph.json")
+    if graph and graph.get("edge_count", 0) < 6:
+        blocking_codes.append("PROJECT_GRAPH_TOO_THIN")
+    return findings, blocking_codes
+
+
+def validate_density(
+    root: str | Path,
+    out_path: str | Path,
+    *,
+    command: str,
+    project: str | Path | None = None,
+) -> dict[str, Any]:
+    public_root = Path(root).resolve(strict=False)
+    output_file = Path(out_path)
+    readme = public_root / "README.md"
+    text = readme.read_text(encoding="utf-8") if readme.is_file() else ""
+    missing_readme_phrases = [phrase for phrase in REQUIRED_README_PHRASES if phrase not in text]
+    forbidden_readme_phrases = [phrase for phrase in FORBIDDEN_README_PHRASES if phrase in text]
+    blocking_codes: list[str] = []
+    findings: list[dict[str, Any]] = []
+    if missing_readme_phrases:
+        blocking_codes.append("README_RESEARCH_POSTURE_MISSING")
+    if forbidden_readme_phrases:
+        blocking_codes.append("README_RESEARCH_POSTURE_OVERCLAIM")
+    kernel_findings, kernel_codes = _kernel_findings(public_root)
+    findings.extend(kernel_findings)
+    blocking_codes.extend(kernel_codes)
+    project_ref = None
+    if project is not None:
+        project_path = Path(project).expanduser().resolve(strict=False)
+        project_ref = project_path.name
+        project_findings, project_codes = _project_findings(project_path)
+        findings.extend(project_findings)
+        blocking_codes.extend(project_codes)
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    scan_paths_input = [
+        path
+        for path in [
+            public_root / "README.md",
+            public_root / "AGENTS.md",
+            public_root / "core/architecture_kernel.json",
+        ]
+        if path.is_file()
+    ]
+    scan = scan_paths(scan_paths_input, forbidden_classes=policy, display_root=public_root)
+    safe_scan = dict(scan)
+    safe_scan.pop("forbidden_output_fields", None)
+    if safe_scan["blocking_hit_count"]:
+        blocking_codes.append("PRIVATE_STATE_SCAN_BLOCKED")
+    blocking_codes = sorted(set(blocking_codes))
+    status = PASS if not blocking_codes else "blocked"
+    receipt = {
+        "schema_version": "research_kernel_density_receipt_v1",
+        "checker_id": CHECKER_ID,
+        "status": status,
+        "command": command,
+        "project_ref": project_ref,
+        "missing_readme_phrases": missing_readme_phrases,
+        "forbidden_readme_phrases": forbidden_readme_phrases,
+        "findings": findings,
+        "blocking_codes": blocking_codes,
+        "private_state_scan": safe_scan,
+        "density_assertions": {
+            "readme_declares_research_prototype": "README_RESEARCH_POSTURE_MISSING" not in blocking_codes,
+            "kernel_primitives_have_runtime_hooks": "KERNEL_PRIMITIVE_FIELD_MISSING" not in blocking_codes,
+            "route_explanation_available": "PROJECT_ROUTE_EXPLANATION_MISSING" not in blocking_codes,
+            "evidence_is_drilldown": True,
+            "release_authorized": False,
+        },
+        "authority_ceiling": {
+            "release_authorized": False,
+            "hosting_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "private_data_equivalence_authorized": False,
+        },
+        "anti_claim": "Research-kernel density validation proves only public prototype posture and local-state architecture density. It does not authorize release, hosting, provider calls, source mutation, private-data equivalence, or production readiness.",
+        "receipt_paths": [_public_relative(public_root, output_file)],
+    }
+    write_json_atomic(output_file, receipt)
+    return receipt
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Validate public research-kernel density")
+    parser.add_argument("--root", required=True)
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--project")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    project_display = Path(args.project).name if args.project else None
+    command = (
+        "python -m microcosm_core.validators.research_kernel_density "
+        f"--root {args.root} --out {args.out}"
+        + (f" --project {project_display}" if project_display else "")
+    )
+    receipt = validate_density(args.root, args.out, command=command, project=args.project)
+    return 0 if receipt["status"] == PASS else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

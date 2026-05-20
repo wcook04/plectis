@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from microcosm_core import architecture_kernel
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 
@@ -194,12 +195,16 @@ def _write_manifest(project: Path) -> dict[str, Any]:
             ],
             "state_files": [
                 f"{STATE_DIR}/project_manifest.json",
+                f"{STATE_DIR}/architecture.json",
+                f"{STATE_DIR}/state_index.json",
+                f"{STATE_DIR}/graph.json",
                 f"{STATE_DIR}/catalog.json",
                 f"{STATE_DIR}/patterns.json",
                 f"{STATE_DIR}/routes.json",
                 f"{STATE_DIR}/work_items.json",
                 f"{STATE_DIR}/{EVENT_STREAM}",
                 f"{STATE_DIR}/{EVIDENCE_DIR}/",
+                f"{STATE_DIR}/explanations/",
             ],
             "authority_ceiling": {
                 "live_task_ledger_mutation_authorized": False,
@@ -210,6 +215,7 @@ def _write_manifest(project: Path) -> dict[str, Any]:
         }
     )
     write_json_atomic(_state_dir(project) / "project_manifest.json", manifest)
+    architecture_kernel.write_project_architecture(project)
     return manifest
 
 
@@ -253,6 +259,7 @@ def index_project(project_path: str | Path) -> dict[str, Any]:
         ),
     }
     write_json_atomic(_state_dir(project) / "catalog.json", catalog)
+    architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.index",
@@ -318,6 +325,7 @@ def discover_patterns(project_path: str | Path) -> dict[str, Any]:
         "missing_pattern_count": sum(1 for row in candidates if row["status"] != PASS),
     }
     write_json_atomic(_state_dir(project) / "patterns.json", payload)
+    architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.patterns",
@@ -340,6 +348,14 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
     routes: list[dict[str, Any]] = []
 
     def add(route_id: str, title: str, intent: str, refs: list[str], action: str) -> None:
+        pattern_refs = {
+            "readme_onboarding_route": ["repo_has_readme"],
+            "package_runtime_route": ["repo_has_package_manifest"],
+            "source_core_route": ["repo_has_source_core"],
+            "test_behavior_route": ["repo_has_tests"],
+            "missing_tests_route": ["repo_has_tests"],
+            "docs_route": ["repo_has_docs"],
+        }.get(route_id, [])
         routes.append(
             {
                 "route_id": route_id,
@@ -347,8 +363,13 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
                 "intent": intent,
                 "grounded_refs": refs[:12],
                 "action": action,
+                "pattern_refs": pattern_refs,
+                "kernel_primitive_refs": ["catalog", "pattern", "route", "work", "event", "evidence"],
+                "route_definition_ref": f"{STATE_DIR}/routes.json::{route_id}",
+                "explain_command": f"microcosm explain <project> {route_id}",
                 "authority": "project_local_projection_not_source_authority",
                 "claims_source_authority": False,
+                "source_mutation_authorized": False,
             }
         )
 
@@ -381,6 +402,7 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
         },
     }
     write_json_atomic(_state_dir(project) / "routes.json", payload)
+    architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.route",
@@ -431,13 +453,38 @@ def create_work(project_path: str | Path, route_id: str | None = None) -> dict[s
         "work_id": work_id,
         "route_id": selected["route_id"],
         "status": "created",
+        "transaction_state": "created",
         "created_at": utc_now(),
         "grounded_refs": selected.get("grounded_refs", []),
+        "route_snapshot": selected,
         "transaction_policy": "simulate_project_local_only",
+        "workflow_definition_ref": f"{STATE_DIR}/routes.json::{selected['route_id']}",
+        "workflow_execution_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+        "state_history": [
+            {
+                "state": "created",
+                "span": "work.create",
+                "created_at": utc_now(),
+                "note": "Work transaction record created from a route snapshot.",
+            },
+            {
+                "state": "selected",
+                "span": "work.create",
+                "created_at": utc_now(),
+                "note": "Route selected for deterministic local simulation.",
+            },
+            {
+                "state": "planned",
+                "span": "work.create",
+                "created_at": utc_now(),
+                "note": "Source mutation is not authorized; run step will simulate governance only.",
+            },
+        ],
         "source_files_mutated": False,
     }
     rows.append(row)
     _write_work_items(project, rows)
+    architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "work.create",
@@ -486,13 +533,38 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
             "work_id": work_id,
         }
     selected["status"] = "closed"
+    selected["transaction_state"] = "closed"
     selected["closed_at"] = utc_now()
+    history = selected.get("state_history", [])
+    if not isinstance(history, list):
+        history = []
+    history.extend(
+        [
+            {
+                "state": "executed_simulation",
+                "span": "work.run",
+                "created_at": utc_now(),
+                "note": "Executed deterministic project-local simulation over route snapshot.",
+            },
+            {
+                "state": "closed",
+                "span": "work.run",
+                "created_at": utc_now(),
+                "note": "Closed with generated evidence and no source mutation.",
+            },
+        ]
+    )
+    selected["state_history"] = history
     selected["result"] = {
         "status": PASS,
         "summary": "Simulated a governed local transaction over project catalog state.",
+        "definition_execution_separated": True,
+        "workflow_definition_ref": selected.get("workflow_definition_ref"),
+        "workflow_execution_ref": selected.get("workflow_execution_ref"),
         "source_files_mutated": False,
     }
     _write_work_items(project, rows)
+    architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "work.run",
@@ -520,6 +592,7 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
         "work_id": selected["work_id"],
         "route_id": selected["route_id"],
         "transaction_status": PASS,
+        "state_machine": ["created", "selected", "planned", "executed_simulation", "closed"],
         "work_items_ref": f"{STATE_DIR}/work_items.json",
         "event_ref": f"{STATE_DIR}/{EVENT_STREAM}",
         "evidence_ref": evidence_ref,
@@ -528,6 +601,7 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
 
 def observe_project(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
+    architecture_kernel.write_project_architecture(project)
     events = _read_jsonl(_state_dir(project) / EVENT_STREAM)
     spans: dict[str, int] = {}
     for row in events:
@@ -539,7 +613,43 @@ def observe_project(project_path: str | Path) -> dict[str, Any]:
         "spans": spans,
         "events": events[-20:],
         "event_ref": f"{STATE_DIR}/{EVENT_STREAM}",
+        "architecture_ref": f"{STATE_DIR}/architecture.json",
+        "state_index_ref": f"{STATE_DIR}/state_index.json",
+        "graph_ref": f"{STATE_DIR}/graph.json",
     }
+
+
+def architecture_project(project_path: str | Path) -> dict[str, Any]:
+    return architecture_kernel.write_project_architecture(project_path)
+
+
+def state_graph(project_path: str | Path) -> dict[str, Any]:
+    architecture_kernel.write_project_architecture(project_path)
+    return architecture_kernel.build_graph(project_path)
+
+
+def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
+    project = Path(project_path).expanduser().resolve(strict=False)
+    if not (_state_dir(project) / "routes.json").is_file():
+        propose_routes(project)
+    explanation = architecture_kernel.explain_route(project, route_id)
+    if explanation.get("status") != PASS:
+        return explanation
+    event = _event(
+        project,
+        "project.explain",
+        PASS,
+        route_id=route_id,
+        explanation_ref=f"{STATE_DIR}/explanations/{route_id}.json",
+        evidence_ref=f"{STATE_DIR}/{EVIDENCE_DIR}/explain_{route_id}.json",
+    )
+    _append_event(project, event)
+    evidence_ref = _write_evidence(project, f"explain_{route_id}", {**explanation, "event_id": event["event_id"]})
+    explanation["event_id"] = event["event_id"]
+    explanation["evidence_ref"] = evidence_ref
+    write_json_atomic(_state_dir(project) / "explanations" / f"{route_id}.json", explanation)
+    architecture_kernel.write_project_architecture(project)
+    return explanation
 
 
 def list_evidence(project_path: str | Path) -> dict[str, Any]:
@@ -609,10 +719,17 @@ def build_parser() -> argparse.ArgumentParser:
     index_parser.add_argument("project")
     catalog_parser = subparsers.add_parser("catalog")
     catalog_parser.add_argument("project")
+    architecture_parser = subparsers.add_parser("architecture")
+    architecture_parser.add_argument("project")
     patterns_parser = subparsers.add_parser("patterns")
     patterns_parser.add_argument("project")
     route_parser = subparsers.add_parser("route")
     route_parser.add_argument("project")
+    graph_parser = subparsers.add_parser("graph")
+    graph_parser.add_argument("project")
+    explain_parser = subparsers.add_parser("explain")
+    explain_parser.add_argument("project")
+    explain_parser.add_argument("route_id")
     work_parser = subparsers.add_parser("work")
     work_sub = work_parser.add_subparsers(dest="work_command")
     create_parser = work_sub.add_parser("create")
@@ -642,10 +759,16 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(index_project(args.project))
     if args.command == "catalog":
         return _print_json(catalog_project(args.project))
+    if args.command == "architecture":
+        return _print_json(architecture_project(args.project))
     if args.command == "patterns":
         return _print_json(discover_patterns(args.project))
     if args.command == "route":
         return _print_json(propose_routes(args.project))
+    if args.command == "graph":
+        return _print_json(state_graph(args.project))
+    if args.command == "explain":
+        return _print_json(explain_route(args.project, args.route_id))
     if args.command == "work":
         if args.work_command == "create":
             return _print_json(create_work(args.project, args.route))

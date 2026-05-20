@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 from dataclasses import dataclass
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -8,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import unquote, urlparse
 
+from microcosm_core import architecture_kernel
 from microcosm_core import project_substrate
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import executable_doctrine_grammar
@@ -243,14 +245,18 @@ class RuntimeShell:
         return {
             "schema_version": "microcosm_runtime_status_v1",
             "status": PASS if len(adapter_backed) == len(RUNTIME_STEPS) else "blocked",
+            "posture": "executable_research_prototype",
             "public_root": _public_relative(self.root, self.root),
             "runtime_surface": {
                 "commands": [
                     "microcosm init <project>",
                     "microcosm index <project>",
                     "microcosm catalog <project>",
+                    "microcosm architecture <project>",
                     "microcosm patterns <project>",
                     "microcosm route <project>",
+                    "microcosm explain <project> <route_id>",
+                    "microcosm graph <project>",
                     "microcosm work create <project>",
                     "microcosm work run <project>",
                     "microcosm observe <project>",
@@ -275,11 +281,13 @@ class RuntimeShell:
             "pattern_count": len(self.patterns()),
             "workitem_count": len(workitems),
             "evidence_count": len(evidence),
+            "kernel_primitive_count": architecture_kernel.load_kernel_manifest(self.root).get("primitive_count"),
             "release_authorized": False,
             "next_actions": [
                 "run microcosm init <project>",
                 "run microcosm index <project>",
                 "run microcosm route <project>",
+                "run microcosm explain <project> <route_id>",
                 "open evidence only when drilldown is needed",
             ],
         }
@@ -444,6 +452,92 @@ class RuntimeShell:
         write_json_atomic(self.runtime_receipt_dir / "work_demo" / "work_demo_result.json", payload)
         return payload
 
+    def _observatory_html(self, project_path: Path | None) -> str:
+        status = self.status()
+        project_payloads: dict[str, Any] = {}
+        route_for_explain = ""
+        if project_path is not None:
+            architecture = project_substrate.architecture_project(project_path)
+            catalog = project_substrate.catalog_project(project_path)
+            patterns = project_substrate.discover_patterns(project_path)
+            routes = project_substrate.propose_routes(project_path)
+            route_rows = routes.get("routes", []) if isinstance(routes.get("routes"), list) else []
+            if route_rows and isinstance(route_rows[0], dict):
+                route_for_explain = str(route_rows[0].get("route_id") or "")
+            explanation = (
+                project_substrate.explain_route(project_path, route_for_explain)
+                if route_for_explain
+                else {"status": "not_found"}
+            )
+            project_payloads = {
+                "architecture": architecture,
+                "catalog": catalog,
+                "patterns": patterns,
+                "routes": routes,
+                "workitems": {
+                    "schema_version": "microcosm_project_workitems_view_v1",
+                    "status": PASS,
+                    "work_items": project_substrate._load_work_items(project_path),
+                },
+                "observe": project_substrate.observe_project(project_path),
+                "evidence": project_substrate.list_evidence(project_path),
+                "explanation": explanation,
+            }
+
+        def dump(payload: Any) -> str:
+            return html.escape(json.dumps(payload, indent=2, sort_keys=True))
+
+        project_title = project_path.name if project_path is not None else "public runtime"
+        sections = [
+            ("Status", status),
+            ("Kernel", architecture_kernel.load_kernel_manifest(self.root)),
+        ]
+        if project_payloads:
+            sections.extend(
+                [
+                    ("Project Architecture", project_payloads["architecture"]),
+                    ("Catalog", project_payloads["catalog"]),
+                    ("Patterns", project_payloads["patterns"]),
+                    ("Routes", project_payloads["routes"]),
+                    ("Route Explanation", project_payloads["explanation"]),
+                    ("Work", project_payloads["workitems"]),
+                    ("Events", project_payloads["observe"]),
+                    ("Evidence", project_payloads["evidence"]),
+                ]
+            )
+        body = "\n".join(
+            f"<section><h2>{html.escape(title)}</h2><pre>{dump(payload)}</pre></section>"
+            for title, payload in sections
+        )
+        return f"""<!doctype html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"utf-8\">
+  <title>Microcosm Observatory</title>
+  <style>
+    :root {{ color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; }}
+    body {{ margin: 0; background: #f7f7f4; color: #171715; }}
+    header {{ padding: 28px 32px 18px; border-bottom: 1px solid #d8d7d1; background: #ffffff; }}
+    h1 {{ margin: 0 0 8px; font-size: 28px; letter-spacing: 0; }}
+    p {{ margin: 0; max-width: 900px; line-height: 1.45; color: #4b4a45; }}
+    main {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; padding: 20px; }}
+    section {{ background: #ffffff; border: 1px solid #dad8d0; border-radius: 6px; overflow: hidden; min-width: 0; }}
+    h2 {{ margin: 0; padding: 12px 14px; font-size: 15px; background: #eceae3; border-bottom: 1px solid #dad8d0; }}
+    pre {{ margin: 0; padding: 14px; overflow: auto; max-height: 420px; font-size: 12px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; }}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Microcosm Observatory</h1>
+    <p>{html.escape(project_title)} is shown as an executable research prototype: local state, architecture primitives, routes, work, events, and evidence drilldowns. Release remains unauthorized.</p>
+  </header>
+  <main>
+    {body}
+  </main>
+</body>
+</html>
+"""
+
     def serve(self, host: str, port: int, project: str | Path | None = None) -> ThreadingHTTPServer:
         shell = self
         project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
@@ -457,15 +551,31 @@ class RuntimeShell:
                 self.end_headers()
                 self.wfile.write(encoded)
 
+            def _send_html(self, status_code: int, body: str) -> None:
+                encoded = body.encode("utf-8")
+                self.send_response(status_code)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(encoded)))
+                self.end_headers()
+                self.wfile.write(encoded)
+
             def log_message(self, format: str, *args: Any) -> None:
                 return
 
             def do_GET(self) -> None:
                 path = urlparse(self.path).path
-                if path == "/status":
+                if path == "/":
+                    self._send_html(200, shell._observatory_html(project_path))
+                elif path == "/status":
                     self._send(200, shell.status())
+                elif path == "/kernel":
+                    self._send(200, architecture_kernel.load_kernel_manifest(shell.root))
                 elif path == "/project/status" and project_path is not None:
                     self._send(200, project_substrate.observe_project(project_path))
+                elif path == "/project/architecture" and project_path is not None:
+                    self._send(200, project_substrate.architecture_project(project_path))
+                elif path == "/project/graph" and project_path is not None:
+                    self._send(200, project_substrate.state_graph(project_path))
                 elif path == "/project/catalog" and project_path is not None:
                     self._send(200, project_substrate.catalog_project(project_path))
                 elif path == "/project/patterns" and project_path is not None:
@@ -483,6 +593,8 @@ class RuntimeShell:
                     )
                 elif path == "/project/evidence" and project_path is not None:
                     self._send(200, project_substrate.list_evidence(project_path))
+                elif path.startswith("/project/explain/") and project_path is not None:
+                    self._send(200, project_substrate.explain_route(project_path, unquote(path.removeprefix("/project/explain/"))))
                 elif path == "/organs":
                     self._send(200, {"schema_version": "microcosm_runtime_organs_v1", "organs": shell.organs()})
                 elif path == "/patterns":
@@ -527,6 +639,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve_parser.add_argument("--port", type=int, default=8765)
     serve_parser.add_argument("project", nargs="?")
     subparsers.add_parser("patterns")
+    subparsers.add_parser("kernel")
     route_parser = subparsers.add_parser("route")
     route_sub = route_parser.add_subparsers(dest="route_command")
     route_sub.add_parser("list")
@@ -554,6 +667,8 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(shell.run_demo(args.project))
     if args.command == "patterns":
         return _print_json({"schema_version": "microcosm_runtime_patterns_v1", "patterns": shell.patterns()})
+    if args.command == "kernel":
+        return _print_json(architecture_kernel.load_kernel_manifest(shell.root))
     if args.command == "route":
         if args.route_command == "list":
             return _print_json({"schema_version": "microcosm_runtime_routes_v1", "routes": shell.routes()})

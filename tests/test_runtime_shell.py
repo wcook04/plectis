@@ -30,8 +30,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
     assert "microcosm route <project>" in status["runtime_surface"]["commands"]
+    assert "microcosm explain <project> <route_id>" in status["runtime_surface"]["commands"]
     assert "microcosm evidence list <project>" in status["runtime_surface"]["commands"]
     assert status["runtime_surface"]["receipts_are_drilldown_evidence"] is True
+    assert status["posture"] == "executable_research_prototype"
+    assert status["kernel_primitive_count"] >= 10
 
 
 def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Path) -> None:
@@ -86,19 +89,32 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     assert work_demo["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
 
 
-def test_runtime_shell_serves_status_endpoint(tmp_path: Path) -> None:
+def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
-    server = shell.serve("127.0.0.1", 0)
+    project = tmp_path / "scratch_project"
+    (project / "src/app").mkdir(parents=True)
+    (project / "README.md").write_text("# Scratch\n", encoding="utf-8")
+    (project / "pyproject.toml").write_text("[project]\nname='scratch'\nversion='0.1.0'\n", encoding="utf-8")
+    (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
+    server = shell.serve("127.0.0.1", 0, project)
     host, port = server.server_address
-    thread = threading.Thread(target=server.handle_request)
+    thread = threading.Thread(target=lambda: [server.handle_request(), server.handle_request(), server.handle_request()])
     thread.start()
     try:
+        with urlopen(f"http://{host}:{port}/", timeout=5) as response:
+            html = response.read().decode("utf-8")
         with urlopen(f"http://{host}:{port}/status", timeout=5) as response:
             payload = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/explain/readme_onboarding_route", timeout=5) as response:
+            explanation = json.loads(response.read().decode("utf-8"))
     finally:
         thread.join(timeout=5)
         server.server_close()
 
+    assert "Microcosm Observatory" in html
+    assert "Project Architecture" in html
     assert payload["status"] == "pass"
     assert payload["adapter_backed_organ_count"] == 7
+    assert explanation["status"] == "pass"
+    assert explanation["route_id"] == "readme_onboarding_route"

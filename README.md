@@ -1,8 +1,13 @@
 # Microcosm Substrate
 
-Microcosm is a local project operating substrate: it catalogs a folder you
-bring, discovers repo-shape patterns, proposes routes, records governed work
-transactions, and emits observable events with evidence available as drilldown.
+Microcosm is an executable research prototype of a local project operating
+substrate: it catalogs a folder you bring, discovers repo-shape patterns,
+proposes routes, records governed work transactions, and emits observable
+events with evidence available as drilldown.
+
+It is small on purpose. The repo is a dense public miniature of a larger
+architecture, not production infrastructure and not a hosted agent platform.
+The point is to make the architecture executable enough to inspect.
 
 ## What You Bring
 
@@ -14,15 +19,31 @@ any directory with code, docs, tests, scripts, or package metadata.
 Microcosm creates project-local state in `.microcosm/`:
 
 - `project_manifest.json`
+- `architecture.json`
+- `state_index.json`
+- `graph.json`
 - `catalog.json`
 - `patterns.json`
 - `routes.json`
 - `work_items.json`
 - `events.jsonl`
+- `explanations/*.json`
 - `evidence/*.json`
 
 The state is a local projection over your project. It does not mutate your
 source files, call providers, publish anything, or claim source authority.
+
+## Research Prototype Contract
+
+1. Bring a folder.
+2. Watch Microcosm build a local project substrate.
+3. Inspect the architecture behind each route, work transaction, event, and
+   evidence object.
+
+The kernel primitives are deliberately compact: project, catalog, pattern,
+standard, route, work, event, evidence, explanation, and assimilation. They
+are defined in `core/architecture_kernel.json` and projected into each project
+as `.microcosm/architecture.json`.
 
 ## First Run
 
@@ -41,11 +62,14 @@ printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' >
 microcosm init /tmp/microcosm-scratch
 microcosm index /tmp/microcosm-scratch
 microcosm catalog /tmp/microcosm-scratch
+microcosm architecture /tmp/microcosm-scratch
 microcosm patterns /tmp/microcosm-scratch
 microcosm route /tmp/microcosm-scratch
+microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm work create /tmp/microcosm-scratch
 microcosm work run /tmp/microcosm-scratch
 microcosm observe /tmp/microcosm-scratch
+microcosm graph /tmp/microcosm-scratch
 microcosm evidence list /tmp/microcosm-scratch
 ```
 
@@ -55,6 +79,7 @@ The same commands work without installing the console script:
 PYTHONPATH=src python3 -m microcosm_core.cli init /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli index /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli route /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli observe /tmp/microcosm-scratch
 ```
 
@@ -70,6 +95,18 @@ microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 
 Evidence receipts are the black-box recorder, not the cockpit. Start with the
 project loop; open receipts only when you need a drilldown.
+
+## Architecture Kernel
+
+`microcosm explain <project> <route_id>` is the main density surface. It shows
+why a route exists by connecting grounded project refs, detected patterns,
+kernel primitives, standard pressure, work transaction shape, event refs, and
+evidence refs.
+
+`microcosm serve <project> --host 127.0.0.1 --port 8765` opens a tiny local
+observatory. It is intentionally dependency-free and static: a browser view
+over the same JSON substrate returned by `architecture`, `catalog`, `patterns`,
+`route`, `explain`, `observe`, and `evidence`.
 
 ## Internal Runtime Spine
 
@@ -95,6 +132,7 @@ PYTHONPATH=src python3 -m microcosm_core.validators.private_state_scan --root . 
 PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
 PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json
+PYTHONPATH=src python3 -m microcosm_core.validators.research_kernel_density --root . --project /tmp/microcosm-scratch --out receipts/first_wave/research_kernel_density.json
 ./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
 python -m pytest -q
 ```
