@@ -41,6 +41,104 @@ _PATTERN_SURFACE_CONTRACT = {
     "private_source_bodies_included": False,
 }
 
+_STANDARD_PRESSURE_REF = "core/public_standard_pressure.json"
+
+_DEFAULT_STANDARD_PRESSURE_SURFACE = {
+    "schema_version": "public_microcosm_standard_pressure_v1",
+    "surface_id": "public_microcosm_standard_pressure",
+    "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
+    "source_ref": _STANDARD_PRESSURE_REF,
+    "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
+    "private_source_bodies_included": False,
+    "anti_claim": (
+        "Standard pressure rows are public-safe constraints over local Microcosm "
+        "state. They do not promote global doctrine, authorize source mutation, "
+        "or prove release readiness."
+    ),
+    "rows": [
+        {
+            "standard_id": "json_contract_markdown_projection",
+            "title": "JSON Contract, Markdown Projection",
+            "claim": "Project-local JSON is the contract; markdown and browser views are projections.",
+            "source_refs": [
+                "principles:pri_001",
+                "standards/std_microcosm_standard.json",
+            ],
+            "kernel_primitive_refs": ["project", "catalog", "route", "work", "evidence"],
+            "route_refs": ["*"],
+            "runtime_hook": "architecture.write_project_architecture",
+            "authority_boundary": "public_contract_projection_not_private_doctrine_body",
+        },
+        {
+            "standard_id": "substrate_derived_projection",
+            "title": "Substrate-Derived Projection",
+            "claim": "Explanations must derive from local state files instead of hand-authored proof prose.",
+            "source_refs": [
+                "principles:pri_121",
+                "paper_modules:system_self_comprehension_root",
+            ],
+            "kernel_primitive_refs": ["catalog", "pattern", "route", "explanation"],
+            "route_refs": ["*"],
+            "runtime_hook": "architecture.explain_route",
+            "authority_boundary": "local_state_projection_not_source_authority",
+        },
+        {
+            "standard_id": "projection_lineage_not_authority",
+            "title": "Projection Lineage, Not Authority",
+            "claim": "Generated route, graph, explanation, and evidence views must expose lineage and anti-claims.",
+            "source_refs": [
+                "principles:pri_142",
+                "paper_modules:navigation_hologram_theory",
+            ],
+            "kernel_primitive_refs": ["route", "event", "evidence", "explanation"],
+            "route_refs": ["*"],
+            "runtime_hook": "architecture.build_graph",
+            "authority_boundary": "generated_projection_interface_not_owner_source",
+        },
+        {
+            "standard_id": "reversible_work_transaction",
+            "title": "Reversible Work Transaction",
+            "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
+            "source_refs": [
+                "paper_modules:operational_work_item_spine",
+                "standards/std_microcosm_work_item.json",
+                "standards/std_microcosm_mission.json",
+            ],
+            "kernel_primitive_refs": ["route", "work", "event", "evidence", "assimilation"],
+            "route_refs": ["*"],
+            "runtime_hook": "project_substrate.create_work/run_work",
+            "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
+        },
+        {
+            "standard_id": "evidence_as_black_box_recorder",
+            "title": "Evidence As Black-Box Recorder",
+            "claim": "Events and receipts record what happened; they are drilldown evidence, not the cockpit.",
+            "source_refs": [
+                "organs:proof_diagnostic_evidence_spine",
+                "organs:agent_route_observability_runtime",
+                "standards/std_microcosm_evidence_graph.json",
+            ],
+            "kernel_primitive_refs": ["event", "evidence", "explanation"],
+            "route_refs": ["*"],
+            "runtime_hook": "project_substrate.observe_project/list_evidence",
+            "authority_boundary": "local_observability_not_live_telemetry_authority",
+        },
+        {
+            "standard_id": "assimilation_without_promotion",
+            "title": "Assimilation Without Promotion",
+            "claim": "Closeout records next local actions and residuals without promoting global doctrine.",
+            "source_refs": [
+                "core/pattern_assimilation_policy.json",
+                "organs:pattern_assimilation_step",
+            ],
+            "kernel_primitive_refs": ["work", "assimilation", "evidence"],
+            "route_refs": ["*"],
+            "runtime_hook": "project_substrate.run_work",
+            "authority_boundary": "local_closeout_metadata_not_global_learning_authority",
+        },
+    ],
+}
+
 _DEFAULT_KERNEL = {
     "schema_version": "microcosm_architecture_kernel_v1",
     "kernel_id": "microcosm_executable_research_kernel",
@@ -61,6 +159,7 @@ _DEFAULT_KERNEL = {
         "calls, source mutation, private-data equivalence, or whole-system correctness."
     ),
     "pattern_surface": _PATTERN_SURFACE_CONTRACT,
+    "standard_pressure_surface_ref": _STANDARD_PRESSURE_REF,
     "primitives": [
         {
             "primitive_id": "project",
@@ -268,6 +367,36 @@ def pattern_surface_contract(root: str | Path | None = None) -> dict[str, Any]:
     return dict(_PATTERN_SURFACE_CONTRACT)
 
 
+def load_standard_pressure_surface(root: str | Path | None = None) -> dict[str, Any]:
+    root_path = Path(root).resolve(strict=False) if root is not None else public_root()
+    payload = read_json_if_exists(root_path / _STANDARD_PRESSURE_REF)
+    if payload:
+        return payload
+    return dict(_DEFAULT_STANDARD_PRESSURE_SURFACE)
+
+
+def standard_pressure_contract(root: str | Path | None = None) -> dict[str, Any]:
+    surface = load_standard_pressure_surface(root)
+    rows = surface.get("rows", [])
+    row_count = len([row for row in rows if isinstance(row, dict)]) if isinstance(rows, list) else 0
+    return {
+        "surface_id": surface.get("surface_id", "public_microcosm_standard_pressure"),
+        "state_ref": surface.get("state_ref", ".microcosm/architecture.json::standard_pressure_surface"),
+        "source_ref": surface.get("source_ref", _STANDARD_PRESSURE_REF),
+        "authority_posture": surface.get(
+            "authority_posture",
+            "public_safe_standard_pressure_projection_not_doctrine_authority",
+        ),
+        "private_source_bodies_included": surface.get("private_source_bodies_included") is True,
+        "row_count": row_count,
+    }
+
+
+def standard_pressure_rows(root: str | Path | None = None) -> list[dict[str, Any]]:
+    rows = load_standard_pressure_surface(root).get("rows", [])
+    return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
+
+
 def _route_pattern_refs(route: dict[str, Any]) -> list[str]:
     refs = route.get("pattern_refs", [])
     if isinstance(refs, list):
@@ -309,6 +438,105 @@ def _pattern_bindings(pattern_payload: dict[str, Any], pattern_refs: list[str]) 
     return bindings
 
 
+def standard_pressure_refs_for_route(route: dict[str, Any]) -> list[str]:
+    route_id = str(route.get("route_id") or route.get("row_id") or "")
+    refs = route.get("standard_pressure_refs", [])
+    if isinstance(refs, list) and refs:
+        return [str(ref) for ref in refs if ref is not None and str(ref)]
+    selected: list[str] = []
+    for row in standard_pressure_rows():
+        row_refs = row.get("route_refs", [])
+        if row_refs == ["*"] or route_id in row_refs:
+            standard_id = row.get("standard_id")
+            if standard_id:
+                selected.append(str(standard_id))
+    return selected
+
+
+def _standard_pressure_bindings(route: dict[str, Any]) -> list[dict[str, Any]]:
+    rows_by_id = {
+        str(row.get("standard_id")): row
+        for row in standard_pressure_rows()
+        if row.get("standard_id")
+    }
+    contract = standard_pressure_contract()
+    bindings: list[dict[str, Any]] = []
+    for standard_id in standard_pressure_refs_for_route(route):
+        row = rows_by_id.get(standard_id)
+        bindings.append(
+            {
+                "standard_id": standard_id,
+                "resolved": row is not None,
+                "standard": row,
+                "state_ref": f"{contract['state_ref']}::{standard_id}",
+                "source_ref": contract["source_ref"],
+                "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+            }
+        )
+    return bindings
+
+
+def work_contracts_for_route(route: dict[str, Any], work_id: str | None = None) -> dict[str, Any]:
+    route_id = str(route.get("route_id") or route.get("row_id") or "route")
+    work_ref = work_id or "<work_id>"
+    standard_refs = [
+        "reversible_work_transaction",
+        "projection_lineage_not_authority",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+    ]
+    return {
+        "satisfaction_contract": {
+            "contract_id": f"satisfaction:{route_id}",
+            "route_id": route_id,
+            "must_satisfy": [
+                "route_snapshot_present",
+                "workflow_definition_ref_present",
+                "workflow_execution_ref_present",
+                "state_history_records_created_selected_planned",
+                "source_mutation_not_authorized",
+                "event_and_evidence_refs_recorded_on_run",
+            ],
+            "done_when": [
+                "transaction_state == closed",
+                "closeout.satisfaction_contract_met == true",
+                "closeout.integration_contract_met == true",
+            ],
+            "standard_pressure_refs": standard_refs,
+            "authority_boundary": "project_local_contract_not_live_task_ledger_authority",
+        },
+        "integration_contract": {
+            "contract_id": f"integration:{route_id}",
+            "route_id": route_id,
+            "state_targets": [
+                f"{STATE_DIR}/work_items.json::{work_ref}",
+                f"{STATE_DIR}/{EVENT_STREAM}",
+                f"{STATE_DIR}/{EVIDENCE_DIR}/work_create_{work_ref}.json",
+                f"{STATE_DIR}/{EVIDENCE_DIR}/work_run_{work_ref}.json",
+            ],
+            "integration_mode": "project_local_record_only",
+            "forbidden_side_effects": [
+                "source_file_mutation",
+                "provider_call",
+                "live_task_ledger_mutation",
+                "global_doctrine_promotion",
+                "release_or_publication",
+            ],
+            "standard_pressure_refs": standard_refs,
+            "authority_boundary": "local_state_integration_not_external_side_effect",
+        },
+        "residual_policy": {
+            "residual_capture_mode": "local_next_actions_only",
+            "global_backlog_mutation_authorized": False,
+            "nothing_to_refine_floor": [
+                "stewardship_checked",
+                "next_best_lane_checked",
+                "reentry_condition",
+            ],
+        },
+    }
+
+
 def _base(project: Path, schema_version: str) -> dict[str, Any]:
     return {
         "schema_version": schema_version,
@@ -327,6 +555,7 @@ def build_state_index(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
     pattern_surface = pattern_surface_contract()
+    standard_pressure = standard_pressure_contract()
     assets = [
         ("project", "project_manifest.json", "project root manifest"),
         ("architecture", "architecture.json", "public architecture kernel projection"),
@@ -360,12 +589,15 @@ def build_state_index(project_path: str | Path) -> dict[str, Any]:
             row["item_count"] = count
         if kind == "pattern":
             row["surface_contract"] = pattern_surface
+        if kind == "architecture":
+            row["standard_pressure_contract"] = standard_pressure
         rows.append(row)
     payload = {
         **_base(project, "microcosm_project_state_index_v1"),
         "asset_count": len(rows),
         "assets": rows,
         "pattern_surface": pattern_surface,
+        "standard_pressure_surface": standard_pressure,
         "authority_ceiling": {
             "project_local_projection_not_source_authority": True,
             "source_mutation_authorized": False,
@@ -383,6 +615,7 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
     work_items = read_json_if_exists(state / "work_items.json").get("work_items", [])
     patterns = read_json_if_exists(state / "patterns.json").get("patterns", [])
     pattern_surface = pattern_surface_contract()
+    standard_pressure = standard_pressure_contract()
     nodes: list[dict[str, Any]] = [
         {"node_id": "project", "kind": "primitive", "label": "Project"},
         {"node_id": "catalog", "kind": "primitive", "label": "Catalog"},
@@ -393,6 +626,13 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
             "label": "Public Pattern Surface",
             "state_ref": pattern_surface.get("state_ref"),
             "evidence_ref": pattern_surface.get("evidence_ref"),
+        },
+        {
+            "node_id": "standard_pressure_surface",
+            "kind": "surface",
+            "label": "Public Standard Pressure",
+            "state_ref": standard_pressure.get("state_ref"),
+            "source_ref": standard_pressure.get("source_ref"),
         },
         {"node_id": "route", "kind": "primitive", "label": "Route"},
         {"node_id": "work", "kind": "primitive", "label": "Work"},
@@ -408,6 +648,17 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
                     "kind": "standard",
                     "label": Path(ref).stem,
                     "state_ref": ref,
+                }
+            )
+    for row in standard_pressure_rows():
+        standard_id = row.get("standard_id")
+        if standard_id:
+            nodes.append(
+                {
+                    "node_id": f"standard_pressure:{standard_id}",
+                    "kind": "standard_pressure",
+                    "label": row.get("title", standard_id),
+                    "state_ref": f"{standard_pressure.get('state_ref')}::{standard_id}",
                 }
             )
     assimilation_ref = pattern_surface.get("assimilation_policy_ref")
@@ -435,12 +686,14 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
         {"from": "pattern", "to": "pattern_surface", "relation": "projects_to"},
         {"from": "pattern_surface", "to": "route", "relation": "opens"},
         {"from": "route", "to": "pattern_surface", "relation": "resolves_pattern_refs_against"},
+        {"from": "route", "to": "standard_pressure_surface", "relation": "resolves_standard_pressure_against"},
         {"from": "pattern", "to": "route", "relation": "opens"},
         {"from": "route", "to": "work", "relation": "selects"},
         {"from": "work", "to": "event", "relation": "emits"},
         {"from": "event", "to": "evidence", "relation": "references"},
         {"from": "route", "to": "explanation", "relation": "explains"},
         {"from": "explanation", "to": "pattern_surface", "relation": "explains_against"},
+        {"from": "explanation", "to": "standard_pressure_surface", "relation": "explains_against"},
     ]
     for ref in pattern_surface.get("binding_standard_refs", []):
         if isinstance(ref, str) and ref:
@@ -453,6 +706,16 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
             )
     if isinstance(assimilation_ref, str) and assimilation_ref:
         edges.append({"from": "pattern_surface", "to": "assimilation_policy", "relation": "closed_by"})
+    for row in standard_pressure_rows():
+        standard_id = row.get("standard_id")
+        if standard_id:
+            edges.append(
+                {
+                    "from": "standard_pressure_surface",
+                    "to": f"standard_pressure:{standard_id}",
+                    "relation": "contains",
+                }
+            )
     for row in routes if isinstance(routes, list) else []:
         if isinstance(row, dict):
             for pattern_id in _route_pattern_refs(row):
@@ -461,6 +724,14 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
                         "from": f"pattern:{pattern_id}",
                         "to": f"route:{row.get('route_id')}",
                         "relation": "supports",
+                    }
+                )
+            for standard_id in standard_pressure_refs_for_route(row):
+                edges.append(
+                    {
+                        "from": f"standard_pressure:{standard_id}",
+                        "to": f"route:{row.get('route_id')}",
+                        "relation": "constrains",
                     }
                 )
     for row in work_items if isinstance(work_items, list) else []:
@@ -479,6 +750,7 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
         "nodes": nodes,
         "edges": edges,
         "pattern_surface": pattern_surface,
+        "standard_pressure_surface": standard_pressure,
         "graph_ref": f"{STATE_DIR}/graph.json",
     }
     write_json_atomic(state / "graph.json", payload)
@@ -493,6 +765,7 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
     (state / EXPLANATION_DIR).mkdir(parents=True, exist_ok=True)
     manifest = dict(load_kernel_manifest())
     pattern_surface = pattern_surface_contract()
+    standard_pressure = load_standard_pressure_surface()
     payload = {
         **_base(project, "microcosm_project_architecture_v1"),
         "kernel": manifest,
@@ -516,11 +789,13 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
         ],
         "pattern_surface": pattern_surface,
         "pattern_state_ref": pattern_surface.get("state_ref", ".microcosm/patterns.json"),
+        "standard_pressure_surface": standard_pressure,
         "architecture_lineage": [
             "project folder",
             ".microcosm local state",
             "architecture kernel",
             "public pattern surface",
+            "public standard pressure",
             "route graph",
             "route explanation",
             "work transaction",
@@ -566,6 +841,7 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         }
     pattern_refs = _route_pattern_refs(route)
     pattern_bindings = _pattern_bindings(pattern_payload, pattern_refs)
+    standard_bindings = _standard_pressure_bindings(route)
     patterns = [row["pattern"] for row in pattern_bindings if isinstance(row.get("pattern"), dict)]
     pattern_surface = pattern_surface_contract()
     work_items = [
@@ -601,24 +877,19 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         ],
         "detected_patterns": patterns,
         "kernel_primitives": ["catalog", "pattern", "route", "work", "event", "evidence", "explanation"],
+        "standard_pressure_surface": standard_pressure_contract(),
+        "standard_pressure_refs": standard_pressure_refs_for_route(route),
+        "standard_bindings": standard_bindings,
         "standard_pressure": [
-            {
-                "standard_id": "local_first_boundary",
-                "claim": "Project state stays in .microcosm/ and remains under the user's folder.",
-            },
-            {
-                "standard_id": "reversible_work_transaction",
-                "claim": "Work runs simulate governed transactions and do not mutate source files by default.",
-            },
-            {
-                "standard_id": "evidence_as_drilldown",
-                "claim": "Evidence references are generated black-box recorder drilldowns, not the primary cockpit.",
-            },
+            row["standard"]
+            for row in standard_bindings
+            if isinstance(row.get("standard"), dict)
         ],
         "work_transaction_shape": {
             "definition_ref": ".microcosm/routes.json",
             "execution_ref": ".microcosm/work_items.json",
             "state_machine": ["created", "selected", "planned", "executed_simulation", "closed"],
+            "contract_shape": work_contracts_for_route(route),
             "matching_work_items": work_items,
         },
         "event_refs": event_refs,

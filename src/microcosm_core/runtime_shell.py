@@ -243,6 +243,7 @@ class RuntimeShell:
         workitems = self.workitems()
         evidence = self.evidence()
         pattern_surface = architecture_kernel.pattern_surface_contract(self.root)
+        standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
         return {
             "schema_version": "microcosm_runtime_status_v1",
             "status": PASS if len(adapter_backed) == len(RUNTIME_STEPS) else "blocked",
@@ -281,6 +282,7 @@ class RuntimeShell:
             "route_count": len(routes),
             "pattern_count": len(self.patterns()),
             "pattern_surface": pattern_surface,
+            "standard_pressure_surface": standard_pressure,
             "workitem_count": len(workitems),
             "evidence_count": len(evidence),
             "kernel_primitive_count": architecture_kernel.load_kernel_manifest(self.root).get("primitive_count"),
@@ -492,7 +494,13 @@ class RuntimeShell:
         project_title = project_path.name if project_path is not None else "public runtime"
         sections = [
             ("Status", status),
-            ("Kernel", architecture_kernel.load_kernel_manifest(self.root)),
+            (
+                "Kernel",
+                {
+                    **architecture_kernel.load_kernel_manifest(self.root),
+                    "standard_pressure_surface": architecture_kernel.load_standard_pressure_surface(self.root),
+                },
+            ),
         ]
         if project_payloads:
             sections.extend(
@@ -571,7 +579,13 @@ class RuntimeShell:
                 elif path == "/status":
                     self._send(200, shell.status())
                 elif path == "/kernel":
-                    self._send(200, architecture_kernel.load_kernel_manifest(shell.root))
+                    self._send(
+                        200,
+                        {
+                            **architecture_kernel.load_kernel_manifest(shell.root),
+                            "standard_pressure_surface": architecture_kernel.load_standard_pressure_surface(shell.root),
+                        },
+                    )
                 elif path == "/project/status" and project_path is not None:
                     self._send(200, project_substrate.observe_project(project_path))
                 elif path == "/project/architecture" and project_path is not None:
@@ -670,7 +684,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "patterns":
         return _print_json({"schema_version": "microcosm_runtime_patterns_v1", "patterns": shell.patterns()})
     if args.command == "kernel":
-        return _print_json(architecture_kernel.load_kernel_manifest(shell.root))
+        return _print_json(
+            {
+                **architecture_kernel.load_kernel_manifest(shell.root),
+                "standard_pressure_surface": architecture_kernel.load_standard_pressure_surface(shell.root),
+            }
+        )
     if args.command == "route":
         if args.route_command == "list":
             return _print_json({"schema_version": "microcosm_runtime_routes_v1", "routes": shell.routes()})

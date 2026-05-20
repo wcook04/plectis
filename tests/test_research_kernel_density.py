@@ -22,6 +22,8 @@ def _scratch_project(tmp_path: Path) -> Path:
     project_substrate.index_project(project)
     project_substrate.propose_routes(project)
     project_substrate.explain_route(project, "readme_onboarding_route")
+    created = project_substrate.create_work(project, "readme_onboarding_route")
+    project_substrate.run_work(project, str(created["work_id"]))
     return project
 
 
@@ -38,5 +40,8 @@ def test_research_kernel_density_validator_passes_with_scratch_project(tmp_path:
     assert receipt["density_assertions"]["kernel_declares_pattern_surface"] is True
     assert receipt["density_assertions"]["route_pattern_refs_resolve"] is True
     assert receipt["density_assertions"]["explanations_include_pattern_bindings"] is True
+    assert receipt["density_assertions"]["explanations_include_standard_bindings"] is True
+    assert receipt["density_assertions"]["route_standard_refs_resolve"] is True
     assert receipt["density_assertions"]["route_explanation_available"] is True
+    assert receipt["density_assertions"]["work_transaction_contract_present"] is True
     assert receipt["density_assertions"]["release_authorized"] is False

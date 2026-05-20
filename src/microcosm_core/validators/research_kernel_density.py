@@ -119,6 +119,7 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
         "state_index.json",
         "graph.json",
         "routes.json",
+        "work_items.json",
         "events.jsonl",
     ]
     for rel in required_state:
@@ -173,6 +174,8 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
         )
     missing_bindings: list[str] = []
     unresolved_bindings: list[dict[str, Any]] = []
+    missing_standard_bindings: list[str] = []
+    unresolved_standard_bindings: list[dict[str, Any]] = []
     for path in sorted(explanations.glob("*.json")) if explanations.is_dir() else []:
         payload = read_json_if_exists(path)
         bindings = _rows(payload, "pattern_bindings")
@@ -185,6 +188,20 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
                 {
                     "explanation_ref": f".microcosm/explanations/{path.name}",
                     "unresolved_pattern_refs": unresolved,
+                }
+            )
+        standard_bindings = _rows(payload, "standard_bindings")
+        if not standard_bindings:
+            missing_standard_bindings.append(path.name)
+            continue
+        unresolved_standards = [
+            row.get("standard_id") for row in standard_bindings if row.get("resolved") is not True
+        ]
+        if unresolved_standards:
+            unresolved_standard_bindings.append(
+                {
+                    "explanation_ref": f".microcosm/explanations/{path.name}",
+                    "unresolved_standard_refs": unresolved_standards,
                 }
             )
     if missing_bindings:
@@ -201,6 +218,63 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
             {
                 "finding_id": "project_explanation_pattern_binding_unresolved",
                 "explanations": unresolved_bindings,
+            }
+        )
+    if missing_standard_bindings:
+        blocking_codes.append("PROJECT_EXPLANATION_STANDARD_BINDINGS_MISSING")
+        findings.append(
+            {
+                "finding_id": "project_explanation_standard_bindings_missing",
+                "explanation_files": missing_standard_bindings,
+            }
+        )
+    if unresolved_standard_bindings:
+        blocking_codes.append("PROJECT_EXPLANATION_STANDARD_BINDING_UNRESOLVED")
+        findings.append(
+            {
+                "finding_id": "project_explanation_standard_binding_unresolved",
+                "explanations": unresolved_standard_bindings,
+            }
+        )
+    work_payload = read_json_if_exists(state / "work_items.json")
+    work_rows = _rows(work_payload, "work_items")
+    if not work_rows:
+        blocking_codes.append("PROJECT_WORK_TRANSACTION_MISSING")
+    work_contract_gaps: list[dict[str, Any]] = []
+    for row in work_rows:
+        missing = [
+            field
+            for field in [
+                "route_snapshot",
+                "satisfaction_contract",
+                "integration_contract",
+                "state_history",
+                "event_refs",
+                "evidence_refs",
+            ]
+            if not row.get(field)
+        ]
+        closeout = row.get("closeout")
+        if row.get("status") == "closed" and not isinstance(closeout, dict):
+            missing.append("closeout")
+        if isinstance(closeout, dict):
+            if closeout.get("satisfaction_contract_met") is not True:
+                missing.append("closeout.satisfaction_contract_met")
+            if closeout.get("integration_contract_met") is not True:
+                missing.append("closeout.integration_contract_met")
+        if missing:
+            work_contract_gaps.append(
+                {
+                    "work_id": row.get("work_id"),
+                    "missing_fields": sorted(set(missing)),
+                }
+            )
+    if work_contract_gaps:
+        blocking_codes.append("PROJECT_WORK_TRANSACTION_CONTRACT_INCOMPLETE")
+        findings.append(
+            {
+                "finding_id": "project_work_transaction_contract_incomplete",
+                "work_items": work_contract_gaps,
             }
         )
     return findings, blocking_codes
@@ -242,6 +316,7 @@ def validate_density(
             public_root / "README.md",
             public_root / "AGENTS.md",
             public_root / "core/architecture_kernel.json",
+            public_root / "core/public_standard_pressure.json",
         ]
         if path.is_file()
     ]
@@ -271,7 +346,14 @@ def validate_density(
             "route_pattern_refs_resolve": "PROJECT_ROUTE_PATTERN_REF_UNRESOLVED" not in blocking_codes,
             "explanations_include_pattern_bindings": "PROJECT_EXPLANATION_PATTERN_BINDINGS_MISSING"
             not in blocking_codes,
+            "explanations_include_standard_bindings": "PROJECT_EXPLANATION_STANDARD_BINDINGS_MISSING"
+            not in blocking_codes,
+            "route_standard_refs_resolve": "PROJECT_EXPLANATION_STANDARD_BINDING_UNRESOLVED"
+            not in blocking_codes,
             "route_explanation_available": "PROJECT_ROUTE_EXPLANATION_MISSING" not in blocking_codes,
+            "work_transaction_contract_present": "PROJECT_WORK_TRANSACTION_CONTRACT_INCOMPLETE"
+            not in blocking_codes
+            and "PROJECT_WORK_TRANSACTION_MISSING" not in blocking_codes,
             "evidence_is_drilldown": True,
             "release_authorized": False,
         },

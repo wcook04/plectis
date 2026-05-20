@@ -67,6 +67,19 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert explanation["pattern_surface"]["state_ref"] == ".microcosm/patterns.json"
     assert explanation["pattern_bindings"][0]["pattern_id"] == "repo_has_readme"
     assert explanation["pattern_bindings"][0]["resolved"] is True
+    assert explanation["standard_pressure_surface"]["surface_id"] == "public_microcosm_standard_pressure"
+    assert "reversible_work_transaction" in explanation["standard_pressure_refs"]
+    assert all(row["resolved"] is True for row in explanation["standard_bindings"])
+    assert {
+        row["standard_id"] for row in explanation["standard_bindings"]
+    } >= {
+        "json_contract_markdown_projection",
+        "substrate_derived_projection",
+        "projection_lineage_not_authority",
+        "reversible_work_transaction",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+    }
     assert explanation["kernel_primitives"] == [
         "catalog",
         "pattern",
@@ -80,6 +93,24 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert created["work_id"] == "work_0001"
     assert run["transaction_status"] == "pass"
     assert run["state_machine"] == ["created", "selected", "planned", "executed_simulation", "closed"]
+    rerun = project_substrate.run_work(project, str(created["work_id"]))
+    assert rerun["transaction_status"] == "pass"
+    assert rerun["idempotent_replay"] is True
+    work_payload = json.loads((project / ".microcosm/work_items.json").read_text(encoding="utf-8"))
+    work_row = work_payload["work_items"][0]
+    assert work_row["satisfaction_contract"]["contract_id"] == "satisfaction:readme_onboarding_route"
+    assert work_row["integration_contract"]["integration_mode"] == "project_local_record_only"
+    assert work_row["closeout"]["satisfaction_contract_met"] is True
+    assert work_row["closeout"]["integration_contract_met"] is True
+    assert [row["state"] for row in work_row["state_history"]] == [
+        "created",
+        "selected",
+        "planned",
+        "executed_simulation",
+        "closed",
+    ]
+    assert work_row["event_refs"]
+    assert work_row["evidence_refs"]
     assert observed["event_count"] >= 6
     assert observed["architecture_ref"] == ".microcosm/architecture.json"
     assert graph["edge_count"] >= 7
@@ -87,8 +118,11 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "pattern_surface",
         "standard:std_microcosm_pattern",
         "standard:std_microcosm_pattern_binding_contract",
+        "standard_pressure_surface",
+        "standard_pressure:reversible_work_transaction",
     }
     assert any(edge["relation"] == "resolves_pattern_refs_against" for edge in graph["edges"])
+    assert any(edge["relation"] == "resolves_standard_pressure_against" for edge in graph["edges"])
     assert evidence["evidence_count"] >= 6
     assert inspected["status"] == "pass"
     assert inspected["body_redacted"] is True

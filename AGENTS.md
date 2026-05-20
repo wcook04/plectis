@@ -34,6 +34,9 @@ explanation, and assimilation primitives, not through production claims.
    Architecture primitives must resolve through the project-local pattern
    surface: catalog observations become `.microcosm/patterns.json`, routes
    carry `pattern_refs`, and explanations show resolved pattern bindings.
+   Explanations must also resolve public standard pressure from
+   `core/public_standard_pressure.json`; do not inline private doctrine or
+   create a second pattern taxonomy.
 3. Fixtures Are Tests: fixtures under `fixtures/first_wave/**` are examples,
    bootstrap data, and negative cases. Do not treat fixture-only behavior as
    product-complete runtime behavior.

@@ -376,6 +376,7 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
                 "pattern_refs": pattern_refs,
                 "pattern_surface_id": pattern_surface.get("surface_id"),
                 "pattern_resolution_ref": pattern_surface.get("state_ref", f"{STATE_DIR}/patterns.json"),
+                "standard_pressure_refs": architecture_kernel.standard_pressure_refs_for_route({"route_id": route_id}),
                 "kernel_primitive_refs": ["catalog", "pattern", "route", "work", "event", "evidence"],
                 "route_definition_ref": f"{STATE_DIR}/routes.json::{route_id}",
                 "explain_command": f"microcosm explain <project> {route_id}",
@@ -461,6 +462,7 @@ def create_work(project_path: str | Path, route_id: str | None = None) -> dict[s
         }
     rows = _load_work_items(project)
     work_id = f"work_{len(rows) + 1:04d}"
+    contracts = architecture_kernel.work_contracts_for_route(selected, work_id)
     row = {
         "work_id": work_id,
         "route_id": selected["route_id"],
@@ -472,6 +474,11 @@ def create_work(project_path: str | Path, route_id: str | None = None) -> dict[s
         "transaction_policy": "simulate_project_local_only",
         "workflow_definition_ref": f"{STATE_DIR}/routes.json::{selected['route_id']}",
         "workflow_execution_ref": f"{STATE_DIR}/work_items.json::{work_id}",
+        "satisfaction_contract": contracts["satisfaction_contract"],
+        "integration_contract": contracts["integration_contract"],
+        "residual_policy": contracts["residual_policy"],
+        "event_refs": [],
+        "evidence_refs": [],
         "state_history": [
             {
                 "state": "created",
@@ -518,6 +525,15 @@ def create_work(project_path: str | Path, route_id: str | None = None) -> dict[s
             "route_id": selected["route_id"],
         },
     )
+    row["event_refs"].append(
+        {
+            "event_id": event["event_id"],
+            "span": event["span"],
+            "status": event["status"],
+        }
+    )
+    row["evidence_refs"].append(evidence_ref)
+    _write_work_items(project, rows)
     return {
         **_base_payload("microcosm_project_work_create_result_v1", project),
         "work_id": work_id,
@@ -544,6 +560,35 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
             "reason": "work_item_not_found",
             "work_id": work_id,
         }
+    if selected.get("status") == "closed" and isinstance(selected.get("closeout"), dict):
+        history = selected.get("state_history", [])
+        state_machine = [
+            str(row.get("state"))
+            for row in history
+            if isinstance(row, dict) and row.get("state")
+        ]
+        evidence_refs = selected.get("evidence_refs", [])
+        latest_evidence_ref = evidence_refs[-1] if isinstance(evidence_refs, list) and evidence_refs else None
+        return {
+            **_base_payload("microcosm_project_work_run_result_v1", project),
+            "work_id": selected["work_id"],
+            "route_id": selected["route_id"],
+            "transaction_status": PASS,
+            "idempotent_replay": True,
+            "state_machine": state_machine,
+            "work_items_ref": f"{STATE_DIR}/work_items.json",
+            "event_ref": f"{STATE_DIR}/{EVENT_STREAM}",
+            "evidence_ref": latest_evidence_ref,
+        }
+    contracts = architecture_kernel.work_contracts_for_route(
+        selected.get("route_snapshot", {"route_id": selected.get("route_id")}),
+        str(selected.get("work_id") or ""),
+    )
+    selected.setdefault("satisfaction_contract", contracts["satisfaction_contract"])
+    selected.setdefault("integration_contract", contracts["integration_contract"])
+    selected.setdefault("residual_policy", contracts["residual_policy"])
+    selected.setdefault("event_refs", [])
+    selected.setdefault("evidence_refs", [])
     selected["status"] = "closed"
     selected["transaction_state"] = "closed"
     selected["closed_at"] = utc_now()
@@ -575,6 +620,23 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
         "workflow_execution_ref": selected.get("workflow_execution_ref"),
         "source_files_mutated": False,
     }
+    selected["closeout"] = {
+        "status": PASS,
+        "satisfaction_contract_met": True,
+        "integration_contract_met": True,
+        "residuals": [],
+        "next_actions": [
+            {
+                "action_id": "inspect_route_explanation",
+                "command": f"microcosm explain <project> {selected['route_id']}",
+            },
+            {
+                "action_id": "inspect_event_stream",
+                "command": "microcosm observe <project>",
+            },
+        ],
+        "authority_boundary": "project_local_closeout_not_global_doctrine_promotion",
+    }
     _write_work_items(project, rows)
     architecture_kernel.write_project_architecture(project)
     event = _event(
@@ -599,6 +661,18 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
             "transaction_status": PASS,
         },
     )
+    event_row = {
+        "event_id": event["event_id"],
+        "span": event["span"],
+        "status": event["status"],
+    }
+    if isinstance(selected.get("event_refs"), list):
+        selected["event_refs"].append(event_row)
+    if isinstance(selected.get("evidence_refs"), list):
+        selected["evidence_refs"].append(evidence_ref)
+    selected["closeout"]["event_ref"] = f"{STATE_DIR}/{EVENT_STREAM}::{event['event_id']}"
+    selected["closeout"]["evidence_ref"] = evidence_ref
+    _write_work_items(project, rows)
     return {
         **_base_payload("microcosm_project_work_run_result_v1", project),
         "work_id": selected["work_id"],

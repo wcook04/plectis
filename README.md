@@ -51,6 +51,12 @@ become rows in `.microcosm/patterns.json`, routes carry `pattern_refs`, and
 keeps the miniature architecture tied to the same public pattern-binding
 surface used by the adapter spine.
 
+Route explanations also resolve through `core/public_standard_pressure.json`.
+That small card set distills public-safe pressure from the macro standards,
+principles, WorkItem spine, projection governance, observability, and
+assimilation surfaces. The cards constrain local state and explanation shape;
+they are not private doctrine authority.
+
 ## First Run
 
 From this directory:
@@ -106,8 +112,8 @@ project loop; open receipts only when you need a drilldown.
 
 `microcosm explain <project> <route_id>` is the main density surface. It shows
 why a route exists by connecting grounded project refs, resolved pattern
-bindings, kernel primitives, standard pressure, work transaction shape, event
-refs, and evidence refs.
+bindings, kernel primitives, resolved standard pressure, work transaction
+contracts, event refs, and evidence refs.
 
 `microcosm serve <project> --host 127.0.0.1 --port 8765` opens a tiny local
 observatory. It is intentionally dependency-free and static: a browser view
