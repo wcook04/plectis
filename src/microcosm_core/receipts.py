@@ -8,10 +8,10 @@ from pathlib import Path
 from typing import Any
 
 
-AUTHORITY_CEILING = "public_first_slice_receipt_only_not_source_authority"
+AUTHORITY_CEILING = "command_receipt_evidence_not_runtime_product_completeness"
 ANTI_CLAIM = (
-    "This receipt proves only the named public-safe first-slice command over "
-    "synthetic fixtures; it is not public runtime completeness or source-body authority."
+    "This receipt records only the named public command output over public inputs "
+    "and regression fixtures; it is not runtime product completeness or source-body authority."
 )
 
 

@@ -8,7 +8,7 @@
     "agent_route_observability_runtime",
     "pattern_assimilation_step"
   ],
-  "anti_claim": "Public entry-doc validation proves only public-safe entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim": "Public entry-doc validation proves only standalone public entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
   "authority_ceiling": {
     "entry_docs_authority": "public_entry_navigation_and_docs_only",
     "lean_lake_authorized": false,
@@ -23,6 +23,7 @@
     "formal_math_lean_proof_witness"
   ],
   "fixture_id": "first_wave.public_entry_docs",
+  "forbidden_phrases_by_doc": {},
   "missing_accepted_organs": [],
   "missing_docs": [],
   "missing_required_phrases_by_doc": {},

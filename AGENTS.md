@@ -1,8 +1,8 @@
 # AGENTS.md - Microcosm Substrate
 
-This public root is intentionally smaller than the source reconstruction
-workspace. Treat it as a runnable public-safe substrate, not as the private
-control plane.
+This root is a standalone runnable substrate. Treat it as the runtime surface
+in front of you: public commands, public input bundles, validators, receipts,
+tests, and docs all live here.
 
 ## Accepted Public Runtime Spine
 
@@ -18,14 +18,16 @@ control plane.
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. Use only synthetic fixtures under `fixtures/first_wave/**`.
-3. Receipts Are Authority: generate receipts by running validators or
+2. Fixtures Are Tests: fixtures under `fixtures/first_wave/**` are examples,
+   bootstrap data, and negative cases. Do not treat fixture-only behavior as
+   product-complete runtime behavior.
+3. Receipts Are Evidence: generate receipts by running validators or
    `bootstrap.sh`; do not edit receipts by hand.
 4. Treat `core/organ_registry.json`, `core/acceptance/first_wave_acceptance.json`,
    generated receipts, and public paper modules as public-root navigation
-   surfaces, not as authority above the macro reconstruction contracts.
+   surfaces.
 5. Do not run Lean/Lake. `formal_math_lean_proof_witness` remains deferred.
-6. Do not import private reconstruction tools, host-local state, prompt bodies,
+6. Do not import parent-repository-only tools, host-local state, prompt bodies,
    provider payloads, operator threads, HUD/browser/cockpit state, or old
    scratch public-root content as source authority.
 7. Do not add release, hosted-public, publication, recipient, provider-call, or

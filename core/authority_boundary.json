@@ -1,6 +1,6 @@
 {
   "schema_version": "authority_boundary_v1",
-  "public_substrate_rule": "public-safe projection over synthetic fixtures and redacted lineage only",
+  "public_substrate_rule": "standalone public runtime over public input bundles, validators, tests, command-owned receipts, and redacted lineage",
   "allowed_roots": [
     "microcosm-substrate/**"
   ],
@@ -14,7 +14,7 @@
     "HUD/browser/cockpit live state",
     "release/dissemination/publication/recipient/hosted-public/website surfaces"
   ],
-  "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
-  "synthetic_fixture_policy": "fixture bodies are synthetic replacements and never copied non-public evidence bodies",
+  "authority_ceiling": "command_receipt_evidence_not_runtime_product_completeness",
+  "synthetic_fixture_policy": "fixture bodies are examples, bootstrap data, and negative cases; fixture-only behavior is not product-complete runtime behavior",
   "anti_claim": "This boundary manifest does not authorize later organs, publication, hosted public surfaces, or source-body projection."
 }

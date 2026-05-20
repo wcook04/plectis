@@ -37,14 +37,31 @@ ACCEPTED_ORGAN_IDS = [
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
+        "Standalone Runtime Substrate",
         "Accepted Public Runtime Spine",
+        "Fixtures are regression inputs",
         "formal_math_lean_proof_witness",
         "not authorize release",
     ],
     "AGENTS.md": [
+        "standalone runnable substrate",
         "Accepted Public Runtime Spine",
         "Do not run Lean/Lake",
+        "Fixtures Are Tests",
+        "Receipts Are Evidence",
+    ],
+}
+FORBIDDEN_PHRASES_BY_DOC = {
+    "README.md": [
+        "runnable, synthetic, and receipt-driven",
+        "private reconstruction control plane",
+        "public synthetic microcosm",
+    ],
+    "AGENTS.md": [
+        "source reconstruction workspace",
+        "Use only synthetic fixtures",
         "Receipts Are Authority",
+        "macro reconstruction contracts",
     ],
 }
 
@@ -83,6 +100,7 @@ def validate_public_entry_docs(
     output_file = Path(out_path)
     missing_docs: list[str] = []
     missing_required_phrases_by_doc: dict[str, list[str]] = {}
+    forbidden_phrases_by_doc: dict[str, list[str]] = {}
     stale_first_slice_only_phrases: list[str] = []
     doc_paths: list[Path] = []
     for rel in REQUIRED_DOCS:
@@ -97,6 +115,11 @@ def validate_public_entry_docs(
         ]
         if missing_phrases:
             missing_required_phrases_by_doc[rel] = missing_phrases
+        forbidden_phrases = [
+            phrase for phrase in FORBIDDEN_PHRASES_BY_DOC.get(rel, []) if phrase in text
+        ]
+        if forbidden_phrases:
+            forbidden_phrases_by_doc[rel] = forbidden_phrases
         if "only implemented\n   organ here is `pattern_binding_contract`" in text:
             stale_first_slice_only_phrases.append(rel)
         if "only implemented organ here is `pattern_binding_contract`" in text:
@@ -124,6 +147,8 @@ def validate_public_entry_docs(
         blocking_codes.append("MISSING_REQUIRED_ENTRY_PHRASE")
     if stale_first_slice_only_phrases:
         blocking_codes.append("STALE_FIRST_SLICE_ONLY_ENTRY_TEXT")
+    if forbidden_phrases_by_doc:
+        blocking_codes.append("PUBLIC_ENTRY_DOC_ROUTE_DRIFT")
     if missing_accepted_organs or unexpected_accepted_organs:
         blocking_codes.append("ACCEPTED_ORGAN_REGISTRY_MISMATCH")
     if scan["blocking_hit_count"]:
@@ -140,6 +165,7 @@ def validate_public_entry_docs(
         "required_docs": REQUIRED_DOCS,
         "missing_docs": missing_docs,
         "missing_required_phrases_by_doc": missing_required_phrases_by_doc,
+        "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
         "missing_accepted_organs": missing_accepted_organs,
@@ -154,7 +180,7 @@ def validate_public_entry_docs(
             "release_authorized": False,
             "private_data_equivalence_authorized": False,
         },
-        "anti_claim": "Public entry-doc validation proves only public-safe entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
+        "anti_claim": "Public entry-doc validation proves only standalone public entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
         "receipt_paths": [_display(output_file, public_root=public_root)],
     }
     write_json_atomic(output_file, receipt)

@@ -44,6 +44,7 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
     assert receipt["status"] == "pass"
     assert receipt["missing_docs"] == []
     assert receipt["missing_required_phrases_by_doc"] == {}
+    assert receipt["forbidden_phrases_by_doc"] == {}
     assert receipt["stale_first_slice_only_phrases"] == []
     assert receipt["accepted_current_authority_organs"] == [
         "pattern_binding_contract",
@@ -92,6 +93,17 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "only implemented organ here is `pattern_binding_contract`" not in agents
     assert "formal_math_lean_proof_witness" in text
     assert "Do not run Lean/Lake" in agents
+    assert "runnable, synthetic, and receipt-driven" not in text
+    assert "public synthetic microcosm" not in text
+    assert "private reconstruction control plane" not in text
+    assert "source reconstruction workspace" not in agents
+    assert "Use only synthetic fixtures" not in agents
+    assert "Receipts Are Authority" not in agents
+    assert "macro reconstruction contracts" not in agents
+    assert "Standalone Runtime Substrate" in text
+    assert "Fixtures are regression inputs" in text
+    assert "Fixtures Are Tests" in agents
+    assert "Receipts Are Evidence" in agents
 
 
 def test_public_entry_commands_do_not_depend_on_parent_state() -> None:

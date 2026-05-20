@@ -3,19 +3,19 @@
   "accepted_pattern_ids": [
     "pb_valid_synthetic_binding"
   ],
-  "anti_claim": "This receipt proves only the named public-safe first-slice command over synthetic fixtures; it is not public runtime completeness or source-body authority.",
+  "anti_claim": "This receipt records only the named public command output over public inputs and regression fixtures; it is not runtime product completeness or source-body authority.",
   "anti_claim_refs": [
     "anti_claim.pattern_binding.synthetic_fixture_only"
   ],
   "authority_ceiling": {
-    "authority_ceiling": "public_first_slice_receipt_only_not_source_authority",
+    "authority_ceiling": "command_receipt_evidence_not_runtime_product_completeness",
     "projection_not_source_authority_observed": true,
     "public_leaf_overclaim_observed": true,
     "status": "pass"
   },
   "authority_chain_resolution_status": "pass",
   "command": "bootstrap pattern_binding_contract validate",
-  "created_at": "2026-05-20T14:31:25+00:00",
+  "created_at": "2026-05-20T14:51:27+00:00",
   "duplicate_pattern_ids": [
     "pb_duplicate_conflict"
   ],
