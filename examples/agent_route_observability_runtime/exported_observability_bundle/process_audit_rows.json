@@ -1,0 +1,29 @@
+{
+  "schema_version": "agent_route_observability_runtime_process_audit_rows_v1",
+  "process_audit_rows": [
+    {
+      "anti_pattern_id": "anti_pattern_grep_before_kernel",
+      "audit_status": "retired_in_public_metadata",
+      "evidence_trace_ids": [
+        "trace_public_route_feedback"
+      ],
+      "projection_not_authority": true,
+      "live_process_audit_authority": false,
+      "source_authority_allowed": false,
+      "raw_event_body_available": false,
+      "body_redacted": true
+    },
+    {
+      "anti_pattern_id": "anti_pattern_deep_without_ladder",
+      "audit_status": "retired_in_public_metadata",
+      "evidence_trace_ids": [
+        "trace_public_route_feedback"
+      ],
+      "projection_not_authority": true,
+      "live_process_audit_authority": false,
+      "source_authority_allowed": false,
+      "raw_event_body_available": false,
+      "body_redacted": true
+    }
+  ]
+}

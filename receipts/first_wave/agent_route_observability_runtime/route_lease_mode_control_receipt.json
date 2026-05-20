@@ -3,17 +3,18 @@
     "kernel_bloat_before_direct_action": 1,
     "static_metadata_without_trace_feedback": 1
   },
-  "anti_claim": "Agent observability receipts validate synthetic trace-feedback fixtures only; they do not inspect live operator state, certify runtime behavior, mutate Task Ledger, authorize pattern assimilation, or prove whole Wave 1.",
+  "anti_claim": "Agent observability receipts validate public trace-feedback metadata plus regression fixtures; they do not inspect live operator state, certify runtime behavior, mutate Task Ledger, authorize pattern assimilation, or prove whole Wave 1.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_agent_observability_fixture_only_not_live_trace_authority",
+    "authority_ceiling": "agent_observability_metadata_not_live_trace_authority",
     "behavior_change_claim_authorized_without_trace": false,
     "later_organs_authorized": false,
     "live_operator_state_read": false,
     "provider_payload_read": false,
     "status": "pass"
   },
+  "bundle_id": null,
   "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "created_at": "2026-05-20T16:47:17+00:00",
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
     "DUPLICATE_TRACE_EVENT_ID",
@@ -116,6 +117,7 @@
   ],
   "first_action_after_lease": "execute_authorized_public_slice",
   "fixture_id": "first_wave.agent_route_observability_runtime",
+  "input_mode": null,
   "kernel_bloat_before_direct_action_count": 1,
   "lease_consumed": true,
   "legitimate_return_allowed": false,

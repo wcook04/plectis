@@ -78,7 +78,7 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(mission_parser)
 
     observability_parser = subparsers.add_parser("agent-route-observability-runtime")
-    observability_parser.add_argument("action", choices=["run"])
+    observability_parser.add_argument("action", choices=["run", "validate-observability-bundle"])
     _add_input_out(observability_parser)
 
     assimilation_parser = subparsers.add_parser("pattern-assimilation-step")

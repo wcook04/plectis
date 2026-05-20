@@ -1,0 +1,15 @@
+{
+  "schema_version": "agent_route_observability_runtime_session_diagnostics_v1",
+  "session_diagnostics": [
+    {
+      "session_id": "public_observability_session_projection",
+      "diagnostic_status": "metadata_projection_pass",
+      "actor_axis": "type_a_substrate",
+      "projection_not_authority": true,
+      "raw_operator_state_available": false,
+      "live_telemetry_authority": false,
+      "behavior_change_claim_authorized_without_trace": false,
+      "body_redacted": true
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "anti_claim": "This receipt records only the named public command output over public inputs and regression fixtures; it is not runtime product completeness or source-body authority.",
   "authority_ceiling": "command_receipt_evidence_not_runtime_product_completeness",
   "command": "./bootstrap.sh --suite first-wave",
-  "created_at": "2026-05-20T16:33:19+00:00",
+  "created_at": "2026-05-20T16:47:39+00:00",
   "first_wave_receipts_observed": [
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
     "receipts/first_wave/pattern_binding_contract/source_capsules.json",
@@ -126,7 +126,7 @@
         "term_id": "private_source_body_sentinel"
       }
     ],
-    "scanned_path_count": 252,
+    "scanned_path_count": 262,
     "status": "pass"
   },
   "receipt_id": "cold_clone_probe_receipt_v1",

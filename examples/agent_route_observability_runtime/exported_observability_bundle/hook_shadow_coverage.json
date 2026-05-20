@@ -1,0 +1,21 @@
+{
+  "schema_version": "agent_route_observability_runtime_hook_shadow_coverage_v1",
+  "hook_shadow_rows": [
+    {
+      "hook_id": "public_route_lease_feedback_shadow",
+      "coverage_status": "covered_by_public_metadata",
+      "projection_not_authority": true,
+      "missing_authority": false,
+      "browser_hud_state_read": false,
+      "body_redacted": true
+    },
+    {
+      "hook_id": "public_actor_axis_boundary_shadow",
+      "coverage_status": "covered_by_public_metadata",
+      "projection_not_authority": true,
+      "missing_authority": false,
+      "browser_hud_state_read": false,
+      "body_redacted": true
+    }
+  ]
+}

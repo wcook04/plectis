@@ -1,0 +1,20 @@
+{
+  "schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
+  "bundle_id": "public_agent_route_observability_runtime_example",
+  "input_mode": "exported_observability_bundle",
+  "organ_id": "agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": true,
+  "release_authorized": false,
+  "live_telemetry_authority": false,
+  "required_files": [
+    "bundle_manifest.json",
+    "route_events.json",
+    "agent_path_observations.json",
+    "session_diagnostics.json",
+    "hook_shadow_coverage.json",
+    "actor_axis_checks.json",
+    "anti_pattern_debt.json",
+    "process_audit_rows.json",
+    "observability_policy.json"
+  ]
+}

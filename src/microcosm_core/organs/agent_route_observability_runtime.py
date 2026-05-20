@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -24,6 +25,7 @@ ROUTE_COMPLIANCE_NAME = "route_compliance_audit.json"
 HOOK_SHADOW_NAME = "hook_shadow_coverage.json"
 DEBT_RETIREMENT_NAME = "debt_retirement_receipt.json"
 ROUTE_LEASE_NAME = "route_lease_mode_control_receipt.json"
+OBSERVABILITY_BUNDLE_RESULT_NAME = "exported_observability_bundle_validation_result.json"
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -31,6 +33,10 @@ EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
     "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
 ]
+EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_observability_bundle_validation_result.json"
+)
 
 EXPECTED_NEGATIVE_CASES = {
     "wrong_actor_axis_and_evidence_only_telemetry": [
@@ -51,16 +57,16 @@ EXPECTED_NEGATIVE_CASES = {
 
 OBSERVABILITY_AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_agent_observability_fixture_only_not_live_trace_authority",
+    "authority_ceiling": "agent_observability_metadata_not_live_trace_authority",
     "live_operator_state_read": False,
     "provider_payload_read": False,
     "behavior_change_claim_authorized_without_trace": False,
     "later_organs_authorized": False,
 }
 OBSERVABILITY_ANTI_CLAIM = (
-    "Agent observability receipts validate synthetic trace-feedback fixtures only; "
-    "they do not inspect live operator state, certify runtime behavior, mutate Task Ledger, "
-    "authorize pattern assimilation, or prove whole Wave 1."
+    "Agent observability receipts validate public trace-feedback metadata plus regression "
+    "fixtures; they do not inspect live operator state, certify runtime behavior, mutate "
+    "Task Ledger, authorize pattern assimilation, or prove whole Wave 1."
 )
 
 SOURCE_PATTERN_IDS = [
@@ -115,6 +121,21 @@ def _input_paths(input_dir: Path) -> list[Path]:
     ]
 
 
+def _observability_bundle_paths(input_dir: Path) -> list[Path]:
+    names = (
+        "bundle_manifest.json",
+        "route_events.json",
+        "agent_path_observations.json",
+        "session_diagnostics.json",
+        "hook_shadow_coverage.json",
+        "actor_axis_checks.json",
+        "anti_pattern_debt.json",
+        "process_audit_rows.json",
+        "observability_policy.json",
+    )
+    return [input_dir / name for name in names]
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -135,9 +156,32 @@ def _load_inputs(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _observability_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
+
+
+def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _observability_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _stable_hash(payload: object) -> str:
+    encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
@@ -187,6 +231,496 @@ def _record(
         )
     )
     observed[case_id].add(code)
+
+
+def _bundle_finding(
+    code: str,
+    message: str,
+    *,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return {
+        "error_code": code,
+        "message": message,
+        "subject_id": subject_id,
+        "subject_kind": subject_kind,
+        "body_redacted": True,
+    }
+
+
+def validate_exported_route_events(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "route_events")
+    event_ids: list[str] = []
+    behavior_refs: list[str] = []
+    decisions: list[dict[str, Any]] = []
+
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_ROUTE_EVENTS_MISSING",
+                "Exported observability bundle has no route event rows.",
+                subject_id="route_events",
+                subject_kind="route_events",
+            )
+        )
+
+    for row in rows:
+        event_id = str(row.get("event_id") or "")
+        event_ids.append(event_id)
+        refs = [str(ref) for ref in row.get("behavior_change_evidence_trace_ids", [])]
+        behavior_refs.extend(refs)
+        row_codes: list[str] = []
+        if row.get("projection_not_authority") is not True:
+            row_codes.append("OBSERVABILITY_BUNDLE_ROUTE_EVENT_PROJECTION_FLAG_MISSING")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_ROUTE_EVENT_PROJECTION_FLAG_MISSING",
+                    "Route event row must declare projection_not_authority.",
+                    subject_id=event_id or "route_event",
+                    subject_kind="route_event",
+                )
+            )
+        for field in (
+            "live_telemetry_authority",
+            "source_authority_allowed",
+            "raw_payload_available",
+            "provider_payload_read",
+            "browser_hud_cockpit_state_read",
+        ):
+            if row.get(field) is not False:
+                row_codes.append("OBSERVABILITY_BUNDLE_ROUTE_EVENT_AUTHORITY_OVERCLAIM")
+                findings.append(
+                    _bundle_finding(
+                        "OBSERVABILITY_BUNDLE_ROUTE_EVENT_AUTHORITY_OVERCLAIM",
+                        "Route event metadata cannot claim live telemetry, source authority, provider, or browser/HUD/cockpit access.",
+                        subject_id=event_id or field,
+                        subject_kind="route_event",
+                    )
+                )
+        if row.get("claims_behavior_change") and not refs:
+            row_codes.append("OBSERVABILITY_BUNDLE_BEHAVIOR_CHANGE_OVERCLAIM")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_BEHAVIOR_CHANGE_OVERCLAIM",
+                    "Route event cannot claim behavior change without evidence trace ids.",
+                    subject_id=event_id or "route_event",
+                    subject_kind="route_event",
+                )
+            )
+        decisions.append(
+            {
+                "event_id": event_id,
+                "route_id": row.get("route_id"),
+                "route_lease_id": row.get("route_lease_id"),
+                "decision": "accepted" if not row_codes else "blocked",
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
+
+    duplicates = sorted(
+        event_id for event_id in set(event_ids) if event_id and event_ids.count(event_id) > 1
+    )
+    for event_id in duplicates:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_DUPLICATE_ROUTE_EVENT_ID",
+                "Exported observability bundle contains a duplicate route event id.",
+                subject_id=event_id,
+                subject_kind="route_events",
+            )
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "route_event_ids": sorted(event_id for event_id in event_ids if event_id),
+        "route_event_count": len([event_id for event_id in event_ids if event_id]),
+        "behavior_change_evidence_trace_ids": sorted(set(behavior_refs)),
+        "route_compliance_decisions": decisions,
+        "route_events_projection_not_authority": True,
+    }
+
+
+def validate_exported_agent_path_observations(
+    payload: object,
+    route_event_result: dict[str, Any],
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "agent_path_observations")
+    route_event_ids = set(route_event_result["route_event_ids"])
+    consumed_route_lease_ids: list[str] = []
+    decisions: list[dict[str, Any]] = []
+
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_AGENT_PATH_ROWS_MISSING",
+                "Exported observability bundle has no agent path observation rows.",
+                subject_id="agent_path_observations",
+                subject_kind="agent_path_observations",
+            )
+        )
+
+    for row in rows:
+        observation_id = str(row.get("observation_id") or "")
+        event_id = str(row.get("event_id") or "")
+        lease_id = str(row.get("route_lease_id") or "")
+        row_codes: list[str] = []
+        if event_id not in route_event_ids:
+            row_codes.append("OBSERVABILITY_BUNDLE_AGENT_PATH_EVENT_REF_MISSING")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_AGENT_PATH_EVENT_REF_MISSING",
+                    "Agent path observation references an unknown route event.",
+                    subject_id=observation_id or event_id or "agent_path_observation",
+                    subject_kind="agent_path_observation",
+                )
+            )
+        if row.get("projection_not_authority") is not True:
+            row_codes.append("OBSERVABILITY_BUNDLE_AGENT_PATH_PROJECTION_FLAG_MISSING")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_AGENT_PATH_PROJECTION_FLAG_MISSING",
+                    "Agent path observation must declare projection_not_authority.",
+                    subject_id=observation_id or "agent_path_observation",
+                    subject_kind="agent_path_observation",
+                )
+            )
+        for field in (
+            "live_operator_state_read",
+            "provider_payload_read",
+            "browser_hud_cockpit_state_read",
+            "source_authority_allowed",
+        ):
+            if row.get(field) is not False:
+                row_codes.append("OBSERVABILITY_BUNDLE_AGENT_PATH_FORBIDDEN_LIVE_ACCESS")
+                findings.append(
+                    _bundle_finding(
+                        "OBSERVABILITY_BUNDLE_AGENT_PATH_FORBIDDEN_LIVE_ACCESS",
+                        "Agent path observation cannot read live operator, provider, browser/HUD/cockpit, or source-authority state.",
+                        subject_id=observation_id or field,
+                        subject_kind="agent_path_observation",
+                    )
+                )
+        if row.get("route_lease_consumed") is not True:
+            row_codes.append("OBSERVABILITY_BUNDLE_ROUTE_LEASE_NOT_CONSUMED")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_ROUTE_LEASE_NOT_CONSUMED",
+                    "Agent path observation must record consumed route-lease metadata.",
+                    subject_id=observation_id or lease_id or "agent_path_observation",
+                    subject_kind="agent_path_observation",
+                )
+            )
+        if lease_id:
+            consumed_route_lease_ids.append(lease_id)
+        decisions.append(
+            {
+                "observation_id": observation_id,
+                "event_id": event_id,
+                "route_lease_id": lease_id,
+                "decision": "accepted" if not row_codes else "blocked",
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "agent_path_observation_count": len(rows),
+        "consumed_route_lease_ids": sorted(set(consumed_route_lease_ids)),
+        "agent_path_decisions": decisions,
+        "agent_path_observations_projection_not_authority": True,
+    }
+
+
+def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "session_diagnostics")
+    decisions: list[dict[str, Any]] = []
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_SESSION_ROWS_MISSING",
+                "Exported observability bundle has no session diagnostic rows.",
+                subject_id="session_diagnostics",
+                subject_kind="session_diagnostics",
+            )
+        )
+    for row in rows:
+        session_id = str(row.get("session_id") or "")
+        row_codes: list[str] = []
+        if row.get("projection_not_authority") is not True:
+            row_codes.append("OBSERVABILITY_BUNDLE_SESSION_PROJECTION_FLAG_MISSING")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_SESSION_PROJECTION_FLAG_MISSING",
+                    "Session diagnostic row must declare projection_not_authority.",
+                    subject_id=session_id or "session_diagnostic",
+                    subject_kind="session_diagnostic",
+                )
+            )
+        for field in (
+            "raw_operator_state_available",
+            "live_telemetry_authority",
+            "behavior_change_claim_authorized_without_trace",
+        ):
+            if row.get(field) is not False:
+                row_codes.append("OBSERVABILITY_BUNDLE_SESSION_AUTHORITY_OVERCLAIM")
+                findings.append(
+                    _bundle_finding(
+                        "OBSERVABILITY_BUNDLE_SESSION_AUTHORITY_OVERCLAIM",
+                        "Session diagnostic row cannot claim raw operator state, live telemetry authority, or behavior-change authority without trace.",
+                        subject_id=session_id or field,
+                        subject_kind="session_diagnostic",
+                    )
+                )
+        decisions.append(
+            {
+                "session_id": session_id,
+                "diagnostic_status": row.get("diagnostic_status"),
+                "decision": "accepted" if not row_codes else "blocked",
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "session_diagnostic_count": len(rows),
+        "session_diagnostic_decisions": decisions,
+        "session_diagnostics_projection_not_authority": True,
+    }
+
+
+def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "hook_shadow_rows")
+    covered_hook_ids: list[str] = []
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_HOOK_SHADOW_ROWS_MISSING",
+                "Exported observability bundle has no hook shadow rows.",
+                subject_id="hook_shadow_coverage",
+                subject_kind="hook_shadow_coverage",
+            )
+        )
+    for row in rows:
+        hook_id = str(row.get("hook_id") or "")
+        covered_hook_ids.append(hook_id)
+        if row.get("projection_not_authority") is not True or row.get("browser_hud_state_read") is not False:
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_HOOK_SHADOW_AUTHORITY_OVERCLAIM",
+                    "Hook shadow row must remain metadata and reject browser/HUD state access.",
+                    subject_id=hook_id or "hook_shadow",
+                    subject_kind="hook_shadow",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "hook_shadow_coverage_status": "public_metadata_coverage_only",
+        "covered_hook_ids": sorted(hook_id for hook_id in covered_hook_ids if hook_id),
+        "hook_shadow_projection_not_authority": True,
+    }
+
+
+def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "actor_axis_checks")
+    decisions: list[dict[str, Any]] = []
+    authority_rejection_count = 0
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_ACTOR_AXIS_ROWS_MISSING",
+                "Exported observability bundle has no actor-axis check rows.",
+                subject_id="actor_axis_checks",
+                subject_kind="actor_axis_checks",
+            )
+        )
+    for row in rows:
+        check_id = str(row.get("check_id") or "")
+        actor_axis = str(row.get("actor_axis") or "unknown")
+        rejected = bool(row.get("claims_mutation_authority")) and actor_axis == "type_b_advisory"
+        if rejected:
+            authority_rejection_count += 1
+        if row.get("projection_not_authority") is not True:
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_ACTOR_AXIS_PROJECTION_FLAG_MISSING",
+                    "Actor-axis check row must declare projection_not_authority.",
+                    subject_id=check_id or actor_axis,
+                    subject_kind="actor_axis_check",
+                )
+            )
+        if row.get("live_mutation_authorized") is not False:
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_ACTOR_AXIS_LIVE_MUTATION_OVERCLAIM",
+                    "Actor-axis check cannot authorize live mutation.",
+                    subject_id=check_id or actor_axis,
+                    subject_kind="actor_axis_check",
+                )
+            )
+        decisions.append(
+            {
+                "check_id": check_id,
+                "actor_axis": actor_axis,
+                "mutation_authority_claim_rejected": rejected,
+                "body_redacted": True,
+            }
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "actor_axis_check_count": len(rows),
+        "actor_axis_decisions": decisions,
+        "authority_rejection_count": authority_rejection_count,
+        "actor_axis_projection_not_authority": True,
+    }
+
+
+def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "debt_rows")
+    decisions: list[dict[str, Any]] = []
+    behavior_refs: list[str] = []
+    evidence_only_refs: list[str] = []
+    retired_count = 0
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_DEBT_ROWS_MISSING",
+                "Exported observability bundle has no anti-pattern debt rows.",
+                subject_id="anti_pattern_debt",
+                subject_kind="anti_pattern_debt",
+            )
+        )
+    for row in rows:
+        debt_id = str(row.get("debt_id") or "")
+        row_behavior_refs = [str(ref) for ref in row.get("behavior_change_evidence_trace_ids", [])]
+        row_evidence_refs = [str(ref) for ref in row.get("evidence_only_trace_ids", [])]
+        behavior_refs.extend(row_behavior_refs)
+        evidence_only_refs.extend(row_evidence_refs)
+        if row.get("projection_not_authority") is not True or row.get("live_debt_authority") is not False:
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_DEBT_AUTHORITY_OVERCLAIM",
+                    "Anti-pattern debt row must remain metadata and reject live debt authority.",
+                    subject_id=debt_id or "anti_pattern_debt",
+                    subject_kind="anti_pattern_debt",
+                )
+            )
+        retired = bool(row_behavior_refs) and not bool(row_evidence_refs)
+        if retired:
+            retired_count += 1
+        decisions.append(
+            {
+                "debt_id": debt_id,
+                "decision": "retired_metadata_projection" if retired else "retained_metadata_projection",
+                "behavior_change_evidence_trace_ids": row_behavior_refs,
+                "evidence_only_trace_ids": row_evidence_refs,
+                "body_redacted": True,
+            }
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "debt_retirement_count": retired_count,
+        "anti_pattern_debt_decisions": decisions,
+        "behavior_change_evidence_trace_ids": sorted(set(behavior_refs)),
+        "evidence_only_trace_ids": sorted(set(evidence_only_refs)),
+        "debt_rows_projection_not_authority": True,
+    }
+
+
+def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "process_audit_rows")
+    anti_pattern_ids: list[str] = []
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "OBSERVABILITY_BUNDLE_PROCESS_AUDIT_ROWS_MISSING",
+                "Exported observability bundle has no process-audit rows.",
+                subject_id="process_audit_rows",
+                subject_kind="process_audit_rows",
+            )
+        )
+    for row in rows:
+        anti_pattern_id = str(row.get("anti_pattern_id") or "")
+        anti_pattern_ids.append(anti_pattern_id)
+        for field in (
+            "projection_not_authority",
+        ):
+            if row.get(field) is not True:
+                findings.append(
+                    _bundle_finding(
+                        "OBSERVABILITY_BUNDLE_PROCESS_AUDIT_PROJECTION_FLAG_MISSING",
+                        "Process-audit row must declare projection_not_authority.",
+                        subject_id=anti_pattern_id or "process_audit_row",
+                        subject_kind="process_audit_row",
+                    )
+                )
+        for field in (
+            "live_process_audit_authority",
+            "source_authority_allowed",
+            "raw_event_body_available",
+        ):
+            if row.get(field) is not False:
+                findings.append(
+                    _bundle_finding(
+                        "OBSERVABILITY_BUNDLE_PROCESS_AUDIT_AUTHORITY_OVERCLAIM",
+                        "Process-audit row cannot claim live authority, source authority, or raw event bodies.",
+                        subject_id=anti_pattern_id or field,
+                        subject_kind="process_audit_row",
+                    )
+                )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "process_audit_row_count": len(rows),
+        "process_audit_anti_pattern_ids": sorted(anti_pattern_id for anti_pattern_id in anti_pattern_ids if anti_pattern_id),
+        "process_audit_rows_projection_not_authority": True,
+    }
+
+
+def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    policy = payload if isinstance(payload, dict) else {}
+    for field in (
+        "live_operator_state_read",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "release_authorized",
+        "private_data_equivalence_claim",
+        "behavior_change_overclaims_allowed",
+        "live_telemetry_authority",
+    ):
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_POLICY_FORBIDDEN_AUTHORITY",
+                    "Observability policy must reject live state, provider, browser/HUD/cockpit, release, private-data-equivalence, behavior-overclaim, and telemetry-authority fields.",
+                    subject_id=field,
+                    subject_kind="observability_policy",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "forbidden_authority_rejected": True,
+        "metadata_projection_not_live_telemetry_authority": True,
+        "body_redacted": True,
+    }
 
 
 def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -491,6 +1025,8 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "receipt_paths": receipt_paths,
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
     }
 
 
@@ -566,6 +1102,214 @@ def write_receipts(
     return {key: public_relative_path(path, display_root=receipt_root) for key, path in paths.items()}
 
 
+def _write_observability_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / OBSERVABILITY_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version="agent_route_observability_runtime_exported_observability_bundle_validation_v1",
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "route_event_ids": validation_result["route_event_ids"],
+            "route_event_count": validation_result["route_event_count"],
+            "route_compliance_decisions": validation_result["route_compliance_decisions"],
+            "agent_path_observation_count": validation_result[
+                "agent_path_observation_count"
+            ],
+            "agent_path_decisions": validation_result["agent_path_decisions"],
+            "consumed_route_lease_ids": validation_result["consumed_route_lease_ids"],
+            "session_diagnostic_count": validation_result["session_diagnostic_count"],
+            "session_diagnostic_decisions": validation_result[
+                "session_diagnostic_decisions"
+            ],
+            "hook_shadow_coverage": validation_result["hook_shadow_coverage"],
+            "actor_axis_checks": validation_result["actor_axis_checks"],
+            "debt_retirement": validation_result["debt_retirement"],
+            "process_audit_rows": validation_result["process_audit_rows"],
+            "observability_policy": validation_result["observability_policy"],
+            "metadata_projection_not_live_telemetry_authority": validation_result[
+                "metadata_projection_not_live_telemetry_authority"
+            ],
+            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "fixture_regression_required_elsewhere": True,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def run_observability_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_observability_bundle(input_path)
+    scan_result = _scan_bundle_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    route_result = validate_exported_route_events(payloads["route_events"])
+    path_result = validate_exported_agent_path_observations(
+        payloads["agent_path_observations"],
+        route_result,
+    )
+    session_result = validate_exported_session_diagnostics(payloads["session_diagnostics"])
+    hook_result = validate_exported_hook_shadow_coverage(payloads["hook_shadow_coverage"])
+    actor_axis_result = validate_exported_actor_axis_checks(payloads["actor_axis_checks"])
+    debt_result = validate_exported_anti_pattern_debt(payloads["anti_pattern_debt"])
+    process_result = validate_exported_process_audit_rows(payloads["process_audit_rows"])
+    policy_result = validate_exported_observability_policy(payloads["observability_policy"])
+
+    all_findings = sorted(
+        [
+            *route_result["findings"],
+            *path_result["findings"],
+            *session_result["findings"],
+            *hook_result["findings"],
+            *actor_axis_result["findings"],
+            *debt_result["findings"],
+            *process_result["findings"],
+            *policy_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_observability_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and route_result["route_event_ids"]
+        and path_result["agent_path_observation_count"]
+        and session_result["session_diagnostic_count"]
+        and hook_result["covered_hook_ids"]
+        and actor_axis_result["actor_axis_check_count"]
+        and process_result["process_audit_row_count"]
+        and policy_result["status"] == PASS
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "route_events": payloads["route_events"],
+            "agent_path_observations": payloads["agent_path_observations"],
+            "session_diagnostics": payloads["session_diagnostics"],
+            "hook_shadow_coverage": payloads["hook_shadow_coverage"],
+            "actor_axis_checks": payloads["actor_axis_checks"],
+            "anti_pattern_debt": payloads["anti_pattern_debt"],
+            "process_audit_rows": payloads["process_audit_rows"],
+            "observability_policy": payloads["observability_policy"],
+        }
+    )
+
+    result = base_receipt(
+        ORGAN_ID,
+        f"{FIXTURE_ID}.exported_observability_bundle",
+        command=command,
+    )
+    result.update(
+        {
+            "status": status,
+            "input_mode": "exported_observability_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "validator_id": VALIDATOR_ID,
+            "anti_claim": (
+                "The exported observability bundle validates public route-event, "
+                "agent-path, session-diagnostic, hook-shadow, actor-axis, debt, and "
+                "process-audit metadata. It does not read live telemetry, provider "
+                "payloads, browser/HUD/cockpit state, authorize release, or prove "
+                "behavior change outside declared evidence ids."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": (
+                    "agent_observability_bundle_metadata_not_live_telemetry_authority"
+                ),
+                "live_operator_state_read": False,
+                "provider_payload_read": False,
+                "browser_hud_cockpit_state_read": False,
+                "behavior_change_overclaims_allowed": False,
+                "private_data_equivalence_claim": False,
+                "release_authorized": False,
+                "later_organs_authorized": False,
+            },
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "source_pattern_ids": SOURCE_PATTERN_IDS,
+            "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
+            "route_event_ids": route_result["route_event_ids"],
+            "route_event_count": route_result["route_event_count"],
+            "route_compliance_decisions": route_result["route_compliance_decisions"],
+            "behavior_change_evidence_trace_ids": route_result[
+                "behavior_change_evidence_trace_ids"
+            ],
+            "route_events_projection_not_authority": route_result[
+                "route_events_projection_not_authority"
+            ],
+            "agent_path_observation_count": path_result["agent_path_observation_count"],
+            "agent_path_decisions": path_result["agent_path_decisions"],
+            "consumed_route_lease_ids": path_result["consumed_route_lease_ids"],
+            "agent_path_observations_projection_not_authority": path_result[
+                "agent_path_observations_projection_not_authority"
+            ],
+            "session_diagnostic_count": session_result["session_diagnostic_count"],
+            "session_diagnostic_decisions": session_result["session_diagnostic_decisions"],
+            "session_diagnostics_projection_not_authority": session_result[
+                "session_diagnostics_projection_not_authority"
+            ],
+            "hook_shadow_coverage": hook_result,
+            "actor_axis_checks": actor_axis_result,
+            "debt_retirement": debt_result,
+            "process_audit_rows": process_result,
+            "observability_policy": policy_result,
+            "metadata_projection_not_live_telemetry_authority": True,
+            "bundle_fingerprint": bundle_fingerprint,
+            "public_replacement_refs": [
+                public_relative_path(path, display_root=public_root)
+                for path in _observability_bundle_paths(input_path)
+            ],
+        }
+    )
+    receipt_path = _write_observability_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -631,14 +1375,24 @@ def main(argv: list[str] | None = None) -> int:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    bundle_parser = subparsers.add_parser("validate-observability-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
-    if args.action != "run":
-        parser.error("expected subcommand: run")
-    command = (
-        "python -m microcosm_core.organs.agent_route_observability_runtime "
-        f"run --input {args.input} --out {args.out}"
-    )
-    result = run(args.input, args.out, command=command)
+    if args.action == "run":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"run --input {args.input} --out {args.out}"
+        )
+        result = run(args.input, args.out, command=command)
+    elif args.action == "validate-observability-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"validate-observability-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_observability_bundle(args.input, args.out, command=command)
+    else:
+        parser.error("expected subcommand: run or validate-observability-bundle")
     return 0 if result["status"] == PASS else 1
 
 

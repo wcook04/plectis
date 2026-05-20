@@ -1,0 +1,21 @@
+{
+  "schema_version": "agent_route_observability_runtime_actor_axis_checks_v1",
+  "actor_axis_checks": [
+    {
+      "check_id": "actor_axis_type_a_public_metadata",
+      "actor_axis": "type_a_substrate",
+      "claims_mutation_authority": false,
+      "live_mutation_authorized": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    },
+    {
+      "check_id": "actor_axis_type_b_advisory_boundary",
+      "actor_axis": "type_b_advisory",
+      "claims_mutation_authority": false,
+      "live_mutation_authorized": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    }
+  ]
+}

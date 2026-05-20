@@ -1,0 +1,31 @@
+{
+  "schema_version": "agent_route_observability_runtime_agent_path_observations_v1",
+  "agent_path_observations": [
+    {
+      "observation_id": "path_public_route_feedback",
+      "event_id": "trace_public_route_feedback",
+      "route_lease_id": "lease_public_observability_runtime",
+      "first_action_after_lease": "read_known_observability_bundle",
+      "route_lease_consumed": true,
+      "projection_not_authority": true,
+      "live_operator_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "source_authority_allowed": false,
+      "body_redacted": true
+    },
+    {
+      "observation_id": "path_public_advisory_boundary",
+      "event_id": "trace_public_advisory_boundary",
+      "route_lease_id": "lease_public_advisory_boundary",
+      "first_action_after_lease": "retain_as_advisory_metadata",
+      "route_lease_consumed": true,
+      "projection_not_authority": true,
+      "live_operator_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "source_authority_allowed": false,
+      "body_redacted": true
+    }
+  ]
+}

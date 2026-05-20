@@ -1,0 +1,41 @@
+{
+  "schema_version": "agent_route_observability_runtime_route_events_v1",
+  "route_events": [
+    {
+      "event_id": "trace_public_route_feedback",
+      "route_id": "public_observability_route_feedback",
+      "actor_axis": "type_a_substrate",
+      "selected_lane_id": "direct_local",
+      "route_lease_id": "lease_public_observability_runtime",
+      "route_compliance_status": "pass",
+      "claims_behavior_change": true,
+      "behavior_change_evidence_trace_ids": [
+        "trace_public_route_feedback"
+      ],
+      "projection_not_authority": true,
+      "live_telemetry_authority": false,
+      "source_authority_allowed": false,
+      "raw_payload_available": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_redacted": true
+    },
+    {
+      "event_id": "trace_public_advisory_boundary",
+      "route_id": "public_observability_advisory_boundary",
+      "actor_axis": "type_b_advisory",
+      "selected_lane_id": "operator_bridge_metadata",
+      "route_lease_id": "lease_public_advisory_boundary",
+      "route_compliance_status": "pass",
+      "claims_behavior_change": false,
+      "behavior_change_evidence_trace_ids": [],
+      "projection_not_authority": true,
+      "live_telemetry_authority": false,
+      "source_authority_allowed": false,
+      "raw_payload_available": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_redacted": true
+    }
+  ]
+}

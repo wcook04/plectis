@@ -1,0 +1,12 @@
+{
+  "schema_version": "agent_route_observability_runtime_observability_policy_v1",
+  "policy_id": "public_observability_metadata_policy",
+  "live_operator_state_read": false,
+  "provider_payload_read": false,
+  "browser_hud_cockpit_state_read": false,
+  "release_authorized": false,
+  "private_data_equivalence_claim": false,
+  "behavior_change_overclaims_allowed": false,
+  "live_telemetry_authority": false,
+  "body_redacted": true
+}
