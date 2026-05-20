@@ -1,0 +1,6 @@
+{
+  "receipt_id": "scoped_receipt_global_authority_claim",
+  "claims_global_authority": true,
+  "authority_scope": "global",
+  "expected_negative_case": "scoped_commit_receipt_claims_global_authority"
+}

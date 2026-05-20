@@ -1,0 +1,6 @@
+{
+  "fixture_id": "live_task_ledger_boundary_marker",
+  "forbidden_payload_class": "live_task_ledger_content",
+  "forbidden_payload_value_present": true,
+  "expected_negative_case": "mission_fixture_private_task_ledger_body"
+}

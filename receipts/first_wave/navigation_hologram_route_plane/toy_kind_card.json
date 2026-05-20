@@ -11,7 +11,7 @@
     "summary": "Public toy route card with stable handle and omitted details."
   },
   "command": "navigation_hologram_route_plane run",
-  "created_at": "2026-05-20T12:02:21+00:00",
+  "created_at": "2026-05-20T12:09:51+00:00",
   "error_codes": [
     "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED",
     "ATLAS_PROJECTION_NOT_CONTROL_ENTRY",

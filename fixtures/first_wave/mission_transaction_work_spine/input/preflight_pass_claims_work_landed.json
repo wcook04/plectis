@@ -1,0 +1,7 @@
+{
+  "preflight_status": "pass",
+  "claims_work_landed": true,
+  "has_commit_landing_evidence": false,
+  "has_closeout_landing_attempt": false,
+  "expected_negative_case": "clean_preflight_overclaims_landing_complete"
+}

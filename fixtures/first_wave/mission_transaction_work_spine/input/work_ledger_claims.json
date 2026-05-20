@@ -1,0 +1,34 @@
+{
+  "claims": [
+    {
+      "claim_id": "claim_a",
+      "work_item_id": "cap_toy_route_fixture",
+      "session_id": "session_a",
+      "owned_paths": [
+        "fixtures/toy_repo/core/route_plane.json"
+      ],
+      "status": "active",
+      "expected_parent_sha": "aaa111"
+    },
+    {
+      "claim_id": "claim_b",
+      "work_item_id": "cap_toy_conflict",
+      "session_id": "session_b",
+      "owned_paths": [
+        "fixtures/toy_repo/core/route_plane.json"
+      ],
+      "status": "active",
+      "expected_parent_sha": "aaa111"
+    },
+    {
+      "claim_id": "claim_c",
+      "work_item_id": "cap_toy_orphan",
+      "session_id": "session_c",
+      "owned_paths": [
+        "fixtures/toy_repo/docs/orphan.md"
+      ],
+      "status": "expired",
+      "expected_parent_sha": "aaa111"
+    }
+  ]
+}

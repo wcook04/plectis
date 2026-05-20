@@ -1,0 +1,270 @@
+{
+  "actions": [
+    {
+      "action_id": "record_scoped_commit_landing",
+      "apply_status": "dry_run_not_mutated",
+      "blocked_by": [],
+      "evidence_if_already_done": [],
+      "idempotency_key": "mission-toy-1",
+      "would_mutate": false
+    },
+    {
+      "action_id": "intake_exact_receipt_refs",
+      "apply_status": "dry_run_not_mutated",
+      "blocked_by": [],
+      "evidence_if_already_done": [],
+      "idempotency_key": "mission-toy-2",
+      "would_mutate": false
+    },
+    {
+      "action_id": "drain_exact_receipts",
+      "apply_status": "dry_run_not_mutated",
+      "blocked_by": [],
+      "evidence_if_already_done": [],
+      "idempotency_key": "mission-toy-3",
+      "would_mutate": false
+    },
+    {
+      "action_id": "closeout_landing_attempt",
+      "apply_status": "dry_run_not_mutated",
+      "blocked_by": [],
+      "evidence_if_already_done": [],
+      "idempotency_key": "mission-toy-4",
+      "would_mutate": false
+    },
+    {
+      "action_id": "release_claims",
+      "apply_status": "dry_run_not_mutated",
+      "blocked_by": [],
+      "evidence_if_already_done": [],
+      "idempotency_key": "mission-toy-5",
+      "would_mutate": false
+    },
+    {
+      "action_id": "recompute_status_projection",
+      "apply_status": "dry_run_not_mutated",
+      "blocked_by": [],
+      "evidence_if_already_done": [],
+      "idempotency_key": "mission-toy-6",
+      "would_mutate": false
+    }
+  ],
+  "anti_claim": "Mission transaction receipts validate synthetic work, claim, dependency, landing, receipt-drain, and schedulability fixtures only; they do not mutate live state, certify live closeout, authorize later organs, or prove whole Wave 1.",
+  "apply_result": "dry_run_no_live_mutation",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_mission_transaction_fixture_only_not_live_closeout_authority",
+    "broad_stage_authorized": false,
+    "derived_status_projection_is_authority": false,
+    "later_organs_authorized": false,
+    "live_work_state_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_redacted": true,
+  "cannot_fake_predicate_status": "pass",
+  "claim_release_order_status": "release_after_closeout_only",
+  "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+  "created_at": "2026-05-20T12:09:51+00:00",
+  "error_codes": [
+    "DANGLING_DEPENDENCY_REF",
+    "EXPECTED_PARENT_MISMATCH",
+    "LIVE_TASK_LEDGER_BODY_IN_FIXTURE",
+    "MISSING_OWNED_PATH",
+    "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED",
+    "READY_WITH_INCOMPLETE_HARD_DEP",
+    "SAME_PATH_CLAIM_CONFLICT",
+    "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
+  ],
+  "expected_negative_cases": {
+    "clean_preflight_overclaims_landing_complete": [
+      "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED"
+    ],
+    "competing_claim_and_stale_parent": [
+      "EXPECTED_PARENT_MISMATCH",
+      "SAME_PATH_CLAIM_CONFLICT"
+    ],
+    "dependency_unlock_without_resolution_receipt": [
+      "DANGLING_DEPENDENCY_REF"
+    ],
+    "mission_claim_missing_owned_path": [
+      "MISSING_OWNED_PATH"
+    ],
+    "mission_fixture_private_task_ledger_body": [
+      "LIVE_TASK_LEDGER_BODY_IN_FIXTURE"
+    ],
+    "ready_workitem_with_unsatisfied_hard_dep": [
+      "READY_WITH_INCOMPLETE_HARD_DEP"
+    ],
+    "scoped_commit_receipt_claims_global_authority": [
+      "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED",
+      "message": "Clean preflight cannot claim landed work without closeout evidence.",
+      "negative_case_id": "clean_preflight_overclaims_landing_complete",
+      "subject_id": "preflight_pass_claims_work_landed",
+      "subject_kind": "mission_preflight"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "EXPECTED_PARENT_MISMATCH",
+      "message": "Expected parent does not match the synthetic current parent.",
+      "negative_case_id": "competing_claim_and_stale_parent",
+      "subject_id": "claim_b",
+      "subject_kind": "work_ledger_claim"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SAME_PATH_CLAIM_CONFLICT",
+      "message": "Same-path claim conflict remains live at validation time.",
+      "negative_case_id": "competing_claim_and_stale_parent",
+      "subject_id": "claim_b",
+      "subject_kind": "work_ledger_claim"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DANGLING_DEPENDENCY_REF",
+      "message": "Dependency unlock attempted without explicit synthetic resolution evidence.",
+      "negative_case_id": "dependency_unlock_without_resolution_receipt",
+      "subject_id": "cap_ready_with_unsatisfied",
+      "subject_kind": "work_item"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DANGLING_DEPENDENCY_REF",
+      "message": "Dependency unlock attempted without explicit synthetic resolution evidence.",
+      "negative_case_id": "dependency_unlock_without_resolution_receipt",
+      "subject_id": "cap_toy_blocked_dependency",
+      "subject_kind": "work_item"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DANGLING_DEPENDENCY_REF",
+      "message": "Dependency unlock attempted without explicit synthetic resolution evidence.",
+      "negative_case_id": "dependency_unlock_without_resolution_receipt",
+      "subject_id": "cap_unlock_without_resolution",
+      "subject_kind": "work_item"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_OWNED_PATH",
+      "message": "Mission claim is missing an owned path.",
+      "negative_case_id": "mission_claim_missing_owned_path",
+      "subject_id": "claim_missing_owned_path",
+      "subject_kind": "work_ledger_claim"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "LIVE_TASK_LEDGER_BODY_IN_FIXTURE",
+      "message": "Fixture marked a live ledger payload value and was rejected.",
+      "negative_case_id": "mission_fixture_private_task_ledger_body",
+      "subject_id": "live_task_ledger_boundary_marker",
+      "subject_kind": "synthetic_fixture"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "READY_WITH_INCOMPLETE_HARD_DEP",
+      "message": "Ready state cannot override unsatisfied hard dependency refs.",
+      "negative_case_id": "ready_workitem_with_unsatisfied_hard_dep",
+      "subject_id": "cap_ready_with_unsatisfied",
+      "subject_kind": "work_item"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SCOPED_RECEIPT_AUTHORITY_UPGRADE",
+      "message": "Scoped commit receipt attempted to claim global authority.",
+      "negative_case_id": "scoped_commit_receipt_claims_global_authority",
+      "subject_id": "scoped_receipt_global_authority_claim",
+      "subject_kind": "scoped_receipt"
+    }
+  ],
+  "fixture_id": "first_wave.mission_transaction_work_spine",
+  "missing_negative_cases": [],
+  "mode": "dry_run",
+  "mutation_policy": {
+    "broad_stage_used": false,
+    "live_state_mutation": false
+  },
+  "negative_case_binding_status": "pass",
+  "observed_negative_cases": {
+    "clean_preflight_overclaims_landing_complete": [
+      "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED"
+    ],
+    "competing_claim_and_stale_parent": [
+      "EXPECTED_PARENT_MISMATCH",
+      "SAME_PATH_CLAIM_CONFLICT"
+    ],
+    "dependency_unlock_without_resolution_receipt": [
+      "DANGLING_DEPENDENCY_REF"
+    ],
+    "mission_claim_missing_owned_path": [
+      "MISSING_OWNED_PATH"
+    ],
+    "mission_fixture_private_task_ledger_body": [
+      "LIVE_TASK_LEDGER_BODY_IN_FIXTURE"
+    ],
+    "ready_workitem_with_unsatisfied_hard_dep": [
+      "READY_WITH_INCOMPLETE_HARD_DEP"
+    ],
+    "scoped_commit_receipt_claims_global_authority": [
+      "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
+    ]
+  },
+  "ordered_controller_action_ids": [
+    "record_scoped_commit_landing",
+    "intake_exact_receipt_refs",
+    "drain_exact_receipts",
+    "closeout_landing_attempt",
+    "release_claims",
+    "recompute_status_projection"
+  ],
+  "organ_id": "mission_transaction_work_spine",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_boundary_negative_cases_observed": [
+      "mission_fixture_private_task_ledger_body"
+    ]
+  },
+  "receipt_drain_prerequisite_status": "commit_landing_required_before_drain",
+  "receipt_field_floor_status": "pass",
+  "receipt_id": "mission_transaction_work_spine_work_landing_reconcile_plan_v1",
+  "receipt_paths": [
+    "receipts/preflight/mission_transaction_work_spine.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+  ],
+  "recommended_next_action": "record_scoped_commit_landing_then_drain_exact_receipt",
+  "schema_version": "mission_transaction_work_spine_work_landing_reconcile_plan_v1",
+  "source_pattern_ids": [
+    "task_ledger_workitem_spine",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims",
+    "task_ledger_exact_receipt_drain",
+    "work_landing_reconcile_finalizer_plan",
+    "workitem_dependency_unlock_scheduler"
+  ],
+  "status": "pass",
+  "synthetic_fixture_payload_policy": "synthetic_fixture_metadata_only_no_live_state",
+  "transaction_id": "mtx_toy_route_fixture",
+  "validator_contract_ratchet_refs": [
+    "fixture_manifests/mission_transaction_work_spine.fixture_manifest.json::validator_contract_ratchet_v1",
+    "fixture_negative_case_matrix_v1.json::negative_cases[organ_id=mission_transaction_work_spine]",
+    "error_code_taxonomy_v1.json::error_codes[organ_ids contains mission_transaction_work_spine]"
+  ],
+  "validator_contract_ratchet_status": "pass",
+  "validator_id": "validator.microcosm.organs.mission_transaction_work_spine",
+  "work_landing_reconcile_status": "ordered_dry_run_plan_emitted"
+}

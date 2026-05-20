@@ -1,0 +1,39 @@
+{
+  "workitems": [
+    {
+      "work_item_id": "cap_toy_route_fixture",
+      "state": "ready",
+      "depends_on": [
+        "cap_done"
+      ]
+    },
+    {
+      "work_item_id": "cap_toy_blocked_dependency",
+      "state": "blocked",
+      "depends_on": [
+        "cap_missing_standard"
+      ]
+    },
+    {
+      "work_item_id": "cap_ready_with_unsatisfied",
+      "state": "ready",
+      "depends_on": [
+        "cap_unresolved_hard"
+      ]
+    },
+    {
+      "work_item_id": "cap_unlock_without_resolution",
+      "state": "blocked",
+      "depends_on": [
+        "cap_dangling_ref"
+      ]
+    }
+  ],
+  "dependency_resolution_receipts": [
+    {
+      "dependency_id": "cap_done",
+      "status": "resolved",
+      "receipt_ref": "receipt_dependency_done"
+    }
+  ]
+}

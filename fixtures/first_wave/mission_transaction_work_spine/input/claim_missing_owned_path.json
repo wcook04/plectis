@@ -1,0 +1,7 @@
+{
+  "claim_id": "claim_missing_owned_path",
+  "work_item_id": "cap_toy_missing_owned_path",
+  "owned_paths": [],
+  "status": "active",
+  "expected_negative_case": "mission_claim_missing_owned_path"
+}
