@@ -1,0 +1,188 @@
+{
+  "anti_claim": "This standard is a public-safe schema contract projection only; it does not authorize release, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim_contract": {
+    "required": false,
+    "rule": "fixture-backed proof must state what it does not prove"
+  },
+  "anti_claims": [
+    "This public standard does not copy private source bodies or prove public runtime completeness.",
+    "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
+  ],
+  "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+  "authority_ceiling": {
+    "private_data_equivalence_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "standard_authority": "schema_contract_and_validator_expectation_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "standards_registry",
+  "kind_name": "Standards registry",
+  "omission_receipt": {
+    "drilldown": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+    "omitted": [
+      "source pattern bodies",
+      "private source bodies",
+      "prompt/provider/operator/HUD bodies"
+    ],
+    "reason": "public standard carries schema and id refs only"
+  },
+  "omission_receipt_contract": {
+    "required": false,
+    "rule": "compressed views must list omitted bodies and drilldown refs"
+  },
+  "paper_module_contract": {
+    "module_slug": null,
+    "required": false
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic_fixtures",
+      "schema_only_rows",
+      "redacted_source_capsules",
+      "public_safe_macro_code_when_refactored"
+    ],
+    "default_posture": "public_safe_when_synthetic_or_source_capsuled",
+    "forbidden_public_inputs": [
+      "live_raw_seed",
+      "prompt_shelf_bodies",
+      "provider_payload_bodies",
+      "operator_thread_content",
+      "live_task_ledger_rows",
+      "market_or_prediction_private_material"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "command_or_validator",
+      "result",
+      "evidence_refs",
+      "omissions",
+      "authority_ceiling"
+    ],
+    "receipt_id": "receipt.microcosm.standards_registry",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.standards_registry",
+    "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
+  ],
+  "receipt_refs": [],
+  "relationships": {
+    "canonical_organ_model_ref": null,
+    "source_pattern_id_count": 117,
+    "source_pattern_id_sample": [
+      "affordance_passport_selection_gate",
+      "agent_entry_surfaces_canonical_first_move",
+      "agent_principle_failure_cap_assimilation_loop",
+      "agent_route_compliance_audit",
+      "agent_seed_substrate_isolation",
+      "archaeological_voice_coverage_gate",
+      "atlas_navigation_bands",
+      "authority_chain_handle_resolver",
+      "branch_coverage_grade_ceiling",
+      "builder_factory_source_coupled_projection_lane",
+      "calculator_cross_lane_group_intelligence",
+      "candidate_axiom_runtime_pressure_non_law_gate",
+      "cap_cartography_readiness_map",
+      "cognitive_operator_registry",
+      "cogop_landing_handoff_compiler",
+      "cogop_operator_accretion_governor",
+      "cogop_pressure_to_action_reducer",
+      "cogop_route_lease_executor",
+      "command_output_projection",
+      "compound_microcosm_cell_decision_projection"
+    ],
+    "used_by_organs": [
+      "executable_doctrine_grammar",
+      "navigation_hologram_route_plane"
+    ]
+  },
+  "required_fields": [
+    "id",
+    "kind",
+    "schema_version",
+    "authority_boundary",
+    "source_refs",
+    "status",
+    "created_at",
+    "relationships",
+    "validator_refs",
+    "receipt_refs",
+    "omission_receipt",
+    "anti_claims",
+    "standards_registry_payload"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": false,
+    "rule": "if generated or projected, record source input digest and stale-source behavior"
+  },
+  "source_refs": [
+    {
+      "field": "standards[standard_id=std_microcosm_standards_registry]",
+      "path": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+      "role": "macro_manifest_source"
+    },
+    {
+      "role": "id_refs_only_no_source_bodies",
+      "source_pattern_id_count": 117,
+      "source_pattern_id_sample": [
+        "affordance_passport_selection_gate",
+        "agent_entry_surfaces_canonical_first_move",
+        "agent_principle_failure_cap_assimilation_loop",
+        "agent_route_compliance_audit",
+        "agent_seed_substrate_isolation",
+        "archaeological_voice_coverage_gate",
+        "atlas_navigation_bands",
+        "authority_chain_handle_resolver",
+        "branch_coverage_grade_ceiling",
+        "builder_factory_source_coupled_projection_lane",
+        "calculator_cross_lane_group_intelligence",
+        "candidate_axiom_runtime_pressure_non_law_gate",
+        "cap_cartography_readiness_map",
+        "cognitive_operator_registry",
+        "cogop_landing_handoff_compiler",
+        "cogop_operator_accretion_governor",
+        "cogop_pressure_to_action_reducer",
+        "cogop_route_lease_executor",
+        "command_output_projection",
+        "compound_microcosm_cell_decision_projection"
+      ]
+    }
+  ],
+  "standard_id": "std_microcosm_standards_registry",
+  "standard_payload": {
+    "anti_purpose": "A hand-maintained table of names without validation authority.",
+    "compression_bands": [],
+    "failure_modes": [
+      "untyped artifact admitted into rebuilt substrate",
+      "current public microcosm surface treated as sufficient without coverage check",
+      "private source material exposed instead of synthetic/schema-only fixture",
+      "projection claims source authority without coupling receipt"
+    ],
+    "ontology": "The index that binds standards to typed kinds, validators, receipts, and owners.",
+    "rebuild_action": "project",
+    "teleology": "Let one command answer which grammar governs each artifact."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "validate required fields and enum values against this standard",
+    "reject missing source_refs unless the fixture declares synthetic origin",
+    "reject authority upgrades not backed by receipt_refs",
+    "require public_private_boundary before public projection"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "schema",
+      "source_boundary",
+      "receipt_presence",
+      "negative_case_when_fixture_backed"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.standards_registry"
+  },
+  "validator_refs": [],
+  "wave": "w1_core_contract_and_grammar"
+}

@@ -1,0 +1,840 @@
+{
+  "anti_claim": "This registry indexes public-safe standard projections only; it does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence.",
+  "authority_ceiling": {
+    "private_data_equivalence_authority": false,
+    "registry_authority": "public_standard_index_only",
+    "release_authority": false,
+    "source_body_authority": false,
+    "status": "pass"
+  },
+  "first_wave_required_standard_count": 51,
+  "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+  "schema_version": "standards_registry_v1",
+  "standard_count": 51,
+  "standards": [
+    {
+      "first_wave_required": true,
+      "kind_id": "agent_trace",
+      "kind_name": "Agent trace",
+      "path": "standards/std_microcosm_agent_trace.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_agent_trace",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "entry_agent_behavior_governance_suborgan"
+      ],
+      "validator_id": null,
+      "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "anti_claim",
+      "kind_name": "Anti-claim",
+      "path": "standards/std_microcosm_anti_claim.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_anti_claim",
+      "status": "draft",
+      "used_by_organs": [
+        "authority_boundary",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "anti_principle",
+      "kind_name": "Anti-principle",
+      "path": "standards/std_microcosm_anti_principle.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_anti_principle",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "atlas_route",
+      "kind_name": "Atlas route",
+      "path": "standards/std_microcosm_atlas_route.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_atlas_route",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "authority_boundary",
+      "kind_name": "Authority boundary",
+      "path": "standards/std_microcosm_authority_boundary.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_authority_boundary",
+      "status": "draft",
+      "used_by_organs": [
+        "external_boundary_anti_corruption_runtime",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "axiom",
+      "kind_name": "Axiom",
+      "path": "standards/std_microcosm_axiom.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_axiom",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "cap",
+      "kind_name": "CAP",
+      "path": "standards/std_microcosm_cap.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_cap",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine",
+        "workitem_cartography_scheduler_suborgan"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "claim",
+      "kind_name": "Claim",
+      "path": "standards/std_microcosm_claim.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_claim",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "cold_clone_probe",
+      "kind_name": "Cold clone probe",
+      "path": "standards/std_microcosm_cold_clone_probe.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_cold_clone_probe",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_math_lean_proof_witness",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "compression_band",
+      "kind_name": "Compression band",
+      "path": "standards/std_microcosm_compression_band.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_compression_band",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane",
+        "option_surface",
+        "paper_module"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "concept",
+      "kind_name": "Concept",
+      "path": "standards/std_microcosm_concept.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_concept",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "navigation_hologram_route_plane"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "continuation_packet",
+      "kind_name": "Continuation packet",
+      "path": "standards/std_microcosm_continuation_packet.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_continuation_packet",
+      "status": "draft",
+      "used_by_organs": [
+        "bridge_phase_continuity_runtime"
+      ],
+      "validator_id": null,
+      "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "doctrine_roof",
+      "kind_name": "Doctrine roof",
+      "path": "standards/std_microcosm_doctrine_roof.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_doctrine_roof",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "evidence_cell",
+      "kind_name": "Evidence cell",
+      "path": "standards/std_microcosm_evidence_cell.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_evidence_cell",
+      "status": "draft",
+      "used_by_organs": [
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "evidence_graph",
+      "kind_name": "Evidence graph",
+      "path": "standards/std_microcosm_evidence_graph.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_evidence_graph",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "external_candidate",
+      "kind_name": "External candidate",
+      "path": "standards/std_microcosm_external_candidate.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_external_candidate",
+      "status": "draft",
+      "used_by_organs": [
+        "external_boundary_anti_corruption_runtime",
+        "formal_prover_lab_evaluation_suborgan"
+      ],
+      "validator_id": null,
+      "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "fixture",
+      "kind_name": "Fixture",
+      "path": "standards/std_microcosm_fixture.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_fixture",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
+        "executable_doctrine_grammar",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "formal_proof",
+      "kind_name": "Formal proof",
+      "path": "standards/std_microcosm_formal_proof.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_formal_proof",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_math_lean_proof_witness",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "hook_event",
+      "kind_name": "Hook event",
+      "path": "standards/std_microcosm_hook_event.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_hook_event",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "autonomy_reaction_dispatch_suborgan",
+        "bridge_phase_continuity_runtime",
+        "entry_agent_behavior_governance_suborgan"
+      ],
+      "validator_id": null,
+      "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "leaf",
+      "kind_name": "Leaf",
+      "path": "standards/std_microcosm_leaf.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_leaf",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "formal_math_lean_proof_witness",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "organ",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "lean_toolchain_receipt",
+      "kind_name": "Lean toolchain receipt",
+      "path": "standards/std_microcosm_lean_toolchain_receipt.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_lean_toolchain_receipt",
+      "status": "draft",
+      "used_by_organs": [
+        "cold_clone_probe",
+        "formal_math_lean_proof_witness",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "mechanism",
+      "kind_name": "Mechanism",
+      "path": "standards/std_microcosm_mechanism.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_mechanism",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "mission_transaction_work_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "mission",
+      "kind_name": "Mission",
+      "path": "standards/std_microcosm_mission.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_mission",
+      "status": "draft",
+      "used_by_organs": [
+        "bridge_phase_continuity_runtime",
+        "mission_transaction_work_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "omission_receipt",
+      "kind_name": "Omission receipt",
+      "path": "standards/std_microcosm_omission_receipt.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_omission_receipt",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "option_surface",
+      "kind_name": "Option surface",
+      "path": "standards/std_microcosm_option_surface.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_option_surface",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "organ",
+      "kind_name": "Organ",
+      "path": "standards/std_microcosm_organ.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_organ",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
+        "executable_doctrine_grammar",
+        "external_boundary_anti_corruption_runtime",
+        "formal_math_lean_proof_witness",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "paper_module",
+      "kind_name": "Paper module",
+      "path": "standards/std_microcosm_paper_module.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_paper_module",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
+        "executable_doctrine_grammar",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "pattern",
+      "kind_name": "Pattern",
+      "path": "standards/std_microcosm_pattern.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_pattern",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine",
+        "organ",
+        "pattern_binding_contract",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "pattern_assimilation_step",
+      "kind_name": "Pattern assimilation step",
+      "path": "standards/std_microcosm_pattern_assimilation_step.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_pattern_assimilation_step",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_synthetic_voice_loop"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "pattern_binding_contract",
+      "kind_name": "Pattern binding contract",
+      "path": "standards/std_microcosm_pattern_binding_contract.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_pattern_binding_contract",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "pattern_binding_contract"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "principle",
+      "kind_name": "Principle",
+      "path": "standards/std_microcosm_principle.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_principle",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "executable_doctrine_grammar"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "private_fixture",
+      "kind_name": "Private fixture",
+      "path": "standards/std_microcosm_private_fixture.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_private_fixture",
+      "status": "draft",
+      "used_by_organs": [
+        "external_boundary_anti_corruption_runtime",
+        "operator_response_attention_suborgan",
+        "operator_thread_memory_handoff_membrane",
+        "raw_seed_alchemy_review_suborgan",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "projection",
+      "kind_name": "Projection",
+      "path": "standards/std_microcosm_projection.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_projection",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "quarantine_record",
+      "kind_name": "Quarantine record",
+      "path": "standards/std_microcosm_quarantine_record.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_quarantine_record",
+      "status": "draft",
+      "used_by_organs": [
+        "external_boundary_anti_corruption_runtime",
+        "formal_oracle_policy_learning_suborgan",
+        "prediction_oracle_reconciliation_suborgan",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "receipt",
+      "kind_name": "Receipt",
+      "path": "standards/std_microcosm_receipt.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_receipt",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
+        "executable_doctrine_grammar",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "route_decision",
+      "kind_name": "Route decision",
+      "path": "standards/std_microcosm_route_decision.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_route_decision",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane",
+        "pattern_binding_contract"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "route_lease",
+      "kind_name": "Route lease",
+      "path": "standards/std_microcosm_route_lease.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_route_lease",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "navigation_hologram_route_plane"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "scoped_commit",
+      "kind_name": "Scoped commit",
+      "path": "standards/std_microcosm_scoped_commit.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_scoped_commit",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "skill",
+      "kind_name": "Skill",
+      "path": "standards/std_microcosm_skill.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_skill",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "executable_doctrine_grammar",
+        "mission_transaction_work_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "source_capsule",
+      "kind_name": "Source capsule",
+      "path": "standards/std_microcosm_source_capsule.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_source_capsule",
+      "status": "draft",
+      "used_by_organs": [
+        "external_boundary_anti_corruption_runtime",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "source_coupling_result",
+      "kind_name": "Source coupling result",
+      "path": "standards/std_microcosm_source_coupling_result.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_source_coupling_result",
+      "status": "draft",
+      "used_by_organs": [
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "standard",
+      "kind_name": "Standard",
+      "path": "standards/std_microcosm_standard.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_standard",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "pattern_binding_contract"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "standards_registry",
+      "kind_name": "Standards registry",
+      "path": "standards/std_microcosm_standards_registry.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_standards_registry",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "navigation_hologram_route_plane"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "status_channel",
+      "kind_name": "Status channel",
+      "path": "standards/std_microcosm_status_channel.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_status_channel",
+      "status": "draft",
+      "used_by_organs": [
+        "bridge_phase_continuity_runtime",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "synthetic_fixture",
+      "kind_name": "Synthetic fixture",
+      "path": "standards/std_microcosm_synthetic_fixture.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_synthetic_fixture",
+      "status": "draft",
+      "used_by_organs": [
+        "bridge_phase_continuity_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "proof_diagnostic_evidence_spine",
+        "typed_view_contract_specimen",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "task_ledger",
+      "kind_name": "Task ledger",
+      "path": "standards/std_microcosm_task_ledger.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_task_ledger",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "validation_result",
+      "kind_name": "Validation result",
+      "path": "standards/std_microcosm_validation_result.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_validation_result",
+      "status": "draft",
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "validator",
+      "kind_name": "Validator",
+      "path": "standards/std_microcosm_validator.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_validator",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
+        "executable_doctrine_grammar",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "validator_id": null,
+      "wave": "w1_core_contract_and_grammar"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "work_item",
+      "kind_name": "Work item",
+      "path": "standards/std_microcosm_work_item.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_work_item",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine",
+        "workitem_cartography_scheduler_suborgan"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "work_ledger",
+      "kind_name": "Work ledger",
+      "path": "standards/std_microcosm_work_ledger.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_work_ledger",
+      "status": "draft",
+      "used_by_organs": [
+        "mission_transaction_work_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_route_and_work_runtime"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "workingness_record",
+      "kind_name": "Workingness record",
+      "path": "standards/std_microcosm_workingness_record.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_workingness_record",
+      "status": "draft",
+      "used_by_organs": [
+        "cold_clone_probe",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "validator_id": null,
+      "wave": "w1_evidence_and_formal_witness"
+    }
+  ],
+  "status": "populated_from_macro_manifest"
+}

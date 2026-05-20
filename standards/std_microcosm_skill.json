@@ -1,0 +1,194 @@
+{
+  "anti_claim": "This standard is a public-safe schema contract projection only; it does not authorize release, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim_contract": {
+    "required": false,
+    "rule": "fixture-backed proof must state what it does not prove"
+  },
+  "anti_claims": [
+    "This public standard does not copy private source bodies or prove public runtime completeness.",
+    "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
+  ],
+  "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+  "authority_ceiling": {
+    "private_data_equivalence_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "standard_authority": "schema_contract_and_validator_expectation_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "skill",
+  "kind_name": "Skill",
+  "omission_receipt": {
+    "drilldown": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+    "omitted": [
+      "source pattern bodies",
+      "private source bodies",
+      "prompt/provider/operator/HUD bodies"
+    ],
+    "reason": "public standard carries schema and id refs only"
+  },
+  "omission_receipt_contract": {
+    "required": false,
+    "rule": "compressed views must list omitted bodies and drilldown refs"
+  },
+  "paper_module_contract": {
+    "module_slug": "skill_standard",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic_fixtures",
+      "schema_only_rows",
+      "redacted_source_capsules",
+      "public_safe_macro_code_when_refactored"
+    ],
+    "default_posture": "public_safe_when_synthetic_or_source_capsuled",
+    "forbidden_public_inputs": [
+      "live_raw_seed",
+      "prompt_shelf_bodies",
+      "provider_payload_bodies",
+      "operator_thread_content",
+      "live_task_ledger_rows",
+      "market_or_prediction_private_material"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "command_or_validator",
+      "result",
+      "evidence_refs",
+      "omissions",
+      "authority_ceiling"
+    ],
+    "receipt_id": "receipt.microcosm.skill",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.skill",
+    "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
+  ],
+  "receipt_refs": [],
+  "relationships": {
+    "canonical_organ_model_ref": null,
+    "source_pattern_id_count": 231,
+    "source_pattern_id_sample": [
+      "actionability_driven_alerting_d4",
+      "actor_context_injection_subagentstart",
+      "adversarial_identifier_rename_evolver",
+      "affordance_passport_selection_gate",
+      "agent_entry_surfaces_canonical_first_move",
+      "agent_harness_configuration_audit",
+      "agent_mission_status_noise_demotion_reducer",
+      "agent_principle_failure_cap_assimilation_loop",
+      "agent_principle_lens",
+      "agent_route_compliance_audit",
+      "agent_seed_substrate",
+      "agent_seed_substrate_isolation",
+      "agent_self_observability_plane",
+      "agent_session_attribution",
+      "aiw_movement_typed_cross_plane_proposal",
+      "annex_distillation_controller_merge_trust_default",
+      "annex_external_adoption_pretriage_routing",
+      "annex_substrate_wedge_theseus_lifecycle",
+      "annex_system_improvement_bounded_wave",
+      "archaeological_voice_coverage_gate"
+    ],
+    "used_by_organs": [
+      "agent_route_observability_runtime",
+      "executable_doctrine_grammar",
+      "mission_transaction_work_spine",
+      "voice_to_doctrine_self_improvement_loop"
+    ]
+  },
+  "required_fields": [
+    "id",
+    "kind",
+    "schema_version",
+    "authority_boundary",
+    "source_refs",
+    "status",
+    "created_at",
+    "relationships",
+    "validator_refs",
+    "receipt_refs",
+    "omission_receipt",
+    "anti_claims",
+    "skill_payload"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": false,
+    "rule": "if generated or projected, record source input digest and stale-source behavior"
+  },
+  "source_refs": [
+    {
+      "field": "standards[standard_id=std_microcosm_skill]",
+      "path": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+      "role": "macro_manifest_source"
+    },
+    {
+      "role": "id_refs_only_no_source_bodies",
+      "source_pattern_id_count": 231,
+      "source_pattern_id_sample": [
+        "actionability_driven_alerting_d4",
+        "actor_context_injection_subagentstart",
+        "adversarial_identifier_rename_evolver",
+        "affordance_passport_selection_gate",
+        "agent_entry_surfaces_canonical_first_move",
+        "agent_harness_configuration_audit",
+        "agent_mission_status_noise_demotion_reducer",
+        "agent_principle_failure_cap_assimilation_loop",
+        "agent_principle_lens",
+        "agent_route_compliance_audit",
+        "agent_seed_substrate",
+        "agent_seed_substrate_isolation",
+        "agent_self_observability_plane",
+        "agent_session_attribution",
+        "aiw_movement_typed_cross_plane_proposal",
+        "annex_distillation_controller_merge_trust_default",
+        "annex_external_adoption_pretriage_routing",
+        "annex_substrate_wedge_theseus_lifecycle",
+        "annex_system_improvement_bounded_wave",
+        "archaeological_voice_coverage_gate"
+      ]
+    }
+  ],
+  "standard_id": "std_microcosm_skill",
+  "standard_payload": {
+    "anti_purpose": "Porting bureaucracy or a static checklist that no agent uses.",
+    "compression_bands": [
+      "cluster_flag",
+      "flag",
+      "card"
+    ],
+    "failure_modes": [
+      "untyped artifact admitted into rebuilt substrate",
+      "current public microcosm surface treated as sufficient without coverage check",
+      "private source material exposed instead of synthetic/schema-only fixture",
+      "projection claims source authority without coupling receipt"
+    ],
+    "ontology": "An agent-operable procedure with triggers, workflow, validation, and doctrine edges.",
+    "rebuild_action": "project",
+    "teleology": "Make pattern assimilation and organ operation repeatable by agents."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "validate required fields and enum values against this standard",
+    "reject missing source_refs unless the fixture declares synthetic origin",
+    "reject authority upgrades not backed by receipt_refs",
+    "require public_private_boundary before public projection"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "schema",
+      "source_boundary",
+      "receipt_presence",
+      "negative_case_when_fixture_backed"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.skill"
+  },
+  "validator_refs": [],
+  "wave": "w1_core_contract_and_grammar"
+}

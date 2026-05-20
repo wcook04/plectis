@@ -1,0 +1,188 @@
+{
+  "anti_claim": "This standard is a public-safe schema contract projection only; it does not authorize release, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim_contract": {
+    "required": false,
+    "rule": "fixture-backed proof must state what it does not prove"
+  },
+  "anti_claims": [
+    "This public standard does not copy private source bodies or prove public runtime completeness.",
+    "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
+  ],
+  "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+  "authority_ceiling": {
+    "private_data_equivalence_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "standard_authority": "schema_contract_and_validator_expectation_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "pattern_assimilation_step",
+  "kind_name": "Pattern assimilation step",
+  "omission_receipt": {
+    "drilldown": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+    "omitted": [
+      "source pattern bodies",
+      "private source bodies",
+      "prompt/provider/operator/HUD bodies"
+    ],
+    "reason": "public standard carries schema and id refs only"
+  },
+  "omission_receipt_contract": {
+    "required": false,
+    "rule": "compressed views must list omitted bodies and drilldown refs"
+  },
+  "paper_module_contract": {
+    "module_slug": "pattern_assimilation_step_standard",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic_fixtures",
+      "schema_only_rows",
+      "redacted_source_capsules",
+      "public_safe_macro_code_when_refactored"
+    ],
+    "default_posture": "public_safe_when_synthetic_or_source_capsuled",
+    "forbidden_public_inputs": [
+      "live_raw_seed",
+      "prompt_shelf_bodies",
+      "provider_payload_bodies",
+      "operator_thread_content",
+      "live_task_ledger_rows",
+      "market_or_prediction_private_material"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "command_or_validator",
+      "result",
+      "evidence_refs",
+      "omissions",
+      "authority_ceiling"
+    ],
+    "receipt_id": "receipt.microcosm.pattern_assimilation_step",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.pattern_assimilation_step",
+    "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
+  ],
+  "receipt_refs": [],
+  "relationships": {
+    "canonical_organ_model_ref": null,
+    "source_pattern_id_count": 152,
+    "source_pattern_id_sample": [
+      "actionability_driven_alerting_d4",
+      "affordance_passport_selection_gate",
+      "agent_entry_surfaces_canonical_first_move",
+      "agent_principle_failure_cap_assimilation_loop",
+      "agent_route_compliance_audit",
+      "agent_seed_substrate_isolation",
+      "aiw_movement_typed_cross_plane_proposal",
+      "annex_substrate_wedge_theseus_lifecycle",
+      "annex_system_improvement_bounded_wave",
+      "archaeological_voice_coverage_gate",
+      "autonomous_proof_gate_promotion_rule_amber_bounded_retry",
+      "autonomy_plan_baton_closeout_contract",
+      "benchmark_split_leakage_firewall_manifest_strip",
+      "blocked_patch_capsule_claim_handoff",
+      "branch_coverage_grade_ceiling",
+      "bridge_runtime_dispatch_yield_resume",
+      "candidate_axiom_runtime_pressure_non_law_gate",
+      "cap_cartography_readiness_map",
+      "cap_quick_capture_lane",
+      "cap_reflex_capture_before_prose"
+    ],
+    "used_by_organs": [
+      "mission_transaction_work_spine",
+      "voice_to_doctrine_self_improvement_loop"
+    ]
+  },
+  "required_fields": [
+    "id",
+    "kind",
+    "schema_version",
+    "authority_boundary",
+    "source_refs",
+    "status",
+    "created_at",
+    "relationships",
+    "validator_refs",
+    "receipt_refs",
+    "omission_receipt",
+    "anti_claims",
+    "pattern_assimilation_step_payload"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": false,
+    "rule": "if generated or projected, record source input digest and stale-source behavior"
+  },
+  "source_refs": [
+    {
+      "field": "standards[standard_id=std_microcosm_pattern_assimilation_step]",
+      "path": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+      "role": "macro_manifest_source"
+    },
+    {
+      "role": "id_refs_only_no_source_bodies",
+      "source_pattern_id_count": 152,
+      "source_pattern_id_sample": [
+        "actionability_driven_alerting_d4",
+        "affordance_passport_selection_gate",
+        "agent_entry_surfaces_canonical_first_move",
+        "agent_principle_failure_cap_assimilation_loop",
+        "agent_route_compliance_audit",
+        "agent_seed_substrate_isolation",
+        "aiw_movement_typed_cross_plane_proposal",
+        "annex_substrate_wedge_theseus_lifecycle",
+        "annex_system_improvement_bounded_wave",
+        "archaeological_voice_coverage_gate",
+        "autonomous_proof_gate_promotion_rule_amber_bounded_retry",
+        "autonomy_plan_baton_closeout_contract",
+        "benchmark_split_leakage_firewall_manifest_strip",
+        "blocked_patch_capsule_claim_handoff",
+        "branch_coverage_grade_ceiling",
+        "bridge_runtime_dispatch_yield_resume",
+        "candidate_axiom_runtime_pressure_non_law_gate",
+        "cap_cartography_readiness_map",
+        "cap_quick_capture_lane",
+        "cap_reflex_capture_before_prose"
+      ]
+    }
+  ],
+  "standard_id": "std_microcosm_pattern_assimilation_step",
+  "standard_payload": {
+    "anti_purpose": "A retrospective note that does not alter standards, skills, or ledgers.",
+    "compression_bands": [],
+    "failure_modes": [
+      "untyped artifact admitted into rebuilt substrate",
+      "current public microcosm surface treated as sufficient without coverage check",
+      "private source material exposed instead of synthetic/schema-only fixture",
+      "projection claims source authority without coupling receipt"
+    ],
+    "ontology": "A repeatable step that turns landed organ work back into clearer pattern doctrine.",
+    "rebuild_action": "draft",
+    "teleology": "Force upward pressure after each organ lands."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "validate required fields and enum values against this standard",
+    "reject missing source_refs unless the fixture declares synthetic origin",
+    "reject authority upgrades not backed by receipt_refs",
+    "require public_private_boundary before public projection"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "schema",
+      "source_boundary",
+      "receipt_presence",
+      "negative_case_when_fixture_backed"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.pattern_assimilation_step"
+  },
+  "validator_refs": [],
+  "wave": "w1_synthetic_voice_loop"
+}
