@@ -1,0 +1,10 @@
+{
+  "schema_version": "public_preflight_support_validator_receipt_coverage_map_v1",
+  "authority_boundary": "public_safe_support_snapshot_for_clean_clone_tests_not_macro_source_authority",
+  "receipt_coverage": [
+    "receipts/preflight/dependency_preflight.json",
+    "receipts/preflight/fixture_runner_freshness.json",
+    "receipts/first_wave/acceptance_summary.json"
+  ],
+  "anti_claim": "This coverage support snapshot is only clean-clone preflight context and does not authorize release or whole-system correctness."
+}

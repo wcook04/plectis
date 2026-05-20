@@ -9,9 +9,9 @@ from microcosm_core.validators.dependency_preflight import run_dependency_prefli
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = MICROCOSM_ROOT.parent
-READINESS = REPO_ROOT / "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json"
-NEGATIVE_MATRIX = REPO_ROOT / "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json"
+PREFLIGHT_SUPPORT = MICROCOSM_ROOT / "core/preflight_support"
+READINESS = PREFLIGHT_SUPPORT / "organ_fixture_validator_readiness_v1.json"
+NEGATIVE_MATRIX = PREFLIGHT_SUPPORT / "fixture_negative_case_matrix_v1.json"
 
 
 def _walk_keys(payload: Any) -> list[str]:

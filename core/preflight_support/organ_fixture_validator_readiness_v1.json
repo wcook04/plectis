@@ -1,0 +1,127 @@
+{
+  "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1",
+  "authority_boundary": "public_safe_support_snapshot_for_clean_clone_tests_not_macro_source_authority",
+  "organ_readiness": [
+    {
+      "organ_id": "pattern_binding_contract",
+      "fixture_id": "fixture::pattern_binding_contract::first_wave_contract_v1",
+      "build_dependencies": [],
+      "fixture_manifest": "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl",
+        "fixtures/first_wave/pattern_binding_contract/input/source_capsules.json",
+        "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "fixtures/first_wave/pattern_binding_contract/input/authority_chain_handles.json",
+        "fixtures/first_wave/pattern_binding_contract/input/generated_projection_authority_upgrade.json",
+        "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "fixtures/first_wave/pattern_binding_contract/input/duplicate_pattern_id_conflict.jsonl",
+        "fixtures/first_wave/pattern_binding_contract/input/valid_binding_overclaim_public_leaf.json",
+        "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json"
+      ]
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "fixture_id": "fixture::executable_doctrine_grammar::first_wave_contract_v1",
+      "build_dependencies": [
+        "pattern_binding_contract"
+      ],
+      "fixture_manifest": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json",
+        "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md",
+        "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md"
+      ]
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "fixture_id": "fixture::proof_diagnostic_evidence_spine::first_wave_contract_v1",
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar"
+      ],
+      "fixture_manifest": "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/provider_advisory_payloads.json",
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/receipt_missing_claim_validator_and_anti_claim.json",
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_board_source_authority_claim.json",
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/stale_proof_receipt_fingerprint.json",
+        "fixtures/first_wave/proof_diagnostic_evidence_spine/input/passing_check_overclaims_runtime.json"
+      ]
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/navigation_hologram_route_plane/input/toy_kind_rows.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/std_toy_option_surface.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/source_manifest_stale.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/banned_route_request.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/route_lease_baseline.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/route_card_missing_omission_receipt.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/atlas_projection_as_control_entry.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/route_card_with_private_body.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/stale_summary_claims_current.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/duplicate_route_ids.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/entry_packet_admission_floor.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/affordance_passport_selection.json",
+        "fixtures/first_wave/navigation_hologram_route_plane/input/code_architecture_projection_packet.json"
+      ]
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "fixture_id": "fixture::mission_transaction_work_spine::first_wave_contract_v1",
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "navigation_hologram_route_plane"
+      ],
+      "fixture_manifest": "core/fixture_manifests/mission_transaction_work_spine.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl",
+        "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json",
+        "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json"
+      ]
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "fixture_id": "fixture::agent_route_observability_runtime::first_wave_contract_v1",
+      "build_dependencies": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl",
+        "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json",
+        "fixtures/first_wave/agent_route_observability_runtime/input/anti_pattern_debt.json"
+      ]
+    },
+    {
+      "organ_id": "pattern_assimilation_step",
+      "fixture_id": "fixture::pattern_assimilation_step::first_wave_contract_v1",
+      "build_dependencies": [
+        "agent_route_observability_runtime",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_manifest": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl",
+        "fixtures/first_wave/pattern_assimilation_step/input/refinement_case.json",
+        "fixtures/first_wave/pattern_assimilation_step/input/nothing_to_refine_case.json",
+        "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json"
+      ]
+    }
+  ],
+  "anti_claim": "This support snapshot is only for public clean-clone preflight tests. It does not authorize release, private reconstruction source authority, provider calls, Lean/Lake, or private-data equivalence."
+}

@@ -8,11 +8,11 @@ from microcosm_core.validators.fixture_freshness import run_fixture_freshness
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = MICROCOSM_ROOT.parent
-READINESS = REPO_ROOT / "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json"
-NEGATIVE_MATRIX = REPO_ROOT / "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json"
-MISSION_DAG = REPO_ROOT / "state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json"
-RECEIPT_COVERAGE = REPO_ROOT / "state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json"
+PREFLIGHT_SUPPORT = MICROCOSM_ROOT / "core/preflight_support"
+READINESS = PREFLIGHT_SUPPORT / "organ_fixture_validator_readiness_v1.json"
+NEGATIVE_MATRIX = PREFLIGHT_SUPPORT / "fixture_negative_case_matrix_v1.json"
+MISSION_DAG = PREFLIGHT_SUPPORT / "microcosm_rebuild_mission_graph_v1.json"
+RECEIPT_COVERAGE = PREFLIGHT_SUPPORT / "validator_receipt_coverage_map_v1.json"
 
 
 def _copy_public_tree(tmp_path: Path) -> Path:

@@ -1,0 +1,14 @@
+{
+  "schema_version": "public_preflight_support_microcosm_rebuild_mission_graph_v1",
+  "authority_boundary": "public_safe_support_snapshot_for_clean_clone_tests_not_macro_source_authority",
+  "nodes": [
+    "pattern_binding_contract",
+    "executable_doctrine_grammar",
+    "proof_diagnostic_evidence_spine",
+    "navigation_hologram_route_plane",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime",
+    "pattern_assimilation_step"
+  ],
+  "anti_claim": "This mission graph support snapshot is only clean-clone preflight context and does not authorize release or private-root source authority."
+}
