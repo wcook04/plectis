@@ -162,9 +162,19 @@ def _walk_keys(payload: Any) -> list[str]:
 def test_navigation_hologram_route_plane_observes_required_negative_cases(
     tmp_path: Path,
 ) -> None:
+    live_preflight = MICROCOSM_ROOT / "receipts/preflight/navigation_hologram_route_plane.json"
+    live_preflight_before = (
+        live_preflight.read_text(encoding="utf-8") if live_preflight.exists() else None
+    )
     result = run(NAV_FIXTURE_INPUT, tmp_path / "receipts", command="pytest")
 
     assert result["status"] == "pass"
+    assert all(not Path(path).is_absolute() for path in result["receipt_paths"])
+    assert (tmp_path / "receipts/preflight/navigation_hologram_route_plane.json").is_file()
+    live_preflight_after = (
+        live_preflight.read_text(encoding="utf-8") if live_preflight.exists() else None
+    )
+    assert live_preflight_after == live_preflight_before
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert result["selected_row_ids"] == ["toy_route_card"]

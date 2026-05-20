@@ -572,6 +572,14 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [public_relative_path(path, display_root=public_root) for path in paths.values()]
 
 
+def _is_relative_to(path: Path, root: Path) -> bool:
+    try:
+        path.relative_to(root)
+    except ValueError:
+        return False
+    return True
+
+
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
     keys = (
         "status",
@@ -620,8 +628,10 @@ def write_receipts(
         target = Path.cwd() / target
     target.mkdir(parents=True, exist_ok=True)
     public_root = Path(public_root).resolve(strict=False)
+    target = target.resolve(strict=False)
+    receipt_root = public_root if _is_relative_to(target, public_root) else target.parent
     paths = {
-        "preflight": public_root / PREFLIGHT_REL,
+        "preflight": receipt_root / PREFLIGHT_REL,
         "toy_kind_cluster_flag": target / CLUSTER_FLAG_NAME,
         "toy_kind_card": target / CARD_NAME,
         "source_coupling_result": target / SOURCE_COUPLING_NAME,
@@ -630,7 +640,7 @@ def write_receipts(
         "affordance_passport_selection_receipt": target / AFFORDANCE_NAME,
         "code_architecture_projection_packet_receipt": target / CODE_ARCH_NAME,
     }
-    receipt_paths = _relative_receipt_paths(paths, public_root)
+    receipt_paths = _relative_receipt_paths(paths, receipt_root)
 
     preflight = _common_receipt(
         validation_result,
@@ -724,7 +734,7 @@ def write_receipts(
     ):
         write_json_atomic(paths[key], payload)
 
-    return {key: public_relative_path(path, display_root=public_root) for key, path in paths.items()}
+    return {key: public_relative_path(path, display_root=receipt_root) for key, path in paths.items()}
 
 
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:

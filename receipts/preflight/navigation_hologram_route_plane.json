@@ -9,8 +9,8 @@
   },
   "banned_route_table_status": "pass",
   "blocked_dependency_codes": [],
-  "command": "pytest",
-  "created_at": "2026-05-20T11:54:26+00:00",
+  "command": "navigation_hologram_route_plane run",
+  "created_at": "2026-05-20T12:02:21+00:00",
   "error_codes": [
     "AFFORDANCE_PASSPORT_ANTITRIGGER_IGNORED",
     "ATLAS_PROJECTION_NOT_CONTROL_ENTRY",
@@ -213,13 +213,13 @@
   "receipt_id": "navigation_hologram_route_plane_preflight_v1",
   "receipt_paths": [
     "receipts/preflight/navigation_hologram_route_plane.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/toy_kind_cluster_flag.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/toy_kind_card.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/source_coupling_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/route_lease.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/entry_payload_admission_receipt.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/affordance_passport_selection_receipt.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-2135/test_navigation_hologram_route0/receipts/code_architecture_projection_packet_receipt.json"
+    "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json",
+    "receipts/first_wave/navigation_hologram_route_plane/toy_kind_card.json",
+    "receipts/first_wave/navigation_hologram_route_plane/source_coupling_result.json",
+    "receipts/first_wave/navigation_hologram_route_plane/route_lease.json",
+    "receipts/first_wave/navigation_hologram_route_plane/entry_payload_admission_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json"
   ],
   "route_lease_precheck_status": "pass",
   "schema_version": "navigation_hologram_route_plane_preflight_v1",
