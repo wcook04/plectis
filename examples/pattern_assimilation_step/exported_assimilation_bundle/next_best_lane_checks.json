@@ -1,0 +1,14 @@
+{
+  "schema_version": "pattern_assimilation_step_next_best_lane_checks_v1",
+  "next_best_lane_checks": [
+    {
+      "check_id": "next_ordered_adapter_lane_completion_reducer",
+      "next_best_lane_checked": true,
+      "next_route": "ordered_adapter_lane_completion_reducer",
+      "next_seed_path": "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_ORDERED_ADAPTER_LANE_COMPLETION_REDUCER_SEED.md",
+      "projection_not_authority": true,
+      "release_authorized": false,
+      "body_redacted": true
+    }
+  ]
+}

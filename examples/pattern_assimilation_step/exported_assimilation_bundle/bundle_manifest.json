@@ -1,0 +1,19 @@
+{
+  "schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
+  "bundle_id": "public_pattern_assimilation_step_runtime_example",
+  "input_mode": "exported_assimilation_bundle",
+  "organ_id": "pattern_assimilation_step",
+  "fixture_regression_required_elsewhere": true,
+  "release_authorized": false,
+  "live_learning_authority": false,
+  "required_files": [
+    "bundle_manifest.json",
+    "organ_landing_summaries.json",
+    "refinement_receipts.json",
+    "nothing_to_refine_receipts.json",
+    "stewardship_checks.json",
+    "reentry_conditions.json",
+    "next_best_lane_checks.json",
+    "assimilation_policy.json"
+  ]
+}

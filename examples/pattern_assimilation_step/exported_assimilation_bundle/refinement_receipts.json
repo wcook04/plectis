@@ -1,0 +1,60 @@
+{
+  "schema_version": "pattern_assimilation_step_refinement_receipts_v1",
+  "refinement_receipts": [
+    {
+      "receipt_id": "refine_pattern_binding_exported_bundle",
+      "organ_id": "pattern_binding_contract",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/pattern_binding_contract.py",
+      "changed_surface_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "refine_doctrine_grammar_exported_bundle",
+      "organ_id": "executable_doctrine_grammar",
+      "refinement_result": "standard_refined",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/executable_doctrine_grammar.py",
+      "changed_surface_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_standards_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "refine_navigation_route_plane_exported_bundle",
+      "organ_id": "navigation_hologram_route_plane",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/navigation_hologram_route_plane.py",
+      "changed_surface_ref": "microcosm-substrate/examples/navigation_hologram_route_plane/exported_route_plane_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "refine_observability_exported_bundle",
+      "organ_id": "agent_route_observability_runtime",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+      "changed_surface_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "refine_pattern_assimilation_exported_bundle",
+      "organ_id": "pattern_assimilation_step",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
+      "changed_surface_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    }
+  ]
+}

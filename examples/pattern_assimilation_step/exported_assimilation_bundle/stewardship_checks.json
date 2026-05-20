@@ -1,0 +1,23 @@
+{
+  "schema_version": "pattern_assimilation_step_stewardship_checks_v1",
+  "stewardship_checks": [
+    {
+      "check_id": "stewardship_fixtures_remain_regression_only",
+      "stewardship_checked": true,
+      "next_best_lane_checked": true,
+      "owner_surface": "microcosm-substrate/tests/test_pattern_assimilation_step.py",
+      "projection_not_authority": true,
+      "live_task_ledger_mutation_authorized": false,
+      "body_redacted": true
+    },
+    {
+      "check_id": "stewardship_assimilation_metadata_not_live_learning",
+      "stewardship_checked": true,
+      "next_best_lane_checked": true,
+      "owner_surface": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
+      "projection_not_authority": true,
+      "live_task_ledger_mutation_authorized": false,
+      "body_redacted": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "pattern_assimilation_step_assimilation_policy_v1",
+  "policy_id": "public_pattern_assimilation_metadata_policy",
+  "raw_seed_body_read": false,
+  "live_task_ledger_mutation_authorized": false,
+  "global_doctrine_promotion_authorized": false,
+  "release_or_publication_authorized": false,
+  "provider_payload_read": false,
+  "private_data_equivalence_claim": false,
+  "behavior_change_overclaims_allowed": false,
+  "live_learning_authority": false,
+  "body_redacted": true
+}

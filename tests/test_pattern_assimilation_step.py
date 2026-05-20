@@ -6,14 +6,20 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.validators.acceptance import (
+    EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    run_assimilation_bundle,
     validate_pattern_assimilation,
 )
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 ASSIMILATION_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/pattern_assimilation_step/input"
+ASSIMILATION_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/pattern_assimilation_step/exported_assimilation_bundle"
+)
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -140,3 +146,92 @@ def test_pattern_assimilation_receipts_satisfy_macro_field_floor(tmp_path: Path)
             payload = json.loads((public_root / receipt_path).read_text(encoding="utf-8"))
         missing = [field for field in required_fields if field not in payload]
         assert missing == []
+
+
+def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_assimilation_bundle(
+        ASSIMILATION_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/pattern_assimilation_step",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_assimilation_bundle"
+    assert result["bundle_id"] == "public_pattern_assimilation_step_runtime_example"
+    assert result["expected_negative_cases"] == {}
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["metadata_projection_not_live_learning_authority"] is True
+    assert result["authority_ceiling"]["raw_seed_body_read"] is False
+    assert result["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
+    assert result["authority_ceiling"]["global_doctrine_promotion_authorized"] is False
+    assert result["authority_ceiling"]["release_or_publication_authorized"] is False
+    assert result["authority_ceiling"]["provider_payload_read"] is False
+    assert result["authority_ceiling"]["private_data_equivalence_claim"] is False
+    assert result["ordered_adapter_lane_status"] == "complete_pending_completion_reducer"
+    assert result["organ_landing_count"] == 7
+    assert result["landed_organ_ids"] == [
+        "agent_route_observability_runtime",
+        "executable_doctrine_grammar",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_assimilation_step",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+    ]
+    assert result["refinement_receipt_count"] == 5
+    assert result["nothing_to_refine_receipt_count"] == 2
+    assert result["stewardship_check_count"] == 2
+    assert result["reentry_condition_count"] == 2
+    assert result["next_best_lane_result"] == "ordered_adapter_lane_completion_reducer"
+    assert result["next_seed_paths"] == [
+        "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_ORDERED_ADAPTER_LANE_COMPLETION_REDUCER_SEED.md"
+    ]
+    assert result["assimilation_policy"]["forbidden_authority_rejected"] is True
+    assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+
+
+def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/pattern_assimilation_step",
+        public_root / "examples/pattern_assimilation_step",
+    )
+
+    result = run_assimilation_bundle(
+        public_root / "examples/pattern_assimilation_step/exported_assimilation_bundle",
+        public_root / "receipts/first_wave/pattern_assimilation_step",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH]
+    receipt_file = public_root / EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "matched_excerpt" not in text
+    assert '"body":' not in text
+    payload = json.loads(text)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_assimilation_bundle"
+    assert payload["fixture_regression_required_elsewhere"] is True
+    assert payload["private_state_scan"]["body_redacted"] is True
+    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["expected_negative_cases"] == {}
+    assert payload["metadata_projection_not_live_learning_authority"] is True
+    assert payload["authority_ceiling"]["private_data_equivalence_claim"] is False
+    assert payload["authority_ceiling"]["behavior_change_overclaims_allowed"] is False
+    assert "matched_excerpt" not in _walk_keys(payload)
+    assert "body" not in _walk_keys(payload)
+    for hit in payload["private_state_scan"]["hits"]:
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()

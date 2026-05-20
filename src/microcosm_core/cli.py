@@ -82,8 +82,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(observability_parser)
 
     assimilation_parser = subparsers.add_parser("pattern-assimilation-step")
-    assimilation_parser.add_argument("--input", required=True)
-    assimilation_parser.add_argument("--out", required=True)
+    assimilation_parser.add_argument("action", nargs="?", choices=["run", "validate-assimilation-bundle"], default="run")
+    _add_input_out(assimilation_parser)
 
     args = parser.parse_args(argv)
     if args.command == "private-state-scan":
@@ -152,6 +152,16 @@ def main(argv: list[str] | None = None) -> int:
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "pattern-assimilation-step":
+        if args.action == "validate-assimilation-bundle":
+            return acceptance.main(
+                [
+                    "validate-assimilation-bundle",
+                    "--input",
+                    args.input,
+                    "--out",
+                    args.out,
+                ]
+            )
         return acceptance.main(
             [
                 "--only",

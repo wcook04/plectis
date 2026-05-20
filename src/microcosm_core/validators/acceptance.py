@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import tempfile
@@ -25,6 +26,11 @@ VALIDATOR_ID = "validator.microcosm.validators.acceptance.pattern_assimilation_s
 ACCEPTANCE_REL = "receipts/first_wave/pattern_assimilation_acceptance.json"
 ASSIMILATION_REL = "receipts/first_wave/pattern_assimilation_receipt.json"
 MACRO_RUNS_REL = "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+ASSIMILATION_BUNDLE_RESULT_NAME = "exported_assimilation_bundle_validation_result.json"
+EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/pattern_assimilation_step/"
+    "exported_assimilation_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     ACCEPTANCE_REL,
@@ -49,16 +55,20 @@ EXPECTED_NEGATIVE_CASES = {
 }
 
 PATTERN_ASSIMILATION_ANTI_CLAIM = (
-    "Pattern assimilation receipts validate synthetic closeout-learning fixtures only; "
-    "they do not promote global doctrine, mutate live ledgers, authorize release work, "
-    "or prove public runtime behavior."
+    "Pattern assimilation receipts validate public closeout-learning metadata plus "
+    "regression fixtures; they do not promote global doctrine, mutate live ledgers, "
+    "authorize release work, or prove live learning behavior."
 )
 PATTERN_ASSIMILATION_AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_pattern_assimilation_closeout_fixture_only_not_live_learning_authority",
+    "authority_ceiling": "pattern_assimilation_metadata_not_live_learning_authority",
     "live_task_ledger_mutation_authorized": False,
     "global_doctrine_promotion_authorized": False,
     "release_or_publication_authorized": False,
+    "raw_seed_body_read": False,
+    "provider_payload_read": False,
+    "private_data_equivalence_claim": False,
+    "behavior_change_overclaims_allowed": False,
 }
 
 WAVE_1_ORGAN_IDS = [
@@ -68,6 +78,11 @@ WAVE_1_ORGAN_IDS = [
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "agent_route_observability_runtime",
+]
+
+ADAPTER_BACKED_ORGAN_IDS = [
+    *WAVE_1_ORGAN_IDS,
+    "pattern_assimilation_step",
 ]
 
 
@@ -103,6 +118,20 @@ def _input_paths(input_dir: Path) -> list[Path]:
     ]
 
 
+def _assimilation_bundle_paths(input_dir: Path) -> list[Path]:
+    names = (
+        "bundle_manifest.json",
+        "organ_landing_summaries.json",
+        "refinement_receipts.json",
+        "nothing_to_refine_receipts.json",
+        "stewardship_checks.json",
+        "reentry_conditions.json",
+        "next_best_lane_checks.json",
+        "assimilation_policy.json",
+    )
+    return [input_dir / name for name in names]
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -124,9 +153,32 @@ def _load_inputs(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_assimilation_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _assimilation_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
+
+
+def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _assimilation_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _stable_hash(payload: object) -> str:
+    encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
@@ -156,6 +208,22 @@ def _finding(
     }
 
 
+def _bundle_finding(
+    code: str,
+    message: str,
+    *,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return {
+        "error_code": code,
+        "message": message,
+        "subject_id": subject_id,
+        "subject_kind": subject_kind,
+        "body_redacted": True,
+    }
+
+
 def _record(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
@@ -176,6 +244,440 @@ def _record(
         )
     )
     observed[case_id].add(code)
+
+
+def validate_exported_organ_landings(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "organ_landing_summaries")
+    organ_ids: list[str] = []
+    landing_receipt_refs: list[str] = []
+    closeout_by_organ: dict[str, str] = {}
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_ORGAN_LANDINGS_MISSING",
+                "Exported assimilation bundle has no organ landing summaries.",
+                subject_id="organ_landing_summaries",
+                subject_kind="organ_landing_summaries",
+            )
+        )
+    for row in rows:
+        organ_id = str(row.get("organ_id") or "")
+        closeout = str(row.get("closeout_refinement_result") or "")
+        receipt_ref = str(row.get("landing_receipt_ref") or "")
+        organ_ids.append(organ_id)
+        if receipt_ref:
+            landing_receipt_refs.append(receipt_ref)
+        if organ_id:
+            closeout_by_organ[organ_id] = closeout
+        if not organ_id or not closeout or not receipt_ref:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_ORGAN_CLOSEOUT_MISSING",
+                    "Each organ landing must name organ id, closeout result, and landing receipt ref.",
+                    subject_id=organ_id or "organ_landing",
+                    subject_kind="organ_landing",
+                )
+            )
+        if row.get("projection_not_authority") is not True:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_ORGAN_PROJECTION_FLAG_MISSING",
+                    "Organ landing row must declare projection_not_authority.",
+                    subject_id=organ_id or "organ_landing",
+                    subject_kind="organ_landing",
+                )
+            )
+        if row.get("live_learning_authority") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_ORGAN_AUTHORITY_OVERCLAIM",
+                    "Organ landing row cannot claim live learning authority.",
+                    subject_id=organ_id or "organ_landing",
+                    subject_kind="organ_landing",
+                )
+            )
+    duplicate_ids = sorted(
+        organ_id for organ_id, count in Counter(organ_ids).items() if organ_id and count > 1
+    )
+    for organ_id in duplicate_ids:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_DUPLICATE_ORGAN_LANDING",
+                "Organ landing summaries must not duplicate organ ids.",
+                subject_id=organ_id,
+                subject_kind="organ_landing",
+            )
+        )
+    missing_expected = sorted(set(ADAPTER_BACKED_ORGAN_IDS) - set(organ_ids))
+    for organ_id in missing_expected:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_ACCEPTED_ORGAN_MISSING",
+                "Exported assimilation bundle must cover every accepted adapter-backed organ.",
+                subject_id=organ_id,
+                subject_kind="organ_landing",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "landed_organ_ids": sorted(organ_id for organ_id in organ_ids if organ_id),
+        "organ_landing_count": len(rows),
+        "landing_receipt_refs": sorted(set(landing_receipt_refs)),
+        "closeout_by_organ": closeout_by_organ,
+        "accepted_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
+        "organ_landing_projection_not_authority": True,
+    }
+
+
+def validate_exported_refinement_receipts(
+    payload: object,
+    landing_result: dict[str, Any],
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "refinement_receipts")
+    receipt_ids: list[str] = []
+    owner_surfaces: list[str] = []
+    result_by_organ: dict[str, str] = {}
+    landed_organs = set(landing_result.get("landed_organ_ids", []))
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_REFINEMENT_RECEIPTS_MISSING",
+                "Exported assimilation bundle has no refinement receipts.",
+                subject_id="refinement_receipts",
+                subject_kind="refinement_receipts",
+            )
+        )
+    for row in rows:
+        receipt_id = str(row.get("receipt_id") or "")
+        organ_id = str(row.get("organ_id") or "")
+        result = str(row.get("refinement_result") or "")
+        owner_surface = str(row.get("owner_surface") or "")
+        changed_ref = str(row.get("changed_surface_ref") or "")
+        if receipt_id:
+            receipt_ids.append(receipt_id)
+        if owner_surface:
+            owner_surfaces.append(owner_surface)
+        if organ_id:
+            result_by_organ[organ_id] = result
+        if not receipt_id or not organ_id or not result:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_REFINEMENT_FIELDS_MISSING",
+                    "Refinement receipt must name receipt_id, organ_id, and refinement_result.",
+                    subject_id=receipt_id or organ_id or "refinement_receipt",
+                    subject_kind="refinement_receipt",
+                )
+            )
+        if organ_id and organ_id not in landed_organs:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_REFINEMENT_ORGAN_NOT_LANDED",
+                    "Refinement receipt references an organ absent from landing summaries.",
+                    subject_id=organ_id,
+                    subject_kind="refinement_receipt",
+                )
+            )
+        if not owner_surface or not changed_ref:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_REFINEMENT_OWNER_SURFACE_MISSING",
+                    "Concrete refinement receipt must name owner_surface and changed_surface_ref.",
+                    subject_id=receipt_id or organ_id or "refinement_receipt",
+                    subject_kind="refinement_receipt",
+                )
+            )
+        if row.get("projection_not_authority") is not True:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_REFINEMENT_PROJECTION_FLAG_MISSING",
+                    "Refinement receipt must declare projection_not_authority.",
+                    subject_id=receipt_id or organ_id or "refinement_receipt",
+                    subject_kind="refinement_receipt",
+                )
+            )
+        for field, code in (
+            ("claims_global_doctrine_authority", "ASSIMILATION_BUNDLE_REFINEMENT_GLOBAL_AUTHORITY_OVERCLAIM"),
+            ("live_doctrine_authority", "ASSIMILATION_BUNDLE_REFINEMENT_LIVE_AUTHORITY_OVERCLAIM"),
+        ):
+            if row.get(field) is not False:
+                findings.append(
+                    _bundle_finding(
+                        code,
+                        "Refinement receipt cannot claim global doctrine or live doctrine authority.",
+                        subject_id=receipt_id or organ_id or field,
+                        subject_kind="refinement_receipt",
+                    )
+                )
+    duplicate_ids = sorted(
+        receipt_id for receipt_id, count in Counter(receipt_ids).items() if count > 1
+    )
+    for receipt_id in duplicate_ids:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_DUPLICATE_REFINEMENT_RECEIPT_ID",
+                "Refinement receipt ids must be unique.",
+                subject_id=receipt_id,
+                subject_kind="refinement_receipt",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "refinement_receipt_ids": sorted(set(receipt_ids)),
+        "refinement_receipt_count": len(rows),
+        "refined_owner_surfaces": sorted(set(owner_surfaces)),
+        "refinement_result_by_organ": result_by_organ,
+        "refinement_receipts_projection_not_authority": True,
+    }
+
+
+def validate_exported_nothing_to_refine_receipts(
+    payload: object,
+    landing_result: dict[str, Any],
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "nothing_to_refine_receipts")
+    receipt_ids: list[str] = []
+    result_by_organ: dict[str, str] = {}
+    landed_organs = set(landing_result.get("landed_organ_ids", []))
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_NOTHING_TO_REFINE_RECEIPTS_MISSING",
+                "Exported assimilation bundle has no nothing-to-refine receipts.",
+                subject_id="nothing_to_refine_receipts",
+                subject_kind="nothing_to_refine_receipts",
+            )
+        )
+    for row in rows:
+        receipt_id = str(row.get("receipt_id") or "")
+        organ_id = str(row.get("organ_id") or "")
+        reentry = str(row.get("reentry_condition") or "")
+        if receipt_id:
+            receipt_ids.append(receipt_id)
+        if organ_id:
+            result_by_organ[organ_id] = str(row.get("refinement_result") or "")
+        if organ_id and organ_id not in landed_organs:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_NOTHING_ORGAN_NOT_LANDED",
+                    "Nothing-to-refine receipt references an organ absent from landing summaries.",
+                    subject_id=organ_id,
+                    subject_kind="nothing_to_refine_receipt",
+                )
+            )
+        for field in ("stewardship_checked", "next_best_lane_checked", "projection_not_authority"):
+            if row.get(field) is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ASSIMILATION_BUNDLE_NOTHING_TO_REFINE_FLOOR_MISSING",
+                        "Nothing-to-refine receipt must prove stewardship, next-best-lane, and projection checks.",
+                        subject_id=receipt_id or organ_id or field,
+                        subject_kind="nothing_to_refine_receipt",
+                    )
+                )
+        if row.get("live_learning_authority") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_NOTHING_TO_REFINE_AUTHORITY_OVERCLAIM",
+                    "Nothing-to-refine receipt cannot claim live learning authority.",
+                    subject_id=receipt_id or organ_id or "live_learning_authority",
+                    subject_kind="nothing_to_refine_receipt",
+                )
+            )
+        if not reentry:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_NOTHING_TO_REFINE_REENTRY_MISSING",
+                    "Nothing-to-refine receipt must name a re-entry condition.",
+                    subject_id=receipt_id or organ_id or "reentry_condition",
+                    subject_kind="nothing_to_refine_receipt",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "nothing_to_refine_receipt_ids": sorted(set(receipt_ids)),
+        "nothing_to_refine_receipt_count": len(rows),
+        "nothing_to_refine_result_by_organ": result_by_organ,
+        "nothing_to_refine_projection_not_authority": True,
+    }
+
+
+def validate_exported_stewardship_checks(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "stewardship_checks")
+    check_ids: list[str] = []
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_STEWARDSHIP_CHECKS_MISSING",
+                "Exported assimilation bundle has no stewardship checks.",
+                subject_id="stewardship_checks",
+                subject_kind="stewardship_checks",
+            )
+        )
+    for row in rows:
+        check_id = str(row.get("check_id") or "")
+        check_ids.append(check_id)
+        for field in ("stewardship_checked", "projection_not_authority"):
+            if row.get(field) is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ASSIMILATION_BUNDLE_STEWARDSHIP_FLOOR_MISSING",
+                        "Stewardship check must declare stewardship_checked and projection_not_authority.",
+                        subject_id=check_id or field,
+                        subject_kind="stewardship_check",
+                    )
+                )
+        if row.get("live_task_ledger_mutation_authorized") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_STEWARDSHIP_LIVE_LEDGER_OVERCLAIM",
+                    "Stewardship check cannot authorize live Task Ledger mutation.",
+                    subject_id=check_id or "live_task_ledger_mutation_authorized",
+                    subject_kind="stewardship_check",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "stewardship_check_ids": sorted(check_id for check_id in check_ids if check_id),
+        "stewardship_check_count": len(rows),
+        "stewardship_projection_not_authority": True,
+    }
+
+
+def validate_exported_reentry_conditions(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "reentry_conditions")
+    condition_ids: list[str] = []
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_REENTRY_CONDITIONS_MISSING",
+                "Exported assimilation bundle has no re-entry conditions.",
+                subject_id="reentry_conditions",
+                subject_kind="reentry_conditions",
+            )
+        )
+    for row in rows:
+        condition_id = str(row.get("condition_id") or "")
+        condition_ids.append(condition_id)
+        if not row.get("reentry_condition"):
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_REENTRY_CONDITION_MISSING",
+                    "Re-entry condition row must name a re-entry condition.",
+                    subject_id=condition_id or "reentry_condition",
+                    subject_kind="reentry_condition",
+                )
+            )
+        if row.get("projection_not_authority") is not True or row.get("release_authorized") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_REENTRY_AUTHORITY_OVERCLAIM",
+                    "Re-entry row must remain projection metadata and keep release unauthorized.",
+                    subject_id=condition_id or "reentry_condition",
+                    subject_kind="reentry_condition",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "reentry_condition_ids": sorted(condition_id for condition_id in condition_ids if condition_id),
+        "reentry_condition_count": len(rows),
+        "reentry_conditions_projection_not_authority": True,
+    }
+
+
+def validate_exported_next_best_lane_checks(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(payload, "next_best_lane_checks")
+    next_routes: list[str] = []
+    seed_paths: list[str] = []
+    if not rows:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_NEXT_BEST_LANE_CHECKS_MISSING",
+                "Exported assimilation bundle has no next-best-lane checks.",
+                subject_id="next_best_lane_checks",
+                subject_kind="next_best_lane_checks",
+            )
+        )
+    for row in rows:
+        check_id = str(row.get("check_id") or "")
+        next_route = str(row.get("next_route") or "")
+        seed_path = str(row.get("next_seed_path") or "")
+        if next_route:
+            next_routes.append(next_route)
+        if seed_path:
+            seed_paths.append(seed_path)
+        for field in ("next_best_lane_checked", "projection_not_authority"):
+            if row.get(field) is not True:
+                findings.append(
+                    _bundle_finding(
+                        "ASSIMILATION_BUNDLE_NEXT_BEST_LANE_FLOOR_MISSING",
+                        "Next-best-lane row must declare next_best_lane_checked and projection_not_authority.",
+                        subject_id=check_id or field,
+                        subject_kind="next_best_lane_check",
+                    )
+                )
+        if row.get("release_authorized") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_NEXT_BEST_LANE_RELEASE_OVERCLAIM",
+                    "Next-best-lane row cannot authorize release.",
+                    subject_id=check_id or "release_authorized",
+                    subject_kind="next_best_lane_check",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "next_best_lane_check_count": len(rows),
+        "next_routes": sorted(set(next_routes)),
+        "next_seed_paths": sorted(set(seed_paths)),
+        "next_best_lane_result": (
+            sorted(set(next_routes))[0] if next_routes else "ordered_adapter_lane_completion_reducer_required"
+        ),
+        "next_best_lane_projection_not_authority": True,
+    }
+
+
+def validate_exported_assimilation_policy(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    policy = payload if isinstance(payload, dict) else {}
+    for field in (
+        "raw_seed_body_read",
+        "live_task_ledger_mutation_authorized",
+        "global_doctrine_promotion_authorized",
+        "release_or_publication_authorized",
+        "provider_payload_read",
+        "private_data_equivalence_claim",
+        "behavior_change_overclaims_allowed",
+        "live_learning_authority",
+    ):
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_POLICY_FORBIDDEN_AUTHORITY",
+                    "Assimilation policy must reject raw seed, live ledger, global doctrine, release, provider, private-data-equivalence, behavior-overclaim, and live-learning authority fields.",
+                    subject_id=field,
+                    subject_kind="assimilation_policy",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "forbidden_authority_rejected": True,
+        "metadata_projection_not_live_learning_authority": True,
+        "body_redacted": True,
+    }
 
 
 def _validate_rows(payloads: dict[str, Any]) -> dict[str, Any]:
@@ -539,6 +1041,262 @@ def write_outputs(
     return {key: _display_path(path, public_root=public_root, repo_root=repo_root) for key, path in paths.items()}
 
 
+def _write_assimilation_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / ASSIMILATION_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version="pattern_assimilation_step_exported_assimilation_bundle_validation_v1",
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "input_mode": validation_result["input_mode"],
+            "bundle_id": validation_result["bundle_id"],
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "accepted_adapter_backed_organ_ids": validation_result[
+                "accepted_adapter_backed_organ_ids"
+            ],
+            "ordered_adapter_lane_status": validation_result[
+                "ordered_adapter_lane_status"
+            ],
+            "organ_landing_count": validation_result["organ_landing_count"],
+            "landed_organ_ids": validation_result["landed_organ_ids"],
+            "landing_receipt_refs": validation_result["landing_receipt_refs"],
+            "closeout_by_organ": validation_result["closeout_by_organ"],
+            "refinement_receipt_ids": validation_result["refinement_receipt_ids"],
+            "refinement_receipt_count": validation_result["refinement_receipt_count"],
+            "refined_owner_surfaces": validation_result["refined_owner_surfaces"],
+            "refinement_result_by_organ": validation_result[
+                "refinement_result_by_organ"
+            ],
+            "nothing_to_refine_receipt_ids": validation_result[
+                "nothing_to_refine_receipt_ids"
+            ],
+            "nothing_to_refine_receipt_count": validation_result[
+                "nothing_to_refine_receipt_count"
+            ],
+            "stewardship_check_count": validation_result["stewardship_check_count"],
+            "stewardship_check_ids": validation_result["stewardship_check_ids"],
+            "reentry_condition_count": validation_result["reentry_condition_count"],
+            "reentry_condition_ids": validation_result["reentry_condition_ids"],
+            "next_best_lane_check_count": validation_result[
+                "next_best_lane_check_count"
+            ],
+            "next_best_lane_result": validation_result["next_best_lane_result"],
+            "next_routes": validation_result["next_routes"],
+            "next_seed_paths": validation_result["next_seed_paths"],
+            "assimilation_policy": validation_result["assimilation_policy"],
+            "metadata_projection_not_live_learning_authority": validation_result[
+                "metadata_projection_not_live_learning_authority"
+            ],
+            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "fixture_regression_required_elsewhere": True,
+            "release_authorized": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def run_assimilation_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_assimilation_bundle(input_path)
+    scan_result = _scan_bundle_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    landing_result = validate_exported_organ_landings(payloads["organ_landing_summaries"])
+    refinement_result = validate_exported_refinement_receipts(
+        payloads["refinement_receipts"],
+        landing_result,
+    )
+    nothing_result = validate_exported_nothing_to_refine_receipts(
+        payloads["nothing_to_refine_receipts"],
+        landing_result,
+    )
+    stewardship_result = validate_exported_stewardship_checks(payloads["stewardship_checks"])
+    reentry_result = validate_exported_reentry_conditions(payloads["reentry_conditions"])
+    next_best_result = validate_exported_next_best_lane_checks(payloads["next_best_lane_checks"])
+    policy_result = validate_exported_assimilation_policy(payloads["assimilation_policy"])
+
+    all_findings = sorted(
+        [
+            *landing_result["findings"],
+            *refinement_result["findings"],
+            *nothing_result["findings"],
+            *stewardship_result["findings"],
+            *reentry_result["findings"],
+            *next_best_result["findings"],
+            *policy_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    bundle_id = str(
+        manifest.get("bundle_id") or "pattern_assimilation_step_exported_assimilation_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and landing_result["landed_organ_ids"]
+        and refinement_result["refinement_receipt_ids"]
+        and nothing_result["nothing_to_refine_receipt_ids"]
+        and stewardship_result["stewardship_check_count"]
+        and reentry_result["reentry_condition_count"]
+        and next_best_result["next_best_lane_check_count"]
+        and policy_result["status"] == PASS
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "organ_landing_summaries": payloads["organ_landing_summaries"],
+            "refinement_receipts": payloads["refinement_receipts"],
+            "nothing_to_refine_receipts": payloads["nothing_to_refine_receipts"],
+            "stewardship_checks": payloads["stewardship_checks"],
+            "reentry_conditions": payloads["reentry_conditions"],
+            "next_best_lane_checks": payloads["next_best_lane_checks"],
+            "assimilation_policy": payloads["assimilation_policy"],
+        }
+    )
+
+    result = base_receipt(
+        ORGAN_ID,
+        f"{FIXTURE_ID}.exported_assimilation_bundle",
+        command=command,
+    )
+    result.update(
+        {
+            "status": status,
+            "input_mode": "exported_assimilation_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "validator_id": VALIDATOR_ID,
+            "anti_claim": (
+                "The exported assimilation bundle validates public organ-landing, "
+                "refinement, nothing-to-refine, stewardship, re-entry, and next-best-lane "
+                "metadata. It does not read raw seed bodies, mutate live Task Ledger, "
+                "promote global doctrine, authorize release, call providers, or prove "
+                "live learning behavior."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": (
+                    "pattern_assimilation_bundle_metadata_not_live_learning_authority"
+                ),
+                "raw_seed_body_read": False,
+                "live_task_ledger_mutation_authorized": False,
+                "global_doctrine_promotion_authorized": False,
+                "release_or_publication_authorized": False,
+                "provider_payload_read": False,
+                "private_data_equivalence_claim": False,
+                "behavior_change_overclaims_allowed": False,
+                "live_learning_authority": False,
+                "later_organs_authorized": False,
+            },
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "source_pattern_ids": [
+                "agent_principle_failure_cap_assimilation_loop",
+                "raw_seed_shard_assimilation_controller_walk",
+                "up_propagation_intake",
+                "task_sign_off",
+                "cap_reflex_capture_before_prose",
+            ],
+            "accepted_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
+            "ordered_adapter_lane_status": "complete_pending_completion_reducer",
+            "landed_organ_ids": landing_result["landed_organ_ids"],
+            "organ_landing_count": landing_result["organ_landing_count"],
+            "landing_receipt_refs": landing_result["landing_receipt_refs"],
+            "closeout_by_organ": landing_result["closeout_by_organ"],
+            "organ_landing_projection_not_authority": landing_result[
+                "organ_landing_projection_not_authority"
+            ],
+            "refinement_receipt_ids": refinement_result["refinement_receipt_ids"],
+            "refinement_receipt_count": refinement_result["refinement_receipt_count"],
+            "refined_owner_surfaces": refinement_result["refined_owner_surfaces"],
+            "refinement_result_by_organ": refinement_result["refinement_result_by_organ"],
+            "refinement_receipts_projection_not_authority": refinement_result[
+                "refinement_receipts_projection_not_authority"
+            ],
+            "nothing_to_refine_receipt_ids": nothing_result[
+                "nothing_to_refine_receipt_ids"
+            ],
+            "nothing_to_refine_receipt_count": nothing_result[
+                "nothing_to_refine_receipt_count"
+            ],
+            "nothing_to_refine_result_by_organ": nothing_result[
+                "nothing_to_refine_result_by_organ"
+            ],
+            "nothing_to_refine_projection_not_authority": nothing_result[
+                "nothing_to_refine_projection_not_authority"
+            ],
+            "stewardship_check_count": stewardship_result["stewardship_check_count"],
+            "stewardship_check_ids": stewardship_result["stewardship_check_ids"],
+            "stewardship_projection_not_authority": stewardship_result[
+                "stewardship_projection_not_authority"
+            ],
+            "reentry_condition_count": reentry_result["reentry_condition_count"],
+            "reentry_condition_ids": reentry_result["reentry_condition_ids"],
+            "reentry_conditions_projection_not_authority": reentry_result[
+                "reentry_conditions_projection_not_authority"
+            ],
+            "next_best_lane_check_count": next_best_result[
+                "next_best_lane_check_count"
+            ],
+            "next_best_lane_result": next_best_result["next_best_lane_result"],
+            "next_routes": next_best_result["next_routes"],
+            "next_seed_paths": next_best_result["next_seed_paths"],
+            "next_best_lane_projection_not_authority": next_best_result[
+                "next_best_lane_projection_not_authority"
+            ],
+            "assimilation_policy": policy_result,
+            "metadata_projection_not_live_learning_authority": True,
+            "bundle_fingerprint": bundle_fingerprint,
+            "public_replacement_refs": [
+                public_relative_path(path, display_root=public_root)
+                for path in _assimilation_bundle_paths(input_path)
+            ],
+        }
+    )
+    receipt_path = _write_assimilation_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def validate_pattern_assimilation(input_dir: str | Path, out: str | Path, command: str | None = None) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -591,11 +1349,29 @@ def validate_pattern_assimilation(input_dir: str | Path, out: str | Path, comman
 
 
 def main(argv: list[str] | None = None) -> int:
+    raw_argv = list(argv) if argv is not None else None
+    if raw_argv is None:
+        import sys
+
+        raw_argv = sys.argv[1:]
+    if raw_argv and raw_argv[0] == "validate-assimilation-bundle":
+        bundle_parser = argparse.ArgumentParser()
+        bundle_parser.add_argument("action", choices=["validate-assimilation-bundle"])
+        bundle_parser.add_argument("--input", required=True)
+        bundle_parser.add_argument("--out", required=True)
+        args = bundle_parser.parse_args(raw_argv)
+        command = (
+            "python -m microcosm_core.validators.acceptance "
+            f"validate-assimilation-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_assimilation_bundle(args.input, args.out, command=command)
+        return 0 if result["status"] == PASS else 1
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--only", required=True)
     parser.add_argument("--input", required=True)
     parser.add_argument("--out", required=True)
-    args = parser.parse_args(argv)
+    args = parser.parse_args(raw_argv)
     if args.only != ORGAN_ID:
         parser.error("only pattern_assimilation_step is supported")
     command = (

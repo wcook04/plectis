@@ -4,12 +4,16 @@
     "latest_same_lane_receipt_found": false,
     "status": "pass"
   },
-  "anti_claim": "Pattern assimilation receipts validate synthetic closeout-learning fixtures only; they do not promote global doctrine, mutate live ledgers, authorize release work, or prove public runtime behavior.",
+  "anti_claim": "Pattern assimilation receipts validate public closeout-learning metadata plus regression fixtures; they do not promote global doctrine, mutate live ledgers, authorize release work, or prove live learning behavior.",
   "assigned_lane": "pattern_assimilation_step",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_pattern_assimilation_closeout_fixture_only_not_live_learning_authority",
+    "authority_ceiling": "pattern_assimilation_metadata_not_live_learning_authority",
+    "behavior_change_overclaims_allowed": false,
     "global_doctrine_promotion_authorized": false,
     "live_task_ledger_mutation_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_seed_body_read": false,
     "release_or_publication_authorized": false,
     "status": "pass"
   },
@@ -21,7 +25,7 @@
   "changed_surface_ref": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
   "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
   "concrete_improvement_made": true,
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "created_at": "2026-05-20T17:08:07+00:00",
   "duplicate_receipt_ids": [
     "assimilation_duplicate_receipt"
   ],

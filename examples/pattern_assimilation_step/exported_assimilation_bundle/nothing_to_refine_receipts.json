@@ -1,0 +1,29 @@
+{
+  "schema_version": "pattern_assimilation_step_nothing_to_refine_receipts_v1",
+  "nothing_to_refine_receipts": [
+    {
+      "receipt_id": "nothing_to_refine_proof_spine_adapter",
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "refinement_result": "nothing_to_refine",
+      "stewardship_checked": true,
+      "next_best_lane_checked": true,
+      "next_best_lane_result": "continue_ordered_adapter_lane",
+      "reentry_condition": "rerun if proof evidence bundle policy changes or formal-prover authority is separately authorized",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "receipt_id": "nothing_to_refine_mission_spine_adapter",
+      "organ_id": "mission_transaction_work_spine",
+      "refinement_result": "nothing_to_refine",
+      "stewardship_checked": true,
+      "next_best_lane_checked": true,
+      "next_best_lane_result": "continue_ordered_adapter_lane",
+      "reentry_condition": "rerun if live Task Ledger mutation or mission transaction authority is separately authorized",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    }
+  ]
+}

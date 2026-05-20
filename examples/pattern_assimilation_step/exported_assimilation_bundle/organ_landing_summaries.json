@@ -1,0 +1,68 @@
+{
+  "schema_version": "pattern_assimilation_step_organ_landing_summaries_v1",
+  "organ_landing_summaries": [
+    {
+      "organ_id": "pattern_binding_contract",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_binding_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "validator_contract_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "standard_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "nothing_to_refine",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "validator_contract_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "nothing_to_refine",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "validator_contract_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
+      "organ_id": "pattern_assimilation_step",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+      "closeout_refinement_result": "validator_contract_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    }
+  ]
+}

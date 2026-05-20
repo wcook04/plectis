@@ -1,0 +1,19 @@
+{
+  "schema_version": "pattern_assimilation_step_reentry_conditions_v1",
+  "reentry_conditions": [
+    {
+      "condition_id": "ordered_adapter_lane_completion_audit_reentry",
+      "reentry_condition": "rerun when the ordered adapter lane completion reducer checks all seven adapter-backed organs and clean-clone status",
+      "projection_not_authority": true,
+      "release_authorized": false,
+      "body_redacted": true
+    },
+    {
+      "condition_id": "release_boundary_reentry",
+      "reentry_condition": "rerun only after a separate reducer handles dissemination and System Atlas blockers without authorizing release by implication",
+      "projection_not_authority": true,
+      "release_authorized": false,
+      "body_redacted": true
+    }
+  ]
+}
