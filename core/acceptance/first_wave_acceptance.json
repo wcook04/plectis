@@ -1,6 +1,7 @@
 {
   "acceptance_commands": [
     "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
+    "python -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json",
     "python -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
     "python -m microcosm_core.validators.fixture_freshness --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --mission-dag ../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json --receipt-coverage ../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json"
@@ -137,6 +138,10 @@
     "first_wave_acceptance_summary": {
       "receipt": "receipts/first_wave/acceptance_summary.json",
       "status": "command_owned_summary_receipt"
+    },
+    "public_entry_docs": {
+      "receipt": "receipts/first_wave/public_entry_docs_validation.json",
+      "status": "accepted_public_entry_docs_contract"
     }
   },
   "release_authorized": false,

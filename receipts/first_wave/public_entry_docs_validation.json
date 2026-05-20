@@ -1,0 +1,54 @@
+{
+  "accepted_current_authority_organs": [
+    "pattern_binding_contract",
+    "executable_doctrine_grammar",
+    "proof_diagnostic_evidence_spine",
+    "navigation_hologram_route_plane",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime",
+    "pattern_assimilation_step"
+  ],
+  "anti_claim": "Public entry-doc validation proves only public-safe entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
+  "authority_ceiling": {
+    "entry_docs_authority": "public_entry_navigation_and_docs_only",
+    "lean_lake_authorized": false,
+    "private_data_equivalence_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "blocking_codes": [],
+  "checker_id": "checker.microcosm.validators.public_entry_docs",
+  "command": "python -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json",
+  "deferred_organs": [
+    "formal_math_lean_proof_witness"
+  ],
+  "fixture_id": "first_wave.public_entry_docs",
+  "missing_accepted_organs": [],
+  "missing_docs": [],
+  "missing_required_phrases_by_doc": {},
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/public_entry_docs_validation.json"
+  ],
+  "required_docs": [
+    "README.md",
+    "AGENTS.md",
+    "paper_modules/pattern_binding_contract.md",
+    "paper_modules/executable_doctrine_grammar.md",
+    "paper_modules/proof_diagnostic_evidence_spine.md",
+    "paper_modules/formal_math_lean_proof_witness.md",
+    "paper_modules/cold_clone_probe.md",
+    "skills/cold_start_navigation.md"
+  ],
+  "schema_version": "public_entry_docs_validation_receipt_v1",
+  "stale_first_slice_only_phrases": [],
+  "status": "pass",
+  "unexpected_accepted_organs": []
+}
