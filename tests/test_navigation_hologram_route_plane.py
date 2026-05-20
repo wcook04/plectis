@@ -6,14 +6,20 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.navigation_hologram_route_plane import (
+    EXPORTED_ROUTE_PLANE_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
+    run_route_plane_bundle,
 )
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 NAV_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/navigation_hologram_route_plane/input"
+NAV_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/navigation_hologram_route_plane/exported_route_plane_bundle"
+)
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/preflight/navigation_hologram_route_plane.json": [
         "schema_version",
@@ -264,3 +270,76 @@ def test_navigation_hologram_route_plane_receipts_satisfy_macro_field_floor(
     )
     assert route_lease["banned_route_replacements"][0]["replacement_route"] == "entry_packet"
     assert route_lease["authority_ceiling"]["route_lease_source_authority_rejected"] is True
+
+
+def test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_route_plane_bundle(
+        NAV_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/navigation_hologram_route_plane",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_route_plane_bundle"
+    assert result["bundle_id"] == "public_navigation_hologram_route_plane_runtime_example"
+    assert result["expected_negative_cases"] == {}
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["source_coupling_status"] == "pass"
+    assert result["authority_allowed"] is False
+    assert result["authority_ceiling"]["atlas_projection_control_entry_rejected"] is True
+    assert result["route_rows_projection_not_authority"] is True
+    assert result["route_row_count"] == 4
+    assert result["selected_row_ids"] == ["option_surface_cluster_public_runtime"]
+    assert result["route_lease"]["selected_lane_id"] == "public_runtime_option_surface"
+    assert result["route_lease"]["authority_allowed"] is False
+    assert result["entry_payload_admission"]["dropped_control_fields"] == []
+    assert (
+        result["affordance_passport_selection"]["selected_row_id"]
+        == "route_card_candidate"
+    )
+    assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+
+
+def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/navigation_hologram_route_plane",
+        public_root / "examples/navigation_hologram_route_plane",
+    )
+
+    result = run_route_plane_bundle(
+        public_root / "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+        public_root / "receipts/first_wave/navigation_hologram_route_plane",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [EXPORTED_ROUTE_PLANE_BUNDLE_RECEIPT_PATH]
+    receipt_file = public_root / EXPORTED_ROUTE_PLANE_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/Users/willcook" not in text
+    assert "src/ai_workflow" not in text
+    assert "matched_excerpt" not in text
+    assert '"body":' not in text
+    payload = json.loads(text)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_route_plane_bundle"
+    assert payload["fixture_regression_required_elsewhere"] is True
+    assert payload["private_state_scan"]["body_redacted"] is True
+    assert payload["expected_negative_cases"] == {}
+    assert payload["route_rows_projection_not_authority"] is True
+    assert payload["authority_allowed"] is False
+    assert "matched_excerpt" not in _walk_keys(payload)
+    assert "body" not in _walk_keys(payload)
+    for hit in payload["private_state_scan"]["hits"]:
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()

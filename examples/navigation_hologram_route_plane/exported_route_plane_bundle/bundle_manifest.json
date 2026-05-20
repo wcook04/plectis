@@ -1,0 +1,18 @@
+{
+  "schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v1",
+  "bundle_id": "public_navigation_hologram_route_plane_runtime_example",
+  "input_mode": "exported_route_plane_bundle",
+  "organ_id": "navigation_hologram_route_plane",
+  "fixture_regression_required_elsewhere": true,
+  "release_authorized": false,
+  "required_files": [
+    "bundle_manifest.json",
+    "route_rows.json",
+    "option_surface_contract.json",
+    "source_coupling_manifest.json",
+    "entry_packet_floor.json",
+    "route_lease_policy.json",
+    "affordance_passports.json",
+    "code_architecture_projection_packet.json"
+  ]
+}

@@ -70,7 +70,7 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(proof_parser)
 
     navigation_parser = subparsers.add_parser("navigation-hologram-route-plane")
-    navigation_parser.add_argument("action", choices=["run"])
+    navigation_parser.add_argument("action", choices=["run", "validate-route-plane-bundle"])
     _add_input_out(navigation_parser)
 
     mission_parser = subparsers.add_parser("mission-transaction-work-spine")

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Navigation route-plane receipts validate synthetic public route fixtures only; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
+  "anti_claim": "Navigation route-plane receipts validate public route projections and regression fixtures; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
   "authority_allowed": false,
   "authority_ceiling": {
     "atlas_projection_control_entry_rejected": true,
@@ -16,8 +16,9 @@
       "route_id": "option_surface_all_rows_first_contact"
     }
   ],
-  "command": "navigation_hologram_route_plane run",
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
+  "created_at": "2026-05-20T16:07:29+00:00",
   "duplicate_route_ids": [
     "duplicate_route"
   ],
@@ -182,6 +183,7 @@
     }
   ],
   "fixture_id": "first_wave.navigation_hologram_route_plane",
+  "input_mode": null,
   "invalidation_inputs": {
     "source_coupling_status": "stale",
     "surface_role": "ATLAS_PROJECTION"

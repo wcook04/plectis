@@ -1,0 +1,10 @@
+{
+  "schema_version": "navigation_hologram_route_plane_option_surface_contract_v1",
+  "contract_id": "public_runtime_option_surface_contract",
+  "card_row_id": "option_surface_cluster_public_runtime",
+  "required_surface_role": "ATLAS_PROJECTION",
+  "control_entry_replacement": "entry_packet_floor",
+  "projection_authority_allowed": false,
+  "source_authority_allowed": false,
+  "route_card_requires_omission_receipt": true
+}

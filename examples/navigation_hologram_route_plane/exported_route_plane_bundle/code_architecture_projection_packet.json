@@ -1,0 +1,35 @@
+{
+  "schema_version": "navigation_hologram_route_plane_code_architecture_projection_packet_v1",
+  "packet_producer_id": "public_runtime_route_plane_projection_packet",
+  "source_fingerprint": {
+    "source_kind": "public_route_projection",
+    "source_coupling_status": "current"
+  },
+  "omission_receipt": {
+    "receipt_id": "code_architecture_projection_boundary",
+    "omitted_classes": [
+      "full_source_graph",
+      "live_runtime_state"
+    ],
+    "replacement": "public_projection_packet",
+    "body_redacted": true
+  },
+  "known_limits": [
+    "projection_packet_is_not_source_authority",
+    "route_rows_require_fresh_source_coupling_for_release"
+  ],
+  "renderer_schema_match_status": "pass",
+  "reverse_bfs_depth_buckets": {
+    "0": [
+      "navigation_hologram_route_plane"
+    ],
+    "1": [
+      "entry_packet_floor",
+      "option_surface_contract"
+    ]
+  },
+  "suggested_verification": [
+    "validate-route-plane-bundle",
+    "fixture-regression-negative-cases"
+  ]
+}

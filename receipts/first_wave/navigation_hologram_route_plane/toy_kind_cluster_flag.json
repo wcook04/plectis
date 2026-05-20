@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Navigation route-plane receipts validate synthetic public route fixtures only; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
+  "anti_claim": "Navigation route-plane receipts validate public route projections and regression fixtures; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
   "authority_ceiling": {
     "atlas_projection_control_entry_rejected": true,
     "authority_ceiling": "navigation_receipts_are_public_toy_route_projections_not_source_authority",
@@ -7,6 +7,7 @@
     "route_lease_source_authority_rejected": true,
     "status": "pass"
   },
+  "bundle_id": null,
   "clusters": [
     {
       "cluster_id": "grammar",
@@ -41,8 +42,8 @@
       ]
     }
   ],
-  "command": "navigation_hologram_route_plane run",
-  "created_at": "2026-05-20T12:35:07+00:00",
+  "command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
+  "created_at": "2026-05-20T16:07:29+00:00",
   "drilldown_commands": [
     "microcosm option-surface toy --cluster grammar",
     "microcosm option-surface toy --cluster proof",
@@ -210,6 +211,7 @@
     }
   ],
   "fixture_id": "first_wave.navigation_hologram_route_plane",
+  "input_mode": null,
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "affordance_passport_antitrigger_ignored": [

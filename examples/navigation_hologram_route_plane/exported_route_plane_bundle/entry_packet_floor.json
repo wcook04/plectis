@@ -1,0 +1,50 @@
+{
+  "schema_version": "navigation_hologram_route_plane_entry_packet_floor_v1",
+  "packet_id": "public_runtime_entry_packet_floor",
+  "inline_target_bytes": 12000,
+  "before_bytes": 14500,
+  "after_bytes": 11200,
+  "required_non_negotiable_fields": [
+    "banned_routes",
+    "route_lease.permitted_direct_actions",
+    "ceremony_budget.required_proof",
+    "surface_contract",
+    "navigation_index_spine.currentness",
+    "navigation_index_spine.source_coupling",
+    "navigation_index_spine.omission_receipt"
+  ],
+  "admitted_payload": {
+    "banned_routes": [
+      "atlas_projection_as_first_contact"
+    ],
+    "route_lease": {
+      "permitted_direct_actions": [
+        "read_seed",
+        "run_context_pack",
+        "open_named_route_card"
+      ]
+    },
+    "ceremony_budget": {
+      "required_proof": "receipt_or_test_before_status_claim"
+    },
+    "surface_contract": {
+      "role": "CONTROL_ENTRY",
+      "projection_rows_are_authority": false
+    },
+    "navigation_index_spine": {
+      "currentness": "source_coupled",
+      "source_coupling": "current_public_projection",
+      "omission_receipt": "projection_boundary_declared"
+    }
+  },
+  "omission_receipts": [
+    {
+      "receipt_id": "entry_packet_projection_boundary",
+      "omitted_classes": [
+        "full_live_entry_context"
+      ],
+      "replacement": "field_presence_floor",
+      "body_redacted": true
+    }
+  ]
+}

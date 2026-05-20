@@ -29,6 +29,7 @@ ROUTE_LEASE_NAME = "route_lease.json"
 ENTRY_ADMISSION_NAME = "entry_payload_admission_receipt.json"
 AFFORDANCE_NAME = "affordance_passport_selection_receipt.json"
 CODE_ARCH_NAME = "code_architecture_projection_packet_receipt.json"
+ROUTE_PLANE_BUNDLE_RESULT_NAME = "exported_route_plane_bundle_validation_result.json"
 
 EXPECTED_RECEIPT_PATHS = [
     PREFLIGHT_REL,
@@ -40,6 +41,10 @@ EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
     "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json",
 ]
+EXPORTED_ROUTE_PLANE_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/navigation_hologram_route_plane/"
+    "exported_route_plane_bundle_validation_result.json"
+)
 
 EXPECTED_NEGATIVE_CASES = {
     "stale_source_and_banned_first_contact": [
@@ -65,7 +70,7 @@ NAV_AUTHORITY_CEILING = {
     "route_lease_source_authority_rejected": True,
 }
 NAV_ANTI_CLAIM = (
-    "Navigation route-plane receipts validate synthetic public route fixtures only; "
+    "Navigation route-plane receipts validate public route projections and regression fixtures; "
     "they do not prove live route freshness, grant source authority, authorize later organs, "
     "or certify whole Wave 1."
 )
@@ -127,15 +132,45 @@ def _input_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _route_plane_bundle_paths(input_dir: Path) -> list[Path]:
+    names = (
+        "bundle_manifest.json",
+        "route_rows.json",
+        "option_surface_contract.json",
+        "source_coupling_manifest.json",
+        "entry_packet_floor.json",
+        "route_lease_policy.json",
+        "affordance_passports.json",
+        "code_architecture_projection_packet.json",
+    )
+    return [input_dir / name for name in names]
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
+
+
+def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _route_plane_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
 
 
 def _load_inputs(input_dir: Path) -> dict[str, Any]:
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir)
+    }
+
+
+def _load_route_plane_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _route_plane_bundle_paths(input_dir)
     }
 
 
@@ -241,6 +276,196 @@ def build_toy_option_surface(rows_payload: object, standard_payload: object) -> 
         },
         "card": card,
         "selected_row_ids": [card["row_id"]],
+    }
+
+
+def validate_exported_route_rows(
+    rows_payload: object,
+    contract_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    rows = _rows(rows_payload, "rows")
+    contract = contract_payload if isinstance(contract_payload, dict) else {}
+    required_role = str(contract.get("required_surface_role") or "ATLAS_PROJECTION")
+    card_row_id = str(contract.get("card_row_id") or "")
+    selected = next((row for row in rows if row.get("row_id") == card_row_id), None)
+    clusters: dict[str, dict[str, Any]] = {}
+
+    if not rows:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_BUNDLE_ROWS_MISSING",
+                "message": "Exported route-plane bundle has no route rows.",
+                "subject_id": "route_rows",
+                "subject_kind": "route_plane_bundle",
+                "body_redacted": True,
+            }
+        )
+
+    route_ids = [str(row.get("route_id") or "") for row in rows]
+    duplicate_ids = sorted(
+        route_id for route_id, count in Counter(route_ids).items() if route_id and count > 1
+    )
+    for route_id in duplicate_ids:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_BUNDLE_DUPLICATE_ROUTE_ID",
+                "message": "Exported route-plane bundle contains a duplicate route id.",
+                "subject_id": route_id,
+                "subject_kind": "route_plane_bundle",
+                "body_redacted": True,
+            }
+        )
+
+    if selected is None:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_BUNDLE_CARD_ROW_MISSING",
+                "message": "Exported route-plane bundle does not contain the contracted card row.",
+                "subject_id": card_row_id or "missing_card_row_id",
+                "subject_kind": "option_surface_contract",
+                "body_redacted": True,
+            }
+        )
+        selected = rows[0] if rows else {}
+
+    for row in rows:
+        row_id = str(row.get("row_id") or "row")
+        cluster_id = str(row.get("cluster_id") or "uncategorized")
+        clusters.setdefault(
+            cluster_id,
+            {
+                "cluster_id": cluster_id,
+                "row_count": 0,
+                "row_ids": [],
+                "drilldown_command": f"microcosm option-surface route-plane --cluster {cluster_id}",
+            },
+        )
+        clusters[cluster_id]["row_count"] += 1
+        clusters[cluster_id]["row_ids"].append(row_id)
+        if row.get("surface_role") != required_role:
+            findings.append(
+                {
+                    "error_code": "ROUTE_PLANE_BUNDLE_SURFACE_ROLE_MISMATCH",
+                    "message": "Exported route row does not carry the contracted projection role.",
+                    "subject_id": row_id,
+                    "subject_kind": "route_row",
+                    "body_redacted": True,
+                }
+            )
+        if row.get("claims_source_authority") or row.get("claims_control_entry"):
+            findings.append(
+                {
+                    "error_code": "ROUTE_PLANE_BUNDLE_OVERCLAIMS_AUTHORITY",
+                    "message": "Exported route row attempted to act as source authority.",
+                    "subject_id": row_id,
+                    "subject_kind": "route_row",
+                    "body_redacted": True,
+                }
+            )
+        if not isinstance(row.get("omission_receipt"), dict):
+            findings.append(
+                {
+                    "error_code": "ROUTE_PLANE_BUNDLE_OMISSION_RECEIPT_MISSING",
+                    "message": "Exported route row lacks an omission receipt.",
+                    "subject_id": row_id,
+                    "subject_kind": "route_row",
+                    "body_redacted": True,
+                }
+            )
+
+    selected_row_id = str(selected.get("row_id") or "missing_row")
+    card = {
+        "row_id": selected_row_id,
+        "stable_handle": f"route-plane:{selected.get('route_id', 'route')}:{selected_row_id}",
+        "title": selected.get("title"),
+        "band_payload": (selected.get("band_payloads") or {}).get("card"),
+        "source_refs": selected.get("source_refs", []),
+        "omission_receipt": selected.get("omission_receipt"),
+        "anti_claim": NAV_ANTI_CLAIM,
+    }
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "cluster_flag": {
+            "clusters": sorted(clusters.values(), key=lambda item: item["cluster_id"]),
+            "row_counts": {
+                cluster_id: payload["row_count"]
+                for cluster_id, payload in sorted(clusters.items())
+            },
+            "drilldown_commands": [
+                payload["drilldown_command"]
+                for payload in sorted(clusters.values(), key=lambda item: item["cluster_id"])
+            ],
+            "source_coupling_status": "exported_route_plane_bundle_current",
+        },
+        "card": card,
+        "selected_row_ids": [selected_row_id] if selected_row_id != "missing_row" else [],
+        "duplicate_route_ids": duplicate_ids,
+        "route_rows": rows,
+        "route_rows_projection_not_authority": True,
+    }
+
+
+def validate_exported_source_coupling(
+    manifest_payload: object,
+    route_rows_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    route_rows = _rows(route_rows_payload, "rows")
+    expected_sha = str(manifest.get("route_rows_sha256") or "")
+    observed_sha = _stable_hash(route_rows)
+    expected_count = int(manifest.get("expected_route_row_count") or 0)
+    status_value = str(manifest.get("source_coupling_status") or "")
+
+    if expected_count != len(route_rows):
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_SOURCE_ROW_COUNT_MISMATCH",
+                "message": "Source-coupling manifest row count does not match route rows.",
+                "subject_id": str(manifest.get("manifest_id") or "source_coupling_manifest"),
+                "subject_kind": "source_coupling_manifest",
+                "body_redacted": True,
+            }
+        )
+    if expected_sha != observed_sha:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_SOURCE_FINGERPRINT_MISMATCH",
+                "message": "Source-coupling manifest fingerprint does not match route rows.",
+                "subject_id": str(manifest.get("manifest_id") or "source_coupling_manifest"),
+                "subject_kind": "source_coupling_manifest",
+                "body_redacted": True,
+            }
+        )
+    if status_value not in (PASS, "current"):
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_SOURCE_COUPLING_NOT_CURRENT",
+                "message": "Source-coupling manifest does not declare current public projection state.",
+                "subject_id": str(manifest.get("manifest_id") or "source_coupling_manifest"),
+                "subject_kind": "source_coupling_manifest",
+                "body_redacted": True,
+            }
+        )
+    if manifest.get("projection_not_authority") is not True:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_SOURCE_AUTHORITY_NOT_REJECTED",
+                "message": "Source-coupling manifest must reject projection-as-authority.",
+                "subject_id": str(manifest.get("manifest_id") or "source_coupling_manifest"),
+                "subject_kind": "source_coupling_manifest",
+                "body_redacted": True,
+            }
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "expected_sha256": expected_sha,
+        "observed_sha256": observed_sha,
+        "source_coupling_status": PASS if not findings else "blocked",
+        "authority_allowed": False,
     }
 
 
@@ -459,6 +684,44 @@ def validate_entry_payload_admission_floor(payload: object) -> dict[str, Any]:
     }
 
 
+def validate_exported_entry_packet_floor(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    if not isinstance(payload, dict):
+        payload = {}
+    required = [str(item) for item in payload.get("required_non_negotiable_fields", [])]
+    admitted = payload.get("admitted_payload", {})
+    if not isinstance(admitted, dict):
+        admitted = {}
+
+    preserved = [field for field in required if _has_dotted(admitted, field)]
+    missing = [field for field in required if not _has_dotted(admitted, field)]
+    for field in missing:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_ENTRY_PACKET_FIELD_MISSING",
+                "message": "Exported entry packet floor is missing a required control field.",
+                "subject_id": field,
+                "subject_kind": "entry_packet_floor",
+                "body_redacted": True,
+            }
+        )
+    before_bytes = int(payload.get("before_bytes") or 0)
+    after_bytes = int(payload.get("after_bytes") or 0)
+    inline_target = int(payload.get("inline_target_bytes") or 0)
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "entry_payload_admission_status": PASS if not missing else "blocked",
+        "inline_target_bytes": inline_target,
+        "before_bytes": before_bytes,
+        "after_bytes": after_bytes,
+        "saved_bytes": max(before_bytes - after_bytes, 0),
+        "preserved_non_negotiable_fields": preserved,
+        "dropped_control_fields": missing,
+        "omission_receipts": payload.get("omission_receipts", []),
+    }
+
+
 def _has_dotted(payload: dict[str, Any], dotted: str) -> bool:
     current: Any = payload
     for part in dotted.split("."):
@@ -544,6 +807,138 @@ def validate_affordance_passport_selection(payload: object) -> dict[str, Any]:
     }
 
 
+def validate_exported_affordance_passports(payload: object) -> dict[str, Any]:
+    rows = _rows(payload, "rows")
+    findings: list[dict[str, Any]] = []
+    selected_row_id = ""
+    demoted_rows: list[dict[str, Any]] = []
+    anti_trigger_hits: list[dict[str, Any]] = []
+    passport_coverage: dict[str, bool] = {}
+    safe_drilldown = ""
+
+    for row in rows:
+        row_id = str(row.get("row_id") or "row")
+        passport = row.get("affordance_passport")
+        passport_coverage[row_id] = isinstance(passport, dict)
+        if isinstance(passport, dict) and passport.get("anti_trigger_hit"):
+            anti_trigger_hits.append({"row_id": row_id, "body_redacted": True})
+            demoted_rows.append(
+                {
+                    "row_id": row_id,
+                    "reason_code": "AFFORDANCE_PASSPORT_ANTITRIGGER_DEMOTED",
+                    "body_redacted": True,
+                }
+            )
+            continue
+        if isinstance(passport, dict) and passport.get("compatibility") == "compatible":
+            safe_drilldown_value = passport.get("safe_drilldown")
+            if safe_drilldown_value and not selected_row_id:
+                selected_row_id = row_id
+                safe_drilldown = str(safe_drilldown_value)
+                continue
+        demoted_rows.append(
+            {
+                "row_id": row_id,
+                "reason_code": "AFFORDANCE_PASSPORT_NOT_SELECTED",
+                "body_redacted": True,
+            }
+        )
+
+    if not selected_row_id:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_AFFORDANCE_PASSPORT_MISSING_SELECTION",
+                "message": "Exported route-plane bundle has no compatible affordance passport.",
+                "subject_id": "affordance_passports",
+                "subject_kind": "affordance_passport_table",
+                "body_redacted": True,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "observed_negative_cases": {},
+        "affordance_compatibility": {
+            "selected_row_id": selected_row_id,
+            "status": PASS if selected_row_id else "blocked",
+        },
+        "anti_trigger_hits": anti_trigger_hits,
+        "demotion_receipt": {
+            "status": PASS,
+            "demoted_row_count": len(demoted_rows),
+            "body_redacted": True,
+        },
+        "selection_decision": "select_compatible_passport_after_demotion",
+        "selected_row_id": selected_row_id,
+        "passport_coverage": passport_coverage,
+        "demoted_rows": demoted_rows,
+        "safe_drilldown": safe_drilldown,
+    }
+
+
+def validate_exported_route_lease_policy(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    if not isinstance(payload, dict):
+        payload = {}
+    selected_lane_id = str(payload.get("selected_lane_id") or "")
+    permitted = payload.get("permitted_direct_actions", [])
+    invalidation = payload.get("invalidation_inputs", {})
+    if not selected_lane_id:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_ROUTE_LEASE_LANE_MISSING",
+                "message": "Exported route lease policy has no selected lane.",
+                "subject_id": "route_lease_policy",
+                "subject_kind": "route_lease_policy",
+                "body_redacted": True,
+            }
+        )
+    if not isinstance(permitted, list) or not permitted:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_ROUTE_LEASE_ACTIONS_MISSING",
+                "message": "Exported route lease policy has no permitted direct actions.",
+                "subject_id": selected_lane_id or "route_lease_policy",
+                "subject_kind": "route_lease_policy",
+                "body_redacted": True,
+            }
+        )
+        permitted = []
+    if not isinstance(invalidation, dict) or "navigation_index_currentness" not in invalidation:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_ROUTE_LEASE_INVALIDATION_MISSING",
+                "message": "Exported route lease policy lacks navigation invalidation input.",
+                "subject_id": selected_lane_id or "route_lease_policy",
+                "subject_kind": "route_lease_policy",
+                "body_redacted": True,
+            }
+        )
+        invalidation = {}
+    if payload.get("source_authority_allowed") is not False:
+        findings.append(
+            {
+                "error_code": "ROUTE_PLANE_ROUTE_LEASE_SOURCE_AUTHORITY_NOT_REJECTED",
+                "message": "Exported route lease policy must reject source authority.",
+                "subject_id": selected_lane_id or "route_lease_policy",
+                "subject_kind": "route_lease_policy",
+                "body_redacted": True,
+            }
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "lease_id": payload.get("lease_id"),
+        "selected_lane_id": selected_lane_id,
+        "route_lease_ref": payload.get("route_lease_ref"),
+        "invalidation_inputs": invalidation,
+        "permitted_direct_actions": permitted,
+        "banned_route_replacements": payload.get("banned_route_replacements", []),
+        "authority_allowed": False,
+    }
+
+
 def validate_code_architecture_projection_packet(payload: object) -> dict[str, Any]:
     if not isinstance(payload, dict):
         payload = {}
@@ -597,6 +992,8 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "anti_claim",
         "source_pattern_ids",
         "validator_asserted_feeds_patterns",
+        "input_mode",
+        "bundle_id",
     )
     payload = {
         "schema_version": schema_version,
@@ -737,6 +1134,182 @@ def write_receipts(
     return {key: public_relative_path(path, display_root=receipt_root) for key, path in paths.items()}
 
 
+def _write_route_plane_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / ROUTE_PLANE_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version="navigation_hologram_route_plane_exported_route_plane_bundle_validation_v1",
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "route_row_count": validation_result["route_row_count"],
+            "cluster_flag": validation_result["cluster_flag"],
+            "card": validation_result["card"],
+            "selected_row_ids": validation_result["selected_row_ids"],
+            "route_rows_projection_not_authority": validation_result[
+                "route_rows_projection_not_authority"
+            ],
+            "expected_sha256": validation_result["expected_sha256"],
+            "observed_sha256": validation_result["observed_sha256"],
+            "source_coupling_status": validation_result["source_coupling_status"],
+            "authority_allowed": validation_result["authority_allowed"],
+            "route_lease": validation_result["route_lease"],
+            "entry_payload_admission": validation_result["entry_payload_admission"],
+            "affordance_passport_selection": validation_result[
+                "affordance_passport_selection"
+            ],
+            "code_architecture_projection_packet": validation_result[
+                "code_architecture_projection_packet"
+            ],
+            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "fixture_regression_required_elsewhere": True,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def run_route_plane_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_route_plane_bundle(input_path)
+    scan_result = _scan_bundle_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    route_result = validate_exported_route_rows(
+        payloads["route_rows"],
+        payloads["option_surface_contract"],
+    )
+    source_result = validate_exported_source_coupling(
+        payloads["source_coupling_manifest"],
+        payloads["route_rows"],
+    )
+    lease_result = validate_exported_route_lease_policy(payloads["route_lease_policy"])
+    entry_result = validate_exported_entry_packet_floor(payloads["entry_packet_floor"])
+    affordance_result = validate_exported_affordance_passports(
+        payloads["affordance_passports"]
+    )
+    code_arch_result = validate_code_architecture_projection_packet(
+        payloads["code_architecture_projection_packet"]
+    )
+
+    all_findings = sorted(
+        [
+            *route_result["findings"],
+            *source_result["findings"],
+            *lease_result["findings"],
+            *entry_result["findings"],
+            *affordance_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and route_result["selected_row_ids"]
+        and lease_result["status"] == PASS
+        and entry_result["status"] == PASS
+        and affordance_result["status"] == PASS
+        and code_arch_result["renderer_schema_match_status"] == PASS
+        else "blocked"
+    )
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "navigation_hologram_route_plane_exported_route_plane_bundle"
+    )
+
+    result = base_receipt(
+        ORGAN_ID,
+        f"{FIXTURE_ID}.exported_route_plane_bundle",
+        command=command,
+    )
+    result.update(
+        {
+            "status": status,
+            "input_mode": "exported_route_plane_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "validator_id": VALIDATOR_ID,
+            "anti_claim": (
+                "The exported route-plane bundle validates public route projection metadata. "
+                "It does not grant source authority, publish live operator state, authorize "
+                "release, or complete later organs."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": (
+                    "navigation_route_plane_bundle_projection_metadata_not_source_authority"
+                ),
+                "atlas_projection_control_entry_rejected": True,
+                "route_lease_source_authority_rejected": True,
+                "release_authorized": False,
+            },
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "source_pattern_ids": SOURCE_PATTERN_IDS,
+            "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
+            "cluster_flag": route_result["cluster_flag"],
+            "card": route_result["card"],
+            "selected_row_ids": route_result["selected_row_ids"],
+            "route_row_count": len(route_result["route_rows"]),
+            "route_rows_projection_not_authority": route_result[
+                "route_rows_projection_not_authority"
+            ],
+            "expected_sha256": source_result["expected_sha256"],
+            "observed_sha256": source_result["observed_sha256"],
+            "source_coupling_status": source_result["source_coupling_status"],
+            "authority_allowed": source_result["authority_allowed"],
+            "route_lease": lease_result,
+            "entry_payload_admission": entry_result,
+            "affordance_passport_selection": affordance_result,
+            "code_architecture_projection_packet": code_arch_result,
+            "public_replacement_refs": [
+                public_relative_path(path, display_root=public_root)
+                for path in _route_plane_bundle_paths(input_path)
+            ],
+        }
+    )
+    receipt_path = _write_route_plane_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -858,12 +1431,25 @@ def main(argv: list[str] | None = None) -> int:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    bundle_parser = subparsers.add_parser("validate-route-plane-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out, command="navigation_hologram_route_plane run")
-        return 0 if result["status"] == PASS else 1
-    parser.print_help()
-    return 2
+        command = (
+            "python -m microcosm_core.organs.navigation_hologram_route_plane "
+            f"run --input {args.input} --out {args.out}"
+        )
+        result = run(args.input, args.out, command=command)
+    elif args.action == "validate-route-plane-bundle":
+        command = (
+            "python -m microcosm_core.organs.navigation_hologram_route_plane "
+            f"validate-route-plane-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_route_plane_bundle(args.input, args.out, command=command)
+    else:
+        parser.error("expected subcommand: run or validate-route-plane-bundle")
+    return 0 if result["status"] == PASS else 1
 
 
 if __name__ == "__main__":

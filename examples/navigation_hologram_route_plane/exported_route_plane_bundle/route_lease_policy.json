@@ -1,0 +1,25 @@
+{
+  "schema_version": "navigation_hologram_route_plane_route_lease_policy_v1",
+  "lease_id": "public_runtime_navigation_route_lease",
+  "selected_lane_id": "public_runtime_option_surface",
+  "route_lease_ref": "route_lease_policy.public_runtime_option_surface",
+  "source_authority_allowed": false,
+  "permitted_direct_actions": [
+    "read_seed",
+    "run_context_pack",
+    "open_named_route_card"
+  ],
+  "invalidation_inputs": {
+    "navigation_index_currentness": "source_coupled",
+    "source_coupling_status": "current",
+    "projection_boundary": "omission_receipt_required"
+  },
+  "banned_route_replacements": [
+    {
+      "route_id": "atlas_projection_as_first_contact",
+      "replacement_route": "entry_packet_floor",
+      "reason_code": "PROJECTION_NOT_CONTROL_ENTRY",
+      "body_redacted": true
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "navigation_hologram_route_plane_exported_route_rows_v1",
+  "rows": [
+    {
+      "row_id": "option_surface_cluster_public_runtime",
+      "route_id": "public_runtime_option_surface",
+      "cluster_id": "entry_surface",
+      "kind_id": "navigation_route",
+      "surface_role": "ATLAS_PROJECTION",
+      "claims_control_entry": false,
+      "claims_source_authority": false,
+      "title": "Public runtime option surface",
+      "band_payloads": {
+        "card": {
+          "route_hint": "Use the entry packet floor before route-card drilldown.",
+          "route_lease_ref": "route_lease_policy.public_runtime_option_surface"
+        }
+      },
+      "source_refs": [
+        "pattern:navigation_hologram_unified_route_plane",
+        "pattern:agent_entry_surfaces_canonical_first_move"
+      ],
+      "omission_receipt": {
+        "omitted_classes": [
+          "full_source_files",
+          "live_runtime_state"
+        ],
+        "replacement": "public_projection_metadata",
+        "body_redacted": true
+      }
+    },
+    {
+      "row_id": "entry_packet_floor_public_runtime",
+      "route_id": "public_runtime_entry_packet_floor",
+      "cluster_id": "entry_surface",
+      "kind_id": "navigation_route",
+      "surface_role": "ATLAS_PROJECTION",
+      "claims_control_entry": false,
+      "claims_source_authority": false,
+      "title": "Entry packet floor",
+      "band_payloads": {
+        "card": {
+          "route_hint": "Preserve currentness, source coupling, omission receipt, route lease, and banned-route table.",
+          "route_lease_ref": "route_lease_policy.public_runtime_option_surface"
+        }
+      },
+      "source_refs": [
+        "pattern:entry_payload_admission_nonnegotiable_floor",
+        "pattern:semantic_routing_plane"
+      ],
+      "omission_receipt": {
+        "omitted_classes": [
+          "full_entry_payload",
+          "operator_specific_state"
+        ],
+        "replacement": "field_floor_and_metadata",
+        "body_redacted": true
+      }
+    },
+    {
+      "row_id": "route_card_boundary_public_runtime",
+      "route_id": "public_runtime_route_card_boundary",
+      "cluster_id": "projection_boundary",
+      "kind_id": "navigation_route",
+      "surface_role": "ATLAS_PROJECTION",
+      "claims_control_entry": false,
+      "claims_source_authority": false,
+      "title": "Route card projection boundary",
+      "band_payloads": {
+        "card": {
+          "route_hint": "Route cards can summarize paths only when an omission receipt marks the projection boundary.",
+          "route_lease_ref": "route_lease_policy.public_runtime_option_surface"
+        }
+      },
+      "source_refs": [
+        "pattern:omission_receipt_reversible_projection_boundary",
+        "pattern:system_atlas_source_coupling_gate"
+      ],
+      "omission_receipt": {
+        "omitted_classes": [
+          "source_file_bodies",
+          "private_provider_context"
+        ],
+        "replacement": "projection_card_metadata",
+        "body_redacted": true
+      }
+    },
+    {
+      "row_id": "affordance_passport_public_runtime",
+      "route_id": "public_runtime_affordance_passport",
+      "cluster_id": "route_selection",
+      "kind_id": "navigation_route",
+      "surface_role": "ATLAS_PROJECTION",
+      "claims_control_entry": false,
+      "claims_source_authority": false,
+      "title": "Affordance passport selection",
+      "band_payloads": {
+        "card": {
+          "route_hint": "Select compatible affordance passports and demote anti-trigger rows before semantic similarity.",
+          "route_lease_ref": "route_lease_policy.public_runtime_option_surface"
+        }
+      },
+      "source_refs": [
+        "pattern:affordance_passport_selection_gate",
+        "pattern:semantic_routing_plane"
+      ],
+      "omission_receipt": {
+        "omitted_classes": [
+          "full_affordance_corpus"
+        ],
+        "replacement": "selection_metadata",
+        "body_redacted": true
+      }
+    }
+  ]
+}

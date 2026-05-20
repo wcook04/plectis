@@ -1,0 +1,23 @@
+{
+  "schema_version": "navigation_hologram_route_plane_affordance_passports_v1",
+  "rows": [
+    {
+      "row_id": "route_card_candidate",
+      "route_id": "public_runtime_option_surface",
+      "affordance_passport": {
+        "compatibility": "compatible",
+        "safe_drilldown": "microcosm option-surface route-plane --cluster entry_surface",
+        "anti_trigger_hit": false
+      }
+    },
+    {
+      "row_id": "atlas_projection_antitrigger",
+      "route_id": "atlas_projection_as_first_contact",
+      "affordance_passport": {
+        "compatibility": "similarity_only",
+        "safe_drilldown": "",
+        "anti_trigger_hit": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "navigation_hologram_route_plane_source_coupling_manifest_v1",
+  "manifest_id": "public_runtime_route_plane_source_coupling",
+  "source_coupling_status": "current",
+  "projection_not_authority": true,
+  "expected_route_row_count": 4,
+  "route_rows_sha256": "abb5b29858f6101dee09e337f4b350942ea82cd1fe5f7313ea8b9d538bf97b1c",
+  "source_refs": [
+    "pattern:navigation_hologram_unified_route_plane",
+    "pattern:agent_entry_surfaces_canonical_first_move",
+    "pattern:omission_receipt_reversible_projection_boundary",
+    "pattern:entry_payload_admission_nonnegotiable_floor",
+    "pattern:affordance_passport_selection_gate"
+  ]
+}
