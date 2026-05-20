@@ -1,0 +1,201 @@
+{
+  "anti_claim": "Dependency preflight validates accepted public runtime-spine ordering and fixture presence only; it does not authorize Lean/Lake, release, provider calls, or private-data equivalence.",
+  "authority_ceiling": {
+    "dependency_preflight_authority": "accepted_public_runtime_spine_preflight_only",
+    "lean_lake_authorized": false,
+    "private_data_equivalence_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "blocked_dependency_codes": [],
+  "blocked_dependency_count": 0,
+  "checked_organs": [
+    "pattern_binding_contract",
+    "executable_doctrine_grammar",
+    "proof_diagnostic_evidence_spine",
+    "navigation_hologram_route_plane",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime",
+    "pattern_assimilation_step"
+  ],
+  "checker_id": "checker.microcosm.validators.dependency_preflight",
+  "command": "python -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
+  "dependency_checks": [
+    {
+      "build_dependencies": [],
+      "missing_dependencies": [],
+      "organ_id": "pattern_binding_contract",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "executable_doctrine_grammar",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "navigation_hologram_route_plane",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "navigation_hologram_route_plane"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "mission_transaction_work_spine",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "agent_route_observability_runtime",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_route_observability_runtime",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "pattern_assimilation_step",
+      "status": "pass"
+    }
+  ],
+  "fixture_precondition_checks": [
+    {
+      "fixture_id": "fixture::pattern_binding_contract::first_wave_contract_v1",
+      "fixture_input_count": 9,
+      "fixture_manifest": "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 9,
+      "missing_fixture_inputs": [],
+      "organ_id": "pattern_binding_contract",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::executable_doctrine_grammar::first_wave_contract_v1",
+      "fixture_input_count": 3,
+      "fixture_manifest": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 7,
+      "missing_fixture_inputs": [],
+      "organ_id": "executable_doctrine_grammar",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::proof_diagnostic_evidence_spine::first_wave_contract_v1",
+      "fixture_input_count": 7,
+      "fixture_manifest": "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 7,
+      "missing_fixture_inputs": [],
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
+      "fixture_input_count": 13,
+      "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 13,
+      "missing_fixture_inputs": [],
+      "organ_id": "navigation_hologram_route_plane",
+      "status": "pass"
+    },
+    {
+      "fixture_id": null,
+      "fixture_input_count": 3,
+      "fixture_manifest": "core/fixture_manifests/mission_transaction_work_spine.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 3,
+      "missing_fixture_inputs": [],
+      "organ_id": "mission_transaction_work_spine",
+      "status": "pass"
+    },
+    {
+      "fixture_id": null,
+      "fixture_input_count": 3,
+      "fixture_manifest": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 3,
+      "missing_fixture_inputs": [],
+      "organ_id": "agent_route_observability_runtime",
+      "status": "pass"
+    },
+    {
+      "fixture_id": null,
+      "fixture_input_count": 4,
+      "fixture_manifest": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 4,
+      "missing_fixture_inputs": [],
+      "organ_id": "pattern_assimilation_step",
+      "status": "pass"
+    }
+  ],
+  "negative_matrix_case_count": 76,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 3,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/preflight/dependency_preflight.json"
+  ],
+  "schema_version": "dependency_preflight_receipt_v1",
+  "status": "pass",
+  "toolchain_checks": {
+    "lean_lake_execution": "deferred_not_authorized",
+    "provider_calls": "not_authorized",
+    "python_validator_runtime": "pass"
+  },
+  "wave_order_checks": {
+    "expected_prefix_order": [
+      "pattern_binding_contract",
+      "executable_doctrine_grammar",
+      "proof_diagnostic_evidence_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine",
+      "agent_route_observability_runtime",
+      "pattern_assimilation_step"
+    ],
+    "observed_accepted_order": [
+      "pattern_binding_contract",
+      "executable_doctrine_grammar",
+      "proof_diagnostic_evidence_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine",
+      "agent_route_observability_runtime",
+      "pattern_assimilation_step"
+    ],
+    "status": "pass"
+  }
+}

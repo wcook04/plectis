@@ -1,6 +1,8 @@
 {
   "acceptance_commands": [
     "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
+    "python -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
+    "python -m microcosm_core.validators.fixture_freshness --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --mission-dag ../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json --receipt-coverage ../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json"
   ],
   "accepted_current_authority_organs": [
@@ -123,6 +125,20 @@
   "provider_calls_authorized": false,
   "publication_authorized": false,
   "recipient_work_authorized": false,
+  "preflight_contracts": {
+    "dependency_preflight": {
+      "receipt": "receipts/preflight/dependency_preflight.json",
+      "status": "accepted_public_preflight_contract"
+    },
+    "fixture_runner_freshness": {
+      "receipt": "receipts/preflight/fixture_runner_freshness.json",
+      "status": "accepted_public_preflight_contract"
+    },
+    "first_wave_acceptance_summary": {
+      "receipt": "receipts/first_wave/acceptance_summary.json",
+      "status": "command_owned_summary_receipt"
+    }
+  },
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
   "standard_count": 51,

@@ -1,0 +1,139 @@
+{
+  "acceptance_summary_receipt": "receipts/first_wave/acceptance_summary.json",
+  "acceptance_summary_status": "pass",
+  "anti_claim": "Fixture freshness validates manifest, fixture, and receipt presence/fingerprints only; it does not authorize Lean/Lake, release, provider calls, or private-data equivalence.",
+  "authority_ceiling": {
+    "fixture_freshness_authority": "public_receipt_freshness_and_fingerprint_summary_only",
+    "lean_lake_authorized": false,
+    "private_data_equivalence_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "checked_receipts": [
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+    "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+    "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+    "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
+    "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/entry_payload_admission_receipt.json",
+    "receipts/first_wave/navigation_hologram_route_plane/route_lease.json",
+    "receipts/first_wave/navigation_hologram_route_plane/source_coupling_result.json",
+    "receipts/first_wave/navigation_hologram_route_plane/toy_kind_card.json",
+    "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json",
+    "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+    "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json",
+    "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+    "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+    "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+    "receipts/first_wave/pattern_assimilation_acceptance.json",
+    "receipts/first_wave/pattern_assimilation_receipt.json"
+  ],
+  "checker_id": "checker.microcosm.validators.fixture_freshness",
+  "command": "python -m microcosm_core.validators.fixture_freshness --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --mission-dag ../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json --receipt-coverage ../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
+  "fixture_manifest_sha256_by_organ": {
+    "agent_route_observability_runtime": "6210d5009758be863a756d55a1e3065a681ba46590fb2ab169127d0dfb840f94",
+    "executable_doctrine_grammar": "8e4823de0700ab1628e241e96f1d3f844683bbf93117773fcd28bcda22901bec",
+    "mission_transaction_work_spine": "8dce6942acadfc9abd3132cf76122c46cb3a9ac156902256e7ec898af25160e1",
+    "navigation_hologram_route_plane": "5f798f653d68556a83c69e9398bdc8f0671ee7a63bbefe3f4c71576f80ad36f7",
+    "pattern_assimilation_step": "950fdb3b6731736f14d7974b2d4e54113056e754bf075026f86a4f9fcf65d4e0",
+    "pattern_binding_contract": "e29ad0162112c63ce489567d06596945ab26196b64f846255027d5e3e9a6a0e5",
+    "proof_diagnostic_evidence_spine": "02a3d81199ca95eba9cf0182f580620aa463b79e5a2493caa65a27afdd877ac1"
+  },
+  "input_fingerprints": {
+    "agent_route_observability_runtime": {
+      "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl": "8edba21cfa8c48f3fd8d647af21d53f000667c4977f8c9190364c9100e31b887",
+      "fixtures/first_wave/agent_route_observability_runtime/input/anti_pattern_debt.json": "5613e3aff89beaa012a4c4d7da7bdb62404f264b9ccf450675cfac89fd670d2f",
+      "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json": "6a1a82b349332f3c0fc4400fece2b3ad8665b41b441b6247aeee1399851d12b9"
+    },
+    "executable_doctrine_grammar": {
+      "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md": "5ed0705fc2f16c98c854be2c52ac163af1239a666e3abb8bdbad3061791d0c7d",
+      "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md": "287ed2b322cc94f1a64340bf7010586015f566ecbfbbd206cc1813429a1768f9",
+      "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json": "9ca032f1ad42662c09078ed12b10cf39246c184841d300b4bd5d9a9ceada362a"
+    },
+    "mission_transaction_work_spine": {
+      "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl": "c0ff9155472b1c16dde71b98cd3a60e083ac9b5da275a17768d26887a770a332",
+      "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json": "06f6dbcd52da12c52416a9681486ff1a5be7326c3cb9cb0c710c9845b22e81e3",
+      "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json": "52248db1e7b545ee01c0d6ba88597ad700608bf0573517f5aecd50297a31e9aa"
+    },
+    "navigation_hologram_route_plane": {
+      "fixtures/first_wave/navigation_hologram_route_plane/input/affordance_passport_selection.json": "44d1bfe4060435b519d20e61f390a18df9fa0bd32702a4cb1afb19b229a36a09",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/atlas_projection_as_control_entry.json": "49950d10b428819bbaaa111e5a34efdf809ceec4a4acdd7e8ea4faf6e5ff4cbd",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/banned_route_request.json": "4e60da70dc21c07e83a8e577d706e909c4343f583d687bc91c42796df0883ad0",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/code_architecture_projection_packet.json": "733b0ef397e46019caa71730ff5cbe41b82f51135099722ce85291d3acd85276",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/duplicate_route_ids.json": "3ae4842d538b5e8f166d2185c6c5f60898af8beccb68f3c3dce13cd893868833",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/entry_packet_admission_floor.json": "51eb5c13269791b80bd16954e1a2b8ba553ccda956fece1577fcc34bd7c24ae5",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/route_card_missing_omission_receipt.json": "5acc95f0a6e3bb1c4d6dd72a8416dd0bc6a35af71dee72b01742340d0a105586",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/route_card_with_private_body.json": "6e6aabd6f31890b7b0f8226c2472ad4cad40d8b805ae593edb13d1dbba8bafe3",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/route_lease_baseline.json": "823e0ea5406232fbf5ed1b9f1816cb7ac34c24f618ce11c6ae5e847de9688738",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/source_manifest_stale.json": "d527045632bed1c971232e626dbfeeca5533b3e3e3556ee6b8240ec8ca0e328e",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/stale_summary_claims_current.json": "41f6d83830fb851f88cbeeec4cbfb379a30adedc204bc73dd84cce7448777a7f",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/std_toy_option_surface.json": "bf797c1d2af0a65ba7f13e8abfb40c41da6d0eabe539d77abfabaa27c2a1aa81",
+      "fixtures/first_wave/navigation_hologram_route_plane/input/toy_kind_rows.json": "5d46dabd420244614c0185a9067f83f28ecebb1247d61a648ede36dad716eae3"
+    },
+    "pattern_assimilation_step": {
+      "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json": "f9dcecdbb67118793f6a4e14d91ae96d3acc92f47b8edf645eebd98edaf6592b",
+      "fixtures/first_wave/pattern_assimilation_step/input/nothing_to_refine_case.json": "48f919e57f616db1b7982e88b43fad692c7074d2d751e681859c6cc889db1879",
+      "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl": "281652b6c201d1f2a63e96afecad47c6b77bbd4db2df2ab9fee4ac9493051763",
+      "fixtures/first_wave/pattern_assimilation_step/input/refinement_case.json": "6f994b3503c7360ddff146e57c6f3ccc10dc57bac20abb20d8c2068d02a13dc3"
+    },
+    "pattern_binding_contract": {
+      "fixtures/first_wave/pattern_binding_contract/input/authority_chain_handles.json": "b21ebbd2c982d299b2109b31cbb7496ad9f0c24fd815888bc69326fdaaac3035",
+      "fixtures/first_wave/pattern_binding_contract/input/duplicate_pattern_id_conflict.jsonl": "8b4f7de22ea0ffea37bee6046a824fe206d29e1f3d076131bd4ccb832a22f513",
+      "fixtures/first_wave/pattern_binding_contract/input/generated_projection_authority_upgrade.json": "8dbb4fc017dc6a7b18303a60a661e775e92299f83fafcc1f9ddc700752b856e7",
+      "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl": "dabf14fd7bbea41a8f867fcfed0da389d9ab8051f2ad758cfa8913553b4dd125",
+      "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json": "a97ab8bd18ed862251028dd94af15abc05ecae3c0ed130497d236de3a77c6976",
+      "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json": "e2ac36710e061bcee6f6d99897c95f645226866aedc42b8bbcc51e21f1198a0f",
+      "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json": "23f34dc922b750f1f5865beac5526e17c28c98d89d281b10cd3ed1e13ddf95cc",
+      "fixtures/first_wave/pattern_binding_contract/input/source_capsules.json": "a8cdf447e5e2b0a92a34b76c9ead7afd8ba291df912278f81e08dc62e9d37226",
+      "fixtures/first_wave/pattern_binding_contract/input/valid_binding_overclaim_public_leaf.json": "c0e38db3c679df435c2c2bdbb91e888bc1b2e7d6f5876a0bf60546323f85e61b"
+    },
+    "proof_diagnostic_evidence_spine": {
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json": "1efefc4017efdf3c55b35ca516a5f7dfe063847dc7d5eb976eb39331fe398217",
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_board_source_authority_claim.json": "1fc859dabb20053055a83c4f104c0a5a3cc1ed5cb058f00131c480f4819742fa",
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json": "e52e9b617b7bc0c1d510fb3e316457981a70775e28a9899675d9d9b5fd50b4b1",
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/passing_check_overclaims_runtime.json": "c8a01368447fde5b380185c4c11f662163b4c5ea782ad11b3241c87c65034993",
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/provider_advisory_payloads.json": "2736b55cf07d30de504aec34f5ba41094537d420859aa20352b7fef92f503030",
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/receipt_missing_claim_validator_and_anti_claim.json": "61b930f3be49d67486407181a7d4c02053e3d7993fbe0f5932779c3c9c3f943d",
+      "fixtures/first_wave/proof_diagnostic_evidence_spine/input/stale_proof_receipt_fingerprint.json": "e40cca9f94e1546425300d863b10752eb59e9f9d35caa56f75d45d14a0f8848d"
+    }
+  },
+  "mission_dag_node_refs": {
+    "path": "../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json",
+    "status": "read_for_freshness_context"
+  },
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 6,
+    "status": "pass"
+  },
+  "receipt_coverage_refs": {
+    "path": "../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json",
+    "status": "read_for_freshness_context"
+  },
+  "receipt_paths": [
+    "receipts/preflight/fixture_runner_freshness.json",
+    "receipts/first_wave/acceptance_summary.json"
+  ],
+  "schema_version": "fixture_runner_freshness_receipt_v1",
+  "stale_receipt_codes": [],
+  "stale_receipt_count": 0,
+  "status": "pass"
+}
