@@ -1,0 +1,13 @@
+{
+  "schema_version": "reference_capsules_bundle_v1",
+  "reference_capsules": [
+    {
+      "reference_id": "ref_public_pattern_binding_runtime_bundle",
+      "supported_kind": true,
+      "resolved": true,
+      "body_redacted": true,
+      "reference_class": "public_runtime_metadata"
+    }
+  ],
+  "anti_claim": "Reference capsules are resolved metadata pointers and carry no source body."
+}

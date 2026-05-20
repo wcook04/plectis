@@ -1,0 +1,15 @@
+{
+  "schema_version": "pattern_binding_exported_substrate_bundle_v1",
+  "bundle_id": "public_pattern_binding_runtime_example",
+  "bundle_kind": "exported_substrate_bundle",
+  "organ_id": "pattern_binding_contract",
+  "runtime_surfaces": [
+    "pattern_rows",
+    "source_capsules",
+    "authority_chain_handles",
+    "reference_capsules",
+    "omission_receipts"
+  ],
+  "authority_ceiling": "public runtime example over redacted substrate metadata only",
+  "anti_claim": "This bundle is standalone runtime-shaped input. It does not expose source bodies or claim release readiness."
+}

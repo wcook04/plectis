@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Source capsules are redacted metadata over synthetic fixture rows, not source bodies.",
+  "anti_claim": "Source capsules are redacted metadata over public-safe input rows, not source bodies.",
   "organ_id": "pattern_binding_contract",
   "schema_version": "pattern_binding_source_capsules_receipt_v1",
   "source_capsule_count": 1,

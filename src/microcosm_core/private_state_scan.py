@@ -31,6 +31,7 @@ PUBLIC_ROOT_RELATIVE_PREFIXES = (
     "README.md",
     "bootstrap.sh",
     "core/",
+    "examples/",
     "fixtures/",
     "pyproject.toml",
     "receipts/",

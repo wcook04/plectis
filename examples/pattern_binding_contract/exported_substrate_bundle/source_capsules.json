@@ -1,0 +1,20 @@
+{
+  "schema_version": "source_capsules_bundle_v1",
+  "source_capsules": [
+    {
+      "source_ref": "capsule.pattern_deliverables_registry",
+      "authority_class": "public_substrate_lineage",
+      "body_redacted": true,
+      "public_replacement_ref": "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl::public_runtime_pattern_deliverables_registry",
+      "source_sha256": "a08bde81cfdc6fc0bca36f9e09f5a8517c1d9c4a58ea47e522d6af1fe8047d3a"
+    },
+    {
+      "source_ref": "capsule.source_capsule_provenance",
+      "authority_class": "public_substrate_lineage",
+      "body_redacted": true,
+      "public_replacement_ref": "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl::public_runtime_source_capsule_provenance",
+      "source_sha256": "49999b7c9c1ad24b79f4af169a875f33a5227155a19ea13a2a5dc9e7fe53bc27"
+    }
+  ],
+  "anti_claim": "Source capsules carry redacted lineage metadata only."
+}

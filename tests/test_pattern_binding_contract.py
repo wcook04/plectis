@@ -7,13 +7,18 @@ from pathlib import Path
 import pytest
 
 from microcosm_core.cold_clone_probe import PATTERN_RECEIPTS, run_probe
-from microcosm_core.organs.pattern_binding_contract import EXPECTED_NEGATIVE_CASES, validate
+from microcosm_core.organs.pattern_binding_contract import (
+    EXPECTED_NEGATIVE_CASES,
+    validate,
+    validate_substrate_bundle,
+)
 from microcosm_core.receipts import write_receipt
 from microcosm_core.schemas import DuplicateJsonKeyError, loads_json_strict
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 PATTERN_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/pattern_binding_contract/input"
+PATTERN_EXPORTED_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/pattern_binding_contract/exported_substrate_bundle"
 
 
 def test_pattern_binding_validator_observes_required_negative_cases(tmp_path: Path) -> None:
@@ -52,6 +57,29 @@ def test_pattern_binding_receipts_are_redacted_and_complete(tmp_path: Path) -> N
     assert capsules["source_capsules"][0]["body_redacted"] is True
     assert omission["omitted_files"] == capsules["source_capsule_count"]
     assert authority["authority_chain_resolution_status"] == "pass"
+
+
+def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> None:
+    out_dir = tmp_path / "receipts"
+
+    result = validate_substrate_bundle(PATTERN_EXPORTED_BUNDLE_INPUT, out_dir, command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_substrate_bundle"
+    assert result["bundle_id"] == "public_pattern_binding_runtime_example"
+    assert result["accepted_count"] == 2
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["private_state_scan"]["body_redacted"] is True
+    assert result["receipt_paths"] == [
+        "receipts/exported_substrate_bundle_validation_result.json"
+    ]
+
+    receipt = json.loads((out_dir / "exported_substrate_bundle_validation_result.json").read_text(encoding="utf-8"))
+    assert receipt["input_mode"] == "exported_substrate_bundle"
+    assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
+    assert "matched_excerpt" not in json.dumps(receipt, sort_keys=True)
+    assert '"body"' not in json.dumps(receipt, sort_keys=True)
 
 
 def test_cold_clone_receipts_use_public_relative_paths(tmp_path: Path) -> None:

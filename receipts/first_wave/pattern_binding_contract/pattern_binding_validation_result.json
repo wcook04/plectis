@@ -15,7 +15,7 @@
   },
   "authority_chain_resolution_status": "pass",
   "command": "bootstrap pattern_binding_contract validate",
-  "created_at": "2026-05-20T14:51:27+00:00",
+  "created_at": "2026-05-20T15:02:41+00:00",
   "duplicate_pattern_ids": [
     "pb_duplicate_conflict"
   ],
@@ -163,10 +163,6 @@
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
-    "forbidden_output_fields": [
-      "matched_excerpt",
-      "body"
-    ],
     "hit_count": 4,
     "hits": [
       {

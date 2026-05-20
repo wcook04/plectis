@@ -1,0 +1,17 @@
+{
+  "schema_version": "omission_receipts_bundle_v1",
+  "omission_receipts": [
+    {
+      "omission_id": "public_runtime_source_body_omission",
+      "omitted_classes": [
+        "source_body",
+        "provider_payload_body",
+        "operator_thread_body"
+      ],
+      "omitted_count": 3,
+      "body_redacted": true,
+      "reversibility_status": "class_level_only_not_body_reconstructable"
+    }
+  ],
+  "anti_claim": "Omission receipts preserve class-level absence evidence only."
+}

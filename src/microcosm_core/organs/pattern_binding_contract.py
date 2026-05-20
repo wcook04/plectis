@@ -7,7 +7,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.fixture_registry import load_pattern_binding_fixture
+from microcosm_core.fixture_registry import load_pattern_binding_fixture, load_pattern_binding_substrate_bundle
 from microcosm_core.private_state_scan import PASS, public_relative_path, scan_json_payload, scan_paths
 from microcosm_core.receipts import AUTHORITY_CEILING, base_receipt, write_json_atomic
 
@@ -19,6 +19,7 @@ CAPSULE_NAME = "source_capsules.json"
 OMISSION_NAME = "omission_receipt.json"
 REFERENCE_NAME = "reference_capsule_resolver_receipt.json"
 AUTHORITY_CHAIN_NAME = "authority_chain_handle_resolver_receipt.json"
+SUBSTRATE_BUNDLE_RESULT_NAME = "exported_substrate_bundle_validation_result.json"
 
 EXPECTED_NEGATIVE_CASES = {
     "missing_binding_contract_fields": [
@@ -69,6 +70,12 @@ def _record(
     findings.append(_finding(code, message, case_id=case_id, pattern_id=pattern_id))
     if case_id:
         observed[case_id].add(code)
+
+
+def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
+    safe = dict(scan_result)
+    safe.pop("forbidden_output_fields", None)
+    return safe
 
 
 def _source_capsules_by_ref(source_capsules: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -218,12 +225,12 @@ def validate_pattern_bindings(
                     case_id=case_id,
                     pattern_id=pattern_id,
                 )
-            if not capsule.get("replacement_fixture_ref"):
+            if not capsule.get("replacement_fixture_ref") and not capsule.get("public_replacement_ref"):
                 _record(
                     findings,
                     observed,
                     "SOURCE_CAPSULE_MISSING_REPLACEMENT_FIXTURE",
-                    "Source capsule lacks synthetic replacement fixture ref.",
+                    "Source capsule lacks public replacement ref.",
                     case_id=case_id,
                     pattern_id=pattern_id,
                 )
@@ -258,12 +265,12 @@ def validate_source_capsules(source_capsules: dict[str, Any], forbidden_terms: d
                 case_id=case_id,
                 pattern_id=str(source_ref),
             )
-        if not capsule.get("replacement_fixture_ref"):
+        if not capsule.get("replacement_fixture_ref") and not capsule.get("public_replacement_ref"):
             _record(
                 findings,
                 observed,
                 "SOURCE_CAPSULE_MISSING_REPLACEMENT_FIXTURE",
-                "Source capsule lacks replacement fixture ref.",
+                "Source capsule lacks public replacement ref.",
                 case_id=case_id,
                 pattern_id=str(source_ref),
             )
@@ -369,7 +376,7 @@ def _source_capsule_receipt(accepted_rows: list[dict[str, Any]], source_capsules
         "organ_id": ORGAN_ID,
         "source_capsules": rows,
         "source_capsule_count": len(rows),
-        "anti_claim": "Source capsules are redacted metadata over synthetic fixture rows, not source bodies.",
+        "anti_claim": "Source capsules are redacted metadata over public-safe input rows, not source bodies.",
     }
 
 
@@ -382,10 +389,24 @@ def _omission_receipt(redacted_count: int, scan_result: dict[str, Any]) -> dict[
         "omitted_edges": 0,
         "omitted_overlays": 0,
         "omitted_classes": ["forbidden_content_body", "non_public_evidence_body"] if redacted_count else [],
-        "reason": "source bodies intentionally omitted; synthetic fixture metadata retained",
+        "reason": "source bodies intentionally omitted; public-safe metadata retained",
         "private_state_scan": scan_result,
         "anti_claim": "Omission counts are class-level metadata and do not expose omitted bodies.",
     }
+
+
+def _write_substrate_bundle_receipt(out_dir: str | Path, validation_result: dict[str, Any]) -> str:
+    target = Path(out_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    path = target / SUBSTRATE_BUNDLE_RESULT_NAME
+    payload = dict(validation_result)
+    receipt_path = public_relative_path(path)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload["receipt_paths"] = [receipt_path]
+    write_json_atomic(path, payload)
+    return receipt_path
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
@@ -429,7 +450,7 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
     fixture = load_pattern_binding_fixture(input_dir)
     input_paths = [Path(path) for path in fixture["input_paths"].values()]
     forbidden_terms = fixture["forbidden_terms"]
-    scan_result = scan_paths(input_paths, forbidden_classes=forbidden_terms)
+    scan_result = _receipt_safe_scan_result(scan_paths(input_paths, forbidden_classes=forbidden_terms))
     binding_result = validate_pattern_bindings(fixture["patterns"], fixture["source_capsules"], scan_result)
     capsule_result = validate_source_capsules(fixture["source_capsules"], forbidden_terms)
 
@@ -546,20 +567,91 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
     return result
 
 
+def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
+    bundle = load_pattern_binding_substrate_bundle(input_dir)
+    input_paths = [Path(path) for path in bundle["input_paths"].values()]
+    forbidden_terms = bundle["forbidden_terms"]
+    scan_result = _receipt_safe_scan_result(scan_paths(input_paths, forbidden_classes=forbidden_terms))
+    binding_result = validate_pattern_bindings(bundle["patterns"], bundle["source_capsules"], scan_result)
+    capsule_result = validate_source_capsules(bundle["source_capsules"], forbidden_terms)
+    reference_result = validate_reference_capsules(bundle["reference_capsules"], forbidden_terms)
+    authority_result = validate_authority_chain_handle_resolver(bundle["authority_chain_handles"])
+
+    observed = _merge_observed(binding_result, capsule_result, reference_result, authority_result)
+    all_findings: list[dict[str, Any]] = []
+    for result in (binding_result, capsule_result, reference_result, authority_result):
+        all_findings.extend(result.get("findings", []))
+
+    error_codes = sorted({finding["error_code"] for finding in all_findings})
+    accepted_rows = binding_result["accepted_rows"]
+    manifest = bundle["bundle_manifest"]
+    bundle_id = str(manifest.get("bundle_id") or "pattern_binding_exported_substrate_bundle")
+    status = PASS if scan_result["status"] == PASS and not all_findings and accepted_rows else "blocked"
+    source_capsule_receipt = _source_capsule_receipt(accepted_rows, bundle["source_capsules"])
+    result = base_receipt(ORGAN_ID, f"{FIXTURE_ID}.exported_substrate_bundle", command=command)
+    result.update(
+        {
+            "status": status,
+            "input_mode": "exported_substrate_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "accepted_count": len(accepted_rows),
+            "rejected_count": len(binding_result["rejected_pattern_ids"]),
+            "accepted_pattern_ids": sorted(str(row["pattern_id"]) for row in accepted_rows),
+            "rejected_pattern_ids": binding_result["rejected_pattern_ids"],
+            "duplicate_pattern_ids": binding_result["duplicate_pattern_ids"],
+            "error_codes": error_codes,
+            "expected_negative_cases": {},
+            "observed_negative_cases": observed,
+            "missing_negative_cases": [],
+            "findings": all_findings,
+            "private_state_scan": scan_result,
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": AUTHORITY_CEILING,
+                "runtime_claim": "exported substrate bundle validation only",
+            },
+            "source_capsule_count": source_capsule_receipt["source_capsule_count"],
+            "omission_receipt_count": len(bundle["omission_receipts"].get("omission_receipts", []))
+            if isinstance(bundle["omission_receipts"], dict)
+            else 0,
+            "authority_chain_resolution_status": authority_result["authority_chain_resolution_status"],
+            "reference_capsule_resolution_status": PASS if not reference_result["findings"] else "blocked",
+            "anti_claim": (
+                "An exported substrate bundle validates public runtime-shaped metadata. "
+                "It does not expose source bodies or prove release readiness."
+            ),
+        }
+    )
+    receipt_path = _write_substrate_bundle_receipt(out_dir, result)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("--input", required=True)
     validate_parser.add_argument("--out", required=True)
+    bundle_parser = subparsers.add_parser("validate-substrate-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
-    if args.command_name != "validate":
-        parser.error("expected subcommand: validate")
-    command = (
-        "python -m microcosm_core.organs.pattern_binding_contract "
-        f"validate --input {args.input} --out {args.out}"
-    )
-    result = validate(args.input, args.out, command=command)
+    if args.command_name == "validate":
+        command = (
+            "python -m microcosm_core.organs.pattern_binding_contract "
+            f"validate --input {args.input} --out {args.out}"
+        )
+        result = validate(args.input, args.out, command=command)
+    elif args.command_name == "validate-substrate-bundle":
+        command = (
+            "python -m microcosm_core.organs.pattern_binding_contract "
+            f"validate-substrate-bundle --input {args.input} --out {args.out}"
+        )
+        result = validate_substrate_bundle(args.input, args.out, command=command)
+    else:
+        parser.error("expected subcommand: validate or validate-substrate-bundle")
     return 0 if result["status"] == PASS else 1
 
 

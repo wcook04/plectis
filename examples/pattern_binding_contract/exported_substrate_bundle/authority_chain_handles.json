@@ -1,0 +1,12 @@
+{
+  "schema_version": "authority_chain_handles_bundle_v1",
+  "handles": [
+    {
+      "handle_id": "public_pattern_binding_runtime_handle",
+      "supported": true,
+      "implies_authority": false,
+      "authority_class": "schema_only_projection"
+    }
+  ],
+  "anti_claim": "Authority-chain handles route public metadata; they do not upgrade metadata into source authority."
+}

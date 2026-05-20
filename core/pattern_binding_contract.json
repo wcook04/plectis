@@ -33,6 +33,13 @@
     "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
     "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
   ],
-  "authority_ceiling": "binding validation is a contract check over synthetic fixtures, not source authority or public leaf readiness",
-  "anti_claim": "Pattern binding accepts only public-safe synthetic rows and source-capsule metadata."
+  "input_modes": [
+    "first_wave_fixture_regression",
+    "exported_substrate_bundle"
+  ],
+  "runtime_adapter_outputs": [
+    "receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json"
+  ],
+  "authority_ceiling": "binding validation is a contract check over public-safe pattern rows, not source authority or public leaf readiness",
+  "anti_claim": "Pattern binding accepts public-safe substrate-shaped rows and fixture regression rows; it never accepts source bodies as authority."
 }
