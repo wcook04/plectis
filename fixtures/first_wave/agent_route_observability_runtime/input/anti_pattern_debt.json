@@ -1,0 +1,24 @@
+{
+  "fixture_id": "fixture::agent_route_observability_runtime::anti_pattern_debt_v1",
+  "debt_rows": [
+    {
+      "debt_id": "debt_evidence_only_telemetry",
+      "status_before": "active",
+      "evidence_only_trace_ids": [
+        "trace_advisory_axis"
+      ],
+      "behavior_change_evidence_trace_ids": [],
+      "expected_decision": "retain"
+    },
+    {
+      "debt_id": "debt_direct_action_after_route_lease",
+      "status_before": "active",
+      "evidence_only_trace_ids": [],
+      "behavior_change_evidence_trace_ids": [
+        "trace_fix_001"
+      ],
+      "expected_decision": "retire"
+    }
+  ],
+  "anti_claim": "Synthetic anti-pattern debt rows do not include live trace payloads or live Task Ledger state."
+}

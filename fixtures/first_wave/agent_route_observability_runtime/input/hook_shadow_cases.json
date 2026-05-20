@@ -1,0 +1,22 @@
+{
+  "fixture_id": "fixture::agent_route_observability_runtime::hook_shadow_cases_v1",
+  "cases": [
+    {
+      "case_id": "hook_shadow_missing_authority",
+      "hook_id": "synthetic_prompt_observer",
+      "coverage_claim": "advisory_only",
+      "missing_authority": true,
+      "budget_status": "within_budget",
+      "redaction_status": "metadata_only"
+    },
+    {
+      "case_id": "hook_shadow_consumed_trace_feedback",
+      "hook_id": "synthetic_route_lease_feedback",
+      "coverage_claim": "feeds_patterns_after_validator_assertion",
+      "missing_authority": false,
+      "budget_status": "within_budget",
+      "redaction_status": "metadata_only"
+    }
+  ],
+  "anti_claim": "Synthetic hook-shadow cases do not read operator surfaces or live telemetry."
+}
