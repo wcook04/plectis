@@ -1,0 +1,30 @@
+{
+  "schema_version": "formal_math_readiness_provider_context_recipes_fixture_v1",
+  "recipes": [
+    {
+      "recipe_id": "minimal_4kb",
+      "byte_budget": 4096,
+      "sections": ["statement", "declared_imports"],
+      "deliverable_type": "metadata_classification",
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "skill_32kb",
+      "byte_budget": 32768,
+      "sections": ["statement", "skill_atlas_card", "retrieved_premises"],
+      "deliverable_type": "strategy_metadata",
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "strategy_classification_4kb",
+      "byte_budget": 4096,
+      "sections": ["statement", "known_strategy_ids"],
+      "deliverable_type": "strategy_id_classification",
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    }
+  ],
+  "anti_claim": "Provider context recipes are policy metadata only; no provider call or proof body is authorized."
+}

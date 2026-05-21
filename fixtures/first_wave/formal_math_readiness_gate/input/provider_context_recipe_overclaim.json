@@ -1,0 +1,16 @@
+{
+  "schema_version": "formal_math_readiness_negative_provider_recipe_v1",
+  "expected_negative_case_id": "provider_context_recipe_overclaim",
+  "recipes": [
+    {
+      "recipe_id": "over_budget_proof_body_recipe",
+      "byte_budget": 65536,
+      "sections": ["statement", "proof_oracle"],
+      "deliverable_type": "proof_body",
+      "proof_bodies_allowed": true,
+      "provider_calls_authorized": true,
+      "proof_body": "synthetic redacted proof payload"
+    }
+  ],
+  "authority_ceiling": "provider recipe must remain budgeted metadata and proof-body-free"
+}

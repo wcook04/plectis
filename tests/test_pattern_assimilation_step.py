@@ -171,17 +171,18 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["provider_payload_read"] is False
     assert result["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert result["ordered_adapter_lane_status"] == "complete_pending_completion_reducer"
-    assert result["organ_landing_count"] == 7
+    assert result["organ_landing_count"] == 8
     assert result["landed_organ_ids"] == [
         "agent_route_observability_runtime",
         "executable_doctrine_grammar",
+        "formal_math_readiness_gate",
         "mission_transaction_work_spine",
         "navigation_hologram_route_plane",
         "pattern_assimilation_step",
         "pattern_binding_contract",
         "proof_diagnostic_evidence_spine",
     ]
-    assert result["refinement_receipt_count"] == 5
+    assert result["refinement_receipt_count"] == 6
     assert result["nothing_to_refine_receipt_count"] == 2
     assert result["stewardship_check_count"] == 2
     assert result["reentry_condition_count"] == 2

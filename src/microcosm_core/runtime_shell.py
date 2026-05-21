@@ -13,6 +13,7 @@ from microcosm_core import architecture_kernel
 from microcosm_core import project_substrate
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import executable_doctrine_grammar
+from microcosm_core.organs import formal_math_readiness_gate
 from microcosm_core.organs import mission_transaction_work_spine
 from microcosm_core.organs import navigation_hologram_route_plane
 from microcosm_core.organs import pattern_binding_contract
@@ -63,6 +64,14 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         example_rel="examples/proof_diagnostic_evidence_spine/exported_evidence_bundle",
         runner=proof_diagnostic_evidence_spine.run_evidence_bundle,
         receipt_name="exported_evidence_bundle_validation_result.json",
+    ),
+    RuntimeStep(
+        organ_id="formal_math_readiness_gate",
+        span="formal_math_readiness.validate",
+        input_mode="exported_formal_math_readiness_bundle",
+        example_rel="examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle",
+        runner=formal_math_readiness_gate.run_readiness_bundle,
+        receipt_name="exported_formal_math_readiness_bundle_validation_result.json",
     ),
     RuntimeStep(
         organ_id="navigation_hologram_route_plane",

@@ -1,0 +1,34 @@
+{
+  "schema_version": "formal_math_readiness_target_shape_routing_fixture_v1",
+  "route_cases": [
+    {
+      "route_case_id": "closed_nat_mod_decision",
+      "target_shape": "closed_nat_mod_decision",
+      "allowed_tactic_ids": ["decide"],
+      "rejected_tactic_ids": ["aesop", "simp_all"],
+      "reason": "Closed arithmetic decision routes to the smallest probed decision tactic."
+    },
+    {
+      "route_case_id": "int_linear_arithmetic",
+      "target_shape": "int_linear_arithmetic",
+      "allowed_tactic_ids": ["omega"],
+      "rejected_tactic_ids": ["aesop"],
+      "reason": "Linear arithmetic is gated to the probed arithmetic tactic."
+    },
+    {
+      "route_case_id": "conjunction_goal",
+      "target_shape": "conjunction",
+      "allowed_tactic_ids": ["simp_all"],
+      "rejected_tactic_ids": ["aesop"],
+      "reason": "Conjunction cleanup can use probed simplification only."
+    },
+    {
+      "route_case_id": "true_intro",
+      "target_shape": "true_intro",
+      "allowed_tactic_ids": ["rfl"],
+      "rejected_tactic_ids": ["aesop"],
+      "reason": "Tiny truth introduction remains in the synthetic core lane."
+    }
+  ],
+  "anti_claim": "Routing constrains synthetic tactic selection before execution; it is not a proof of success."
+}

@@ -1,0 +1,144 @@
+{
+  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or change the deferred formal_math_lean_proof_witness boundary.",
+  "authority_ceiling": {
+    "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_presence_claim_authorized": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "status": "pass"
+  },
+  "available_tactic_ids": [
+    "decide",
+    "grind",
+    "omega",
+    "rfl",
+    "simp",
+    "simp_all"
+  ],
+  "blocked_capabilities": [
+    "lean_std_synthetic_core:mathlib"
+  ],
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
+  "created_at": "2026-05-21T06:49:55+00:00",
+  "error_codes": [
+    "MATHLIB_AVAILABILITY_OVERCLAIM",
+    "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
+    "PROVIDER_RECIPE_BUDGET_EXCEEDED",
+    "PROVIDER_RECIPE_PROOF_BODY_FORBIDDEN",
+    "ROUTING_ALLOWS_UNAVAILABLE_TACTIC",
+    "TACTIC_AVAILABILITY_UNPROBED"
+  ],
+  "expected_negative_cases": [
+    "corpus_readiness_overclaims_mathlib",
+    "premise_index_proof_body_forbidden",
+    "provider_context_recipe_overclaim",
+    "routing_allows_unavailable_tactic",
+    "tactic_availability_without_probe"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "MATHLIB_AVAILABILITY_OVERCLAIM",
+      "message": "Corpus readiness attempted to claim Mathlib availability without a passing probe.",
+      "negative_case_id": "corpus_readiness_overclaims_mathlib",
+      "subject_id": "mathlib_overclaim_fixture",
+      "subject_kind": "corpus_readiness"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TACTIC_AVAILABILITY_UNPROBED",
+      "message": "Tactic availability was claimed without a probe receipt.",
+      "negative_case_id": "tactic_availability_without_probe",
+      "subject_id": "aesop",
+      "subject_kind": "tactic_availability"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
+      "message": "Premise index included forbidden proof/oracle body fields.",
+      "negative_case_id": "premise_index_proof_body_forbidden",
+      "subject_id": "Synthetic.forbidden_proof_body",
+      "subject_kind": "premise_index"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ROUTING_ALLOWS_UNAVAILABLE_TACTIC",
+      "message": "Target-shape routing allowed a tactic marked unavailable by the portfolio probe.",
+      "negative_case_id": "routing_allows_unavailable_tactic",
+      "subject_id": "mathlib_search_uses_aesop_without_probe",
+      "subject_kind": "target_shape_routing"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PROVIDER_RECIPE_BUDGET_EXCEEDED",
+      "message": "Provider context recipe exceeded the public readiness byte ceiling.",
+      "negative_case_id": "provider_context_recipe_overclaim",
+      "subject_id": "over_budget_proof_body_recipe",
+      "subject_kind": "provider_context_recipe"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PROVIDER_RECIPE_PROOF_BODY_FORBIDDEN",
+      "message": "Provider context recipe allowed or embedded proof body material.",
+      "negative_case_id": "provider_context_recipe_overclaim",
+      "subject_id": "over_budget_proof_body_recipe",
+      "subject_kind": "provider_context_recipe"
+    }
+  ],
+  "fixture_id": "first_wave.formal_math_readiness_gate",
+  "formal_proof_authority": false,
+  "input_mode": "first_wave_fixture",
+  "lean_lake_execution_authorized": false,
+  "mathlib_available": false,
+  "missing_negative_cases": [],
+  "next_boundary": "formal_math_lean_proof_witness remains deferred until a later witness slice changes the boundary with validation receipts",
+  "observed_negative_cases": {
+    "corpus_readiness_overclaims_mathlib": [
+      "MATHLIB_AVAILABILITY_OVERCLAIM"
+    ],
+    "premise_index_proof_body_forbidden": [
+      "PREMISE_INDEX_PROOF_BODY_FORBIDDEN"
+    ],
+    "provider_context_recipe_overclaim": [
+      "PROVIDER_RECIPE_BUDGET_EXCEEDED",
+      "PROVIDER_RECIPE_PROOF_BODY_FORBIDDEN"
+    ],
+    "routing_allows_unavailable_tactic": [
+      "ROUTING_ALLOWS_UNAVAILABLE_TACTIC"
+    ],
+    "tactic_availability_without_probe": [
+      "TACTIC_AVAILABILITY_UNPROBED"
+    ]
+  },
+  "organ_id": "formal_math_readiness_gate",
+  "premise_count": 11,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 10,
+    "status": "pass"
+  },
+  "provider_calls_authorized": false,
+  "receipt_id": "formal_math_readiness_gate_board_v1",
+  "receipt_paths": [
+    "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
+  ],
+  "recipe_count": 3,
+  "route_case_count": 5,
+  "schema_version": "formal_math_readiness_gate_board_v1",
+  "status": "pass",
+  "unavailable_tactic_ids": [
+    "aesop"
+  ],
+  "validator_id": "validator.microcosm.organs.formal_math_readiness_gate"
+}

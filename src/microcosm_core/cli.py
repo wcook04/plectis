@@ -6,6 +6,7 @@ from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import executable_doctrine_grammar
+from microcosm_core.organs import formal_math_readiness_gate
 from microcosm_core.organs import mission_transaction_work_spine
 from microcosm_core.organs import navigation_hologram_route_plane
 from microcosm_core.organs import pattern_binding_contract
@@ -131,6 +132,10 @@ def main(argv: list[str] | None = None) -> int:
     proof_parser = subparsers.add_parser("proof-diagnostic-evidence-spine")
     proof_parser.add_argument("action", choices=["run", "run-evidence-bundle"])
     _add_input_out(proof_parser)
+
+    formal_math_parser = subparsers.add_parser("formal-math-readiness-gate")
+    formal_math_parser.add_argument("action", choices=["run", "run-readiness-bundle"])
+    _add_input_out(formal_math_parser)
 
     navigation_parser = subparsers.add_parser("navigation-hologram-route-plane")
     navigation_parser.add_argument("action", choices=["run", "validate-route-plane-bundle"])
@@ -277,6 +282,10 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "proof-diagnostic-evidence-spine":
         return proof_diagnostic_evidence_spine.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "formal-math-readiness-gate":
+        return formal_math_readiness_gate.main(
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "navigation-hologram-route-plane":

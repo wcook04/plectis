@@ -1,0 +1,14 @@
+{
+  "schema_version": "formal_math_readiness_corpus_bundle_v1",
+  "corpora": [
+    {
+      "corpus_id": "lean_std_synthetic_core",
+      "lean_available": true,
+      "mathlib_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": true,
+      "consumer_rule": "Consumers query readiness before attempting Mathlib-dependent proof work."
+    }
+  ],
+  "anti_claim": "Readiness metadata does not authorize Lean/Lake execution."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "formal_math_readiness_corpus_fixture_v1",
+  "corpora": [
+    {
+      "corpus_id": "lean_std_synthetic_core",
+      "lean_available": true,
+      "mathlib_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": true,
+      "consumer_rule": "Consumers query mathlib availability before attempting Mathlib-dependent proof work.",
+      "authority_ceiling": "synthetic corpus readiness metadata only"
+    }
+  ],
+  "anti_claim": "This fixture records corpus readiness boundaries only. It does not authorize Lean/Lake execution or Mathlib-dependent proof attempts."
+}

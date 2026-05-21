@@ -29,6 +29,15 @@
       "body_redacted": true
     },
     {
+      "organ_id": "formal_math_readiness_gate",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
+      "closeout_refinement_result": "validator_contract_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
+    },
+    {
       "organ_id": "navigation_hologram_route_plane",
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_real_substrate_adapter_receipt_v1.json",

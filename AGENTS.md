@@ -16,6 +16,7 @@ explanation, and assimilation primitives, not through production claims.
 - `pattern_binding_contract`
 - `executable_doctrine_grammar`
 - `proof_diagnostic_evidence_spine`
+- `formal_math_readiness_gate`
 - `navigation_hologram_route_plane`
 - `mission_transaction_work_spine`
 - `agent_route_observability_runtime`

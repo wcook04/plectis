@@ -56,7 +56,8 @@
       "build_dependencies": [
         "pattern_binding_contract",
         "executable_doctrine_grammar",
-        "proof_diagnostic_evidence_spine"
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate"
       ],
       "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
       "fixture_inputs": [
@@ -73,6 +74,28 @@
         "fixtures/first_wave/navigation_hologram_route_plane/input/entry_packet_admission_floor.json",
         "fixtures/first_wave/navigation_hologram_route_plane/input/affordance_passport_selection.json",
         "fixtures/first_wave/navigation_hologram_route_plane/input/code_architecture_projection_packet.json"
+      ]
+    },
+    {
+      "organ_id": "formal_math_readiness_gate",
+      "fixture_id": "fixture::formal_math_readiness_gate::first_wave_contract_v1",
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_manifest": "core/fixture_manifests/formal_math_readiness_gate.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/formal_math_readiness_gate/input/corpus_readiness.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/target_shape_tactic_routing.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/provider_context_recipes.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/corpus_readiness_overclaims_mathlib.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/tactic_claims_availability_without_probe.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/premise_index_with_proof_body.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/routing_allows_unavailable_tactic.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/provider_context_recipe_overclaim.json"
       ]
     },
     {

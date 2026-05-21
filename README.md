@@ -152,11 +152,15 @@ the local substrate loop:
 1. `pattern_binding_contract`
 2. `executable_doctrine_grammar`
 3. `proof_diagnostic_evidence_spine`
-4. `navigation_hologram_route_plane`
-5. `mission_transaction_work_spine`
-6. `agent_route_observability_runtime`
-7. `pattern_assimilation_step`
+4. `formal_math_readiness_gate`
+5. `navigation_hologram_route_plane`
+6. `mission_transaction_work_spine`
+7. `agent_route_observability_runtime`
+8. `pattern_assimilation_step`
 
+`formal_math_readiness_gate` is accepted as a metadata-only readiness boundary:
+it validates synthetic corpus, tactic, premise, route, and provider-context
+policy packets without executing Lean/Lake or exposing proof bodies.
 `formal_math_lean_proof_witness` remains deferred. Lean/Lake is not authorized
 by this public root. Fixtures and exported bundles are regression inputs and
 examples; they are not the primary product runtime.
@@ -168,6 +172,7 @@ PYTHONPATH=src python3 -m microcosm_core.validators.private_state_scan --root . 
 PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
 PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json
+PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate
 PYTHONPATH=src python3 -m microcosm_core.validators.research_kernel_density --root . --project /tmp/microcosm-scratch --out receipts/first_wave/research_kernel_density.json
 PYTHONPATH=src python3 -m microcosm_core.validators.transaction_evidence_stability --root . --project /tmp/microcosm-scratch --out receipts/first_wave/transaction_evidence_stability.json
 PYTHONPATH=src python3 -m microcosm_core.validators.observatory_legibility --root . --project /tmp/microcosm-scratch --out receipts/first_wave/observatory_legibility.json

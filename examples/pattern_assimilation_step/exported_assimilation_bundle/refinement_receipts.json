@@ -35,6 +35,17 @@
       "body_redacted": true
     },
     {
+      "receipt_id": "refine_formal_math_readiness_exported_bundle",
+      "organ_id": "formal_math_readiness_gate",
+      "refinement_result": "validator_contract_refined",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/formal_math_readiness_gate.py",
+      "changed_surface_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "projection_not_authority": true,
+      "body_redacted": true
+    },
+    {
       "receipt_id": "refine_observability_exported_bundle",
       "organ_id": "agent_route_observability_runtime",
       "refinement_result": "validator_contract_refined",

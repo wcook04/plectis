@@ -3,7 +3,7 @@
   "reentry_conditions": [
     {
       "condition_id": "ordered_adapter_lane_completion_audit_reentry",
-      "reentry_condition": "rerun when the ordered adapter lane completion reducer checks all seven adapter-backed organs and clean-clone status",
+      "reentry_condition": "rerun when the ordered adapter lane completion reducer checks all eight adapter-backed organs and clean-clone status",
       "projection_not_authority": true,
       "release_authorized": false,
       "body_redacted": true

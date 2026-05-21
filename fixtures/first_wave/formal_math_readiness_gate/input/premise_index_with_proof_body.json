@@ -1,0 +1,15 @@
+{
+  "schema_version": "formal_math_readiness_negative_premise_body_v1",
+  "expected_negative_case_id": "premise_index_proof_body_forbidden",
+  "premises": [
+    {
+      "premise_id": "Synthetic.forbidden_proof_body",
+      "namespace": "Synthetic",
+      "retrieval_terms": ["forbidden", "proof"],
+      "allowed_for_split": ["train"],
+      "source_ref": "Synthetic/Forbidden",
+      "proof_body": "synthetic redacted proof payload"
+    }
+  ],
+  "authority_ceiling": "premise rows must never carry proof or oracle bodies"
+}

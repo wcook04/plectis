@@ -2,6 +2,7 @@
   "acceptance_commands": [
     "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
     "python -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json",
+    "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
     "python -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
     "python -m microcosm_core.validators.fixture_freshness --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --mission-dag ../state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json --receipt-coverage ../state/microcosm_portfolio/reconstruction/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json"
@@ -42,6 +43,18 @@
       "organ_id": "proof_diagnostic_evidence_spine",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
+      ],
+      "organ_id": "formal_math_readiness_gate",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate"
     },
     {
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",

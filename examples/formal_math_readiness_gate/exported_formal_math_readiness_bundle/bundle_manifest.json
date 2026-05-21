@@ -1,0 +1,15 @@
+{
+  "schema_version": "formal_math_readiness_exported_bundle_manifest_v1",
+  "bundle_id": "public_formal_math_readiness_runtime_example",
+  "bundle_kind": "exported_formal_math_readiness_bundle",
+  "organ_id": "formal_math_readiness_gate",
+  "runtime_surfaces": [
+    "corpus_readiness",
+    "tactic_portfolio_availability",
+    "premise_index",
+    "target_shape_tactic_routing",
+    "provider_context_recipes"
+  ],
+  "authority_ceiling": "public formal math readiness metadata only",
+  "anti_claim": "This bundle is standalone readiness metadata. It does not run Lean or Lake, call providers, expose proof bodies, or authorize formal proof authority."
+}

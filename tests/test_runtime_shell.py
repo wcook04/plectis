@@ -26,7 +26,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     status = shell.status()
 
     assert status["status"] == "pass"
-    assert status["adapter_backed_organ_count"] == 7
+    assert status["adapter_backed_organ_count"] == 8
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
@@ -46,12 +46,13 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     assert result["status"] == "pass"
-    assert len(result["events"]) == 7
-    assert [event["status"] for event in result["events"]] == ["pass"] * 7
+    assert len(result["events"]) == 8
+    assert [event["status"] for event in result["events"]] == ["pass"] * 8
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
         "exported_standards_bundle",
         "exported_evidence_bundle",
+        "exported_formal_math_readiness_bundle",
         "exported_route_plane_bundle",
         "exported_mission_transaction_bundle",
         "exported_observability_bundle",
@@ -63,8 +64,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
     assert trace["status"] == "pass"
-    assert trace["otel_shape"]["span_count"] == 7
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 7
+    assert trace["otel_shape"]["span_count"] == 8
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 8
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -136,7 +137,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
-    assert payload["adapter_backed_organ_count"] == 7
+    assert payload["adapter_backed_organ_count"] == 8
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
     assert observatory["causal_chain"]["work_transaction"]["work_id"] == "work_0001"

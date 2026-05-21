@@ -3,6 +3,7 @@
     "pattern_binding_contract",
     "executable_doctrine_grammar",
     "proof_diagnostic_evidence_spine",
+    "formal_math_readiness_gate",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "agent_route_observability_runtime",
@@ -32,7 +33,7 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 8,
+    "scanned_path_count": 9,
     "status": "pass"
   },
   "receipt_paths": [
@@ -44,6 +45,7 @@
     "paper_modules/pattern_binding_contract.md",
     "paper_modules/executable_doctrine_grammar.md",
     "paper_modules/proof_diagnostic_evidence_spine.md",
+    "paper_modules/formal_math_readiness_gate.md",
     "paper_modules/formal_math_lean_proof_witness.md",
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md"

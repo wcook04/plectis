@@ -31,7 +31,7 @@ def test_first_wave_acceptance_plan_keeps_deferred_boundaries() -> None:
     )
 
     assert acceptance["status"] == "accepted_runtime_spine_lean_deferred"
-    assert len(acceptance["accepted_current_authority_organs"]) == 7
+    assert len(acceptance["accepted_current_authority_organs"]) == 8
     assert {row["organ_id"] for row in acceptance["deferred_organs"]} == {
         "formal_math_lean_proof_witness"
     }
@@ -65,6 +65,7 @@ def test_acceptance_summary_records_runtime_spine_without_lean_authority(tmp_pat
         "pattern_binding_contract",
         "executable_doctrine_grammar",
         "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
         "navigation_hologram_route_plane",
         "mission_transaction_work_spine",
         "agent_route_observability_runtime",

@@ -1,0 +1,83 @@
+{
+  "schema_version": "formal_math_readiness_premise_index_fixture_v1",
+  "premises": [
+    {
+      "premise_id": "Nat.add_comm",
+      "namespace": "Nat",
+      "retrieval_terms": ["addition", "commutative", "nat"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Prelude"
+    },
+    {
+      "premise_id": "Nat.add_assoc",
+      "namespace": "Nat",
+      "retrieval_terms": ["addition", "associative", "nat"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Prelude"
+    },
+    {
+      "premise_id": "Nat.mul_comm",
+      "namespace": "Nat",
+      "retrieval_terms": ["multiplication", "commutative", "nat"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Prelude"
+    },
+    {
+      "premise_id": "Bool.and_comm",
+      "namespace": "Bool",
+      "retrieval_terms": ["and", "commutative", "bool"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Prelude"
+    },
+    {
+      "premise_id": "Bool.or_comm",
+      "namespace": "Bool",
+      "retrieval_terms": ["or", "commutative", "bool"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Prelude"
+    },
+    {
+      "premise_id": "List.length_append",
+      "namespace": "List",
+      "retrieval_terms": ["list", "length", "append"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Data/List"
+    },
+    {
+      "premise_id": "List.map_append",
+      "namespace": "List",
+      "retrieval_terms": ["list", "map", "append"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Data/List"
+    },
+    {
+      "premise_id": "List.append_assoc",
+      "namespace": "List",
+      "retrieval_terms": ["list", "append", "associative"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Data/List"
+    },
+    {
+      "premise_id": "Iff.intro",
+      "namespace": "Iff",
+      "retrieval_terms": ["iff", "intro", "bidirectional"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Logic"
+    },
+    {
+      "premise_id": "Iff.mp",
+      "namespace": "Iff",
+      "retrieval_terms": ["iff", "forward", "mp"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Logic"
+    },
+    {
+      "premise_id": "Iff.mpr",
+      "namespace": "Iff",
+      "retrieval_terms": ["iff", "reverse", "mpr"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "source_ref": "Init/Logic"
+    }
+  ],
+  "anti_claim": "The premise index is a synthetic closed prior boundary, not a proof search corpus or Mathlib authorization."
+}

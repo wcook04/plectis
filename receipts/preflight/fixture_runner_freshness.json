@@ -22,6 +22,10 @@
     "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
     "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
+    "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
     "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
     "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json",
     "receipts/first_wave/navigation_hologram_route_plane/entry_payload_admission_receipt.json",
@@ -48,6 +52,7 @@
   "fixture_manifest_sha256_by_organ": {
     "agent_route_observability_runtime": "6210d5009758be863a756d55a1e3065a681ba46590fb2ab169127d0dfb840f94",
     "executable_doctrine_grammar": "8e4823de0700ab1628e241e96f1d3f844683bbf93117773fcd28bcda22901bec",
+    "formal_math_readiness_gate": "8f7a608c64b850510422537b429188d5c4e1526ac54dce1317e2e6b7ce1f5b9c",
     "mission_transaction_work_spine": "8dce6942acadfc9abd3132cf76122c46cb3a9ac156902256e7ec898af25160e1",
     "navigation_hologram_route_plane": "5f798f653d68556a83c69e9398bdc8f0671ee7a63bbefe3f4c71576f80ad36f7",
     "pattern_assimilation_step": "950fdb3b6731736f14d7974b2d4e54113056e754bf075026f86a4f9fcf65d4e0",
@@ -64,6 +69,18 @@
       "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md": "5ed0705fc2f16c98c854be2c52ac163af1239a666e3abb8bdbad3061791d0c7d",
       "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md": "287ed2b322cc94f1a64340bf7010586015f566ecbfbbd206cc1813429a1768f9",
       "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json": "9ca032f1ad42662c09078ed12b10cf39246c184841d300b4bd5d9a9ceada362a"
+    },
+    "formal_math_readiness_gate": {
+      "fixtures/first_wave/formal_math_readiness_gate/input/corpus_readiness.json": "756329193a13d544a73e6749fdc1e6a765b349575ea9df8c5bb1b26aa5ab5d8d",
+      "fixtures/first_wave/formal_math_readiness_gate/input/corpus_readiness_overclaims_mathlib.json": "107aeab98f078521633314d0bd689f8f677d0551159ab5973bba0fbf67f2892b",
+      "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json": "570b6144c3899a021f4eddcaaacb1d27e6546b051a19bef212b7defc2ae668aa",
+      "fixtures/first_wave/formal_math_readiness_gate/input/premise_index_with_proof_body.json": "a757bbdc87461bace28a8d20e139a7d3480f3cf9bd11fc819376dd6fd70e0329",
+      "fixtures/first_wave/formal_math_readiness_gate/input/provider_context_recipe_overclaim.json": "5e70296702c6949ec8061c026db8bdb8001a6f69061ed2e8b5e13a83c074023a",
+      "fixtures/first_wave/formal_math_readiness_gate/input/provider_context_recipes.json": "f1fa25669489e086146feb056cf950c41201e37a744bf2ff20295626d4f05315",
+      "fixtures/first_wave/formal_math_readiness_gate/input/routing_allows_unavailable_tactic.json": "4a6e179023e715d6e76a2bdf702ab36acb1bb5151466a170b8ef5ea7bc979a98",
+      "fixtures/first_wave/formal_math_readiness_gate/input/tactic_claims_availability_without_probe.json": "b153d72a29376219220422d1df4cf72e9ed0d4a8fd53e91bd0a4a2c9778e41b1",
+      "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json": "430a9ab342e3e886b4faaf287df4e0ec1f2a81e93c6d340c5d600ce2b5213f04",
+      "fixtures/first_wave/formal_math_readiness_gate/input/target_shape_tactic_routing.json": "ff048832818019cb99b669fbcc24abc4d3847fecdefc19a5d0c3e9209690c3b9"
     },
     "mission_transaction_work_spine": {
       "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl": "c0ff9155472b1c16dde71b98cd3a60e083ac9b5da275a17768d26887a770a332",

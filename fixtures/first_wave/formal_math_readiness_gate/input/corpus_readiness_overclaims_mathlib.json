@@ -1,0 +1,9 @@
+{
+  "schema_version": "formal_math_readiness_negative_corpus_overclaim_v1",
+  "expected_negative_case_id": "corpus_readiness_overclaims_mathlib",
+  "corpus_id": "mathlib_overclaim_fixture",
+  "mathlib_available": true,
+  "mathlib_probe_status": "ENVIRONMENT_FAIL",
+  "claims_mathlib_available": true,
+  "authority_ceiling": "must be rejected before Mathlib-dependent proof work"
+}

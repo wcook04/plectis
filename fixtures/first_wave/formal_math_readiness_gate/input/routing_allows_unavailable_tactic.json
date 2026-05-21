@@ -1,0 +1,14 @@
+{
+  "schema_version": "formal_math_readiness_negative_route_allows_unavailable_tactic_v1",
+  "route_cases": [
+    {
+      "expected_negative_case_id": "routing_allows_unavailable_tactic",
+      "route_case_id": "mathlib_search_uses_aesop_without_probe",
+      "target_shape": "mathlib_search",
+      "allowed_tactic_ids": ["aesop"],
+      "rejected_tactic_ids": [],
+      "reason": "Negative fixture: unavailable tactic was admitted."
+    }
+  ],
+  "authority_ceiling": "routing must reject tactics unavailable in the portfolio probe"
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "formal_math_readiness_tactic_portfolio_fixture_v1",
+  "tactics": [
+    {
+      "tactic_id": "rfl",
+      "availability_status": "pass",
+      "probe_receipt_ref": "synthetic_probe:rfl"
+    },
+    {
+      "tactic_id": "decide",
+      "availability_status": "pass",
+      "probe_receipt_ref": "synthetic_probe:decide"
+    },
+    {
+      "tactic_id": "omega",
+      "availability_status": "pass",
+      "probe_receipt_ref": "synthetic_probe:omega"
+    },
+    {
+      "tactic_id": "simp",
+      "availability_status": "pass",
+      "probe_receipt_ref": "synthetic_probe:simp"
+    },
+    {
+      "tactic_id": "simp_all",
+      "availability_status": "pass",
+      "probe_receipt_ref": "synthetic_probe:simp_all"
+    },
+    {
+      "tactic_id": "grind",
+      "availability_status": "pass",
+      "probe_receipt_ref": "synthetic_probe:grind"
+    },
+    {
+      "tactic_id": "aesop",
+      "availability_status": "environment_fail",
+      "probe_receipt_ref": "synthetic_probe:aesop",
+      "failure_class": "mathlib_import_absent"
+    }
+  ],
+  "anti_claim": "A tactic row reports synthetic probe callability in the declared readiness fixture only."
+}
