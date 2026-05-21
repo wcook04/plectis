@@ -83,6 +83,7 @@ microcosm work run /tmp/microcosm-scratch
 microcosm observe /tmp/microcosm-scratch
 microcosm graph /tmp/microcosm-scratch
 microcosm evidence list /tmp/microcosm-scratch
+microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 ```
 
 The same commands work without installing the console script:
@@ -102,7 +103,6 @@ microcosm status
 microcosm run examples/runtime_shell/demo_project
 microcosm route list
 microcosm evidence list
-microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 ```
 
 Evidence receipts are the black-box recorder, not the cockpit. Start with the
