@@ -781,6 +781,91 @@ def list_evidence(project_path: str | Path) -> dict[str, Any]:
     }
 
 
+def compile_project(project_path: str | Path) -> dict[str, Any]:
+    """Run the safe public substrate loop over a user-owned project."""
+    project = Path(project_path).expanduser().resolve(strict=False)
+    if not (_state_dir(project) / "project_manifest.json").is_file():
+        init_project(project)
+    index_result = index_project(project)
+    catalog = catalog_project(project)
+    architecture = architecture_project(project)
+    patterns = discover_patterns(project)
+    routes = propose_routes(project)
+    route_rows = [
+        row for row in routes.get("routes", []) if isinstance(row, dict)
+    ]
+    selected_route = next(
+        (row for row in route_rows if row.get("route_id") == "readme_onboarding_route"),
+        route_rows[0] if route_rows else {},
+    )
+    route_id = str(selected_route.get("route_id") or "")
+    explanation = explain_route(project, route_id) if route_id else {}
+    work_result = run_work(project)
+    observed = observe_project(project)
+    graph = state_graph(project)
+    evidence = list_evidence(project)
+    work_id = work_result.get("work_id")
+    state_files = [
+        f"{STATE_DIR}/catalog.json",
+        f"{STATE_DIR}/patterns.json",
+        f"{STATE_DIR}/routes.json",
+        f"{STATE_DIR}/work_items.json",
+        f"{STATE_DIR}/{EVENT_STREAM}",
+        f"{STATE_DIR}/evidence/",
+        f"{STATE_DIR}/graph.json",
+        f"{STATE_DIR}/explanations/",
+    ]
+    return {
+        **_base_payload("microcosm_project_compile_result_v1", project),
+        "headline": "repo -> .microcosm",
+        "what_happened": [
+            f"created or reused {STATE_DIR}/",
+            f"indexed {index_result.get('file_count', 0)} files",
+            f"detected {patterns.get('passing_pattern_count', 0)} passing patterns",
+            f"opened {routes.get('route_count', 0)} routes",
+            f"explained {route_id}" if route_id else "no route available to explain",
+            f"ran {work_id}" if work_id else "no work item available",
+            f"emitted {observed.get('event_count', 0)} events",
+            f"wrote {evidence.get('evidence_count', 0)} evidence refs",
+        ],
+        "project_ref": ".",
+        "state_ref": STATE_DIR,
+        "state_files": state_files,
+        "file_count": index_result.get("file_count", 0),
+        "role_counts": catalog.get("role_counts", {}),
+        "primitive_ids": architecture.get("primitive_ids", []),
+        "passing_pattern_count": patterns.get("passing_pattern_count", 0),
+        "route_count": routes.get("route_count", 0),
+        "route_ids": [str(row.get("route_id")) for row in route_rows if row.get("route_id")],
+        "selected_route_id": route_id,
+        "resolved_pattern_refs": explanation.get("pattern_refs", []),
+        "resolved_standard_pressure_refs": explanation.get("standard_pressure_refs", []),
+        "work_id": work_id,
+        "transaction_status": work_result.get("transaction_status"),
+        "idempotent_replay": work_result.get("idempotent_replay", False),
+        "event_count": observed.get("event_count", 0),
+        "evidence_count": evidence.get("evidence_count", 0),
+        "graph_summary": {
+            "node_count": graph.get("node_count", 0),
+            "edge_count": graph.get("edge_count", 0),
+            "graph_ref": f"{STATE_DIR}/graph.json",
+        },
+        "open_observatory": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "source_files_mutated": False,
+        "authority_ceiling": {
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "source_files_mutated": False,
+            "private_data_equivalence_authorized": False,
+        },
+        "anti_claim": (
+            "Compile builds project-local public substrate state only. It does not "
+            "authorize release, hosting, provider calls, source mutation, private-data "
+            "equivalence, live Task Ledger mutation, or production readiness."
+        ),
+    }
+
+
 def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     rel = evidence_ref.removeprefix(f"{STATE_DIR}/")
@@ -834,6 +919,8 @@ def build_parser() -> argparse.ArgumentParser:
     patterns_parser.add_argument("project")
     route_parser = subparsers.add_parser("route")
     route_parser.add_argument("project")
+    compile_parser = subparsers.add_parser("compile")
+    compile_parser.add_argument("project")
     graph_parser = subparsers.add_parser("graph")
     graph_parser.add_argument("project")
     explain_parser = subparsers.add_parser("explain")
@@ -874,6 +961,8 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(discover_patterns(args.project))
     if args.command == "route":
         return _print_json(propose_routes(args.project))
+    if args.command == "compile":
+        return _print_json(compile_project(args.project))
     if args.command == "graph":
         return _print_json(state_graph(args.project))
     if args.command == "explain":

@@ -103,12 +103,16 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Receipts Are Authority" not in agents
     assert "macro reconstruction contracts" not in agents
     assert "local project operating substrate" in normalized_text
+    assert "repo -> .microcosm" in text
+    assert "microcosm compile ." in text
     assert "executable research prototype" in text
     assert "Architecture Kernel" in text
     assert "microcosm explain <project> <route_id>" in text
     assert "Evidence receipts are the black-box recorder" in text
     assert "executable research prototype" in normalized_agents
     assert "local project operating substrate" in normalized_agents
+    assert "microcosm compile <project>" in agents
+    assert "repo -> `.microcosm`" in agents
     assert "Fixtures Are Tests" in agents
     assert "Receipts Are Evidence" in agents
 

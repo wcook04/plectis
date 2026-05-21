@@ -25,10 +25,12 @@ explanation, and assimilation primitives, not through production claims.
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. The primary product loop is `microcosm init <project>`, `microcosm index
-   <project>`, `microcosm architecture <project>`, `microcosm route <project>`,
-   `microcosm explain <project> <route_id>`, `microcosm work run <project>`,
-   `microcosm observe <project>`, and `microcosm evidence list <project>`.
+2. The compressed product loop is `microcosm compile <project>`: repo -> `.microcosm`.
+   The expanded loop is `microcosm init <project>`,
+   `microcosm index <project>`, `microcosm architecture <project>`,
+   `microcosm route <project>`, `microcosm explain <project> <route_id>`,
+   `microcosm work run <project>`, `microcosm observe <project>`, and
+   `microcosm evidence list <project>`.
    Public input bundles and organ demos are compatibility/regression surfaces,
    not the product center.
    Architecture primitives must resolve through the project-local pattern

@@ -1,22 +1,51 @@
 # Microcosm Substrate
 
-Microcosm is an executable research prototype of a local project operating
-substrate: it catalogs a folder you bring, discovers repo-shape patterns,
-proposes routes, records governed work transactions, and emits observable
-events with evidence available as drilldown.
+`repo -> .microcosm`: turn any folder into an inspectable work substrate.
 
-It is small on purpose. The repo is a dense public miniature of a larger
-architecture, not production infrastructure and not a hosted agent platform.
-The point is to make the architecture executable enough to inspect.
+Microcosm compiles your project folder into local state: catalog, patterns,
+routes, a governed work transaction, events, evidence, and a tiny observatory.
+It does not mutate your source files or call providers.
 
-## What You Bring
+## Try It On Your Repo
 
-A project folder. It can be a tiny scratch repo, an application, a library, or
-any directory with code, docs, tests, scripts, or package metadata.
+```bash
+python -m pip install -e '.[test]'
+microcosm compile .
+microcosm serve . --host 127.0.0.1 --port 8765
+```
+
+Open `http://127.0.0.1:8765` to see the causal chain. The output folder is
+`.microcosm/`.
+
+## Before / After
+
+Before:
+
+```text
+my-repo/
+  README.md
+  pyproject.toml
+  src/
+  tests/
+```
+
+After:
+
+```text
+my-repo/.microcosm/
+  catalog.json
+  patterns.json
+  routes.json
+  work_items.json
+  events.jsonl
+  evidence/
+  graph.json
+  explanations/
+```
 
 ## What You Get
 
-Microcosm creates project-local state in `.microcosm/`:
+Microcosm creates project-local substrate state in `.microcosm/`:
 
 - `project_manifest.json`
 - `architecture.json`
@@ -34,6 +63,10 @@ The state is a local projection over your project. It does not mutate your
 source files, call providers, publish anything, or claim source authority.
 
 ## Research Prototype Contract
+
+Microcosm is an executable research prototype of a local project operating
+substrate. It is small on purpose: a dense public miniature of a larger
+architecture, not production infrastructure and not a hosted agent platform.
 
 1. Bring a folder.
 2. Watch Microcosm build a local project substrate.
@@ -71,17 +104,9 @@ printf '[project]\nname = "scratch-project"\nversion = "0.1.0"\n' > /tmp/microco
 printf 'VALUE = 1\n' > /tmp/microcosm-scratch/src/app/__init__.py
 printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' > /tmp/microcosm-scratch/tests/test_app.py
 
-microcosm init /tmp/microcosm-scratch
-microcosm index /tmp/microcosm-scratch
-microcosm catalog /tmp/microcosm-scratch
-microcosm architecture /tmp/microcosm-scratch
-microcosm patterns /tmp/microcosm-scratch
-microcosm route /tmp/microcosm-scratch
+microcosm compile /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
-microcosm work create /tmp/microcosm-scratch
-microcosm work run /tmp/microcosm-scratch
 microcosm observe /tmp/microcosm-scratch
-microcosm graph /tmp/microcosm-scratch
 microcosm evidence list /tmp/microcosm-scratch
 microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 ```
@@ -89,9 +114,7 @@ microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 The same commands work without installing the console script:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli init /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli index /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli route /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli observe /tmp/microcosm-scratch
 ```
@@ -148,6 +171,7 @@ PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . -
 PYTHONPATH=src python3 -m microcosm_core.validators.research_kernel_density --root . --project /tmp/microcosm-scratch --out receipts/first_wave/research_kernel_density.json
 PYTHONPATH=src python3 -m microcosm_core.validators.transaction_evidence_stability --root . --project /tmp/microcosm-scratch --out receipts/first_wave/transaction_evidence_stability.json
 PYTHONPATH=src python3 -m microcosm_core.validators.observatory_legibility --root . --project /tmp/microcosm-scratch --out receipts/first_wave/observatory_legibility.json
+PYTHONPATH=src python3 -m microcosm_core.validators.launch_compression --root . --project /tmp/microcosm-scratch --out receipts/first_wave/launch_compression.json
 ./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
 python -m pytest -q
 ```

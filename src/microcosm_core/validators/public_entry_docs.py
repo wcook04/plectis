@@ -37,6 +37,8 @@ ACCEPTED_ORGAN_IDS = [
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
+        "repo -> .microcosm",
+        "microcosm compile .",
         "executable research prototype",
         "local project operating substrate",
         ".microcosm/",
@@ -48,6 +50,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "not authorize release",
     ],
     "AGENTS.md": [
+        "microcosm compile <project>",
+        "repo -> `.microcosm`",
         "executable research prototype",
         "local project operating substrate",
         "microcosm init <project>",

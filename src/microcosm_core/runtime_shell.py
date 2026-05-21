@@ -279,6 +279,7 @@ class RuntimeShell:
                     "microcosm index <project>",
                     "microcosm catalog <project>",
                     "microcosm architecture <project>",
+                    "microcosm compile <project>",
                     "microcosm patterns <project>",
                     "microcosm route <project>",
                     "microcosm explain <project> <route_id>",
@@ -313,8 +314,7 @@ class RuntimeShell:
             "release_authorized": False,
             "next_actions": [
                 "run microcosm init <project>",
-                "run microcosm index <project>",
-                "run microcosm route <project>",
+                "run microcosm compile <project>",
                 "run microcosm explain <project> <route_id>",
                 "open evidence only when drilldown is needed",
             ],

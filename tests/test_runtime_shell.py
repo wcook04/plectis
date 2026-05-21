@@ -30,6 +30,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
+    assert "microcosm compile <project>" in status["runtime_surface"]["commands"]
     assert "microcosm route <project>" in status["runtime_surface"]["commands"]
     assert "microcosm explain <project> <route_id>" in status["runtime_surface"]["commands"]
     assert "microcosm evidence list <project>" in status["runtime_surface"]["commands"]

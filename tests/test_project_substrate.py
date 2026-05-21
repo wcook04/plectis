@@ -40,6 +40,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     graph = project_substrate.state_graph(project)
     evidence = project_substrate.list_evidence(project)
     inspected = project_substrate.inspect_evidence(project, str(run["evidence_ref"]))
+    compiled = project_substrate.compile_project(project)
 
     assert init_result["status"] == "pass"
     assert index_result["file_count"] == 4
@@ -126,6 +127,13 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert evidence["evidence_count"] >= 6
     assert inspected["status"] == "pass"
     assert inspected["body_redacted"] is True
+    assert compiled["status"] == "pass"
+    assert compiled["headline"] == "repo -> .microcosm"
+    assert compiled["selected_route_id"] == "readme_onboarding_route"
+    assert compiled["work_id"] == "work_0001"
+    assert compiled["idempotent_replay"] is True
+    assert compiled["source_files_mutated"] is False
+    assert "microcosm serve <project>" in compiled["open_observatory"]
 
     state_files = {
         ".microcosm/project_manifest.json",
@@ -155,6 +163,7 @@ def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
         ["index", project.as_posix()],
         ["catalog", project.as_posix()],
         ["architecture", project.as_posix()],
+        ["compile", project.as_posix()],
         ["patterns", project.as_posix()],
         ["route", project.as_posix()],
         ["explain", project.as_posix(), "readme_onboarding_route"],

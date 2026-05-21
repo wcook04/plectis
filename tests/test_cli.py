@@ -29,7 +29,8 @@ def test_package_metadata_describes_runtime_spine() -> None:
     project = payload["project"]
     description = project["description"]
 
-    assert "local project operating substrate" in description
+    assert "repo -> .microcosm" in description
+    assert "inspectable work substrate" in description
     assert "first-slice" not in description
     assert project["readme"] == "README.md"
     assert project["license"] == {"file": "LICENSE"}
@@ -50,6 +51,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "init",
         "index",
         "catalog",
+        "compile",
         "patterns",
         "route",
         "work",
@@ -57,6 +59,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "evidence",
         "private-state-scan",
         "public-entry-docs",
+        "launch-compression",
         "standards-registry",
         "dependency-preflight",
         "fixture-freshness",

@@ -13,6 +13,7 @@ from microcosm_core.organs import proof_diagnostic_evidence_spine
 from microcosm_core.validators import acceptance
 from microcosm_core.validators import dependency_preflight
 from microcosm_core.validators import fixture_freshness
+from microcosm_core.validators import launch_compression
 from microcosm_core.validators import observatory_legibility
 from microcosm_core.validators import private_state_scan
 from microcosm_core.validators import public_entry_docs
@@ -48,6 +49,8 @@ def main(argv: list[str] | None = None) -> int:
     catalog_parser.add_argument("project")
     architecture_parser = subparsers.add_parser("architecture")
     architecture_parser.add_argument("project")
+    compile_parser = subparsers.add_parser("compile")
+    compile_parser.add_argument("project")
     graph_parser = subparsers.add_parser("graph")
     graph_parser.add_argument("project")
     explain_parser = subparsers.add_parser("explain")
@@ -99,6 +102,9 @@ def main(argv: list[str] | None = None) -> int:
     observatory_parser = subparsers.add_parser("observatory-legibility")
     _add_root_out(observatory_parser)
     observatory_parser.add_argument("--project", required=True)
+    launch_parser = subparsers.add_parser("launch-compression")
+    _add_root_out(launch_parser)
+    launch_parser.add_argument("--project", required=True)
 
     standards_parser = subparsers.add_parser("standards-registry")
     standards_parser.add_argument("--registry", required=True)
@@ -151,6 +157,8 @@ def main(argv: list[str] | None = None) -> int:
         return project_substrate.main(["catalog", args.project])
     if args.command == "architecture":
         return project_substrate.main(["architecture", args.project])
+    if args.command == "compile":
+        return project_substrate.main(["compile", args.project])
     if args.command == "graph":
         return project_substrate.main(["graph", args.project])
     if args.command == "explain":
@@ -216,6 +224,10 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "observatory-legibility":
         return observatory_legibility.main(
+            ["--root", args.root, "--project", args.project, "--out", args.out]
+        )
+    if args.command == "launch-compression":
+        return launch_compression.main(
             ["--root", args.root, "--project", args.project, "--out", args.out]
         )
     if args.command == "standards-registry":
