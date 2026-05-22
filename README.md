@@ -6,6 +6,26 @@ Microcosm compiles your project folder into local state: catalog, patterns,
 routes, a governed work transaction, events, evidence, and a tiny observatory.
 It does not mutate your source files or call providers.
 
+<!-- BEGIN microcosm_release_claim_projection -->
+## Release Truth Snapshot
+
+_This block is generated from `core/public_claim_cards.json` by `python -m microcosm_core.release_claim_projection --root . --check-readme`. Do not hand-edit inside the markers._
+
+**Audience:** AI safety and agent reliability researchers evaluating public claim/evidence boundaries before trusting ambitious labels.
+
+**Run first:** `microcosm compile .` -> `microcosm authority` -> `microcosm reveal`
+
+| First-contact claim | Evidence class | Backing proof | Boundary |
+|---|---|---|---|
+| Local project substrate | `real_project_lens` | `examples/runtime_shell/demo_project/.microcosm/routes.json` | local projection only; no source mutation, provider calls, hosting, or publication authority |
+| Evidence strength disclosure | `claim_projection` | `receipts/runtime_shell/public_authority_map.json` | evidence metadata only; not release readiness, benchmark performance, or whole-system correctness |
+| Public macro-pattern import membrane | `macro_pattern_projection` | `receipts/runtime_shell/public_projection_import_map_lens.json` | public-safe body/provenance projection only; no private body import or private-root equivalence |
+| Bounded Lean/Lake witness | `bounded_execution` | `receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json` | bounded subprocess witness only; no general theorem-solving or Mathlib proof authority |
+| Schema-only safety replay boundary | `synthetic_fixture_replay` | `receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json` | synthetic fixture replay only; no live safety, benchmark, security, or model-transparency claim |
+
+**Demotion rule:** schema-only replay organs render as synthetic claim-schema fixtures unless a stronger `evidence_class` and receipt-backed demo are present.
+<!-- END microcosm_release_claim_projection -->
+
 ## Try It On Your Repo
 
 ```bash
