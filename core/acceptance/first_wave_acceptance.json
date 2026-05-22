@@ -602,7 +602,7 @@
       "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
     }
   ],
-  "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, private-data equivalence, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",
+  "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, secret export, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",
   "authority_ceiling": {
     "acceptance_authority": "current_authority_public_runtime_spine_and_public_standard_file_presence_only",
     "benchmark_integrity_authority": "synthetic replay receipts only; no benchmark score authority",

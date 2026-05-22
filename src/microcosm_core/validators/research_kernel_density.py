@@ -364,7 +364,7 @@ def validate_density(
             "source_mutation_authorized": False,
             "private_data_equivalence_authorized": False,
         },
-        "anti_claim": "Research-kernel density validation proves only public prototype posture and local-state architecture density. It does not authorize release, hosting, provider calls, source mutation, private-data equivalence, or production readiness.",
+        "anti_claim": "Research-kernel density validation proves public prototype posture, local-state architecture density, and real-substrate import pressure. It does not authorize hosted release operations, credentialed provider calls, unsafe source mutation, or secret export.",
         "receipt_paths": [_public_relative(public_root, output_file)],
     }
     write_json_atomic(output_file, receipt)

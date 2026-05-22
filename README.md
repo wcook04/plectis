@@ -36,6 +36,33 @@ Use `microcosm authority` before trusting any organ label. It shows each
 organ's explicit `evidence_class`, and `accepted_current_authority` is not an
 evidence-strength claim.
 
+## Real Substrate Posture
+
+Microcosm is the public repo form of the macro system, reorganized so the
+capabilities are inspectable in a clean clone instead of buried in the private
+root. It is not a synthetic safety proxy, a provenance brochure, or a
+metadata-only substitute for the system.
+
+Public should carry private by default: import, refactor, or export as much of
+the macro substrate as possible into this tree, then bind it to commands,
+fixtures, receipts, standards, and tests. Synthetic fixtures are allowed only
+as regression wrappers, negative cases, or small inputs around a real
+mechanism.
+
+The exclusion set is narrow: secrets and credential-equivalent live access
+(`.env` files, API keys, tokens, passwords, private keys, cookies, browser
+profiles, keychains, account sessions, and direct credential-bearing payloads),
+raw operator voice, slurs or abusive wording, private personal material, and
+other clearly unsafe or non-releasable content. "Private state", "release
+authority", "provenance", "activation", or "maturity" is not a reason to ship
+a fake stand-in. Hosted launch and recipient sends are operational decisions
+outside this repo; they do not block source-available content from being
+imported here.
+
+Any `body_copied=true` claim must name the source file, target file, and
+validator or receipt that proves the import. A source ref, digest, label, or
+replacement pointer is not an imported body.
+
 ## Before / After
 
 Before:
@@ -80,14 +107,15 @@ Microcosm creates project-local substrate state in `.microcosm/`:
 - `explanations/*.json`
 - `evidence/*.json`
 
-The state is a local projection over your project. It does not mutate your
-source files, call providers, publish anything, or claim source authority.
+The state is real project-local substrate over your project. It can read,
+index, route, explain, observe, and record work evidence without mutating your
+source files or calling providers.
 
 ## Research Prototype Contract
 
 Microcosm is an executable research prototype of a local project operating
-substrate. It is small on purpose: a dense public miniature of a larger
-architecture, not production infrastructure and not a hosted agent platform.
+substrate. It is small on purpose: a dense public reorganization of the larger
+architecture, not a downgraded claim about what the architecture can do.
 
 1. Bring a folder.
 2. Watch Microcosm build a local project substrate.
@@ -106,10 +134,10 @@ keeps the miniature architecture tied to the same public pattern-binding
 surface used by the adapter spine.
 
 Route explanations also resolve through `core/public_standard_pressure.json`.
-That small card set distills public-safe pressure from the macro standards,
+That card set distills public runtime pressure from the macro standards,
 principles, WorkItem spine, projection governance, observability, and
-assimilation surfaces. The cards constrain local state and explanation shape;
-they are not private doctrine authority.
+assimilation surfaces. The cards constrain local state and explanation shape
+and must be backed by real Microcosm commands or explicit omissions.
 
 ## First Run
 
@@ -247,7 +275,7 @@ Evidence receipts are the black-box recorder, not the cockpit. Start with the
 project loop; open receipts only when you need a drilldown.
 
 `microcosm tour <project>` is the compressed cold-reader route. It compiles
-the project, then emits one public-safe ten-minute path through spine,
+the project, then emits one real-substrate ten-minute path through spine,
 authority, prediction, corpus, trace repair, repair-loop curriculum, formal
 evidence cells, proof-loop depth, work landing replay, durable agent work
 landing replay, research replication replay, world-model projection drift control,
@@ -256,12 +284,13 @@ intervention coverage, projection import map, import-projector contract,
 compression-profile option surface, stripping guard, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal,
 observatory, and evidence drilldowns. It writes
 `receipts/runtime_shell/public_ten_minute_tour.json` and
-keeps release, hosting, provider calls, source mutation, private-data
-equivalence, proof authority, and financial advice unauthorized.
+keeps release, hosting, provider calls, unsafe source mutation,
+credential-bearing exports, proof authority, and financial advice
+unauthorized.
 
 `microcosm spine` is the compact x-ray for first-run evaluation: accepted
 adapter-backed organs, the concrete command path, surface counts, evidence
-policy, and the public-safe authority ceiling in one read-only JSON view.
+policy, and the secret-only boundary in one JSON view.
 
 `microcosm python-lens <project>` is the project-local Python route lens. It
 emits `.microcosm/python_lens.json` with Python file roles, package roots,
@@ -279,10 +308,11 @@ authority, export source bodies, or certify package quality.
 
 `microcosm authority` is the boundary map. It aggregates the runtime status,
 spine, intake bridge, reveal board, accepted organs, projection cells, hard
-public boundaries, safe local-only exceptions, and evidence refs into one
-read-only JSON surface. It is the quickest way to verify that release,
-publication, provider calls, source mutation, private-data equivalence,
-general proof authority, and trading advice remain unauthorized.
+public boundaries, safe local-only exceptions, and evidence refs into one JSON
+surface. It is the quickest way to verify that secret export, credentialed
+live access, publication, provider calls, unsafe source mutation, general proof
+authority, and trading advice remain unauthorized without downgrading the
+public repo into metadata-only claims.
 
 `microcosm trace-lens` is the formal verifier trace-repair lens. It shows
 failure classes, trace grades, repair routing, negative cases, and the
@@ -291,8 +321,8 @@ ids, provider payloads, and proof-correctness authority.
 
 `microcosm repair-loop` is the formal verifier repair-loop curriculum lens. It
 turns trace rows into explicit stages and transitions: capture verifier
-failure, classify failure, route metadata-only repair, require a cold rerun,
-then promote only a receipt-backed curriculum cell. It omits proof bodies,
+failure, classify failure, route the repair through public evidence, require a
+cold rerun, then promote only a receipt-backed curriculum cell. It omits proof bodies,
 oracle-needed premise ids, provider payloads, source mutation, and
 proof-correctness authority.
 
@@ -304,7 +334,7 @@ source anchors, embedded proof bodies, private refs, general theorem-solution
 claims, and release overclaims.
 
 `microcosm proof-loop-depth` is the public formal proof-loop depth lens. It
-shows the metadata-only route from corpus boundary through premise retrieval,
+shows the public evidence route from corpus boundary through premise retrieval,
 tactic availability, target-shape routing, verifier trace repair, cold rerun,
 and evidence-cell resolution. It is a projection protocol, not a proof engine:
 it exports no proof bodies, oracle premise ids, provider payloads, benchmark
@@ -336,20 +366,20 @@ payloads, source mutation authority, or release claims.
 It separates observations from forecasts, requires base-rate or prior-context
 hooks before narrative pressure, names scenario-tree and confidence-band gates,
 and keeps decision policy distinct from trading or investment advice. It is
-metadata-only: no live market data, private portfolio/account export, provider
-payloads, performance guarantees, publication, or release authority.
+local evidence only: no live market data, private portfolio/account export,
+provider payloads, performance guarantees, publication, or release authority.
 
 `microcosm drift-control` is the public projection-drift control lens. It
 turns world-model, route, view-quality, CAP-assimilation, and entry-payload
 drift signals into rows with source refs, repair routes, validation refs, and
-authority ceilings. It is metadata-only: no live repair, source mutation,
+authority ceilings. It is public runtime evidence: no live repair, source mutation,
 private runtime export, provider payload export, doctrine promotion, or
 release authority.
 
 `microcosm route-cleanup` is the public route cleanup contract lens. It names
 the first-contact, context-pack, generated-region, option-surface, Work Ledger,
 scoped landing, seed reentry, and public/private cleanup rows with owner
-routes, validator refs, and authority ceilings. It is metadata-only: no route
+routes, validator refs, and authority ceilings. It is public runtime evidence: no route
 deletion, generated-region hand edit, private export, provider payload export,
 source mutation, doctrine promotion, or release authority.
 
@@ -358,16 +388,16 @@ which macro pattern each runtime lens came from, what was copied, what was
 cleaned, what was omitted, which validators prove the projection, and which
 authority ceiling still applies. It does not automate imports, export private
 bodies, expose proof bodies or provider payloads, claim private-root
-equivalence, or authorize release.
+equivalence, or authorize release. It must distinguish real body imports from
+metadata projections and demote anything that cannot prove the copy.
 
 `microcosm import-projector` is the public contract for making future macro
-imports cheaper without making them unsafe. It turns a prospective import into
-six explicit stages: candidate selection, public manifest, stripping and
-omission, fixture projection, runtime binding, and validation closeout. Each
-row names source, public replacement, omitted material, validation refs, and
-authority ceiling. It is a read-model only: no automated import execution, no
-private body export, no proof/provider payload export, no source mutation, no
-private-root equivalence claim, and no release authority.
+imports cheaper without making them fake. It turns a prospective import into
+explicit stages: candidate selection, public manifest, secret stripping,
+body-import verification, runtime binding, and validation closeout. Each row
+names source, target, copied body status, omitted material, validation refs,
+and authority ceiling. It may plan the import without writing; it must not
+pretend metadata, provenance, or replacement refs are imported macro bodies.
 
 `microcosm option-surface-lens` is the first concrete consumer of that
 projector contract for `compression_profile_governed_option_surface`. It turns
@@ -878,7 +908,7 @@ marketing-only.
 public root: source refs and pattern metadata may be projected into fixtures,
 standards, paper modules, exported bundles, and receipts, while private bodies,
 missing omission receipts, authority upgrades, missing validation refs, release
-claims, and private-equivalence claims are rejected.
+claims, and secret-export claims are rejected.
 
 It also exposes a non-writing intake preview:
 
@@ -914,9 +944,9 @@ whole-system correctness.
 
 `cold_reader_route_map` is the executable entry-map organ: it validates the
 first-run route sequence, commands, docs refs, receipt refs, and route-map
-authority ceiling. It is projection-only metadata, not route-registry
+authority ceiling. It is executable public route evidence, not route-registry
 authority, source mutation authority, release authority, provider authority,
-private-data equivalence, trading advice, or whole-system correctness.
+secret-export authority, trading advice, or whole-system correctness.
 
 ## Validation Commands
 
@@ -1020,8 +1050,8 @@ should not be edited by hand.
   proof boundaries.
 - `paper_modules/public_reveal_walkthrough.md` explains the ten-minute public
   reveal organ.
-- `paper_modules/macro_projection_import_protocol.md` explains the
-  public-safe macro projection/import membrane.
+- `paper_modules/macro_projection_import_protocol.md` explains the real
+  macro-substrate import membrane and its body-import verification floor.
 - `paper_modules/prediction_oracle_reconciliation.md` explains the synthetic
   prediction-reconciliation organ and its no-trading/no-advice authority
   ceiling.
@@ -1052,22 +1082,22 @@ should not be edited by hand.
 
 This microcosm substrate is licensed under Apache-2.0. That license posture
 applies to this standalone root and its included tests, fixtures, validators,
-receipts, and documentation. It does not authorize a public release switch,
-hosting, publication, recipient work, provider calls, or private-data
-equivalence.
+receipts, and documentation. It does not authorize hosting, credentialed
+provider calls, recipient sends, or secret export.
 
 ## Boundary
 
-The public substrate may carry runnable public input bundles, schema rows,
-fixtures for tests, redacted lineage, validators, and receipt contracts. It
-must not carry forbidden content bodies, live operator state, raw operator
-text, provider payload bodies, browser/HUD/cockpit state, recipient or
-publication surfaces, prediction/market material, or old scratch-root contents
-as source authority.
+The public substrate should carry real source-available macro mechanisms,
+runnable input bundles, schema rows, fixtures for tests, redacted lineage,
+validators, and receipt contracts. It must not carry secrets,
+credential-equivalent live access, live operator state, raw private operator
+text, provider payload bodies, browser/HUD/cockpit account state, recipient
+sends, or old scratch-root contents as source authority.
 
 Anti-claim: this README documents public runtime-spine entry and validation
 only. It does not authorize trading, financial or investment advice, live
-market data, release, hosted-public readiness, publication, recipient work,
-provider calls, private-data equivalence, Lean/Lake execution beyond the
-bounded public witness fixture, or whole-system correctness. These docs do not
-authorize release.
+market data, hosted deployment, publication, recipient work, credentialed
+provider calls, secret export, Lean/Lake execution beyond the bounded public
+witness fixture, or whole-system correctness. These docs do not authorize
+release operations; they do authorize honest source-available Microcosm content
+inside this repo.

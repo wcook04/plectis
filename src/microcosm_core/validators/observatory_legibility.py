@@ -1336,7 +1336,7 @@ def validate_legibility(
             "source_mutation_authorized": False,
             "private_data_equivalence_authorized": False,
         },
-        "anti_claim": "Observatory legibility validates only the local browser/read model over public project state. It does not authorize release, hosting, provider calls, source mutation, private-data equivalence, live Task Ledger mutation, or production readiness.",
+        "anti_claim": "Observatory legibility validates the local browser/read model over public project state. It does not authorize hosted release operations, credentialed provider calls, unsafe source mutation, secret export, live Task Ledger mutation, or production deployment.",
         "receipt_paths": [_public_relative(public_root, output_file)],
     }
     write_json_atomic(output_file, receipt)

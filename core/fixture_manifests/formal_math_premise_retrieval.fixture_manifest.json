@@ -4,7 +4,7 @@
   "organ_id": "formal_math_premise_retrieval",
   "fixture_id": "fixture::formal_math_premise_retrieval::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate a public-safe formal-math premise retrieval slice imported through the macro projection protocol: Lean/Std premise index metadata, term scoring, context-budget recipes, strategy gating, and negative-case leakage controls.",
+  "purpose": "Validate a source-available formal-math premise retrieval slice imported through the macro projection protocol: Lean/Std premise index metadata, term scoring, context-budget recipes, strategy gating, and negative-case leakage controls.",
   "inputs": [
     "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json",
     "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
@@ -69,6 +69,6 @@
     "provider_payload_bodies": "forbidden; context recipes are budgets and deliverable metadata only",
     "lean_lake": "not executed; retrieval metadata only"
   },
-  "authority_ceiling": "public synthetic formal-math retrieval fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, or release readiness",
-  "anti_claim": "This fixture manifest accepts only public Lean/Std premise retrieval metadata, term scoring, context-budget checks, and negative-case leakage coverage. It does not authorize formal_math_lean_proof_witness, Lean/Lake, provider calls, proof bodies, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+  "authority_ceiling": "public synthetic formal-math retrieval fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, or release operations",
+  "anti_claim": "This fixture manifest accepts only public Lean/Std premise retrieval metadata, term scoring, context-budget checks, and negative-case leakage coverage. It does not authorize formal_math_lean_proof_witness, Lean/Lake, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export."
 }

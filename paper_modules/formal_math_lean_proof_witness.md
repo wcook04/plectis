@@ -51,5 +51,5 @@ Required receipts include:
 This module authorizes only a tiny public fixture witness compiled by local
 Lean/Lake in a temporary workspace. It does not authorize Mathlib-dependent
 proofs, provider calls, private proof import, benchmark performance claims,
-release readiness, hosted-public readiness, publication, recipient work,
-private-data equivalence, or whole-system correctness.
+release operations, hosted deployment, publication, recipient work,
+secret export, or whole-system correctness.

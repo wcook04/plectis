@@ -21,6 +21,6 @@ board output, proof-evidence validation, and fixture acceptance receipts.
 ## Anti-Claim
 
 This module documents synthetic proof diagnostics only. It does not run Lean,
-call providers, prove runtime correctness, certify public release readiness,
-authorize publication or recipient work, establish private-data equivalence, or
+call providers, prove runtime correctness, certify public release operations,
+authorize publication or recipient work, establish secret export, or
 claim whole-system correctness.

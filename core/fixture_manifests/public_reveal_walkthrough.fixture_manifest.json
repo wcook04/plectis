@@ -4,7 +4,7 @@
   "organ_id": "public_reveal_walkthrough",
   "fixture_id": "fixture::public_reveal_walkthrough::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate a public-safe ten-minute reveal path that ties Microcosm's product claim to commands, substrate refs, evidence refs, and authority ceilings.",
+  "purpose": "Validate a source-available ten-minute reveal path that ties Microcosm's product claim to commands, substrate refs, evidence refs, and authority ceilings.",
   "inputs": [
     "fixtures/first_wave/public_reveal_walkthrough/input/reveal_walkthrough.json",
     "fixtures/first_wave/public_reveal_walkthrough/input/substrate_evidence_map.json",
@@ -59,6 +59,6 @@
     "private_equivalence": "forbidden; public reveal is a small model, not a private-root equivalence claim",
     "raw_seed_body": "forbidden; reveal only cites public-root refs and receipts"
   },
-  "authority_ceiling": "public ten-minute reveal metadata only; not release, hosting, publication, provider authority, private-data equivalence, or whole-system correctness",
-  "anti_claim": "This fixture manifest accepts only public reveal metadata and negative-case coverage. It does not authorize release, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake, or whole-system correctness."
+  "authority_ceiling": "public ten-minute reveal metadata only; not release, hosting, publication, provider authority, secret export, or whole-system correctness",
+  "anti_claim": "This fixture manifest accepts only public reveal metadata and negative-case coverage. It does not authorize release, hosted deployment, publication operations, recipient work, provider calls, secret export, Lean/Lake, or whole-system correctness."
 }

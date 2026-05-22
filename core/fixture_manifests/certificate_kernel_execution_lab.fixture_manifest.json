@@ -52,6 +52,6 @@
     "source_mutation_authorized": false,
     "release_authorized": false
   },
-  "anti_claim": "This fixture manifest accepts only public replacement certificate-kernel execution receipts, analyzer metadata, typed CP2 candidate metadata, bounded Evolve policy rerun rows, and negative-case leakage coverage. It does not authorize macro proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+  "anti_claim": "This fixture manifest accepts only public replacement certificate-kernel execution receipts, analyzer metadata, typed CP2 candidate metadata, bounded Evolve policy rerun rows, and negative-case leakage coverage. It does not authorize macro proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted deployment, publication operations, recipient work, or secret export."
 }
 

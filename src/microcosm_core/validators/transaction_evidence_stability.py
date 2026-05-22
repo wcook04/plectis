@@ -441,7 +441,7 @@ def validate_stability(
             "source_mutation_authorized": False,
             "private_data_equivalence_authorized": False,
         },
-        "anti_claim": "Transaction/evidence stability validates project-local causal consistency only. It does not authorize release, hosting, provider calls, source mutation, private-data equivalence, live Task Ledger mutation, or production readiness.",
+        "anti_claim": "Transaction/evidence stability validates project-local causal consistency. It does not authorize hosted release operations, credentialed provider calls, unsafe source mutation, secret export, live Task Ledger mutation, or production deployment.",
         "receipt_paths": [_project_relative(Path.cwd(), output_file)],
     }
     write_json_atomic(output_file, receipt)

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Organ registry rows are public runtime authority metadata only; they do not authorize release, provider calls, trading or financial advice, private data equivalence, or proof authority.",
+  "anti_claim": "Organ registry rows are public runtime authority metadata only; they do not authorize release, provider calls, trading or financial advice, secret export, or proof authority.",
   "authority_boundary": "public_target_registry_generated_from_current_authority_receipts_not_source_authority_above_macro_contracts",
   "authority_ceiling": {
     "registry_can_claim": [
@@ -10,13 +10,13 @@
     ],
     "registry_cannot_claim": [
       "Lean/Lake proof authority beyond the bounded witness",
-      "hosted-public readiness",
+      "hosted deployment",
       "live_market_prediction_authority",
       "macro source authority above current reconstruction receipts",
-      "private-data equivalence",
-      "publication readiness",
+      "secret export",
+      "publication operations",
       "recipient readiness",
-      "release readiness",
+      "release operations",
       "trading_or_financial_advice_authority",
       "whole-system correctness"
     ]

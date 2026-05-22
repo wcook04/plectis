@@ -1,5 +1,5 @@
 {
-  "anti_claim": "This support snapshot is only for public clean-clone preflight tests. It authorizes only bounded public Lean/Lake fixture execution and synthetic prediction reconciliation fixture execution; it does not authorize trading, financial advice, release, private reconstruction source authority, provider calls, Mathlib-dependent proofs, or private-data equivalence.",
+  "anti_claim": "This support snapshot is only for public clean-clone preflight tests. It authorizes only bounded public Lean/Lake fixture execution and synthetic prediction reconciliation fixture execution; it does not authorize trading, financial advice, release, private reconstruction source authority, provider calls, Mathlib-dependent proofs, or secret export.",
   "authority_boundary": "public_safe_support_snapshot_for_clean_clone_tests_not_macro_source_authority",
   "organ_readiness": [
     {

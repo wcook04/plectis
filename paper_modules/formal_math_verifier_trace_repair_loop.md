@@ -1,6 +1,6 @@
 # Formal Math Verifier Trace Repair Loop
 
-`formal_math_verifier_trace_repair_loop` is the public-safe replay of a macro
+`formal_math_verifier_trace_repair_loop` is the source-available replay of a macro
 proof-lab pattern: verifier feedback becomes a teaching signal only after a
 trace grade, a repair action, a failure-mode ledger append, a curriculum delta,
 and a cold rerun receipt.
@@ -32,7 +32,7 @@ bodies, oracle premise ids, provider payload bodies, or private run logs.
 - Oracle-needed premise ids in public inputs.
 - Provider payload bodies in fixtures or receipts.
 - Human approval as proof correctness.
-- Release, publication, private-data equivalence, or general theorem-proving claims.
+- Release, publication, secret export, or general theorem-proving claims.
 
 ## Receipts
 

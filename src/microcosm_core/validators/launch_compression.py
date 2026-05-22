@@ -1071,7 +1071,7 @@ def validate_launch_compression(
             "source_mutation_authorized": False,
             "private_data_equivalence_authorized": False,
         },
-        "anti_claim": "Launch-compression validation proves only that the public first screen and one-command local loop expose repo -> .microcosm without receipt-first UX. It does not authorize release, hosting, publication, provider calls, source mutation, private-data equivalence, or production readiness.",
+        "anti_claim": "Launch-compression validation proves that the public first screen and one-command local loop expose repo -> .microcosm without receipt-first UX and without downgrading real non-secret substrate into placeholders. It does not authorize hosted release operations, publication, credentialed provider calls, unsafe source mutation, or secret export.",
         "receipt_paths": [_public_relative(public_root, output_file)],
     }
     write_json_atomic(output_file, receipt)

@@ -8,7 +8,7 @@
   "source_mutation_default": false,
   "provider_calls_authorized": false,
   "receipts_are_drilldown_evidence": true,
-  "anti_claim": "This kernel describes the public research-prototype substrate only. It does not authorize production readiness, release, hosting, publication, provider calls, source mutation, private-data equivalence, or whole-system correctness.",
+  "anti_claim": "This kernel describes the public research-prototype substrate. It does not authorize hosted deployment, release operations, publication, credentialed provider calls, unsafe source mutation, secret export, or whole-system correctness.",
   "standard_pressure_surface_ref": "core/public_standard_pressure.json",
   "pattern_surface": {
     "surface_id": "public_microcosm_pattern_surface",

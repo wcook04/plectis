@@ -67,6 +67,6 @@
     "performance_claims": "forbidden; oracle diff is a synthetic grading example",
     "private_source_bodies": "forbidden; pattern ids and public replacement refs are enough"
   },
-  "authority_ceiling": "synthetic prediction reconciliation fixture only; not trading, financial advice, investment advice, live market data, provider authority, performance authority, publication, release, or private-data equivalence",
-  "anti_claim": "This fixture manifest accepts only synthetic prediction reconciliation mechanics and negative-case coverage. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, release, hosted-public readiness, or private-data equivalence."
+  "authority_ceiling": "synthetic prediction reconciliation fixture only; not trading, financial advice, investment advice, live market data, provider authority, performance authority, publication, release, or secret export",
+  "anti_claim": "This fixture manifest accepts only synthetic prediction reconciliation mechanics and negative-case coverage. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, release, hosted deployment, or secret export."
 }

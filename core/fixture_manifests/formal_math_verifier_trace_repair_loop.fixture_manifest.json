@@ -4,7 +4,7 @@
   "organ_id": "formal_math_verifier_trace_repair_loop",
   "fixture_id": "fixture::formal_math_verifier_trace_repair_loop::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate a public-safe formal-math verifier trace repair loop imported through the macro projection protocol: verifier feedback, trace grades, repair actions, failure-mode ledger updates, curriculum deltas, cold rerun promotion gates, and negative-case leakage controls.",
+  "purpose": "Validate a source-available formal-math verifier trace repair loop imported through the macro projection protocol: verifier feedback, trace grades, repair actions, failure-mode ledger updates, curriculum deltas, cold rerun promotion gates, and negative-case leakage controls.",
   "inputs": [
     "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
     "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
@@ -77,6 +77,6 @@
     "human_approval_as_proof": "forbidden; only checker receipts can support proof authority",
     "lean_lake": "not executed; repair loop replay metadata only"
   },
-  "authority_ceiling": "public synthetic formal-math verifier trace repair fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, human approval authority, or release readiness",
-  "anti_claim": "This fixture manifest accepts only public verifier trace repair metadata, trace-grade checks, cold-rerun promotion gates, curriculum deltas, and negative-case leakage coverage. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+  "authority_ceiling": "public synthetic formal-math verifier trace repair fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, human approval authority, or release operations",
+  "anti_claim": "This fixture manifest accepts only public verifier trace repair metadata, trace-grade checks, cold-rerun promotion gates, curriculum deltas, and negative-case leakage coverage. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export."
 }

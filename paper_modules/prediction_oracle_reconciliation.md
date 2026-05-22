@@ -1,6 +1,6 @@
 # Prediction Oracle Reconciliation
 
-`prediction_oracle_reconciliation` is a public-safe fixture organ for the
+`prediction_oracle_reconciliation` is a source-available fixture organ for the
 prediction-engine slice. It compresses the macro pattern group around CP1
 bifurcation resolution, CP2 valid target universes, oracle grounding firewalls,
 diff grading, and dossier mutation into a synthetic packet a cold reader can run.
@@ -22,7 +22,7 @@ The input packet names:
 - `oracle_diff` rows that grade synthetic realized direction against prediction.
 - `dossier_mutations` constrained to fixture deltas.
 - `authority_ceiling` values that explicitly keep trading, advice, provider,
-  live-market, publication, release, and private-equivalence authority false.
+  live-market, publication, release, and secret-export authority false.
 
 ## Negative Cases
 
@@ -33,7 +33,7 @@ The fixture rejects:
 - post-target evidence used as prediction evidence;
 - unconfirmed equity or market-lane claims;
 - unsafe high-severity dossier mutation;
-- trading, advice, live-provider, publication, release, or private-equivalence
+- trading, advice, live-provider, publication, release, or secret-export
   authority overclaims.
 
 ## Commands

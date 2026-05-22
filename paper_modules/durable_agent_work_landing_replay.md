@@ -1,6 +1,6 @@
 # Durable Agent Work-Landing Replay
 
-Durable agent work-landing replay is the public work-spine organ for showing how Microcosm treats agent work as a transaction instead of a chat claim. It binds owned-path claims, owner-native validation, scoped commit attempts, protected Git-metadata blockers, Task Ledger capture, Work Ledger finalizers, and seed reentry into a public-safe replay contract.
+Durable agent work-landing replay is the public work-spine organ for showing how Microcosm treats agent work as a transaction instead of a chat claim. It binds owned-path claims, owner-native validation, scoped commit attempts, protected Git-metadata blockers, Task Ledger capture, Work Ledger finalizers, and seed reentry into a source-available replay contract.
 
 ## Public Contract
 

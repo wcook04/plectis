@@ -35,7 +35,7 @@ receipts that a cold reader can inspect.
 - Private source refs in public claim or cell rows.
 - Human approval as proof authority.
 - Theorem-correctness claims from metadata cells.
-- Release, publication, private-data equivalence, or provider authority.
+- Release, publication, secret export, or provider authority.
 
 ## Receipts
 

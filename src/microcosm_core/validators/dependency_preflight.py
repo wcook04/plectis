@@ -634,7 +634,7 @@ def run_dependency_preflight(
         "negative_matrix_case_count": _negative_case_count(negative_matrix),
         "blocked_dependency_count": len(blocked_codes),
         "blocked_dependency_codes": blocked_codes,
-        "anti_claim": "Dependency preflight validates accepted public runtime-spine ordering and fixture presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, release, provider calls, or private-data equivalence.",
+        "anti_claim": "Dependency preflight validates accepted public runtime-spine ordering and fixture presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, hosted release operations, credentialed provider calls, or secret export.",
         "private_state_scan": scan,
         "authority_ceiling": {
             "status": PASS,

@@ -171,5 +171,5 @@
       ]
     }
   },
-  "anti_claim": "This fixture manifest authorizes only the bounded navigation_hologram_route_plane public slice. It does not authorize Lean, mission, observability, assimilation, release, or private-data equivalence."
+  "anti_claim": "This fixture manifest authorizes only the bounded navigation_hologram_route_plane public slice. It does not authorize Lean, mission, observability, assimilation, release, or secret export."
 }

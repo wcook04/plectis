@@ -21,7 +21,7 @@ The fixture rejects Mathlib premise refs, proof-body leakage, oracle-needed prem
 
 ## Authority Ceiling
 
-This lane is metadata only. It does not run Lean or Lake, import Mathlib, expose proof bodies, expose oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, authorize public release, or claim private-data equivalence.
+This lane is metadata only. It does not run Lean or Lake, import Mathlib, expose proof bodies, expose oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, authorize public release, or claim secret export.
 
 ## Receipts
 

@@ -4,7 +4,7 @@
 
 ## Public Claim
 
-Microcosm can show when a projected world model is drifting without pretending the projection is source authority. The organ accepts only metadata rows: it names the source signal, the public-safe source ref, the repair route, the validation receipt, and the replacement public fixture row.
+Microcosm can show when a projected world model is drifting without pretending the projection is source authority. The organ accepts only metadata rows: it names the source signal, the source-available source ref, the repair route, the validation receipt, and the replacement public fixture row.
 
 ## Runtime Command
 

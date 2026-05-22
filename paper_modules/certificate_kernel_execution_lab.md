@@ -45,5 +45,5 @@ payload bodies.
 
 ## Anti-Claim
 
-This is a public-safe certificate-kernel laboratory, not a miniature private
+This is a source-available certificate-kernel laboratory, not a miniature private
 macro dump and not general proof authority beyond the declared fixture rows.

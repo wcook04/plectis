@@ -1,5 +1,5 @@
 {
-  "anti_claim": "This registry validates public standard file presence and schema shape. It authorizes only bounded public Lean/Lake witness receipts, synthetic prediction reconciliation receipts, and evidence-cell metadata receipts; it does not authorize trading, financial advice, release, publication, provider calls, private-data equivalence, evidence-cell metadata as theorem correctness, or whole-system correctness or standards-registry source authority.",
+  "anti_claim": "This registry validates public standard file presence and schema shape. It authorizes only bounded public Lean/Lake witness receipts, synthetic prediction reconciliation receipts, and evidence-cell metadata receipts; it does not authorize trading, financial advice, release, publication, provider calls, secret export, evidence-cell metadata as theorem correctness, or whole-system correctness or standards-registry source authority.",
   "authority_ceiling": {
     "lean_lake_authority": "bounded_public_witness_only",
     "private_data_equivalence_authority": false,

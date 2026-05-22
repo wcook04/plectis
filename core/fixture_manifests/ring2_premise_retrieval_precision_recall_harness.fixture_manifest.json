@@ -2,7 +2,7 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "fixture_id": "fixture::ring2_premise_retrieval_precision_recall_harness::first_wave_contract_v1",
   "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-  "purpose": "Validate public-safe Ring-2 premise retrieval precision/recall metrics without exposing proof bodies, leaking oracle labels into rankings, or claiming benchmark/proof authority.",
+  "purpose": "Validate source-available Ring-2 premise retrieval precision/recall metrics without exposing proof bodies, leaking oracle labels into rankings, or claiming benchmark/proof authority.",
   "inputs": [
     {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json", "role": "synthetic public Ring-2 retrieval run metadata"},
     {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json", "role": "after-the-fact metric labels barred from provider context"},

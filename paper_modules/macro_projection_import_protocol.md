@@ -1,6 +1,6 @@
 # Macro Projection Import Protocol
 
-`macro_projection_import_protocol` is the public-safe membrane for bringing
+`macro_projection_import_protocol` is the source-available membrane for bringing
 macro substrate into Microcosm. It exists because Microcosm should be dense and
 alive without becoming a dump of private source bodies, operator context,
 provider payloads, or release material.
@@ -72,11 +72,11 @@ The validator intentionally rejects:
 - omitted macro material without omission receipt refs;
 - authority upgrades into live macro source authority;
 - projection cells without validation refs;
-- release, publication, recipient-work, or private-equivalence claims.
+- release, publication, recipient-work, or secret-export claims.
 
 ## Authority Ceiling
 
 This paper module explains a public projection protocol. It does not authorize
-release, hosted-public readiness, publication, recipient work, provider calls,
-Lean/Lake execution, private-data equivalence, private source-body export, or
+release, hosted deployment, publication, recipient work, provider calls,
+Lean/Lake execution, secret export, private source-body export, or
 whole-system correctness.

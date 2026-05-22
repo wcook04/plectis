@@ -64,6 +64,6 @@
     "raw_tactic_scripts": "forbidden in CP2 candidates; CP2 emits typed action classes only",
     "evolve_source_mutation": "forbidden; Evolve is limited to bounded policy artifacts"
   },
-  "authority_ceiling": "public verifier lab kernel fixture only; not theorem proof authority, oracle authority, provider authority, source mutation authority, benchmark authority, or release readiness",
-  "anti_claim": "This fixture manifest accepts only public verifier-lab composition metadata, bounded component receipts, and negative-case leakage coverage. It does not authorize private proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+  "authority_ceiling": "public verifier lab kernel fixture only; not theorem proof authority, oracle authority, provider authority, source mutation authority, benchmark authority, or release operations",
+  "anti_claim": "This fixture manifest accepts only public verifier-lab composition metadata, bounded component receipts, and negative-case leakage coverage. It does not authorize private proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted deployment, publication operations, recipient work, or secret export."
 }

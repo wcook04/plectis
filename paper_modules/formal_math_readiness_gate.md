@@ -62,6 +62,6 @@ oracle bodies, and provider recipes cannot smuggle proof-body deliverables.
 
 This module documents a public readiness gate only. It does not authorize
 Lean/Lake execution, formal proof authority, Mathlib-dependent proof attempts,
-provider calls, benchmark claims, public release, hosted-public readiness,
-publication, recipient work, private-data equivalence, or whole-system
+provider calls, benchmark claims, public release, hosted deployment,
+publication, recipient work, secret export, or whole-system
 correctness.

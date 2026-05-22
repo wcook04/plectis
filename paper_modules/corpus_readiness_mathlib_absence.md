@@ -1,6 +1,6 @@
 # Corpus Readiness Mathlib Absence
 
-`corpus_readiness_mathlib_absence_gate` is a public-safe formal-math organ for a
+`corpus_readiness_mathlib_absence_gate` is a source-available formal-math organ for a
 small but important piece of the macro proof lab: consumers must know when
 Mathlib is absent before they route proof work, retrieve premises, or interpret
 translation corpora.

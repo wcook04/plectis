@@ -3,7 +3,7 @@
 `spatial_world_model_counterfactual_simulation_replay` is the public spatial
 counterfactual replay organ. It turns a high-novelty macro pattern into a
 runnable Microcosm surface: six synthetic scene states, action traces, predicted
-states, transition diffs, oracle checks, public-safe sensor packet refs, and
+states, transition diffs, oracle checks, source-available sensor packet refs, and
 negative-case receipts.
 
 ## Public Claim

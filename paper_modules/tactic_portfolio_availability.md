@@ -4,7 +4,7 @@
 callability into an explicit artifact before routing or proof search treats a
 tactic as usable.
 
-The fixture is synthetic and public-safe. It records a small Lean/Std tactic
+The fixture is synthetic and source-available. It records a small Lean/Std tactic
 portfolio with compile-status metadata for `rfl`, `decide`, `omega`, `simp`,
 `simp_all`, `grind`, `native_decide`, and `aesop`. The Mathlib-dependent
 `aesop` row is marked `environment_fail` because the paired environment probe

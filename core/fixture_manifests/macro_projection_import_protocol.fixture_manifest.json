@@ -4,7 +4,7 @@
   "organ_id": "macro_projection_import_protocol",
   "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate the public-safe membrane for projecting macro substrate into Microcosm and proving standalone runtime severance without private runtime dependencies, authority upgrades, or release/private-equivalence claims.",
+  "purpose": "Validate the source-available membrane for projecting macro substrate into Microcosm and proving standalone runtime severance without private runtime dependencies, authority upgrades, or release/secret-export claims.",
   "inputs": [
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
@@ -63,9 +63,9 @@
   "private_state_exclusion_rules": {
     "raw_seed_body": "forbidden; use path-level source refs and omission receipts only",
     "provider_payload_bodies": "forbidden; fixture shape and receipt summaries are the public replacement",
-    "private_source_bodies": "true private bodies are forbidden; public-safe macro proof/tool/pattern/receipt bodies use the classified import lane with provenance and claim ceilings",
+    "private_source_bodies": "true private bodies are forbidden; source-available macro proof/tool/pattern/receipt bodies use the classified import lane with provenance and claim ceilings",
     "release": "never authorized by projection import"
   },
-  "authority_ceiling": "classified public macro bodies, metadata, fixture shape, standards, and receipt refs may enter the Microcosm runtime tree with provenance; macro-origin refs are not runtime dependencies and do not authorize release, publication, provider authority, private-data equivalence, or whole-system correctness",
-  "anti_claim": "This fixture manifest accepts classified public-safe macro body imports and standalone severance evidence. It does not authorize true private body export, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake special casing, or whole-system correctness."
+  "authority_ceiling": "classified public macro bodies, metadata, fixture shape, standards, and receipt refs may enter the Microcosm runtime tree with provenance; macro-origin refs are not runtime dependencies and do not authorize release, publication, provider authority, secret export, or whole-system correctness",
+  "anti_claim": "This fixture manifest accepts classified source-available macro body imports and standalone severance evidence. It does not authorize true private body export, hosted deployment, publication operations, recipient work, provider calls, secret export, Lean/Lake special casing, or whole-system correctness."
 }

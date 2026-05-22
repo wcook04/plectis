@@ -40,6 +40,6 @@
   "runtime_adapter_outputs": [
     "receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json"
   ],
-  "authority_ceiling": "binding validation is a contract check over public-safe pattern rows, not source authority or public leaf readiness",
-  "anti_claim": "Pattern binding accepts public-safe substrate-shaped rows and fixture regression rows; it never accepts source bodies as authority."
+  "authority_ceiling": "binding validation is a contract check over source-available pattern rows, not source authority or public leaf readiness",
+  "anti_claim": "Pattern binding accepts source-available substrate-shaped rows and fixture regression rows; it never accepts source bodies as authority."
 }

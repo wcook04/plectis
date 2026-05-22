@@ -106,6 +106,19 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
     assert receipt["deferred_organs"] == []
     assert receipt["private_state_scan"]["body_redacted"] is True
     assert receipt["private_state_scan"]["blocking_hit_count"] == 0
+    assert receipt["authority_ceiling"]["entry_docs_authority"] == (
+        "public_entry_navigation_and_real_substrate_posture"
+    )
+    assert receipt["authority_ceiling"]["secret_export_authorized"] is False
+    assert (
+        receipt["authority_ceiling"]["metadata_only_standin_policy"]
+        == "forbidden_when_real_non_secret_macro_body_is_importable"
+    )
+    assert (
+        receipt["authority_ceiling"]["macro_substrate_import_policy"]
+        == "encourage_maximum_non_secret_macro_substrate_import"
+    )
+    assert receipt["authority_ceiling"]["body_copied_requires_source_target_validation"] is True
     text = out.read_text(encoding="utf-8")
     assert str(public_root) not in text
     assert "/Users/" not in text
@@ -155,6 +168,26 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
 
     assert "Internal Runtime Spine" in text
     assert "Accepted Public Runtime Spine" in agents
+    assert "Real Substrate Posture" in text
+    assert "Real Substrate Posture" in agents
+    assert "Microcosm is the public repo form of the macro system" in text
+    assert "Microcosm is the public repo form of the macro system" in agents
+    assert "not a synthetic safety proxy" in text
+    assert "not a synthetic safety proxy" in agents
+    assert "Public should carry private by default" in text
+    assert "Public should carry private by default" in agents
+    assert "as much of the macro substrate as possible" in normalized_text
+    assert "as much of the macro substrate as possible" in normalized_agents
+    assert "The exclusion set is narrow" in text
+    assert "The hard exclusion set is narrow" in agents
+    assert "raw operator voice, slurs or abusive wording" in normalized_text
+    assert "raw operator voice, slurs or abusive wording" in normalized_agents
+    assert "Any `body_copied=true` claim must name the source file" in text
+    assert "Any `body_copied=true` claim must point at a real target file" in agents
+    assert "public-safe ten-minute path" not in normalized_text
+    assert "public-safe authority ceiling" not in normalized_text
+    assert "public-safe route" not in normalized_agents
+    assert "only to project metadata" not in normalized_agents
     assert "only implemented organ here is `pattern_binding_contract`" not in text
     assert "only implemented organ here is `pattern_binding_contract`" not in agents
     assert "formal_math_lean_proof_witness" in text

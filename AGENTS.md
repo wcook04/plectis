@@ -16,17 +16,20 @@ assimilation, imported macro bodies, and exported macro-shaped bundles.
 
 Microcosm is the public repo form of the macro system, reorganized so a cold
 reader can run and inspect it without inheriting the private root's historical
-mess. Default to importing, refactoring, or exporting the actual non-secret
-macro mechanism into this tree. Use synthetic fixtures only as regression
-wrappers, negative cases, or toy inputs around a real mechanism.
+mess. Public should carry private by default: import, refactor, or export as
+much of the macro substrate as possible into this tree. Use synthetic fixtures
+only as regression wrappers, negative cases, or toy inputs around a real
+mechanism.
 
-The hard exclusion set is secrets and credential-equivalent live access:
-`.env` files, API keys, tokens, passwords, private keys, cookies, browser
-profiles, keychains, account sessions, and direct credential-bearing payloads.
-Do not turn "private state" or "release authority" into a generic excuse for
-metadata-only stand-ins. Hosted launch and recipient sends are separate
-operational decisions; they do not block this repo from carrying real
-source-available content.
+The hard exclusion set is narrow: secrets and credential-equivalent live
+access (`.env` files, API keys, tokens, passwords, private keys, cookies,
+browser profiles, keychains, account sessions, and direct credential-bearing
+payloads), raw operator voice, slurs or abusive wording, private personal
+material, and other clearly unsafe or non-releasable content. Do not turn
+"private state" or "release authority" into a generic excuse for metadata-only
+stand-ins. Hosted launch and recipient sends are separate operational
+decisions; they do not block this repo from carrying real source-available
+content.
 
 Any `body_copied=true` claim must point at a real target file and a verified
 source-to-target import record. A source ref, provenance pointer, digest of an
@@ -92,10 +95,10 @@ imported macro body.
    MCP tool-authority replay,
    benchmark lab, legibility
    scorecard, intake, reveal,
-   observatory, and evidence drilldown into one public-safe route with a
+   observatory, and evidence drilldown into one real-substrate route with a
    receipt ref and no release, hosting,
-   provider-call, source-mutation,
-   proof-authority, private-equivalence, or financial-advice authority.
+   credentialed provider-call, unsafe source-mutation,
+   proof-authority, secret-export, or financial-advice authority.
    The Python route loop is `microcosm python-lens <project>`; it should expose
    path-level Python roles, package roots, readiness checks, and route rows
    without source bodies, provider calls, source mutation, package-quality
@@ -103,21 +106,22 @@ imported macro body.
    The public spine loop is `microcosm spine`; it should expose the accepted
    runtime organs, first-run command path, counts, evidence policy, explicit
    `evidence_class` rows, and
-   authority ceiling without forcing a cold reader into raw receipts first.
+   secret-only boundary without forcing a cold reader into raw receipts first.
    The runtime intake loop is `microcosm intake`; it should connect the macro
    projection intake board, formal-math readiness extension board, reveal
-   bundle, and runtime evidence refs so ready, landed, bridged, and consumed
-   projection cells are visible without private macro bodies.
+   bundle, body-import verification rows, and runtime evidence refs so ready,
+   landed, bridged, copied, and consumed projection cells are visible without
+   secrets or credential-bearing payloads.
    The public reveal loop is `microcosm reveal`; it should show the ten-minute
    path from repo compile to route explanation, observatory, evidence, and
-   authority ceiling.
+   secret-only boundary.
    `mission_transaction_work_spine` also exposes checkpoint lane receipts:
    scoped commit is the normal lane for isolated owned paths, broad checkpoint
    requires explicit operator authorization, and suspected private leakage
    routes to hard stop.
    The cold-reader route loop is `microcosm cold-reader-route-map
    run-route-map-bundle`; it should validate first-run route order, command
-   refs, docs refs, receipt refs, and the projection-only authority ceiling.
+   refs, docs refs, receipt refs, and the public-runtime authority boundary.
    The expanded loop is `microcosm init <project>`,
    `microcosm index <project>`, `microcosm architecture <project>`,
    `microcosm route <project>`, `microcosm explain <project> <route_id>`,
@@ -128,12 +132,12 @@ imported macro body.
    The `public_reveal_walkthrough` organ is the exception that binds entry
    legibility itself to fixtures, commands, negative cases, and receipts.
    The `macro_projection_import_protocol` organ is the import membrane for
-   future macro patterns: use `macro-projection-import-protocol` only to project
-   metadata, fixture shape, standards, public replacement refs, validation
-   refs, and omission receipts into Microcosm. Use
+   future macro patterns: use `macro-projection-import-protocol` to import real
+   non-secret bodies when they are copyable, and to demote metadata-only cells
+   when they are not. Use
    `macro-projection-import-protocol plan` before a new import slice; it is
    the non-writing intake board for per-cell source refs, target refs,
-   validation refs, copy policy, authority ceiling, omitted material, and
+   validation refs, copy policy, body-import verification, omitted material, and
    ready/blocked status. It must also expose `projection_status`,
    `cell_state`, `action_required`, landed evidence refs, status counts, and
    open-actionable count so a landed cell is not reread as unfinished work. Use
@@ -145,8 +149,10 @@ imported macro body.
    into one redacted map. `accepted_current_authority` is not an
    evidence-strength claim. It is the entry point for checking what Microcosm
    may not do: release,
-   publish, host, call providers, mutate source, import private bodies, claim
-   private equivalence, make general proof claims, or offer financial advice.
+   publish, host, call providers with credentials, mutate source unsafely,
+   export secrets or credential-equivalent payloads, make general proof claims,
+   or offer financial advice. It must not treat private-state language as a
+   generic reason to replace real non-secret bodies with placeholders.
    The prediction lens loop is `microcosm prediction-lens`; it should project
    `prediction_oracle_reconciliation` as a public synthetic reasoning surface
    with target-universe gating, CP1 bifurcation resolution, CP2 prediction
@@ -169,7 +175,7 @@ imported macro body.
    grades, repair routes, negative cases, cold-rerun promotion gates, and
    omission/authority ceilings. It must not expose proof bodies,
    oracle-needed premise ids, provider payloads, Lean/Lake proof execution,
-   human-approval proof authority, source mutation, private equivalence, or
+   human-approval proof authority, source mutation, secret export, or
    release authority.
    The verifier repair-loop lens is `microcosm repair-loop`; it should turn
    trace rows into an explicit public curriculum transition table: capture the
@@ -183,7 +189,7 @@ imported macro body.
    receipt refs, source-anchor status, negative cases, and authority ceilings.
    It must reject unknown cells, missing source anchors, embedded proof bodies,
    private refs, general theorem-solution claims, Lean/Lake proof authority,
-   provider calls, source mutation, private equivalence, and release authority.
+   provider calls, source mutation, secret export, and release authority.
    The proof-loop depth lens is `microcosm proof-loop-depth`; it should show
    the public metadata-only chain from corpus boundary through premise
    retrieval, tactic availability, target-shape routing, verifier trace repair,
@@ -348,7 +354,7 @@ imported macro body.
    expose omission receipts, named drilldowns, owner routes, source refs, and
    per-projection authority ceilings for the compressed public lenses. It must
    not export private source bodies, proof bodies, provider payloads, raw
-   private paths, source mutation authority, public/private equivalence claims,
+   private paths, source mutation authority, public/secret export claims,
    or release authority.
    The market-boundary loop should be included in projection-safety and
    authority checks before any market-facing public claim is treated as
@@ -368,16 +374,18 @@ imported macro body.
    The projection import-map loop is `microcosm projection-import-map`; it
    should name each macro-pattern-to-public-lens projection row, what was
    copied, cleaned, omitted, validated, and bounded by authority ceiling. It
-   must not automate imports, export private bodies, expose proof bodies or
-   provider payloads, claim private-root equivalence, mutate source, or imply
-   release authority.
+   must separate body imports from metadata projections and reject provenance,
+   activation, maturity, or replacement refs as proof that a body was copied.
+   It must not automate imports, export private bodies, expose proof bodies or
+   provider payloads, mutate source, or imply release authority.
    The public import-projector contract loop is `microcosm import-projector`;
    it should turn the next macro import into candidate-selection,
-   public-manifest, stripping/omission, fixture-projection, runtime-binding,
-   and validation-closeout rows with source refs, public replacements, omitted
-   material, validation refs, and per-row authority ceilings. It must not
-   execute an import, export private bodies, expose proof bodies or provider
-   payloads, claim private-root equivalence, mutate source, or imply release
+   public-manifest, secret stripping, body-import verification,
+   runtime-binding, and validation-closeout rows with source refs, target refs,
+   copied-body status, omitted material, validation refs, and per-row authority
+   ceilings. It must not treat metadata, provenance, maturity, activation, or
+   public replacement refs as imported bodies; export private bodies; expose
+   proof bodies or provider payloads; mutate source; or imply release
    authority.
    The compression profile option-surface loop is `microcosm
    option-surface-lens`; it should consume
@@ -397,7 +405,7 @@ imported macro body.
    fixture manifests, acceptance commands, docs, authority ceilings, and
    projection safety into one public read-model. It must not make the registry
    source authority, claim complete standards coverage, call providers, mutate
-   source, claim private equivalence, or imply release authority.
+   source, claim secret export, or imply release authority.
    The hook intervention coverage loop is `microcosm hook-coverage`; it should
    compress `agent_route_observability_runtime` receipts into public hook-shadow,
    route-compliance, actor-axis, anti-pattern debt, and route-lease intervention
@@ -567,25 +575,25 @@ imported macro body.
    a public leak-proof verifier-lab receipt with no private proof bodies,
    provider proof authority, oracle-to-forward contamination, arbitrary
    Evolve, source mutation, benchmark claims, or release/publication work.
-   `corpus-lens` is metadata-only projection over corpus readiness receipts:
+   `corpus-lens` is public evidence over corpus readiness receipts:
    it may make Mathlib import absence and blocked consumers legible, but it
    must not become Lean/Lake execution, Mathlib proof authority,
    corpus-completeness authority, benchmark authority, provider authority, or
    release authority.
-   `standards_meta_diagnostics` is projection-only metadata: it may diagnose
+   `standards_meta_diagnostics` is public runtime diagnostics: it may diagnose
    public standards/runtime/receipt coverage, but it must not claim registry
-   source authority, private macro access, release readiness, provider calls,
+   source authority, private macro access, release operations, provider calls,
    proof authority, or whole-system correctness.
-   `research_replication_rubric_artifact_replay` is projection-only synthetic
-   research-replay metadata: it may diagnose artifact replay completeness,
+   `research_replication_rubric_artifact_replay` is a runnable
+   research-replay harness: it may diagnose artifact replay completeness,
    declared artifact-hash roster binding, grading rubric boundaries, rerun
    evidence, and private-leakage guards, but it must not claim external
-   benchmark performance, original-paper replication, publication readiness,
-   provider calls, private-data equivalence, or release authority.
-   `cold_reader_route_map` is projection-only metadata: it may diagnose public
+   benchmark performance, original-paper replication, publication operations,
+   provider calls, secret export, or release authority.
+   `cold_reader_route_map` is executable public route evidence: it may diagnose public
    entry route order, command refs, docs refs, and receipt refs, but it must not
    claim route-registry authority, source mutation authority, private macro
-   access, release readiness, provider calls, trading advice, or whole-system
+   access, release operations, provider calls, trading advice, or whole-system
    correctness.
 7. Do not treat prediction fixtures as trading or financial advice. The
    `prediction_oracle_reconciliation` organ may validate synthetic reasoning
@@ -594,11 +602,14 @@ imported macro body.
 8. Do not import parent-repository-only tools, host-local state, prompt bodies,
    provider payloads, operator threads, HUD/browser/cockpit state, or old
    scratch public-root content as source authority.
-9. Do not add release, hosted-public, publication, recipient, provider-call, or
-   private-data-equivalence surfaces from this root.
-10. Do not copy parent macro bodies into public fixtures or docs. If macro
-   material enters Microcosm, it must pass the `macro_projection_import_protocol`
-   boundary with public replacement refs and validation receipts.
+9. Do not add release, hosted-public, publication, recipient, credentialed
+   provider-call, or secret-export surfaces from this root.
+10. Do copy real non-secret macro bodies into public runtime code, fixtures,
+   docs, or exported bundles when they are the mechanism being released. Do not
+   copy secrets, credential-equivalent payloads, private operator text, or
+   provider payload bodies. Any macro material that enters Microcosm must pass
+   the `macro_projection_import_protocol` boundary with source refs, target
+   refs, body-import verification, omission receipts, and validation receipts.
 11. Keep research-prototype posture explicit. Do not describe this root as
    production infrastructure, a hosted service, or a release-ready agent
    platform.
@@ -613,6 +624,5 @@ include `organ_id` and `fixture_id`.
 
 This public agent entry file gives bounded public-root navigation only. It does
 not authorize Lean/Lake beyond the bounded public witness fixture, trading or
-financial advice, public release, hosted-public readiness, publication,
-recipient work, provider calls, private-data equivalence, or whole-system
-correctness.
+financial advice, hosted deployment, publication, recipient work, credentialed
+provider calls, secret export, or whole-system correctness.

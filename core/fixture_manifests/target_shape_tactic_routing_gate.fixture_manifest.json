@@ -2,7 +2,7 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "fixture_id": "fixture::target_shape_tactic_routing_gate::first_wave_contract_v1",
   "organ_id": "target_shape_tactic_routing_gate",
-  "purpose": "Validate public-safe target-shape tactic admissibility metadata without running Lean/Lake, calling providers, or exposing proof bodies.",
+  "purpose": "Validate source-available target-shape tactic admissibility metadata without running Lean/Lake, calling providers, or exposing proof bodies.",
   "inputs": [
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/tactic_portfolio_availability.json", "role": "synthetic public tactic probe portfolio"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json", "role": "synthetic target-shape route cases"},

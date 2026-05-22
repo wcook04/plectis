@@ -3,7 +3,7 @@
 ## Teleology
 
 `pattern_binding_contract` is the public root organ that binds synthetic pattern
-rows to public-safe source capsules, authority-chain handles, anti-claims, and
+rows to source-available source capsules, authority-chain handles, anti-claims, and
 omission receipts.
 
 ## Public Contract
@@ -23,6 +23,6 @@ capsule resolver receipts, and authority-chain resolver receipts.
 ## Anti-Claim
 
 This module documents public synthetic pattern-binding mechanics only. It does
-not certify the private pattern ledger, public release readiness, hosted-public
+not certify the private pattern ledger, public release operations, hosted-public
 readiness, publication, recipient work, provider calls, private-data
 equivalence, or whole-system correctness.

@@ -14,4 +14,4 @@ The public command emits preflight, cluster, card, source-coupling, route-lease,
 
 ## Anti-Claim
 
-This module documents a toy public route-plane fixture. It does not certify live corpus freshness, later public organs, release readiness, or private-data equivalence.
+This module documents a toy public route-plane fixture. It does not certify live corpus freshness, later public organs, release operations, or secret export.

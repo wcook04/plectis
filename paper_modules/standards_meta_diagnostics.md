@@ -15,7 +15,7 @@ The organ rejects five boundary failures:
 - accepted organ rows without `standard_id` or `standard_ref`
 - accepted organs missing from the standards inventory
 - accepted organ rows without receipt refs
-- release, provider, publication, private-data equivalence, trading/advice, or
+- release, provider, publication, secret export, trading/advice, or
   whole-system correctness overclaims
 - private source bodies or provider payload bodies in public diagnostics
 

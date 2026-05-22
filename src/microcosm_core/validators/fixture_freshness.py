@@ -134,7 +134,7 @@ def _write_acceptance_summary(
             "release_authorized": False,
             "trading_or_financial_advice_authorized": False,
         },
-        "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, release, provider calls, private-data equivalence, or whole-system correctness.",
+        "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, hosted release operations, credentialed provider calls, secret export, or whole-system correctness.",
         "receipt_paths": [_display(path, public_root=public_root)],
     }
     write_json_atomic(path, payload)
@@ -249,7 +249,7 @@ def run_fixture_freshness(
         "acceptance_summary_receipt": _display(acceptance_summary_path, public_root=public_root),
         "acceptance_summary_status": acceptance_summary["status"],
         "private_state_scan": scan,
-        "anti_claim": "Fixture freshness validates manifest, fixture, and receipt presence/fingerprints only; it does not authorize Lean/Lake beyond the bounded public witness fixture, release, provider calls, or private-data equivalence.",
+        "anti_claim": "Fixture freshness validates manifest, fixture, and receipt presence/fingerprints only; it does not authorize Lean/Lake beyond the bounded public witness fixture, hosted release operations, credentialed provider calls, or secret export.",
         "authority_ceiling": {
             "status": PASS,
             "fixture_freshness_authority": "public_receipt_freshness_and_fingerprint_summary_only",

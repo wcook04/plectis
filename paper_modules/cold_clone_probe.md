@@ -20,6 +20,6 @@ relative receipt paths, anti-claims, and no private body excerpts.
 ## Anti-Claim
 
 This module documents clone/bootstrap mechanics only. It does not certify
-release readiness, hosted-public readiness, publication, recipient work,
-provider calls, private-data equivalence, Lean/Lake execution, or whole-system
+release operations, hosted deployment, publication, recipient work,
+provider calls, secret export, Lean/Lake execution, or whole-system
 correctness.

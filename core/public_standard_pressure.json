@@ -1,6 +1,6 @@
 {
-  "anti_claim": "Standard pressure rows are public-safe constraints over local Microcosm state. They do not promote global doctrine, authorize source mutation, or prove release readiness.",
-  "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
+  "anti_claim": "Standard pressure rows are source-available constraints over local Microcosm state. They do not promote global doctrine, authorize source mutation, or prove release operations.",
+  "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
   "private_source_bodies_included": false,
   "rows": [
     {
@@ -245,7 +245,7 @@
     },
     {
       "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
-      "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release readiness.",
+      "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release operations.",
       "kernel_primitive_refs": [
         "standard",
         "route",
@@ -303,7 +303,7 @@
     },
     {
       "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
-      "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release readiness.",
+      "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release operations.",
       "kernel_primitive_refs": [
         "standard",
         "evidence",
@@ -322,7 +322,7 @@
     },
     {
       "authority_boundary": "coverage_projection_not_registry_or_release_authority",
-      "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, private-data equivalence, trading advice, or whole-system correctness.",
+      "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, secret export, trading advice, or whole-system correctness.",
       "kernel_primitive_refs": [
         "standard",
         "evidence",
@@ -341,7 +341,7 @@
     },
     {
       "authority_boundary": "route_map_projection_not_registry_or_release_authority",
-      "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, private-data equivalence, trading advice, source mutation, or whole-system correctness.",
+      "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, secret export, trading advice, source mutation, or whole-system correctness.",
       "kernel_primitive_refs": [
         "route",
         "evidence",

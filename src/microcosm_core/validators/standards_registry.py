@@ -249,12 +249,12 @@ def validate_standards_registry(
             "private_data_equivalence_authorized": False,
         },
         "anti_claim": (
-            "Standards-registry validation proves only public-safe standard file "
+            "Standards-registry validation proves only source-available standard file "
             "shape and first-wave acceptance-plan consistency; it does not "
             "authorize Lean/Lake beyond the bounded public witness fixture, "
             "trading or financial advice, "
-            "release, hosted-public readiness, publication, recipient work, "
-            "provider calls, or private-data equivalence."
+            "release, hosted deployment, publication, recipient work, "
+            "credentialed provider calls, or secret export."
         ),
         "receipt_paths": receipt_paths,
     }

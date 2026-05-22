@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`research_replication_rubric_artifact_replay` turns a research-agent replication claim into a public-safe replay contract. A paper is not treated as replicated because an agent summarizes it; the replay must expose a contribution decomposition, rubric tree, allowed public inputs, scratch repo scaffold, experiment DAG, metric scripts, declared artifact-hash roster, artifact hashes, grader report, cost/runtime budget, ablation diff, failure taxonomy, and cold rerun receipt.
+`research_replication_rubric_artifact_replay` turns a research-agent replication claim into a source-available replay contract. A paper is not treated as replicated because an agent summarizes it; the replay must expose a contribution decomposition, rubric tree, allowed public inputs, scratch repo scaffold, experiment DAG, metric scripts, declared artifact-hash roster, artifact hashes, grader report, cost/runtime budget, ablation diff, failure taxonomy, and cold rerun receipt.
 
 ## Public Inputs
 

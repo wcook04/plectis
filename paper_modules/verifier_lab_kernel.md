@@ -50,4 +50,4 @@ bundle receipts only. It does not authorize private proof-body import,
 Mathlib-dependent proof authority, oracle-to-forward success, provider proof
 authority, CP2 proof bodies, arbitrary Evolve mutation, source mutation,
 benchmark solve-rate claims, release, publication, hosted deployment, or
-private-data equivalence.
+secret export.

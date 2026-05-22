@@ -1,7 +1,7 @@
 {
   "schema_version": "microcosm_organ_evidence_classes_v1",
   "registry_id": "microcosm_organ_evidence_classes",
-  "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, private-data equivalence, or source mutation.",
+  "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, secret export, or source mutation.",
   "fail_closed_no_default": true,
   "class_profiles": {
     "semantic_validator": {
@@ -114,7 +114,7 @@
     {
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for public-safe shape"
+      "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for source-available shape"
     },
     {
       "organ_id": "provider_context_recipe_budget_policy",
@@ -169,7 +169,7 @@
     {
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied safety booleans are checked for public-safe shape, not chemistry safety"
+      "classification_basis": "fixture-supplied safety booleans are checked for source-available shape, not chemistry safety"
     },
     {
       "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
@@ -214,27 +214,27 @@
     {
       "organ_id": "agent_monitor_redteam_falsification_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied monitor verdict rows are checked for public-safe shape"
+      "classification_basis": "fixture-supplied monitor verdict rows are checked for source-available shape"
     },
     {
       "organ_id": "agent_sabotage_scheming_monitor_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for public-safe shape"
+      "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for source-available shape"
     },
     {
       "organ_id": "agent_memory_temporal_conflict_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied memory decisions and conflict flags are checked for public-safe shape"
+      "classification_basis": "fixture-supplied memory decisions and conflict flags are checked for source-available shape"
     },
     {
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied poisoning and quarantine flags are checked for public-safe shape"
+      "classification_basis": "fixture-supplied poisoning and quarantine flags are checked for source-available shape"
     },
     {
       "organ_id": "mcp_tool_authority_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied tool-policy and side-effect flags are checked for public-safe shape"
+      "classification_basis": "fixture-supplied tool-policy and side-effect flags are checked for source-available shape"
     },
     {
       "organ_id": "proof_derived_governed_mutation_authorization",
@@ -244,22 +244,22 @@
     {
       "organ_id": "belief_state_process_reward_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied belief-state rewards and verifier feedback labels are checked for public-safe shape"
+      "classification_basis": "fixture-supplied belief-state rewards and verifier feedback labels are checked for source-available shape"
     },
     {
       "organ_id": "agent_sandbox_policy_escape_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied sandbox policy verdict flags are checked for public-safe shape"
+      "classification_basis": "fixture-supplied sandbox policy verdict flags are checked for source-available shape"
     },
     {
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied taint and policy verdict fields are checked for public-safe shape"
+      "classification_basis": "fixture-supplied taint and policy verdict fields are checked for source-available shape"
     },
     {
       "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for public-safe shape"
+      "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for source-available shape"
     },
     {
       "organ_id": "certificate_kernel_execution_lab",

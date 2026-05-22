@@ -2,7 +2,7 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
   "organ_id": "provider_context_recipe_budget_policy",
-  "purpose": "Validate public-safe provider context recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
+  "purpose": "Validate source-available provider context recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
   "inputs": [
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json", "role": "synthetic public provider context recipe budget table"},
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json", "role": "synthetic redacted context section metadata"},

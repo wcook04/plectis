@@ -66,6 +66,6 @@
     "provider_payload_bodies": "forbidden; this organ runs local Lean/Lake only",
     "build_artifacts": "temporary Lake build output stays outside tracked source"
   },
-  "authority_ceiling": "bounded public Lean/Lake witness only; not Mathlib authority, provider authority, release readiness, benchmark performance, or theorem-program authority beyond the declared toy fixture",
-  "anti_claim": "This fixture manifest accepts only a tiny public Lean/Lake witness compiled in a temporary workspace. It does not authorize Mathlib, provider calls, private proofs, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+  "authority_ceiling": "bounded public Lean/Lake witness only; not Mathlib authority, provider authority, release operations, benchmark performance, or theorem-program authority beyond the declared toy fixture",
+  "anti_claim": "This fixture manifest accepts only a tiny public Lean/Lake witness compiled in a temporary workspace. It does not authorize Mathlib, provider calls, private proofs, public release, hosted deployment, publication operations, recipient work, or secret export."
 }

@@ -24,7 +24,7 @@ First-wave fixture receipt:
 
 ## Input Contract
 
-- `projection_protocol.json`: public-safe projection statement and omitted private material.
+- `projection_protocol.json`: source-available projection statement and omitted private material.
 - `injection_policy.json`: required source, flow, verdict, and output fields plus authority denials.
 - `source_documents.json`: synthetic trusted and untrusted sources with trust labels and taint labels.
 - `information_flow_graph.json`: source-to-sink flow rows before claim admission.
@@ -48,4 +48,4 @@ Passing receipts prove only that this synthetic bundle satisfies the named
 prompt-injection information-flow contract. They do not prove general
 prompt-injection robustness, benchmark performance, live account safety,
 provider behavior, tool behavior, hidden-message handling in a real system,
-source mutation authority, publication authority, or release readiness.
+source mutation authority, publication authority, or release operations.

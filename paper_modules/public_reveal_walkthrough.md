@@ -43,6 +43,6 @@ equivalence, missing evidence refs, and marketing-only reveal material without
 runtime commands.
 
 Anti-claim: this paper module describes public reveal walkthrough validation
-only. It does not authorize release, hosted-public readiness, publication,
-recipient work, provider calls, private-data equivalence, Lean/Lake execution,
+only. It does not authorize release, hosted deployment, publication,
+recipient work, provider calls, secret export, Lean/Lake execution,
 or whole-system correctness.
