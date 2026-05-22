@@ -29,7 +29,11 @@
         "nat_add_zero_public",
         "bool_and_true_public",
         "and_comm_public",
-        "eq_self_public"
+        "eq_self_public",
+        "closed_nat_mod_public",
+        "or_comm_public",
+        "eq_symm_public",
+        "list_append_nil_public"
       ],
       "allowed_imports": [],
       "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
@@ -39,7 +43,7 @@
   "omitted_material": [
     {
       "material_id": "macro_private_prover_runs",
-      "reason": "Private prover run bodies, oracle proofs, and provider payloads are replaced by a tiny public synthetic Lake project.",
+      "reason": "Private prover run bodies, oracle proofs, and provider payloads are replaced by a small public synthetic Lake project with arithmetic, equality, connective, and induction-shaped witnesses.",
       "omission_receipt_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json"
     }
   ],

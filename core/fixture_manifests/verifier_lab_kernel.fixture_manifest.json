@@ -1,0 +1,69 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "verifier_lab_kernel",
+  "fixture_id": "fixture::verifier_lab_kernel::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate the public leak-proof verifier lab kernel composition: bounded Lean/Lake witness execution, tactic portfolio and target-shape routing, verifier trace repair, provider-hypothesis quarantine, CP2 typed action candidates, bounded Evolve candidates, and negative-case leakage controls.",
+  "inputs": [
+    "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json",
+    "fixtures/first_wave/verifier_lab_kernel/input/forward_problem_leaks_candidate_body.json",
+    "fixtures/first_wave/verifier_lab_kernel/input/oracle_counted_as_forward.json",
+    "fixtures/first_wave/verifier_lab_kernel/input/provider_claims_proof.json",
+    "fixtures/first_wave/verifier_lab_kernel/input/cp2_candidate_contains_proof_body.json",
+    "fixtures/first_wave/verifier_lab_kernel/input/evolve_mutates_unbounded_artifact.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+  "expected_negative_cases": [
+    "forward_problem_leaks_candidate_body",
+    "oracle_counted_as_forward",
+    "provider_claims_proof",
+    "cp2_candidate_contains_proof_body",
+    "evolve_mutates_unbounded_artifact"
+  ],
+  "stable_error_codes": [
+    "VERIFIER_LAB_FORWARD_FIELD_FORBIDDEN",
+    "VERIFIER_LAB_ORACLE_FORWARD_CONTAMINATION",
+    "VERIFIER_LAB_PROVIDER_PROOF_AUTHORITY_FORBIDDEN",
+    "VERIFIER_LAB_CP2_PROOF_BODY_FORBIDDEN",
+    "VERIFIER_LAB_EVOLVE_SCOPE_FORBIDDEN"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "component_statuses",
+    "lean_lake_return_code",
+    "lean_compiled_declaration_count",
+    "target_shape_route_case_count",
+    "verifier_trace_attempt_count",
+    "claim_separation",
+    "authority_counters",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "forbidden; all proof-like material is rejected and redacted",
+    "oracle_templates": "forbidden; oracle comparison remains diagnostic only",
+    "provider_payload_bodies": "forbidden; provider hypotheses are advisory metadata only",
+    "raw_tactic_scripts": "forbidden in CP2 candidates; CP2 emits typed action classes only",
+    "evolve_source_mutation": "forbidden; Evolve is limited to bounded policy artifacts"
+  },
+  "authority_ceiling": "public verifier lab kernel fixture only; not theorem proof authority, oracle authority, provider authority, source mutation authority, benchmark authority, or release readiness",
+  "anti_claim": "This fixture manifest accepts only public verifier-lab composition metadata, bounded component receipts, and negative-case leakage coverage. It does not authorize private proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}

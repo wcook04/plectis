@@ -1,0 +1,260 @@
+{
+  "schema_version": "microcosm_organ_evidence_classes_v1",
+  "registry_id": "microcosm_organ_evidence_classes",
+  "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, private-data equivalence, or source mutation.",
+  "fail_closed_no_default": true,
+  "class_profiles": {
+    "semantic_validator": {
+      "evidence_strength_rank": 5,
+      "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+      "verdict_source": "validator_computation",
+      "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+      "claim_ceiling": "validates declared public contract only"
+    },
+    "external_subprocess_witness": {
+      "evidence_strength_rank": 4,
+      "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
+      "verdict_source": "subprocess_or_tool_witness",
+      "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+      "claim_ceiling": "tool witness only, not general proof authority"
+    },
+    "algorithmic_projection": {
+      "evidence_strength_rank": 3,
+      "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
+      "verdict_source": "derived_projection_metric",
+      "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+      "claim_ceiling": "projection mechanics only, not domain correctness"
+    },
+    "fixture_schema_replay": {
+      "evidence_strength_rank": 2,
+      "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
+      "verdict_source": "fixture_replay_contract",
+      "negative_case_independence": "fixture_negative_cases_are_static_inputs",
+      "claim_ceiling": "schema/regression fixture only"
+    },
+    "fixture_echo_smoke": {
+      "evidence_strength_rank": 1,
+      "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
+      "verdict_source": "fixture_supplied_fields",
+      "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
+      "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation"
+    }
+  },
+  "organ_evidence_classes": [
+    {
+      "organ_id": "pattern_binding_contract",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived public contract checks over substrate bundle structure, authority handles, and negative cases"
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived public standard grammar and cross-reference validation"
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata"
+    },
+    {
+      "organ_id": "formal_math_readiness_gate",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded readiness and policy projection over synthetic formal-math fixture rows"
+    },
+    {
+      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded corpus/toolchain availability projection over public fixture state"
+    },
+    {
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded strategy scoring and missing-classification projection"
+    },
+    {
+      "organ_id": "tactic_portfolio_availability_probe",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded tactic availability projection over declared fixture rows"
+    },
+    {
+      "organ_id": "target_shape_tactic_routing_gate",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded routing policy projection over target-shape fixture rows"
+    },
+    {
+      "organ_id": "lean_std_premise_index",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded premise-index projection over closed public Lean/Std fixture rows"
+    },
+    {
+      "organ_id": "formal_math_premise_retrieval",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded retrieval metric projection over public fixture rows"
+    },
+    {
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces"
+    },
+    {
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded evidence-cell resolution and claim-strength projection, not theorem correctness"
+    },
+    {
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded symbol-classification projection over declared public prior rows"
+    },
+    {
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded precision/recall projection over synthetic premise-retrieval fixtures"
+    },
+    {
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for public-safe shape"
+    },
+    {
+      "organ_id": "provider_context_recipe_budget_policy",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded context-budget packing and section omission computation"
+    },
+    {
+      "organ_id": "formal_math_lean_proof_witness",
+      "evidence_class": "external_subprocess_witness",
+      "classification_basis": "bounded Lean/Lake subprocess witness over declared toy project"
+    },
+    {
+      "organ_id": "verifier_lab_kernel",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority"
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation"
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived WorkItem/transaction contract checks over public fixture rows"
+    },
+    {
+      "organ_id": "durable_agent_work_landing_replay",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived landing-lane checks for validation order, HEAD-advance claims, blockers, and scoped closeout evidence"
+    },
+    {
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "evidence_class": "fixture_schema_replay",
+      "classification_basis": "fixture schema and cross-reference checks over declared artifact, rubric, budget, and rerun refs"
+    },
+    {
+      "organ_id": "world_model_projection_drift_control_room",
+      "evidence_class": "fixture_schema_replay",
+      "classification_basis": "fixture schema and policy checks over drift metadata rows, source refs, repair routes, and validation refs"
+    },
+    {
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "synthetic simulation rows carry fixture-supplied prediction and oracle-diff fields"
+    },
+    {
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied safety booleans are checked for public-safe shape, not chemistry safety"
+    },
+    {
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied attribution scores and graph rows are shape checked"
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived observability and action-trace checks over public replay inputs"
+    },
+    {
+      "organ_id": "pattern_assimilation_step",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived acceptance-layer checks for organ landing summaries and assimilation refs"
+    },
+    {
+      "organ_id": "public_reveal_walkthrough",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases"
+    },
+    {
+      "organ_id": "macro_projection_import_protocol",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived import membrane checks for copy/omit/validate/authority-ceiling rows"
+    },
+    {
+      "organ_id": "prediction_oracle_reconciliation",
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded prediction/oracle reconciliation projection over synthetic rows"
+    },
+    {
+      "organ_id": "standards_meta_diagnostics",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived standards coverage and runtime-contract diagnostics"
+    },
+    {
+      "organ_id": "cold_reader_route_map",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived cold-reader route ordering, command ref, docs ref, and receipt ref validation"
+    },
+    {
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied monitor verdict rows are checked for public-safe shape"
+    },
+    {
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for public-safe shape"
+    },
+    {
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied memory decisions and conflict flags are checked for public-safe shape"
+    },
+    {
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied poisoning and quarantine flags are checked for public-safe shape"
+    },
+    {
+      "organ_id": "mcp_tool_authority_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied tool-policy and side-effect flags are checked for public-safe shape"
+    },
+    {
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived authorization checks for proof cells, visible policy verdicts, side effects, rollbacks, cold replay, and negative cases"
+    },
+    {
+      "organ_id": "belief_state_process_reward_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied belief-state rewards and verifier feedback labels are checked for public-safe shape"
+    },
+    {
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied sandbox policy verdict flags are checked for public-safe shape"
+    },
+    {
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied taint and policy verdict fields are checked for public-safe shape"
+    },
+    {
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "evidence_class": "fixture_echo_smoke",
+      "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for public-safe shape"
+    }
+  ]
+}

@@ -44,6 +44,7 @@ REQUIRED_DOCS = [
     "paper_modules/public_reveal_walkthrough.md",
     "paper_modules/macro_projection_import_protocol.md",
     "paper_modules/formal_math_lean_proof_witness.md",
+    "paper_modules/verifier_lab_kernel.md",
     "paper_modules/prediction_oracle_reconciliation.md",
     "paper_modules/standards_meta_diagnostics.md",
     "paper_modules/cold_reader_route_map.md",
@@ -78,6 +79,7 @@ ACCEPTED_ORGAN_IDS = [
     "agent_benchmark_integrity_anti_gaming_replay",
     "provider_context_recipe_budget_policy",
     "formal_math_lean_proof_witness",
+    "verifier_lab_kernel",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "durable_agent_work_landing_replay",
@@ -114,6 +116,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "Architecture Kernel",
         "microcosm explain <project> <route_id>",
         "Evidence receipts are the black-box recorder",
+        "`accepted_current_authority` is not an evidence-strength claim",
+        "evidence_class",
         "Internal Runtime Spine",
         "formal_math_readiness_gate",
         "corpus_readiness_mathlib_absence_gate",
@@ -135,6 +139,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "mechanistic_interpretability_circuit_attribution_replay",
         "provider_context_recipe_budget_policy",
         "formal_math_lean_proof_witness",
+        "verifier_lab_kernel",
         "public_reveal_walkthrough",
         "macro_projection_import_protocol",
         "prediction_oracle_reconciliation",
@@ -176,6 +181,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "materials-chemistry-closed-loop-lab-safety-replay",
         "mechanistic-interpretability-circuit-attribution-replay",
         "provider-context-recipe-budget-policy",
+        "verifier-lab-kernel",
         "microcosm reveal",
         "macro-projection-import-protocol",
         "prediction-oracle-reconciliation",
@@ -209,6 +215,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "microcosm init <project>",
         "microcosm explain <project> <route_id>",
         "Accepted Public Runtime Spine",
+        "`accepted_current_authority` is not an evidence-strength claim",
+        "evidence_class",
         "Do not widen Lean/Lake",
         "formal_math_lean_proof_witness",
         "corpus_readiness_mathlib_absence_gate",
@@ -229,6 +237,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "materials_chemistry_closed_loop_lab_safety_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
         "provider_context_recipe_budget_policy",
+        "verifier_lab_kernel",
         "Fixtures Are Tests",
         "Receipts Are Evidence",
         "public_reveal_walkthrough",
@@ -264,6 +273,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "materials-chemistry-closed-loop-lab-safety-replay",
         "mechanistic-interpretability-circuit-attribution-replay",
         "provider-context-recipe-budget-policy",
+        "verifier-lab-kernel",
         "microcosm reveal",
         "macro-projection-import-protocol",
         "prediction-oracle-reconciliation",
@@ -279,6 +289,10 @@ REQUIRED_PHRASES_BY_DOC = {
         "indirect-prompt-injection-information-flow-policy-replay",
         "agentic-vulnerability-discovery-patch-proof-replay",
         "Do not treat prediction fixtures as trading or financial advice",
+    ],
+    "skills/cold_start_navigation.md": [
+        "evidence_class",
+        "`accepted_current_authority` is not an evidence-strength claim",
     ],
 }
 FORBIDDEN_PHRASES_BY_DOC = {
@@ -322,6 +336,48 @@ def _accepted_organs(public_root: Path) -> list[str]:
         for row in _rows(registry, "implemented_organs")
         if row.get("status") == "accepted_current_authority"
     ]
+
+
+def _evidence_class_registry_summary(public_root: Path) -> dict[str, Any]:
+    path = public_root / "core/organ_evidence_classes.json"
+    if not path.is_file():
+        return {
+            "status": "missing",
+            "source_ref": "core/organ_evidence_classes.json",
+            "class_count": 0,
+            "organ_count": 0,
+            "missing_organs": ACCEPTED_ORGAN_IDS,
+            "unexpected_organs": [],
+            "duplicate_organs": [],
+            "fail_closed_no_default": False,
+        }
+    payload = read_json_strict(path)
+    rows = _rows(payload if isinstance(payload, dict) else {}, "organ_evidence_classes")
+    seen: set[str] = set()
+    duplicates: set[str] = set()
+    class_ids: set[str] = set()
+    for row in rows:
+        organ_id = str(row.get("organ_id") or "")
+        evidence_class = str(row.get("evidence_class") or "")
+        if organ_id in seen:
+            duplicates.add(organ_id)
+        if organ_id:
+            seen.add(organ_id)
+        if evidence_class:
+            class_ids.add(evidence_class)
+    missing = [organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in seen]
+    unexpected = sorted(organ_id for organ_id in seen if organ_id not in ACCEPTED_ORGAN_IDS)
+    fail_closed = isinstance(payload, dict) and payload.get("fail_closed_no_default") is True
+    return {
+        "status": "pass" if not missing and not unexpected and not duplicates and fail_closed else "blocked",
+        "source_ref": "core/organ_evidence_classes.json",
+        "class_count": len(class_ids),
+        "organ_count": len(seen),
+        "missing_organs": missing,
+        "unexpected_organs": unexpected,
+        "duplicate_organs": sorted(duplicates),
+        "fail_closed_no_default": fail_closed,
+    }
 
 
 def validate_public_entry_docs(
@@ -369,6 +425,7 @@ def validate_public_entry_docs(
     unexpected_accepted_organs = [
         organ_id for organ_id in accepted if organ_id not in ACCEPTED_ORGAN_IDS
     ]
+    evidence_class_registry = _evidence_class_registry_summary(public_root)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     scan = _receipt_safe_scan(
         scan_paths(
@@ -388,6 +445,8 @@ def validate_public_entry_docs(
         blocking_codes.append("PUBLIC_ENTRY_DOC_ROUTE_DRIFT")
     if missing_accepted_organs or unexpected_accepted_organs:
         blocking_codes.append("ACCEPTED_ORGAN_REGISTRY_MISMATCH")
+    if evidence_class_registry["status"] != PASS:
+        blocking_codes.append("EVIDENCE_CLASS_REGISTRY_MISMATCH")
     if scan["blocking_hit_count"]:
         blocking_codes.append("PRIVATE_STATE_SCAN_BLOCKED")
 
@@ -405,6 +464,7 @@ def validate_public_entry_docs(
         "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
+        "evidence_class_registry": evidence_class_registry,
         "missing_accepted_organs": missing_accepted_organs,
         "unexpected_accepted_organs": unexpected_accepted_organs,
         "deferred_organs": [],

@@ -1,0 +1,13 @@
+{
+  "schema_version": "verifier_lab_kernel_negative_case_v1",
+  "evolve_candidates": [
+    {
+      "expected_negative_case_id": "evolve_mutates_unbounded_artifact",
+      "candidate_id": "bad_evolve_arbitrary_source_mutation",
+      "mutated_artifact": "python_source_file",
+      "baseline_receipt_ref": "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+      "arbitrary_code_mutation": true,
+      "source_mutation_authorized": true
+    }
+  ]
+}

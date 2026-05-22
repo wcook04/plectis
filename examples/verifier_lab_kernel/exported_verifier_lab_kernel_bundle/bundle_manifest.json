@@ -1,0 +1,12 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "verifier_lab_kernel_runtime_example",
+  "organ_id": "verifier_lab_kernel",
+  "input_mode": "exported_verifier_lab_kernel_bundle",
+  "entry_file": "verifier_lab_packet.json",
+  "included_files": [
+    "verifier_lab_packet.json"
+  ],
+  "authority_ceiling": "verifier_governed_public_kernel_receipt_only",
+  "body_redacted": true
+}

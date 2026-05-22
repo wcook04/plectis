@@ -45,13 +45,14 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     )
 
     assert receipt["status"] == "pass"
-    assert receipt["standard_count"] == 87
-    assert receipt["checked_standard_count"] == 87
+    assert receipt["standard_count"] == 88
+    assert receipt["checked_standard_count"] == 88
     assert "std_microcosm_corpus_readiness_mathlib_absence_gate" in receipt["checked_standard_ids"]
     assert "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer" in receipt["checked_standard_ids"]
     assert "std_microcosm_target_shape_tactic_routing_gate" in receipt["checked_standard_ids"]
     assert "std_microcosm_lean_std_premise_index" in receipt["checked_standard_ids"]
     assert "std_microcosm_formal_math_verifier_trace_repair_loop" in receipt["checked_standard_ids"]
+    assert "std_microcosm_verifier_lab_kernel" in receipt["checked_standard_ids"]
     assert "std_microcosm_formal_evidence_cell_anchor_resolver" in receipt["checked_standard_ids"]
     assert (
         "std_microcosm_undeclared_library_prior_symbol_classifier"

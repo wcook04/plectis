@@ -64,6 +64,7 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "agent_benchmark_integrity_anti_gaming_replay",
         "provider_context_recipe_budget_policy",
         "formal_math_lean_proof_witness",
+        "verifier_lab_kernel",
         "navigation_hologram_route_plane",
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
@@ -90,6 +91,16 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "agentic_vulnerability_discovery_patch_proof_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
     ]
+    assert receipt["evidence_class_registry"] == {
+        "status": "pass",
+        "source_ref": "core/organ_evidence_classes.json",
+        "class_count": 5,
+        "organ_count": 43,
+        "missing_organs": [],
+        "unexpected_organs": [],
+        "duplicate_organs": [],
+        "fail_closed_no_default": True,
+    }
     assert receipt["deferred_organs"] == []
     assert receipt["private_state_scan"]["body_redacted"] is True
     assert receipt["private_state_scan"]["blocking_hit_count"] == 0
@@ -118,6 +129,22 @@ def test_public_entry_docs_block_missing_paper_module(tmp_path: Path) -> None:
     assert receipt["missing_docs"] == ["paper_modules/cold_clone_probe.md"]
 
 
+def test_public_entry_docs_block_missing_evidence_class_registry(tmp_path: Path) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    (public_root / "core/organ_evidence_classes.json").unlink()
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "EVIDENCE_CLASS_REGISTRY_MISMATCH" in receipt["blocking_codes"]
+    assert receipt["evidence_class_registry"]["status"] == "missing"
+    assert receipt["evidence_class_registry"]["fail_closed_no_default"] is False
+
+
 def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     text = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
@@ -140,6 +167,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "undeclared_library_prior_symbol_classifier" in text
     assert "ring2_premise_retrieval_precision_recall_harness" in text
     assert "provider_context_recipe_budget_policy" in text
+    assert "verifier_lab_kernel" in text
     assert "public_reveal_walkthrough" in text
     assert "macro_projection_import_protocol" in text
     assert "prediction_oracle_reconciliation" in text
@@ -160,6 +188,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "target-shape-tactic-routing-gate" in text
     assert "lean-std-premise-index" in text
     assert "formal-math-lean-proof-witness" in text
+    assert "verifier-lab-kernel" in text
     assert "formal-math-verifier-trace-repair-loop" in text
     assert "formal-evidence-cell-anchor-resolver" in text
     assert "undeclared-library-prior-symbol-classifier" in text
@@ -188,6 +217,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "ring2_premise_retrieval_precision_recall_harness" in agents
     assert "provider_context_recipe_budget_policy" in agents
     assert "formal_math_lean_proof_witness" in agents
+    assert "verifier_lab_kernel" in agents
     assert "macro_projection_import_protocol" in agents
     assert "prediction_oracle_reconciliation" in agents
     assert "standards_meta_diagnostics" in agents
@@ -207,6 +237,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "target-shape-tactic-routing-gate" in agents
     assert "lean-std-premise-index" in agents
     assert "formal-math-lean-proof-witness" in agents
+    assert "verifier-lab-kernel" in agents
     assert "formal-math-verifier-trace-repair-loop" in agents
     assert "formal-evidence-cell-anchor-resolver" in agents
     assert "undeclared-library-prior-symbol-classifier" in agents
@@ -236,12 +267,16 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Architecture Kernel" in text
     assert "microcosm explain <project> <route_id>" in text
     assert "Evidence receipts are the black-box recorder" in text
+    assert "evidence_class" in text
+    assert "`accepted_current_authority` is not an evidence-strength claim" in normalized_text
     assert "executable research prototype" in normalized_agents
     assert "local project operating substrate" in normalized_agents
     assert "microcosm compile <project>" in agents
     assert "repo -> `.microcosm`" in agents
     assert "Fixtures Are Tests" in agents
     assert "Receipts Are Evidence" in agents
+    assert "evidence_class" in agents
+    assert "`accepted_current_authority` is not an evidence-strength claim" in normalized_agents
 
 
 def test_public_entry_commands_do_not_depend_on_parent_state() -> None:

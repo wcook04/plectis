@@ -9,10 +9,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 87,
+  "first_wave_required_standard_count": 79,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 87,
+  "standard_count": 88,
   "standards": [
     {
       "first_wave_required": true,
@@ -1019,6 +1019,20 @@
       ],
       "validator_id": "validator.microcosm.formal_math_lean_proof_witness",
       "wave": "w1_formal_math_lean_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "verifier_lab_kernel",
+      "kind_name": "Leak-proof verifier lab kernel",
+      "path": "standards/std_microcosm_verifier_lab_kernel.json",
+      "receipt_id": "receipt.microcosm.verifier_lab_kernel",
+      "standard_id": "std_microcosm_verifier_lab_kernel",
+      "status": "draft",
+      "used_by_organs": [
+        "verifier_lab_kernel"
+      ],
+      "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
+      "wave": "w1_verifier_lab_kernel"
     },
     {
       "first_wave_required": true,

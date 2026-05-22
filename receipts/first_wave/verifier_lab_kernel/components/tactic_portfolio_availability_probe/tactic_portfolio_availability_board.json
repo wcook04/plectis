@@ -1,0 +1,73 @@
+{
+  "anti_claim": "Tactic portfolio availability validates public environment-scoped tactic callability metadata only. It does not run Lean/Lake in this public organ, prove any goal, authorize unavailable tactics, call providers, claim benchmark performance, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+    "availability_is_environment_scoped": true,
+    "benchmark_performance_authority": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_absence_is_probe_result": true,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "body_redacted": true,
+  "bundle_id": null,
+  "input_mode": "first_wave_fixture",
+  "organ_id": "tactic_portfolio_availability_probe",
+  "portfolio_projection": {
+    "available_tactic_ids": [
+      "decide",
+      "grind",
+      "native_decide",
+      "omega",
+      "rfl",
+      "simp",
+      "simp_all"
+    ],
+    "body_redacted": true,
+    "compile_status_counts": {
+      "compile_pass": 7,
+      "environment_fail": 1
+    },
+    "environment_id": "lean_std_synthetic_mathlib_absent_v1",
+    "mathlib_dependent_tactic_ids": [
+      "aesop"
+    ],
+    "mathlib_lake_project_import_available": false,
+    "mathlib_probe_status": "environment_fail",
+    "portfolio_id": "synthetic_core_tactic_portfolio_v1",
+    "tactic_count": 8,
+    "unavailable_tactic_ids": [
+      "aesop"
+    ]
+  },
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "public_contract": {
+    "availability_probe_scoped_to_environment": true,
+    "body_redacted": true,
+    "lean_lake_not_run_by_public_organ": true,
+    "mathlib_absence_surfaces_as_environment_fail": true,
+    "proof_bodies_excluded": true,
+    "unprobed_tactics_rejected": true
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/tactic_portfolio_availability_probe_fixture_acceptance.json"
+  ],
+  "schema_version": "tactic_portfolio_availability_board_v1",
+  "selected_pattern_ids": [
+    "tactic_portfolio_availability_probe"
+  ],
+  "status": "pass"
+}

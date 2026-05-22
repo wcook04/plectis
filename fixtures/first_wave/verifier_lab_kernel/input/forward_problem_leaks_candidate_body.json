@@ -1,0 +1,13 @@
+{
+  "schema_version": "verifier_lab_kernel_negative_case_v1",
+  "forward_problems": [
+    {
+      "expected_negative_case_id": "forward_problem_leaks_candidate_body",
+      "problem_id": "bad_forward_problem_with_candidate_body",
+      "target_shape": "closed_nat_mod_decision",
+      "statement_summary": "invalid leaked candidate body",
+      "public_input_hash": "sha256:bad_forward_leak",
+      "candidate_body": "synthetic forbidden proof material"
+    }
+  ]
+}

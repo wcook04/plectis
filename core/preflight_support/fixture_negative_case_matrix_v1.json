@@ -23,6 +23,19 @@
     },
     {
       "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "verifier_lab_kernel_negative_cases",
+      "expected_negative_cases": [
+        "forward_problem_leaks_candidate_body",
+        "oracle_counted_as_forward",
+        "provider_claims_proof",
+        "cp2_candidate_contains_proof_body",
+        "evolve_mutates_unbounded_artifact"
+      ],
+      "organ_id": "verifier_lab_kernel",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
       "case_id": "formal_evidence_cell_anchor_resolver_negative_cases",
       "expected_negative_cases": [
         "unknown_cell_overclaim",

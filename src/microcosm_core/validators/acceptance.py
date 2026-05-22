@@ -89,6 +89,7 @@ WAVE_1_ORGAN_IDS = [
     "agent_benchmark_integrity_anti_gaming_replay",
     "provider_context_recipe_budget_policy",
     "formal_math_lean_proof_witness",
+    "verifier_lab_kernel",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "durable_agent_work_landing_replay",

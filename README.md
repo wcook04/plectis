@@ -13,6 +13,9 @@ python -m pip install -e '.[test]'
 microcosm compile .
 microcosm tour .
 microcosm python-lens .
+microcosm spine
+microcosm authority
+microcosm reveal
 microcosm legibility-scorecard
 microcosm market-boundary
 microcosm drift-control
@@ -28,6 +31,10 @@ microcosm serve . --host 127.0.0.1 --port 8765
 
 Open `http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
+
+Use `microcosm authority` before trusting any organ label. It shows each
+organ's explicit `evidence_class`, and `accepted_current_authority` is not an
+evidence-strength claim.
 
 ## Before / After
 
@@ -500,7 +507,7 @@ available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package now carries thirty-eight adapter-backed runtime organs behind
+The public package now carries forty-three adapter-backed runtime organs behind
 the local substrate loop:
 
 1. `pattern_binding_contract`
@@ -520,31 +527,32 @@ the local substrate loop:
 15. `agent_benchmark_integrity_anti_gaming_replay`
 16. `provider_context_recipe_budget_policy`
 17. `formal_math_lean_proof_witness`
-18. `navigation_hologram_route_plane`
-19. `mission_transaction_work_spine`
-20. `durable_agent_work_landing_replay`
-21. `research_replication_rubric_artifact_replay`
-22. `world_model_projection_drift_control_room`
-23. `spatial_world_model_counterfactual_simulation_replay`
-24. `mechanistic_interpretability_circuit_attribution_replay`
-25. `agent_route_observability_runtime`
-26. `pattern_assimilation_step`
-27. `public_reveal_walkthrough`
-28. `macro_projection_import_protocol`
-29. `prediction_oracle_reconciliation`
-30. `standards_meta_diagnostics`
-31. `cold_reader_route_map`
-32. `agent_monitor_redteam_falsification_replay`
-33. `agent_sabotage_scheming_monitor_replay`
-34. `agent_memory_temporal_conflict_replay`
-35. `sleeper_memory_poisoning_quarantine_replay`
-36. `mcp_tool_authority_replay`
-37. `proof_derived_governed_mutation_authorization`
-38. `belief_state_process_reward_replay`
-39. `agent_sandbox_policy_escape_replay`
-40. `indirect_prompt_injection_information_flow_policy_replay`
-41. `agentic_vulnerability_discovery_patch_proof_replay`
-42. `materials_chemistry_closed_loop_lab_safety_replay`
+18. `verifier_lab_kernel`
+19. `navigation_hologram_route_plane`
+20. `mission_transaction_work_spine`
+21. `durable_agent_work_landing_replay`
+22. `research_replication_rubric_artifact_replay`
+23. `world_model_projection_drift_control_room`
+24. `spatial_world_model_counterfactual_simulation_replay`
+25. `mechanistic_interpretability_circuit_attribution_replay`
+26. `agent_route_observability_runtime`
+27. `pattern_assimilation_step`
+28. `public_reveal_walkthrough`
+29. `macro_projection_import_protocol`
+30. `prediction_oracle_reconciliation`
+31. `standards_meta_diagnostics`
+32. `cold_reader_route_map`
+33. `agent_monitor_redteam_falsification_replay`
+34. `agent_sabotage_scheming_monitor_replay`
+35. `agent_memory_temporal_conflict_replay`
+36. `sleeper_memory_poisoning_quarantine_replay`
+37. `mcp_tool_authority_replay`
+38. `proof_derived_governed_mutation_authorization`
+39. `belief_state_process_reward_replay`
+40. `agent_sandbox_policy_escape_replay`
+41. `indirect_prompt_injection_information_flow_policy_replay`
+42. `agentic_vulnerability_discovery_patch_proof_replay`
+43. `materials_chemistry_closed_loop_lab_safety_replay`
 
 `agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
 integrity boundary: it validates locked evaluator ids, evaluator config hashes,
@@ -797,6 +805,15 @@ proofs, provider calls, benchmark claims, private proof import, or release.
 Fixtures and exported bundles are regression inputs and examples; they are not
 the primary product runtime.
 
+`verifier_lab_kernel` composes the public formal-math witness, tactic
+portfolio, target-shape routing, verifier trace repair, provider-hypothesis
+quarantine, CP2 action candidates, and bounded Evolve candidates into one
+leak-proof receipt. Run `verifier-lab-kernel` to inspect the exported kernel
+bundle; it separates verifier success, oracle comparison, provider suggestion,
+contract rejection, retrieval miss, CP2 translation, and Evolve candidates
+without importing proof bodies or upgrading provider/oracle output into proof
+authority.
+
 `formal_math_premise_retrieval` is the first real formal-math import tranche
 through the projection protocol: a Lean/Std premise index, term-scored
 retrieval queries, context-budget recipes, strategy gates, synthetic recall,
@@ -930,6 +947,8 @@ PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_p
 PYTHONPATH=src python3 -m microcosm_core.cli provider-context-recipe-budget-policy run-budget-bundle --input examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle --out receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy
 PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness
 PYTHONPATH=src python3 -m microcosm_core.cli formal-math-lean-proof-witness run-witness-bundle --input examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness
+PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel
+PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_kernel
 PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough
 PYTHONPATH=src python3 -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol
 PYTHONPATH=src python3 -m microcosm_core.cli macro-projection-import-protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol

@@ -14,9 +14,9 @@
   },
   "body_redacted": true,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
-  "compiled_declaration_count": 4,
-  "created_at": "2026-05-21T08:24:49+00:00",
+  "command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input --out microcosm-substrate/receipts/first_wave/formal_math_lean_proof_witness",
+  "compiled_declaration_count": 8,
+  "created_at": "2026-05-22T15:02:17+00:00",
   "error_codes": [
     "LEAN_WITNESS_FORBIDDEN_IMPORT",
     "LEAN_WITNESS_INVALID_PROOF_REJECTED",
@@ -130,13 +130,17 @@
       "declarations": [
         "and_comm_public",
         "bool_and_true_public",
+        "closed_nat_mod_public",
         "eq_self_public",
-        "nat_add_zero_public"
+        "eq_symm_public",
+        "list_append_nil_public",
+        "nat_add_zero_public",
+        "or_comm_public"
       ],
       "imports": [],
-      "line_count": 19,
-      "sha256": "12a87f3d81700cc7fdb38e5bc474ecd97ee76da4f53c9971e5dcdb08c5ebf477",
-      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
+      "line_count": 42,
+      "sha256": "a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
+      "source_ref": "microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
     }
   ],
   "source_pattern_ids": [
@@ -159,7 +163,7 @@
         "--version"
       ],
       "body_redacted": true,
-      "cwd_name": "microcosm-substrate",
+      "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
@@ -172,7 +176,7 @@
         "--version"
       ],
       "body_redacted": true,
-      "cwd_name": "microcosm-substrate",
+      "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,

@@ -1,0 +1,197 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_verifier_lab_kernel",
+  "kind_id": "verifier_lab_kernel",
+  "kind_name": "Leak-proof verifier lab kernel",
+  "status": "draft",
+  "first_wave_required": true,
+  "wave": "w1_verifier_lab_kernel",
+  "authority_boundary": "public_verifier_lab_kernel_receipt_not_proof_authority",
+  "source_refs": [
+    {
+      "path": "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json",
+      "field": "verifier_lab_packet",
+      "role": "public_fixture_source"
+    },
+    {
+      "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+      "field": "runtime_example",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#verifier_lab_kernel",
+    "used_by_organs": [
+      "verifier_lab_kernel"
+    ],
+    "source_pattern_id_sample": [
+      "oracle_sidecar_forward_firewall",
+      "target_shape_tactic_routing_gate",
+      "lean_verifier_feedback_failure_classification",
+      "prover_residual_diagnosis_cp1_view_v0",
+      "bounded_evolve_policy_artifact_runner"
+    ]
+  },
+  "required_fields": [
+    "kernel_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "component_inputs",
+    "forward_problems",
+    "oracle_sidecars",
+    "verifier_attempts",
+    "provider_hypotheses",
+    "residual_diagnoses",
+    "cp2_action_candidates",
+    "evolve_candidates",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "compose existing public formal-math component organs before emitting kernel claims",
+    "reject forbidden forward-packet proof, oracle, repair, source-body, and base-index fields",
+    "reject oracle comparator rows counted as forward success",
+    "reject provider or NIM rows that claim proof authority",
+    "reject CP2 candidates that carry proof bodies, raw tactic scripts, provider bodies, or oracle templates",
+    "reject Evolve candidates outside bounded policy artifacts",
+    "require separated claim buckets for verifier, oracle, provider, contract, retrieval, CP2, and Evolve outcomes",
+    "emit private-state scan and redacted receipts"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.verifier_lab_kernel",
+    "receipt must cite component statuses, Lean/Lake return code, target-shape route count, verifier trace attempt count, negative-case coverage, claim separation, authority counters, private-state scan, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
+    "minimum_checks": [
+      "component_stack_passes",
+      "forward_forbidden_field_rejection",
+      "oracle_not_forward_rejection",
+      "provider_not_proof_rejection",
+      "cp2_no_proof_body_rejection",
+      "evolve_bounded_artifact_rejection",
+      "claim_separation_keys",
+      "negative_case_coverage"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.verifier_lab_kernel",
+    "must_record": [
+      "kernel_id",
+      "source_pattern_ids",
+      "source_refs",
+      "projection_receipt_refs",
+      "public_replacement_refs",
+      "component_statuses",
+      "lean_lake_return_code",
+      "lean_compiled_declaration_count",
+      "target_shape_route_case_count",
+      "verifier_trace_attempt_count",
+      "claim_separation",
+      "authority_counters",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_fixture_and_exported_bundle_receipts_only",
+    "allowed_public_inputs": [
+      "problem ids",
+      "statement summaries",
+      "target-shape ids",
+      "redacted public input hashes",
+      "allowed premise ids",
+      "oracle comparator ids",
+      "verifier result classes",
+      "provider hypothesis metadata",
+      "CP2 action-class ids",
+      "bounded Evolve policy-artifact ids",
+      "receipt refs"
+    ],
+    "forbidden_public_inputs": [
+      "proof bodies",
+      "candidate proof bodies",
+      "ideal proof bodies",
+      "repair proof bodies",
+      "raw tactic scripts",
+      "oracle templates",
+      "oracle-needed premise ids",
+      "source proof bodies",
+      "private run logs",
+      "provider payload bodies",
+      "credentials"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "verifier_lab_kernel_public_fixture_receipt_schema_only",
+    "formal_proof_authority": false,
+    "oracle_forward_authority": false,
+    "provider_authority": false,
+    "cp2_proof_body_authority": false,
+    "evolve_source_mutation_authority": false,
+    "benchmark_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs public verifier-lab composition receipts only; it does not authorize private proof-body import, oracle success as forward proof, provider proof authority, CP2 proof bodies, arbitrary Evolve mutation, benchmark solve-rate claims, release, publication, or private-data equivalence.",
+  "standard_payload": {
+    "ontology": "A public-safe verifier-governed lab kernel that composes forward problems, oracle sidecars, verifier attempts, provider hypotheses, residual diagnoses, CP2 typed action candidates, bounded Evolve candidates, and redacted receipts.",
+    "teleology": "Make Microcosm execute the macro formal-math epistemics pattern without importing private proof bodies or upgrading advisory outputs into proof authority.",
+    "anti_purpose": "Moving private Lean proof bodies wholesale or treating provider/oracle output as theorem proof.",
+    "compression_bands": [
+      "forward",
+      "oracle",
+      "verifier",
+      "provider",
+      "residual",
+      "cp2",
+      "evolve",
+      "receipt"
+    ],
+    "failure_modes": [
+      "forward packet leaks proof or oracle body",
+      "oracle comparator is counted as forward success",
+      "provider hypothesis claims proof authority",
+      "CP2 candidate carries proof body or raw tactic script",
+      "Evolve candidate mutates unbounded source artifact",
+      "positive metric lacks anti-claim and receipt ref"
+    ],
+    "rebuild_action": "draft"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json"
+  ],
+  "validator_refs": [
+    "microcosm_core.organs.verifier_lab_kernel"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "verifier_lab_kernel"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "private Lean proof bodies",
+      "oracle templates",
+      "provider payload bodies",
+      "raw tactic scripts",
+      "private run logs",
+      "source mutation"
+    ],
+    "reason": "public tranche carries leak-proof verifier-lab composition metadata and bounded receipts only",
+    "drilldown": "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "verifier lab material must state that provider and oracle outputs are not proof authority"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  }
+}

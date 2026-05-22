@@ -47,7 +47,7 @@ def test_formal_math_lean_proof_witness_builds_and_observes_negative_cases(
 
     assert result["status"] == "pass"
     assert result["lake_build"]["return_code"] == 0
-    assert result["compiled_declaration_count"] == 4
+    assert result["compiled_declaration_count"] == 8
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert result["authority_ceiling"]["lean_lake_execution_authorized"] is True
@@ -108,6 +108,6 @@ def test_formal_math_lean_proof_witness_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["compiled_declaration_count"] == 4
+    assert result["compiled_declaration_count"] == 8
     assert result["lean_witness_board"]["lean_lake_execution_authorized"] is True
     assert result["lean_witness_board"]["mathlib_authorized"] is False

@@ -246,6 +246,19 @@
       "validator_command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness"
     },
     {
+      "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+        "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+        "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+        "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+      ],
+      "organ_id": "verifier_lab_kernel",
+      "runner": "microcosm_core.organs.verifier_lab_kernel",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel"
+    },
+    {
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
       "generated_receipts": [
         "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
@@ -578,7 +591,7 @@
       "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
     }
   ],
-  "registry_status": "accepted_runtime_spine_indirect_prompt_injection_information_flow_policy_replay_bound",
+  "registry_status": "accepted_runtime_spine_verifier_lab_kernel_bound",
   "schema_version": "organ_registry_v1",
   "unauthorized_surfaces": [
     "release",

@@ -1,0 +1,54 @@
+{
+  "accepted_negative_cases": [
+    "attempt_with_oracle_ids",
+    "attempt_with_proof_body",
+    "human_approval_as_proof",
+    "promotion_without_cold_rerun",
+    "provider_payload_leakage",
+    "repair_without_verifier_class",
+    "trace_grade_without_trace"
+  ],
+  "anti_claim": "Formal math verifier-trace repair loop validates a public synthetic replay of verifier feedback, trace grading, repair actions, failure-mode ledger updates, curriculum deltas, and cold rerun promotion gates. It does not run Lean or Lake, call providers, expose proof bodies or oracle premise ids, treat human or provider advice as proof correctness, prove theorem correctness, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_synthetic_verifier_trace_repair_metadata_only",
+    "formal_proof_authority": false,
+    "human_approval_as_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "oracle_premise_ids_allowed": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "created_at": "2026-05-22T15:02:17+00:00",
+  "error_codes": [
+    "VERIFIER_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY",
+    "VERIFIER_PROMOTION_WITHOUT_COLD_RERUN",
+    "VERIFIER_PROVIDER_PAYLOAD_FORBIDDEN",
+    "VERIFIER_REPAIR_WITHOUT_VERIFIER_CLASS",
+    "VERIFIER_TRACE_GRADE_WITHOUT_TRACE",
+    "VERIFIER_TRACE_ORACLE_IDS_FORBIDDEN",
+    "VERIFIER_TRACE_PROOF_BODY_FORBIDDEN"
+  ],
+  "fixture_id": "first_wave.formal_math_verifier_trace_repair_loop",
+  "missing_negative_cases": [],
+  "organ_id": "formal_math_verifier_trace_repair_loop",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+  ],
+  "schema_version": "formal_math_verifier_trace_repair_loop_fixture_acceptance_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.formal_math_verifier_trace_repair_loop"
+}

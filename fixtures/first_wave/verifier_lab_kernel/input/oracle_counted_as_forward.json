@@ -1,0 +1,13 @@
+{
+  "schema_version": "verifier_lab_kernel_negative_case_v1",
+  "oracle_sidecars": [
+    {
+      "expected_negative_case_id": "oracle_counted_as_forward",
+      "sidecar_id": "bad_oracle_counted_as_forward",
+      "forward_problem_id": "fp_missing_commutativity_prior",
+      "oracle_result_class": "oracle_can_solve",
+      "oracle_compared": true,
+      "counted_as_forward_success": true
+    }
+  ]
+}

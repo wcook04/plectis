@@ -337,6 +337,15 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "verifier_lab_kernel",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
       "landing_receipt_ref": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
       "live_learning_authority": false,
       "organ_id": "world_model_projection_drift_control_room",

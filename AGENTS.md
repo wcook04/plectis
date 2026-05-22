@@ -30,6 +30,7 @@ explanation, and assimilation primitives, not through production claims.
 - `agent_benchmark_integrity_anti_gaming_replay`
 - `provider_context_recipe_budget_policy`
 - `formal_math_lean_proof_witness`
+- `verifier_lab_kernel`
 - `navigation_hologram_route_plane`
 - `mission_transaction_work_spine`
 - `durable_agent_work_landing_replay`
@@ -78,7 +79,8 @@ explanation, and assimilation primitives, not through production claims.
    without source bodies, provider calls, source mutation, package-quality
    claims, or static-analysis authority claims.
    The public spine loop is `microcosm spine`; it should expose the accepted
-   runtime organs, first-run command path, counts, evidence policy, and
+   runtime organs, first-run command path, counts, evidence policy, explicit
+   `evidence_class` rows, and
    authority ceiling without forcing a cold reader into raw receipts first.
    The runtime intake loop is `microcosm intake`; it should connect the macro
    projection intake board, formal-math readiness extension board, reveal
@@ -117,8 +119,10 @@ explanation, and assimilation primitives, not through production claims.
    that intake board into spine/reveal/evidence.
    The authority loop is `microcosm authority`; it should aggregate status,
    spine, intake, reveal, accepted organs, hard public boundaries, safe
-   local-only exceptions, evidence refs, and anti-claims into one redacted
-   map. It is the entry point for checking what Microcosm may not do: release,
+   local-only exceptions, evidence refs, `evidence_class` rows, and anti-claims
+   into one redacted map. `accepted_current_authority` is not an
+   evidence-strength claim. It is the entry point for checking what Microcosm
+   may not do: release,
    publish, host, call providers, mutate source, import private bodies, claim
    private equivalence, make general proof claims, or offer financial advice.
    The prediction lens loop is `microcosm prediction-lens`; it should project
@@ -485,6 +489,13 @@ explanation, and assimilation primitives, not through production claims.
    The `formal_math_lean_proof_witness` organ is the only bounded Lean/Lake
    execution lane: use `formal-math-lean-proof-witness` for the tiny public
    Lake witness bundle, and keep receipts redacted.
+   The `verifier_lab_kernel` organ is the formal-math composition root: use
+   `verifier-lab-kernel` to validate bounded Lean witness execution, tactic
+   portfolio/routing evidence, verifier trace repair, provider-hypothesis
+   quarantine, CP2 action candidates, and bounded Evolve candidates in one
+   leak-proof receipt. It must keep verifier success, oracle comparison,
+   provider suggestion, contract rejection, retrieval miss, CP2 translation,
+   and Evolve candidates separated.
    Architecture primitives must resolve through the project-local pattern
    surface: catalog observations become `.microcosm/patterns.json`, routes
    carry `pattern_refs`, and explanations show resolved pattern bindings.
@@ -530,7 +541,10 @@ explanation, and assimilation primitives, not through production claims.
    `provider_context_recipe_budget_policy` are
    metadata/retrieval/admissibility/metric/context-budget lanes only, and
    `formal_math_lean_proof_witness` authorizes only the tiny public witness
-   fixture in a temporary workspace.
+   fixture in a temporary workspace, and `verifier_lab_kernel` authorizes only
+   a public leak-proof verifier-lab receipt with no private proof bodies,
+   provider proof authority, oracle-to-forward contamination, arbitrary
+   Evolve, source mutation, benchmark claims, or release/publication work.
    `corpus-lens` is metadata-only projection over corpus readiness receipts:
    it may make Mathlib import absence and blocked consumers legible, but it
    must not become Lean/Lake execution, Mathlib proof authority,

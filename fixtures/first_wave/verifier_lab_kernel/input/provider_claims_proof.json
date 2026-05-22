@@ -1,0 +1,14 @@
+{
+  "schema_version": "verifier_lab_kernel_negative_case_v1",
+  "provider_hypotheses": [
+    {
+      "expected_negative_case_id": "provider_claims_proof",
+      "hypothesis_id": "bad_provider_claims_proof",
+      "residual_id": "res_missing_commutativity_prior",
+      "residual_class": "PREMISE_RETRIEVAL_MISS",
+      "candidate_action_classes": ["premise_exact"],
+      "provider_results_counted": true,
+      "proof_authority": true
+    }
+  ]
+}

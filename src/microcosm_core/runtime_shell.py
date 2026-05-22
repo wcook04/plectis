@@ -55,6 +55,7 @@ from microcosm_core.organs import standards_meta_diagnostics
 from microcosm_core.organs import tactic_portfolio_availability_probe
 from microcosm_core.organs import target_shape_tactic_routing_gate
 from microcosm_core.organs import undeclared_library_prior_symbol_classifier
+from microcosm_core.organs import verifier_lab_kernel
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
@@ -63,95 +64,7 @@ from microcosm_core.validators import acceptance
 
 PASS = "pass"
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
-
-SEMANTIC_VALIDATOR_ORGANS = frozenset(
-    {
-        "pattern_binding_contract",
-        "executable_doctrine_grammar",
-        "proof_diagnostic_evidence_spine",
-        "navigation_hologram_route_plane",
-        "mission_transaction_work_spine",
-        "agent_route_observability_runtime",
-        "pattern_assimilation_step",
-        "public_reveal_walkthrough",
-        "macro_projection_import_protocol",
-        "standards_meta_diagnostics",
-        "cold_reader_route_map",
-    }
-)
-ALGORITHMIC_PROJECTION_ORGANS = frozenset(
-    {
-        "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
-        "mathematical_strategy_atlas_hypothesis_scorer",
-        "tactic_portfolio_availability_probe",
-        "target_shape_tactic_routing_gate",
-        "lean_std_premise_index",
-        "formal_math_premise_retrieval",
-        "formal_math_verifier_trace_repair_loop",
-        "formal_evidence_cell_anchor_resolver",
-        "undeclared_library_prior_symbol_classifier",
-        "ring2_premise_retrieval_precision_recall_harness",
-        "provider_context_recipe_budget_policy",
-        "prediction_oracle_reconciliation",
-    }
-)
-FIXTURE_ECHO_SMOKE_ORGANS = frozenset(
-    {
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay",
-        "agent_memory_temporal_conflict_replay",
-        "sleeper_memory_poisoning_quarantine_replay",
-        "mcp_tool_authority_replay",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-    }
-)
-EXTERNAL_SUBPROCESS_WITNESS_ORGANS = frozenset({"formal_math_lean_proof_witness"})
-
-EVIDENCE_CLASS_PROFILES: dict[str, dict[str, Any]] = {
-    "semantic_validator": {
-        "evidence_strength_rank": 5,
-        "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
-        "verdict_source": "validator_computation",
-        "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "claim_ceiling": "validates declared public contract only",
-    },
-    "external_subprocess_witness": {
-        "evidence_strength_rank": 4,
-        "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
-        "verdict_source": "subprocess_or_tool_witness",
-        "negative_case_independence": "bounded_to_declared_toy_witness_scope",
-        "claim_ceiling": "tool witness only, not general proof authority",
-    },
-    "algorithmic_projection": {
-        "evidence_strength_rank": 3,
-        "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
-        "verdict_source": "derived_projection_metric",
-        "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-    },
-    "fixture_schema_replay": {
-        "evidence_strength_rank": 2,
-        "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
-        "verdict_source": "fixture_replay_contract",
-        "negative_case_independence": "fixture_negative_cases_are_static_inputs",
-        "claim_ceiling": "schema/regression fixture only",
-    },
-    "fixture_echo_smoke": {
-        "evidence_strength_rank": 1,
-        "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
-        "verdict_source": "fixture_supplied_fields",
-        "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-    },
-}
+EVIDENCE_CLASS_REGISTRY_REL = Path("core/organ_evidence_classes.json")
 
 
 Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
@@ -333,6 +246,14 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         example_rel="examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle",
         runner=formal_math_lean_proof_witness.run_witness_bundle,
         receipt_name="exported_lean_proof_witness_bundle_validation_result.json",
+    ),
+    RuntimeStep(
+        organ_id="verifier_lab_kernel",
+        span="verifier_lab_kernel.validate",
+        input_mode="exported_verifier_lab_kernel_bundle",
+        example_rel="examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+        runner=verifier_lab_kernel.run_kernel_bundle,
+        receipt_name="exported_verifier_lab_kernel_bundle_validation_result.json",
     ),
     RuntimeStep(
         organ_id="navigation_hologram_route_plane",
@@ -683,34 +604,105 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
-def _organ_evidence_class(organ_id: str) -> str:
-    if organ_id in SEMANTIC_VALIDATOR_ORGANS:
-        return "semantic_validator"
-    if organ_id in EXTERNAL_SUBPROCESS_WITNESS_ORGANS:
-        return "external_subprocess_witness"
-    if organ_id in ALGORITHMIC_PROJECTION_ORGANS:
-        return "algorithmic_projection"
-    if organ_id in FIXTURE_ECHO_SMOKE_ORGANS:
-        return "fixture_echo_smoke"
-    return "fixture_schema_replay"
+def _runtime_organ_ids() -> list[str]:
+    return [step.organ_id for step in RUNTIME_STEPS]
 
 
-def _organ_evidence_profile(organ_id: str) -> dict[str, Any]:
-    evidence_class = _organ_evidence_class(organ_id)
-    profile = EVIDENCE_CLASS_PROFILES[evidence_class]
+def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
+    registry_path = root / EVIDENCE_CLASS_REGISTRY_REL
+    payload = read_json_strict(registry_path)
+    if not isinstance(payload, dict):
+        raise ValueError(f"{EVIDENCE_CLASS_REGISTRY_REL.as_posix()} must be a JSON object")
+    if payload.get("fail_closed_no_default") is not True:
+        raise ValueError("organ evidence-class registry must declare fail_closed_no_default=true")
+
+    profiles = payload.get("class_profiles")
+    rows = payload.get("organ_evidence_classes")
+    if not isinstance(profiles, dict) or not profiles:
+        raise ValueError("organ evidence-class registry has no class_profiles object")
+    if not isinstance(rows, list):
+        raise ValueError("organ evidence-class registry has no organ_evidence_classes list")
+
+    expected_ids = set(_runtime_organ_ids())
+    seen: set[str] = set()
+    duplicate_ids: set[str] = set()
+    profile_by_id: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("organ evidence-class rows must be JSON objects")
+        organ_id = str(row.get("organ_id") or "")
+        evidence_class = str(row.get("evidence_class") or "")
+        if not organ_id:
+            raise ValueError("organ evidence-class row is missing organ_id")
+        if organ_id in seen:
+            duplicate_ids.add(organ_id)
+        seen.add(organ_id)
+        class_profile = profiles.get(evidence_class)
+        if not isinstance(class_profile, dict):
+            raise ValueError(f"organ {organ_id} references unknown evidence_class {evidence_class!r}")
+        profile_by_id[organ_id] = {
+            "evidence_class": evidence_class,
+            "evidence_strength_rank": class_profile["evidence_strength_rank"],
+            "evaluator_basis": class_profile["evaluator_basis"],
+            "verdict_source": class_profile["verdict_source"],
+            "negative_case_independence": class_profile["negative_case_independence"],
+            "claim_ceiling": class_profile["claim_ceiling"],
+            "classification_basis": row.get("classification_basis"),
+            "evidence_strength_disclosed": True,
+        }
+
+    missing_ids = sorted(expected_ids - seen)
+    extra_ids = sorted(seen - expected_ids)
+    if duplicate_ids or missing_ids or extra_ids:
+        raise ValueError(
+            "organ evidence-class registry coverage defect: "
+            f"duplicates={sorted(duplicate_ids)} missing={missing_ids} extra={extra_ids}"
+        )
+
     return {
-        "evidence_class": evidence_class,
-        "evidence_strength_rank": profile["evidence_strength_rank"],
-        "evaluator_basis": profile["evaluator_basis"],
-        "verdict_source": profile["verdict_source"],
-        "negative_case_independence": profile["negative_case_independence"],
-        "claim_ceiling": profile["claim_ceiling"],
-        "evidence_strength_disclosed": True,
+        "source_ref": EVIDENCE_CLASS_REGISTRY_REL.as_posix(),
+        "schema_version": payload.get("schema_version"),
+        "registry_id": payload.get("registry_id"),
+        "fail_closed_no_default": True,
+        "class_profiles": profiles,
+        "organ_profiles_by_id": profile_by_id,
+        "organ_ids": _runtime_organ_ids(),
+        "explicit_coverage": True,
+        "missing_organs": [],
+        "extra_organs": [],
+        "duplicate_organs": [],
+    }
+
+
+def _organ_evidence_profile(organ_id: str, registry: dict[str, Any]) -> dict[str, Any]:
+    profiles = registry.get("organ_profiles_by_id", {})
+    profile = profiles.get(organ_id) if isinstance(profiles, dict) else None
+    if not isinstance(profile, dict):
+        raise ValueError(f"unclassified organ_id {organ_id!r} in evidence-class registry")
+    return dict(profile)
+
+
+def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
+    profiles = registry.get("class_profiles", {})
+    organ_profiles = registry.get("organ_profiles_by_id", {})
+    return {
+        "source_ref": registry.get("source_ref"),
+        "schema_version": registry.get("schema_version"),
+        "registry_id": registry.get("registry_id"),
+        "fail_closed_no_default": registry.get("fail_closed_no_default") is True,
+        "explicit_coverage": registry.get("explicit_coverage") is True,
+        "class_profile_count": len(profiles) if isinstance(profiles, dict) else 0,
+        "organ_evidence_class_count": len(organ_profiles)
+        if isinstance(organ_profiles, dict)
+        else 0,
+        "unclassified_organs": registry.get("missing_organs", []),
+        "extra_organs": registry.get("extra_organs", []),
+        "duplicate_organs": registry.get("duplicate_organs", []),
     }
 
 
 def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
-    counts = {class_id: 0 for class_id in EVIDENCE_CLASS_PROFILES}
+    counts: dict[str, int] = {}
     for row in rows:
         class_id = row.get("evidence_class")
         if isinstance(class_id, str):
@@ -731,6 +723,7 @@ class RuntimeShell:
         rows = registry.get("implemented_organs", [])
         if not isinstance(rows, list):
             return []
+        evidence_registry = _load_evidence_class_registry(self.root)
         by_step = {step.organ_id: step for step in RUNTIME_STEPS}
         organs: list[dict[str, Any]] = []
         for row in rows:
@@ -738,7 +731,7 @@ class RuntimeShell:
                 continue
             organ_id = str(row.get("organ_id") or "")
             step = by_step.get(organ_id)
-            evidence_profile = _organ_evidence_profile(organ_id)
+            evidence_profile = _organ_evidence_profile(organ_id, evidence_registry)
             organs.append(
                 {
                     "organ_id": organ_id,
@@ -872,6 +865,7 @@ class RuntimeShell:
                     "microcosm formal-math-lean-proof-witness run-witness-bundle",
                     "microcosm formal-math-premise-retrieval run-retrieval-bundle",
                     "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle",
+                    "microcosm verifier-lab-kernel run-kernel-bundle",
                     "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle",
                     "microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle",
                     "microcosm lean-std-premise-index run-index-bundle",
@@ -1018,6 +1012,7 @@ class RuntimeShell:
 
     def spine(self) -> dict[str, Any]:
         organs = self.organs()
+        evidence_registry = _load_evidence_class_registry(self.root)
         adapter_backed = [row for row in organs if row.get("runtime_mode") == "adapter_backed"]
         patterns = self.patterns()
         routes = self.routes()
@@ -1103,6 +1098,7 @@ class RuntimeShell:
                     "command": "microcosm authority",
                     "shows": [
                         "global authority ceiling",
+                        "organ evidence classes",
                         "organ authority refs",
                         "hard public boundaries",
                         "safe local-only exceptions",
@@ -1181,6 +1177,19 @@ class RuntimeShell:
                         "verifier trace, cold-rerun repair, and evidence-cell promotion boundaries",
                         "fixture metric and theorem-solution anti-claims",
                         "metadata-only authority ceiling",
+                    ],
+                },
+                {
+                    "step_id": "inspect_verifier_lab_kernel",
+                    "command": (
+                        "microcosm verifier-lab-kernel run-kernel-bundle"
+                    ),
+                    "shows": [
+                        "Lean witness, tactic routing, and verifier trace components",
+                        "oracle comparator separated from forward success",
+                        "provider hypotheses quarantined from proof authority",
+                        "CP2 typed action candidates and bounded Evolve candidates",
+                        "contract rejections and retrieval misses as separate claim buckets",
                     ],
                 },
                 {
@@ -1573,6 +1582,7 @@ class RuntimeShell:
                     "command": "microcosm reveal",
                     "shows": [
                         "ten-minute reveal board",
+                        "evidence-strength policy",
                         "negative cases",
                         "evidence ref count",
                         "release_authorized=false",
@@ -1598,6 +1608,7 @@ class RuntimeShell:
                 "evidence_count": len(evidence),
                 "evidence_class_count": len(_evidence_class_counts(organs)),
             },
+            "evidence_class_registry": _evidence_registry_summary(evidence_registry),
             "evidence_class_counts": _evidence_class_counts(organs),
             "accepted_runtime_spine": [
                 {
@@ -1618,6 +1629,7 @@ class RuntimeShell:
                     "verdict_source": row.get("verdict_source"),
                     "negative_case_independence": row.get("negative_case_independence"),
                     "claim_ceiling": row.get("claim_ceiling"),
+                    "classification_basis": row.get("classification_basis"),
                     "evidence_strength_disclosed": row.get("evidence_strength_disclosed") is True,
                 }
                 for index, row in enumerate(organs, start=1)
@@ -1627,6 +1639,7 @@ class RuntimeShell:
                 "body_redacted_by_default": True,
                 "fixtures_are_tests": True,
                 "accepted_status_is_not_evidence_strength": True,
+                "unclassified_organs_block_authority_projection": True,
                 "open_receipts_after_route_or_spine": True,
             },
             "authority_ceiling": {
@@ -9052,6 +9065,24 @@ class RuntimeShell:
                 "curriculum_scope": "metadata_only",
             },
             {
+                "surface_id": "public_verifier_lab_kernel_lens",
+                "command": "microcosm verifier-lab-kernel run-kernel-bundle",
+                "endpoint": "/proof-loop-depth",
+                "authority_role": (
+                    "bounded verifier-lab composition kernel and proof-authority "
+                    "separation boundary"
+                ),
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "formal_proof_authority": False,
+                "private_proof_body_exported": False,
+                "provider_hypothesis_proof_authority": False,
+                "oracle_forward_contamination_authorized": False,
+                "arbitrary_evolve_execution_authorized": False,
+                "bounded_public_lean_witness_only": True,
+            },
+            {
                 "surface_id": "public_work_landing_replay_lens",
                 "command": "microcosm landing-replay",
                 "endpoint": "/landing-replay",
@@ -9557,6 +9588,7 @@ class RuntimeShell:
                 "verdict_source": row.get("verdict_source"),
                 "negative_case_independence": row.get("negative_case_independence"),
                 "claim_ceiling": row.get("claim_ceiling"),
+                "classification_basis": row.get("classification_basis"),
                 "evidence_strength_disclosed": row.get("evidence_strength_disclosed") is True,
                 "release_authorized": False,
                 "source_mutation_authorized": False,
@@ -9865,6 +9897,7 @@ class RuntimeShell:
                 "hard_boundary_count": len(hard_boundaries),
                 "safe_local_exception_count": len(safe_local_exceptions),
             },
+            "evidence_class_registry": spine.get("evidence_class_registry"),
             "evidence_class_counts": evidence_class_counts,
             "evidence_refs": evidence_refs,
             "hard_boundaries": hard_boundaries,
@@ -10287,6 +10320,7 @@ class RuntimeShell:
         out_dir = self.runtime_receipt_dir / "public_reveal" / "organs" / step.organ_id
         result = step.runner(input_dir, out_dir, "microcosm reveal")
         receipt_ref = _public_relative(out_dir / step.receipt_name, self.root)
+        spine = self.spine()
         payload = {
             "schema_version": "microcosm_public_reveal_view_v1",
             "created_at": utc_now(),
@@ -10298,6 +10332,13 @@ class RuntimeShell:
             "evidence_ref_count": result.get("evidence_ref_count"),
             "reveal_board": result.get("reveal_board"),
             "evidence_ref": receipt_ref,
+            "evidence_strength_policy": {
+                "next_command": "microcosm authority",
+                "source_ref": spine.get("evidence_class_registry", {}).get("source_ref"),
+                "accepted_status_is_not_evidence_strength": True,
+                "unclassified_organs_block_authority_projection": True,
+                "evidence_class_counts": spine.get("evidence_class_counts", {}),
+            },
             "authority_ceiling": result.get("authority_ceiling"),
             "anti_claim": result.get("anti_claim"),
         }

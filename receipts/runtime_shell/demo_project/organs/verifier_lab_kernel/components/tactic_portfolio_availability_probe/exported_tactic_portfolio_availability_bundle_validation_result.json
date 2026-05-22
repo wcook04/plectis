@@ -1,0 +1,74 @@
+{
+  "anti_claim": "Tactic portfolio availability validates public environment-scoped tactic callability metadata only. It does not run Lean/Lake in this public organ, prove any goal, authorize unavailable tactics, call providers, claim benchmark performance, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+    "availability_is_environment_scoped": true,
+    "benchmark_performance_authority": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_absence_is_probe_result": true,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "available_tactic_ids": [
+    "decide",
+    "grind",
+    "native_decide",
+    "omega",
+    "rfl",
+    "simp",
+    "simp_all"
+  ],
+  "body_redacted": true,
+  "bundle_id": "tactic_portfolio_availability_runtime_example",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component tactic_portfolio_availability_probe",
+  "compile_status_counts": {
+    "compile_pass": 7,
+    "environment_fail": 1
+  },
+  "created_at": "2026-05-22T15:02:24+00:00",
+  "environment_id": "lean_std_synthetic_mathlib_absent_v1",
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.tactic_portfolio_availability_probe",
+  "input_mode": "exported_tactic_portfolio_availability_bundle",
+  "mathlib_absence_gate_enforced": true,
+  "mathlib_dependent_tactic_ids": [
+    "aesop"
+  ],
+  "mathlib_lake_project_import_available": false,
+  "mathlib_probe_status": "environment_fail",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "tactic_portfolio_availability_probe",
+  "portfolio_id": "synthetic_core_tactic_portfolio_v1",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 3,
+    "status": "pass"
+  },
+  "receipt_id": "exported_tactic_portfolio_availability_bundle_validation_result_v1",
+  "receipt_paths": [
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+  ],
+  "schema_version": "exported_tactic_portfolio_availability_bundle_validation_result_v1",
+  "source_pattern_ids": [
+    "tactic_portfolio_availability_probe"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+  ],
+  "status": "pass",
+  "tactic_count": 8,
+  "unavailable_tactic_ids": [
+    "aesop"
+  ],
+  "validator_id": "validator.microcosm.organs.tactic_portfolio_availability_probe"
+}
