@@ -97,7 +97,8 @@
         "original_author_code_reuse_forbidden",
         "private_paper_body_leakage",
         "report_only_success",
-        "unbounded_compute_search"
+        "unbounded_compute_search",
+        "undeclared_artifact_hash_ref"
       ],
       "organ_id": "research_replication_rubric_artifact_replay",
       "status": "covered_by_fixture_manifest"

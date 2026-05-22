@@ -1,6 +1,6 @@
 {
   "ablation_count": 2,
-  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, artifact-hash, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
+  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, declared artifact-hash roster, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, use undeclared artifact hashes, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
   "artifact_replay_count": 2,
   "authority_ceiling": {
     "authority_ceiling": "synthetic_research_replication_replay_receipts_only",
@@ -13,12 +13,18 @@
     "publication_authorized": false,
     "replication_success_claim_authorized_without_artifact_replay": false,
     "status": "pass",
-    "unbounded_compute_search_authorized": false
+    "unbounded_compute_search_authorized": false,
+    "undeclared_artifact_hash_ref_authorized": false
   },
   "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
   "cold_rerun_count": 2,
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "command": "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run-replication-bundle",
+  "created_at": "2026-05-22T12:56:12+00:00",
+  "declared_artifact_hash_ref_count": 2,
+  "declared_artifact_hash_refs": [
+    "artifacts/model_trace.sha256",
+    "artifacts/result_table.sha256"
+  ],
   "error_codes": [],
   "expected_negative_cases": [],
   "failure_taxonomy_count": 2,
@@ -61,6 +67,7 @@
     "cold_rerun_receipt_ref",
     "contribution_decomposition_ref",
     "cost_runtime_budget_ref",
+    "declared_artifact_hash_refs",
     "experiment_dag_ref",
     "failure_taxonomy_ref",
     "grader_report_ref",
@@ -87,6 +94,10 @@
       "compute_search": "bounded",
       "contribution_decomposition_ref": "capsules/contribution_decomposition_public.json",
       "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
+      "declared_artifact_hash_refs": [
+        "artifacts/model_trace.sha256",
+        "artifacts/result_table.sha256"
+      ],
       "experiment_dag_ref": "experiments/experiment_dag_public.json",
       "failure_taxonomy_ref": "failures/failure_taxonomy_public.json",
       "grader_report_ref": "grader/grader_report_public.json",
@@ -122,6 +133,10 @@
       "compute_search": "bounded",
       "contribution_decomposition_ref": "capsules/contribution_decomposition_public.json",
       "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
+      "declared_artifact_hash_refs": [
+        "artifacts/model_trace.sha256",
+        "artifacts/result_table.sha256"
+      ],
       "experiment_dag_ref": "experiments/experiment_dag_public.json",
       "failure_taxonomy_ref": "failures/failure_taxonomy_public.json",
       "grader_report_ref": "grader/grader_report_public.json",

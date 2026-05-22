@@ -13,7 +13,7 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to inspect
    the ten-minute public-safe route from compile through spine, authority,
    prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
-   cells, proof-loop depth, work landing replay, durable agent work landing replay, view quality, projection safety,
+   cells, proof-loop depth, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
    drift control, route cleanup, hook intervention coverage, projection import map, import-projector contract, compression-profile option surface, stripping guard, standards
    control, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal, observatory, and evidence
    drilldowns.

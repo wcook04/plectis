@@ -692,14 +692,16 @@ landed or authorizing release.
 
 `research_replication_rubric_artifact_replay` is the public research-replay
 rubric organ: it validates synthetic paper capsules, artifact hash plans,
-grader reports, cold rerun receipts, ablation diffs, failure taxonomies, and
-cost/runtime ceilings before any replication-style language is admitted. Run
+declared artifact-hash roster membership, grader reports, cold rerun receipts,
+ablation diffs, failure taxonomies, and cost/runtime ceilings before any
+replication-style language is admitted. Run
 `microcosm research-replication-rubric-artifact-replay run-replication-bundle`
 to inspect the exported replay bundle. The organ rejects original-author code
 reuse, hidden rubric leakage, report-only success, benchmark performance claims,
-private paper/data bodies, unbounded compute search, and final-answer-only
-grading without claiming external benchmark performance, live provider calls,
-publication, release, or proof of real-world replication.
+private paper/data bodies, unbounded compute search, final-answer-only grading,
+and undeclared artifact hash refs without claiming external benchmark
+performance, live provider calls, publication, release, or proof of real-world
+replication.
 
 `world_model_projection_drift_control_room` is the public drift-control organ:
 it validates synthetic world-model projection rows with source signals, public

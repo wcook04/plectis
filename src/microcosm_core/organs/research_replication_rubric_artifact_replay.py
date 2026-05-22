@@ -43,6 +43,7 @@ NEGATIVE_INPUT_NAMES = (
     "private_paper_body_leakage.json",
     "unbounded_compute_search.json",
     "final_answer_only_grading.json",
+    "undeclared_artifact_hash_ref.json",
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -55,6 +56,7 @@ EXPECTED_NEGATIVE_CASES = {
     "private_paper_body_leakage": ["REPLICATION_PRIVATE_BODY_LEAKAGE"],
     "unbounded_compute_search": ["REPLICATION_UNBOUNDED_COMPUTE_SEARCH"],
     "final_answer_only_grading": ["REPLICATION_FINAL_ANSWER_ONLY_GRADING"],
+    "undeclared_artifact_hash_ref": ["REPLICATION_UNDECLARED_ARTIFACT_HASH_REF"],
 }
 
 REQUIRED_REPLAY_FIELDS = {
@@ -66,6 +68,7 @@ REQUIRED_REPLAY_FIELDS = {
     "experiment_dag_ref",
     "metric_script_refs",
     "artifact_hash_refs",
+    "declared_artifact_hash_refs",
     "grader_report_ref",
     "cost_runtime_budget_ref",
     "ablation_diff_ref",
@@ -96,6 +99,7 @@ AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": "synthetic_research_replication_replay_receipts_only",
     "replication_success_claim_authorized_without_artifact_replay": False,
+    "undeclared_artifact_hash_ref_authorized": False,
     "benchmark_performance_claim_authorized": False,
     "original_author_code_reuse_authorized": False,
     "hidden_rubric_export_authorized": False,
@@ -107,11 +111,12 @@ AUTHORITY_CEILING = {
 }
 ANTI_CLAIM = (
     "Research replication rubric-artifact replay validates synthetic contribution, "
-    "rubric, experiment-DAG, metric-script, artifact-hash, grader, budget, ablation, "
-    "failure-taxonomy, and cold-rerun receipts. It does not claim benchmark "
-    "performance, reuse forbidden original-author code, expose private paper or data "
-    "bodies, run providers, perform unbounded compute search, grade final answers "
-    "alone, or authorize publication."
+    "rubric, experiment-DAG, metric-script, declared artifact-hash roster, "
+    "grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It "
+    "does not claim benchmark performance, use undeclared artifact hashes, "
+    "reuse forbidden original-author code, expose private paper or data bodies, "
+    "run providers, perform unbounded compute search, grade final answers alone, "
+    "or authorize publication."
 )
 
 
@@ -346,6 +351,21 @@ def _validate_replay_row(
             subject_id=paper_id,
             subject_kind="research_replay",
         )
+    artifact_hash_refs = set(_strings(row.get("artifact_hash_refs")))
+    declared_artifact_hash_refs = set(_strings(row.get("declared_artifact_hash_refs")))
+    undeclared_artifact_hash_refs = sorted(artifact_hash_refs - declared_artifact_hash_refs)
+    if artifact_hash_refs and (
+        not declared_artifact_hash_refs or undeclared_artifact_hash_refs
+    ):
+        _record(
+            findings,
+            observed,
+            "REPLICATION_UNDECLARED_ARTIFACT_HASH_REF",
+            "Every artifact hash ref must belong to the declared public artifact-hash roster.",
+            case_id=case_id,
+            subject_id=paper_id,
+            subject_kind="research_replay",
+        )
     if (
         row.get("original_author_code_reused") is True
         and row.get("original_author_code_allowed") is False
@@ -449,6 +469,13 @@ def validate_research_replays(
     for case_id, payload in negative_payloads.items():
         row = payload if isinstance(payload, dict) else {}
         _validate_replay_row(row, case_id=case_id, observed=observed, findings=findings)
+    declared_artifact_hash_refs = sorted(
+        {
+            artifact_ref
+            for row in rows
+            for artifact_ref in _strings(row.get("declared_artifact_hash_refs"))
+        }
+    )
     return {
         "status": positive_status,
         "paper_count": len({str(row.get("paper_id") or "") for row in rows}),
@@ -458,6 +485,8 @@ def validate_research_replays(
         "ablation_count": sum(1 for row in rows if row.get("ablation_diff_ref")),
         "grader_report_count": sum(1 for row in rows if row.get("grader_report_ref")),
         "failure_taxonomy_count": sum(1 for row in rows if row.get("failure_taxonomy_ref")),
+        "declared_artifact_hash_refs": declared_artifact_hash_refs,
+        "declared_artifact_hash_ref_count": len(declared_artifact_hash_refs),
         "research_replays": rows,
         "findings": [*positive_findings, *findings],
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
@@ -541,6 +570,10 @@ def _build_result(
         "ablation_count": research_replays["ablation_count"],
         "grader_report_count": research_replays["grader_report_count"],
         "failure_taxonomy_count": research_replays["failure_taxonomy_count"],
+        "declared_artifact_hash_ref_count": research_replays[
+            "declared_artifact_hash_ref_count"
+        ],
+        "declared_artifact_hash_refs": research_replays["declared_artifact_hash_refs"],
         "research_replays": research_replays["research_replays"],
     }
 
@@ -558,6 +591,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "mechanic_id": "rubric_before_replication_claim",
                 "count": result["paper_count"],
                 "authority": "rubric_tree_ref_and_contribution_decomposition_ref_required",
+            },
+            {
+                "mechanic_id": "declared_artifact_hash_roster_binding",
+                "count": result["declared_artifact_hash_ref_count"],
+                "authority": "artifact_hash_refs_must_be_declared_before_replication_success",
             },
             {
                 "mechanic_id": "artifact_hash_metric_script_replay",
@@ -622,6 +660,8 @@ def _write_receipts(
         "replay_count": result["replay_count"],
         "artifact_replay_count": result["artifact_replay_count"],
         "cold_rerun_count": result["cold_rerun_count"],
+        "declared_artifact_hash_ref_count": result["declared_artifact_hash_ref_count"],
+        "declared_artifact_hash_refs": result["declared_artifact_hash_refs"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],

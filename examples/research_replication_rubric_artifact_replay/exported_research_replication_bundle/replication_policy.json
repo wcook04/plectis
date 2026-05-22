@@ -9,6 +9,7 @@
     "experiment_dag_ref",
     "metric_script_refs",
     "artifact_hash_refs",
+    "declared_artifact_hash_refs",
     "grader_report_ref",
     "cost_runtime_budget_ref",
     "ablation_diff_ref",

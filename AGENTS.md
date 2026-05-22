@@ -406,8 +406,8 @@ explanation, and assimilation primitives, not through production claims.
    diagnostic into registry source authority.
    The `research_replication_rubric_artifact_replay` organ is the synthetic
    research-replay lane: use `research-replication-rubric-artifact-replay` for
-   public artifact-rerun evidence, rubric boundaries, and no-benchmark/no-private
-   leakage checks only.
+   public artifact-rerun evidence, declared artifact-hash roster membership,
+   rubric boundaries, and no-benchmark/no-private leakage checks only.
    The `cold_reader_route_map` organ is the executable entry-map lane: use
    `cold-reader-route-map` to verify the ten-minute first-run path before
    widening docs, reveal views, or route commands. It is not route-registry
@@ -533,10 +533,10 @@ explanation, and assimilation primitives, not through production claims.
    proof authority, or whole-system correctness.
    `research_replication_rubric_artifact_replay` is projection-only synthetic
    research-replay metadata: it may diagnose artifact replay completeness,
-   grading rubric boundaries, rerun evidence, and private-leakage guards, but it
-   must not claim external benchmark performance, original-paper replication,
-   publication readiness, provider calls, private-data equivalence, or release
-   authority.
+   declared artifact-hash roster binding, grading rubric boundaries, rerun
+   evidence, and private-leakage guards, but it must not claim external
+   benchmark performance, original-paper replication, publication readiness,
+   provider calls, private-data equivalence, or release authority.
    `cold_reader_route_map` is projection-only metadata: it may diagnose public
    entry route order, command refs, docs refs, and receipt refs, but it must not
    claim route-registry authority, source mutation authority, private macro

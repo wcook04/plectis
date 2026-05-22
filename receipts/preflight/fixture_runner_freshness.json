@@ -217,7 +217,7 @@
     "proof_diagnostic_evidence_spine": "02a3d81199ca95eba9cf0182f580620aa463b79e5a2493caa65a27afdd877ac1",
     "provider_context_recipe_budget_policy": "3e71e1d465216f9c31faa461ca98cd5d86a990bab914c819fe0163155c97303a",
     "public_reveal_walkthrough": "112aa1afc7777ed3dcfd081c995a2aa791a71b297efeeafa71e673a9e9c8f9e3",
-    "research_replication_rubric_artifact_replay": "792339812b91f1a2a3060a157c063f1fa90b8f260db3514f86cf0b7f5c826b05",
+    "research_replication_rubric_artifact_replay": "f99d186ca2f11aaec0ca4f9b7bb122de7ba7df673515d047d2f7ffcbc5872867",
     "ring2_premise_retrieval_precision_recall_harness": "8ecccb123defd503ddf54445d19fb78460d3c032ccd47c25fb36dd034f78cb95",
     "sleeper_memory_poisoning_quarantine_replay": "2eb9f998c45d98f26a190ab0e257229a51774e9ccc9add91fccb3335640575e3",
     "spatial_world_model_counterfactual_simulation_replay": "3152da7095f3b06930c60cd1c3fdfeb413a7e202458c7c053ee461d71c769543",
@@ -617,16 +617,17 @@
       "fixtures/first_wave/public_reveal_walkthrough/input/substrate_evidence_map.json": "fe8638398568c2c33d4d416ea46254a3c713179ade74acccb0d384c9af4e04b1"
     },
     "research_replication_rubric_artifact_replay": {
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/benchmark_performance_claim.json": "1edec8e28f082715abda750df034cd2b96d57e013345b7337a12d1c7a92b7d87",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json": "dccd4707fb9bf6dee525d6fae6b1104bf0cc551192c52eebbcbb1434f9cc7dd4",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/hidden_rubric_leakage.json": "104231383b3bb141c6953ea9ecd05b29b40f3eea9b015b560e337b099bb246ac",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/original_author_code_reuse_forbidden.json": "c5b773b074f2982f1038eee01a4d497f16ccb9f25258fe46e6ea602b20dcd73e",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/private_paper_body_leakage.json": "cf815abb233229453b7e4b4013787dfac3c58825f1956b5e3e8081c7289226c2",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/benchmark_performance_claim.json": "fb8dbd706fb565d3425bd90f8ca8ea9c919d251bab703e710ad47587bc20a43e",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json": "fd37dbab66c6acda423f02b44dee442469cbf1aea016203ce135614d00c694dc",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/hidden_rubric_leakage.json": "c109491a00de6c22b6d71614e67432afbc1b6cef866de6a38203b0f7c54fc83d",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/original_author_code_reuse_forbidden.json": "2504ce598adb651be6146b2435a998c9af4c8b87a3c247cf548ebdeeedc4183e",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/private_paper_body_leakage.json": "5fa1a06dff5d0f34497e9110a656e5846e839c00892980747062c267dfd02e6c",
       "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json": "3fa868419ac195f133a8ac9ab1bfd9e8eca6e556ecbf60474f280d8631dac382",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/replication_policy.json": "49ccd0e9a616f9030c6cbae579b951977b7f156379ba2264d74c1f82d7bb5682",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/report_only_success.json": "8ca9d9e20fb78201b652eed0c21c4f5e7070c8dd574da145dfd78ec65825bd79",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json": "b7bb521bf5f25853477ede7bd21a1cbde56ac5f796dc736aba5ac8c389024840",
-      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/unbounded_compute_search.json": "b5c58d61dc73be60ecc8e7c4a08bb3bde340ab96f73663158b3a24160eae875f"
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/replication_policy.json": "78c93dd5b4fe45b7ce6eab984b6e3f35625aa68ad2f93ca3b2195de0a95918dc",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/report_only_success.json": "097ebdaca5fa9cc5d0e8c668c1e22c6fe4125952e7e467b0e6228437588d8ee6",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json": "b350b4679dfdd2fc61705bd2687c2ba850b5cdff57669d15a2ad47f2f13e8803",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/unbounded_compute_search.json": "86381b256d39acb09311dbc43cfa7aa6b45e1b35b3f942b473a337b40243c7ce",
+      "fixtures/first_wave/research_replication_rubric_artifact_replay/input/undeclared_artifact_hash_ref.json": "a4ee8fde2a53ccd13db78ad332d7004d9c0df51110aa5ea6530580d37adfd2d2"
     },
     "ring2_premise_retrieval_precision_recall_harness": {
       "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json": "a801dc3ab0fb06351c9dae1553c0d600a973476d2b3fe2f9ed4af100b23d339c",

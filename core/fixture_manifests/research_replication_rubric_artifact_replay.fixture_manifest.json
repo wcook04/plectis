@@ -45,6 +45,10 @@
     {
       "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json",
       "role": "negative case: final_answer_only_grading"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/undeclared_artifact_hash_ref.json",
+      "role": "negative case: undeclared_artifact_hash_ref"
     }
   ],
   "expected_negative_cases": [
@@ -54,7 +58,8 @@
     "original_author_code_reuse_forbidden",
     "private_paper_body_leakage",
     "report_only_success",
-    "unbounded_compute_search"
+    "unbounded_compute_search",
+    "undeclared_artifact_hash_ref"
   ],
   "stable_error_codes": [
     "REPLICATION_AUTHOR_CODE_REUSE_FORBIDDEN",
@@ -63,7 +68,8 @@
     "REPLICATION_HIDDEN_RUBRIC_LEAKAGE",
     "REPLICATION_PRIVATE_BODY_LEAKAGE",
     "REPLICATION_REPORT_ONLY_SUCCESS",
-    "REPLICATION_UNBOUNDED_COMPUTE_SEARCH"
+    "REPLICATION_UNBOUNDED_COMPUTE_SEARCH",
+    "REPLICATION_UNDECLARED_ARTIFACT_HASH_REF"
   ],
   "generated_receipts": [
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_result.json",
@@ -71,6 +77,6 @@
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
   ],
-  "authority_ceiling": "synthetic research replication replay receipts only; no benchmark performance, private bodies, hidden rubrics, provider calls, or publication",
-  "anti_claim": "This fixture validates public synthetic research-replication replay boundaries only; it does not claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication."
+  "authority_ceiling": "synthetic research replication replay receipts only; no undeclared artifact hashes, benchmark performance, private bodies, hidden rubrics, provider calls, or publication",
+  "anti_claim": "This fixture validates public synthetic research-replication replay boundaries only; it does not admit undeclared artifact hashes, claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication."
 }

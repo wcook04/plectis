@@ -57,6 +57,11 @@ def test_research_replication_replay_observes_negative_cases(
     assert result["replay_count"] == 2
     assert result["artifact_replay_count"] == 2
     assert result["cold_rerun_count"] == 2
+    assert result["declared_artifact_hash_ref_count"] == 2
+    assert result["declared_artifact_hash_refs"] == [
+        "artifacts/model_trace.sha256",
+        "artifacts/result_table.sha256",
+    ]
     assert result["authority_ceiling"]["benchmark_performance_claim_authorized"] is False
     assert result["authority_ceiling"]["provider_calls_authorized"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -114,4 +119,5 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     assert result["error_codes"] == []
     assert result["paper_count"] == 2
     assert result["replay_count"] == 2
+    assert result["declared_artifact_hash_ref_count"] == 2
     assert result["authority_ceiling"]["publication_authorized"] is False

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, artifact-hash, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
+  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, declared artifact-hash roster, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, use undeclared artifact hashes, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
   "artifact_replay_count": 2,
   "authority_ceiling": {
     "authority_ceiling": "synthetic_research_replication_replay_receipts_only",
@@ -12,10 +12,16 @@
     "publication_authorized": false,
     "replication_success_claim_authorized_without_artifact_replay": false,
     "status": "pass",
-    "unbounded_compute_search_authorized": false
+    "unbounded_compute_search_authorized": false,
+    "undeclared_artifact_hash_ref_authorized": false
   },
   "cold_rerun_count": 2,
-  "created_at": "2026-05-22T02:37:00+00:00",
+  "created_at": "2026-05-22T12:56:12+00:00",
+  "declared_artifact_hash_ref_count": 2,
+  "declared_artifact_hash_refs": [
+    "artifacts/model_trace.sha256",
+    "artifacts/result_table.sha256"
+  ],
   "fixture_id": "first_wave.research_replication_rubric_artifact_replay",
   "negative_case_coverage": {
     "expected": [
@@ -25,7 +31,8 @@
       "original_author_code_reuse_forbidden",
       "private_paper_body_leakage",
       "report_only_success",
-      "unbounded_compute_search"
+      "unbounded_compute_search",
+      "undeclared_artifact_hash_ref"
     ],
     "missing": [],
     "observed": {
@@ -51,6 +58,9 @@
       ],
       "unbounded_compute_search": [
         "REPLICATION_UNBOUNDED_COMPUTE_SEARCH"
+      ],
+      "undeclared_artifact_hash_ref": [
+        "REPLICATION_UNDECLARED_ARTIFACT_HASH_REF"
       ]
     }
   },
@@ -62,7 +72,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 10,
+    "scanned_path_count": 11,
     "status": "pass"
   },
   "receipt_paths": [

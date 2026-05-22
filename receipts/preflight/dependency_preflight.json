@@ -662,10 +662,10 @@
     },
     {
       "fixture_id": "fixture::agent_benchmark_integrity_anti_gaming_replay::first_wave_contract_v1",
-      "fixture_input_count": 14,
+      "fixture_input_count": 15,
       "fixture_manifest": "core/fixture_manifests/agent_benchmark_integrity_anti_gaming_replay.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
-      "macro_fixture_input_ref_count": 14,
+      "macro_fixture_input_ref_count": 15,
       "missing_fixture_inputs": [],
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
       "status": "pass"
@@ -712,20 +712,20 @@
     },
     {
       "fixture_id": "fixture::durable_agent_work_landing_replay::first_wave_contract_v1",
-      "fixture_input_count": 11,
+      "fixture_input_count": 12,
       "fixture_manifest": "core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
-      "macro_fixture_input_ref_count": 11,
+      "macro_fixture_input_ref_count": 12,
       "missing_fixture_inputs": [],
       "organ_id": "durable_agent_work_landing_replay",
       "status": "pass"
     },
     {
       "fixture_id": "fixture::research_replication_rubric_artifact_replay::first_wave_contract_v1",
-      "fixture_input_count": 10,
+      "fixture_input_count": 11,
       "fixture_manifest": "core/fixture_manifests/research_replication_rubric_artifact_replay.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
-      "macro_fixture_input_ref_count": 10,
+      "macro_fixture_input_ref_count": 11,
       "missing_fixture_inputs": [],
       "organ_id": "research_replication_rubric_artifact_replay",
       "status": "pass"

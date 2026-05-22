@@ -36,14 +36,15 @@
     "public_replacement_refs",
     "required_replay_fields",
     "rubric_axes",
+    "declared_artifact_hash_refs",
     "research_replays",
     "authority_ceiling",
     "anti_claim"
   ],
   "validation_rules": [
     "require contribution decomposition and rubric tree before replication language",
-    "require scratch repo, experiment DAG, metric script, artifact hash, grader report, budget, ablation, failure taxonomy, and cold rerun refs",
-    "reject forbidden original-author code reuse, hidden rubric leakage, report-only success, benchmark overclaim, private body leakage, unbounded compute, and final-answer-only grading"
+    "require scratch repo, experiment DAG, metric script, declared artifact hash roster, grader report, budget, ablation, failure taxonomy, and cold rerun refs",
+    "reject undeclared artifact hash refs, forbidden original-author code reuse, hidden rubric leakage, report-only success, benchmark overclaim, private body leakage, unbounded compute, and final-answer-only grading"
   ],
   "receipt_expectations": [
     "receipt.microcosm.research_replication_rubric_artifact_replay",
@@ -59,7 +60,8 @@
       "original_author_code_reuse_forbidden",
       "private_paper_body_leakage",
       "report_only_success",
-      "unbounded_compute_search"
+      "unbounded_compute_search",
+      "undeclared_artifact_hash_ref"
     ]
   },
   "receipt_contract": {
@@ -72,6 +74,8 @@
       "paper_count",
       "replay_count",
       "artifact_replay_count",
+      "declared_artifact_hash_refs",
+      "declared_artifact_hash_ref_count",
       "cold_rerun_count",
       "negative_case_coverage",
       "private_state_scan",
@@ -85,11 +89,13 @@
       "paper capsule ids",
       "rubric refs",
       "artifact hash refs",
+      "declared artifact hash refs",
       "metric script refs",
       "budget refs",
       "failure taxonomy refs"
     ],
     "forbidden_public_inputs": [
+      "undeclared artifact hash refs",
       "private paper bodies",
       "private data bodies",
       "hidden rubrics",
@@ -105,9 +111,10 @@
     "benchmark_performance_authority": false,
     "provider_authority": false,
     "publication_authority": false,
-    "private_body_authority": false
+    "private_body_authority": false,
+    "undeclared_artifact_hash_ref_authority": false
   },
-  "anti_claim": "This standard governs synthetic research-replication replay receipts only; it does not claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
+  "anti_claim": "This standard governs synthetic research-replication replay receipts only; it does not admit undeclared artifact hashes, claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
   "receipt_refs": [
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json"
   ],
@@ -136,8 +143,8 @@
   },
   "standard_payload": {
     "teleology": "Make Microcosm show how research replication claims become credible only after rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts exist.",
-    "anti_purpose": "Treating paper understanding, final answers, or benchmark context as replication evidence.",
-    "ontology": "A public-safe replication replay: paper capsule, rubric tree, artifact hashes, metric scripts, grader report, budget, ablation, failure taxonomy, and cold rerun receipt.",
+    "anti_purpose": "Treating paper understanding, undeclared artifact hashes, final answers, or benchmark context as replication evidence.",
+    "ontology": "A public-safe replication replay: paper capsule, rubric tree, declared artifact hash roster, artifact hashes, metric scripts, grader report, budget, ablation, failure taxonomy, and cold rerun receipt.",
     "compression_bands": [
       "paper",
       "rubric",
@@ -156,7 +163,8 @@
       "original_author_code_reuse_forbidden",
       "private_paper_body_leakage",
       "report_only_success",
-      "unbounded_compute_search"
+      "unbounded_compute_search",
+      "undeclared_artifact_hash_ref"
     ],
     "rebuild_action": "draft"
   }

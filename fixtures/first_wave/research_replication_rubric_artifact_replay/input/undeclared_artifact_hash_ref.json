@@ -13,7 +13,7 @@
   ],
   "artifact_hash_refs": [
     "artifacts/model_trace.sha256",
-    "artifacts/result_table.sha256"
+    "artifacts/unregistered_result_table.sha256"
   ],
   "declared_artifact_hash_refs": [
     "artifacts/model_trace.sha256",
@@ -30,9 +30,9 @@
   "replication_status": "success",
   "report_only_success": false,
   "benchmark_performance_claim_authorized": false,
-  "compute_search": "unbounded",
-  "compute_budget_capped": false,
+  "compute_search": "bounded",
+  "compute_budget_capped": true,
   "grading_mode": "artifact_replay_grader",
   "artifact_replay_required": true,
-  "paper_id": "neg_unbounded_compute"
+  "paper_id": "neg_undeclared_artifact_hash_ref"
 }

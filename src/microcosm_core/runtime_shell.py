@@ -1070,7 +1070,7 @@ class RuntimeShell:
                     ),
                     "shows": [
                         "rubric tree and contribution decomposition before replication language",
-                        "scratch repo, experiment DAG, metric scripts, and artifact hashes",
+                        "scratch repo, experiment DAG, metric scripts, and declared artifact hashes",
                         "grader report, cost/runtime budget, ablation diff, and failure taxonomy",
                         "cold rerun receipt before success language",
                         "no benchmark performance, private body, provider, or publication authority",
@@ -4306,6 +4306,7 @@ class RuntimeShell:
                         "private paper and data bodies",
                         "hidden rubrics",
                         "original-author code bodies",
+                        "undeclared artifact hash refs",
                         "provider payloads",
                         "benchmark performance claims",
                     ],

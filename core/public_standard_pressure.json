@@ -485,7 +485,7 @@
     },
     {
       "authority_boundary": "synthetic_replay_receipt_not_benchmark_or_publication_claim",
-      "claim": "Replication language requires rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts before success language.",
+      "claim": "Replication language requires rubric, declared artifact-hash roster membership, metric, budget, ablation, failure, and cold-rerun receipts before success language.",
       "kernel_primitive_refs": [
         "evidence",
         "event",

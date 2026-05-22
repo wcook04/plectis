@@ -465,7 +465,8 @@
         "fixtures/first_wave/research_replication_rubric_artifact_replay/input/benchmark_performance_claim.json",
         "fixtures/first_wave/research_replication_rubric_artifact_replay/input/private_paper_body_leakage.json",
         "fixtures/first_wave/research_replication_rubric_artifact_replay/input/unbounded_compute_search.json",
-        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json"
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/undeclared_artifact_hash_ref.json"
       ],
       "fixture_manifest": "core/fixture_manifests/research_replication_rubric_artifact_replay.fixture_manifest.json",
       "organ_id": "research_replication_rubric_artifact_replay"

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, artifact-hash, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
+  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, declared artifact-hash roster, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, use undeclared artifact hashes, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
   "authority_ceiling": {
     "authority_ceiling": "synthetic_research_replication_replay_receipts_only",
     "benchmark_performance_claim_authorized": false,
@@ -11,7 +11,8 @@
     "publication_authorized": false,
     "replication_success_claim_authorized_without_artifact_replay": false,
     "status": "pass",
-    "unbounded_compute_search_authorized": false
+    "unbounded_compute_search_authorized": false,
+    "undeclared_artifact_hash_ref_authorized": false
   },
   "board_id": "research_replication_public_board",
   "body_redacted": true,
@@ -21,6 +22,11 @@
       "authority": "rubric_tree_ref_and_contribution_decomposition_ref_required",
       "count": 2,
       "mechanic_id": "rubric_before_replication_claim"
+    },
+    {
+      "authority": "artifact_hash_refs_must_be_declared_before_replication_success",
+      "count": 2,
+      "mechanic_id": "declared_artifact_hash_roster_binding"
     },
     {
       "authority": "success_requires_artifacts_metrics_and_cold_rerun",
@@ -40,7 +46,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 10,
+    "scanned_path_count": 11,
     "status": "pass"
   },
   "receipt_paths": [

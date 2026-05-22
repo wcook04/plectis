@@ -17,6 +17,10 @@
         "artifacts/model_trace.sha256",
         "artifacts/result_table.sha256"
       ],
+      "declared_artifact_hash_refs": [
+        "artifacts/model_trace.sha256",
+        "artifacts/result_table.sha256"
+      ],
       "grader_report_ref": "grader/grader_report_public.json",
       "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
       "ablation_diff_ref": "ablations/ablation_diff_public.json",
@@ -49,6 +53,10 @@
         "metrics/ablation_sensitivity.py"
       ],
       "artifact_hash_refs": [
+        "artifacts/model_trace.sha256",
+        "artifacts/result_table.sha256"
+      ],
+      "declared_artifact_hash_refs": [
         "artifacts/model_trace.sha256",
         "artifacts/result_table.sha256"
       ],
