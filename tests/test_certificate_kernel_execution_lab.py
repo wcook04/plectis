@@ -6,6 +6,7 @@ from typing import Any
 
 from microcosm_core.organs.certificate_kernel_execution_lab import (
     EXPECTED_NEGATIVE_CASES,
+    build_public_readout,
     run,
     run_certificate_bundle,
 )
@@ -154,3 +155,52 @@ def test_certificate_kernel_execution_lab_receipts_are_transparent_without_bodie
     assert '"body":' not in text
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
+
+
+def test_certificate_kernel_execution_lab_public_readout_is_cold_reader_route(
+    tmp_path: Path,
+) -> None:
+    readout = build_public_readout(
+        MICROCOSM_ROOT,
+        out=tmp_path
+        / "receipts/first_wave/certificate_kernel_execution_lab/"
+        "certificate_kernel_execution_lab_public_readout.json",
+    )
+
+    assert readout["status"] == "pass"
+    assert readout["schema_version"] == "certificate_kernel_execution_lab_public_readout_v1"
+    assert readout["readout_id"] == "certificate_kernel_execution_lab_runtime_readout"
+    assert [
+        stage["stage_id"]
+        for stage in readout["public_flow"]
+    ] == [
+        "public_certificate_kernel",
+        "generated_certificate_rows",
+        "lean_lake_execution",
+        "transition_adjudication",
+        "cp2_translation_rerun",
+        "bounded_evolve_policy_rerun",
+        "authority_counter_boundary",
+    ]
+    families = {
+        family["family_id"]: family for family in readout["public_flow"][1]["certificate_families"]
+    }
+    assert families["nat_sum_certificate"]["valid_row_count"] == 3
+    assert families["bounded_order_certificate"]["valid_row_count"] == 2
+    counters = readout["authority_counters"]
+    assert counters["accepted_transition_count"] == 7
+    assert counters["residual_transition_count"] == 3
+    assert counters["cp2_downstream_effect_count"] == 2
+    assert counters["evolve_accepted_count"] == 2
+    assert counters["provider_results_counted"] == 0
+    assert counters["oracle_forward_success_increment_count"] == 0
+    assert counters["proof_body_export_count"] == 0
+    assert counters["source_mutation_count"] == 0
+    assert readout["dangerous_payload_absent"] is True
+    assert readout["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
+    text = json.dumps(readout, sort_keys=True)
+    assert "/private/" not in text
+    assert "/Users/" not in text
+    assert "src/ai_workflow" not in text
+    assert "proof_body" not in _walk_keys(readout)
+    assert "provider_text" not in _walk_keys(readout)

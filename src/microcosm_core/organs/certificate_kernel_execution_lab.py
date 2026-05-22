@@ -33,6 +33,7 @@ LAKE_TARGET = "MicrocosmCertificateLab"
 RESULT_NAME = "certificate_kernel_execution_lab_result.json"
 BOARD_NAME = "certificate_kernel_execution_lab_board.json"
 VALIDATION_RECEIPT_NAME = "certificate_kernel_execution_lab_validation_receipt.json"
+PUBLIC_READOUT_NAME = "certificate_kernel_execution_lab_public_readout.json"
 ACCEPTANCE_RECEIPT_REL = (
     "receipts/acceptance/first_wave/"
     "certificate_kernel_execution_lab_fixture_acceptance.json"
@@ -1213,6 +1214,226 @@ def write_receipts(
     return {name: _display(path, public_root=public_root_path) for name, path in paths.items()}
 
 
+def _certificate_family_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = _rows(manifest, "generated_certificate_rows")
+    families = [
+        {
+            "family_id": "nat_sum_certificate",
+            "schema": "NatSumCertificate(left,right,total)",
+            "row_count": sum(
+                1 for row in rows if "left" in row.get("input_row", {})
+            ),
+            "valid_row_count": sum(
+                1
+                for row in rows
+                if "left" in row.get("input_row", {})
+                and row.get("expected_valid") is True
+            ),
+            "negative_row_count": sum(
+                1
+                for row in rows
+                if "left" in row.get("input_row", {})
+                and row.get("expected_valid") is False
+            ),
+        },
+        {
+            "family_id": "bounded_order_certificate",
+            "schema": "BoundedOrderCertificate(base,period,modulus,witness)",
+            "row_count": sum(
+                1 for row in rows if "modulus" in row.get("input_row", {})
+            ),
+            "valid_row_count": sum(
+                1
+                for row in rows
+                if "modulus" in row.get("input_row", {})
+                and row.get("expected_valid") is True
+            ),
+            "negative_row_count": sum(
+                1
+                for row in rows
+                if "modulus" in row.get("input_row", {})
+                and row.get("expected_valid") is False
+            ),
+        },
+    ]
+    return [row for row in families if row["row_count"] > 0]
+
+
+def build_public_readout(
+    public_root: str | Path,
+    *,
+    receipt_dir: str | Path | None = None,
+    out: str | Path | None = None,
+    command: str = "microcosm certificate-kernel-execution-lab readout",
+) -> dict[str, Any]:
+    root = Path(public_root).resolve(strict=False)
+    receipt_root = (
+        Path(receipt_dir)
+        if receipt_dir is not None
+        else root / "receipts/first_wave/certificate_kernel_execution_lab"
+    )
+    if not receipt_root.is_absolute():
+        receipt_root = root / receipt_root
+    manifest_path = (
+        root
+        / "fixtures/first_wave/certificate_kernel_execution_lab/input/"
+        / MANIFEST_NAME
+    )
+    result_path = receipt_root / RESULT_NAME
+    board_path = receipt_root / BOARD_NAME
+    validation_path = receipt_root / VALIDATION_RECEIPT_NAME
+    acceptance_path = root / ACCEPTANCE_RECEIPT_REL
+    manifest = _load_json_if_exists(manifest_path)
+    result = _load_json_if_exists(result_path)
+    board = _load_json_if_exists(board_path)
+    validation = _load_json_if_exists(validation_path)
+    acceptance = _load_json_if_exists(acceptance_path)
+    counters = result.get("authority_counters", {})
+    if not isinstance(counters, dict):
+        counters = {}
+    analyzer = result.get("lean_analyzer_receipt", {})
+    if not isinstance(analyzer, dict):
+        analyzer = {}
+    transparency = result.get("receipt_transparency_contract", {})
+    if not isinstance(transparency, dict):
+        transparency = RECEIPT_TRANSPARENCY_CONTRACT
+    dangerous_payload_absent = all(
+        counters.get(key, 0) == 0
+        for key in (
+            "oracle_forward_success_increment_count",
+            "provider_results_counted",
+            "proof_body_export_count",
+            "source_mutation_count",
+            "macro_private_body_import_count",
+        )
+    )
+    status = (
+        PASS
+        if result.get("status") == PASS
+        and validation.get("status") == PASS
+        and acceptance.get("status") == PASS
+        and dangerous_payload_absent
+        else "blocked"
+    )
+    evidence_refs = [
+        _display(path, public_root=root)
+        for path in (
+            result_path,
+            board_path,
+            validation_path,
+            acceptance_path,
+            manifest_path,
+        )
+        if path.is_file()
+    ]
+    payload = {
+        "schema_version": "certificate_kernel_execution_lab_public_readout_v1",
+        "created_at": utc_now(),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "readout_id": "certificate_kernel_execution_lab_runtime_readout",
+        "command": command,
+        "certificate_lab_id": result.get("certificate_lab_id"),
+        "certificate_manifest_id": manifest.get("manifest_id"),
+        "public_claim": (
+            "The certificate-kernel lab is legible as a public proof-authority "
+            "loop: public kernel, generated rows, Lean/Lake check, residuals, "
+            "CP2 typed actions, bounded Evolve policy, and explicit anti-claims."
+        ),
+        "public_flow": [
+            {
+                "stage_id": "public_certificate_kernel",
+                "evidence_ref": _display(manifest_path, public_root=root),
+                "shows": [
+                    "public certificate schemas",
+                    "kernel declaration refs",
+                    "generated row lineage",
+                ],
+            },
+            {
+                "stage_id": "generated_certificate_rows",
+                "generated_certificate_count": len(
+                    _rows(manifest, "generated_certificate_rows")
+                ),
+                "certificate_families": _certificate_family_rows(manifest),
+            },
+            {
+                "stage_id": "lean_lake_execution",
+                "evidence_ref": _display(result_path, public_root=root),
+                "lean_return_code": (
+                    result.get("lake_project_build", {}).get("return_code")
+                    if isinstance(result.get("lake_project_build"), dict)
+                    else None
+                ),
+                "analyzed_lean_file_count": counters.get("analyzed_lean_file_count"),
+                "analyzed_declaration_count": counters.get("analyzed_declaration_count"),
+            },
+            {
+                "stage_id": "transition_adjudication",
+                "transition_count": counters.get("transition_count"),
+                "accepted_transition_count": counters.get(
+                    "accepted_transition_count"
+                ),
+                "residual_transition_count": counters.get(
+                    "residual_transition_count"
+                ),
+                "negative_case_ids": result.get("expected_negative_cases", []),
+            },
+            {
+                "stage_id": "cp2_translation_rerun",
+                "cp2_translation_count": counters.get("cp2_translation_count"),
+                "cp2_downstream_effect_count": counters.get(
+                    "cp2_downstream_effect_count"
+                ),
+                "action_classes_only": True,
+            },
+            {
+                "stage_id": "bounded_evolve_policy_rerun",
+                "evolve_candidate_count": counters.get("evolve_candidate_count"),
+                "evolve_accepted_count": counters.get("evolve_accepted_count"),
+                "source_mutation_count": counters.get("source_mutation_count"),
+            },
+            {
+                "stage_id": "authority_counter_boundary",
+                "oracle_forward_success_increment_count": counters.get(
+                    "oracle_forward_success_increment_count"
+                ),
+                "provider_results_counted": counters.get(
+                    "provider_results_counted"
+                ),
+                "proof_body_export_count": counters.get("proof_body_export_count"),
+                "macro_private_body_import_count": counters.get(
+                    "macro_private_body_import_count"
+                ),
+            },
+        ],
+        "kernel_declaration_refs": manifest.get("kernel_declaration_refs", []),
+        "analyzer_summary": {
+            "schema_version": analyzer.get("schema_version"),
+            "lean_file_count": analyzer.get("lean_file_count"),
+            "declaration_count": analyzer.get("declaration_count"),
+            "generated_certificates_separate_from_kernel": analyzer.get(
+                "generated_certificates_separate_from_kernel"
+            ),
+            "source_refs_public_root_relative": True,
+        },
+        "authority_counters": counters,
+        "receipt_transparency_contract": transparency,
+        "dangerous_payload_fields_omitted": True,
+        "dangerous_payload_absent": dangerous_payload_absent,
+        "authority_ceiling": result.get("authority_ceiling", AUTHORITY_CEILING),
+        "anti_claim": result.get("anti_claim", ANTI_CLAIM),
+        "evidence_refs": evidence_refs,
+        "body_redacted": True,
+    }
+    if out is not None:
+        out_path = Path(out)
+        if not out_path.is_absolute():
+            out_path = root / out_path
+        write_json_atomic(out_path, payload)
+    return payload
+
+
 def run(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -1284,11 +1505,21 @@ def main(argv: list[str] | None = None) -> int:
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
         action_parser.add_argument("--acceptance-out")
+    readout_parser = subparsers.add_parser("readout")
+    readout_parser.add_argument("--public-root", default="microcosm-substrate")
+    readout_parser.add_argument("--receipt-dir")
+    readout_parser.add_argument("--out")
     args = parser.parse_args(argv)
     if args.action == "run":
         result = run(args.input, args.out, acceptance_out=args.acceptance_out)
-    else:
+    elif args.action == "run-certificate-bundle":
         result = run_certificate_bundle(args.input, args.out)
+    else:
+        result = build_public_readout(
+            args.public_root,
+            receipt_dir=args.receipt_dir,
+            out=args.out,
+        )
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
