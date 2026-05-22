@@ -65,6 +65,7 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "provider_context_recipe_budget_policy",
         "formal_math_lean_proof_witness",
         "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
         "navigation_hologram_route_plane",
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
@@ -92,10 +93,10 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "materials_chemistry_closed_loop_lab_safety_replay",
     ]
     assert receipt["evidence_class_registry"] == {
-        "status": "pass",
-        "source_ref": "core/organ_evidence_classes.json",
-        "class_count": 5,
-        "organ_count": 43,
+            "status": "pass",
+            "source_ref": "core/organ_evidence_classes.json",
+            "class_count": 5,
+            "organ_count": 44,
         "missing_organs": [],
         "unexpected_organs": [],
         "duplicate_organs": [],
@@ -265,6 +266,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "microcosm compile ." in text
     assert "std_python_microcosm_navigation_assay" in text
     assert "implementation_atlas.python_navigation_assay" in text
+    assert "route_utility_curriculum" in text
     assert "executable research prototype" in text
     assert "Architecture Kernel" in text
     assert "microcosm explain <project> <route_id>" in text
@@ -298,6 +300,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     )
     assert "std_python_microcosm_navigation_assay" in cold_start
     assert "implementation_atlas.python_navigation_assay" in cold_start
+    assert "route_utility_curriculum" in cold_start
 
 
 def test_public_entry_packet_routes_python_navigation_assay() -> None:
@@ -313,6 +316,13 @@ def test_public_entry_packet_routes_python_navigation_assay() -> None:
     assert route["implementation_atlas_ref"] == (
         ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay"
     )
+    assert (
+        route["route_utility_curriculum_ref"]
+        == ".microcosm/python_lens.json::route_utility_curriculum"
+    )
+    assert ".microcosm/python_lens.json::route_utility_curriculum" in entry_packet[
+        "allowed_drilldowns"
+    ]
     assert route["canonical_depth_ladder"] == [
         "module_docs",
         "file_card",

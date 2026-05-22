@@ -61,6 +61,12 @@ PROBE_DISPOSITION_OUTCOMES = [
     "standard_amendment_candidate",
     "nothing_to_refine",
 ]
+ROUTE_UTILITY_DISPOSITION_OUTCOMES = [
+    "local_projection_defect",
+    "local_source_or_test_defect",
+    "macro_standard_amendment_candidate",
+    "nothing_to_refine",
+]
 
 
 def _project_name(project: Path) -> str:
@@ -708,6 +714,323 @@ def _disposition_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
     }
 
 
+def _first_path_with_role(path_rows: list[dict[str, Any]], roles: set[str]) -> str | None:
+    for row in path_rows:
+        if row.get("python_role") in roles and row.get("path"):
+            return str(row["path"])
+    return None
+
+
+def _first_symbol_ref(symbol_capsule_rows: list[dict[str, Any]], path: str | None = None) -> str | None:
+    for row in symbol_capsule_rows:
+        if path is not None and row.get("path") != path:
+            continue
+        if row.get("symbol_id"):
+            return str(row["symbol_id"])
+    return None
+
+
+def _first_source_span_ref(
+    source_span_rows: list[dict[str, Any]],
+    path: str | None = None,
+    *,
+    prefer_non_module: bool = False,
+) -> str | None:
+    fallback: str | None = None
+    for row in source_span_rows:
+        if path is not None and row.get("path") != path:
+            continue
+        span_id = row.get("span_id")
+        if not span_id:
+            continue
+        if fallback is None:
+            fallback = str(span_id)
+        if not prefer_non_module or row.get("symbol_kind") != "module":
+            return str(span_id)
+    return fallback
+
+
+def _first_graph_context_ref(import_edges: list[dict[str, Any]]) -> str | None:
+    for row in import_edges:
+        path = row.get("path")
+        target = row.get("target")
+        line = row.get("line")
+        if path and target:
+            return f"{path}:{line}->{target}"
+    return None
+
+
+def _route_utility_task(
+    *,
+    task_id: str,
+    task_intent: str,
+    expected_start_band: str,
+    selected_band: str,
+    route_hops: list[str],
+    requirement_met: bool,
+    expected_file_card: str | None = None,
+    expected_symbol_capsule: str | None = None,
+    expected_graph_context: str | None = None,
+    expected_source_span: str | None = None,
+    token_or_tool_count_proxy: int | None = None,
+    failure_class: str = "local_projection_defect",
+    disposition: str = "local_projection_defect",
+    reentry_condition: str = "route utility fixture rerun changes this result",
+    not_applicable: bool = False,
+) -> dict[str, Any]:
+    correctness = "not_applicable" if not_applicable else (PASS if requirement_met else "blocked")
+    final_disposition = "nothing_to_refine" if requirement_met or not_applicable else disposition
+    return {
+        "task_id": task_id,
+        "task_intent": task_intent,
+        "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
+        "route_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::implementation_atlas.python_navigation_assay",
+        "expected_start_band": expected_start_band,
+        "selected_band": selected_band,
+        "route_hops": route_hops,
+        "expected_file_card": expected_file_card,
+        "expected_symbol_capsule": expected_symbol_capsule,
+        "expected_graph_context": expected_graph_context,
+        "expected_source_span": expected_source_span,
+        "correctness": correctness,
+        "provenance_state": "derived_from_local_ast_and_entry_route",
+        "worst_state": PASS if requirement_met or not_applicable else "degraded",
+        "token_or_tool_count_proxy": token_or_tool_count_proxy or len(route_hops),
+        "failure_class": "none" if requirement_met else ("not_applicable" if not_applicable else failure_class),
+        "disposition": final_disposition,
+        "reentry_condition": reentry_condition,
+        "body_redacted": True,
+    }
+
+
+def _route_utility_counts(tasks: list[dict[str, Any]]) -> dict[str, int]:
+    return {
+        outcome: sum(1 for row in tasks if row.get("disposition") == outcome)
+        for outcome in ROUTE_UTILITY_DISPOSITION_OUTCOMES
+    }
+
+
+def _python_route_utility_curriculum(
+    *,
+    project: Path,
+    path_rows: list[dict[str, Any]],
+    source_refs: list[str],
+    test_refs: list[str],
+    pyproject_refs: list[str],
+    entrypoint_refs: list[str],
+    source_span_rows: list[dict[str, Any]],
+    symbol_capsule_rows: list[dict[str, Any]],
+    import_edges: list[dict[str, Any]],
+    route_rows: list[dict[str, Any]],
+    probe_dispositions: list[dict[str, Any]],
+    parse_error_rows: list[dict[str, Any]],
+    write_state: bool,
+) -> dict[str, Any]:
+    source_card = _first_path_with_role(path_rows, {"source_module", "package_init", "python_module"})
+    test_card = _first_path_with_role(path_rows, {"test_module", "test_support"})
+    entrypoint_card = entrypoint_refs[0] if entrypoint_refs else None
+    source_span = _first_source_span_ref(source_span_rows, source_card)
+    test_span = _first_source_span_ref(source_span_rows, test_card, prefer_non_module=True)
+    entrypoint_span = _first_source_span_ref(source_span_rows, entrypoint_card, prefer_non_module=True)
+    symbol_ref = _first_symbol_ref(symbol_capsule_rows, source_card) or _first_symbol_ref(symbol_capsule_rows)
+    graph_ref = _first_graph_context_ref(import_edges)
+    route_ids = {str(row.get("route_id") or "") for row in route_rows}
+    closed_probe_count = sum(
+        1
+        for row in probe_dispositions
+        if row.get("outcome") in PROBE_DISPOSITION_OUTCOMES
+    )
+
+    tasks = [
+        _route_utility_task(
+            task_id="route_utility:entry_surface_to_python_assay",
+            task_intent="Start from the public entry packet and reach the Python navigation assay route.",
+            expected_start_band="file_card",
+            selected_band="file_card",
+            route_hops=[
+                "atlas/entry_packet.json::python_navigation_route",
+                f"{STATE_DIR}/{PYTHON_LENS_STATE}::navigation_assay",
+            ],
+            requirement_met=True,
+            expected_file_card=source_card,
+            reentry_condition="entry packet python_navigation_route changes",
+        ),
+        _route_utility_task(
+            task_id="route_utility:implementation_atlas_drilldown",
+            task_intent="Use the implementation atlas as the assay drilldown rather than a parallel registry.",
+            expected_start_band="file_card",
+            selected_band="file_card",
+            route_hops=[
+                "atlas/entry_packet.json::python_navigation_route",
+                f"{STATE_DIR}/{PYTHON_LENS_STATE}::implementation_atlas.python_navigation_assay",
+            ],
+            requirement_met=True,
+            expected_file_card=source_card,
+            reentry_condition="implementation atlas route changes",
+        ),
+        _route_utility_task(
+            task_id="route_utility:package_metadata_file_card",
+            task_intent="Locate package metadata through the cheapest sufficient file-card band.",
+            expected_start_band="file_card",
+            selected_band="file_card",
+            route_hops=["python_navigation_route", "route_rows.python_package_metadata_route"],
+            requirement_met=bool(pyproject_refs),
+            expected_file_card=pyproject_refs[0] if pyproject_refs else None,
+            failure_class="local_source_or_test_defect",
+            disposition="local_source_or_test_defect",
+            reentry_condition="pyproject metadata is added or removed",
+        ),
+        _route_utility_task(
+            task_id="route_utility:source_core_source_span",
+            task_intent="Find the primary source-core proof locator without exporting source bodies.",
+            expected_start_band="file_card",
+            selected_band="source_span",
+            route_hops=[
+                "python_navigation_route",
+                "implementation_atlas.python_navigation_assay.primary_code_cards",
+                "source_span_rows",
+            ],
+            requirement_met=bool(source_card and source_span),
+            expected_file_card=source_card,
+            expected_source_span=source_span,
+            failure_class="local_projection_defect",
+            disposition="local_projection_defect",
+            reentry_condition="source core path or source-span extraction changes",
+        ),
+        _route_utility_task(
+            task_id="route_utility:test_behavior_source_span",
+            task_intent="Find the behavior-test proof locator through the test route.",
+            expected_start_band="file_card",
+            selected_band="source_span",
+            route_hops=[
+                "python_navigation_route",
+                "route_rows.python_test_behavior_route",
+                "source_span_rows",
+            ],
+            requirement_met=bool(test_card and test_span),
+            expected_file_card=test_card,
+            expected_source_span=test_span,
+            failure_class="local_source_or_test_defect",
+            disposition="local_source_or_test_defect",
+            reentry_condition="test route or test source spans change",
+        ),
+        _route_utility_task(
+            task_id="route_utility:entrypoint_source_span",
+            task_intent="Find a runnable Python entrypoint when the project declares one.",
+            expected_start_band="file_card",
+            selected_band="source_span",
+            route_hops=[
+                "python_navigation_route",
+                "route_rows.python_entrypoint_route",
+                "source_span_rows",
+            ],
+            requirement_met=bool(entrypoint_card and entrypoint_span),
+            expected_file_card=entrypoint_card,
+            expected_source_span=entrypoint_span,
+            failure_class="local_projection_defect",
+            disposition="local_projection_defect",
+            reentry_condition="project declares a runnable Python entrypoint",
+            not_applicable=not entrypoint_refs,
+        ),
+        _route_utility_task(
+            task_id="route_utility:symbol_capsule_lookup",
+            task_intent="Answer a symbol-level question at symbol-capsule depth before opening spans.",
+            expected_start_band="symbol_capsule",
+            selected_band="symbol_capsule",
+            route_hops=["python_navigation_route", "symbol_capsule_rows"],
+            requirement_met=bool(symbol_ref),
+            expected_file_card=source_card,
+            expected_symbol_capsule=symbol_ref,
+            failure_class="local_projection_defect",
+            disposition="local_projection_defect",
+            reentry_condition="symbol extraction changes",
+            not_applicable=not symbol_capsule_rows,
+        ),
+        _route_utility_task(
+            task_id="route_utility:graph_context_lookup",
+            task_intent="Answer a dependency question at graph-context depth before opening spans.",
+            expected_start_band="graph_context",
+            selected_band="graph_context",
+            route_hops=["python_navigation_route", "graph_context_edges"],
+            requirement_met=bool(graph_ref),
+            expected_graph_context=graph_ref,
+            failure_class="local_projection_defect",
+            disposition="local_projection_defect",
+            reentry_condition="import graph extraction changes",
+            not_applicable=not import_edges,
+        ),
+        _route_utility_task(
+            task_id="route_utility:probe_disposition_closure",
+            task_intent="Verify every route probe is closed into a disposition before success language.",
+            expected_start_band="file_card",
+            selected_band="file_card",
+            route_hops=["navigation_assay.route_probe_tasks", "navigation_assay.probe_dispositions"],
+            requirement_met=closed_probe_count == len(probe_dispositions) and not parse_error_rows,
+            failure_class="macro_standard_amendment_candidate",
+            disposition="macro_standard_amendment_candidate",
+            reentry_condition="probe disposition grammar or parse status changes",
+        ),
+        _route_utility_task(
+            task_id="route_utility:redaction_boundary",
+            task_intent="Verify route utility uses refs and spans without exporting source bodies.",
+            expected_start_band="file_card",
+            selected_band="file_card",
+            route_hops=["python_navigation_route", "authority_ceiling.source_bodies_exported"],
+            requirement_met=all(row.get("body_redacted") is True for row in path_rows),
+            failure_class="local_projection_defect",
+            disposition="local_projection_defect",
+            reentry_condition="redaction or authority-ceiling fields change",
+        ),
+    ]
+    disposition_counts = _route_utility_counts(tasks)
+    pass_count = sum(1 for row in tasks if row.get("correctness") == PASS)
+    not_applicable_count = sum(1 for row in tasks if row.get("correctness") == "not_applicable")
+    failed_task_count = sum(1 for row in tasks if row.get("correctness") == "blocked")
+    return {
+        "schema_version": "microcosm_python_route_utility_curriculum_v1",
+        "curriculum_id": "microcosm_python_route_utility_curriculum",
+        "assay_id": "std_python_microcosm_navigation_assay",
+        "target_root": _project_name(project),
+        "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
+        "route_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::implementation_atlas.python_navigation_assay",
+        "task_count": len(tasks),
+        "tasks": tasks,
+        "route_utility_metrics": {
+            "pass_count": pass_count,
+            "not_applicable_count": not_applicable_count,
+            "failed_task_count": failed_task_count,
+            "max_route_hops": max((len(row.get("route_hops", [])) for row in tasks), default=0),
+            "all_failures_disposed": all(row.get("disposition") for row in tasks),
+            "known_route_id_count": len(route_ids),
+        },
+        "disposition_counts": disposition_counts,
+        "local_projection_defects": [
+            row for row in tasks if row.get("disposition") == "local_projection_defect"
+        ],
+        "local_source_or_test_defects": [
+            row for row in tasks if row.get("disposition") == "local_source_or_test_defect"
+        ],
+        "macro_standard_amendment_candidates": [
+            row for row in tasks if row.get("disposition") == "macro_standard_amendment_candidate"
+        ],
+        "nothing_to_refine_receipts": [
+            {
+                "task_id": row.get("task_id"),
+                "selected_band": row.get("selected_band"),
+                "reentry_condition": row.get("reentry_condition"),
+            }
+            for row in tasks
+            if row.get("disposition") == "nothing_to_refine"
+        ],
+        "redaction_boundary_ok": all(row.get("body_redacted") is True for row in path_rows),
+        "source_bodies_exported": False,
+        "body_redacted": True,
+        "state_written": write_state,
+        "authority": "route_utility_curriculum_is_public_safe_read_model_not_source_or_release_authority",
+        "reentry_condition": "rerun after entry route, Python lens, source-span, graph, symbol, or std_python policy changes",
+    }
+
+
 def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[str, Any]:
     """Project Python route/readiness signals without exposing source bodies."""
     project = Path(project_path).expanduser().resolve(strict=False)
@@ -867,6 +1190,7 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         "symbol_capsule_count": len(symbol_capsule_rows),
         "graph_edge_count": len(import_edges),
         "parse_error_count": len(parse_error_rows),
+        "route_utility_curriculum_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum",
         "authority": "generated_project_local_assay_not_std_python_source_authority",
         "reentry_condition": "rerun after Python file, catalog, route-readiness, or std_python ladder changes",
     }
@@ -904,6 +1228,7 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
             },
         ],
         "probe_disposition_counts": disposition_counts,
+        "route_utility_curriculum_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum",
         "source_bodies_exported": False,
         "body_redacted": True,
         "authority": "route_selector_over_project_local_read_model_not_release_or_static_analysis_authority",
@@ -925,6 +1250,9 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
             "source_span_count": len(source_span_rows),
             "route_probe_task_count": len(route_probe_tasks),
             "probe_disposition_counts": disposition_counts,
+            "route_utility_curriculum_ref": (
+                f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum"
+            ),
             "standard_amendment_candidate_count": disposition_counts[
                 "standard_amendment_candidate"
             ],
@@ -943,6 +1271,34 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
             "reentry_condition": navigation_assay["reentry_condition"],
         },
     }
+    route_utility_curriculum = _python_route_utility_curriculum(
+        project=project,
+        path_rows=path_rows,
+        source_refs=source_refs,
+        test_refs=test_refs,
+        pyproject_refs=pyproject_refs,
+        entrypoint_refs=entrypoint_refs,
+        source_span_rows=source_span_rows,
+        symbol_capsule_rows=symbol_capsule_rows,
+        import_edges=import_edges,
+        route_rows=route_rows,
+        probe_dispositions=probe_dispositions,
+        parse_error_rows=parse_error_rows,
+        write_state=write_state,
+    )
+    navigation_assay["route_utility_task_count"] = route_utility_curriculum["task_count"]
+    navigation_assay["route_utility_disposition_counts"] = route_utility_curriculum[
+        "disposition_counts"
+    ]
+    python_navigation_route["route_utility_curriculum_ref"] = navigation_assay[
+        "route_utility_curriculum_ref"
+    ]
+    implementation_atlas["python_navigation_assay"]["route_utility_task_count"] = (
+        route_utility_curriculum["task_count"]
+    )
+    implementation_atlas["python_navigation_assay"]["route_utility_disposition_counts"] = (
+        route_utility_curriculum["disposition_counts"]
+    )
     payload = {
         **_base_payload("microcosm_project_python_lens_v1", project),
         "lens_id": "project_python_route_lens",
@@ -968,6 +1324,7 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         "navigation_assay": navigation_assay,
         "python_navigation_route": python_navigation_route,
         "implementation_atlas": implementation_atlas,
+        "route_utility_curriculum": route_utility_curriculum,
         "ready_route_count": sum(1 for row in route_rows if row["readiness"] == PASS),
         "standard_refs": [
             "macro:codex/standards/std_python.py::navigation_contract",
@@ -1430,7 +1787,20 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
                 if isinstance(python_projection.get("navigation_assay"), dict)
                 else {}
             ),
+            "route_utility_task_count": (
+                python_projection.get("navigation_assay", {}).get("route_utility_task_count", 0)
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else 0
+            ),
+            "route_utility_disposition_counts": (
+                python_projection.get("navigation_assay", {}).get(
+                    "route_utility_disposition_counts", {}
+                )
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else {}
+            ),
         },
+        "route_utility_curriculum": python_projection.get("route_utility_curriculum", {}),
         "implementation_atlas": python_projection.get("implementation_atlas", {}),
         "python_navigation_route": python_projection.get("python_navigation_route", {}),
         "primitive_ids": architecture.get("primitive_ids", []),

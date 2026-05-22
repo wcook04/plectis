@@ -266,8 +266,9 @@ policy, and the public-safe authority ceiling in one read-only JSON view.
 `microcosm python-lens <project>` is the project-local Python route lens. It
 emits `.microcosm/python_lens.json` with Python file roles, package roots,
 readiness checks, route rows, and the `std_python_microcosm_navigation_assay`
-inside `implementation_atlas.python_navigation_assay` while redacting source
-bodies. Use that assay to choose the `module_docs`, `file_card`,
+inside `implementation_atlas.python_navigation_assay`, plus
+`route_utility_curriculum` task rows that check entry-to-span navigation while
+redacting source bodies. Use that assay to choose the `module_docs`, `file_card`,
 `symbol_capsule`, `graph_context`, or `source_span` depth before opening proof
 spans. It does not
 execute Python, mutate source files, call providers, claim static-analysis

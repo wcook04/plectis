@@ -21,8 +21,9 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
    `std_python_microcosm_navigation_assay`, and
-   `implementation_atlas.python_navigation_assay` source-span drilldowns while
-   preserving the source-body redaction boundary.
+   `implementation_atlas.python_navigation_assay` source-span drilldowns, then
+   inspect `route_utility_curriculum` to see task-to-band-to-span route checks
+   while preserving the source-body redaction boundary.
 6. Run `microcosm authority` or
    `PYTHONPATH=src python3 -m microcosm_core.cli authority` to inspect the
    public authority ceiling, hard boundaries, safe local-only exceptions,

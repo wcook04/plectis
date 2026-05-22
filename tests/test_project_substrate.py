@@ -91,11 +91,21 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert python_lens["navigation_assay"]["route_probe_tasks"][1]["expected_depth_band"] == "source_span"
     assert python_lens["navigation_assay"]["standard_amendment_candidate_count"] == 0
     assert python_lens["navigation_assay"]["parse_error_count"] == 0
+    assert python_lens["navigation_assay"]["route_utility_task_count"] == 10
+    assert python_lens["navigation_assay"]["route_utility_disposition_counts"] == {
+        "local_projection_defect": 0,
+        "local_source_or_test_defect": 0,
+        "macro_standard_amendment_candidate": 0,
+        "nothing_to_refine": 10,
+    }
     assert python_lens["python_navigation_route"]["assay_ref"] == (
         ".microcosm/python_lens.json::navigation_assay"
     )
     assert python_lens["python_navigation_route"]["implementation_atlas_ref"] == (
         ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay"
+    )
+    assert python_lens["python_navigation_route"]["route_utility_curriculum_ref"] == (
+        ".microcosm/python_lens.json::route_utility_curriculum"
     )
     assert python_lens["python_navigation_route"]["canonical_depth_ladder"] == [
         "module_docs",
@@ -116,6 +126,29 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         python_lens["implementation_atlas"]["python_navigation_assay"]["source_bodies_exported"]
         is False
     )
+    route_curriculum = python_lens["route_utility_curriculum"]
+    assert route_curriculum["curriculum_id"] == "microcosm_python_route_utility_curriculum"
+    assert route_curriculum["task_count"] == 10
+    assert route_curriculum["route_utility_metrics"]["failed_task_count"] == 0
+    assert route_curriculum["route_utility_metrics"]["not_applicable_count"] == 1
+    assert route_curriculum["disposition_counts"] == {
+        "local_projection_defect": 0,
+        "local_source_or_test_defect": 0,
+        "macro_standard_amendment_candidate": 0,
+        "nothing_to_refine": 10,
+    }
+    assert route_curriculum["redaction_boundary_ok"] is True
+    assert route_curriculum["source_bodies_exported"] is False
+    task_by_id = {row["task_id"]: row for row in route_curriculum["tasks"]}
+    assert (
+        task_by_id["route_utility:entry_surface_to_python_assay"]["entry_surface_ref"]
+        == "atlas/entry_packet.json::python_navigation_route"
+    )
+    assert (
+        task_by_id["route_utility:test_behavior_source_span"]["expected_source_span"]
+        == "tests/test_smoke.py::test_value"
+    )
+    assert task_by_id["route_utility:entrypoint_source_span"]["correctness"] == "not_applicable"
     test_span = next(
         row
         for row in python_lens["source_span_rows"]
@@ -217,10 +250,12 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["python_ready_route_count"] == 3
     assert compiled["python_source_span_count"] == 3
     assert compiled["python_navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
+    assert compiled["python_navigation_assay"]["route_utility_task_count"] == 10
     assert (
         compiled["implementation_atlas"]["python_navigation_assay"]["assay_ref"]
         == ".microcosm/python_lens.json::navigation_assay"
     )
+    assert compiled["route_utility_curriculum"]["task_count"] == 10
     assert compiled["python_navigation_route"]["surface_id"] == "project_python_lens"
     assert compiled["work_id"] == "work_0001"
     assert compiled["idempotent_replay"] is True
@@ -263,6 +298,9 @@ def test_python_lens_can_emit_navigation_assay_without_writing_state(tmp_path: P
         "standard_amendment_candidate": 0,
         "nothing_to_refine": 4,
     }
+    assert python_lens["route_utility_curriculum"]["task_count"] == 10
+    assert python_lens["route_utility_curriculum"]["state_written"] is False
+    assert python_lens["route_utility_curriculum"]["source_bodies_exported"] is False
     assert python_lens["source_span_count"] == 3
     assert not (project / ".microcosm").exists()
 
