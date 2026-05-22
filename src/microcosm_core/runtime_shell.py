@@ -34,6 +34,7 @@ from microcosm_core.organs import (
 )
 from microcosm_core.organs import lean_std_premise_index
 from microcosm_core.organs import macro_projection_import_protocol
+from microcosm_core.organs import materials_chemistry_closed_loop_lab_safety_replay
 from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
 from microcosm_core.organs import mcp_tool_authority_replay
 from microcosm_core.organs import mechanistic_interpretability_circuit_attribution_replay
@@ -305,6 +306,17 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         receipt_name=(
             "exported_spatial_world_model_simulation_bundle_validation_result.json"
         ),
+    ),
+    RuntimeStep(
+        organ_id="materials_chemistry_closed_loop_lab_safety_replay",
+        span="materials_chemistry_lab_safety.validate",
+        input_mode="exported_materials_lab_safety_bundle",
+        example_rel=(
+            "examples/materials_chemistry_closed_loop_lab_safety_replay/"
+            "exported_materials_lab_safety_bundle"
+        ),
+        runner=materials_chemistry_closed_loop_lab_safety_replay.run_lab_bundle,
+        receipt_name="exported_materials_lab_safety_bundle_validation_result.json",
     ),
     RuntimeStep(
         organ_id="mechanistic_interpretability_circuit_attribution_replay",
@@ -752,6 +764,10 @@ class RuntimeShell:
                         "run-simulation-bundle"
                     ),
                     (
+                        "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                        "run-lab-bundle"
+                    ),
+                    (
                         "microcosm mechanistic-interpretability-circuit-attribution-replay "
                         "run-attribution-bundle"
                     ),
@@ -850,6 +866,7 @@ class RuntimeShell:
                 "run microcosm projection-safety",
                 "run microcosm drift-control",
                 "run microcosm spatial-simulation",
+                "run microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
                 "run microcosm circuit-attribution",
                 "run microcosm route-cleanup",
                 "run microcosm projection-import-map",
@@ -4407,6 +4424,54 @@ class RuntimeShell:
                     "source_ref": (
                         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
                         "spatial_world_model_counterfactual_simulation_replay_compound"
+                    ),
+                },
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "private_body_exported": False,
+                "proof_body_exported": False,
+                "provider_payload_exported": False,
+            },
+            {
+                "projection_id": (
+                    "public_materials_chemistry_closed_loop_lab_safety_replay_lens"
+                ),
+                "command": (
+                    "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                    "run-lab-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "public_ref": (
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "materials_chemistry_closed_loop_lab_safety_replay/"
+                    "exported_materials_lab_safety_bundle_validation_result.json"
+                ),
+                "owner_route": (
+                    "microcosm_core.organs."
+                    "materials_chemistry_closed_loop_lab_safety_replay"
+                ),
+                "authority_ceiling_ref": (
+                    "microcosm authority::"
+                    "public_materials_chemistry_closed_loop_lab_safety_replay_lens"
+                ),
+                "omission_receipt": {
+                    "omitted": [
+                        "wet-lab protocol steps",
+                        "hazardous synthesis instructions",
+                        "reagent quantities",
+                        "live lab credentials",
+                        "robot command payloads",
+                        "private lab notebooks",
+                        "live assay data",
+                        "discovery or benchmark score claims",
+                    ],
+                    "drilldown": (
+                        "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                        "run-lab-bundle"
+                    ),
+                    "source_ref": (
+                        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
+                        "materials_chemistry_closed_loop_lab_safety_replay_compound"
                     ),
                 },
                 "release_authorized": False,
@@ -8914,6 +8979,31 @@ class RuntimeShell:
                 "live_av_operation_authorized": False,
                 "real_world_location_claim_authorized": False,
                 "geographic_accuracy_claim_authorized": False,
+                "benchmark_score_claim_authorized": False,
+            },
+            {
+                "surface_id": (
+                    "public_materials_chemistry_closed_loop_lab_safety_replay_lens"
+                ),
+                "command": (
+                    "microcosm materials-chemistry-closed-loop-lab-safety-replay "
+                    "run-lab-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "authority_role": (
+                    "synthetic materials active-learning replay and "
+                    "autonomous-lab safety boundary"
+                ),
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "wet_lab_protocol_authorized": False,
+                "hazardous_synthesis_authorized": False,
+                "reagent_quantity_export_authorized": False,
+                "live_lab_credential_export_authorized": False,
+                "robot_command_authorized": False,
+                "private_lab_notebook_export_authorized": False,
+                "live_assay_or_discovery_claim_authorized": False,
                 "benchmark_score_claim_authorized": False,
             },
             {

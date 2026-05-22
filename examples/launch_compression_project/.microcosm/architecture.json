@@ -11,7 +11,7 @@
     "event stream",
     "evidence membrane"
   ],
-  "created_at": "2026-05-22T04:27:20+00:00",
+  "created_at": "2026-05-22T13:36:50+00:00",
   "kernel": {
     "anti_claim": "This kernel describes the public research-prototype substrate only. It does not authorize production readiness, release, hosting, publication, provider calls, source mutation, private-data equivalence, or whole-system correctness.",
     "job_sentence": "Microcosm is an executable research prototype of a local project substrate: bring a folder, build project-local state, inspect the architecture behind routes, work, events, and evidence.",
@@ -774,7 +774,7 @@
       },
       {
         "authority_boundary": "synthetic_replay_receipt_not_benchmark_or_publication_claim",
-        "claim": "Replication language requires rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts before success language.",
+        "claim": "Replication language requires rubric, declared artifact-hash roster membership, metric, budget, ablation, failure, and cold-rerun receipts before success language.",
         "kernel_primitive_refs": [
           "evidence",
           "event",
@@ -882,6 +882,452 @@
         ],
         "standard_id": "agent_monitor_redteam_falsification_replay_public_pressure",
         "title": "Monitor Redteam Replay Requires Falsification Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_metadata_not_live_sabotage_deployment_or_product_authority",
+        "claim": "Agent-sabotage and scheming-monitor language must cite synthetic episodes, action traces, per-step monitor scores, counterfactual benign replays, cold replay refs, negative cases, and explicit no-live-sabotage/no-sensitive-export/no-deployment-claim ceilings before it becomes public evidence.",
+        "domain": "agent_sabotage_eval",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "live_sabotage_instruction",
+          "real_credentials_or_accounts",
+          "exploit_instruction_material",
+          "private_chain_of_thought_export",
+          "raw_harmful_payload_export",
+          "monitor_only_final_grading",
+          "deployment_scare_story_claim"
+        ],
+        "owner_surfaces": [
+          "organs:agent_sabotage_scheming_monitor_replay",
+          "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
+          "paper_modules/agent_sabotage_scheming_monitor_replay.md"
+        ],
+        "pressure": "typed sabotage-monitor claims require episode/action/score joins, counterfactual replays, falsification fixtures, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "projection-safety",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay.run",
+        "source_refs": [
+          "organs:agent_sabotage_scheming_monitor_replay",
+          "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
+          "paper_modules/agent_sabotage_scheming_monitor_replay.md"
+        ],
+        "standard_id": "agent_sabotage_scheming_monitor_replay_public_pressure",
+        "title": "Scheming Monitor Replay Requires Episode, Action, Score, Counterfactual, and Negative-Case Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_agent_memory_conflict_metadata_not_live_memory_product_or_source_authority",
+        "claim": "Agent-memory honesty language must cite memory route refs, ADD/UPDATE/DELETE/NOOP decisions, conflict-edge refs, stale-downgrade refs, metadata-only private refs, paired memory-on/off replay receipts, answer-delta refs, negative cases, and explicit no-private-transcript/no-live-memory-product/no-source-authority ceilings before it becomes public evidence.",
+        "kernel_primitive_refs": [
+          "route",
+          "event",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.agent_memory_temporal_conflict_replay.run",
+        "source_refs": [
+          "organs:agent_memory_temporal_conflict_replay",
+          "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
+          "paper_modules/agent_memory_temporal_conflict_replay.md"
+        ],
+        "standard_id": "agent_memory_temporal_conflict_replay_public_pressure",
+        "title": "Memory Temporal-Conflict Replay Requires Conflict and Downgrade Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_memory_security_authority",
+        "domain": "agent_memory_security",
+        "negative_case_ids": [
+          "private_memory_body_export",
+          "live_user_memory_claim",
+          "raw_transcript_export",
+          "memory_write_without_provenance",
+          "trusted_promotion_from_untrusted_context",
+          "deletion_without_audit",
+          "final_answer_only_grading",
+          "unmetered_poison_influence"
+        ],
+        "owner_surfaces": [
+          "organs:sleeper_memory_poisoning_quarantine_replay",
+          "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
+          "paper_modules/sleeper_memory_poisoning_quarantine_replay.md"
+        ],
+        "pressure": "typed sleeper-memory poisoning quarantine claims require provenance, negative cases, rollback receipts, and authority ceiling",
+        "release_authorized": false,
+        "runtime_hook": "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay.run",
+        "standard_id": "sleeper_memory_poisoning_quarantine_replay_public_pressure"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_mcp_tool_or_account_safety_authority",
+        "claim": "Tool-use honesty language must cite manifest scopes, call argument hashes, approval token refs, side-effect ledger refs, rollback refs, untrusted-output instruction/data split refs, cold replay refs, negative cases, and explicit no-live-account/no-credential/no-provider-payload ceilings before it becomes public evidence.",
+        "domain": "agent_tool_authority",
+        "kernel_primitive_refs": [
+          "route",
+          "event",
+          "evidence",
+          "explanation"
+        ],
+        "negative_case_ids": [
+          "overbroad_scope",
+          "hidden_credential_export",
+          "tool_output_as_instruction",
+          "unapproved_side_effect",
+          "live_account_access",
+          "final_answer_only_grading",
+          "missing_rollback_receipt",
+          "unredacted_tool_payload"
+        ],
+        "owner_surfaces": [
+          "organs:mcp_tool_authority_replay",
+          "standards/std_microcosm_mcp_tool_authority_replay.json",
+          "paper_modules/mcp_tool_authority_replay.md"
+        ],
+        "pressure": "typed MCP tool-authority claims require scoped manifests, approval refs, side-effect ledger refs, rollback receipts, untrusted-output data boundaries, cold replay receipts, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.mcp_tool_authority_replay.run",
+        "source_refs": [
+          "organs:mcp_tool_authority_replay",
+          "standards/std_microcosm_mcp_tool_authority_replay.json",
+          "paper_modules/mcp_tool_authority_replay.md"
+        ],
+        "standard_id": "mcp_tool_authority_replay_public_pressure",
+        "title": "MCP Tool Authority Replay Requires Scope, Side-Effect, and Rollback Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_mutation_or_credential_authority",
+        "claim": "Governed-mutation honesty language must cite intent capsule refs, proof evidence cells, visible policy verdict refs, ephemeral execution identity refs, side-effect diff refs, rollback receipts, cold replay refs, negative cases, and explicit no-standing-credential/no-live-cloud/no-source-mutation ceilings before it becomes public evidence.",
+        "domain": "agent_governed_mutation_authorization",
+        "kernel_primitive_refs": [
+          "route",
+          "event",
+          "evidence",
+          "explanation"
+        ],
+        "negative_case_ids": [
+          "standing_credential_authority",
+          "policy_after_execution",
+          "hidden_policy_vote",
+          "live_cloud_credential",
+          "irreversible_mutation",
+          "unlogged_side_effect",
+          "consensus_without_evidence",
+          "final_answer_only_success"
+        ],
+        "owner_surfaces": [
+          "organs:proof_derived_governed_mutation_authorization",
+          "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
+          "paper_modules/proof_derived_governed_mutation_authorization.md"
+        ],
+        "pressure": "typed governed-mutation claims require proof cells, visible verdicts, side-effect diffs, rollback receipts, cold replay, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.proof_derived_governed_mutation_authorization.run",
+        "source_refs": [
+          "organs:proof_derived_governed_mutation_authorization",
+          "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
+          "paper_modules/proof_derived_governed_mutation_authorization.md"
+        ],
+        "standard_id": "proof_derived_governed_mutation_authorization_public_pressure",
+        "title": "Proof-Derived Governed Mutation Requires Proof, Verdict, Side-Effect, and Rollback Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_hidden_reasoning_live_rl_or_benchmark_authority",
+        "claim": "Belief-state process reward language must cite observation digests, typed belief-state summaries, predicted next evidence, verifier or observed feedback refs, belief-discrepancy scores, process rewards, outcome rewards, reward-hacking traps, trajectory groups, cold replay refs, negative cases, and explicit no-hidden-reasoning/no-live-RL/no-benchmark-score ceilings before it becomes public evidence.",
+        "domain": "agent_process_reward_eval",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "hidden_chain_of_thought_export",
+          "neural_judge_only_process_label",
+          "hidden_gold_label",
+          "reward_by_formatting",
+          "verifier_bypass",
+          "benchmark_performance_claim",
+          "final_answer_only_scoring"
+        ],
+        "owner_surfaces": [
+          "organs:belief_state_process_reward_replay",
+          "standards/std_microcosm_belief_state_process_reward_replay.json",
+          "paper_modules/belief_state_process_reward_replay.md"
+        ],
+        "pressure": "typed process-reward claims require public belief summaries, verifier or observed feedback refs, process and outcome reward events, cold replay, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.belief_state_process_reward_replay.run",
+        "source_refs": [
+          "organs:belief_state_process_reward_replay",
+          "standards/std_microcosm_belief_state_process_reward_replay.json",
+          "paper_modules/belief_state_process_reward_replay.md"
+        ],
+        "standard_id": "belief_state_process_reward_replay_public_pressure",
+        "title": "Belief-State Process Reward Requires Belief, Feedback, Reward, and Replay Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_sandbox_security_authority",
+        "claim": "Sandbox policy-escape language must cite action refs, policy rule refs, side-effect diff refs, rollback refs, cold replay refs, negative cases, and explicit no-live-secret/no-network/no-host-mutation/no-benchmark ceilings before it becomes public evidence.",
+        "domain": "agent_sandbox_security",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "real_secret_material",
+          "live_network_access",
+          "raw_environment_export",
+          "policy_after_execution",
+          "unlogged_side_effect",
+          "tool_output_policy_bypass",
+          "executable_escape_payload",
+          "security_benchmark_claim"
+        ],
+        "owner_surfaces": [
+          "organs:agent_sandbox_policy_escape_replay",
+          "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
+          "paper_modules/agent_sandbox_policy_escape_replay.md"
+        ],
+        "pressure": "typed sandbox/security claims require pre-execution policy verdicts, zero-effect blocked actions, side-effect diff receipts, rollback receipts, cold replay, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.agent_sandbox_policy_escape_replay.run",
+        "source_refs": [
+          "organs:agent_sandbox_policy_escape_replay",
+          "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
+          "paper_modules/agent_sandbox_policy_escape_replay.md"
+        ],
+        "standard_id": "agent_sandbox_policy_escape_replay_public_pressure",
+        "title": "Sandbox Policy-Escape Replay Requires Verdict, Diff, Rollback, and Replay Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_prompt_injection_robustness_authority",
+        "claim": "Prompt-injection language must cite source refs, taint labels, flow graph refs, policy rule refs, sanitized output refs, cold replay refs, negative cases, and explicit no-real-account/no-raw-prompt/no-live-tool/no-benchmark ceilings before it becomes public evidence.",
+        "domain": "agent_safety_prompt_injection",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "real_account_material",
+          "secret_exfiltration",
+          "raw_prompt_body_export",
+          "tool_output_as_instruction",
+          "hidden_system_message_promotion",
+          "credential_exfiltration",
+          "final_answer_only_success",
+          "untrusted_to_privileged_sink"
+        ],
+        "owner_surfaces": [
+          "organs:indirect_prompt_injection_information_flow_policy_replay",
+          "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
+          "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md"
+        ],
+        "pressure": "typed prompt-injection claims require source trust labels, taint graph rows, pre-action policy verdicts, sanitized outputs, cold replay, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.run",
+        "source_refs": [
+          "organs:indirect_prompt_injection_information_flow_policy_replay",
+          "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
+          "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md"
+        ],
+        "standard_id": "indirect_prompt_injection_information_flow_policy_replay_public_pressure",
+        "title": "Indirect Prompt-Injection Replay Requires Trust, Taint, Verdict, and Sanitization Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_vulnerability_discovery_or_exploit_authority",
+        "claim": "Patch-proof language must cite synthetic targets, issue hypotheses, trace refs, abstract exploitability refs, patch diff hash refs, regression tests, verifier receipts, sandbox verdicts, cold replay refs, negative cases, and explicit no-live-target/no-payload/no-network/no-benchmark ceilings before it becomes public evidence.",
+        "domain": "agent_security_vulnerability_discovery",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "benchmark_score_claim",
+          "credential_material",
+          "exploit_instruction_steps",
+          "live_target_material",
+          "network_exfiltration",
+          "patch_without_tests",
+          "real_cve_exploitation",
+          "weaponized_payload_export"
+        ],
+        "owner_surfaces": [
+          "organs:agentic_vulnerability_discovery_patch_proof_replay",
+          "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
+          "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md"
+        ],
+        "pressure": "typed vulnerability-discovery claims require synthetic targets, trace evidence, abstract proof refs, patch diffs, regression tests, verifier receipts, sandbox verdicts, cold replay, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "replay-gauntlet",
+          "standards-control",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay.run",
+        "source_refs": [
+          "organs:agentic_vulnerability_discovery_patch_proof_replay",
+          "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
+          "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md"
+        ],
+        "standard_id": "agentic_vulnerability_discovery_patch_proof_replay_public_pressure",
+        "title": "Agentic Vulnerability Replay Requires Patch, Test, Sandbox, and Negative-Case Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_hook_shadow_metadata_only_not_live_operator_or_provider_authority",
+        "claim": "Hook-shadow intervention language must cite synthetic cases, mapped repair classes, expected interventions, missing-authority denials, banned-route and command-displacement denials, live-state-read denial, over-budget denial, private-state scan, and explicit no-live-operator/no-provider/no-live-ledger ceilings before it becomes public evidence.",
+        "domain": "agent_observability_runtime_hooks",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "hook_shadow_missing_authority",
+          "hook_shadow_banned_route_attempt",
+          "hook_shadow_command_displacement",
+          "hook_shadow_live_state_read_attempt",
+          "hook_shadow_budget_overrun"
+        ],
+        "owner_surfaces": [
+          "organs:agent_route_observability_runtime::runtime_hook_shadow_intervention_coverage",
+          "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json::agent_route_observability_runtime_trace_feedback_field_floor_v1",
+          "receipts/runtime_shell/public_hook_intervention_coverage_lens.json"
+        ],
+        "pressure": "typed hook-shadow claims require synthetic cases, mapped repair classes, expected interventions, negative cases, generated receipts, private-state scan posture, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "hook-coverage",
+          "agent-route-observability-runtime run",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.runtime_shell.RuntimeShell.hook_coverage",
+        "source_refs": [
+          "organs:agent_route_observability_runtime",
+          "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+          "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
+        ],
+        "standard_id": "runtime_hook_shadow_intervention_coverage_public_pressure",
+        "title": "Runtime Hook-Shadow Coverage Requires Mapped Repairs, Denials, and Authority Ceilings"
+      },
+      {
+        "authority_boundary": "synthetic_fixture_receipts_only_not_live_browser_or_account_authority",
+        "claim": "Computer-use language must cite synthetic observation digests, affordance refs, action ids, pre-action authority verdicts, state-transition receipts, recovery receipts, cold replay refs, negative cases, and explicit no-live-browser/no-account/no-credential/no-network/no-benchmark ceilings before it becomes public evidence.",
+        "domain": "agent_observability_computer_use",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation",
+          "route"
+        ],
+        "negative_case_ids": [
+          "live_account_action",
+          "credential_entry",
+          "external_network_mutation",
+          "unapproved_purchase_or_send",
+          "destructive_file_action",
+          "hidden_screen_state_claim",
+          "action_without_observation",
+          "benchmark_score_claim"
+        ],
+        "owner_surfaces": [
+          "organs:agent_route_observability_runtime::computer_use_action_trace_replay",
+          "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json::computer_use_action_trace_replay_contract_v1",
+          "paper_modules/computer_use_action_trace_replay.md"
+        ],
+        "pressure": "typed computer-use claims require visible observations, affordance refs, actions, pre-action authority verdicts, state-transition receipts, recovery receipts, cold replay, negative cases, and authority ceilings",
+        "release_authorized": false,
+        "route_refs": [
+          "hook-coverage",
+          "agent-route-observability-runtime validate-computer-use-bundle",
+          "spine"
+        ],
+        "runtime_hook": "microcosm_core.organs.agent_route_observability_runtime.run_computer_use_action_trace_bundle",
+        "source_refs": [
+          "organs:agent_route_observability_runtime",
+          "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+          "paper_modules/computer_use_action_trace_replay.md"
+        ],
+        "standard_id": "computer_use_action_trace_replay_public_pressure",
+        "title": "Computer-Use Action Trace Replay Requires Observation, Affordance, Verdict, State-Diff, and Replay Receipts"
+      },
+      {
+        "authority_boundary": "synthetic_simulator_only_materials_lab_safety_receipts_not_wetlab_or_discovery_authority",
+        "claim": "Materials chemistry closed-loop lab-safety language must cite synthetic candidate, safety-screen, simulator-assay, active-learning decision, cold replay, negative-case, and authority-ceiling receipts before it becomes public evidence.",
+        "domain": "materials_chemistry_closed_loop_lab_safety",
+        "kernel_primitive_refs": [
+          "pattern",
+          "route",
+          "evidence",
+          "explanation"
+        ],
+        "negative_case_ids": [
+          "wetlab_protocol_steps",
+          "hazardous_synthesis_steps",
+          "reagent_amounts",
+          "controlled_or_bioactive_target",
+          "live_lab_credentials",
+          "robot_command_execution",
+          "private_lab_notebook_export",
+          "discovery_claim"
+        ],
+        "owner_surfaces": [
+          "organs:materials_chemistry_closed_loop_lab_safety_replay",
+          "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
+          "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md",
+          "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json"
+        ],
+        "pressure": "typed autonomous-science claims require simulator-only metadata, falsification fixtures, and explicit wetlab/discovery denials",
+        "receipt_refs": [
+          "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+          "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+          "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+          "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
+        ],
+        "release_authorized": false,
+        "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay"
       }
     ],
     "schema_version": "public_microcosm_standard_pressure_v1",

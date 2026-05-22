@@ -10,13 +10,13 @@
   },
   "body_redacted": true,
   "command": "microcosm python-lens <project>",
-  "created_at": "2026-05-22T04:27:20+00:00",
-  "event_id": "evt_0344",
+  "created_at": "2026-05-22T13:36:50+00:00",
+  "event_id": "evt_0450",
   "evidence_ref": ".microcosm/evidence/python_lens.json",
   "evidence_replacement": {
     "append_only_event_history_ref": ".microcosm/events.jsonl",
     "policy": "stable_ref_latest_body",
-    "previous_sha256": "2b4eafd5297a899f0bc07b53f1aedc4aac5ff538f4952f694de43843940f7419",
+    "previous_sha256": "857369d03146ece2568161c519a00dbbea1fc38b02aa3275003b13c9a51bc3ec",
     "replacement_recorded": true,
     "stable_ref": ".microcosm/evidence/python_lens.json"
   },
@@ -30,7 +30,7 @@
     {
       "absolute_import_count": 0,
       "body_redacted": true,
-      "bytes": 11,
+      "bytes": 10,
       "catalog_role": "source",
       "has_main_guard": false,
       "path": "src/app/__init__.py",

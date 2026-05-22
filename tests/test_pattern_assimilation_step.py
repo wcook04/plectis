@@ -171,9 +171,9 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["provider_payload_read"] is False
     assert result["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert result["ordered_adapter_lane_status"] == (
-        "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_and_agentic_vulnerability_patch_proof_bound"
+        "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_materials_lab_safety_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_agentic_vulnerability_patch_proof_and_materials_lab_safety_bound"
     )
-    assert result["organ_landing_count"] == 41
+    assert result["organ_landing_count"] == 42
     assert result["landed_organ_ids"] == [
         "agent_benchmark_integrity_anti_gaming_replay",
         "agent_memory_temporal_conflict_replay",
@@ -195,6 +195,7 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
         "indirect_prompt_injection_information_flow_policy_replay",
         "lean_std_premise_index",
         "macro_projection_import_protocol",
+        "materials_chemistry_closed_loop_lab_safety_replay",
         "mathematical_strategy_atlas_hypothesis_scorer",
         "mcp_tool_authority_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
@@ -217,7 +218,7 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
         "undeclared_library_prior_symbol_classifier",
         "world_model_projection_drift_control_room",
     ]
-    assert result["refinement_receipt_count"] == 36
+    assert result["refinement_receipt_count"] == 37
     assert result["nothing_to_refine_receipt_count"] == 2
     assert result["stewardship_check_count"] == 2
     assert result["reentry_condition_count"] == 2

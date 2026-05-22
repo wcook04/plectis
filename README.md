@@ -135,6 +135,7 @@ microcosm durable-agent-work-landing-replay run-work-landing-bundle --input exam
 microcosm research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
 microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
 microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
+microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay
 microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
 microcosm view-quality
 microcosm projection-safety
@@ -195,6 +196,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli durable-agent-work-landing-replay r
 PYTHONPATH=src python3 -m microcosm_core.cli research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
 PYTHONPATH=src python3 -m microcosm_core.cli world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
 PYTHONPATH=src python3 -m microcosm_core.cli spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
+PYTHONPATH=src python3 -m microcosm_core.cli materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
 PYTHONPATH=src python3 -m microcosm_core.cli view-quality
 PYTHONPATH=src python3 -m microcosm_core.cli projection-safety
@@ -542,6 +544,7 @@ the local substrate loop:
 39. `agent_sandbox_policy_escape_replay`
 40. `indirect_prompt_injection_information_flow_policy_replay`
 41. `agentic_vulnerability_discovery_patch_proof_replay`
+42. `materials_chemistry_closed_loop_lab_safety_replay`
 
 `agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
 integrity boundary: it validates locked evaluator ids, evaluator config hashes,
@@ -726,6 +729,17 @@ generated-video-only authority, geographic accuracy claims, benchmark score
 overclaims, and release claims without claiming a trained simulator, geographic
 truth, generated-video proof, live operation authority, benchmark score,
 publication, or release.
+
+`materials_chemistry_closed_loop_lab_safety_replay` is the public
+autonomous-science lab-safety replay organ: it validates synthetic candidate
+materials, safety screens, simulator assays, active-learning decisions, cold
+replay refs, projection protocol, negative cases, and no-wetlab authority
+ceilings. Run `microcosm
+materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle` to inspect
+the exported bundle. The organ rejects wetlab protocol export, hazardous
+synthesis steps, reagent quantities, controlled or bioactive targets, live lab
+credentials, robot commands, private lab notebooks, live assay data, discovery
+claims, benchmark score claims, and release authority.
 
 `mechanistic_interpretability_circuit_attribution_replay` is the public
 mechanistic-interpretability replay organ: it validates toy prompt refs, sparse
@@ -927,6 +941,8 @@ PYTHONPATH=src python3 -m microcosm_core.organs.world_model_projection_drift_con
 PYTHONPATH=src python3 -m microcosm_core.cli world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
 PYTHONPATH=src python3 -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay --acceptance-out receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay --acceptance-out receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay --acceptance-out receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json

@@ -368,6 +368,15 @@
       "current_authority_receipt": "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
       "runtime_receipt_count": 4,
       "body_redacted": true
+    },
+    {
+      "ordinal": 42,
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "cli_command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::materials_chemistry_closed_loop_lab_safety_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
+      "runtime_receipt_count": 4,
+      "body_redacted": true
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

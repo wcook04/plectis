@@ -40,7 +40,8 @@
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
     "indirect_prompt_injection_information_flow_policy_replay",
-    "agentic_vulnerability_discovery_patch_proof_replay"
+    "agentic_vulnerability_discovery_patch_proof_replay",
+    "materials_chemistry_closed_loop_lab_safety_replay"
   ],
   "anti_claim": "Public entry-doc validation proves only standalone public entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake beyond the bounded public witness organ, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
   "authority_ceiling": {
@@ -65,7 +66,7 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 41,
+    "scanned_path_count": 42,
     "status": "pass"
   },
   "receipt_paths": [
@@ -93,6 +94,7 @@
     "paper_modules/research_replication_rubric_artifact_replay.md",
     "paper_modules/world_model_projection_drift_control_room.md",
     "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
+    "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md",
     "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
     "paper_modules/provider_context_recipe_budget.md",
     "paper_modules/public_reveal_walkthrough.md",

@@ -1,0 +1,53 @@
+{
+  "schema_version": "materials_chemistry_simulator_assays_v1",
+  "simulator_assays": [
+    {
+      "assay_id": "assay_membrane_proxy_001",
+      "experiment_ref": "exp_membrane_screen_001",
+      "candidate_material_ref": "mat_polymer_membrane_001",
+      "simulator_only": true,
+      "property_proxy": "thermal_stability_proxy",
+      "result_table_ref": "result_table:membrane_proxy_001",
+      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "live_assay_data_exported": false,
+      "discovery_claim": false,
+      "body_redacted": true
+    },
+    {
+      "assay_id": "assay_electrolyte_proxy_002",
+      "experiment_ref": "exp_electrolyte_screen_002",
+      "candidate_material_ref": "mat_solid_electrolyte_002",
+      "simulator_only": true,
+      "property_proxy": "ionic_transport_proxy",
+      "result_table_ref": "result_table:electrolyte_proxy_002",
+      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "live_assay_data_exported": false,
+      "discovery_claim": false,
+      "body_redacted": true
+    },
+    {
+      "assay_id": "assay_support_proxy_003",
+      "experiment_ref": "exp_support_screen_003",
+      "candidate_material_ref": "mat_catalyst_support_003",
+      "simulator_only": true,
+      "property_proxy": "surface_area_proxy",
+      "result_table_ref": "result_table:support_proxy_003",
+      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "live_assay_data_exported": false,
+      "discovery_claim": false,
+      "body_redacted": true
+    },
+    {
+      "assay_id": "assay_sorbent_proxy_004",
+      "experiment_ref": "exp_sorbent_screen_004",
+      "candidate_material_ref": "mat_sorbent_surface_004",
+      "simulator_only": true,
+      "property_proxy": "adsorption_proxy",
+      "result_table_ref": "result_table:sorbent_proxy_004",
+      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "live_assay_data_exported": false,
+      "discovery_claim": false,
+      "body_redacted": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "exported_materials_lab_safety_bundle",
+  "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+  "input_mode": "exported_materials_lab_safety_bundle",
+  "description": "Synthetic simulator-only materials chemistry lab-safety replay bundle. It validates metadata refs and negative-case posture, not wetlab execution or discovery claims.",
+  "files": [
+    "lab_safety_protocol.json",
+    "replay_policy.json",
+    "candidate_materials.json",
+    "experiment_dag.json",
+    "simulator_assays.json",
+    "active_learning_decisions.json"
+  ],
+  "authority_ceiling": "metadata-only lab-safety replay; no wetlab protocol, hazardous synthesis, reagent quantity, credential, robot-command, discovery, benchmark, or release authority"
+}

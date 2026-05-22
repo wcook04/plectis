@@ -1,0 +1,52 @@
+{
+  "schema_version": "materials_chemistry_lab_safety_protocol_v1",
+  "selected_route_id": "materials_chemistry_closed_loop_lab_safety_replay",
+  "source_pattern_id": "materials_chemistry_closed_loop_lab_safety_replay_compound",
+  "selected_pattern_ids": [
+    "exp_membrane_screen_001",
+    "exp_electrolyte_screen_002",
+    "exp_support_screen_003",
+    "exp_sorbent_screen_004"
+  ],
+  "projection_protocol": {
+    "copied": [
+      "public-safe claim-contract labels",
+      "fixture and receipt structure"
+    ],
+    "reimplemented": [
+      "simulator-only candidate, assay, decision, and cold-replay metadata",
+      "negative-case validator logic for lab-safety denials"
+    ],
+    "cleaned": [
+      "all materials are abstract labels, not actionable formulas",
+      "all result tables are synthetic public references"
+    ],
+    "omitted": [
+      "wetlab protocols",
+      "hazardous synthesis steps",
+      "reagent quantities",
+      "live lab credentials",
+      "robot commands",
+      "private lab notebooks"
+    ],
+    "public_replacement": "synthetic simulator-only metadata bundle with falsification fixtures",
+    "authority_ceiling": "metadata-only lab-safety replay; no wetlab or discovery authority",
+    "validation_proves": "positive rows bind candidate, safety-screen, assay, decision, and cold-replay refs while negative rows are rejected"
+  },
+  "authority_ceiling": {
+    "metadata_projection_only": true,
+    "simulator_only": true,
+    "wetlab_protocol_authorized": false,
+    "hazardous_synthesis_authorized": false,
+    "reagent_amounts_authorized": false,
+    "controlled_substance_target_authorized": false,
+    "bioactivity_target_authorized": false,
+    "live_lab_credentials_authorized": false,
+    "robot_command_authorized": false,
+    "private_lab_notebook_exported": false,
+    "live_assay_data_exported": false,
+    "discovery_claim_authorized": false,
+    "benchmark_score_claim_authorized": false,
+    "release_authorized": false
+  }
+}

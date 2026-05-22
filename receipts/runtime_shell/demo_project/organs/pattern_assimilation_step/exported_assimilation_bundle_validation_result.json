@@ -23,6 +23,7 @@
     "research_replication_rubric_artifact_replay",
     "world_model_projection_drift_control_room",
     "spatial_world_model_counterfactual_simulation_replay",
+    "materials_chemistry_closed_loop_lab_safety_replay",
     "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime",
     "pattern_assimilation_step",
@@ -64,7 +65,7 @@
     "release_or_publication_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "88c0d15584c23e6d28a0b52a65c59e6c2cb0b70113e80ea5fa624b8a8cfce7b8",
+  "bundle_fingerprint": "f8494ea9b52e2b65edfc5f6d779b2e62a0eb2e7bd2ecfbc2be95c9003c554a81",
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "bundle_manifest_schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
   "closeout_by_organ": {
@@ -88,6 +89,7 @@
     "indirect_prompt_injection_information_flow_policy_replay": "validator_contract_refined",
     "lean_std_premise_index": "validator_contract_refined",
     "macro_projection_import_protocol": "validator_contract_refined",
+    "materials_chemistry_closed_loop_lab_safety_replay": "validator_contract_refined",
     "mathematical_strategy_atlas_hypothesis_scorer": "validator_contract_refined",
     "mcp_tool_authority_replay": "validator_contract_refined",
     "mechanistic_interpretability_circuit_attribution_replay": "validator_contract_refined",
@@ -110,8 +112,8 @@
     "undeclared_library_prior_symbol_classifier": "validator_contract_refined",
     "world_model_projection_drift_control_room": "validator_contract_refined"
   },
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T11:09:32+00:00",
+  "command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input examples/pattern_assimilation_step/exported_assimilation_bundle --out receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
+  "created_at": "2026-05-22T13:37:21+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -139,6 +141,7 @@
     "indirect_prompt_injection_information_flow_policy_replay",
     "lean_std_premise_index",
     "macro_projection_import_protocol",
+    "materials_chemistry_closed_loop_lab_safety_replay",
     "mathematical_strategy_atlas_hypothesis_scorer",
     "mcp_tool_authority_replay",
     "mechanistic_interpretability_circuit_attribution_replay",
@@ -180,6 +183,7 @@
     "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
     "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+    "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
     "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
@@ -207,9 +211,9 @@
   "metadata_projection_not_live_learning_authority": true,
   "missing_negative_cases": [],
   "next_best_lane_check_count": 1,
-  "next_best_lane_result": "computer_use_action_trace_replay_compound",
+  "next_best_lane_result": "runtime_hook_shadow_intervention_coverage",
   "next_routes": [
-    "computer_use_action_trace_replay_compound"
+    "runtime_hook_shadow_intervention_coverage"
   ],
   "next_seed_paths": [
     "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
@@ -220,9 +224,9 @@
     "nothing_to_refine_proof_spine_adapter"
   ],
   "observed_negative_cases": {},
-  "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_and_agentic_vulnerability_patch_proof_bound",
+  "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_materials_lab_safety_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_agentic_vulnerability_patch_proof_and_materials_lab_safety_bound",
   "organ_id": "pattern_assimilation_step",
-  "organ_landing_count": 41,
+  "organ_landing_count": 42,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -271,6 +275,7 @@
     "microcosm-substrate/src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/lean_std_premise_index.py",
     "microcosm-substrate/src/microcosm_core/organs/macro_projection_import_protocol.py",
+    "microcosm-substrate/src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py",
     "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/navigation_hologram_route_plane.py",
@@ -289,7 +294,7 @@
     "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
     "microcosm-substrate/src/microcosm_core/validators/acceptance.py"
   ],
-  "refinement_receipt_count": 36,
+  "refinement_receipt_count": 37,
   "refinement_receipt_ids": [
     "refine_agent_benchmark_integrity_anti_gaming_replay_bundle",
     "refine_agent_memory_temporal_conflict_replay_bundle",
@@ -309,6 +314,7 @@
     "refine_indirect_prompt_injection_information_flow_policy_replay_bundle",
     "refine_lean_std_premise_index_bundle",
     "refine_macro_projection_import_protocol_bundle",
+    "refine_materials_chemistry_closed_loop_lab_safety_replay_bundle",
     "refine_mathematical_strategy_atlas_hypothesis_scorer_bundle",
     "refine_mechanistic_interpretability_circuit_attribution_replay_bundle",
     "refine_navigation_route_plane_exported_bundle",
@@ -348,6 +354,7 @@
     "indirect_prompt_injection_information_flow_policy_replay": "validator_contract_refined",
     "lean_std_premise_index": "validator_contract_refined",
     "macro_projection_import_protocol": "validator_contract_refined",
+    "materials_chemistry_closed_loop_lab_safety_replay": "validator_contract_refined",
     "mathematical_strategy_atlas_hypothesis_scorer": "validator_contract_refined",
     "mechanistic_interpretability_circuit_attribution_replay": "validator_contract_refined",
     "navigation_hologram_route_plane": "validator_contract_refined",

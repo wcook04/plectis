@@ -180,7 +180,11 @@
     "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_result.json",
     "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_board.json",
     "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json",
-    "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
+    "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+    "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+    "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
   ],
   "checker_id": "checker.microcosm.validators.fixture_freshness",
   "command": "python -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
@@ -205,6 +209,7 @@
     "indirect_prompt_injection_information_flow_policy_replay": "1b3ef99c37cb632b83ba4993c702be48a02e229c70ebbdade7a8aecd71524b42",
     "lean_std_premise_index": "1e5fe7878ae236f0ebc4beda4aebf82d740b53a74afc2d5fd206fdae06208de7",
     "macro_projection_import_protocol": "335b1bab3482a649554d58284fea23a4bfacd03da380448a355b5eefe47c0bd9",
+    "materials_chemistry_closed_loop_lab_safety_replay": "4a78a4e78118068fbcea2ab7aec361b695cd6a4b52fca708ed67b1cd50366595",
     "mathematical_strategy_atlas_hypothesis_scorer": "e165f717faf77e7e59fac40ef2269fbb590d311b420875245e80c9c439daf844",
     "mcp_tool_authority_replay": "a03f2177bf8a32d23c2fddb12f4ca724e3eb058716e43e2544e6e6df8a19028d",
     "mechanistic_interpretability_circuit_attribution_replay": "80e79f4f5e1f9279f9f0531ffb70e695ee38ee5d87b6a4f0273fc4afec5c633f",
@@ -483,6 +488,22 @@
       "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json": "119ebd871a13e3ea883f96ce99729bb670d06fc17f3a74c45ee22f651e8044d8",
       "fixtures/first_wave/macro_projection_import_protocol/input/release_or_private_equivalence_overclaim.json": "0771ec71f94aefba3cace664a6aa11f7e24d0732d5b40df2e05709274caf688e"
     },
+    "materials_chemistry_closed_loop_lab_safety_replay": {
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/active_learning_decisions.json": "4e53124b749f4353bd1455738d809f0e84c897732aaeb66a990259d271a1693d",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/candidate_materials.json": "67bf5ab1d6897543d80f72ecde19db97d3b1a06ebe8c2995019b9a8784a2a2fc",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/controlled_or_bioactive_target.json": "ce101a781084d004decca0bbfb39acb50027b6301de396aae23162ff821e0878",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/discovery_claim.json": "bb744671bff97d95a4cb19e964d154fc593d87bad06800b63efca5e04981f170",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/experiment_dag.json": "f7a22aa2e9d94908d78063600bf09e226403d5289489281db6397dfdfb739528",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/hazardous_synthesis_steps.json": "1ab220f93cd658bd9dc2c8278033036449f7c7118b361a17a1dd325ff04bd72e",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/lab_safety_protocol.json": "8b40c50f58ac18f186b9c7d5302f500288e7e97f943d50650389d153eb56f398",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/live_lab_credentials.json": "d80699f6218e2be53c41eeed4a145d164780697c5f91848ad6842d387c3bf010",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/private_lab_notebook_export.json": "615f53cec51c77462a4c2c0350ca1e415a8cf2fd7b8049f130bfaa54e43488ad",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/reagent_amounts.json": "c219044e907e43e5a925bab0c3019028763fea2e1a9c22d4e80033cdb03f5dc4",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/replay_policy.json": "834a23c5c8b288e758f37eb226809ccd63d154544396bf8d76abccdd9a46eaa9",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/robot_command_execution.json": "de105138e89b7c076b49ab5b7ac5d259e83cbdc52f092afe0e4400447d1bb698",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/simulator_assays.json": "23615b5630bf38324cd0ae327c302201a5f30a153e1bf86427a225afa1827605",
+      "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/wetlab_protocol_steps.json": "cbfa1425de61634711d881931d4af099d53cd75dd9bbdd4792b9ce8099a7bdc3"
+    },
     "mathematical_strategy_atlas_hypothesis_scorer": {
       "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/hypothesis_cases.json": "6e354c331ea6e1a0872cd92dc62cc552da515b044aa93fe29b301445840b5ba7",
       "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/oracle_strategy_label_leakage.json": "66a12b6fd02339c9d61638c8899a1960c02fb9a557cb2cd08a352998ab2cc2b2",
@@ -547,7 +568,7 @@
     "pattern_assimilation_step": {
       "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json": "f9dcecdbb67118793f6a4e14d91ae96d3acc92f47b8edf645eebd98edaf6592b",
       "fixtures/first_wave/pattern_assimilation_step/input/nothing_to_refine_case.json": "48f919e57f616db1b7982e88b43fad692c7074d2d751e681859c6cc889db1879",
-      "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl": "a9d88099b0b3b5cd344223c09957d9023d8c282535e38baff0532668e8684e16",
+      "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl": "a3c9f8512313fedfa5a32c91f53f1b97d3d2a62c224af42164aec979bae0a5c2",
       "fixtures/first_wave/pattern_assimilation_step/input/refinement_case.json": "6f994b3503c7360ddff146e57c6f3ccc10dc57bac20abb20d8c2068d02a13dc3"
     },
     "pattern_binding_contract": {
@@ -671,13 +692,13 @@
       "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulator_product_claim.json": "293c5fa8cc28463e26d04348aa7b9ed2cb14e83a32476b5bb17041d03a4e615c"
     },
     "standards_meta_diagnostics": {
-      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json": "e53e53bae719c4d057ab28ca26a93ac0a9252605f41f900ff73820b319c07d58",
+      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json": "eb6bdc628a3204dddce3de80336e5c1c0ae6385aa8c07071ba6fd15420621003",
       "fixtures/first_wave/standards_meta_diagnostics/input/missing_receipt_ref.json": "80dc2017e21a3625b8fe67a1a3fc06bffdd4dbe1cbc7cb6b89714d31c3c580e4",
       "fixtures/first_wave/standards_meta_diagnostics/input/missing_standard_ref.json": "bb98cce927f43c179b57eda6a1d89d94747d26607ffa1aa2ef5742b6c7ff984f",
-      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json": "8d2cfbe96ac05483616ac631682686ec4bfc49d3d22307156578f9df59245490",
+      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json": "0d9fd47b5d41112818fb168f52912e136a47a92391ab58499624717001aacd40",
       "fixtures/first_wave/standards_meta_diagnostics/input/private_source_leakage.json": "ca7d9712828d8b86791e378d52f4fd5fea6ad948fd83b6299b382c7cade7581d",
       "fixtures/first_wave/standards_meta_diagnostics/input/release_overclaim.json": "a71ce2cbe98321584d19802fb11904857c266482dc21888ffdf5f564e4add046",
-      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json": "9dabbb7488e597fe934f3dffadbb5ffed9f76d9993487f5c3897ab6558ad1d53",
+      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json": "feec3ca39f547fe6825020886ba985bd79b054f95a335f451acde147048308b6",
       "fixtures/first_wave/standards_meta_diagnostics/input/unmapped_accepted_organ.json": "9e68073b4269823f75237dcfa87ea1f54f04ac474e0b61550f98f264a4691ba6"
     },
     "tactic_portfolio_availability_probe": {

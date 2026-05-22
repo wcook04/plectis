@@ -58,6 +58,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "research_replication_rubric_artifact_replay",
     "world_model_projection_drift_control_room",
     "spatial_world_model_counterfactual_simulation_replay",
+    "materials_chemistry_closed_loop_lab_safety_replay",
     "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime",
     "pattern_assimilation_step",

@@ -1,0 +1,16 @@
+{
+  "schema_version": "materials_chemistry_negative_case_v1",
+  "negative_case_id": "discovery_claim",
+  "simulator_assay": {
+    "assay_id": "neg_discovery_claim",
+    "experiment_ref": "exp_membrane_screen_001",
+    "candidate_material_ref": "mat_polymer_membrane_001",
+    "simulator_only": true,
+    "property_proxy": "unsupported_discovery_proxy",
+    "result_table_ref": "result_table:negative_discovery_claim",
+    "uncertainty_label": "bounded_synthetic_uncertainty",
+    "live_assay_data_exported": false,
+    "discovery_claim": true,
+    "body_redacted": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "materials_chemistry_negative_case_v1",
+  "negative_case_id": "private_lab_notebook_export",
+  "candidate_material": {
+    "candidate_material_id": "neg_private_lab_notebook_export",
+    "target_property_label": "redaction_boundary_proxy",
+    "literature_capsule_ref": "literature_capsule:negative_private_notebook",
+    "safety_screen_ref": "safety_screen:negative_private_notebook",
+    "non_actionable_literature_capsule": true,
+    "controlled_substance_target": false,
+    "bioactivity_target": false,
+    "discovery_claim": false,
+    "private_lab_notebook_exported": true,
+    "body_redacted": true
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-22T11:09:32+00:00",
+  "created_at": "2026-05-22T13:36:26+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -232,7 +232,17 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_24_mechanistic_interpretability_circuit_attribution_replay",
+      "event_id": "evt_24_materials_chemistry_closed_loop_lab_safety_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle_validation_result.json",
+      "input_mode": "exported_materials_lab_safety_bundle",
+      "inputs": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle",
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+      "span": "materials_chemistry_lab_safety.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_25_mechanistic_interpretability_circuit_attribution_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json",
       "input_mode": "exported_circuit_attribution_bundle",
       "inputs": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
@@ -242,7 +252,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_25_agent_route_observability_runtime",
+      "event_id": "evt_26_agent_route_observability_runtime",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
       "input_mode": "exported_observability_bundle",
       "inputs": "examples/agent_route_observability_runtime/exported_observability_bundle",
@@ -252,7 +262,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_26_pattern_assimilation_step",
+      "event_id": "evt_27_pattern_assimilation_step",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json",
       "input_mode": "exported_assimilation_bundle",
       "inputs": "examples/pattern_assimilation_step/exported_assimilation_bundle",
@@ -262,7 +272,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_27_public_reveal_walkthrough",
+      "event_id": "evt_28_public_reveal_walkthrough",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
       "input_mode": "exported_public_reveal_bundle",
       "inputs": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
@@ -272,7 +282,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_28_macro_projection_import_protocol",
+      "event_id": "evt_29_macro_projection_import_protocol",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
       "input_mode": "exported_projection_import_bundle",
       "inputs": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
@@ -282,7 +292,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_29_prediction_oracle_reconciliation",
+      "event_id": "evt_30_prediction_oracle_reconciliation",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation/exported_prediction_oracle_bundle_validation_result.json",
       "input_mode": "exported_prediction_oracle_bundle",
       "inputs": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle",
@@ -292,7 +302,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_30_standards_meta_diagnostics",
+      "event_id": "evt_31_standards_meta_diagnostics",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
       "input_mode": "exported_standards_meta_diagnostics_bundle",
       "inputs": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
@@ -302,7 +312,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_31_cold_reader_route_map",
+      "event_id": "evt_32_cold_reader_route_map",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
       "input_mode": "exported_cold_reader_route_map_bundle",
       "inputs": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
@@ -312,7 +322,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_32_agent_monitor_redteam_falsification_replay",
+      "event_id": "evt_33_agent_monitor_redteam_falsification_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle_validation_result.json",
       "input_mode": "exported_monitor_redteam_bundle",
       "inputs": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle",
@@ -322,7 +332,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_33_agent_sabotage_scheming_monitor_replay",
+      "event_id": "evt_34_agent_sabotage_scheming_monitor_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle_validation_result.json",
       "input_mode": "exported_sabotage_monitor_bundle",
       "inputs": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle",
@@ -332,7 +342,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_34_agent_memory_temporal_conflict_replay",
+      "event_id": "evt_35_agent_memory_temporal_conflict_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
       "input_mode": "exported_memory_temporal_conflict_bundle",
       "inputs": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
@@ -342,7 +352,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_35_sleeper_memory_poisoning_quarantine_replay",
+      "event_id": "evt_36_sleeper_memory_poisoning_quarantine_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
       "input_mode": "exported_sleeper_memory_poisoning_bundle",
       "inputs": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
@@ -352,7 +362,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_36_mcp_tool_authority_replay",
+      "event_id": "evt_37_mcp_tool_authority_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
       "input_mode": "exported_mcp_tool_authority_bundle",
       "inputs": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
@@ -362,7 +372,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_37_proof_derived_governed_mutation_authorization",
+      "event_id": "evt_38_proof_derived_governed_mutation_authorization",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
       "input_mode": "exported_governed_mutation_authorization_bundle",
       "inputs": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
@@ -372,7 +382,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_38_belief_state_process_reward_replay",
+      "event_id": "evt_39_belief_state_process_reward_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json",
       "input_mode": "exported_belief_state_process_reward_bundle",
       "inputs": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle",
@@ -382,7 +392,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_39_agent_sandbox_policy_escape_replay",
+      "event_id": "evt_40_agent_sandbox_policy_escape_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json",
       "input_mode": "exported_sandbox_policy_escape_bundle",
       "inputs": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
@@ -392,7 +402,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_40_indirect_prompt_injection_information_flow_policy_replay",
+      "event_id": "evt_41_indirect_prompt_injection_information_flow_policy_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle_validation_result.json",
       "input_mode": "exported_prompt_injection_flow_bundle",
       "inputs": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
@@ -402,7 +412,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_41_agentic_vulnerability_discovery_patch_proof_replay",
+      "event_id": "evt_42_agentic_vulnerability_discovery_patch_proof_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle_validation_result.json",
       "input_mode": "exported_patch_proof_bundle",
       "inputs": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle",
@@ -415,10 +425,10 @@
   "otel_shape": {
     "logs_as_events": true,
     "metrics": {
-      "runtime_steps_passed": 41,
-      "runtime_steps_total": 41
+      "runtime_steps_passed": 42,
+      "runtime_steps_total": 42
     },
-    "span_count": 41,
+    "span_count": 42,
     "trace_id": "runtime_shell_demo_project"
   },
   "project_id": "demo_project",

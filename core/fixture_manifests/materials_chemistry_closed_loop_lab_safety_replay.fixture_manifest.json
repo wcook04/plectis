@@ -1,0 +1,123 @@
+{
+  "anti_claim": "This fixture validates synthetic simulator-only materials chemistry lab-safety metadata only; it does not export wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
+  "authority_ceiling": "simulator-only materials chemistry lab-safety replay metadata; no wetlab, hazardous synthesis, reagent amount, credential, robot, notebook, live assay, discovery, benchmark, or release authority",
+  "expected_negative_cases": [
+    "wetlab_protocol_steps",
+    "hazardous_synthesis_steps",
+    "reagent_amounts",
+    "controlled_or_bioactive_target",
+    "live_lab_credentials",
+    "robot_command_execution",
+    "private_lab_notebook_export",
+    "discovery_claim"
+  ],
+  "fixture_id": "fixture::materials_chemistry_closed_loop_lab_safety_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+    "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+    "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/lab_safety_protocol.json",
+      "role": "macro-to-public lab-safety projection protocol"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/replay_policy.json",
+      "role": "simulator-only replay policy"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/candidate_materials.json",
+      "role": "positive candidate material metadata rows"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/experiment_dag.json",
+      "role": "positive simulator-only experiment DAG rows"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/simulator_assays.json",
+      "role": "positive simulator assay rows"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/active_learning_decisions.json",
+      "role": "positive active-learning decision rows"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/wetlab_protocol_steps.json",
+      "role": "negative case: wetlab_protocol_steps"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/hazardous_synthesis_steps.json",
+      "role": "negative case: hazardous_synthesis_steps"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/reagent_amounts.json",
+      "role": "negative case: reagent_amounts"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/controlled_or_bioactive_target.json",
+      "role": "negative case: controlled_or_bioactive_target"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/live_lab_credentials.json",
+      "role": "negative case: live_lab_credentials"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/robot_command_execution.json",
+      "role": "negative case: robot_command_execution"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/private_lab_notebook_export.json",
+      "role": "negative case: private_lab_notebook_export"
+    },
+    {
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/discovery_claim.json",
+      "role": "negative case: discovery_claim"
+    }
+  ],
+  "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "MATERIALS_WETLAB_PROTOCOL_FORBIDDEN",
+    "MATERIALS_HAZARDOUS_SYNTHESIS_FORBIDDEN",
+    "MATERIALS_REAGENT_AMOUNT_FORBIDDEN",
+    "MATERIALS_CONTROLLED_OR_BIOACTIVE_TARGET_FORBIDDEN",
+    "MATERIALS_LIVE_LAB_CREDENTIAL_FORBIDDEN",
+    "MATERIALS_ROBOT_COMMAND_FORBIDDEN",
+    "MATERIALS_PRIVATE_LAB_NOTEBOOK_FORBIDDEN",
+    "MATERIALS_DISCOVERY_CLAIM_FORBIDDEN"
+  ],
+  "title": "Materials chemistry closed-loop lab-safety replay fixture",
+  "validator": "microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay",
+  "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay",
+  "validator_contract_ratchet_v1": {
+    "per_output_receipt_field_floor": {
+      "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json": [
+        "status",
+        "organ_id",
+        "selected_route_id",
+        "selected_pattern_ids",
+        "materials_lab_safety_summary",
+        "negative_case_summary",
+        "authority_ceiling",
+        "private_state_scan",
+        "anti_claim"
+      ],
+      "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json": [
+        "status",
+        "organ_id",
+        "fixture_id",
+        "candidate_material_count",
+        "experiment_count",
+        "expected_negative_case_count",
+        "observed_negative_case_count",
+        "authority_ceiling",
+        "anti_claim"
+      ]
+    },
+    "required_negative_case_count": 8,
+    "required_positive_row_count": 4,
+    "status": "active"
+  }
+}

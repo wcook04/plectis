@@ -204,6 +204,15 @@ explanation, and assimilation primitives, not through production claims.
    export private video or raw sensors, operate robots or AVs, claim real-world
    geography, sell a simulator product, treat generated video as sole
    authority, claim benchmark scores, or imply publication/release authority.
+   The `materials_chemistry_closed_loop_lab_safety_replay` organ is the
+   runnable public autonomous-science lab-safety lane: use
+   `materials-chemistry-closed-loop-lab-safety-replay` to validate synthetic
+   candidate materials, safety screens, simulator assays, active-learning
+   decisions, cold replay refs, projection protocol, negative cases, and
+   no-wetlab authority ceilings. It must not export wetlab protocols,
+   hazardous synthesis steps, reagent quantities, controlled or bioactive
+   targets, live lab credentials, robot commands, private lab notebooks, live
+   assay data, discovery claims, benchmark scores, or release authority.
    The `mechanistic_interpretability_circuit_attribution_replay` organ is the
    runnable public circuit-attribution lane: use
    `mechanistic-interpretability-circuit-attribution-replay` or

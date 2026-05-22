@@ -9,10 +9,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 85,
+  "first_wave_required_standard_count": 87,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 86,
+  "standard_count": 87,
   "standards": [
     {
       "first_wave_required": true,
@@ -1306,6 +1306,17 @@
       ],
       "validator_id": "validator.microcosm.organs.agentic_vulnerability_discovery_patch_proof_replay",
       "wave": "w1_agentic_vulnerability_discovery_patch_proof_replay"
+    },
+    {
+      "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "kind_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "path": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
+      "receipt_id": "receipt.microcosm.materials_chemistry_closed_loop_lab_safety_replay",
+      "used_by_organs": [
+        "materials_chemistry_closed_loop_lab_safety_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.materials_chemistry_closed_loop_lab_safety_replay",
+      "wave": "w1_materials_chemistry_lab_safety_replay"
     }
   ],
   "status": "current_public_standard_registry_indirect_prompt_injection_information_flow_policy_replay_bound"

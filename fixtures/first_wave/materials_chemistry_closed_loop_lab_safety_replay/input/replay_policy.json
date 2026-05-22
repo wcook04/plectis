@@ -1,0 +1,24 @@
+{
+  "schema_version": "materials_chemistry_lab_safety_replay_policy_v1",
+  "authority_ceiling": {
+    "metadata_projection_only": true,
+    "simulator_only": true,
+    "wetlab_protocol_authorized": false,
+    "hazardous_synthesis_authorized": false,
+    "reagent_amounts_authorized": false,
+    "controlled_substance_target_authorized": false,
+    "bioactivity_target_authorized": false,
+    "live_lab_credentials_authorized": false,
+    "robot_command_authorized": false,
+    "private_lab_notebook_exported": false,
+    "live_assay_data_exported": false,
+    "discovery_claim_authorized": false,
+    "benchmark_score_claim_authorized": false,
+    "release_authorized": false,
+    "hosted_public_authorized": false,
+    "publication_authorized": false,
+    "provider_calls_authorized": false
+  },
+  "claim_boundary": "synthetic closed-loop lab-safety replay metadata only",
+  "anti_claim": "No wetlab protocol, hazardous synthesis, reagent quantity, robot command, discovery, benchmark, or release authority is admitted."
+}

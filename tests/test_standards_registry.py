@@ -45,8 +45,8 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     )
 
     assert receipt["status"] == "pass"
-    assert receipt["standard_count"] == 86
-    assert receipt["checked_standard_count"] == 86
+    assert receipt["standard_count"] == 87
+    assert receipt["checked_standard_count"] == 87
     assert "std_microcosm_corpus_readiness_mathlib_absence_gate" in receipt["checked_standard_ids"]
     assert "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer" in receipt["checked_standard_ids"]
     assert "std_microcosm_target_shape_tactic_routing_gate" in receipt["checked_standard_ids"]
@@ -71,6 +71,10 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     )
     assert (
         "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay"
+        in receipt["checked_standard_ids"]
+    )
+    assert (
+        "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay"
         in receipt["checked_standard_ids"]
     )
     assert "std_microcosm_agent_memory_temporal_conflict_replay" in receipt["checked_standard_ids"]

@@ -87,6 +87,13 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    projection-drift rows with source signals, repair routes, validation refs,
    and no-live-repair/no-source-authority/no-doctrine-promotion ceilings before
    trusting drift claims.
+   For the autonomous-science lab-safety showcase, run
+   `microcosm materials-chemistry-closed-loop-lab-safety-replay
+   run-lab-bundle --input
+   examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle
+   --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay`
+   and inspect the simulator-only, no-wetlab, no-robot-command,
+   no-discovery authority ceiling fields.
 19. Run `microcosm route-cleanup` or
    `PYTHONPATH=src python3 -m microcosm_core.cli route-cleanup` to inspect
    first-contact, context-pack, generated-region, option-surface, Work Ledger,

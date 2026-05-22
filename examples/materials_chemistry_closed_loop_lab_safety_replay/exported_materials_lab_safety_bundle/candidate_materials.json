@@ -1,0 +1,53 @@
+{
+  "schema_version": "materials_chemistry_candidate_materials_v1",
+  "candidate_materials": [
+    {
+      "candidate_material_id": "mat_polymer_membrane_001",
+      "target_property_label": "thermal_stability_proxy",
+      "literature_capsule_ref": "literature_capsule:public_abstract_membrane_001",
+      "safety_screen_ref": "safety_screen:membrane_001",
+      "non_actionable_literature_capsule": true,
+      "controlled_substance_target": false,
+      "bioactivity_target": false,
+      "discovery_claim": false,
+      "private_lab_notebook_exported": false,
+      "body_redacted": true
+    },
+    {
+      "candidate_material_id": "mat_solid_electrolyte_002",
+      "target_property_label": "ionic_transport_proxy",
+      "literature_capsule_ref": "literature_capsule:public_abstract_electrolyte_002",
+      "safety_screen_ref": "safety_screen:electrolyte_002",
+      "non_actionable_literature_capsule": true,
+      "controlled_substance_target": false,
+      "bioactivity_target": false,
+      "discovery_claim": false,
+      "private_lab_notebook_exported": false,
+      "body_redacted": true
+    },
+    {
+      "candidate_material_id": "mat_catalyst_support_003",
+      "target_property_label": "surface_area_proxy",
+      "literature_capsule_ref": "literature_capsule:public_abstract_support_003",
+      "safety_screen_ref": "safety_screen:support_003",
+      "non_actionable_literature_capsule": true,
+      "controlled_substance_target": false,
+      "bioactivity_target": false,
+      "discovery_claim": false,
+      "private_lab_notebook_exported": false,
+      "body_redacted": true
+    },
+    {
+      "candidate_material_id": "mat_sorbent_surface_004",
+      "target_property_label": "adsorption_proxy",
+      "literature_capsule_ref": "literature_capsule:public_abstract_sorbent_004",
+      "safety_screen_ref": "safety_screen:sorbent_004",
+      "non_actionable_literature_capsule": true,
+      "controlled_substance_target": false,
+      "bioactivity_target": false,
+      "discovery_claim": false,
+      "private_lab_notebook_exported": false,
+      "body_redacted": true
+    }
+  ]
+}

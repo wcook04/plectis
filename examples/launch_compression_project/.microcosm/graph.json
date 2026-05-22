@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-05-22T04:27:20+00:00",
-  "edge_count": 138,
+  "created_at": "2026-05-22T13:36:50+00:00",
+  "edge_count": 150,
   "edges": [
     {
       "from": "project",
@@ -226,6 +226,66 @@
       "from": "standard_pressure_surface",
       "relation": "contains",
       "to": "standard_pressure:agent_monitor_redteam_falsification_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agent_sabotage_scheming_monitor_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agent_memory_temporal_conflict_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:sleeper_memory_poisoning_quarantine_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:mcp_tool_authority_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:proof_derived_governed_mutation_authorization_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:belief_state_process_reward_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agent_sandbox_policy_escape_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:indirect_prompt_injection_information_flow_policy_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agentic_vulnerability_discovery_patch_proof_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:runtime_hook_shadow_intervention_coverage_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:computer_use_action_trace_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:std_microcosm_materials_chemistry_closed_loop_lab_safety_replay"
     },
     {
       "from": "pattern:repo_has_readme",
@@ -694,7 +754,7 @@
     }
   ],
   "graph_ref": ".microcosm/graph.json",
-  "node_count": 54,
+  "node_count": 66,
   "nodes": [
     {
       "kind": "primitive",
@@ -937,6 +997,78 @@
       "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_monitor_redteam_falsification_replay_public_pressure"
     },
     {
+      "kind": "standard_pressure",
+      "label": "Scheming Monitor Replay Requires Episode, Action, Score, Counterfactual, and Negative-Case Receipts",
+      "node_id": "standard_pressure:agent_sabotage_scheming_monitor_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_sabotage_scheming_monitor_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Memory Temporal-Conflict Replay Requires Conflict and Downgrade Receipts",
+      "node_id": "standard_pressure:agent_memory_temporal_conflict_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_memory_temporal_conflict_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "sleeper_memory_poisoning_quarantine_replay_public_pressure",
+      "node_id": "standard_pressure:sleeper_memory_poisoning_quarantine_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::sleeper_memory_poisoning_quarantine_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "MCP Tool Authority Replay Requires Scope, Side-Effect, and Rollback Receipts",
+      "node_id": "standard_pressure:mcp_tool_authority_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::mcp_tool_authority_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Proof-Derived Governed Mutation Requires Proof, Verdict, Side-Effect, and Rollback Receipts",
+      "node_id": "standard_pressure:proof_derived_governed_mutation_authorization_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::proof_derived_governed_mutation_authorization_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Belief-State Process Reward Requires Belief, Feedback, Reward, and Replay Receipts",
+      "node_id": "standard_pressure:belief_state_process_reward_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::belief_state_process_reward_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Sandbox Policy-Escape Replay Requires Verdict, Diff, Rollback, and Replay Receipts",
+      "node_id": "standard_pressure:agent_sandbox_policy_escape_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_sandbox_policy_escape_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Indirect Prompt-Injection Replay Requires Trust, Taint, Verdict, and Sanitization Receipts",
+      "node_id": "standard_pressure:indirect_prompt_injection_information_flow_policy_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::indirect_prompt_injection_information_flow_policy_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Agentic Vulnerability Replay Requires Patch, Test, Sandbox, and Negative-Case Receipts",
+      "node_id": "standard_pressure:agentic_vulnerability_discovery_patch_proof_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agentic_vulnerability_discovery_patch_proof_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Runtime Hook-Shadow Coverage Requires Mapped Repairs, Denials, and Authority Ceilings",
+      "node_id": "standard_pressure:runtime_hook_shadow_intervention_coverage_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::runtime_hook_shadow_intervention_coverage_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Computer-Use Action Trace Replay Requires Observation, Affordance, Verdict, State-Diff, and Replay Receipts",
+      "node_id": "standard_pressure:computer_use_action_trace_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::computer_use_action_trace_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "node_id": "standard_pressure:std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::std_microcosm_materials_chemistry_closed_loop_lab_safety_replay"
+    },
+    {
       "kind": "policy",
       "label": "Pattern Assimilation Policy",
       "node_id": "assimilation_policy",
@@ -1028,7 +1160,7 @@
   "standard_pressure_surface": {
     "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
     "private_source_bodies_included": false,
-    "row_count": 29,
+    "row_count": 41,
     "source_ref": "core/public_standard_pressure.json",
     "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
     "surface_id": "public_microcosm_standard_pressure"

@@ -1,7 +1,7 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-22T04:27:19+00:00",
+  "created_at": "2026-05-22T13:36:50+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,65 +21,65 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_0343",
+  "event_id": "evt_0449",
   "event_refs": [
     {
-      "event_id": "evt_0305",
+      "event_id": "evt_0412",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_0310",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_0311",
+      "event_id": "evt_0413",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_0316",
+      "event_id": "evt_0417",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_0317",
+      "event_id": "evt_0422",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0423",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_0322",
+      "event_id": "evt_0427",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_0323",
+      "event_id": "evt_0431",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0436",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0437",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_0327",
+      "event_id": "evt_0442",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_0332",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_0333",
+      "event_id": "evt_0443",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_0337",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_0342",
+      "event_id": "evt_0448",
       "span": "project.route",
       "status": "pass"
     }
@@ -1225,7 +1225,7 @@
   "standard_pressure_surface": {
     "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
     "private_source_bodies_included": false,
-    "row_count": 29,
+    "row_count": 41,
     "source_ref": "core/public_standard_pressure.json",
     "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
     "surface_id": "public_microcosm_standard_pressure"

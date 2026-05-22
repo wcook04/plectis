@@ -960,6 +960,35 @@
         "mcp_tool_authority_replay",
         "proof_derived_governed_mutation_authorization"
       ]
+    },
+    {
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "fixture_id": "fixture::materials_chemistry_closed_loop_lab_safety_replay::first_wave_contract_v1",
+      "fixture_manifest": "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/lab_safety_protocol.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/replay_policy.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/candidate_materials.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/experiment_dag.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/simulator_assays.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/active_learning_decisions.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/wetlab_protocol_steps.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/hazardous_synthesis_steps.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/reagent_amounts.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/controlled_or_bioactive_target.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/live_lab_credentials.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/robot_command_execution.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/private_lab_notebook_export.json",
+        "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/discovery_claim.json"
+      ],
+      "generated_receipts": [
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
+      ],
+      "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
+      "status": "ready"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

@@ -45,9 +45,10 @@ def test_standards_meta_diagnostics_observes_negative_cases(tmp_path: Path) -> N
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["accepted_organ_count"] == 41
-    assert result["standard_mapping_count"] == 41
-    assert result["runtime_contract_count"] == 41
+    assert result["accepted_organ_count"] == 42
+    assert result["standard_mapping_count"] == 42
+    assert result["runtime_contract_count"] == 42
+    assert "materials_chemistry_closed_loop_lab_safety_replay" in result["covered_organ_ids"]
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["authority_ceiling"]["standards_registry_authority"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -70,7 +71,7 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["accepted_organ_count"] == 41
+    assert result["accepted_organ_count"] == 42
     assert "lean_std_premise_index" in result["covered_organ_ids"]
     assert "formal_math_verifier_trace_repair_loop" in result["covered_organ_ids"]
     assert "formal_evidence_cell_anchor_resolver" in result["covered_organ_ids"]
@@ -88,6 +89,7 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert "mcp_tool_authority_replay" in result["covered_organ_ids"]
     assert "proof_derived_governed_mutation_authorization" in result["covered_organ_ids"]
     assert "belief_state_process_reward_replay" in result["covered_organ_ids"]
+    assert "materials_chemistry_closed_loop_lab_safety_replay" in result["covered_organ_ids"]
     assert result["authority_ceiling"]["whole_system_correctness_claim"] is False
 
 

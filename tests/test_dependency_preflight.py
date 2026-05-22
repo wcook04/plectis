@@ -89,6 +89,7 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "agent_sandbox_policy_escape_replay",
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
+        "materials_chemistry_closed_loop_lab_safety_replay",
     ]
     assert receipt["blocked_dependency_count"] == 0
     assert receipt["blocked_dependency_codes"] == []

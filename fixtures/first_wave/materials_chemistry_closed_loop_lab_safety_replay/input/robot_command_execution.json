@@ -1,0 +1,17 @@
+{
+  "schema_version": "materials_chemistry_negative_case_v1",
+  "negative_case_id": "robot_command_execution",
+  "active_learning_decision": {
+    "decision_id": "neg_robot_command_execution",
+    "experiment_ref": "exp_membrane_screen_001",
+    "candidate_material_ref": "mat_polymer_membrane_001",
+    "next_action_class": "simulate_assay",
+    "decision_rationale_ref": "decision_rationale:negative_robot_command",
+    "uncertainty_label": "bounded_synthetic_uncertainty",
+    "cold_replay_ref": "cold_replay:negative_robot_command",
+    "simulator_only": true,
+    "live_robot_command_emitted": true,
+    "discovery_claim": false,
+    "body_redacted": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "materials_chemistry_negative_case_v1",
+  "negative_case_id": "controlled_or_bioactive_target",
+  "candidate_material": {
+    "candidate_material_id": "neg_controlled_or_bioactive_target",
+    "target_property_label": "disallowed_target_proxy",
+    "literature_capsule_ref": "literature_capsule:negative_controlled_target",
+    "safety_screen_ref": "safety_screen:negative_controlled_target",
+    "non_actionable_literature_capsule": true,
+    "controlled_substance_target": true,
+    "bioactivity_target": false,
+    "discovery_claim": false,
+    "private_lab_notebook_exported": false,
+    "body_redacted": true
+  }
+}

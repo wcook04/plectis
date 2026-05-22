@@ -139,7 +139,7 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 41
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 42
     assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
@@ -222,8 +222,8 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 41
-    assert payload["surface_counts"]["surface_authority_count"] == 41
+    assert payload["surface_counts"]["organ_authority_count"] == 42
+    assert payload["surface_counts"]["surface_authority_count"] == 42
     assert any(row["surface_id"] == "project_python_lens" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/authority" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/tour" for row in payload["surface_authority"])
@@ -438,7 +438,7 @@ def test_cli_projection_safety_smoke(capsys: pytest.CaptureFixture[str]) -> None
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm projection-safety"
     assert payload["endpoint"] == "/projection-safety"
-    assert payload["projection_summary"]["omission_receipt_count"] == 41
+    assert payload["projection_summary"]["omission_receipt_count"] == 42
     assert payload["projection_summary"]["private_body_export_count"] == 0
     assert payload["projection_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["source_mutation_authorized"] is False

@@ -41,7 +41,8 @@
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
-      "agentic_vulnerability_discovery_patch_proof_replay"
+      "agentic_vulnerability_discovery_patch_proof_replay",
+      "materials_chemistry_closed_loop_lab_safety_replay"
     ],
     "deferred_organs": [],
     "lean_lake_authorized": "bounded_public_witness_only",
@@ -60,7 +61,7 @@
     "status": "pass",
     "trading_or_financial_advice_authorized": false
   },
-  "checked_standard_count": 86,
+  "checked_standard_count": 87,
   "checked_standard_ids": [
     "std_microcosm_agent_trace",
     "std_microcosm_anti_claim",
@@ -147,7 +148,8 @@
     "std_microcosm_belief_state_process_reward_replay",
     "std_microcosm_agent_sandbox_policy_escape_replay",
     "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
-    "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay"
+    "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+    "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay"
   ],
   "command": "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
   "duplicate_standard_ids": [],
@@ -160,7 +162,7 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 88,
+    "scanned_path_count": 89,
     "status": "pass"
   },
   "receipt_paths": [
@@ -168,9 +170,9 @@
     "core/standards_registry.json",
     "core/acceptance/first_wave_acceptance.json"
   ],
-  "registry_declared_standard_count": 86,
+  "registry_declared_standard_count": 87,
   "schema_version": "standards_registry_validation_receipt_v1",
-  "standard_count": 86,
+  "standard_count": 87,
   "status": "pass",
   "validator_id": "validator.microcosm.validators.standards_registry"
 }

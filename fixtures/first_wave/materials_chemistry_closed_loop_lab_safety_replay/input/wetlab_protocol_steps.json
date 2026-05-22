@@ -1,0 +1,24 @@
+{
+  "schema_version": "materials_chemistry_negative_case_v1",
+  "negative_case_id": "wetlab_protocol_steps",
+  "experiment": {
+    "experiment_id": "neg_wetlab_protocol_steps",
+    "candidate_material_ref": "mat_polymer_membrane_001",
+    "safety_screen_ref": "safety_screen:membrane_001",
+    "action_class": "screen_candidate",
+    "assay_ref": "assay_membrane_proxy_001",
+    "result_table_ref": "result_table:negative_wetlab",
+    "failure_taxonomy_ref": "failure_taxonomy:wetlab_protocol_export",
+    "budget_ref": "budget:simulator_negative",
+    "cold_replay_ref": "cold_replay:negative_wetlab",
+    "simulator_only": true,
+    "wetlab_protocol_exported": true,
+    "hazardous_synthesis_steps_exported": false,
+    "reagent_amounts_included": false,
+    "robot_command_authorized": false,
+    "live_lab_credentials_present": false,
+    "private_lab_notebook_exported": false,
+    "release_authorized": false,
+    "body_redacted": true
+  }
+}

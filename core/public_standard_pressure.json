@@ -1003,6 +1003,42 @@
       ],
       "standard_id": "computer_use_action_trace_replay_public_pressure",
       "title": "Computer-Use Action Trace Replay Requires Observation, Affordance, Verdict, State-Diff, and Replay Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_simulator_only_materials_lab_safety_receipts_not_wetlab_or_discovery_authority",
+      "claim": "Materials chemistry closed-loop lab-safety language must cite synthetic candidate, safety-screen, simulator-assay, active-learning decision, cold replay, negative-case, and authority-ceiling receipts before it becomes public evidence.",
+      "domain": "materials_chemistry_closed_loop_lab_safety",
+      "kernel_primitive_refs": [
+        "pattern",
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "negative_case_ids": [
+        "wetlab_protocol_steps",
+        "hazardous_synthesis_steps",
+        "reagent_amounts",
+        "controlled_or_bioactive_target",
+        "live_lab_credentials",
+        "robot_command_execution",
+        "private_lab_notebook_export",
+        "discovery_claim"
+      ],
+      "owner_surfaces": [
+        "organs:materials_chemistry_closed_loop_lab_safety_replay",
+        "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
+        "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md",
+        "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json"
+      ],
+      "pressure": "typed autonomous-science claims require simulator-only metadata, falsification fixtures, and explicit wetlab/discovery denials",
+      "release_authorized": false,
+      "receipt_refs": [
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
+      ],
+      "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay"
     }
   ],
   "schema_version": "public_microcosm_standard_pressure_v1",

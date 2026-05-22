@@ -1,0 +1,134 @@
+{
+  "anti_claim": "This standard governs synthetic simulator-only materials chemistry lab-safety replay metadata only. It does not authorize wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, provider calls, publication, or release.",
+  "authority_boundary": "synthetic_materials_chemistry_lab_safety_replay_metadata_not_wetlab_or_discovery_authority",
+  "authority_ceiling": {
+    "benchmark_score_claim_authorized": false,
+    "bioactivity_target_authorized": false,
+    "controlled_substance_target_authorized": false,
+    "discovery_claim_authorized": false,
+    "hazardous_synthesis_authorized": false,
+    "live_assay_data_exported": false,
+    "live_lab_credentials_authorized": false,
+    "metadata_projection_only": true,
+    "private_lab_notebook_exported": false,
+    "reagent_amounts_authorized": false,
+    "release_authorized": false,
+    "robot_command_authorized": false,
+    "simulator_only": true,
+    "standard_authority": "synthetic_materials_chemistry_lab_safety_schema_only",
+    "status": "pass",
+    "wetlab_protocol_authorized": false
+  },
+  "first_wave_required": true,
+  "kind_id": "materials_chemistry_closed_loop_lab_safety_replay",
+  "kind_name": "Materials chemistry closed-loop lab-safety replay",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "candidate material ids",
+      "target property labels",
+      "literature capsule refs",
+      "safety screen refs",
+      "simulator assay refs",
+      "synthetic result table refs",
+      "failure taxonomy refs",
+      "active-learning decision refs",
+      "cold replay refs",
+      "uncertainty labels"
+    ],
+    "default_posture": "public_safe_when_synthetic_simulator_metadata_only",
+    "forbidden_public_inputs": [
+      "wetlab protocol bodies",
+      "hazardous synthesis steps",
+      "reagent quantities",
+      "controlled substance targets",
+      "bioactivity targets",
+      "live lab credentials",
+      "robot command payloads",
+      "private lab notebook bodies",
+      "live assay data",
+      "discovery claims",
+      "benchmark score claims",
+      "release claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "selected_route_id",
+      "selected_pattern_ids",
+      "materials_lab_safety_summary",
+      "negative_case_summary",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.materials_chemistry_closed_loop_lab_safety_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.materials_chemistry_closed_loop_lab_safety_replay",
+    "receipt must cite candidate, experiment, simulator-assay, active-learning decision, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#materials_chemistry_closed_loop_lab_safety_replay",
+    "source_pattern_id_sample": [
+      "materials_chemistry_closed_loop_lab_safety_replay_compound",
+      "research_replication_rubric_artifact_replay",
+      "world_model_projection_drift_control_room",
+      "macro_projection_import_protocol"
+    ],
+    "used_by_organs": [
+      "materials_chemistry_closed_loop_lab_safety_replay"
+    ]
+  },
+  "required_fields": [
+    "selected_route_id",
+    "selected_pattern_ids",
+    "candidate_materials",
+    "experiments",
+    "simulator_assays",
+    "active_learning_decisions",
+    "candidate_material_id",
+    "safety_screen_ref",
+    "experiment_id",
+    "assay_ref",
+    "simulator_only",
+    "cold_replay_ref",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "field": "lab_safety_protocol",
+      "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/lab_safety_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+  "status": "draft",
+  "validation_rules": [
+    "require every experiment row to cite a candidate material, safety screen, simulator assay, result table, failure taxonomy, budget, and cold replay ref",
+    "require every simulator assay and active-learning decision to bind candidate and experiment refs",
+    "reject wetlab protocol export, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot command execution, private lab notebooks, live assay data, discovery claims, benchmark score overclaims, and release authority",
+    "require simulator-only authority and body-redacted public fixture rows"
+  ],
+  "validator_contract": {
+    "command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay",
+    "expected_negative_cases": [
+      "wetlab_protocol_steps",
+      "hazardous_synthesis_steps",
+      "reagent_amounts",
+      "controlled_or_bioactive_target",
+      "live_lab_credentials",
+      "robot_command_execution",
+      "private_lab_notebook_export",
+      "discovery_claim"
+    ],
+    "validator_id": "validator.microcosm.organs.materials_chemistry_closed_loop_lab_safety_replay"
+  }
+}

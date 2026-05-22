@@ -368,6 +368,15 @@
       "projection_not_authority": true,
       "live_learning_authority": false,
       "body_redacted": true
+    },
+    {
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
+      "closeout_refinement_result": "validator_contract_refined",
+      "projection_not_authority": true,
+      "live_learning_authority": false,
+      "body_redacted": true
     }
   ],
   "schema_version": "pattern_assimilation_step_organ_landing_summaries_v1"

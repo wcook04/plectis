@@ -51,7 +51,8 @@
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
     "indirect_prompt_injection_information_flow_policy_replay",
-    "agentic_vulnerability_discovery_patch_proof_replay"
+    "agentic_vulnerability_discovery_patch_proof_replay",
+    "materials_chemistry_closed_loop_lab_safety_replay"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
   "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
@@ -517,6 +518,12 @@
       "missing_dependencies": [],
       "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [],
+      "missing_dependencies": [],
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -929,9 +936,19 @@
       "missing_fixture_inputs": [],
       "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::materials_chemistry_closed_loop_lab_safety_replay::first_wave_contract_v1",
+      "fixture_input_count": 14,
+      "fixture_manifest": "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 14,
+      "missing_fixture_inputs": [],
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 20,
+  "negative_matrix_case_count": 21,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -993,7 +1010,8 @@
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
-      "agentic_vulnerability_discovery_patch_proof_replay"
+      "agentic_vulnerability_discovery_patch_proof_replay",
+      "materials_chemistry_closed_loop_lab_safety_replay"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -1036,7 +1054,8 @@
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
-      "agentic_vulnerability_discovery_patch_proof_replay"
+      "agentic_vulnerability_discovery_patch_proof_replay",
+      "materials_chemistry_closed_loop_lab_safety_replay"
     ],
     "status": "pass"
   }

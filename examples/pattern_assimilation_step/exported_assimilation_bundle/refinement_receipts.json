@@ -395,6 +395,17 @@
       "projection_not_authority": true,
       "live_doctrine_authority": false,
       "body_redacted": true
+    },
+    {
+      "receipt_id": "refine_materials_chemistry_closed_loop_lab_safety_replay_bundle",
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
+      "changed_surface_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/bundle_manifest.json",
+      "refinement_result": "validator_contract_refined",
+      "claims_global_doctrine_authority": false,
+      "projection_not_authority": true,
+      "live_doctrine_authority": false,
+      "body_redacted": true
     }
   ],
   "schema_version": "pattern_assimilation_step_refinement_receipts_v1"

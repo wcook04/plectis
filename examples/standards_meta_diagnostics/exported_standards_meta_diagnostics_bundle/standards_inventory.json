@@ -705,6 +705,23 @@
         "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
       ],
       "body_redacted": true
+    },
+    {
+      "ordinal": 42,
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "standard_ref": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_materials_chemistry_closed_loop_lab_safety_replay]",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[materials_chemistry_closed_loop_lab_safety_replay_public_pressure]",
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
+      "receipt_refs": [
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+        "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
+      ],
+      "body_redacted": true
     }
   ]
 }

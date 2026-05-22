@@ -1,7 +1,7 @@
 {
   "agent_reliability_replay_gauntlet_proof": {
-    "blocked_episode_count": 8,
-    "episode_count": 10,
+    "blocked_episode_count": 9,
+    "episode_count": 11,
     "lens_id": "public_agent_reliability_replay_gauntlet_lens",
     "live_agent_execution_authorized": false,
     "negative_case_ids": [
@@ -12,6 +12,7 @@
       "tool_scope_without_manifest_denied",
       "standing_credential_authority_rejected",
       "untrusted_tool_output_as_instruction_rejected",
+      "patch_without_regression_tests_rejected",
       "memory_write_without_quarantine_rejected",
       "sleeper_trigger_memory_write_rejected",
       "complete_security_claim_rejected"
@@ -31,8 +32,8 @@
   },
   "blocking_codes": [],
   "causal_chain_proof": {
-    "event_count": 6,
-    "evidence_count": 8,
+    "event_count": 7,
+    "evidence_count": 9,
     "pattern_binding_ids": [
       "repo_has_readme"
     ],
@@ -90,7 +91,7 @@
     "status": "pass",
     "time_budget_minutes": 10
   },
-  "command": "python -m microcosm_core.validators.observatory_legibility --root microcosm-substrate --project microcosm-wave065-launch-project --out microcosm-substrate/receipts/first_wave/observatory_legibility_validation.json",
+  "command": "python -m microcosm_core.validators.observatory_legibility --root . --project demo_project --out receipts/first_wave/observatory_legibility_validation.json",
   "compression_profile_option_surface_proof": {
     "automatic_profile_selection_authorized": false,
     "lens_id": "public_compression_profile_option_surface_lens",
@@ -171,6 +172,11 @@
     "negative_case_ids": [
       "agent_trace_missing_route_lease",
       "duplicate_trace_event_conflict",
+      "hook_shadow_banned_route_attempt",
+      "hook_shadow_budget_overrun",
+      "hook_shadow_command_displacement",
+      "hook_shadow_live_state_read_attempt",
+      "hook_shadow_missing_authority",
       "route_compliance_overclaims_behavior_change",
       "route_lease_broad_kernel_bloat_before_direct_action",
       "route_lease_static_metadata_without_trace_feedback",
@@ -368,7 +374,7 @@
     "scanned_path_count": 4,
     "status": "pass"
   },
-  "project_ref": "microcosm-wave065-launch-project",
+  "project_ref": "demo_project",
   "projection_drift_control_proof": {
     "lens_id": "public_projection_drift_control_lens",
     "live_route_repair_authorized": false,
@@ -419,9 +425,9 @@
       "release_claim_from_projection",
       "irreversible_projection_without_owner_route"
     ],
-    "omission_receipt_count": 39,
+    "omission_receipt_count": 42,
     "private_body_export_count": 0,
-    "projection_row_count": 39,
+    "projection_row_count": 42,
     "status": "pass"
   },
   "proof_loop_depth_proof": {
@@ -528,11 +534,11 @@
     "release_authorized": false,
     "row_count": 8,
     "source_authority_claim_count": 0,
-    "standard_count": 84,
+    "standard_count": 87,
     "standards_completeness_claim": false,
     "standards_registry_source_authority": false,
     "status": "pass",
-    "validator_receipt_ref_count": 177
+    "validator_receipt_ref_count": 189
   },
   "status": "pass",
   "stripping_guard_proof": {
@@ -614,6 +620,7 @@
       "broad_checkpoint_without_operator_authorization",
       "commit_claim_without_head_advance",
       "unrelated_dirty_paths_staged_by_scoped_lane",
+      "commit_attempt_before_owner_native_validation",
       "blocker_reported_without_task_ledger_capture",
       "validation_omitted_before_closeout",
       "private_source_body_exported",

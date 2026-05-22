@@ -27,6 +27,7 @@ from microcosm_core.organs import (
 )
 from microcosm_core.organs import lean_std_premise_index
 from microcosm_core.organs import macro_projection_import_protocol
+from microcosm_core.organs import materials_chemistry_closed_loop_lab_safety_replay
 from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
 from microcosm_core.organs import mcp_tool_authority_replay
 from microcosm_core.organs import mechanistic_interpretability_circuit_attribution_replay
@@ -381,6 +382,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(spatial_simulation_parser)
     spatial_simulation_parser.add_argument("--acceptance-out")
+
+    materials_lab_safety_parser = subparsers.add_parser(
+        "materials-chemistry-closed-loop-lab-safety-replay"
+    )
+    materials_lab_safety_parser.add_argument(
+        "action", choices=["run", "run-lab-bundle"]
+    )
+    _add_input_out(materials_lab_safety_parser)
+    materials_lab_safety_parser.add_argument("--acceptance-out")
 
     circuit_attribution_parser = subparsers.add_parser(
         "mechanistic-interpretability-circuit-attribution-replay"
@@ -788,6 +798,13 @@ def main(argv: list[str] | None = None) -> int:
             spatial_simulation_args.extend(["--acceptance-out", args.acceptance_out])
         return spatial_world_model_counterfactual_simulation_replay.main(
             spatial_simulation_args
+        )
+    if args.command == "materials-chemistry-closed-loop-lab-safety-replay":
+        materials_lab_safety_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            materials_lab_safety_args.extend(["--acceptance-out", args.acceptance_out])
+        return materials_chemistry_closed_loop_lab_safety_replay.main(
+            materials_lab_safety_args
         )
     if args.command == "mechanistic-interpretability-circuit-attribution-replay":
         circuit_attribution_args = [args.action, "--input", args.input, "--out", args.out]
