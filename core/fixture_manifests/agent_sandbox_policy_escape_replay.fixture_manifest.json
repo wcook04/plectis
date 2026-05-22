@@ -1,0 +1,89 @@
+{
+  "authority_ceiling": "synthetic_agent_sandbox_policy_escape_replay_receipts_only_not_live_escape_secret_network_host_mutation_payload_provider_benchmark_or_release_authority",
+  "body_redacted": true,
+  "fixture_id": "fixture::agent_sandbox_policy_escape_replay::first_wave_contract_v1",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/sandbox_policy.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/action_requests.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_verdicts.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/side_effect_receipts.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/rollback_receipts.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/cold_replay.json",
+      "role": "positive"
+    },
+    {
+      "negative_case_id": "real_secret_material",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/real_secret_material.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "live_network_access",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/live_network_access.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "raw_environment_export",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/raw_environment_export.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "policy_after_execution",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_after_execution.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "unlogged_side_effect",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/unlogged_side_effect.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "tool_output_policy_bypass",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/tool_output_policy_bypass.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "executable_escape_payload",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/executable_escape_payload.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "security_benchmark_claim",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/security_benchmark_claim.json",
+      "role": "negative"
+    }
+  ],
+  "negative_case_count": 8,
+  "negative_case_ids": [
+    "real_secret_material",
+    "live_network_access",
+    "raw_environment_export",
+    "policy_after_execution",
+    "unlogged_side_effect",
+    "tool_output_policy_bypass",
+    "executable_escape_payload",
+    "security_benchmark_claim"
+  ],
+  "organ_id": "agent_sandbox_policy_escape_replay",
+  "positive_fixture_count": 7,
+  "schema_version": "microcosm_fixture_manifest_v1"
+}

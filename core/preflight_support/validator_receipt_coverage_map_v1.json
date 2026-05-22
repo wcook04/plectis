@@ -159,7 +159,26 @@
     "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_result.json",
     "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_board.json",
     "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
-    "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/sandbox_policy.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/action_requests.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_verdicts.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/side_effect_receipts.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/rollback_receipts.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/cold_replay.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/real_secret_material.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/live_network_access.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/raw_environment_export.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_after_execution.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/unlogged_side_effect.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/tool_output_policy_bypass.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/executable_escape_payload.json",
+    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/security_benchmark_claim.json",
+    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
+    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
+    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
   ],
   "schema_version": "public_preflight_support_validator_receipt_coverage_map_v1"
 }

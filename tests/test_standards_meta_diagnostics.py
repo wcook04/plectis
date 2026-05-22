@@ -45,9 +45,9 @@ def test_standards_meta_diagnostics_observes_negative_cases(tmp_path: Path) -> N
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["accepted_organ_count"] == 38
-    assert result["standard_mapping_count"] == 38
-    assert result["runtime_contract_count"] == 38
+    assert result["accepted_organ_count"] == 39
+    assert result["standard_mapping_count"] == 39
+    assert result["runtime_contract_count"] == 39
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["authority_ceiling"]["standards_registry_authority"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -70,7 +70,7 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["accepted_organ_count"] == 38
+    assert result["accepted_organ_count"] == 39
     assert "lean_std_premise_index" in result["covered_organ_ids"]
     assert "formal_math_verifier_trace_repair_loop" in result["covered_organ_ids"]
     assert "formal_evidence_cell_anchor_resolver" in result["covered_organ_ids"]
@@ -81,6 +81,7 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert "cold_reader_route_map" in result["covered_organ_ids"]
     assert "agent_monitor_redteam_falsification_replay" in result["covered_organ_ids"]
     assert "agent_sabotage_scheming_monitor_replay" in result["covered_organ_ids"]
+    assert "agent_sandbox_policy_escape_replay" in result["covered_organ_ids"]
     assert "agent_memory_temporal_conflict_replay" in result["covered_organ_ids"]
     assert "sleeper_memory_poisoning_quarantine_replay" in result["covered_organ_ids"]
     assert "mcp_tool_authority_replay" in result["covered_organ_ids"]

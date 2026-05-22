@@ -1,0 +1,50 @@
+{
+  "allowed_verdicts": [
+    "allow",
+    "warn",
+    "block",
+    "review"
+  ],
+  "body_redacted": true,
+  "executable_payload_export_authorized": false,
+  "host_filesystem_mutation_authorized": false,
+  "live_network_access_authorized": false,
+  "live_secret_handling_authorized": false,
+  "policy_id": "sandbox_policy_escape_public_contract_v1",
+  "policy_version": "sandbox-policy-v1-public-synthetic",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "required_action_fields": [
+    "request_id",
+    "episode_id",
+    "action_kind",
+    "normalized_action_ref",
+    "source_trust_label",
+    "untrusted_tool_output_ref",
+    "requested_capability",
+    "risk_class",
+    "intended_side_effect_ref",
+    "body_redacted"
+  ],
+  "required_effect_fields": [
+    "request_id",
+    "execution_attempted",
+    "filesystem_diff_ref",
+    "network_diff_ref",
+    "database_diff_ref",
+    "side_effect_diff_count",
+    "rollback_receipt_ref",
+    "body_redacted"
+  ],
+  "required_verdict_fields": [
+    "request_id",
+    "policy_version",
+    "verdict",
+    "rule_refs",
+    "pre_execution",
+    "decision_reason_ref",
+    "body_redacted"
+  ],
+  "security_benchmark_claim_authorized": false,
+  "tool_output_expands_authority": false
+}

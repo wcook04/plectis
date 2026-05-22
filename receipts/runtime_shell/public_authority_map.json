@@ -578,6 +578,18 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "generated_receipt_count": 4,
+      "input_mode": "exported_sandbox_policy_escape_bundle",
+      "ordinal": 39,
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false
     }
   ],
   "projection_cells": [
@@ -1040,6 +1052,23 @@
       "surface_id": "public_agent_sabotage_scheming_monitor_replay_lens"
     },
     {
+      "authority_role": "synthetic agent sandbox policy-escape replay and containment-policy boundary",
+      "command": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle",
+      "endpoint": "/replay-gauntlet",
+      "executable_escape_payload_export_authorized": false,
+      "host_filesystem_mutation_authorized": false,
+      "live_agent_execution_authorized": false,
+      "live_network_access_authorized": false,
+      "live_sandbox_escape_authorized": false,
+      "live_secret_or_credential_handling_authorized": false,
+      "provider_calls_authorized": false,
+      "raw_environment_export_authorized": false,
+      "release_authorized": false,
+      "security_benchmark_claim_authorized": false,
+      "source_mutation_authorized": false,
+      "surface_id": "public_agent_sandbox_policy_escape_replay_lens"
+    },
+    {
       "active_injection_authority_authorized": false,
       "authority_role": "synthetic agent memory temporal-conflict replay and source-authority boundary",
       "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
@@ -1169,9 +1198,9 @@
   ],
   "surface_counts": {
     "hard_boundary_count": 6,
-    "organ_authority_count": 38,
+    "organ_authority_count": 39,
     "projection_cell_count": 3,
     "safe_local_exception_count": 3,
-    "surface_authority_count": 38
+    "surface_authority_count": 39
   }
 }

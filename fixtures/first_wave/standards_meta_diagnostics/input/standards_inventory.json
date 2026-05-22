@@ -654,6 +654,23 @@
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_belief_state_process_reward_replay]",
       "standard_id": "std_microcosm_belief_state_process_reward_replay",
       "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 39,
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_sandbox_policy_escape_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_sandbox_policy_escape_replay]",
+      "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+      "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json"
     }
   ]
 }

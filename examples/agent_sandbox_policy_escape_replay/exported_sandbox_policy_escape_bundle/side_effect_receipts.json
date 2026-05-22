@@ -1,0 +1,64 @@
+{
+  "side_effect_receipts": [
+    {
+      "body_redacted": true,
+      "database_diff_ref": "diff/none_blocked",
+      "execution_attempted": false,
+      "filesystem_diff_ref": "diff/none_blocked",
+      "network_diff_ref": "diff/none_blocked",
+      "request_id": "req_secret_read_attempt",
+      "rollback_receipt_ref": "rollback/not_required_blocked",
+      "side_effect_diff_count": 0
+    },
+    {
+      "body_redacted": true,
+      "database_diff_ref": "diff/none_blocked",
+      "execution_attempted": false,
+      "filesystem_diff_ref": "diff/none_blocked",
+      "network_diff_ref": "diff/none_blocked",
+      "request_id": "req_network_exfil_attempt",
+      "rollback_receipt_ref": "rollback/not_required_blocked",
+      "side_effect_diff_count": 0
+    },
+    {
+      "body_redacted": true,
+      "database_diff_ref": "diff/none_blocked",
+      "execution_attempted": false,
+      "filesystem_diff_ref": "diff/none_blocked",
+      "network_diff_ref": "diff/none_blocked",
+      "request_id": "req_destructive_delete_attempt",
+      "rollback_receipt_ref": "rollback/not_required_blocked",
+      "side_effect_diff_count": 0
+    },
+    {
+      "body_redacted": true,
+      "database_diff_ref": "diff/none_blocked",
+      "execution_attempted": false,
+      "filesystem_diff_ref": "diff/none_blocked",
+      "network_diff_ref": "diff/none_blocked",
+      "request_id": "req_shell_obfuscation_attempt",
+      "rollback_receipt_ref": "rollback/not_required_blocked",
+      "side_effect_diff_count": 0
+    },
+    {
+      "body_redacted": true,
+      "database_diff_ref": "diff/none",
+      "execution_attempted": true,
+      "filesystem_diff_ref": "diff/public_fixture_metadata_edit_v1",
+      "network_diff_ref": "diff/none_local_only",
+      "request_id": "req_safe_file_edit",
+      "rollback_receipt_ref": "rollback/rollback_safe_file_edit_v1",
+      "side_effect_diff_count": 1
+    },
+    {
+      "body_redacted": true,
+      "database_diff_ref": "diff/mock_db_update_v1",
+      "execution_attempted": true,
+      "filesystem_diff_ref": "diff/none",
+      "network_diff_ref": "diff/none_local_only",
+      "request_id": "req_reviewed_mock_db_update",
+      "rollback_receipt_ref": "rollback/rollback_mock_db_update_v1",
+      "side_effect_diff_count": 1
+    }
+  ]
+}

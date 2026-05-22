@@ -73,6 +73,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
+    "agent_sandbox_policy_escape_replay",
 ]
 
 

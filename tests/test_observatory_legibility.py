@@ -202,8 +202,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["view_quality_action_map_proof"]["hot_action_count"] == 4
     assert receipt["view_quality_action_map_proof"]["private_screenshot_paths_exported"] is False
     assert receipt["projection_safety_audit_proof"]["lens_id"] == "public_projection_safety_audit_lens"
-    assert receipt["projection_safety_audit_proof"]["projection_row_count"] == 38
-    assert receipt["projection_safety_audit_proof"]["omission_receipt_count"] == 38
+    assert receipt["projection_safety_audit_proof"]["projection_row_count"] == 39
+    assert receipt["projection_safety_audit_proof"]["omission_receipt_count"] == 39
     assert receipt["projection_safety_audit_proof"]["private_body_export_count"] == 0
     assert receipt["market_prediction_boundary_proof"]["lens_id"] == (
         "public_market_prediction_evidence_boundary_lens"

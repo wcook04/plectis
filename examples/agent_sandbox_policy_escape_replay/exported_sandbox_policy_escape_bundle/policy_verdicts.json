@@ -1,0 +1,76 @@
+{
+  "policy_verdicts": [
+    {
+      "approval_ref": null,
+      "body_redacted": true,
+      "decision_reason_ref": "decision_reason/req_secret_read_attempt",
+      "policy_version": "sandbox-policy-v1-public-synthetic",
+      "pre_execution": true,
+      "request_id": "req_secret_read_attempt",
+      "rule_refs": [
+        "rule:no_secret_or_env_read_from_untrusted_context"
+      ],
+      "verdict": "block"
+    },
+    {
+      "approval_ref": null,
+      "body_redacted": true,
+      "decision_reason_ref": "decision_reason/req_network_exfil_attempt",
+      "policy_version": "sandbox-policy-v1-public-synthetic",
+      "pre_execution": true,
+      "request_id": "req_network_exfil_attempt",
+      "rule_refs": [
+        "rule:no_live_network_from_untrusted_context"
+      ],
+      "verdict": "block"
+    },
+    {
+      "approval_ref": null,
+      "body_redacted": true,
+      "decision_reason_ref": "decision_reason/req_destructive_delete_attempt",
+      "policy_version": "sandbox-policy-v1-public-synthetic",
+      "pre_execution": true,
+      "request_id": "req_destructive_delete_attempt",
+      "rule_refs": [
+        "rule:no_destructive_filesystem_mutation"
+      ],
+      "verdict": "block"
+    },
+    {
+      "approval_ref": null,
+      "body_redacted": true,
+      "decision_reason_ref": "decision_reason/req_shell_obfuscation_attempt",
+      "policy_version": "sandbox-policy-v1-public-synthetic",
+      "pre_execution": true,
+      "request_id": "req_shell_obfuscation_attempt",
+      "rule_refs": [
+        "rule:no_executable_escape_payload_or_obfuscation"
+      ],
+      "verdict": "block"
+    },
+    {
+      "approval_ref": null,
+      "body_redacted": true,
+      "decision_reason_ref": "decision_reason/req_safe_file_edit",
+      "policy_version": "sandbox-policy-v1-public-synthetic",
+      "pre_execution": true,
+      "request_id": "req_safe_file_edit",
+      "rule_refs": [
+        "rule:public_fixture_write_with_diff_receipt"
+      ],
+      "verdict": "allow"
+    },
+    {
+      "approval_ref": "approval_ref/synthetic_human_review_token",
+      "body_redacted": true,
+      "decision_reason_ref": "decision_reason/req_reviewed_mock_db_update",
+      "policy_version": "sandbox-policy-v1-public-synthetic",
+      "pre_execution": true,
+      "request_id": "req_reviewed_mock_db_update",
+      "rule_refs": [
+        "rule:side_effect_requires_approval_and_rollback"
+      ],
+      "verdict": "review"
+    }
+  ]
+}

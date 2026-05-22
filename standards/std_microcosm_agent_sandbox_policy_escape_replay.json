@@ -1,0 +1,175 @@
+{
+  "anti_claim": "This fixture validates public synthetic sandbox policy-escape replay metadata only; it does not authorize live sandbox escape, live secret handling, live network access, host filesystem mutation, executable payload export, raw environment export, provider calls, security benchmark claims, source mutation, or release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Sandbox policy-escape material must state that synthetic replay receipts are not live security, exploit, network, provider, benchmark, source-mutation, or release authority"
+  },
+  "authority_boundary": "synthetic_agent_sandbox_policy_escape_replay_not_live_escape_secret_network_or_benchmark_authority",
+  "authority_ceiling": {
+    "executable_payload_export_authority": false,
+    "host_filesystem_mutation_authority": false,
+    "live_network_access_authority": false,
+    "live_sandbox_escape_authority": false,
+    "live_secret_handling_authority": false,
+    "provider_authority": false,
+    "raw_environment_export_authority": false,
+    "release_authority": false,
+    "security_benchmark_claim_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_sandbox_policy_escape_replay_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "agent_sandbox_policy_escape_replay",
+  "kind_name": "Agent sandbox policy-escape replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
+    "omitted": [
+      "real secrets or credentials",
+      "live network targets",
+      "raw environment variables",
+      "host filesystem paths",
+      "executable escape payloads",
+      "provider payloads",
+      "security benchmark score claims"
+    ],
+    "reason": "public tranche carries synthetic sandbox policy metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "agent_sandbox_policy_escape_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "action request refs",
+      "risk class labels",
+      "policy rule refs",
+      "side-effect diff refs",
+      "rollback refs",
+      "cold replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_sandbox_policy_receipts_only",
+    "forbidden_public_inputs": [
+      "real secrets or credentials",
+      "live network targets",
+      "raw environment variables",
+      "host filesystem paths",
+      "executable escape payloads",
+      "provider payloads",
+      "security benchmark score claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "action_request_count",
+      "policy_verdict_count",
+      "blocked_without_execution_count",
+      "rollback_verified_count",
+      "cold_replay_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.agent_sandbox_policy_escape_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.agent_sandbox_policy_escape_replay",
+    "receipt must cite source refs, source pattern ids, action/policy/side-effect/rollback/cold-replay counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#agent_sandbox_policy_escape_replay",
+    "source_pattern_id_sample": [
+      "agent_sandbox_policy_escape_replay_compound"
+    ],
+    "used_by_organs": [
+      "agent_sandbox_policy_escape_replay"
+    ]
+  },
+  "required_fields": [
+    "projection_protocol",
+    "sandbox_policy",
+    "action_requests",
+    "policy_verdicts",
+    "side_effect_receipts",
+    "rollback_receipts",
+    "cold_replay",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating a final answer, scary exploit story, live network denial, or benchmark result as sandbox-security evidence.",
+    "compression_bands": [
+      "protocol",
+      "policy",
+      "action",
+      "verdict",
+      "side_effect",
+      "rollback",
+      "replay",
+      "receipt"
+    ],
+    "failure_modes": [
+      "real_secret_material",
+      "live_network_access",
+      "raw_environment_export",
+      "policy_after_execution",
+      "unlogged_side_effect",
+      "tool_output_policy_bypass",
+      "executable_escape_payload",
+      "security_benchmark_claim"
+    ],
+    "ontology": "A public-safe sandbox policy-escape replay: synthetic action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, and authority ceilings.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how agent sandbox/security claims are admitted only when containment policy, diffs, rollback, negative cases, receipts, and ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require synthetic action requests with public refs, risk classes, and no raw payload export",
+    "require pre-execution policy verdicts with rule refs for every action request",
+    "require blocked requests to have zero side effects and allowed/reviewed requests to have diff receipts",
+    "require rollback receipts for side-effecting allowed or reviewed actions",
+    "reject real secrets, live network, raw environment export, policy-after-execution, unlogged side effects, tool-output authority bypass, executable payloads, and security benchmark claims",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "sandbox_policy_authority_floor",
+      "action_request_floor",
+      "pre_execution_policy_verdict_floor",
+      "side_effect_diff_and_zero_effect_block_floor",
+      "rollback_receipt_floor",
+      "cold_replay_floor",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.agent_sandbox_policy_escape_replay"
+  },
+  "wave": "w1_agent_sandbox_policy_escape_replay"
+}

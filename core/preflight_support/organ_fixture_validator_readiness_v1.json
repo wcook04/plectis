@@ -871,6 +871,33 @@
       ],
       "fixture_manifest": "core/fixture_manifests/belief_state_process_reward_replay.fixture_manifest.json",
       "organ_id": "belief_state_process_reward_replay"
+    },
+    {
+      "build_dependencies": [
+        "agent_sabotage_scheming_monitor_replay",
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization"
+      ],
+      "fixture_id": "fixture::agent_sandbox_policy_escape_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/sandbox_policy.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/action_requests.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_verdicts.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/side_effect_receipts.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/rollback_receipts.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/cold_replay.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/real_secret_material.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/live_network_access.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/raw_environment_export.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_after_execution.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/unlogged_side_effect.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/tool_output_policy_bypass.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/executable_escape_payload.json",
+        "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/security_benchmark_claim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
+      "organ_id": "agent_sandbox_policy_escape_replay"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

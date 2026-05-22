@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "created_at": "2026-05-22T09:42:18+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -380,15 +380,25 @@
       "outputs": "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay",
       "span": "belief_state_process_reward_replay.validate",
       "status": "pass"
+    },
+    {
+      "event_id": "evt_39_agent_sandbox_policy_escape_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json",
+      "input_mode": "exported_sandbox_policy_escape_bundle",
+      "inputs": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
+      "span": "agent_sandbox_policy_escape_replay.validate",
+      "status": "pass"
     }
   ],
   "otel_shape": {
     "logs_as_events": true,
     "metrics": {
-      "runtime_steps_passed": 38,
-      "runtime_steps_total": 38
+      "runtime_steps_passed": 39,
+      "runtime_steps_total": 39
     },
-    "span_count": 38,
+    "span_count": 39,
     "trace_id": "runtime_shell_demo_project"
   },
   "project_id": "demo_project",

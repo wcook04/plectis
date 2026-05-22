@@ -341,6 +341,15 @@
       "organ_id": "belief_state_process_reward_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::belief_state_process_reward_replay"
+    },
+    {
+      "body_redacted": true,
+      "cli_command": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "ordinal": 39,
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "runtime_receipt_count": 4,
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_sandbox_policy_escape_replay"
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

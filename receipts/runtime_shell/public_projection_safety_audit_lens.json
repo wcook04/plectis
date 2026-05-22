@@ -13,7 +13,7 @@
   },
   "body_redacted": true,
   "command": "microcosm projection-safety",
-  "created_at": "2026-05-22T08:52:17+00:00",
+  "created_at": "2026-05-22T09:44:28+00:00",
   "endpoint": "/projection-safety",
   "lens_id": "public_projection_safety_audit_lens",
   "negative_case_ids": [
@@ -615,6 +615,31 @@
       "source_mutation_authorized": false
     },
     {
+      "authority_ceiling_ref": "microcosm authority::public_agent_sandbox_policy_escape_replay_lens",
+      "command": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle",
+      "endpoint": "/replay-gauntlet",
+      "omission_receipt": {
+        "drilldown": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle",
+        "omitted": [
+          "real secrets or credentials",
+          "live network targets",
+          "raw environment exports",
+          "host filesystem paths",
+          "executable escape payloads",
+          "security benchmark performance claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sandbox_policy_escape_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.agent_sandbox_policy_escape_replay",
+      "private_body_exported": false,
+      "projection_id": "public_agent_sandbox_policy_escape_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
       "authority_ceiling_ref": "microcosm authority::public_agent_memory_temporal_conflict_lens",
       "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
       "endpoint": "/replay-gauntlet",
@@ -923,14 +948,14 @@
   ],
   "projection_safety_lens_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
   "projection_summary": {
-    "authority_ceiling_row_count": 38,
-    "omission_receipt_count": 38,
+    "authority_ceiling_row_count": 39,
+    "omission_receipt_count": 39,
     "private_body_export_count": 0,
-    "projection_row_count": 38,
+    "projection_row_count": 39,
     "proof_body_export_count": 0,
     "provider_payload_export_count": 0,
     "release_authorized_count": 0,
-    "reversible_drilldown_count": 38,
+    "reversible_drilldown_count": 39,
     "source_mutation_authorized_count": 0
   },
   "public_claim": "Microcosm exposes a projection-safety audit: every compressed public lens carries an omission receipt, a named drilldown, and an explicit authority ceiling before it can be treated as legible public state.",

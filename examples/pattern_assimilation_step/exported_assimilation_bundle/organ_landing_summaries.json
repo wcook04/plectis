@@ -341,6 +341,15 @@
       "live_learning_authority": false,
       "organ_id": "world_model_projection_drift_control_room",
       "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "projection_not_authority": true
     }
   ],
   "schema_version": "pattern_assimilation_step_organ_landing_summaries_v1"

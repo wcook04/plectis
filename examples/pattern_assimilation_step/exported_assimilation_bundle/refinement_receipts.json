@@ -362,6 +362,17 @@
       "projection_not_authority": true,
       "receipt_id": "refine_world_model_projection_drift_control_room_bundle",
       "refinement_result": "validator_contract_refined"
+    },
+    {
+      "body_redacted": true,
+      "changed_surface_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
+      "projection_not_authority": true,
+      "receipt_id": "refine_agent_sandbox_policy_escape_replay_bundle",
+      "refinement_result": "validator_contract_refined"
     }
   ],
   "schema_version": "pattern_assimilation_step_refinement_receipts_v1"

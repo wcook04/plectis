@@ -524,6 +524,19 @@
       "runner": "microcosm_core.organs.belief_state_process_reward_replay",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "runner": "microcosm_core.organs.agent_sandbox_policy_escape_replay",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
     }
   ],
   "registry_status": "current_authority_public_runtime_spine_agent_sabotage_scheming_monitor_replay_bound",

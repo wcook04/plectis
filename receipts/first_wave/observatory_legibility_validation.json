@@ -90,7 +90,7 @@
     "status": "pass",
     "time_budget_minutes": 10
   },
-  "command": "python -m microcosm_core.validators.observatory_legibility --root microcosm-substrate --project microcosm-wave063-scratch --out microcosm-substrate/receipts/first_wave/observatory_legibility_validation.json",
+  "command": "python -m microcosm_core.validators.observatory_legibility --root microcosm-substrate --project microcosm-wave065-launch-project --out microcosm-substrate/receipts/first_wave/observatory_legibility_validation.json",
   "compression_profile_option_surface_proof": {
     "automatic_profile_selection_authorized": false,
     "lens_id": "public_compression_profile_option_surface_lens",
@@ -368,7 +368,7 @@
     "scanned_path_count": 4,
     "status": "pass"
   },
-  "project_ref": "microcosm-wave063-scratch",
+  "project_ref": "microcosm-wave065-launch-project",
   "projection_drift_control_proof": {
     "lens_id": "public_projection_drift_control_lens",
     "live_route_repair_authorized": false,
@@ -419,9 +419,9 @@
       "release_claim_from_projection",
       "irreversible_projection_without_owner_route"
     ],
-    "omission_receipt_count": 37,
+    "omission_receipt_count": 39,
     "private_body_export_count": 0,
-    "projection_row_count": 37,
+    "projection_row_count": 39,
     "status": "pass"
   },
   "proof_loop_depth_proof": {
@@ -528,11 +528,11 @@
     "release_authorized": false,
     "row_count": 8,
     "source_authority_claim_count": 0,
-    "standard_count": 82,
+    "standard_count": 84,
     "standards_completeness_claim": false,
     "standards_registry_source_authority": false,
     "status": "pass",
-    "validator_receipt_ref_count": 137
+    "validator_receipt_ref_count": 177
   },
   "status": "pass",
   "stripping_guard_proof": {

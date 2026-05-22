@@ -86,6 +86,7 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "mcp_tool_authority_replay",
         "proof_derived_governed_mutation_authorization",
         "belief_state_process_reward_replay",
+        "agent_sandbox_policy_escape_replay",
     ]
     assert receipt["blocked_dependency_count"] == 0
     assert receipt["blocked_dependency_codes"] == []

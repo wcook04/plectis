@@ -53,6 +53,7 @@ REQUIRED_DOCS = [
     "paper_modules/mcp_tool_authority_replay.md",
     "paper_modules/proof_derived_governed_mutation_authorization.md",
     "paper_modules/belief_state_process_reward_replay.md",
+    "paper_modules/agent_sandbox_policy_escape_replay.md",
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md",
 ]
@@ -95,6 +96,7 @@ ACCEPTED_ORGAN_IDS = [
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
+    "agent_sandbox_policy_escape_replay",
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
@@ -138,10 +140,12 @@ REQUIRED_PHRASES_BY_DOC = {
         "mcp_tool_authority_replay",
         "proof_derived_governed_mutation_authorization",
         "belief_state_process_reward_replay",
+        "agent_sandbox_policy_escape_replay",
         "sleeper_memory_poisoning_quarantine_replay",
         "mcp_tool_authority_replay",
         "proof_derived_governed_mutation_authorization",
         "belief_state_process_reward_replay",
+        "agent_sandbox_policy_escape_replay",
         "formal-math-lean-proof-witness",
         "corpus-readiness-mathlib-absence-gate",
         "mathematical-strategy-atlas-hypothesis-scorer",
@@ -172,10 +176,12 @@ REQUIRED_PHRASES_BY_DOC = {
         "mcp-tool-authority-replay",
         "proof-derived-governed-mutation-authorization",
         "belief-state-process-reward-replay",
+        "agent-sandbox-policy-escape-replay",
         "sleeper-memory-poisoning-quarantine-replay",
         "mcp-tool-authority-replay",
         "proof-derived-governed-mutation-authorization",
         "belief-state-process-reward-replay",
+        "agent-sandbox-policy-escape-replay",
         "not trading or financial advice",
         "not authorize release",
     ],
@@ -219,6 +225,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "mcp_tool_authority_replay",
         "proof_derived_governed_mutation_authorization",
         "belief_state_process_reward_replay",
+        "agent_sandbox_policy_escape_replay",
         "formal-math-lean-proof-witness",
         "corpus-readiness-mathlib-absence-gate",
         "mathematical-strategy-atlas-hypothesis-scorer",
@@ -248,6 +255,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "mcp-tool-authority-replay",
         "proof-derived-governed-mutation-authorization",
         "belief-state-process-reward-replay",
+        "agent-sandbox-policy-escape-replay",
         "Do not treat prediction fixtures as trading or financial advice",
     ],
 }

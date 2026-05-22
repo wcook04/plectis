@@ -114,6 +114,7 @@ ADAPTER_BACKED_ORGAN_IDS = [
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
+    "agent_sandbox_policy_escape_replay",
 ]
 
 
@@ -1269,7 +1270,7 @@ def run_assimilation_bundle(
             ],
             "accepted_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
             "ordered_adapter_lane_status": (
-                "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_and_governed_mutation_authorization_bound"
+                "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_and_sandbox_policy_escape_bound"
             ),
             "landed_organ_ids": landing_result["landed_organ_ids"],
             "organ_landing_count": landing_result["organ_landing_count"],

@@ -51,6 +51,7 @@ explanation, and assimilation primitives, not through production claims.
 - `mcp_tool_authority_replay`
 - `proof_derived_governed_mutation_authorization`
 - `belief_state_process_reward_replay`
+- `agent_sandbox_policy_escape_replay`
 
 ## Rules
 
@@ -230,6 +231,14 @@ explanation, and assimilation primitives, not through production claims.
    instructions, real credentials or account identifiers, exploit details,
    private chain-of-thought, raw harmful payloads, deployment-risk claims,
    provider payloads, source mutation, or release authority.
+   The `agent_sandbox_policy_escape_replay` organ is the runnable public
+   sandbox/security policy lane: use `agent-sandbox-policy-escape-replay` or
+   `replay-gauntlet` to validate action requests, pre-execution policy
+   verdicts, side-effect diffs, rollback receipts, cold replay receipts, and
+   negative cases before sandbox-security language is admitted. It must not
+   export real secrets, live network targets, raw environments, host filesystem
+   paths, executable escape payloads, provider payloads, security benchmark
+   claims, source mutation, or release authority.
    The `agent_memory_temporal_conflict_replay` organ is the runnable public
    memory temporal-conflict lane: use
    `agent-memory-temporal-conflict-replay` or `replay-gauntlet` to validate
@@ -478,6 +487,7 @@ explanation, and assimilation primitives, not through production claims.
    `agent_benchmark_integrity_anti_gaming_replay`, and
    `agent_monitor_redteam_falsification_replay`,
    `agent_sabotage_scheming_monitor_replay`, and
+   `agent_sandbox_policy_escape_replay`, and
    `provider_context_recipe_budget_policy` are
    metadata/retrieval/admissibility/metric/context-budget lanes only, and
    `formal_math_lean_proof_witness` authorizes only the tiny public witness

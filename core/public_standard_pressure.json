@@ -801,6 +801,47 @@
       ],
       "standard_id": "belief_state_process_reward_replay_public_pressure",
       "title": "Belief-State Process Reward Requires Belief, Feedback, Reward, and Replay Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_fixture_receipts_only_not_live_sandbox_security_authority",
+      "claim": "Sandbox policy-escape language must cite action refs, policy rule refs, side-effect diff refs, rollback refs, cold replay refs, negative cases, and explicit no-live-secret/no-network/no-host-mutation/no-benchmark ceilings before it becomes public evidence.",
+      "domain": "agent_sandbox_security",
+      "kernel_primitive_refs": [
+        "event",
+        "evidence",
+        "explanation",
+        "route"
+      ],
+      "negative_case_ids": [
+        "real_secret_material",
+        "live_network_access",
+        "raw_environment_export",
+        "policy_after_execution",
+        "unlogged_side_effect",
+        "tool_output_policy_bypass",
+        "executable_escape_payload",
+        "security_benchmark_claim"
+      ],
+      "owner_surfaces": [
+        "organs:agent_sandbox_policy_escape_replay",
+        "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
+        "paper_modules/agent_sandbox_policy_escape_replay.md"
+      ],
+      "pressure": "typed sandbox/security claims require pre-execution policy verdicts, zero-effect blocked actions, side-effect diff receipts, rollback receipts, cold replay, negative cases, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "replay-gauntlet",
+        "standards-control",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.agent_sandbox_policy_escape_replay.run",
+      "source_refs": [
+        "organs:agent_sandbox_policy_escape_replay",
+        "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
+        "paper_modules/agent_sandbox_policy_escape_replay.md"
+      ],
+      "standard_id": "agent_sandbox_policy_escape_replay_public_pressure",
+      "title": "Sandbox Policy-Escape Replay Requires Verdict, Diff, Rollback, and Replay Receipts"
     }
   ],
   "schema_version": "public_microcosm_standard_pressure_v1",

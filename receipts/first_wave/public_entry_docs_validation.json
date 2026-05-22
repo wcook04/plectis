@@ -37,7 +37,8 @@
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
-    "belief_state_process_reward_replay"
+    "belief_state_process_reward_replay",
+    "agent_sandbox_policy_escape_replay"
   ],
   "anti_claim": "Public entry-doc validation proves only standalone public entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake beyond the bounded public witness organ, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
   "authority_ceiling": {
@@ -62,7 +63,7 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 38,
+    "scanned_path_count": 39,
     "status": "pass"
   },
   "receipt_paths": [
@@ -105,6 +106,7 @@
     "paper_modules/mcp_tool_authority_replay.md",
     "paper_modules/proof_derived_governed_mutation_authorization.md",
     "paper_modules/belief_state_process_reward_replay.md",
+    "paper_modules/agent_sandbox_policy_escape_replay.md",
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md"
   ],

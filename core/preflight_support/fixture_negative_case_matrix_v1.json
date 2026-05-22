@@ -255,6 +255,22 @@
       ],
       "organ_id": "belief_state_process_reward_replay",
       "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "agent_sandbox_policy_escape_replay_negative_cases",
+      "expected_negative_cases": [
+        "real_secret_material",
+        "live_network_access",
+        "raw_environment_export",
+        "policy_after_execution",
+        "unlogged_side_effect",
+        "tool_output_policy_bypass",
+        "executable_escape_payload",
+        "security_benchmark_claim"
+      ],
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "status": "covered_by_fixture_manifest"
     }
   ],
   "schema_version": "public_preflight_support_fixture_negative_case_matrix_v1"

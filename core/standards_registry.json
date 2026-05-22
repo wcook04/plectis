@@ -9,10 +9,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 82,
+  "first_wave_required_standard_count": 83,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 83,
+  "standard_count": 84,
   "standards": [
     {
       "first_wave_required": true,
@@ -1273,7 +1273,18 @@
       ],
       "validator_id": "validator.microcosm.organs.belief_state_process_reward_replay",
       "wave": "w1_belief_state_process_reward_replay"
+    },
+    {
+      "kind_id": "agent_sandbox_policy_escape_replay",
+      "path": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
+      "receipt_id": "receipt.microcosm.agent_sandbox_policy_escape_replay",
+      "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+      "used_by_organs": [
+        "agent_sandbox_policy_escape_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.agent_sandbox_policy_escape_replay",
+      "wave": "w1_agent_sandbox_policy_escape_replay"
     }
   ],
-  "status": "current_public_standard_registry_agent_sabotage_scheming_monitor_replay_bound"
+  "status": "current_public_standard_registry_agent_sandbox_policy_escape_replay_bound"
 }

@@ -35,7 +35,8 @@
     "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay --acceptance-out receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
     "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay --acceptance-out receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
     "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
-    "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay --acceptance-out receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
+    "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay --acceptance-out receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+    "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
   ],
   "accepted_current_authority_organs": [
     {
@@ -505,6 +506,19 @@
       "organ_id": "belief_state_process_reward_replay",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
+        "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_sandbox_policy_escape_replay",
+      "runner": "microcosm_core.organs.agent_sandbox_policy_escape_replay",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
     }
   ],
   "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, private-data equivalence, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",
@@ -574,8 +588,8 @@
   "recipient_work_authorized": false,
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
-  "standard_count": 83,
+  "standard_count": 84,
   "standards_registry_ref": "core/standards_registry.json",
-  "status": "accepted_runtime_spine_agent_sabotage_scheming_monitor_replay_bound",
+  "status": "accepted_runtime_spine_agent_sandbox_policy_escape_replay_bound",
   "trading_or_financial_advice_authorized": false
 }

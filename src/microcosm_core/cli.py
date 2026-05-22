@@ -9,6 +9,7 @@ from microcosm_core.organs import agent_memory_temporal_conflict_replay
 from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
+from microcosm_core.organs import agent_sandbox_policy_escape_replay
 from microcosm_core.organs import belief_state_process_reward_replay
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -262,6 +263,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(sabotage_monitor_parser)
     sabotage_monitor_parser.add_argument("--acceptance-out")
+
+    sandbox_policy_parser = subparsers.add_parser(
+        "agent-sandbox-policy-escape-replay"
+    )
+    sandbox_policy_parser.add_argument(
+        "action", choices=["run", "run-sandbox-bundle"]
+    )
+    _add_input_out(sandbox_policy_parser)
+    sandbox_policy_parser.add_argument("--acceptance-out")
 
     memory_conflict_parser = subparsers.add_parser(
         "agent-memory-temporal-conflict-replay"
@@ -648,6 +658,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             sabotage_monitor_args.extend(["--acceptance-out", args.acceptance_out])
         return agent_sabotage_scheming_monitor_replay.main(sabotage_monitor_args)
+    if args.command == "agent-sandbox-policy-escape-replay":
+        sandbox_policy_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            sandbox_policy_args.extend(["--acceptance-out", args.acceptance_out])
+        return agent_sandbox_policy_escape_replay.main(sandbox_policy_args)
     if args.command == "agent-memory-temporal-conflict-replay":
         memory_conflict_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":

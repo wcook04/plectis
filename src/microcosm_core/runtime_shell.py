@@ -16,6 +16,7 @@ from microcosm_core.organs import agent_memory_temporal_conflict_replay
 from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
+from microcosm_core.organs import agent_sandbox_policy_escape_replay
 from microcosm_core.organs import belief_state_process_reward_replay
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -453,6 +454,17 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
             "exported_belief_state_process_reward_bundle_validation_result.json"
         ),
     ),
+    RuntimeStep(
+        organ_id="agent_sandbox_policy_escape_replay",
+        span="agent_sandbox_policy_escape_replay.validate",
+        input_mode="exported_sandbox_policy_escape_bundle",
+        example_rel=(
+            "examples/agent_sandbox_policy_escape_replay/"
+            "exported_sandbox_policy_escape_bundle"
+        ),
+        runner=agent_sandbox_policy_escape_replay.run_sandbox_bundle,
+        receipt_name="exported_sandbox_policy_escape_bundle_validation_result.json",
+    ),
 )
 
 
@@ -736,6 +748,10 @@ class RuntimeShell:
                     (
                         "microcosm belief-state-process-reward-replay "
                         "run-reward-bundle"
+                    ),
+                    (
+                        "microcosm agent-sandbox-policy-escape-replay "
+                        "run-sandbox-bundle"
                     ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
@@ -1271,6 +1287,20 @@ class RuntimeShell:
                         "reward-hacking trap pass, trajectory grouping, and cold replay refs before claim admission",
                         "hidden-reasoning export, neural-judge-only, hidden-gold, reward-by-formatting, verifier-bypass, benchmark-claim, and final-answer-only denials",
                         "no hidden reasoning, live RL, benchmark-score, provider, source mutation, or release authority",
+                    ],
+                },
+                {
+                    "step_id": "inspect_agent_sandbox_policy_escape_replay",
+                    "command": (
+                        "microcosm agent-sandbox-policy-escape-replay "
+                        "run-sandbox-bundle"
+                    ),
+                    "shows": [
+                        "six synthetic action requests across secret, network, destructive, shell, safe edit, and reviewed mock-db cases",
+                        "pre-execution policy verdicts before any side-effect receipt is admissible",
+                        "blocked requests with zero side effects plus allowed/reviewed requests with diff and rollback receipts",
+                        "real-secret, live-network, raw-env, post-hoc-policy, unlogged-side-effect, tool-output-bypass, executable-payload, and benchmark-claim denials",
+                        "no live sandbox escape, secret handling, network access, host mutation, provider, benchmark-security, source mutation, or release authority",
                     ],
                 },
                 {
@@ -4609,6 +4639,50 @@ class RuntimeShell:
                 "provider_payload_exported": False,
             },
             {
+                "projection_id": "public_agent_sandbox_policy_escape_replay_lens",
+                "command": (
+                    "microcosm agent-sandbox-policy-escape-replay "
+                    "run-sandbox-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "public_ref": (
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agent_sandbox_policy_escape_replay/"
+                    "exported_sandbox_policy_escape_bundle_validation_result.json"
+                ),
+                "owner_route": (
+                    "microcosm_core.organs."
+                    "agent_sandbox_policy_escape_replay"
+                ),
+                "authority_ceiling_ref": (
+                    "microcosm authority::"
+                    "public_agent_sandbox_policy_escape_replay_lens"
+                ),
+                "omission_receipt": {
+                    "omitted": [
+                        "real secrets or credentials",
+                        "live network targets",
+                        "raw environment exports",
+                        "host filesystem paths",
+                        "executable escape payloads",
+                        "security benchmark performance claims",
+                    ],
+                    "drilldown": (
+                        "microcosm agent-sandbox-policy-escape-replay "
+                        "run-sandbox-bundle"
+                    ),
+                    "source_ref": (
+                        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
+                        "agent_sandbox_policy_escape_replay_compound"
+                    ),
+                },
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "private_body_exported": False,
+                "proof_body_exported": False,
+                "provider_payload_exported": False,
+            },
+            {
                 "projection_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
                     "microcosm agent-memory-temporal-conflict-replay "
@@ -6915,6 +6989,14 @@ class RuntimeShell:
                 "source_pattern_id": "agent_sandbox_policy_escape_replay_compound",
                 "threat_model": "untrusted output asks for host escape and hidden path reads",
                 "fixture_input": "synthetic host-escape request with no real paths or secrets",
+                "generated_receipt_ref": (
+                    "receipts/first_wave/agent_sandbox_policy_escape_replay/"
+                    "agent_sandbox_policy_escape_replay_validation_receipt.json"
+                ),
+                "cold_reader_command": (
+                    "microcosm agent-sandbox-policy-escape-replay "
+                    "run-sandbox-bundle"
+                ),
                 "monitor_verdict": "blocked",
                 "containment_action": "capability_manifest_denies_host_escape",
                 "negative_case_id": "sandbox_escape_request_denied",
@@ -8755,6 +8837,26 @@ class RuntimeShell:
                 "credential_material_export_authorized": False,
                 "deployment_risk_claim_authorized": False,
                 "monitor_product_performance_claim_authorized": False,
+            },
+            {
+                "surface_id": "public_agent_sandbox_policy_escape_replay_lens",
+                "command": (
+                    "microcosm agent-sandbox-policy-escape-replay "
+                    "run-sandbox-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "authority_role": "synthetic agent sandbox policy-escape replay and containment-policy boundary",
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "live_agent_execution_authorized": False,
+                "live_sandbox_escape_authorized": False,
+                "live_secret_or_credential_handling_authorized": False,
+                "live_network_access_authorized": False,
+                "host_filesystem_mutation_authorized": False,
+                "executable_escape_payload_export_authorized": False,
+                "raw_environment_export_authorized": False,
+                "security_benchmark_claim_authorized": False,
             },
             {
                 "surface_id": "public_agent_memory_temporal_conflict_lens",

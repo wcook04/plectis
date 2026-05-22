@@ -1,0 +1,20 @@
+{
+  "rollback_receipts": [
+    {
+      "body_redacted": true,
+      "request_id": "req_safe_file_edit",
+      "rollback_command_ref": "rollback_command/ref/public_fixture_metadata_revert",
+      "rollback_id": "rollback_safe_file_edit_v1",
+      "rollback_required": true,
+      "rollback_verified": true
+    },
+    {
+      "body_redacted": true,
+      "request_id": "req_reviewed_mock_db_update",
+      "rollback_command_ref": "rollback_command/ref/mock_db_revert",
+      "rollback_id": "rollback_mock_db_update_v1",
+      "rollback_required": true,
+      "rollback_verified": true
+    }
+  ]
+}
