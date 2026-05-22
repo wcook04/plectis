@@ -140,6 +140,10 @@ def test_runtime_shell_status_is_product_centered() -> None:
         in status["runtime_surface"]["commands"]
     )
     assert (
+        "microcosm verifier-lab-execution-spine run-execution-bundle"
+        in status["runtime_surface"]["commands"]
+    )
+    assert (
         "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle"
         in status["runtime_surface"]["commands"]
     )
@@ -271,6 +275,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "inspect_formal_evidence_cells",
         "inspect_proof_loop_depth",
         "inspect_verifier_lab_kernel",
+        "inspect_verifier_lab_execution_spine",
         "inspect_work_landing_replay",
         "inspect_durable_agent_work_landing_replay",
         "inspect_research_replication_rubric_artifact_replay",
@@ -319,64 +324,67 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["first_run_path"][14]["command"] == (
         "microcosm verifier-lab-kernel run-kernel-bundle"
     )
-    assert spine["first_run_path"][15]["command"] == "microcosm landing-replay"
-    assert spine["first_run_path"][16]["command"].startswith(
+    assert spine["first_run_path"][15]["command"] == (
+        "microcosm verifier-lab-execution-spine run-execution-bundle"
+    )
+    assert spine["first_run_path"][16]["command"] == "microcosm landing-replay"
+    assert spine["first_run_path"][17]["command"].startswith(
         "microcosm durable-agent-work-landing-replay"
     )
-    assert spine["first_run_path"][17]["command"].startswith(
+    assert spine["first_run_path"][18]["command"].startswith(
         "microcosm research-replication-rubric-artifact-replay"
     )
-    assert spine["first_run_path"][18]["command"] == "microcosm view-quality"
-    assert spine["first_run_path"][19]["command"] == "microcosm projection-safety"
-    assert spine["first_run_path"][20]["command"] == "microcosm drift-control"
-    assert spine["first_run_path"][21]["command"].startswith(
+    assert spine["first_run_path"][19]["command"] == "microcosm view-quality"
+    assert spine["first_run_path"][20]["command"] == "microcosm projection-safety"
+    assert spine["first_run_path"][21]["command"] == "microcosm drift-control"
+    assert spine["first_run_path"][22]["command"].startswith(
         "microcosm world-model-projection-drift-control-room"
     )
-    assert spine["first_run_path"][22]["command"].startswith(
+    assert spine["first_run_path"][23]["command"].startswith(
         "microcosm spatial-world-model-counterfactual-simulation-replay"
     )
-    assert spine["first_run_path"][23]["command"].startswith(
+    assert spine["first_run_path"][24]["command"].startswith(
         "microcosm mechanistic-interpretability-circuit-attribution-replay"
     )
-    assert spine["first_run_path"][24]["command"] == "microcosm route-cleanup"
-    assert spine["first_run_path"][25]["command"] == "microcosm projection-import-map"
-    assert spine["first_run_path"][26]["command"] == "microcosm import-projector"
-    assert spine["first_run_path"][27]["command"] == "microcosm option-surface-lens"
-    assert spine["first_run_path"][28]["command"] == "microcosm stripping-guard"
-    assert spine["first_run_path"][29]["command"] == "microcosm standards-control"
-    assert spine["first_run_path"][30]["command"] == "microcosm hook-coverage"
-    assert spine["first_run_path"][31]["command"] == "microcosm replay-gauntlet"
-    assert spine["first_run_path"][32]["command"].startswith("microcosm agent-monitor-redteam-falsification-replay")
-    assert spine["first_run_path"][33]["command"].startswith(
+    assert spine["first_run_path"][25]["command"] == "microcosm route-cleanup"
+    assert spine["first_run_path"][26]["command"] == "microcosm projection-import-map"
+    assert spine["first_run_path"][27]["command"] == "microcosm import-projector"
+    assert spine["first_run_path"][28]["command"] == "microcosm option-surface-lens"
+    assert spine["first_run_path"][29]["command"] == "microcosm stripping-guard"
+    assert spine["first_run_path"][30]["command"] == "microcosm standards-control"
+    assert spine["first_run_path"][31]["command"] == "microcosm hook-coverage"
+    assert spine["first_run_path"][32]["command"] == "microcosm replay-gauntlet"
+    assert spine["first_run_path"][33]["command"].startswith("microcosm agent-monitor-redteam-falsification-replay")
+    assert spine["first_run_path"][34]["command"].startswith(
         "microcosm agent-sabotage-scheming-monitor-replay"
     )
-    assert spine["first_run_path"][34]["command"].startswith(
+    assert spine["first_run_path"][35]["command"].startswith(
         "microcosm agent-memory-temporal-conflict-replay"
     )
-    assert spine["first_run_path"][35]["command"].startswith(
+    assert spine["first_run_path"][36]["command"].startswith(
         "microcosm sleeper-memory-poisoning-quarantine-replay"
     )
-    assert spine["first_run_path"][36]["command"].startswith(
+    assert spine["first_run_path"][37]["command"].startswith(
         "microcosm mcp-tool-authority-replay"
     )
-    assert spine["first_run_path"][37]["command"].startswith(
+    assert spine["first_run_path"][38]["command"].startswith(
         "microcosm proof-derived-governed-mutation-authorization"
     )
-    assert spine["first_run_path"][38]["command"].startswith(
+    assert spine["first_run_path"][39]["command"].startswith(
         "microcosm belief-state-process-reward-replay"
     )
-    assert spine["first_run_path"][39]["command"].startswith(
+    assert spine["first_run_path"][40]["command"].startswith(
         "microcosm agent-sandbox-policy-escape-replay"
     )
-    assert spine["first_run_path"][40]["command"].startswith(
+    assert spine["first_run_path"][41]["command"].startswith(
         "microcosm indirect-prompt-injection-information-flow-policy-replay"
     )
-    assert spine["first_run_path"][41]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
-    assert spine["first_run_path"][42]["command"] == "microcosm benchmark-lab"
-    assert spine["first_run_path"][43]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert spine["first_run_path"][44]["command"] == "microcosm legibility-scorecard"
-    assert spine["first_run_path"][45]["command"] == "microcosm intake"
-    assert spine["first_run_path"][47]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert spine["first_run_path"][42]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
+    assert spine["first_run_path"][43]["command"] == "microcosm benchmark-lab"
+    assert spine["first_run_path"][44]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
+    assert spine["first_run_path"][45]["command"] == "microcosm legibility-scorecard"
+    assert spine["first_run_path"][46]["command"] == "microcosm intake"
+    assert spine["first_run_path"][48]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert spine["evidence_policy"]["body_redacted_by_default"] is True
     assert spine["authority_ceiling"]["release_authorized"] is False
     assert spine["authority_ceiling"]["trading_or_financial_advice_authorized"] is False
@@ -434,7 +442,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "reader_success_guarantee": False,
     }
     assert authority["surface_counts"]["organ_authority_count"] == 44
-    assert authority["surface_counts"]["surface_authority_count"] == 43
+    assert authority["surface_counts"]["surface_authority_count"] == 44
     assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
@@ -590,6 +598,12 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         row["surface_id"] == "public_verifier_lab_kernel_lens"
         and row["provider_hypothesis_proof_authority"] is False
         and row["oracle_forward_contamination_authorized"] is False
+        for row in authority["surface_authority"]
+    )
+    assert any(
+        row["surface_id"] == "public_verifier_lab_execution_spine_lens"
+        and row["bounded_public_external_witness_only"] is True
+        and row["proof_correctness_claim"] is False
         for row in authority["surface_authority"]
     )
     assert any(
@@ -2108,7 +2122,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert authority["schema_version"] == "microcosm_public_authority_map_v1"
     assert authority["authority_ceiling"]["release_authorized"] is False
     assert authority["surface_counts"]["organ_authority_count"] == 44
-    assert authority["surface_counts"]["surface_authority_count"] == 43
+    assert authority["surface_counts"]["surface_authority_count"] == 44
     assert prediction["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert prediction["authority_ceiling"]["trading_authorized"] is False
     assert (

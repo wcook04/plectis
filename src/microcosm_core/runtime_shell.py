@@ -880,6 +880,7 @@ class RuntimeShell:
                     "microcosm formal-math-premise-retrieval run-retrieval-bundle",
                     "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle",
                     "microcosm verifier-lab-kernel run-kernel-bundle",
+                    "microcosm verifier-lab-execution-spine run-execution-bundle",
                     "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle",
                     "microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle",
                     "microcosm lean-std-premise-index run-index-bundle",
@@ -1204,6 +1205,19 @@ class RuntimeShell:
                         "provider hypotheses quarantined from proof authority",
                         "CP2 typed action candidates and bounded Evolve candidates",
                         "contract rejections and retrieval misses as separate claim buckets",
+                    ],
+                },
+                {
+                    "step_id": "inspect_verifier_lab_execution_spine",
+                    "command": (
+                        "microcosm verifier-lab-execution-spine "
+                        "run-execution-bundle"
+                    ),
+                    "shows": [
+                        "bounded Lean transition candidates executed through lake env",
+                        "CP2 rerun effect and Evolve policy rerun receipts",
+                        "proof-body and oracle-forward contamination rejection",
+                        "tool-return-code witness scope separated from proof authority",
                     ],
                 },
                 {
@@ -9123,6 +9137,28 @@ class RuntimeShell:
                 "bounded_public_lean_witness_only": True,
             },
             {
+                "surface_id": "public_verifier_lab_execution_spine_lens",
+                "command": (
+                    "microcosm verifier-lab-execution-spine "
+                    "run-execution-bundle"
+                ),
+                "endpoint": "/proof-loop-depth",
+                "authority_role": (
+                    "bounded verifier-lab execution spine and external "
+                    "tool-witness boundary"
+                ),
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "formal_proof_authority": False,
+                "proof_correctness_claim": False,
+                "private_proof_body_exported": False,
+                "provider_hypothesis_proof_authority": False,
+                "oracle_forward_contamination_authorized": False,
+                "arbitrary_evolve_execution_authorized": False,
+                "bounded_public_external_witness_only": True,
+            },
+            {
                 "surface_id": "public_work_landing_replay_lens",
                 "command": "microcosm landing-replay",
                 "endpoint": "/landing-replay",
@@ -9881,6 +9917,7 @@ class RuntimeShell:
                 "microcosm repair-loop",
                 "microcosm evidence-cells",
                 "microcosm proof-loop-depth",
+                "microcosm verifier-lab-execution-spine run-execution-bundle",
                 "microcosm landing-replay",
                 "microcosm view-quality",
                 "microcosm projection-safety",

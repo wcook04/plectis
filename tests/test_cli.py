@@ -115,6 +115,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "formal-math-premise-retrieval",
         "formal-math-verifier-trace-repair-loop",
         "verifier-lab-kernel",
+        "verifier-lab-execution-spine",
         "formal-evidence-cell-anchor-resolver",
         "undeclared-library-prior-symbol-classifier",
         "provider-context-recipe-budget-policy",
@@ -166,69 +167,88 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][14]["command"] == (
         "microcosm verifier-lab-kernel run-kernel-bundle"
     )
-    assert payload["first_run_path"][15]["command"] == "microcosm landing-replay"
-    assert payload["first_run_path"][16]["command"] == (
+    assert payload["first_run_path"][15]["command"] == (
+        "microcosm verifier-lab-execution-spine run-execution-bundle"
+    )
+    assert payload["first_run_path"][16]["command"] == "microcosm landing-replay"
+    assert payload["first_run_path"][17]["command"] == (
         "microcosm durable-agent-work-landing-replay run-work-landing-bundle"
     )
-    assert payload["first_run_path"][17]["command"].startswith(
+    assert payload["first_run_path"][18]["command"].startswith(
         "microcosm research-replication-rubric-artifact-replay"
     )
-    assert payload["first_run_path"][18]["command"] == "microcosm view-quality"
-    assert payload["first_run_path"][19]["command"] == "microcosm projection-safety"
-    assert payload["first_run_path"][20]["command"] == "microcosm drift-control"
-    assert payload["first_run_path"][21]["command"].startswith(
+    assert payload["first_run_path"][19]["command"] == "microcosm view-quality"
+    assert payload["first_run_path"][20]["command"] == "microcosm projection-safety"
+    assert payload["first_run_path"][21]["command"] == "microcosm drift-control"
+    assert payload["first_run_path"][22]["command"].startswith(
         "microcosm world-model-projection-drift-control-room"
     )
-    assert payload["first_run_path"][22]["command"].startswith(
+    assert payload["first_run_path"][23]["command"].startswith(
         "microcosm spatial-world-model-counterfactual-simulation-replay"
     )
-    assert payload["first_run_path"][23]["command"].startswith(
+    assert payload["first_run_path"][24]["command"].startswith(
         "microcosm mechanistic-interpretability-circuit-attribution-replay"
     )
-    assert payload["first_run_path"][24]["command"] == "microcosm route-cleanup"
-    assert payload["first_run_path"][25]["command"] == "microcosm projection-import-map"
-    assert payload["first_run_path"][26]["command"] == "microcosm import-projector"
-    assert payload["first_run_path"][27]["command"] == "microcosm option-surface-lens"
-    assert payload["first_run_path"][28]["command"] == "microcosm stripping-guard"
-    assert payload["first_run_path"][29]["command"] == "microcosm standards-control"
-    assert payload["first_run_path"][30]["command"] == "microcosm hook-coverage"
-    assert payload["first_run_path"][31]["command"] == "microcosm replay-gauntlet"
-    assert payload["first_run_path"][32]["command"].startswith(
+    assert payload["first_run_path"][25]["command"] == "microcosm route-cleanup"
+    assert payload["first_run_path"][26]["command"] == "microcosm projection-import-map"
+    assert payload["first_run_path"][27]["command"] == "microcosm import-projector"
+    assert payload["first_run_path"][28]["command"] == "microcosm option-surface-lens"
+    assert payload["first_run_path"][29]["command"] == "microcosm stripping-guard"
+    assert payload["first_run_path"][30]["command"] == "microcosm standards-control"
+    assert payload["first_run_path"][31]["command"] == "microcosm hook-coverage"
+    assert payload["first_run_path"][32]["command"] == "microcosm replay-gauntlet"
+    assert payload["first_run_path"][33]["command"].startswith(
         "microcosm agent-monitor-redteam-falsification-replay"
     )
-    assert payload["first_run_path"][33]["command"].startswith(
+    assert payload["first_run_path"][34]["command"].startswith(
         "microcosm agent-sabotage-scheming-monitor-replay"
     )
-    assert payload["first_run_path"][34]["command"].startswith(
+    assert payload["first_run_path"][35]["command"].startswith(
         "microcosm agent-memory-temporal-conflict-replay"
     )
-    assert payload["first_run_path"][35]["command"].startswith(
+    assert payload["first_run_path"][36]["command"].startswith(
         "microcosm sleeper-memory-poisoning-quarantine-replay"
     )
-    assert payload["first_run_path"][36]["command"].startswith(
+    assert payload["first_run_path"][37]["command"].startswith(
         "microcosm mcp-tool-authority-replay"
     )
-    assert payload["first_run_path"][37]["command"].startswith(
+    assert payload["first_run_path"][38]["command"].startswith(
         "microcosm proof-derived-governed-mutation-authorization"
     )
-    assert payload["first_run_path"][38]["command"].startswith(
+    assert payload["first_run_path"][39]["command"].startswith(
         "microcosm belief-state-process-reward-replay"
     )
-    assert payload["first_run_path"][39]["command"].startswith(
+    assert payload["first_run_path"][40]["command"].startswith(
         "microcosm agent-sandbox-policy-escape-replay"
     )
-    assert payload["first_run_path"][40]["command"].startswith(
+    assert payload["first_run_path"][41]["command"].startswith(
         "microcosm indirect-prompt-injection-information-flow-policy-replay"
     )
-    assert payload["first_run_path"][41]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
-    assert payload["first_run_path"][42]["command"] == "microcosm benchmark-lab"
-    assert payload["first_run_path"][43]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert payload["first_run_path"][44]["command"] == "microcosm legibility-scorecard"
-    assert payload["first_run_path"][47]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert payload["first_run_path"][42]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
+    assert payload["first_run_path"][43]["command"] == "microcosm benchmark-lab"
+    assert payload["first_run_path"][44]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
+    assert payload["first_run_path"][45]["command"] == "microcosm legibility-scorecard"
+    assert payload["first_run_path"][48]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 
-def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+def test_cli_authority_smoke(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    source_authority = (
+        MICROCOSM_ROOT / "receipts/runtime_shell/public_authority_map.json"
+    )
+    source_reveal = (
+        MICROCOSM_ROOT
+        / "receipts/runtime_shell/public_reveal/public_reveal_view.json"
+    )
+    source_authority_before = source_authority.read_text(encoding="utf-8")
+    source_reveal_before = source_reveal.read_text(encoding="utf-8")
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+
     status = cli.main(["authority"])
 
     payload = json.loads(capsys.readouterr().out)
@@ -238,7 +258,7 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["surface_counts"]["organ_authority_count"] == 44
-    assert payload["surface_counts"]["surface_authority_count"] == 43
+    assert payload["surface_counts"]["surface_authority_count"] == 44
     assert payload["surface_counts"]["organ_evidence_class_count"] == 5
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
@@ -297,6 +317,11 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
         for row in payload["surface_authority"]
     )
     assert any(
+        row["surface_id"] == "public_verifier_lab_execution_spine_lens"
+        and row["bounded_public_external_witness_only"] is True
+        for row in payload["surface_authority"]
+    )
+    assert any(
         row["surface_id"] == "public_agent_sabotage_scheming_monitor_replay_lens"
         for row in payload["surface_authority"]
     )
@@ -306,6 +331,8 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
         == "public_proof_derived_governed_mutation_authorization_lens"
         for row in payload["surface_authority"]
     )
+    assert source_authority.read_text(encoding="utf-8") == source_authority_before
+    assert source_reveal.read_text(encoding="utf-8") == source_reveal_before
     assert any(
         row["surface_id"] == "public_belief_state_process_reward_replay_lens"
         for row in payload["surface_authority"]
