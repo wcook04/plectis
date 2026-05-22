@@ -75,6 +75,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
     "indirect_prompt_injection_information_flow_policy_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay",
 ]
 
 

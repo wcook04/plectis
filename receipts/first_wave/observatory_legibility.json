@@ -1,7 +1,7 @@
 {
   "agent_reliability_replay_gauntlet_proof": {
-    "blocked_episode_count": 8,
-    "episode_count": 10,
+    "blocked_episode_count": 9,
+    "episode_count": 11,
     "lens_id": "public_agent_reliability_replay_gauntlet_lens",
     "live_agent_execution_authorized": false,
     "negative_case_ids": [
@@ -12,6 +12,7 @@
       "tool_scope_without_manifest_denied",
       "standing_credential_authority_rejected",
       "untrusted_tool_output_as_instruction_rejected",
+      "patch_without_regression_tests_rejected",
       "memory_write_without_quarantine_rejected",
       "sleeper_trigger_memory_write_rejected",
       "complete_security_claim_rejected"
@@ -32,7 +33,7 @@
   "blocking_codes": [],
   "causal_chain_proof": {
     "event_count": 7,
-    "evidence_count": 9,
+    "evidence_count": 8,
     "pattern_binding_ids": [
       "repo_has_readme"
     ],
@@ -90,7 +91,7 @@
     "status": "pass",
     "time_budget_minutes": 10
   },
-  "command": "python -m microcosm_core.validators.observatory_legibility --root microcosm-substrate --project microcosm-scratch --out microcosm-substrate/receipts/first_wave/observatory_legibility.json",
+  "command": "python -m microcosm_core.validators.observatory_legibility --root . --project launch_compression_project --out receipts/first_wave/observatory_legibility.json",
   "compression_profile_option_surface_proof": {
     "automatic_profile_selection_authorized": false,
     "lens_id": "public_compression_profile_option_surface_lens",
@@ -368,7 +369,7 @@
     "scanned_path_count": 4,
     "status": "pass"
   },
-  "project_ref": "microcosm-scratch",
+  "project_ref": "launch_compression_project",
   "projection_drift_control_proof": {
     "lens_id": "public_projection_drift_control_lens",
     "live_route_repair_authorized": false,
@@ -419,9 +420,9 @@
       "release_claim_from_projection",
       "irreversible_projection_without_owner_route"
     ],
-    "omission_receipt_count": 40,
+    "omission_receipt_count": 41,
     "private_body_export_count": 0,
-    "projection_row_count": 40,
+    "projection_row_count": 41,
     "status": "pass"
   },
   "proof_loop_depth_proof": {
@@ -528,11 +529,11 @@
     "release_authorized": false,
     "row_count": 8,
     "source_authority_claim_count": 0,
-    "standard_count": 85,
+    "standard_count": 86,
     "standards_completeness_claim": false,
     "standards_registry_source_authority": false,
     "status": "pass",
-    "validator_receipt_ref_count": 181
+    "validator_receipt_ref_count": 185
   },
   "status": "pass",
   "stripping_guard_proof": {

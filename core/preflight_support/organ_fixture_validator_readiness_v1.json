@@ -925,6 +925,38 @@
       ],
       "fixture_manifest": "core/fixture_manifests/indirect_prompt_injection_information_flow_policy_replay.fixture_manifest.json",
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
+    },
+    {
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "fixture_id": "fixture::agentic_vulnerability_discovery_patch_proof_replay::first_wave_contract_v1",
+      "fixture_manifest": "core/fixture_manifests/agentic_vulnerability_discovery_patch_proof_replay.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/benchmark_score_claim.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/cold_replay.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/credential_material.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/exploit_instruction_steps.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/exploitability_proofs.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/false_positive_triage.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/issue_hypotheses.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/live_target_material.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/network_exfiltration.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/patch_diffs.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/patch_without_tests.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/projection_protocol.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/real_cve_exploitation.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/regression_tests.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/sandbox_policy_verdicts.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/target_manifests.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/trace_evidence.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/verifier_receipts.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/vulnerability_policy.json",
+        "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/weaponized_payload_export.json"
+      ],
+      "build_dependencies": [
+        "agent_sandbox_policy_escape_replay",
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization"
+      ]
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

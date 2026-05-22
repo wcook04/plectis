@@ -688,6 +688,23 @@
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_indirect_prompt_injection_information_flow_policy_replay]",
       "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
       "standard_ref": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json"
+    },
+    {
+      "ordinal": 41,
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "standard_id": "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+      "standard_ref": "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agentic_vulnerability_discovery_patch_proof_replay]",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agentic_vulnerability_discovery_patch_proof_replay_public_pressure]",
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
+      "receipt_refs": [
+        "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_result.json",
+        "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_board.json",
+        "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
+      ],
+      "body_redacted": true
     }
   ]
 }

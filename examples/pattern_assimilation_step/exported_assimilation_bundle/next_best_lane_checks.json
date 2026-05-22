@@ -1,16 +1,16 @@
 {
   "next_best_lane_checks": [
     {
-      "body_redacted": true,
-      "check_id": "next_lane_after_indirect_prompt_injection_information_flow_policy_replay",
+      "check_id": "next_lane_after_agentic_vulnerability_discovery_patch_proof_replay",
+      "selected_candidate_consumed": "agentic_vulnerability_discovery_patch_proof_replay",
       "next_best_lane_checked": true,
-      "next_route": "agentic_vulnerability_discovery_patch_proof_replay_compound",
+      "result": "computer_use_action_trace_replay_compound",
+      "next_route": "computer_use_action_trace_replay_compound",
+      "why": "Agentic vulnerability patch-proof replay is now accepted; next pass should prefer computer-use action trace replay unless fresh prep shows a stronger absent public eval-harness contract gap.",
       "next_seed_path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
       "projection_not_authority": true,
       "release_authorized": false,
-      "result": "agentic_vulnerability_discovery_patch_proof_replay_compound",
-      "selected_candidate_consumed": "indirect_prompt_injection_information_flow_policy_replay",
-      "why": "Indirect prompt-injection information-flow replay is now accepted; next pass should prefer agentic vulnerability discovery patch-proof replay unless fresh prep shows a stronger absent public-safety contract gap."
+      "body_redacted": true
     }
   ],
   "schema_version": "pattern_assimilation_step_next_best_lane_checks_v1"

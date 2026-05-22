@@ -119,6 +119,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "agent-sabotage-scheming-monitor-replay",
         "agent-sandbox-policy-escape-replay",
         "indirect-prompt-injection-information-flow-policy-replay",
+        "agentic-vulnerability-discovery-patch-proof-replay",
         "agent-memory-temporal-conflict-replay",
         "sleeper-memory-poisoning-quarantine-replay",
         "mcp-tool-authority-replay",
@@ -138,7 +139,7 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 40
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 41
     assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
@@ -204,10 +205,11 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][39]["command"].startswith(
         "microcosm indirect-prompt-injection-information-flow-policy-replay"
     )
-    assert payload["first_run_path"][40]["command"] == "microcosm benchmark-lab"
-    assert payload["first_run_path"][41]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert payload["first_run_path"][42]["command"] == "microcosm legibility-scorecard"
-    assert payload["first_run_path"][45]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert payload["first_run_path"][40]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
+    assert payload["first_run_path"][41]["command"] == "microcosm benchmark-lab"
+    assert payload["first_run_path"][42]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
+    assert payload["first_run_path"][43]["command"] == "microcosm legibility-scorecard"
+    assert payload["first_run_path"][46]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 
@@ -220,8 +222,8 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 40
-    assert payload["surface_counts"]["surface_authority_count"] == 40
+    assert payload["surface_counts"]["organ_authority_count"] == 41
+    assert payload["surface_counts"]["surface_authority_count"] == 41
     assert any(row["surface_id"] == "project_python_lens" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/authority" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/tour" for row in payload["surface_authority"])
@@ -435,7 +437,7 @@ def test_cli_projection_safety_smoke(capsys: pytest.CaptureFixture[str]) -> None
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm projection-safety"
     assert payload["endpoint"] == "/projection-safety"
-    assert payload["projection_summary"]["omission_receipt_count"] == 40
+    assert payload["projection_summary"]["omission_receipt_count"] == 41
     assert payload["projection_summary"]["private_body_export_count"] == 0
     assert payload["projection_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["source_mutation_authorized"] is False
@@ -601,8 +603,8 @@ def test_cli_replay_gauntlet_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm replay-gauntlet"
     assert payload["endpoint"] == "/replay-gauntlet"
-    assert payload["coverage_summary"]["episode_count"] == 10
-    assert payload["coverage_summary"]["blocked_episode_count"] == 8
+    assert payload["coverage_summary"]["episode_count"] == 11
+    assert payload["coverage_summary"]["blocked_episode_count"] == 9
     assert payload["authority_ceiling"]["live_agent_execution_authorized"] is False
     assert payload["authority_ceiling"]["complete_security_claim"] is False
 

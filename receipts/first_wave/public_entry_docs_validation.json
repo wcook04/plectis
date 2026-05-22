@@ -39,7 +39,8 @@
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay"
+    "indirect_prompt_injection_information_flow_policy_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay"
   ],
   "anti_claim": "Public entry-doc validation proves only standalone public entry documentation, paper module, and cold-start navigation presence. It does not authorize Lean/Lake beyond the bounded public witness organ, public release, hosted-public readiness, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
   "authority_ceiling": {
@@ -52,7 +53,7 @@
   },
   "blocking_codes": [],
   "checker_id": "checker.microcosm.validators.public_entry_docs",
-  "command": "python -m microcosm_core.validators.public_entry_docs --root microcosm-substrate --out microcosm-substrate/receipts/first_wave/public_entry_docs_validation.json",
+  "command": "python -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json",
   "deferred_organs": [],
   "fixture_id": "first_wave.public_entry_docs",
   "forbidden_phrases_by_doc": {},
@@ -64,11 +65,11 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 40,
+    "scanned_path_count": 41,
     "status": "pass"
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/public_entry_docs_validation.json"
+    "receipts/first_wave/public_entry_docs_validation.json"
   ],
   "required_docs": [
     "README.md",
@@ -109,6 +110,7 @@
     "paper_modules/belief_state_process_reward_replay.md",
     "paper_modules/agent_sandbox_policy_escape_replay.md",
     "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md",
+    "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md",
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md"
   ],

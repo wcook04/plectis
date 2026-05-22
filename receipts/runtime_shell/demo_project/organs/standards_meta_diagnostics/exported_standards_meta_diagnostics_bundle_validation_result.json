@@ -1,5 +1,5 @@
 {
-  "accepted_organ_count": 39,
+  "accepted_organ_count": 41,
   "anti_claim": "Standards meta diagnostics summarizes public Microcosm standard, organ, runtime-contract, and receipt coverage only. It does not become source authority for the registries, expose private macro sources, authorize release, call providers, prove theorem correctness, or claim whole-system correctness.",
   "authority_ceiling": {
     "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
@@ -21,6 +21,7 @@
     "agent_route_observability_runtime",
     "agent_sabotage_scheming_monitor_replay",
     "agent_sandbox_policy_escape_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay",
     "belief_state_process_reward_replay",
     "cold_reader_route_map",
     "corpus_readiness_mathlib_absence_gate",
@@ -31,6 +32,7 @@
     "formal_math_premise_retrieval",
     "formal_math_readiness_gate",
     "formal_math_verifier_trace_repair_loop",
+    "indirect_prompt_injection_information_flow_policy_replay",
     "lean_std_premise_index",
     "macro_projection_import_protocol",
     "mathematical_strategy_atlas_hypothesis_scorer",
@@ -55,7 +57,7 @@
     "undeclared_library_prior_symbol_classifier",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-22T09:42:18+00:00",
+  "created_at": "2026-05-22T11:09:32+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -64,7 +66,7 @@
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "standards_meta_diagnostics",
-  "pressure_row_count": 39,
+  "pressure_row_count": 41,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -78,8 +80,8 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json"
   ],
-  "receipt_ref_count": 164,
-  "runtime_contract_count": 39,
+  "receipt_ref_count": 172,
+  "runtime_contract_count": 41,
   "schema_version": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
   "source_pattern_ids": [
     "standards_meta_diagnostics",
@@ -91,7 +93,7 @@
     "microcosm-substrate/core/organ_registry.json",
     "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json"
   ],
-  "standard_mapping_count": 39,
+  "standard_mapping_count": 41,
   "status": "pass",
   "validator_id": "validator.microcosm.organs.standards_meta_diagnostics"
 }

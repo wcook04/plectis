@@ -48,7 +48,7 @@
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 25,
+    "event_count": 423,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -59,7 +59,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-22T10:26:51+00:00",
+  "created_at": "2026-05-22T11:09:30+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -122,7 +122,7 @@
     "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
   ],
-  "project_ref": "scratch_project",
+  "project_ref": "examples/launch_compression_project",
   "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute public-safe tour: compile, inspect, bound authority, inspect prediction/corpus/formal repair lenses, intake/reveal, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
@@ -242,7 +242,7 @@
     "market_boundary_row_count": 8,
     "option_surface_row_count": 6,
     "option_surface_stage_count": 6,
-    "organ_count": 40,
+    "organ_count": 41,
     "prediction_mechanic_count": 5,
     "projection_cell_count": 3,
     "projection_drift_repair_route_count": 8,
@@ -254,8 +254,8 @@
     "repair_loop_negative_case_count": 8,
     "repair_loop_stage_count": 5,
     "repair_loop_transition_count": 4,
-    "replay_blocked_episode_count": 8,
-    "replay_episode_count": 10,
+    "replay_blocked_episode_count": 9,
+    "replay_episode_count": 11,
     "reveal_step_count": 5,
     "route_cleanup_negative_case_count": 8,
     "route_cleanup_row_count": 8,
@@ -263,7 +263,7 @@
     "standards_control_row_count": 8,
     "stripping_guard_negative_case_count": 8,
     "stripping_guard_row_count": 8,
-    "surface_authority_count": 40,
+    "surface_authority_count": 41,
     "trace_negative_case_count": 7,
     "trace_repair_attempt_count": 4,
     "view_quality_action_count": 5,

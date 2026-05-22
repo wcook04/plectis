@@ -176,10 +176,14 @@
     "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
     "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
     "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
-    "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+    "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_result.json",
+    "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_board.json",
+    "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
   ],
   "checker_id": "checker.microcosm.validators.fixture_freshness",
-  "command": "python -m microcosm_core.validators.fixture_freshness --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag microcosm-substrate/core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage microcosm-substrate/core/preflight_support/validator_receipt_coverage_map_v1.json --out microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
+  "command": "python -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
   "fixture_manifest_sha256_by_organ": {
     "agent_benchmark_integrity_anti_gaming_replay": "d7514392ea6fb1f4fa4da9bd72ece18ba48566957c3fa6cda484198965c6b515",
     "agent_memory_temporal_conflict_replay": "28a47887bd460967f4f669479a61528b87cefdce00f5084f39d48da2d63747b5",
@@ -187,6 +191,7 @@
     "agent_route_observability_runtime": "6210d5009758be863a756d55a1e3065a681ba46590fb2ab169127d0dfb840f94",
     "agent_sabotage_scheming_monitor_replay": "6bb54452c734dc7716984eeda09e9ac661912be56962122edb8b89945ccf594d",
     "agent_sandbox_policy_escape_replay": "900201a4ed69580bcba068120b83ff294629a7b03288e4f2fd51e6530262c0b5",
+    "agentic_vulnerability_discovery_patch_proof_replay": "21ad356b416c5bcde4b0fed73f08d3aaad4271a5fd2e9b25a89e058d8bab3592",
     "belief_state_process_reward_replay": "c38cbf828907f7abd7e513f96aa3700a251c09a0d1016ae6b73b6129e2345940",
     "cold_reader_route_map": "ce778265e6360e3d7509673ac502b26c0d1455b54f7fd19e2cbf262fa0a8691d",
     "corpus_readiness_mathlib_absence_gate": "806ce35d6d851943b8e8287e210c57a804f9d08b67f8ec356202dff663112fc9",
@@ -302,6 +307,28 @@
       "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/side_effect_receipts.json": "9c9d4ee4cda475d0b24e481c844e029985298e5dc115dde1d9424173737ce195",
       "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/tool_output_policy_bypass.json": "c1b269f829867e81005ab82d10bfda88c311f95b9516a7bdb1cf11d49af6d740",
       "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/unlogged_side_effect.json": "f59754527b51b66336637f7db93f12eea1d39c4b893f211a5369fa062d1b45fe"
+    },
+    "agentic_vulnerability_discovery_patch_proof_replay": {
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/benchmark_score_claim.json": "5f6013cb8174b95ff2a9ef7562cae59a22866e1692f6a6cebac21a751e42e617",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/cold_replay.json": "42e31595f51c47f3374dd9f49add952b8aab677d81254a8896b6df7b9a122d26",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/credential_material.json": "be465c759203b79b54075299e37ee98c8673e7bebac9d79a30634bb59ffe845a",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/exploit_instruction_steps.json": "189a619cd663375e8a66b06c821f53d8b57639eac7b939a1a05036bcdb588aed",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/exploitability_proofs.json": "c84d81d7a726d0dc180687490001a24bb357105edd988424c676427de5828126",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/false_positive_triage.json": "1511f5540d1a668501ec604e89f2cc5e2d9b4977a991cafa6842414cee4f7720",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/issue_hypotheses.json": "0ad18ed750dfecc65f851f56cacd469874f8d256df0a977ea74c6c4d9d44109a",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/live_target_material.json": "ddc435a7599e1e01b6c31c62c022599c85f9985e9e3fdc69be96f15e74a5fc77",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/network_exfiltration.json": "3c4b620f347e0181cea57c0f97c7c378e406635bfb1f8b25731fae4b558cbdb5",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/patch_diffs.json": "a650b26b7c5946a46aa65088117af1579007d6945bf22b8125054edb1a6a3379",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/patch_without_tests.json": "b377b58576f3c04c0054a3feace8cd6ddae03fbd751314632561b3075685c96c",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/projection_protocol.json": "81eddd98cb1e4b40615048b291740631fc44f44f8030a7de857ab0914599b9b1",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/real_cve_exploitation.json": "de7f3c034dcc3d97e383e220c222a48df050db343f8d6fe98c826de2f8b7ca4d",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/regression_tests.json": "2c653011b141ccdab630a9570bd629f0532fd18ddbec48a8c154bdabade06751",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/sandbox_policy_verdicts.json": "7a06de353dbf9b42fac9c527be2319a27b662f52c2fbcc37bd97c0ea20c72dd2",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/target_manifests.json": "74e1278f7d4dcd8c455ad3069e83b03bd1d426cf7d4535ffb6c1f123d036d0a9",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/trace_evidence.json": "63038008896d21a9565b34346926039dd37bf3b4bba2eb342947a8d1a2df277f",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/verifier_receipts.json": "e6e3b57b38b349182973b4f6ae1c9e997c2286d11b7ac55d2e277290d4e4abd1",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/vulnerability_policy.json": "c9aed5af55882aec209760760bfd6cb03025f33731dc7f7dd9d82c85cd3a152a",
+      "fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input/weaponized_payload_export.json": "1b288f655069f668e66363fd58f6ab5d2fc5c8e06de2c8e9d899e037f1c8e941"
     },
     "belief_state_process_reward_replay": {
       "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json": "b6fb289ba11fb86240814dc657b7d3504a6e78f9a4dbc1933ba42d006b7754fc",
@@ -518,7 +545,7 @@
     "pattern_assimilation_step": {
       "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json": "f9dcecdbb67118793f6a4e14d91ae96d3acc92f47b8edf645eebd98edaf6592b",
       "fixtures/first_wave/pattern_assimilation_step/input/nothing_to_refine_case.json": "48f919e57f616db1b7982e88b43fad692c7074d2d751e681859c6cc889db1879",
-      "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl": "bf00e45ae7b447006f8261f4b84bdb02834a03503c57532ffa43e6a3050a508e",
+      "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl": "a9d88099b0b3b5cd344223c09957d9023d8c282535e38baff0532668e8684e16",
       "fixtures/first_wave/pattern_assimilation_step/input/refinement_case.json": "6f994b3503c7360ddff146e57c6f3ccc10dc57bac20abb20d8c2068d02a13dc3"
     },
     "pattern_binding_contract": {
@@ -641,13 +668,13 @@
       "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulator_product_claim.json": "293c5fa8cc28463e26d04348aa7b9ed2cb14e83a32476b5bb17041d03a4e615c"
     },
     "standards_meta_diagnostics": {
-      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json": "0ca379011ff68f5bda84b5a93b8cd342900d0a944fbf34f084d80a38878f7363",
+      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json": "e53e53bae719c4d057ab28ca26a93ac0a9252605f41f900ff73820b319c07d58",
       "fixtures/first_wave/standards_meta_diagnostics/input/missing_receipt_ref.json": "80dc2017e21a3625b8fe67a1a3fc06bffdd4dbe1cbc7cb6b89714d31c3c580e4",
       "fixtures/first_wave/standards_meta_diagnostics/input/missing_standard_ref.json": "bb98cce927f43c179b57eda6a1d89d94747d26607ffa1aa2ef5742b6c7ff984f",
-      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json": "a4aae1123292b5e7262581ae74dec05feb95bd0aed028f957e7fac955c0ad000",
+      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json": "8d2cfbe96ac05483616ac631682686ec4bfc49d3d22307156578f9df59245490",
       "fixtures/first_wave/standards_meta_diagnostics/input/private_source_leakage.json": "ca7d9712828d8b86791e378d52f4fd5fea6ad948fd83b6299b382c7cade7581d",
       "fixtures/first_wave/standards_meta_diagnostics/input/release_overclaim.json": "a71ce2cbe98321584d19802fb11904857c266482dc21888ffdf5f564e4add046",
-      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json": "b44b69173435ef6f2dded2eaf533fdfe91ea586a433779bb982d036c9ec7ee92",
+      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json": "9dabbb7488e597fe934f3dffadbb5ffed9f76d9993487f5c3897ab6558ad1d53",
       "fixtures/first_wave/standards_meta_diagnostics/input/unmapped_accepted_organ.json": "9e68073b4269823f75237dcfa87ea1f54f04ac474e0b61550f98f264a4691ba6"
     },
     "tactic_portfolio_availability_probe": {
@@ -697,7 +724,7 @@
     }
   },
   "mission_dag_node_refs": {
-    "path": "microcosm-substrate/core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
+    "path": "core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
     "status": "read_for_freshness_context"
   },
   "private_state_scan": {
@@ -709,11 +736,11 @@
     "status": "pass"
   },
   "receipt_coverage_refs": {
-    "path": "microcosm-substrate/core/preflight_support/validator_receipt_coverage_map_v1.json",
+    "path": "core/preflight_support/validator_receipt_coverage_map_v1.json",
     "status": "read_for_freshness_context"
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
+    "receipts/preflight/fixture_runner_freshness.json",
     "receipts/first_wave/acceptance_summary.json"
   ],
   "schema_version": "fixture_runner_freshness_receipt_v1",

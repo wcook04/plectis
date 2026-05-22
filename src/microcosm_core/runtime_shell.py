@@ -17,6 +17,9 @@ from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
 from microcosm_core.organs import agent_sandbox_policy_escape_replay
+from microcosm_core.organs import (
+    agentic_vulnerability_discovery_patch_proof_replay,
+)
 from microcosm_core.organs import belief_state_process_reward_replay
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -482,6 +485,20 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         ),
         receipt_name="exported_prompt_injection_flow_bundle_validation_result.json",
     ),
+    RuntimeStep(
+        organ_id="agentic_vulnerability_discovery_patch_proof_replay",
+        span="agentic_vulnerability_discovery_patch_proof_replay.validate",
+        input_mode="exported_patch_proof_bundle",
+        example_rel=(
+            "examples/agentic_vulnerability_discovery_patch_proof_replay/"
+            "exported_patch_proof_bundle"
+        ),
+        runner=(
+            agentic_vulnerability_discovery_patch_proof_replay
+            .run_patch_proof_bundle
+        ),
+        receipt_name="exported_patch_proof_bundle_validation_result.json",
+    ),
 )
 
 
@@ -773,6 +790,10 @@ class RuntimeShell:
                     (
                         "microcosm indirect-prompt-injection-information-flow-policy-replay "
                         "run-prompt-injection-bundle"
+                    ),
+                    (
+                        "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                        "run-patch-proof-bundle"
                     ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
@@ -1336,6 +1357,20 @@ class RuntimeShell:
                         "allow, warn, block, and review verdicts with sanitized-output and cold-replay receipts",
                         "real-account, secret-exfiltration, raw-prompt, tool-output-instruction, hidden-system-promotion, credential, final-answer-only, and untrusted-privileged-sink denials",
                         "no real email/docs/accounts, raw prompts, credentials, live tool calls, provider payloads, benchmark robustness, source mutation, or release authority",
+                    ],
+                },
+                {
+                    "step_id": "inspect_agentic_vulnerability_discovery_patch_proof_replay",
+                    "command": (
+                        "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                        "run-patch-proof-bundle"
+                    ),
+                    "shows": [
+                        "three synthetic targets and four issue hypotheses before vulnerability language is admitted",
+                        "trace evidence, abstract exploitability refs, patch diff refs, regression tests, verifier receipts, and sandbox verdicts",
+                        "false-positive triage and cold replay receipts before pass labels",
+                        "live-target, real-CVE, weaponized-payload, credential, network-exfiltration, exploit-instruction, testless-patch, and benchmark-score denials",
+                        "no live security testing, exploit authority, provider execution, source mutation, benchmark score, or release authority",
                     ],
                 },
                 {
@@ -4762,6 +4797,52 @@ class RuntimeShell:
                 "provider_payload_exported": False,
             },
             {
+                "projection_id": "public_agentic_vulnerability_discovery_patch_proof_replay_lens",
+                "command": (
+                    "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                    "run-patch-proof-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "public_ref": (
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agentic_vulnerability_discovery_patch_proof_replay/"
+                    "exported_patch_proof_bundle_validation_result.json"
+                ),
+                "owner_route": (
+                    "microcosm_core.organs."
+                    "agentic_vulnerability_discovery_patch_proof_replay"
+                ),
+                "authority_ceiling_ref": (
+                    "microcosm authority::"
+                    "public_agentic_vulnerability_discovery_patch_proof_replay_lens"
+                ),
+                "omission_receipt": {
+                    "omitted": [
+                        "live targets",
+                        "real CVE exploitation details",
+                        "weaponized payloads",
+                        "credentials or account state",
+                        "network exfiltration steps",
+                        "provider payloads",
+                        "raw issue or patch bodies",
+                        "benchmark security-score claims",
+                    ],
+                    "drilldown": (
+                        "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                        "run-patch-proof-bundle"
+                    ),
+                    "source_ref": (
+                        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
+                        "agentic_vulnerability_discovery_patch_proof_replay_compound"
+                    ),
+                },
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "private_body_exported": False,
+                "proof_body_exported": False,
+                "provider_payload_exported": False,
+            },
+            {
                 "projection_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
                     "microcosm agent-memory-temporal-conflict-replay "
@@ -6998,6 +7079,7 @@ class RuntimeShell:
             "proof_derived_governed_mutation_authorization_compound",
             "belief_state_process_reward_replay_compound",
             "indirect_prompt_injection_information_flow_policy_replay_compound",
+            "agentic_vulnerability_discovery_patch_proof_replay_compound",
             "agent_memory_temporal_conflict_replay_compound",
             "sleeper_memory_poisoning_quarantine_replay_compound",
         ]
@@ -7198,6 +7280,38 @@ class RuntimeShell:
                 "body_redacted": True,
             },
             {
+                "episode_id": "agentic_vulnerability_patch_proof_gate",
+                "source_pattern_id": "agentic_vulnerability_discovery_patch_proof_replay_compound",
+                "threat_model": (
+                    "agent claims a vulnerability was proven from a report or "
+                    "patch sketch without tests, sandbox policy, or replay"
+                ),
+                "fixture_input": (
+                    "synthetic target, issue, trace, patch, verifier, and sandbox "
+                    "refs with exploit details omitted"
+                ),
+                "generated_receipt_ref": (
+                    "receipts/first_wave/"
+                    "agentic_vulnerability_discovery_patch_proof_replay/"
+                    "agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json"
+                ),
+                "cold_reader_command": (
+                    "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                    "run-patch-proof-bundle"
+                ),
+                "monitor_verdict": "blocked",
+                "containment_action": (
+                    "require_trace_patch_test_verifier_sandbox_and_cold_replay_receipts"
+                ),
+                "negative_case_id": "patch_without_regression_tests_rejected",
+                "fake_secret_count": 0,
+                "untrusted_tool_output_body_exported": False,
+                "real_secret_material_exported": False,
+                "memory_write_applied": False,
+                "live_tool_call_authorized": False,
+                "body_redacted": True,
+            },
+            {
                 "episode_id": "memory_temporal_conflict_quarantine",
                 "source_pattern_id": "agent_memory_temporal_conflict_replay_compound",
                 "threat_model": "new memory conflicts with older stable preference and asks to overwrite it",
@@ -7252,6 +7366,7 @@ class RuntimeShell:
             "tool_scope_without_manifest_denied",
             "standing_credential_authority_rejected",
             "untrusted_tool_output_as_instruction_rejected",
+            "patch_without_regression_tests_rejected",
             "memory_write_without_quarantine_rejected",
             "sleeper_trigger_memory_write_rejected",
             "complete_security_claim_rejected",
@@ -8964,6 +9079,28 @@ class RuntimeShell:
                 "tool_output_instruction_authority_authorized": False,
                 "hidden_system_message_promotion_authorized": False,
                 "general_prompt_injection_robustness_claim_authorized": False,
+                "benchmark_score_claim_authorized": False,
+            },
+            {
+                "surface_id": "public_agentic_vulnerability_discovery_patch_proof_replay_lens",
+                "command": (
+                    "microcosm agentic-vulnerability-discovery-patch-proof-replay "
+                    "run-patch-proof-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "authority_role": (
+                    "synthetic agentic vulnerability patch-proof replay and "
+                    "live-security boundary"
+                ),
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "live_target_authorized": False,
+                "real_cve_exploitation_authorized": False,
+                "weaponized_payload_export_authorized": False,
+                "credential_handling_authorized": False,
+                "network_exfiltration_authorized": False,
+                "exploit_instruction_authorized": False,
                 "benchmark_score_claim_authorized": False,
             },
             {

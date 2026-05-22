@@ -39,11 +39,12 @@
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay"
+    "indirect_prompt_injection_information_flow_policy_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay"
   ],
   "body_redacted": true,
-  "minimum_runtime_contract_count": 40,
-  "minimum_standard_mapping_count": 40,
+  "minimum_runtime_contract_count": 41,
+  "minimum_standard_mapping_count": 41,
   "private_data_equivalence_claim": false,
   "provider_calls_authorized": false,
   "publication_authorized": false,

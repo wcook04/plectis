@@ -87,6 +87,7 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "belief_state_process_reward_replay",
         "agent_sandbox_policy_escape_replay",
         "indirect_prompt_injection_information_flow_policy_replay",
+        "agentic_vulnerability_discovery_patch_proof_replay",
     ]
     assert receipt["deferred_organs"] == []
     assert receipt["private_state_scan"]["body_redacted"] is True

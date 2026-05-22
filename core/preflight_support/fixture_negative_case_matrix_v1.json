@@ -287,6 +287,22 @@
       ],
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
       "status": "covered_by_fixture_manifest"
+    },
+    {
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "case_id": "agentic_vulnerability_discovery_patch_proof_replay_negative_cases",
+      "expected_negative_cases": [
+        "benchmark_score_claim",
+        "credential_material",
+        "exploit_instruction_steps",
+        "live_target_material",
+        "network_exfiltration",
+        "patch_without_tests",
+        "real_cve_exploitation",
+        "weaponized_payload_export"
+      ],
+      "status": "covered_by_fixture_manifest",
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts."
     }
   ],
   "schema_version": "public_preflight_support_fixture_negative_case_matrix_v1"

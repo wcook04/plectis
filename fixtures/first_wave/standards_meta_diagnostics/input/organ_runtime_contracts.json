@@ -359,6 +359,15 @@
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::indirect_prompt_injection_information_flow_policy_replay"
+    },
+    {
+      "ordinal": 41,
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "cli_command": "microcosm agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle --input examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle --out receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay",
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agentic_vulnerability_discovery_patch_proof_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
+      "runtime_receipt_count": 4,
+      "body_redacted": true
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

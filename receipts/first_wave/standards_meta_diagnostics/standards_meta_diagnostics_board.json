@@ -13,12 +13,12 @@
   "body_redacted": true,
   "bundle_id": null,
   "diagnostic_projection": {
-    "accepted_organ_count": 40,
+    "accepted_organ_count": 41,
     "body_redacted": true,
-    "pressure_row_count": 40,
-    "receipt_ref_count": 168,
-    "runtime_contract_count": 40,
-    "standard_mapping_count": 40
+    "pressure_row_count": 41,
+    "receipt_ref_count": 172,
+    "runtime_contract_count": 41,
+    "standard_mapping_count": 41
   },
   "input_mode": "first_wave_fixture",
   "organ_id": "standards_meta_diagnostics",
@@ -40,10 +40,10 @@
     "standards_are_mapped_to_organs": true
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
-    "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
-    "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+    "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
   ],
   "schema_version": "standards_meta_diagnostics_board_v1",
   "selected_pattern_ids": [

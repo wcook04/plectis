@@ -10,6 +10,9 @@ from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
 from microcosm_core.organs import agent_sandbox_policy_escape_replay
+from microcosm_core.organs import (
+    agentic_vulnerability_discovery_patch_proof_replay,
+)
 from microcosm_core.organs import belief_state_process_reward_replay
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -284,6 +287,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(prompt_injection_parser)
     prompt_injection_parser.add_argument("--acceptance-out")
+
+    agentic_vuln_parser = subparsers.add_parser(
+        "agentic-vulnerability-discovery-patch-proof-replay"
+    )
+    agentic_vuln_parser.add_argument(
+        "action", choices=["run", "run-patch-proof-bundle"]
+    )
+    _add_input_out(agentic_vuln_parser)
+    agentic_vuln_parser.add_argument("--acceptance-out")
 
     memory_conflict_parser = subparsers.add_parser(
         "agent-memory-temporal-conflict-replay"
@@ -687,6 +699,13 @@ def main(argv: list[str] | None = None) -> int:
             prompt_injection_args.extend(["--acceptance-out", args.acceptance_out])
         return indirect_prompt_injection_information_flow_policy_replay.main(
             prompt_injection_args
+        )
+    if args.command == "agentic-vulnerability-discovery-patch-proof-replay":
+        agentic_vuln_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            agentic_vuln_args.extend(["--acceptance-out", args.acceptance_out])
+        return agentic_vulnerability_discovery_patch_proof_replay.main(
+            agentic_vuln_args
         )
     if args.command == "agent-memory-temporal-conflict-replay":
         memory_conflict_args = [args.action, "--input", args.input, "--out", args.out]

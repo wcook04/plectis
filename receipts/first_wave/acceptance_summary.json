@@ -1,5 +1,5 @@
 {
-  "accepted_count": 40,
+  "accepted_count": 41,
   "accepted_current_authority_organs": [
     "pattern_binding_contract",
     "executable_doctrine_grammar",
@@ -40,7 +40,8 @@
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay"
+    "indirect_prompt_injection_information_flow_policy_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay"
   ],
   "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, release, provider calls, private-data equivalence, or whole-system correctness.",
   "authority_ceiling": {
@@ -53,11 +54,11 @@
   "checker_id": "checker.microcosm.validators.fixture_freshness",
   "deferred_organs": [],
   "dependency_preflight_receipt": "receipts/preflight/dependency_preflight.json",
-  "fixture_freshness_receipt": "microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
+  "fixture_freshness_receipt": "receipts/preflight/fixture_runner_freshness.json",
   "lean_lake_authorized": "bounded_public_witness_only",
   "preflight_receipts": [
     "receipts/preflight/dependency_preflight.json",
-    "microcosm-substrate/receipts/preflight/fixture_runner_freshness.json"
+    "receipts/preflight/fixture_runner_freshness.json"
   ],
   "private_data_equivalence_authorized": false,
   "private_state_scan": {

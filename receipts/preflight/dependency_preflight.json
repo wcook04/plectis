@@ -50,10 +50,11 @@
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay"
+    "indirect_prompt_injection_information_flow_policy_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
-  "command": "python -m microcosm_core.validators.dependency_preflight --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --out microcosm-substrate/receipts/preflight/dependency_preflight.json",
+  "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
   "dependency_checks": [
     {
       "build_dependencies": [],
@@ -506,6 +507,16 @@
       "missing_dependencies": [],
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_sandbox_policy_escape_replay",
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -908,9 +919,19 @@
       "missing_fixture_inputs": [],
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::agentic_vulnerability_discovery_patch_proof_replay::first_wave_contract_v1",
+      "fixture_input_count": 20,
+      "fixture_manifest": "core/fixture_manifests/agentic_vulnerability_discovery_patch_proof_replay.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 20,
+      "missing_fixture_inputs": [],
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 19,
+  "negative_matrix_case_count": 20,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -920,7 +941,7 @@
     "status": "pass"
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/preflight/dependency_preflight.json"
+    "receipts/preflight/dependency_preflight.json"
   ],
   "schema_version": "dependency_preflight_receipt_v1",
   "status": "pass",
@@ -971,7 +992,8 @@
       "proof_derived_governed_mutation_authorization",
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
-      "indirect_prompt_injection_information_flow_policy_replay"
+      "indirect_prompt_injection_information_flow_policy_replay",
+      "agentic_vulnerability_discovery_patch_proof_replay"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -1013,7 +1035,8 @@
       "proof_derived_governed_mutation_authorization",
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
-      "indirect_prompt_injection_information_flow_policy_replay"
+      "indirect_prompt_injection_information_flow_policy_replay",
+      "agentic_vulnerability_discovery_patch_proof_replay"
     ],
     "status": "pass"
   }

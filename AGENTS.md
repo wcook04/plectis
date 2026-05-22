@@ -53,6 +53,7 @@ explanation, and assimilation primitives, not through production claims.
 - `belief_state_process_reward_replay`
 - `agent_sandbox_policy_escape_replay`
 - `indirect_prompt_injection_information_flow_policy_replay`
+- `agentic_vulnerability_discovery_patch_proof_replay`
 
 ## Rules
 
@@ -249,6 +250,16 @@ explanation, and assimilation primitives, not through production claims.
    It must not export real account material, secrets, raw prompt bodies,
    credentials, hidden system messages, provider payloads, source mutation,
    live tool calls, benchmark claims, or release authority.
+   The `agentic_vulnerability_discovery_patch_proof_replay` organ is the
+   runnable public patch-proof vulnerability lane: use
+   `agentic-vulnerability-discovery-patch-proof-replay` or `replay-gauntlet`
+   to validate synthetic targets, issue hypotheses, trace evidence, abstract
+   exploitability refs, patch diffs, regression tests, verifier receipts,
+   sandbox policy verdicts, false-positive triage, cold replay, and negative
+   cases before vulnerability-discovery language is admitted. It must not
+   export live targets, real CVE exploitation, weaponized payloads,
+   credentials, network exfiltration, actionable exploit steps, provider
+   payloads, source mutation, benchmark claims, or release authority.
    The `agent_memory_temporal_conflict_replay` organ is the runnable public
    memory temporal-conflict lane: use
    `agent-memory-temporal-conflict-replay` or `replay-gauntlet` to validate
@@ -499,6 +510,7 @@ explanation, and assimilation primitives, not through production claims.
    `agent_sabotage_scheming_monitor_replay`, and
    `agent_sandbox_policy_escape_replay`,
    `indirect_prompt_injection_information_flow_policy_replay`, and
+   `agentic_vulnerability_discovery_patch_proof_replay`, and
    `provider_context_recipe_budget_policy` are
    metadata/retrieval/admissibility/metric/context-budget lanes only, and
    `formal_math_lean_proof_witness` authorizes only the tiny public witness

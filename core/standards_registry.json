@@ -12,7 +12,7 @@
   "first_wave_required_standard_count": 85,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 85,
+  "standard_count": 86,
   "standards": [
     {
       "first_wave_required": true,
@@ -1295,6 +1295,17 @@
       ],
       "validator_id": "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay",
       "wave": "w1_indirect_prompt_injection_information_flow_policy_replay"
+    },
+    {
+      "standard_id": "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+      "kind_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "path": "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
+      "receipt_id": "receipt.microcosm.agentic_vulnerability_discovery_patch_proof_replay",
+      "used_by_organs": [
+        "agentic_vulnerability_discovery_patch_proof_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.agentic_vulnerability_discovery_patch_proof_replay",
+      "wave": "w1_agentic_vulnerability_discovery_patch_proof_replay"
     }
   ],
   "status": "current_public_standard_registry_indirect_prompt_injection_information_flow_policy_replay_bound"

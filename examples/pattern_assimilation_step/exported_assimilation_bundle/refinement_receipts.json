@@ -384,6 +384,17 @@
       "projection_not_authority": true,
       "receipt_id": "refine_indirect_prompt_injection_information_flow_policy_replay_bundle",
       "refinement_result": "validator_contract_refined"
+    },
+    {
+      "receipt_id": "refine_agentic_vulnerability_discovery_patch_proof_replay_bundle",
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/agentic_vulnerability_discovery_patch_proof_replay.py",
+      "changed_surface_ref": "microcosm-substrate/examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/bundle_manifest.json",
+      "refinement_result": "validator_contract_refined",
+      "claims_global_doctrine_authority": false,
+      "projection_not_authority": true,
+      "live_doctrine_authority": false,
+      "body_redacted": true
     }
   ],
   "schema_version": "pattern_assimilation_step_refinement_receipts_v1"

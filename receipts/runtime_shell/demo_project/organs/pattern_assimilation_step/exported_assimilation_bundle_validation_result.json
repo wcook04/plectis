@@ -38,7 +38,9 @@
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay"
+    "agent_sandbox_policy_escape_replay",
+    "indirect_prompt_injection_information_flow_policy_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay"
   ],
   "anti_claim": "The exported assimilation bundle validates public organ-landing, refinement, nothing-to-refine, stewardship, re-entry, and next-best-lane metadata. It does not read raw seed bodies, mutate live Task Ledger, promote global doctrine, authorize release, call providers, or prove live learning behavior.",
   "assimilation_policy": {
@@ -62,7 +64,7 @@
     "release_or_publication_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "cf6828350ba54b7530a9fe8e544b4e10379ecd06750afd83a4b490253189caa1",
+  "bundle_fingerprint": "88c0d15584c23e6d28a0b52a65c59e6c2cb0b70113e80ea5fa624b8a8cfce7b8",
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "bundle_manifest_schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
   "closeout_by_organ": {
@@ -72,6 +74,7 @@
     "agent_route_observability_runtime": "validator_contract_refined",
     "agent_sabotage_scheming_monitor_replay": "validator_contract_refined",
     "agent_sandbox_policy_escape_replay": "validator_contract_refined",
+    "agentic_vulnerability_discovery_patch_proof_replay": "validator_contract_refined",
     "belief_state_process_reward_replay": "validator_contract_refined",
     "cold_reader_route_map": "validator_contract_refined",
     "corpus_readiness_mathlib_absence_gate": "validator_contract_refined",
@@ -82,6 +85,7 @@
     "formal_math_premise_retrieval": "validator_contract_refined",
     "formal_math_readiness_gate": "validator_contract_refined",
     "formal_math_verifier_trace_repair_loop": "validator_contract_refined",
+    "indirect_prompt_injection_information_flow_policy_replay": "validator_contract_refined",
     "lean_std_premise_index": "validator_contract_refined",
     "macro_projection_import_protocol": "validator_contract_refined",
     "mathematical_strategy_atlas_hypothesis_scorer": "validator_contract_refined",
@@ -106,8 +110,8 @@
     "undeclared_library_prior_symbol_classifier": "validator_contract_refined",
     "world_model_projection_drift_control_room": "validator_contract_refined"
   },
-  "command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
-  "created_at": "2026-05-22T09:42:39+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T11:09:32+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -121,6 +125,7 @@
     "agent_route_observability_runtime",
     "agent_sabotage_scheming_monitor_replay",
     "agent_sandbox_policy_escape_replay",
+    "agentic_vulnerability_discovery_patch_proof_replay",
     "belief_state_process_reward_replay",
     "cold_reader_route_map",
     "corpus_readiness_mathlib_absence_gate",
@@ -131,6 +136,7 @@
     "formal_math_premise_retrieval",
     "formal_math_readiness_gate",
     "formal_math_verifier_trace_repair_loop",
+    "indirect_prompt_injection_information_flow_policy_replay",
     "lean_std_premise_index",
     "macro_projection_import_protocol",
     "mathematical_strategy_atlas_hypothesis_scorer",
@@ -161,6 +167,7 @@
     "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+    "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
     "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
@@ -170,6 +177,7 @@
     "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
     "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
     "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
+    "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
     "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
     "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
@@ -199,9 +207,9 @@
   "metadata_projection_not_live_learning_authority": true,
   "missing_negative_cases": [],
   "next_best_lane_check_count": 1,
-  "next_best_lane_result": "indirect_prompt_injection_information_flow_policy_replay_compound",
+  "next_best_lane_result": "computer_use_action_trace_replay_compound",
   "next_routes": [
-    "indirect_prompt_injection_information_flow_policy_replay_compound"
+    "computer_use_action_trace_replay_compound"
   ],
   "next_seed_paths": [
     "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
@@ -212,9 +220,9 @@
     "nothing_to_refine_proof_spine_adapter"
   ],
   "observed_negative_cases": {},
-  "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_and_sandbox_policy_escape_bound",
+  "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_and_agentic_vulnerability_patch_proof_bound",
   "organ_id": "pattern_assimilation_step",
-  "organ_landing_count": 39,
+  "organ_landing_count": 41,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -249,6 +257,7 @@
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
     "microcosm-substrate/src/microcosm_core/organs/agent_sabotage_scheming_monitor_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
+    "microcosm-substrate/src/microcosm_core/organs/agentic_vulnerability_discovery_patch_proof_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/belief_state_process_reward_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/cold_reader_route_map.py",
     "microcosm-substrate/src/microcosm_core/organs/corpus_readiness_mathlib_absence_gate.py",
@@ -259,6 +268,7 @@
     "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
     "microcosm-substrate/src/microcosm_core/organs/formal_math_readiness_gate.py",
     "microcosm-substrate/src/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
+    "microcosm-substrate/src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
     "microcosm-substrate/src/microcosm_core/organs/lean_std_premise_index.py",
     "microcosm-substrate/src/microcosm_core/organs/macro_projection_import_protocol.py",
     "microcosm-substrate/src/microcosm_core/organs/mathematical_strategy_atlas_hypothesis_scorer.py",
@@ -279,12 +289,13 @@
     "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
     "microcosm-substrate/src/microcosm_core/validators/acceptance.py"
   ],
-  "refinement_receipt_count": 34,
+  "refinement_receipt_count": 36,
   "refinement_receipt_ids": [
     "refine_agent_benchmark_integrity_anti_gaming_replay_bundle",
     "refine_agent_memory_temporal_conflict_replay_bundle",
     "refine_agent_sabotage_scheming_monitor_replay_bundle",
     "refine_agent_sandbox_policy_escape_replay_bundle",
+    "refine_agentic_vulnerability_discovery_patch_proof_replay_bundle",
     "refine_belief_state_process_reward_replay_bundle",
     "refine_cold_reader_route_map_bundle",
     "refine_corpus_readiness_mathlib_absence_bundle",
@@ -295,6 +306,7 @@
     "refine_formal_math_premise_retrieval_bundle",
     "refine_formal_math_readiness_exported_bundle",
     "refine_formal_math_verifier_trace_repair_loop_bundle",
+    "refine_indirect_prompt_injection_information_flow_policy_replay_bundle",
     "refine_lean_std_premise_index_bundle",
     "refine_macro_projection_import_protocol_bundle",
     "refine_mathematical_strategy_atlas_hypothesis_scorer_bundle",
@@ -322,6 +334,7 @@
     "agent_route_observability_runtime": "validator_contract_refined",
     "agent_sabotage_scheming_monitor_replay": "validator_contract_refined",
     "agent_sandbox_policy_escape_replay": "validator_contract_refined",
+    "agentic_vulnerability_discovery_patch_proof_replay": "validator_contract_refined",
     "belief_state_process_reward_replay": "validator_contract_refined",
     "cold_reader_route_map": "validator_contract_refined",
     "corpus_readiness_mathlib_absence_gate": "validator_contract_refined",
@@ -332,6 +345,7 @@
     "formal_math_premise_retrieval": "validator_contract_refined",
     "formal_math_readiness_gate": "validator_contract_refined",
     "formal_math_verifier_trace_repair_loop": "validator_contract_refined",
+    "indirect_prompt_injection_information_flow_policy_replay": "validator_contract_refined",
     "lean_std_premise_index": "validator_contract_refined",
     "macro_projection_import_protocol": "validator_contract_refined",
     "mathematical_strategy_atlas_hypothesis_scorer": "validator_contract_refined",

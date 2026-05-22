@@ -202,8 +202,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["view_quality_action_map_proof"]["hot_action_count"] == 4
     assert receipt["view_quality_action_map_proof"]["private_screenshot_paths_exported"] is False
     assert receipt["projection_safety_audit_proof"]["lens_id"] == "public_projection_safety_audit_lens"
-    assert receipt["projection_safety_audit_proof"]["projection_row_count"] == 40
-    assert receipt["projection_safety_audit_proof"]["omission_receipt_count"] == 40
+    assert receipt["projection_safety_audit_proof"]["projection_row_count"] == 41
+    assert receipt["projection_safety_audit_proof"]["omission_receipt_count"] == 41
     assert receipt["projection_safety_audit_proof"]["private_body_export_count"] == 0
     assert receipt["market_prediction_boundary_proof"]["lens_id"] == (
         "public_market_prediction_evidence_boundary_lens"
@@ -276,8 +276,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["agent_reliability_replay_gauntlet_proof"]["lens_id"] == (
         "public_agent_reliability_replay_gauntlet_lens"
     )
-    assert receipt["agent_reliability_replay_gauntlet_proof"]["episode_count"] == 10
-    assert receipt["agent_reliability_replay_gauntlet_proof"]["blocked_episode_count"] == 8
+    assert receipt["agent_reliability_replay_gauntlet_proof"]["episode_count"] == 11
+    assert receipt["agent_reliability_replay_gauntlet_proof"]["blocked_episode_count"] == 9
     assert receipt["agent_reliability_replay_gauntlet_proof"]["live_agent_execution_authorized"] is False
     assert receipt["repository_benchmark_transaction_lab_proof"]["lens_id"] == (
         "public_repository_benchmark_transaction_lab_lens"
