@@ -12,7 +12,7 @@
     "whole_system_correctness_claim": false
   },
   "command_count": 8,
-  "created_at": "2026-05-22T07:10:11+00:00",
+  "created_at": "2026-05-22T07:56:20+00:00",
   "evidence_ref": "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
   "evidence_ref_count": 11,
   "public_claim": "Microcosm turns a repo into a local operating substrate: patterns, routes, work transactions, events, evidence, and explanations.",

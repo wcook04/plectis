@@ -323,6 +323,15 @@
       "organ_id": "proof_derived_governed_mutation_authorization",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::proof_derived_governed_mutation_authorization"
+    },
+    {
+      "body_redacted": true,
+      "cli_command": "microcosm belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+      "ordinal": 37,
+      "organ_id": "belief_state_process_reward_replay",
+      "runtime_receipt_count": 4,
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::belief_state_process_reward_replay"
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

@@ -1,0 +1,166 @@
+{
+  "belief_states": [
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_terminal_1",
+      "belief_state_json": {
+        "candidate_next_actions": [
+          "terminal_action_1",
+          "terminal_verify_1"
+        ],
+        "known_facts": [
+          "terminal_public_fact_1"
+        ],
+        "uncertainties": [
+          "terminal_remaining_uncertainty_1"
+        ]
+      },
+      "body_redacted": true,
+      "episode_id": "ep_terminal_investigation_001",
+      "feedback_ref": "fb_terminal_1",
+      "hidden_chain_of_thought_exported": false,
+      "observation_digest_ref": "obs_terminal_1",
+      "predicted_next_evidence": [
+        "expected_terminal_evidence_1"
+      ],
+      "private_ref_metadata_only": true,
+      "step_id": "terminal_step_1",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_terminal_2",
+      "belief_state_json": {
+        "candidate_next_actions": [
+          "terminal_action_2",
+          "terminal_verify_2"
+        ],
+        "known_facts": [
+          "terminal_public_fact_2"
+        ],
+        "uncertainties": [
+          "terminal_remaining_uncertainty_2"
+        ]
+      },
+      "body_redacted": true,
+      "episode_id": "ep_terminal_investigation_001",
+      "feedback_ref": "fb_terminal_2",
+      "hidden_chain_of_thought_exported": false,
+      "observation_digest_ref": "obs_terminal_2",
+      "predicted_next_evidence": [
+        "expected_terminal_evidence_2"
+      ],
+      "private_ref_metadata_only": true,
+      "step_id": "terminal_step_2",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_shop_1",
+      "belief_state_json": {
+        "candidate_next_actions": [
+          "shop_action_1",
+          "shop_verify_1"
+        ],
+        "known_facts": [
+          "shop_public_fact_1"
+        ],
+        "uncertainties": [
+          "shop_remaining_uncertainty_1"
+        ]
+      },
+      "body_redacted": true,
+      "episode_id": "ep_mock_purchase_001",
+      "feedback_ref": "fb_shop_1",
+      "hidden_chain_of_thought_exported": false,
+      "observation_digest_ref": "obs_shop_1",
+      "predicted_next_evidence": [
+        "expected_shop_evidence_1"
+      ],
+      "private_ref_metadata_only": true,
+      "step_id": "shop_step_1",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_shop_2",
+      "belief_state_json": {
+        "candidate_next_actions": [
+          "shop_action_2",
+          "shop_verify_2"
+        ],
+        "known_facts": [
+          "shop_public_fact_2"
+        ],
+        "uncertainties": [
+          "shop_remaining_uncertainty_2"
+        ]
+      },
+      "body_redacted": true,
+      "episode_id": "ep_mock_purchase_001",
+      "feedback_ref": "fb_shop_2",
+      "hidden_chain_of_thought_exported": false,
+      "observation_digest_ref": "obs_shop_2",
+      "predicted_next_evidence": [
+        "expected_shop_evidence_2"
+      ],
+      "private_ref_metadata_only": true,
+      "step_id": "shop_step_2",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_plan_1",
+      "belief_state_json": {
+        "candidate_next_actions": [
+          "plan_action_1",
+          "plan_verify_1"
+        ],
+        "known_facts": [
+          "plan_public_fact_1"
+        ],
+        "uncertainties": [
+          "plan_remaining_uncertainty_1"
+        ]
+      },
+      "body_redacted": true,
+      "episode_id": "ep_formal_planning_001",
+      "feedback_ref": "fb_plan_1",
+      "hidden_chain_of_thought_exported": false,
+      "observation_digest_ref": "obs_plan_1",
+      "predicted_next_evidence": [
+        "expected_plan_evidence_1"
+      ],
+      "private_ref_metadata_only": true,
+      "step_id": "plan_step_1",
+      "trajectory_group_id": "traj_plan_001"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_plan_2",
+      "belief_state_json": {
+        "candidate_next_actions": [
+          "plan_action_2",
+          "plan_verify_2"
+        ],
+        "known_facts": [
+          "plan_public_fact_2"
+        ],
+        "uncertainties": [
+          "plan_remaining_uncertainty_2"
+        ]
+      },
+      "body_redacted": true,
+      "episode_id": "ep_formal_planning_001",
+      "feedback_ref": "fb_plan_2",
+      "hidden_chain_of_thought_exported": false,
+      "observation_digest_ref": "obs_plan_2",
+      "predicted_next_evidence": [
+        "expected_plan_evidence_2"
+      ],
+      "private_ref_metadata_only": true,
+      "step_id": "plan_step_2",
+      "trajectory_group_id": "traj_plan_001"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "anti_claim": "This fixture validates public synthetic belief-state process reward replay metadata only; it does not export hidden reasoning, run RL, use hidden gold labels, rely on neural-judge-only labels, claim benchmark performance, call providers, mutate source, or authorize release.",
+  "authority_ceiling": "synthetic belief-state process reward replay receipts only; no hidden reasoning, live RL, neural-judge-only, hidden-gold, benchmark-score, provider, source-mutation, or release authority",
+  "body_redacted": true,
+  "expected_negative_cases": [
+    "hidden_chain_of_thought_export",
+    "neural_judge_only_process_label",
+    "hidden_gold_label",
+    "reward_by_formatting",
+    "verifier_bypass",
+    "benchmark_performance_claim",
+    "final_answer_only_scoring"
+  ],
+  "fixture_id": "fixture::belief_state_process_reward_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_result.json",
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_board.json",
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/projection_protocol.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/reward_policy.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/task_episodes.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/verifier_feedback.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/trajectory_groups.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/cold_replay.json",
+      "role": "positive fixture input"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/hidden_chain_of_thought_export.json",
+      "role": "expected negative-case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/neural_judge_only_process_label.json",
+      "role": "expected negative-case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/hidden_gold_label.json",
+      "role": "expected negative-case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/reward_by_formatting.json",
+      "role": "expected negative-case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/verifier_bypass.json",
+      "role": "expected negative-case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/benchmark_performance_claim.json",
+      "role": "expected negative-case fixture"
+    },
+    {
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/final_answer_only_scoring.json",
+      "role": "expected negative-case fixture"
+    }
+  ],
+  "organ_id": "belief_state_process_reward_replay",
+  "private_state_scan_posture": "scan fixture inputs and receipts against public forbidden-class sentinels; emit redacted output labels only",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json",
+  "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay --acceptance-out receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+  "validator_ref": "microcosm_core.organs.belief_state_process_reward_replay"
+}

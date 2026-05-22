@@ -1,0 +1,33 @@
+{
+  "allowed_process_reward_sources": [
+    "deterministic_verifier",
+    "observed_environment_feedback"
+  ],
+  "benchmark_score_claim_authorized": false,
+  "body_redacted": true,
+  "hidden_gold_label_authorized": false,
+  "hidden_reasoning_export_authorized": false,
+  "live_rl_training_authorized": false,
+  "minimum_reliability_score": 0.8,
+  "neural_judge_only_authorized": false,
+  "policy_id": "belief_process_reward_public_policy_v1",
+  "private_ref_metadata_only": true,
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "required_belief_state_fields": [
+    "belief_state_id",
+    "episode_id",
+    "step_id",
+    "observation_digest_ref",
+    "belief_state_json",
+    "predicted_next_evidence",
+    "feedback_ref",
+    "belief_discrepancy",
+    "trajectory_group_id",
+    "body_redacted",
+    "private_ref_metadata_only"
+  ],
+  "requires_cold_replay": true,
+  "requires_outcome_reward": true,
+  "requires_reward_hacking_trap": true
+}

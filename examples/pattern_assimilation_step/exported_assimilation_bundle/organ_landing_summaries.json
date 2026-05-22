@@ -323,6 +323,15 @@
       "live_learning_authority": false,
       "organ_id": "proof_derived_governed_mutation_authorization",
       "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "belief_state_process_reward_replay",
+      "projection_not_authority": true
     }
   ],
   "schema_version": "pattern_assimilation_step_organ_landing_summaries_v1"

@@ -13,12 +13,12 @@
   "body_redacted": true,
   "bundle_id": null,
   "diagnostic_projection": {
-    "accepted_organ_count": 34,
+    "accepted_organ_count": 37,
     "body_redacted": true,
-    "pressure_row_count": 34,
-    "receipt_ref_count": 144,
-    "runtime_contract_count": 34,
-    "standard_mapping_count": 34
+    "pressure_row_count": 37,
+    "receipt_ref_count": 156,
+    "runtime_contract_count": 37,
+    "standard_mapping_count": 37
   },
   "input_mode": "first_wave_fixture",
   "organ_id": "standards_meta_diagnostics",

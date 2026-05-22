@@ -1,0 +1,43 @@
+{
+  "body_redacted": true,
+  "cleaned": [
+    "synthetic task specs use hashes and observation digests only",
+    "all feedback rows use public evidence refs instead of private transcripts"
+  ],
+  "copied_hidden_reasoning": false,
+  "copied_private_memory_bodies": false,
+  "copied_provider_payloads": false,
+  "omitted": [
+    "hidden reasoning bodies",
+    "live model training or RL traces",
+    "benchmark submission payloads",
+    "provider payloads and account identifiers"
+  ],
+  "private_ref_metadata_only": true,
+  "projection_receipt_refs": [
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
+    "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
+  ],
+  "protocol_id": "belief_state_process_reward_replay_public_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json",
+    "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/bundle_manifest.json"
+  ],
+  "reimplemented": [
+    "public typed belief-state summary schema",
+    "verifier-backed dense process reward receipt logic",
+    "cold replay and reward-hacking negative-case checks"
+  ],
+  "source_pattern_ids": [
+    "belief_state_process_reward_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#belief_state_process_reward_replay_compound",
+    "codex/doctrine/paper_modules/public_microcosm_evolution_seed.md",
+    "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "core/private_state_forbidden_classes.json",
+    "AXIOMS.md#json-is-contract",
+    "PRINCIPLES.md#expected-negative-cases"
+  ]
+}

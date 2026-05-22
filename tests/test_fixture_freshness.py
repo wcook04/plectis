@@ -60,7 +60,7 @@ def test_fixture_freshness_passes_and_emits_acceptance_summary(tmp_path: Path) -
     assert receipt["private_state_scan"]["body_redacted"] is True
     assert receipt["private_state_scan"]["blocking_hit_count"] == 0
     assert summary["status"] == "pass"
-    assert summary["accepted_count"] == 36
+    assert summary["accepted_count"] == 37
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"
     assert summary["release_authorized"] is False
     assert summary["provider_calls_authorized"] is False

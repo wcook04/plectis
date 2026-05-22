@@ -1,0 +1,34 @@
+{
+  "cold_replays": [
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "receipts/cold_replay/terminal_digest_replay.json"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_terminal_001",
+      "status": "pass",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "receipts/cold_replay/shop_digest_replay.json"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_shop_001",
+      "status": "pass",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "receipts/cold_replay/formal_planning_digest_replay.json"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_plan_001",
+      "status": "pass",
+      "trajectory_group_id": "traj_plan_001"
+    }
+  ]
+}

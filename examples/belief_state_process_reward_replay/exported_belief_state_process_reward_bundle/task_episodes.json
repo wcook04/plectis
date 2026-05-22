@@ -1,0 +1,49 @@
+{
+  "episodes": [
+    {
+      "body_redacted": true,
+      "cold_replay_ref": "cold_terminal_001",
+      "episode_id": "ep_terminal_investigation_001",
+      "observation_digest_refs": [
+        "obs_terminal_start",
+        "obs_terminal_after_ls",
+        "obs_terminal_after_test"
+      ],
+      "outcome_reward_ref": "rew_terminal_outcome",
+      "private_ref_metadata_only": true,
+      "task_spec_hash": "sha256:terminal-demo-spec-001",
+      "task_type": "terminal_investigation",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_ref": "cold_shop_001",
+      "episode_id": "ep_mock_purchase_001",
+      "observation_digest_refs": [
+        "obs_shop_search",
+        "obs_shop_filter",
+        "obs_shop_cart"
+      ],
+      "outcome_reward_ref": "rew_shop_outcome",
+      "private_ref_metadata_only": true,
+      "task_spec_hash": "sha256:mock-shop-spec-001",
+      "task_type": "mock_purchase",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_ref": "cold_plan_001",
+      "episode_id": "ep_formal_planning_001",
+      "observation_digest_refs": [
+        "obs_plan_goal",
+        "obs_plan_step",
+        "obs_plan_check"
+      ],
+      "outcome_reward_ref": "rew_plan_outcome",
+      "private_ref_metadata_only": true,
+      "task_spec_hash": "sha256:formal-planning-toy-spec-001",
+      "task_type": "formal_planning_toy",
+      "trajectory_group_id": "traj_plan_001"
+    }
+  ]
+}

@@ -63,8 +63,8 @@
       "strength_id": "claim_boundary_policy_present"
     }
   ],
-  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T07:06:30+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T07:53:50+00:00",
   "error_codes": [],
   "evidence_cell_count": 2,
   "evidence_cells": [

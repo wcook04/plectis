@@ -721,6 +721,46 @@
       ],
       "standard_id": "proof_derived_governed_mutation_authorization_public_pressure",
       "title": "Proof-Derived Governed Mutation Requires Proof, Verdict, Side-Effect, and Rollback Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_fixture_receipts_only_not_hidden_reasoning_live_rl_or_benchmark_authority",
+      "claim": "Belief-state process reward language must cite observation digests, typed belief-state summaries, predicted next evidence, verifier or observed feedback refs, belief-discrepancy scores, process rewards, outcome rewards, reward-hacking traps, trajectory groups, cold replay refs, negative cases, and explicit no-hidden-reasoning/no-live-RL/no-benchmark-score ceilings before it becomes public evidence.",
+      "domain": "agent_process_reward_eval",
+      "kernel_primitive_refs": [
+        "event",
+        "evidence",
+        "explanation",
+        "route"
+      ],
+      "negative_case_ids": [
+        "hidden_chain_of_thought_export",
+        "neural_judge_only_process_label",
+        "hidden_gold_label",
+        "reward_by_formatting",
+        "verifier_bypass",
+        "benchmark_performance_claim",
+        "final_answer_only_scoring"
+      ],
+      "owner_surfaces": [
+        "organs:belief_state_process_reward_replay",
+        "standards/std_microcosm_belief_state_process_reward_replay.json",
+        "paper_modules/belief_state_process_reward_replay.md"
+      ],
+      "pressure": "typed process-reward claims require public belief summaries, verifier or observed feedback refs, process and outcome reward events, cold replay, negative cases, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "replay-gauntlet",
+        "standards-control",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.belief_state_process_reward_replay.run",
+      "source_refs": [
+        "organs:belief_state_process_reward_replay",
+        "standards/std_microcosm_belief_state_process_reward_replay.json",
+        "paper_modules/belief_state_process_reward_replay.md"
+      ],
+      "standard_id": "belief_state_process_reward_replay_public_pressure",
+      "title": "Belief-State Process Reward Requires Belief, Feedback, Reward, and Replay Receipts"
     }
   ],
   "schema_version": "public_microcosm_standard_pressure_v1",

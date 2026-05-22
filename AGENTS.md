@@ -49,6 +49,7 @@ explanation, and assimilation primitives, not through production claims.
 - `sleeper_memory_poisoning_quarantine_replay`
 - `mcp_tool_authority_replay`
 - `proof_derived_governed_mutation_authorization`
+- `belief_state_process_reward_replay`
 
 ## Rules
 
@@ -254,6 +255,14 @@ explanation, and assimilation primitives, not through production claims.
    cold replay receipts, and negative cases. It must not use standing
    credentials, access live cloud/accounts, export proof bodies or provider
    payloads, claim benchmark safety, mutate source, or authorize release.
+   The `belief_state_process_reward_replay` organ is the runnable public
+   process-reward evidence lane: use `belief-state-process-reward-replay` or
+   `replay-gauntlet` to validate synthetic observation digests, typed
+   belief-state summaries, predicted next evidence, verifier or feedback refs,
+   process rewards, outcome rewards, trajectory groups, cold replay receipts,
+   and negative cases. It must not export hidden reasoning, use hidden gold
+   labels, rely on neural-judge-only labels, claim benchmark performance, run
+   live RL, call providers, mutate source, or authorize release.
    The view-quality action-map loop is `microcosm view-quality`; it should
    expose one typed next-action row per requested view, including missing and
    partial rows, plus a hot-action rollup that is explicitly a projection and

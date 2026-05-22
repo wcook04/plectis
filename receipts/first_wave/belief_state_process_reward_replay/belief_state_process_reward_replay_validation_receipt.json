@@ -1,0 +1,78 @@
+{
+  "accepted_feedback_count": 6,
+  "anti_claim": "Belief-state process reward replay validates synthetic, public-safe credit-assignment metadata: observation digests, typed belief summaries, predicted next evidence, verifier or feedback observations, discrepancy scores, process rewards, outcome rewards, reward-hacking trap results, trajectory groups, cold replay, negative cases, private-state scan, and authority ceilings. It does not export hidden reasoning, run RL, use hidden gold labels, rely on neural-judge-only labels, claim benchmark performance, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_gold_label_authorized": false,
+    "hidden_reasoning_export_authorized": false,
+    "live_rl_training_authorized": false,
+    "neural_judge_only_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "belief_state_count": 6,
+  "cold_replay_pass_count": 3,
+  "created_at": "2026-05-22T07:33:36+00:00",
+  "episode_count": 3,
+  "fixture_id": "first_wave.belief_state_process_reward_replay",
+  "negative_case_coverage": {
+    "expected": [
+      "benchmark_performance_claim",
+      "final_answer_only_scoring",
+      "hidden_chain_of_thought_export",
+      "hidden_gold_label",
+      "neural_judge_only_process_label",
+      "reward_by_formatting",
+      "verifier_bypass"
+    ],
+    "missing": [],
+    "observed": {
+      "benchmark_performance_claim": [
+        "BELIEF_REWARD_BENCHMARK_CLAIM"
+      ],
+      "final_answer_only_scoring": [
+        "BELIEF_REWARD_FINAL_ANSWER_ONLY"
+      ],
+      "hidden_chain_of_thought_export": [
+        "BELIEF_REWARD_HIDDEN_COT_EXPORT"
+      ],
+      "hidden_gold_label": [
+        "BELIEF_REWARD_HIDDEN_GOLD_LABEL"
+      ],
+      "neural_judge_only_process_label": [
+        "BELIEF_REWARD_NEURAL_JUDGE_ONLY_LABEL"
+      ],
+      "reward_by_formatting": [
+        "BELIEF_REWARD_FORMAT_REWARD_HACK"
+      ],
+      "verifier_bypass": [
+        "BELIEF_REWARD_VERIFIER_BYPASS"
+      ]
+    }
+  },
+  "organ_id": "belief_state_process_reward_replay",
+  "outcome_reward_count": 3,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 15,
+    "status": "pass"
+  },
+  "process_reward_count": 6,
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "belief_state_process_reward_replay_validation_receipt_v1",
+  "status": "pass",
+  "trajectory_group_count": 3,
+  "validator_id": "validator.microcosm.organs.belief_state_process_reward_replay"
+}

@@ -1,0 +1,50 @@
+{
+  "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
+  "body_redacted": true,
+  "expected_negative_cases": {
+    "benchmark_performance_claim": [
+      "BELIEF_REWARD_BENCHMARK_CLAIM"
+    ],
+    "final_answer_only_scoring": [
+      "BELIEF_REWARD_FINAL_ANSWER_ONLY"
+    ],
+    "hidden_chain_of_thought_export": [
+      "BELIEF_REWARD_HIDDEN_COT_EXPORT"
+    ],
+    "hidden_gold_label": [
+      "BELIEF_REWARD_HIDDEN_GOLD_LABEL"
+    ],
+    "neural_judge_only_process_label": [
+      "BELIEF_REWARD_NEURAL_JUDGE_ONLY_LABEL"
+    ],
+    "reward_by_formatting": [
+      "BELIEF_REWARD_FORMAT_REWARD_HACK"
+    ],
+    "verifier_bypass": [
+      "BELIEF_REWARD_VERIFIER_BYPASS"
+    ]
+  },
+  "fixture_id": "first_wave.belief_state_process_reward_replay",
+  "negative_inputs": [
+    "benchmark_performance_claim.json",
+    "final_answer_only_scoring.json",
+    "hidden_chain_of_thought_export.json",
+    "hidden_gold_label.json",
+    "neural_judge_only_process_label.json",
+    "reward_by_formatting.json",
+    "verifier_bypass.json"
+  ],
+  "organ_id": "belief_state_process_reward_replay",
+  "positive_inputs": [
+    "belief_states.json",
+    "cold_replay.json",
+    "projection_protocol.json",
+    "reward_events.json",
+    "reward_policy.json",
+    "task_episodes.json",
+    "trajectory_groups.json",
+    "verifier_feedback.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "validator": "microcosm_core.organs.belief_state_process_reward_replay"
+}

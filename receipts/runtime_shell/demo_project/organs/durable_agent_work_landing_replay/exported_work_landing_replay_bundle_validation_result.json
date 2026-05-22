@@ -12,8 +12,8 @@
     "unrelated_dirty_paths_authorized": false
   },
   "bundle_id": "durable_agent_work_landing_replay_runtime_example",
-  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T07:06:32+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T07:53:52+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],

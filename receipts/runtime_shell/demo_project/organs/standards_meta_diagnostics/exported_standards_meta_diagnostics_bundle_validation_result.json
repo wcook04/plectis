@@ -1,5 +1,5 @@
 {
-  "accepted_organ_count": 36,
+  "accepted_organ_count": 37,
   "anti_claim": "Standards meta diagnostics summarizes public Microcosm standard, organ, runtime-contract, and receipt coverage only. It does not become source authority for the registries, expose private macro sources, authorize release, call providers, prove theorem correctness, or claim whole-system correctness.",
   "authority_ceiling": {
     "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
@@ -13,12 +13,13 @@
   },
   "body_redacted": true,
   "bundle_id": "public_standards_meta_diagnostics_runtime_example",
-  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input microcosm-substrate/examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics",
   "covered_organ_ids": [
     "agent_benchmark_integrity_anti_gaming_replay",
     "agent_memory_temporal_conflict_replay",
     "agent_monitor_redteam_falsification_replay",
     "agent_route_observability_runtime",
+    "belief_state_process_reward_replay",
     "cold_reader_route_map",
     "corpus_readiness_mathlib_absence_gate",
     "durable_agent_work_landing_replay",
@@ -52,7 +53,7 @@
     "undeclared_library_prior_symbol_classifier",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-22T07:06:32+00:00",
+  "created_at": "2026-05-22T07:54:55+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -61,7 +62,7 @@
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "standards_meta_diagnostics",
-  "pressure_row_count": 36,
+  "pressure_row_count": 37,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -73,10 +74,10 @@
   },
   "receipt_id": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json"
   ],
-  "receipt_ref_count": 152,
-  "runtime_contract_count": 36,
+  "receipt_ref_count": 156,
+  "runtime_contract_count": 37,
   "schema_version": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
   "source_pattern_ids": [
     "standards_meta_diagnostics",
@@ -88,7 +89,7 @@
     "microcosm-substrate/core/organ_registry.json",
     "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json"
   ],
-  "standard_mapping_count": 36,
+  "standard_mapping_count": 37,
   "status": "pass",
   "validator_id": "validator.microcosm.organs.standards_meta_diagnostics"
 }

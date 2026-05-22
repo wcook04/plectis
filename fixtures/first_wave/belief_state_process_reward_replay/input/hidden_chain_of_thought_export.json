@@ -1,0 +1,10 @@
+{
+  "negative_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "neg_hidden_cot_export",
+      "expected_negative_case_id": "hidden_chain_of_thought_export",
+      "hidden_chain_of_thought_exported": true
+    }
+  ]
+}

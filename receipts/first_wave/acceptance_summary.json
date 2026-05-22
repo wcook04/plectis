@@ -1,5 +1,5 @@
 {
-  "accepted_count": 36,
+  "accepted_count": 37,
   "accepted_current_authority_organs": [
     "pattern_binding_contract",
     "executable_doctrine_grammar",
@@ -36,7 +36,8 @@
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
-    "proof_derived_governed_mutation_authorization"
+    "proof_derived_governed_mutation_authorization",
+    "belief_state_process_reward_replay"
   ],
   "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, release, provider calls, private-data equivalence, or whole-system correctness.",
   "authority_ceiling": {

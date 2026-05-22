@@ -154,6 +154,7 @@ microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input exampl
 microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
 microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
 microcosm proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
+microcosm belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay
 microcosm benchmark-lab
 microcosm legibility-scorecard
 microcosm intake
@@ -521,6 +522,7 @@ the local substrate loop:
 34. `sleeper_memory_poisoning_quarantine_replay`
 35. `mcp_tool_authority_replay`
 36. `proof_derived_governed_mutation_authorization`
+37. `belief_state_process_reward_replay`
 
 `agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
 integrity boundary: it validates locked evaluator ids, evaluator config hashes,
@@ -592,6 +594,18 @@ policy-after-execution, hidden policy votes, live cloud credentials,
 irreversible mutation, unlogged side effects, consensus without evidence, and
 final-answer-only success without claiming live account action, source mutation,
 provider execution, benchmark performance, or release authority.
+
+`belief_state_process_reward_replay` is the process-reward evidence boundary:
+it validates synthetic partially observable episodes, public typed belief-state
+summaries, predicted next evidence, verifier or observed feedback refs,
+belief-discrepancy scores, dense process rewards, outcome rewards, reward-
+hacking trap results, trajectory groups, and cold replay before reward-language
+is admitted. Run `microcosm belief-state-process-reward-replay
+run-reward-bundle` to inspect the exported bundle. The organ rejects hidden
+reasoning export, neural-judge-only labels, hidden gold labels, reward-by-
+formatting, verifier bypass, benchmark-performance claims, and final-answer-
+only scoring without claiming live RL, benchmark performance, provider
+execution, source mutation, or release authority.
 
 `mission_transaction_work_spine` now includes the public checkpoint lane
 decision receipt: clean and mixed owned-path work can choose scoped commit,
@@ -857,6 +871,8 @@ PYTHONPATH=src python3 -m microcosm_core.organs.mcp_tool_authority_replay run --
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
+PYTHONPATH=src python3 -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay --acceptance-out receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics --acceptance-out receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics
 PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map --acceptance-out receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json

@@ -173,13 +173,14 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["ordered_adapter_lane_status"] == (
         "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_and_governed_mutation_authorization_bound"
     )
-    assert result["organ_landing_count"] == 36
+    assert result["organ_landing_count"] == 37
     assert result["landed_organ_ids"] == [
         "agent_benchmark_integrity_anti_gaming_replay",
         "agent_memory_temporal_conflict_replay",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_route_observability_runtime",
-        "cold_reader_route_map",
+            "agent_monitor_redteam_falsification_replay",
+            "agent_route_observability_runtime",
+            "belief_state_process_reward_replay",
+            "cold_reader_route_map",
         "corpus_readiness_mathlib_absence_gate",
         "durable_agent_work_landing_replay",
         "executable_doctrine_grammar",
@@ -197,9 +198,9 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
         "navigation_hologram_route_plane",
         "pattern_assimilation_step",
         "pattern_binding_contract",
-        "prediction_oracle_reconciliation",
-        "proof_derived_governed_mutation_authorization",
-        "proof_diagnostic_evidence_spine",
+            "prediction_oracle_reconciliation",
+            "proof_derived_governed_mutation_authorization",
+            "proof_diagnostic_evidence_spine",
         "provider_context_recipe_budget_policy",
         "public_reveal_walkthrough",
         "research_replication_rubric_artifact_replay",
@@ -212,12 +213,12 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
         "undeclared_library_prior_symbol_classifier",
         "world_model_projection_drift_control_room",
     ]
-    assert result["refinement_receipt_count"] == 31
+    assert result["refinement_receipt_count"] == 32
     assert result["nothing_to_refine_receipt_count"] == 2
     assert result["stewardship_check_count"] == 2
     assert result["reentry_condition_count"] == 2
     assert result["next_best_lane_result"] == (
-        "belief_state_process_reward_replay_compound_or_agent_sabotage_scheming_monitor_replay_compound_refresh"
+        "agent_sabotage_scheming_monitor_replay_compound_or_agent_sandbox_policy_escape_replay_compound_refresh"
     )
     assert result["next_seed_paths"] == [
         "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"

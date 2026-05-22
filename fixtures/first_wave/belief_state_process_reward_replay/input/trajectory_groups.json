@@ -1,0 +1,49 @@
+{
+  "trajectory_groups": [
+    {
+      "body_redacted": true,
+      "cold_replay_status": "pass",
+      "episode_ids": [
+        "ep_terminal_investigation_001"
+      ],
+      "outcome_reward_ref": "rew_terminal_outcome",
+      "private_ref_metadata_only": true,
+      "process_reward_refs": [
+        "rew_terminal_process_1",
+        "rew_terminal_process_2"
+      ],
+      "reward_alignment": "aligned",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_status": "pass",
+      "episode_ids": [
+        "ep_mock_purchase_001"
+      ],
+      "outcome_reward_ref": "rew_shop_outcome",
+      "private_ref_metadata_only": true,
+      "process_reward_refs": [
+        "rew_shop_process_1",
+        "rew_shop_process_2"
+      ],
+      "reward_alignment": "aligned",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_status": "pass",
+      "episode_ids": [
+        "ep_formal_planning_001"
+      ],
+      "outcome_reward_ref": "rew_plan_outcome",
+      "private_ref_metadata_only": true,
+      "process_reward_refs": [
+        "rew_plan_process_1",
+        "rew_plan_process_2"
+      ],
+      "reward_alignment": "aligned",
+      "trajectory_group_id": "traj_plan_001"
+    }
+  ]
+}

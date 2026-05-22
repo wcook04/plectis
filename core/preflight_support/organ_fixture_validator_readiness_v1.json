@@ -819,6 +819,33 @@
       ],
       "fixture_manifest": "core/fixture_manifests/proof_derived_governed_mutation_authorization.fixture_manifest.json",
       "organ_id": "proof_derived_governed_mutation_authorization"
+    },
+    {
+      "build_dependencies": [
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "proof_derived_governed_mutation_authorization",
+        "mcp_tool_authority_replay"
+      ],
+      "fixture_id": "fixture::belief_state_process_reward_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/belief_state_process_reward_replay/input/projection_protocol.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/reward_policy.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/task_episodes.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/verifier_feedback.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/trajectory_groups.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/cold_replay.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/hidden_chain_of_thought_export.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/neural_judge_only_process_label.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/hidden_gold_label.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/reward_by_formatting.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/verifier_bypass.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/benchmark_performance_claim.json",
+        "fixtures/first_wave/belief_state_process_reward_replay/input/final_answer_only_scoring.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/belief_state_process_reward_replay.fixture_manifest.json",
+      "organ_id": "belief_state_process_reward_replay"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

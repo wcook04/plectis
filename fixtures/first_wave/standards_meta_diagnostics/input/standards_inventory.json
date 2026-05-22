@@ -620,6 +620,23 @@
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_proof_derived_governed_mutation_authorization]",
       "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
       "standard_ref": "standards/std_microcosm_proof_derived_governed_mutation_authorization.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 37,
+      "organ_id": "belief_state_process_reward_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[belief_state_process_reward_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_result.json",
+        "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_board.json",
+        "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_belief_state_process_reward_replay]",
+      "standard_id": "std_microcosm_belief_state_process_reward_replay",
+      "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json"
     }
   ]
 }

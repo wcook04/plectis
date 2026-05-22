@@ -1,0 +1,28 @@
+{
+  "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
+  "body_redacted": true,
+  "bundle_id": "belief_state_process_reward_replay_runtime_example",
+  "claim": "Synthetic public-safe belief-state process reward replay validates typed belief summaries, verifier-backed process rewards, outcome rewards, reward-hacking trap passes, and cold replay without hidden reasoning or benchmark-performance claims.",
+  "negative_fixture_refs": [
+    "benchmark_performance_claim.json",
+    "final_answer_only_scoring.json",
+    "hidden_chain_of_thought_export.json",
+    "hidden_gold_label.json",
+    "neural_judge_only_process_label.json",
+    "reward_by_formatting.json",
+    "verifier_bypass.json"
+  ],
+  "organ_id": "belief_state_process_reward_replay",
+  "positive_fixture_refs": [
+    "belief_states.json",
+    "cold_replay.json",
+    "projection_protocol.json",
+    "reward_events.json",
+    "reward_policy.json",
+    "task_episodes.json",
+    "trajectory_groups.json",
+    "verifier_feedback.json"
+  ],
+  "private_ref_metadata_only": true,
+  "schema_version": "exported_belief_state_process_reward_bundle_manifest_v1"
+}

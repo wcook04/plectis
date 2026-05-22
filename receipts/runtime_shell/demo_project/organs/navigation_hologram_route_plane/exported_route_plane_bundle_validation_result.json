@@ -141,8 +141,8 @@
       "fixture-regression-negative-cases"
     ]
   },
-  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T07:06:32+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T07:53:52+00:00",
   "entry_payload_admission": {
     "after_bytes": 11200,
     "before_bytes": 14500,

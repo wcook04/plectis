@@ -1,0 +1,184 @@
+{
+  "anti_claim": "This fixture validates public synthetic belief-state process reward replay metadata only; it does not export hidden reasoning, run RL, use hidden gold labels, rely on neural-judge-only labels, claim benchmark performance, call providers, mutate source, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Belief-state reward material must state that synthetic replay receipts are not hidden-reasoning, live-training, benchmark-score, provider, source-mutation, or release authority"
+  },
+  "authority_boundary": "synthetic_belief_state_process_reward_replay_not_live_training_or_benchmark_authority",
+  "authority_ceiling": {
+    "benchmark_score_claim_authority": false,
+    "hidden_gold_label_authority": false,
+    "hidden_reasoning_export_authority": false,
+    "live_rl_training_authority": false,
+    "neural_judge_only_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_belief_state_process_reward_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "belief_state_process_reward_replay",
+  "kind_name": "Belief-state process reward replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/belief_state_process_reward_replay/input/projection_protocol.json",
+    "omitted": [
+      "hidden reasoning bodies",
+      "provider payloads",
+      "hidden gold labels",
+      "live training traces",
+      "benchmark submission payloads"
+    ],
+    "reason": "public tranche carries synthetic belief-state reward metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "belief_state_process_reward_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "observation digest refs",
+      "typed public belief-state summary JSON",
+      "predicted next evidence refs",
+      "verifier or observed feedback refs",
+      "belief discrepancy scores",
+      "process reward refs",
+      "outcome reward refs",
+      "trajectory group refs",
+      "cold replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_belief_reward_receipts_only",
+    "forbidden_public_inputs": [
+      "hidden reasoning bodies",
+      "raw chain-of-thought",
+      "provider payloads",
+      "hidden gold labels",
+      "live RL training traces",
+      "benchmark submission payloads"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "episode_count",
+      "belief_state_count",
+      "accepted_feedback_count",
+      "process_reward_count",
+      "outcome_reward_count",
+      "trajectory_group_count",
+      "cold_replay_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.belief_state_process_reward_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.belief_state_process_reward_replay",
+    "receipt must cite source refs, source pattern ids, episode count, belief-state count, accepted feedback count, process and outcome reward counts, trajectory count, cold replay count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#belief_state_process_reward_replay",
+    "source_pattern_id_sample": [
+      "belief_state_process_reward_replay_compound",
+      "agent_benchmark_integrity_anti_gaming_replay_compound",
+      "proof_derived_governed_mutation_authorization_compound"
+    ],
+    "used_by_organs": [
+      "belief_state_process_reward_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "reward_policy",
+    "task_episodes",
+    "belief_states",
+    "verifier_feedback",
+    "reward_events",
+    "trajectory_groups",
+    "cold_replays",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/belief_state_process_reward_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_belief_state_process_reward_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating hidden reasoning, neural-judge-only labels, final answers, formatting, or benchmark-score claims as reward evidence.",
+    "compression_bands": [
+      "protocol",
+      "policy",
+      "episode",
+      "belief",
+      "feedback",
+      "reward",
+      "trajectory",
+      "replay",
+      "receipt"
+    ],
+    "failure_modes": [
+      "hidden_chain_of_thought_export",
+      "neural_judge_only_process_label",
+      "hidden_gold_label",
+      "reward_by_formatting",
+      "verifier_bypass",
+      "benchmark_performance_claim",
+      "final_answer_only_scoring"
+    ],
+    "ontology": "A public-safe belief-state process reward replay: synthetic episodes, observation digests, typed belief summaries, verifier feedback, dense process rewards, outcome rewards, trajectory groups, cold replay, and falsification fixtures.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how process-reward claims are admitted only when belief summaries, objective feedback, reward events, negative cases, and authority ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require three synthetic partially observable episodes: terminal investigation, mock purchase, and formal planning toy",
+    "require typed belief-state JSON with observation digest, predicted next evidence, feedback ref, discrepancy score, and redaction flags",
+    "require process rewards tied to deterministic verifier or observed feedback refs plus outcome rewards and cold replay",
+    "reject hidden reasoning export, neural-judge-only labels, hidden gold labels, reward-by-formatting, verifier bypass, benchmark claims, and final-answer-only scoring",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "reward_policy_authority_floor",
+      "episode_fixture_floor",
+      "typed_belief_state_floor",
+      "verifier_feedback_floor",
+      "process_and_outcome_reward_floor",
+      "trajectory_group_cold_replay_coverage",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.belief_state_process_reward_replay"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.belief_state_process_reward_replay"
+  ],
+  "wave": "w1_belief_state_process_reward_replay"
+}

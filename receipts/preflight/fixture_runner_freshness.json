@@ -160,7 +160,11 @@
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
     "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
-    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_result.json",
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_board.json",
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
   ],
   "checker_id": "checker.microcosm.validators.fixture_freshness",
   "command": "python -m microcosm_core.validators.fixture_freshness --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag microcosm-substrate/core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage microcosm-substrate/core/preflight_support/validator_receipt_coverage_map_v1.json --out microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
@@ -169,6 +173,7 @@
     "agent_memory_temporal_conflict_replay": "28a47887bd460967f4f669479a61528b87cefdce00f5084f39d48da2d63747b5",
     "agent_monitor_redteam_falsification_replay": "af36b71824a87be2894402c55e96bacc420ee5071d0352c94778d91b5fd9862b",
     "agent_route_observability_runtime": "6210d5009758be863a756d55a1e3065a681ba46590fb2ab169127d0dfb840f94",
+    "belief_state_process_reward_replay": "c38cbf828907f7abd7e513f96aa3700a251c09a0d1016ae6b73b6129e2345940",
     "cold_reader_route_map": "ce778265e6360e3d7509673ac502b26c0d1455b54f7fd19e2cbf262fa0a8691d",
     "corpus_readiness_mathlib_absence_gate": "806ce35d6d851943b8e8287e210c57a804f9d08b67f8ec356202dff663112fc9",
     "durable_agent_work_landing_replay": "45bab5bd49f0473637c4f826e6f1001a528447569971396990c305a380b21d9c",
@@ -249,6 +254,23 @@
       "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl": "8edba21cfa8c48f3fd8d647af21d53f000667c4977f8c9190364c9100e31b887",
       "fixtures/first_wave/agent_route_observability_runtime/input/anti_pattern_debt.json": "5613e3aff89beaa012a4c4d7da7bdb62404f264b9ccf450675cfac89fd670d2f",
       "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json": "6a1a82b349332f3c0fc4400fece2b3ad8665b41b441b6247aeee1399851d12b9"
+    },
+    "belief_state_process_reward_replay": {
+      "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json": "b6fb289ba11fb86240814dc657b7d3504a6e78f9a4dbc1933ba42d006b7754fc",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/benchmark_performance_claim.json": "49314fb912c49d5f6140ea3ae1182e2779e8c30f1964d81855e66df8cf92ebcb",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/cold_replay.json": "2b971408e8080df4c16f59e7810e17bf1de4044f223a6dfb4d0563b0f5fd9d60",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/final_answer_only_scoring.json": "68e86fefbc94332f7ecded648667e1d5cd6009ab1f3abd743333a89a69285eb8",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/hidden_chain_of_thought_export.json": "d7ee5d2ccbcc7a5a37edfc9e372d8090fe0a4f21f99df5f6e8f29253dc9a8228",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/hidden_gold_label.json": "69aabedcc10ce31e980d152a1fd6e57f7fe395d6ce024ffa25dfe54a73779b23",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/neural_judge_only_process_label.json": "90b1b16e730923eb77fa78050c0dbe4e8ed0b104a49b131c78f4682d83292159",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/projection_protocol.json": "7c496f07839fa98daca6573a54fd31c19b3a079291e81168124bd37e41d8ed43",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/reward_by_formatting.json": "6064e4d49b885637798eb5d28706a2b65887dff99d1eb1f26272073b6d47fe0c",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json": "5d81e8f2d001b556a543a2c85e5e5c13ddcdf4f2cd80bf252f33a2e22751cd69",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/reward_policy.json": "c07dcb75847067f7d3f2b623836a017c09874c6e30568098865c1828fe6eb5b3",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/task_episodes.json": "4173e1b3f966d9635d91c7c3816cc4ea4b7dddb9898e1c39069768f348dabb33",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/trajectory_groups.json": "d9e9ed02aca350206bc9d9920c06fe794ab99189249d60d725499af641181186",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/verifier_bypass.json": "d015be667961153a5093a58afd9b15ba9f17658e7ea71e1164261602926c0b12",
+      "fixtures/first_wave/belief_state_process_reward_replay/input/verifier_feedback.json": "87772f4e095e0959a1c5b666a8c18ee197c144a09bf7b64119d3c74abe3ac3c4"
     },
     "cold_reader_route_map": {
       "fixtures/first_wave/cold_reader_route_map/input/missing_command_ref.json": "3c4f6914a6e7d4fec0c178b5744e3ead34a356684645376272fc931401c09e3b",
@@ -554,13 +576,13 @@
       "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulator_product_claim.json": "293c5fa8cc28463e26d04348aa7b9ed2cb14e83a32476b5bb17041d03a4e615c"
     },
     "standards_meta_diagnostics": {
-      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json": "2c9c09003e506ebeceb09ab40da9cccd09f391c4c8ee8af837af53136308ca8a",
+      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json": "e3b22e5ecd72577f80f7c842c79f5f18b5241d888207319edc0302c592604678",
       "fixtures/first_wave/standards_meta_diagnostics/input/missing_receipt_ref.json": "80dc2017e21a3625b8fe67a1a3fc06bffdd4dbe1cbc7cb6b89714d31c3c580e4",
       "fixtures/first_wave/standards_meta_diagnostics/input/missing_standard_ref.json": "bb98cce927f43c179b57eda6a1d89d94747d26607ffa1aa2ef5742b6c7ff984f",
-      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json": "81199395adef1ce132e2f7b095e01bcb1c49a231ae52e1607d0d408c72fe4f64",
+      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json": "1415c409efd5ecf861e3440231a328f062baca31adda412c92dd6a94658849b6",
       "fixtures/first_wave/standards_meta_diagnostics/input/private_source_leakage.json": "ca7d9712828d8b86791e378d52f4fd5fea6ad948fd83b6299b382c7cade7581d",
       "fixtures/first_wave/standards_meta_diagnostics/input/release_overclaim.json": "a71ce2cbe98321584d19802fb11904857c266482dc21888ffdf5f564e4add046",
-      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json": "fd92262fd4ff0c7ab93d0f1c64b8ed55ad1bd53d36228d6f634d114b99ee328a",
+      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json": "24104bff1ab97f8dba27a7273268d7824c32ae0a20016109aaff5712f6649e4c",
       "fixtures/first_wave/standards_meta_diagnostics/input/unmapped_accepted_organ.json": "9e68073b4269823f75237dcfa87ea1f54f04ac474e0b61550f98f264a4691ba6"
     },
     "tactic_portfolio_availability_probe": {

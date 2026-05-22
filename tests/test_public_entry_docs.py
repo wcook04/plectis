@@ -83,6 +83,7 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "sleeper_memory_poisoning_quarantine_replay",
         "mcp_tool_authority_replay",
         "proof_derived_governed_mutation_authorization",
+        "belief_state_process_reward_replay",
     ]
     assert receipt["deferred_organs"] == []
     assert receipt["private_state_scan"]["body_redacted"] is True
@@ -144,6 +145,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "spatial_world_model_counterfactual_simulation_replay" in text
     assert "cold_reader_route_map" in text
     assert "proof_derived_governed_mutation_authorization" in text
+    assert "belief_state_process_reward_replay" in text
     assert "formal-math-premise-retrieval" in text
     assert "ring2-premise-retrieval-precision-recall-harness" in text
     assert "provider-context-recipe-budget-policy" in text
@@ -167,6 +169,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "microcosm spatial-simulation" in text
     assert "cold-reader-route-map" in text
     assert "proof-derived-governed-mutation-authorization" in text
+    assert "belief-state-process-reward-replay" in text
     assert "public_reveal_walkthrough" in agents
     assert "corpus_readiness_mathlib_absence_gate" in agents
     assert "mathematical_strategy_atlas_hypothesis_scorer" in agents
@@ -189,6 +192,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "spatial_world_model_counterfactual_simulation_replay" in agents
     assert "cold_reader_route_map" in agents
     assert "proof_derived_governed_mutation_authorization" in agents
+    assert "belief_state_process_reward_replay" in agents
     assert "formal-math-premise-retrieval" in agents
     assert "ring2-premise-retrieval-precision-recall-harness" in agents
     assert "provider-context-recipe-budget-policy" in agents

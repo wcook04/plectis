@@ -52,6 +52,7 @@
     "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
     "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
     "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
+    "microcosm belief-state-process-reward-replay run-reward-bundle",
     "microcosm benchmark-lab",
     "microcosm legibility-scorecard",
     "microcosm intake",
@@ -548,6 +549,18 @@
       "input_mode": "exported_governed_mutation_authorization_bundle",
       "ordinal": 36,
       "organ_id": "proof_derived_governed_mutation_authorization",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+      "generated_receipt_count": 4,
+      "input_mode": "exported_belief_state_process_reward_bundle",
+      "ordinal": 37,
+      "organ_id": "belief_state_process_reward_replay",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
       "release_authorized": false,
@@ -1057,6 +1070,20 @@
       "surface_id": "public_proof_derived_governed_mutation_authorization_lens"
     },
     {
+      "authority_role": "synthetic belief-state process reward replay and credit-assignment evidence boundary",
+      "benchmark_score_claim_authorized": false,
+      "command": "microcosm belief-state-process-reward-replay run-reward-bundle",
+      "endpoint": "/replay-gauntlet",
+      "hidden_gold_label_authorized": false,
+      "hidden_reasoning_export_authorized": false,
+      "live_rl_training_authorized": false,
+      "neural_judge_only_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "surface_id": "public_belief_state_process_reward_replay_lens"
+    },
+    {
       "authority_role": "synthetic repository benchmark transaction lab and oracle-grading boundary",
       "benchmark_score_claim": false,
       "command": "microcosm benchmark-lab",
@@ -1113,9 +1140,9 @@
   ],
   "surface_counts": {
     "hard_boundary_count": 6,
-    "organ_authority_count": 36,
+    "organ_authority_count": 37,
     "projection_cell_count": 3,
     "safe_local_exception_count": 3,
-    "surface_authority_count": 36
+    "surface_authority_count": 37
   }
 }

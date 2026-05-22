@@ -1,0 +1,10 @@
+{
+  "negative_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "neg_hidden_gold_label",
+      "expected_negative_case_id": "hidden_gold_label",
+      "hidden_gold_label_present": true
+    }
+  ]
+}

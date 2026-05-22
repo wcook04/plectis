@@ -1,0 +1,10 @@
+{
+  "negative_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "neg_final_answer_only_scoring",
+      "expected_negative_case_id": "final_answer_only_scoring",
+      "final_answer_only_scoring": true
+    }
+  ]
+}

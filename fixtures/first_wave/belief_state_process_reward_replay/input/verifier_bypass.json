@@ -1,0 +1,12 @@
+{
+  "negative_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "neg_verifier_bypass",
+      "expected_negative_case_id": "verifier_bypass",
+      "verifier_bypassed": true,
+      "verifier_feedback_ref": "",
+      "verifier_feedback_required": true
+    }
+  ]
+}

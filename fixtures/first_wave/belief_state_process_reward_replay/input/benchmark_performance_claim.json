@@ -1,0 +1,10 @@
+{
+  "negative_cases": [
+    {
+      "benchmark_performance_claim": true,
+      "body_redacted": true,
+      "case_id": "neg_benchmark_claim",
+      "expected_negative_case_id": "benchmark_performance_claim"
+    }
+  ]
+}

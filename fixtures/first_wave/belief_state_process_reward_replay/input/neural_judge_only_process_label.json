@@ -1,0 +1,11 @@
+{
+  "negative_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "neg_neural_judge_only_label",
+      "expected_negative_case_id": "neural_judge_only_process_label",
+      "neural_judge_only": true,
+      "verifier_receipt_ref": ""
+    }
+  ]
+}

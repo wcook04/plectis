@@ -173,6 +173,15 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    to inspect proof cells, visible policy verdicts, side-effect diffs, rollback
    receipts, cold replay, and standing-credential/policy-after-execution
    denials before trusting governed-mutation authorization claims.
+32. Run `microcosm belief-state-process-reward-replay run-reward-bundle
+   --input
+   examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle
+   --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay`
+   or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
+   belief-state-process-reward-replay run-reward-bundle` path to inspect typed
+   belief summaries, verifier-backed process rewards, outcome rewards, reward-
+   hacking trap passes, cold replay, and hidden-reasoning/neural-judge-only/
+   benchmark-claim denials before trusting process-reward claims.
 30. Run `microcosm benchmark-lab` or
    `PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab` to inspect
    synthetic repository issue/patch benchmark transactions, oracle diffs,
@@ -236,6 +245,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
 PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
+PYTHONPATH=src python3 -m microcosm_core.cli belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay
 PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab
 PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard
 PYTHONPATH=src python3 -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer

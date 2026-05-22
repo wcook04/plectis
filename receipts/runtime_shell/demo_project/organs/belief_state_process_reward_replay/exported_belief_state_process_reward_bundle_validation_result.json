@@ -1,0 +1,450 @@
+{
+  "accepted_belief_state_count": 6,
+  "accepted_episode_count": 3,
+  "accepted_feedback_count": 6,
+  "accepted_trajectory_group_count": 3,
+  "allowed_process_reward_sources": [
+    "deterministic_verifier",
+    "observed_environment_feedback"
+  ],
+  "anti_claim": "Belief-state process reward replay validates synthetic, public-safe credit-assignment metadata: observation digests, typed belief summaries, predicted next evidence, verifier or feedback observations, discrepancy scores, process rewards, outcome rewards, reward-hacking trap results, trajectory groups, cold replay, negative cases, private-state scan, and authority ceilings. It does not export hidden reasoning, run RL, use hidden gold labels, rely on neural-judge-only labels, claim benchmark performance, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_gold_label_authorized": false,
+    "hidden_reasoning_export_authorized": false,
+    "live_rl_training_authorized": false,
+    "neural_judge_only_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "belief_state_count": 6,
+  "belief_state_rows": [
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_plan_1",
+      "body_redacted": true,
+      "computed_verdict": "accepted_belief_state",
+      "episode_id": "ep_formal_planning_001",
+      "feedback_ref": "fb_plan_1",
+      "observation_digest_ref": "obs_plan_1",
+      "predicted_next_evidence_count": 1,
+      "reason_codes": [],
+      "step_id": "plan_step_1",
+      "trajectory_group_id": "traj_plan_001"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_plan_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_belief_state",
+      "episode_id": "ep_formal_planning_001",
+      "feedback_ref": "fb_plan_2",
+      "observation_digest_ref": "obs_plan_2",
+      "predicted_next_evidence_count": 1,
+      "reason_codes": [],
+      "step_id": "plan_step_2",
+      "trajectory_group_id": "traj_plan_001"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_shop_1",
+      "body_redacted": true,
+      "computed_verdict": "accepted_belief_state",
+      "episode_id": "ep_mock_purchase_001",
+      "feedback_ref": "fb_shop_1",
+      "observation_digest_ref": "obs_shop_1",
+      "predicted_next_evidence_count": 1,
+      "reason_codes": [],
+      "step_id": "shop_step_1",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_shop_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_belief_state",
+      "episode_id": "ep_mock_purchase_001",
+      "feedback_ref": "fb_shop_2",
+      "observation_digest_ref": "obs_shop_2",
+      "predicted_next_evidence_count": 1,
+      "reason_codes": [],
+      "step_id": "shop_step_2",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_terminal_1",
+      "body_redacted": true,
+      "computed_verdict": "accepted_belief_state",
+      "episode_id": "ep_terminal_investigation_001",
+      "feedback_ref": "fb_terminal_1",
+      "observation_digest_ref": "obs_terminal_1",
+      "predicted_next_evidence_count": 1,
+      "reason_codes": [],
+      "step_id": "terminal_step_1",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_terminal_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_belief_state",
+      "episode_id": "ep_terminal_investigation_001",
+      "feedback_ref": "fb_terminal_2",
+      "observation_digest_ref": "obs_terminal_2",
+      "predicted_next_evidence_count": 1,
+      "reason_codes": [],
+      "step_id": "terminal_step_2",
+      "trajectory_group_id": "traj_terminal_001"
+    }
+  ],
+  "bundle_id": "belief_state_process_reward_replay_runtime_example",
+  "cold_replay_count": 3,
+  "cold_replay_pass_count": 3,
+  "cold_replay_rows": [
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "receipts/cold_replay/terminal_digest_replay.json"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_terminal_001",
+      "status": "pass",
+      "trajectory_group_id": "traj_terminal_001"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "receipts/cold_replay/shop_digest_replay.json"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_shop_001",
+      "status": "pass",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "receipts/cold_replay/formal_planning_digest_replay.json"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_plan_001",
+      "status": "pass",
+      "trajectory_group_id": "traj_plan_001"
+    }
+  ],
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T07:53:52+00:00",
+  "episode_count": 3,
+  "episode_rows": [
+    {
+      "body_redacted": true,
+      "cold_replay_ref": "cold_plan_001",
+      "computed_verdict": "accepted_episode",
+      "episode_id": "ep_formal_planning_001",
+      "observation_digest_count": 3,
+      "outcome_reward_ref": "rew_plan_outcome",
+      "reason_codes": [],
+      "task_type": "formal_planning_toy",
+      "trajectory_group_id": "traj_plan_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_ref": "cold_shop_001",
+      "computed_verdict": "accepted_episode",
+      "episode_id": "ep_mock_purchase_001",
+      "observation_digest_count": 3,
+      "outcome_reward_ref": "rew_shop_outcome",
+      "reason_codes": [],
+      "task_type": "mock_purchase",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_ref": "cold_terminal_001",
+      "computed_verdict": "accepted_episode",
+      "episode_id": "ep_terminal_investigation_001",
+      "observation_digest_count": 3,
+      "outcome_reward_ref": "rew_terminal_outcome",
+      "reason_codes": [],
+      "task_type": "terminal_investigation",
+      "trajectory_group_id": "traj_terminal_001"
+    }
+  ],
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "feedback_count": 6,
+  "feedback_rows": [
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_feedback",
+      "episode_id": "ep_formal_planning_001",
+      "evidence_ref_count": 1,
+      "feedback_id": "fb_plan_1",
+      "feedback_kind": "deterministic_verifier",
+      "reason_codes": [],
+      "reliability_score": 0.95
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_feedback",
+      "episode_id": "ep_formal_planning_001",
+      "evidence_ref_count": 1,
+      "feedback_id": "fb_plan_2",
+      "feedback_kind": "observed_environment_feedback",
+      "reason_codes": [],
+      "reliability_score": 0.9
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_feedback",
+      "episode_id": "ep_mock_purchase_001",
+      "evidence_ref_count": 1,
+      "feedback_id": "fb_shop_1",
+      "feedback_kind": "deterministic_verifier",
+      "reason_codes": [],
+      "reliability_score": 0.95
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_feedback",
+      "episode_id": "ep_mock_purchase_001",
+      "evidence_ref_count": 1,
+      "feedback_id": "fb_shop_2",
+      "feedback_kind": "observed_environment_feedback",
+      "reason_codes": [],
+      "reliability_score": 0.9
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_feedback",
+      "episode_id": "ep_terminal_investigation_001",
+      "evidence_ref_count": 1,
+      "feedback_id": "fb_terminal_1",
+      "feedback_kind": "deterministic_verifier",
+      "reason_codes": [],
+      "reliability_score": 0.95
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_feedback",
+      "episode_id": "ep_terminal_investigation_001",
+      "evidence_ref_count": 1,
+      "feedback_id": "fb_terminal_2",
+      "feedback_kind": "observed_environment_feedback",
+      "reason_codes": [],
+      "reliability_score": 0.9
+    }
+  ],
+  "findings": [],
+  "fixture_id": "first_wave.belief_state_process_reward_replay",
+  "input_mode": "exported_belief_state_process_reward_bundle",
+  "minimum_reliability_score": 0.8,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "belief_state_process_reward_replay",
+  "outcome_reward_count": 3,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 9,
+    "status": "pass"
+  },
+  "process_reward_count": 6,
+  "projection_receipt_refs": [
+    "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json",
+    "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
+  ],
+  "protocol_id": "belief_state_process_reward_replay_public_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json",
+    "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/bundle_manifest.json"
+  ],
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
+  ],
+  "reward_event_count": 9,
+  "reward_policy_id": "belief_process_reward_public_policy_v1",
+  "reward_rows": [
+    {
+      "belief_discrepancy": 0.08,
+      "belief_state_id": "belief_plan_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_formal_planning_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_plan_outcome",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "outcome",
+      "reward_value": 0.85,
+      "verifier_feedback_ref": "fb_plan_2"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_plan_1",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_formal_planning_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_plan_process_1",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "process",
+      "reward_value": 0.65,
+      "verifier_feedback_ref": "fb_plan_1"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_plan_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_formal_planning_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_plan_process_2",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "process",
+      "reward_value": 0.75,
+      "verifier_feedback_ref": "fb_plan_2"
+    },
+    {
+      "belief_discrepancy": 0.08,
+      "belief_state_id": "belief_shop_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_mock_purchase_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_shop_outcome",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "outcome",
+      "reward_value": 0.85,
+      "verifier_feedback_ref": "fb_shop_2"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_shop_1",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_mock_purchase_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_shop_process_1",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "process",
+      "reward_value": 0.65,
+      "verifier_feedback_ref": "fb_shop_1"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_shop_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_mock_purchase_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_shop_process_2",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "process",
+      "reward_value": 0.75,
+      "verifier_feedback_ref": "fb_shop_2"
+    },
+    {
+      "belief_discrepancy": 0.08,
+      "belief_state_id": "belief_terminal_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_terminal_investigation_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_terminal_outcome",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "outcome",
+      "reward_value": 0.85,
+      "verifier_feedback_ref": "fb_terminal_2"
+    },
+    {
+      "belief_discrepancy": 0.15000000000000002,
+      "belief_state_id": "belief_terminal_1",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_terminal_investigation_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_terminal_process_1",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "process",
+      "reward_value": 0.65,
+      "verifier_feedback_ref": "fb_terminal_1"
+    },
+    {
+      "belief_discrepancy": 0.2,
+      "belief_state_id": "belief_terminal_2",
+      "body_redacted": true,
+      "computed_verdict": "accepted_reward_event",
+      "episode_id": "ep_terminal_investigation_001",
+      "reason_codes": [],
+      "reward_event_id": "rew_terminal_process_2",
+      "reward_hacking_trap_result": "pass",
+      "reward_kind": "process",
+      "reward_value": 0.75,
+      "verifier_feedback_ref": "fb_terminal_2"
+    }
+  ],
+  "schema_version": "exported_belief_state_process_reward_bundle_validation_result_v1",
+  "source_pattern_ids": [
+    "belief_state_process_reward_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#belief_state_process_reward_replay_compound",
+    "codex/doctrine/paper_modules/public_microcosm_evolution_seed.md",
+    "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "core/private_state_forbidden_classes.json",
+    "AXIOMS.md#json-is-contract",
+    "PRINCIPLES.md#expected-negative-cases"
+  ],
+  "status": "pass",
+  "trajectory_group_count": 3,
+  "trajectory_group_rows": [
+    {
+      "body_redacted": true,
+      "cold_replay_status": "pass",
+      "computed_verdict": "accepted_trajectory_group",
+      "episode_ids": [
+        "ep_formal_planning_001"
+      ],
+      "outcome_reward_ref": "rew_plan_outcome",
+      "process_reward_ref_count": 2,
+      "reason_codes": [],
+      "reward_alignment": "aligned",
+      "trajectory_group_id": "traj_plan_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_status": "pass",
+      "computed_verdict": "accepted_trajectory_group",
+      "episode_ids": [
+        "ep_mock_purchase_001"
+      ],
+      "outcome_reward_ref": "rew_shop_outcome",
+      "process_reward_ref_count": 2,
+      "reason_codes": [],
+      "reward_alignment": "aligned",
+      "trajectory_group_id": "traj_shop_001"
+    },
+    {
+      "body_redacted": true,
+      "cold_replay_status": "pass",
+      "computed_verdict": "accepted_trajectory_group",
+      "episode_ids": [
+        "ep_terminal_investigation_001"
+      ],
+      "outcome_reward_ref": "rew_terminal_outcome",
+      "process_reward_ref_count": 2,
+      "reason_codes": [],
+      "reward_alignment": "aligned",
+      "trajectory_group_id": "traj_terminal_001"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.belief_state_process_reward_replay"
+}

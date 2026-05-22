@@ -1,0 +1,82 @@
+{
+  "feedback": [
+    {
+      "body_redacted": true,
+      "episode_id": "ep_terminal_investigation_001",
+      "evidence_refs": [
+        "evidence_terminal_verifier_1"
+      ],
+      "feedback_id": "fb_terminal_1",
+      "feedback_kind": "deterministic_verifier",
+      "hidden_gold_label_present": false,
+      "neural_judge_only": false,
+      "private_ref_metadata_only": true,
+      "reliability_score": 0.95
+    },
+    {
+      "body_redacted": true,
+      "episode_id": "ep_terminal_investigation_001",
+      "evidence_refs": [
+        "evidence_terminal_observed_2"
+      ],
+      "feedback_id": "fb_terminal_2",
+      "feedback_kind": "observed_environment_feedback",
+      "hidden_gold_label_present": false,
+      "neural_judge_only": false,
+      "private_ref_metadata_only": true,
+      "reliability_score": 0.9
+    },
+    {
+      "body_redacted": true,
+      "episode_id": "ep_mock_purchase_001",
+      "evidence_refs": [
+        "evidence_shop_verifier_1"
+      ],
+      "feedback_id": "fb_shop_1",
+      "feedback_kind": "deterministic_verifier",
+      "hidden_gold_label_present": false,
+      "neural_judge_only": false,
+      "private_ref_metadata_only": true,
+      "reliability_score": 0.95
+    },
+    {
+      "body_redacted": true,
+      "episode_id": "ep_mock_purchase_001",
+      "evidence_refs": [
+        "evidence_shop_observed_2"
+      ],
+      "feedback_id": "fb_shop_2",
+      "feedback_kind": "observed_environment_feedback",
+      "hidden_gold_label_present": false,
+      "neural_judge_only": false,
+      "private_ref_metadata_only": true,
+      "reliability_score": 0.9
+    },
+    {
+      "body_redacted": true,
+      "episode_id": "ep_formal_planning_001",
+      "evidence_refs": [
+        "evidence_plan_verifier_1"
+      ],
+      "feedback_id": "fb_plan_1",
+      "feedback_kind": "deterministic_verifier",
+      "hidden_gold_label_present": false,
+      "neural_judge_only": false,
+      "private_ref_metadata_only": true,
+      "reliability_score": 0.95
+    },
+    {
+      "body_redacted": true,
+      "episode_id": "ep_formal_planning_001",
+      "evidence_refs": [
+        "evidence_plan_observed_2"
+      ],
+      "feedback_id": "fb_plan_2",
+      "feedback_kind": "observed_environment_feedback",
+      "hidden_gold_label_present": false,
+      "neural_judge_only": false,
+      "private_ref_metadata_only": true,
+      "reliability_score": 0.9
+    }
+  ]
+}

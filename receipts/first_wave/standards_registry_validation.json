@@ -36,7 +36,8 @@
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
       "mcp_tool_authority_replay",
-      "proof_derived_governed_mutation_authorization"
+      "proof_derived_governed_mutation_authorization",
+      "belief_state_process_reward_replay"
     ],
     "deferred_organs": [],
     "lean_lake_authorized": "bounded_public_witness_only",
@@ -55,7 +56,7 @@
     "status": "pass",
     "trading_or_financial_advice_authorized": false
   },
-  "checked_standard_count": 81,
+  "checked_standard_count": 82,
   "checked_standard_ids": [
     "std_microcosm_agent_trace",
     "std_microcosm_anti_claim",
@@ -137,7 +138,8 @@
     "std_microcosm_agent_memory_temporal_conflict_replay",
     "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
     "std_microcosm_mcp_tool_authority_replay",
-    "std_microcosm_proof_derived_governed_mutation_authorization"
+    "std_microcosm_proof_derived_governed_mutation_authorization",
+    "std_microcosm_belief_state_process_reward_replay"
   ],
   "command": "python -m microcosm_core.validators.standards_registry --registry microcosm-substrate/core/standards_registry.json --standards-dir microcosm-substrate/standards --acceptance microcosm-substrate/core/acceptance/first_wave_acceptance.json --out microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
   "duplicate_standard_ids": [],
@@ -150,7 +152,7 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 83,
+    "scanned_path_count": 84,
     "status": "pass"
   },
   "receipt_paths": [
@@ -158,9 +160,9 @@
     "microcosm-substrate/core/standards_registry.json",
     "microcosm-substrate/core/acceptance/first_wave_acceptance.json"
   ],
-  "registry_declared_standard_count": 81,
+  "registry_declared_standard_count": 82,
   "schema_version": "standards_registry_validation_receipt_v1",
-  "standard_count": 81,
+  "standard_count": 82,
   "status": "pass",
   "validator_id": "validator.microcosm.validators.standards_registry"
 }

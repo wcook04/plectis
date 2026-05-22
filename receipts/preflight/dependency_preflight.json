@@ -46,7 +46,8 @@
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
-    "proof_derived_governed_mutation_authorization"
+    "proof_derived_governed_mutation_authorization",
+    "belief_state_process_reward_replay"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
   "command": "python -m microcosm_core.validators.dependency_preflight --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --out microcosm-substrate/receipts/preflight/dependency_preflight.json",
@@ -463,6 +464,16 @@
       "missing_dependencies": [],
       "organ_id": "proof_derived_governed_mutation_authorization",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "proof_derived_governed_mutation_authorization",
+        "mcp_tool_authority_replay"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "belief_state_process_reward_replay",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -825,9 +836,19 @@
       "missing_fixture_inputs": [],
       "organ_id": "proof_derived_governed_mutation_authorization",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::belief_state_process_reward_replay::first_wave_contract_v1",
+      "fixture_input_count": 15,
+      "fixture_manifest": "core/fixture_manifests/belief_state_process_reward_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 15,
+      "missing_fixture_inputs": [],
+      "organ_id": "belief_state_process_reward_replay",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 15,
+  "negative_matrix_case_count": 16,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -884,7 +905,8 @@
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
       "mcp_tool_authority_replay",
-      "proof_derived_governed_mutation_authorization"
+      "proof_derived_governed_mutation_authorization",
+      "belief_state_process_reward_replay"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -922,7 +944,8 @@
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
       "mcp_tool_authority_replay",
-      "proof_derived_governed_mutation_authorization"
+      "proof_derived_governed_mutation_authorization",
+      "belief_state_process_reward_replay"
     ],
     "status": "pass"
   }
