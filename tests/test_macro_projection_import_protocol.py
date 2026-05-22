@@ -53,6 +53,8 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_replacement_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
+    assert result["public_safe_body_material_count"] == 2
+    assert result["public_safe_body_import_status"] == "pass"
     assert result["authority_ceiling"]["private_source_bodies_exported"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["projection_board"]["next_best_lane"] == "real_substrate_import_tranche"
@@ -67,6 +69,8 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         "self_hosted_status_protocol_landed": 1,
     }
     assert result["projection_intake_board"]["omitted_material_count"] == 2
+    assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
+    assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert result["projection_intake_board"]["negative_case_coverage_status"] == "pass"
     assert (
         result["projection_intake_board"]["projection_status_protocol"]["status_field"]
@@ -142,6 +146,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
+    assert result["public_safe_body_material_count"] == 2
 
 
 def test_macro_projection_import_plan_preview_is_non_writing() -> None:
@@ -158,8 +163,27 @@ def test_macro_projection_import_plan_preview_is_non_writing() -> None:
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_intake_board"]["release_authorized"] is False
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
+    assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
+    assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert all(
         row["selected_pattern_ids"]
         for row in result["projection_intake_board"]["projection_cells"]
     )
     assert "receipt_paths" not in result
+
+
+def test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance(
+    tmp_path: Path,
+) -> None:
+    result = run_projection_bundle(
+        BUNDLE_INPUT,
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["public_safe_body_material_count"] == 2
+    assert result["public_safe_body_import_status"] == "pass"
+    assert "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN" not in result["error_codes"]
+    assert result["authority_ceiling"]["release_authorized"] is False
+    assert result["authority_ceiling"]["private_data_equivalence_claim"] is False

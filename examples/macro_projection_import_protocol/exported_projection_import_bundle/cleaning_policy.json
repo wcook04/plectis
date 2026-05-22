@@ -1,23 +1,33 @@
 {
   "schema_version": "macro_projection_import_cleaning_policy_fixture_v1",
   "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
-  "default_copy_mode": "metadata_or_fixture_shape_only",
+  "default_copy_mode": "public_safe_body_with_provenance_or_fixture_shape",
   "forbidden_material_classes": [
     "raw_seed_body",
     "operator_thread_body",
     "provider_payload_body",
-    "private_source_body",
+    "non_public_evidence_body",
+    "private_operator_source_body",
     "credential",
     "secret",
     "recipient_packet_body",
     "release_packet_body"
   ],
+  "direct_import_material_classes": [
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_proof_body"
+  ],
   "required_cleaning_actions": [
+    "classify_private_state_risk",
     "strip_private_absolute_paths",
-    "replace_private_bodies_with_public_refs",
+    "preserve_public_safe_bodies_with_provenance",
+    "replace_true_private_bodies_with_public_refs",
     "preserve_source_ref_lineage",
     "attach_omission_receipt",
     "attach_authority_ceiling",
+    "bound_public_claim_strength",
     "validate_private_state_scan"
   ],
   "requires_omission_receipt": true,

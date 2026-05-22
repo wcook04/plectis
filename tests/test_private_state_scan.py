@@ -6,6 +6,7 @@ from microcosm_core.private_state_scan import (
     BLOCKED_PRIVATE,
     BLOCKED_PUBLIC_WRITE,
     PASS,
+    classify_public_safe_macro_import,
     load_forbidden_classes,
     scan_paths,
     scan_text,
@@ -78,3 +79,59 @@ def test_public_root_is_allowed_as_target_and_blocked_as_source() -> None:
     assert target["status"] == PASS
     assert source["status"] == BLOCKED_PUBLIC_WRITE
     assert source["hits"][0]["forbidden_class"] == "target_only_not_source"
+
+
+def test_public_safe_macro_import_allows_tool_and_proof_bodies_with_provenance() -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+
+    tool = classify_public_safe_macro_import(
+        {
+            "material_class": "public_macro_tool_body",
+            "private_state_risk": "low",
+            "public_safe_mode": "public_safe_body_with_light_edits",
+            "source_refs": ["tools/meta/control/work_landing.py"],
+            "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
+            "validation_refs": ["microcosm-substrate/tests/test_private_state_scan.py"],
+            "claim_ceiling": "algorithmic body import only",
+        },
+        forbidden_classes=policy,
+    )
+    proof = classify_public_safe_macro_import(
+        {
+            "material_class": "public_macro_proof_body",
+            "private_state_risk": "low",
+            "public_safe_mode": "public_safe_body_with_light_edits",
+            "source_refs": [
+                "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
+            ],
+            "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
+            "validation_refs": ["microcosm-substrate/tests/test_private_state_scan.py"],
+            "claim_ceiling": "proof body import only",
+        },
+        forbidden_classes=policy,
+    )
+
+    assert tool["status"] == PASS
+    assert tool["route"] == "public_safe_with_light_edits"
+    assert proof["status"] == PASS
+    assert proof["route"] == "public_safe_with_light_edits"
+
+
+def test_public_safe_macro_import_still_blocks_true_private_classes() -> None:
+    policy = load_forbidden_classes(POLICY_PATH)
+
+    result = classify_public_safe_macro_import(
+        {
+            "material_class": "raw_seed_body",
+            "private_state_risk": "none",
+            "public_safe_mode": "direct_public_with_provenance",
+            "source_refs": ["raw_seed.md"],
+            "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
+            "validation_refs": ["microcosm-substrate/tests/test_private_state_scan.py"],
+            "claim_ceiling": "not allowed",
+        },
+        forbidden_classes=policy,
+    )
+
+    assert result["status"] == BLOCKED_PRIVATE
+    assert result["findings"][0]["error_code"] == "PUBLIC_SAFE_IMPORT_TRUE_FORBIDDEN_CLASS"

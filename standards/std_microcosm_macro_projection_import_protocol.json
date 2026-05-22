@@ -1,5 +1,5 @@
 {
-  "anti_claim": "This standard governs public-safe macro-to-Microcosm projection metadata only; it does not authorize private body export, release, publication, recipient work, provider calls, private-root equivalence, or live macro source authority.",
+  "anti_claim": "This standard governs public-safe macro-to-Microcosm projection, including classified public-safe bodies with provenance. It does not authorize true private body export, release, publication, recipient work, provider calls, private-root equivalence, or live macro source authority.",
   "anti_claim_contract": {
     "required": true,
     "rule": "projection import material must state what it does not authorize"
@@ -8,7 +8,7 @@
     "This public standard does not make macro private source bodies public.",
     "This public standard does not claim Microcosm is equivalent to the private root."
   ],
-  "authority_boundary": "public_safe_macro_projection_protocol_not_source_body_authority",
+  "authority_boundary": "public_safe_macro_projection_protocol_with_classified_body_import_not_source_authority",
   "authority_ceiling": {
     "private_data_equivalence_authority": false,
     "release_authority": false,
@@ -42,6 +42,10 @@
     "allowed_public_inputs": [
       "macro source-ref paths",
       "pattern metadata",
+      "public-safe macro pattern bodies with provenance",
+      "public-safe macro tool bodies with provenance",
+      "public-safe macro receipt bodies with provenance",
+      "public-safe macro proof bodies with provenance",
       "fixture shape",
       "standard schema",
       "receipt summaries",
@@ -49,12 +53,13 @@
       "redacted authority ceilings",
       "synthetic negative cases"
     ],
-    "default_posture": "public_safe_when_metadata_fixture_receipt_only",
+    "default_posture": "public_safe_when_classified_with_provenance_or_metadata_fixture_receipt_only",
     "forbidden_public_inputs": [
       "live_raw_seed_body",
       "operator_thread_content",
       "provider_payload_bodies",
-      "private_source_bodies",
+      "non_public_evidence_bodies",
+      "true_private_source_bodies",
       "credentials",
       "release_packet_bodies",
       "recipient_packet_bodies",
@@ -114,7 +119,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs must stay path-level metadata; public replacement refs must be public-root relative"
+    "rule": "macro source refs must carry provenance; public-safe body imports must be classified and claim-bounded; public replacement refs must be public-root relative"
   },
   "source_refs": [
     {
@@ -130,7 +135,7 @@
   ],
   "standard_id": "std_microcosm_macro_projection_import_protocol",
   "standard_payload": {
-    "anti_purpose": "Ad hoc copying of macro bodies or authority claims into public Microcosm.",
+      "anti_purpose": "Ad hoc copying of unclassified macro bodies or authority claims into public Microcosm.",
     "compression_bands": [
       "protocol",
       "intake_board",
@@ -145,7 +150,7 @@
         "landed projection cell still appears as open work",
         "projection claims release or private equivalence"
       ],
-      "ontology": "A public-safe import membrane that turns macro substrate into metadata, fixture shape, standards, receipts, and explicit omission records.",
+      "ontology": "A public-safe import membrane that turns macro substrate into classified public-safe bodies, metadata, fixture shape, standards, receipts, and explicit omission records.",
       "rebuild_action": "draft",
       "teleology": "Make future Microcosm cells cheaper and safer by standardizing how macro intelligence enters the public root."
     },
@@ -172,7 +177,8 @@
   "status": "draft",
   "validation_rules": [
     "require at least two macro source refs, public replacement refs, and validation refs",
-    "reject private body import requests",
+    "allow classified public-safe macro proof/tool/pattern/receipt body imports with provenance and bounded claims",
+    "reject true private body import requests",
     "require omission receipts for omitted private material classes",
     "reject live macro source authority upgrades",
         "reject release, publication, recipient-work, and private-equivalence overclaims",

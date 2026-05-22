@@ -10,6 +10,7 @@ from .schemas import read_json_strict
 PASS = "pass"
 BLOCKED_PRIVATE = "blocked_private_state"
 BLOCKED_PUBLIC_WRITE = "blocked_public_write_attempt"
+BLOCKED_CASE_REVIEW = "blocked_case_review_required"
 
 TEXT_SUFFIXES = {
     ".json",
@@ -118,6 +119,147 @@ def _terms(forbidden_classes: dict[str, Any]) -> list[dict[str, str]]:
                     }
                 )
     return rows
+
+
+def _import_policy(forbidden_classes: dict[str, Any]) -> dict[str, Any]:
+    policy = forbidden_classes.get("public_safe_macro_import", {})
+    return policy if isinstance(policy, dict) else {}
+
+
+def _string_list(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item).strip() for item in value if str(item).strip()]
+
+
+def _bool_from_row(row: dict[str, Any], key: str) -> bool:
+    if key in row:
+        return row.get(key) is True
+    ceiling = row.get("authority_ceiling")
+    if isinstance(ceiling, dict):
+        return ceiling.get(key) is True
+    return False
+
+
+def classify_public_safe_macro_import(
+    row: dict[str, Any],
+    *,
+    forbidden_classes: dict[str, Any],
+) -> dict[str, Any]:
+    """Classify one requested macro import without exposing source bodies."""
+
+    policy = _import_policy(forbidden_classes)
+    material_class = str(row.get("material_class") or "").strip()
+    private_state_risk = str(row.get("private_state_risk") or "").strip().lower()
+    risk_routing = policy.get("risk_routing", {})
+    if not isinstance(risk_routing, dict):
+        risk_routing = {}
+    route = str(risk_routing.get(private_state_risk) or "case_review")
+
+    true_forbidden = set(_string_list(policy.get("true_forbidden_material_classes")))
+    public_safe_classes = set(_string_list(policy.get("public_safe_body_material_classes")))
+    required_fields = _string_list(policy.get("required_public_body_fields"))
+    allowed_modes = set(_string_list(policy.get("allowed_public_safe_modes")))
+    forbidden_flags = _string_list(policy.get("claim_ceiling_forbidden_flags"))
+
+    findings: list[dict[str, Any]] = []
+    if material_class in true_forbidden:
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_TRUE_FORBIDDEN_CLASS",
+                "message": "True private material classes cannot enter public macro import.",
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+    elif material_class not in public_safe_classes:
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_UNKNOWN_BODY_CLASS",
+                "message": "Body-bearing material must declare a public-safe macro body class.",
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+
+    if route == "case_review":
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_CASE_REVIEW_REQUIRED",
+                "message": "Medium or unclassified private-state risk requires case review before body import.",
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+    elif route == "synthetic_only":
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_SYNTHETIC_ONLY",
+                "message": "High private-state risk remains synthetic-only.",
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+
+    public_safe_mode = str(row.get("public_safe_mode") or "").strip()
+    if public_safe_mode not in allowed_modes:
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_MODE_UNSUPPORTED",
+                "message": "Public-safe body import must use an allowed provenance mode.",
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+
+    missing_fields: list[str] = []
+    for field in required_fields:
+        value = row.get(field)
+        if isinstance(value, list):
+            if not _string_list(value):
+                missing_fields.append(field)
+        elif value in (None, "", False):
+            missing_fields.append(field)
+    if missing_fields:
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_PROVENANCE_MISSING",
+                "message": "Public-safe body import requires provenance, validation, risk, mode, and claim ceiling fields.",
+                "missing_fields": missing_fields,
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+
+    forbidden_claim_flags = [flag for flag in forbidden_flags if _bool_from_row(row, flag)]
+    if row.get("claims_source_authority") is True:
+        forbidden_claim_flags.append("claims_source_authority")
+    if forbidden_claim_flags:
+        findings.append(
+            {
+                "error_code": "PUBLIC_SAFE_IMPORT_AUTHORITY_OVERCLAIM",
+                "message": "Public-safe body import cannot upgrade itself into source, release, equivalence, or whole-system authority.",
+                "forbidden_flags": sorted(set(forbidden_claim_flags)),
+                "material_class": material_class,
+                "body_redacted": True,
+            }
+        )
+
+    if findings:
+        status = BLOCKED_CASE_REVIEW if route == "case_review" else BLOCKED_PRIVATE
+    else:
+        status = PASS
+
+    return {
+        "status": status,
+        "route": route,
+        "material_class": material_class,
+        "private_state_risk": private_state_risk,
+        "public_safe_mode": public_safe_mode,
+        "flow_allowed": status == PASS,
+        "findings": findings,
+        "body_redacted": True,
+    }
 
 
 def _allowed_synthetic_negative(path: str, text: str) -> bool:

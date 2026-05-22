@@ -1,6 +1,56 @@
 {
   "schema_version": "private_state_forbidden_classes_v1",
   "authority_boundary": "scanner_policy_for_public_safe_slice",
+  "public_safe_macro_import": {
+    "policy_id": "public_safe_macro_import_classification_v1",
+    "source_context": "public_safe_macro_import",
+    "summary": "Body-bearing macro material is not forbidden merely because it is a body. True private classes remain blocked; public-safe macro proof, tool, pattern, and receipt bodies may flow with provenance, light edits, scanner coverage, and bounded claims.",
+    "risk_routing": {
+      "none": "direct_public",
+      "low": "public_safe_with_light_edits",
+      "medium": "case_review",
+      "high": "synthetic_only"
+    },
+    "public_safe_body_material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_tool_body",
+      "public_macro_receipt_body",
+      "public_macro_proof_body"
+    ],
+    "true_forbidden_material_classes": [
+      "raw_seed_body",
+      "operator_thread_body",
+      "provider_payload_body",
+      "credential",
+      "secret",
+      "recipient_packet_body",
+      "release_packet_body",
+      "live_operator_state",
+      "non_public_evidence_body",
+      "private_operator_source_body"
+    ],
+    "required_public_body_fields": [
+      "source_refs",
+      "provenance_refs",
+      "validation_refs",
+      "claim_ceiling",
+      "private_state_risk",
+      "public_safe_mode"
+    ],
+    "allowed_public_safe_modes": [
+      "direct_public_with_provenance",
+      "public_safe_body_with_light_edits"
+    ],
+    "claim_ceiling_forbidden_flags": [
+      "release_authorized",
+      "publication_authorized",
+      "recipient_work_authorized",
+      "private_data_equivalence_claim",
+      "whole_system_correctness_claim",
+      "source_authority_above_macro_contracts",
+      "live_macro_source_authority"
+    ]
+  },
   "classes": [
     {
       "class_id": "forbidden_content_body",
@@ -39,7 +89,7 @@
     {
       "class_id": "non_public_evidence_body",
       "label": "non-public evidence body",
-      "remediation": "emit path-level lineage or an omission receipt",
+      "remediation": "emit path-level lineage, an omission receipt, or route through public_safe_macro_import if the material is a public-safe body class with provenance",
       "terms": [
         {
           "term_id": "private_source_body_sentinel",

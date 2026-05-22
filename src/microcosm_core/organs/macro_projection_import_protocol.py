@@ -8,6 +8,7 @@ from typing import Any
 
 from microcosm_core.private_state_scan import (
     PASS,
+    classify_public_safe_macro_import,
     load_forbidden_classes,
     public_relative_path,
     scan_paths,
@@ -53,16 +54,24 @@ EXPECTED_NEGATIVE_CASES = {
     ],
 }
 
-FORBIDDEN_MATERIAL_CLASSES = {
+TRUE_FORBIDDEN_MATERIAL_CLASSES = {
     "raw_seed_body",
     "operator_thread_body",
     "provider_payload_body",
-    "private_source_body",
+    "non_public_evidence_body",
+    "private_operator_source_body",
     "credential",
     "secret",
     "recipient_packet_body",
     "release_packet_body",
 }
+PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_proof_body",
+}
+FORBIDDEN_MATERIAL_CLASSES = TRUE_FORBIDDEN_MATERIAL_CLASSES
 FORBIDDEN_AUTHORITY_FLAGS = (
     "source_authority_above_macro_contracts",
     "live_macro_source_authority",
@@ -72,7 +81,8 @@ FORBIDDEN_AUTHORITY_FLAGS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "macro_projection_protocol_metadata_fixture_and_receipt_refs_only",
+    "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
+    "public_safe_bodies_imported_with_provenance": True,
     "private_source_bodies_exported": False,
     "raw_seed_body_read": False,
     "operator_thread_body_read": False,
@@ -301,10 +311,24 @@ def _release_or_equivalence_overclaim(payload: object) -> bool:
     )
 
 
-def _private_body_request(payload: object) -> list[str]:
+def _public_safe_import_status(
+    row: dict[str, Any],
+    *,
+    import_policy: dict[str, Any],
+) -> dict[str, Any] | None:
+    material_class = str(row.get("material_class") or "")
+    if material_class not in PUBLIC_SAFE_BODY_MATERIAL_CLASSES:
+        return None
+    return classify_public_safe_macro_import(row, forbidden_classes=import_policy)
+
+
+def _private_body_request(payload: object, *, import_policy: dict[str, Any] | None = None) -> list[str]:
+    policy = import_policy or {}
     subjects: list[str] = []
     for key in ("copied_material", "material_requests", "source_refs"):
         for row in _rows(payload, key):
+            if _public_safe_import_status(row, import_policy=policy) is not None:
+                continue
             material_id = str(row.get("material_id") or row.get("source_ref") or key)
             material_class = str(row.get("material_class") or "")
             if (
@@ -316,6 +340,8 @@ def _private_body_request(payload: object) -> list[str]:
                 subjects.append(material_id)
     if isinstance(payload, dict):
         material_class = str(payload.get("material_class") or "")
+        if _public_safe_import_status(payload, import_policy=policy) is not None:
+            return sorted(set(subjects))
         if (
             payload.get("body_copied") is True
             or payload.get("body_included") is True
@@ -332,8 +358,10 @@ def validate_projection_protocol(
     omission_negative: object | None = None,
     authority_negative: object | None = None,
     release_negative: object | None = None,
+    import_policy: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
+    policy = import_policy or {}
     source_refs = _strings(protocol.get("source_refs"))
     public_replacements = _strings(protocol.get("public_replacement_refs"))
     validation_refs = _strings(protocol.get("validation_refs"))
@@ -357,11 +385,24 @@ def validate_projection_protocol(
     for row in copied_material:
         material_id = str(row.get("material_id") or "copied_material")
         material_class = str(row.get("material_class") or "")
-        if material_class in FORBIDDEN_MATERIAL_CLASSES or row.get("body_copied") is True:
+        public_safe_status = _public_safe_import_status(row, import_policy=policy)
+        if public_safe_status is not None:
+            for finding in public_safe_status["findings"]:
+                findings.append(
+                    _finding(
+                        str(finding.get("error_code") or "PUBLIC_SAFE_IMPORT_BLOCKED"),
+                        str(finding.get("message") or "Public-safe import classification blocked."),
+                        case_id="public_safe_body_import_floor",
+                        subject_id=material_id,
+                        subject_kind="copied_material",
+                    )
+                )
+            continue
+        if material_class in TRUE_FORBIDDEN_MATERIAL_CLASSES or row.get("body_copied") is True:
             findings.append(
                 _finding(
                     "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
-                    "Copied material may carry metadata or fixture shape only, never private bodies.",
+                    "Copied material may carry metadata, fixture shape, or classified public-safe bodies only; true private bodies remain forbidden.",
                     case_id="protocol_floor",
                     subject_id=material_id,
                     subject_kind="copied_material",
@@ -379,7 +420,7 @@ def validate_projection_protocol(
                 )
             )
     for negative in (private_negative,):
-        for subject in _private_body_request(negative):
+        for subject in _private_body_request(negative, import_policy=policy):
             _record(
                 findings,
                 observed,
@@ -429,6 +470,17 @@ def validate_projection_protocol(
             subject_kind="negative_case",
         )
 
+    blocking_findings = [
+        row
+        for row in findings
+        if row.get("negative_case_id") in {"density_floor", "protocol_floor", "public_safe_body_import_floor"}
+    ]
+    public_safe_body_count = sum(
+        1
+        for row in copied_material
+        if _public_safe_import_status(row, import_policy=policy) is not None
+        and not _public_safe_import_status(row, import_policy=policy)["findings"]
+    )
     return {
         "status": PASS
         if len(source_refs) >= 2
@@ -438,12 +490,15 @@ def validate_projection_protocol(
         and omitted_material
         and cleaned_material
         and steps
+        and not blocking_findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
         "public_replacement_refs": public_replacements,
         "validation_refs": validation_refs,
         "copied_material_count": len(copied_material),
+        "public_safe_body_material_count": public_safe_body_count,
+        "blocking_finding_count": len(blocking_findings),
         "cleaned_material_count": len(cleaned_material),
         "omitted_material_count": len(omitted_material),
         "step_count": len(steps),
@@ -460,7 +515,7 @@ def validate_cleaning_policy(payload: object) -> dict[str, Any]:
         "raw_seed_body",
         "operator_thread_body",
         "provider_payload_body",
-        "private_source_body",
+        "non_public_evidence_body",
         "credential",
     }
     missing_forbidden = sorted(required_forbidden - forbidden)
@@ -488,7 +543,7 @@ def validate_cleaning_policy(payload: object) -> dict[str, Any]:
     return {
         "status": PASS
         if not findings
-        and policy.get("default_copy_mode") == "metadata_or_fixture_shape_only"
+        and policy.get("default_copy_mode") == "public_safe_body_with_provenance_or_fixture_shape"
         and len(actions) >= 4
         else "blocked",
         "policy_id": policy.get("policy_id"),
@@ -681,7 +736,7 @@ def _build_projection_intake_board(
     )
     return {
         "schema_version": "macro_projection_import_intake_board_v1",
-        "headline": "Macro source refs become queued public projection cells before any body copy is possible.",
+        "headline": "Macro source refs become queued public projection cells; public-safe bodies may flow only through provenance and claim-ceiling classification.",
         "input_mode": input_mode,
         "protocol_id": protocol["protocol_id"],
         "policy_id": cleaning_policy["policy_id"],
@@ -692,6 +747,7 @@ def _build_projection_intake_board(
             "standard schema",
             "receipt summary",
             "public-root replacement ref",
+            "public-safe macro body with provenance",
         ],
         "allowed_material_classes": _strings(protocol_payload.get("material_classes")),
         "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
@@ -744,6 +800,7 @@ def _build_result(
         payloads.get("missing_omission_receipt"),
         payloads.get("authority_upgrade_overclaim"),
         payloads.get("release_or_private_equivalence_overclaim"),
+        import_policy=policy,
     )
     cleaning_policy = validate_cleaning_policy(payloads["cleaning_policy"])
     import_plan = validate_import_plan(
@@ -804,6 +861,10 @@ def _build_result(
         "source_ref_count": len(protocol["source_refs"]),
         "public_replacement_ref_count": len(protocol["public_replacement_refs"]),
         "validation_ref_count": len(set(protocol["validation_refs"] + import_plan["validation_refs"])),
+        "public_safe_body_material_count": protocol["public_safe_body_material_count"],
+        "public_safe_body_import_status": "pass"
+        if protocol["public_safe_body_material_count"]
+        else "not_present",
         "projection_cell_count": import_plan["projection_cell_count"],
         "ready_projection_cell_count": projection_intake_board["ready_cell_count"],
         "blocked_projection_cell_count": projection_intake_board["blocked_cell_count"],
@@ -816,7 +877,7 @@ def _build_result(
         "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
         "next_best_lane": import_plan["next_best_lane"],
         "projection_board": {
-            "headline": "Macro material enters Microcosm through public-safe projection, not body copy.",
+            "headline": "Macro material enters Microcosm through public-safe classification, provenance, and bounded claims; true private bodies stay blocked.",
             "protocol_id": protocol["protocol_id"],
             "allowed_material": [
                 "metadata",
@@ -824,8 +885,10 @@ def _build_result(
                 "standard schema",
                 "receipt summary",
                 "public-root replacement ref",
+                "public-safe macro body with provenance",
             ],
             "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
+            "public_safe_body_material_count": protocol["public_safe_body_material_count"],
             "projection_cell_count": import_plan["projection_cell_count"],
             "next_best_lane": import_plan["next_best_lane"],
             "release_authorized": False,
@@ -866,6 +929,8 @@ def _common_receipt(
         "source_ref_count",
         "public_replacement_ref_count",
         "validation_ref_count",
+        "public_safe_body_material_count",
+        "public_safe_body_import_status",
         "projection_cell_count",
         "ready_projection_cell_count",
         "blocked_projection_cell_count",
