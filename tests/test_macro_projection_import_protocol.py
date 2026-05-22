@@ -118,7 +118,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         "receipts/preflight/dependency_preflight.json"
     )
     assert result["organ_lifecycle_coverage_status"] == "pass"
-    assert result["organ_lifecycle_coverage_counts"]["accepted_organ_count"] == 44
+    assert result["organ_lifecycle_coverage_counts"]["accepted_organ_count"] == 45
     assert result["private_runtime_dependency_count"] == 0
     assert result["flagship_tranche_status"] == "pass"
     assert result["flagship_tranche_lane_count"] == 6
@@ -191,7 +191,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert release_board["dependency_preflight_gate"]["status"] == "pass"
     assert release_board["dependency_preflight_gate"]["defect_count"] == 0
     assert release_board["organ_lifecycle_coverage_status"] == "pass"
-    assert release_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 44
+    assert release_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 45
     assert {
         row["check_id"]: row["status"]
         for row in release_board["severance_checks"]

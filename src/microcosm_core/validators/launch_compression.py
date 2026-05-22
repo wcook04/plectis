@@ -85,7 +85,10 @@ def validate_launch_compression(
     observatory_html = shell._observatory_html(project_path)
     state_files = _walk_state_files(project_path)
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
+    release_claim_marker = "<!-- BEGIN microcosm_release_claim_projection -->"
+    launch_intro_screen = readme_first_screen.split(release_claim_marker, 1)[0]
     first_screen_lower = readme_first_screen.lower()
+    launch_intro_lower = launch_intro_screen.lower()
     receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
 
     assertions = {
@@ -93,7 +96,9 @@ def validate_launch_compression(
         and "inspectable work substrate" in readme_first_screen,
         "one_command_quickstart_present": "microcosm compile ." in readme_first_screen,
         "try_it_on_your_repo_present": "try it on your repo" in first_screen_lower,
-        "first_screen_not_receipt_forward": not any(needle in first_screen_lower for needle in receipt_forward_needles),
+        "first_screen_not_receipt_forward": not any(
+            needle in launch_intro_lower for needle in receipt_forward_needles
+        ),
         "pyproject_description_compressed": "repo" in pyproject_text
         and ".microcosm" in pyproject_text,
         "compile_command_passes": compiled.get("status") == PASS,

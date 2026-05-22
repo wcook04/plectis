@@ -96,6 +96,7 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
+        "certificate_kernel_execution_lab",
     ]
     assert receipt["blocked_dependency_count"] == 0
     assert receipt["blocked_dependency_codes"] == []
@@ -103,13 +104,13 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
     assert coverage["status"] == "pass"
     assert coverage["defect_count"] == 0
     assert coverage["coverage_counts"] == {
-        "accepted_organ_count": 44,
-        "runtime_step_count": 44,
-        "acceptance_plan_organ_count": 44,
-        "evidence_class_row_count": 44,
-        "organ_authority_row_count": 44,
-        "surface_authority_row_count": 44,
-        "fixture_check_count": 44,
+        "accepted_organ_count": 45,
+        "runtime_step_count": 45,
+        "acceptance_plan_organ_count": 45,
+        "evidence_class_row_count": 45,
+        "organ_authority_row_count": 45,
+        "surface_authority_row_count": 45,
+        "fixture_check_count": 45,
     }
     assert "missing_public_lens" not in {
         defect["defect_id"] for defect in coverage["defects"]

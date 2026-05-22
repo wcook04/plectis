@@ -59,7 +59,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-22T16:40:41+00:00",
+  "created_at": "2026-05-22T18:29:48+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -119,6 +119,7 @@
     "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
     "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/flagship_tranche.json",
     "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
   ],
@@ -242,7 +243,7 @@
     "market_boundary_row_count": 8,
     "option_surface_row_count": 6,
     "option_surface_stage_count": 6,
-    "organ_count": 44,
+    "organ_count": 45,
     "prediction_mechanic_count": 5,
     "projection_cell_count": 3,
     "projection_drift_repair_route_count": 8,
@@ -263,7 +264,7 @@
     "standards_control_row_count": 8,
     "stripping_guard_negative_case_count": 8,
     "stripping_guard_row_count": 8,
-    "surface_authority_count": 44,
+    "surface_authority_count": 45,
     "trace_negative_case_count": 7,
     "trace_repair_attempt_count": 4,
     "view_quality_action_count": 5,
