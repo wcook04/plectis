@@ -51,9 +51,16 @@ def test_release_impressiveness_compiler_reports_claim_card_coverage() -> None:
     receipt = release_impressiveness_compiler.build_receipt(MICROCOSM_ROOT)
 
     assert receipt["claim_card_coverage_status"] == "pass"
+    assert receipt["lane_specific_claim_coverage_status"] == "pass"
+    assert receipt["release_grade_claim_binding_status"] == "pass"
     assert receipt["claim_card_coverage"]["covered_lane_count"] == 6
+    assert receipt["lane_specific_claim_coverage"]["covered_lane_count"] == 6
+    assert receipt["lane_specific_claim_coverage"]["broad_only_lane_ids"] == []
     for card in receipt["capability_transfer_cards"]:
         assert "macro_pattern_import_membrane" in card["linked_claim_card_ids"]
+        assert card["lane_specific_claim_coverage_status"] == "pass"
+        assert card["lane_specific_claim_card_ids"]
+        assert card["global_claim_card_ids"]
 
 
 def test_release_impressiveness_compiler_demotes_hollow_lane(tmp_path: Path) -> None:
@@ -80,3 +87,47 @@ def test_release_impressiveness_compiler_demotes_hollow_lane(tmp_path: Path) -> 
         "CAPABILITY_TRANSFER_RUNTIME_SURFACE_MISSING"
     )
     assert "metadata-only" in first_card["demotion_rule"]
+
+
+def test_release_impressiveness_compiler_blocks_broad_only_claim_coverage(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_compiler_root(tmp_path)
+    registry_path = (
+        public_root
+        / release_impressiveness_compiler.CLAIM_CARD_REGISTRY_REL
+    )
+    payload = json.loads(registry_path.read_text(encoding="utf-8"))
+    mutated = copy.deepcopy(payload)
+    mutated["claim_cards"] = [
+        row
+        for row in mutated["claim_cards"]
+        if not row.get("lane_refs")
+        and not row.get("capability_refs")
+        and not row.get("selected_pattern_refs")
+    ]
+    registry_path.write_text(
+        json.dumps(mutated, ensure_ascii=True, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    receipt = release_impressiveness_compiler.build_receipt(
+        public_root,
+        require_claim_card_coverage=True,
+    )
+
+    assert receipt["claim_card_coverage_status"] == "pass"
+    assert receipt["lane_specific_claim_coverage_status"] == "partial"
+    assert receipt["release_grade_claim_binding_status"] == "partial"
+    assert receipt["status"] == "blocked"
+    assert release_impressiveness_compiler.LANE_SPECIFIC_COVERAGE_BLOCK_CODE in (
+        receipt["blocking_codes"]
+    )
+    assert set(receipt["lane_specific_claim_coverage"]["broad_only_lane_ids"]) == {
+        "proof_formal_kernel",
+        "prover_evaluator_lab",
+        "work_landing_governance",
+        "navigation_option_surface",
+        "pattern_doctrine_compiler",
+        "observatory_provenance_diagnostics",
+    }

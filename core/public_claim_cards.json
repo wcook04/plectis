@@ -196,6 +196,258 @@
       "anti_claim": "Schema-only replay fixtures do not demonstrate live safety infrastructure.",
       "promotion_rule": "Cannot render as capability until backed by stronger evidence class plus a real external demo or bounded execution receipt.",
       "demotion_rule": "Always render with fixture language while evidence_class is synthetic_fixture_replay."
+    },
+    {
+      "claim_id": "capability_claim_proof_formal_kernel",
+      "audience": "formal_math_researcher",
+      "display_order": 110,
+      "readme_slot": "drilldown",
+      "render_status": "reference_only",
+      "public_render_label": "Proof and formal kernel transfer",
+      "plain_english_claim": "The proof/formal flagship lane transfers verifier traces, evidence-cell routing, Std premise indexing, and tactic availability into public-safe Microcosm artifacts.",
+      "claim_scope": "lane",
+      "lane_refs": [
+        "proof_formal_kernel"
+      ],
+      "capability_refs": [
+        "capability_transfer::proof_formal_kernel"
+      ],
+      "selected_pattern_refs": [
+        "formal_math_verifier_trace_repair_loop_compound",
+        "formal_evidence_cell_anchor_resolver",
+        "lean_std_toolchain_premise_index",
+        "tactic_portfolio_availability_probe"
+      ],
+      "evidence_class": "bounded_execution",
+      "surface_refs": [
+        "microcosm trace-lens",
+        "microcosm repair-loop",
+        "microcosm evidence-cells",
+        "paper_modules/formal_math_readiness_gate.md"
+      ],
+      "evidence_receipt_refs": [
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
+      ],
+      "demo_ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+      "negative_case_refs": [
+        "tests/test_macro_projection_import_protocol.py",
+        "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_is_public_safe"
+      ],
+      "authority_ceiling": "machine-evidence-routed proof/readiness specimen only; no whole-theorem or whole-system correctness claim",
+      "anti_claim": "This lane-specific claim does not prove the mathematical theorem or expose private proof bodies.",
+      "promotion_rule": "May satisfy lane-specific coverage while the proof/formal lane keeps runtime, release-artifact, and validation refs plus this lane binding.",
+      "demotion_rule": "Demote to broad macro-import context if the proof_formal_kernel lane binding, evidence receipt, or validation refs disappear."
+    },
+    {
+      "claim_id": "capability_claim_prover_evaluator_lab",
+      "audience": "formal_math_researcher",
+      "display_order": 120,
+      "readme_slot": "drilldown",
+      "render_status": "reference_only",
+      "public_render_label": "Prover evaluator lab transfer",
+      "plain_english_claim": "The prover/evaluator flagship lane transfers public readiness, strategy scoring, target-shape routing, and provider-context budget policy into inspectable Microcosm artifacts.",
+      "claim_scope": "lane",
+      "lane_refs": [
+        "prover_evaluator_lab"
+      ],
+      "capability_refs": [
+        "capability_transfer::prover_evaluator_lab"
+      ],
+      "selected_pattern_refs": [
+        "corpus_readiness_mathlib_absence_gate",
+        "target_shape_tactic_routing_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "provider_context_recipe_budget_policy"
+      ],
+      "evidence_class": "macro_pattern_projection",
+      "surface_refs": [
+        "microcosm corpus-lens",
+        "microcosm benchmark-lab",
+        "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+      ],
+      "evidence_receipt_refs": [
+        "receipts/runtime_shell/public_corpus_readiness_lens.json"
+      ],
+      "demo_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
+      "negative_case_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_corpus_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_is_public_safe",
+        "tests/test_macro_projection_import_protocol.py"
+      ],
+      "authority_ceiling": "public readiness and evaluator lens only; no provider success, proof success, or benchmark performance claim",
+      "anti_claim": "This lane-specific claim does not imply provider, benchmark, or theorem-proving performance.",
+      "promotion_rule": "May satisfy lane-specific coverage while the prover_evaluator_lab lane keeps runtime, release-artifact, and validation refs plus this lane binding.",
+      "demotion_rule": "Demote to broad macro-import context if the prover_evaluator_lab lane binding, evidence receipt, or validation refs disappear."
+    },
+    {
+      "claim_id": "capability_claim_work_landing_governance",
+      "audience": "agent_reliability_researcher",
+      "display_order": 130,
+      "readme_slot": "drilldown",
+      "render_status": "reference_only",
+      "public_render_label": "Work landing governance transfer",
+      "plain_english_claim": "The work-landing flagship lane transfers dirty-tree, scoped-commit, claim, receipt, and closure governance into a public replay surface.",
+      "claim_scope": "lane",
+      "lane_refs": [
+        "work_landing_governance"
+      ],
+      "capability_refs": [
+        "capability_transfer::work_landing_governance"
+      ],
+      "selected_pattern_refs": [
+        "durable_agent_work_landing_replay_compound",
+        "mission_transaction_landing",
+        "task_ledger_exact_receipt_drain",
+        "cap_reflex_capture_before_prose"
+      ],
+      "evidence_class": "macro_pattern_projection",
+      "surface_refs": [
+        "microcosm landing-replay",
+        "microcosm work demo",
+        "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
+        "paper_modules/mission_transaction_work_spine.md"
+      ],
+      "evidence_receipt_refs": [
+        "receipts/runtime_shell/public_work_landing_replay_lens.json"
+      ],
+      "demo_ref": "receipts/runtime_shell/public_work_landing_replay_lens.json",
+      "negative_case_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_landing_replay_lens_is_public_safe",
+        "tests/test_durable_agent_work_landing_replay.py",
+        "tests/test_macro_projection_import_protocol.py"
+      ],
+      "authority_ceiling": "governed public replay and receipt closure only; no live repo mutation or publication claim",
+      "anti_claim": "This lane-specific claim does not authorize live mutation, broad staging, or publication.",
+      "promotion_rule": "May satisfy lane-specific coverage while the work_landing_governance lane keeps runtime, release-artifact, and validation refs plus this lane binding.",
+      "demotion_rule": "Demote to broad macro-import context if the work_landing_governance lane binding, evidence receipt, or validation refs disappear."
+    },
+    {
+      "claim_id": "capability_claim_navigation_option_surface",
+      "audience": "agent_reliability_researcher",
+      "display_order": 140,
+      "readme_slot": "drilldown",
+      "render_status": "reference_only",
+      "public_render_label": "Navigation option-surface transfer",
+      "plain_english_claim": "The navigation flagship lane transfers route-plane, governed option-surface, canonical entry, and salience-gate patterns into public Microcosm navigation artifacts.",
+      "claim_scope": "lane",
+      "lane_refs": [
+        "navigation_option_surface"
+      ],
+      "capability_refs": [
+        "capability_transfer::navigation_option_surface"
+      ],
+      "selected_pattern_refs": [
+        "compression_profile_governed_option_surface",
+        "navigation_hologram_unified_route_plane",
+        "agent_entry_surfaces_canonical_first_move",
+        "live_projection_salience_gate"
+      ],
+      "evidence_class": "macro_pattern_projection",
+      "surface_refs": [
+        "microcosm projection-import-map",
+        "microcosm option-surface-lens",
+        "paper_modules/navigation_hologram_route_plane.md",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle"
+      ],
+      "evidence_receipt_refs": [
+        "receipts/runtime_shell/public_compression_profile_option_surface_lens.json"
+      ],
+      "demo_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+      "negative_case_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_projection_import_map_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe",
+        "tests/test_macro_projection_import_protocol.py"
+      ],
+      "authority_ceiling": "public route/option surface only; no guarantee that every future agent route is correct",
+      "anti_claim": "This lane-specific claim does not guarantee route correctness for every future agent task.",
+      "promotion_rule": "May satisfy lane-specific coverage while the navigation_option_surface lane keeps runtime, release-artifact, and validation refs plus this lane binding.",
+      "demotion_rule": "Demote to broad macro-import context if the navigation_option_surface lane binding, evidence receipt, or validation refs disappear."
+    },
+    {
+      "claim_id": "capability_claim_pattern_doctrine_compiler",
+      "audience": "agent_reliability_researcher",
+      "display_order": 150,
+      "readme_slot": "drilldown",
+      "render_status": "reference_only",
+      "public_render_label": "Pattern and doctrine compiler transfer",
+      "plain_english_claim": "The pattern/doctrine flagship lane transfers pattern-deliverable, cognitive-operator, meta-standard, and machine-checkable contract patterns into public compiler/read-model surfaces.",
+      "claim_scope": "lane",
+      "lane_refs": [
+        "pattern_doctrine_compiler"
+      ],
+      "capability_refs": [
+        "capability_transfer::pattern_doctrine_compiler"
+      ],
+      "selected_pattern_refs": [
+        "pattern_deliverables_registry",
+        "cognitive_operator_registry",
+        "std_microcosm_meta_standard",
+        "test_as_machine_checkable_substrate_contract"
+      ],
+      "evidence_class": "macro_pattern_projection",
+      "surface_refs": [
+        "microcosm patterns",
+        "microcosm standards-control",
+        "standards/std_microcosm_macro_projection_import_protocol.json",
+        "core/fixture_manifests/macro_projection_import_protocol.fixture_manifest.json"
+      ],
+      "evidence_receipt_refs": [
+        "receipts/runtime_shell/public_standards_control_lens.json"
+      ],
+      "demo_ref": "receipts/runtime_shell/public_standards_control_lens.json",
+      "negative_case_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_standards_control_lens_is_public_safe",
+        "tests/test_pattern_binding_contract.py",
+        "tests/test_macro_projection_import_protocol.py"
+      ],
+      "authority_ceiling": "public compiler/read-model substrate only; no claim that every macro pattern is fully imported",
+      "anti_claim": "This lane-specific claim does not claim that all macro patterns are imported or complete.",
+      "promotion_rule": "May satisfy lane-specific coverage while the pattern_doctrine_compiler lane keeps runtime, release-artifact, and validation refs plus this lane binding.",
+      "demotion_rule": "Demote to broad macro-import context if the pattern_doctrine_compiler lane binding, evidence receipt, or validation refs disappear."
+    },
+    {
+      "claim_id": "capability_claim_observatory_provenance_diagnostics",
+      "audience": "developer",
+      "display_order": 160,
+      "readme_slot": "drilldown",
+      "render_status": "reference_only",
+      "public_render_label": "Observatory provenance diagnostics transfer",
+      "plain_english_claim": "The observatory/provenance flagship lane transfers workingness, hidden-substrate manifest, and source-coupling patterns into standalone reveal and projection-safety surfaces.",
+      "claim_scope": "lane",
+      "lane_refs": [
+        "observatory_provenance_diagnostics"
+      ],
+      "capability_refs": [
+        "capability_transfer::observatory_provenance_diagnostics"
+      ],
+      "selected_pattern_refs": [
+        "workingness_instrument",
+        "hidden_substrate_integration_manifest",
+        "system_atlas_source_coupling_gate"
+      ],
+      "evidence_class": "real_project_lens",
+      "surface_refs": [
+        "microcosm reveal",
+        "microcosm projection-safety",
+        "microcosm serve <project>",
+        "examples/public_reveal_walkthrough/exported_public_reveal_bundle"
+      ],
+      "evidence_receipt_refs": [
+        "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+        "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json"
+      ],
+      "demo_ref": "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+      "negative_case_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_serves_observatory",
+        "tests/test_macro_projection_import_protocol.py"
+      ],
+      "authority_ceiling": "observable standalone product surface only; no private-root equivalence or hosted-public release claim",
+      "anti_claim": "This lane-specific claim does not make the observatory a hosted public release or private-root equivalent.",
+      "promotion_rule": "May satisfy lane-specific coverage while the observatory_provenance_diagnostics lane keeps runtime, release-artifact, and validation refs plus this lane binding.",
+      "demotion_rule": "Demote to broad macro-import context if the observatory_provenance_diagnostics lane binding, evidence receipt, or validation refs disappear."
     }
   ]
 }

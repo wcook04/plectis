@@ -31,6 +31,10 @@ REQUIRED_CARD_FLOOR = {
 }
 LOW_EVIDENCE_CLASSES = {"schema_contract", "synthetic_fixture_replay"}
 GLOBAL_IMPORT_CLAIM_IDS = {"macro_pattern_import_membrane"}
+LANE_SPECIFIC_CLAIM_SCOPES = {"lane", "pattern", "capability", "receipt"}
+LANE_SPECIFIC_COVERAGE_BLOCK_CODE = (
+    "CAPABILITY_TRANSFER_LANE_SPECIFIC_CLAIM_COVERAGE_PARTIAL"
+)
 
 
 def public_root_for(path: str | Path) -> Path:
@@ -135,6 +139,11 @@ def _claim_cards_by_relevance(
         if card_id in GLOBAL_IMPORT_CLAIM_IDS:
             linked.append(card)
             continue
+        if _claim_specificity_reasons(lane, card):
+            linked.append(card)
+            continue
+        if str(card.get("claim_scope") or "global") in LANE_SPECIFIC_CLAIM_SCOPES:
+            continue
         refs = {_split_ref(ref) for ref in _claim_card_refs(card)}
         if lane_refs & refs:
             linked.append(card)
@@ -149,6 +158,38 @@ def _claim_cards_by_relevance(
         if lane_tokens & card_tokens:
             linked.append(card)
     return sorted(linked, key=lambda row: str(row.get("claim_id") or ""))
+
+
+def _claim_specificity_reasons(
+    lane: dict[str, Any],
+    card: dict[str, Any],
+) -> list[str]:
+    claim_scope = str(card.get("claim_scope") or "global")
+    if claim_scope not in LANE_SPECIFIC_CLAIM_SCOPES:
+        return []
+
+    lane_id = str(lane.get("lane_id") or "")
+    capability_id = f"capability_transfer::{lane_id}"
+    selected_patterns = set(_strings(lane.get("selected_pattern_ids")))
+    reasons: list[str] = []
+
+    if lane_id and lane_id in set(_strings(card.get("lane_refs"))):
+        reasons.append("lane_ref")
+    if capability_id in set(_strings(card.get("capability_refs"))):
+        reasons.append("capability_ref")
+    if selected_patterns & set(_strings(card.get("selected_pattern_refs"))):
+        reasons.append("selected_pattern_ref")
+    return reasons
+
+
+def _lane_specific_claim_cards(
+    lane: dict[str, Any],
+    claim_cards: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    return sorted(
+        [card for card in claim_cards if _claim_specificity_reasons(lane, card)],
+        key=lambda row: str(row.get("claim_id") or ""),
+    )
 
 
 def _transfer_route(lane: dict[str, Any]) -> str:
@@ -193,6 +234,10 @@ def _capability_card(
 
     linked_claims = _claim_cards_by_relevance(lane, claim_cards)
     linked_claim_ids = [str(card.get("claim_id")) for card in linked_claims]
+    lane_specific_claims = _lane_specific_claim_cards(lane, claim_cards)
+    lane_specific_claim_ids = [
+        str(card.get("claim_id")) for card in lane_specific_claims
+    ]
     claim_evidence_classes = sorted(
         {
             str(card.get("evidence_class"))
@@ -200,11 +245,27 @@ def _capability_card(
             if isinstance(card.get("evidence_class"), str)
         }
     )
+    lane_specific_claim_evidence_classes = sorted(
+        {
+            str(card.get("evidence_class"))
+            for card in lane_specific_claims
+            if isinstance(card.get("evidence_class"), str)
+        }
+    )
     has_strong_claim = any(
         str(card.get("evidence_class") or "") not in LOW_EVIDENCE_CLASSES
         for card in linked_claims
     )
+    has_lane_specific_strong_claim = any(
+        str(card.get("evidence_class") or "") not in LOW_EVIDENCE_CLASSES
+        for card in lane_specific_claims
+    )
     claim_card_status = PASS if has_strong_claim else "needs_claim_projection"
+    lane_specific_claim_coverage_status = (
+        PASS
+        if has_lane_specific_strong_claim
+        else "needs_lane_specific_claim_projection"
+    )
     transfer_status = PASS if not blockers else BLOCKED
     product_surface_status = (
         PASS
@@ -231,11 +292,24 @@ def _capability_card(
         ),
         "macro_origin_refs": _strings(lane.get("source_refs")),
         "linked_claim_card_ids": linked_claim_ids,
+        "global_claim_card_ids": [
+            claim_id
+            for claim_id in linked_claim_ids
+            if claim_id not in set(lane_specific_claim_ids)
+        ],
+        "lane_specific_claim_card_ids": lane_specific_claim_ids,
+        "lane_specific_claim_binding_reasons": {
+            str(card.get("claim_id")): _claim_specificity_reasons(lane, card)
+            for card in lane_specific_claims
+        },
         "claim_evidence_classes": claim_evidence_classes,
+        "lane_specific_claim_evidence_classes": lane_specific_claim_evidence_classes,
         "claim_ceiling": str(lane.get("claim_ceiling") or ""),
+        "lane_specific_claim_coverage_status": lane_specific_claim_coverage_status,
         "demotion_rule": (
             "Demote to metadata-only flagship listing if runtime surface refs, release "
-            "artifact refs, validation refs, or a non-low-evidence claim card disappear."
+            "artifact refs, validation refs, or a lane-specific non-low-evidence claim "
+            "card disappear."
         ),
         "body_redacted": bool(lane.get("body_redacted", True)),
         "blockers": blockers,
@@ -258,6 +332,33 @@ def _claim_coverage(cards: list[dict[str, Any]]) -> dict[str, Any]:
         "covered_lane_count": len(cards) - len(missing),
         "uncovered_lane_count": len(missing),
         "uncovered_lane_ids": missing,
+        "claim_evidence_class_counts": dict(sorted(counts.items())),
+    }
+
+
+def _lane_specific_claim_coverage(cards: list[dict[str, Any]]) -> dict[str, Any]:
+    missing = [
+        card["lane_id"]
+        for card in cards
+        if card["lane_specific_claim_coverage_status"] != PASS
+    ]
+    broad_only = [
+        card["lane_id"]
+        for card in cards
+        if card["claim_card_status"] == PASS
+        and card["lane_specific_claim_coverage_status"] != PASS
+    ]
+    counts = Counter(
+        evidence_class
+        for card in cards
+        for evidence_class in card.get("lane_specific_claim_evidence_classes", [])
+    )
+    return {
+        "status": PASS if not missing else PARTIAL,
+        "covered_lane_count": len(cards) - len(missing),
+        "uncovered_lane_count": len(missing),
+        "uncovered_lane_ids": missing,
+        "broad_only_lane_ids": broad_only,
         "claim_evidence_class_counts": dict(sorted(counts.items())),
     }
 
@@ -305,6 +406,7 @@ def build_receipt(
         for blocker in card.get("blockers", [])
     ]
     claim_coverage = _claim_coverage(cards)
+    lane_specific_claim_coverage = _lane_specific_claim_coverage(cards)
     preflight = _preflight_gate(public_root)
     selected_patterns = sorted(
         {
@@ -319,6 +421,8 @@ def build_receipt(
         status = BLOCKED
     if require_claim_card_coverage and claim_coverage["status"] != PASS:
         status = BLOCKED
+    if require_claim_card_coverage and lane_specific_claim_coverage["status"] != PASS:
+        status = BLOCKED
     return {
         "schema_version": "microcosm_release_impressiveness_compiler_receipt_v1",
         "compiler_id": "release_impressiveness_compiler",
@@ -326,6 +430,8 @@ def build_receipt(
         "status": status,
         "transfer_status": transfer_status,
         "claim_card_coverage_status": claim_coverage["status"],
+        "lane_specific_claim_coverage_status": lane_specific_claim_coverage["status"],
+        "release_grade_claim_binding_status": lane_specific_claim_coverage["status"],
         "dependency_preflight_gate_status": preflight["status"],
         "flagship_tranche_ref": FLAGSHIP_TRANCHE_REL.as_posix(),
         "claim_card_registry_ref": CLAIM_CARD_REGISTRY_REL.as_posix(),
@@ -336,6 +442,7 @@ def build_receipt(
         "selected_pattern_ids": selected_patterns,
         "capability_transfer_cards": cards,
         "claim_card_coverage": claim_coverage,
+        "lane_specific_claim_coverage": lane_specific_claim_coverage,
         "dependency_preflight_gate": preflight,
         "blocking_codes": sorted(
             {
@@ -350,6 +457,12 @@ def build_receipt(
             | (
                 {"CAPABILITY_TRANSFER_CLAIM_CARD_COVERAGE_PARTIAL"}
                 if require_claim_card_coverage and claim_coverage["status"] != PASS
+                else set()
+            )
+            | (
+                {LANE_SPECIFIC_COVERAGE_BLOCK_CODE}
+                if require_claim_card_coverage
+                and lane_specific_claim_coverage["status"] != PASS
                 else set()
             )
         ),
