@@ -1,0 +1,10 @@
+{
+  "actions": [
+    {
+      "action_id": "neg_delete_without_review",
+      "body_redacted": true,
+      "destructive_action": true,
+      "human_review_ref": ""
+    }
+  ]
+}

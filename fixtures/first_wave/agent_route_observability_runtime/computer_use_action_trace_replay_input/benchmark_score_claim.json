@@ -1,0 +1,10 @@
+{
+  "claims": [
+    {
+      "benchmark_score_claim": true,
+      "body_redacted": true,
+      "claim_id": "neg_benchmark_score",
+      "score": "synthetic-score-blocked"
+    }
+  ]
+}

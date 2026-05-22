@@ -1,0 +1,10 @@
+{
+  "actions": [
+    {
+      "action_id": "neg_external_post",
+      "body_redacted": true,
+      "external_network_mutation": true,
+      "target_url_kind": "external_live"
+    }
+  ]
+}

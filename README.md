@@ -148,6 +148,7 @@ microcosm option-surface-lens
 microcosm stripping-guard
 microcosm standards-control
 microcosm hook-coverage
+microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 microcosm replay-gauntlet
 microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
@@ -207,6 +208,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens
 PYTHONPATH=src python3 -m microcosm_core.cli stripping-guard
 PYTHONPATH=src python3 -m microcosm_core.cli standards-control
 PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
+PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
@@ -376,6 +378,14 @@ rows. It exposes missing-authority and negative-case metadata without reading
 live operator state, provider payloads, browser/HUD/cockpit state, mutating
 Task Ledger, authorizing pattern assimilation, certifying runtime behavior, or
 claiming release.
+
+`agent-route-observability-runtime validate-computer-use-bundle` is the
+computer-use action-trace showcase under the same observability organ. It
+validates synthetic observations, affordances, actions, pre-action authority
+verdicts, state transitions, recovery receipts, cold replay, and falsification
+fixtures without live browser control, accounts, credentials, external network
+mutation, raw screenshots, benchmark scores, source mutation, or release
+authority.
 
 `microcosm replay-gauntlet` is the public synthetic agent-reliability replay
 lens. It projects benchmark-integrity, monitor falsification, sabotage,

@@ -795,6 +795,10 @@ class RuntimeShell:
                         "microcosm agentic-vulnerability-discovery-patch-proof-replay "
                         "run-patch-proof-bundle"
                     ),
+                    (
+                        "microcosm agent-route-observability-runtime "
+                        "validate-computer-use-bundle"
+                    ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
                     "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle",

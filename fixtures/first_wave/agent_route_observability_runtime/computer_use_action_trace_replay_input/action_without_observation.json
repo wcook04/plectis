@@ -1,0 +1,10 @@
+{
+  "actions": [
+    {
+      "action_id": "neg_no_observation",
+      "affordance_ref": "",
+      "body_redacted": true,
+      "observation_ref": ""
+    }
+  ]
+}

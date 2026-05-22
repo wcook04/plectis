@@ -1,0 +1,10 @@
+{
+  "observations": [
+    {
+      "body_redacted": true,
+      "hidden_state_claim": true,
+      "observation_id": "neg_hidden_dom_claim",
+      "visible_state_hash": ""
+    }
+  ]
+}

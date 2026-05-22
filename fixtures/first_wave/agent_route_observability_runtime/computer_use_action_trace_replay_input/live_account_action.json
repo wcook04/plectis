@@ -1,0 +1,10 @@
+{
+  "actions": [
+    {
+      "action_id": "neg_live_account_checkout",
+      "body_redacted": true,
+      "live_account_action": true,
+      "live_account_context": true
+    }
+  ]
+}

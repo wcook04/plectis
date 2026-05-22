@@ -369,6 +369,12 @@ explanation, and assimilation primitives, not through production claims.
    rows. It must not read live operator state, provider payloads,
    browser/HUD/cockpit state, mutate Task Ledger, authorize pattern
    assimilation, certify runtime behavior, or imply release authority.
+   The same organ owns the computer-use action-trace replay path:
+   `agent-route-observability-runtime validate-computer-use-bundle` validates
+   synthetic observations, affordances, actions, pre-action authority verdicts,
+   state transitions, recovery receipts, cold replay, and negative cases without
+   live browser control, accounts, credentials, external network mutation, raw
+   screenshots, benchmark claims, source mutation, or release authority.
    The replay-gauntlet loop is `microcosm replay-gauntlet`; it should expose
    synthetic agent-reliability replay episodes across benchmark integrity,
    monitor falsification, sabotage/scheming, sandbox escape, MCP/tool authority,

@@ -1,0 +1,97 @@
+{
+  "observations": [
+    {
+      "affordance_refs": [
+        "aff_form_name",
+        "aff_form_email",
+        "aff_form_submit"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.form_start",
+      "episode_id": "episode_fill_local_form",
+      "hidden_state_claim": false,
+      "live_browser_state": false,
+      "observation_id": "obs_form_start",
+      "raw_screenshot_body_exported": false,
+      "screenshot_digest": "sha256:form-start-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:form-start"
+    },
+    {
+      "affordance_refs": [
+        "aff_form_submit"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.form_after_type",
+      "episode_id": "episode_fill_local_form",
+      "hidden_state_claim": false,
+      "live_browser_state": false,
+      "observation_id": "obs_form_after_type",
+      "raw_screenshot_body_exported": false,
+      "screenshot_digest": "sha256:form-after-type-0002",
+      "step_index": 2,
+      "visible_state_hash": "state:form-after-type"
+    },
+    {
+      "affordance_refs": [
+        "aff_nav_settings"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.admin_home",
+      "episode_id": "episode_mock_admin_nav",
+      "hidden_state_claim": false,
+      "live_browser_state": false,
+      "observation_id": "obs_admin_home",
+      "raw_screenshot_body_exported": false,
+      "screenshot_digest": "sha256:admin-home-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:admin-home"
+    },
+    {
+      "affordance_refs": [
+        "aff_role_select"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.admin_settings",
+      "episode_id": "episode_mock_admin_nav",
+      "hidden_state_claim": false,
+      "live_browser_state": false,
+      "observation_id": "obs_admin_settings",
+      "raw_screenshot_body_exported": false,
+      "screenshot_digest": "sha256:admin-settings-0002",
+      "step_index": 1,
+      "visible_state_hash": "state:admin-settings"
+    },
+    {
+      "affordance_refs": [
+        "aff_record_title"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.record_editor",
+      "episode_id": "episode_toy_record_edit",
+      "hidden_state_claim": false,
+      "live_browser_state": false,
+      "observation_id": "obs_record_editor",
+      "raw_screenshot_body_exported": false,
+      "screenshot_digest": "sha256:record-editor-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:record-editor"
+    },
+    {
+      "affordance_refs": [
+        "aff_disabled_submit",
+        "aff_wait_for_enable"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.disabled_control",
+      "episode_id": "episode_disabled_affordance_recovery",
+      "hidden_state_claim": false,
+      "live_browser_state": false,
+      "observation_id": "obs_disabled_control",
+      "raw_screenshot_body_exported": false,
+      "screenshot_digest": "sha256:disabled-control-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:disabled-control"
+    }
+  ]
+}

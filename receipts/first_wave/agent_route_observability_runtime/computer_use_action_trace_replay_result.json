@@ -1,0 +1,734 @@
+{
+  "action_count": 8,
+  "action_kinds": [
+    "click",
+    "edit_text_record",
+    "navigate",
+    "select",
+    "type",
+    "wait"
+  ],
+  "action_rows": [
+    {
+      "action_id": "act_admin_navigate",
+      "action_kind": "navigate",
+      "affordance_ref": "aff_nav_settings",
+      "authority_verdict_id": "verdict_admin_navigate",
+      "body_redacted": true,
+      "episode_id": "episode_mock_admin_nav",
+      "execution_status": "executed",
+      "input_digest": "sha256:local-route",
+      "observation_ref": "obs_admin_home",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_admin_navigate",
+      "step_index": 1,
+      "target_ref": "route:/settings"
+    },
+    {
+      "action_id": "act_admin_select_role",
+      "action_kind": "select",
+      "affordance_ref": "aff_role_select",
+      "authority_verdict_id": "verdict_admin_select_role",
+      "body_redacted": true,
+      "episode_id": "episode_mock_admin_nav",
+      "execution_status": "executed",
+      "input_digest": "sha256:role-viewer",
+      "observation_ref": "obs_admin_settings",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_admin_select_role",
+      "step_index": 2,
+      "target_ref": "select:role-filter"
+    },
+    {
+      "action_id": "act_disabled_click",
+      "action_kind": "click",
+      "affordance_ref": "aff_disabled_submit",
+      "authority_verdict_id": "verdict_disabled_click",
+      "body_redacted": true,
+      "episode_id": "episode_disabled_affordance_recovery",
+      "execution_status": "blocked",
+      "input_digest": "sha256:no-input",
+      "observation_ref": "obs_disabled_control",
+      "recovery_ref": "recovery_disabled_click",
+      "state_transition_ref": "trans_disabled_click",
+      "step_index": 1,
+      "target_ref": "button:disabled-submit"
+    },
+    {
+      "action_id": "act_disabled_wait",
+      "action_kind": "wait",
+      "affordance_ref": "aff_wait_for_enable",
+      "authority_verdict_id": "verdict_disabled_wait",
+      "body_redacted": true,
+      "episode_id": "episode_disabled_affordance_recovery",
+      "execution_status": "executed",
+      "input_digest": "sha256:wait-500ms",
+      "observation_ref": "obs_disabled_control",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_disabled_wait",
+      "step_index": 2,
+      "target_ref": "timer:enable-control"
+    },
+    {
+      "action_id": "act_form_submit",
+      "action_kind": "click",
+      "affordance_ref": "aff_form_submit",
+      "authority_verdict_id": "verdict_form_submit",
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "execution_status": "executed",
+      "input_digest": "sha256:no-input",
+      "observation_ref": "obs_form_after_type",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_form_submit",
+      "step_index": 3,
+      "target_ref": "button:submit"
+    },
+    {
+      "action_id": "act_form_type_email",
+      "action_kind": "type",
+      "affordance_ref": "aff_form_email",
+      "authority_verdict_id": "verdict_form_type_email",
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "execution_status": "executed",
+      "input_digest": "sha256:synthetic-email",
+      "observation_ref": "obs_form_start",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_form_type_email",
+      "step_index": 2,
+      "target_ref": "field:email"
+    },
+    {
+      "action_id": "act_form_type_name",
+      "action_kind": "type",
+      "affordance_ref": "aff_form_name",
+      "authority_verdict_id": "verdict_form_type_name",
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "execution_status": "executed",
+      "input_digest": "sha256:synthetic-name",
+      "observation_ref": "obs_form_start",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_form_type_name",
+      "step_index": 1,
+      "target_ref": "field:name"
+    },
+    {
+      "action_id": "act_record_edit",
+      "action_kind": "edit_text_record",
+      "affordance_ref": "aff_record_title",
+      "authority_verdict_id": "verdict_record_edit",
+      "body_redacted": true,
+      "episode_id": "episode_toy_record_edit",
+      "execution_status": "executed",
+      "input_digest": "sha256:toy-title-delta",
+      "observation_ref": "obs_record_editor",
+      "recovery_ref": null,
+      "state_transition_ref": "trans_record_edit",
+      "step_index": 1,
+      "target_ref": "toy_record:title"
+    }
+  ],
+  "allow_count": 7,
+  "allowed_action_kinds": [
+    "click",
+    "edit_text_record",
+    "navigate",
+    "observe",
+    "select",
+    "type",
+    "wait"
+  ],
+  "anti_claim": "Computer-use action trace replay validates synthetic observation, affordance, action, pre-action authority verdict, state-transition, recovery, cold-replay, negative-case, and authority-ceiling receipts. It does not control a live browser or desktop, use real accounts, enter credentials, mutate external networks, purchase or send anything, perform destructive host actions, export raw screenshots, claim hidden screen state, report benchmark scores, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_computer_use_action_trace_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "credential_entry_authorized": false,
+    "destructive_host_action_authorized": false,
+    "external_network_mutation_authorized": false,
+    "hidden_screen_state_claim_authorized": false,
+    "live_account_action_authorized": false,
+    "live_browser_control_authorized": false,
+    "provider_calls_authorized": false,
+    "purchase_or_send_authorized": false,
+    "raw_screenshot_body_export_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "authority_verdict_count": 8,
+  "authority_verdict_rows": [
+    {
+      "action_id": "act_admin_navigate",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_admin_navigate"
+    },
+    {
+      "action_id": "act_admin_select_role",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_admin_select_role"
+    },
+    {
+      "action_id": "act_disabled_click",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "block",
+      "verdict_id": "verdict_disabled_click"
+    },
+    {
+      "action_id": "act_disabled_wait",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_disabled_wait"
+    },
+    {
+      "action_id": "act_form_submit",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_form_submit"
+    },
+    {
+      "action_id": "act_form_type_email",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_form_type_email"
+    },
+    {
+      "action_id": "act_form_type_name",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_form_type_name"
+    },
+    {
+      "action_id": "act_record_edit",
+      "body_redacted": true,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_record_edit"
+    }
+  ],
+  "block_count": 1,
+  "blocked_transition_count": 1,
+  "bundle_fingerprint": "4351f5d8386dad8184917a282eec2a94f3f9e9f1ca38675fe7ba3c0cf4646fc6",
+  "bundle_id": "computer_use_action_trace_replay_fixture",
+  "bundle_manifest_schema_version": "computer_use_action_trace_bundle_manifest_v1",
+  "cold_replay_count": 4,
+  "cold_replay_pass_count": 4,
+  "cold_replay_rows": [
+    {
+      "action_ids": [
+        "act_admin_navigate",
+        "act_admin_select_role"
+      ],
+      "body_redacted": true,
+      "episode_id": "episode_mock_admin_nav",
+      "pass_label": "accepted",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_admin"
+    },
+    {
+      "action_ids": [
+        "act_disabled_click",
+        "act_disabled_wait"
+      ],
+      "body_redacted": true,
+      "episode_id": "episode_disabled_affordance_recovery",
+      "pass_label": "blocked_recovered",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_disabled_recovery"
+    },
+    {
+      "action_ids": [
+        "act_form_submit",
+        "act_form_type_email",
+        "act_form_type_name"
+      ],
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "pass_label": "accepted",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_form"
+    },
+    {
+      "action_ids": [
+        "act_record_edit"
+      ],
+      "body_redacted": true,
+      "episode_id": "episode_toy_record_edit",
+      "pass_label": "accepted",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_record"
+    }
+  ],
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-computer-use-bundle --input microcosm-substrate/fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "created_at": "2026-05-22T11:33:10+00:00",
+  "episode_count": 4,
+  "episode_rows": [
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_disabled_affordance_recovery",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_disabled_control",
+      "task_label": "recover from a disabled affordance"
+    },
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_local_browser_form",
+      "task_label": "fill a synthetic local form"
+    },
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_mock_admin_nav",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_admin_fixture",
+      "task_label": "navigate a mock admin page"
+    },
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_toy_record_edit",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_record_editor",
+      "task_label": "edit a toy file record"
+    }
+  ],
+  "error_codes": [
+    "COMPUTER_USE_ACTION_WITHOUT_OBSERVATION",
+    "COMPUTER_USE_BENCHMARK_SCORE_CLAIM",
+    "COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN",
+    "COMPUTER_USE_DESTRUCTIVE_ACTION_WITHOUT_REVIEW",
+    "COMPUTER_USE_EXTERNAL_NETWORK_MUTATION_FORBIDDEN",
+    "COMPUTER_USE_HIDDEN_SCREEN_STATE_CLAIM",
+    "COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN",
+    "COMPUTER_USE_UNAPPROVED_PURCHASE_OR_SEND"
+  ],
+  "executed_transition_count": 7,
+  "expected_negative_cases": {
+    "action_without_observation": [
+      "COMPUTER_USE_ACTION_WITHOUT_OBSERVATION"
+    ],
+    "benchmark_score_claim": [
+      "COMPUTER_USE_BENCHMARK_SCORE_CLAIM"
+    ],
+    "credential_entry": [
+      "COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN"
+    ],
+    "destructive_file_action": [
+      "COMPUTER_USE_DESTRUCTIVE_ACTION_WITHOUT_REVIEW"
+    ],
+    "external_network_mutation": [
+      "COMPUTER_USE_EXTERNAL_NETWORK_MUTATION_FORBIDDEN"
+    ],
+    "hidden_screen_state_claim": [
+      "COMPUTER_USE_HIDDEN_SCREEN_STATE_CLAIM"
+    ],
+    "live_account_action": [
+      "COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN"
+    ],
+    "unapproved_purchase_or_send": [
+      "COMPUTER_USE_UNAPPROVED_PURCHASE_OR_SEND"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_ACTION_WITHOUT_OBSERVATION",
+      "message": "Actions are not admissible without a prior observation and affordance reference.",
+      "negative_case_id": "action_without_observation",
+      "subject_id": "neg_no_observation",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_BENCHMARK_SCORE_CLAIM",
+      "message": "Synthetic replay receipts cannot claim benchmark performance.",
+      "negative_case_id": "benchmark_score_claim",
+      "subject_id": "neg_benchmark_score",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN",
+      "message": "Credential entry is outside the public replay authority ceiling.",
+      "negative_case_id": "credential_entry",
+      "subject_id": "neg_credential_entry",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_DESTRUCTIVE_ACTION_WITHOUT_REVIEW",
+      "message": "Destructive host or file actions without review are rejected.",
+      "negative_case_id": "destructive_file_action",
+      "subject_id": "neg_delete_without_review",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_EXTERNAL_NETWORK_MUTATION_FORBIDDEN",
+      "message": "External network mutation cannot be treated as synthetic local replay.",
+      "negative_case_id": "external_network_mutation",
+      "subject_id": "neg_external_post",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_HIDDEN_SCREEN_STATE_CLAIM",
+      "message": "A screen claim must be visible-state metadata, not hidden browser or desktop state.",
+      "negative_case_id": "hidden_screen_state_claim",
+      "subject_id": "neg_hidden_dom_claim",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN",
+      "message": "Live account context cannot be admitted as a public computer-use trace.",
+      "negative_case_id": "live_account_action",
+      "subject_id": "neg_live_account_checkout",
+      "subject_kind": "computer_use_negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COMPUTER_USE_UNAPPROVED_PURCHASE_OR_SEND",
+      "message": "Purchases and send actions require explicit human approval and remain outside the public fixture.",
+      "negative_case_id": "unapproved_purchase_or_send",
+      "subject_id": "neg_send_without_approval",
+      "subject_kind": "computer_use_negative_case"
+    }
+  ],
+  "fixture_id": "first_wave.agent_route_observability_runtime.computer_use_action_trace_replay",
+  "input_mode": "computer_use_action_trace_replay_fixture",
+  "interaction_policy_id": "computer_use_action_trace_policy_v1",
+  "missing_negative_cases": [],
+  "observation_count": 6,
+  "observation_rows": [
+    {
+      "affordance_refs": [
+        "aff_nav_settings"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.admin_home",
+      "episode_id": "episode_mock_admin_nav",
+      "observation_id": "obs_admin_home",
+      "screenshot_digest": "sha256:admin-home-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:admin-home"
+    },
+    {
+      "affordance_refs": [
+        "aff_role_select"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.admin_settings",
+      "episode_id": "episode_mock_admin_nav",
+      "observation_id": "obs_admin_settings",
+      "screenshot_digest": "sha256:admin-settings-0002",
+      "step_index": 1,
+      "visible_state_hash": "state:admin-settings"
+    },
+    {
+      "affordance_refs": [
+        "aff_disabled_submit",
+        "aff_wait_for_enable"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.disabled_control",
+      "episode_id": "episode_disabled_affordance_recovery",
+      "observation_id": "obs_disabled_control",
+      "screenshot_digest": "sha256:disabled-control-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:disabled-control"
+    },
+    {
+      "affordance_refs": [
+        "aff_form_submit"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.form_after_type",
+      "episode_id": "episode_fill_local_form",
+      "observation_id": "obs_form_after_type",
+      "screenshot_digest": "sha256:form-after-type-0002",
+      "step_index": 2,
+      "visible_state_hash": "state:form-after-type"
+    },
+    {
+      "affordance_refs": [
+        "aff_form_name",
+        "aff_form_email",
+        "aff_form_submit"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.form_start",
+      "episode_id": "episode_fill_local_form",
+      "observation_id": "obs_form_start",
+      "screenshot_digest": "sha256:form-start-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:form-start"
+    },
+    {
+      "affordance_refs": [
+        "aff_record_title"
+      ],
+      "body_redacted": true,
+      "dom_or_accessibility_summary_ref": "affordance_summary.record_editor",
+      "episode_id": "episode_toy_record_edit",
+      "observation_id": "obs_record_editor",
+      "screenshot_digest": "sha256:record-editor-0001",
+      "step_index": 0,
+      "visible_state_hash": "state:record-editor"
+    }
+  ],
+  "observed_negative_cases": {
+    "action_without_observation": [
+      "COMPUTER_USE_ACTION_WITHOUT_OBSERVATION"
+    ],
+    "benchmark_score_claim": [
+      "COMPUTER_USE_BENCHMARK_SCORE_CLAIM"
+    ],
+    "credential_entry": [
+      "COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN"
+    ],
+    "destructive_file_action": [
+      "COMPUTER_USE_DESTRUCTIVE_ACTION_WITHOUT_REVIEW"
+    ],
+    "external_network_mutation": [
+      "COMPUTER_USE_EXTERNAL_NETWORK_MUTATION_FORBIDDEN"
+    ],
+    "hidden_screen_state_claim": [
+      "COMPUTER_USE_HIDDEN_SCREEN_STATE_CLAIM"
+    ],
+    "live_account_action": [
+      "COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN"
+    ],
+    "unapproved_purchase_or_send": [
+      "COMPUTER_USE_UNAPPROVED_PURCHASE_OR_SEND"
+    ]
+  },
+  "omitted_private_material": [
+    "raw screenshots or pixel bodies",
+    "live browser state",
+    "real account identifiers",
+    "credentials or secrets",
+    "external network mutation payloads",
+    "purchase or send destinations",
+    "host filesystem destructive actions",
+    "provider payloads"
+  ],
+  "organ_id": "agent_route_observability_runtime",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "raw_screenshot_bodies_exported": false,
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 18,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/bundle_manifest.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/projection_protocol.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/interaction_policy.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/task_episodes.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/screen_observations.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/action_trace.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/authority_verdicts.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/state_transition_receipts.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/recovery_receipts.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/cold_replay.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/live_account_action.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/credential_entry.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/external_network_mutation.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/unapproved_purchase_or_send.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/destructive_file_action.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/hidden_screen_state_claim.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/action_without_observation.json",
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input/benchmark_score_claim.json"
+  ],
+  "receipt_id": "receipt.microcosm.computer_use_action_trace_replay",
+  "receipt_paths": [
+    "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json"
+  ],
+  "recovered_action_count": 1,
+  "recovery_receipt_count": 1,
+  "recovery_rows": [
+    {
+      "action_id": "act_disabled_click",
+      "body_redacted": true,
+      "recovery_id": "recovery_disabled_click",
+      "recovery_status": "recovered",
+      "state_restored": true,
+      "user_visible_error_ref": "ui_error.disabled_submit"
+    }
+  ],
+  "review_count": 0,
+  "schema_version": "computer_use_action_trace_replay_result_v1",
+  "source_pattern_ids": [
+    "computer_use_action_trace_replay_compound",
+    "agent_route_observability_runtime",
+    "agent_execution_trace",
+    "affordance_before_action_authority",
+    "ui_action_is_not_evidence_until_replayable"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::computer_use_action_trace_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_computer_use_action_trace_replay_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "system/lib/agent_execution_trace.py"
+  ],
+  "state_transition_count": 8,
+  "state_transition_rows": [
+    {
+      "action_id": "act_admin_navigate",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_admin_navigate",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_admin_navigate"
+    },
+    {
+      "action_id": "act_admin_select_role",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_admin_select_role",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_admin_select_role"
+    },
+    {
+      "action_id": "act_disabled_click",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_disabled_click",
+      "execution_attempted": false,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "blocked",
+      "transition_id": "trans_disabled_click"
+    },
+    {
+      "action_id": "act_disabled_wait",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_disabled_wait",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_disabled_wait"
+    },
+    {
+      "action_id": "act_form_submit",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_form_submit",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_form_submit"
+    },
+    {
+      "action_id": "act_form_type_email",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_form_type_email",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_form_type_email"
+    },
+    {
+      "action_id": "act_form_type_name",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_form_type_name",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_form_type_name"
+    },
+    {
+      "action_id": "act_record_edit",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_record_edit",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_record_edit"
+    }
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime"
+}

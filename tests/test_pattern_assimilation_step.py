@@ -221,9 +221,7 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["nothing_to_refine_receipt_count"] == 2
     assert result["stewardship_check_count"] == 2
     assert result["reentry_condition_count"] == 2
-    assert result["next_best_lane_result"] == (
-        "computer_use_action_trace_replay_compound"
-    )
+    assert result["next_best_lane_result"] == "runtime_hook_shadow_intervention_coverage"
     assert result["next_seed_paths"] == [
         "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
     ]

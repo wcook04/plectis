@@ -1,0 +1,44 @@
+{
+  "episodes": [
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_local_browser_form",
+      "task_label": "fill a synthetic local form"
+    },
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_mock_admin_nav",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_admin_fixture",
+      "task_label": "navigate a mock admin page"
+    },
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_toy_record_edit",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_record_editor",
+      "task_label": "edit a toy file record"
+    },
+    {
+      "authority_ceiling_ref": "computer_use_authority_ceiling.synthetic_only",
+      "body_redacted": true,
+      "episode_id": "episode_disabled_affordance_recovery",
+      "external_network_allowed": false,
+      "live_account_context": false,
+      "synthetic_environment": true,
+      "target_surface": "mock_disabled_control",
+      "task_label": "recover from a disabled affordance"
+    }
+  ]
+}

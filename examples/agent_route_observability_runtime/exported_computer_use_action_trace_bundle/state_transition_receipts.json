@@ -1,0 +1,92 @@
+{
+  "state_transitions": [
+    {
+      "action_id": "act_form_type_name",
+      "after_state_hash": "after:act_form_type_name",
+      "before_state_hash": "before:act_form_type_name",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_form_type_name",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_form_type_name"
+    },
+    {
+      "action_id": "act_form_type_email",
+      "after_state_hash": "after:act_form_type_email",
+      "before_state_hash": "before:act_form_type_email",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_form_type_email",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_form_type_email"
+    },
+    {
+      "action_id": "act_form_submit",
+      "after_state_hash": "after:act_form_submit",
+      "before_state_hash": "before:act_form_submit",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_form_submit",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_form_submit"
+    },
+    {
+      "action_id": "act_admin_navigate",
+      "after_state_hash": "after:act_admin_navigate",
+      "before_state_hash": "before:act_admin_navigate",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_admin_navigate",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_admin_navigate"
+    },
+    {
+      "action_id": "act_admin_select_role",
+      "after_state_hash": "after:act_admin_select_role",
+      "before_state_hash": "before:act_admin_select_role",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_admin_select_role",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_admin_select_role"
+    },
+    {
+      "action_id": "act_record_edit",
+      "after_state_hash": "after:act_record_edit",
+      "before_state_hash": "before:act_record_edit",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_record_edit",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_record_edit"
+    },
+    {
+      "action_id": "act_disabled_click",
+      "after_state_hash": "before:act_disabled_click",
+      "before_state_hash": "before:act_disabled_click",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_disabled_click",
+      "execution_attempted": false,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "blocked",
+      "transition_id": "trans_disabled_click"
+    },
+    {
+      "action_id": "act_disabled_wait",
+      "after_state_hash": "after:act_disabled_wait",
+      "before_state_hash": "before:act_disabled_wait",
+      "body_redacted": true,
+      "diff_ref": "diff_ref.act_disabled_wait",
+      "execution_attempted": true,
+      "nondeterministic_success_claim": false,
+      "oracle_status": "pass",
+      "transition_id": "trans_disabled_wait"
+    }
+  ]
+}

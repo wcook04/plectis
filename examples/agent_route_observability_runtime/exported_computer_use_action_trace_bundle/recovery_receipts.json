@@ -1,0 +1,12 @@
+{
+  "recovery_receipts": [
+    {
+      "action_id": "act_disabled_click",
+      "body_redacted": true,
+      "recovery_id": "recovery_disabled_click",
+      "recovery_status": "recovered",
+      "state_restored": true,
+      "user_visible_error_ref": "ui_error.disabled_submit"
+    }
+  ]
+}

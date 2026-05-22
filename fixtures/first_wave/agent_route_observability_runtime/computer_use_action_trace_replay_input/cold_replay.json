@@ -1,0 +1,64 @@
+{
+  "cold_replay": [
+    {
+      "action_ids": [
+        "act_form_type_name",
+        "act_form_type_email",
+        "act_form_submit"
+      ],
+      "authority_verdicts_reproduced": true,
+      "body_redacted": true,
+      "episode_id": "episode_fill_local_form",
+      "pass_label": "accepted",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_form",
+      "state_transitions_reproduced": true,
+      "trace_reproduced": true
+    },
+    {
+      "action_ids": [
+        "act_admin_navigate",
+        "act_admin_select_role"
+      ],
+      "authority_verdicts_reproduced": true,
+      "body_redacted": true,
+      "episode_id": "episode_mock_admin_nav",
+      "pass_label": "accepted",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_admin",
+      "state_transitions_reproduced": true,
+      "trace_reproduced": true
+    },
+    {
+      "action_ids": [
+        "act_record_edit"
+      ],
+      "authority_verdicts_reproduced": true,
+      "body_redacted": true,
+      "episode_id": "episode_toy_record_edit",
+      "pass_label": "accepted",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_record",
+      "state_transitions_reproduced": true,
+      "trace_reproduced": true
+    },
+    {
+      "action_ids": [
+        "act_disabled_click",
+        "act_disabled_wait"
+      ],
+      "authority_verdicts_reproduced": true,
+      "body_redacted": true,
+      "episode_id": "episode_disabled_affordance_recovery",
+      "pass_label": "blocked_recovered",
+      "receipt_ref": "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+      "replay_command": "microcosm agent-route-observability-runtime validate-computer-use-bundle",
+      "replay_id": "replay_disabled_recovery",
+      "state_transitions_reproduced": true,
+      "trace_reproduced": true
+    }
+  ]
+}

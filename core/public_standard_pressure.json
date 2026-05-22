@@ -885,11 +885,9 @@
       "title": "Indirect Prompt-Injection Replay Requires Trust, Taint, Verdict, and Sanitization Receipts"
     },
     {
-      "standard_id": "agentic_vulnerability_discovery_patch_proof_replay_public_pressure",
-      "title": "Agentic Vulnerability Replay Requires Patch, Test, Sandbox, and Negative-Case Receipts",
-      "domain": "agent_security_vulnerability_discovery",
-      "pressure": "typed vulnerability-discovery claims require synthetic targets, trace evidence, abstract proof refs, patch diffs, regression tests, verifier receipts, sandbox verdicts, cold replay, negative cases, and authority ceilings",
+      "authority_boundary": "synthetic_fixture_receipts_only_not_live_vulnerability_discovery_or_exploit_authority",
       "claim": "Patch-proof language must cite synthetic targets, issue hypotheses, trace refs, abstract exploitability refs, patch diff hash refs, regression tests, verifier receipts, sandbox verdicts, cold replay refs, negative cases, and explicit no-live-target/no-payload/no-network/no-benchmark ceilings before it becomes public evidence.",
+      "domain": "agent_security_vulnerability_discovery",
       "kernel_primitive_refs": [
         "event",
         "evidence",
@@ -911,6 +909,8 @@
         "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
         "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md"
       ],
+      "pressure": "typed vulnerability-discovery claims require synthetic targets, trace evidence, abstract proof refs, patch diffs, regression tests, verifier receipts, sandbox verdicts, cold replay, negative cases, and authority ceilings",
+      "release_authorized": false,
       "route_refs": [
         "replay-gauntlet",
         "standards-control",
@@ -922,8 +922,49 @@
         "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
         "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md"
       ],
-      "authority_boundary": "synthetic_fixture_receipts_only_not_live_vulnerability_discovery_or_exploit_authority",
-      "release_authorized": false
+      "standard_id": "agentic_vulnerability_discovery_patch_proof_replay_public_pressure",
+      "title": "Agentic Vulnerability Replay Requires Patch, Test, Sandbox, and Negative-Case Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_fixture_receipts_only_not_live_browser_or_account_authority",
+      "claim": "Computer-use language must cite synthetic observation digests, affordance refs, action ids, pre-action authority verdicts, state-transition receipts, recovery receipts, cold replay refs, negative cases, and explicit no-live-browser/no-account/no-credential/no-network/no-benchmark ceilings before it becomes public evidence.",
+      "domain": "agent_observability_computer_use",
+      "kernel_primitive_refs": [
+        "event",
+        "evidence",
+        "explanation",
+        "route"
+      ],
+      "negative_case_ids": [
+        "live_account_action",
+        "credential_entry",
+        "external_network_mutation",
+        "unapproved_purchase_or_send",
+        "destructive_file_action",
+        "hidden_screen_state_claim",
+        "action_without_observation",
+        "benchmark_score_claim"
+      ],
+      "owner_surfaces": [
+        "organs:agent_route_observability_runtime::computer_use_action_trace_replay",
+        "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json::computer_use_action_trace_replay_contract_v1",
+        "paper_modules/computer_use_action_trace_replay.md"
+      ],
+      "pressure": "typed computer-use claims require visible observations, affordance refs, actions, pre-action authority verdicts, state-transition receipts, recovery receipts, cold replay, negative cases, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "hook-coverage",
+        "agent-route-observability-runtime validate-computer-use-bundle",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.agent_route_observability_runtime.run_computer_use_action_trace_bundle",
+      "source_refs": [
+        "organs:agent_route_observability_runtime",
+        "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+        "paper_modules/computer_use_action_trace_replay.md"
+      ],
+      "standard_id": "computer_use_action_trace_replay_public_pressure",
+      "title": "Computer-Use Action Trace Replay Requires Observation, Affordance, Verdict, State-Diff, and Replay Receipts"
     }
   ],
   "schema_version": "public_microcosm_standard_pressure_v1",

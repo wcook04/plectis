@@ -1,0 +1,44 @@
+{
+  "authorizes_account_actions": false,
+  "authorizes_live_browser_control": false,
+  "authorizes_source_mutation": false,
+  "body_redacted": true,
+  "claims_benchmark_score": false,
+  "copied_private_source": false,
+  "exports_private_state": false,
+  "exports_raw_screenshots": false,
+  "omitted_private_material": [
+    "raw screenshots or pixel bodies",
+    "live browser state",
+    "real account identifiers",
+    "credentials or secrets",
+    "external network mutation payloads",
+    "purchase or send destinations",
+    "host filesystem destructive actions",
+    "provider payloads"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json"
+  ],
+  "protocol_id": "computer_use_action_trace_replay_public_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/agent_route_observability_runtime/computer_use_action_trace_replay_input",
+    "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+    "paper_modules/computer_use_action_trace_replay.md"
+  ],
+  "source_pattern_ids": [
+    "computer_use_action_trace_replay_compound",
+    "agent_route_observability_runtime",
+    "agent_execution_trace",
+    "affordance_before_action_authority",
+    "ui_action_is_not_evidence_until_replayable"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::computer_use_action_trace_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_computer_use_action_trace_replay_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "system/lib/agent_execution_trace.py"
+  ]
+}

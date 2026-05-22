@@ -1,0 +1,32 @@
+{
+  "allowed_action_kinds": [
+    "click",
+    "edit_text_record",
+    "navigate",
+    "observe",
+    "select",
+    "type",
+    "wait"
+  ],
+  "benchmark_score_claim_authorized": false,
+  "body_redacted": true,
+  "credential_entry_authorized": false,
+  "destructive_host_action_authorized": false,
+  "external_network_mutation_authorized": false,
+  "hidden_screen_state_claim_authorized": false,
+  "live_account_action_authorized": false,
+  "live_browser_control_authorized": false,
+  "policy_id": "computer_use_action_trace_policy_v1",
+  "purchase_or_send_authorized": false,
+  "raw_screenshot_body_export_authorized": false,
+  "release_authorized": false,
+  "required_trace_order": [
+    "observation",
+    "affordance",
+    "action",
+    "authority_verdict",
+    "state_transition",
+    "cold_replay"
+  ],
+  "source_mutation_authorized": false
+}

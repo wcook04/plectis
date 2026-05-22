@@ -6,10 +6,13 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.agent_route_observability_runtime import (
+    COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
+    EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
+    run_computer_use_action_trace_bundle,
     run_observability_bundle,
 )
 
@@ -19,6 +22,16 @@ OBS_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observabil
 OBS_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/exported_observability_bundle"
+)
+COMPUTER_USE_FIXTURE_INPUT = (
+    MICROCOSM_ROOT
+    / "fixtures/first_wave/agent_route_observability_runtime/"
+    "computer_use_action_trace_replay_input"
+)
+COMPUTER_USE_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_computer_use_action_trace_bundle"
 )
 
 
@@ -217,3 +230,105 @@ def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
     for hit in payload["private_state_scan"]["hits"]:
         assert hit["body_redacted"] is True
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_computer_use_action_trace_replay_observes_negative_cases(
+    tmp_path: Path,
+) -> None:
+    result = run_computer_use_action_trace_bundle(
+        COMPUTER_USE_FIXTURE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert set(result["observed_negative_cases"]) == set(
+        COMPUTER_USE_EXPECTED_NEGATIVE_CASES
+    )
+    assert result["missing_negative_cases"] == []
+    assert result["episode_count"] == 4
+    assert result["observation_count"] == 6
+    assert result["action_count"] == 8
+    assert result["authority_verdict_count"] == 8
+    assert result["state_transition_count"] == 8
+    assert result["recovery_receipt_count"] == 1
+    assert result["cold_replay_pass_count"] == 4
+    assert result["block_count"] == 1
+    assert result["authority_ceiling"]["live_browser_control_authorized"] is False
+    assert result["authority_ceiling"]["credential_entry_authorized"] is False
+    for codes in COMPUTER_USE_EXPECTED_NEGATIVE_CASES.values():
+        for code in codes:
+            assert code in result["error_codes"]
+
+
+def test_computer_use_action_trace_receipt_is_public_relative_and_redacted(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observability_runtime",
+        public_root / "fixtures/first_wave/agent_route_observability_runtime",
+    )
+
+    result = run_computer_use_action_trace_bundle(
+        public_root
+        / "fixtures/first_wave/agent_route_observability_runtime/"
+        "computer_use_action_trace_replay_input",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    receipt_file = public_root / result["receipt_paths"][0]
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "matched_excerpt" not in text
+    assert '"body":' not in text
+    assert "raw_screenshot_body" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "hidden_screen_state" not in _walk_keys(payload)
+    assert "body" not in _walk_keys(payload)
+    for hit in payload["private_state_scan"]["hits"]:
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_computer_use_action_trace_exported_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_computer_use_action_trace_bundle(
+        COMPUTER_USE_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_computer_use_action_trace_bundle"
+    assert result["bundle_id"] == (
+        "public_computer_use_action_trace_replay_runtime_example"
+    )
+    assert result["receipt_paths"][0].endswith(
+        EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH
+    )
+    assert result["expected_negative_cases"] == {}
+    assert result["missing_negative_cases"] == []
+    assert result["error_codes"] == []
+    assert result["episode_count"] == 4
+    assert result["action_count"] == 8
+    assert set(result["action_kinds"]) == {
+        "click",
+        "edit_text_record",
+        "navigate",
+        "select",
+        "type",
+        "wait",
+    }
+    assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False
+    assert result["private_state_scan"]["blocking_hit_count"] == 0

@@ -1,0 +1,148 @@
+{
+  "authority_verdicts": [
+    {
+      "action_id": "act_form_type_name",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_form_type_name"
+    },
+    {
+      "action_id": "act_form_type_email",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_form_type_email"
+    },
+    {
+      "action_id": "act_form_submit",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_form_submit"
+    },
+    {
+      "action_id": "act_admin_navigate",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_admin_navigate"
+    },
+    {
+      "action_id": "act_admin_select_role",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_admin_select_role"
+    },
+    {
+      "action_id": "act_record_edit",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_record_edit"
+    },
+    {
+      "action_id": "act_disabled_click",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "block",
+      "verdict_id": "verdict_disabled_click"
+    },
+    {
+      "action_id": "act_disabled_wait",
+      "body_redacted": true,
+      "credential_entry_authorized": false,
+      "destructive_without_review_authorized": false,
+      "external_network_mutation_authorized": false,
+      "live_account_authorized": false,
+      "policy_version": "computer_use_action_trace_policy_v1",
+      "pre_action": true,
+      "purchase_or_send_authorized": false,
+      "rule_refs": [
+        "rule.synthetic_local_only",
+        "rule.observation_before_action",
+        "rule.no_live_account_or_credentials"
+      ],
+      "verdict": "allow",
+      "verdict_id": "verdict_disabled_wait"
+    }
+  ]
+}

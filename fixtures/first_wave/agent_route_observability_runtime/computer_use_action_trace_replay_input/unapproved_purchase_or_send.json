@@ -1,0 +1,10 @@
+{
+  "actions": [
+    {
+      "action_id": "neg_send_without_approval",
+      "body_redacted": true,
+      "human_approval_ref": "",
+      "purchase_or_send_requested": true
+    }
+  ]
+}

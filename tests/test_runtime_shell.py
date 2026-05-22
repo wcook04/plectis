@@ -131,6 +131,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
         in status["runtime_surface"]["commands"]
     )
     assert (
+        "microcosm agent-route-observability-runtime "
+        "validate-computer-use-bundle"
+        in status["runtime_surface"]["commands"]
+    )
+    assert (
         "microcosm research-replication-rubric-artifact-replay run-replication-bundle"
         in status["runtime_surface"]["commands"]
     )

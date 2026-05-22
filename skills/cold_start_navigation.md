@@ -120,6 +120,14 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    `PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage` to inspect
    hook-shadow, route-compliance, actor-axis, debt-retirement, and route-lease
    intervention coverage without live operator state or provider payloads.
+   For the computer-use showcase, run
+   `PYTHONPATH=src python3 -m microcosm_core.cli
+   agent-route-observability-runtime validate-computer-use-bundle --input
+   examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle
+   --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime`
+   and inspect the receipt's observation, affordance, action, authority
+   verdict, state-transition, recovery, cold-replay, negative-case, and
+   no-live-browser/no-account/no-credential ceiling fields.
 26. Run `microcosm replay-gauntlet` or
    `PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet` to inspect
    synthetic agent-reliability replay episodes across benchmark integrity,
@@ -280,6 +288,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens
 PYTHONPATH=src python3 -m microcosm_core.cli stripping-guard
 PYTHONPATH=src python3 -m microcosm_core.cli standards-control
 PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
+PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.cli agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay

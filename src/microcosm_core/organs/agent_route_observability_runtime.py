@@ -26,6 +26,10 @@ HOOK_SHADOW_NAME = "hook_shadow_coverage.json"
 DEBT_RETIREMENT_NAME = "debt_retirement_receipt.json"
 ROUTE_LEASE_NAME = "route_lease_mode_control_receipt.json"
 OBSERVABILITY_BUNDLE_RESULT_NAME = "exported_observability_bundle_validation_result.json"
+COMPUTER_USE_FIXTURE_RESULT_NAME = "computer_use_action_trace_replay_result.json"
+COMPUTER_USE_BUNDLE_RESULT_NAME = (
+    "exported_computer_use_action_trace_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -36,6 +40,14 @@ EXPECTED_RECEIPT_PATHS = [
 EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_observability_bundle_validation_result.json"
+)
+COMPUTER_USE_ACTION_TRACE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "computer_use_action_trace_replay_result.json"
+)
+EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_computer_use_action_trace_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -54,6 +66,16 @@ EXPECTED_NEGATIVE_CASES = {
     ],
     "route_lease_static_metadata_without_trace_feedback": ["ROUTE_LEASE_NOT_CONSUMED"],
 }
+COMPUTER_USE_EXPECTED_NEGATIVE_CASES = {
+    "live_account_action": ["COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN"],
+    "credential_entry": ["COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN"],
+    "external_network_mutation": ["COMPUTER_USE_EXTERNAL_NETWORK_MUTATION_FORBIDDEN"],
+    "unapproved_purchase_or_send": ["COMPUTER_USE_UNAPPROVED_PURCHASE_OR_SEND"],
+    "destructive_file_action": ["COMPUTER_USE_DESTRUCTIVE_ACTION_WITHOUT_REVIEW"],
+    "hidden_screen_state_claim": ["COMPUTER_USE_HIDDEN_SCREEN_STATE_CLAIM"],
+    "action_without_observation": ["COMPUTER_USE_ACTION_WITHOUT_OBSERVATION"],
+    "benchmark_score_claim": ["COMPUTER_USE_BENCHMARK_SCORE_CLAIM"],
+}
 
 OBSERVABILITY_AUTHORITY_CEILING = {
     "status": PASS,
@@ -68,6 +90,34 @@ OBSERVABILITY_ANTI_CLAIM = (
     "fixtures; they do not inspect live operator state, certify runtime behavior, mutate "
     "Task Ledger, authorize pattern assimilation, or prove whole Wave 1."
 )
+COMPUTER_USE_AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": (
+        "synthetic_computer_use_action_trace_replay_receipts_only"
+    ),
+    "live_browser_control_authorized": False,
+    "live_account_action_authorized": False,
+    "credential_entry_authorized": False,
+    "external_network_mutation_authorized": False,
+    "purchase_or_send_authorized": False,
+    "destructive_host_action_authorized": False,
+    "raw_screenshot_body_export_authorized": False,
+    "hidden_screen_state_claim_authorized": False,
+    "benchmark_score_claim_authorized": False,
+    "provider_calls_authorized": False,
+    "source_mutation_authorized": False,
+    "release_authorized": False,
+}
+COMPUTER_USE_ANTI_CLAIM = (
+    "Computer-use action trace replay validates synthetic observation, "
+    "affordance, action, pre-action authority verdict, state-transition, "
+    "recovery, cold-replay, negative-case, and authority-ceiling receipts. "
+    "It does not control a live browser or desktop, use real accounts, enter "
+    "credentials, mutate external networks, purchase or send anything, perform "
+    "destructive host actions, export raw screenshots, claim hidden screen "
+    "state, report benchmark scores, call providers, mutate source, or "
+    "authorize release."
+)
 
 SOURCE_PATTERN_IDS = [
     "agent_route_observability_runtime",
@@ -76,6 +126,56 @@ SOURCE_PATTERN_IDS = [
     "anti_pattern_debt_retirement",
     "trace_feedback_behavior_change_gate",
 ]
+COMPUTER_USE_SOURCE_PATTERN_IDS = [
+    "computer_use_action_trace_replay_compound",
+    "agent_route_observability_runtime",
+    "agent_execution_trace",
+    "affordance_before_action_authority",
+    "ui_action_is_not_evidence_until_replayable",
+]
+
+COMPUTER_USE_INPUT_NAMES = (
+    "projection_protocol.json",
+    "interaction_policy.json",
+    "task_episodes.json",
+    "screen_observations.json",
+    "action_trace.json",
+    "authority_verdicts.json",
+    "state_transition_receipts.json",
+    "recovery_receipts.json",
+    "cold_replay.json",
+)
+COMPUTER_USE_NEGATIVE_INPUT_NAMES = (
+    "live_account_action.json",
+    "credential_entry.json",
+    "external_network_mutation.json",
+    "unapproved_purchase_or_send.json",
+    "destructive_file_action.json",
+    "hidden_screen_state_claim.json",
+    "action_without_observation.json",
+    "benchmark_score_claim.json",
+)
+COMPUTER_USE_ALLOWED_ACTION_KINDS = {
+    "observe",
+    "click",
+    "type",
+    "select",
+    "navigate",
+    "wait",
+    "edit_text_record",
+}
+COMPUTER_USE_FORBIDDEN_KEYS = {
+    "raw_screenshot_body",
+    "screenshot_pixels",
+    "credential_value",
+    "password",
+    "secret_value",
+    "live_account_identifier",
+    "real_target_url",
+    "provider_payload",
+    "hidden_screen_state",
+    "payment_token",
+}
 
 VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
     {
@@ -136,6 +236,23 @@ def _observability_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _computer_use_action_trace_paths(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+) -> list[Path]:
+    names = (
+        "bundle_manifest.json",
+        *COMPUTER_USE_INPUT_NAMES,
+        *(COMPUTER_USE_NEGATIVE_INPUT_NAMES if include_negative else ()),
+    )
+    return [input_dir / name for name in names if (input_dir / name).is_file()]
+
+
+def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
+    return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -163,6 +280,20 @@ def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_computer_use_action_trace_bundle(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _computer_use_action_trace_paths(
+            input_dir,
+            include_negative=include_negative,
+        )
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -172,6 +303,20 @@ def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _observability_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_computer_use_action_trace_inputs(
+    input_dir: Path,
+    public_root: Path,
+    *,
+    include_negative: bool,
+) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _computer_use_action_trace_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -191,6 +336,20 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     if not isinstance(value, list):
         return []
     return [item for item in value if isinstance(item, dict)]
+
+
+def _strings(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
+    return [field for field in required if row.get(field) in (None, "", [])]
+
+
+def _has_computer_use_forbidden_key(row: dict[str, Any]) -> bool:
+    return any(key in row for key in COMPUTER_USE_FORBIDDEN_KEYS)
 
 
 def _finding(
@@ -1310,6 +1469,926 @@ def run_observability_bundle(
     return result
 
 
+def _computer_use_action_ids(rows: list[dict[str, Any]]) -> set[str]:
+    return {str(row.get("action_id")) for row in rows if row.get("action_id")}
+
+
+def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any]:
+    protocol = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
+    if "computer_use_action_trace_replay_compound" not in source_pattern_ids:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_PROJECTION_PROTOCOL_PATTERN_MISSING",
+                "Projection protocol must cite the computer-use action trace replay pattern.",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="projection_protocol",
+            )
+        )
+    if len(_strings(protocol.get("source_refs"))) < 4 or len(_strings(protocol.get("omitted_private_material"))) < 7:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_PROJECTION_PROTOCOL_DENSITY_MISSING",
+                "Projection protocol must cite source refs and omitted private material.",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="projection_protocol",
+            )
+        )
+    for flag in (
+        "copied_private_source",
+        "exports_private_state",
+        "exports_raw_screenshots",
+        "authorizes_live_browser_control",
+        "authorizes_account_actions",
+        "authorizes_source_mutation",
+        "claims_benchmark_score",
+    ):
+        if protocol.get(flag) is not False:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_PROJECTION_PROTOCOL_AUTHORITY_OVERCLAIM",
+                    "Projection protocol must deny private export, live control, account actions, mutation, and benchmark claims.",
+                    subject_id=flag,
+                    subject_kind="projection_protocol",
+                )
+            )
+    return {
+        "findings": findings,
+        "protocol_id": protocol.get("protocol_id"),
+        "source_pattern_ids": source_pattern_ids,
+        "source_refs": _strings(protocol.get("source_refs")),
+        "projection_receipt_refs": _strings(protocol.get("projection_receipt_refs")),
+        "public_replacement_refs": _strings(protocol.get("public_replacement_refs")),
+        "omitted_private_material": _strings(protocol.get("omitted_private_material")),
+    }
+
+
+def _validate_computer_use_interaction_policy(payload: object) -> dict[str, Any]:
+    policy = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    allowed = set(_strings(policy.get("allowed_action_kinds")))
+    if not COMPUTER_USE_ALLOWED_ACTION_KINDS.issubset(allowed):
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_POLICY_ACTION_KIND_COVERAGE_MISSING",
+                "Interaction policy must name all allowed synthetic action kinds.",
+                subject_id=str(policy.get("policy_id") or "interaction_policy"),
+                subject_kind="interaction_policy",
+            )
+        )
+    for field in (
+        "live_browser_control_authorized",
+        "live_account_action_authorized",
+        "credential_entry_authorized",
+        "external_network_mutation_authorized",
+        "purchase_or_send_authorized",
+        "destructive_host_action_authorized",
+        "raw_screenshot_body_export_authorized",
+        "hidden_screen_state_claim_authorized",
+        "benchmark_score_claim_authorized",
+        "source_mutation_authorized",
+        "release_authorized",
+    ):
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_POLICY_AUTHORITY_OVERCLAIM",
+                    "Interaction policy must deny live control, accounts, credentials, network mutation, destructive action, raw screenshots, benchmark claims, source mutation, and release.",
+                    subject_id=field,
+                    subject_kind="interaction_policy",
+                )
+            )
+    return {
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "allowed_action_kinds": sorted(allowed),
+    }
+
+
+def _validate_computer_use_episodes(payload: object) -> dict[str, Any]:
+    rows = _rows(payload, "episodes")
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "episode_id",
+        "task_label",
+        "target_surface",
+        "synthetic_environment",
+        "live_account_context",
+        "external_network_allowed",
+        "authority_ceiling_ref",
+        "body_redacted",
+    )
+    for row in rows:
+        episode_id = str(row.get("episode_id") or "")
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or row.get("synthetic_environment") is not True
+            or row.get("live_account_context") is not False
+            or row.get("external_network_allowed") is not False
+            or row.get("body_redacted") is not True
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_EPISODE_INVALID",
+                    "Episodes must be synthetic, redacted, local-only, and account-free.",
+                    subject_id=episode_id or "episode",
+                    subject_kind="episode",
+                )
+            )
+        exported.append(
+            {
+                "episode_id": episode_id,
+                "task_label": row.get("task_label"),
+                "target_surface": row.get("target_surface"),
+                "synthetic_environment": row.get("synthetic_environment"),
+                "live_account_context": row.get("live_account_context"),
+                "external_network_allowed": row.get("external_network_allowed"),
+                "authority_ceiling_ref": row.get("authority_ceiling_ref"),
+                "body_redacted": True,
+            }
+        )
+    return {
+        "findings": findings,
+        "episode_rows": sorted(exported, key=lambda item: item["episode_id"]),
+        "episode_count": len(rows),
+    }
+
+
+def _validate_computer_use_observations(
+    payload: object,
+    episode_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    rows = _rows(payload, "observations")
+    episode_ids = {row["episode_id"] for row in episode_rows}
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "observation_id",
+        "episode_id",
+        "step_index",
+        "screenshot_digest",
+        "dom_or_accessibility_summary_ref",
+        "affordance_refs",
+        "visible_state_hash",
+        "raw_screenshot_body_exported",
+        "hidden_state_claim",
+        "live_browser_state",
+        "body_redacted",
+    )
+    for row in rows:
+        observation_id = str(row.get("observation_id") or "")
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or row.get("episode_id") not in episode_ids
+            or not _strings(row.get("affordance_refs"))
+            or row.get("raw_screenshot_body_exported") is not False
+            or row.get("hidden_state_claim") is not False
+            or row.get("live_browser_state") is not False
+            or row.get("body_redacted") is not True
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_OBSERVATION_INVALID",
+                    "Observations must be redacted synthetic visible-state rows with affordance refs and screenshot digests.",
+                    subject_id=observation_id or "observation",
+                    subject_kind="observation",
+                )
+            )
+        exported.append(
+            {
+                "observation_id": observation_id,
+                "episode_id": row.get("episode_id"),
+                "step_index": row.get("step_index"),
+                "screenshot_digest": row.get("screenshot_digest"),
+                "dom_or_accessibility_summary_ref": row.get("dom_or_accessibility_summary_ref"),
+                "affordance_refs": _strings(row.get("affordance_refs")),
+                "visible_state_hash": row.get("visible_state_hash"),
+                "body_redacted": True,
+            }
+        )
+    observed_episode_ids = {row["episode_id"] for row in exported}
+    if not episode_ids.issubset(observed_episode_ids):
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_EPISODE_OBSERVATION_COVERAGE_MISSING",
+                "Every episode must have at least one observation before actions are admitted.",
+                subject_id="screen_observations",
+                subject_kind="observation",
+            )
+        )
+    return {
+        "findings": findings,
+        "observation_rows": sorted(exported, key=lambda item: item["observation_id"]),
+        "observation_count": len(rows),
+    }
+
+
+def _validate_computer_use_actions(
+    payload: object,
+    episode_rows: list[dict[str, Any]],
+    observation_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    rows = _rows(payload, "actions")
+    episode_ids = {row["episode_id"] for row in episode_rows}
+    observations = {str(row["observation_id"]): row for row in observation_rows}
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "action_id",
+        "episode_id",
+        "step_index",
+        "observation_ref",
+        "affordance_ref",
+        "action_kind",
+        "target_ref",
+        "input_digest",
+        "authority_verdict_id",
+        "state_transition_ref",
+        "execution_status",
+        "body_redacted",
+    )
+    for row in rows:
+        action_id = str(row.get("action_id") or "")
+        observation_ref = str(row.get("observation_ref") or "")
+        observation = observations.get(observation_ref)
+        action_kind = str(row.get("action_kind") or "")
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or row.get("episode_id") not in episode_ids
+            or observation is None
+            or (
+                observation is not None
+                and int(row.get("step_index") or 0) < int(observation.get("step_index") or 0)
+            )
+            or action_kind not in COMPUTER_USE_ALLOWED_ACTION_KINDS
+            or row.get("body_redacted") is not True
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_ACTION_TRACE_INVALID",
+                    "Actions must follow observations, cite affordances, use allowed action kinds, and stay redacted.",
+                    subject_id=action_id or "action",
+                    subject_kind="action",
+                )
+            )
+        exported.append(
+            {
+                "action_id": action_id,
+                "episode_id": row.get("episode_id"),
+                "step_index": row.get("step_index"),
+                "observation_ref": observation_ref,
+                "affordance_ref": row.get("affordance_ref"),
+                "action_kind": action_kind,
+                "target_ref": row.get("target_ref"),
+                "input_digest": row.get("input_digest"),
+                "authority_verdict_id": row.get("authority_verdict_id"),
+                "state_transition_ref": row.get("state_transition_ref"),
+                "recovery_ref": row.get("recovery_ref"),
+                "execution_status": row.get("execution_status"),
+                "body_redacted": True,
+            }
+        )
+    action_kinds = {row["action_kind"] for row in exported}
+    if not {"click", "type", "navigate", "edit_text_record", "wait"}.issubset(action_kinds):
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_ACTION_KIND_COVERAGE_MISSING",
+                "Fixture must cover navigation, clicking, typing, waiting, and toy-record editing.",
+                subject_id="action_trace",
+                subject_kind="action",
+            )
+        )
+    return {
+        "findings": findings,
+        "action_rows": sorted(exported, key=lambda item: item["action_id"]),
+        "action_count": len(rows),
+        "action_kinds": sorted(action_kinds),
+    }
+
+
+def _validate_computer_use_authority_verdicts(
+    payload: object,
+    action_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    rows = _rows(payload, "authority_verdicts")
+    action_by_id = {row["action_id"]: row for row in action_rows}
+    action_verdict_ids = {str(row.get("authority_verdict_id")) for row in action_rows}
+    verdict_by_id: dict[str, dict[str, Any]] = {}
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "verdict_id",
+        "action_id",
+        "policy_version",
+        "verdict",
+        "pre_action",
+        "rule_refs",
+        "live_account_authorized",
+        "credential_entry_authorized",
+        "external_network_mutation_authorized",
+        "destructive_without_review_authorized",
+        "purchase_or_send_authorized",
+        "body_redacted",
+    )
+    for row in rows:
+        verdict_id = str(row.get("verdict_id") or "")
+        action_id = str(row.get("action_id") or "")
+        verdict = str(row.get("verdict") or "")
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or action_id not in action_by_id
+            or verdict_id not in action_verdict_ids
+            or verdict not in {"allow", "block", "review"}
+            or row.get("pre_action") is not True
+            or not _strings(row.get("rule_refs"))
+            or row.get("live_account_authorized") is not False
+            or row.get("credential_entry_authorized") is not False
+            or row.get("external_network_mutation_authorized") is not False
+            or row.get("destructive_without_review_authorized") is not False
+            or row.get("purchase_or_send_authorized") is not False
+            or row.get("body_redacted") is not True
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_AUTHORITY_VERDICT_INVALID",
+                    "Every action must have a pre-action authority verdict that denies live-account, credential, network, destructive, purchase/send, and benchmark authority.",
+                    subject_id=verdict_id or "authority_verdict",
+                    subject_kind="authority_verdict",
+                )
+            )
+        verdict_by_id[verdict_id] = {"action_id": action_id, "verdict": verdict}
+        exported.append(
+            {
+                "verdict_id": verdict_id,
+                "action_id": action_id,
+                "policy_version": row.get("policy_version"),
+                "verdict": verdict,
+                "pre_action": row.get("pre_action"),
+                "rule_refs": _strings(row.get("rule_refs")),
+                "body_redacted": True,
+            }
+        )
+    missing = sorted(action_verdict_ids - set(verdict_by_id))
+    if missing:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_ACTION_VERDICT_COVERAGE_MISSING",
+                "Every action must cite a present authority verdict.",
+                subject_id=",".join(missing),
+                subject_kind="authority_verdict",
+            )
+        )
+    return {
+        "findings": findings,
+        "authority_verdict_rows": sorted(exported, key=lambda item: item["verdict_id"]),
+        "authority_verdict_count": len(rows),
+        "allow_count": sum(1 for row in exported if row["verdict"] == "allow"),
+        "block_count": sum(1 for row in exported if row["verdict"] == "block"),
+        "review_count": sum(1 for row in exported if row["verdict"] == "review"),
+        "verdict_by_id": verdict_by_id,
+    }
+
+
+def _validate_computer_use_state_transitions(
+    payload: object,
+    action_rows: list[dict[str, Any]],
+    verdict_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    rows = _rows(payload, "state_transitions")
+    action_by_id = {row["action_id"]: row for row in action_rows}
+    transition_refs = {str(row.get("state_transition_ref")) for row in action_rows}
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "transition_id",
+        "action_id",
+        "before_state_hash",
+        "after_state_hash",
+        "execution_attempted",
+        "oracle_status",
+        "diff_ref",
+        "nondeterministic_success_claim",
+        "body_redacted",
+    )
+    for row in rows:
+        transition_id = str(row.get("transition_id") or "")
+        action_id = str(row.get("action_id") or "")
+        action = action_by_id.get(action_id, {})
+        verdict_id = str(action.get("authority_verdict_id") or "")
+        verdict = verdict_by_id.get(verdict_id, {}).get("verdict")
+        oracle_status = str(row.get("oracle_status") or "")
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or action_id not in action_by_id
+            or transition_id not in transition_refs
+            or row.get("nondeterministic_success_claim") is not False
+            or row.get("body_redacted") is not True
+            or (
+                verdict == "allow"
+                and (
+                    row.get("execution_attempted") is not True
+                    or oracle_status != "pass"
+                )
+            )
+            or (
+                verdict in {"block", "review"}
+                and (
+                    row.get("execution_attempted") is not False
+                    or oracle_status not in {"blocked", "review_required"}
+                )
+            )
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_STATE_TRANSITION_INVALID",
+                    "State-transition receipts must match action verdicts and avoid nondeterministic success claims.",
+                    subject_id=transition_id or "state_transition",
+                    subject_kind="state_transition",
+                )
+            )
+        exported.append(
+            {
+                "transition_id": transition_id,
+                "action_id": action_id,
+                "execution_attempted": row.get("execution_attempted"),
+                "oracle_status": oracle_status,
+                "diff_ref": row.get("diff_ref"),
+                "nondeterministic_success_claim": row.get("nondeterministic_success_claim"),
+                "body_redacted": True,
+            }
+        )
+    missing = sorted(transition_refs - {row["transition_id"] for row in exported})
+    if missing:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_ACTION_TRANSITION_COVERAGE_MISSING",
+                "Every action must cite a present state-transition receipt.",
+                subject_id=",".join(missing),
+                subject_kind="state_transition",
+            )
+        )
+    return {
+        "findings": findings,
+        "state_transition_rows": sorted(exported, key=lambda item: item["transition_id"]),
+        "state_transition_count": len(rows),
+        "executed_transition_count": sum(
+            1 for row in exported if row["execution_attempted"] is True
+        ),
+        "blocked_transition_count": sum(
+            1 for row in exported if row["oracle_status"] in {"blocked", "review_required"}
+        ),
+    }
+
+
+def _validate_computer_use_recovery_receipts(
+    payload: object,
+    action_rows: list[dict[str, Any]],
+    verdict_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    rows = _rows(payload, "recovery_receipts")
+    recovery_refs = {
+        str(row.get("recovery_ref"))
+        for row in action_rows
+        if verdict_by_id.get(str(row.get("authority_verdict_id")), {}).get("verdict")
+        in {"block", "review"}
+    }
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "recovery_id",
+        "action_id",
+        "recovery_status",
+        "user_visible_error_ref",
+        "state_restored",
+        "body_redacted",
+    )
+    for row in rows:
+        recovery_id = str(row.get("recovery_id") or "")
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or recovery_id not in recovery_refs
+            or row.get("recovery_status") != "recovered"
+            or row.get("state_restored") is not True
+            or row.get("body_redacted") is not True
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_RECOVERY_RECEIPT_INVALID",
+                    "Blocked or reviewed actions must have redacted recovery receipts.",
+                    subject_id=recovery_id or "recovery_receipt",
+                    subject_kind="recovery_receipt",
+                )
+            )
+        exported.append(
+            {
+                "recovery_id": recovery_id,
+                "action_id": row.get("action_id"),
+                "recovery_status": row.get("recovery_status"),
+                "user_visible_error_ref": row.get("user_visible_error_ref"),
+                "state_restored": row.get("state_restored"),
+                "body_redacted": True,
+            }
+        )
+    missing = sorted(recovery_refs - {row["recovery_id"] for row in exported})
+    if missing:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_RECOVERY_COVERAGE_MISSING",
+                "Every blocked or reviewed action must cite a present recovery receipt.",
+                subject_id=",".join(missing),
+                subject_kind="recovery_receipt",
+            )
+        )
+    return {
+        "findings": findings,
+        "recovery_rows": sorted(exported, key=lambda item: item["recovery_id"]),
+        "recovery_receipt_count": len(rows),
+        "recovered_action_count": sum(
+            1 for row in exported if row["recovery_status"] == "recovered"
+        ),
+    }
+
+
+def _validate_computer_use_cold_replay(
+    payload: object,
+    action_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    rows = _rows(payload, "cold_replay")
+    action_ids = _computer_use_action_ids(action_rows)
+    replayed: set[str] = set()
+    findings: list[dict[str, Any]] = []
+    exported: list[dict[str, Any]] = []
+    required = (
+        "replay_id",
+        "episode_id",
+        "action_ids",
+        "replay_command",
+        "receipt_ref",
+        "trace_reproduced",
+        "authority_verdicts_reproduced",
+        "state_transitions_reproduced",
+        "pass_label",
+        "body_redacted",
+    )
+    for row in rows:
+        replay_id = str(row.get("replay_id") or "")
+        row_action_ids = set(_strings(row.get("action_ids")))
+        replayed.update(row_action_ids)
+        if (
+            _missing(row, required)
+            or _has_computer_use_forbidden_key(row)
+            or not row_action_ids
+            or not row_action_ids.issubset(action_ids)
+            or row.get("trace_reproduced") is not True
+            or row.get("authority_verdicts_reproduced") is not True
+            or row.get("state_transitions_reproduced") is not True
+            or row.get("pass_label") not in {"accepted", "blocked_recovered"}
+            or row.get("body_redacted") is not True
+        ):
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_COLD_REPLAY_INVALID",
+                    "Cold replay must reproduce action traces, authority verdicts, and state transitions.",
+                    subject_id=replay_id or "cold_replay",
+                    subject_kind="cold_replay",
+                )
+            )
+        exported.append(
+            {
+                "replay_id": replay_id,
+                "episode_id": row.get("episode_id"),
+                "action_ids": sorted(row_action_ids),
+                "replay_command": row.get("replay_command"),
+                "receipt_ref": row.get("receipt_ref"),
+                "pass_label": row.get("pass_label"),
+                "body_redacted": True,
+            }
+        )
+    missing_actions = sorted(action_ids - replayed)
+    if missing_actions:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_COLD_REPLAY_COVERAGE_MISSING",
+                "Every action must be covered by a cold-replay row.",
+                subject_id=",".join(missing_actions),
+                subject_kind="cold_replay",
+            )
+        )
+    return {
+        "findings": findings,
+        "cold_replay_rows": sorted(exported, key=lambda item: item["replay_id"]),
+        "cold_replay_count": len(rows),
+        "cold_replay_pass_count": sum(
+            1 for row in exported if row["pass_label"] in {"accepted", "blocked_recovered"}
+        ),
+    }
+
+
+def _validate_computer_use_negative_cases(
+    payloads: dict[str, Any],
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+
+    def record(case_id: str, code: str, message: str, subject_id: str) -> None:
+        _record(
+            findings,
+            observed,
+            code,
+            message,
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind="computer_use_negative_case",
+        )
+
+    for row in _rows(payloads.get("live_account_action"), "actions"):
+        if row.get("live_account_context") is True or row.get("live_account_action") is True:
+            record(
+                "live_account_action",
+                "COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN",
+                "Live account context cannot be admitted as a public computer-use trace.",
+                str(row.get("action_id") or "live_account_action"),
+            )
+    for row in _rows(payloads.get("credential_entry"), "actions"):
+        if row.get("credential_entry_attempted") is True or "credential_value" in row:
+            record(
+                "credential_entry",
+                "COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN",
+                "Credential entry is outside the public replay authority ceiling.",
+                str(row.get("action_id") or "credential_entry"),
+            )
+    for row in _rows(payloads.get("external_network_mutation"), "actions"):
+        if row.get("external_network_mutation") is True:
+            record(
+                "external_network_mutation",
+                "COMPUTER_USE_EXTERNAL_NETWORK_MUTATION_FORBIDDEN",
+                "External network mutation cannot be treated as synthetic local replay.",
+                str(row.get("action_id") or "external_network_mutation"),
+            )
+    for row in _rows(payloads.get("unapproved_purchase_or_send"), "actions"):
+        if row.get("purchase_or_send_requested") is True and not row.get("human_approval_ref"):
+            record(
+                "unapproved_purchase_or_send",
+                "COMPUTER_USE_UNAPPROVED_PURCHASE_OR_SEND",
+                "Purchases and send actions require explicit human approval and remain outside the public fixture.",
+                str(row.get("action_id") or "unapproved_purchase_or_send"),
+            )
+    for row in _rows(payloads.get("destructive_file_action"), "actions"):
+        if row.get("destructive_action") is True and not row.get("human_review_ref"):
+            record(
+                "destructive_file_action",
+                "COMPUTER_USE_DESTRUCTIVE_ACTION_WITHOUT_REVIEW",
+                "Destructive host or file actions without review are rejected.",
+                str(row.get("action_id") or "destructive_file_action"),
+            )
+    for row in _rows(payloads.get("hidden_screen_state_claim"), "observations"):
+        if row.get("hidden_state_claim") is True or row.get("visible_state_hash") in (None, ""):
+            record(
+                "hidden_screen_state_claim",
+                "COMPUTER_USE_HIDDEN_SCREEN_STATE_CLAIM",
+                "A screen claim must be visible-state metadata, not hidden browser or desktop state.",
+                str(row.get("observation_id") or "hidden_screen_state_claim"),
+            )
+    for row in _rows(payloads.get("action_without_observation"), "actions"):
+        if not row.get("observation_ref") or not row.get("affordance_ref"):
+            record(
+                "action_without_observation",
+                "COMPUTER_USE_ACTION_WITHOUT_OBSERVATION",
+                "Actions are not admissible without a prior observation and affordance reference.",
+                str(row.get("action_id") or "action_without_observation"),
+            )
+    for row in _rows(payloads.get("benchmark_score_claim"), "claims"):
+        if row.get("benchmark_score_claim") is True:
+            record(
+                "benchmark_score_claim",
+                "COMPUTER_USE_BENCHMARK_SCORE_CLAIM",
+                "Synthetic replay receipts cannot claim benchmark performance.",
+                str(row.get("claim_id") or "benchmark_score_claim"),
+            )
+
+    return {
+        "findings": findings,
+        "observed_negative_cases": {
+            case_id: sorted(codes) for case_id, codes in sorted(observed.items())
+        },
+    }
+
+
+def run_computer_use_action_trace_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+    *,
+    include_negative: bool | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    include_negative = (
+        _has_computer_use_negative_inputs(input_path)
+        if include_negative is None
+        else include_negative
+    )
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_computer_use_action_trace_bundle(
+        input_path,
+        include_negative=include_negative,
+    )
+    scan_result = _scan_computer_use_action_trace_inputs(
+        input_path,
+        public_root,
+        include_negative=include_negative,
+    )
+
+    projection = _validate_computer_use_projection_protocol(payloads.get("projection_protocol"))
+    policy = _validate_computer_use_interaction_policy(payloads.get("interaction_policy"))
+    episodes = _validate_computer_use_episodes(payloads.get("task_episodes"))
+    observations = _validate_computer_use_observations(
+        payloads.get("screen_observations"),
+        episodes["episode_rows"],
+    )
+    actions = _validate_computer_use_actions(
+        payloads.get("action_trace"),
+        episodes["episode_rows"],
+        observations["observation_rows"],
+    )
+    verdicts = _validate_computer_use_authority_verdicts(
+        payloads.get("authority_verdicts"),
+        actions["action_rows"],
+    )
+    transitions = _validate_computer_use_state_transitions(
+        payloads.get("state_transition_receipts"),
+        actions["action_rows"],
+        verdicts["verdict_by_id"],
+    )
+    recoveries = _validate_computer_use_recovery_receipts(
+        payloads.get("recovery_receipts"),
+        actions["action_rows"],
+        verdicts["verdict_by_id"],
+    )
+    cold_replay = _validate_computer_use_cold_replay(
+        payloads.get("cold_replay"),
+        actions["action_rows"],
+    )
+    negative_cases = (
+        _validate_computer_use_negative_cases(payloads)
+        if include_negative
+        else {"findings": [], "observed_negative_cases": {}}
+    )
+
+    expected_negative_cases = (
+        COMPUTER_USE_EXPECTED_NEGATIVE_CASES if include_negative else {}
+    )
+    observed_negative_cases = negative_cases["observed_negative_cases"]
+    missing_negative_cases = sorted(
+        set(expected_negative_cases) - set(observed_negative_cases)
+    )
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+    private_scan["raw_screenshot_bodies_exported"] = False
+    positive_findings = [
+            *projection["findings"],
+            *policy["findings"],
+            *episodes["findings"],
+            *observations["findings"],
+            *actions["findings"],
+            *verdicts["findings"],
+            *transitions["findings"],
+            *recoveries["findings"],
+            *cold_replay["findings"],
+    ]
+    all_findings = sorted(
+        [
+            *positive_findings,
+            *negative_cases["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("negative_case_id") or ""),
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    error_codes = sorted({str(finding["error_code"]) for finding in all_findings})
+    status = (
+        PASS
+        if not positive_findings
+        and not missing_negative_cases
+        and scan_result["status"] == PASS
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            name: payloads.get(name)
+            for name in (
+                "projection_protocol",
+                "interaction_policy",
+                "task_episodes",
+                "screen_observations",
+                "action_trace",
+                "authority_verdicts",
+                "state_transition_receipts",
+                "recovery_receipts",
+                "cold_replay",
+            )
+        }
+    )
+    out = Path(out_dir)
+    if not out.is_absolute():
+        out = Path.cwd() / out
+    out.mkdir(parents=True, exist_ok=True)
+    receipt_name = (
+        COMPUTER_USE_FIXTURE_RESULT_NAME
+        if include_negative
+        else COMPUTER_USE_BUNDLE_RESULT_NAME
+    )
+    receipt_path = out / receipt_name
+    public_receipt_path = public_relative_path(receipt_path, display_root=public_root)
+    manifest = payloads.get("bundle_manifest")
+    manifest = manifest if isinstance(manifest, dict) else {}
+    payload = {
+        "schema_version": (
+            "computer_use_action_trace_replay_result_v1"
+            if include_negative
+            else "exported_computer_use_action_trace_bundle_validation_result_v1"
+        ),
+        "receipt_id": (
+            "receipt.microcosm.computer_use_action_trace_replay"
+            if include_negative
+            else "receipt.microcosm.exported_computer_use_action_trace_bundle"
+        ),
+        "created_at": base_receipt(ORGAN_ID, FIXTURE_ID).get("created_at"),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "fixture_id": f"{FIXTURE_ID}.computer_use_action_trace_replay",
+        "validator_id": VALIDATOR_ID,
+        "input_mode": (
+            "computer_use_action_trace_replay_fixture"
+            if include_negative
+            else "exported_computer_use_action_trace_bundle"
+        ),
+        "bundle_id": manifest.get("bundle_id", "computer_use_action_trace_replay"),
+        "bundle_manifest_schema_version": manifest.get("schema_version"),
+        "command": command,
+        "source_pattern_ids": projection["source_pattern_ids"] or COMPUTER_USE_SOURCE_PATTERN_IDS,
+        "source_refs": projection["source_refs"],
+        "projection_receipt_refs": projection["projection_receipt_refs"],
+        "public_replacement_refs": [
+            public_relative_path(path, display_root=public_root)
+            for path in _computer_use_action_trace_paths(
+                input_path,
+                include_negative=include_negative,
+            )
+        ],
+        "omitted_private_material": projection["omitted_private_material"],
+        "interaction_policy_id": policy["policy_id"],
+        "allowed_action_kinds": policy["allowed_action_kinds"],
+        "episode_count": episodes["episode_count"],
+        "observation_count": observations["observation_count"],
+        "action_count": actions["action_count"],
+        "action_kinds": actions["action_kinds"],
+        "authority_verdict_count": verdicts["authority_verdict_count"],
+        "allow_count": verdicts["allow_count"],
+        "block_count": verdicts["block_count"],
+        "review_count": verdicts["review_count"],
+        "state_transition_count": transitions["state_transition_count"],
+        "executed_transition_count": transitions["executed_transition_count"],
+        "blocked_transition_count": transitions["blocked_transition_count"],
+        "recovery_receipt_count": recoveries["recovery_receipt_count"],
+        "recovered_action_count": recoveries["recovered_action_count"],
+        "cold_replay_count": cold_replay["cold_replay_count"],
+        "cold_replay_pass_count": cold_replay["cold_replay_pass_count"],
+        "episode_rows": episodes["episode_rows"],
+        "observation_rows": observations["observation_rows"],
+        "action_rows": actions["action_rows"],
+        "authority_verdict_rows": verdicts["authority_verdict_rows"],
+        "state_transition_rows": transitions["state_transition_rows"],
+        "recovery_rows": recoveries["recovery_rows"],
+        "cold_replay_rows": cold_replay["cold_replay_rows"],
+        "expected_negative_cases": expected_negative_cases,
+        "observed_negative_cases": observed_negative_cases,
+        "missing_negative_cases": missing_negative_cases,
+        "error_codes": error_codes,
+        "findings": all_findings,
+        "private_state_scan": private_scan,
+        "authority_ceiling": COMPUTER_USE_AUTHORITY_CEILING,
+        "anti_claim": COMPUTER_USE_ANTI_CLAIM,
+        "bundle_fingerprint": bundle_fingerprint,
+        "receipt_paths": [public_receipt_path],
+    }
+    write_json_atomic(receipt_path, payload)
+    return payload
+
+
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1378,6 +2457,9 @@ def main(argv: list[str] | None = None) -> int:
     bundle_parser = subparsers.add_parser("validate-observability-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    computer_use_parser = subparsers.add_parser("validate-computer-use-bundle")
+    computer_use_parser.add_argument("--input", required=True)
+    computer_use_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
@@ -1391,8 +2473,17 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-observability-bundle --input {args.input} --out {args.out}"
         )
         result = run_observability_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-computer-use-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"validate-computer-use-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_computer_use_action_trace_bundle(args.input, args.out, command=command)
     else:
-        parser.error("expected subcommand: run or validate-observability-bundle")
+        parser.error(
+            "expected subcommand: run, validate-observability-bundle, or "
+            "validate-computer-use-bundle"
+        )
     return 0 if result["status"] == PASS else 1
 
 

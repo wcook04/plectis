@@ -1,0 +1,6 @@
+{
+  "authority_ceiling": "synthetic_computer_use_action_trace_replay_receipts_only",
+  "bundle_id": "public_computer_use_action_trace_replay_runtime_example",
+  "contains_negative_cases": false,
+  "schema_version": "computer_use_action_trace_bundle_manifest_v1"
+}
