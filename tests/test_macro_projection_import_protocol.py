@@ -422,6 +422,41 @@ def test_projection_protocol_rejects_body_import_without_verification(
     assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_MISSING" in error_codes
 
 
+def test_projection_protocol_rejects_exact_import_when_source_ref_digest_lies(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    protocol_path = (
+        public_root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+        / "projection_protocol.json"
+    )
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    for row in protocol["copied_material"]:
+        if row["material_id"] == "lean_certificate_kernel_body_import":
+            row["source_ref"] = "tools/meta/control/work_landing.py"
+            row["source_refs"] = ["tools/meta/control/work_landing.py"]
+            row["body_import_verification"]["source_body_digest"] = (
+                row["body_import_verification"]["target_body_digest"]
+            )
+            break
+
+    result = validate_projection_protocol(
+        protocol,
+        import_policy=json.loads(
+            (public_root / "core/private_state_forbidden_classes.json").read_text(
+                encoding="utf-8"
+            )
+        ),
+        public_root=public_root,
+    )
+
+    assert result["status"] == "blocked"
+    assert result["public_safe_body_target_status"] == "blocked"
+    error_codes = {row["error_code"] for row in result["findings"]}
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH" in error_codes
+
+
 def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
     result = preview_import_plan(

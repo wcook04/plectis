@@ -559,11 +559,38 @@ def _body_digest_is_placeholder(value: str) -> bool:
     return any(char not in "0123456789abcdef" for char in digest.lower())
 
 
+def _source_ref_file_candidates(source_ref: str, *, public_root: Path | None) -> list[Path]:
+    ref_path = Path(source_ref.split("::", 1)[0])
+    if ref_path.is_absolute() or ".." in ref_path.parts:
+        return []
+    candidates: list[Path] = []
+    if public_root is not None:
+        candidates.extend([public_root / ref_path, public_root.parent / ref_path])
+    candidates.append(Path.cwd() / ref_path)
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = str(candidate.resolve(strict=False))
+        if key not in seen:
+            seen.add(key)
+            unique.append(candidate)
+    return unique
+
+
+def _first_existing_source_ref(source_refs: list[str], *, public_root: Path | None) -> tuple[str, Path] | None:
+    for source_ref in source_refs:
+        for candidate in _source_ref_file_candidates(source_ref, public_root=public_root):
+            if candidate.is_file():
+                return source_ref, candidate
+    return None
+
+
 def _body_import_verification_findings(
     row: dict[str, Any],
     *,
     material_id: str,
     declared_digest: str,
+    public_root: Path | None,
 ) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     verification = row.get("body_import_verification")
@@ -615,11 +642,22 @@ def _body_import_verification_findings(
 
     if mode == "exact_source_digest_match":
         source_digest = str(verification.get("source_body_digest") or "")
+        source_refs = _source_refs_for_material(row)
         if _body_digest_is_placeholder(source_digest):
             findings.append(
                 _finding(
                     "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISSING",
                     "exact body imports must include the source body sha256 digest.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+        elif not source_refs:
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_REF_MISSING",
+                    "exact body imports must name the macro source ref whose bytes were copied.",
                     case_id="public_safe_body_import_floor",
                     subject_id=material_id,
                     subject_kind="copied_material",
@@ -635,6 +673,18 @@ def _body_import_verification_findings(
                     subject_kind="copied_material",
                 )
             )
+        else:
+            existing_source = _first_existing_source_ref(source_refs, public_root=public_root)
+            if existing_source is not None and _sha256_digest(existing_source[1]) != source_digest:
+                findings.append(
+                    _finding(
+                        "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
+                        "exact body imports must match the actual local source file digest when the source is available.",
+                        case_id="public_safe_body_import_floor",
+                        subject_id=existing_source[0],
+                        subject_kind="copied_material",
+                    )
+                )
     elif mode == "verified_light_edit_recipe":
         if not isinstance(verification.get("rewrite_recipe_ref"), str):
             findings.append(
@@ -752,6 +802,7 @@ def _public_safe_body_target_findings(
             row,
             material_id=material_id,
             declared_digest=declared_digest,
+            public_root=public_root,
         )
     )
     return findings
