@@ -1,0 +1,16 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "post_oracle_strategy_selection",
+  "cases": [
+    {
+      "case_id": "strategy_chosen_after_oracle_diff",
+      "problem_id": "toy_iff_equivalence",
+      "candidate_strategy_ids": [
+        "iff_split"
+      ],
+      "selection_stage": "post_oracle",
+      "pre_oracle": false,
+      "body_redacted": true
+    }
+  ]
+}

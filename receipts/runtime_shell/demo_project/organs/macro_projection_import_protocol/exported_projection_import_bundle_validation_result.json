@@ -1,0 +1,332 @@
+{
+  "anti_claim": "The macro projection import protocol validates public-safe projection metadata, omission receipts, replacement refs, authority ceilings, and validation refs. It does not copy private bodies, authorize release or publication, claim private-root equivalence, elevate Microcosm above its public receipts, run provider calls, or make macro source authority public.",
+  "authority_ceiling": {
+    "authority_ceiling": "macro_projection_protocol_metadata_fixture_and_receipt_refs_only",
+    "live_macro_source_authority": false,
+    "operator_thread_body_read": false,
+    "private_data_equivalence_claim": false,
+    "private_source_bodies_exported": false,
+    "provider_payload_body_read": false,
+    "publication_authorized": false,
+    "raw_seed_body_read": false,
+    "recipient_work_authorized": false,
+    "release_authorized": false,
+    "source_authority_above_macro_contracts": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "blocked_projection_cell_count": 0,
+  "body_redacted": true,
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T06:15:12+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.macro_projection_import_protocol",
+  "forbidden_material_classes": [
+    "credential",
+    "operator_thread_body",
+    "private_source_body",
+    "provider_payload_body",
+    "raw_seed_body",
+    "recipient_packet_body",
+    "release_packet_body",
+    "secret"
+  ],
+  "input_mode": "exported_projection_import_bundle",
+  "missing_negative_cases": [],
+  "next_best_lane": "real_substrate_import_tranche",
+  "observed_negative_cases": {},
+  "organ_id": "macro_projection_import_protocol",
+  "plan_id": "public_macro_projection_import_plan_v1",
+  "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 3,
+    "status": "pass"
+  },
+  "projection_board": {
+    "allowed_material": [
+      "metadata",
+      "fixture shape",
+      "standard schema",
+      "receipt summary",
+      "public-root replacement ref"
+    ],
+    "body_redacted": true,
+    "forbidden_material_classes": [
+      "credential",
+      "operator_thread_body",
+      "private_source_body",
+      "provider_payload_body",
+      "raw_seed_body",
+      "recipient_packet_body",
+      "release_packet_body",
+      "secret"
+    ],
+    "headline": "Macro material enters Microcosm through public-safe projection, not body copy.",
+    "intake_board_ref": "projection_import_intake_board.json",
+    "next_best_lane": "real_substrate_import_tranche",
+    "private_data_equivalence_claim": false,
+    "projection_cell_count": 3,
+    "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
+    "release_authorized": false
+  },
+  "projection_cell_count": 3,
+  "projection_cell_ids": [
+    "formal_math_readiness_extensions",
+    "projection_protocol_self_host",
+    "runtime_reveal_import_bridge"
+  ],
+  "projection_intake_board": {
+    "allowed_material": [
+      "metadata",
+      "fixture shape",
+      "standard schema",
+      "receipt summary",
+      "public-root replacement ref"
+    ],
+    "allowed_material_classes": [
+      "pattern_metadata",
+      "fixture_shape",
+      "standard_schema",
+      "receipt_summary",
+      "public_replacement_ref"
+    ],
+    "authority_ceiling": {
+      "authority_ceiling": "macro_projection_protocol_metadata_fixture_and_receipt_refs_only",
+      "live_macro_source_authority": false,
+      "operator_thread_body_read": false,
+      "private_data_equivalence_claim": false,
+      "private_source_bodies_exported": false,
+      "provider_payload_body_read": false,
+      "publication_authorized": false,
+      "raw_seed_body_read": false,
+      "recipient_work_authorized": false,
+      "release_authorized": false,
+      "source_authority_above_macro_contracts": false,
+      "status": "pass",
+      "whole_system_correctness_claim": false
+    },
+    "blocked_cell_count": 0,
+    "body_redacted": true,
+    "consumed_cell_count": 3,
+    "expected_negative_case_count": 0,
+    "forbidden_material_classes": [
+      "credential",
+      "operator_thread_body",
+      "private_source_body",
+      "provider_payload_body",
+      "raw_seed_body",
+      "recipient_packet_body",
+      "release_packet_body",
+      "secret"
+    ],
+    "headline": "Macro source refs become queued public projection cells before any body copy is possible.",
+    "input_mode": "exported_projection_import_bundle",
+    "landed_cell_count": 3,
+    "missing_negative_cases": [],
+    "negative_case_coverage_status": "pass",
+    "next_best_lane": "real_substrate_import_tranche",
+    "observed_negative_case_count": 0,
+    "omitted_material": [
+      {
+        "body_redacted": true,
+        "material_id": "private_source_bodies",
+        "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "omitted_class": "private_source_body",
+        "public_replacement_ref": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json"
+      },
+      {
+        "body_redacted": true,
+        "material_id": "operator_and_provider_bodies",
+        "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "omitted_class": "operator_thread_body_or_provider_payload_body",
+        "public_replacement_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
+      }
+    ],
+    "omitted_material_count": 2,
+    "open_actionable_cell_count": 0,
+    "plan_id": "public_macro_projection_import_plan_v1",
+    "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
+    "private_data_equivalence_claim": false,
+    "private_state_blocking_hit_count": 0,
+    "projection_cell_count": 3,
+    "projection_cells": [
+      {
+        "action_required": false,
+        "authority_ceiling": "fixture_and_receipt_refs_only",
+        "blocking_reasons": [],
+        "body_copied": false,
+        "body_redacted": true,
+        "cell_id": "formal_math_readiness_extensions",
+        "cell_state": "consumed_public_replacement",
+        "copy_policy": "metadata_fixture_receipt_ref_only",
+        "landed_evidence_refs": [
+          "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+          "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+          "paper_modules/formal_math_readiness_gate.md"
+        ],
+        "next_runtime_surface": "microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input",
+        "projection_status": "public_replacement_landed",
+        "ready_to_project": true,
+        "selected_pattern_ids": [
+          "lean_std_toolchain_premise_index",
+          "tactic_portfolio_availability_probe",
+          "target_shape_tactic_routing_gate"
+        ],
+        "source_ref_count": 1,
+        "source_refs": [
+          "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        ],
+        "status_reason": "The formal-math readiness extension cell has a public replacement board with premise, tactic, routing, provider-context, source-intake, and validation refs.",
+        "target_ref_count": 2,
+        "target_refs": [
+          "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+          "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json"
+        ],
+        "validation_ref_count": 1,
+        "validation_refs": [
+          "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
+        ]
+      },
+      {
+        "action_required": false,
+        "authority_ceiling": "protocol_metadata_only",
+        "blocking_reasons": [],
+        "body_copied": false,
+        "body_redacted": true,
+        "cell_id": "projection_protocol_self_host",
+        "cell_state": "consumed_protocol_self_host",
+        "copy_policy": "metadata_fixture_receipt_ref_only",
+        "landed_evidence_refs": [
+          "standards/std_microcosm_macro_projection_import_protocol.json",
+          "paper_modules/macro_projection_import_protocol.md",
+          "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+          "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+        ],
+        "next_runtime_surface": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "projection_status": "self_hosted_status_protocol_landed",
+        "ready_to_project": true,
+        "selected_pattern_ids": [
+          "compression_profile_governed_option_surface",
+          "authority_boundary_anti_claim"
+        ],
+        "source_ref_count": 1,
+        "source_refs": [
+          "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+        ],
+        "status_reason": "The macro projection protocol now emits this cell-status state machine directly in plan, run, receipts, and runtime intake views.",
+        "target_ref_count": 2,
+        "target_refs": [
+          "standards/std_microcosm_macro_projection_import_protocol.json",
+          "paper_modules/macro_projection_import_protocol.md"
+        ],
+        "validation_ref_count": 1,
+        "validation_refs": [
+          "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+        ]
+      },
+      {
+        "action_required": false,
+        "authority_ceiling": "runtime_exported_bundle_validation_only",
+        "blocking_reasons": [],
+        "body_copied": false,
+        "body_redacted": true,
+        "cell_id": "runtime_reveal_import_bridge",
+        "cell_state": "bridged_runtime_surface",
+        "copy_policy": "metadata_fixture_receipt_ref_only",
+        "landed_evidence_refs": [
+          "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+          "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+          "paper_modules/public_reveal_walkthrough.md"
+        ],
+        "next_runtime_surface": "microcosm intake",
+        "projection_status": "runtime_bridge_landed",
+        "ready_to_project": true,
+        "selected_pattern_ids": [
+          "cold_start_agent_skills_pack",
+          "workingness_record"
+        ],
+        "source_ref_count": 1,
+        "source_refs": [
+          "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json"
+        ],
+        "status_reason": "The reveal/import bridge is landed as microcosm intake with a runtime receipt and first-run path through spine, intake, reveal, and evidence.",
+        "target_ref_count": 2,
+        "target_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+          "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol"
+        ],
+        "validation_ref_count": 1,
+        "validation_refs": [
+          "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
+        ]
+      }
+    ],
+    "projection_status_counts": {
+      "public_replacement_landed": 1,
+      "runtime_bridge_landed": 1,
+      "self_hosted_status_protocol_landed": 1
+    },
+    "projection_status_protocol": {
+      "anti_claim": "Cell status is a public intake state machine over metadata and receipt refs. It is not private source authority, release readiness, or proof of whole-system correctness.",
+      "authority_ceiling": "metadata_fixture_receipt_ref_status_only",
+      "cell_state_field": "cell_state",
+      "closed_statuses": [
+        "public_replacement_landed",
+        "self_hosted_status_protocol_landed",
+        "runtime_bridge_landed"
+      ],
+      "open_action_field": "action_required",
+      "open_statuses": [
+        "ready_for_projection",
+        "blocked"
+      ],
+      "schema_version": "macro_projection_cell_status_protocol_v1",
+      "status_field": "projection_status"
+    },
+    "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
+    "publication_authorized": false,
+    "ready_cell_count": 3,
+    "release_authorized": false,
+    "schema_version": "macro_projection_import_intake_board_v1"
+  },
+  "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
+  "public_replacement_ref_count": 4,
+  "public_replacement_refs": [
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+    "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+    "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
+    "paper_modules/macro_projection_import_protocol.md",
+    "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+    "standards/std_microcosm_macro_projection_import_protocol.json"
+  ],
+  "ready_projection_cell_count": 3,
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
+  ],
+  "schema_version": "macro_projection_import_protocol_result_v1",
+  "source_ref_count": 3,
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json"
+  ],
+  "status": "pass",
+  "validation_ref_count": 5,
+  "validation_refs": [
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+    "receipts/preflight/dependency_preflight.json",
+    "receipts/preflight/fixture_runner_freshness.json",
+    "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
+  ],
+  "validator_id": "validator.microcosm.organs.macro_projection_import_protocol"
+}

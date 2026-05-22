@@ -1,0 +1,57 @@
+{
+  "accepted_negative_cases": [
+    "final_answer_only_grading",
+    "hidden_credential_export",
+    "live_account_access",
+    "missing_rollback_receipt",
+    "overbroad_scope",
+    "tool_output_as_instruction",
+    "unapproved_side_effect",
+    "unredacted_tool_payload"
+  ],
+  "anti_claim": "MCP tool authority replay validates a synthetic tool-use contract: manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback receipts, untrusted-output instruction/data separation, cold replay, negative cases, and generated receipts. It does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "credential_export_authorized": false,
+    "live_mcp_account_access_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "unapproved_side_effect_authorized": false,
+    "untrusted_tool_output_instruction_authorized": false
+  },
+  "created_at": "2026-05-22T06:06:19+00:00",
+  "error_codes": [
+    "MCP_TOOL_FINAL_ANSWER_ONLY_GRADING",
+    "MCP_TOOL_HIDDEN_CREDENTIAL_EXPORT",
+    "MCP_TOOL_LIVE_ACCOUNT_ACCESS",
+    "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
+    "MCP_TOOL_OUTPUT_AS_INSTRUCTION",
+    "MCP_TOOL_OVERBROAD_SCOPE",
+    "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
+    "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT"
+  ],
+  "fixture_id": "first_wave.mcp_tool_authority_replay",
+  "missing_negative_cases": [],
+  "organ_id": "mcp_tool_authority_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 15,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "mcp_tool_authority_replay_fixture_acceptance_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay"
+}

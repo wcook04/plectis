@@ -1,0 +1,7 @@
+{
+  "schema_version": "exported_research_replication_bundle_manifest_v1",
+  "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
+  "organ_id": "research_replication_rubric_artifact_replay",
+  "input_mode": "exported_research_replication_bundle",
+  "authority_ceiling": "synthetic research replication replay receipts only"
+}

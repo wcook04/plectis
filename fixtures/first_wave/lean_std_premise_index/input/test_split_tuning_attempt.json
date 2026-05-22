@@ -1,0 +1,12 @@
+{
+  "schema_version": "lean_std_premise_index_negative_case_v1",
+  "expected_negative_case_id": "test_split_tuning_attempt",
+  "closed_index_only": true,
+  "allowed_splits": [
+    "train",
+    "dev",
+    "test"
+  ],
+  "test_split_tuning_authorized": true,
+  "body_redacted": true
+}

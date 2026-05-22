@@ -1,0 +1,15 @@
+{
+  "active_injection_adopted": true,
+  "body_exported": false,
+  "decision": "ADD",
+  "episode_id": "negative_active_injection",
+  "episode_order": 9,
+  "event_id": "negative_active_injection_authority",
+  "evidence_handle_ref": "evidence.memory.negative.active_injection",
+  "expected_negative_case_id": "active_injection_as_authoritative",
+  "memory_route_ref": "route.memory.write.synthetic.active_injection",
+  "memory_subject_id": "active_injection_candidate",
+  "metadata_only_ref": true,
+  "private_thread_ref": "thread_ref.synthetic.injection.metadata_only",
+  "source_authority_claim": false
+}

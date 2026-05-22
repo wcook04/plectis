@@ -1,0 +1,75 @@
+{
+  "schema_version": "mathematical_strategy_atlas_v1",
+  "source_pattern_ids": [
+    "mathematical_strategy_atlas_hypothesis_scorer"
+  ],
+  "source_refs": [
+    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/reduce_prover_provider_receipts.py"
+  ],
+  "known_strategy_ids": [
+    "iff_split",
+    "recursive_data_induction",
+    "arithmetic_normalization",
+    "unknown"
+  ],
+  "strategies": [
+    {
+      "strategy_id": "iff_split",
+      "title": "Iff split and directional closure",
+      "match_features": [
+        "iff_goal",
+        "equivalence",
+        "bidirectional_reasoning"
+      ],
+      "retrieval_term_additions": [
+        "Iff.intro",
+        "Iff.mp",
+        "Iff.mpr"
+      ],
+      "authority_boundary": "pre_oracle_strategy_hypothesis_only",
+      "body_redacted": true
+    },
+    {
+      "strategy_id": "recursive_data_induction",
+      "title": "Recursive data induction",
+      "match_features": [
+        "recursive_data",
+        "list_structure",
+        "induction_candidate"
+      ],
+      "retrieval_term_additions": [
+        "List.length_append",
+        "List.map_append",
+        "List.append_assoc"
+      ],
+      "authority_boundary": "pre_oracle_strategy_hypothesis_only",
+      "body_redacted": true
+    },
+    {
+      "strategy_id": "arithmetic_normalization",
+      "title": "Arithmetic normalization",
+      "match_features": [
+        "nat_arithmetic",
+        "commutativity",
+        "normalization"
+      ],
+      "retrieval_term_additions": [
+        "Nat.add_comm",
+        "Nat.add_assoc",
+        "Nat.mul_comm"
+      ],
+      "authority_boundary": "pre_oracle_strategy_hypothesis_only",
+      "body_redacted": true
+    },
+    {
+      "strategy_id": "unknown",
+      "title": "Unknown strategy sentinel",
+      "match_features": [],
+      "retrieval_term_additions": [],
+      "authority_boundary": "typed_strategy_selection_miss_not_failure_to_hide",
+      "body_redacted": true
+    }
+  ],
+  "anti_claim": "This atlas is a synthetic public strategy enum and retrieval-lens fixture, not a proof search result or oracle label source."
+}

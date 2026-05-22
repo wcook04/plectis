@@ -1,0 +1,67 @@
+{
+  "schema_version": "provider_context_recipe_budget_fixture_v1",
+  "recipe_set_id": "public_provider_context_recipes_v1",
+  "recipes": [
+    {
+      "recipe_id": "minimal_4kb",
+      "byte_budget": 4096,
+      "graph_role": "minimal_statement_context",
+      "deliverable_type": "environment_metadata",
+      "sections": ["statement", "declared_imports"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "premise_16kb",
+      "byte_budget": 16384,
+      "graph_role": "premise_selection_context",
+      "deliverable_type": "ranked_premise_ids",
+      "sections": ["statement", "declared_imports", "retrieved_premises"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "skill_32kb",
+      "byte_budget": 32768,
+      "graph_role": "skill_guided_context",
+      "deliverable_type": "strategy_metadata",
+      "sections": ["statement", "skill_atlas_card", "retrieved_premises", "target_shape_routes"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "repair_32kb",
+      "byte_budget": 32768,
+      "graph_role": "failure_repair_context",
+      "deliverable_type": "failure_classification",
+      "sections": ["statement", "diagnostic_failure_class", "retrieved_premises", "target_shape_routes"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "fewshot_64kb",
+      "byte_budget": 65536,
+      "graph_role": "fewshot_advisory_context",
+      "deliverable_type": "redacted_synthesis_advisory",
+      "sections": ["statement", "skill_atlas_card", "retrieved_premises", "target_shape_routes", "fewshot_examples"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "strategy_classification_4kb",
+      "byte_budget": 4096,
+      "graph_role": "strategy_classification_context",
+      "deliverable_type": "strategy_id_classification",
+      "sections": ["statement", "known_strategy_ids", "target_shape_features"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    }
+  ],
+  "anti_claim": "Provider context recipes are public budget metadata only; no provider call, proof body, truth-side oracle material, or release authority is included."
+}

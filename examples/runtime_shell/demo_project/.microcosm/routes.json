@@ -1,0 +1,221 @@
+{
+  "created_at": "2026-05-22T06:15:26+00:00",
+  "pattern_summary": {
+    "missing_pattern_count": 3,
+    "passing_pattern_count": 4
+  },
+  "project_id": "demo_project",
+  "project_ref": ".",
+  "receipts_are_drilldown_evidence": true,
+  "release_authorized": false,
+  "route_count": 4,
+  "routes": [
+    {
+      "action": "inspect",
+      "authority": "project_local_projection_not_source_authority",
+      "claims_source_authority": false,
+      "explain_command": "microcosm explain <project> readme_onboarding_route",
+      "grounded_refs": [
+        "README.md"
+      ],
+      "intent": "summarize public first-run path",
+      "kernel_primitive_refs": [
+        "catalog",
+        "pattern",
+        "route",
+        "work",
+        "event",
+        "evidence"
+      ],
+      "pattern_refs": [
+        "repo_has_readme"
+      ],
+      "pattern_resolution_ref": ".microcosm/patterns.json",
+      "pattern_surface_id": "public_microcosm_pattern_surface",
+      "route_definition_ref": ".microcosm/routes.json::readme_onboarding_route",
+      "route_id": "readme_onboarding_route",
+      "source_mutation_authorized": false,
+      "standard_pressure_refs": [
+        "json_contract_markdown_projection",
+        "substrate_derived_projection",
+        "projection_lineage_not_authority",
+        "reversible_work_transaction",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+        "formal_readiness_not_proof_authority",
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_retrieval_not_proof_authority",
+        "provider_context_recipe_budget_no_provider_authority",
+        "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+        "tactic_portfolio_availability_probe_environment_boundary",
+        "target_shape_tactic_routing_gate_no_proof_authority",
+        "formal_lean_witness_bounded_authority",
+        "prediction_oracle_reconciliation_no_advice_authority",
+        "ring2_premise_retrieval_precision_recall_no_proof_authority",
+        "standards_meta_diagnostics_projection_only",
+        "cold_reader_route_map_projection_only",
+        "lean_std_premise_index_closed_metadata_only",
+        "formal_math_verifier_trace_repair_loop_public_pressure",
+        "formal_evidence_cell_anchor_resolver_public_pressure",
+        "undeclared_library_prior_symbol_classifier_public_pressure"
+      ],
+      "title": "Inspect README onboarding"
+    },
+    {
+      "action": "inspect",
+      "authority": "project_local_projection_not_source_authority",
+      "claims_source_authority": false,
+      "explain_command": "microcosm explain <project> package_runtime_route",
+      "grounded_refs": [
+        "pyproject.toml"
+      ],
+      "intent": "find install and run surfaces",
+      "kernel_primitive_refs": [
+        "catalog",
+        "pattern",
+        "route",
+        "work",
+        "event",
+        "evidence"
+      ],
+      "pattern_refs": [
+        "repo_has_package_manifest"
+      ],
+      "pattern_resolution_ref": ".microcosm/patterns.json",
+      "pattern_surface_id": "public_microcosm_pattern_surface",
+      "route_definition_ref": ".microcosm/routes.json::package_runtime_route",
+      "route_id": "package_runtime_route",
+      "source_mutation_authorized": false,
+      "standard_pressure_refs": [
+        "json_contract_markdown_projection",
+        "substrate_derived_projection",
+        "projection_lineage_not_authority",
+        "reversible_work_transaction",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+        "formal_readiness_not_proof_authority",
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_retrieval_not_proof_authority",
+        "provider_context_recipe_budget_no_provider_authority",
+        "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+        "tactic_portfolio_availability_probe_environment_boundary",
+        "target_shape_tactic_routing_gate_no_proof_authority",
+        "formal_lean_witness_bounded_authority",
+        "prediction_oracle_reconciliation_no_advice_authority",
+        "ring2_premise_retrieval_precision_recall_no_proof_authority",
+        "standards_meta_diagnostics_projection_only",
+        "cold_reader_route_map_projection_only",
+        "lean_std_premise_index_closed_metadata_only",
+        "formal_math_verifier_trace_repair_loop_public_pressure",
+        "formal_evidence_cell_anchor_resolver_public_pressure",
+        "undeclared_library_prior_symbol_classifier_public_pressure"
+      ],
+      "title": "Inspect package/runtime metadata"
+    },
+    {
+      "action": "inspect",
+      "authority": "project_local_projection_not_source_authority",
+      "claims_source_authority": false,
+      "explain_command": "microcosm explain <project> source_core_route",
+      "grounded_refs": [
+        "src/demo_project/core.py"
+      ],
+      "intent": "locate primary implementation surfaces",
+      "kernel_primitive_refs": [
+        "catalog",
+        "pattern",
+        "route",
+        "work",
+        "event",
+        "evidence"
+      ],
+      "pattern_refs": [
+        "repo_has_source_core"
+      ],
+      "pattern_resolution_ref": ".microcosm/patterns.json",
+      "pattern_surface_id": "public_microcosm_pattern_surface",
+      "route_definition_ref": ".microcosm/routes.json::source_core_route",
+      "route_id": "source_core_route",
+      "source_mutation_authorized": false,
+      "standard_pressure_refs": [
+        "json_contract_markdown_projection",
+        "substrate_derived_projection",
+        "projection_lineage_not_authority",
+        "reversible_work_transaction",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+        "formal_readiness_not_proof_authority",
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_retrieval_not_proof_authority",
+        "provider_context_recipe_budget_no_provider_authority",
+        "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+        "tactic_portfolio_availability_probe_environment_boundary",
+        "target_shape_tactic_routing_gate_no_proof_authority",
+        "formal_lean_witness_bounded_authority",
+        "prediction_oracle_reconciliation_no_advice_authority",
+        "ring2_premise_retrieval_precision_recall_no_proof_authority",
+        "standards_meta_diagnostics_projection_only",
+        "cold_reader_route_map_projection_only",
+        "lean_std_premise_index_closed_metadata_only",
+        "formal_math_verifier_trace_repair_loop_public_pressure",
+        "formal_evidence_cell_anchor_resolver_public_pressure",
+        "undeclared_library_prior_symbol_classifier_public_pressure"
+      ],
+      "title": "Inspect source core"
+    },
+    {
+      "action": "simulate",
+      "authority": "project_local_projection_not_source_authority",
+      "claims_source_authority": false,
+      "explain_command": "microcosm explain <project> test_behavior_route",
+      "grounded_refs": [
+        "tests/test_core.py"
+      ],
+      "intent": "find executable behavior checks",
+      "kernel_primitive_refs": [
+        "catalog",
+        "pattern",
+        "route",
+        "work",
+        "event",
+        "evidence"
+      ],
+      "pattern_refs": [
+        "repo_has_tests"
+      ],
+      "pattern_resolution_ref": ".microcosm/patterns.json",
+      "pattern_surface_id": "public_microcosm_pattern_surface",
+      "route_definition_ref": ".microcosm/routes.json::test_behavior_route",
+      "route_id": "test_behavior_route",
+      "source_mutation_authorized": false,
+      "standard_pressure_refs": [
+        "json_contract_markdown_projection",
+        "substrate_derived_projection",
+        "projection_lineage_not_authority",
+        "reversible_work_transaction",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+        "formal_readiness_not_proof_authority",
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_retrieval_not_proof_authority",
+        "provider_context_recipe_budget_no_provider_authority",
+        "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+        "tactic_portfolio_availability_probe_environment_boundary",
+        "target_shape_tactic_routing_gate_no_proof_authority",
+        "formal_lean_witness_bounded_authority",
+        "prediction_oracle_reconciliation_no_advice_authority",
+        "ring2_premise_retrieval_precision_recall_no_proof_authority",
+        "standards_meta_diagnostics_projection_only",
+        "cold_reader_route_map_projection_only",
+        "lean_std_premise_index_closed_metadata_only",
+        "formal_math_verifier_trace_repair_loop_public_pressure",
+        "formal_evidence_cell_anchor_resolver_public_pressure",
+        "undeclared_library_prior_symbol_classifier_public_pressure"
+      ],
+      "title": "Run or inspect behavior tests"
+    }
+  ],
+  "schema_version": "microcosm_project_routes_v1",
+  "state_ref": ".microcosm",
+  "status": "pass"
+}

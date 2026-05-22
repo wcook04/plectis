@@ -1,0 +1,16 @@
+{
+  "action_gate": "blocked_before_action",
+  "body_redacted": true,
+  "cold_replay_receipt_ref": "receipt.synthetic.final_answer_only",
+  "evidence_used_refs": [
+    "receipt.synthetic.final_answer_only"
+  ],
+  "expected_negative_case_id": "final_answer_only_grading",
+  "final_answer_only_grading": true,
+  "influence_grade": "quarantined_before_action",
+  "private_ref_metadata_only": true,
+  "proposed_memory_ref": "memory_candidate.synthetic.final_answer_only",
+  "replay_id": "negative_final_answer_only_grading",
+  "retrieval_ref": "retrieval.synthetic.final_answer_only",
+  "session_id": "negative_session"
+}

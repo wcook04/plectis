@@ -170,25 +170,56 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["release_or_publication_authorized"] is False
     assert result["authority_ceiling"]["provider_payload_read"] is False
     assert result["authority_ceiling"]["private_data_equivalence_claim"] is False
-    assert result["ordered_adapter_lane_status"] == "complete_pending_completion_reducer"
-    assert result["organ_landing_count"] == 8
+    assert result["ordered_adapter_lane_status"] == (
+        "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_memory_conflict_sleeper_memory_quarantine_and_mcp_tool_authority_bound"
+    )
+    assert result["organ_landing_count"] == 35
     assert result["landed_organ_ids"] == [
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_memory_temporal_conflict_replay",
+        "agent_monitor_redteam_falsification_replay",
         "agent_route_observability_runtime",
+        "cold_reader_route_map",
+        "corpus_readiness_mathlib_absence_gate",
+        "durable_agent_work_landing_replay",
         "executable_doctrine_grammar",
+        "formal_evidence_cell_anchor_resolver",
+        "formal_math_lean_proof_witness",
+        "formal_math_premise_retrieval",
         "formal_math_readiness_gate",
+        "formal_math_verifier_trace_repair_loop",
+        "lean_std_premise_index",
+        "macro_projection_import_protocol",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "mcp_tool_authority_replay",
+        "mechanistic_interpretability_circuit_attribution_replay",
         "mission_transaction_work_spine",
         "navigation_hologram_route_plane",
         "pattern_assimilation_step",
         "pattern_binding_contract",
+        "prediction_oracle_reconciliation",
         "proof_diagnostic_evidence_spine",
+        "provider_context_recipe_budget_policy",
+        "public_reveal_walkthrough",
+        "research_replication_rubric_artifact_replay",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "sleeper_memory_poisoning_quarantine_replay",
+        "spatial_world_model_counterfactual_simulation_replay",
+        "standards_meta_diagnostics",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "undeclared_library_prior_symbol_classifier",
+        "world_model_projection_drift_control_room",
     ]
-    assert result["refinement_receipt_count"] == 6
+    assert result["refinement_receipt_count"] == 30
     assert result["nothing_to_refine_receipt_count"] == 2
     assert result["stewardship_check_count"] == 2
     assert result["reentry_condition_count"] == 2
-    assert result["next_best_lane_result"] == "ordered_adapter_lane_completion_reducer"
+    assert result["next_best_lane_result"] == (
+        "proof_derived_governed_mutation_authorization_or_agent_benchmark_integrity_anti_gaming_replay_compound_refresh"
+    )
     assert result["next_seed_paths"] == [
-        "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_ORDERED_ADAPTER_LANE_COMPLETION_REDUCER_SEED.md"
+        "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
     ]
     assert result["assimilation_policy"]["forbidden_authority_rejected"] is True
     assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])

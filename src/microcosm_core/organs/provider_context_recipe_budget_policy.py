@@ -1,0 +1,683 @@
+from __future__ import annotations
+
+import argparse
+import json
+import math
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+from microcosm_core.private_state_scan import (
+    PASS,
+    load_forbidden_classes,
+    public_relative_path,
+    scan_paths,
+)
+from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.schemas import read_json_strict
+
+
+ORGAN_ID = "provider_context_recipe_budget_policy"
+FIXTURE_ID = "first_wave.provider_context_recipe_budget_policy"
+VALIDATOR_ID = "validator.microcosm.organs.provider_context_recipe_budget_policy"
+
+RESULT_NAME = "provider_context_budget_result.json"
+BOARD_NAME = "provider_context_budget_board.json"
+VALIDATION_RECEIPT_NAME = "provider_context_budget_validation_receipt.json"
+ACCEPTANCE_RECEIPT_REL = (
+    "receipts/acceptance/first_wave/"
+    "provider_context_recipe_budget_policy_fixture_acceptance.json"
+)
+BUNDLE_RESULT_NAME = "exported_provider_context_budget_bundle_validation_result.json"
+
+SOURCE_PATTERN_IDS = ["provider_context_recipe_budget_policy"]
+SOURCE_REFS = [
+    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+]
+
+EXPECTED_RECIPE_BUDGETS = {
+    "minimal_4kb": 4096,
+    "premise_16kb": 16384,
+    "skill_32kb": 32768,
+    "repair_32kb": 32768,
+    "fewshot_64kb": 65536,
+    "strategy_classification_4kb": 4096,
+}
+
+EXPECTED_DELIVERABLES = {
+    "minimal_4kb": "environment_metadata",
+    "premise_16kb": "ranked_premise_ids",
+    "skill_32kb": "strategy_metadata",
+    "repair_32kb": "failure_classification",
+    "fewshot_64kb": "redacted_synthesis_advisory",
+    "strategy_classification_4kb": "strategy_id_classification",
+}
+
+FORBIDDEN_SECTION_IDS = {
+    "ground_truth_proof",
+    "ideal_body",
+    "oracle_needed_premise_ids",
+    "proof_body",
+    "provider_output_body",
+    "test_answer",
+}
+
+FORBIDDEN_BODY_KEYS = (
+    "ground_truth_proof",
+    "ideal_body",
+    "oracle_needed_premise_ids",
+    "proof_body",
+    "provider_output_body",
+    "test_answer",
+)
+
+EXPECTED_NEGATIVE_CASES = {
+    "budget_overflow_recipe": ["PROVIDER_CONTEXT_RECIPE_BUDGET_EXCEEDED"],
+    "truth_side_section": ["PROVIDER_CONTEXT_TRUTH_SIDE_SECTION_FORBIDDEN"],
+    "proof_body_leakage": ["PROVIDER_CONTEXT_PROOF_BODY_FORBIDDEN"],
+    "provider_call_authorized": ["PROVIDER_CONTEXT_CALL_AUTHORITY_FORBIDDEN"],
+    "deliverable_type_route_mismatch": ["PROVIDER_CONTEXT_DELIVERABLE_ROUTE_MISMATCH"],
+    "omitted_sections_suppressed": ["PROVIDER_CONTEXT_OMITTED_SECTIONS_REQUIRED"],
+}
+
+INPUT_NAMES = (
+    "provider_context_recipes.json",
+    "section_materials.json",
+)
+
+NEGATIVE_INPUT_NAMES = (
+    "budget_overflow_recipe.json",
+    "truth_side_section.json",
+    "proof_body_leakage.json",
+    "provider_call_authorized.json",
+    "deliverable_type_route_mismatch.json",
+    "omitted_sections_suppressed.json",
+)
+
+NEGATIVE_INPUT_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NAMES)
+
+AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "provider_context_budget_metadata_not_provider_or_proof_authority",
+    "provider_calls_authorized": False,
+    "lean_lake_execution_authorized": False,
+    "formal_proof_authority": False,
+    "truth_side_material_authorized": False,
+    "release_authorized": False,
+}
+
+ANTI_CLAIM = (
+    "Provider context recipe budgeting validates public metadata for byte "
+    "ceilings, section fill order, omitted-section manifests, graph roles, and "
+    "deliverable routing. It does not call providers, expose proof bodies or "
+    "oracle material, run Lean/Lake, prove theorem correctness, or authorize "
+    "release."
+)
+
+
+def _public_root_for_path(path: str | Path) -> Path:
+    resolved = Path(path).resolve(strict=False)
+    start = resolved if resolved.is_dir() else resolved.parent
+    for candidate in (start, *start.parents):
+        if candidate.name == "microcosm-substrate":
+            return candidate
+    return Path.cwd().resolve(strict=False)
+
+
+def _display(path: Path, *, public_root: Path) -> str:
+    return public_relative_path(path, display_root=public_root)
+
+
+def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    rows = payload.get(key, [])
+    if not isinstance(rows, list):
+        return []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
+
+
+def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    return [input_dir / name for name in names]
+
+
+def _strings(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str)]
+
+
+def _byte_size(row: dict[str, Any]) -> int:
+    declared = row.get("declared_byte_size")
+    if isinstance(declared, int) and declared >= 0:
+        return declared
+    text = row.get("text")
+    if isinstance(text, str):
+        return len(text.encode("utf-8"))
+    return 0
+
+
+def _forbidden_body_keys(row: dict[str, Any]) -> list[str]:
+    return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
+
+
+def _finding(
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return {
+        "error_code": code,
+        "message": message,
+        "negative_case_id": case_id,
+        "subject_id": subject_id,
+        "subject_kind": subject_kind,
+        "body_redacted": True,
+    }
+
+
+def _record(
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> None:
+    findings.append(
+        _finding(
+            code,
+            message,
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind=subject_kind,
+        )
+    )
+    observed[case_id].add(code)
+
+
+def _recipe_projection(
+    recipe: dict[str, Any],
+    *,
+    sections_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    recipe_id = str(recipe.get("recipe_id") or "")
+    budget = int(recipe.get("byte_budget") or 0)
+    included: list[dict[str, Any]] = []
+    omitted: list[dict[str, Any]] = []
+    total = 0
+    for section_id in _strings(recipe.get("sections")):
+        section = sections_by_id.get(section_id, {"section_id": section_id})
+        size = _byte_size(section)
+        target = included if total + size <= budget else omitted
+        if target is included:
+            total += size
+        target.append(
+            {
+                "section_id": section_id,
+                "declared_byte_size": size,
+                "body_redacted": True,
+            }
+        )
+    return {
+        "recipe_id": recipe_id,
+        "byte_budget": budget,
+        "kib_budget": budget // 1024 if budget else 0,
+        "graph_role": recipe.get("graph_role"),
+        "deliverable_type": recipe.get("deliverable_type"),
+        "included_sections": included,
+        "omitted_sections": omitted,
+        "included_section_ids": [row["section_id"] for row in included],
+        "omitted_section_ids": [row["section_id"] for row in omitted],
+        "included_byte_count": total,
+        "approximate_tokens": math.ceil(total / 4) if total else 0,
+        "omitted_sections_manifest_emitted": bool(recipe.get("emit_omitted_sections_manifest", True)),
+        "provider_calls_authorized": recipe.get("provider_calls_authorized") is True,
+        "proof_bodies_allowed": recipe.get("proof_bodies_allowed") is True,
+        "body_redacted": True,
+    }
+
+
+def _recipe_findings(
+    recipes: list[dict[str, Any]],
+    *,
+    case_id: str,
+    sections_by_id: dict[str, dict[str, Any]],
+    observed: dict[str, set[str]] | None = None,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    local_observed: dict[str, set[str]] = observed if observed is not None else defaultdict(set)
+    for recipe in recipes:
+        recipe_id = str(recipe.get("recipe_id") or "recipe")
+        budget = int(recipe.get("byte_budget") or 0)
+        expected_budget = EXPECTED_RECIPE_BUDGETS.get(recipe_id)
+        if budget > 65536 or (expected_budget is not None and budget != expected_budget):
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_RECIPE_BUDGET_EXCEEDED",
+                "Recipe byte budget must match the public bounded recipe contract.",
+                case_id=case_id,
+                subject_id=recipe_id,
+                subject_kind="provider_context_recipe",
+            )
+        forbidden_sections = sorted(set(_strings(recipe.get("sections"))) & FORBIDDEN_SECTION_IDS)
+        if forbidden_sections:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_TRUTH_SIDE_SECTION_FORBIDDEN",
+                "Provider context recipe attempted to include truth-side or oracle-only sections.",
+                case_id=case_id,
+                subject_id=",".join(forbidden_sections),
+                subject_kind="section_id",
+            )
+        if recipe.get("proof_bodies_allowed") is True or _forbidden_body_keys(recipe):
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_PROOF_BODY_FORBIDDEN",
+                "Provider context recipe allowed or embedded proof body material.",
+                case_id=case_id,
+                subject_id=recipe_id,
+                subject_kind="provider_context_recipe",
+            )
+        if recipe.get("provider_calls_authorized") is True:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_CALL_AUTHORITY_FORBIDDEN",
+                "Public recipe fixtures may describe context shape but cannot authorize provider calls.",
+                case_id=case_id,
+                subject_id=recipe_id,
+                subject_kind="provider_context_recipe",
+            )
+        expected_deliverable = EXPECTED_DELIVERABLES.get(recipe_id)
+        if expected_deliverable and recipe.get("deliverable_type") != expected_deliverable:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_DELIVERABLE_ROUTE_MISMATCH",
+                "Recipe deliverable type must match the reducer route contract.",
+                case_id=case_id,
+                subject_id=recipe_id,
+                subject_kind="deliverable_type",
+            )
+        projection = _recipe_projection(recipe, sections_by_id=sections_by_id)
+        if projection["omitted_section_ids"] and not projection["omitted_sections_manifest_emitted"]:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_OMITTED_SECTIONS_REQUIRED",
+                "Over-budget sections require an omitted_sections manifest.",
+                case_id=case_id,
+                subject_id=recipe_id,
+                subject_kind="omitted_sections_manifest",
+            )
+    return findings
+
+
+def _section_findings(
+    sections: list[dict[str, Any]],
+    *,
+    case_id: str,
+    observed: dict[str, set[str]] | None = None,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    local_observed: dict[str, set[str]] = observed if observed is not None else defaultdict(set)
+    for section in sections:
+        section_id = str(section.get("section_id") or "section")
+        if section_id in FORBIDDEN_SECTION_IDS:
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_TRUTH_SIDE_SECTION_FORBIDDEN",
+                "Section material is truth-side or oracle-only and cannot enter provider context.",
+                case_id=case_id,
+                subject_id=section_id,
+                subject_kind="section_id",
+            )
+        if _forbidden_body_keys(section):
+            _record(
+                findings,
+                local_observed,
+                "PROVIDER_CONTEXT_PROOF_BODY_FORBIDDEN",
+                "Section material carried forbidden proof, oracle, or provider body fields.",
+                case_id=case_id,
+                subject_id=section_id,
+                subject_kind="section_material",
+            )
+    return findings
+
+
+def _negative_findings(payloads: dict[str, Any], sections_by_id: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    for stem in NEGATIVE_INPUT_STEMS:
+        payload = payloads.get(stem)
+        if not isinstance(payload, dict):
+            continue
+        case_id = str(payload.get("expected_negative_case_id") or stem)
+        recipes = _rows(payload, "recipes")
+        sections = _rows(payload, "sections")
+        findings.extend(
+            _recipe_findings(
+                recipes,
+                case_id=case_id,
+                sections_by_id=sections_by_id,
+                observed=observed,
+            )
+        )
+        findings.extend(
+            _section_findings(sections, case_id=case_id, observed=observed)
+        )
+    return {
+        "findings": findings,
+        "observed_negative_cases": {
+            key: sorted(value) for key, value in observed.items()
+        },
+    }
+
+
+def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "provider_context_budget_board_v1",
+        "status": result["status"],
+        "organ_id": ORGAN_ID,
+        "selected_pattern_ids": SOURCE_PATTERN_IDS,
+        "input_mode": result["input_mode"],
+        "bundle_id": result.get("bundle_id"),
+        "public_contract": {
+            "context_is_budget_not_dump": True,
+            "byte_budget_enforced": True,
+            "ordered_section_fill": True,
+            "omitted_sections_manifest_required": True,
+            "truth_side_material_excluded": True,
+            "provider_calls_not_authorized": True,
+            "body_redacted": True,
+        },
+        "recipe_projection": {
+            "recipe_count": result["recipe_count"],
+            "recipe_ids": result["recipe_ids"],
+            "context_packets": result["context_packets"],
+            "deliverable_routes": result["deliverable_routes"],
+            "body_redacted": True,
+        },
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "body_redacted": True,
+    }
+
+
+def _common_receipt(
+    result: dict[str, Any],
+    *,
+    schema_version: str,
+    receipt_paths: list[str],
+) -> dict[str, Any]:
+    keys = (
+        "status",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "input_mode",
+        "bundle_id",
+        "source_pattern_ids",
+        "source_refs",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "missing_negative_cases",
+        "error_codes",
+        "findings",
+        "private_state_scan",
+        "authority_ceiling",
+        "anti_claim",
+        "recipe_count",
+        "recipe_ids",
+        "deliverable_routes",
+        "context_packets",
+        "all_expectations_met",
+        "body_redacted",
+    )
+    payload = {
+        "schema_version": schema_version,
+        "receipt_id": schema_version,
+        "created_at": result["created_at"],
+        "receipt_paths": receipt_paths,
+    }
+    for key in keys:
+        payload[key] = result.get(key)
+    return payload
+
+
+def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
+    return [_display(path, public_root=public_root) for path in paths.values()]
+
+
+def _build_result(
+    input_dir: Path,
+    *,
+    command: str,
+    input_mode: str,
+    include_negative: bool,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
+    payloads = _load_payloads(input_dir, include_negative=include_negative)
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    private_scan = scan_paths(
+        _input_paths(input_dir, include_negative=include_negative),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    recipe_rows = _rows(payloads["provider_context_recipes"], "recipes")
+    section_rows = _rows(payloads["section_materials"], "sections")
+    sections_by_id = {str(row.get("section_id") or ""): row for row in section_rows}
+    context_packets = [
+        _recipe_projection(recipe, sections_by_id=sections_by_id)
+        for recipe in recipe_rows
+    ]
+    floor_findings = [
+        *_recipe_findings(recipe_rows, case_id="recipe_floor", sections_by_id=sections_by_id),
+        *_section_findings(section_rows, case_id="section_material_floor"),
+    ]
+    negative = (
+        _negative_findings(payloads, sections_by_id)
+        if include_negative
+        else {"findings": [], "observed_negative_cases": {}}
+    )
+    observed = negative["observed_negative_cases"]
+    expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
+    missing = sorted(case_id for case_id in expected if case_id not in observed)
+    findings = [*floor_findings, *negative["findings"]]
+    error_codes = sorted({finding["error_code"] for finding in findings})
+    recipe_ids = sorted(str(row.get("recipe_id") or "") for row in recipe_rows)
+    all_expectations_met = recipe_ids == sorted(EXPECTED_RECIPE_BUDGETS)
+    status = (
+        PASS
+        if not missing
+        and not floor_findings
+        and all_expectations_met
+        and not private_scan["blocking_hit_count"]
+        else "blocked"
+    )
+    bundle_manifest = (
+        read_json_strict(input_dir / "bundle_manifest.json")
+        if (input_dir / "bundle_manifest.json").is_file()
+        else {}
+    )
+    if not isinstance(bundle_manifest, dict):
+        bundle_manifest = {}
+    result = {
+        "schema_version": "provider_context_budget_result_v1",
+        "created_at": utc_now(),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command,
+        "input_mode": input_mode,
+        "bundle_id": bundle_manifest.get("bundle_id"),
+        "source_pattern_ids": SOURCE_PATTERN_IDS,
+        "source_refs": SOURCE_REFS,
+        "expected_negative_cases": expected,
+        "observed_negative_cases": observed,
+        "missing_negative_cases": missing,
+        "error_codes": error_codes,
+        "findings": findings,
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "recipe_count": len(recipe_rows),
+        "recipe_ids": recipe_ids,
+        "deliverable_routes": {
+            packet["recipe_id"]: packet["deliverable_type"] for packet in context_packets
+        },
+        "context_packets": context_packets,
+        "all_expectations_met": all_expectations_met,
+        "body_redacted": True,
+    }
+    result["provider_context_budget_board"] = _build_board(
+        result=result,
+        private_scan=private_scan,
+    )
+    return result
+
+
+def _write_receipts(
+    result: dict[str, Any],
+    out_dir: Path,
+    *,
+    acceptance_out: Path | None,
+    bundle_mode: bool,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if bundle_mode:
+        bundle_path = out_dir / BUNDLE_RESULT_NAME
+        receipt = _common_receipt(
+            result,
+            schema_version="exported_provider_context_budget_bundle_validation_result_v1",
+            receipt_paths=[_display(bundle_path, public_root=public_root)],
+        )
+        write_json_atomic(bundle_path, receipt)
+        result["receipt_paths"] = receipt["receipt_paths"]
+        return result
+
+    paths = {
+        "result": out_dir / RESULT_NAME,
+        "board": out_dir / BOARD_NAME,
+        "validation": out_dir / VALIDATION_RECEIPT_NAME,
+    }
+    acceptance_path = (
+        acceptance_out
+        if acceptance_out is not None
+        else public_root / ACCEPTANCE_RECEIPT_REL
+    )
+    receipt_paths = _relative_receipt_paths(paths, public_root)
+    result_payload = dict(result)
+    result_payload.pop("provider_context_budget_board", None)
+    result_payload["receipt_paths"] = receipt_paths
+    board_payload = result["provider_context_budget_board"]
+    board_payload["receipt_paths"] = receipt_paths
+    validation_payload = _common_receipt(
+        result,
+        schema_version="provider_context_budget_validation_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    acceptance_payload = _common_receipt(
+        result,
+        schema_version="provider_context_budget_fixture_acceptance_v1",
+        receipt_paths=[_display(acceptance_path, public_root=public_root)],
+    )
+    write_json_atomic(paths["result"], result_payload)
+    write_json_atomic(paths["board"], board_payload)
+    write_json_atomic(paths["validation"], validation_payload)
+    acceptance_path.parent.mkdir(parents=True, exist_ok=True)
+    write_json_atomic(acceptance_path, acceptance_payload)
+    result["receipt_paths"] = [*receipt_paths, _display(acceptance_path, public_root=public_root)]
+    return result
+
+
+def run(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+    acceptance_out: str | Path | None = None,
+) -> dict[str, Any]:
+    command = command or (
+        "python -m microcosm_core.organs.provider_context_recipe_budget_policy "
+        f"run --input {input_dir} --out {out_dir}"
+    )
+    result = _build_result(
+        Path(input_dir),
+        command=command,
+        input_mode="fixture_input",
+        include_negative=True,
+    )
+    return _write_receipts(
+        result,
+        Path(out_dir),
+        acceptance_out=Path(acceptance_out) if acceptance_out else None,
+        bundle_mode=False,
+    )
+
+
+def run_budget_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    command = command or (
+        "python -m microcosm_core.organs.provider_context_recipe_budget_policy "
+        f"run-budget-bundle --input {input_dir} --out {out_dir}"
+    )
+    result = _build_result(
+        Path(input_dir),
+        command=command,
+        input_mode="exported_provider_context_budget_bundle",
+        include_negative=False,
+    )
+    return _write_receipts(result, Path(out_dir), acceptance_out=None, bundle_mode=True)
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Validate public provider context recipe budgets")
+    subparsers = parser.add_subparsers(dest="action", required=True)
+    for action in ("run", "run-budget-bundle"):
+        sub = subparsers.add_parser(action)
+        sub.add_argument("--input", required=True)
+        sub.add_argument("--out", required=True)
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    if args.action == "run":
+        result = run(args.input, args.out)
+    elif args.action == "run-budget-bundle":
+        result = run_budget_bundle(args.input, args.out)
+    else:  # pragma: no cover
+        raise AssertionError(args.action)
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0 if result["status"] == PASS else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

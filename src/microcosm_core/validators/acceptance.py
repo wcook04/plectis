@@ -76,14 +76,41 @@ WAVE_1_ORGAN_IDS = [
     "executable_doctrine_grammar",
     "proof_diagnostic_evidence_spine",
     "formal_math_readiness_gate",
+    "corpus_readiness_mathlib_absence_gate",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "lean_std_premise_index",
+    "formal_math_premise_retrieval",
+    "formal_math_verifier_trace_repair_loop",
+    "formal_evidence_cell_anchor_resolver",
+    "undeclared_library_prior_symbol_classifier",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "agent_benchmark_integrity_anti_gaming_replay",
+    "provider_context_recipe_budget_policy",
+    "formal_math_lean_proof_witness",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
+    "durable_agent_work_landing_replay",
+    "research_replication_rubric_artifact_replay",
+    "world_model_projection_drift_control_room",
+    "spatial_world_model_counterfactual_simulation_replay",
+    "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime",
 ]
 
 ADAPTER_BACKED_ORGAN_IDS = [
     *WAVE_1_ORGAN_IDS,
     "pattern_assimilation_step",
+    "public_reveal_walkthrough",
+    "macro_projection_import_protocol",
+    "prediction_oracle_reconciliation",
+    "standards_meta_diagnostics",
+    "cold_reader_route_map",
+    "agent_monitor_redteam_falsification_replay",
+    "agent_memory_temporal_conflict_replay",
+    "sleeper_memory_poisoning_quarantine_replay",
+    "mcp_tool_authority_replay",
 ]
 
 
@@ -1238,7 +1265,9 @@ def run_assimilation_bundle(
                 "cap_reflex_capture_before_prose",
             ],
             "accepted_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
-            "ordered_adapter_lane_status": "complete_pending_completion_reducer",
+            "ordered_adapter_lane_status": (
+                "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_memory_conflict_sleeper_memory_quarantine_and_mcp_tool_authority_bound"
+            ),
             "landed_organ_ids": landing_result["landed_organ_ids"],
             "organ_landing_count": landing_result["organ_landing_count"],
             "landing_receipt_refs": landing_result["landing_receipt_refs"],

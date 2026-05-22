@@ -1,0 +1,13 @@
+{
+  "schema_version": "macro_projection_import_negative_case_v1",
+  "case_id": "release_or_private_equivalence_overclaim",
+  "expected_negative_case_id": "release_or_private_equivalence_overclaim",
+  "authority_ceiling": {
+    "release_authorized": true,
+    "publication_authorized": true,
+    "recipient_work_authorized": true,
+    "private_data_equivalence_claim": true,
+    "private_root_equivalence_authorized": true
+  },
+  "body_redacted": true
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "formal_math_context_recipe_fixture_v1",
+  "recipe_set_id": "public_formal_math_context_recipes_v1",
+  "recipes": [
+    {
+      "recipe_id": "minimal_4kb",
+      "byte_budget": 4096,
+      "deliverable_type": "ranked_premise_ids",
+      "sections": ["statement_shape", "query_terms", "declared_imports"],
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "strategy_classification_4kb",
+      "byte_budget": 4096,
+      "deliverable_type": "strategy_id_classification",
+      "sections": ["statement_shape", "known_strategy_ids", "target_shape_features"],
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    },
+    {
+      "recipe_id": "skill_32kb",
+      "byte_budget": 32768,
+      "deliverable_type": "ranked_premise_ids_with_strategy_notes",
+      "sections": ["statement_shape", "skill_atlas_card", "retrieved_premises", "omitted_sections"],
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "anti_claim": "The verifier repair-loop lens is a metadata-only curriculum read-model. It does not run Lean/Lake, prove theorem correctness, expose proof bodies or oracle-needed premise identifiers, call providers, treat human approval as proof authority, mutate source, claim private equivalence, or authorize release.",
+  "authority_ceiling": {
+    "formal_proof_authority": false,
+    "human_approval_is_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "metadata_curriculum_only": true,
+    "oracle_needed_premise_ids_exported": false,
+    "private_data_equivalence_claim": false,
+    "proof_bodies_exported": false,
+    "proof_correctness_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm repair-loop",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "curriculum_policy": {
+    "cold_rerun_required_before_promotion": true,
+    "failure_class_required_before_repair_route": true,
+    "promotion_scope": "metadata_curriculum_cell_only",
+    "proof_body_or_oracle_id_is_never_curriculum_material": true,
+    "repair_evidence_ref_required": true,
+    "trace_grade_required_before_curriculum_delta": true
+  },
+  "endpoint": "/repair-loop",
+  "evidence_refs": [
+    "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json"
+  ],
+  "lens_id": "public_verifier_repair_loop_lens",
+  "loop_stages": [
+    {
+      "exit_gate": "failure_class_present",
+      "input_contract": "redacted_trace_metadata_only",
+      "promotion_allowed": false,
+      "stage_id": "capture_verifier_failure"
+    },
+    {
+      "exit_gate": "repair_route_selected",
+      "input_contract": "failure_class_and_trace_grade",
+      "promotion_allowed": false,
+      "stage_id": "classify_failure"
+    },
+    {
+      "exit_gate": "repair_evidence_ref_bound",
+      "input_contract": "receipt_backed_repair_action",
+      "promotion_allowed": false,
+      "stage_id": "route_repair"
+    },
+    {
+      "exit_gate": "cold_rerun_trace_recorded",
+      "input_contract": "repair_applied_to_metadata_fixture",
+      "promotion_allowed": false,
+      "stage_id": "cold_rerun"
+    },
+    {
+      "exit_gate": "curriculum_delta_is_receipt_backed",
+      "input_contract": "validated_metadata_only_trace",
+      "promotion_allowed": true,
+      "promotion_authority": "metadata_curriculum_only_not_proof_correctness",
+      "stage_id": "promote_metadata_cell"
+    }
+  ],
+  "negative_case_ids": [
+    "repair_action_without_failure_class",
+    "cold_rerun_missing_after_repair",
+    "curriculum_promotion_without_trace_grade",
+    "proof_body_or_oracle_id_exported",
+    "provider_payload_as_evidence",
+    "human_approval_as_proof",
+    "source_mutation_as_repair",
+    "release_claim_after_repair"
+  ],
+  "organ_family": "formal_math",
+  "public_claim": "Microcosm exposes a public verifier repair-loop curriculum: classify failed proof attempts, route metadata-only repairs, require cold reruns, and promote only receipt-backed curriculum cells without exporting proof bodies, oracle-needed premise identifiers, provider payloads, or proof correctness claims.",
+  "release_authorized": false,
+  "repair_loop_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
+  "repair_loop_summary": {
+    "blocked_transition_count": 1,
+    "oracle_needed_premise_export_count": 0,
+    "promoted_transition_count": 1,
+    "proof_body_export_count": 0,
+    "repairable_transition_count": 2,
+    "stage_count": 5,
+    "transition_count": 4
+  },
+  "safe_to_show": {
+    "body_redacted": true,
+    "fixture_metadata_only": true,
+    "oracle_needed_premise_ids_omitted": true,
+    "proof_bodies_omitted": true,
+    "provider_payloads_omitted": true,
+    "receipt_refs_only": true
+  },
+  "schema_version": "microcosm_public_verifier_repair_loop_lens_v1",
+  "selected_pattern_id": "formal_math_verifier_trace_repair_loop_compound",
+  "source_lens_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+  "status": "pass",
+  "transition_rows": [
+    {
+      "attempt_id": "attempt_a_missing_premise",
+      "body_redacted": true,
+      "cold_rerun_required_before_promotion": true,
+      "failure_class": "MISSING_PREMISE",
+      "from_stage": "capture_verifier_failure",
+      "oracle_needed_premise_ids_exported": false,
+      "promotion_allowed": false,
+      "proof_body_exported": false,
+      "repair_action": "route_to_premise_retrieval_terms",
+      "repair_evidence_ref": "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+      "to_stage": "route_repair",
+      "trace_grade": "repairable_metadata_only"
+    },
+    {
+      "attempt_id": "attempt_b_unavailable_tactic",
+      "body_redacted": true,
+      "cold_rerun_required_before_promotion": true,
+      "failure_class": "TACTIC_UNAVAILABLE",
+      "from_stage": "capture_verifier_failure",
+      "oracle_needed_premise_ids_exported": false,
+      "promotion_allowed": false,
+      "proof_body_exported": false,
+      "repair_action": "route_to_tactic_availability_probe",
+      "repair_evidence_ref": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+      "to_stage": "route_repair",
+      "trace_grade": "repairable_metadata_only"
+    },
+    {
+      "attempt_id": "attempt_c_invalid_proof_body",
+      "body_redacted": true,
+      "cold_rerun_required_before_promotion": true,
+      "failure_class": "INVALID_PROOF_BODY",
+      "from_stage": "capture_verifier_failure",
+      "oracle_needed_premise_ids_exported": false,
+      "promotion_allowed": false,
+      "proof_body_exported": false,
+      "repair_action": "reject_public_proof_body_and_keep_metadata_only",
+      "repair_evidence_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+      "to_stage": "route_repair",
+      "trace_grade": "blocked_public"
+    },
+    {
+      "attempt_id": "cold_rerun_after_repair",
+      "body_redacted": true,
+      "cold_rerun_required_before_promotion": false,
+      "failure_class": "NONE_AFTER_METADATA_REPAIR",
+      "from_stage": "cold_rerun",
+      "oracle_needed_premise_ids_exported": false,
+      "promotion_allowed": true,
+      "proof_body_exported": false,
+      "repair_action": "append_failure_mode_ledger_delta_and_update_curriculum_gate",
+      "repair_evidence_ref": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+      "to_stage": "promote_metadata_cell",
+      "trace_grade": "validated_metadata_only"
+    }
+  ]
+}

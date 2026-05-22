@@ -1,0 +1,13 @@
+{
+  "schema_version": "formal_math_query_negative_fixture_v1",
+  "queries": [
+    {
+      "query_id": "q_test_tuning",
+      "split": "test",
+      "query_terms": ["bool", "or"],
+      "strategy_id": "boolean_normalization",
+      "expected_negative_case_id": "test_split_tuning_attempt",
+      "uses_test_oracle_for_tuning": true
+    }
+  ]
+}

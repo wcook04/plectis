@@ -1,0 +1,67 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "macro_projection_import_protocol",
+  "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate the public-safe membrane for projecting macro substrate into Microcosm without private bodies, authority upgrades, or release/private-equivalence claims.",
+  "inputs": [
+    "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/private_body_import_overclaim.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/missing_omission_receipt.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/authority_upgrade_overclaim.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/missing_validation_ref.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/release_or_private_equivalence_overclaim.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+    "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
+  "expected_negative_cases": [
+    "private_body_import_overclaim",
+    "missing_omission_receipt",
+    "authority_upgrade_overclaim",
+    "missing_validation_ref",
+    "release_or_private_equivalence_overclaim"
+  ],
+  "stable_error_codes": [
+    "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
+    "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
+    "MACRO_PROJECTION_AUTHORITY_UPGRADE",
+    "MACRO_PROJECTION_VALIDATION_REF_MISSING",
+    "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "protocol_id",
+    "source_refs",
+    "public_replacement_refs",
+    "validation_refs"
+  ],
+  "private_state_exclusion_rules": {
+    "raw_seed_body": "forbidden; use path-level source refs and omission receipts only",
+    "provider_payload_bodies": "forbidden; fixture shape and receipt summaries are the public replacement",
+    "private_source_bodies": "forbidden; no source body copy into public Microcosm",
+    "release": "never authorized by projection import"
+  },
+  "authority_ceiling": "public macro-projection metadata, fixture shape, standards, and receipt refs only; not private source authority, release, publication, provider authority, private-data equivalence, or whole-system correctness",
+  "anti_claim": "This fixture manifest accepts only public projection metadata and negative-case coverage. It does not authorize private body export, release, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake, or whole-system correctness."
+}

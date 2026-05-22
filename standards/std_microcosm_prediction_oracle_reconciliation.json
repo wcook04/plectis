@@ -1,0 +1,180 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_prediction_oracle_reconciliation",
+  "kind_id": "prediction_oracle_reconciliation",
+  "kind_name": "Prediction oracle reconciliation",
+  "status": "draft",
+  "first_wave_required": true,
+  "wave": "w1_prediction_oracle_reconciliation",
+  "authority_boundary": "synthetic_prediction_reconciliation_not_trading_advice_or_live_market_authority",
+  "source_refs": [
+    {
+      "path": "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
+      "field": "reconciliation_packet",
+      "role": "public_fixture_source"
+    },
+    {
+      "path": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle",
+      "field": "runtime_example",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#prediction_oracle_reconciliation",
+    "used_by_organs": [
+      "prediction_oracle_reconciliation"
+    ],
+    "source_pattern_id_sample": [
+      "synthetic_science_oracle_dossier_reconciliation_compound",
+      "cp1_bifurcation_reconciliation_spine",
+      "cp2_universe_constraint_valid_prediction_targets_gate",
+      "oracle_cp2_grounding_firewall",
+      "evolve_oracle_to_dossier_mutation_loop"
+    ]
+  },
+  "required_fields": [
+    "source_pattern_ids",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "valid_prediction_targets",
+    "cp1_branches",
+    "cp2_predictions",
+    "oracle_diff",
+    "dossier_mutations",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require CP2 target ids to be inside the declared valid prediction target universe",
+    "require CP1 branches to select a side and preserve opposite-side invalidation refs",
+    "reject post-target evidence refs in prediction inputs",
+    "require equity or market-lane branch confirmation before use",
+    "grade synthetic oracle diff rows without performance overclaims",
+    "allow dossier mutation only as bounded public fixture deltas",
+    "reject trading, financial advice, investment advice, live market data, provider calls, publication, release, or private-equivalence authority",
+    "emit private-state scan and redacted receipts"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.prediction_oracle_reconciliation",
+    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, target-universe status, CP1/CP2 counts, oracle diff grade counts, dossier mutation counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.prediction_oracle_reconciliation",
+    "minimum_checks": [
+      "cp2_target_universe_gate",
+      "cp1_bifurcation_resolution",
+      "pre_target_evidence_gate",
+      "equity_lane_confirmation_gate",
+      "oracle_diff_grading",
+      "dossier_mutation_safety_gate",
+      "trading_advice_authority_rejection",
+      "negative_case_coverage"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.prediction_oracle_reconciliation",
+    "must_record": [
+      "source_pattern_ids",
+      "source_refs",
+      "projection_receipt_refs",
+      "public_replacement_refs",
+      "valid_prediction_targets",
+      "cp1_branch_count",
+      "cp2_prediction_count",
+      "oracle_diff_graded_count",
+      "dossier_mutation_count",
+      "reconciliation_rows",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_fixture_source_is_synthetic_and_receipts_are_redacted",
+    "allowed_public_inputs": [
+      "synthetic target ids",
+      "synthetic pre-target evidence refs",
+      "synthetic oracle diff rows",
+      "fixture-level dossier mutation refs",
+      "pattern ids",
+      "projection receipt refs"
+    ],
+    "forbidden_public_inputs": [
+      "live market data",
+      "provider payload bodies",
+      "trading recommendations",
+      "financial or investment advice",
+      "private source bodies",
+      "forecast performance claims",
+      "release claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "synthetic_prediction_reconciliation_fixture_receipt_schema_only",
+    "trading_authority": false,
+    "financial_advice_authority": false,
+    "investment_advice_authority": false,
+    "live_market_data_authority": false,
+    "provider_authority": false,
+    "publication_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs only synthetic prediction reconciliation fixtures. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, forecast performance claims, release/publication work, or private-data equivalence.",
+  "standard_payload": {
+    "ontology": "A public-safe prediction reconciliation tranche: CP1 branch resolution, CP2 target-universe gating, oracle diff grading, and bounded public dossier mutation.",
+    "teleology": "Let Microcosm show prediction-engine structure without importing live markets, private data, action authority, or performance claims.",
+    "anti_purpose": "Turning a fixture grader into a trading system, advice surface, or forecasting-performance claim.",
+    "compression_bands": [
+      "packet",
+      "target_universe",
+      "cp1_branch",
+      "cp2_prediction",
+      "oracle_diff",
+      "dossier_mutation",
+      "receipt"
+    ],
+    "failure_modes": [
+      "CP2 prediction leaves valid target universe",
+      "CP1 bifurcation remains unresolved",
+      "post-target evidence contaminates prediction",
+      "equity or market lane lacks confirmation",
+      "unsafe high-severity dossier mutation",
+      "receipt or doc implies trading, advice, provider, performance, or release authority"
+    ],
+    "rebuild_action": "draft"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json"
+  ],
+  "validator_refs": [
+    "microcosm_core.organs.prediction_oracle_reconciliation"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "prediction_oracle_reconciliation"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "live market feeds",
+      "provider payloads",
+      "private prediction dossiers",
+      "trading recommendations",
+      "forecast performance claims"
+    ],
+    "reason": "public tranche carries synthetic fixture rows and redacted receipts only",
+    "drilldown": "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Prediction reconciliation material must state that it is not trading, financial advice, investment advice, live market authority, provider authority, forecast performance authority, or release authority"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay pattern-level metadata and public replacements stay public-root relative"
+  }
+}

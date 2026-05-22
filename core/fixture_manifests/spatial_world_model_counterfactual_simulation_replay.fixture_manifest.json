@@ -1,0 +1,114 @@
+{
+  "anti_claim": "This fixture validates synthetic public spatial replay metadata only; it does not export private video, raw sensors, live commands, real-world geography, benchmark claims, or release authority.",
+  "authority_ceiling": "synthetic spatial counterfactual replay metadata only; no simulator product, private video, raw sensor, live operation, real-world location, generated-video-only, geographic accuracy, benchmark, or release authority",
+  "expected_negative_cases": [
+    "private_video_export",
+    "real_world_location_claim",
+    "live_robot_or_av_operation",
+    "raw_sensor_data_export",
+    "simulator_product_claim",
+    "generated_video_only_authority",
+    "geographic_accuracy_claim",
+    "benchmark_score_without_state_diff"
+  ],
+  "fixture_id": "fixture::spatial_world_model_counterfactual_simulation_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_result.json",
+    "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_board.json",
+    "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulation_protocol.json",
+      "role": "macro-to-public simulation protocol"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/replay_policy.json",
+      "role": "metadata-only replay policy"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/scene_states.json",
+      "role": "positive scene-state rows"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/counterfactual_replays.json",
+      "role": "positive counterfactual replay rows"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/private_video_export.json",
+      "role": "negative case: private_video_export"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/real_world_location_claim.json",
+      "role": "negative case: real_world_location_claim"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/live_robot_or_av_operation.json",
+      "role": "negative case: live_robot_or_av_operation"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/raw_sensor_data_export.json",
+      "role": "negative case: raw_sensor_data_export"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulator_product_claim.json",
+      "role": "negative case: simulator_product_claim"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/generated_video_only_authority.json",
+      "role": "negative case: generated_video_only_authority"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/geographic_accuracy_claim.json",
+      "role": "negative case: geographic_accuracy_claim"
+    },
+    {
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/benchmark_score_without_state_diff.json",
+      "role": "negative case: benchmark_score_without_state_diff"
+    }
+  ],
+  "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "SPATIAL_PRIVATE_VIDEO_FORBIDDEN",
+    "SPATIAL_REAL_LOCATION_CLAIM_FORBIDDEN",
+    "SPATIAL_LIVE_OPERATION_FORBIDDEN",
+    "SPATIAL_RAW_SENSOR_DATA_FORBIDDEN",
+    "SPATIAL_SIMULATOR_PRODUCT_CLAIM_FORBIDDEN",
+    "SPATIAL_GENERATED_VIDEO_ONLY_AUTHORITY_FORBIDDEN",
+    "SPATIAL_GEOGRAPHIC_ACCURACY_FORBIDDEN",
+    "SPATIAL_BENCHMARK_SCORE_REQUIRES_STATE_DIFF"
+  ],
+  "title": "Spatial world-model counterfactual simulation replay fixture",
+  "validator": "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay",
+  "validator_command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",
+  "validator_contract_ratchet_v1": {
+    "per_output_receipt_field_floor": {
+      "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_result.json": [
+        "status",
+        "organ_id",
+        "selected_route_id",
+        "selected_pattern_ids",
+        "simulation_summary",
+        "negative_case_summary",
+        "authority_ceiling",
+        "private_state_scan",
+        "anti_claim"
+      ],
+      "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json": [
+        "status",
+        "organ_id",
+        "fixture_id",
+        "replay_count",
+        "expected_negative_case_count",
+        "observed_negative_case_count",
+        "authority_ceiling",
+        "anti_claim"
+      ]
+    },
+    "required_negative_case_count": 8,
+    "required_positive_row_count": 6,
+    "status": "active"
+  }
+}

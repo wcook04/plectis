@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +22,7 @@ VALIDATOR_ID = "validator.microcosm.organs.formal_math_readiness_gate"
 
 READINESS_RESULT_NAME = "readiness_gate_result.json"
 READINESS_BOARD_NAME = "formal_math_readiness_board.json"
+READINESS_EXTENSION_BOARD_NAME = "formal_math_readiness_extension_board.json"
 VALIDATION_RECEIPT_NAME = "formal_math_readiness_validation_receipt.json"
 ACCEPTANCE_RECEIPT_REL = (
     "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
@@ -47,9 +48,26 @@ AUTHORITY_CEILING = {
 ANTI_CLAIM = (
     "Formal math readiness gate validates public synthetic readiness metadata only. "
     "It does not run Lean or Lake, call providers, expose proof bodies, prove theorem "
-    "correctness, authorize Mathlib-dependent proofs, or change the deferred "
+    "correctness, authorize Mathlib-dependent proofs, or widen the bounded "
     "formal_math_lean_proof_witness boundary."
 )
+
+EXTENSION_CELL_ID = "formal_math_readiness_extensions"
+EXTENSION_SOURCE_INTAKE_REF = (
+    "receipts/first_wave/macro_projection_import_protocol/"
+    "projection_import_intake_board.json#formal_math_readiness_extensions"
+)
+SELECTED_PATTERN_IDS = [
+    "lean_std_toolchain_premise_index",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+]
+EXTENSION_TARGET_REFS = [
+    "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+    "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+    "fixtures/first_wave/formal_math_readiness_gate/input/target_shape_tactic_routing.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+]
 
 EXPECTED_NEGATIVE_CASES = {
     "corpus_readiness_overclaims_mathlib": ["MATHLIB_AVAILABILITY_OVERCLAIM"],
@@ -436,6 +454,142 @@ def validate_provider_context_recipes(
     }
 
 
+def _count_values(values: list[Any]) -> dict[str, int]:
+    counter = Counter(str(value) for value in values if value is not None)
+    return {key: counter[key] for key in sorted(counter)}
+
+
+def _count_split_eligibility(premises: list[dict[str, Any]]) -> dict[str, int]:
+    counts: Counter[str] = Counter()
+    for premise in premises:
+        for split in premise.get("allowed_for_split", []):
+            if isinstance(split, str) and split:
+                counts[split] += 1
+    return {key: counts[key] for key in sorted(counts)}
+
+
+def _build_extension_board(
+    *,
+    corpus: dict[str, Any],
+    tactics: dict[str, Any],
+    premise_index: dict[str, Any],
+    routing: dict[str, Any],
+    recipes: dict[str, Any],
+    input_mode: str,
+    bundle_id: Any,
+    private_scan: dict[str, Any],
+    status: str,
+) -> dict[str, Any]:
+    premises = premise_index["premises"]
+    tactic_rows = tactics["tactics"]
+    route_cases = routing["route_cases"]
+    recipe_rows = recipes["recipes"]
+    blocked_routes = [
+        row["route_case_id"] for row in route_cases if row["blocked_unavailable_tactic_ids"]
+    ]
+    source_refs = sorted(
+        {
+            str(row.get("source_ref"))
+            for row in premises
+            if isinstance(row.get("source_ref"), str) and row.get("source_ref")
+        }
+    )
+    tactic_status_counts = _count_values(
+        [row.get("availability_status") for row in tactic_rows]
+    )
+    unavailable_mathlib_tactics = sorted(
+        str(row["tactic_id"])
+        for row in tactic_rows
+        if row.get("failure_class") == "mathlib_import_absent"
+    )
+    return {
+        "schema_version": "formal_math_readiness_extension_board_v1",
+        "cell_id": EXTENSION_CELL_ID,
+        "projection_status": "public_replacement_landed" if status == PASS else "blocked",
+        "source_intake_ref": EXTENSION_SOURCE_INTAKE_REF,
+        "selected_pattern_ids": SELECTED_PATTERN_IDS,
+        "input_mode": input_mode,
+        "bundle_id": bundle_id,
+        "source_refs": [
+            "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+            "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+        ],
+        "target_refs": EXTENSION_TARGET_REFS,
+        "validation_refs": [
+            "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+            "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+        ],
+        "projection_contract": {
+            "copy_policy": "metadata_fixture_receipt_ref_only",
+            "body_copied": False,
+            "body_redacted": True,
+            "private_source_bodies_allowed": False,
+            "authority_ceiling": AUTHORITY_CEILING["authority_ceiling"],
+        },
+        "premise_index_projection": {
+            "premise_count": premise_index["premise_count"],
+            "namespace_counts": _count_values([row.get("namespace") for row in premises]),
+            "split_eligibility_counts": _count_split_eligibility(premises),
+            "source_ref_count": len(source_refs),
+            "source_refs": source_refs,
+            "retrieval_term_total": sum(
+                int(row.get("retrieval_term_count") or 0) for row in premises
+            ),
+            "proof_bodies_excluded": True,
+            "oracle_needed_premise_ids_excluded": True,
+        },
+        "tactic_portfolio_projection": {
+            "available_tactic_count": len(tactics["available_tactic_ids"]),
+            "available_tactic_ids": tactics["available_tactic_ids"],
+            "unavailable_tactic_count": len(tactics["unavailable_tactic_ids"]),
+            "unavailable_tactic_ids": tactics["unavailable_tactic_ids"],
+            "availability_status_counts": tactic_status_counts,
+            "mathlib_dependent_unavailable_tactic_ids": unavailable_mathlib_tactics,
+            "probe_receipt_required": True,
+        },
+        "target_shape_routing_projection": {
+            "route_case_count": routing["route_case_count"],
+            "admissible_route_case_count": len(route_cases) - len(blocked_routes),
+            "blocked_route_case_count": len(blocked_routes),
+            "blocked_route_case_ids": sorted(blocked_routes),
+            "routing_precedes_lean_calls": True,
+            "routes": [
+                {
+                    "route_case_id": row["route_case_id"],
+                    "target_shape": row.get("target_shape"),
+                    "allowed_tactic_ids": row.get("allowed_tactic_ids", []),
+                    "blocked_unavailable_tactic_ids": row.get(
+                        "blocked_unavailable_tactic_ids", []
+                    ),
+                    "body_redacted": True,
+                }
+                for row in route_cases
+            ],
+        },
+        "provider_context_projection": {
+            "recipe_count": recipes["recipe_count"],
+            "byte_budgets": {
+                str(row.get("recipe_id")): row.get("byte_budget") for row in recipe_rows
+            },
+            "deliverable_types": {
+                str(row.get("recipe_id")): row.get("deliverable_type")
+                for row in recipe_rows
+            },
+            "proof_bodies_allowed": False,
+            "provider_calls_authorized": False,
+        },
+        "corpus_projection": {
+            "blocked_capabilities": corpus["blocked_capabilities"],
+            "mathlib_available": not corpus["blocked_capabilities"],
+            "lean_lake_execution_authorized": False,
+        },
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "body_redacted": True,
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -487,6 +641,17 @@ def _build_result(
         if (input_dir / "bundle_manifest.json").is_file()
         else {}
     )
+    extension_board = _build_extension_board(
+        corpus=corpus,
+        tactics=tactics,
+        premise_index=premise_index,
+        routing=routing,
+        recipes=recipes,
+        input_mode=input_mode,
+        bundle_id=bundle_manifest.get("bundle_id") if isinstance(bundle_manifest, dict) else None,
+        private_scan=private_scan,
+        status=status,
+    )
     return {
         "schema_version": "formal_math_readiness_gate_result_v1",
         "created_at": utc_now(),
@@ -512,6 +677,10 @@ def _build_result(
         "premise_count": premise_index["premise_count"],
         "route_case_count": routing["route_case_count"],
         "recipe_count": recipes["recipe_count"],
+        "projection_cell_id": EXTENSION_CELL_ID,
+        "selected_pattern_ids": SELECTED_PATTERN_IDS,
+        "readiness_extension_status": extension_board["projection_status"],
+        "readiness_extension_board": extension_board,
         "readiness_board": {
             "mathlib_available": not corpus["blocked_capabilities"],
             "lean_lake_execution_authorized": False,
@@ -522,7 +691,7 @@ def _build_result(
             "unavailable_tactic_ids": tactics["unavailable_tactic_ids"],
             "route_case_count": routing["route_case_count"],
             "premise_count": premise_index["premise_count"],
-            "next_boundary": "formal_math_lean_proof_witness remains deferred until a later witness slice changes the boundary with validation receipts",
+            "next_boundary": "formal_math_lean_proof_witness now carries the bounded public witness; readiness still does not run Lean/Lake itself",
             "body_redacted": True,
         },
         "body_redacted": True,
@@ -557,6 +726,9 @@ def _common_receipt(
         "premise_count",
         "route_case_count",
         "recipe_count",
+        "projection_cell_id",
+        "selected_pattern_ids",
+        "readiness_extension_status",
         "body_redacted",
     )
     payload = {
@@ -596,6 +768,7 @@ def write_receipts(
     paths = {
         "readiness_gate_result": target / READINESS_RESULT_NAME,
         "formal_math_readiness_board": target / READINESS_BOARD_NAME,
+        "formal_math_readiness_extension_board": target / READINESS_EXTENSION_BOARD_NAME,
         "formal_math_readiness_validation_receipt": target / VALIDATION_RECEIPT_NAME,
         "fixture_acceptance": acceptance_path,
     }
@@ -610,6 +783,7 @@ def write_receipts(
         {
             "corpus_readiness": result["corpus_readiness"],
             "readiness_board": result["readiness_board"],
+            "readiness_extension_board": result["readiness_extension_board"],
         }
     )
     board = _common_receipt(
@@ -618,6 +792,14 @@ def write_receipts(
         receipt_paths=receipt_paths,
     )
     board.update(result["readiness_board"])
+    extension_board = _common_receipt(
+        result,
+        schema_version="formal_math_readiness_extension_board_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    extension_board_payload = dict(result["readiness_extension_board"])
+    extension_board["board_schema_version"] = extension_board_payload.pop("schema_version")
+    extension_board.update(extension_board_payload)
     validation = _common_receipt(
         result,
         schema_version="formal_math_readiness_gate_validation_receipt_v1",
@@ -632,6 +814,12 @@ def write_receipts(
             "proof_bodies_excluded": True,
             "lean_lake_execution_authorized": False,
             "provider_calls_authorized": False,
+            "projection_cell_id": EXTENSION_CELL_ID,
+            "selected_pattern_ids": SELECTED_PATTERN_IDS,
+            "readiness_extension_board_ref": _display(
+                paths["formal_math_readiness_extension_board"],
+                public_root=public_root_path,
+            ),
         }
     )
     acceptance = _common_receipt(
@@ -645,13 +833,15 @@ def write_receipts(
             if result["status"] == PASS
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
-            "deferred_organ_id": "formal_math_lean_proof_witness",
-            "lean_witness_deferred": True,
+            "bounded_witness_organ_id": "formal_math_lean_proof_witness",
+            "lean_witness_deferred": False,
+            "lean_witness_authority": "bounded_public_witness_owned_by_formal_math_lean_proof_witness",
         }
     )
 
     write_json_atomic(paths["readiness_gate_result"], gate_result)
     write_json_atomic(paths["formal_math_readiness_board"], board)
+    write_json_atomic(paths["formal_math_readiness_extension_board"], extension_board)
     write_json_atomic(paths["formal_math_readiness_validation_receipt"], validation)
     write_json_atomic(paths["fixture_acceptance"], acceptance)
     return {name: _display(path, public_root=public_root_path) for name, path in paths.items()}
@@ -720,12 +910,51 @@ def run_readiness_bundle(
     receipt.update(
         {
             "readiness_board": result["readiness_board"],
+            "readiness_extension_board": result["readiness_extension_board"],
             "corpus_readiness": result["corpus_readiness"],
         }
     )
     write_json_atomic(receipt_path, receipt)
     result["receipt_paths"] = [receipt_ref]
     return result
+
+
+def plan_readiness_extensions(
+    input_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    include_negative = all((input_path / name).is_file() for name in NEGATIVE_INPUT_NAMES)
+    command_text = command or (
+        "python -m microcosm_core.organs.formal_math_readiness_gate "
+        f"plan --input {input_dir}"
+    )
+    result = _build_result(
+        input_path,
+        command=command_text,
+        input_mode=(
+            "first_wave_fixture_plan"
+            if include_negative
+            else "exported_formal_math_readiness_bundle_plan"
+        ),
+        include_negative=include_negative,
+    )
+    return {
+        "schema_version": "formal_math_readiness_extension_preview_v1",
+        "status": result["status"],
+        "created_at": result["created_at"],
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command_text,
+        "input_mode": result["input_mode"],
+        "projection_cell_id": result["projection_cell_id"],
+        "selected_pattern_ids": result["selected_pattern_ids"],
+        "readiness_extension_board": result["readiness_extension_board"],
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "body_redacted": True,
+    }
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -737,6 +966,8 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser = subparsers.add_parser("run-readiness-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    plan_parser = subparsers.add_parser("plan")
+    plan_parser.add_argument("--input", required=True)
     return parser
 
 
@@ -746,6 +977,8 @@ def main(argv: list[str] | None = None) -> int:
         result = run(args.input, args.out)
     elif args.action == "run-readiness-bundle":
         result = run_readiness_bundle(args.input, args.out)
+    elif args.action == "plan":
+        result = plan_readiness_extensions(args.input)
     else:
         return 2
     print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))

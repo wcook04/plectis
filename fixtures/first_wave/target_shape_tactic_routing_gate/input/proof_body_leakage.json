@@ -1,0 +1,12 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "proof_body_leakage",
+  "route_cases": [
+    {
+      "route_case_id": "bad_route_with_body",
+      "target_shape": "closed_nat_mod_decision",
+      "allowed_tactic_ids": ["decide"],
+      "proof_body": "synthetic forbidden proof material"
+    }
+  ]
+}

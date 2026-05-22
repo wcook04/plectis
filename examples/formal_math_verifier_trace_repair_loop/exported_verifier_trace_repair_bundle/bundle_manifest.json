@@ -1,0 +1,9 @@
+{
+  "schema_version": "exported_verifier_trace_repair_bundle_manifest_v1",
+  "bundle_id": "formal_math_verifier_trace_repair_loop_runtime_example",
+  "organ_id": "formal_math_verifier_trace_repair_loop",
+  "authority_boundary": "public synthetic verifier trace repair replay only",
+  "includes_negative_cases": false,
+  "entry_command": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+  "anti_claim": "This exported bundle demonstrates the public verifier trace repair loop without proof bodies, oracle ids, provider payloads, Lean/Lake execution, or proof correctness authority."
+}

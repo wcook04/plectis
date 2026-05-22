@@ -1,0 +1,12 @@
+{
+  "schema_version": "target_shape_tactic_routing_tactic_portfolio_fixture_v1",
+  "portfolio_id": "synthetic_core_tactics_v1",
+  "tactics": [
+    {"tactic_id": "decide", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "omega", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "simp_all", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "rfl", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "aesop", "availability_status": "unavailable", "environment": "mathlib_absent_synthetic", "requires_mathlib": true}
+  ],
+  "anti_claim": "This portfolio is a synthetic public probe fixture, not proof authority and not a complete Lean tactic inventory."
+}

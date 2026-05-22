@@ -1,0 +1,26 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::tactic_portfolio_availability_probe::first_wave_contract_v1",
+  "organ_id": "tactic_portfolio_availability_probe",
+  "title": "Tactic portfolio availability probe fixture",
+  "inputs": [
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/tactic_portfolio_probe.json", "role": "synthetic public tactic portfolio compile-status artifact"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/environment_probe.json", "role": "synthetic public environment probe and Mathlib absence artifact"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/availability_policy.json", "role": "availability policy and authority ceiling"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/missing_compile_status.json", "role": "negative case: tactic row missing compile_status"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/mathlib_claim_without_probe.json", "role": "negative case: Mathlib-dependent tactic claimed available without Mathlib probe"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/unprobed_tactic_referenced.json", "role": "negative case: consumer references tactic absent from probe portfolio"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/proof_body_leakage.json", "role": "negative case: proof body leakage"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/authority_overclaim.json", "role": "negative case: proof/provider/benchmark/release overclaim"}
+  ],
+  "validator": "microcosm_core.organs.tactic_portfolio_availability_probe",
+  "validator_command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe",
+  "generated_receipts": [
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+    "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
+  ],
+  "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+  "anti_claim": "This fixture validates tactic availability metadata for a synthetic public environment only; it does not prove goals, run providers, claim benchmark performance, or authorize release."
+}

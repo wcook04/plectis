@@ -1,0 +1,14 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "proof_body_with_strategy",
+  "cases": [
+    {
+      "case_id": "strategy_classification_carries_proof_body",
+      "problem_id": "toy_iff_equivalence",
+      "selected_strategy_id": "iff_split",
+      "proof_body": "synthetic forbidden proof material",
+      "pre_oracle": true,
+      "body_redacted": true
+    }
+  ]
+}

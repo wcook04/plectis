@@ -1,0 +1,345 @@
+{
+  "all_expectations_met": true,
+  "anti_claim": "Target-shape tactic routing validates public pre-execution admissibility metadata only. It rejects unavailable, unprobed, or shape-inadmissible tactics before any Lean call; it does not run Lean/Lake, prove the goal, emit proof bodies, call providers, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "target_shape_admissibility_metadata_not_proof_authority",
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_dependent_proof_authority": false,
+    "post_execution_routing_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "available_tactic_ids": [
+    "decide",
+    "omega",
+    "rfl",
+    "simp_all"
+  ],
+  "board_schema_version": "target_shape_tactic_routing_board_v1",
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate",
+  "created_at": "2026-05-21T14:10:15+00:00",
+  "error_codes": [
+    "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN",
+    "TARGET_SHAPE_PROOF_BODY_FORBIDDEN",
+    "TARGET_SHAPE_RELEASE_OVERCLAIM",
+    "TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED",
+    "TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED"
+  ],
+  "expected_negative_cases": [
+    "post_execution_route",
+    "proof_body_leakage",
+    "release_overclaim",
+    "unavailable_tactic_admitted",
+    "unprobed_tactic_allowed"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED",
+      "message": "Route admitted an unavailable tactic before execution.",
+      "negative_case_id": "unavailable_tactic_admitted",
+      "subject_id": "aesop",
+      "subject_kind": "tactic_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED",
+      "message": "Route admitted a tactic absent from the public probe portfolio.",
+      "negative_case_id": "unprobed_tactic_allowed",
+      "subject_id": "magic_tactic",
+      "subject_kind": "tactic_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TARGET_SHAPE_PROOF_BODY_FORBIDDEN",
+      "message": "Routing fixtures cannot carry proof, provider, or Lean body fields.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "bad_route_with_body",
+      "subject_kind": "route_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN",
+      "message": "Routing must be selected before proof execution evidence exists.",
+      "negative_case_id": "post_execution_route",
+      "subject_id": "bad_post_execution_route",
+      "subject_kind": "route_stage"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TARGET_SHAPE_RELEASE_OVERCLAIM",
+      "message": "Target-shape routing attempted to authorize release, proof authority, providers, or Lean execution.",
+      "negative_case_id": "release_overclaim",
+      "subject_id": "formal_proof_authority,lean_lake_execution_authorized,provider_calls_authorized,publication_authorized,release_authorized",
+      "subject_kind": "authority_ceiling"
+    }
+  ],
+  "fixture_id": "first_wave.target_shape_tactic_routing_gate",
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "post_execution_route": [
+      "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN"
+    ],
+    "proof_body_leakage": [
+      "TARGET_SHAPE_PROOF_BODY_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "TARGET_SHAPE_RELEASE_OVERCLAIM"
+    ],
+    "unavailable_tactic_admitted": [
+      "TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED"
+    ],
+    "unprobed_tactic_allowed": [
+      "TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED"
+    ]
+  },
+  "organ_id": "target_shape_tactic_routing_gate",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 7,
+    "status": "pass"
+  },
+  "public_contract": {
+    "body_redacted": true,
+    "lean_lake_not_run": true,
+    "proof_bodies_excluded": true,
+    "routing_pre_execution": true,
+    "shape_admissibility_before_search": true,
+    "unavailable_tactics_rejected": true,
+    "unprobed_tactics_rejected": true
+  },
+  "receipt_id": "target_shape_tactic_routing_board_receipt_v1",
+  "receipt_paths": [
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
+    "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
+  ],
+  "route_case_count": 4,
+  "routing_projection": {
+    "available_tactic_ids": [
+      "decide",
+      "omega",
+      "rfl",
+      "simp_all"
+    ],
+    "body_redacted": true,
+    "route_case_count": 4,
+    "selected_tactic_ids": [
+      "decide",
+      "omega",
+      "rfl",
+      "simp_all"
+    ],
+    "shape_decisions": [
+      {
+        "allowed_tactic_ids": [
+          "decide"
+        ],
+        "blocked_unavailable_tactic_ids": [],
+        "body_redacted": true,
+        "candidate_tactic_ids": [
+          "aesop",
+          "decide",
+          "simp_all"
+        ],
+        "decisions": [
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBLE",
+            "decision": "allow",
+            "reason": "tactic is probed, available, and listed for this target shape",
+            "tactic_id": "decide"
+          },
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBILITY_REJECTED",
+            "decision": "reject",
+            "reason": "tactic is available but not admissible for this target shape",
+            "tactic_id": "simp_all"
+          },
+          {
+            "classifier": "UNAVAILABLE_TACTIC",
+            "decision": "reject",
+            "reason": "tactic is known but unavailable in the declared environment",
+            "tactic_id": "aesop"
+          }
+        ],
+        "expectation_met": true,
+        "expected_tactic_id": "decide",
+        "integrity_codes": [],
+        "pre_execution": true,
+        "route_case_id": "closed_nat_mod_decision",
+        "selected_tactic_id": "decide",
+        "target_shape": "closed_nat_mod_decision",
+        "unprobed_allowed_tactic_ids": []
+      },
+      {
+        "allowed_tactic_ids": [
+          "simp_all"
+        ],
+        "blocked_unavailable_tactic_ids": [],
+        "body_redacted": true,
+        "candidate_tactic_ids": [
+          "aesop",
+          "omega",
+          "simp_all"
+        ],
+        "decisions": [
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBLE",
+            "decision": "allow",
+            "reason": "tactic is probed, available, and listed for this target shape",
+            "tactic_id": "simp_all"
+          },
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBILITY_REJECTED",
+            "decision": "reject",
+            "reason": "tactic is available but not admissible for this target shape",
+            "tactic_id": "omega"
+          },
+          {
+            "classifier": "UNAVAILABLE_TACTIC",
+            "decision": "reject",
+            "reason": "tactic is known but unavailable in the declared environment",
+            "tactic_id": "aesop"
+          }
+        ],
+        "expectation_met": true,
+        "expected_tactic_id": "simp_all",
+        "integrity_codes": [],
+        "pre_execution": true,
+        "route_case_id": "conjunction_goal",
+        "selected_tactic_id": "simp_all",
+        "target_shape": "conjunction",
+        "unprobed_allowed_tactic_ids": []
+      },
+      {
+        "allowed_tactic_ids": [
+          "omega"
+        ],
+        "blocked_unavailable_tactic_ids": [],
+        "body_redacted": true,
+        "candidate_tactic_ids": [
+          "aesop",
+          "decide",
+          "omega"
+        ],
+        "decisions": [
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBLE",
+            "decision": "allow",
+            "reason": "tactic is probed, available, and listed for this target shape",
+            "tactic_id": "omega"
+          },
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBILITY_REJECTED",
+            "decision": "reject",
+            "reason": "tactic is available but not admissible for this target shape",
+            "tactic_id": "decide"
+          },
+          {
+            "classifier": "UNAVAILABLE_TACTIC",
+            "decision": "reject",
+            "reason": "tactic is known but unavailable in the declared environment",
+            "tactic_id": "aesop"
+          }
+        ],
+        "expectation_met": true,
+        "expected_tactic_id": "omega",
+        "integrity_codes": [],
+        "pre_execution": true,
+        "route_case_id": "int_linear_arithmetic",
+        "selected_tactic_id": "omega",
+        "target_shape": "int_linear_arithmetic",
+        "unprobed_allowed_tactic_ids": []
+      },
+      {
+        "allowed_tactic_ids": [
+          "rfl"
+        ],
+        "blocked_unavailable_tactic_ids": [],
+        "body_redacted": true,
+        "candidate_tactic_ids": [
+          "aesop",
+          "decide",
+          "rfl"
+        ],
+        "decisions": [
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBLE",
+            "decision": "allow",
+            "reason": "tactic is probed, available, and listed for this target shape",
+            "tactic_id": "rfl"
+          },
+          {
+            "classifier": "TARGET_SHAPE_ADMISSIBILITY_REJECTED",
+            "decision": "reject",
+            "reason": "tactic is available but not admissible for this target shape",
+            "tactic_id": "decide"
+          },
+          {
+            "classifier": "UNAVAILABLE_TACTIC",
+            "decision": "reject",
+            "reason": "tactic is known but unavailable in the declared environment",
+            "tactic_id": "aesop"
+          }
+        ],
+        "expectation_met": true,
+        "expected_tactic_id": "rfl",
+        "integrity_codes": [],
+        "pre_execution": true,
+        "route_case_id": "true_intro",
+        "selected_tactic_id": "rfl",
+        "target_shape": "true_intro",
+        "unprobed_allowed_tactic_ids": []
+      }
+    ],
+    "tactic_count": 5,
+    "target_shapes": [
+      "closed_nat_mod_decision",
+      "conjunction",
+      "int_linear_arithmetic",
+      "true_intro"
+    ],
+    "unavailable_tactic_ids": [
+      "aesop"
+    ]
+  },
+  "schema_version": "target_shape_tactic_routing_board_receipt_v1",
+  "selected_pattern_ids": [
+    "target_shape_tactic_routing_gate"
+  ],
+  "selected_tactic_ids": [
+    "decide",
+    "omega",
+    "rfl",
+    "simp_all"
+  ],
+  "source_pattern_ids": [
+    "target_shape_tactic_routing_gate"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_manifest.json",
+    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_value_table.json"
+  ],
+  "status": "pass",
+  "tactic_count": 5,
+  "target_shapes": [
+    "closed_nat_mod_decision",
+    "conjunction",
+    "int_linear_arithmetic",
+    "true_intro"
+  ],
+  "unavailable_tactic_ids": [
+    "aesop"
+  ],
+  "validator_id": "validator.microcosm.organs.target_shape_tactic_routing_gate"
+}

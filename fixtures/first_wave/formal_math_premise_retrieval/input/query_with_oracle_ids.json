@@ -1,0 +1,13 @@
+{
+  "schema_version": "formal_math_query_negative_fixture_v1",
+  "queries": [
+    {
+      "query_id": "q_oracle_leak",
+      "split": "dev",
+      "query_terms": ["list", "map"],
+      "strategy_id": "structural_list",
+      "expected_negative_case_id": "query_oracle_ids_forbidden",
+      "oracle_needed_premise_ids": ["List.map_append"]
+    }
+  ]
+}

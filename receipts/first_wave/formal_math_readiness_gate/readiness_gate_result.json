@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or change the deferred formal_math_lean_proof_witness boundary.",
+  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
   "authority_ceiling": {
     "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
     "formal_proof_authority": false,
@@ -34,7 +34,7 @@
       "translation_smoke_only": true
     }
   ],
-  "created_at": "2026-05-21T06:49:55+00:00",
+  "created_at": "2026-05-21T09:33:17+00:00",
   "error_codes": [
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
@@ -132,6 +132,7 @@
     "scanned_path_count": 10,
     "status": "pass"
   },
+  "projection_cell_id": "formal_math_readiness_extensions",
   "readiness_board": {
     "available_tactic_ids": [
       "decide",
@@ -148,7 +149,7 @@
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
     "mathlib_available": false,
-    "next_boundary": "formal_math_lean_proof_witness remains deferred until a later witness slice changes the boundary with validation receipts",
+    "next_boundary": "formal_math_lean_proof_witness now carries the bounded public witness; readiness still does not run Lean/Lake itself",
     "premise_count": 11,
     "provider_calls_authorized": false,
     "route_case_count": 5,
@@ -156,16 +157,203 @@
       "aesop"
     ]
   },
+  "readiness_extension_board": {
+    "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
+    "authority_ceiling": {
+      "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+      "formal_proof_authority": false,
+      "lean_lake_execution_authorized": false,
+      "mathlib_presence_claim_authorized": false,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false,
+      "status": "pass"
+    },
+    "body_redacted": true,
+    "bundle_id": null,
+    "cell_id": "formal_math_readiness_extensions",
+    "corpus_projection": {
+      "blocked_capabilities": [
+        "lean_std_synthetic_core:mathlib"
+      ],
+      "lean_lake_execution_authorized": false,
+      "mathlib_available": false
+    },
+    "input_mode": "first_wave_fixture",
+    "premise_index_projection": {
+      "namespace_counts": {
+        "Bool": 2,
+        "Iff": 3,
+        "List": 3,
+        "Nat": 3
+      },
+      "oracle_needed_premise_ids_excluded": true,
+      "premise_count": 11,
+      "proof_bodies_excluded": true,
+      "retrieval_term_total": 33,
+      "source_ref_count": 3,
+      "source_refs": [
+        "Init/Data/List",
+        "Init/Logic",
+        "Init/Prelude"
+      ],
+      "split_eligibility_counts": {
+        "dev": 11,
+        "test": 11,
+        "train": 11
+      }
+    },
+    "private_state_scan": {
+      "blocking_hit_count": 0,
+      "body_redacted": true,
+      "hit_count": 0,
+      "hits": [],
+      "redacted_output_field_labels_omitted": true,
+      "scanned_path_count": 10,
+      "status": "pass"
+    },
+    "projection_contract": {
+      "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+      "body_copied": false,
+      "body_redacted": true,
+      "copy_policy": "metadata_fixture_receipt_ref_only",
+      "private_source_bodies_allowed": false
+    },
+    "projection_status": "public_replacement_landed",
+    "provider_context_projection": {
+      "byte_budgets": {
+        "minimal_4kb": 4096,
+        "skill_32kb": 32768,
+        "strategy_classification_4kb": 4096
+      },
+      "deliverable_types": {
+        "minimal_4kb": "metadata_classification",
+        "skill_32kb": "strategy_metadata",
+        "strategy_classification_4kb": "strategy_id_classification"
+      },
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false,
+      "recipe_count": 3
+    },
+    "schema_version": "formal_math_readiness_extension_board_v1",
+    "selected_pattern_ids": [
+      "lean_std_toolchain_premise_index",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate"
+    ],
+    "source_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json#formal_math_readiness_extensions",
+    "source_refs": [
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+    ],
+    "tactic_portfolio_projection": {
+      "availability_status_counts": {
+        "environment_fail": 1,
+        "pass": 6
+      },
+      "available_tactic_count": 6,
+      "available_tactic_ids": [
+        "decide",
+        "grind",
+        "omega",
+        "rfl",
+        "simp",
+        "simp_all"
+      ],
+      "mathlib_dependent_unavailable_tactic_ids": [
+        "aesop"
+      ],
+      "probe_receipt_required": true,
+      "unavailable_tactic_count": 1,
+      "unavailable_tactic_ids": [
+        "aesop"
+      ]
+    },
+    "target_refs": [
+      "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+      "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+      "fixtures/first_wave/formal_math_readiness_gate/input/target_shape_tactic_routing.json",
+      "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
+    ],
+    "target_shape_routing_projection": {
+      "admissible_route_case_count": 4,
+      "blocked_route_case_count": 1,
+      "blocked_route_case_ids": [
+        "mathlib_search_uses_aesop_without_probe"
+      ],
+      "route_case_count": 5,
+      "routes": [
+        {
+          "allowed_tactic_ids": [
+            "decide"
+          ],
+          "blocked_unavailable_tactic_ids": [],
+          "body_redacted": true,
+          "route_case_id": "closed_nat_mod_decision",
+          "target_shape": "closed_nat_mod_decision"
+        },
+        {
+          "allowed_tactic_ids": [
+            "simp_all"
+          ],
+          "blocked_unavailable_tactic_ids": [],
+          "body_redacted": true,
+          "route_case_id": "conjunction_goal",
+          "target_shape": "conjunction"
+        },
+        {
+          "allowed_tactic_ids": [
+            "omega"
+          ],
+          "blocked_unavailable_tactic_ids": [],
+          "body_redacted": true,
+          "route_case_id": "int_linear_arithmetic",
+          "target_shape": "int_linear_arithmetic"
+        },
+        {
+          "allowed_tactic_ids": [
+            "aesop"
+          ],
+          "blocked_unavailable_tactic_ids": [
+            "aesop"
+          ],
+          "body_redacted": true,
+          "route_case_id": "mathlib_search_uses_aesop_without_probe",
+          "target_shape": "mathlib_search"
+        },
+        {
+          "allowed_tactic_ids": [
+            "rfl"
+          ],
+          "blocked_unavailable_tactic_ids": [],
+          "body_redacted": true,
+          "route_case_id": "true_intro",
+          "target_shape": "true_intro"
+        }
+      ],
+      "routing_precedes_lean_calls": true
+    },
+    "validation_refs": [
+      "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+      "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
+    ]
+  },
+  "readiness_extension_status": "public_replacement_landed",
   "receipt_id": "formal_math_readiness_gate_result_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
     "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
   ],
   "recipe_count": 3,
   "route_case_count": 5,
   "schema_version": "formal_math_readiness_gate_result_receipt_v1",
+  "selected_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate"
+  ],
   "status": "pass",
   "unavailable_tactic_ids": [
     "aesop"

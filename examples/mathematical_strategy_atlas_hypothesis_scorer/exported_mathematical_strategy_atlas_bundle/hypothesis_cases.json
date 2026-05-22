@@ -1,0 +1,43 @@
+{
+  "schema_version": "mathematical_strategy_hypothesis_cases_v1",
+  "cases": [
+    {
+      "case_id": "select_iff_split",
+      "problem_id": "toy_iff_equivalence",
+      "candidate_strategy_ids": [
+        "iff_split",
+        "recursive_data_induction",
+        "arithmetic_normalization"
+      ],
+      "expected_strategy_id": "iff_split",
+      "pre_oracle": true,
+      "body_redacted": true
+    },
+    {
+      "case_id": "select_recursive_data_induction",
+      "problem_id": "toy_list_append_length",
+      "candidate_strategy_ids": [
+        "iff_split",
+        "recursive_data_induction",
+        "arithmetic_normalization"
+      ],
+      "expected_strategy_id": "recursive_data_induction",
+      "pre_oracle": true,
+      "body_redacted": true
+    },
+    {
+      "case_id": "typed_unknown_strategy_miss",
+      "problem_id": "toy_unclassified_shape",
+      "candidate_strategy_ids": [
+        "iff_split",
+        "recursive_data_induction",
+        "arithmetic_normalization"
+      ],
+      "expected_strategy_id": "unknown",
+      "expected_classifier": "STRATEGY_SELECTION_MISS",
+      "pre_oracle": true,
+      "body_redacted": true
+    }
+  ],
+  "anti_claim": "Hypothesis cases validate pre-oracle strategy choice and miss classification only."
+}

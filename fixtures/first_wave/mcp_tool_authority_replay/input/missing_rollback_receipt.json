@@ -1,0 +1,26 @@
+{
+  "schema_version": "mcp_tool_authority_negative_case_v1",
+  "tool_calls": [
+    {
+      "approval_token_ref": "approval/synthetic_ticket_update_001",
+      "body_redacted": true,
+      "call_arguments_hash": "sha256:ticket_update_redacted_hash_001",
+      "call_id": "negative_missing_rollback_receipt",
+      "capability_scope_ref": "scope/ticket_update_limited",
+      "cold_replay_receipt_ref": "receipts/cold_replay/ticket_update_001.json",
+      "credential_exported": false,
+      "expected_negative_case_id": "missing_rollback_receipt",
+      "final_answer_only_grading": false,
+      "instruction_data_split_ref": "split/ticket_update_instruction_data_v1",
+      "ledger_diff_ref": "ledger_diff/synthetic_ticket_update_001",
+      "live_account_access": false,
+      "private_ref_metadata_only": true,
+      "result_source_capsule_ref": "source/synthetic_ticket_capsule_001",
+      "rollback_receipt_ref": "",
+      "side_effect_class": "write",
+      "tool_class": "write_side_effect",
+      "tool_id": "tool_ticket_update",
+      "untrusted_output_as_instruction": false
+    }
+  ]
+}

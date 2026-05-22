@@ -1,0 +1,264 @@
+{
+  "absent_corpus_ids": [
+    "leandojo",
+    "pantograph"
+  ],
+  "allowed_case_ids": [
+    "std_core_boolean_simp_allowed"
+  ],
+  "anti_claim": "Corpus readiness Mathlib absence gate validates public fixture metadata only. It does not run Lean or Lake, prove theorem correctness, claim Mathlib is available, expose proof bodies, benchmark formal-math corpora, call providers, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "corpus_readiness_environment_metadata_only_not_mathlib_proof_or_benchmark_authority",
+    "benchmark_or_corpus_completeness_authority": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_dependent_proof_authority": false,
+    "mathlib_lake_project_import_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "blocked_capabilities": [
+    "lean_std_core:mathlib_lake_project_import",
+    "leandojo:corpus_absent",
+    "leandojo:mathlib_lake_project_import",
+    "minif2f_lean4_mathlib_translation:mathlib_lake_project_import",
+    "pantograph:corpus_absent",
+    "pantograph:mathlib_lake_project_import"
+  ],
+  "blocked_case_ids": [
+    "leandojo_training_blocked_absent",
+    "mathlib_search_blocked_until_probe"
+  ],
+  "body_redacted": true,
+  "bundle_id": "public_corpus_readiness_mathlib_absence_runtime_example",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "consumer_case_count": 3,
+  "consumer_gate_cases": [
+    {
+      "blocked_reasons": [
+        "mathlib_lake_project_import_unavailable",
+        "corpus_absent"
+      ],
+      "body_redacted": true,
+      "case_id": "leandojo_training_blocked_absent",
+      "decision": "blocked",
+      "readiness_gate_checked": true,
+      "requested_capability": "lean_dojo_training_replay",
+      "requires_mathlib_lake_project_import": true,
+      "target_corpus_id": "leandojo"
+    },
+    {
+      "blocked_reasons": [
+        "mathlib_lake_project_import_unavailable"
+      ],
+      "body_redacted": true,
+      "case_id": "mathlib_search_blocked_until_probe",
+      "decision": "blocked",
+      "readiness_gate_checked": true,
+      "requested_capability": "mathlib_search",
+      "requires_mathlib_lake_project_import": true,
+      "target_corpus_id": "minif2f_lean4_mathlib_translation"
+    },
+    {
+      "blocked_reasons": [],
+      "body_redacted": true,
+      "case_id": "std_core_boolean_simp_allowed",
+      "decision": "allowed",
+      "readiness_gate_checked": true,
+      "requested_capability": "lean_std_boolean_simp",
+      "requires_mathlib_lake_project_import": false,
+      "target_corpus_id": "lean_std_core"
+    }
+  ],
+  "corpora": [
+    {
+      "body_redacted": true,
+      "consumer_rule": "Query mathlib_lake_project_import_available before attempting Mathlib-dependent proof work.",
+      "corpus_id": "lean_std_core",
+      "corpus_status": "available",
+      "lean_available": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": false
+    },
+    {
+      "body_redacted": true,
+      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists.",
+      "corpus_id": "leandojo",
+      "corpus_status": "absent",
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false
+    },
+    {
+      "body_redacted": true,
+      "consumer_rule": "Treat translation rows as smoke metadata only until a Mathlib import probe passes.",
+      "corpus_id": "minif2f_lean4_mathlib_translation",
+      "corpus_status": "available",
+      "lean_available": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": true
+    },
+    {
+      "body_redacted": true,
+      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists.",
+      "corpus_id": "pantograph",
+      "corpus_status": "absent",
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false
+    }
+  ],
+  "corpus_count": 4,
+  "created_at": "2026-05-22T06:15:10+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.corpus_readiness_mathlib_absence_gate",
+  "input_mode": "exported_corpus_readiness_bundle",
+  "mathlib_lake_project_import_available": false,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 2,
+    "status": "pass"
+  },
+  "readiness_board": {
+    "anti_claim": "Corpus readiness Mathlib absence gate validates public fixture metadata only. It does not run Lean or Lake, prove theorem correctness, claim Mathlib is available, expose proof bodies, benchmark formal-math corpora, call providers, or authorize release.",
+    "authority_ceiling": {
+      "authority_ceiling": "corpus_readiness_environment_metadata_only_not_mathlib_proof_or_benchmark_authority",
+      "benchmark_or_corpus_completeness_authority": false,
+      "formal_proof_authority": false,
+      "lean_lake_execution_authorized": false,
+      "mathlib_dependent_proof_authority": false,
+      "mathlib_lake_project_import_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "status": "pass"
+    },
+    "body_redacted": true,
+    "bundle_id": "public_corpus_readiness_mathlib_absence_runtime_example",
+    "consumer_gate_projection": {
+      "allowed_case_ids": [
+        "std_core_boolean_simp_allowed"
+      ],
+      "blocked_case_ids": [
+        "leandojo_training_blocked_absent",
+        "mathlib_search_blocked_until_probe"
+      ],
+      "body_redacted": true,
+      "case_count": 3,
+      "decision_rows": [
+        {
+          "blocked_reasons": [
+            "mathlib_lake_project_import_unavailable",
+            "corpus_absent"
+          ],
+          "body_redacted": true,
+          "case_id": "leandojo_training_blocked_absent",
+          "decision": "blocked",
+          "readiness_gate_checked": true,
+          "requested_capability": "lean_dojo_training_replay",
+          "requires_mathlib_lake_project_import": true,
+          "target_corpus_id": "leandojo"
+        },
+        {
+          "blocked_reasons": [
+            "mathlib_lake_project_import_unavailable"
+          ],
+          "body_redacted": true,
+          "case_id": "mathlib_search_blocked_until_probe",
+          "decision": "blocked",
+          "readiness_gate_checked": true,
+          "requested_capability": "mathlib_search",
+          "requires_mathlib_lake_project_import": true,
+          "target_corpus_id": "minif2f_lean4_mathlib_translation"
+        },
+        {
+          "blocked_reasons": [],
+          "body_redacted": true,
+          "case_id": "std_core_boolean_simp_allowed",
+          "decision": "allowed",
+          "readiness_gate_checked": true,
+          "requested_capability": "lean_std_boolean_simp",
+          "requires_mathlib_lake_project_import": false,
+          "target_corpus_id": "lean_std_core"
+        }
+      ]
+    },
+    "corpus_projection": {
+      "absent_corpus_ids": [
+        "leandojo",
+        "pantograph"
+      ],
+      "blocked_capabilities": [
+        "lean_std_core:mathlib_lake_project_import",
+        "leandojo:corpus_absent",
+        "leandojo:mathlib_lake_project_import",
+        "minif2f_lean4_mathlib_translation:mathlib_lake_project_import",
+        "pantograph:corpus_absent",
+        "pantograph:mathlib_lake_project_import"
+      ],
+      "body_redacted": true,
+      "corpus_count": 4,
+      "source_ref_count": 2,
+      "source_refs": [
+        "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+        "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+      ],
+      "translation_smoke_only_ids": [
+        "minif2f_lean4_mathlib_translation"
+      ]
+    },
+    "input_mode": "exported_corpus_readiness_bundle",
+    "organ_id": "corpus_readiness_mathlib_absence_gate",
+    "private_state_scan": {
+      "blocking_hit_count": 0,
+      "body_redacted": true,
+      "hit_count": 0,
+      "hits": [],
+      "redacted_output_field_labels_omitted": true,
+      "scanned_path_count": 2,
+      "status": "pass"
+    },
+    "public_contract": {
+      "body_redacted": true,
+      "consumer_gate_required": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_required_before_mathlib_proof_work": true,
+      "translation_smoke_only_is_not_proof_authority": true
+    },
+    "schema_version": "corpus_readiness_mathlib_absence_board_v1",
+    "selected_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate"
+    ],
+    "status": "pass"
+  },
+  "receipt_id": "corpus_readiness_mathlib_absence_exported_bundle_receipt_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
+  ],
+  "schema_version": "corpus_readiness_mathlib_absence_exported_bundle_receipt_v1",
+  "source_pattern_ids": [
+    "corpus_readiness_mathlib_absence_gate"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+  ],
+  "status": "pass",
+  "translation_smoke_only_ids": [
+    "minif2f_lean4_mathlib_translation"
+  ],
+  "validator_id": "validator.microcosm.organs.corpus_readiness_mathlib_absence_gate"
+}

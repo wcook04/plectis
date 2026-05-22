@@ -1,0 +1,19 @@
+{
+  "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
+  "body_redacted": true,
+  "bundle_id": "mcp_tool_authority_replay_runtime_example",
+  "claim": "synthetic MCP tool-authority replay admits only scoped, approved, redacted, replay-backed tool-use claims",
+  "fixture_inputs": [
+    "cold_replay.json",
+    "projection_protocol.json",
+    "side_effect_ledger.json",
+    "tool_calls.json",
+    "tool_manifest.json",
+    "tool_policy.json",
+    "tool_results.json"
+  ],
+  "input_mode": "exported_mcp_tool_authority_bundle",
+  "negative_cases_included": false,
+  "organ_id": "mcp_tool_authority_replay",
+  "schema_version": "mcp_tool_authority_bundle_manifest_v1"
+}

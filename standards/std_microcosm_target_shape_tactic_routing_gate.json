@@ -1,0 +1,79 @@
+{
+  "schema_version": "std_microcosm_target_shape_tactic_routing_gate_v1",
+  "standard_id": "std_microcosm_target_shape_tactic_routing_gate",
+  "kind_id": "microcosm_runtime_organ",
+  "status": "accepted",
+  "authority_boundary": {
+    "owner": "target_shape_tactic_routing_gate",
+    "allowed_claim": "Public target-shape route cases can admit only tactics that were both probed and available before proof execution.",
+    "forbidden_claims": [
+      "the selected tactic proves the goal",
+      "Lean/Lake or Mathlib-dependent proof execution is authorized",
+      "providers may be called",
+      "proof bodies or post-oracle execution labels may be exposed",
+      "release or publication is authorized"
+    ]
+  },
+  "source_refs": [
+    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_manifest.json",
+    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_value_table.json"
+  ],
+  "relationships": {
+    "organ_id": "target_shape_tactic_routing_gate",
+    "fixture_manifest": "core/fixture_manifests/target_shape_tactic_routing_gate.fixture_manifest.json",
+    "paper_module": "paper_modules/target_shape_tactic_routing.md",
+    "depends_on": [
+      "corpus_readiness_mathlib_absence_gate",
+      "mathematical_strategy_atlas_hypothesis_scorer"
+    ],
+    "feeds": [
+      "formal_math_premise_retrieval",
+      "formal_math_lean_proof_witness"
+    ]
+  },
+  "required_fields": [
+    "tactic_portfolio_availability.tactics[].tactic_id",
+    "tactic_portfolio_availability.tactics[].availability_status",
+    "target_shape_routes.route_cases[].target_shape",
+    "target_shape_routes.route_cases[].allowed_tactic_ids",
+    "target_shape_routes.route_cases[].route_stage"
+  ],
+  "validation_rules": [
+    "Every allowed tactic id must exist in the public tactic portfolio.",
+    "Every allowed tactic id must be marked available before proof execution.",
+    "Every route case must be pre_execution.",
+    "Proof, provider, and Lean source body fields are forbidden.",
+    "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected."
+  ],
+  "receipt_expectations": [
+    "result receipt with scored route decisions",
+    "board receipt with public contract and routing projection",
+    "validation receipt with negative-case coverage",
+    "fixture acceptance receipt"
+  ],
+  "validator_contract": {
+    "module": "microcosm_core.organs.target_shape_tactic_routing_gate",
+    "actions": ["run", "run-routing-bundle"],
+    "negative_case_count": 5
+  },
+  "receipt_contract": {
+    "result": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+    "board": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+    "validation": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
+    "acceptance": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
+  },
+  "public_private_boundary": {
+    "private_source_bodies_included": false,
+    "proof_bodies_included": false,
+    "provider_payloads_included": false,
+    "oracle_labels_included": false,
+    "fixture_kind": "synthetic_public_metadata"
+  },
+  "authority_ceiling": {
+    "lean_lake_execution_authorized": false,
+    "formal_proof_authority": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This standard governs target-shape admissibility metadata only; it does not certify theorem correctness, tactic success, provider output, release readiness, or private macro equivalence."
+}

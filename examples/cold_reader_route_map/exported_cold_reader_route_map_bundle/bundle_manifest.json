@@ -1,0 +1,14 @@
+{
+  "schema_version": "microcosm_runtime_bundle_manifest_v1",
+  "bundle_id": "public_cold_reader_route_map_runtime_example",
+  "input_mode": "exported_cold_reader_route_map_bundle",
+  "organ_id": "cold_reader_route_map",
+  "required_files": [
+    "route_map.json",
+    "route_receipts.json",
+    "route_policy.json"
+  ],
+  "release_authorized": false,
+  "private_source_bodies_exported": false,
+  "body_redacted": true
+}

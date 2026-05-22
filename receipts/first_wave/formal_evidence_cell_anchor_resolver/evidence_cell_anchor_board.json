@@ -1,0 +1,149 @@
+{
+  "anti_claim": "Formal evidence cell anchor resolver validates public claim-to-cell metadata, source-anchor refs, claim-strength boundaries, and negative-case leakage controls. It does not prove theorem correctness, run Lean or Lake, call providers, expose proof bodies or private source refs, treat human approval as proof authority, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_evidence_cell_anchor_metadata_only",
+    "formal_proof_authority": false,
+    "human_approval_as_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "private_source_refs_allowed": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "theorem_correctness_authority": false
+  },
+  "board_id": "formal_evidence_cell_anchor_resolver_public_board",
+  "body_redacted": true,
+  "claim_resolution_rows": [
+    {
+      "body_redacted": true,
+      "claim_id": "claim.boundary_policy_blocks_theorem_correctness",
+      "claim_strength": "claim_boundary_policy_present",
+      "evidence_cell_id": "cell.claim_boundary.policy",
+      "machine_anchor_class": "claim_boundary_policy_receipt",
+      "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+      "resolution_status": "resolved",
+      "source_anchor_refs": [
+        "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json::claim_boundary_policy",
+        "core/preflight_support/fixture_negative_case_matrix_v1.json::formal_evidence_cell_anchor_resolver_negative_cases"
+      ],
+      "uses_proof_language": false
+    },
+    {
+      "body_redacted": true,
+      "claim_id": "claim.public_lean_witness_has_cell",
+      "claim_strength": "formal_evidence_cell_present",
+      "evidence_cell_id": "cell.lean_decl_count.public_fixture",
+      "machine_anchor_class": "bounded_public_lean_witness_metadata",
+      "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+      "resolution_status": "resolved",
+      "source_anchor_refs": [
+        "paper_modules/formal_math_lean_proof_witness.md::bounded_witness_receipt",
+        "receipts/runtime_shell/public_formal_evidence_cell_lens.json::lean_decl_projection"
+      ],
+      "uses_proof_language": true
+    },
+    {
+      "body_redacted": true,
+      "claim_id": "claim.verifier_trace_is_redacted_metadata",
+      "claim_strength": "repair_trace_metadata_present",
+      "evidence_cell_id": "cell.verifier_trace.redacted",
+      "machine_anchor_class": "redacted_verifier_trace_receipt",
+      "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+      "resolution_status": "resolved",
+      "source_anchor_refs": [
+        "paper_modules/formal_math_verifier_trace_repair_loop.md::trace_grade_boundary",
+        "receipts/runtime_shell/public_verifier_trace_repair_lens.json::redacted_trace"
+      ],
+      "uses_proof_language": false
+    }
+  ],
+  "evidence_cells": [
+    {
+      "allowed_claim_strengths": [
+        "claim_boundary_policy_present",
+        "formal_evidence_cell_present"
+      ],
+      "body_redacted": true,
+      "cell_id": "cell.claim_boundary.policy",
+      "machine_anchor_class": "claim_boundary_policy_receipt",
+      "public_status": "public_fixture_anchor_only",
+      "source_anchor_refs": [
+        "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json::claim_boundary_policy",
+        "core/preflight_support/fixture_negative_case_matrix_v1.json::formal_evidence_cell_anchor_resolver_negative_cases"
+      ]
+    },
+    {
+      "allowed_claim_strengths": [
+        "formal_evidence_cell_present",
+        "machine_anchor_metadata_present"
+      ],
+      "body_redacted": true,
+      "cell_id": "cell.lean_decl_count.public_fixture",
+      "machine_anchor_class": "bounded_public_lean_witness_metadata",
+      "public_status": "public_fixture_anchor_only",
+      "source_anchor_refs": [
+        "paper_modules/formal_math_lean_proof_witness.md::bounded_witness_receipt",
+        "receipts/runtime_shell/public_formal_evidence_cell_lens.json::lean_decl_projection"
+      ]
+    },
+    {
+      "allowed_claim_strengths": [
+        "formal_evidence_cell_present",
+        "repair_trace_metadata_present"
+      ],
+      "body_redacted": true,
+      "cell_id": "cell.verifier_trace.redacted",
+      "machine_anchor_class": "redacted_verifier_trace_receipt",
+      "public_status": "public_fixture_anchor_only",
+      "source_anchor_refs": [
+        "paper_modules/formal_math_verifier_trace_repair_loop.md::trace_grade_boundary",
+        "receipts/runtime_shell/public_verifier_trace_repair_lens.json::redacted_trace"
+      ]
+    }
+  ],
+  "formal_proof_authority": false,
+  "input_mode": "fixture",
+  "mechanics": [
+    {
+      "authority": "cell_id_as_compressed_receipt_bundle",
+      "count": 3,
+      "mechanic_id": "claim_to_cell_resolution"
+    },
+    {
+      "authority": "proof_language_requires_machine_anchor",
+      "count": 6,
+      "mechanic_id": "source_anchor_floor"
+    },
+    {
+      "authority": "claim_boundary_before_claim_strength",
+      "count": 4,
+      "mechanic_id": "claim_boundary_policy"
+    }
+  ],
+  "organ_id": "formal_evidence_cell_anchor_resolver",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "proof_language_requires_machine_anchor": true,
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+    "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+  ],
+  "schema_version": "formal_evidence_cell_anchor_resolver_board_v1",
+  "source_pattern_ids": [
+    "formal_evidence_cell_anchor_resolver",
+    "formal_math_verifier_trace_repair_loop_compound",
+    "formal_math_readiness_proof_spine_compound"
+  ],
+  "status": "pass",
+  "theorem_correctness_authority": false
+}

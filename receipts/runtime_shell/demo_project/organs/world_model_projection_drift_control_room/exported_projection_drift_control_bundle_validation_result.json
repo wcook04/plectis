@@ -1,0 +1,192 @@
+{
+  "anti_claim": "World-model projection drift control validates synthetic metadata rows that name source signals, repair routes, validation refs, and omission boundaries. It does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, claim source authority, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_projection_drift_control_metadata_only",
+    "automatic_doctrine_promotion_authorized": false,
+    "hosted_public_authorized": false,
+    "live_route_repair_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "metadata_projection_only": true,
+    "private_runtime_data_exported": false,
+    "proof_body_exported": false,
+    "provider_calls_authorized": false,
+    "provider_payload_exported": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_authority_claim": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_redacted": true,
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T06:15:12+00:00",
+  "drift_rows": [
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "world_model_cross_plane_drift_aggregate",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::world_model_cross_plane_drift_aggregate",
+      "repair_route": "microcosm drift-control -> projection_drift_control_room.validate",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::world_model_cross_plane_drift_aggregate",
+      "source_signal": "aggregate drift between projected world-model rows and owner-route evidence",
+      "validation_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "view_quality_all_view_action_map",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::view_quality_all_view_action_map",
+      "repair_route": "microcosm view-quality -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::view_quality_all_view_action_map",
+      "source_signal": "view-quality action rows need repair-route evidence before cold-reader claims",
+      "validation_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "compression_profile_governed_option_surface",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::compression_profile_governed_option_surface",
+      "repair_route": "microcosm option-surface-lens -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::compression_profile_governed_option_surface",
+      "source_signal": "compression-profile options need governed route and validation refs",
+      "validation_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "navigation_hologram_unified_route_plane",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::navigation_hologram_unified_route_plane",
+      "repair_route": "microcosm spine -> microcosm route-cleanup -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::navigation_hologram_unified_route_plane",
+      "source_signal": "navigation route planes need unified source/ref and omission boundaries",
+      "validation_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "agent_principle_failure_cap_assimilation_loop",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::agent_principle_failure_cap_assimilation_loop",
+      "repair_route": "microcosm replay-gauntlet -> pattern_assimilation_step -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_principle_failure_cap_assimilation_loop",
+      "source_signal": "principle failure capture needs typed CAP assimilation evidence",
+      "validation_ref": "receipts/first_wave/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "operator_autonomy_phrase_active_standard_bridge",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::operator_autonomy_phrase_active_standard_bridge",
+      "repair_route": "microcosm standards-control -> public_standard_pressure -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::operator_autonomy_phrase_active_standard_bridge",
+      "source_signal": "operator-autonomy phrases need active standard bridge refs",
+      "validation_ref": "receipts/first_wave/standards_registry_validation.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "omission_receipt_reversible_projection_boundary",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::omission_receipt_reversible_projection_boundary",
+      "repair_route": "microcosm projection-safety -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::omission_receipt_reversible_projection_boundary",
+      "source_signal": "omission receipts must remain reversible through named drilldowns",
+      "validation_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json"
+    },
+    {
+      "automatic_doctrine_promotion_authorized": false,
+      "body_redacted": true,
+      "drift_row_id": "entry_payload_admission_nonnegotiable_floor",
+      "live_repair_authorized": false,
+      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::entry_payload_admission_nonnegotiable_floor",
+      "repair_route": "microcosm intake -> microcosm reveal -> microcosm drift-control",
+      "source_authority_claim": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::entry_payload_admission_nonnegotiable_floor",
+      "source_signal": "entry payloads must cite admission floors and rejection receipts",
+      "validation_ref": "receipts/runtime_shell/public_ten_minute_tour.json"
+    }
+  ],
+  "drift_summary": {
+    "automatic_doctrine_promotion_count": 0,
+    "live_repair_authorized_count": 0,
+    "private_runtime_data_export_count": 0,
+    "provider_payload_export_count": 0,
+    "repair_route_count": 8,
+    "row_count": 8,
+    "source_authority_claim_count": 0,
+    "source_mutation_authorized_count": 0,
+    "source_ref_count": 8,
+    "validation_ref_count": 8
+  },
+  "finding_count": 0,
+  "fixture_id": "first_wave.world_model_projection_drift_control_room",
+  "input_mode": "exported_projection_drift_control_bundle",
+  "input_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+  "negative_case_findings": [],
+  "negative_case_summary": {
+    "expected_missing": {},
+    "expected_negative_case_count": 0,
+    "observed_codes": {},
+    "observed_negative_case_count": 0
+  },
+  "organ_id": "world_model_projection_drift_control_room",
+  "positive_findings": [],
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 4,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
+  ],
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "live_repair_actions_omitted": true,
+    "metadata_only": true,
+    "private_runtime_bodies_omitted": true,
+    "provider_payloads_omitted": true,
+    "source_mutation_omitted": true
+  },
+  "schema_version": "exported_projection_drift_control_bundle_validation_result_v1",
+  "selected_pattern_ids": [
+    "world_model_cross_plane_drift_aggregate",
+    "view_quality_all_view_action_map",
+    "compression_profile_governed_option_surface",
+    "navigation_hologram_unified_route_plane",
+    "agent_principle_failure_cap_assimilation_loop",
+    "operator_autonomy_phrase_active_standard_bridge",
+    "omission_receipt_reversible_projection_boundary",
+    "entry_payload_admission_nonnegotiable_floor"
+  ],
+  "selected_route_id": "world_model_projection_drift_control_room",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room"
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "formal_evidence_cell_negative_fixture_v1",
+  "claims": [
+    {
+      "expected_negative_case_id": "proof_language_without_cell",
+      "claim_id": "negative.proof_language_without_cell",
+      "claim_strength": "formal_evidence_cell_present",
+      "uses_proof_language": true
+    }
+  ]
+}

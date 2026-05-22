@@ -1,0 +1,51 @@
+{
+  "schema_version": "provider_context_section_materials_fixture_v1",
+  "section_set_id": "public_provider_context_sections_v1",
+  "sections": [
+    {
+      "section_id": "statement",
+      "declared_byte_size": 720,
+      "text": "Synthetic public theorem statement shape, namespace hints, and problem id only."
+    },
+    {
+      "section_id": "declared_imports",
+      "declared_byte_size": 320,
+      "text": "Init, Std public imports declared as metadata; Mathlib is not assumed."
+    },
+    {
+      "section_id": "retrieved_premises",
+      "declared_byte_size": 8200,
+      "text": "Public premise ids, theorem names, namespaces, and retrieval terms only."
+    },
+    {
+      "section_id": "skill_atlas_card",
+      "declared_byte_size": 6400,
+      "text": "Public strategy card with allowed strategy ids and retrieval lens notes."
+    },
+    {
+      "section_id": "target_shape_routes",
+      "declared_byte_size": 5600,
+      "text": "Public target-shape route candidates and tactic admissibility metadata."
+    },
+    {
+      "section_id": "diagnostic_failure_class",
+      "declared_byte_size": 2200,
+      "text": "Typed failure classifier and reducer route id with no proof body."
+    },
+    {
+      "section_id": "known_strategy_ids",
+      "declared_byte_size": 800,
+      "text": "iff_split, recursive_data_induction, algebraic_normalization, unknown."
+    },
+    {
+      "section_id": "target_shape_features",
+      "declared_byte_size": 1150,
+      "text": "Closed nat decision, conjunction, linear arithmetic, true intro."
+    },
+    {
+      "section_id": "fewshot_examples",
+      "declared_byte_size": 70000,
+      "text": "Synthetic advisory examples intentionally too large for the 64 KiB public recipe."
+    }
+  ]
+}

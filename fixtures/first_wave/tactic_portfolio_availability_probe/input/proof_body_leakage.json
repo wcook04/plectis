@@ -1,0 +1,12 @@
+{
+  "schema_version": "tactic_portfolio_availability_negative_case_v1",
+  "expected_negative_case_id": "proof_body_leakage",
+  "tactics": [
+    {
+      "tactic_id": "omega",
+      "compile_status": "compile_pass",
+      "requires_mathlib": false,
+      "proof_body": "synthetic forbidden proof material"
+    }
+  ]
+}

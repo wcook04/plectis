@@ -1,0 +1,80 @@
+{
+  "anti_claim": "This fixture validates public synthetic monitor redteam replay boundaries only; it does not claim monitor product performance, expose private reasoning or internal code, include exploit instructions or credentials, import live traffic, call providers, mutate source, or authorize release.",
+  "authority_ceiling": "synthetic agent-monitor falsification replay receipts only; no live traffic, private reasoning, internal code, exploit detail, credential, provider, product-performance, source-mutation, or release authority",
+  "expected_negative_cases": [
+    "private_chain_of_thought_leakage",
+    "internal_code_export",
+    "exploit_instruction_material",
+    "credential_material",
+    "live_agent_traffic",
+    "monitor_product_performance_claim",
+    "coverage_without_adversarial_probe"
+  ],
+  "fixture_id": "fixture::agent_monitor_redteam_falsification_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with omission receipts"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_policy.json",
+      "role": "monitor verdict policy, required observation fields, and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/trajectory_cases.json",
+      "role": "public synthetic trajectory cases with hashes and adversarial probe ids"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json",
+      "role": "positive monitor observations with verdict, escalation, mitigation, redaction, and replay refs"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/private_chain_of_thought_leakage.json",
+      "role": "negative case: private chain-of-thought leakage"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/internal_code_export.json",
+      "role": "negative case: internal code export"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/exploit_instruction_material.json",
+      "role": "negative case: exploit instruction material"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/credential_material.json",
+      "role": "negative case: credential material"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/live_agent_traffic.json",
+      "role": "negative case: live agent traffic"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_product_performance_claim.json",
+      "role": "negative case: monitor product performance claim"
+    },
+    {
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/coverage_without_adversarial_probe.json",
+      "role": "negative case: coverage without adversarial probe"
+    }
+  ],
+  "organ_id": "agent_monitor_redteam_falsification_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "MONITOR_REDTEAM_PRIVATE_COT_FORBIDDEN",
+    "MONITOR_REDTEAM_INTERNAL_CODE_FORBIDDEN",
+    "MONITOR_REDTEAM_EXPLOIT_INSTRUCTIONS_FORBIDDEN",
+    "MONITOR_REDTEAM_CREDENTIAL_MATERIAL_FORBIDDEN",
+    "MONITOR_REDTEAM_LIVE_TRAFFIC_FORBIDDEN",
+    "MONITOR_REDTEAM_PRODUCT_PERFORMANCE_CLAIM_FORBIDDEN",
+    "MONITOR_REDTEAM_COVERAGE_WITHOUT_PROBE"
+  ],
+  "title": "Agent monitor redteam falsification replay fixture",
+  "validator": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
+  "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
+}

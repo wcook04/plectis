@@ -1,0 +1,13 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "unavailable_tactic_admitted",
+  "route_cases": [
+    {
+      "route_case_id": "bad_conjunction_aesop",
+      "target_shape": "conjunction",
+      "allowed_tactic_ids": ["aesop"],
+      "candidate_tactic_ids": ["aesop"],
+      "route_stage": "pre_execution"
+    }
+  ]
+}

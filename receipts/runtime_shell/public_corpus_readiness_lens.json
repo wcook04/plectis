@@ -1,0 +1,196 @@
+{
+  "anti_claim": "The public corpus-readiness lens is environment and corpus metadata only. It does not run Lean/Lake, authorize Mathlib imports, prove theorems, claim benchmark or corpus completeness, import proof bodies, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "benchmark_or_corpus_completeness_authority": false,
+    "environment_metadata_only": true,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_dependent_proof_authority": false,
+    "mathlib_lake_project_import_authorized": false,
+    "mathlib_lake_project_import_available": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm corpus-lens",
+  "consumer_gate": {
+    "allowed_case_ids": [
+      "std_core_boolean_simp_allowed"
+    ],
+    "blocked_case_ids": [
+      "leandojo_training_blocked_absent",
+      "mathlib_search_blocked_until_probe",
+      "pantograph_state_search_blocked_absent"
+    ],
+    "body_redacted": true,
+    "case_count": 4,
+    "decision_rows": [
+      {
+        "blocked_reasons": [
+          "mathlib_lake_project_import_unavailable",
+          "corpus_absent"
+        ],
+        "body_redacted": true,
+        "case_id": "leandojo_training_blocked_absent",
+        "decision": "blocked",
+        "readiness_gate_checked": true,
+        "requested_capability": "lean_dojo_training_replay",
+        "requires_mathlib_lake_project_import": true,
+        "target_corpus_id": "leandojo"
+      },
+      {
+        "blocked_reasons": [
+          "mathlib_lake_project_import_unavailable"
+        ],
+        "body_redacted": true,
+        "case_id": "mathlib_search_blocked_until_probe",
+        "decision": "blocked",
+        "readiness_gate_checked": true,
+        "requested_capability": "mathlib_search",
+        "requires_mathlib_lake_project_import": true,
+        "target_corpus_id": "minif2f_lean4_mathlib_translation"
+      },
+      {
+        "blocked_reasons": [
+          "mathlib_lake_project_import_unavailable",
+          "corpus_absent"
+        ],
+        "body_redacted": true,
+        "case_id": "pantograph_state_search_blocked_absent",
+        "decision": "blocked",
+        "readiness_gate_checked": true,
+        "requested_capability": "pantograph_state_search",
+        "requires_mathlib_lake_project_import": true,
+        "target_corpus_id": "pantograph"
+      },
+      {
+        "blocked_reasons": [],
+        "body_redacted": true,
+        "case_id": "std_core_boolean_simp_allowed",
+        "decision": "allowed",
+        "readiness_gate_checked": true,
+        "requested_capability": "lean_std_boolean_simp",
+        "requires_mathlib_lake_project_import": false,
+        "target_corpus_id": "lean_std_core"
+      }
+    ]
+  },
+  "corpora": [
+    {
+      "body_redacted": true,
+      "consumer_rule": "Query mathlib_lake_project_import_available before attempting Mathlib-dependent proof work.",
+      "corpus_id": "lean_std_core",
+      "corpus_status": "available",
+      "lean_available": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": false
+    },
+    {
+      "body_redacted": true,
+      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists.",
+      "corpus_id": "leandojo",
+      "corpus_status": "absent",
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false
+    },
+    {
+      "body_redacted": true,
+      "consumer_rule": "Treat translation rows as smoke metadata only until a Mathlib import probe passes.",
+      "corpus_id": "minif2f_lean4_mathlib_translation",
+      "corpus_status": "available",
+      "lean_available": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": true
+    },
+    {
+      "body_redacted": true,
+      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists.",
+      "corpus_id": "pantograph",
+      "corpus_status": "absent",
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false
+    }
+  ],
+  "corpus_lens_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
+  "corpus_summary": {
+    "absent_corpus_ids": [
+      "leandojo",
+      "pantograph"
+    ],
+    "blocked_capabilities": [
+      "lean_std_core:mathlib_lake_project_import",
+      "leandojo:corpus_absent",
+      "leandojo:mathlib_lake_project_import",
+      "minif2f_lean4_mathlib_translation:mathlib_lake_project_import",
+      "pantograph:corpus_absent",
+      "pantograph:mathlib_lake_project_import"
+    ],
+    "body_redacted": true,
+    "corpus_count": 4,
+    "mathlib_lake_project_import_available": false,
+    "translation_smoke_only_ids": [
+      "minif2f_lean4_mathlib_translation"
+    ]
+  },
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/corpus",
+  "error_codes": [
+    "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
+    "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
+    "CORPUS_READINESS_RELEASE_OVERCLAIM",
+    "MATHLIB_AVAILABILITY_OVERCLAIM",
+    "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN"
+  ],
+  "input_refs": {
+    "acceptance_ref": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
+    "board_ref": "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+    "example_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+    "fixture_ref": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
+    "result_ref": "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "validation_ref": "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json"
+  },
+  "lens_id": "public_corpus_readiness_lens",
+  "negative_case_ids": [
+    "consumer_skips_readiness_gate",
+    "mathlib_available_without_probe",
+    "private_corpus_source_ref",
+    "proof_body_leakage",
+    "release_overclaim"
+  ],
+  "organ_command": "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
+  "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "public_claim": "Microcosm exposes formal-math corpus/toolchain readiness as a public metadata lens: Mathlib import absence, absent LeanDojo/Pantograph corpora, translation-smoke-only rows, consumer gating, and anti-claim coverage before retrieval or proof-witness work.",
+  "public_contract": {
+    "body_redacted": true,
+    "consumer_gate_required": true,
+    "mathlib_lake_project_import_available": false,
+    "mathlib_probe_required_before_mathlib_proof_work": true,
+    "translation_smoke_only_is_not_proof_authority": true
+  },
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "fixture_metadata_only": true,
+    "no_private_source_bodies": true,
+    "no_proof_bodies": true,
+    "receipt_refs_only_for_projection": true
+  },
+  "schema_version": "microcosm_public_corpus_readiness_lens_v1",
+  "source_pattern_count": 1,
+  "source_pattern_ids": [
+    "corpus_readiness_mathlib_absence_gate"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+  ],
+  "status": "pass"
+}

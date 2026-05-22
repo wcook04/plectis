@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or change the deferred formal_math_lean_proof_witness boundary.",
+  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
   "authority_ceiling": {
     "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
     "formal_proof_authority": false,
@@ -23,7 +23,7 @@
   "body_redacted": true,
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
-  "created_at": "2026-05-21T06:49:55+00:00",
+  "created_at": "2026-05-21T09:33:17+00:00",
   "error_codes": [
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
@@ -95,7 +95,7 @@
   "lean_lake_execution_authorized": false,
   "mathlib_available": false,
   "missing_negative_cases": [],
-  "next_boundary": "formal_math_lean_proof_witness remains deferred until a later witness slice changes the boundary with validation receipts",
+  "next_boundary": "formal_math_lean_proof_witness now carries the bounded public witness; readiness still does not run Lean/Lake itself",
   "observed_negative_cases": {
     "corpus_readiness_overclaims_mathlib": [
       "MATHLIB_AVAILABILITY_OVERCLAIM"
@@ -125,17 +125,25 @@
     "scanned_path_count": 10,
     "status": "pass"
   },
+  "projection_cell_id": "formal_math_readiness_extensions",
   "provider_calls_authorized": false,
+  "readiness_extension_status": "public_replacement_landed",
   "receipt_id": "formal_math_readiness_gate_board_v1",
   "receipt_paths": [
     "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
     "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
   ],
   "recipe_count": 3,
   "route_case_count": 5,
   "schema_version": "formal_math_readiness_gate_board_v1",
+  "selected_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate"
+  ],
   "status": "pass",
   "unavailable_tactic_ids": [
     "aesop"

@@ -1,0 +1,11 @@
+{
+  "receipt_id": "neg.unqualified_symbol_overclaim",
+  "expected_negative_case_id": "unqualified_symbol_overclaim",
+  "proof_symbol_refs": [
+    "add_comm"
+  ],
+  "allowed_premise_ids": [],
+  "cited_unallowed_premise_ids": [],
+  "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
+  "review_outcome": "bridge_escalate"
+}

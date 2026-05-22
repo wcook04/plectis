@@ -1,0 +1,11 @@
+{
+  "schema_version": "ring2_negative_case_v1",
+  "expected_negative_case_id": "oracle_labels_in_ranking",
+  "rankings": [
+    {
+      "problem_id": "ring2_iff_direction",
+      "retrieved_premise_ids": ["Iff.mp", "Bool.and_comm"],
+      "oracle_needed_premise_ids": ["Iff.mp", "Iff.mpr"]
+    }
+  ]
+}

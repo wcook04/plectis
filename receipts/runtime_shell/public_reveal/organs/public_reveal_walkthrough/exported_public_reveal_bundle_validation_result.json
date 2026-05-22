@@ -1,0 +1,195 @@
+{
+  "anti_claim": "The public reveal walkthrough validates a short public entry path, commands, evidence refs, and anti-claims. It does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, Lean/Lake execution, or whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_reveal_walkthrough_metadata_and_command_plan_only",
+    "hosted_public_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "recipient_work_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "body_redacted": true,
+  "bundle_id": "public_reveal_walkthrough_runtime_example",
+  "command": "microcosm reveal",
+  "command_count": 8,
+  "commands": [
+    "microcosm compile /tmp/microcosm-scratch",
+    "microcosm evidence list",
+    "microcosm explain /tmp/microcosm-scratch readme_onboarding_route",
+    "microcosm intake",
+    "microcosm run examples/runtime_shell/demo_project",
+    "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765",
+    "microcosm status",
+    "python -m pip install -e '.[test]'"
+  ],
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "error_codes": [],
+  "evidence_ref_count": 11,
+  "evidence_refs": [
+    "README.md",
+    "README.md#First Run",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/architecture_kernel.json",
+    "core/organ_registry.json",
+    "core/private_state_forbidden_classes.json",
+    "core/public_standard_pressure.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+    "receipts/first_wave/observatory_legibility.json",
+    "receipts/preflight/fixture_runner_freshness.json",
+    "tests/test_runtime_shell.py"
+  ],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.public_reveal_walkthrough",
+  "input_mode": "exported_public_reveal_bundle",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "public_reveal_walkthrough",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 3,
+    "status": "pass"
+  },
+  "public_claim": "Microcosm turns a repo into a local operating substrate: patterns, routes, work transactions, events, evidence, and explanations.",
+  "receipt_id": "public_reveal_walkthrough_exported_bundle_receipt_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json"
+  ],
+  "reveal_board": {
+    "body_redacted": true,
+    "evidence_is_drilldown": true,
+    "first_command": "microcosm compile /tmp/microcosm-scratch",
+    "headline": "Microcosm turns a repo into a local operating substrate.",
+    "primary_loop": "repo -> .microcosm -> catalog/patterns/routes/work/events/evidence/explanations",
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "step_count": 5,
+    "steps": [
+      {
+        "body_redacted": true,
+        "commands": [
+          "python -m pip install -e '.[test]'",
+          "microcosm compile /tmp/microcosm-scratch"
+        ],
+        "evidence_refs": [
+          "README.md#First Run",
+          "core/architecture_kernel.json"
+        ],
+        "expected_signal": "A project-local .microcosm substrate appears without source mutation.",
+        "inspect_refs": [
+          ".microcosm/catalog.json",
+          ".microcosm/patterns.json",
+          ".microcosm/routes.json"
+        ],
+        "minute_range": "0-2",
+        "step_id": "install_and_compile"
+      },
+      {
+        "body_redacted": true,
+        "commands": [
+          "microcosm explain /tmp/microcosm-scratch readme_onboarding_route"
+        ],
+        "evidence_refs": [
+          "core/public_standard_pressure.json",
+          "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json"
+        ],
+        "expected_signal": "The route explains grounded refs, patterns, standards, work, events, and evidence.",
+        "inspect_refs": [
+          ".microcosm/explanations/readme_onboarding_route.json",
+          ".microcosm/evidence/"
+        ],
+        "minute_range": "2-4",
+        "step_id": "inspect_route_explanation"
+      },
+      {
+        "body_redacted": true,
+        "commands": [
+          "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765"
+        ],
+        "evidence_refs": [
+          "receipts/first_wave/observatory_legibility.json",
+          "tests/test_runtime_shell.py"
+        ],
+        "expected_signal": "The first screen shows a causal chain before raw JSON drilldown.",
+        "inspect_refs": [
+          "http://127.0.0.1:8765",
+          "/project/observatory"
+        ],
+        "minute_range": "4-6",
+        "step_id": "open_observatory"
+      },
+      {
+        "body_redacted": true,
+        "commands": [
+          "microcosm run examples/runtime_shell/demo_project",
+          "microcosm intake"
+        ],
+        "evidence_refs": [
+          "core/organ_registry.json",
+          "core/acceptance/first_wave_acceptance.json",
+          "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json"
+        ],
+        "expected_signal": "Accepted organs produce public receipts, a runtime trace, and an import/reveal bridge over ready projection cells.",
+        "inspect_refs": [
+          "receipts/runtime_shell/demo_project/demo_project_trace.json",
+          "receipts/runtime_shell/demo_project/organs/",
+          "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json"
+        ],
+        "minute_range": "6-8",
+        "step_id": "run_adapter_spine"
+      },
+      {
+        "body_redacted": true,
+        "commands": [
+          "microcosm evidence list",
+          "microcosm status"
+        ],
+        "evidence_refs": [
+          "core/private_state_forbidden_classes.json",
+          "receipts/preflight/fixture_runner_freshness.json"
+        ],
+        "expected_signal": "The reveal stays public-safe: receipts are evidence and release remains unauthorized.",
+        "inspect_refs": [
+          "receipts/",
+          "AGENTS.md",
+          "skills/cold_start_navigation.md"
+        ],
+        "minute_range": "8-10",
+        "step_id": "read_authority_boundary"
+      }
+    ],
+    "time_budget_minutes": 10
+  },
+  "schema_version": "public_reveal_walkthrough_exported_bundle_receipt_v1",
+  "status": "pass",
+  "step_count": 5,
+  "substrate_ref_count": 13,
+  "substrate_refs": [
+    ".microcosm/catalog.json",
+    ".microcosm/evidence/",
+    ".microcosm/explanations/readme_onboarding_route.json",
+    ".microcosm/patterns.json",
+    ".microcosm/routes.json",
+    "/project/observatory",
+    "AGENTS.md",
+    "http://127.0.0.1:8765",
+    "receipts/",
+    "receipts/runtime_shell/demo_project/demo_project_trace.json",
+    "receipts/runtime_shell/demo_project/organs/",
+    "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+    "skills/cold_start_navigation.md"
+  ],
+  "target_reader": "cold technical reader",
+  "time_budget_minutes": 10,
+  "validator_id": "validator.microcosm.organs.public_reveal_walkthrough",
+  "walkthrough_id": "microcosm_ten_minute_public_reveal"
+}

@@ -1,0 +1,159 @@
+{
+  "absent_corpus_ids": [
+    "leandojo",
+    "pantograph"
+  ],
+  "acceptance_status": "accepted_current_authority",
+  "accepted_organ_id": "corpus_readiness_mathlib_absence_gate",
+  "allowed_case_ids": [
+    "std_core_boolean_simp_allowed"
+  ],
+  "anti_claim": "Corpus readiness Mathlib absence gate validates public fixture metadata only. It does not run Lean or Lake, prove theorem correctness, claim Mathlib is available, expose proof bodies, benchmark formal-math corpora, call providers, or authorize release.",
+  "authority_boundary_retained": true,
+  "authority_ceiling": {
+    "authority_ceiling": "corpus_readiness_environment_metadata_only_not_mathlib_proof_or_benchmark_authority",
+    "benchmark_or_corpus_completeness_authority": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_dependent_proof_authority": false,
+    "mathlib_lake_project_import_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "blocked_capabilities": [
+    "lean_std_core:mathlib_lake_project_import",
+    "leandojo:corpus_absent",
+    "leandojo:mathlib_lake_project_import",
+    "minif2f_lean4_mathlib_translation:mathlib_lake_project_import",
+    "pantograph:corpus_absent",
+    "pantograph:mathlib_lake_project_import"
+  ],
+  "blocked_case_ids": [
+    "leandojo_training_blocked_absent",
+    "mathlib_search_blocked_until_probe",
+    "pantograph_state_search_blocked_absent"
+  ],
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
+  "consumer_case_count": 4,
+  "corpus_count": 4,
+  "created_at": "2026-05-21T13:19:57+00:00",
+  "error_codes": [
+    "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
+    "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
+    "CORPUS_READINESS_RELEASE_OVERCLAIM",
+    "MATHLIB_AVAILABILITY_OVERCLAIM",
+    "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN"
+  ],
+  "expected_negative_cases": [
+    "consumer_skips_readiness_gate",
+    "mathlib_available_without_probe",
+    "private_corpus_source_ref",
+    "proof_body_leakage",
+    "release_overclaim"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "MATHLIB_AVAILABILITY_OVERCLAIM",
+      "message": "Mathlib availability was claimed without a passing import probe.",
+      "negative_case_id": "mathlib_available_without_probe",
+      "subject_id": "minif2f_lean4_mathlib_translation",
+      "subject_kind": "corpus_readiness"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN",
+      "message": "Corpus readiness source refs must be public-safe metadata refs only.",
+      "negative_case_id": "private_corpus_source_ref",
+      "subject_id": "private/raw_seed.md",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN",
+      "message": "Corpus readiness source refs must be public-safe metadata refs only.",
+      "negative_case_id": "private_corpus_source_ref",
+      "subject_id": "operator_thread/prompt_payload.md",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
+      "message": "Corpus readiness metadata cannot carry proof or provider body fields.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "minif2f_lean4_mathlib_translation",
+      "subject_kind": "corpus_readiness"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
+      "message": "A consumer attempted Mathlib-dependent work without checking corpus readiness.",
+      "negative_case_id": "consumer_skips_readiness_gate",
+      "subject_id": "mathlib_search_without_gate",
+      "subject_kind": "consumer_gate"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "CORPUS_READINESS_RELEASE_OVERCLAIM",
+      "message": "Corpus readiness metadata attempted to authorize release or proof authority.",
+      "negative_case_id": "release_overclaim",
+      "subject_id": "formal_proof_authority,mathlib_dependent_proof_authority,publication_authorized,release_authorized",
+      "subject_kind": "authority_ceiling"
+    }
+  ],
+  "fixture_id": "first_wave.corpus_readiness_mathlib_absence_gate",
+  "input_mode": "first_wave_fixture",
+  "mathlib_lake_project_import_available": false,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "consumer_skips_readiness_gate": [
+      "CONSUMER_SKIPS_CORPUS_READINESS_GATE"
+    ],
+    "mathlib_available_without_probe": [
+      "MATHLIB_AVAILABILITY_OVERCLAIM"
+    ],
+    "private_corpus_source_ref": [
+      "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN"
+    ],
+    "proof_body_leakage": [
+      "CORPUS_READINESS_PROOF_BODY_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "CORPUS_READINESS_RELEASE_OVERCLAIM"
+    ]
+  },
+  "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 7,
+    "status": "pass"
+  },
+  "projection_status": "public_replacement_landed",
+  "receipt_id": "corpus_readiness_mathlib_absence_gate_fixture_acceptance_v1",
+  "receipt_paths": [
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
+    "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
+  ],
+  "schema_version": "corpus_readiness_mathlib_absence_gate_fixture_acceptance_v1",
+  "source_pattern_ids": [
+    "corpus_readiness_mathlib_absence_gate"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+  ],
+  "status": "pass",
+  "translation_smoke_only_ids": [
+    "minif2f_lean4_mathlib_translation"
+  ],
+  "validator_id": "validator.microcosm.organs.corpus_readiness_mathlib_absence_gate"
+}

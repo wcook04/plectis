@@ -1,0 +1,32 @@
+{
+  "schema_version": "cold_reader_route_policy_v1",
+  "required_route_ids": [
+    "compile_project",
+    "inspect_route",
+    "open_observatory",
+    "inspect_public_spine",
+    "open_import_bridge",
+    "open_reveal_board",
+    "inspect_cold_reader_route_map"
+  ],
+  "first_run_sequence": [
+    "compile_project",
+    "inspect_route",
+    "open_observatory",
+    "inspect_public_spine",
+    "open_import_bridge",
+    "open_reveal_board",
+    "inspect_cold_reader_route_map"
+  ],
+  "authority_ceiling": {
+    "route_registry_authority": false,
+    "source_mutation_authorized": false,
+    "release_authorized": false,
+    "provider_calls_authorized": false,
+    "private_data_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "trading_or_financial_advice_authorized": false
+  },
+  "private_source_bodies_exported": false,
+  "body_redacted": true
+}

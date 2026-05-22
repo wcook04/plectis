@@ -1,0 +1,48 @@
+{
+  "body_redacted": true,
+  "cleaned": [
+    "private memory bodies replaced by metadata refs",
+    "raw transcript body replaced by redacted evidence refs",
+    "live user memory claims replaced by synthetic fixture ids"
+  ],
+  "copied": [
+    "public pattern id and high-level replay shape only"
+  ],
+  "copied_private_memory_bodies": false,
+  "omitted": [
+    "private memory body",
+    "raw transcript body",
+    "provider payload",
+    "live user memory value",
+    "hidden trigger text"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
+    "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json"
+  ],
+  "protocol_id": "sleeper_memory_poisoning_quarantine_public_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/session_chain.json",
+    "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/quarantine_events.json",
+    "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/retrieval_replays.json",
+    "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/rollback_rerun.json"
+  ],
+  "reimplemented": [
+    "typed synthetic session chain",
+    "provenance-bound write proposal validator",
+    "retrieval influence gate validator",
+    "rollback plus cold-rerun receipt validator"
+  ],
+  "schema_version": "sleeper_memory_poisoning_projection_protocol_v1",
+  "source_pattern_ids": [
+    "sleeper_memory_poisoning_quarantine_replay_compound",
+    "agent_reliability_replay_gauntlet",
+    "agent_memory_temporal_conflict_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#L344",
+    "state/microcosm_portfolio/reconstruction/public_microcosm_seed_pattern_reconstruction.jsonl#sleeper_memory_poisoning_quarantine_replay_compound",
+    "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet",
+    "microcosm-substrate/receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
+  ]
+}

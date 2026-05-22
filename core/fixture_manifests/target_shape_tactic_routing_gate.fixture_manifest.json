@@ -1,0 +1,37 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::target_shape_tactic_routing_gate::first_wave_contract_v1",
+  "organ_id": "target_shape_tactic_routing_gate",
+  "purpose": "Validate public-safe target-shape tactic admissibility metadata without running Lean/Lake, calling providers, or exposing proof bodies.",
+  "inputs": [
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/tactic_portfolio_availability.json", "role": "synthetic public tactic probe portfolio"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json", "role": "synthetic target-shape route cases"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unavailable_tactic_admitted.json", "role": "negative case: unavailable tactic admitted"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unprobed_tactic_allowed.json", "role": "negative case: unprobed tactic admitted"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/proof_body_leakage.json", "role": "negative case: proof body leakage"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/post_execution_route.json", "role": "negative case: post-execution route selection"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/release_overclaim.json", "role": "negative case: release/proof/provider overclaim"}
+  ],
+  "validator": "microcosm_core.organs.target_shape_tactic_routing_gate",
+  "validator_command": "python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate",
+  "expected_receipts": [
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
+    "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
+  ],
+  "negative_case_ids": [
+    "unavailable_tactic_admitted",
+    "unprobed_tactic_allowed",
+    "proof_body_leakage",
+    "post_execution_route",
+    "release_overclaim"
+  ],
+  "authority_ceiling": {
+    "lean_lake_execution_authorized": false,
+    "formal_proof_authority": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "Target-shape tactic routing fixtures validate pre-execution admissibility metadata only; they do not prove goals, execute Lean/Lake, call providers, expose proof bodies, or authorize release."
+}

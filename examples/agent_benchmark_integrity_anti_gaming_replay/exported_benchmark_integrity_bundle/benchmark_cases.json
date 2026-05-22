@@ -1,0 +1,41 @@
+{
+  "benchmark_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_001",
+      "held_out_guard_ids": [
+        "guard_fail_to_pass_001",
+        "guard_pass_to_pass_001"
+      ],
+      "oracle_patch_hash": "sha256:oracle001-redacted",
+      "patch_hash": "sha256:patch001",
+      "split": "dev",
+      "task_hash": "sha256:task001"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_002",
+      "held_out_guard_ids": [
+        "guard_file_access_002",
+        "guard_hidden_gold_002"
+      ],
+      "oracle_patch_hash": "sha256:oracle002-redacted",
+      "patch_hash": "sha256:patch002",
+      "split": "test",
+      "task_hash": "sha256:task002"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_003",
+      "held_out_guard_ids": [
+        "guard_misleading_test_003",
+        "guard_attempt_log_003"
+      ],
+      "oracle_patch_hash": "sha256:oracle003-redacted",
+      "patch_hash": "sha256:patch003",
+      "split": "test",
+      "task_hash": "sha256:task003"
+    }
+  ],
+  "schema_version": "benchmark_cases_v1"
+}

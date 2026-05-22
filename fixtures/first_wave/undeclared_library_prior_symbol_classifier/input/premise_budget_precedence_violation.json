@@ -1,0 +1,15 @@
+{
+  "receipt_id": "neg.premise_budget_precedence_violation",
+  "expected_negative_case_id": "premise_budget_precedence_violation",
+  "proof_symbol_refs": [
+    "Nat.add_comm"
+  ],
+  "allowed_premise_ids": [
+    "premise.list.append_assoc"
+  ],
+  "cited_unallowed_premise_ids": [
+    "premise.nat.add_comm"
+  ],
+  "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
+  "review_outcome": "bridge_escalate"
+}

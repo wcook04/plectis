@@ -39,10 +39,37 @@ ACCEPTED_PUBLIC_ORGANS = [
     "executable_doctrine_grammar",
     "proof_diagnostic_evidence_spine",
     "formal_math_readiness_gate",
+    "corpus_readiness_mathlib_absence_gate",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "lean_std_premise_index",
+    "formal_math_premise_retrieval",
+    "formal_math_verifier_trace_repair_loop",
+    "formal_evidence_cell_anchor_resolver",
+    "undeclared_library_prior_symbol_classifier",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "agent_benchmark_integrity_anti_gaming_replay",
+    "provider_context_recipe_budget_policy",
+    "formal_math_lean_proof_witness",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
+    "durable_agent_work_landing_replay",
+    "research_replication_rubric_artifact_replay",
+    "world_model_projection_drift_control_room",
+    "spatial_world_model_counterfactual_simulation_replay",
+    "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime",
     "pattern_assimilation_step",
+    "public_reveal_walkthrough",
+    "macro_projection_import_protocol",
+    "prediction_oracle_reconciliation",
+    "standards_meta_diagnostics",
+    "cold_reader_route_map",
+    "agent_monitor_redteam_falsification_replay",
+    "agent_memory_temporal_conflict_replay",
+    "sleeper_memory_poisoning_quarantine_replay",
+    "mcp_tool_authority_replay",
 ]
 
 
@@ -103,7 +130,7 @@ def _acceptance_status(acceptance: dict[str, Any]) -> dict[str, Any]:
         "missing_accepted_organs": missing,
         "unexpected_accepted_organs": unexpected,
         "deferred_organs": deferred,
-        "lean_lake_authorized": bool(acceptance.get("lean_lake_authorized", False)),
+        "lean_lake_authorized": acceptance.get("lean_lake_authorized", False),
         "release_authorized": bool(acceptance.get("release_authorized", False)),
     }
 
@@ -208,15 +235,18 @@ def validate_standards_registry(
             "status": PASS,
             "registry_authority": "public_standards_index_and_acceptance_plan_only",
             "source_authority_above_macro_contracts": False,
-            "lean_lake_authorized": False,
+            "lean_lake_authorized": "bounded_public_witness_only",
+            "trading_or_financial_advice_authorized": False,
             "release_authorized": False,
             "private_data_equivalence_authorized": False,
         },
         "anti_claim": (
             "Standards-registry validation proves only public-safe standard file "
             "shape and first-wave acceptance-plan consistency; it does not "
-            "authorize Lean/Lake, release, hosted-public readiness, publication, "
-            "recipient work, provider calls, or private-data equivalence."
+            "authorize Lean/Lake beyond the bounded public witness fixture, "
+            "trading or financial advice, "
+            "release, hosted-public readiness, publication, recipient work, "
+            "provider calls, or private-data equivalence."
         ),
         "receipt_paths": receipt_paths,
     }

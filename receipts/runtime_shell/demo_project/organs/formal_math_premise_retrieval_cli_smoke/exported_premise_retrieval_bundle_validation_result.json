@@ -1,0 +1,138 @@
+{
+  "allowed_strategy_ids": [
+    "associativity_rewrite",
+    "boolean_normalization",
+    "commutativity_rewrite",
+    "iff_split",
+    "structural_list",
+    "unknown"
+  ],
+  "anti_claim": "Formal math premise retrieval validates a public synthetic Lean/Std premise index, term-scoring retrieval, context-budget recipes, and strategy gates. It does not run Lean or Lake, call providers, expose proof bodies or oracle premise ids, tune on test split truth, prove theorem correctness, authorize Mathlib-dependent proofs, or change the formal_math_lean_proof_witness boundary.",
+  "authority_ceiling": {
+    "authority_ceiling": "formal_math_retrieval_metadata_and_synthetic_eval_only",
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_presence_claim_authorized": false,
+    "oracle_premise_ids_allowed_in_public_inputs": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "test_split_tuning_authorized": false
+  },
+  "body_redacted": true,
+  "bundle_id": "formal_math_premise_retrieval_runtime_example",
+  "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run-retrieval-bundle --input examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval_cli_smoke",
+  "created_at": "2026-05-21T08:08:54+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.formal_math_premise_retrieval",
+  "input_mode": "exported_premise_retrieval_bundle",
+  "mean_synthetic_recall": 1.0,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "formal_math_premise_retrieval",
+  "premise_count": 8,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
+  "protocol_id": "formal_math_premise_retrieval_macro_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/retrieval_queries.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipes.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/strategy_cases.json"
+  ],
+  "query_count": 4,
+  "receipt_id": "exported_premise_retrieval_bundle_validation_result_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval_cli_smoke/exported_premise_retrieval_bundle_validation_result.json"
+  ],
+  "recipe_count": 3,
+  "retrievals": [
+    {
+      "body_redacted": true,
+      "expected_public_premise_count": 1,
+      "query_id": "q_bool_and_comm",
+      "recipe_id": "minimal_4kb",
+      "retrieved_premise_ids": [
+        "Bool.and_comm",
+        "Bool.or_comm"
+      ],
+      "split": "test",
+      "strategy_id": "boolean_normalization",
+      "synthetic_recall": 1.0,
+      "top_k": 2
+    },
+    {
+      "body_redacted": true,
+      "expected_public_premise_count": 1,
+      "query_id": "q_iff_forward",
+      "recipe_id": "minimal_4kb",
+      "retrieved_premise_ids": [
+        "Iff.mp",
+        "Bool.and_comm"
+      ],
+      "split": "test",
+      "strategy_id": "iff_split",
+      "synthetic_recall": 1.0,
+      "top_k": 2
+    },
+    {
+      "body_redacted": true,
+      "expected_public_premise_count": 1,
+      "query_id": "q_list_length_append",
+      "recipe_id": "skill_32kb",
+      "retrieved_premise_ids": [
+        "List.length_append",
+        "List.map_append",
+        "Bool.and_comm"
+      ],
+      "split": "dev",
+      "strategy_id": "structural_list",
+      "synthetic_recall": 1.0,
+      "top_k": 3
+    },
+    {
+      "body_redacted": true,
+      "expected_public_premise_count": 1,
+      "query_id": "q_nat_add_comm",
+      "recipe_id": "strategy_classification_4kb",
+      "retrieved_premise_ids": [
+        "Nat.add_comm",
+        "Nat.mul_comm",
+        "Nat.add_assoc"
+      ],
+      "split": "train",
+      "strategy_id": "commutativity_rewrite",
+      "synthetic_recall": 1.0,
+      "top_k": 3
+    }
+  ],
+  "schema_version": "exported_premise_retrieval_bundle_validation_result_v1",
+  "source_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "prover_premise_retrieval_term_scoring",
+    "provider_context_recipe_budget_policy",
+    "mathematical_strategy_atlas_hypothesis_scorer"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+  ],
+  "status": "pass",
+  "strategy_case_count": 4,
+  "validator_id": "validator.microcosm.organs.formal_math_premise_retrieval"
+}

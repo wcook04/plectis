@@ -1,0 +1,45 @@
+{
+  "allowed_tool_classes": [
+    "readonly_lookup",
+    "write_side_effect",
+    "untrusted_result"
+  ],
+  "approval_required_for_side_effect_classes": [
+    "write",
+    "external_mutation"
+  ],
+  "body_redacted": true,
+  "credential_export_authorized": false,
+  "live_mcp_account_access_authorized": false,
+  "policy_id": "mcp_tool_authority_public_policy",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "required_call_fields": [
+    "call_id",
+    "tool_id",
+    "tool_class",
+    "capability_scope_ref",
+    "call_arguments_hash",
+    "approval_token_ref",
+    "side_effect_class",
+    "result_source_capsule_ref",
+    "instruction_data_split_ref",
+    "ledger_diff_ref",
+    "rollback_receipt_ref",
+    "cold_replay_receipt_ref",
+    "live_account_access",
+    "body_redacted",
+    "private_ref_metadata_only",
+    "untrusted_output_as_instruction",
+    "credential_exported",
+    "final_answer_only_grading"
+  ],
+  "rollback_required_for_side_effect_classes": [
+    "write",
+    "external_mutation"
+  ],
+  "schema_version": "mcp_tool_authority_policy_v1",
+  "unapproved_side_effect_authorized": false,
+  "untrusted_result_instruction_boundary": "tool_output_is_data_not_instruction",
+  "untrusted_tool_output_instruction_authorized": false
+}

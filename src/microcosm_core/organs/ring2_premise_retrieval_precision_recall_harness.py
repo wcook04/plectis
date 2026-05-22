@@ -1,0 +1,716 @@
+from __future__ import annotations
+
+import argparse
+from collections import Counter, defaultdict
+from pathlib import Path
+from typing import Any
+
+from microcosm_core.private_state_scan import (
+    PASS,
+    load_forbidden_classes,
+    public_relative_path,
+    scan_paths,
+)
+from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.schemas import read_json_strict
+
+
+ORGAN_ID = "ring2_premise_retrieval_precision_recall_harness"
+FIXTURE_ID = "first_wave.ring2_premise_retrieval_precision_recall_harness"
+VALIDATOR_ID = "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness"
+
+RESULT_NAME = "ring2_precision_recall_result.json"
+BOARD_NAME = "ring2_precision_recall_board.json"
+VALIDATION_RECEIPT_NAME = "ring2_precision_recall_validation_receipt.json"
+ACCEPTANCE_RECEIPT_REL = (
+    "receipts/acceptance/first_wave/"
+    "ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
+)
+BUNDLE_RESULT_NAME = "exported_ring2_precision_recall_bundle_validation_result.json"
+
+SOURCE_PATTERN_IDS = ["ring2_premise_retrieval_precision_recall_harness"]
+SOURCE_REFS = [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+]
+
+INPUT_NAMES = (
+    "retrieval_runs.json",
+    "problem_labels.json",
+    "retrieval_rankings.json",
+    "evaluation_policy.json",
+)
+NEGATIVE_INPUT_NAMES = (
+    "oracle_labels_in_ranking.json",
+    "proof_body_leakage.json",
+    "test_split_tuning_attempt.json",
+    "metric_overclaim.json",
+    "missing_adversarial_decoy.json",
+)
+NEGATIVE_INPUT_STEMS = tuple(Path(name).stem for name in NEGATIVE_INPUT_NAMES)
+
+EXPECTED_NEGATIVE_CASES = {
+    "oracle_labels_in_ranking": ["RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING"],
+    "proof_body_leakage": ["RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN"],
+    "test_split_tuning_attempt": ["RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN"],
+    "metric_overclaim": ["RING2_RETRIEVAL_METRIC_OVERCLAIM"],
+    "missing_adversarial_decoy": ["RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED"],
+}
+
+FORBIDDEN_BODY_KEYS = (
+    "ground_truth_proof",
+    "ideal_body",
+    "oracle_needed_premise_ids",
+    "private_source_body",
+    "proof_body",
+    "provider_output_body",
+    "raw_provider_response",
+)
+
+OVERCLAIM_KEYS = (
+    "benchmark_performance_claimed",
+    "general_theorem_proving_success_claimed",
+    "lean_proof_authority_claimed",
+    "provider_output_authorized",
+    "release_authorized",
+)
+
+AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "ring2_retrieval_metrics_metadata_not_proof_or_benchmark_authority",
+    "after_the_fact_labels_allowed_for_metrics": True,
+    "labels_allowed_in_provider_context": False,
+    "proof_bodies_allowed": False,
+    "test_split_tuning_authorized": False,
+    "provider_calls_authorized": False,
+    "lean_lake_execution_authorized": False,
+    "formal_proof_authority": False,
+    "benchmark_performance_authority": False,
+    "release_authorized": False,
+}
+
+ANTI_CLAIM = (
+    "Ring-2 premise retrieval precision/recall evaluates synthetic public "
+    "retrieval rankings against after-the-fact labels. It separates retrieval "
+    "misses from proof failures despite premise hits, but it does not run Lean "
+    "or Lake, call providers, expose proof bodies, tune on test answers, claim "
+    "benchmark performance, prove theorem correctness, or authorize release."
+)
+
+
+def _public_root_for_path(path: str | Path) -> Path:
+    resolved = Path(path).resolve(strict=False)
+    start = resolved if resolved.is_dir() else resolved.parent
+    for candidate in (start, *start.parents):
+        if candidate.name == "microcosm-substrate":
+            return candidate
+    return Path.cwd().resolve(strict=False)
+
+
+def _display(path: Path, *, public_root: Path) -> str:
+    return public_relative_path(path, display_root=public_root)
+
+
+def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    rows = payload.get(key, [])
+    if not isinstance(rows, list):
+        return []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def _strings(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    return [input_dir / name for name in names]
+
+
+def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
+
+
+def _walk_dicts(value: object) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if isinstance(value, dict):
+        rows.append(value)
+        for child in value.values():
+            rows.extend(_walk_dicts(child))
+    elif isinstance(value, list):
+        for child in value:
+            rows.extend(_walk_dicts(child))
+    return rows
+
+
+def _forbidden_keys(row: dict[str, Any]) -> list[str]:
+    return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
+
+
+def _finding(
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return {
+        "error_code": code,
+        "message": message,
+        "negative_case_id": case_id,
+        "subject_id": subject_id,
+        "subject_kind": subject_kind,
+        "body_redacted": True,
+    }
+
+
+def _record(
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> None:
+    findings.append(
+        _finding(
+            code,
+            message,
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind=subject_kind,
+        )
+    )
+    observed[case_id].add(code)
+
+
+def _inspect_forbidden_bodies(
+    payload: object,
+    *,
+    case_id: str,
+    observed: dict[str, set[str]],
+    findings: list[dict[str, Any]],
+    subject_kind: str,
+) -> None:
+    for row in _walk_dicts(payload):
+        forbidden = _forbidden_keys(row)
+        if not forbidden:
+            continue
+        code = (
+            "RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING"
+            if "oracle_needed_premise_ids" in forbidden
+            else "RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN"
+        )
+        _record(
+            findings,
+            observed,
+            code,
+            "Ring-2 public retrieval fixtures may carry redacted labels and rankings, not proof bodies or oracle labels inside rankings.",
+            case_id=case_id,
+            subject_id=str(row.get("problem_id") or row.get("ranking_id") or "payload"),
+            subject_kind=subject_kind,
+        )
+
+
+def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    for stem in NEGATIVE_INPUT_STEMS:
+        payload = payloads.get(stem)
+        if not isinstance(payload, dict):
+            continue
+        case_id = str(payload.get("expected_negative_case_id") or stem)
+        if stem == "oracle_labels_in_ranking":
+            _inspect_forbidden_bodies(
+                payload,
+                case_id=case_id,
+                observed=observed,
+                findings=findings,
+                subject_kind="retrieval_ranking",
+            )
+        elif stem == "proof_body_leakage":
+            _inspect_forbidden_bodies(
+                payload,
+                case_id=case_id,
+                observed=observed,
+                findings=findings,
+                subject_kind="proof_body_leakage",
+            )
+        elif stem == "test_split_tuning_attempt":
+            for row in _walk_dicts(payload):
+                if row.get("uses_test_labels_for_tuning") is True:
+                    _record(
+                        findings,
+                        observed,
+                        "RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
+                        "Ring-2 labels may be used for after-the-fact metrics, not retrieval tuning.",
+                        case_id=case_id,
+                        subject_id=str(row.get("run_id") or row.get("problem_id") or "tuning"),
+                        subject_kind="test_split_tuning",
+                    )
+        elif stem == "metric_overclaim":
+            for row in _walk_dicts(payload):
+                overclaims = sorted(key for key in OVERCLAIM_KEYS if row.get(key) is True)
+                if overclaims:
+                    _record(
+                        findings,
+                        observed,
+                        "RING2_RETRIEVAL_METRIC_OVERCLAIM",
+                        "Ring-2 metrics cannot claim proof authority, benchmark performance, provider authority, or release readiness.",
+                        case_id=case_id,
+                        subject_id=",".join(overclaims),
+                        subject_kind="metric_claim",
+                    )
+        elif stem == "missing_adversarial_decoy":
+            policy = payload.get("evaluation_policy", payload)
+            if isinstance(policy, dict) and not policy.get("adversarial_decoy_case_id"):
+                _record(
+                    findings,
+                    observed,
+                    "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
+                    "Ring-2 retrieval quality fixtures must include an adversarial decoy/miss case.",
+                    case_id=case_id,
+                    subject_id=str(policy.get("policy_id") or "evaluation_policy"),
+                    subject_kind="evaluation_policy",
+                )
+    return {
+        "findings": findings,
+        "observed_negative_cases": {
+            key: sorted(value) for key, value in observed.items()
+        },
+    }
+
+
+def _labels_by_problem(payload: object) -> dict[str, dict[str, Any]]:
+    labels: dict[str, dict[str, Any]] = {}
+    for row in _rows(payload, "problems"):
+        problem_id = str(row.get("problem_id") or "")
+        if problem_id:
+            labels[problem_id] = row
+    return labels
+
+
+def _policy(payload: object) -> dict[str, Any]:
+    return payload if isinstance(payload, dict) else {}
+
+
+def _rankings(payload: object) -> list[dict[str, Any]]:
+    return _rows(payload, "rankings")
+
+
+def _evaluate(
+    *,
+    labels_payload: object,
+    rankings_payload: object,
+    policy_payload: object,
+) -> dict[str, Any]:
+    labels = _labels_by_problem(labels_payload)
+    policy = _policy(policy_payload)
+    rows: list[dict[str, Any]] = []
+    precision_scores: list[float] = []
+    recall_scores: list[float] = []
+    failure_modes: Counter[str] = Counter()
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+
+    default_top_k = int(policy.get("default_top_k") or 4)
+    for ranking in _rankings(rankings_payload):
+        problem_id = str(ranking.get("problem_id") or "")
+        label = labels.get(problem_id, {})
+        retrieved = _strings(ranking.get("retrieved_premise_ids"))[: int(ranking.get("top_k") or default_top_k)]
+        needed = _strings(label.get("needed_premise_ids"))
+        hits = sorted(set(retrieved) & set(needed))
+        precision = len(hits) / len(retrieved) if retrieved else 0.0
+        recall = len(hits) / len(needed) if needed else 0.0
+        precision_scores.append(precision)
+        recall_scores.append(recall)
+        proof_outcome = str(ranking.get("proof_outcome") or "not_run")
+        if recall >= 1.0 and proof_outcome == "pass":
+            failure_mode = "retrieval_hit"
+        elif recall >= 1.0:
+            failure_mode = "proof_failure_despite_hit"
+        elif hits:
+            failure_mode = "partial_retrieval_miss"
+        else:
+            failure_mode = "retrieval_miss"
+        failure_modes[failure_mode] += 1
+        rows.append(
+            {
+                "problem_id": problem_id,
+                "split": label.get("split"),
+                "ring": label.get("ring"),
+                "target_shape": label.get("target_shape"),
+                "top_k": len(retrieved),
+                "retrieved_premise_count": len(retrieved),
+                "needed_premise_count": len(needed),
+                "hit_count": len(hits),
+                "precision_at_k": round(precision, 4),
+                "recall_at_k": round(recall, 4),
+                "failure_mode": failure_mode,
+                "adversarial_decoy_expected": label.get("adversarial_decoy_expected") is True,
+                "needed_premise_ids_redacted": True,
+                "retrieved_premise_ids": retrieved,
+                "hit_premise_ids": hits,
+                "body_redacted": True,
+            }
+        )
+
+    required_modes = set(_strings(policy.get("expected_failure_modes")))
+    missing_modes = sorted(required_modes - set(failure_modes))
+    for missing in missing_modes:
+        findings.append(
+            _finding(
+                "RING2_RETRIEVAL_EXPECTED_FAILURE_MODE_MISSING",
+                "Ring-2 evaluation did not observe an expected retrieval/proof attribution mode.",
+                case_id="policy_floor",
+                subject_id=missing,
+                subject_kind="failure_mode",
+            )
+        )
+
+    adversarial_id = str(policy.get("adversarial_decoy_case_id") or "")
+    adversarial_row = next((row for row in rows if row["problem_id"] == adversarial_id), None)
+    adversarial_ok = bool(
+        adversarial_row
+        and adversarial_row["adversarial_decoy_expected"]
+        and adversarial_row["recall_at_k"] < 1.0
+    )
+    if not adversarial_ok:
+        findings.append(
+            _finding(
+                "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
+                "Ring-2 evaluation must include a decoy case whose needed premise is absent or missed.",
+                case_id="policy_floor",
+                subject_id=adversarial_id or "missing",
+                subject_kind="evaluation_policy",
+            )
+        )
+
+    minimum = int(policy.get("minimum_problem_count") or 1)
+    if len(rows) < minimum:
+        findings.append(
+            _finding(
+                "RING2_RETRIEVAL_PROBLEM_COUNT_TOO_LOW",
+                "Ring-2 evaluation must include the minimum public problem count.",
+                case_id="policy_floor",
+                subject_id=str(len(rows)),
+                subject_kind="evaluation_policy",
+            )
+        )
+
+    return {
+        "status": PASS if rows and not findings else "blocked",
+        "problem_count": len(rows),
+        "mean_precision_at_k": round(sum(precision_scores) / len(precision_scores), 4)
+        if precision_scores
+        else 0.0,
+        "mean_recall_at_k": round(sum(recall_scores) / len(recall_scores), 4)
+        if recall_scores
+        else 0.0,
+        "failure_mode_counts": dict(sorted(failure_modes.items())),
+        "missing_expected_failure_modes": missing_modes,
+        "adversarial_decoy_case_id": adversarial_id,
+        "adversarial_decoy_observed": adversarial_ok,
+        "evaluations": sorted(rows, key=lambda row: str(row["problem_id"])),
+        "findings": findings,
+        "observed_negative_cases": {
+            key: sorted(value) for key, value in observed.items()
+        },
+    }
+
+
+def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "ring2_precision_recall_board_v1",
+        "status": result["status"],
+        "organ_id": ORGAN_ID,
+        "selected_pattern_ids": SOURCE_PATTERN_IDS,
+        "input_mode": result["input_mode"],
+        "bundle_id": result.get("bundle_id"),
+        "public_contract": {
+            "after_the_fact_metric_labels_only": True,
+            "provider_context_label_leakage_forbidden": True,
+            "precision_and_recall_metered": True,
+            "retrieval_vs_proof_failure_attribution": True,
+            "adversarial_decoy_required": True,
+            "proof_bodies_forbidden": True,
+            "body_redacted": True,
+        },
+        "metrics": {
+            "problem_count": result["problem_count"],
+            "mean_precision_at_k": result["mean_precision_at_k"],
+            "mean_recall_at_k": result["mean_recall_at_k"],
+            "failure_mode_counts": result["failure_mode_counts"],
+            "adversarial_decoy_case_id": result["adversarial_decoy_case_id"],
+            "adversarial_decoy_observed": result["adversarial_decoy_observed"],
+        },
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "body_redacted": True,
+    }
+
+
+def _common_receipt(
+    result: dict[str, Any],
+    *,
+    schema_version: str,
+    receipt_paths: list[str],
+) -> dict[str, Any]:
+    keys = (
+        "status",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "input_mode",
+        "bundle_id",
+        "source_pattern_ids",
+        "source_refs",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "missing_negative_cases",
+        "error_codes",
+        "findings",
+        "private_state_scan",
+        "authority_ceiling",
+        "anti_claim",
+        "problem_count",
+        "mean_precision_at_k",
+        "mean_recall_at_k",
+        "failure_mode_counts",
+        "adversarial_decoy_case_id",
+        "adversarial_decoy_observed",
+        "evaluations",
+        "body_redacted",
+    )
+    payload = {
+        "schema_version": schema_version,
+        "receipt_id": schema_version,
+        "created_at": result["created_at"],
+        "receipt_paths": receipt_paths,
+    }
+    for key in keys:
+        payload[key] = result.get(key)
+    return payload
+
+
+def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
+    return [_display(path, public_root=public_root) for path in paths.values()]
+
+
+def _build_result(
+    input_dir: Path,
+    *,
+    command: str,
+    input_mode: str,
+    include_negative: bool,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
+    payloads = _load_payloads(input_dir, include_negative=include_negative)
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    private_scan = scan_paths(
+        _input_paths(input_dir, include_negative=include_negative),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    floor_findings: list[dict[str, Any]] = []
+    floor_observed: dict[str, set[str]] = defaultdict(set)
+    for stem in INPUT_NAMES:
+        _inspect_forbidden_bodies(
+            payloads[Path(stem).stem],
+            case_id="input_floor",
+            observed=floor_observed,
+            findings=floor_findings,
+            subject_kind=Path(stem).stem,
+        )
+
+    evaluation = _evaluate(
+        labels_payload=payloads["problem_labels"],
+        rankings_payload=payloads["retrieval_rankings"],
+        policy_payload=payloads["evaluation_policy"],
+    )
+    negative = (
+        _negative_findings(payloads)
+        if include_negative
+        else {"findings": [], "observed_negative_cases": {}}
+    )
+    observed = negative["observed_negative_cases"]
+    expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
+    missing = sorted(case_id for case_id in expected if case_id not in observed)
+    findings = [*floor_findings, *evaluation["findings"], *negative["findings"]]
+    error_codes = sorted({str(finding["error_code"]) for finding in findings})
+    bundle_manifest = (
+        read_json_strict(input_dir / "bundle_manifest.json")
+        if (input_dir / "bundle_manifest.json").is_file()
+        else {}
+    )
+    if not isinstance(bundle_manifest, dict):
+        bundle_manifest = {}
+    status = (
+        PASS
+        if not missing
+        and not floor_findings
+        and evaluation["status"] == PASS
+        and not private_scan["blocking_hit_count"]
+        else "blocked"
+    )
+    result = {
+        "schema_version": "ring2_precision_recall_result_v1",
+        "created_at": utc_now(),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command,
+        "input_mode": input_mode,
+        "bundle_id": bundle_manifest.get("bundle_id"),
+        "source_pattern_ids": SOURCE_PATTERN_IDS,
+        "source_refs": SOURCE_REFS,
+        "expected_negative_cases": expected,
+        "observed_negative_cases": observed,
+        "missing_negative_cases": missing,
+        "error_codes": error_codes,
+        "findings": findings,
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "problem_count": evaluation["problem_count"],
+        "mean_precision_at_k": evaluation["mean_precision_at_k"],
+        "mean_recall_at_k": evaluation["mean_recall_at_k"],
+        "failure_mode_counts": evaluation["failure_mode_counts"],
+        "adversarial_decoy_case_id": evaluation["adversarial_decoy_case_id"],
+        "adversarial_decoy_observed": evaluation["adversarial_decoy_observed"],
+        "evaluations": evaluation["evaluations"],
+        "body_redacted": True,
+    }
+    result["ring2_precision_recall_board"] = _build_board(
+        result=result,
+        private_scan=private_scan,
+    )
+    return result
+
+
+def _write_receipts(
+    result: dict[str, Any],
+    out_dir: Path,
+    *,
+    acceptance_out: Path | None,
+    bundle_mode: bool,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if bundle_mode:
+        bundle_path = out_dir / BUNDLE_RESULT_NAME
+        receipt = _common_receipt(
+            result,
+            schema_version="exported_ring2_precision_recall_bundle_validation_result_v1",
+            receipt_paths=[_display(bundle_path, public_root=public_root)],
+        )
+        write_json_atomic(bundle_path, receipt)
+        result["receipt_paths"] = receipt["receipt_paths"]
+        return result
+
+    paths = {
+        "result": out_dir / RESULT_NAME,
+        "board": out_dir / BOARD_NAME,
+        "validation": out_dir / VALIDATION_RECEIPT_NAME,
+    }
+    acceptance_path = (
+        acceptance_out
+        if acceptance_out is not None
+        else public_root / ACCEPTANCE_RECEIPT_REL
+    )
+    receipt_paths = _relative_receipt_paths(paths, public_root)
+    result_payload = dict(result)
+    result_payload.pop("ring2_precision_recall_board", None)
+    result_payload["receipt_paths"] = receipt_paths
+    board_payload = result["ring2_precision_recall_board"]
+    board_payload["receipt_paths"] = receipt_paths
+    validation_payload = _common_receipt(
+        result,
+        schema_version="ring2_precision_recall_validation_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    acceptance_payload = _common_receipt(
+        result,
+        schema_version="ring2_precision_recall_fixture_acceptance_v1",
+        receipt_paths=[_display(acceptance_path, public_root=public_root)],
+    )
+    write_json_atomic(paths["result"], result_payload)
+    write_json_atomic(paths["board"], board_payload)
+    write_json_atomic(paths["validation"], validation_payload)
+    acceptance_path.parent.mkdir(parents=True, exist_ok=True)
+    write_json_atomic(acceptance_path, acceptance_payload)
+    result["receipt_paths"] = [*receipt_paths, _display(acceptance_path, public_root=public_root)]
+    return result
+
+
+def run(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    *,
+    acceptance_out: str | Path | None = None,
+    command: str = "run",
+) -> dict[str, Any]:
+    result = _build_result(
+        Path(input_dir),
+        command=command,
+        input_mode="fixture_input",
+        include_negative=True,
+    )
+    return _write_receipts(
+        result,
+        Path(out_dir),
+        acceptance_out=Path(acceptance_out) if acceptance_out is not None else None,
+        bundle_mode=False,
+    )
+
+
+def run_precision_recall_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str = "run-precision-recall-bundle",
+) -> dict[str, Any]:
+    result = _build_result(
+        Path(input_dir),
+        command=command,
+        input_mode="exported_ring2_precision_recall_bundle",
+        include_negative=False,
+    )
+    return _write_receipts(
+        result,
+        Path(out_dir),
+        acceptance_out=None,
+        bundle_mode=True,
+    )
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog=f"microcosm organ {ORGAN_ID}")
+    parser.add_argument("action", choices=["run", "run-precision-recall-bundle"])
+    parser.add_argument("--input", required=True)
+    parser.add_argument("--out", required=True)
+    args = parser.parse_args(argv)
+    if args.action == "run":
+        result = run(args.input, args.out, command=args.action)
+    else:
+        result = run_precision_recall_bundle(args.input, args.out, command=args.action)
+    print(f"{ORGAN_ID}: {result['status']} -> {args.out}")
+    return 0 if result["status"] == PASS else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

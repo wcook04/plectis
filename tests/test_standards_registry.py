@@ -45,12 +45,47 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     )
 
     assert receipt["status"] == "pass"
-    assert receipt["standard_count"] == 51
-    assert receipt["checked_standard_count"] == 51
+    assert receipt["standard_count"] == 80
+    assert receipt["checked_standard_count"] == 80
+    assert "std_microcosm_corpus_readiness_mathlib_absence_gate" in receipt["checked_standard_ids"]
+    assert "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer" in receipt["checked_standard_ids"]
+    assert "std_microcosm_target_shape_tactic_routing_gate" in receipt["checked_standard_ids"]
+    assert "std_microcosm_lean_std_premise_index" in receipt["checked_standard_ids"]
+    assert "std_microcosm_formal_math_verifier_trace_repair_loop" in receipt["checked_standard_ids"]
+    assert "std_microcosm_formal_evidence_cell_anchor_resolver" in receipt["checked_standard_ids"]
+    assert (
+        "std_microcosm_undeclared_library_prior_symbol_classifier"
+        in receipt["checked_standard_ids"]
+    )
+    assert (
+        "std_microcosm_ring2_premise_retrieval_precision_recall_harness"
+        in receipt["checked_standard_ids"]
+    )
+    assert "std_microcosm_agent_benchmark_integrity_anti_gaming_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_agent_monitor_redteam_falsification_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_agent_memory_temporal_conflict_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_sleeper_memory_poisoning_quarantine_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_mcp_tool_authority_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_durable_agent_work_landing_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_research_replication_rubric_artifact_replay" in receipt["checked_standard_ids"]
+    assert "std_microcosm_world_model_projection_drift_control_room" in receipt["checked_standard_ids"]
+    assert (
+        "std_microcosm_spatial_world_model_counterfactual_simulation_replay"
+        in receipt["checked_standard_ids"]
+    )
+    assert (
+        "std_microcosm_mechanistic_interpretability_circuit_attribution_replay"
+        in receipt["checked_standard_ids"]
+    )
+    assert "std_microcosm_tactic_portfolio_availability_probe" in receipt["checked_standard_ids"]
+    assert "std_microcosm_standards_meta_diagnostics" in receipt["checked_standard_ids"]
+    assert "std_microcosm_cold_reader_route_map" in receipt["checked_standard_ids"]
+    assert "std_microcosm_provider_context_recipe_budget_policy" in receipt["checked_standard_ids"]
+    assert "std_microcosm_observatory_legibility" in receipt["checked_standard_ids"]
     assert receipt["duplicate_standard_ids"] == []
     assert receipt["missing_standard_files"] == []
     assert receipt["missing_required_fields_by_standard"] == {}
-    assert receipt["acceptance_status"]["lean_lake_authorized"] is False
+    assert receipt["acceptance_status"]["lean_lake_authorized"] == "bounded_public_witness_only"
     assert receipt["acceptance_status"]["release_authorized"] is False
     assert receipt["private_state_scan"]["blocking_hit_count"] == 0
     assert receipt["private_state_scan"]["body_redacted"] is True

@@ -1,0 +1,516 @@
+{
+  "anti_claim": "Mechanistic interpretability circuit-attribution replay validates synthetic, body-redacted attribution metadata: toy prompt refs, sparse feature ids, machine-readable graph edges, replacement-model approximation scores, causal inhibition and injection deltas, sufficiency and faithfulness limits, contradiction cases, and cold replay refs. It does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, private model internals, benchmark scores, or release authority.",
+  "attribution_replays": [
+    {
+      "attribution_graph_ref": "graphs/circuit_attribution_graph_01.json",
+      "body_redacted": true,
+      "causal_inhibition_delta_ref": "interventions/inhibition_delta_01.json",
+      "causal_injection_delta_ref": "interventions/injection_delta_01.json",
+      "causal_intervention_receipt_ref": "interventions/causal_receipt_01.json",
+      "cold_replay_ref": "cold_replays/cold_replay_01.json",
+      "contradiction_case_ref": "contradictions/contradiction_case_01.json",
+      "faithfulness_claim": true,
+      "faithfulness_label": "bounded_proxy_not_model_truth",
+      "faithfulness_limit_ref": "limits/faithfulness_limit_01.json",
+      "feature_visualization_summary_refs": [
+        "feature_visualizations/feat_public_001.summary.json",
+        "feature_visualizations/feat_public_002.summary.json"
+      ],
+      "graph_edges": [
+        {
+          "evidence_ref": "edges/01_a.json",
+          "source": "feat_public_001",
+          "target": "feat_public_002",
+          "weight": 0.45
+        },
+        {
+          "evidence_ref": "edges/01_b.json",
+          "source": "feat_public_002",
+          "target": "feat_public_003",
+          "weight": 0.23
+        }
+      ],
+      "graph_nodes": [
+        {
+          "node_id": "feat_public_001",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_002",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_003",
+          "node_kind": "synthetic_error_node"
+        }
+      ],
+      "graph_screenshot_only": false,
+      "hidden_chain_of_thought_exported": false,
+      "machine_readable_edges_present": true,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false,
+      "replacement_model_approximation_score": 0.69,
+      "replay_id": "circuit_attribution_replay_01",
+      "sparse_feature_ids": [
+        "feat_public_001",
+        "feat_public_002"
+      ],
+      "sufficiency_label": "sufficient_for_fixture_replay",
+      "toy_prompt_ref": "toy_prompts/circuit_prompt_01.json",
+      "transparency_claim": true,
+      "uninterpretable_error_node_budget": 2,
+      "unverifiable_feature_name_claim": false
+    },
+    {
+      "attribution_graph_ref": "graphs/circuit_attribution_graph_02.json",
+      "body_redacted": true,
+      "causal_inhibition_delta_ref": "interventions/inhibition_delta_02.json",
+      "causal_injection_delta_ref": "interventions/injection_delta_02.json",
+      "causal_intervention_receipt_ref": "interventions/causal_receipt_02.json",
+      "cold_replay_ref": "cold_replays/cold_replay_02.json",
+      "contradiction_case_ref": "contradictions/contradiction_case_02.json",
+      "faithfulness_claim": true,
+      "faithfulness_label": "bounded_proxy_not_model_truth",
+      "faithfulness_limit_ref": "limits/faithfulness_limit_02.json",
+      "feature_visualization_summary_refs": [
+        "feature_visualizations/feat_public_002.summary.json",
+        "feature_visualizations/feat_public_003.summary.json"
+      ],
+      "graph_edges": [
+        {
+          "evidence_ref": "edges/02_a.json",
+          "source": "feat_public_002",
+          "target": "feat_public_003",
+          "weight": 0.48
+        },
+        {
+          "evidence_ref": "edges/02_b.json",
+          "source": "feat_public_003",
+          "target": "feat_public_004",
+          "weight": 0.25
+        }
+      ],
+      "graph_nodes": [
+        {
+          "node_id": "feat_public_002",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_003",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_004",
+          "node_kind": "synthetic_error_node"
+        }
+      ],
+      "graph_screenshot_only": false,
+      "hidden_chain_of_thought_exported": false,
+      "machine_readable_edges_present": true,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false,
+      "replacement_model_approximation_score": 0.72,
+      "replay_id": "circuit_attribution_replay_02",
+      "sparse_feature_ids": [
+        "feat_public_002",
+        "feat_public_003"
+      ],
+      "sufficiency_label": "sufficient_for_fixture_replay",
+      "toy_prompt_ref": "toy_prompts/circuit_prompt_02.json",
+      "transparency_claim": true,
+      "uninterpretable_error_node_budget": 2,
+      "unverifiable_feature_name_claim": false
+    },
+    {
+      "attribution_graph_ref": "graphs/circuit_attribution_graph_03.json",
+      "body_redacted": true,
+      "causal_inhibition_delta_ref": "interventions/inhibition_delta_03.json",
+      "causal_injection_delta_ref": "interventions/injection_delta_03.json",
+      "causal_intervention_receipt_ref": "interventions/causal_receipt_03.json",
+      "cold_replay_ref": "cold_replays/cold_replay_03.json",
+      "contradiction_case_ref": "contradictions/contradiction_case_03.json",
+      "faithfulness_claim": true,
+      "faithfulness_label": "bounded_proxy_not_model_truth",
+      "faithfulness_limit_ref": "limits/faithfulness_limit_03.json",
+      "feature_visualization_summary_refs": [
+        "feature_visualizations/feat_public_003.summary.json",
+        "feature_visualizations/feat_public_004.summary.json"
+      ],
+      "graph_edges": [
+        {
+          "evidence_ref": "edges/03_a.json",
+          "source": "feat_public_003",
+          "target": "feat_public_004",
+          "weight": 0.51
+        },
+        {
+          "evidence_ref": "edges/03_b.json",
+          "source": "feat_public_004",
+          "target": "feat_public_005",
+          "weight": 0.27
+        }
+      ],
+      "graph_nodes": [
+        {
+          "node_id": "feat_public_003",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_004",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_005",
+          "node_kind": "synthetic_error_node"
+        }
+      ],
+      "graph_screenshot_only": false,
+      "hidden_chain_of_thought_exported": false,
+      "machine_readable_edges_present": true,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false,
+      "replacement_model_approximation_score": 0.75,
+      "replay_id": "circuit_attribution_replay_03",
+      "sparse_feature_ids": [
+        "feat_public_003",
+        "feat_public_004"
+      ],
+      "sufficiency_label": "sufficient_for_fixture_replay",
+      "toy_prompt_ref": "toy_prompts/circuit_prompt_03.json",
+      "transparency_claim": true,
+      "uninterpretable_error_node_budget": 2,
+      "unverifiable_feature_name_claim": false
+    },
+    {
+      "attribution_graph_ref": "graphs/circuit_attribution_graph_04.json",
+      "body_redacted": true,
+      "causal_inhibition_delta_ref": "interventions/inhibition_delta_04.json",
+      "causal_injection_delta_ref": "interventions/injection_delta_04.json",
+      "causal_intervention_receipt_ref": "interventions/causal_receipt_04.json",
+      "cold_replay_ref": "cold_replays/cold_replay_04.json",
+      "contradiction_case_ref": "contradictions/contradiction_case_04.json",
+      "faithfulness_claim": true,
+      "faithfulness_label": "bounded_proxy_not_model_truth",
+      "faithfulness_limit_ref": "limits/faithfulness_limit_04.json",
+      "feature_visualization_summary_refs": [
+        "feature_visualizations/feat_public_004.summary.json",
+        "feature_visualizations/feat_public_005.summary.json"
+      ],
+      "graph_edges": [
+        {
+          "evidence_ref": "edges/04_a.json",
+          "source": "feat_public_004",
+          "target": "feat_public_005",
+          "weight": 0.54
+        },
+        {
+          "evidence_ref": "edges/04_b.json",
+          "source": "feat_public_005",
+          "target": "feat_public_006",
+          "weight": 0.29
+        }
+      ],
+      "graph_nodes": [
+        {
+          "node_id": "feat_public_004",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_005",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_006",
+          "node_kind": "synthetic_error_node"
+        }
+      ],
+      "graph_screenshot_only": false,
+      "hidden_chain_of_thought_exported": false,
+      "machine_readable_edges_present": true,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false,
+      "replacement_model_approximation_score": 0.78,
+      "replay_id": "circuit_attribution_replay_04",
+      "sparse_feature_ids": [
+        "feat_public_004",
+        "feat_public_005"
+      ],
+      "sufficiency_label": "sufficient_for_fixture_replay",
+      "toy_prompt_ref": "toy_prompts/circuit_prompt_04.json",
+      "transparency_claim": true,
+      "uninterpretable_error_node_budget": 2,
+      "unverifiable_feature_name_claim": false
+    },
+    {
+      "attribution_graph_ref": "graphs/circuit_attribution_graph_05.json",
+      "body_redacted": true,
+      "causal_inhibition_delta_ref": "interventions/inhibition_delta_05.json",
+      "causal_injection_delta_ref": "interventions/injection_delta_05.json",
+      "causal_intervention_receipt_ref": "interventions/causal_receipt_05.json",
+      "cold_replay_ref": "cold_replays/cold_replay_05.json",
+      "contradiction_case_ref": "contradictions/contradiction_case_05.json",
+      "faithfulness_claim": true,
+      "faithfulness_label": "bounded_proxy_not_model_truth",
+      "faithfulness_limit_ref": "limits/faithfulness_limit_05.json",
+      "feature_visualization_summary_refs": [
+        "feature_visualizations/feat_public_005.summary.json",
+        "feature_visualizations/feat_public_006.summary.json"
+      ],
+      "graph_edges": [
+        {
+          "evidence_ref": "edges/05_a.json",
+          "source": "feat_public_005",
+          "target": "feat_public_006",
+          "weight": 0.57
+        },
+        {
+          "evidence_ref": "edges/05_b.json",
+          "source": "feat_public_006",
+          "target": "feat_public_001",
+          "weight": 0.31
+        }
+      ],
+      "graph_nodes": [
+        {
+          "node_id": "feat_public_005",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_006",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_001",
+          "node_kind": "synthetic_error_node"
+        }
+      ],
+      "graph_screenshot_only": false,
+      "hidden_chain_of_thought_exported": false,
+      "machine_readable_edges_present": true,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false,
+      "replacement_model_approximation_score": 0.81,
+      "replay_id": "circuit_attribution_replay_05",
+      "sparse_feature_ids": [
+        "feat_public_005",
+        "feat_public_006"
+      ],
+      "sufficiency_label": "sufficient_for_fixture_replay",
+      "toy_prompt_ref": "toy_prompts/circuit_prompt_05.json",
+      "transparency_claim": true,
+      "uninterpretable_error_node_budget": 2,
+      "unverifiable_feature_name_claim": false
+    },
+    {
+      "attribution_graph_ref": "graphs/circuit_attribution_graph_06.json",
+      "body_redacted": true,
+      "causal_inhibition_delta_ref": "interventions/inhibition_delta_06.json",
+      "causal_injection_delta_ref": "interventions/injection_delta_06.json",
+      "causal_intervention_receipt_ref": "interventions/causal_receipt_06.json",
+      "cold_replay_ref": "cold_replays/cold_replay_06.json",
+      "contradiction_case_ref": "contradictions/contradiction_case_06.json",
+      "faithfulness_claim": true,
+      "faithfulness_label": "bounded_proxy_not_model_truth",
+      "faithfulness_limit_ref": "limits/faithfulness_limit_06.json",
+      "feature_visualization_summary_refs": [
+        "feature_visualizations/feat_public_006.summary.json",
+        "feature_visualizations/feat_public_001.summary.json"
+      ],
+      "graph_edges": [
+        {
+          "evidence_ref": "edges/06_a.json",
+          "source": "feat_public_006",
+          "target": "feat_public_001",
+          "weight": 0.6
+        },
+        {
+          "evidence_ref": "edges/06_b.json",
+          "source": "feat_public_001",
+          "target": "feat_public_002",
+          "weight": 0.33
+        }
+      ],
+      "graph_nodes": [
+        {
+          "node_id": "feat_public_006",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_001",
+          "node_kind": "sparse_feature"
+        },
+        {
+          "node_id": "feat_public_002",
+          "node_kind": "synthetic_error_node"
+        }
+      ],
+      "graph_screenshot_only": false,
+      "hidden_chain_of_thought_exported": false,
+      "machine_readable_edges_present": true,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false,
+      "replacement_model_approximation_score": 0.84,
+      "replay_id": "circuit_attribution_replay_06",
+      "sparse_feature_ids": [
+        "feat_public_006",
+        "feat_public_001"
+      ],
+      "sufficiency_label": "sufficient_for_fixture_replay",
+      "toy_prompt_ref": "toy_prompts/circuit_prompt_06.json",
+      "transparency_claim": true,
+      "uninterpretable_error_node_budget": 2,
+      "unverifiable_feature_name_claim": false
+    }
+  ],
+  "attribution_summary": {
+    "attribution_edge_count": 12,
+    "causal_intervention_count": 6,
+    "cold_replay_count": 6,
+    "contradiction_case_count": 6,
+    "feature_count": 6,
+    "hidden_chain_of_thought_export_count": 0,
+    "private_weight_export_count": 0,
+    "proprietary_prompt_export_count": 0,
+    "raw_activation_dump_export_count": 0,
+    "replay_count": 6,
+    "transparency_claim_count": 6
+  },
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_circuit_attribution_metadata_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_chain_of_thought_export_authorized": false,
+    "hosted_public_authorized": false,
+    "live_model_access_authorized": false,
+    "metadata_projection_only": true,
+    "model_transparency_product_claim_authorized": false,
+    "private_model_internals_claim_authorized": false,
+    "private_model_weights_export_authorized": false,
+    "proprietary_prompt_export_authorized": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "raw_activation_dump_export_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "body_redacted": true,
+  "command": "microcosm circuit-attribution",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "features": [
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_001",
+      "private_model_weights_exported": false,
+      "public_label": "loop-control hinge feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_001.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_002",
+      "private_model_weights_exported": false,
+      "public_label": "route-choice pressure feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_002.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_003",
+      "private_model_weights_exported": false,
+      "public_label": "evidence-gap feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_003.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_004",
+      "private_model_weights_exported": false,
+      "public_label": "contradiction detector feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_004.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_005",
+      "private_model_weights_exported": false,
+      "public_label": "sufficiency check feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_005.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_006",
+      "private_model_weights_exported": false,
+      "public_label": "cold-replay stabilization feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_006.json"
+    }
+  ],
+  "finding_count": 0,
+  "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
+  "input_mode": "exported_circuit_attribution_bundle",
+  "input_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
+  "negative_case_findings": [],
+  "negative_case_summary": {
+    "expected_missing": {},
+    "expected_negative_case_count": 0,
+    "observed_codes": {},
+    "observed_negative_case_count": 0
+  },
+  "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "positive_findings": [],
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
+  ],
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "hidden_chain_of_thought_omitted": true,
+    "metadata_only": true,
+    "private_model_weights_omitted": true,
+    "proprietary_prompt_bodies_omitted": true,
+    "provider_payloads_omitted": true,
+    "raw_activation_dumps_omitted": true
+  },
+  "schema_version": "exported_circuit_attribution_bundle_validation_result_v1",
+  "selected_pattern_ids": [
+    "circuit_attribution_replay_01",
+    "circuit_attribution_replay_02",
+    "circuit_attribution_replay_03",
+    "circuit_attribution_replay_04",
+    "circuit_attribution_replay_05",
+    "circuit_attribution_replay_06"
+  ],
+  "selected_route_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "formal_math_context_recipe_negative_fixture_v1",
+  "recipes": [
+    {
+      "recipe_id": "unsafe_128kb",
+      "byte_budget": 131072,
+      "deliverable_type": "proof_body_generation",
+      "sections": ["statement", "oracle_needed_premises", "proof_body"],
+      "proof_bodies_allowed": true,
+      "provider_calls_authorized": true,
+      "expected_negative_case_id": "context_recipe_budget_overflow"
+    }
+  ]
+}

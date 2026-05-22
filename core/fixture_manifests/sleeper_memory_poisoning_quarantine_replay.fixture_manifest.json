@@ -1,0 +1,94 @@
+{
+  "anti_claim": "This fixture validates public synthetic sleeper-memory poisoning quarantine boundaries only; it does not claim live memory product quality, expose private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
+  "authority_ceiling": "synthetic sleeper-memory poisoning quarantine replay receipts only; no private memory body, raw transcript, live user memory, untrusted trusted-promotion, provider, source-mutation, benchmark-security, or release authority",
+  "expected_negative_cases": [
+    "private_memory_body_export",
+    "live_user_memory_claim",
+    "raw_transcript_export",
+    "memory_write_without_provenance",
+    "trusted_promotion_from_untrusted_context",
+    "deletion_without_audit",
+    "final_answer_only_grading",
+    "unmetered_poison_influence"
+  ],
+  "fixture_id": "fixture::sleeper_memory_poisoning_quarantine_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_result.json",
+    "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_board.json",
+    "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with copy/reimplement/clean/omit receipts"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/memory_policy.json",
+      "role": "sleeper-memory trust tiers, quarantine verdicts, and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/session_chain.json",
+      "role": "positive four-session chain from poisoned source to rollback rerun"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/quarantine_events.json",
+      "role": "positive provenance-bound write proposals and sleeper-poisoning quarantine"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/retrieval_replays.json",
+      "role": "positive later retrieval replay blocked before action"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/rollback_rerun.json",
+      "role": "positive rollback audit and cold rerun absence proof"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/private_memory_body_export.json",
+      "role": "negative case: private_memory_body_export"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/live_user_memory_claim.json",
+      "role": "negative case: live_user_memory_claim"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/raw_transcript_export.json",
+      "role": "negative case: raw_transcript_export"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/memory_write_without_provenance.json",
+      "role": "negative case: memory_write_without_provenance"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/trusted_promotion_from_untrusted_context.json",
+      "role": "negative case: trusted_promotion_from_untrusted_context"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/deletion_without_audit.json",
+      "role": "negative case: deletion_without_audit"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/final_answer_only_grading.json",
+      "role": "negative case: final_answer_only_grading"
+    },
+    {
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/unmetered_poison_influence.json",
+      "role": "negative case: unmetered_poison_influence"
+    }
+  ],
+  "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "SLEEPER_MEMORY_PRIVATE_BODY_EXPORT",
+    "SLEEPER_MEMORY_LIVE_USER_MEMORY_CLAIM",
+    "SLEEPER_MEMORY_RAW_TRANSCRIPT_EXPORT",
+    "SLEEPER_MEMORY_WRITE_WITHOUT_PROVENANCE",
+    "SLEEPER_MEMORY_TRUSTED_PROMOTION_FORBIDDEN",
+    "SLEEPER_MEMORY_DELETION_WITHOUT_AUDIT",
+    "SLEEPER_MEMORY_FINAL_ANSWER_ONLY_GRADING",
+    "SLEEPER_MEMORY_UNMETERED_POISON_INFLUENCE"
+  ],
+  "title": "Sleeper memory poisoning quarantine replay fixture",
+  "validator": "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay",
+  "validator_command": "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay"
+}

@@ -1,0 +1,164 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_formal_math_premise_retrieval",
+  "kind_id": "formal_math_premise_retrieval",
+  "kind_name": "Formal math premise retrieval",
+  "status": "draft",
+  "first_wave_required": true,
+  "wave": "w1_formal_math_retrieval",
+  "authority_boundary": "public_synthetic_formal_math_retrieval_not_proof_authority",
+  "source_refs": [
+    {
+      "path": "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json",
+      "field": "projection_protocol",
+      "role": "public_fixture_source"
+    },
+    {
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
+      "field": "runtime_example",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#formal_math_premise_retrieval",
+    "used_by_organs": ["formal_math_premise_retrieval"],
+    "source_pattern_id_sample": [
+      "lean_std_toolchain_premise_index",
+      "prover_premise_retrieval_term_scoring",
+      "provider_context_recipe_budget_policy",
+      "mathematical_strategy_atlas_hypothesis_scorer"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "premises",
+    "queries",
+    "recipes",
+    "allowed_strategy_ids",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require macro projection protocol refs and public replacement refs",
+    "score premise retrieval by public terms and split eligibility only",
+    "reject proof bodies and provider payload bodies in premise rows",
+    "reject oracle-needed premise ids in public query rows",
+    "reject test split tuning attempts",
+    "enforce context recipe byte budgets",
+    "reject strategy ids outside the public allowed set",
+    "emit private-state scan and redacted receipts"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.formal_math_premise_retrieval",
+    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, synthetic retrieval metrics, negative-case coverage, private-state scan, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.formal_math_premise_retrieval",
+    "minimum_checks": [
+      "projection_protocol_floor",
+      "premise_index_metadata_only",
+      "term_scoring_retrieval",
+      "context_recipe_budget",
+      "strategy_id_gate",
+      "oracle_leak_rejection",
+      "test_split_tuning_rejection",
+      "negative_case_coverage"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.formal_math_premise_retrieval",
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "source_refs",
+      "projection_receipt_refs",
+      "public_replacement_refs",
+      "premise_count",
+      "query_count",
+      "mean_synthetic_recall",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_metadata_fixture_receipt_only",
+    "allowed_public_inputs": [
+      "premise ids",
+      "namespaces",
+      "retrieval terms",
+      "split eligibility",
+      "public synthetic expected premise ids",
+      "context recipe byte budgets",
+      "strategy ids",
+      "projection receipt refs"
+    ],
+    "forbidden_public_inputs": [
+      "proof bodies",
+      "oracle-needed premise ids",
+      "provider payload bodies",
+      "private run logs",
+      "credentials",
+      "test split tuning truth"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "retrieval_metadata_fixture_receipt_schema_only",
+    "formal_proof_authority": false,
+    "lean_lake_authority": false,
+    "provider_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs public synthetic formal-math retrieval metadata only; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
+  "standard_payload": {
+    "ontology": "A public-safe Lean/Std premise retrieval tranche: premise metadata, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
+    "teleology": "Make Microcosm capable of demonstrating a real formal-math retrieval mechanism while preserving the proof-witness boundary.",
+    "anti_purpose": "Turning synthetic retrieval scores into theorem-proof authority.",
+    "compression_bands": ["protocol", "index", "query", "board", "receipt"],
+    "failure_modes": [
+      "premise row leaks proof body",
+      "query leaks oracle premise ids",
+      "test split truth tunes retrieval",
+      "context recipe exceeds budget",
+      "unknown strategy bypasses gate"
+    ],
+    "rebuild_action": "draft"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json"
+  ],
+  "validator_refs": [
+    "microcosm_core.organs.formal_math_premise_retrieval"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "formal_math_premise_retrieval"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "proof bodies",
+      "oracle-needed premise ids",
+      "provider payload bodies",
+      "private run logs",
+      "Lean/Lake execution receipts"
+    ],
+    "reason": "public tranche carries retrieval metadata and synthetic fixture evidence only",
+    "drilldown": "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "formal retrieval material must state that retrieval is not proof authority"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  }
+}

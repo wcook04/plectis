@@ -1,0 +1,166 @@
+{
+  "anti_claim": "The work-landing replay lens is a metadata-only public read-model. It does not mutate Git, stage unrelated dirty paths, authorize broad checkpointing without the operator, export private source bodies, prove a commit landed, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "broad_checkpoint_authorized": false,
+    "hosted_public_authorized": false,
+    "live_git_mutation_authorized": false,
+    "metadata_replay_only": true,
+    "private_source_bodies_exported": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "unrelated_dirty_paths_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm landing-replay",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/landing-replay",
+  "evidence_refs": [
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json",
+    "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+    "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+    "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+    "wie_20260521T195941Z_cf83fa74"
+  ],
+  "input_refs": {
+    "checkpoint_lane_decision": "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+    "closeout_status_projection": "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+    "dependency_blocked": "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+    "scoped_mutation_receipt": "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "work_landing_attempt": "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "work_landing_reconcile_plan": "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+  },
+  "landing_replay_ref": "receipts/runtime_shell/public_work_landing_replay_lens.json",
+  "lane_decision_table": [
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "scoped_commit",
+      "release_authorized": false,
+      "replay_command": "scoped_commit.py full-paths --expected-parent <head> --path <owned-path>...",
+      "requires": [
+        "owned path claims",
+        "owner-native validation",
+        "clean staged index",
+        "HEAD compare-and-swap"
+      ],
+      "role": "default durable landing lane when owned paths are isolated",
+      "stages_unrelated_dirty_paths": false
+    },
+    {
+      "allowed_without_operator_authorization": false,
+      "lane_id": "broad_checkpoint",
+      "release_authorized": false,
+      "replay_command": "./checkpoint \"<operator-authorized message>\"",
+      "requires": [
+        "explicit operator authorization",
+        "quick safety checks",
+        "private-root trust envelope"
+      ],
+      "role": "bankruptcy lane for explicit operator save-everything requests",
+      "stages_unrelated_dirty_paths": "only_after_operator_authorization"
+    },
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "metadata_blocked_patch_bundle",
+      "release_authorized": false,
+      "replay_command": "rerun scoped_commit.py when Git metadata authority is restored",
+      "requires": [
+        "validation transcript",
+        "Task Ledger blocker capture",
+        "Work Ledger progress or append-exempt finalizer",
+        "seed reentry update"
+      ],
+      "role": "validated recovery lane when worktree writes pass but Git metadata writes fail",
+      "stages_unrelated_dirty_paths": false
+    },
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "hard_stop",
+      "release_authorized": false,
+      "replay_command": "do not stage or commit until blocker is resolved",
+      "requires": [
+        "stop mutation",
+        "capture blocker",
+        "preserve unrelated user changes"
+      ],
+      "role": "required when secrets, destructive deletion, identity corruption, or private leakage appear",
+      "stages_unrelated_dirty_paths": false
+    }
+  ],
+  "lens_id": "public_work_landing_replay_lens",
+  "negative_case_ids": [
+    "broad_checkpoint_without_operator_authorization",
+    "commit_claim_without_head_advance",
+    "unrelated_dirty_paths_staged_by_scoped_lane",
+    "blocker_reported_without_task_ledger_capture",
+    "validation_omitted_before_closeout",
+    "private_source_body_exported",
+    "release_claim_from_local_receipt"
+  ],
+  "organ_family": "work_spine",
+  "public_claim": "Microcosm exposes a public work-landing replay lens: dirty-tree work lands through owned-path claims, validation, scoped commit attempts, blocker capture, and ledger finalizers without staging unrelated dirt or claiming release.",
+  "release_authorized": false,
+  "replay_events": [
+    {
+      "event_id": "claim_owned_paths",
+      "public_evidence_ref": "tools/meta/factory/work_ledger.py session-preflight",
+      "source_body_exported": false,
+      "status": "required_before_mutation"
+    },
+    {
+      "event_id": "validate_owner_native",
+      "public_evidence_ref": "microcosm focused tests and validators",
+      "source_body_exported": false,
+      "status": "required_before_closeout"
+    },
+    {
+      "event_id": "git_metadata_blocker_capture",
+      "public_evidence_ref": "wie_20260521T195941Z_cf83fa74",
+      "source_body_exported": false,
+      "status": "public_safe_blocker_ref_available"
+    },
+    {
+      "event_id": "append_exempt_or_progress_finalizer",
+      "public_evidence_ref": "codex_microcosm_wave_032",
+      "source_body_exported": false,
+      "status": "required_when_commit_does_not_land"
+    }
+  ],
+  "replay_policy": {
+    "ambient_dirty_tree_is_not_a_freeze_reason": true,
+    "broad_checkpoint_requires_explicit_operator_authorization": true,
+    "metadata_blocker_requires_task_ledger_capture": true,
+    "owned_paths_must_be_claimed": true,
+    "scoped_commit_requires_head_advance_before_landed_language": true,
+    "unrelated_user_changes_are_not_reverted": true,
+    "work_ledger_progress_or_append_exempt_closeout_required": true
+  },
+  "replay_summary": {
+    "git_metadata_blocker_ref": "wie_20260521T195941Z_cf83fa74",
+    "head_advance_required_for_landed_commit_claim": true,
+    "lane_count": 4,
+    "operator_authorized_lane_count": 1,
+    "unrelated_dirty_stage_authority_count": 0,
+    "work_ledger_session_ref": "codex_microcosm_wave_032"
+  },
+  "safe_to_show": {
+    "body_redacted": true,
+    "git_error_payloads_omitted": true,
+    "private_paths_omitted": true,
+    "receipt_refs_only": true,
+    "source_bodies_omitted": true
+  },
+  "schema_version": "microcosm_public_work_landing_replay_lens_v1",
+  "selected_pattern_id": "durable_agent_work_landing_replay_compound",
+  "source_statuses": {
+    "checkpoint_lane_decision": "pass",
+    "closeout_status_projection": "pass",
+    "dependency_blocked": "pass",
+    "scoped_mutation_receipt": "pass",
+    "work_landing_attempt": "pass",
+    "work_landing_reconcile_plan": "pass"
+  },
+  "status": "pass"
+}

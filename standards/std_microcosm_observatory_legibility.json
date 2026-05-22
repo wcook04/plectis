@@ -1,0 +1,170 @@
+{
+  "anti_claim": "This standard governs local observatory legibility only. It does not authorize release, hosting, publication, provider calls, source mutation, private-data equivalence, or whole-system correctness.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Observatory surfaces must state that browser legibility is not release authority."
+  },
+  "anti_claims": [
+    "The observatory bridge is not a hosted public site.",
+    "The observatory bridge does not import private macro source bodies.",
+    "The observatory bridge does not turn receipts into proof of whole-system correctness."
+  ],
+  "authority_boundary": "local_browser_read_model_not_publication_or_source_authority",
+  "authority_ceiling": {
+    "hosting_authority": false,
+    "private_data_equivalence_authority": false,
+    "provider_call_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "local_observatory_schema_and_validator_expectation_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "observatory_legibility",
+  "kind_name": "Observatory legibility",
+  "omission_receipt": {
+    "drilldown": "receipts/first_wave/observatory_legibility.json",
+    "omitted": [
+      "private macro source bodies",
+      "operator thread content",
+      "provider payload bodies",
+      "release or recipient material",
+      "absolute local filesystem paths"
+    ],
+    "reason": "The observatory carries public-root refs, local project state refs, command endpoints, and redacted receipt handles."
+  },
+  "omission_receipt_contract": {
+    "required": true,
+    "rule": "Observatory receipts must confirm private paths and private bodies are absent."
+  },
+  "paper_module_contract": {
+    "module_slug": "public_reveal_walkthrough",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "project-local .microcosm state refs",
+      "public-root command names",
+      "localhost endpoint refs",
+      "receipt refs",
+      "redacted authority ceilings",
+      "projection status counts"
+    ],
+    "default_posture": "public_safe_when_local_and_receipt_backed",
+    "forbidden_public_inputs": [
+      "live_raw_seed",
+      "prompt_shelf_bodies",
+      "provider_payload_bodies",
+      "operator_thread_content",
+      "recipient_or_publication_surfaces",
+      "private_data_equivalence_claims",
+      "absolute_private_paths"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "selected_route_id",
+      "html_assertions",
+      "model_assertions",
+      "causal_chain_proof",
+      "runtime_bridge_proof",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.observatory_legibility",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.observatory_legibility",
+    "receipt must cite causal-chain sections, spine/intake/reveal endpoint visibility, projection status counts, open actionable intake cells, private-state scan, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/observatory_legibility.json"
+  ],
+  "relationships": {
+    "canonical_runtime_surface_ref": "src/microcosm_core/runtime_shell.py#RuntimeShell._observatory_html",
+    "source_pattern_id_count": 2,
+    "source_pattern_id_sample": [
+      "cold_start_agent_skills_pack",
+      "workingness_record"
+    ],
+    "used_by_organs": [
+      "public_reveal_walkthrough",
+      "macro_projection_import_protocol"
+    ]
+  },
+  "required_fields": [
+    "schema_version",
+    "status",
+    "runtime_bridge",
+    "causal_chain",
+    "json_drilldowns",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "Observatory endpoint refs must stay localhost-relative, and evidence refs must stay public-root relative."
+  },
+  "source_refs": [
+    {
+      "field": "src/microcosm_core/runtime_shell.py",
+      "path": "src/microcosm_core/runtime_shell.py",
+      "role": "runtime_surface"
+    },
+    {
+      "field": "src/microcosm_core/validators/observatory_legibility.py",
+      "path": "src/microcosm_core/validators/observatory_legibility.py",
+      "role": "validator_surface"
+    },
+    {
+      "field": "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+      "path": "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+      "role": "runtime_intake_bridge_receipt"
+    }
+  ],
+  "standard_id": "std_microcosm_observatory_legibility",
+  "standard_payload": {
+    "anti_purpose": "A raw JSON browser dump or marketing page that hides the causal chain.",
+    "compression_bands": [
+      "card",
+      "html",
+      "receipt"
+    ],
+    "failure_modes": [
+      "browser entry requires private Atlas knowledge",
+      "observatory hides spine/intake/reveal behind raw JSON",
+      "observatory claims hosted-public or release readiness",
+      "observatory omits projection status counts or evidence refs",
+      "observatory leaks absolute private paths"
+    ],
+    "ontology": "A local browser read model over project substrate, runtime intake status, reveal board, and evidence refs.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm legible to a cold technical reader through a browser in under ten minutes."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require causal-chain HTML before raw JSON",
+    "require spine, intake, reveal, and evidence endpoint visibility",
+    "require projection status counts and zero open actionable cells when the intake protocol reports closure",
+    "reject release, hosting, publication, provider, private-equivalence, and source-mutation overclaims",
+    "require private-state scan and redacted receipts"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "causal_chain_html",
+      "runtime_bridge_endpoint_visibility",
+      "projection_status_count_visibility",
+      "authority_ceiling",
+      "private_state_absence"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.validators.observatory_legibility"
+  },
+  "validator_refs": [
+    "microcosm_core.validators.observatory_legibility"
+  ],
+  "wave": "w1_public_reveal_legibility"
+}

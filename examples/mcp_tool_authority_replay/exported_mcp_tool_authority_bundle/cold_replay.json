@@ -1,0 +1,38 @@
+{
+  "cold_replays": [
+    {
+      "body_redacted": true,
+      "call_id": "call_docs_lookup_001",
+      "evidence_refs": [
+        "tool_manifest:tool_docs_lookup",
+        "tool_calls:call_docs_lookup_001"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_replay_docs_lookup_001",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "call_id": "call_ticket_update_001",
+      "evidence_refs": [
+        "tool_manifest:tool_ticket_update",
+        "side_effect_ledger:side_effect_ticket_update_001"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_replay_ticket_update_001",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "call_id": "call_untrusted_web_result_001",
+      "evidence_refs": [
+        "tool_manifest:tool_web_result",
+        "tool_results:result_untrusted_web_001"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_replay_untrusted_web_result_001",
+      "status": "pass"
+    }
+  ],
+  "schema_version": "mcp_tool_cold_replay_fixture_v1"
+}

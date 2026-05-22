@@ -1,0 +1,45 @@
+{
+  "schema_version": "formal_evidence_cell_registry_fixture_v1",
+  "registry_id": "toy_formal_evidence_cells_public_registry",
+  "evidence_cells": [
+    {
+      "cell_id": "cell.lean_decl_count.public_fixture",
+      "source_anchor_refs": [
+        "paper_modules/formal_math_lean_proof_witness.md::bounded_witness_receipt",
+        "receipts/runtime_shell/public_formal_evidence_cell_lens.json::lean_decl_projection"
+      ],
+      "machine_anchor_class": "bounded_public_lean_witness_metadata",
+      "allowed_claim_strengths": [
+        "formal_evidence_cell_present",
+        "machine_anchor_metadata_present"
+      ],
+      "public_status": "public_fixture_anchor_only"
+    },
+    {
+      "cell_id": "cell.verifier_trace.redacted",
+      "source_anchor_refs": [
+        "paper_modules/formal_math_verifier_trace_repair_loop.md::trace_grade_boundary",
+        "receipts/runtime_shell/public_verifier_trace_repair_lens.json::redacted_trace"
+      ],
+      "machine_anchor_class": "redacted_verifier_trace_receipt",
+      "allowed_claim_strengths": [
+        "formal_evidence_cell_present",
+        "repair_trace_metadata_present"
+      ],
+      "public_status": "public_fixture_anchor_only"
+    },
+    {
+      "cell_id": "cell.claim_boundary.policy",
+      "source_anchor_refs": [
+        "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json::claim_boundary_policy",
+        "core/preflight_support/fixture_negative_case_matrix_v1.json::formal_evidence_cell_anchor_resolver_negative_cases"
+      ],
+      "machine_anchor_class": "claim_boundary_policy_receipt",
+      "allowed_claim_strengths": [
+        "claim_boundary_policy_present",
+        "formal_evidence_cell_present"
+      ],
+      "public_status": "public_fixture_anchor_only"
+    }
+  ]
+}

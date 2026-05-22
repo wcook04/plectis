@@ -10,7 +10,7 @@
   },
   "blocking_codes": [],
   "checker_id": "checker.microcosm.validators.transaction_evidence_stability",
-  "command": "python -m microcosm_core.validators.transaction_evidence_stability --root . --project microcosm-observatory-legibility-scratch --out receipts/first_wave/transaction_evidence_stability.json",
+  "command": "pytest wave059 stable scratch",
   "consistency_summary": {
     "events_are_append_only": true,
     "events_reference_existing_evidence": true,
@@ -23,7 +23,7 @@
     "source_mutation_default": false,
     "work_event_evidence_refs_resolve": true
   },
-  "event_count": 10,
+  "event_count": 9,
   "evidence_count": 7,
   "findings": [],
   "pattern_count": 7,
@@ -35,7 +35,7 @@
     "scanned_path_count": 17,
     "status": "pass"
   },
-  "project_ref": "microcosm-observatory-legibility-scratch",
+  "project_ref": "microcosm-wave059-stability-project",
   "public_boundary_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -45,7 +45,7 @@
     "status": "pass"
   },
   "receipt_paths": [
-    "receipts/first_wave/transaction_evidence_stability.json"
+    "microcosm-substrate/receipts/first_wave/transaction_evidence_stability.json"
   ],
   "route_count": 4,
   "schema_version": "transaction_evidence_stability_receipt_v1",

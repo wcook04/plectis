@@ -1,11 +1,215 @@
 {
-  "schema_version": "public_preflight_support_fixture_negative_case_matrix_v1",
   "authority_boundary": "public_safe_support_snapshot_for_clean_clone_tests_not_macro_source_authority",
   "negative_cases": [
     {
+      "anti_claim": "Negative-case authority remains with public fixture manifests and generated receipts.",
       "case_id": "public_runtime_spine_negative_cases_covered_by_fixture_manifests",
-      "status": "support_snapshot_only",
-      "anti_claim": "Negative-case authority remains with public fixture manifests and generated receipts."
+      "status": "support_snapshot_only"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "formal_math_verifier_trace_repair_loop_negative_cases",
+      "expected_negative_cases": [
+        "attempt_with_proof_body",
+        "attempt_with_oracle_ids",
+        "trace_grade_without_trace",
+        "repair_without_verifier_class",
+        "promotion_without_cold_rerun",
+        "provider_payload_leakage",
+        "human_approval_as_proof"
+      ],
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "formal_evidence_cell_anchor_resolver_negative_cases",
+      "expected_negative_cases": [
+        "unknown_cell_overclaim",
+        "missing_source_anchor",
+        "proof_language_without_cell",
+        "private_source_ref_leakage",
+        "proof_body_leakage",
+        "theorem_correctness_overclaim",
+        "human_approval_as_evidence_cell"
+      ],
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "undeclared_library_prior_symbol_classifier_negative_cases",
+      "expected_negative_cases": [
+        "proof_body_leakage",
+        "private_source_ref_leakage",
+        "missing_escalation_for_undeclared_symbol",
+        "premise_budget_precedence_violation",
+        "allowed_symbol_false_positive",
+        "unqualified_symbol_overclaim",
+        "theorem_correctness_overclaim"
+      ],
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "agent_benchmark_integrity_anti_gaming_replay_negative_cases",
+      "expected_negative_cases": [
+        "evaluator_edit_attempt",
+        "final_answer_only_grading",
+        "hidden_gold_access",
+        "misleading_test_admitted",
+        "oracle_patch_body_leakage",
+        "pass_k_cherry_picking",
+        "private_issue_body_leakage",
+        "provider_payload_leakage",
+        "score_overclaim",
+        "train_test_leakage"
+      ],
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "durable_agent_work_landing_replay_negative_cases",
+      "expected_negative_cases": [
+        "claim_without_work_ledger_closeout",
+        "commit_claim_without_head_change",
+        "dirty_tree_boundary_missing",
+        "live_git_mutation_authorized",
+        "missing_evidence_ref",
+        "private_path_leakage",
+        "release_overclaim",
+        "uncaptured_blocker"
+      ],
+      "organ_id": "durable_agent_work_landing_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "research_replication_rubric_artifact_replay_negative_cases",
+      "expected_negative_cases": [
+        "benchmark_performance_claim",
+        "final_answer_only_grading",
+        "hidden_rubric_leakage",
+        "original_author_code_reuse_forbidden",
+        "private_paper_body_leakage",
+        "report_only_success",
+        "unbounded_compute_search"
+      ],
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "world_model_projection_drift_control_room_negative_cases",
+      "expected_negative_cases": [
+        "drift_row_without_source_ref",
+        "repair_route_without_validation_ref",
+        "projection_claiming_source_authority",
+        "live_repair_action_authorized",
+        "private_runtime_data_export",
+        "provider_payload_export",
+        "automatic_doctrine_promotion",
+        "release_from_drift_projection"
+      ],
+      "organ_id": "world_model_projection_drift_control_room",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "spatial_world_model_counterfactual_simulation_replay_negative_cases",
+      "expected_negative_cases": [
+        "private_video_export",
+        "real_world_location_claim",
+        "live_robot_or_av_operation",
+        "raw_sensor_data_export",
+        "simulator_product_claim",
+        "generated_video_only_authority",
+        "geographic_accuracy_claim",
+        "benchmark_score_without_state_diff"
+      ],
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "mechanistic_interpretability_circuit_attribution_replay_negative_cases",
+      "expected_negative_cases": [
+        "private_model_weights_export",
+        "raw_activation_dump",
+        "proprietary_prompt_export",
+        "hidden_chain_of_thought_export",
+        "unverifiable_feature_name",
+        "graph_screenshot_without_edges",
+        "transparency_claim_without_intervention",
+        "faithfulness_claim_without_sufficiency_limit"
+      ],
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "agent_monitor_redteam_falsification_replay_negative_cases",
+      "expected_negative_cases": [
+        "private_chain_of_thought_leakage",
+        "internal_code_export",
+        "exploit_instruction_material",
+        "credential_material",
+        "live_agent_traffic",
+        "monitor_product_performance_claim",
+        "coverage_without_adversarial_probe"
+      ],
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "agent_memory_temporal_conflict_replay_negative_cases",
+      "expected_negative_cases": [
+        "raw_transcript_export",
+        "private_candidate_auto_promotion",
+        "stale_preference_override",
+        "memory_as_source_authority",
+        "vector_recall_without_evidence_handle",
+        "final_answer_only_memory_credit",
+        "active_injection_as_authoritative"
+      ],
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "sleeper_memory_poisoning_quarantine_replay_negative_cases",
+      "expected_negative_cases": [
+        "private_memory_body_export",
+        "live_user_memory_claim",
+        "raw_transcript_export",
+        "memory_write_without_provenance",
+        "trusted_promotion_from_untrusted_context",
+        "deletion_without_audit",
+        "final_answer_only_grading",
+        "unmetered_poison_influence"
+      ],
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "mcp_tool_authority_replay_negative_cases",
+      "expected_negative_cases": [
+        "overbroad_scope",
+        "hidden_credential_export",
+        "tool_output_as_instruction",
+        "unapproved_side_effect",
+        "live_account_access",
+        "final_answer_only_grading",
+        "missing_rollback_receipt",
+        "unredacted_tool_payload"
+      ],
+      "organ_id": "mcp_tool_authority_replay",
+      "status": "covered_by_fixture_manifest"
     }
-  ]
+  ],
+  "schema_version": "public_preflight_support_fixture_negative_case_matrix_v1"
 }

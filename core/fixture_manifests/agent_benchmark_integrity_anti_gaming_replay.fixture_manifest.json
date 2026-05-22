@@ -1,0 +1,98 @@
+{
+  "anti_claim": "This fixture validates public synthetic benchmark integrity boundaries only; it does not claim a benchmark score, expose private issue/oracle bodies, run providers, mutate live repos, or authorize release.",
+  "authority_ceiling": "synthetic benchmark-integrity replay receipts only; no private bodies, hidden gold, provider calls, benchmark scores, live repo mutation, or release",
+  "expected_negative_cases": [
+    "evaluator_edit_attempt",
+    "final_answer_only_grading",
+    "hidden_gold_access",
+    "misleading_test_admitted",
+    "oracle_patch_body_leakage",
+    "pass_k_cherry_picking",
+    "private_issue_body_leakage",
+    "provider_payload_leakage",
+    "score_overclaim",
+    "train_test_leakage"
+  ],
+  "fixture_id": "fixture::agent_benchmark_integrity_anti_gaming_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with omission receipts"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/locked_evaluator_policy.json",
+      "role": "locked evaluator, required replay fields, and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/benchmark_cases.json",
+      "role": "public synthetic benchmark cases with hashes and held-out guards"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json",
+      "role": "positive replay observations with contamination and scoring refs"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/evaluator_edit_attempt.json",
+      "role": "negative case: evaluator edit attempt"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/train_test_leakage.json",
+      "role": "negative case: train test leakage"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/oracle_patch_body_leakage.json",
+      "role": "negative case: oracle patch body leakage"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/hidden_gold_access.json",
+      "role": "negative case: hidden gold access"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/final_answer_only_grading.json",
+      "role": "negative case: final answer only grading"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/provider_payload_leakage.json",
+      "role": "negative case: provider payload leakage"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/score_overclaim.json",
+      "role": "negative case: score overclaim"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/pass_k_cherry_picking.json",
+      "role": "negative case: pass k cherry picking"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/misleading_test_admitted.json",
+      "role": "negative case: misleading test admitted"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/private_issue_body_leakage.json",
+      "role": "negative case: private issue body leakage"
+    }
+  ],
+  "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
+    "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS",
+    "BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED",
+    "BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING",
+    "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
+    "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"
+  ],
+  "title": "Agent benchmark integrity anti-gaming replay fixture",
+  "validator": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
+  "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
+}

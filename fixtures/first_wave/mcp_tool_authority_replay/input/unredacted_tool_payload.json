@@ -1,0 +1,26 @@
+{
+  "schema_version": "mcp_tool_authority_negative_case_v1",
+  "tool_calls": [
+    {
+      "approval_token_ref": "not_required",
+      "body_redacted": false,
+      "call_arguments_hash": "sha256:docs_lookup_public_hash_001",
+      "call_id": "negative_unredacted_tool_payload",
+      "capability_scope_ref": "scope/docs_lookup_readonly",
+      "cold_replay_receipt_ref": "receipts/cold_replay/docs_lookup_001.json",
+      "credential_exported": false,
+      "expected_negative_case_id": "unredacted_tool_payload",
+      "final_answer_only_grading": false,
+      "instruction_data_split_ref": "split/docs_lookup_instruction_data_v1",
+      "ledger_diff_ref": "none",
+      "live_account_access": false,
+      "private_ref_metadata_only": false,
+      "result_source_capsule_ref": "source/public_docs_capsule_001",
+      "rollback_receipt_ref": "none",
+      "side_effect_class": "none",
+      "tool_class": "readonly_lookup",
+      "tool_id": "tool_docs_lookup",
+      "untrusted_output_as_instruction": false
+    }
+  ]
+}

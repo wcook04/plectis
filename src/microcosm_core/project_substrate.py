@@ -47,6 +47,7 @@ SCRIPT_NAMES = {"Makefile", "justfile", "Taskfile.yml", "taskfile.yml"}
 README_NAMES = {"README.md", "README.rst", "README.txt", "README"}
 SOURCE_SUFFIXES = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".swift"}
 DOC_SUFFIXES = {".md", ".rst", ".txt"}
+PYTHON_LENS_STATE = "python_lens.json"
 
 
 def _project_name(project: Path) -> str:
@@ -216,6 +217,7 @@ def _write_manifest(project: Path) -> dict[str, Any]:
                 f"{STATE_DIR}/state_index.json",
                 f"{STATE_DIR}/graph.json",
                 f"{STATE_DIR}/catalog.json",
+                f"{STATE_DIR}/{PYTHON_LENS_STATE}",
                 f"{STATE_DIR}/patterns.json",
                 f"{STATE_DIR}/routes.json",
                 f"{STATE_DIR}/work_items.json",
@@ -443,6 +445,218 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
     )
     _append_event(project, event)
     payload["evidence_ref"] = _write_evidence(project, "routes", {**payload, "event_id": event["event_id"]})
+    return payload
+
+
+def _read_text_prefix(path: Path, limit: int = 20000) -> str:
+    try:
+        return path.read_text(encoding="utf-8", errors="ignore")[:limit]
+    except OSError:
+        return ""
+
+
+def _python_lens_role(row: dict[str, Any]) -> str:
+    rel = str(row.get("path") or "")
+    path = Path(rel)
+    parts = set(path.parts)
+    name = path.name
+    if name == "__init__.py":
+        return "package_init"
+    if name == "conftest.py":
+        return "test_support"
+    if "tests" in parts or name.startswith("test_") or name.endswith("_test.py"):
+        return "test_module"
+    if "examples" in parts:
+        return "example_module"
+    if "scripts" in parts or "bin" in parts:
+        return "script"
+    if "src" in parts:
+        return "source_module"
+    return "python_module"
+
+
+def _python_package_root(rel: str) -> str | None:
+    parts = Path(rel).parts
+    if len(parts) >= 3 and parts[0] == "src" and parts[-1] == "__init__.py":
+        return f"src/{parts[1]}"
+    if len(parts) >= 2 and parts[-1] == "__init__.py":
+        return parts[0]
+    return None
+
+
+def _python_route(route_id: str, title: str, refs: list[str], readiness: str) -> dict[str, Any]:
+    return {
+        "route_id": route_id,
+        "title": title,
+        "readiness": readiness,
+        "grounded_refs": refs[:12],
+        "source_mutation_authorized": False,
+        "provider_calls_authorized": False,
+        "authority": "project_local_python_route_lens_not_static_analysis_authority",
+    }
+
+
+def python_lens(project_path: str | Path) -> dict[str, Any]:
+    """Project Python route/readiness signals without exposing source bodies."""
+    project = Path(project_path).expanduser().resolve(strict=False)
+    catalog = catalog_project(project)
+    roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
+    files = catalog.get("files", []) if isinstance(catalog.get("files"), list) else []
+    python_files = [
+        row
+        for row in files
+        if isinstance(row, dict) and str(row.get("suffix") or "") == ".py"
+    ]
+    path_rows: list[dict[str, Any]] = []
+    for row in python_files:
+        rel = str(row.get("path") or "")
+        text = _read_text_prefix(project / rel)
+        path_rows.append(
+            {
+                "path": rel,
+                "catalog_role": row.get("role"),
+                "python_role": _python_lens_role(row),
+                "bytes": row.get("bytes", 0),
+                "has_main_guard": "__main__" in text and "__name__" in text,
+                "relative_import_count": sum(
+                    1 for line in text.splitlines() if line.strip().startswith("from .")
+                ),
+                "absolute_import_count": sum(
+                    1
+                    for line in text.splitlines()
+                    if line.strip().startswith("import ") or line.strip().startswith("from ")
+                ),
+                "body_redacted": True,
+            }
+        )
+    package_refs = roles.get("package_manifest", [])
+    pyproject_refs = (
+        [str(path) for path in package_refs if str(path).endswith("pyproject.toml")]
+        if isinstance(package_refs, list)
+        else []
+    )
+    source_refs = [str(row["path"]) for row in path_rows if row["python_role"] == "source_module"]
+    test_refs = [
+        str(row["path"])
+        for row in path_rows
+        if row["python_role"] in {"test_module", "test_support"}
+    ]
+    entrypoint_refs = [str(row["path"]) for row in path_rows if row["has_main_guard"]]
+    package_roots = sorted(
+        {
+            root
+            for root in (_python_package_root(str(row.get("path") or "")) for row in path_rows)
+            if root
+        }
+    )
+    checks = [
+        {
+            "check_id": "pyproject_declared",
+            "status": PASS if pyproject_refs else "missing",
+            "grounded_refs": pyproject_refs,
+        },
+        {
+            "check_id": "python_source_visible",
+            "status": PASS if source_refs or package_roots else "missing",
+            "grounded_refs": source_refs[:12] or package_roots[:12],
+        },
+        {
+            "check_id": "python_tests_visible",
+            "status": PASS if test_refs else "missing",
+            "grounded_refs": test_refs[:12],
+        },
+        {
+            "check_id": "python_entrypoint_visible",
+            "status": PASS if entrypoint_refs else "missing",
+            "grounded_refs": entrypoint_refs[:12],
+        },
+        {
+            "check_id": "python_package_roots_visible",
+            "status": PASS if package_roots else "missing",
+            "grounded_refs": package_roots,
+        },
+    ]
+    route_rows = [
+        _python_route(
+            "python_package_metadata_route",
+            "Inspect Python package metadata",
+            pyproject_refs,
+            PASS if pyproject_refs else "missing",
+        ),
+        _python_route(
+            "python_source_core_route",
+            "Inspect Python source core",
+            source_refs or package_roots,
+            PASS if source_refs or package_roots else "missing",
+        ),
+        _python_route(
+            "python_test_behavior_route",
+            "Inspect Python behavior tests",
+            test_refs,
+            PASS if test_refs else "missing",
+        ),
+        _python_route(
+            "python_entrypoint_route",
+            "Inspect Python entrypoint scripts",
+            entrypoint_refs,
+            PASS if entrypoint_refs else "missing",
+        ),
+    ]
+    payload = {
+        **_base_payload("microcosm_project_python_lens_v1", project),
+        "lens_id": "project_python_route_lens",
+        "command": "microcosm python-lens <project>",
+        "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        "public_claim": (
+            "Microcosm exposes Python project route readiness as path-level metadata "
+            "without source bodies, provider calls, or source mutation."
+        ),
+        "python_file_count": len(path_rows),
+        "package_roots": package_roots,
+        "path_rows": path_rows,
+        "readiness_checks": checks,
+        "passing_check_count": sum(1 for row in checks if row["status"] == PASS),
+        "missing_check_count": sum(1 for row in checks if row["status"] != PASS),
+        "route_rows": route_rows,
+        "ready_route_count": sum(1 for row in route_rows if row["readiness"] == PASS),
+        "standard_refs": [
+            "standards/std_microcosm_route_decision.json",
+            "standards/std_microcosm_source_capsule.json",
+            "standards/std_microcosm_evidence_cell.json",
+        ],
+        "authority_ceiling": {
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "source_files_mutated": False,
+            "source_bodies_exported": False,
+            "static_analysis_authority_claim": False,
+            "private_data_equivalence_authorized": False,
+        },
+        "body_redacted": True,
+        "anti_claim": (
+            "The Python lens is a public-safe path and route-readiness read-model. "
+            "It does not execute Python, infer correctness, export source bodies, mutate "
+            "source, call providers, or claim production/package quality."
+        ),
+    }
+    write_json_atomic(_state_dir(project) / PYTHON_LENS_STATE, payload)
+    architecture_kernel.write_project_architecture(project)
+    event = _event(
+        project,
+        "project.python_lens",
+        PASS,
+        python_file_count=len(path_rows),
+        python_lens_ref=f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        evidence_ref=f"{STATE_DIR}/{EVIDENCE_DIR}/python_lens.json",
+    )
+    _append_event(project, event)
+    payload["event_id"] = event["event_id"]
+    payload["evidence_ref"] = _write_evidence(
+        project,
+        "python_lens",
+        {**payload, "event_id": event["event_id"]},
+    )
+    write_json_atomic(_state_dir(project) / PYTHON_LENS_STATE, payload)
     return payload
 
 
@@ -788,6 +1002,7 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         init_project(project)
     index_result = index_project(project)
     catalog = catalog_project(project)
+    python_projection = python_lens(project)
     architecture = architecture_project(project)
     patterns = discover_patterns(project)
     routes = propose_routes(project)
@@ -807,6 +1022,7 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
     work_id = work_result.get("work_id")
     state_files = [
         f"{STATE_DIR}/catalog.json",
+        f"{STATE_DIR}/{PYTHON_LENS_STATE}",
         f"{STATE_DIR}/patterns.json",
         f"{STATE_DIR}/routes.json",
         f"{STATE_DIR}/work_items.json",
@@ -821,6 +1037,7 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         "what_happened": [
             f"created or reused {STATE_DIR}/",
             f"indexed {index_result.get('file_count', 0)} files",
+            f"projected Python lens over {python_projection.get('python_file_count', 0)} Python files",
             f"detected {patterns.get('passing_pattern_count', 0)} passing patterns",
             f"opened {routes.get('route_count', 0)} routes",
             f"explained {route_id}" if route_id else "no route available to explain",
@@ -833,6 +1050,9 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         "state_files": state_files,
         "file_count": index_result.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
+        "python_lens_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        "python_file_count": python_projection.get("python_file_count", 0),
+        "python_ready_route_count": python_projection.get("ready_route_count", 0),
         "primitive_ids": architecture.get("primitive_ids", []),
         "passing_pattern_count": patterns.get("passing_pattern_count", 0),
         "route_count": routes.get("route_count", 0),
@@ -915,6 +1135,8 @@ def build_parser() -> argparse.ArgumentParser:
     catalog_parser.add_argument("project")
     architecture_parser = subparsers.add_parser("architecture")
     architecture_parser.add_argument("project")
+    python_lens_parser = subparsers.add_parser("python-lens")
+    python_lens_parser.add_argument("project")
     patterns_parser = subparsers.add_parser("patterns")
     patterns_parser.add_argument("project")
     route_parser = subparsers.add_parser("route")
@@ -957,6 +1179,8 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(catalog_project(args.project))
     if args.command == "architecture":
         return _print_json(architecture_project(args.project))
+    if args.command == "python-lens":
+        return _print_json(python_lens(args.project))
     if args.command == "patterns":
         return _print_json(discover_patterns(args.project))
     if args.command == "route":

@@ -1,0 +1,12 @@
+{
+  "schema_version": "ring2_negative_case_v1",
+  "expected_negative_case_id": "metric_overclaim",
+  "claims": [
+    {
+      "claim_id": "ring2_metrics_as_benchmark_success",
+      "general_theorem_proving_success_claimed": true,
+      "benchmark_performance_claimed": true,
+      "release_authorized": true
+    }
+  ]
+}

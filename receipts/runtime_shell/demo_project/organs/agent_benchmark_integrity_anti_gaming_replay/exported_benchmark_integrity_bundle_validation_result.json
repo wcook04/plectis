@@ -1,0 +1,155 @@
+{
+  "anti_claim": "Agent benchmark integrity anti-gaming replay validates synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_benchmark_integrity_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_gold_access_authorized": false,
+    "live_repo_mutation_authorized": false,
+    "oracle_patch_body_export_authorized": false,
+    "private_issue_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "swe_bench_performance_claim_authorized": false
+  },
+  "benchmark_case_count": 3,
+  "benchmark_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_001",
+      "held_out_guard_ids": [
+        "guard_fail_to_pass_001",
+        "guard_pass_to_pass_001"
+      ],
+      "patch_hash": "sha256:patch001",
+      "split": "dev",
+      "task_hash": "sha256:task001"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_002",
+      "held_out_guard_ids": [
+        "guard_file_access_002",
+        "guard_hidden_gold_002"
+      ],
+      "patch_hash": "sha256:patch002",
+      "split": "test",
+      "task_hash": "sha256:task002"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_003",
+      "held_out_guard_ids": [
+        "guard_misleading_test_003",
+        "guard_attempt_log_003"
+      ],
+      "patch_hash": "sha256:patch003",
+      "split": "test",
+      "task_hash": "sha256:task003"
+    }
+  ],
+  "bundle_id": "agent_benchmark_integrity_anti_gaming_replay_runtime_example",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T06:15:10+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.agent_benchmark_integrity_anti_gaming_replay",
+  "held_out_guard_count": 6,
+  "input_mode": "exported_benchmark_integrity_bundle",
+  "integrity_pass_count": 2,
+  "locked_evaluator_ids": [
+    "locked_regression_guard_scorer_v1",
+    "locked_repo_repair_scorer_v1"
+  ],
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
+  ],
+  "protocol_id": "agent_benchmark_integrity_public_fixture",
+  "public_replacement_refs": [
+    "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+    "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json",
+    "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
+    "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json"
+  ],
+  "quarantine_count": 1,
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json"
+  ],
+  "replay_count": 3,
+  "replay_rows": [
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_001",
+      "computed_integrity_verdict": "integrity_pass",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
+      "evaluator_id": "locked_repo_repair_scorer_v1",
+      "expected_negative_case_id": null,
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_001.json",
+      "integrity_verdict": "integrity_pass",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "replay_id": "replay_repo_issue_public_001_clean",
+      "required_field_count": 8,
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_001.json"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_002",
+      "computed_integrity_verdict": "integrity_pass",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
+      "evaluator_id": "locked_regression_guard_scorer_v1",
+      "expected_negative_case_id": null,
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_002.json",
+      "integrity_verdict": "integrity_pass",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "replay_id": "replay_repo_issue_public_002_clean",
+      "required_field_count": 8,
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_002.json"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_003",
+      "computed_integrity_verdict": "quarantine",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",
+      "evaluator_id": "locked_repo_repair_scorer_v1",
+      "expected_negative_case_id": null,
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_003.json",
+      "integrity_verdict": "quarantine",
+      "missing_required_fields": [],
+      "reason_codes": [
+        "quarantine_reason_ref"
+      ],
+      "replay_id": "replay_repo_issue_public_003_quarantined",
+      "required_field_count": 8,
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_003.json"
+    }
+  ],
+  "schema_version": "exported_benchmark_integrity_bundle_validation_result_v1",
+  "source_pattern_ids": [
+    "agent_benchmark_integrity_anti_gaming_replay_compound",
+    "repository_agent_benchmark_transaction_lab",
+    "agent_reliability_replay_gauntlet"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_benchmark_integrity_anti_gaming_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:agent_benchmark_integrity_anti_gaming_replay_compound"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
+}

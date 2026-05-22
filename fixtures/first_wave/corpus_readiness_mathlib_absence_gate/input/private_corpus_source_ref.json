@@ -1,0 +1,9 @@
+{
+  "schema_version": "corpus_readiness_negative_case_v1",
+  "expected_negative_case_id": "private_corpus_source_ref",
+  "source_refs": [
+    "private/raw_seed.md",
+    "operator_thread/prompt_payload.md"
+  ],
+  "anti_claim": "This negative case contains path labels only; it does not include private source contents."
+}

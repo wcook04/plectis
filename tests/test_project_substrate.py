@@ -31,6 +31,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     index_result = project_substrate.index_project(project)
     catalog = project_substrate.catalog_project(project)
     architecture = project_substrate.architecture_project(project)
+    python_lens = project_substrate.python_lens(project)
     patterns = project_substrate.discover_patterns(project)
     routes = project_substrate.propose_routes(project)
     explanation = project_substrate.explain_route(project, "readme_onboarding_route")
@@ -51,6 +52,26 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert architecture["kernel"]["posture"] == "executable_research_prototype"
     assert "route" in architecture["primitive_ids"]
     assert architecture["pattern_surface"]["state_ref"] == ".microcosm/patterns.json"
+    assert python_lens["status"] == "pass"
+    assert python_lens["schema_version"] == "microcosm_project_python_lens_v1"
+    assert python_lens["lens_id"] == "project_python_route_lens"
+    assert python_lens["command"] == "microcosm python-lens <project>"
+    assert python_lens["python_file_count"] == 2
+    assert python_lens["passing_check_count"] == 4
+    assert python_lens["missing_check_count"] == 1
+    assert python_lens["ready_route_count"] == 3
+    assert python_lens["package_roots"] == ["src/scratch_app"]
+    assert python_lens["body_redacted"] is True
+    assert python_lens["authority_ceiling"]["source_bodies_exported"] is False
+    assert all(row["body_redacted"] is True for row in python_lens["path_rows"])
+    assert {row["route_id"]: row["readiness"] for row in python_lens["route_rows"]} == {
+        "python_package_metadata_route": "pass",
+        "python_source_core_route": "pass",
+        "python_test_behavior_route": "pass",
+        "python_entrypoint_route": "missing",
+    }
+    assert (project / ".microcosm/python_lens.json").is_file()
+    assert (project / ".microcosm/evidence/python_lens.json").is_file()
     assert patterns["passing_pattern_count"] >= 4
     assert patterns["pattern_surface"]["surface_id"] == "public_microcosm_pattern_surface"
     pattern_ids = {row["pattern_id"] for row in patterns["patterns"]}
@@ -130,6 +151,9 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["status"] == "pass"
     assert compiled["headline"] == "repo -> .microcosm"
     assert compiled["selected_route_id"] == "readme_onboarding_route"
+    assert compiled["python_lens_ref"] == ".microcosm/python_lens.json"
+    assert compiled["python_file_count"] == 2
+    assert compiled["python_ready_route_count"] == 3
     assert compiled["work_id"] == "work_0001"
     assert compiled["idempotent_replay"] is True
     assert compiled["source_files_mutated"] is False
@@ -141,6 +165,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         ".microcosm/state_index.json",
         ".microcosm/graph.json",
         ".microcosm/catalog.json",
+        ".microcosm/python_lens.json",
         ".microcosm/patterns.json",
         ".microcosm/routes.json",
         ".microcosm/work_items.json",
@@ -164,6 +189,7 @@ def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
         ["catalog", project.as_posix()],
         ["architecture", project.as_posix()],
         ["compile", project.as_posix()],
+        ["python-lens", project.as_posix()],
         ["patterns", project.as_posix()],
         ["route", project.as_posix()],
         ["explain", project.as_posix(), "readme_onboarding_route"],

@@ -1,0 +1,69 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "fixture_id": "fixture::corpus_readiness_mathlib_absence_gate::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate public-safe corpus readiness metadata for explicit Mathlib absence, translation-smoke boundaries, absent corpus blocking, and consumer-gate enforcement without running Lean/Lake or exposing proof bodies.",
+  "inputs": [
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/mathlib_available_without_probe.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_skips_readiness_gate.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/private_corpus_source_ref.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/proof_body_leakage.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/release_overclaim.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
+    "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
+  "expected_negative_cases": [
+    "mathlib_available_without_probe",
+    "consumer_skips_readiness_gate",
+    "private_corpus_source_ref",
+    "proof_body_leakage",
+    "release_overclaim"
+  ],
+  "stable_error_codes": [
+    "MATHLIB_AVAILABILITY_OVERCLAIM",
+    "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
+    "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN",
+    "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
+    "CORPUS_READINESS_RELEASE_OVERCLAIM"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "source_pattern_ids",
+    "source_refs",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "blocked_capabilities",
+    "mathlib_lake_project_import_available",
+    "consumer_gate_cases",
+    "readiness_board"
+  ],
+  "private_state_exclusion_rules": {
+    "lean_lake": "not executed; corpus readiness metadata only",
+    "mathlib": "availability may be reported only from a passing import probe and cannot authorize dependent proof work",
+    "proof_bodies": "forbidden; negative fixtures may carry synthetic forbidden-key rows only and generated receipts may record key names only",
+    "provider_payload_bodies": "forbidden",
+    "private_source_refs": "forbidden except public-safe path-level macro lineage refs"
+  },
+  "authority_ceiling": "public synthetic corpus readiness fixture only; not Lean/Lake execution, Mathlib proof authority, corpus benchmark authority, provider authority, runtime correctness, or release readiness",
+  "anti_claim": "This fixture manifest accepts only corpus/toolchain readiness metadata. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}

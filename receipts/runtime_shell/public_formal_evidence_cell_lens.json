@@ -1,0 +1,126 @@
+{
+  "anti_claim": "The formal evidence-cell lens is a metadata resolver and claim-boundary read-model. It does not run Lean/Lake, prove theorem correctness, expose proof bodies, export private source refs, call providers, mutate source, claim a general mathematical solution, or authorize release.",
+  "authority_ceiling": {
+    "formal_proof_authority": false,
+    "general_theorem_solution_claim": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_dependent_proof_authority": false,
+    "metadata_cell_index_only": true,
+    "private_source_refs_exported": false,
+    "proof_bodies_exported": false,
+    "proof_correctness_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm evidence-cells",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/evidence-cells",
+  "evidence_cell_lens_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+  "evidence_cells": [
+    {
+      "cell_id": "cell.public_toy_bool_and_comm_witness",
+      "claim_language": "toy Lean/Std witness available",
+      "claim_may_say_general_theorem_solution": false,
+      "claim_may_say_no_sorry": true,
+      "claim_strength": "machine_checked_toy_witness_metadata",
+      "evidence_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+      "private_source_ref_exported": false,
+      "proof_body_exported": false,
+      "resolver_status": "formal_evidence_cell_present",
+      "source_pattern_id": "formal_math_lean_proof_witness"
+    },
+    {
+      "cell_id": "cell.verifier_trace_repair_metadata",
+      "claim_language": "verifier trace repair gate is inspectable",
+      "claim_may_say_general_theorem_solution": false,
+      "claim_may_say_no_sorry": false,
+      "claim_strength": "metadata_trace_cell_only",
+      "evidence_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+      "private_source_ref_exported": false,
+      "proof_body_exported": false,
+      "resolver_status": "formal_evidence_cell_present",
+      "source_pattern_id": "formal_math_verifier_trace_repair_loop"
+    },
+    {
+      "cell_id": "cell.unknown_erdos257_solution_claim",
+      "claim_language": "Erdos 257 solved",
+      "claim_may_say_general_theorem_solution": false,
+      "claim_may_say_no_sorry": false,
+      "claim_strength": "rejected_overclaim_unknown_cell",
+      "evidence_ref": null,
+      "private_source_ref_exported": false,
+      "proof_body_exported": false,
+      "resolver_status": "unknown_cell_rejected",
+      "source_pattern_id": "formal_evidence_cell_anchor_resolver"
+    },
+    {
+      "cell_id": "cell.missing_source_anchor",
+      "claim_language": "formal evidence cell exists but source anchor is missing",
+      "claim_may_say_general_theorem_solution": false,
+      "claim_may_say_no_sorry": false,
+      "claim_strength": "rejected_missing_source",
+      "evidence_ref": null,
+      "private_source_ref_exported": false,
+      "proof_body_exported": false,
+      "resolver_status": "missing_source_rejected",
+      "source_pattern_id": "formal_evidence_cell_anchor_resolver"
+    }
+  ],
+  "evidence_refs": [
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+    "receipts/runtime_shell/public_verifier_trace_repair_lens.json"
+  ],
+  "input_refs": {
+    "formal_math_lean_proof_witness_result": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "formal_math_readiness_extension_board": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+    "verifier_trace_repair_lens": "receipts/runtime_shell/public_verifier_trace_repair_lens.json"
+  },
+  "lens_id": "public_formal_evidence_cell_lens",
+  "negative_case_ids": [
+    "unknown_cell_id_claim",
+    "missing_source_cell",
+    "no_sorry_without_cell",
+    "cell_claims_general_theorem_proof",
+    "proof_body_embedded_in_cell",
+    "private_source_ref",
+    "release_overclaim"
+  ],
+  "organ_family": "formal_math",
+  "public_claim": "Microcosm exposes a public formal evidence-cell lens: proof-strength language must resolve to an explicit cell id and receipt ref, while unknown cells, missing sources, proof bodies, private refs, and general theorem-solution claims stay rejected.",
+  "release_authorized": false,
+  "resolver_policy": {
+    "cell_id_is_receipt_anchor_not_theorem_proof": true,
+    "claim_strength_requires_cell_id": true,
+    "missing_source_cell_errors": true,
+    "no_sorry_language_requires_present_cell": true,
+    "proof_bodies_and_private_refs_are_redacted": true,
+    "receipt_ref_required_for_positive_cell": true,
+    "unknown_cell_keeps_claim_weak_or_rejected": true
+  },
+  "resolver_summary": {
+    "cell_count": 4,
+    "positive_cell_with_receipt_ref_count": 2,
+    "present_cell_count": 2,
+    "private_source_ref_export_count": 0,
+    "proof_body_export_count": 0,
+    "rejected_cell_count": 2
+  },
+  "safe_to_show": {
+    "body_redacted": true,
+    "fixture_metadata_only": true,
+    "private_source_refs_omitted": true,
+    "proof_bodies_omitted": true,
+    "receipt_refs_only": true
+  },
+  "schema_version": "microcosm_public_formal_evidence_cell_lens_v1",
+  "selected_pattern_id": "formal_evidence_cell_anchor_resolver",
+  "source_statuses": {
+    "formal_math_lean_proof_witness": "pass",
+    "formal_math_readiness_gate": "pass",
+    "verifier_trace_repair_lens": "pass"
+  },
+  "status": "pass"
+}

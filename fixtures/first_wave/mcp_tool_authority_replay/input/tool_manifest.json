@@ -1,0 +1,44 @@
+{
+  "schema_version": "mcp_tool_manifest_fixture_v1",
+  "tools": [
+    {
+      "allowed_operations": [
+        "read_public_docs_index"
+      ],
+      "body_redacted": true,
+      "capability_scope_ref": "scope/docs_lookup_readonly",
+      "private_ref_metadata_only": true,
+      "requires_approval": false,
+      "requires_rollback_receipt": false,
+      "tool_class": "readonly_lookup",
+      "tool_id": "tool_docs_lookup",
+      "untrusted_result": false
+    },
+    {
+      "allowed_operations": [
+        "update_synthetic_ticket_status"
+      ],
+      "body_redacted": true,
+      "capability_scope_ref": "scope/ticket_update_limited",
+      "private_ref_metadata_only": true,
+      "requires_approval": true,
+      "requires_rollback_receipt": true,
+      "tool_class": "write_side_effect",
+      "tool_id": "tool_ticket_update",
+      "untrusted_result": false
+    },
+    {
+      "allowed_operations": [
+        "fetch_synthetic_untrusted_result"
+      ],
+      "body_redacted": true,
+      "capability_scope_ref": "scope/untrusted_web_result_readonly",
+      "private_ref_metadata_only": true,
+      "requires_approval": false,
+      "requires_rollback_receipt": false,
+      "tool_class": "untrusted_result",
+      "tool_id": "tool_web_result",
+      "untrusted_result": true
+    }
+  ]
+}

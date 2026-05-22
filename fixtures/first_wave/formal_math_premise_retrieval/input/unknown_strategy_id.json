@@ -1,0 +1,11 @@
+{
+  "schema_version": "formal_math_strategy_negative_fixture_v1",
+  "strategy_cases": [
+    {
+      "query_id": "q_unknown_strategy",
+      "strategy_id": "private_magic_tactic_oracle",
+      "selected_pre_oracle": false,
+      "expected_negative_case_id": "unknown_strategy_id"
+    }
+  ]
+}

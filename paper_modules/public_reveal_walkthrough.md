@@ -1,0 +1,48 @@
+# Public Reveal Walkthrough
+
+`public_reveal_walkthrough` is the accepted organ that makes Microcosm's
+public reveal executable instead of descriptive.
+
+It validates a ten-minute cold-reader path:
+
+1. Compile a project into `.microcosm/`.
+2. Inspect catalog, patterns, and routes.
+3. Explain one route through patterns, standard pressure, work, events, and
+   evidence.
+4. Open the observatory causal chain before raw JSON drilldown.
+5. Run `microcosm intake` to see the macro projection intake cells connected
+   to spine, reveal, and runtime evidence.
+6. Read the receipts and authority ceiling.
+
+The organ reads public fixtures from
+`fixtures/first_wave/public_reveal_walkthrough/input/` and exported runtime
+input from
+`examples/public_reveal_walkthrough/exported_public_reveal_bundle/`.
+
+It emits:
+
+- `receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json`
+- `receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json`
+- `receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json`
+- `receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json`
+
+The reveal path now treats `microcosm intake` as a first-class runtime bridge,
+not a private planning note. The command exposes
+`runtime_reveal_import_bridge`, keeps `formal_math_readiness_extensions`
+visible as a landed public replacement when its extension board exists, and
+points back to the macro projection intake board without copying private
+macro bodies.
+
+The validated claim is narrow:
+
+> Microcosm turns a repo into a local operating substrate: patterns, routes,
+> work transactions, events, evidence, and explanations.
+
+Negative fixtures reject release or hosting overclaim, private-data
+equivalence, missing evidence refs, and marketing-only reveal material without
+runtime commands.
+
+Anti-claim: this paper module describes public reveal walkthrough validation
+only. It does not authorize release, hosted-public readiness, publication,
+recipient work, provider calls, private-data equivalence, Lean/Lake execution,
+or whole-system correctness.

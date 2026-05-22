@@ -1,0 +1,140 @@
+{
+  "schema_version": "prediction_oracle_reconciliation_packet_v1",
+  "packet_id": "public_prediction_oracle_reconciliation_fixture",
+  "source_pattern_ids": [
+    "synthetic_science_oracle_dossier_reconciliation_compound",
+    "cp1_bifurcation_reconciliation_spine",
+    "epistemic_hierarchy_lane_resolution_order",
+    "cp2_universe_constraint_valid_prediction_targets_gate",
+    "oracle_cp2_grounding_firewall",
+    "evolve_oracle_to_dossier_mutation_loop"
+  ],
+  "source_refs": [
+    "microcosm_pattern_ledger:synthetic_science_oracle_dossier_reconciliation_compound",
+    "microcosm_pattern_ledger:cp1_bifurcation_reconciliation_spine",
+    "microcosm_pattern_ledger:cp2_universe_constraint_valid_prediction_targets_gate",
+    "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
+    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
+    "paper_modules/prediction_oracle_reconciliation.md"
+  ],
+  "valid_prediction_targets": [
+    "SYNTH_TARGET_ALPHA",
+    "SYNTH_TARGET_BETA"
+  ],
+  "target_universe": [
+    {
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "target_class": "synthetic_public_outcome",
+      "validity_receipt_ref": "T-3:target_universe:alpha"
+    },
+    {
+      "target_id": "SYNTH_TARGET_BETA",
+      "target_class": "synthetic_public_outcome",
+      "validity_receipt_ref": "T-3:target_universe:beta"
+    }
+  ],
+  "cp1_branches": [
+    {
+      "branch_id": "cp1_alpha_up_over_flat",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "lane": "synthetic_science",
+      "selected_side": "up",
+      "rationale_refs": [
+        "T-2:alpha_prior_signal",
+        "T-1:alpha_grounding_crosscheck"
+      ],
+      "opposite_side_invalidation_ref": "T-1:alpha_flat_branch_rejected",
+      "equity_lane_confirmation": true
+    },
+    {
+      "branch_id": "cp1_beta_down_over_up",
+      "target_id": "SYNTH_TARGET_BETA",
+      "lane": "synthetic_science",
+      "selected_side": "down",
+      "rationale_refs": [
+        "T-2:beta_prior_signal",
+        "T-1:beta_grounding_crosscheck"
+      ],
+      "opposite_side_invalidation_ref": "T-1:beta_up_branch_rejected",
+      "equity_lane_confirmation": true
+    }
+  ],
+  "cp2_predictions": [
+    {
+      "prediction_id": "pred_alpha_direction",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "direction": "up",
+      "confidence_band": "medium",
+      "evidence_refs": [
+        "T-2:alpha_prior_signal",
+        "T-1:alpha_grounding_crosscheck"
+      ],
+      "grounding_ids": [
+        "ground_alpha_signal",
+        "ground_alpha_fixture"
+      ]
+    },
+    {
+      "prediction_id": "pred_beta_direction",
+      "target_id": "SYNTH_TARGET_BETA",
+      "direction": "down",
+      "confidence_band": "low_medium",
+      "evidence_refs": [
+        "T-2:beta_prior_signal",
+        "T-1:beta_grounding_crosscheck"
+      ],
+      "grounding_ids": [
+        "ground_beta_signal",
+        "ground_beta_fixture"
+      ]
+    }
+  ],
+  "oracle_diff": [
+    {
+      "row_id": "oracle_alpha",
+      "prediction_id": "pred_alpha_direction",
+      "predicted_direction": "up",
+      "realized_direction": "up",
+      "feed_health": "ok"
+    },
+    {
+      "row_id": "oracle_beta",
+      "prediction_id": "pred_beta_direction",
+      "predicted_direction": "down",
+      "realized_direction": "flat",
+      "feed_health": "ok"
+    }
+  ],
+  "dossier_mutations": [
+    {
+      "mutation_id": "mutation_beta_confidence_revision",
+      "operation": "revise_confidence",
+      "target_claim_id": "pred_beta_direction",
+      "severity": "medium",
+      "evidence_run_refs": [
+        "T-1:beta_grounding_crosscheck",
+        "T+0:oracle_beta_diff"
+      ],
+      "allowed_public_delta": true
+    }
+  ],
+  "authority_ceiling": {
+    "status": "pass",
+    "trading_authorized": false,
+    "financial_advice_authorized": false,
+    "investment_advice_authorized": false,
+    "live_market_data_authorized": false,
+    "provider_calls_authorized": false,
+    "live_provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "private_data_equivalence_claim": false
+  },
+  "anti_claim": "Synthetic prediction reconciliation fixtures validate reasoning mechanics only; they are not trading, financial advice, investment advice, live market data, performance claims, or publication authority."
+}

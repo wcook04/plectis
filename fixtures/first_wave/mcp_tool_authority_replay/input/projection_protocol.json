@@ -1,0 +1,47 @@
+{
+  "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
+  "body_redacted": true,
+  "cleaned": [
+    "all call arguments are represented by stable hashes",
+    "all account refs are synthetic capsules",
+    "tool result bodies are redacted"
+  ],
+  "copied": [
+    "public taxonomy labels and metadata field names only"
+  ],
+  "copied_private_tool_payloads": false,
+  "omitted": [
+    "live MCP server names",
+    "credentials and access tokens",
+    "provider payloads",
+    "private account identifiers",
+    "real side effects"
+  ],
+  "private_ref_metadata_only": true,
+  "projection_receipt_refs": [
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+  ],
+  "protocol_id": "mcp_tool_authority_public_projection_protocol",
+  "public_replacement_refs": [
+    "fixtures/first_wave/mcp_tool_authority_replay/input/tool_manifest.json",
+    "fixtures/first_wave/mcp_tool_authority_replay/input/tool_calls.json",
+    "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/bundle_manifest.json"
+  ],
+  "reimplemented": [
+    "synthetic MCP-like tool manifest",
+    "tool call authority validator",
+    "side-effect and rollback receipt checks",
+    "untrusted tool-output instruction/data separation checks"
+  ],
+  "schema_version": "mcp_tool_authority_projection_protocol_v1",
+  "source_pattern_ids": [
+    "mcp_tool_authority_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl:340",
+    "state/microcosm_portfolio/reconstruction_seeds/mcp_tool_authority_replay.seed.json",
+    "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet_metadata",
+    "state/microcosm_portfolio/substrate_bindings.jsonl::mcp_tool_authority_replay_compound"
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "schema_version": "cold_reader_route_map_v1",
+  "map_id": "microcosm_public_cold_reader_route_map",
+  "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
+  "routes": [
+    {
+      "route_id": "compile_project",
+      "ordinal": 1,
+      "title": "Compile a repo into local substrate state",
+      "command": "microcosm compile <project>",
+      "docs_refs": [
+        "README.md#first-run",
+        "AGENTS.md#microcosm-entry-contract"
+      ],
+      "shows": [
+        ".microcosm/catalog.json",
+        ".microcosm/patterns.json",
+        ".microcosm/routes.json",
+        ".microcosm/evidence/"
+      ],
+      "authority_note": "creates local projection state only"
+    },
+    {
+      "route_id": "inspect_route",
+      "ordinal": 2,
+      "title": "Inspect one route card before opening raw JSON",
+      "command": "microcosm explain <project> readme_onboarding_route",
+      "docs_refs": [
+        "README.md#route-cards",
+        "paper_modules/cold_reader_route_map.md"
+      ],
+      "shows": [
+        "grounded refs",
+        "pattern bindings",
+        "work transaction contracts",
+        "event refs",
+        "evidence refs"
+      ],
+      "authority_note": "explains one public route projection only"
+    },
+    {
+      "route_id": "open_observatory",
+      "ordinal": 3,
+      "title": "Open the local observatory after route selection",
+      "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+      "docs_refs": [
+        "README.md#observatory",
+        "paper_modules/public_reveal_walkthrough.md"
+      ],
+      "shows": [
+        "causal chain",
+        "route -> work -> event -> evidence",
+        "authority ceiling"
+      ],
+      "authority_note": "serves local read-only observability over project substrate state"
+    },
+    {
+      "route_id": "inspect_public_spine",
+      "ordinal": 4,
+      "title": "Inspect accepted public runtime organs",
+      "command": "microcosm spine",
+      "docs_refs": [
+        "README.md#internal-runtime-spine",
+        "AGENTS.md#accepted-public-runtime-spine"
+      ],
+      "shows": [
+        "adapter-backed organs",
+        "runtime evidence refs",
+        "first-run command path",
+        "public-safe authority boundary"
+      ],
+      "authority_note": "runtime spine projection only; receipts remain drilldown evidence"
+    },
+    {
+      "route_id": "open_import_bridge",
+      "ordinal": 5,
+      "title": "Open projection intake without private macro context",
+      "command": "microcosm intake",
+      "docs_refs": [
+        "README.md#macro-projection-import-protocol",
+        "paper_modules/macro_projection_import_protocol.md"
+      ],
+      "shows": [
+        "macro projection cells",
+        "runtime reveal/import bridge",
+        "landed readiness-extension status"
+      ],
+      "authority_note": "public replacement refs only; private source bodies are forbidden"
+    },
+    {
+      "route_id": "open_reveal_board",
+      "ordinal": 6,
+      "title": "Open the ten-minute public reveal board",
+      "command": "microcosm reveal",
+      "docs_refs": [
+        "README.md#public-reveal-walkthrough",
+        "paper_modules/public_reveal_walkthrough.md"
+      ],
+      "shows": [
+        "ten-minute reveal board",
+        "negative cases",
+        "evidence ref count",
+        "release_authorized=false"
+      ],
+      "authority_note": "public reveal walkthrough only; release remains unauthorized"
+    },
+    {
+      "route_id": "inspect_cold_reader_route_map",
+      "ordinal": 7,
+      "title": "Validate the route map itself",
+      "command": "microcosm cold-reader-route-map run-route-map-bundle",
+      "docs_refs": [
+        "README.md#cold-reader-route-map",
+        "paper_modules/cold_reader_route_map.md"
+      ],
+      "shows": [
+        "first-run route sequence",
+        "command refs",
+        "receipt-backed route cards",
+        "authority ceiling"
+      ],
+      "authority_note": "route-map projection only; not route registry authority"
+    }
+  ],
+  "release_authorized": false,
+  "private_source_bodies_exported": false,
+  "body_redacted": true
+}

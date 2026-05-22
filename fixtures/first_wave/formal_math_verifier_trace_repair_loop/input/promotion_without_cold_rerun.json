@@ -1,0 +1,19 @@
+{
+  "schema_version": "formal_math_verifier_trace_negative_fixture_v1",
+  "attempts": [
+    {
+      "expected_negative_case_id": "promotion_without_cold_rerun",
+      "attempt_id": "negative_promotion_without_cold_rerun",
+      "verifier_class": "invalid_proof_body_redacted",
+      "trace_grade": "promotion_claimed",
+      "repair_action_id": "repair_requires_cold_rerun",
+      "promoted_after_cold_rerun": true,
+      "trace_events": [
+        {
+          "event_id": "negative_trace_promotion",
+          "event_class": "promotion_claim"
+        }
+      ]
+    }
+  ]
+}

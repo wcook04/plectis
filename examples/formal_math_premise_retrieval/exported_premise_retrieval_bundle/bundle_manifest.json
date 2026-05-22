@@ -1,0 +1,20 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "formal_math_premise_retrieval_runtime_example",
+  "organ_id": "formal_math_premise_retrieval",
+  "input_mode": "exported_premise_retrieval_bundle",
+  "description": "Public runtime example for Lean/Std premise retrieval term scoring, context budgets, and strategy gating without proof bodies or Lean/Lake execution.",
+  "files": [
+    "projection_protocol.json",
+    "premise_index.json",
+    "retrieval_queries.json",
+    "context_recipes.json",
+    "strategy_cases.json"
+  ],
+  "authority_ceiling": {
+    "lean_lake_execution_authorized": false,
+    "formal_proof_authority": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false
+  }
+}

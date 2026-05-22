@@ -4,13 +4,40 @@ import argparse
 
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
+from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
+from microcosm_core.organs import agent_memory_temporal_conflict_replay
+from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs import agent_route_observability_runtime
+from microcosm_core.organs import cold_reader_route_map
+from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
 from microcosm_core.organs import executable_doctrine_grammar
+from microcosm_core.organs import formal_math_lean_proof_witness
+from microcosm_core.organs import formal_evidence_cell_anchor_resolver
+from microcosm_core.organs import formal_math_premise_retrieval
 from microcosm_core.organs import formal_math_readiness_gate
+from microcosm_core.organs import formal_math_verifier_trace_repair_loop
+from microcosm_core.organs import lean_std_premise_index
+from microcosm_core.organs import macro_projection_import_protocol
+from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
+from microcosm_core.organs import mcp_tool_authority_replay
+from microcosm_core.organs import mechanistic_interpretability_circuit_attribution_replay
+from microcosm_core.organs import durable_agent_work_landing_replay
 from microcosm_core.organs import mission_transaction_work_spine
 from microcosm_core.organs import navigation_hologram_route_plane
 from microcosm_core.organs import pattern_binding_contract
+from microcosm_core.organs import prediction_oracle_reconciliation
 from microcosm_core.organs import proof_diagnostic_evidence_spine
+from microcosm_core.organs import provider_context_recipe_budget_policy
+from microcosm_core.organs import public_reveal_walkthrough
+from microcosm_core.organs import research_replication_rubric_artifact_replay
+from microcosm_core.organs import ring2_premise_retrieval_precision_recall_harness
+from microcosm_core.organs import sleeper_memory_poisoning_quarantine_replay
+from microcosm_core.organs import spatial_world_model_counterfactual_simulation_replay
+from microcosm_core.organs import standards_meta_diagnostics
+from microcosm_core.organs import tactic_portfolio_availability_probe
+from microcosm_core.organs import target_shape_tactic_routing_gate
+from microcosm_core.organs import undeclared_library_prior_symbol_classifier
+from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.validators import acceptance
 from microcosm_core.validators import dependency_preflight
 from microcosm_core.validators import fixture_freshness
@@ -52,12 +79,43 @@ def main(argv: list[str] | None = None) -> int:
     architecture_parser.add_argument("project")
     compile_parser = subparsers.add_parser("compile")
     compile_parser.add_argument("project")
+    python_lens_parser = subparsers.add_parser("python-lens")
+    python_lens_parser.add_argument("project")
     graph_parser = subparsers.add_parser("graph")
     graph_parser.add_argument("project")
     explain_parser = subparsers.add_parser("explain")
     explain_parser.add_argument("project")
     explain_parser.add_argument("route_id")
     subparsers.add_parser("status")
+    subparsers.add_parser("spine")
+    tour_parser = subparsers.add_parser("tour")
+    tour_parser.add_argument("project", nargs="?")
+    subparsers.add_parser("authority")
+    subparsers.add_parser("prediction-lens")
+    subparsers.add_parser("market-boundary")
+    subparsers.add_parser("corpus-lens")
+    subparsers.add_parser("trace-lens")
+    subparsers.add_parser("repair-loop")
+    subparsers.add_parser("evidence-cells")
+    subparsers.add_parser("proof-loop-depth")
+    subparsers.add_parser("landing-replay")
+    subparsers.add_parser("view-quality")
+    subparsers.add_parser("projection-safety")
+    subparsers.add_parser("drift-control")
+    subparsers.add_parser("spatial-simulation")
+    subparsers.add_parser("circuit-attribution")
+    subparsers.add_parser("route-cleanup")
+    subparsers.add_parser("projection-import-map")
+    subparsers.add_parser("import-projector")
+    subparsers.add_parser("option-surface-lens")
+    subparsers.add_parser("stripping-guard")
+    subparsers.add_parser("standards-control")
+    subparsers.add_parser("hook-coverage")
+    subparsers.add_parser("replay-gauntlet")
+    subparsers.add_parser("benchmark-lab")
+    subparsers.add_parser("legibility-scorecard")
+    subparsers.add_parser("intake")
+    subparsers.add_parser("reveal")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
     serve_parser = subparsers.add_parser("serve")
@@ -134,8 +192,164 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(proof_parser)
 
     formal_math_parser = subparsers.add_parser("formal-math-readiness-gate")
-    formal_math_parser.add_argument("action", choices=["run", "run-readiness-bundle"])
-    _add_input_out(formal_math_parser)
+    formal_math_parser.add_argument("action", choices=["run", "run-readiness-bundle", "plan"])
+    formal_math_parser.add_argument("--input", required=True)
+    formal_math_parser.add_argument("--out")
+
+    corpus_readiness_parser = subparsers.add_parser("corpus-readiness-mathlib-absence-gate")
+    corpus_readiness_parser.add_argument("action", choices=["run", "run-projection-bundle"])
+    _add_input_out(corpus_readiness_parser)
+
+    strategy_atlas_parser = subparsers.add_parser("mathematical-strategy-atlas-hypothesis-scorer")
+    strategy_atlas_parser.add_argument("action", choices=["run", "run-strategy-bundle"])
+    _add_input_out(strategy_atlas_parser)
+
+    tactic_portfolio_parser = subparsers.add_parser("tactic-portfolio-availability-probe")
+    tactic_portfolio_parser.add_argument("action", choices=["run", "run-availability-bundle"])
+    _add_input_out(tactic_portfolio_parser)
+
+    target_shape_parser = subparsers.add_parser("target-shape-tactic-routing-gate")
+    target_shape_parser.add_argument("action", choices=["run", "run-routing-bundle"])
+    _add_input_out(target_shape_parser)
+
+    lean_witness_parser = subparsers.add_parser("formal-math-lean-proof-witness")
+    lean_witness_parser.add_argument("action", choices=["run", "run-witness-bundle"])
+    _add_input_out(lean_witness_parser)
+
+    premise_retrieval_parser = subparsers.add_parser("formal-math-premise-retrieval")
+    premise_retrieval_parser.add_argument("action", choices=["run", "run-retrieval-bundle"])
+    _add_input_out(premise_retrieval_parser)
+
+    verifier_trace_parser = subparsers.add_parser("formal-math-verifier-trace-repair-loop")
+    verifier_trace_parser.add_argument("action", choices=["run", "run-loop-bundle"])
+    _add_input_out(verifier_trace_parser)
+
+    evidence_cell_parser = subparsers.add_parser("formal-evidence-cell-anchor-resolver")
+    evidence_cell_parser.add_argument("action", choices=["run", "run-anchor-bundle"])
+    _add_input_out(evidence_cell_parser)
+
+    symbol_classifier_parser = subparsers.add_parser("undeclared-library-prior-symbol-classifier")
+    symbol_classifier_parser.add_argument("action", choices=["run", "run-symbol-bundle"])
+    _add_input_out(symbol_classifier_parser)
+    symbol_classifier_parser.add_argument("--acceptance-out")
+
+    benchmark_integrity_parser = subparsers.add_parser(
+        "agent-benchmark-integrity-anti-gaming-replay"
+    )
+    benchmark_integrity_parser.add_argument(
+        "action", choices=["run", "run-benchmark-integrity-bundle"]
+    )
+    _add_input_out(benchmark_integrity_parser)
+    benchmark_integrity_parser.add_argument("--acceptance-out")
+
+    monitor_redteam_parser = subparsers.add_parser(
+        "agent-monitor-redteam-falsification-replay"
+    )
+    monitor_redteam_parser.add_argument(
+        "action", choices=["run", "run-monitor-bundle"]
+    )
+    _add_input_out(monitor_redteam_parser)
+    monitor_redteam_parser.add_argument("--acceptance-out")
+
+    memory_conflict_parser = subparsers.add_parser(
+        "agent-memory-temporal-conflict-replay"
+    )
+    memory_conflict_parser.add_argument(
+        "action", choices=["run", "run-memory-bundle"]
+    )
+    _add_input_out(memory_conflict_parser)
+    memory_conflict_parser.add_argument("--acceptance-out")
+
+    sleeper_memory_parser = subparsers.add_parser(
+        "sleeper-memory-poisoning-quarantine-replay"
+    )
+    sleeper_memory_parser.add_argument(
+        "action", choices=["run", "run-quarantine-bundle"]
+    )
+    _add_input_out(sleeper_memory_parser)
+    sleeper_memory_parser.add_argument("--acceptance-out")
+
+    mcp_tool_parser = subparsers.add_parser("mcp-tool-authority-replay")
+    mcp_tool_parser.add_argument(
+        "action", choices=["run", "run-tool-authority-bundle"]
+    )
+    _add_input_out(mcp_tool_parser)
+    mcp_tool_parser.add_argument("--acceptance-out")
+
+    lean_std_index_parser = subparsers.add_parser("lean-std-premise-index")
+    lean_std_index_parser.add_argument("action", choices=["run", "run-index-bundle"])
+    _add_input_out(lean_std_index_parser)
+
+    provider_context_parser = subparsers.add_parser("provider-context-recipe-budget-policy")
+    provider_context_parser.add_argument("action", choices=["run", "run-budget-bundle"])
+    _add_input_out(provider_context_parser)
+
+    ring2_parser = subparsers.add_parser("ring2-premise-retrieval-precision-recall-harness")
+    ring2_parser.add_argument("action", choices=["run", "run-precision-recall-bundle"])
+    _add_input_out(ring2_parser)
+
+    durable_landing_parser = subparsers.add_parser("durable-agent-work-landing-replay")
+    durable_landing_parser.add_argument("action", choices=["run", "run-work-landing-bundle"])
+    _add_input_out(durable_landing_parser)
+    durable_landing_parser.add_argument("--acceptance-out")
+
+    research_replication_parser = subparsers.add_parser(
+        "research-replication-rubric-artifact-replay"
+    )
+    research_replication_parser.add_argument(
+        "action", choices=["run", "run-replication-bundle"]
+    )
+    _add_input_out(research_replication_parser)
+    research_replication_parser.add_argument("--acceptance-out")
+
+    drift_control_room_parser = subparsers.add_parser(
+        "world-model-projection-drift-control-room"
+    )
+    drift_control_room_parser.add_argument(
+        "action", choices=["run", "run-drift-control-bundle"]
+    )
+    _add_input_out(drift_control_room_parser)
+    drift_control_room_parser.add_argument("--acceptance-out")
+
+    spatial_simulation_parser = subparsers.add_parser(
+        "spatial-world-model-counterfactual-simulation-replay"
+    )
+    spatial_simulation_parser.add_argument(
+        "action", choices=["run", "run-simulation-bundle"]
+    )
+    _add_input_out(spatial_simulation_parser)
+    spatial_simulation_parser.add_argument("--acceptance-out")
+
+    circuit_attribution_parser = subparsers.add_parser(
+        "mechanistic-interpretability-circuit-attribution-replay"
+    )
+    circuit_attribution_parser.add_argument(
+        "action", choices=["run", "run-attribution-bundle"]
+    )
+    _add_input_out(circuit_attribution_parser)
+    circuit_attribution_parser.add_argument("--acceptance-out")
+
+    public_reveal_parser = subparsers.add_parser("public-reveal-walkthrough")
+    public_reveal_parser.add_argument("action", choices=["run", "run-reveal-bundle"])
+    _add_input_out(public_reveal_parser)
+
+    macro_projection_parser = subparsers.add_parser("macro-projection-import-protocol")
+    macro_projection_parser.add_argument("action", choices=["run", "run-projection-bundle", "plan"])
+    macro_projection_parser.add_argument("--input", required=True)
+    macro_projection_parser.add_argument("--out")
+
+    prediction_parser = subparsers.add_parser("prediction-oracle-reconciliation")
+    prediction_parser.add_argument("action", choices=["run", "run-prediction-bundle"])
+    _add_input_out(prediction_parser)
+
+    standards_meta_parser = subparsers.add_parser("standards-meta-diagnostics")
+    standards_meta_parser.add_argument("action", choices=["run", "run-diagnostics-bundle"])
+    _add_input_out(standards_meta_parser)
+    standards_meta_parser.add_argument("--acceptance-out")
+
+    cold_reader_parser = subparsers.add_parser("cold-reader-route-map")
+    cold_reader_parser.add_argument("action", choices=["run", "run-route-map-bundle"])
+    _add_input_out(cold_reader_parser)
 
     navigation_parser = subparsers.add_parser("navigation-hologram-route-plane")
     navigation_parser.add_argument("action", choices=["run", "validate-route-plane-bundle"])
@@ -164,12 +378,73 @@ def main(argv: list[str] | None = None) -> int:
         return project_substrate.main(["architecture", args.project])
     if args.command == "compile":
         return project_substrate.main(["compile", args.project])
+    if args.command == "python-lens":
+        return project_substrate.main(["python-lens", args.project])
     if args.command == "graph":
         return project_substrate.main(["graph", args.project])
     if args.command == "explain":
         return project_substrate.main(["explain", args.project, args.route_id])
     if args.command == "status":
         return runtime_shell.main(["status"])
+    if args.command == "spine":
+        return runtime_shell.main(["spine"])
+    if args.command == "tour":
+        command_args = ["tour"]
+        if args.project:
+            command_args.append(args.project)
+        return runtime_shell.main(command_args)
+    if args.command == "authority":
+        return runtime_shell.main(["authority"])
+    if args.command == "prediction-lens":
+        return runtime_shell.main(["prediction-lens"])
+    if args.command == "market-boundary":
+        return runtime_shell.main(["market-boundary"])
+    if args.command == "corpus-lens":
+        return runtime_shell.main(["corpus-lens"])
+    if args.command == "trace-lens":
+        return runtime_shell.main(["trace-lens"])
+    if args.command == "repair-loop":
+        return runtime_shell.main(["repair-loop"])
+    if args.command == "evidence-cells":
+        return runtime_shell.main(["evidence-cells"])
+    if args.command == "proof-loop-depth":
+        return runtime_shell.main(["proof-loop-depth"])
+    if args.command == "landing-replay":
+        return runtime_shell.main(["landing-replay"])
+    if args.command == "view-quality":
+        return runtime_shell.main(["view-quality"])
+    if args.command == "projection-safety":
+        return runtime_shell.main(["projection-safety"])
+    if args.command == "drift-control":
+        return runtime_shell.main(["drift-control"])
+    if args.command == "spatial-simulation":
+        return runtime_shell.main(["spatial-simulation"])
+    if args.command == "circuit-attribution":
+        return runtime_shell.main(["circuit-attribution"])
+    if args.command == "route-cleanup":
+        return runtime_shell.main(["route-cleanup"])
+    if args.command == "projection-import-map":
+        return runtime_shell.main(["projection-import-map"])
+    if args.command == "import-projector":
+        return runtime_shell.main(["import-projector"])
+    if args.command == "option-surface-lens":
+        return runtime_shell.main(["option-surface-lens"])
+    if args.command == "stripping-guard":
+        return runtime_shell.main(["stripping-guard"])
+    if args.command == "standards-control":
+        return runtime_shell.main(["standards-control"])
+    if args.command == "hook-coverage":
+        return runtime_shell.main(["hook-coverage"])
+    if args.command == "replay-gauntlet":
+        return runtime_shell.main(["replay-gauntlet"])
+    if args.command == "benchmark-lab":
+        return runtime_shell.main(["benchmark-lab"])
+    if args.command == "legibility-scorecard":
+        return runtime_shell.main(["legibility-scorecard"])
+    if args.command == "intake":
+        return runtime_shell.main(["intake"])
+    if args.command == "reveal":
+        return runtime_shell.main(["reveal"])
     if args.command == "run":
         return runtime_shell.main(["run", args.project])
     if args.command == "serve":
@@ -285,7 +560,141 @@ def main(argv: list[str] | None = None) -> int:
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "formal-math-readiness-gate":
-        return formal_math_readiness_gate.main(
+        formal_math_args = [args.action, "--input", args.input]
+        if args.out:
+            formal_math_args.extend(["--out", args.out])
+        elif args.action != "plan":
+            parser.error("--out is required for formal math readiness receipt-writing actions")
+        return formal_math_readiness_gate.main(formal_math_args)
+    if args.command == "corpus-readiness-mathlib-absence-gate":
+        return corpus_readiness_mathlib_absence_gate.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "mathematical-strategy-atlas-hypothesis-scorer":
+        return mathematical_strategy_atlas_hypothesis_scorer.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "tactic-portfolio-availability-probe":
+        return tactic_portfolio_availability_probe.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "target-shape-tactic-routing-gate":
+        return target_shape_tactic_routing_gate.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "formal-math-lean-proof-witness":
+        return formal_math_lean_proof_witness.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "formal-math-premise-retrieval":
+        return formal_math_premise_retrieval.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "formal-math-verifier-trace-repair-loop":
+        return formal_math_verifier_trace_repair_loop.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "formal-evidence-cell-anchor-resolver":
+        return formal_evidence_cell_anchor_resolver.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "undeclared-library-prior-symbol-classifier":
+        symbol_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            symbol_args.extend(["--acceptance-out", args.acceptance_out])
+        return undeclared_library_prior_symbol_classifier.main(symbol_args)
+    if args.command == "agent-benchmark-integrity-anti-gaming-replay":
+        benchmark_integrity_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            benchmark_integrity_args.extend(["--acceptance-out", args.acceptance_out])
+        return agent_benchmark_integrity_anti_gaming_replay.main(
+            benchmark_integrity_args
+        )
+    if args.command == "agent-monitor-redteam-falsification-replay":
+        monitor_redteam_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            monitor_redteam_args.extend(["--acceptance-out", args.acceptance_out])
+        return agent_monitor_redteam_falsification_replay.main(monitor_redteam_args)
+    if args.command == "agent-memory-temporal-conflict-replay":
+        memory_conflict_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            memory_conflict_args.extend(["--acceptance-out", args.acceptance_out])
+        return agent_memory_temporal_conflict_replay.main(memory_conflict_args)
+    if args.command == "sleeper-memory-poisoning-quarantine-replay":
+        sleeper_memory_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            sleeper_memory_args.extend(["--acceptance-out", args.acceptance_out])
+        return sleeper_memory_poisoning_quarantine_replay.main(sleeper_memory_args)
+    if args.command == "mcp-tool-authority-replay":
+        mcp_tool_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            mcp_tool_args.extend(["--acceptance-out", args.acceptance_out])
+        return mcp_tool_authority_replay.main(mcp_tool_args)
+    if args.command == "lean-std-premise-index":
+        return lean_std_premise_index.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "provider-context-recipe-budget-policy":
+        return provider_context_recipe_budget_policy.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "ring2-premise-retrieval-precision-recall-harness":
+        return ring2_premise_retrieval_precision_recall_harness.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "durable-agent-work-landing-replay":
+        durable_landing_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            durable_landing_args.extend(["--acceptance-out", args.acceptance_out])
+        return durable_agent_work_landing_replay.main(durable_landing_args)
+    if args.command == "research-replication-rubric-artifact-replay":
+        research_replication_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            research_replication_args.extend(["--acceptance-out", args.acceptance_out])
+        return research_replication_rubric_artifact_replay.main(
+            research_replication_args
+        )
+    if args.command == "world-model-projection-drift-control-room":
+        drift_control_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            drift_control_args.extend(["--acceptance-out", args.acceptance_out])
+        return world_model_projection_drift_control_room.main(drift_control_args)
+    if args.command == "spatial-world-model-counterfactual-simulation-replay":
+        spatial_simulation_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            spatial_simulation_args.extend(["--acceptance-out", args.acceptance_out])
+        return spatial_world_model_counterfactual_simulation_replay.main(
+            spatial_simulation_args
+        )
+    if args.command == "mechanistic-interpretability-circuit-attribution-replay":
+        circuit_attribution_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            circuit_attribution_args.extend(["--acceptance-out", args.acceptance_out])
+        return mechanistic_interpretability_circuit_attribution_replay.main(
+            circuit_attribution_args
+        )
+    if args.command == "public-reveal-walkthrough":
+        return public_reveal_walkthrough.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "macro-projection-import-protocol":
+        macro_args = [args.action, "--input", args.input]
+        if args.out:
+            macro_args.extend(["--out", args.out])
+        elif args.action != "plan":
+            parser.error("--out is required for macro projection receipt-writing actions")
+        return macro_projection_import_protocol.main(macro_args)
+    if args.command == "prediction-oracle-reconciliation":
+        return prediction_oracle_reconciliation.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "standards-meta-diagnostics":
+        standards_meta_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            standards_meta_args.extend(["--acceptance-out", args.acceptance_out])
+        return standards_meta_diagnostics.main(standards_meta_args)
+    if args.command == "cold-reader-route-map":
+        return cold_reader_route_map.main(
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "navigation-hologram-route-plane":

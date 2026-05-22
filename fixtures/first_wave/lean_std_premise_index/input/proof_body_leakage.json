@@ -1,0 +1,27 @@
+{
+  "schema_version": "lean_std_premise_index_negative_case_v1",
+  "expected_negative_case_id": "proof_body_leakage",
+  "premises": [
+    {
+      "premise_id": "proof_body_leak",
+      "declaration_name": "Nat.add_assoc",
+      "namespace": "Nat",
+      "source_ref": "Init/Prelude.lean",
+      "statement_shape": "public_metadata_only",
+      "retrieval_terms": [
+        "addition",
+        "associative",
+        "Nat",
+        "+"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "body_redacted": true,
+      "proof_body": "by omega"
+    }
+  ],
+  "body_redacted": true
+}

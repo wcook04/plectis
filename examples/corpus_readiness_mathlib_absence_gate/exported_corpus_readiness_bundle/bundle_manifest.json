@@ -1,0 +1,12 @@
+{
+  "schema_version": "corpus_readiness_mathlib_absence_exported_bundle_manifest_v1",
+  "bundle_id": "public_corpus_readiness_mathlib_absence_runtime_example",
+  "bundle_kind": "exported_corpus_readiness_bundle",
+  "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "runtime_surfaces": [
+    "corpus_readiness",
+    "consumer_gate_cases"
+  ],
+  "authority_ceiling": "public corpus readiness metadata only",
+  "anti_claim": "This bundle is standalone corpus readiness metadata. It does not run Lean or Lake, call providers, expose proof bodies, claim Mathlib availability, or authorize formal proof authority."
+}

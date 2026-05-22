@@ -1,0 +1,35 @@
+{
+  "answer_delta": {
+    "claim_effect": "memory evidence changes route explanation only after stale fact deletion and scoped preference update are receipt-backed",
+    "delta_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
+    "memory_credit_requires_evidence_handle": true,
+    "memory_disabled_observation_id": "episode_c_memory_disabled_replay",
+    "memory_enabled_observation_id": "episode_c_memory_enabled_replay"
+  },
+  "replay_observations": [
+    {
+      "answer_hash": "sha256:memory_enabled_answer_hash_public_synthetic",
+      "body_redacted": true,
+      "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_enabled.json",
+      "episode_id": "episode_c_cold_replay",
+      "evidence_used_refs": [
+        "evidence.memory.episode_b.preference_scope_hash",
+        "receipt.memory.stale_tool_fact_deleted_before_replay"
+      ],
+      "memory_enabled": true,
+      "observation_id": "episode_c_memory_enabled_replay",
+      "replay_group_id": "episode_c_memory_on_off_pair"
+    },
+    {
+      "answer_hash": "sha256:memory_disabled_answer_hash_public_synthetic",
+      "body_redacted": true,
+      "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_disabled.json",
+      "episode_id": "episode_c_cold_replay",
+      "evidence_used_refs": [],
+      "memory_enabled": false,
+      "observation_id": "episode_c_memory_disabled_replay",
+      "replay_group_id": "episode_c_memory_on_off_pair"
+    }
+  ],
+  "schema_version": "memory_temporal_conflict_replay_observations_v1"
+}

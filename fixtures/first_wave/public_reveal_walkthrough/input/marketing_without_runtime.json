@@ -1,0 +1,19 @@
+{
+  "schema_version": "public_reveal_negative_case_v1",
+  "expected_negative_case_id": "marketing_without_runtime",
+  "claim_id": "negative_marketing_only_claim",
+  "runtime_commands_present": false,
+  "steps": [
+    {
+      "step_id": "marketing_only_slide",
+      "commands": [],
+      "inspect_refs": [
+        "README.md"
+      ],
+      "evidence_refs": [
+        "README.md"
+      ],
+      "expected_negative_case_id": "marketing_without_runtime"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": "standards_meta_diagnostics_negative_case_v1",
+  "expected_negative_case_id": "missing_receipt_ref",
+  "standards_inventory": [
+    {
+      "organ_id": "standards_meta_diagnostics",
+      "standard_id": "std_microcosm_standards_meta_diagnostics",
+      "standard_ref": "standards/std_microcosm_standards_meta_diagnostics.json",
+      "receipt_refs": []
+    }
+  ]
+}

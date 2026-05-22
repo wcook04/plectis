@@ -1,0 +1,10 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "release_overclaim",
+  "release_authorized": true,
+  "publication_authorized": true,
+  "formal_proof_authority": true,
+  "provider_calls_authorized": true,
+  "test_split_tuning_authorized": true,
+  "anti_claim": "This negative case must be rejected because strategy scoring cannot authorize proof authority, provider calls, test tuning, publication, or release."
+}

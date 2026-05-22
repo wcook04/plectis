@@ -1,0 +1,8 @@
+{
+  "body_redacted": true,
+  "bundle_id": "durable_agent_work_landing_replay_runtime_example",
+  "input_mode": "exported_work_landing_replay_bundle",
+  "organ_id": "durable_agent_work_landing_replay",
+  "release_authorized": false,
+  "schema_version": "durable_agent_work_landing_replay_bundle_manifest_v1"
+}

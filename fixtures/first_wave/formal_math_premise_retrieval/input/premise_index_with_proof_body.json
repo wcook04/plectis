@@ -1,0 +1,12 @@
+{
+  "schema_version": "formal_math_premise_negative_fixture_v1",
+  "premises": [
+    {
+      "premise_id": "Nat.secret_add_comm",
+      "retrieval_terms": ["nat", "addition"],
+      "allowed_for_split": ["train"],
+      "expected_negative_case_id": "premise_index_proof_body_forbidden",
+      "proof_body": "synthetic forbidden proof payload"
+    }
+  ]
+}

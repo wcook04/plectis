@@ -1,0 +1,13 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "unprobed_tactic_allowed",
+  "route_cases": [
+    {
+      "route_case_id": "bad_unknown_tactic",
+      "target_shape": "true_intro",
+      "allowed_tactic_ids": ["magic_tactic"],
+      "candidate_tactic_ids": ["magic_tactic"],
+      "route_stage": "pre_execution"
+    }
+  ]
+}

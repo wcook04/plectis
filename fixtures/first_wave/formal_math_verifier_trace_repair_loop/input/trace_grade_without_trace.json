@@ -1,0 +1,12 @@
+{
+  "schema_version": "formal_math_verifier_trace_negative_fixture_v1",
+  "attempts": [
+    {
+      "expected_negative_case_id": "trace_grade_without_trace",
+      "attempt_id": "negative_trace_grade_without_trace",
+      "verifier_class": "missing_trace",
+      "trace_grade": "claimed_trace_grade",
+      "repair_action_id": "repair_require_trace"
+    }
+  ]
+}

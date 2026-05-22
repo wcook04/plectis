@@ -1,0 +1,686 @@
+from __future__ import annotations
+
+import argparse
+import json
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+from microcosm_core.private_state_scan import (
+    PASS,
+    load_forbidden_classes,
+    public_relative_path,
+    scan_paths,
+)
+from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.schemas import read_json_strict
+
+
+ORGAN_ID = "public_reveal_walkthrough"
+FIXTURE_ID = "first_wave.public_reveal_walkthrough"
+VALIDATOR_ID = "validator.microcosm.organs.public_reveal_walkthrough"
+
+RESULT_NAME = "public_reveal_walkthrough_result.json"
+BOARD_NAME = "ten_minute_reveal_board.json"
+VALIDATION_RECEIPT_NAME = "public_reveal_validation_receipt.json"
+ACCEPTANCE_RECEIPT_REL = (
+    "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
+)
+BUNDLE_RESULT_NAME = "exported_public_reveal_bundle_validation_result.json"
+
+INPUT_NAMES = (
+    "reveal_walkthrough.json",
+    "substrate_evidence_map.json",
+    "audience_claim_floor.json",
+)
+NEGATIVE_INPUT_NAMES = (
+    "release_or_hosting_overclaim.json",
+    "private_equivalence_overclaim.json",
+    "missing_evidence_route.json",
+    "marketing_without_runtime.json",
+)
+
+EXPECTED_NEGATIVE_CASES = {
+    "release_or_hosting_overclaim": ["PUBLIC_REVEAL_RELEASE_OVERCLAIM"],
+    "private_equivalence_overclaim": ["PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM"],
+    "missing_evidence_route": ["PUBLIC_REVEAL_STEP_EVIDENCE_MISSING"],
+    "marketing_without_runtime": ["PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING"],
+}
+
+AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "public_reveal_walkthrough_metadata_and_command_plan_only",
+    "release_authorized": False,
+    "hosted_public_authorized": False,
+    "publication_authorized": False,
+    "recipient_work_authorized": False,
+    "provider_calls_authorized": False,
+    "private_data_equivalence_claim": False,
+    "whole_system_correctness_claim": False,
+}
+ANTI_CLAIM = (
+    "The public reveal walkthrough validates a short public entry path, commands, "
+    "evidence refs, and anti-claims. It does not authorize release, hosting, "
+    "publication, recipient work, provider calls, private-data equivalence, "
+    "Lean/Lake execution, or whole-system correctness."
+)
+
+
+def _public_root_for_path(path: str | Path) -> Path:
+    resolved = Path(path).resolve(strict=False)
+    start = resolved if resolved.is_dir() else resolved.parent
+    for candidate in (start, *start.parents):
+        if candidate.name == "microcosm-substrate":
+            return candidate
+    return Path.cwd().resolve(strict=False)
+
+
+def _display(path: Path, *, public_root: Path) -> str:
+    return public_relative_path(path, display_root=public_root)
+
+
+def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    return [input_dir / name for name in names]
+
+
+def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _input_paths(input_dir, include_negative=include_negative)
+    }
+
+
+def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    value = payload.get(key, [])
+    if not isinstance(value, list):
+        return []
+    return [row for row in value if isinstance(row, dict)]
+
+
+def _finding(
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return {
+        "error_code": code,
+        "message": message,
+        "negative_case_id": case_id,
+        "subject_id": subject_id,
+        "subject_kind": subject_kind,
+        "body_redacted": True,
+    }
+
+
+def _record(
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> None:
+    findings.append(
+        _finding(
+            code,
+            message,
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind=subject_kind,
+        )
+    )
+    observed[case_id].add(code)
+
+
+def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    merged: dict[str, set[str]] = defaultdict(set)
+    for result in results:
+        for case_id, codes in result.get("observed_negative_cases", {}).items():
+            for code in codes:
+                merged[case_id].add(str(code))
+    return {case_id: sorted(codes) for case_id, codes in sorted(merged.items())}
+
+
+def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    for result in results:
+        findings.extend(result.get("findings", []))
+    return sorted(
+        findings,
+        key=lambda item: (
+            str(item.get("negative_case_id") or ""),
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+
+
+def validate_walkthrough(payload: object, negative_payload: object | None = None) -> dict[str, Any]:
+    steps = _rows(payload, "steps")
+    normalized_steps: list[dict[str, Any]] = []
+    command_refs: list[str] = []
+    evidence_refs: list[str] = []
+    substrate_refs: list[str] = []
+    for row in steps:
+        step_id = str(row.get("step_id") or "step")
+        commands = [str(item) for item in row.get("commands", []) if isinstance(item, str)]
+        inspect_refs = [str(item) for item in row.get("inspect_refs", []) if isinstance(item, str)]
+        step_evidence = [str(item) for item in row.get("evidence_refs", []) if isinstance(item, str)]
+        command_refs.extend(commands)
+        evidence_refs.extend(step_evidence)
+        substrate_refs.extend(inspect_refs)
+        normalized_steps.append(
+            {
+                "step_id": step_id,
+                "minute_range": row.get("minute_range"),
+                "commands": commands,
+                "inspect_refs": inspect_refs,
+                "evidence_refs": step_evidence,
+                "expected_signal": row.get("expected_signal"),
+                "body_redacted": True,
+            }
+        )
+
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    if isinstance(negative_payload, dict):
+        case_id = str(
+            negative_payload.get("expected_negative_case_id") or "missing_evidence_route"
+        )
+        for row in _rows(negative_payload, "steps"):
+            step_id = str(row.get("step_id") or "step")
+            commands = [item for item in row.get("commands", []) if isinstance(item, str)]
+            evidence = [item for item in row.get("evidence_refs", []) if isinstance(item, str)]
+            inspect_refs = [item for item in row.get("inspect_refs", []) if isinstance(item, str)]
+            if not evidence or not inspect_refs:
+                _record(
+                    findings,
+                    observed,
+                    "PUBLIC_REVEAL_STEP_EVIDENCE_MISSING",
+                    "Reveal step must point at concrete substrate refs and evidence refs.",
+                    case_id=case_id,
+                    subject_id=step_id,
+                    subject_kind="reveal_step",
+                )
+            if not commands:
+                _record(
+                    findings,
+                    observed,
+                    "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING",
+                    "Reveal step must include a command or local runtime action.",
+                    case_id=str(
+                        row.get("expected_negative_case_id")
+                        or "marketing_without_runtime"
+                    ),
+                    subject_id=step_id,
+                    subject_kind="reveal_step",
+                )
+
+    command_count = len(set(command_refs))
+    evidence_count = len(set(evidence_refs))
+    status = PASS if len(normalized_steps) >= 5 and command_count >= 4 and evidence_count >= 4 else "blocked"
+    if status != PASS:
+        findings.append(
+            _finding(
+                "PUBLIC_REVEAL_DENSITY_FLOOR_MISSING",
+                "Reveal walkthrough must fit at least five steps, four commands, and four evidence refs.",
+                case_id="density_floor",
+                subject_id="reveal_walkthrough",
+                subject_kind="walkthrough",
+            )
+        )
+    return {
+        "status": status,
+        "walkthrough_id": payload.get("walkthrough_id") if isinstance(payload, dict) else None,
+        "claim": payload.get("claim") if isinstance(payload, dict) else None,
+        "target_reader": payload.get("target_reader") if isinstance(payload, dict) else None,
+        "time_budget_minutes": payload.get("time_budget_minutes") if isinstance(payload, dict) else None,
+        "step_count": len(normalized_steps),
+        "command_count": command_count,
+        "evidence_ref_count": evidence_count,
+        "substrate_ref_count": len(set(substrate_refs)),
+        "steps": normalized_steps,
+        "commands": sorted(set(command_refs)),
+        "evidence_refs": sorted(set(evidence_refs)),
+        "substrate_refs": sorted(set(substrate_refs)),
+        "findings": findings,
+        "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+    }
+
+
+def validate_evidence_map(payload: object) -> dict[str, Any]:
+    rows = _rows(payload, "evidence")
+    evidence_ids: list[str] = []
+    refs: list[str] = []
+    missing_refs: list[str] = []
+    for row in rows:
+        evidence_id = str(row.get("evidence_id") or "")
+        ref = str(row.get("ref") or "")
+        if evidence_id:
+            evidence_ids.append(evidence_id)
+        if ref:
+            refs.append(ref)
+        if not evidence_id or not ref or row.get("projection_not_authority") is not True:
+            missing_refs.append(evidence_id or ref or "evidence")
+    return {
+        "status": PASS if rows and not missing_refs else "blocked",
+        "evidence_ids": sorted(evidence_ids),
+        "evidence_refs": sorted(refs),
+        "evidence_count": len(rows),
+        "missing_or_unbounded_evidence_refs": sorted(missing_refs),
+        "findings": [
+            _finding(
+                "PUBLIC_REVEAL_EVIDENCE_MAP_INCOMPLETE",
+                "Evidence rows must name evidence_id, ref, and projection_not_authority.",
+                case_id="evidence_map_floor",
+                subject_id=subject,
+                subject_kind="evidence_row",
+            )
+            for subject in sorted(missing_refs)
+        ],
+        "observed_negative_cases": {},
+    }
+
+
+def validate_claim_floor(
+    payload: object,
+    release_negative: object | None = None,
+    private_negative: object | None = None,
+    marketing_negative: object | None = None,
+) -> dict[str, Any]:
+    claim = payload if isinstance(payload, dict) else {}
+    required_phrases = [
+        str(item)
+        for item in claim.get("required_public_claim_phrases", [])
+        if isinstance(item, str)
+    ]
+    allowed_claim = str(claim.get("public_claim") or "")
+    missing_required = [phrase for phrase in required_phrases if phrase not in allowed_claim]
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    if missing_required:
+        findings.append(
+            _finding(
+                "PUBLIC_REVEAL_CLAIM_FLOOR_MISSING",
+                "Public reveal claim is missing required product-loop phrases.",
+                case_id="claim_floor",
+                subject_id="public_claim",
+                subject_kind="claim_floor",
+            )
+        )
+    for negative, case_id, code, message in (
+        (
+            release_negative,
+            "release_or_hosting_overclaim",
+            "PUBLIC_REVEAL_RELEASE_OVERCLAIM",
+            "Reveal material cannot claim release, hosting, publication, or recipient-work authority.",
+        ),
+        (
+            private_negative,
+            "private_equivalence_overclaim",
+            "PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM",
+            "Reveal material cannot claim private-data equivalence or whole-system correctness.",
+        ),
+        (
+            marketing_negative,
+            "marketing_without_runtime",
+            "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING",
+            "Reveal material cannot be marketing-only without commands and evidence refs.",
+        ),
+    ):
+        if not isinstance(negative, dict):
+            continue
+        flags = [
+            "release_authorized",
+            "hosted_public_authorized",
+            "publication_authorized",
+            "recipient_work_authorized",
+            "private_data_equivalence_claim",
+            "whole_system_correctness_claim",
+            "runtime_commands_present",
+        ]
+        overclaim = any(negative.get(flag) is True for flag in flags[:-1]) or (
+            case_id == "marketing_without_runtime"
+            and negative.get("runtime_commands_present") is False
+        )
+        if overclaim:
+            _record(
+                findings,
+                observed,
+                code,
+                message,
+                case_id=case_id,
+                subject_id=str(negative.get("claim_id") or case_id),
+                subject_kind="claim_floor",
+            )
+    return {
+        "status": PASS if not missing_required else "blocked",
+        "public_claim": allowed_claim,
+        "required_public_claim_phrases": required_phrases,
+        "missing_required_phrases": missing_required,
+        "forbidden_authority_rejected": True,
+        "findings": findings,
+        "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+    }
+
+
+def _build_result(
+    input_dir: Path,
+    *,
+    command: str,
+    input_mode: str,
+    include_negative: bool,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
+    payloads = _load_payloads(input_dir, include_negative=include_negative)
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    private_scan = scan_paths(
+        _input_paths(input_dir, include_negative=include_negative),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    walkthrough = validate_walkthrough(
+        payloads["reveal_walkthrough"],
+        payloads.get("missing_evidence_route"),
+    )
+    evidence = validate_evidence_map(payloads["substrate_evidence_map"])
+    claim = validate_claim_floor(
+        payloads["audience_claim_floor"],
+        payloads.get("release_or_hosting_overclaim"),
+        payloads.get("private_equivalence_overclaim"),
+        payloads.get("marketing_without_runtime"),
+    )
+
+    observed = _merge_observed(walkthrough, evidence, claim)
+    expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
+    missing = sorted(case_id for case_id in expected if case_id not in observed)
+    findings = _merge_findings(walkthrough, evidence, claim)
+    error_codes = sorted({finding["error_code"] for finding in findings})
+    bundle_manifest = (
+        read_json_strict(input_dir / "bundle_manifest.json")
+        if (input_dir / "bundle_manifest.json").is_file()
+        else {}
+    )
+    status = (
+        PASS
+        if not missing
+        and private_scan["blocking_hit_count"] == 0
+        and walkthrough["status"] == PASS
+        and evidence["status"] == PASS
+        and claim["status"] == PASS
+        else "blocked"
+    )
+    return {
+        "schema_version": "public_reveal_walkthrough_result_v1",
+        "created_at": utc_now(),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command,
+        "input_mode": input_mode,
+        "bundle_id": bundle_manifest.get("bundle_id") if isinstance(bundle_manifest, dict) else None,
+        "expected_negative_cases": sorted(expected),
+        "observed_negative_cases": observed,
+        "missing_negative_cases": missing,
+        "error_codes": error_codes,
+        "findings": findings,
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "walkthrough_id": walkthrough["walkthrough_id"],
+        "public_claim": claim["public_claim"],
+        "target_reader": walkthrough["target_reader"],
+        "time_budget_minutes": walkthrough["time_budget_minutes"],
+        "step_count": walkthrough["step_count"],
+        "command_count": walkthrough["command_count"],
+        "evidence_ref_count": walkthrough["evidence_ref_count"],
+        "substrate_ref_count": walkthrough["substrate_ref_count"],
+        "commands": walkthrough["commands"],
+        "evidence_refs": sorted(set(walkthrough["evidence_refs"]) | set(evidence["evidence_refs"])),
+        "substrate_refs": walkthrough["substrate_refs"],
+        "steps": walkthrough["steps"],
+        "reveal_board": {
+            "headline": "Microcosm turns a repo into a local operating substrate.",
+            "time_budget_minutes": walkthrough["time_budget_minutes"],
+            "step_count": walkthrough["step_count"],
+            "first_command": walkthrough["commands"][0] if walkthrough["commands"] else None,
+            "primary_loop": "repo -> .microcosm -> catalog/patterns/routes/work/events/evidence/explanations",
+            "evidence_is_drilldown": True,
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "private_data_equivalence_claim": False,
+            "steps": walkthrough["steps"],
+            "body_redacted": True,
+        },
+        "body_redacted": True,
+    }
+
+
+def _common_receipt(
+    result: dict[str, Any],
+    *,
+    schema_version: str,
+    receipt_paths: list[str],
+) -> dict[str, Any]:
+    keys = (
+        "status",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "input_mode",
+        "bundle_id",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "missing_negative_cases",
+        "error_codes",
+        "findings",
+        "private_state_scan",
+        "authority_ceiling",
+        "anti_claim",
+        "walkthrough_id",
+        "public_claim",
+        "target_reader",
+        "time_budget_minutes",
+        "step_count",
+        "command_count",
+        "evidence_ref_count",
+        "substrate_ref_count",
+        "commands",
+        "evidence_refs",
+        "substrate_refs",
+        "body_redacted",
+    )
+    payload = {
+        "schema_version": schema_version,
+        "receipt_id": schema_version,
+        "created_at": result["created_at"],
+        "receipt_paths": receipt_paths,
+    }
+    for key in keys:
+        payload[key] = result.get(key)
+    return payload
+
+
+def write_receipts(
+    out_dir: str | Path,
+    result: dict[str, Any],
+    *,
+    public_root: str | Path,
+    acceptance_out: str | Path | None = None,
+) -> dict[str, str]:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root_path = Path(public_root).resolve(strict=False)
+    acceptance_path = (
+        Path(acceptance_out)
+        if acceptance_out is not None
+        else public_root_path / ACCEPTANCE_RECEIPT_REL
+    )
+    if not acceptance_path.is_absolute():
+        acceptance_path = Path.cwd() / acceptance_path
+    paths = {
+        "public_reveal_walkthrough_result": target / RESULT_NAME,
+        "ten_minute_reveal_board": target / BOARD_NAME,
+        "public_reveal_validation_receipt": target / VALIDATION_RECEIPT_NAME,
+        "fixture_acceptance": acceptance_path,
+    }
+    receipt_paths = [_display(path, public_root=public_root_path) for path in paths.values()]
+
+    result_receipt = _common_receipt(
+        result,
+        schema_version="public_reveal_walkthrough_result_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    result_receipt.update({"reveal_board": result["reveal_board"]})
+    board = _common_receipt(
+        result,
+        schema_version="public_reveal_walkthrough_board_v1",
+        receipt_paths=receipt_paths,
+    )
+    board.update(result["reveal_board"])
+    validation = _common_receipt(
+        result,
+        schema_version="public_reveal_walkthrough_validation_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    validation.update(
+        {
+            "negative_case_coverage_status": PASS
+            if not result["missing_negative_cases"]
+            else "blocked",
+            "ten_minute_density_floor_met": result["step_count"] >= 5,
+            "runtime_commands_present": result["command_count"] >= 4,
+            "evidence_refs_present": result["evidence_ref_count"] >= 4,
+            "release_authorized": False,
+        }
+    )
+    acceptance = _common_receipt(
+        result,
+        schema_version="public_reveal_walkthrough_fixture_acceptance_v1",
+        receipt_paths=receipt_paths,
+    )
+    acceptance.update(
+        {
+            "acceptance_status": "accepted_current_authority"
+            if result["status"] == PASS
+            else "blocked",
+            "accepted_organ_id": ORGAN_ID,
+            "product_reveal_boundary": "ten_minute_public_entry_path",
+        }
+    )
+
+    write_json_atomic(paths["public_reveal_walkthrough_result"], result_receipt)
+    write_json_atomic(paths["ten_minute_reveal_board"], board)
+    write_json_atomic(paths["public_reveal_validation_receipt"], validation)
+    write_json_atomic(paths["fixture_acceptance"], acceptance)
+    return {name: _display(path, public_root=public_root_path) for name, path in paths.items()}
+
+
+def run(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+    *,
+    acceptance_out: str | Path | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    command_text = command or (
+        "python -m microcosm_core.organs.public_reveal_walkthrough run "
+        f"--input {input_dir} --out {out_dir}"
+    )
+    result = _build_result(
+        input_path,
+        command=command_text,
+        input_mode="first_wave_fixture",
+        include_negative=True,
+    )
+    result["receipt_paths"] = list(
+        write_receipts(
+            out_dir,
+            result,
+            public_root=_public_root_for_path(input_path),
+            acceptance_out=acceptance_out,
+        ).values()
+    )
+    return result
+
+
+def run_reveal_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    command_text = command or (
+        "python -m microcosm_core.organs.public_reveal_walkthrough "
+        f"run-reveal-bundle --input {input_dir} --out {out_dir}"
+    )
+    result = _build_result(
+        input_path,
+        command=command_text,
+        input_mode="exported_public_reveal_bundle",
+        include_negative=False,
+    )
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = _public_root_for_path(input_path)
+    receipt_path = target / BUNDLE_RESULT_NAME
+    receipt_ref = _display(receipt_path, public_root=public_root)
+    if Path(receipt_ref).is_absolute() and "receipts" in receipt_path.parts:
+        receipts_index = len(receipt_path.parts) - 1 - list(reversed(receipt_path.parts)).index("receipts")
+        receipt_ref = Path(*receipt_path.parts[receipts_index:]).as_posix()
+    receipt = _common_receipt(
+        result,
+        schema_version="public_reveal_walkthrough_exported_bundle_receipt_v1",
+        receipt_paths=[receipt_ref],
+    )
+    receipt.update({"reveal_board": result["reveal_board"]})
+    write_json_atomic(receipt_path, receipt)
+    result["receipt_paths"] = [receipt_ref]
+    return result
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Validate public reveal walkthrough")
+    subparsers = parser.add_subparsers(dest="action")
+    run_parser = subparsers.add_parser("run")
+    run_parser.add_argument("--input", required=True)
+    run_parser.add_argument("--out", required=True)
+    bundle_parser = subparsers.add_parser("run-reveal-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    if args.action == "run":
+        result = run(args.input, args.out)
+    elif args.action == "run-reveal-bundle":
+        result = run_reveal_bundle(args.input, args.out)
+    else:
+        return 2
+    print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+    return 0 if result["status"] == PASS else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

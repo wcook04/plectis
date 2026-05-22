@@ -1,0 +1,13 @@
+{
+  "schema_version": "formal_evidence_cell_negative_fixture_v1",
+  "claims": [
+    {
+      "expected_negative_case_id": "human_approval_as_evidence_cell",
+      "claim_id": "negative.human_approval_as_evidence_cell",
+      "evidence_cell_id": "cell.lean_decl_count.public_fixture",
+      "claim_strength": "formal_evidence_cell_present",
+      "uses_proof_language": true,
+      "human_approval_claims_evidence_cell_authority": true
+    }
+  ]
+}

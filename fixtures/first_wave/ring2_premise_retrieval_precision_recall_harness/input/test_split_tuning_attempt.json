@@ -1,0 +1,11 @@
+{
+  "schema_version": "ring2_negative_case_v1",
+  "expected_negative_case_id": "test_split_tuning_attempt",
+  "runs": [
+    {
+      "run_id": "ring2_test_tuned_variant",
+      "uses_test_labels_for_tuning": true,
+      "tuning_split": "test"
+    }
+  ]
+}

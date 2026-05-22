@@ -1,0 +1,192 @@
+{
+  "anti_claim": "The stripping guard is a public-safe read-model over export-denial rules. It is not a complete secret scanner, does not export private bodies, proof bodies, provider payloads, raw private paths, or example secret material, does not give financial advice, mutate source, prove public/private equivalence, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "automated_import_guarantee": false,
+    "financial_advice_authorized": false,
+    "private_body_export_authorized": false,
+    "private_data_equivalence_claim": false,
+    "proof_body_export_authorized": false,
+    "provider_payload_export_authorized": false,
+    "raw_private_path_export_authorized": false,
+    "read_model_only": true,
+    "release_authorized": false,
+    "secret_detection_completeness_claim": false,
+    "source_mutation_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm stripping-guard",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/stripping-guard",
+  "guard_rows": [
+    {
+      "guard_row_id": "private_source_body_strip",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "receipt ref, owner route, omission receipt, and redacted summary",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "private source bodies can orient implementation but cannot be copied out",
+      "strip_rule": "replace body with public ref and body_redacted=true",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
+        "tests/test_launch_compression.py"
+      ]
+    },
+    {
+      "guard_row_id": "proof_body_strip",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "metadata-only failure class, evidence cell id, and anti-claim",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "formal proof attempts may contain private working state or unreviewed proof claims",
+      "strip_rule": "export claim strength metadata, never proof body text",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_evidence_cell_lens_is_public_safe"
+      ]
+    },
+    {
+      "guard_row_id": "provider_payload_strip",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "synthetic case id, decision row, and validator receipt",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "provider prompts, completions, and tool payloads are not public evidence",
+      "strip_rule": "publish only public synthetic rows and provider_call_authorized=false",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_replay_gauntlet_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_is_public_safe"
+      ]
+    },
+    {
+      "guard_row_id": "raw_private_path_redaction",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "root-relative public refs or stable command ids",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "absolute private paths can leak operator identity and host layout",
+      "strip_rule": "reject absolute private paths and private-root identifiers from public JSON",
+      "validation_refs": [
+        "tests/test_runtime_shell.py",
+        "tests/test_observatory_legibility.py"
+      ]
+    },
+    {
+      "guard_row_id": "secret_token_strip",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "negative case id and no-completeness anti-claim",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "secret-like strings require fail-closed handling and cannot be evidence",
+      "strip_rule": "strip example token material and deny complete secret-scanner claims",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
+        "tests/test_observatory_legibility.py"
+      ]
+    },
+    {
+      "guard_row_id": "financial_advice_strip",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "no-advice fixture row and synthetic prediction lens",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "prediction and finance reasoning can be shown as synthetic mechanics only",
+      "strip_rule": "deny trading advice, live market claims, and private dossiers",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_is_public_safe",
+        "tests/test_cli.py::test_cli_prediction_lens_smoke"
+      ]
+    },
+    {
+      "guard_row_id": "source_mutation_denial",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "authority row and explicit source_mutation_authorized=false",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "public runtime commands should inspect, compile, or write receipts only",
+      "strip_rule": "route mutations through owner tests/commits, not runtime lens commands",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_landing_replay_lens_is_public_safe"
+      ]
+    },
+    {
+      "guard_row_id": "release_and_private_equivalence_denial",
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_replacement": "anti-claim row, authority ceiling, and release_authorized=false",
+      "raw_private_path_exported": false,
+      "release_authorized": false,
+      "secret_token_exported": false,
+      "source_risk": "a public microcosm is a projection, not release approval or private-root equivalence",
+      "strip_rule": "deny publication, hosted-public, benchmark, and private-equivalence claims",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_tour_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe"
+      ]
+    }
+  ],
+  "guard_summary": {
+    "guard_row_count": 8,
+    "negative_case_count": 8,
+    "private_body_export_count": 0,
+    "proof_body_export_count": 0,
+    "provider_payload_export_count": 0,
+    "raw_private_path_export_count": 0,
+    "release_authorized": false,
+    "secret_token_export_count": 0,
+    "validation_ref_count": 16
+  },
+  "lens_id": "public_stripping_guard_lens",
+  "negative_case_ids": [
+    "private_body_export_rejected",
+    "proof_body_export_rejected",
+    "provider_payload_export_rejected",
+    "raw_private_path_export_rejected",
+    "secret_scanner_claim_rejected",
+    "financial_advice_export_rejected",
+    "source_mutation_authority_rejected",
+    "release_or_private_equivalence_claim_rejected"
+  ],
+  "organ_family": "projection_import",
+  "public_claim": "Microcosm exposes a public/private stripping guard: every public-facing projection names the private body, proof body, provider payload, raw path, secret-completeness, finance, source-mutation, and release claims it must reject before becoming a public runtime surface.",
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "private_paths_omitted": true,
+    "private_source_bodies_omitted": true,
+    "projection_is_read_model_only": true,
+    "proof_bodies_omitted": true,
+    "provider_payloads_omitted": true,
+    "secret_examples_omitted": true
+  },
+  "schema_version": "microcosm_public_private_stripping_guard_lens_v1",
+  "selected_pattern_ids": [
+    "macro_projection_import_protocol",
+    "omission_receipt_reversible_projection_boundary",
+    "public_private_stripping_protocol"
+  ],
+  "status": "pass",
+  "stripping_guard_ref": "receipts/runtime_shell/public_stripping_guard_lens.json"
+}

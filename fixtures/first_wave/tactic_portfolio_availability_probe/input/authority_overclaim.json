@@ -1,0 +1,9 @@
+{
+  "schema_version": "tactic_portfolio_availability_negative_case_v1",
+  "expected_negative_case_id": "authority_overclaim",
+  "formal_proof_authority": true,
+  "lean_lake_execution_authorized": true,
+  "provider_calls_authorized": true,
+  "benchmark_performance_claimed": true,
+  "release_authorized": true
+}

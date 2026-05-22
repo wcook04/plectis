@@ -1,0 +1,42 @@
+{
+  "schema_version": "public_reveal_evidence_map_v1",
+  "map_id": "microcosm_public_reveal_evidence_map",
+  "evidence": [
+    {
+      "evidence_id": "product_loop_readme",
+      "ref": "README.md",
+      "role": "cold entry product loop",
+      "projection_not_authority": true
+    },
+    {
+      "evidence_id": "runtime_spine_registry",
+      "ref": "core/organ_registry.json",
+      "role": "accepted organ registry",
+      "projection_not_authority": true
+    },
+    {
+      "evidence_id": "acceptance_boundary",
+      "ref": "core/acceptance/first_wave_acceptance.json",
+      "role": "release and authority boundary",
+      "projection_not_authority": true
+    },
+    {
+      "evidence_id": "public_standard_pressure",
+      "ref": "core/public_standard_pressure.json",
+      "role": "standard pressure cards",
+      "projection_not_authority": true
+    },
+    {
+      "evidence_id": "runtime_shell_tests",
+      "ref": "tests/test_runtime_shell.py",
+      "role": "runtime shell regression coverage",
+      "projection_not_authority": true
+    },
+    {
+      "evidence_id": "freshness_receipt",
+      "ref": "receipts/preflight/fixture_runner_freshness.json",
+      "role": "fixture and receipt freshness",
+      "projection_not_authority": true
+    }
+  ]
+}

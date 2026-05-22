@@ -1,0 +1,82 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "formal_math_verifier_trace_repair_loop",
+  "fixture_id": "fixture::formal_math_verifier_trace_repair_loop::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate a public-safe formal-math verifier trace repair loop imported through the macro projection protocol: verifier feedback, trace grades, repair actions, failure-mode ledger updates, curriculum deltas, cold rerun promotion gates, and negative-case leakage controls.",
+  "inputs": [
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/attempt_with_proof_body.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/attempt_with_oracle_ids.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/trace_grade_without_trace.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_without_verifier_class.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_without_cold_rerun.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/provider_payload_leakage.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/human_approval_as_proof.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
+  "expected_negative_cases": [
+    "attempt_with_proof_body",
+    "attempt_with_oracle_ids",
+    "trace_grade_without_trace",
+    "repair_without_verifier_class",
+    "promotion_without_cold_rerun",
+    "provider_payload_leakage",
+    "human_approval_as_proof"
+  ],
+  "stable_error_codes": [
+    "VERIFIER_TRACE_PROOF_BODY_FORBIDDEN",
+    "VERIFIER_TRACE_ORACLE_IDS_FORBIDDEN",
+    "VERIFIER_TRACE_GRADE_WITHOUT_TRACE",
+    "VERIFIER_REPAIR_WITHOUT_VERIFIER_CLASS",
+    "VERIFIER_PROMOTION_WITHOUT_COLD_RERUN",
+    "VERIFIER_PROVIDER_PAYLOAD_FORBIDDEN",
+    "VERIFIER_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "protocol_id",
+    "source_pattern_ids",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "attempt_count",
+    "trace_event_count",
+    "repair_action_count",
+    "cold_rerun_promotion_count",
+    "failure_mode_count",
+    "curriculum_edge_count"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "forbidden; verifier rows expose failure class and redacted event metadata only",
+    "oracle_needed_premise_ids": "forbidden in public trace inputs",
+    "provider_payload_bodies": "forbidden; provider or human advice is advisory metadata only",
+    "human_approval_as_proof": "forbidden; only checker receipts can support proof authority",
+    "lean_lake": "not executed; repair loop replay metadata only"
+  },
+  "authority_ceiling": "public synthetic formal-math verifier trace repair fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, human approval authority, or release readiness",
+  "anti_claim": "This fixture manifest accepts only public verifier trace repair metadata, trace-grade checks, cold-rerun promotion gates, curriculum deltas, and negative-case leakage coverage. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}

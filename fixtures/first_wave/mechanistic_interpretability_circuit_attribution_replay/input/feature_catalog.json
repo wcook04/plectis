@@ -1,0 +1,59 @@
+{
+  "features": [
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_001",
+      "private_model_weights_exported": false,
+      "public_label": "loop-control hinge feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_001.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_002",
+      "private_model_weights_exported": false,
+      "public_label": "route-choice pressure feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_002.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_003",
+      "private_model_weights_exported": false,
+      "public_label": "evidence-gap feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_003.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_004",
+      "private_model_weights_exported": false,
+      "public_label": "contradiction detector feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_004.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_005",
+      "private_model_weights_exported": false,
+      "public_label": "sufficiency check feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_005.json"
+    },
+    {
+      "body_redacted": true,
+      "feature_id": "feat_public_006",
+      "private_model_weights_exported": false,
+      "public_label": "cold-replay stabilization feature",
+      "raw_activation_dump_exported": false,
+      "source_kind": "synthetic_sparse_feature_summary",
+      "summary_ref": "evidence/feature_summaries/feat_public_006.json"
+    }
+  ],
+  "schema_version": "mechanistic_interpretability_feature_catalog_v1"
+}

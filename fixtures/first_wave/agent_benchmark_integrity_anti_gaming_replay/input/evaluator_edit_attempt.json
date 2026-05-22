@@ -1,0 +1,14 @@
+{
+  "body_redacted": true,
+  "case_id": "repo_issue_public_001",
+  "contamination_check_ref": "receipts/benchmark_integrity/neg_contamination.json",
+  "evaluator_config_hash": "sha256:mutable",
+  "evaluator_id": "unlocked_mutable_scorer",
+  "evaluator_mutated": true,
+  "expected_negative_case_id": "evaluator_edit_attempt",
+  "file_access_log_ref": "receipts/benchmark_integrity/neg_file_access.json",
+  "integrity_verdict": "quarantine",
+  "output_replay_ref": "receipts/benchmark_integrity/neg_output.json",
+  "replay_id": "neg_evaluator_edit",
+  "trusted_reference_score_ref": "receipts/benchmark_integrity/neg_ref.json"
+}

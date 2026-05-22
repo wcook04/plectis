@@ -1,0 +1,40 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
+  "organ_id": "provider_context_recipe_budget_policy",
+  "purpose": "Validate public-safe provider context recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
+  "inputs": [
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json", "role": "synthetic public provider context recipe budget table"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json", "role": "synthetic redacted context section metadata"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/budget_overflow_recipe.json", "role": "negative case: recipe exceeds bounded byte contract"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/truth_side_section.json", "role": "negative case: truth-side or oracle-only section selected"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/proof_body_leakage.json", "role": "negative case: proof body or oracle body field leakage"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_call_authorized.json", "role": "negative case: public fixture authorizes provider call"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/deliverable_type_route_mismatch.json", "role": "negative case: recipe emits wrong deliverable type for route"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/omitted_sections_suppressed.json", "role": "negative case: over-budget omitted-section manifest suppressed"}
+  ],
+  "validator": "microcosm_core.organs.provider_context_recipe_budget_policy",
+  "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+  "expected_receipts": [
+    "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
+    "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
+    "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
+    "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
+  ],
+  "negative_case_ids": [
+    "budget_overflow_recipe",
+    "truth_side_section",
+    "proof_body_leakage",
+    "provider_call_authorized",
+    "deliverable_type_route_mismatch",
+    "omitted_sections_suppressed"
+  ],
+  "authority_ceiling": {
+    "provider_calls_authorized": false,
+    "lean_lake_execution_authorized": false,
+    "formal_proof_authority": false,
+    "truth_side_material_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "Provider context recipe budget fixtures validate context-shape metadata only; they do not call providers, prove goals, run Lean/Lake, expose proof or oracle bodies, authorize release, or claim private macro equivalence."
+}

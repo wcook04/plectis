@@ -1,0 +1,13 @@
+{
+  "schema_version": "macro_projection_import_negative_case_v1",
+  "expected_negative_case_id": "missing_omission_receipt",
+  "omitted_material": [
+    {
+      "material_id": "private_source_bodies",
+      "omitted_class": "private_source_body",
+      "reason": "Private bodies were omitted but no receipt ref was attached.",
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

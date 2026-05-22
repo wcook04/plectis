@@ -1,0 +1,80 @@
+{
+  "schema_version": "undeclared_library_prior_premise_index_fixture_v1",
+  "index_id": "closed_public_lean_std_symbol_index_v1",
+  "premises": [
+    {
+      "premise_id": "premise.nat.add_comm",
+      "theorem_or_def_name": "Nat.add_comm",
+      "namespace": "Nat",
+      "source_ref": "Lean/Init/Prelude",
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "statement_excerpt": "n + m = m + n"
+    },
+    {
+      "premise_id": "premise.nat.add_assoc",
+      "theorem_or_def_name": "Nat.add_assoc",
+      "namespace": "Nat",
+      "source_ref": "Lean/Init/Prelude",
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "statement_excerpt": "a + b + c = a + (b + c)"
+    },
+    {
+      "premise_id": "premise.list.append_assoc",
+      "theorem_or_def_name": "List.append_assoc",
+      "namespace": "List",
+      "source_ref": "Lean/Init/Data/List/Basic",
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "statement_excerpt": "(xs ++ ys) ++ zs = xs ++ (ys ++ zs)"
+    },
+    {
+      "premise_id": "premise.bool.and_comm",
+      "theorem_or_def_name": "Bool.and_comm",
+      "namespace": "Bool",
+      "source_ref": "Lean/Init/Prelude",
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "statement_excerpt": "a && b = b && a"
+    },
+    {
+      "premise_id": "premise.iff.mp",
+      "theorem_or_def_name": "Iff.mp",
+      "namespace": "Iff",
+      "source_ref": "Lean/Init/Prelude",
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "statement_excerpt": "(a ↔ b) -> a -> b"
+    },
+    {
+      "premise_id": "premise.eq.trans",
+      "theorem_or_def_name": "Eq.trans",
+      "namespace": "Eq",
+      "source_ref": "Lean/Init/Prelude",
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "statement_excerpt": "a = b -> b = c -> a = c"
+    }
+  ],
+  "mathlib_available": false,
+  "proof_bodies_included": false
+}

@@ -1,0 +1,56 @@
+{
+  "accepted_negative_cases": [
+    "active_injection_as_authoritative",
+    "final_answer_only_memory_credit",
+    "memory_as_source_authority",
+    "private_candidate_auto_promotion",
+    "raw_transcript_export",
+    "stale_preference_override",
+    "vector_recall_without_evidence_handle"
+  ],
+  "anti_claim": "Agent memory temporal-conflict replay validates a synthetic three-episode memory update/replay contract with conflict edges, stale downgrades, metadata-only private refs, paired memory-on/off replay, negative cases, and receipts. It does not claim live memory product quality, export private transcripts, promote private candidates, treat memory recall as source authority, adopt active injection, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "active_injection_authority_authorized": false,
+    "authority_ceiling": "synthetic_agent_memory_temporal_conflict_replay_receipts_only",
+    "live_memory_product_claim_authorized": false,
+    "memory_as_source_authority_authorized": false,
+    "private_candidate_auto_promotion_authorized": false,
+    "private_transcript_export_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "vector_recall_without_evidence_authorized": false
+  },
+  "created_at": "2026-05-22T05:00:39+00:00",
+  "error_codes": [
+    "MEMORY_CONFLICT_ACTIVE_INJECTION_AUTHORITY_FORBIDDEN",
+    "MEMORY_CONFLICT_FINAL_ANSWER_ONLY_CREDIT",
+    "MEMORY_CONFLICT_PRIVATE_CANDIDATE_AUTO_PROMOTION",
+    "MEMORY_CONFLICT_RAW_TRANSCRIPT_FORBIDDEN",
+    "MEMORY_CONFLICT_SOURCE_AUTHORITY_FORBIDDEN",
+    "MEMORY_CONFLICT_STALE_OVERRIDE_FORBIDDEN",
+    "MEMORY_CONFLICT_VECTOR_RECALL_WITHOUT_EVIDENCE"
+  ],
+  "fixture_id": "first_wave.agent_memory_temporal_conflict_replay",
+  "missing_negative_cases": [],
+  "organ_id": "agent_memory_temporal_conflict_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "agent_memory_temporal_conflict_replay_fixture_acceptance_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.agent_memory_temporal_conflict_replay"
+}

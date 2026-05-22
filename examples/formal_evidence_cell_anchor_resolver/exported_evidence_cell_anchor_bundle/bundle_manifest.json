@@ -1,0 +1,13 @@
+{
+  "schema_version": "formal_evidence_cell_anchor_exported_bundle_manifest_v1",
+  "bundle_id": "formal_evidence_cell_anchor_resolver_runtime_example",
+  "organ_id": "formal_evidence_cell_anchor_resolver",
+  "input_mode": "exported_evidence_cell_anchor_bundle",
+  "files": [
+    "projection_protocol.json",
+    "paper_claims.json",
+    "evidence_cell_registry.json",
+    "claim_boundary_policy.json"
+  ],
+  "anti_claim": "This exported bundle validates public evidence-cell anchor metadata only; it does not prove theorem correctness or expose proof bodies."
+}

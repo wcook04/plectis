@@ -1,0 +1,21 @@
+{
+  "anti_claims": [
+    "not a model-transparency product claim",
+    "not a private activation export",
+    "not a raw prompt or hidden reasoning export",
+    "not publication or release authority"
+  ],
+  "body_redacted": true,
+  "projection_intent": "public_safe_synthetic_circuit_attribution_replay",
+  "schema_version": "mechanistic_interpretability_circuit_attribution_protocol_v1",
+  "selected_pattern_ids": [
+    "circuit_attribution_replay_01",
+    "circuit_attribution_replay_02",
+    "circuit_attribution_replay_03",
+    "circuit_attribution_replay_04",
+    "circuit_attribution_replay_05",
+    "circuit_attribution_replay_06"
+  ],
+  "selected_route_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "source_pattern_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+}

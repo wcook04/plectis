@@ -1,0 +1,38 @@
+{
+  "anti_claim": "Spatial world-model counterfactual simulation replay validates synthetic metadata rows that bind scene states, action traces, predicted states, transition diffs, oracle checks, and limitation labels. It does not export private video or raw sensor bodies, operate robots or AVs, claim real-world geographic accuracy, sell a simulator product, use generated video as sole authority, report benchmark scores, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_spatial_counterfactual_replay_metadata_only",
+    "benchmark_score_claim_authorized": false,
+    "generated_video_authority_authorized": false,
+    "geographic_accuracy_claim_authorized": false,
+    "hosted_public_authorized": false,
+    "live_av_operation_authorized": false,
+    "live_robot_operation_authorized": false,
+    "metadata_projection_only": true,
+    "private_video_exported": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "raw_sensor_data_exported": false,
+    "real_world_location_claim_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "trained_simulator_claim_authorized": false
+  },
+  "board_ref": "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_board.json",
+  "created_at": "2026-05-22T03:18:42+00:00",
+  "expected_negative_case_count": 8,
+  "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
+  "observed_negative_case_count": 8,
+  "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+  "receipt_paths": [
+    "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_result.json",
+    "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_board.json",
+    "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json"
+  ],
+  "release_authorized": false,
+  "replay_count": 6,
+  "result_ref": "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_result.json",
+  "schema_version": "spatial_world_model_counterfactual_simulation_replay_validation_receipt_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+}

@@ -1,0 +1,35 @@
+{
+  "policy_id": "research_replication_rubric_artifact_replay_policy_v1",
+  "required_replay_fields": [
+    "paper_id",
+    "contribution_decomposition_ref",
+    "rubric_tree_ref",
+    "allowed_public_input_refs",
+    "scratch_repo_scaffold_ref",
+    "experiment_dag_ref",
+    "metric_script_refs",
+    "artifact_hash_refs",
+    "grader_report_ref",
+    "cost_runtime_budget_ref",
+    "ablation_diff_ref",
+    "failure_taxonomy_ref",
+    "cold_rerun_receipt_ref"
+  ],
+  "rubric_axes": [
+    "contribution_decomposition",
+    "artifact_replay",
+    "experiment_dag",
+    "metric_script",
+    "grader_alignment",
+    "budget_boundary",
+    "failure_taxonomy",
+    "cold_rerun"
+  ],
+  "hidden_rubric_export_authorized": false,
+  "benchmark_performance_claim_authorized": false,
+  "unbounded_compute_search_authorized": false,
+  "final_answer_only_grading_authorized": false,
+  "original_author_code_reuse_authorized": false,
+  "provider_calls_authorized": false,
+  "publication_authorized": false
+}

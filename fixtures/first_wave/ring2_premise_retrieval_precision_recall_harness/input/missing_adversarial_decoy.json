@@ -1,0 +1,8 @@
+{
+  "schema_version": "ring2_negative_case_v1",
+  "expected_negative_case_id": "missing_adversarial_decoy",
+  "evaluation_policy": {
+    "policy_id": "ring2_no_decoy_policy",
+    "minimum_problem_count": 5
+  }
+}

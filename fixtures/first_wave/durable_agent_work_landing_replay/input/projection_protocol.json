@@ -1,0 +1,27 @@
+{
+  "body_redacted": true,
+  "private_source_bodies_exported": false,
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_work_landing_replay_lens.json",
+    "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+    "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
+  ],
+  "protocol_id": "durable_agent_work_landing_replay_public_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
+    "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle"
+  ],
+  "source_pattern_ids": [
+    "durable_agent_work_landing_replay_compound",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims"
+  ],
+  "source_refs": [
+    "system/lib/workitem_runtime_entrypoint.py",
+    "tools/meta/control/work_landing.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/control/scoped_commit.py",
+    "system/lib/work_landing_status.py"
+  ]
+}

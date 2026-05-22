@@ -1,0 +1,208 @@
+{
+  "anti_claim": "Prediction oracle reconciliation validates synthetic fixture mechanics for CP1 bifurcation resolution, CP2 target-universe gating, oracle grounding, diff grading, and bounded dossier mutation. It does not trade, give financial or investment advice, call live market providers, publish predictions, claim performance, import private data, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_prediction_reconciliation_fixture_only",
+    "dossier_mutation_authority": "public_fixture_delta_only",
+    "financial_advice_authorized": false,
+    "investment_advice_authorized": false,
+    "live_market_data_authorized": false,
+    "live_provider_calls_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "trading_authorized": false
+  },
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
+  "cp1_branch_count": 2,
+  "cp1_selected_branch_ids": [
+    "cp1_alpha_up_over_flat",
+    "cp1_beta_down_over_up"
+  ],
+  "cp1_unresolved_bifurcation_rejected": true,
+  "cp2_prediction_count": 2,
+  "cp2_target_universe_gate_rejected": true,
+  "created_at": "2026-05-21T08:43:23+00:00",
+  "dossier_mutation_count": 1,
+  "dossier_mutation_ids": [
+    "mutation_beta_confidence_revision"
+  ],
+  "equity_confirmation_required": true,
+  "error_codes": [
+    "PREDICTION_CP1_BIFURCATION_UNRESOLVED",
+    "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE",
+    "PREDICTION_DOSSIER_MUTATION_UNSAFE",
+    "PREDICTION_EQUITY_CONFIRMATION_REQUIRED",
+    "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN",
+    "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM"
+  ],
+  "expected_negative_cases": [
+    "invalid_cp2_target",
+    "missing_bifurcation_resolution",
+    "post_t_evidence_ref",
+    "trading_advice_overclaim",
+    "unconfirmed_equity_lane_claim",
+    "unsafe_dossier_mutation"
+  ],
+  "financial_advice_authorized": false,
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE",
+      "message": "CP2 predictions must stay inside the declared valid target universe.",
+      "negative_case_id": "invalid_cp2_target",
+      "subject_id": "pred_invalid_target",
+      "subject_kind": "cp2_prediction"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PREDICTION_CP1_BIFURCATION_UNRESOLVED",
+      "message": "CP1 branches must resolve the chosen side and retain why the opposite side lost.",
+      "negative_case_id": "missing_bifurcation_resolution",
+      "subject_id": "cp1_alpha_unresolved",
+      "subject_kind": "cp1_branch"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN",
+      "message": "Oracle predictions may not use post-target evidence refs.",
+      "negative_case_id": "post_t_evidence_ref",
+      "subject_id": "pred_alpha_post_t",
+      "subject_kind": "cp2_prediction"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM",
+      "message": "Prediction reconciliation rejects trading, advice, live provider, release, publication, and private-equivalence authority.",
+      "negative_case_id": "trading_advice_overclaim",
+      "subject_id": "negative_trading_advice_overclaim",
+      "subject_kind": "authority_ceiling"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PREDICTION_EQUITY_CONFIRMATION_REQUIRED",
+      "message": "Equity or market-lane claims require an explicit confirmation bit before use.",
+      "negative_case_id": "unconfirmed_equity_lane_claim",
+      "subject_id": "cp1_alpha_equity_unconfirmed",
+      "subject_kind": "cp1_branch"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "PREDICTION_DOSSIER_MUTATION_UNSAFE",
+      "message": "High-severity dossier mutation needs two evidence refs and a public-delta allowlist.",
+      "negative_case_id": "unsafe_dossier_mutation",
+      "subject_id": "mutation_high_severity_unsafe",
+      "subject_kind": "dossier_mutation"
+    }
+  ],
+  "fixture_id": "first_wave.prediction_oracle_reconciliation",
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "negative_case_coverage_status": "pass",
+  "observed_negative_cases": {
+    "invalid_cp2_target": [
+      "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE"
+    ],
+    "missing_bifurcation_resolution": [
+      "PREDICTION_CP1_BIFURCATION_UNRESOLVED"
+    ],
+    "post_t_evidence_ref": [
+      "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN"
+    ],
+    "trading_advice_overclaim": [
+      "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM"
+    ],
+    "unconfirmed_equity_lane_claim": [
+      "PREDICTION_EQUITY_CONFIRMATION_REQUIRED"
+    ],
+    "unsafe_dossier_mutation": [
+      "PREDICTION_DOSSIER_MUTATION_UNSAFE"
+    ]
+  },
+  "oracle_diff_graded_count": 2,
+  "oracle_diff_hit_count": 1,
+  "organ_id": "prediction_oracle_reconciliation",
+  "packet_id": "public_prediction_oracle_reconciliation_fixture",
+  "post_t_evidence_rejected": true,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 7,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
+  "provider_calls_authorized": false,
+  "public_replacement_refs": [
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
+    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
+    "paper_modules/prediction_oracle_reconciliation.md"
+  ],
+  "receipt_id": "prediction_oracle_reconciliation_validation_receipt_v1",
+  "receipt_paths": [
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
+    "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
+  ],
+  "reconciliation_rows": [
+    {
+      "body_redacted": true,
+      "confidence_band": "medium",
+      "cp1_branch_id": "cp1_alpha_up_over_flat",
+      "direction": "up",
+      "direction_hit": true,
+      "mutation_ids": [
+        "mutation_beta_confidence_revision"
+      ],
+      "oracle_feed_health": "ok",
+      "prediction_id": "pred_alpha_direction",
+      "target_id": "SYNTH_TARGET_ALPHA"
+    },
+    {
+      "body_redacted": true,
+      "confidence_band": "low_medium",
+      "cp1_branch_id": "cp1_beta_down_over_up",
+      "direction": "down",
+      "direction_hit": false,
+      "mutation_ids": [
+        "mutation_beta_confidence_revision"
+      ],
+      "oracle_feed_health": "ok",
+      "prediction_id": "pred_beta_direction",
+      "target_id": "SYNTH_TARGET_BETA"
+    }
+  ],
+  "release_authorized": false,
+  "schema_version": "prediction_oracle_reconciliation_validation_receipt_v1",
+  "source_pattern_ids": [
+    "synthetic_science_oracle_dossier_reconciliation_compound",
+    "cp1_bifurcation_reconciliation_spine",
+    "epistemic_hierarchy_lane_resolution_order",
+    "cp2_universe_constraint_valid_prediction_targets_gate",
+    "oracle_cp2_grounding_firewall",
+    "evolve_oracle_to_dossier_mutation_loop"
+  ],
+  "source_refs": [
+    "microcosm_pattern_ledger:synthetic_science_oracle_dossier_reconciliation_compound",
+    "microcosm_pattern_ledger:cp1_bifurcation_reconciliation_spine",
+    "microcosm_pattern_ledger:cp2_universe_constraint_valid_prediction_targets_gate",
+    "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop"
+  ],
+  "status": "pass",
+  "trading_authorized": false,
+  "trading_or_advice_overclaim_rejected": true,
+  "unsafe_dossier_mutation_rejected": true,
+  "valid_prediction_targets": [
+    "SYNTH_TARGET_ALPHA",
+    "SYNTH_TARGET_BETA"
+  ],
+  "validator_id": "validator.microcosm.organs.prediction_oracle_reconciliation"
+}

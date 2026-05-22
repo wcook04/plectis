@@ -1,0 +1,136 @@
+{
+  "anti_claim": "This standard governs synthetic circuit-attribution metadata only. It does not authorize model-transparency product claims, private weight export, raw activation export, proprietary prompt export, hidden chain-of-thought export, provider calls, benchmark scores, publication, or release.",
+  "authority_boundary": "synthetic_circuit_attribution_metadata_not_model_transparency_or_private_internals_authority",
+  "authority_ceiling": {
+    "benchmark_score_claim_authorized": false,
+    "hidden_chain_of_thought_export_authorized": false,
+    "live_model_access_authorized": false,
+    "model_transparency_product_claim_authorized": false,
+    "private_model_internals_claim_authorized": false,
+    "private_model_weights_export_authorized": false,
+    "proprietary_prompt_export_authorized": false,
+    "provider_calls_authorized": false,
+    "raw_activation_dump_export_authorized": false,
+    "release_authorized": false,
+    "standard_authority": "synthetic_circuit_attribution_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "kind_name": "Mechanistic interpretability circuit attribution replay",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "toy prompt refs",
+      "sparse feature ids",
+      "machine-readable attribution graph nodes and edges",
+      "replacement-model approximation scores",
+      "feature visualization summary refs",
+      "causal intervention delta refs",
+      "sufficiency labels",
+      "faithfulness limits",
+      "contradiction-case refs",
+      "cold-replay refs"
+    ],
+    "default_posture": "public_safe_when_synthetic_metadata_only",
+    "forbidden_public_inputs": [
+      "private model weights",
+      "raw activation tensors or dumps",
+      "proprietary prompt bodies",
+      "hidden chain-of-thought bodies",
+      "provider payload bodies",
+      "private model internals claims",
+      "screenshot-only graph authority",
+      "benchmark score claims",
+      "release claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "selected_route_id",
+      "selected_pattern_ids",
+      "attribution_summary",
+      "negative_case_summary",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
+    "receipt must cite feature counts, replay counts, attribution-edge counts, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#mechanistic_interpretability_circuit_attribution_replay",
+    "source_pattern_id_sample": [
+      "mechanistic_interpretability_circuit_attribution_replay_compound",
+      "omission_receipt_reversible_projection_boundary",
+      "proof_diagnostic_counterexample_loop"
+    ],
+    "used_by_organs": [
+      "mechanistic_interpretability_circuit_attribution_replay"
+    ]
+  },
+  "required_fields": [
+    "selected_route_id",
+    "selected_pattern_ids",
+    "features",
+    "attribution_replays",
+    "toy_prompt_ref",
+    "sparse_feature_ids",
+    "attribution_graph_ref",
+    "graph_nodes",
+    "graph_edges",
+    "replacement_model_approximation_score",
+    "feature_visualization_summary_refs",
+    "causal_inhibition_delta_ref",
+    "causal_injection_delta_ref",
+    "sufficiency_label",
+    "faithfulness_label",
+    "faithfulness_limit_ref",
+    "contradiction_case_ref",
+    "cold_replay_ref",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "field": "attribution_protocol",
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
+      "role": "runtime_example_source"
+    },
+    {
+      "field": "macro_pattern",
+      "path": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+      "role": "source_pattern_projection_ref"
+    }
+  ],
+  "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+  "status": "draft",
+  "validation_rules": [
+    "require every replay row to cite toy prompt refs, sparse feature ids, machine-readable graph nodes and edges, replacement-model approximation scores, feature visualization summary refs, causal inhibition and injection deltas, sufficiency labels, faithfulness limits, contradiction cases, and cold replay refs",
+    "reject private model weights, raw activation dumps, proprietary prompts, hidden chain-of-thought, screenshot-only graphs, unverifiable feature names, transparency claims without causal intervention receipts, faithfulness claims without limits, benchmark claims, and release authority",
+    "require metadata-only authority and body-redacted public fixture rows"
+  ],
+  "validator_contract": {
+    "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
+    "expected_negative_cases": [
+      "private_model_weights_export",
+      "raw_activation_dump",
+      "proprietary_prompt_export",
+      "hidden_chain_of_thought_export",
+      "unverifiable_feature_name",
+      "graph_screenshot_without_edges",
+      "transparency_claim_without_intervention",
+      "faithfulness_claim_without_sufficiency_limit"
+    ],
+    "validator_id": "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay"
+  }
+}

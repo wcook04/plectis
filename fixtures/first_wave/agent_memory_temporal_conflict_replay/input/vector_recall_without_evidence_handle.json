@@ -1,0 +1,16 @@
+{
+  "active_injection_adopted": false,
+  "body_exported": false,
+  "decision": "NOOP",
+  "episode_id": "negative_vector_recall",
+  "episode_order": 9,
+  "event_id": "negative_vector_recall_without_evidence",
+  "evidence_handle_ref": "",
+  "expected_negative_case_id": "vector_recall_without_evidence_handle",
+  "memory_route_ref": "route.memory.replay.synthetic.vector_only",
+  "memory_subject_id": "vector_recall_without_handle",
+  "metadata_only_ref": true,
+  "private_thread_ref": "thread_ref.synthetic.vector.metadata_only",
+  "source_authority_claim": false,
+  "vector_recall_used": true
+}

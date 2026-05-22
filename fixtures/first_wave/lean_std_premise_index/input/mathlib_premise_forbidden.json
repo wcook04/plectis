@@ -1,0 +1,26 @@
+{
+  "schema_version": "lean_std_premise_index_negative_case_v1",
+  "expected_negative_case_id": "mathlib_premise_forbidden",
+  "premises": [
+    {
+      "premise_id": "mathlib_nat_add_comm",
+      "declaration_name": "Nat.add_comm",
+      "namespace": "Nat",
+      "source_ref": "Mathlib/Data/Nat/Basic.lean",
+      "statement_shape": "public_metadata_only",
+      "retrieval_terms": [
+        "addition",
+        "commutative",
+        "Nat",
+        "+"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

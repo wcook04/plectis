@@ -1,14 +1,17 @@
 {
-  "schema_version": "pattern_assimilation_step_next_best_lane_checks_v1",
   "next_best_lane_checks": [
     {
-      "check_id": "next_ordered_adapter_lane_completion_reducer",
+      "body_redacted": true,
+      "check_id": "next_governed_mutation_after_mcp_tool_authority",
       "next_best_lane_checked": true,
-      "next_route": "ordered_adapter_lane_completion_reducer",
-      "next_seed_path": "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_ORDERED_ADAPTER_LANE_COMPLETION_REDUCER_SEED.md",
+      "next_route": "proof_derived_governed_mutation_authorization_or_agent_benchmark_integrity_anti_gaming_replay_compound_refresh",
+      "next_seed_path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
       "projection_not_authority": true,
       "release_authorized": false,
-      "body_redacted": true
+      "result": "proof_derived_governed_mutation_authorization_or_agent_benchmark_integrity_anti_gaming_replay_compound_refresh",
+      "selected_candidate_consumed": "mcp_tool_authority_replay",
+      "why": "MCP tool authority replay is now accepted; next pass should prefer proof-derived governed mutation authorization, with benchmark-integrity refresh only if live prep shows regression or stronger public evidence."
     }
-  ]
+  ],
+  "schema_version": "pattern_assimilation_step_next_best_lane_checks_v1"
 }

@@ -1,0 +1,39 @@
+{
+  "protocol_id": "world_model_projection_drift_control_public_projection_v1",
+  "selected_route_id": "world_model_projection_drift_control_room",
+  "selected_pattern_ids": [
+    "world_model_cross_plane_drift_aggregate",
+    "view_quality_all_view_action_map",
+    "compression_profile_governed_option_surface",
+    "navigation_hologram_unified_route_plane",
+    "agent_principle_failure_cap_assimilation_loop",
+    "operator_autonomy_phrase_active_standard_bridge",
+    "omission_receipt_reversible_projection_boundary",
+    "entry_payload_admission_nonnegotiable_floor"
+  ],
+  "source_projection_refs": [
+    "receipts/runtime_shell/public_projection_drift_control_lens.json",
+    "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+    "core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::frontier_combination_routes[world_model_projection_drift_control_room]"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
+    "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+    "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+    "paper_modules/world_model_projection_drift_control_room.md"
+  ],
+  "omission_receipt": {
+    "omitted": [
+      "private runtime bodies",
+      "provider payload bodies",
+      "raw private paths",
+      "live route repair actions",
+      "source mutation diffs"
+    ],
+    "reason": "public fixture carries synthetic drift metadata, source refs, validation refs, and authority ceilings only"
+  }
+}

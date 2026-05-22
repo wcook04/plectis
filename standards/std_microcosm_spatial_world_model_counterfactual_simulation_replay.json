@@ -1,0 +1,125 @@
+{
+  "anti_claim": "This standard governs synthetic spatial counterfactual replay metadata only. It does not authorize simulator-product claims, private video export, raw sensor export, live robot or AV operation, real-world geography claims, benchmark scores, provider calls, publication, or release.",
+  "authority_boundary": "synthetic_spatial_counterfactual_replay_metadata_not_simulator_or_operation_authority",
+  "authority_ceiling": {
+    "benchmark_score_claim_authorized": false,
+    "generated_video_authority_authorized": false,
+    "geographic_accuracy_claim_authorized": false,
+    "live_av_operation_authorized": false,
+    "live_robot_operation_authorized": false,
+    "private_video_exported": false,
+    "raw_sensor_data_exported": false,
+    "real_world_location_claim_authorized": false,
+    "release_authorized": false,
+    "standard_authority": "synthetic_spatial_counterfactual_replay_schema_only",
+    "status": "pass",
+    "trained_simulator_claim_authorized": false
+  },
+  "first_wave_required": true,
+  "kind_id": "spatial_world_model_counterfactual_simulation_replay",
+  "kind_name": "Spatial world-model counterfactual simulation replay",
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "scene state refs",
+      "action trace refs",
+      "predicted state refs",
+      "transition diff refs",
+      "oracle check refs",
+      "public-safe sensor packet refs",
+      "rare-event labels",
+      "fidelity-limit labels",
+      "limitation labels"
+    ],
+    "default_posture": "public_safe_when_synthetic_metadata_only",
+    "forbidden_public_inputs": [
+      "private video bodies",
+      "raw sensor payloads",
+      "GPS trace bodies",
+      "live robot or AV commands",
+      "real-world location claims",
+      "generated-video-only authority",
+      "geographic accuracy claims",
+      "benchmark score claims",
+      "release claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "selected_route_id",
+      "selected_pattern_ids",
+      "simulation_summary",
+      "negative_case_summary",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
+    "receipt must cite replay counts, scene-state counts, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#spatial_world_model_counterfactual_simulation_replay",
+    "source_pattern_id_sample": [
+      "spatial_world_model_counterfactual_simulation_replay_compound",
+      "world_model_cross_plane_drift_aggregate",
+      "omission_receipt_reversible_projection_boundary"
+    ],
+    "used_by_organs": [
+      "spatial_world_model_counterfactual_simulation_replay"
+    ]
+  },
+  "required_fields": [
+    "selected_route_id",
+    "selected_pattern_ids",
+    "scene_states",
+    "counterfactual_replays",
+    "scene_state_ref",
+    "action_trace_ref",
+    "predicted_state_ref",
+    "transition_diff_ref",
+    "oracle_state_check_ref",
+    "sensor_packet_refs",
+    "rare_event_coverage_label",
+    "fidelity_limit_label",
+    "limitation_labels",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "field": "simulation_protocol",
+      "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulation_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+  "status": "draft",
+  "validation_rules": [
+    "require every replay row to cite scene-state, action-trace, predicted-state, transition-diff, oracle-check, and public-safe sensor-packet refs",
+    "reject private video export, raw sensor export, live robot or AV operation, real-world location claims, simulator-product claims, generated-video-only authority, geographic accuracy claims, benchmark score overclaims, and release authority",
+    "require metadata-only authority and body-redacted public fixture rows"
+  ],
+  "validator_contract": {
+    "command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",
+    "expected_negative_cases": [
+      "private_video_export",
+      "real_world_location_claim",
+      "live_robot_or_av_operation",
+      "raw_sensor_data_export",
+      "simulator_product_claim",
+      "generated_video_only_authority",
+      "geographic_accuracy_claim",
+      "benchmark_score_without_state_diff"
+    ],
+    "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+  }
+}

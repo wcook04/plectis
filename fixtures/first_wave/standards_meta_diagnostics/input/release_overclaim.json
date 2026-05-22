@@ -1,0 +1,7 @@
+{
+  "schema_version": "standards_meta_diagnostics_negative_case_v1",
+  "expected_negative_case_id": "release_overclaim",
+  "release_authorized": true,
+  "provider_calls_authorized": true,
+  "whole_system_correctness_claim": true
+}

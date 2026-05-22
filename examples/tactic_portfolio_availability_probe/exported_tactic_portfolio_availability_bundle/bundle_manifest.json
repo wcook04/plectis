@@ -1,0 +1,13 @@
+{
+  "schema_version": "tactic_portfolio_availability_bundle_manifest_v1",
+  "bundle_id": "tactic_portfolio_availability_runtime_example",
+  "organ_id": "tactic_portfolio_availability_probe",
+  "input_mode": "exported_tactic_portfolio_availability_bundle",
+  "files": [
+    "tactic_portfolio_probe.json",
+    "environment_probe.json",
+    "availability_policy.json"
+  ],
+  "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+  "release_authorized": false
+}

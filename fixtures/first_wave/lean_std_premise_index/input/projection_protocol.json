@@ -1,0 +1,31 @@
+{
+  "schema_version": "lean_std_premise_index_projection_protocol_v1",
+  "protocol_id": "public_lean_std_premise_index_projection_v1",
+  "source_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "closed_premise_admission_boundary",
+    "formal_math_premise_retrieval"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lean_std_toolchain_premise_index"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "standards/std_microcosm_lean_std_premise_index.json",
+    "paper_modules/lean_std_premise_index.md"
+  ],
+  "projection_receipt_refs": [
+    "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
+  ],
+  "omitted_material": [
+    "proof bodies",
+    "oracle-needed premise ids",
+    "Mathlib imports",
+    "private run logs",
+    "provider payload bodies"
+  ],
+  "copy_policy": "metadata_distillation_only",
+  "body_redacted": true
+}

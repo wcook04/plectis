@@ -1,0 +1,15 @@
+{
+  "rollback_events": [
+    {
+      "body_redacted": true,
+      "deletion_audit_ref": "audit.sleeper_memory.rollback_delete.v1",
+      "memory_absent_after_rerun": true,
+      "proposed_memory_ref": "memory_candidate.sleeper.future_trigger.redacted",
+      "rerun_receipt_ref": "receipt.sleeper_memory.cold_rerun.absent_after_rollback.v1",
+      "rollback_id": "rollback_poisoned_candidate_and_rerun",
+      "rollback_receipt_ref": "receipt.sleeper_memory.rollback.quarantined_candidate.v1",
+      "session_id": "session_d_rollback_and_cold_rerun"
+    }
+  ],
+  "schema_version": "sleeper_memory_rollback_rerun_v1"
+}

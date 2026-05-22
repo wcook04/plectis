@@ -1,0 +1,185 @@
+{
+  "anti_claim": "This fixture validates public synthetic sleeper-memory poisoning quarantine boundaries only; it does not claim live memory product quality, expose private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "sleeper-memory material must state that synthetic replay is not live memory security or product authority"
+  },
+  "authority_boundary": "synthetic_sleeper_memory_poisoning_quarantine_replay_not_live_memory_security_authority",
+  "authority_ceiling": {
+    "benchmark_security_authority": false,
+    "live_memory_product_authority": false,
+    "live_user_memory_authority": false,
+    "private_memory_body_authority": false,
+    "provider_authority": false,
+    "raw_transcript_authority": false,
+    "release_authority": false,
+    "standard_authority": "synthetic_sleeper_memory_poisoning_quarantine_replay_schema_only",
+    "status": "pass",
+    "untrusted_trusted_promotion_authority": false
+  },
+  "first_wave_required": true,
+  "kind_id": "sleeper_memory_poisoning_quarantine_replay",
+  "kind_name": "Sleeper memory poisoning quarantine replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/projection_protocol.json",
+    "omitted": [
+      "private memory bodies",
+      "raw transcript bodies",
+      "hidden trigger text",
+      "provider payloads",
+      "live user memory values",
+      "benchmark security claims"
+    ],
+    "reason": "public tranche carries synthetic sleeper-memory metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "sleeper_memory_poisoning_quarantine_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic session ids",
+      "source capsule refs",
+      "trust tier labels",
+      "provenance refs",
+      "quarantine verdicts",
+      "classifier labels",
+      "retrieval refs",
+      "influence grades",
+      "rollback audit refs",
+      "cold rerun receipt refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_sleeper_memory_quarantine_receipts_only",
+    "forbidden_public_inputs": [
+      "private memory bodies",
+      "raw transcript bodies",
+      "hidden trigger text",
+      "provider payloads",
+      "credential or secret values",
+      "live user memory values",
+      "live memory product claims",
+      "benchmark security claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "session_count",
+      "proposal_count",
+      "quarantined_write_count",
+      "blocked_before_action_count",
+      "rollback_count",
+      "rerun_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.sleeper_memory_poisoning_quarantine_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.sleeper_memory_poisoning_quarantine_replay",
+    "receipt must cite source refs, source pattern ids, session count, proposal count, quarantined write count, blocked-before-action count, rollback/rerun counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#sleeper_memory_poisoning_quarantine_replay",
+    "source_pattern_id_sample": [
+      "sleeper_memory_poisoning_quarantine_replay_compound",
+      "agent_reliability_replay_gauntlet",
+      "agent_memory_temporal_conflict_replay_compound"
+    ],
+    "used_by_organs": [
+      "sleeper_memory_poisoning_quarantine_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "session_chain",
+    "memory_write_proposals",
+    "retrieval_replays",
+    "rollback_events",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating synthetic quarantine metadata as live memory security, live user memory, private body export, or benchmark performance.",
+    "compression_bands": [
+      "protocol",
+      "session",
+      "provenance",
+      "quarantine",
+      "retrieval",
+      "rollback",
+      "receipt"
+    ],
+    "failure_modes": [
+      "private_memory_body_export",
+      "live_user_memory_claim",
+      "raw_transcript_export",
+      "memory_write_without_provenance",
+      "trusted_promotion_from_untrusted_context",
+      "deletion_without_audit",
+      "final_answer_only_grading",
+      "unmetered_poison_influence"
+    ],
+    "ontology": "A public-safe sleeper-memory poisoning replay: synthetic source capsule refs, memory write proposals, quarantine verdicts, retrieval influence gates, rollback audit refs, cold rerun absence receipts, and falsification fixtures.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how persistent-memory poisoning claims are admitted only when provenance, quarantine, retrieval influence gating, rollback, negative cases, and authority ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require four ordered sessions from poisoned source to rollback rerun",
+    "require source capsule and provenance refs before memory write admission",
+    "require sleeper-poisoning classifier label and quarantine verdict for untrusted writes",
+    "require later retrieval of quarantined memory to be blocked before action",
+    "require rollback audit and cold rerun with poisoned memory absent",
+    "reject private memory body export, live user memory claims, raw transcript export, provenance-less writes, untrusted trusted-promotion, deletion without audit, final-answer-only grading, and unmetered poison influence",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "memory_policy_authority_floor",
+      "ordered_session_chain",
+      "provenance_bound_write_proposals",
+      "quarantine_verdict_floor",
+      "retrieval_action_gate",
+      "rollback_cold_rerun_absence",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.sleeper_memory_poisoning_quarantine_replay"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay"
+  ],
+  "wave": "w1_sleeper_memory_poisoning_quarantine_replay"
+}

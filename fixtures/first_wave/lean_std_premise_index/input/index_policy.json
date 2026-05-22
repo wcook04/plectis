@@ -1,0 +1,19 @@
+{
+  "schema_version": "lean_std_premise_index_policy_v1",
+  "closed_index_only": true,
+  "allowed_splits": [
+    "train",
+    "dev",
+    "test"
+  ],
+  "mathlib_allowed": false,
+  "proof_bodies_allowed": false,
+  "oracle_needed_ids_public": false,
+  "test_split_tuning_authorized": false,
+  "provider_calls_authorized": false,
+  "lean_lake_execution_authorized": false,
+  "release_authorized": false,
+  "authority_ceiling": "closed_public_metadata_index_only",
+  "anti_claim": "This public Lean/Std premise index is metadata only and does not carry proof authority, Mathlib import authority, oracle visibility, provider authority, or release readiness.",
+  "body_redacted": true
+}

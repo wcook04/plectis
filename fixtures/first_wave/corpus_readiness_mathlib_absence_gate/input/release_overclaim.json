@@ -1,0 +1,9 @@
+{
+  "schema_version": "corpus_readiness_negative_case_v1",
+  "expected_negative_case_id": "release_overclaim",
+  "release_authorized": true,
+  "publication_authorized": true,
+  "formal_proof_authority": true,
+  "mathlib_dependent_proof_authority": true,
+  "anti_claim": "This negative case is synthetic and exists only to reject release/proof-authority overclaims."
+}

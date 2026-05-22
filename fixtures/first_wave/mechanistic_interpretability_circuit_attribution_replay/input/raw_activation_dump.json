@@ -1,0 +1,67 @@
+{
+  "attribution_replay": {
+    "attribution_graph_ref": "graphs/circuit_attribution_graph_01.json",
+    "body_redacted": true,
+    "causal_inhibition_delta_ref": "interventions/inhibition_delta_01.json",
+    "causal_injection_delta_ref": "interventions/injection_delta_01.json",
+    "causal_intervention_receipt_ref": "interventions/causal_receipt_01.json",
+    "cold_replay_ref": "cold_replays/cold_replay_01.json",
+    "contradiction_case_ref": "contradictions/contradiction_case_01.json",
+    "faithfulness_claim": true,
+    "faithfulness_label": "bounded_proxy_not_model_truth",
+    "faithfulness_limit_ref": "limits/faithfulness_limit_01.json",
+    "feature_visualization_summary_refs": [
+      "feature_visualizations/feat_public_001.summary.json",
+      "feature_visualizations/feat_public_002.summary.json"
+    ],
+    "graph_edges": [
+      {
+        "evidence_ref": "edges/01_a.json",
+        "source": "feat_public_001",
+        "target": "feat_public_002",
+        "weight": 0.45
+      },
+      {
+        "evidence_ref": "edges/01_b.json",
+        "source": "feat_public_002",
+        "target": "feat_public_003",
+        "weight": 0.23
+      }
+    ],
+    "graph_nodes": [
+      {
+        "node_id": "feat_public_001",
+        "node_kind": "sparse_feature"
+      },
+      {
+        "node_id": "feat_public_002",
+        "node_kind": "sparse_feature"
+      },
+      {
+        "node_id": "feat_public_003",
+        "node_kind": "synthetic_error_node"
+      }
+    ],
+    "graph_screenshot_only": false,
+    "hidden_chain_of_thought_exported": false,
+    "machine_readable_edges_present": true,
+    "private_model_weights_exported": false,
+    "proprietary_prompt_exported": false,
+    "raw_activation_dump_exported": true,
+    "release_authorized": false,
+    "replacement_model_approximation_score": 0.69,
+    "replay_id": "raw_activation_dump",
+    "sparse_feature_ids": [
+      "feat_public_001",
+      "feat_public_002"
+    ],
+    "sufficiency_label": "sufficient_for_fixture_replay",
+    "toy_prompt_ref": "toy_prompts/circuit_prompt_01.json",
+    "transparency_claim": true,
+    "uninterpretable_error_node_budget": 2,
+    "unverifiable_feature_name_claim": false
+  },
+  "body_redacted": true,
+  "negative_case_id": "raw_activation_dump",
+  "schema_version": "mechanistic_interpretability_negative_case_v1"
+}

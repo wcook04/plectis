@@ -1,0 +1,85 @@
+{
+  "schema_version": "std_microcosm_standards_meta_diagnostics_v1",
+  "standard_id": "std_microcosm_standards_meta_diagnostics",
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "status": "accepted_public_runtime_standard",
+  "authority_boundary": "public_standards_meta_diagnostics_projection_only",
+  "source_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json"
+  ],
+  "relationships": {
+    "used_by_organs": [
+      "standards_meta_diagnostics"
+    ],
+    "depends_on_standards": [
+      "std_microcosm_omission_receipt",
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_public_reveal_walkthrough"
+    ]
+  },
+  "required_fields": [
+    "accepted_organ_ids",
+    "standards_inventory",
+    "organ_id",
+    "standard_id",
+    "standard_ref",
+    "registry_row_ref",
+    "receipt_refs",
+    "runtime_contracts",
+    "authority_ceiling"
+  ],
+  "validation_rules": [
+    "Every accepted adapter-backed organ must have a standards inventory row.",
+    "Every inventory row must carry standard_id, standard_ref, registry_row_ref, and at least one receipt ref.",
+    "Every accepted organ must have a runtime contract row with a CLI command and runtime step.",
+    "Private source bodies, provider payload bodies, release authority, provider-call authority, private-data equivalence, and whole-system correctness claims are rejected."
+  ],
+  "receipt_expectations": [
+    "standards_meta_diagnostics_result.json",
+    "standards_meta_diagnostics_board.json",
+    "standards_meta_diagnostics_validation_receipt.json",
+    "standards_meta_diagnostics_fixture_acceptance.json"
+  ],
+  "validator_contract": {
+    "runner": "microcosm_core.organs.standards_meta_diagnostics",
+    "fixture_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
+    "runtime_bundle_command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics"
+  },
+  "receipt_contract": {
+    "status_field": "status",
+    "required_negative_cases": [
+      "missing_standard_ref",
+      "unmapped_accepted_organ",
+      "missing_receipt_ref",
+      "release_overclaim",
+      "private_source_leakage"
+    ],
+    "redaction_required": true
+  },
+  "public_private_boundary": {
+    "public_inputs": "synthetic standards inventory, runtime contracts, diagnostic policy, and receipt refs",
+    "private_inputs_forbidden": [
+      "private macro source bodies",
+      "provider payload bodies",
+      "raw seed bodies",
+      "secrets",
+      "release claims"
+    ],
+    "release_authorized": false
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standards_meta_diagnostics_authority": "coverage_projection_only_not_registry_authority",
+    "standards_registry_authority": false,
+    "source_mutation_authorized": false,
+    "provider_calls_authorized": false,
+    "private_data_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "release_authorized": false
+  },
+  "anti_claim": "Standards meta diagnostics summarizes public standards, organ, runtime, and receipt coverage only; it does not become registry authority, expose private sources, authorize release, or prove whole-system correctness."
+}

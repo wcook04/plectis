@@ -1,0 +1,17 @@
+{
+  "schema_version": "macro_projection_import_exported_bundle_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "organ_id": "macro_projection_import_protocol",
+  "input_mode": "exported_projection_import_bundle",
+  "inputs": [
+    "projection_protocol.json",
+    "cleaning_policy.json",
+    "import_plan.json"
+  ],
+  "authority_ceiling": {
+    "release_authorized": false,
+    "private_data_equivalence_claim": false,
+    "private_source_bodies_exported": false
+  },
+  "body_redacted": true
+}

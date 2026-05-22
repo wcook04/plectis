@@ -1,0 +1,18 @@
+{
+  "schema_version": "macro_projection_import_negative_case_v1",
+  "expected_negative_case_id": "missing_validation_ref",
+  "proposed_cells": [
+    {
+      "cell_id": "unvalidated_projection_cell",
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+      ],
+      "target_refs": [
+        "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json"
+      ],
+      "validation_refs": [],
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "formal_evidence_cell_claims_fixture_v1",
+  "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+  "claims": [
+    {
+      "claim_id": "claim.public_runtime_lean_witness_has_cell",
+      "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+      "evidence_cell_id": "cell.lean_decl_count.public_fixture",
+      "claim_strength": "formal_evidence_cell_present",
+      "uses_proof_language": true
+    },
+    {
+      "claim_id": "claim.public_runtime_boundary_policy_blocks_theorem_correctness",
+      "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+      "evidence_cell_id": "cell.claim_boundary.policy",
+      "claim_strength": "claim_boundary_policy_present",
+      "uses_proof_language": false
+    }
+  ]
+}

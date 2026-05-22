@@ -1,0 +1,83 @@
+{
+  "schema_version": "std_microcosm_cold_reader_route_map_v1",
+  "standard_id": "std_microcosm_cold_reader_route_map",
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "status": "accepted_public_runtime_standard",
+  "authority_boundary": "public_cold_reader_route_map_projection_only",
+  "source_refs": [
+    "src/microcosm_core/organs/cold_reader_route_map.py",
+    "src/microcosm_core/runtime_shell.py",
+    "core/acceptance/first_wave_acceptance.json",
+    "paper_modules/cold_reader_route_map.md"
+  ],
+  "relationships": {
+    "used_by_organs": [
+      "cold_reader_route_map"
+    ],
+    "depends_on_standards": [
+      "std_microcosm_authority_boundary",
+      "std_microcosm_fixture",
+      "std_microcosm_public_reveal_walkthrough",
+      "std_microcosm_standards_meta_diagnostics"
+    ]
+  },
+  "required_fields": [
+    "route_id",
+    "ordinal",
+    "command",
+    "docs_refs",
+    "receipt_refs",
+    "first_run_sequence",
+    "authority_ceiling"
+  ],
+  "validation_rules": [
+    "Every required route must have a runnable command and at least one public docs reference.",
+    "Every required route must resolve to at least one receipt reference.",
+    "The first-run sequence must be present and ordinal sorted.",
+    "Release authority, provider-call authority, private-data equivalence, private source bodies, trading advice, and whole-system correctness claims are rejected."
+  ],
+  "receipt_expectations": [
+    "cold_reader_route_map_result.json",
+    "cold_reader_route_map_board.json",
+    "cold_reader_route_map_validation_receipt.json",
+    "cold_reader_route_map_fixture_acceptance.json"
+  ],
+  "validator_contract": {
+    "runner": "microcosm_core.organs.cold_reader_route_map",
+    "fixture_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+    "runtime_bundle_command": "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+  },
+  "receipt_contract": {
+    "status_field": "status",
+    "required_negative_cases": [
+      "missing_command_ref",
+      "missing_receipt_ref",
+      "route_sequence_gap",
+      "release_overclaim",
+      "private_source_leakage"
+    ],
+    "redaction_required": true
+  },
+  "public_private_boundary": {
+    "public_inputs": "synthetic route cards, route receipt refs, route policy, and public docs refs",
+    "private_inputs_forbidden": [
+      "private macro source bodies",
+      "provider payload bodies",
+      "raw seed bodies",
+      "secrets",
+      "release claims"
+    ],
+    "release_authorized": false
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "cold_reader_route_map_authority": "projection_only_not_route_registry_authority",
+    "route_registry_authority": false,
+    "source_mutation_authorized": false,
+    "provider_calls_authorized": false,
+    "private_data_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "release_authorized": false
+  },
+  "anti_claim": "Cold-reader route maps validate public first-run route projection only; they do not become route registry authority, expose private sources, authorize release, call providers, mutate source projects, or prove whole-system correctness."
+}

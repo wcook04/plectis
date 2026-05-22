@@ -25,14 +25,17 @@
       "work_item_id": "cap_unlock_without_resolution"
     }
   ],
-  "anti_claim": "Mission transaction receipts validate public work, claim, dependency, landing, receipt-drain, and schedulability metadata plus regression fixtures; they do not mutate live state, certify live closeout, authorize later organs, or prove whole Wave 1.",
+  "anti_claim": "Mission transaction receipts validate public work, claim, dependency, landing, checkpoint-lane, receipt-drain, and schedulability metadata plus regression fixtures; they do not mutate live state, certify live closeout, authorize broad staging without operator intent, authorize later organs, or prove whole Wave 1.",
   "authority_ceiling": {
     "authority_ceiling": "mission_transaction_metadata_not_live_closeout_authority",
+    "broad_checkpoint_requires_operator_authorization": true,
     "broad_stage_authorized": false,
     "derived_status_projection_is_authority": false,
+    "dirty_tree_blocks_scoped_commit": false,
     "later_organs_authorized": false,
     "live_work_state_mutation_authorized": false,
-    "status": "pass"
+    "status": "pass",
+    "suspected_secret_requires_hard_stop": true
   },
   "blocked_workitem_ids": [
     "cap_ready_with_unsatisfied",
@@ -42,7 +45,7 @@
   "bundle_id": null,
   "cannot_fake_predicate_status": "pass",
   "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-  "created_at": "2026-05-20T16:33:35+00:00",
+  "created_at": "2026-05-21T18:16:58+00:00",
   "dangling_dependency_refs": [
     "cap_dangling_ref",
     "cap_missing_standard",
@@ -118,6 +121,10 @@
     }
   ],
   "error_codes": [
+    "CHECKPOINT_BROAD_AUTH_REQUIRED",
+    "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
+    "CHECKPOINT_LANE_DECISION_REQUIRED",
+    "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
     "DANGLING_DEPENDENCY_REF",
     "EXPECTED_PARENT_MISMATCH",
     "LIVE_TASK_LEDGER_BODY_IN_FIXTURE",
@@ -128,6 +135,9 @@
     "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
   ],
   "expected_negative_cases": {
+    "broad_checkpoint_without_operator_authorization": [
+      "CHECKPOINT_BROAD_AUTH_REQUIRED"
+    ],
     "clean_preflight_overclaims_landing_complete": [
       "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED"
     ],
@@ -137,6 +147,12 @@
     ],
     "dependency_unlock_without_resolution_receipt": [
       "DANGLING_DEPENDENCY_REF"
+    ],
+    "dirty_tree_blocks_scoped_lane": [
+      "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER"
+    ],
+    "missing_selected_lane_for_state": [
+      "CHECKPOINT_LANE_DECISION_REQUIRED"
     ],
     "mission_claim_missing_owned_path": [
       "MISSING_OWNED_PATH"
@@ -149,9 +165,20 @@
     ],
     "scoped_commit_receipt_claims_global_authority": [
       "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
+    ],
+    "suspected_secret_without_hard_stop": [
+      "CHECKPOINT_SECRET_REQUIRES_HARD_STOP"
     ]
   },
   "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "CHECKPOINT_BROAD_AUTH_REQUIRED",
+      "message": "Broad checkpoint lane requires explicit operator authorization.",
+      "negative_case_id": "broad_checkpoint_without_operator_authorization",
+      "subject_id": "broad_checkpoint_without_operator_authorization",
+      "subject_kind": "checkpoint_lane_case"
+    },
     {
       "body_redacted": true,
       "error_code": "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED",
@@ -202,6 +229,22 @@
     },
     {
       "body_redacted": true,
+      "error_code": "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
+      "message": "Mixed dirty tree state blocks broad accidental staging, not scoped owned-path commit.",
+      "negative_case_id": "dirty_tree_blocks_scoped_lane",
+      "subject_id": "dirty_tree_blocks_scoped_lane",
+      "subject_kind": "checkpoint_lane_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "CHECKPOINT_LANE_DECISION_REQUIRED",
+      "message": "Checkpoint lane case must name scoped_commit, broad_checkpoint, or hard_stop.",
+      "negative_case_id": "missing_selected_lane_for_state",
+      "subject_id": "missing_selected_lane_for_state",
+      "subject_kind": "checkpoint_lane_case"
+    },
+    {
+      "body_redacted": true,
       "error_code": "MISSING_OWNED_PATH",
       "message": "Mission claim is missing an owned path.",
       "negative_case_id": "mission_claim_missing_owned_path",
@@ -231,6 +274,14 @@
       "negative_case_id": "scoped_commit_receipt_claims_global_authority",
       "subject_id": "scoped_receipt_global_authority_claim",
       "subject_kind": "scoped_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
+      "message": "Suspected secret or private leakage requires the hard-stop lane.",
+      "negative_case_id": "suspected_secret_without_hard_stop",
+      "subject_id": "suspected_secret_without_hard_stop",
+      "subject_kind": "checkpoint_lane_case"
     }
   ],
   "fixture_id": "first_wave.mission_transaction_work_spine",
@@ -238,6 +289,9 @@
   "missing_negative_cases": [],
   "negative_case_binding_status": "pass",
   "observed_negative_cases": {
+    "broad_checkpoint_without_operator_authorization": [
+      "CHECKPOINT_BROAD_AUTH_REQUIRED"
+    ],
     "clean_preflight_overclaims_landing_complete": [
       "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED"
     ],
@@ -247,6 +301,12 @@
     ],
     "dependency_unlock_without_resolution_receipt": [
       "DANGLING_DEPENDENCY_REF"
+    ],
+    "dirty_tree_blocks_scoped_lane": [
+      "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER"
+    ],
+    "missing_selected_lane_for_state": [
+      "CHECKPOINT_LANE_DECISION_REQUIRED"
     ],
     "mission_claim_missing_owned_path": [
       "MISSING_OWNED_PATH"
@@ -259,6 +319,9 @@
     ],
     "scoped_commit_receipt_claims_global_authority": [
       "SCOPED_RECEIPT_AUTHORITY_UPGRADE"
+    ],
+    "suspected_secret_without_hard_stop": [
+      "CHECKPOINT_SECRET_REQUIRES_HARD_STOP"
     ]
   },
   "organ_id": "mission_transaction_work_spine",
@@ -268,7 +331,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 8,
+    "scanned_path_count": 13,
     "status": "pass",
     "synthetic_boundary_negative_cases_observed": [
       "mission_fixture_private_task_ledger_body"
@@ -285,6 +348,7 @@
     "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
     "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
     "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
     "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
     "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
     "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
@@ -304,7 +368,8 @@
     "work_ledger_runtime_claims",
     "task_ledger_exact_receipt_drain",
     "work_landing_reconcile_finalizer_plan",
-    "workitem_dependency_unlock_scheduler"
+    "workitem_dependency_unlock_scheduler",
+    "checkpoint_solo_dev_three_lanes"
   ],
   "status": "pass",
   "synthetic_fixture_payload_policy": "synthetic_fixture_metadata_only_no_live_state",

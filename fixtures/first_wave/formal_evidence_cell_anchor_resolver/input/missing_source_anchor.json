@@ -1,0 +1,13 @@
+{
+  "schema_version": "formal_evidence_cell_negative_fixture_v1",
+  "claims": [
+    {
+      "expected_negative_case_id": "missing_source_anchor",
+      "claim_id": "negative.missing_source_anchor",
+      "evidence_cell_id": "cell.lean_decl_count.public_fixture",
+      "claim_strength": "formal_evidence_cell_present",
+      "uses_proof_language": true,
+      "source_anchor_refs": []
+    }
+  ]
+}

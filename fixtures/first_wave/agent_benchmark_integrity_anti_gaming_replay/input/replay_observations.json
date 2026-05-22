@@ -1,0 +1,48 @@
+{
+  "replay_observations": [
+    {
+      "benchmark_score_claimed": false,
+      "body_redacted": true,
+      "case_id": "repo_issue_public_001",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
+      "evaluator_config_hash": "sha256:evaluator001",
+      "evaluator_id": "locked_repo_repair_scorer_v1",
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_001.json",
+      "integrity_verdict": "integrity_pass",
+      "metric_claim_authorized": false,
+      "output_replay_ref": "receipts/benchmark_integrity/output_replay_001.json",
+      "replay_id": "replay_repo_issue_public_001_clean",
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_001.json"
+    },
+    {
+      "benchmark_score_claimed": false,
+      "body_redacted": true,
+      "case_id": "repo_issue_public_002",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
+      "evaluator_config_hash": "sha256:evaluator002",
+      "evaluator_id": "locked_regression_guard_scorer_v1",
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_002.json",
+      "integrity_verdict": "integrity_pass",
+      "metric_claim_authorized": false,
+      "output_replay_ref": "receipts/benchmark_integrity/output_replay_002.json",
+      "replay_id": "replay_repo_issue_public_002_clean",
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_002.json"
+    },
+    {
+      "benchmark_score_claimed": false,
+      "body_redacted": true,
+      "case_id": "repo_issue_public_003",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",
+      "evaluator_config_hash": "sha256:evaluator003",
+      "evaluator_id": "locked_repo_repair_scorer_v1",
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_003.json",
+      "integrity_verdict": "quarantine",
+      "metric_claim_authorized": false,
+      "output_replay_ref": "receipts/benchmark_integrity/output_replay_003.json",
+      "quarantine_reason_ref": "receipts/benchmark_integrity/quarantine_oracle_patch_body_ref_003.json",
+      "replay_id": "replay_repo_issue_public_003_quarantined",
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_003.json"
+    }
+  ],
+  "schema_version": "benchmark_replay_observations_v1"
+}

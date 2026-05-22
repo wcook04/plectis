@@ -1,0 +1,143 @@
+{
+  "acceptance_status": "accepted_current_authority",
+  "accepted_organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+  "all_expectations_met": true,
+  "anti_claim": "Mathematical strategy atlas scoring validates public pre-oracle strategy hypotheses and retrieval lenses only. It does not run Lean or Lake, prove theorem correctness, expose proof bodies or oracle labels, tune on test answers, call providers, or authorize release.",
+  "authority_boundary_retained": true,
+  "authority_ceiling": {
+    "authority_ceiling": "strategy_hypothesis_metadata_not_proof_or_oracle_authority",
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_dependent_proof_authority": false,
+    "oracle_label_visibility_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "test_split_tuning_authorized": false
+  },
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
+  "created_at": "2026-05-21T13:43:29+00:00",
+  "error_codes": [
+    "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN",
+    "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
+    "MATH_STRATEGY_PROOF_BODY_FORBIDDEN",
+    "MATH_STRATEGY_RELEASE_OVERCLAIM",
+    "MATH_STRATEGY_UNKNOWN_ID"
+  ],
+  "expected_negative_cases": [
+    "oracle_strategy_label_leakage",
+    "post_oracle_strategy_selection",
+    "proof_body_with_strategy",
+    "release_overclaim",
+    "unknown_strategy_id"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_UNKNOWN_ID",
+      "message": "Strategy selection referenced a strategy id outside the public enum.",
+      "negative_case_id": "unknown_strategy_id",
+      "subject_id": "non_public_strategy",
+      "subject_kind": "strategy_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_PROOF_BODY_FORBIDDEN",
+      "message": "Strategy classification cannot carry proof, provider, or source body fields.",
+      "negative_case_id": "proof_body_with_strategy",
+      "subject_id": "strategy_classification_carries_proof_body",
+      "subject_kind": "strategy_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN",
+      "message": "Pre-oracle public strategy fixtures cannot expose oracle strategy labels.",
+      "negative_case_id": "oracle_strategy_label_leakage",
+      "subject_id": "test_split_strategy_label_visible",
+      "subject_kind": "oracle_label"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
+      "message": "Strategy must be selected before oracle labels or proof outcomes are visible.",
+      "negative_case_id": "post_oracle_strategy_selection",
+      "subject_id": "strategy_chosen_after_oracle_diff",
+      "subject_kind": "selection_stage"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MATH_STRATEGY_RELEASE_OVERCLAIM",
+      "message": "Strategy scoring attempted to authorize release, proof authority, providers, or test tuning.",
+      "negative_case_id": "release_overclaim",
+      "subject_id": "formal_proof_authority,provider_calls_authorized,publication_authorized,release_authorized,test_split_tuning_authorized",
+      "subject_kind": "authority_ceiling"
+    }
+  ],
+  "fixture_id": "first_wave.mathematical_strategy_atlas_hypothesis_scorer",
+  "hypothesis_case_count": 3,
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "oracle_strategy_label_leakage": [
+      "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN"
+    ],
+    "post_oracle_strategy_selection": [
+      "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN"
+    ],
+    "proof_body_with_strategy": [
+      "MATH_STRATEGY_PROOF_BODY_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "MATH_STRATEGY_RELEASE_OVERCLAIM"
+    ],
+    "unknown_strategy_id": [
+      "MATH_STRATEGY_UNKNOWN_ID"
+    ]
+  },
+  "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "problem_count": 3,
+  "projection_status": "public_replacement_landed",
+  "receipt_id": "mathematical_strategy_atlas_fixture_acceptance_v1",
+  "receipt_paths": [
+    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_result.json",
+    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_board.json",
+    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_validation_receipt.json",
+    "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json"
+  ],
+  "schema_version": "mathematical_strategy_atlas_fixture_acceptance_v1",
+  "selected_strategy_ids": [
+    "iff_split",
+    "recursive_data_induction",
+    "unknown"
+  ],
+  "source_pattern_ids": [
+    "mathematical_strategy_atlas_hypothesis_scorer"
+  ],
+  "source_refs": [
+    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/reduce_prover_provider_receipts.py"
+  ],
+  "status": "pass",
+  "strategy_count": 4,
+  "strategy_ids": [
+    "iff_split",
+    "recursive_data_induction",
+    "arithmetic_normalization",
+    "unknown"
+  ],
+  "strategy_selection_miss_case_ids": [
+    "typed_unknown_strategy_miss"
+  ],
+  "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer"
+}

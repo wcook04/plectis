@@ -1,0 +1,11 @@
+{
+  "schema_version": "provider_context_negative_fixture_v1",
+  "expected_negative_case_id": "proof_body_leakage",
+  "sections": [
+    {
+      "section_id": "proof_body",
+      "declared_byte_size": 128,
+      "proof_body": "synthetic forbidden proof material"
+    }
+  ]
+}

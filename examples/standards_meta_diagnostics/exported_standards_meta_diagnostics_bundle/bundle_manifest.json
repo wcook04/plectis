@@ -1,0 +1,8 @@
+{
+  "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
+  "bundle_id": "public_standards_meta_diagnostics_runtime_example",
+  "input_mode": "exported_standards_meta_diagnostics_bundle",
+  "organ_id": "standards_meta_diagnostics",
+  "release_authorized": false,
+  "schema_version": "standards_meta_diagnostics_bundle_manifest_v1"
+}

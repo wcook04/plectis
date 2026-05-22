@@ -1,0 +1,13 @@
+{
+  "receipt_id": "neg.missing_escalation_for_undeclared_symbol",
+  "expected_negative_case_id": "missing_escalation_for_undeclared_symbol",
+  "proof_symbol_refs": [
+    "Nat.add_comm"
+  ],
+  "allowed_premise_ids": [
+    "premise.list.append_assoc"
+  ],
+  "cited_unallowed_premise_ids": [],
+  "classified_failure_class": "NONE",
+  "review_outcome": "accept_as_advisory"
+}

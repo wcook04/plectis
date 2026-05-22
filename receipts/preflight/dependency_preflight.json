@@ -1,11 +1,12 @@
 {
-  "anti_claim": "Dependency preflight validates accepted public runtime-spine ordering and fixture presence only; it does not authorize Lean/Lake, release, provider calls, or private-data equivalence.",
+  "anti_claim": "Dependency preflight validates accepted public runtime-spine ordering and fixture presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, release, provider calls, or private-data equivalence.",
   "authority_ceiling": {
     "dependency_preflight_authority": "accepted_public_runtime_spine_preflight_only",
-    "lean_lake_authorized": false,
+    "lean_lake_authorized": "bounded_public_witness_only",
     "private_data_equivalence_authorized": false,
     "release_authorized": false,
-    "status": "pass"
+    "status": "pass",
+    "trading_or_financial_advice_authorized": false
   },
   "blocked_dependency_codes": [],
   "blocked_dependency_count": 0,
@@ -14,10 +15,37 @@
     "executable_doctrine_grammar",
     "proof_diagnostic_evidence_spine",
     "formal_math_readiness_gate",
+    "corpus_readiness_mathlib_absence_gate",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "lean_std_premise_index",
+    "formal_math_premise_retrieval",
+    "formal_math_verifier_trace_repair_loop",
+    "formal_evidence_cell_anchor_resolver",
+    "undeclared_library_prior_symbol_classifier",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "agent_benchmark_integrity_anti_gaming_replay",
+    "provider_context_recipe_budget_policy",
+    "formal_math_lean_proof_witness",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
+    "durable_agent_work_landing_replay",
+    "research_replication_rubric_artifact_replay",
+    "world_model_projection_drift_control_room",
+    "spatial_world_model_counterfactual_simulation_replay",
+    "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime",
-    "pattern_assimilation_step"
+    "pattern_assimilation_step",
+    "public_reveal_walkthrough",
+    "macro_projection_import_protocol",
+    "prediction_oracle_reconciliation",
+    "standards_meta_diagnostics",
+    "cold_reader_route_map",
+    "agent_monitor_redteam_falsification_replay",
+    "agent_memory_temporal_conflict_replay",
+    "sleeper_memory_poisoning_quarantine_replay",
+    "mcp_tool_authority_replay"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
   "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
@@ -63,6 +91,169 @@
         "formal_math_readiness_gate"
       ],
       "missing_dependencies": [],
+      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_math_readiness_gate",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "tactic_portfolio_availability_probe",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "target_shape_tactic_routing_gate",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "target_shape_tactic_routing_gate",
+        "macro_projection_import_protocol"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "lean_std_premise_index",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "macro_projection_import_protocol",
+        "lean_std_premise_index"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "formal_math_premise_retrieval",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval",
+        "proof_diagnostic_evidence_spine",
+        "macro_projection_import_protocol"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_math_lean_proof_witness"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_evidence_cell_anchor_resolver"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "ring2_premise_retrieval_precision_recall_harness",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval",
+        "ring2_premise_retrieval_precision_recall_harness"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "provider_context_recipe_budget_policy",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "formal_math_premise_retrieval",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "provider_context_recipe_budget_policy",
+        "macro_projection_import_protocol"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "formal_math_lean_proof_witness",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate"
+      ],
+      "missing_dependencies": [],
       "organ_id": "navigation_hologram_route_plane",
       "status": "pass"
     },
@@ -75,6 +266,63 @@
       ],
       "missing_dependencies": [],
       "organ_id": "mission_transaction_work_spine",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "durable_agent_work_landing_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "durable_agent_work_landing_replay"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "standards_meta_diagnostics"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "world_model_projection_drift_control_room",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "world_model_projection_drift_control_room",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "standards_meta_diagnostics"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "world_model_projection_drift_control_room",
+        "macro_projection_import_protocol",
+        "standards_meta_diagnostics"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
       "status": "pass"
     },
     {
@@ -95,6 +343,114 @@
       ],
       "missing_dependencies": [],
       "organ_id": "pattern_assimilation_step",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_assimilation_step",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "public_reveal_walkthrough",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "macro_projection_import_protocol",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "macro_projection_import_protocol",
+        "pattern_assimilation_step",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "prediction_oracle_reconciliation",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "provider_context_recipe_budget_policy",
+        "formal_math_lean_proof_witness",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "macro_projection_import_protocol",
+        "prediction_oracle_reconciliation",
+        "lean_std_premise_index"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "standards_meta_diagnostics",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "macro_projection_import_protocol",
+        "standards_meta_diagnostics"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "cold_reader_route_map",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_route_observability_runtime"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_monitor_redteam_falsification_replay",
+        "agent_route_observability_runtime"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_memory_temporal_conflict_replay",
+        "agent_monitor_redteam_falsification_replay"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_monitor_redteam_falsification_replay",
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "mcp_tool_authority_replay",
       "status": "pass"
     }
   ],
@@ -140,6 +496,136 @@
       "status": "pass"
     },
     {
+      "fixture_id": "fixture::corpus_readiness_mathlib_absence_gate::first_wave_contract_v1",
+      "fixture_input_count": 7,
+      "fixture_manifest": "core/fixture_manifests/corpus_readiness_mathlib_absence_gate.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 7,
+      "missing_fixture_inputs": [],
+      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::mathematical_strategy_atlas_hypothesis_scorer::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/mathematical_strategy_atlas_hypothesis_scorer.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::tactic_portfolio_availability_probe::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/tactic_portfolio_availability_probe.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "tactic_portfolio_availability_probe",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::target_shape_tactic_routing_gate::first_wave_contract_v1",
+      "fixture_input_count": 7,
+      "fixture_manifest": "core/fixture_manifests/target_shape_tactic_routing_gate.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 7,
+      "missing_fixture_inputs": [],
+      "organ_id": "target_shape_tactic_routing_gate",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::lean_std_premise_index::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/lean_std_premise_index.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "lean_std_premise_index",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::formal_math_premise_retrieval::first_wave_contract_v1",
+      "fixture_input_count": 10,
+      "fixture_manifest": "core/fixture_manifests/formal_math_premise_retrieval.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 10,
+      "missing_fixture_inputs": [],
+      "organ_id": "formal_math_premise_retrieval",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::formal_math_verifier_trace_repair_loop::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/formal_math_verifier_trace_repair_loop.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::formal_evidence_cell_anchor_resolver::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/formal_evidence_cell_anchor_resolver.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::undeclared_library_prior_symbol_classifier::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/undeclared_library_prior_symbol_classifier.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::ring2_premise_retrieval_precision_recall_harness::first_wave_contract_v1",
+      "fixture_input_count": 9,
+      "fixture_manifest": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 9,
+      "missing_fixture_inputs": [],
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::agent_benchmark_integrity_anti_gaming_replay::first_wave_contract_v1",
+      "fixture_input_count": 14,
+      "fixture_manifest": "core/fixture_manifests/agent_benchmark_integrity_anti_gaming_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 14,
+      "missing_fixture_inputs": [],
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/provider_context_recipe_budget_policy.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "provider_context_recipe_budget_policy",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::formal_math_lean_proof_witness::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/formal_math_lean_proof_witness.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "formal_math_lean_proof_witness",
+      "status": "pass"
+    },
+    {
       "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
       "fixture_input_count": 13,
       "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
@@ -157,6 +643,56 @@
       "macro_fixture_input_ref_count": 3,
       "missing_fixture_inputs": [],
       "organ_id": "mission_transaction_work_spine",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::durable_agent_work_landing_replay::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "durable_agent_work_landing_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::research_replication_rubric_artifact_replay::first_wave_contract_v1",
+      "fixture_input_count": 10,
+      "fixture_manifest": "core/fixture_manifests/research_replication_rubric_artifact_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 10,
+      "missing_fixture_inputs": [],
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::world_model_projection_drift_control_room::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/world_model_projection_drift_control_room.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "world_model_projection_drift_control_room",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::spatial_world_model_counterfactual_simulation_replay::first_wave_contract_v1",
+      "fixture_input_count": 12,
+      "fixture_manifest": "core/fixture_manifests/spatial_world_model_counterfactual_simulation_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 12,
+      "missing_fixture_inputs": [],
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::mechanistic_interpretability_circuit_attribution_replay::first_wave_contract_v1",
+      "fixture_input_count": 12,
+      "fixture_manifest": "core/fixture_manifests/mechanistic_interpretability_circuit_attribution_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 12,
+      "missing_fixture_inputs": [],
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
       "status": "pass"
     },
     {
@@ -178,9 +714,99 @@
       "missing_fixture_inputs": [],
       "organ_id": "pattern_assimilation_step",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::public_reveal_walkthrough::first_wave_contract_v1",
+      "fixture_input_count": 7,
+      "fixture_manifest": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 7,
+      "missing_fixture_inputs": [],
+      "organ_id": "public_reveal_walkthrough",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/macro_projection_import_protocol.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "macro_projection_import_protocol",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::prediction_oracle_reconciliation::first_wave_contract_v1",
+      "fixture_input_count": 7,
+      "fixture_manifest": "core/fixture_manifests/prediction_oracle_reconciliation.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 7,
+      "missing_fixture_inputs": [],
+      "organ_id": "prediction_oracle_reconciliation",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::standards_meta_diagnostics::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "standards_meta_diagnostics",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::cold_reader_route_map::first_wave_contract_v1",
+      "fixture_input_count": 8,
+      "fixture_manifest": "core/fixture_manifests/cold_reader_route_map.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "cold_reader_route_map",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::agent_monitor_redteam_falsification_replay::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/agent_monitor_redteam_falsification_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::agent_memory_temporal_conflict_replay::first_wave_contract_v1",
+      "fixture_input_count": 11,
+      "fixture_manifest": "core/fixture_manifests/agent_memory_temporal_conflict_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 11,
+      "missing_fixture_inputs": [],
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::sleeper_memory_poisoning_quarantine_replay::first_wave_contract_v1",
+      "fixture_input_count": 14,
+      "fixture_manifest": "core/fixture_manifests/sleeper_memory_poisoning_quarantine_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 14,
+      "missing_fixture_inputs": [],
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::mcp_tool_authority_replay::first_wave_contract_v1",
+      "fixture_input_count": 15,
+      "fixture_manifest": "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 15,
+      "missing_fixture_inputs": [],
+      "organ_id": "mcp_tool_authority_replay",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 1,
+  "negative_matrix_case_count": 14,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -195,9 +821,10 @@
   "schema_version": "dependency_preflight_receipt_v1",
   "status": "pass",
   "toolchain_checks": {
-    "lean_lake_execution": "deferred_not_authorized",
+    "lean_lake_execution": "bounded_public_witness_only",
     "provider_calls": "not_authorized",
-    "python_validator_runtime": "pass"
+    "python_validator_runtime": "pass",
+    "trading_or_financial_advice": "not_authorized"
   },
   "wave_order_checks": {
     "expected_prefix_order": [
@@ -205,20 +832,74 @@
       "executable_doctrine_grammar",
       "proof_diagnostic_evidence_spine",
       "formal_math_readiness_gate",
+      "corpus_readiness_mathlib_absence_gate",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "lean_std_premise_index",
+      "formal_math_premise_retrieval",
+      "formal_math_verifier_trace_repair_loop",
+      "formal_evidence_cell_anchor_resolver",
+      "undeclared_library_prior_symbol_classifier",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "agent_benchmark_integrity_anti_gaming_replay",
+      "provider_context_recipe_budget_policy",
+      "formal_math_lean_proof_witness",
       "navigation_hologram_route_plane",
       "mission_transaction_work_spine",
+      "durable_agent_work_landing_replay",
+      "research_replication_rubric_artifact_replay",
+      "world_model_projection_drift_control_room",
+      "spatial_world_model_counterfactual_simulation_replay",
+      "mechanistic_interpretability_circuit_attribution_replay",
       "agent_route_observability_runtime",
-      "pattern_assimilation_step"
+      "pattern_assimilation_step",
+      "public_reveal_walkthrough",
+      "macro_projection_import_protocol",
+      "prediction_oracle_reconciliation",
+      "standards_meta_diagnostics",
+      "cold_reader_route_map",
+      "agent_monitor_redteam_falsification_replay",
+      "agent_memory_temporal_conflict_replay",
+      "sleeper_memory_poisoning_quarantine_replay",
+      "mcp_tool_authority_replay"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
       "proof_diagnostic_evidence_spine",
       "formal_math_readiness_gate",
+      "corpus_readiness_mathlib_absence_gate",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "lean_std_premise_index",
+      "formal_math_premise_retrieval",
+      "formal_math_verifier_trace_repair_loop",
+      "formal_evidence_cell_anchor_resolver",
+      "undeclared_library_prior_symbol_classifier",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "agent_benchmark_integrity_anti_gaming_replay",
+      "provider_context_recipe_budget_policy",
+      "formal_math_lean_proof_witness",
       "navigation_hologram_route_plane",
       "mission_transaction_work_spine",
+      "durable_agent_work_landing_replay",
+      "research_replication_rubric_artifact_replay",
+      "world_model_projection_drift_control_room",
+      "spatial_world_model_counterfactual_simulation_replay",
+      "mechanistic_interpretability_circuit_attribution_replay",
       "agent_route_observability_runtime",
-      "pattern_assimilation_step"
+      "pattern_assimilation_step",
+      "public_reveal_walkthrough",
+      "macro_projection_import_protocol",
+      "prediction_oracle_reconciliation",
+      "standards_meta_diagnostics",
+      "cold_reader_route_map",
+      "agent_monitor_redteam_falsification_replay",
+      "agent_memory_temporal_conflict_replay",
+      "sleeper_memory_poisoning_quarantine_replay",
+      "mcp_tool_authority_replay"
     ],
     "status": "pass"
   }

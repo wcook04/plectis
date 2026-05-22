@@ -1,0 +1,14 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "undeclared_library_prior_symbol_classifier_runtime_example",
+  "input_mode": "exported_symbol_classifier_bundle",
+  "organ_id": "undeclared_library_prior_symbol_classifier",
+  "required_files": [
+    "projection_protocol.json",
+    "premise_index.json",
+    "symbol_observations.json",
+    "classifier_policy.json"
+  ],
+  "proof_bodies_included": false,
+  "release_authorized": false
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": "tactic_portfolio_environment_probe_v1",
+  "environment_id": "lean_std_synthetic_mathlib_absent_v1",
+  "lean_toolchain_scope": "synthetic_public_metadata",
+  "mathlib_probe_status": "environment_fail",
+  "mathlib_lake_project_import_available": false,
+  "mathlib_probe_diagnostic": "unknown module prefix Mathlib",
+  "lean_lake_execution_authorized": false,
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "anti_claim": "Mathlib absence is a scoped probe result for this fixture, not a permanent statement about future environments."
+}

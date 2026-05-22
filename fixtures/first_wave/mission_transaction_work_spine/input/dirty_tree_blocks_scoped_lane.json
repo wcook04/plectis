@@ -1,0 +1,14 @@
+{
+  "schema_version": "mission_transaction_work_spine_checkpoint_lane_case_v1",
+  "case_id": "dirty_tree_blocks_scoped_lane",
+  "negative_case_id": "dirty_tree_blocks_scoped_lane",
+  "tree_state": "mixed_dirty_tree",
+  "dirty_tree_present": true,
+  "owned_paths_isolated": true,
+  "broad_checkpoint_requested": false,
+  "operator_authorized_broad_checkpoint": false,
+  "suspected_secret": false,
+  "selected_lane": "hard_stop",
+  "dirty_tree_blocks_scoped_lane": true,
+  "body_redacted": true
+}

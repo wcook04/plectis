@@ -1,0 +1,172 @@
+{
+  "anti_claim": "This standard governs synthetic benchmark-integrity replay receipts only; it does not claim a benchmark score, expose private issue or oracle patch bodies, call providers, mutate live repositories, or authorize release/publication work.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "benchmark integrity material must state that synthetic replay is not a benchmark score"
+  },
+  "authority_boundary": "synthetic_benchmark_integrity_replay_not_benchmark_score_authority",
+  "authority_ceiling": {
+    "benchmark_score_authority": false,
+    "live_repo_mutation_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "standard_authority": "synthetic_benchmark_integrity_replay_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "kind_name": "Agent benchmark integrity anti-gaming replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json",
+    "omitted": [
+      "private issue bodies",
+      "oracle patch bodies",
+      "hidden-gold answers",
+      "provider payload bodies",
+      "benchmark score claims"
+    ],
+    "reason": "public tranche carries synthetic replay metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "agent_benchmark_integrity_anti_gaming_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "case ids",
+      "hashes",
+      "locked evaluator ids",
+      "file-access log refs",
+      "contamination refs",
+      "trusted-reference score refs",
+      "output replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_replay_receipts_only",
+    "forbidden_public_inputs": [
+      "private issue bodies",
+      "oracle patch bodies",
+      "hidden-gold answers",
+      "provider payload bodies",
+      "credentials",
+      "benchmark score claims",
+      "live repository paths"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "locked_evaluator_ids",
+      "benchmark_case_count",
+      "replay_count",
+      "integrity_pass_count",
+      "quarantine_count",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
+    "receipt must cite source refs, source pattern ids, locked evaluator ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#agent_benchmark_integrity_anti_gaming_replay",
+    "source_pattern_id_sample": [
+      "agent_benchmark_integrity_anti_gaming_replay_compound",
+      "repository_agent_benchmark_transaction_lab",
+      "agent_reliability_replay_gauntlet"
+    ],
+    "used_by_organs": [
+      "agent_benchmark_integrity_anti_gaming_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "locked_evaluator_ids",
+    "benchmark_cases",
+    "replay_observations",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating synthetic patch success or final answers as benchmark performance without replayable evaluator integrity.",
+    "compression_bands": [
+      "protocol",
+      "case",
+      "evaluator",
+      "contamination",
+      "replay",
+      "verdict",
+      "receipt"
+    ],
+    "failure_modes": [
+      "evaluator_edit_attempt",
+      "train_test_leakage",
+      "oracle_patch_body_leakage",
+      "hidden_gold_access",
+      "final_answer_only_grading",
+      "provider_payload_leakage",
+      "score_overclaim",
+      "pass_k_cherry_picking",
+      "misleading_test_admitted",
+      "private_issue_body_leakage"
+    ],
+    "ontology": "A public-safe benchmark integrity replay: locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, and negative cases.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how agent benchmark claims are gated by anti-gaming receipts before any public score language."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require locked evaluator id and config hash before score interpretation",
+    "require file-access log, contamination check, trusted reference score, and output replay refs",
+    "reject private issue bodies, oracle patch bodies, hidden-gold access, provider payloads, and score overclaims",
+    "reject final-answer-only grading, pass-k cherry-picking, train/test leakage, and misleading-test admission",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "locked_evaluator_policy",
+      "required_replay_fields",
+      "contamination_quarantine",
+      "body_leak_rejection",
+      "score_overclaim_rejection",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay"
+  ],
+  "wave": "w1_agent_benchmark_integrity_anti_gaming_replay"
+}

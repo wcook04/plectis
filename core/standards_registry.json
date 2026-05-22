@@ -1,16 +1,18 @@
 {
-  "anti_claim": "This registry indexes public-safe standard projections only; it does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence.",
+  "anti_claim": "This registry validates public standard file presence and schema shape. It authorizes only bounded public Lean/Lake witness receipts, synthetic prediction reconciliation receipts, and evidence-cell metadata receipts; it does not authorize trading, financial advice, release, publication, provider calls, private-data equivalence, evidence-cell metadata as theorem correctness, or whole-system correctness or standards-registry source authority.",
   "authority_ceiling": {
+    "lean_lake_authority": "bounded_public_witness_only",
     "private_data_equivalence_authority": false,
     "registry_authority": "public_standard_index_only",
     "release_authority": false,
     "source_body_authority": false,
-    "status": "pass"
+    "status": "pass",
+    "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 51,
+  "first_wave_required_standard_count": 80,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 51,
+  "standard_count": 80,
   "standards": [
     {
       "first_wave_required": true,
@@ -193,6 +195,79 @@
       ],
       "validator_id": null,
       "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "corpus_readiness_mathlib_absence_gate",
+      "kind_name": "Corpus readiness Mathlib absence gate",
+      "path": "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json",
+      "receipt_id": "receipt.microcosm.corpus_readiness_mathlib_absence_gate",
+      "standard_id": "std_microcosm_corpus_readiness_mathlib_absence_gate",
+      "status": "draft",
+      "used_by_organs": [
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_math_readiness_gate",
+        "formal_math_premise_retrieval"
+      ],
+      "validator_id": "validator.microcosm.organs.corpus_readiness_mathlib_absence_gate",
+      "wave": "w1_formal_math_corpus_readiness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "kind_name": "Mathematical strategy atlas hypothesis scorer",
+      "path": "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json",
+      "receipt_id": "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
+      "standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
+      "status": "draft",
+      "used_by_organs": [
+        "mathematical_strategy_atlas_hypothesis_scorer"
+      ],
+      "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer",
+      "wave": "w1_formal_math_strategy_atlas"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "tactic_portfolio_availability_probe",
+      "kind_name": "Tactic portfolio availability probe",
+      "path": "standards/std_microcosm_tactic_portfolio_availability_probe.json",
+      "receipt_id": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+      "standard_id": "std_microcosm_tactic_portfolio_availability_probe",
+      "status": "accepted",
+      "used_by_organs": [
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate"
+      ],
+      "validator_id": "validator.microcosm.organs.tactic_portfolio_availability_probe",
+      "wave": "w1_formal_math_public_probe"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "target_shape_tactic_routing_gate",
+      "kind_name": "Target shape tactic routing gate",
+      "path": "standards/std_microcosm_target_shape_tactic_routing_gate.json",
+      "receipt_id": "receipt.microcosm.target_shape_tactic_routing_gate",
+      "standard_id": "std_microcosm_target_shape_tactic_routing_gate",
+      "status": "draft",
+      "used_by_organs": [
+        "target_shape_tactic_routing_gate"
+      ],
+      "validator_id": "validator.microcosm.organs.target_shape_tactic_routing_gate",
+      "wave": "w1_formal_math_target_shape_routing"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "lean_std_premise_index",
+      "kind_name": "Lean/Std premise index",
+      "path": "standards/std_microcosm_lean_std_premise_index.json",
+      "receipt_id": "receipt.microcosm.lean_std_premise_index",
+      "standard_id": "std_microcosm_lean_std_premise_index",
+      "status": "draft",
+      "used_by_organs": [
+        "lean_std_premise_index"
+      ],
+      "validator_id": "validator.microcosm.organs.lean_std_premise_index",
+      "wave": "w1_lean_std_premise_index"
     },
     {
       "first_wave_required": true,
@@ -793,6 +868,160 @@
     },
     {
       "first_wave_required": true,
+      "kind_id": "public_reveal_walkthrough",
+      "kind_name": "Public reveal walkthrough",
+      "path": "standards/std_microcosm_public_reveal_walkthrough.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_public_reveal_walkthrough",
+      "status": "draft",
+      "used_by_organs": [
+        "public_reveal_walkthrough"
+      ],
+      "validator_id": null,
+      "wave": "w1_public_reveal_legibility"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "macro_projection_import_protocol",
+      "kind_name": "Macro projection import protocol",
+      "path": "standards/std_microcosm_macro_projection_import_protocol.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_macro_projection_import_protocol",
+      "status": "draft",
+      "used_by_organs": [
+        "macro_projection_import_protocol"
+      ],
+      "validator_id": null,
+      "wave": "w1_public_projection_import"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "formal_math_readiness_gate",
+      "kind_name": "Formal math readiness gate",
+      "path": "standards/std_microcosm_formal_math_readiness_gate.json",
+      "receipt_id": "receipt.microcosm.formal_math_readiness_gate",
+      "standard_id": "std_microcosm_formal_math_readiness_gate",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_math_readiness_gate"
+      ],
+      "validator_id": "validator.microcosm.organs.formal_math_readiness_gate",
+      "wave": "w1_formal_math_readiness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "formal_math_premise_retrieval",
+      "kind_name": "Formal math premise retrieval",
+      "path": "standards/std_microcosm_formal_math_premise_retrieval.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_formal_math_premise_retrieval",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_math_premise_retrieval"
+      ],
+      "validator_id": null,
+      "wave": "w1_formal_math_retrieval"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "formal_math_verifier_trace_repair_loop",
+      "kind_name": "Formal math verifier trace repair loop",
+      "path": "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
+      "receipt_id": "receipt.microcosm.formal_math_verifier_trace_repair_loop",
+      "standard_id": "std_microcosm_formal_math_verifier_trace_repair_loop",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_math_verifier_trace_repair_loop"
+      ],
+      "validator_id": "validator.microcosm.organs.formal_math_verifier_trace_repair_loop",
+      "wave": "w1_formal_math_verifier_trace_repair"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "formal_evidence_cell_anchor_resolver",
+      "kind_name": "Formal evidence cell anchor resolver",
+      "path": "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
+      "receipt_id": "receipt.microcosm.formal_evidence_cell_anchor_resolver",
+      "standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_evidence_cell_anchor_resolver"
+      ],
+      "validator_id": "validator.microcosm.organs.formal_evidence_cell_anchor_resolver",
+      "wave": "w1_formal_evidence_cell_anchor_resolver"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "undeclared_library_prior_symbol_classifier",
+      "kind_name": "Undeclared library prior symbol classifier",
+      "path": "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
+      "receipt_id": "receipt.microcosm.undeclared_library_prior_symbol_classifier",
+      "standard_id": "std_microcosm_undeclared_library_prior_symbol_classifier",
+      "status": "draft",
+      "used_by_organs": [
+        "undeclared_library_prior_symbol_classifier"
+      ],
+      "validator_id": "validator.microcosm.organs.undeclared_library_prior_symbol_classifier",
+      "wave": "w1_undeclared_library_prior_symbol_classifier"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "ring2_premise_retrieval_precision_recall_harness",
+      "kind_name": "Ring-2 premise retrieval precision/recall harness",
+      "path": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
+      "receipt_id": "receipt.microcosm.ring2_premise_retrieval_precision_recall_harness",
+      "standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+      "status": "accepted",
+      "used_by_organs": [
+        "ring2_premise_retrieval_precision_recall_harness"
+      ],
+      "validator_id": "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness",
+      "wave": "w1_formal_math_ring2_retrieval_quality"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "kind_name": "Agent benchmark integrity anti-gaming replay",
+      "path": "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json",
+      "receipt_id": "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
+      "standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay",
+      "wave": "w1_agent_benchmark_integrity_anti_gaming_replay"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "provider_context_recipe_budget_policy",
+      "kind_name": "Provider context recipe budget policy",
+      "path": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
+      "receipt_id": "receipt.microcosm.provider_context_recipe_budget_policy",
+      "standard_id": "std_microcosm_provider_context_recipe_budget_policy",
+      "status": "draft",
+      "used_by_organs": [
+        "provider_context_recipe_budget_policy"
+      ],
+      "validator_id": "validator.microcosm.organs.provider_context_recipe_budget_policy",
+      "wave": "w1_provider_context_recipe_budget_policy"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "formal_math_lean_proof_witness",
+      "kind_name": "Formal math Lean proof witness",
+      "path": "standards/std_microcosm_formal_math_lean_proof_witness.json",
+      "receipt_id": "receipt.microcosm.formal_math_lean_proof_witness",
+      "standard_id": "std_microcosm_formal_math_lean_proof_witness",
+      "status": "draft",
+      "used_by_organs": [
+        "formal_math_lean_proof_witness"
+      ],
+      "validator_id": "validator.microcosm.formal_math_lean_proof_witness",
+      "wave": "w1_formal_math_lean_witness"
+    },
+    {
+      "first_wave_required": true,
       "kind_id": "work_item",
       "kind_name": "Work item",
       "path": "standards/std_microcosm_work_item.json",
@@ -834,7 +1063,184 @@
       ],
       "validator_id": null,
       "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "observatory_legibility",
+      "kind_name": "Observatory legibility",
+      "path": "standards/std_microcosm_observatory_legibility.json",
+      "receipt_id": "receipt.microcosm.observatory_legibility",
+      "standard_id": "std_microcosm_observatory_legibility",
+      "status": "draft",
+      "used_by_organs": [
+        "public_reveal_walkthrough",
+        "macro_projection_import_protocol"
+      ],
+      "validator_id": "validator.microcosm.validators.observatory_legibility",
+      "wave": "w1_public_reveal_legibility"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "prediction_oracle_reconciliation",
+      "kind_name": "Prediction oracle reconciliation",
+      "path": "standards/std_microcosm_prediction_oracle_reconciliation.json",
+      "receipt_id": "receipt.microcosm.prediction_oracle_reconciliation",
+      "standard_id": "std_microcosm_prediction_oracle_reconciliation",
+      "status": "draft",
+      "used_by_organs": [
+        "prediction_oracle_reconciliation"
+      ],
+      "validator_id": "validator.microcosm.organs.prediction_oracle_reconciliation",
+      "wave": "w1_prediction_oracle_reconciliation"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "standards_meta_diagnostics",
+      "kind_name": "Standards meta diagnostics",
+      "path": "standards/std_microcosm_standards_meta_diagnostics.json",
+      "receipt_id": "receipt.microcosm.standards_meta_diagnostics",
+      "standard_id": "std_microcosm_standards_meta_diagnostics",
+      "status": "draft",
+      "used_by_organs": [
+        "standards_meta_diagnostics"
+      ],
+      "validator_id": "validator.microcosm.organs.standards_meta_diagnostics",
+      "wave": "w1_standards_meta_diagnostics"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "cold_reader_route_map",
+      "kind_name": "Cold-reader route map",
+      "path": "standards/std_microcosm_cold_reader_route_map.json",
+      "receipt_id": "receipt.microcosm.cold_reader_route_map",
+      "standard_id": "std_microcosm_cold_reader_route_map",
+      "status": "draft",
+      "used_by_organs": [
+        "cold_reader_route_map"
+      ],
+      "validator_id": "validator.microcosm.organs.cold_reader_route_map",
+      "wave": "w1_cold_reader_route_map"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "durable_agent_work_landing_replay",
+      "kind_name": "Durable agent work-landing replay",
+      "path": "standards/std_microcosm_durable_agent_work_landing_replay.json",
+      "receipt_id": "receipt.microcosm.durable_agent_work_landing_replay",
+      "standard_id": "std_microcosm_durable_agent_work_landing_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "durable_agent_work_landing_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay",
+      "wave": "w1_durable_agent_work_landing_replay"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "research_replication_rubric_artifact_replay",
+      "kind_name": "Research replication rubric-artifact replay",
+      "path": "standards/std_microcosm_research_replication_rubric_artifact_replay.json",
+      "receipt_id": "receipt.microcosm.research_replication_rubric_artifact_replay",
+      "standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "research_replication_rubric_artifact_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.research_replication_rubric_artifact_replay",
+      "wave": "w1_benchmark_integrity_and_research_replication"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "world_model_projection_drift_control_room",
+      "kind_name": "World-model projection drift control room",
+      "path": "standards/std_microcosm_world_model_projection_drift_control_room.json",
+      "receipt_id": "receipt.microcosm.world_model_projection_drift_control_room",
+      "standard_id": "std_microcosm_world_model_projection_drift_control_room",
+      "status": "draft",
+      "used_by_organs": [
+        "world_model_projection_drift_control_room"
+      ],
+      "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room",
+      "wave": "w1_world_model_projection_drift_control_room"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "spatial_world_model_counterfactual_simulation_replay",
+      "kind_name": "Spatial world-model counterfactual simulation replay",
+      "path": "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
+      "receipt_id": "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
+      "standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "spatial_world_model_counterfactual_simulation_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay",
+      "wave": "w1_spatial_world_model_counterfactual_simulation_replay"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "kind_name": "Mechanistic interpretability circuit attribution replay",
+      "path": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json",
+      "receipt_id": "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
+      "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "mechanistic_interpretability_circuit_attribution_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay",
+      "wave": "w1_mechanistic_interpretability_circuit_attribution_replay"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "agent_monitor_redteam_falsification_replay",
+      "kind_name": "Agent monitor redteam falsification replay",
+      "path": "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json",
+      "receipt_id": "receipt.microcosm.agent_monitor_redteam_falsification_replay",
+      "standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_monitor_redteam_falsification_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.agent_monitor_redteam_falsification_replay",
+      "wave": "w1_agent_monitor_redteam_falsification_replay"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "agent_memory_temporal_conflict_replay",
+      "kind_name": "Agent memory temporal-conflict replay",
+      "path": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
+      "receipt_id": "receipt.microcosm.agent_memory_temporal_conflict_replay",
+      "standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_memory_temporal_conflict_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.agent_memory_temporal_conflict_replay",
+      "wave": "w1_agent_memory_temporal_conflict_replay"
+    },
+    {
+      "kind_id": "sleeper_memory_poisoning_quarantine_replay",
+      "path": "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
+      "receipt_id": "receipt.microcosm.sleeper_memory_poisoning_quarantine_replay",
+      "standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+      "used_by_organs": [
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.sleeper_memory_poisoning_quarantine_replay",
+      "wave": "w1_sleeper_memory_poisoning_quarantine_replay"
+    },
+    {
+      "kind_id": "mcp_tool_authority_replay",
+      "path": "standards/std_microcosm_mcp_tool_authority_replay.json",
+      "receipt_id": "receipt.microcosm.mcp_tool_authority_replay",
+      "standard_id": "std_microcosm_mcp_tool_authority_replay",
+      "used_by_organs": [
+        "mcp_tool_authority_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay",
+      "wave": "w1_mcp_tool_authority_replay"
     }
   ],
-  "status": "populated_from_macro_manifest"
+  "status": "current_public_standard_registry_mcp_tool_authority_replay_bound"
 }

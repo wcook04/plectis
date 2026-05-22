@@ -1,0 +1,64 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "public_reveal_walkthrough",
+  "fixture_id": "fixture::public_reveal_walkthrough::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate a public-safe ten-minute reveal path that ties Microcosm's product claim to commands, substrate refs, evidence refs, and authority ceilings.",
+  "inputs": [
+    "fixtures/first_wave/public_reveal_walkthrough/input/reveal_walkthrough.json",
+    "fixtures/first_wave/public_reveal_walkthrough/input/substrate_evidence_map.json",
+    "fixtures/first_wave/public_reveal_walkthrough/input/audience_claim_floor.json",
+    "fixtures/first_wave/public_reveal_walkthrough/input/release_or_hosting_overclaim.json",
+    "fixtures/first_wave/public_reveal_walkthrough/input/private_equivalence_overclaim.json",
+    "fixtures/first_wave/public_reveal_walkthrough/input/missing_evidence_route.json",
+    "fixtures/first_wave/public_reveal_walkthrough/input/marketing_without_runtime.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
+    "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
+    "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
+  "expected_negative_cases": [
+    "release_or_hosting_overclaim",
+    "private_equivalence_overclaim",
+    "missing_evidence_route",
+    "marketing_without_runtime"
+  ],
+  "stable_error_codes": [
+    "PUBLIC_REVEAL_RELEASE_OVERCLAIM",
+    "PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM",
+    "PUBLIC_REVEAL_STEP_EVIDENCE_MISSING",
+    "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "walkthrough_id",
+    "step_count",
+    "commands",
+    "evidence_refs"
+  ],
+  "private_state_exclusion_rules": {
+    "release": "never authorized by reveal walkthrough",
+    "provider_payload_bodies": "forbidden; commands are local runtime commands only",
+    "private_equivalence": "forbidden; public reveal is a small model, not a private-root equivalence claim",
+    "raw_seed_body": "forbidden; reveal only cites public-root refs and receipts"
+  },
+  "authority_ceiling": "public ten-minute reveal metadata only; not release, hosting, publication, provider authority, private-data equivalence, or whole-system correctness",
+  "anti_claim": "This fixture manifest accepts only public reveal metadata and negative-case coverage. It does not authorize release, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake, or whole-system correctness."
+}

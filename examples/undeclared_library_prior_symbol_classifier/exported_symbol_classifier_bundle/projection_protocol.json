@@ -1,0 +1,38 @@
+{
+  "schema_version": "undeclared_library_prior_symbol_classifier_projection_protocol_v1",
+  "protocol_id": "undeclared_library_prior_symbol_classifier_public_fixture",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::undeclared_library_prior_symbol_classifier",
+    "tools/meta/factory/reduce_prover_provider_receipts.py::failure_classification",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::formal_prover_context_library_prior_and_strategy_gate",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+  ],
+  "source_pattern_ids": [
+    "undeclared_library_prior_symbol_classifier",
+    "lean_verifier_feedback_failure_classification",
+    "lean_std_toolchain_premise_index",
+    "provider_context_recipe_budget_policy"
+  ],
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+    "receipts/runtime_shell/public_projection_safety_audit_lens.json"
+  ],
+  "public_replacement_refs": [
+    "src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py",
+    "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
+    "paper_modules/undeclared_library_prior_classifier.md",
+    "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json"
+  ],
+  "omitted_material": [
+    {
+      "material_id": "proof_bodies",
+      "omission_receipt_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+      "replacement": "proof_body_hash plus redacted qualified symbol refs only"
+    },
+    {
+      "material_id": "provider_payloads",
+      "omission_receipt_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+      "replacement": "typed reducer receipt fields only"
+    }
+  ]
+}

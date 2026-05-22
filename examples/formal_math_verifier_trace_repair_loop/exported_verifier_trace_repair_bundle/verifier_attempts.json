@@ -1,0 +1,78 @@
+{
+  "schema_version": "formal_math_verifier_trace_attempts_fixture_v1",
+  "attempts": [
+    {
+      "attempt_id": "attempt_a_missing_premise",
+      "statement_id": "toy_nat_add_comm_goal",
+      "public_input_hash": "sha256:toy-a-redacted",
+      "verifier_class": "missing_premise",
+      "trace_grade": "blocked_before_tactic",
+      "failure_mode_id": "fm_missing_commutativity_prior",
+      "repair_action_id": "repair_add_closed_std_premise_terms",
+      "promoted_after_cold_rerun": false,
+      "trace_events": [
+        {
+          "event_id": "trace_a_001",
+          "event_class": "premise_lookup_empty",
+          "public_detail": "query terms did not include Nat.add_comm",
+          "body_redacted": true
+        },
+        {
+          "event_id": "trace_a_002",
+          "event_class": "repair_selected",
+          "public_detail": "add closed Std premise terms before rerun",
+          "body_redacted": true
+        }
+      ]
+    },
+    {
+      "attempt_id": "attempt_b_unavailable_tactic",
+      "statement_id": "toy_list_append_assoc_goal",
+      "public_input_hash": "sha256:toy-b-redacted",
+      "verifier_class": "unavailable_tactic",
+      "trace_grade": "blocked_by_environment",
+      "failure_mode_id": "fm_mathlib_tactic_unavailable",
+      "repair_action_id": "repair_route_to_std_only_tactic",
+      "promoted_after_cold_rerun": false,
+      "trace_events": [
+        {
+          "event_id": "trace_b_001",
+          "event_class": "tactic_probe_failed",
+          "public_detail": "Mathlib tactic was not available in public fixture environment",
+          "body_redacted": true
+        },
+        {
+          "event_id": "trace_b_002",
+          "event_class": "routing_gate_selected",
+          "public_detail": "route to Std-only tactic class",
+          "body_redacted": true
+        }
+      ]
+    },
+    {
+      "attempt_id": "attempt_c_invalid_body_redacted",
+      "statement_id": "toy_bool_and_comm_goal",
+      "public_input_hash": "sha256:toy-c-redacted",
+      "verifier_class": "invalid_proof_body_redacted",
+      "trace_grade": "failed_checker_then_repaired",
+      "failure_mode_id": "fm_invalid_body_shape",
+      "repair_action_id": "repair_change_goal_shape_route",
+      "promoted_after_cold_rerun": true,
+      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
+      "trace_events": [
+        {
+          "event_id": "trace_c_001",
+          "event_class": "checker_rejected_candidate",
+          "public_detail": "candidate body class rejected; body omitted",
+          "body_redacted": true
+        },
+        {
+          "event_id": "trace_c_002",
+          "event_class": "cold_rerun_passed_synthetic_gate",
+          "public_detail": "same public metadata passed the cold rerun gate after repair",
+          "body_redacted": true
+        }
+      ]
+    }
+  ]
+}

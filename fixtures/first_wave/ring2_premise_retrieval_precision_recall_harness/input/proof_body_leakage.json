@@ -1,0 +1,10 @@
+{
+  "schema_version": "ring2_negative_case_v1",
+  "expected_negative_case_id": "proof_body_leakage",
+  "problems": [
+    {
+      "problem_id": "ring2_nat_add_comm_assoc",
+      "proof_body": "by simpa [Nat.add_comm, Nat.add_assoc]"
+    }
+  ]
+}

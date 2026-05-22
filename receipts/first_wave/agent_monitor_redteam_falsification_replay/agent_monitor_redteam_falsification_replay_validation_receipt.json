@@ -1,0 +1,77 @@
+{
+  "adversarial_probe_count": 5,
+  "anti_claim": "Agent monitor redteam falsification replay validates synthetic trajectory, monitor verdict, adversarial probe, escalation, mitigation, and redaction receipts. It does not claim monitor product performance, export private reasoning or internal code, provide exploit instructions, import live agent traffic, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_agent_monitor_falsification_replay_receipts_only",
+    "control_eval_score_claim_authorized": false,
+    "credential_material_export_authorized": false,
+    "exploit_instruction_export_authorized": false,
+    "live_agent_execution_authorized": false,
+    "live_agent_traffic_import_authorized": false,
+    "monitor_product_performance_claim_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "block_count": 1,
+  "created_at": "2026-05-22T04:26:48+00:00",
+  "escalate_count": 1,
+  "fixture_id": "first_wave.agent_monitor_redteam_falsification_replay",
+  "negative_case_coverage": {
+    "expected": [
+      "coverage_without_adversarial_probe",
+      "credential_material",
+      "exploit_instruction_material",
+      "internal_code_export",
+      "live_agent_traffic",
+      "monitor_product_performance_claim",
+      "private_chain_of_thought_leakage"
+    ],
+    "missing": [],
+    "observed": {
+      "coverage_without_adversarial_probe": [
+        "MONITOR_REDTEAM_COVERAGE_WITHOUT_PROBE"
+      ],
+      "credential_material": [
+        "MONITOR_REDTEAM_CREDENTIAL_MATERIAL_FORBIDDEN"
+      ],
+      "exploit_instruction_material": [
+        "MONITOR_REDTEAM_EXPLOIT_INSTRUCTIONS_FORBIDDEN"
+      ],
+      "internal_code_export": [
+        "MONITOR_REDTEAM_INTERNAL_CODE_FORBIDDEN"
+      ],
+      "live_agent_traffic": [
+        "MONITOR_REDTEAM_LIVE_TRAFFIC_FORBIDDEN"
+      ],
+      "monitor_product_performance_claim": [
+        "MONITOR_REDTEAM_PRODUCT_PERFORMANCE_CLAIM_FORBIDDEN"
+      ],
+      "private_chain_of_thought_leakage": [
+        "MONITOR_REDTEAM_PRIVATE_COT_FORBIDDEN"
+      ]
+    }
+  },
+  "observation_count": 3,
+  "organ_id": "agent_monitor_redteam_falsification_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "agent_monitor_redteam_falsification_replay_validation_receipt_v1",
+  "status": "pass",
+  "trajectory_case_count": 3,
+  "validator_id": "validator.microcosm.organs.agent_monitor_redteam_falsification_replay"
+}

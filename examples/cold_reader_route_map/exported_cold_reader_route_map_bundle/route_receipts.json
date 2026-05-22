@@ -1,0 +1,54 @@
+{
+  "schema_version": "cold_reader_route_receipts_v1",
+  "route_receipts": [
+    {
+      "route_id": "compile_project",
+      "receipt_refs": [
+        "receipts/runtime_shell/demo_project/demo_project_result.json"
+      ],
+      "body_redacted": true
+    },
+    {
+      "route_id": "inspect_route",
+      "receipt_refs": [
+        "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json"
+      ],
+      "body_redacted": true
+    },
+    {
+      "route_id": "open_observatory",
+      "receipt_refs": [
+        "receipts/first_wave/observatory_legibility.json"
+      ],
+      "body_redacted": true
+    },
+    {
+      "route_id": "inspect_public_spine",
+      "receipt_refs": [
+        "receipts/runtime_shell/demo_project/demo_project_trace.json"
+      ],
+      "body_redacted": true
+    },
+    {
+      "route_id": "open_import_bridge",
+      "receipt_refs": [
+        "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json"
+      ],
+      "body_redacted": true
+    },
+    {
+      "route_id": "open_reveal_board",
+      "receipt_refs": [
+        "receipts/runtime_shell/public_reveal/public_reveal_view.json"
+      ],
+      "body_redacted": true
+    },
+    {
+      "route_id": "inspect_cold_reader_route_map",
+      "receipt_refs": [
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json"
+      ],
+      "body_redacted": true
+    }
+  ]
+}

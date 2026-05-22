@@ -1,0 +1,163 @@
+{
+  "anti_claim": "This standard governs synthetic work-landing replay receipts only; it does not mutate Git, prove a commit landed, expose private source bodies, run providers, or authorize release/publication work.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "work-landing replay material must state that synthetic replay is not live commit authority"
+  },
+  "authority_boundary": "synthetic_work_landing_replay_not_live_commit_authority",
+  "authority_ceiling": {
+    "broad_checkpoint_authority": false,
+    "live_git_mutation_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_work_landing_replay_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "durable_agent_work_landing_replay",
+  "kind_name": "Durable agent work-landing replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/durable_agent_work_landing_replay/input/projection_protocol.json",
+    "omitted": [
+      "private source bodies",
+      "raw diff bodies",
+      "provider payloads",
+      "absolute private paths",
+      "Git error payloads"
+    ],
+    "reason": "public tranche carries synthetic replay metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "durable_agent_work_landing_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "path refs",
+      "receipt refs",
+      "lane ids",
+      "hash-like head refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_replay_receipts_only",
+    "forbidden_public_inputs": [
+      "private source bodies",
+      "raw diff bodies",
+      "provider payloads",
+      "credentials",
+      "absolute private paths",
+      "release claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "lane_ids",
+      "run_count",
+      "metadata_blocked_count",
+      "landed_commit_count",
+      "negative_case_coverage",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.durable_agent_work_landing_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.durable_agent_work_landing_replay",
+    "receipt must cite source refs, lane ids, run count, metadata-blocked count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#durable_agent_work_landing_replay",
+    "source_pattern_id_sample": [
+      "durable_agent_work_landing_replay_compound",
+      "mission_transaction_landing",
+      "work_ledger_runtime_claims"
+    ],
+    "used_by_organs": [
+      "durable_agent_work_landing_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "lane_decision_table",
+    "work_landing_runs",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_durable_agent_work_landing_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating dirty-tree work, metadata blockers, or validation-only patches as landed commits or release-ready state.",
+    "compression_bands": [
+      "protocol",
+      "lane",
+      "claim",
+      "validation",
+      "commit",
+      "blocker",
+      "ledger",
+      "receipt"
+    ],
+    "failure_modes": [
+      "claim_without_work_ledger_closeout",
+      "commit_claim_without_head_change",
+      "dirty_tree_boundary_missing",
+      "live_git_mutation_authorized",
+      "missing_evidence_ref",
+      "private_path_leakage",
+      "release_overclaim",
+      "uncaptured_blocker"
+    ],
+    "ontology": "A public-safe work landing replay: lane policy, path claims, validation refs, scoped commit attempt refs, blocker capture refs, Work Ledger closeout refs, and negative cases.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how durable agent work lands through claims, validation, scoped commit attempts, blockers, and ledger finalizers before any landed-language claim."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require owned-path claim refs before mutation language",
+    "require owner-native validation refs before closeout language",
+    "require Work Ledger closeout or append-exempt finalizer refs",
+    "reject landed-commit claims without HEAD advance",
+    "reject live Git mutation, unrelated dirty staging, private path/body leakage, and release overclaims"
+  ],
+  "validator_contract": {
+    "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run --input fixtures/first_wave/durable_agent_work_landing_replay/input --out receipts/first_wave/durable_agent_work_landing_replay",
+    "expected_negative_cases": [
+      "claim_without_work_ledger_closeout",
+      "commit_claim_without_head_change",
+      "dirty_tree_boundary_missing",
+      "live_git_mutation_authorized",
+      "missing_evidence_ref",
+      "private_path_leakage",
+      "release_overclaim",
+      "uncaptured_blocker"
+    ],
+    "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay"
+  }
+}

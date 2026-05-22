@@ -1,0 +1,267 @@
+{
+  "adversarial_decoy_case_id": "ring2_list_map_map_index_miss",
+  "adversarial_decoy_observed": true,
+  "anti_claim": "Ring-2 premise retrieval precision/recall evaluates synthetic public retrieval rankings against after-the-fact labels. It separates retrieval misses from proof failures despite premise hits, but it does not run Lean or Lake, call providers, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release.",
+  "authority_ceiling": {
+    "after_the_fact_labels_allowed_for_metrics": true,
+    "authority_ceiling": "ring2_retrieval_metrics_metadata_not_proof_or_benchmark_authority",
+    "benchmark_performance_authority": false,
+    "formal_proof_authority": false,
+    "labels_allowed_in_provider_context": false,
+    "lean_lake_execution_authorized": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "test_split_tuning_authorized": false
+  },
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "run",
+  "created_at": "2026-05-21T16:54:03+00:00",
+  "error_codes": [
+    "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
+    "RING2_RETRIEVAL_METRIC_OVERCLAIM",
+    "RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING",
+    "RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN",
+    "RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN"
+  ],
+  "evaluations": [
+    {
+      "adversarial_decoy_expected": false,
+      "body_redacted": true,
+      "failure_mode": "partial_retrieval_miss",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "Iff.mp"
+      ],
+      "needed_premise_count": 2,
+      "needed_premise_ids_redacted": true,
+      "precision_at_k": 0.25,
+      "problem_id": "ring2_iff_direction",
+      "recall_at_k": 0.5,
+      "retrieved_premise_count": 4,
+      "retrieved_premise_ids": [
+        "Iff.mp",
+        "Bool.and_comm",
+        "Bool.or_comm",
+        "Nat.add_comm"
+      ],
+      "ring": "ring2",
+      "split": "dev",
+      "target_shape": "iff_directional_rewrite",
+      "top_k": 4
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_redacted": true,
+      "failure_mode": "retrieval_hit",
+      "hit_count": 2,
+      "hit_premise_ids": [
+        "List.length_append",
+        "List.map_append"
+      ],
+      "needed_premise_count": 2,
+      "needed_premise_ids_redacted": true,
+      "precision_at_k": 0.5,
+      "problem_id": "ring2_list_append_length",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 4,
+      "retrieved_premise_ids": [
+        "List.map_append",
+        "List.append_assoc",
+        "Bool.or_comm",
+        "List.length_append"
+      ],
+      "ring": "ring2",
+      "split": "dev",
+      "target_shape": "list_append_length",
+      "top_k": 4
+    },
+    {
+      "adversarial_decoy_expected": true,
+      "body_redacted": true,
+      "failure_mode": "retrieval_miss",
+      "hit_count": 0,
+      "hit_premise_ids": [],
+      "needed_premise_count": 1,
+      "needed_premise_ids_redacted": true,
+      "precision_at_k": 0.0,
+      "problem_id": "ring2_list_map_map_index_miss",
+      "recall_at_k": 0.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "List.map_append",
+        "List.length_append",
+        "List.append_assoc"
+      ],
+      "ring": "ring2",
+      "split": "test",
+      "target_shape": "list_map_composition",
+      "top_k": 3
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_redacted": true,
+      "failure_mode": "retrieval_hit",
+      "hit_count": 2,
+      "hit_premise_ids": [
+        "Nat.add_assoc",
+        "Nat.add_comm"
+      ],
+      "needed_premise_count": 2,
+      "needed_premise_ids_redacted": true,
+      "precision_at_k": 0.5,
+      "problem_id": "ring2_nat_add_comm_assoc",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 4,
+      "retrieved_premise_ids": [
+        "Nat.add_comm",
+        "Nat.add_assoc",
+        "Bool.and_comm",
+        "List.append_assoc"
+      ],
+      "ring": "ring2",
+      "split": "train",
+      "target_shape": "nat_comm_assoc",
+      "top_k": 4
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_redacted": true,
+      "failure_mode": "proof_failure_despite_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "Nat.mul_comm"
+      ],
+      "needed_premise_count": 1,
+      "needed_premise_ids_redacted": true,
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_nat_mul_comm_failure_after_hit",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "Bool.and_comm",
+        "Nat.mul_comm",
+        "Nat.add_comm"
+      ],
+      "ring": "ring2",
+      "split": "test",
+      "target_shape": "nat_mul_comm",
+      "top_k": 3
+    }
+  ],
+  "expected_negative_cases": {
+    "metric_overclaim": [
+      "RING2_RETRIEVAL_METRIC_OVERCLAIM"
+    ],
+    "missing_adversarial_decoy": [
+      "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED"
+    ],
+    "oracle_labels_in_ranking": [
+      "RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING"
+    ],
+    "proof_body_leakage": [
+      "RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN"
+    ],
+    "test_split_tuning_attempt": [
+      "RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN"
+    ]
+  },
+  "failure_mode_counts": {
+    "partial_retrieval_miss": 1,
+    "proof_failure_despite_hit": 1,
+    "retrieval_hit": 2,
+    "retrieval_miss": 1
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING",
+      "message": "Ring-2 public retrieval fixtures may carry redacted labels and rankings, not proof bodies or oracle labels inside rankings.",
+      "negative_case_id": "oracle_labels_in_ranking",
+      "subject_id": "ring2_iff_direction",
+      "subject_kind": "retrieval_ranking"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN",
+      "message": "Ring-2 public retrieval fixtures may carry redacted labels and rankings, not proof bodies or oracle labels inside rankings.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "ring2_nat_add_comm_assoc",
+      "subject_kind": "proof_body_leakage"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
+      "message": "Ring-2 labels may be used for after-the-fact metrics, not retrieval tuning.",
+      "negative_case_id": "test_split_tuning_attempt",
+      "subject_id": "ring2_test_tuned_variant",
+      "subject_kind": "test_split_tuning"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "RING2_RETRIEVAL_METRIC_OVERCLAIM",
+      "message": "Ring-2 metrics cannot claim proof authority, benchmark performance, provider authority, or release readiness.",
+      "negative_case_id": "metric_overclaim",
+      "subject_id": "benchmark_performance_claimed,general_theorem_proving_success_claimed,release_authorized",
+      "subject_kind": "metric_claim"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
+      "message": "Ring-2 retrieval quality fixtures must include an adversarial decoy/miss case.",
+      "negative_case_id": "missing_adversarial_decoy",
+      "subject_id": "ring2_no_decoy_policy",
+      "subject_kind": "evaluation_policy"
+    }
+  ],
+  "fixture_id": "first_wave.ring2_premise_retrieval_precision_recall_harness",
+  "input_mode": "fixture_input",
+  "mean_precision_at_k": 0.3167,
+  "mean_recall_at_k": 0.7,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "metric_overclaim": [
+      "RING2_RETRIEVAL_METRIC_OVERCLAIM"
+    ],
+    "missing_adversarial_decoy": [
+      "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED"
+    ],
+    "oracle_labels_in_ranking": [
+      "RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING"
+    ],
+    "proof_body_leakage": [
+      "RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN"
+    ],
+    "test_split_tuning_attempt": [
+      "RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN"
+    ]
+  },
+  "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 9,
+    "status": "pass"
+  },
+  "problem_count": 5,
+  "receipt_id": "ring2_precision_recall_fixture_acceptance_v1",
+  "receipt_paths": [
+    "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
+  ],
+  "schema_version": "ring2_precision_recall_fixture_acceptance_v1",
+  "source_pattern_ids": [
+    "ring2_premise_retrieval_precision_recall_harness"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness"
+}

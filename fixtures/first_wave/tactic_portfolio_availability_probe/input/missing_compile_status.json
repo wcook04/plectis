@@ -1,0 +1,11 @@
+{
+  "schema_version": "tactic_portfolio_availability_negative_case_v1",
+  "expected_negative_case_id": "missing_compile_status",
+  "tactics": [
+    {
+      "tactic_id": "simp",
+      "environment": "lean_std_synthetic",
+      "requires_mathlib": false
+    }
+  ]
+}

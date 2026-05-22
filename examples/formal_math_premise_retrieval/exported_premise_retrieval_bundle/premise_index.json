@@ -1,0 +1,72 @@
+{
+  "schema_version": "lean_std_premise_index_fixture_v1",
+  "index_id": "lean_std_public_synthetic_premise_index_v1",
+  "corpus_id": "lean_std_synthetic_core",
+  "mathlib_available": false,
+  "premises": [
+    {
+      "premise_id": "Nat.add_comm",
+      "namespace": "Init.Nat",
+      "retrieval_terms": ["nat", "addition", "commutative", "add", "comm", "x+y=y+x"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["commutativity_rewrite", "normalization"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "Nat.add_assoc",
+      "namespace": "Init.Nat",
+      "retrieval_terms": ["nat", "addition", "associative", "assoc", "x+(y+z)"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["associativity_rewrite", "normalization"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "Nat.mul_comm",
+      "namespace": "Init.Nat",
+      "retrieval_terms": ["nat", "multiplication", "commutative", "mul", "comm"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["commutativity_rewrite", "normalization"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "Bool.and_comm",
+      "namespace": "Init.Data.Bool",
+      "retrieval_terms": ["bool", "and", "commutative", "conjunction", "&&"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["boolean_normalization"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "Bool.or_comm",
+      "namespace": "Init.Data.Bool",
+      "retrieval_terms": ["bool", "or", "commutative", "disjunction", "||"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["boolean_normalization"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "List.length_append",
+      "namespace": "Init.Data.List",
+      "retrieval_terms": ["list", "length", "append", "concatenate", "length_append"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["structural_list", "induction_hint"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "List.map_append",
+      "namespace": "Init.Data.List",
+      "retrieval_terms": ["list", "map", "append", "map_append", "functor"],
+      "allowed_for_split": ["train", "dev"],
+      "strategy_tags": ["structural_list"],
+      "source_ref": "Lean.Init"
+    },
+    {
+      "premise_id": "Iff.mp",
+      "namespace": "Init.Logic",
+      "retrieval_terms": ["iff", "mp", "forward", "equivalence", "implication"],
+      "allowed_for_split": ["train", "dev", "test"],
+      "strategy_tags": ["iff_split"],
+      "source_ref": "Lean.Init"
+    }
+  ]
+}

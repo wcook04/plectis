@@ -1,0 +1,79 @@
+{
+  "anti_claim": "Undeclared library prior symbol classifier validates redacted public symbol observation metadata against a closed premise index. It does not run Lean or Lake, prove theorem correctness, expose proof bodies or private source refs, call providers, turn the whole library into an allowlist, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_redacted_symbol_observation_metadata_only",
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "premise_budget_retry_authority": false,
+    "private_source_refs_allowed": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "theorem_correctness_authority": false
+  },
+  "bridge_escalation_count": 1,
+  "classification_count": 3,
+  "created_at": "2026-05-22T01:38:40+00:00",
+  "fixture_id": "first_wave.undeclared_library_prior_symbol_classifier",
+  "formal_proof_authority": false,
+  "negative_case_coverage": {
+    "expected": [
+      "allowed_symbol_false_positive",
+      "missing_escalation_for_undeclared_symbol",
+      "premise_budget_precedence_violation",
+      "private_source_ref_leakage",
+      "proof_body_leakage",
+      "theorem_correctness_overclaim",
+      "unqualified_symbol_overclaim"
+    ],
+    "missing": [],
+    "observed": {
+      "allowed_symbol_false_positive": [
+        "SYMBOL_CLASSIFIER_ALLOWED_SYMBOL_FALSE_POSITIVE"
+      ],
+      "missing_escalation_for_undeclared_symbol": [
+        "SYMBOL_CLASSIFIER_UNDECLARED_LIBRARY_PRIOR_NOT_ESCALATED"
+      ],
+      "premise_budget_precedence_violation": [
+        "SYMBOL_CLASSIFIER_PREMISE_BUDGET_PRECEDENCE"
+      ],
+      "private_source_ref_leakage": [
+        "SYMBOL_CLASSIFIER_PRIVATE_SOURCE_REF_FORBIDDEN"
+      ],
+      "proof_body_leakage": [
+        "SYMBOL_CLASSIFIER_PROOF_BODY_FORBIDDEN"
+      ],
+      "theorem_correctness_overclaim": [
+        "SYMBOL_CLASSIFIER_THEOREM_CORRECTNESS_OVERCLAIM"
+      ],
+      "unqualified_symbol_overclaim": [
+        "SYMBOL_CLASSIFIER_UNQUALIFIED_SYMBOL_OVERCLAIM"
+      ]
+    }
+  },
+  "organ_id": "undeclared_library_prior_symbol_classifier",
+  "premise_budget_precedence_count": 1,
+  "premise_count": 6,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_result.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_board.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
+  ],
+  "retry_count": 1,
+  "schema_version": "undeclared_library_prior_symbol_classifier_validation_receipt_v1",
+  "status": "pass",
+  "theorem_correctness_authority": false,
+  "undeclared_library_prior_count": 1,
+  "validator_id": "validator.microcosm.organs.undeclared_library_prior_symbol_classifier"
+}

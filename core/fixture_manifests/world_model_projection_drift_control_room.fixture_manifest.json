@@ -1,0 +1,110 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::world_model_projection_drift_control_room::first_wave_contract_v1",
+  "organ_id": "world_model_projection_drift_control_room",
+  "title": "World-model projection drift control room fixture",
+  "validator": "microcosm_core.organs.world_model_projection_drift_control_room",
+  "validator_command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run --input fixtures/first_wave/world_model_projection_drift_control_room/input --out receipts/first_wave/world_model_projection_drift_control_room",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_policy.json",
+      "role": "metadata-only authority and row policy"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+      "role": "positive projection drift rows"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_row_without_source_ref.json",
+      "role": "negative case: drift_row_without_source_ref"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/repair_route_without_validation_ref.json",
+      "role": "negative case: repair_route_without_validation_ref"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/projection_claiming_source_authority.json",
+      "role": "negative case: projection_claiming_source_authority"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/live_repair_action_authorized.json",
+      "role": "negative case: live_repair_action_authorized"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/private_runtime_data_export.json",
+      "role": "negative case: private_runtime_data_export"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/provider_payload_export.json",
+      "role": "negative case: provider_payload_export"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/automatic_doctrine_promotion.json",
+      "role": "negative case: automatic_doctrine_promotion"
+    },
+    {
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/release_from_drift_projection.json",
+      "role": "negative case: release_from_drift_projection"
+    }
+  ],
+  "expected_negative_cases": [
+    "drift_row_without_source_ref",
+    "repair_route_without_validation_ref",
+    "projection_claiming_source_authority",
+    "live_repair_action_authorized",
+    "private_runtime_data_export",
+    "provider_payload_export",
+    "automatic_doctrine_promotion",
+    "release_from_drift_projection"
+  ],
+  "stable_error_codes": [
+    "DRIFT_SOURCE_REF_REQUIRED",
+    "DRIFT_VALIDATION_REF_REQUIRED",
+    "DRIFT_SOURCE_AUTHORITY_FORBIDDEN",
+    "DRIFT_LIVE_REPAIR_FORBIDDEN",
+    "DRIFT_PRIVATE_RUNTIME_EXPORT_FORBIDDEN",
+    "DRIFT_PROVIDER_PAYLOAD_FORBIDDEN",
+    "DRIFT_AUTOMATIC_DOCTRINE_PROMOTION_FORBIDDEN",
+    "DRIFT_RELEASE_AUTHORITY_FORBIDDEN"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
+    "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
+  ],
+  "authority_ceiling": "synthetic projection drift control metadata only; no source authority, live repair, doctrine promotion, private runtime export, provider payload export, or release",
+  "anti_claim": "This fixture validates public synthetic world-model projection drift metadata only; it does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, or authorize release.",
+  "validator_contract_ratchet_v1": {
+    "status": "active",
+    "required_positive_row_count": 8,
+    "required_negative_case_count": 8,
+    "per_output_receipt_field_floor": {
+      "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json": [
+        "status",
+        "organ_id",
+        "selected_route_id",
+        "selected_pattern_ids",
+        "drift_summary",
+        "negative_case_summary",
+        "authority_ceiling",
+        "private_state_scan",
+        "anti_claim"
+      ],
+      "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json": [
+        "status",
+        "organ_id",
+        "fixture_id",
+        "row_count",
+        "expected_negative_case_count",
+        "observed_negative_case_count",
+        "authority_ceiling",
+        "anti_claim"
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "active_injection_adopted": false,
+  "body_exported": false,
+  "decision": "UPDATE",
+  "episode_id": "negative_stale_override",
+  "episode_order": 9,
+  "event_id": "negative_stale_preference_override",
+  "evidence_handle_ref": "evidence.memory.negative.stale_override",
+  "expected_negative_case_id": "stale_preference_override",
+  "memory_route_ref": "route.memory.write.synthetic.stale_override",
+  "memory_subject_id": "pref_response_style_stale_scope_general",
+  "metadata_only_ref": true,
+  "private_thread_ref": "thread_ref.synthetic.stale.metadata_only",
+  "source_authority_claim": false,
+  "stale_preference_override": true
+}

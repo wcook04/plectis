@@ -1,0 +1,26 @@
+{
+  "allowed_integrity_verdicts": [
+    "integrity_pass",
+    "quarantine"
+  ],
+  "benchmark_score_claim_authorized": false,
+  "body_redacted": true,
+  "locked_evaluator_ids": [
+    "locked_repo_repair_scorer_v1",
+    "locked_regression_guard_scorer_v1"
+  ],
+  "policy_id": "public_synthetic_locked_benchmark_evaluator_policy",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "required_replay_fields": [
+    "case_id",
+    "evaluator_id",
+    "evaluator_config_hash",
+    "file_access_log_ref",
+    "contamination_check_ref",
+    "trusted_reference_score_ref",
+    "output_replay_ref",
+    "integrity_verdict"
+  ],
+  "schema_version": "locked_evaluator_policy_v1"
+}

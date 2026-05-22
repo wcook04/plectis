@@ -1,0 +1,80 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::formal_evidence_cell_anchor_resolver::first_wave_contract_v1",
+  "organ_id": "formal_evidence_cell_anchor_resolver",
+  "title": "Formal evidence cell anchor resolver fixture",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with omission receipts"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/paper_claims.json",
+      "role": "positive toy paper claims with resolved evidence cell ids"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/evidence_cell_registry.json",
+      "role": "public evidence cell registry with machine-anchor metadata"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/claim_boundary_policy.json",
+      "role": "claim-strength policy that prevents theorem-correctness overclaim"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/unknown_cell_overclaim.json",
+      "role": "negative case: proof language references an unknown cell"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/missing_source_anchor.json",
+      "role": "negative case: proof language lacks source anchor refs"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/proof_language_without_cell.json",
+      "role": "negative case: proof language has no evidence cell id"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/private_source_ref_leakage.json",
+      "role": "negative case: private source ref is present"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/proof_body_leakage.json",
+      "role": "negative case: proof body field is present"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/theorem_correctness_overclaim.json",
+      "role": "negative case: metadata cell is treated as theorem correctness"
+    },
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/human_approval_as_evidence_cell.json",
+      "role": "negative case: human approval is treated as proof authority"
+    }
+  ],
+  "validator": "microcosm_core.organs.formal_evidence_cell_anchor_resolver",
+  "validator_command": "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver",
+  "generated_receipts": [
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+  ],
+  "expected_negative_cases": [
+    "unknown_cell_overclaim",
+    "missing_source_anchor",
+    "proof_language_without_cell",
+    "private_source_ref_leakage",
+    "proof_body_leakage",
+    "theorem_correctness_overclaim",
+    "human_approval_as_evidence_cell"
+  ],
+  "stable_error_codes": [
+    "EVIDENCE_CELL_UNKNOWN_OVERCLAIM",
+    "EVIDENCE_CELL_MISSING_SOURCE_ANCHOR",
+    "EVIDENCE_CELL_PROOF_LANGUAGE_WITHOUT_CELL",
+    "EVIDENCE_CELL_PRIVATE_SOURCE_REF_FORBIDDEN",
+    "EVIDENCE_CELL_PROOF_BODY_FORBIDDEN",
+    "EVIDENCE_CELL_THEOREM_CORRECTNESS_OVERCLAIM",
+    "EVIDENCE_CELL_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY"
+  ],
+  "authority_ceiling": "public evidence-cell anchor metadata only; not theorem correctness, Lean/Lake execution, proof bodies, private source refs, human proof authority, provider authority, or release readiness",
+  "anti_claim": "This fixture validates public evidence-cell claim-boundary metadata, source-anchor refs, and leakage negative cases only; it does not prove theorem correctness, expose proof bodies, authorize Lean/Lake execution, or authorize release."
+}

@@ -1,0 +1,176 @@
+{
+  "accepted_organ_count": 34,
+  "anti_claim": "Standards meta diagnostics summarizes public Microcosm standard, organ, runtime-contract, and receipt coverage only. It does not become source authority for the registries, expose private macro sources, authorize release, call providers, prove theorem correctness, or claim whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "standards_registry_authority": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "board_ref": "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input microcosm-substrate/fixtures/first_wave/standards_meta_diagnostics/input --out microcosm-substrate/receipts/first_wave/standards_meta_diagnostics",
+  "covered_organ_ids": [
+    "agent_benchmark_integrity_anti_gaming_replay",
+    "agent_memory_temporal_conflict_replay",
+    "agent_monitor_redteam_falsification_replay",
+    "agent_route_observability_runtime",
+    "cold_reader_route_map",
+    "corpus_readiness_mathlib_absence_gate",
+    "durable_agent_work_landing_replay",
+    "executable_doctrine_grammar",
+    "formal_evidence_cell_anchor_resolver",
+    "formal_math_lean_proof_witness",
+    "formal_math_premise_retrieval",
+    "formal_math_readiness_gate",
+    "formal_math_verifier_trace_repair_loop",
+    "lean_std_premise_index",
+    "macro_projection_import_protocol",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "mechanistic_interpretability_circuit_attribution_replay",
+    "mission_transaction_work_spine",
+    "navigation_hologram_route_plane",
+    "pattern_assimilation_step",
+    "pattern_binding_contract",
+    "prediction_oracle_reconciliation",
+    "proof_diagnostic_evidence_spine",
+    "provider_context_recipe_budget_policy",
+    "public_reveal_walkthrough",
+    "research_replication_rubric_artifact_replay",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "sleeper_memory_poisoning_quarantine_replay",
+    "spatial_world_model_counterfactual_simulation_replay",
+    "standards_meta_diagnostics",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "undeclared_library_prior_symbol_classifier",
+    "world_model_projection_drift_control_room"
+  ],
+  "created_at": "2026-05-22T05:36:44+00:00",
+  "error_codes": [
+    "STANDARDS_META_AUTHORITY_OVERCLAIM",
+    "STANDARDS_META_MISSING_RECEIPT_REF",
+    "STANDARDS_META_MISSING_STANDARD_REF",
+    "STANDARDS_META_PRIVATE_SOURCE_FORBIDDEN",
+    "STANDARDS_META_UNMAPPED_ACCEPTED_ORGAN"
+  ],
+  "expected_negative_cases": {
+    "missing_receipt_ref": [
+      "STANDARDS_META_MISSING_RECEIPT_REF"
+    ],
+    "missing_standard_ref": [
+      "STANDARDS_META_MISSING_STANDARD_REF"
+    ],
+    "private_source_leakage": [
+      "STANDARDS_META_PRIVATE_SOURCE_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "STANDARDS_META_AUTHORITY_OVERCLAIM"
+    ],
+    "unmapped_accepted_organ": [
+      "STANDARDS_META_UNMAPPED_ACCEPTED_ORGAN"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "STANDARDS_META_MISSING_STANDARD_REF",
+      "message": "Accepted organ standards inventory row omitted a standard reference.",
+      "negative_case_id": "missing_standard_ref",
+      "subject_id": "standards_meta_diagnostics",
+      "subject_kind": "standard_ref"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "STANDARDS_META_UNMAPPED_ACCEPTED_ORGAN",
+      "message": "Accepted organ set and standards inventory mapping diverged.",
+      "negative_case_id": "unmapped_accepted_organ",
+      "subject_id": "ghost_unmapped_organ",
+      "subject_kind": "organ_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "STANDARDS_META_MISSING_RECEIPT_REF",
+      "message": "Standards diagnostic rows must keep current receipt refs.",
+      "negative_case_id": "missing_receipt_ref",
+      "subject_id": "standards_meta_diagnostics",
+      "subject_kind": "receipt_refs"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "STANDARDS_META_AUTHORITY_OVERCLAIM",
+      "message": "Diagnostics cannot authorize release, publication, providers, or global correctness.",
+      "negative_case_id": "release_overclaim",
+      "subject_id": "provider_calls_authorized,release_authorized,whole_system_correctness_claim",
+      "subject_kind": "authority_ceiling"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "STANDARDS_META_PRIVATE_SOURCE_FORBIDDEN",
+      "message": "Public diagnostics must carry redacted refs, not private source bodies.",
+      "negative_case_id": "private_source_leakage",
+      "subject_id": "standards_meta_diagnostics",
+      "subject_kind": "private_source"
+    }
+  ],
+  "fixture_id": "first_wave.standards_meta_diagnostics",
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "missing_receipt_ref": [
+      "STANDARDS_META_MISSING_RECEIPT_REF"
+    ],
+    "missing_standard_ref": [
+      "STANDARDS_META_MISSING_STANDARD_REF"
+    ],
+    "private_source_leakage": [
+      "STANDARDS_META_PRIVATE_SOURCE_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "STANDARDS_META_AUTHORITY_OVERCLAIM"
+    ],
+    "unmapped_accepted_organ": [
+      "STANDARDS_META_UNMAPPED_ACCEPTED_ORGAN"
+    ]
+  },
+  "organ_id": "standards_meta_diagnostics",
+  "pressure_row_count": 34,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "receipt_id": "standards_meta_diagnostics_validation_receipt_v1",
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+    "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+    "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
+  ],
+  "receipt_ref_count": 144,
+  "result_ref": "microcosm-substrate/receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+  "runtime_contract_count": 34,
+  "schema_version": "standards_meta_diagnostics_validation_receipt_v1",
+  "source_pattern_ids": [
+    "standards_meta_diagnostics",
+    "checkpoint_solo_dev_three_lanes",
+    "compression_profile_governed_option_surface"
+  ],
+  "source_refs": [
+    "microcosm-substrate/core/standards_registry.json",
+    "microcosm-substrate/core/organ_registry.json",
+    "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json"
+  ],
+  "standard_mapping_count": 34,
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.standards_meta_diagnostics"
+}

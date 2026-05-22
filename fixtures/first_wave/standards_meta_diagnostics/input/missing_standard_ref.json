@@ -1,0 +1,16 @@
+{
+  "schema_version": "standards_meta_diagnostics_negative_case_v1",
+  "expected_negative_case_id": "missing_standard_ref",
+  "standards_inventory": [
+    {
+      "organ_id": "standards_meta_diagnostics",
+      "standard_id": "",
+      "receipt_refs": [
+        "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+        "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+        "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+        "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
+      ]
+    }
+  ]
+}

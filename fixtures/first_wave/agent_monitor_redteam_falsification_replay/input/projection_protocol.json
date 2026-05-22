@@ -1,0 +1,45 @@
+{
+  "protocol_id": "public_agent_monitor_redteam_falsification_projection_v1",
+  "source_pattern_ids": [
+    "agent_monitor_redteam_falsification_replay_compound",
+    "agent_reliability_replay_gauntlet",
+    "mcp_tool_authority_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_monitor_redteam_falsification_replay_compound",
+    "runtime_shell.replay_gauntlet::monitor_redteam_suppressed_failure",
+    "core/public_standard_pressure.json::agent_monitor_redteam_falsification_replay_public_pressure"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/trajectory_cases.json",
+    "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json",
+    "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle"
+  ],
+  "copied": [
+    "no private transcript bodies",
+    "no hidden reasoning",
+    "no internal code"
+  ],
+  "reimplemented": [
+    "synthetic trajectory ids and hashes",
+    "monitor verdict receipt fields",
+    "adversarial probe and mitigation refs"
+  ],
+  "cleaned": [
+    "all public refs are local Microcosm paths or synthetic ids",
+    "all sensitive bodies are represented by redacted refs"
+  ],
+  "omitted": [
+    "real red-team transcripts",
+    "private chain-of-thought",
+    "internal repositories",
+    "exploit instructions",
+    "credentials",
+    "live agent traffic"
+  ],
+  "authority_ceiling": "synthetic agent-monitor falsification replay receipts only"
+}

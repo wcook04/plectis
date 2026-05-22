@@ -1,0 +1,211 @@
+{
+  "already_run_lane_detection": {
+    "duplicate_target_without_refinement": false,
+    "latest_same_lane_receipt_found": false,
+    "status": "pass"
+  },
+  "anti_claim": "Pattern assimilation receipts validate public closeout-learning metadata plus regression fixtures; they do not promote global doctrine, mutate live ledgers, authorize release work, or prove live learning behavior.",
+  "assigned_lane": "pattern_assimilation_step",
+  "authority_ceiling": {
+    "authority_ceiling": "pattern_assimilation_metadata_not_live_learning_authority",
+    "behavior_change_overclaims_allowed": false,
+    "global_doctrine_promotion_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_seed_body_read": false,
+    "release_or_publication_authorized": false,
+    "status": "pass"
+  },
+  "changed_artifact_refs": [
+    "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
+    "microcosm-substrate/core/pattern_assimilation_policy.json",
+    "microcosm-substrate/skills/pattern_assimilation.md"
+  ],
+  "changed_surface_ref": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
+  "command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input microcosm-substrate/fixtures/first_wave/pattern_assimilation_step/input --out microcosm-substrate/receipts/acceptance/pattern_assimilation_step",
+  "concrete_improvement_made": true,
+  "created_at": "2026-05-22T01:17:55+00:00",
+  "duplicate_receipt_ids": [
+    "assimilation_duplicate_receipt"
+  ],
+  "duplicate_target_refinement_decision": {
+    "body_redacted": true,
+    "duplicate_receipt_ids": [
+      "assimilation_duplicate_receipt"
+    ],
+    "status": "refinement_changed_target"
+  },
+  "error_codes": [
+    "DUPLICATE_REFINEMENT_RECEIPT_ID",
+    "LOCAL_LESSON_AUTHORITY_UPGRADE",
+    "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+    "MISSING_REENTRY_CONDITION",
+    "MISSING_REFINEMENT_OWNER_SURFACE",
+    "MISSING_STEWARDSHIP_CHECK",
+    "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+  ],
+  "expected_negative_cases": {
+    "assimilation_private_raw_seed_body": [
+      "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+    ],
+    "assimilation_receipt_missing_owner_surface": [
+      "MISSING_REFINEMENT_OWNER_SURFACE",
+      "MISSING_REENTRY_CONDITION",
+      "MISSING_STEWARDSHIP_CHECK"
+    ],
+    "duplicate_refinement_receipt_conflict": [
+      "DUPLICATE_REFINEMENT_RECEIPT_ID"
+    ],
+    "local_lesson_claims_global_doctrine_authority": [
+      "LOCAL_LESSON_AUTHORITY_UPGRADE"
+    ],
+    "organ_landing_without_refinement_or_typed_nothing": [
+      "MISSING_PATTERN_ASSIMILATION_CLOSEOUT"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE",
+      "message": "Seed-origin payload class is rejected and redacted.",
+      "negative_case_id": "assimilation_private_raw_seed_body",
+      "subject_id": "assimilation_seed_origin_payload_marker",
+      "subject_kind": "synthetic_fixture"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_REFINEMENT_OWNER_SURFACE",
+      "message": "Concrete refinement must name the owner surface.",
+      "negative_case_id": "assimilation_receipt_missing_owner_surface",
+      "subject_id": "assimilation_missing_owner_surface",
+      "subject_kind": "assimilation_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_REENTRY_CONDITION",
+      "message": "Nothing-to-refine must name a re-entry condition.",
+      "negative_case_id": "assimilation_receipt_missing_owner_surface",
+      "subject_id": "assimilation_nothing_missing_floor",
+      "subject_kind": "nothing_to_refine_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_STEWARDSHIP_CHECK",
+      "message": "Nothing-to-refine must prove stewardship was checked.",
+      "negative_case_id": "assimilation_receipt_missing_owner_surface",
+      "subject_id": "assimilation_nothing_missing_floor",
+      "subject_kind": "nothing_to_refine_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "DUPLICATE_REFINEMENT_RECEIPT_ID",
+      "message": "Duplicate refinement receipt ids cannot double-count closeout learning.",
+      "negative_case_id": "duplicate_refinement_receipt_conflict",
+      "subject_id": "assimilation_duplicate_receipt",
+      "subject_kind": "assimilation_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "LOCAL_LESSON_AUTHORITY_UPGRADE",
+      "message": "Local closeout lesson cannot claim global doctrine authority.",
+      "negative_case_id": "local_lesson_claims_global_doctrine_authority",
+      "subject_id": "assimilation_global_authority_upgrade",
+      "subject_kind": "assimilation_receipt"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_PATTERN_ASSIMILATION_CLOSEOUT",
+      "message": "Landed organ lacks concrete refinement or typed nothing-to-refine closeout.",
+      "negative_case_id": "organ_landing_without_refinement_or_typed_nothing",
+      "subject_id": "agent_route_observability_runtime",
+      "subject_kind": "organ_landing"
+    }
+  ],
+  "fixed_point_closeout_evidence": {
+    "body_redacted": true,
+    "latest_same_lane_receipt_consumed": true,
+    "ordered_validation": [
+      "acceptance_command",
+      "field_floor_check",
+      "truth_index_compiler",
+      "projection_readiness_checker"
+    ]
+  },
+  "fixture_id": "first_wave.pattern_assimilation_step",
+  "landed_organ_id": "agent_route_observability_runtime",
+  "latest_same_lane_receipt_append_index": 1,
+  "latest_same_lane_receipt_ref": "synthetic_first_public_pattern_assimilation_closeout",
+  "latest_same_lane_receipt_source_line_no": 1,
+  "missing_negative_cases": [],
+  "next_best_lane_checked": true,
+  "next_best_lane_result": "post_pattern_assimilation_reducer_required",
+  "next_self_refire_direction": "run post-pattern-assimilation reducer before release or publication work",
+  "no_concrete_edit_failure_reason": "",
+  "observed_negative_cases": {
+    "assimilation_private_raw_seed_body": [
+      "RAW_SEED_BODY_IN_ASSIMILATION_FIXTURE"
+    ],
+    "assimilation_receipt_missing_owner_surface": [
+      "MISSING_REENTRY_CONDITION",
+      "MISSING_REFINEMENT_OWNER_SURFACE",
+      "MISSING_STEWARDSHIP_CHECK"
+    ],
+    "duplicate_refinement_receipt_conflict": [
+      "DUPLICATE_REFINEMENT_RECEIPT_ID"
+    ],
+    "local_lesson_claims_global_doctrine_authority": [
+      "LOCAL_LESSON_AUTHORITY_UPGRADE"
+    ],
+    "organ_landing_without_refinement_or_typed_nothing": [
+      "MISSING_PATTERN_ASSIMILATION_CLOSEOUT"
+    ]
+  },
+  "organ_id": "pattern_assimilation_step",
+  "owner_surface": "microcosm-substrate/core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_boundary_negative_cases_observed": [
+      "assimilation_private_raw_seed_body"
+    ]
+  },
+  "receipt_id": "pattern_assimilation_step_receipt_v1",
+  "receipt_paths": [
+    "receipts/acceptance/pattern_assimilation_step",
+    "receipts/acceptance/pattern_assimilation_receipt.json",
+    "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+  ],
+  "reentry_condition": "rerun when a later reducer authorizes release, hosted-public, publication, recipient, or additional public organ work",
+  "refinement_result": "validator_contract_refined",
+  "residual_capture_refs": [],
+  "residual_lifecycle_review": {
+    "body_redacted": true,
+    "reviewed_residual_capture_refs": [],
+    "status": "reviewed_no_residuals_required_for_synthetic_fixture"
+  },
+  "same_lane_receipt_selection": {
+    "assigned_lane": "pattern_assimilation_step",
+    "selection_basis": "latest_append_index_within_assigned_lane",
+    "status": "pass"
+  },
+  "schema_version": "pattern_assimilation_step_receipt_v1",
+  "self_refire_target": {
+    "body_redacted": true,
+    "target_artifact_ref": "microcosm-substrate/src/microcosm_core/validators/acceptance.py",
+    "target_artifact_role": "pattern_assimilation_closeout_validator"
+  },
+  "status": "pass",
+  "stewardship_checked": true,
+  "validation_commands": [
+    "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step",
+    "pytest tests/test_pattern_assimilation_step.py"
+  ],
+  "validation_status": "pass",
+  "validator_id": "validator.microcosm.validators.acceptance.pattern_assimilation_step"
+}

@@ -1,0 +1,16 @@
+{
+  "active_injection_adopted": false,
+  "body_exported": false,
+  "decision": "ADD",
+  "episode_id": "negative_private_export",
+  "episode_order": 9,
+  "event_id": "negative_raw_transcript_export",
+  "evidence_handle_ref": "evidence.memory.negative.raw_export",
+  "expected_negative_case_id": "raw_transcript_export",
+  "memory_route_ref": "route.memory.write.synthetic.raw_export",
+  "memory_subject_id": "raw_private_transcript_candidate",
+  "metadata_only_ref": true,
+  "private_thread_ref": "thread_ref.synthetic.private.metadata_only",
+  "raw_transcript_exported": true,
+  "source_authority_claim": false
+}

@@ -1,7 +1,7 @@
 {
   "acceptance_status": "accepted_current_authority",
   "accepted_organ_id": "formal_math_readiness_gate",
-  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or change the deferred formal_math_lean_proof_witness boundary.",
+  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
   "authority_ceiling": {
     "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
     "formal_proof_authority": false,
@@ -23,10 +23,10 @@
     "lean_std_synthetic_core:mathlib"
   ],
   "body_redacted": true,
+  "bounded_witness_organ_id": "formal_math_lean_proof_witness",
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
-  "created_at": "2026-05-21T06:49:55+00:00",
-  "deferred_organ_id": "formal_math_lean_proof_witness",
+  "created_at": "2026-05-21T09:33:17+00:00",
   "error_codes": [
     "MATHLIB_AVAILABILITY_OVERCLAIM",
     "PREMISE_INDEX_PROOF_BODY_FORBIDDEN",
@@ -94,7 +94,8 @@
   ],
   "fixture_id": "first_wave.formal_math_readiness_gate",
   "input_mode": "first_wave_fixture",
-  "lean_witness_deferred": true,
+  "lean_witness_authority": "bounded_public_witness_owned_by_formal_math_lean_proof_witness",
+  "lean_witness_deferred": false,
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "corpus_readiness_overclaims_mathlib": [
@@ -125,16 +126,24 @@
     "scanned_path_count": 10,
     "status": "pass"
   },
+  "projection_cell_id": "formal_math_readiness_extensions",
+  "readiness_extension_status": "public_replacement_landed",
   "receipt_id": "formal_math_readiness_gate_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
     "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
   ],
   "recipe_count": 3,
   "route_case_count": 5,
   "schema_version": "formal_math_readiness_gate_fixture_acceptance_v1",
+  "selected_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate"
+  ],
   "status": "pass",
   "unavailable_tactic_ids": [
     "aesop"

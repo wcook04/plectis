@@ -1,0 +1,98 @@
+{
+  "anti_claim": "This fixture validates public synthetic MCP tool-authority boundaries only; it does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
+  "authority_ceiling": "synthetic MCP tool-authority replay receipts only; no live MCP account, credential, provider-payload, untrusted-output-as-instruction, unapproved-side-effect, source-mutation, benchmark-safety, or release authority",
+  "expected_negative_cases": [
+    "overbroad_scope",
+    "hidden_credential_export",
+    "tool_output_as_instruction",
+    "unapproved_side_effect",
+    "live_account_access",
+    "final_answer_only_grading",
+    "missing_rollback_receipt",
+    "unredacted_tool_payload"
+  ],
+  "fixture_id": "fixture::mcp_tool_authority_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with copy/reimplement/clean/omit receipts"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/tool_policy.json",
+      "role": "MCP-like tool classes, required call fields, and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/tool_manifest.json",
+      "role": "positive three-tool manifest with scoped readonly, write, and untrusted-result tools"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/tool_calls.json",
+      "role": "positive scoped calls with approval, ledger, rollback, redaction, and cold replay refs"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/tool_results.json",
+      "role": "positive result metadata with untrusted output kept as data"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/side_effect_ledger.json",
+      "role": "positive write side-effect ledger with rollback receipt ref"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/cold_replay.json",
+      "role": "positive cold replay receipts for each synthetic tool path"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/overbroad_scope.json",
+      "role": "negative case: overbroad_scope"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/hidden_credential_export.json",
+      "role": "negative case: hidden_credential_export"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/tool_output_as_instruction.json",
+      "role": "negative case: tool_output_as_instruction"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/unapproved_side_effect.json",
+      "role": "negative case: unapproved_side_effect"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/live_account_access.json",
+      "role": "negative case: live_account_access"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/final_answer_only_grading.json",
+      "role": "negative case: final_answer_only_grading"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/missing_rollback_receipt.json",
+      "role": "negative case: missing_rollback_receipt"
+    },
+    {
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/unredacted_tool_payload.json",
+      "role": "negative case: unredacted_tool_payload"
+    }
+  ],
+  "organ_id": "mcp_tool_authority_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "MCP_TOOL_OVERBROAD_SCOPE",
+    "MCP_TOOL_HIDDEN_CREDENTIAL_EXPORT",
+    "MCP_TOOL_OUTPUT_AS_INSTRUCTION",
+    "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
+    "MCP_TOOL_LIVE_ACCOUNT_ACCESS",
+    "MCP_TOOL_FINAL_ANSWER_ONLY_GRADING",
+    "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
+    "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT"
+  ],
+  "title": "MCP tool authority replay fixture",
+  "validator": "microcosm_core.organs.mcp_tool_authority_replay",
+  "validator_command": "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay"
+}

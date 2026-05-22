@@ -1,0 +1,42 @@
+{
+  "allowed_quarantine_verdicts": [
+    "admit",
+    "quarantine",
+    "reject",
+    "rollback",
+    "rerun_pass"
+  ],
+  "allowed_trust_tiers": [
+    "trusted_source",
+    "untrusted_context",
+    "quarantined_candidate",
+    "rolled_back"
+  ],
+  "body_redacted": true,
+  "live_memory_product_claim_authorized": false,
+  "live_user_memory_claim_authorized": false,
+  "policy_id": "sleeper_memory_poisoning_quarantine_policy_v1",
+  "private_memory_body_export_authorized": false,
+  "provider_calls_authorized": false,
+  "raw_transcript_export_authorized": false,
+  "release_authorized": false,
+  "required_write_fields": [
+    "proposal_id",
+    "session_id",
+    "source_capsule_ref",
+    "source_trust_tier",
+    "proposed_memory_ref",
+    "provenance_ref",
+    "quarantine_verdict",
+    "classifier_labels",
+    "trusted_promotion",
+    "private_body_exported",
+    "raw_transcript_exported",
+    "live_user_memory_claim",
+    "body_redacted",
+    "audit_ref"
+  ],
+  "schema_version": "sleeper_memory_poisoning_policy_v1",
+  "source_mutation_authorized": false,
+  "trusted_promotion_from_untrusted_context_authorized": false
+}

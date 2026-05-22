@@ -1,0 +1,13 @@
+{
+  "schema_version": "tactic_portfolio_availability_negative_case_v1",
+  "expected_negative_case_id": "mathlib_claim_without_probe",
+  "mathlib_lake_project_import_available": false,
+  "tactics": [
+    {
+      "tactic_id": "aesop",
+      "compile_status": "compile_pass",
+      "environment": "mathlib_absent_synthetic",
+      "requires_mathlib": true
+    }
+  ]
+}

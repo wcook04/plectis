@@ -1,0 +1,48 @@
+{
+  "schema_version": "ring2_problem_labels_v1",
+  "label_role": "after_the_fact_metric_labels_not_provider_context",
+  "problems": [
+    {
+      "problem_id": "ring2_nat_add_comm_assoc",
+      "split": "train",
+      "ring": "ring2",
+      "target_shape": "nat_comm_assoc",
+      "needed_premise_ids": ["Nat.add_comm", "Nat.add_assoc"],
+      "proof_body_redacted": true
+    },
+    {
+      "problem_id": "ring2_list_append_length",
+      "split": "dev",
+      "ring": "ring2",
+      "target_shape": "list_append_length",
+      "needed_premise_ids": ["List.map_append", "List.length_append"],
+      "proof_body_redacted": true
+    },
+    {
+      "problem_id": "ring2_iff_direction",
+      "split": "dev",
+      "ring": "ring2",
+      "target_shape": "iff_directional_rewrite",
+      "needed_premise_ids": ["Iff.mp", "Iff.mpr"],
+      "proof_body_redacted": true
+    },
+    {
+      "problem_id": "ring2_nat_mul_comm_failure_after_hit",
+      "split": "test",
+      "ring": "ring2",
+      "target_shape": "nat_mul_comm",
+      "needed_premise_ids": ["Nat.mul_comm"],
+      "proof_body_redacted": true
+    },
+    {
+      "problem_id": "ring2_list_map_map_index_miss",
+      "split": "test",
+      "ring": "ring2",
+      "target_shape": "list_map_composition",
+      "needed_premise_ids": ["List.map_map"],
+      "public_index_status": "absent_by_design",
+      "adversarial_decoy_expected": true,
+      "proof_body_redacted": true
+    }
+  ]
+}

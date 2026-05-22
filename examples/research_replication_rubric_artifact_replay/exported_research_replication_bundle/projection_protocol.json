@@ -1,0 +1,31 @@
+{
+  "protocol_id": "research_replication_public_projection_v1",
+  "source_pattern_ids": [
+    "research_replication_rubric_artifact_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::research_replication_rubric_artifact_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "codex/standards/std_agent_execution_trace.json",
+    "system/lib/agent_execution_trace.py"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json",
+    "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
+    "paper_modules/research_replication_rubric_artifact_replay.md"
+  ],
+  "omission_receipt": {
+    "omitted": [
+      "private paper bodies",
+      "private data bodies",
+      "hidden rubrics",
+      "provider payloads",
+      "original-author code bodies"
+    ],
+    "reason": "public fixture carries synthetic replay metadata and redacted evidence refs only"
+  }
+}

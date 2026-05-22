@@ -1,0 +1,7 @@
+{
+  "schema_version": "public_reveal_bundle_manifest_v1",
+  "bundle_id": "public_reveal_walkthrough_runtime_example",
+  "input_mode": "exported_public_reveal_bundle",
+  "body_redacted": true,
+  "release_authorized": false
+}

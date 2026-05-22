@@ -1,0 +1,49 @@
+{
+  "policy_id": "world_model_projection_drift_control_room_policy_v1",
+  "required_row_fields": [
+    "drift_row_id",
+    "source_signal",
+    "source_ref",
+    "repair_route",
+    "validation_ref",
+    "public_replacement_ref",
+    "body_redacted",
+    "source_authority_claim",
+    "live_repair_authorized",
+    "source_mutation_authorized",
+    "automatic_doctrine_promotion_authorized"
+  ],
+  "authority_boundary": "synthetic_projection_drift_control_metadata_only",
+  "authority_ceiling": {
+    "metadata_projection_only": true,
+    "release_authorized": false,
+    "hosted_public_authorized": false,
+    "publication_authorized": false,
+    "provider_calls_authorized": false,
+    "provider_payload_exported": false,
+    "source_authority_claim": false,
+    "source_mutation_authorized": false,
+    "live_route_repair_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_runtime_data_exported": false,
+    "proof_body_exported": false,
+    "automatic_doctrine_promotion_authorized": false
+  },
+  "negative_case_ids": [
+    "drift_row_without_source_ref",
+    "repair_route_without_validation_ref",
+    "projection_claiming_source_authority",
+    "live_repair_action_authorized",
+    "private_runtime_data_export",
+    "provider_payload_export",
+    "automatic_doctrine_promotion",
+    "release_from_drift_projection"
+  ],
+  "forbidden_private_needles": [
+    "private_runtime_body",
+    "provider_payload",
+    "raw_private_path",
+    "release_authorized=true",
+    "source_authority_claim=true"
+  ]
+}

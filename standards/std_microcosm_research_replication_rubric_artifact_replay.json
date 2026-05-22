@@ -1,0 +1,163 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
+  "kind_id": "research_replication_rubric_artifact_replay",
+  "kind_name": "Research replication rubric-artifact replay",
+  "status": "draft",
+  "first_wave_required": true,
+  "authority_boundary": "synthetic_research_replication_replay_not_benchmark_or_publication_authority",
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#research_replication_rubric_artifact_replay",
+    "used_by_organs": [
+      "research_replication_rubric_artifact_replay"
+    ],
+    "source_pattern_id_sample": [
+      "research_replication_rubric_artifact_replay_compound",
+      "agent_benchmark_integrity_anti_gaming_replay_compound"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "required_replay_fields",
+    "rubric_axes",
+    "research_replays",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require contribution decomposition and rubric tree before replication language",
+    "require scratch repo, experiment DAG, metric script, artifact hash, grader report, budget, ablation, failure taxonomy, and cold rerun refs",
+    "reject forbidden original-author code reuse, hidden rubric leakage, report-only success, benchmark overclaim, private body leakage, unbounded compute, and final-answer-only grading"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.research_replication_rubric_artifact_replay",
+    "receipt must cite policy, replay counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "validator_id": "validator.microcosm.organs.research_replication_rubric_artifact_replay",
+    "command": "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
+    "expected_negative_cases": [
+      "benchmark_performance_claim",
+      "final_answer_only_grading",
+      "hidden_rubric_leakage",
+      "original_author_code_reuse_forbidden",
+      "private_paper_body_leakage",
+      "report_only_success",
+      "unbounded_compute_search"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.research_replication_rubric_artifact_replay",
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "policy_id",
+      "paper_count",
+      "replay_count",
+      "artifact_replay_count",
+      "cold_rerun_count",
+      "negative_case_coverage",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_synthetic_replay_receipts_only",
+    "allowed_public_inputs": [
+      "paper capsule ids",
+      "rubric refs",
+      "artifact hash refs",
+      "metric script refs",
+      "budget refs",
+      "failure taxonomy refs"
+    ],
+    "forbidden_public_inputs": [
+      "private paper bodies",
+      "private data bodies",
+      "hidden rubrics",
+      "provider payloads",
+      "original-author code bodies",
+      "benchmark performance claims",
+      "publication claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "synthetic_research_replication_replay_schema_only",
+    "benchmark_performance_authority": false,
+    "provider_authority": false,
+    "publication_authority": false,
+    "private_body_authority": false
+  },
+  "anti_claim": "This standard governs synthetic research-replication replay receipts only; it does not claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
+  "receipt_refs": [
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "research_replication_rubric_artifact_replay"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "research replication material must state that replay receipts are not benchmark or publication authority"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "private paper bodies",
+      "private data bodies",
+      "hidden rubrics",
+      "provider payloads",
+      "original-author code bodies"
+    ],
+    "reason": "public tranche carries synthetic replay metadata and redacted evidence refs only",
+    "drilldown": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json"
+  },
+  "standard_payload": {
+    "teleology": "Make Microcosm show how research replication claims become credible only after rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts exist.",
+    "anti_purpose": "Treating paper understanding, final answers, or benchmark context as replication evidence.",
+    "ontology": "A public-safe replication replay: paper capsule, rubric tree, artifact hashes, metric scripts, grader report, budget, ablation, failure taxonomy, and cold rerun receipt.",
+    "compression_bands": [
+      "paper",
+      "rubric",
+      "artifact",
+      "experiment",
+      "metric",
+      "grader",
+      "budget",
+      "failure",
+      "rerun"
+    ],
+    "failure_modes": [
+      "benchmark_performance_claim",
+      "final_answer_only_grading",
+      "hidden_rubric_leakage",
+      "original_author_code_reuse_forbidden",
+      "private_paper_body_leakage",
+      "report_only_success",
+      "unbounded_compute_search"
+    ],
+    "rebuild_action": "draft"
+  }
+}

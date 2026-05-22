@@ -1,0 +1,359 @@
+{
+  "actor_axis_decisions": [
+    {
+      "actor_axis": "type_b_advisory",
+      "body_redacted": true,
+      "event_id": "trace_advisory_axis",
+      "mutation_authority_claim_rejected": true
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_missing_lease",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_private_marker",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_duplicate",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_duplicate",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_route_overclaim",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_kernel_bloat",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_static_metadata",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_behavior_change",
+      "mutation_authority_claim_rejected": false
+    }
+  ],
+  "anti_claim": "The hook intervention coverage lens is a public metadata read-model. It does not inspect live operator state, read provider payloads, certify runtime behavior, mutate Task Ledger, authorize pattern assimilation, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "behavior_change_claim_authorized_without_trace": false,
+    "browser_hud_cockpit_state_read": false,
+    "live_operator_state_read": false,
+    "live_task_ledger_mutation_authorized": false,
+    "metadata_projection_only": true,
+    "pattern_assimilation_authorized": false,
+    "provider_payload_read": false,
+    "release_authorized": false,
+    "runtime_behavior_certification_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm hook-coverage",
+  "coverage_summary": {
+    "actor_axis_decision_count": 9,
+    "authority_rejection_count": 1,
+    "debt_retirement_count": 1,
+    "intervention_row_count": 5,
+    "missing_authority_count": 1,
+    "observed_negative_case_count": 7,
+    "route_compliance_decision_count": 9,
+    "route_lease_warning_session_count": 2
+  },
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "debt_decisions": [
+    {
+      "behavior_change_evidence_trace_ids": [],
+      "body_redacted": true,
+      "debt_id": "debt_evidence_only_telemetry",
+      "decision": "retained",
+      "evidence_only_trace_ids": [
+        "trace_advisory_axis"
+      ]
+    },
+    {
+      "behavior_change_evidence_trace_ids": [
+        "trace_fix_001"
+      ],
+      "body_redacted": true,
+      "debt_id": "debt_direct_action_after_route_lease",
+      "decision": "retired",
+      "evidence_only_trace_ids": []
+    }
+  ],
+  "endpoint": "/hook-coverage",
+  "forbidden_export_summary": {
+    "browser_hud_cockpit_state_read": false,
+    "live_operator_state_read": false,
+    "live_task_ledger_mutation_authorized": false,
+    "pattern_assimilation_authorized": false,
+    "provider_payload_read": false,
+    "release_authorized": false
+  },
+  "hook_intervention_coverage_lens_ref": "receipts/runtime_shell/public_hook_intervention_coverage_lens.json",
+  "intervention_rows": [
+    {
+      "body_redacted": true,
+      "coverage_status": "advisory_synthetic_coverage_only",
+      "decision": "retain_as_advisory_public_metadata",
+      "intervention": "retain_as_advisory_until_trace_feedback_consumed",
+      "intervention_id": "hook_shadow_missing_authority_gate",
+      "missing_authority_case_ids": [
+        "hook_shadow_missing_authority"
+      ],
+      "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
+    },
+    {
+      "accepted_count": 5,
+      "body_redacted": true,
+      "decision": "reject_overclaiming_or_duplicate_trace_metadata",
+      "duplicate_trace_event_ids": [
+        "trace_duplicate"
+      ],
+      "intervention_id": "route_compliance_trace_feedback_gate",
+      "rejected_count": 4,
+      "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json"
+    },
+    {
+      "actor_axis_mismatch_count": 1,
+      "authority_rejection_count": 1,
+      "body_redacted": true,
+      "decision": "type_b_advisory_cannot_claim_mutation_authority",
+      "intervention_id": "actor_axis_authority_boundary",
+      "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json"
+    },
+    {
+      "behavior_change_evidence_trace_ids": [
+        "trace_fix_001"
+      ],
+      "body_redacted": true,
+      "debt_retirement_count": 1,
+      "decision": "retire_only_with_behavior_change_trace_evidence",
+      "evidence_only_trace_ids": [
+        "trace_advisory_axis"
+      ],
+      "intervention_id": "anti_pattern_debt_retirement_gate",
+      "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json"
+    },
+    {
+      "body_redacted": true,
+      "decision": "consume_route_lease_trace_before_broad_context_return",
+      "intervention_id": "route_lease_mode_control_gate",
+      "kernel_bloat_before_direct_action_count": 1,
+      "route_lease_session_count": 8,
+      "route_lease_warning_session_count": 2,
+      "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+      "static_metadata_without_trace_feedback_count": 1
+    }
+  ],
+  "lens_id": "public_hook_intervention_coverage_lens",
+  "missing_authority_case_ids": [
+    "hook_shadow_missing_authority"
+  ],
+  "negative_case_ids": [
+    "agent_trace_missing_route_lease",
+    "duplicate_trace_event_conflict",
+    "route_compliance_overclaims_behavior_change",
+    "route_lease_broad_kernel_bloat_before_direct_action",
+    "route_lease_static_metadata_without_trace_feedback",
+    "telemetry_private_transcript_body",
+    "wrong_actor_axis_and_evidence_only_telemetry"
+  ],
+  "organ_family": "agent_route_observability_runtime",
+  "public_claim": "Microcosm exposes hook intervention coverage as a public metadata lens: hook shadows, route-compliance decisions, actor-axis rejections, debt retirement, and route-lease mode control are visible without live operator state or provider payloads.",
+  "receipt_statuses": {
+    "debt_retirement": "pass",
+    "hook_shadow_coverage": "pass",
+    "route_compliance": "pass",
+    "route_lease_mode_control": "pass"
+  },
+  "release_authorized": false,
+  "route_compliance_decisions": [
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "ACTOR_AXIS_AUTHORITY_MISMATCH",
+        "NO_BEHAVIOR_CHANGE_EVIDENCE"
+      ],
+      "event_id": "trace_advisory_axis"
+    },
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "MISSING_ROUTE_LEASE"
+      ],
+      "event_id": "trace_missing_lease"
+    },
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "TELEMETRY_PRIVATE_TRANSCRIPT_BODY"
+      ],
+      "event_id": "trace_private_marker"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_duplicate"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_duplicate"
+    },
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
+      ],
+      "event_id": "trace_route_overclaim"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_kernel_bloat"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_static_metadata"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_behavior_change"
+    }
+  ],
+  "route_lease_decisions": [
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_advisory_axis",
+      "lease_consumed": true,
+      "route_lease_id": "lease_advisory"
+    },
+    {
+      "body_redacted": true,
+      "decision": "retained_for_feedback",
+      "error_codes": [],
+      "event_id": "trace_missing_lease",
+      "lease_consumed": false,
+      "route_lease_id": null
+    },
+    {
+      "body_redacted": true,
+      "decision": "retained_for_feedback",
+      "error_codes": [],
+      "event_id": "trace_private_marker",
+      "lease_consumed": false,
+      "route_lease_id": "lease_private_marker"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_duplicate",
+      "lease_consumed": true,
+      "route_lease_id": "lease_duplicate_a"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_duplicate",
+      "lease_consumed": true,
+      "route_lease_id": "lease_duplicate_b"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_route_overclaim",
+      "lease_consumed": true,
+      "route_lease_id": "lease_overclaim"
+    },
+    {
+      "body_redacted": true,
+      "decision": "retained_for_feedback",
+      "error_codes": [
+        "KERNEL_BLOAT_BEFORE_DIRECT_ACTION"
+      ],
+      "event_id": "trace_kernel_bloat",
+      "lease_consumed": false,
+      "route_lease_id": "lease_bloat"
+    },
+    {
+      "body_redacted": true,
+      "decision": "retained_for_feedback",
+      "error_codes": [
+        "ROUTE_LEASE_NOT_CONSUMED"
+      ],
+      "event_id": "trace_static_metadata",
+      "lease_consumed": false,
+      "route_lease_id": "lease_static"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_behavior_change",
+      "lease_consumed": true,
+      "route_lease_id": "lease_trace_behavior_change"
+    }
+  ],
+  "safe_to_show": {
+    "body_redacted": true,
+    "browser_hud_cockpit_state_omitted": true,
+    "live_operator_state_omitted": true,
+    "provider_payloads_omitted": true,
+    "receipt_refs_only": true,
+    "task_ledger_mutation_omitted": true
+  },
+  "schema_version": "microcosm_public_hook_intervention_coverage_lens_v1",
+  "selected_pattern_id": "runtime_hook_shadow_intervention_coverage",
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_receipt_refs": [
+    "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+    "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+    "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+  ],
+  "status": "pass"
+}

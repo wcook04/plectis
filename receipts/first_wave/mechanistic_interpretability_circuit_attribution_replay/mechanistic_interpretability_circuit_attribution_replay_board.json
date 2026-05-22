@@ -1,0 +1,32 @@
+{
+  "anti_claim": "Mechanistic interpretability circuit-attribution replay validates synthetic, body-redacted attribution metadata: toy prompt refs, sparse feature ids, machine-readable graph edges, replacement-model approximation scores, causal inhibition and injection deltas, sufficiency and faithfulness limits, contradiction cases, and cold replay refs. It does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, private model internals, benchmark scores, or release authority.",
+  "attribution_edge_count": 12,
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_circuit_attribution_metadata_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_chain_of_thought_export_authorized": false,
+    "hosted_public_authorized": false,
+    "live_model_access_authorized": false,
+    "metadata_projection_only": true,
+    "model_transparency_product_claim_authorized": false,
+    "private_model_internals_claim_authorized": false,
+    "private_model_weights_export_authorized": false,
+    "proprietary_prompt_export_authorized": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "raw_activation_dump_export_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "board_id": "mechanistic_interpretability_circuit_attribution_public_board",
+  "causal_intervention_count": 6,
+  "created_at": "2026-05-22T03:39:11+00:00",
+  "feature_count": 6,
+  "negative_case_count": 8,
+  "observed_negative_case_count": 8,
+  "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "replay_count": 6,
+  "route": "mechanistic_interpretability_circuit_attribution_replay",
+  "schema_version": "mechanistic_interpretability_circuit_attribution_replay_board_v1",
+  "status": "pass"
+}

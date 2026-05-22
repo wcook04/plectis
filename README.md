@@ -11,6 +11,18 @@ It does not mutate your source files or call providers.
 ```bash
 python -m pip install -e '.[test]'
 microcosm compile .
+microcosm tour .
+microcosm python-lens .
+microcosm legibility-scorecard
+microcosm market-boundary
+microcosm drift-control
+microcosm circuit-attribution
+microcosm route-cleanup
+microcosm projection-import-map
+microcosm import-projector
+microcosm option-surface-lens
+microcosm stripping-guard
+microcosm standards-control
 microcosm serve . --host 127.0.0.1 --port 8765
 ```
 
@@ -40,6 +52,7 @@ my-repo/.microcosm/
   events.jsonl
   evidence/
   graph.json
+  python_lens.json
   explanations/
 ```
 
@@ -52,6 +65,7 @@ Microcosm creates project-local substrate state in `.microcosm/`:
 - `state_index.json`
 - `graph.json`
 - `catalog.json`
+- `python_lens.json`
 - `patterns.json`
 - `routes.json`
 - `work_items.json`
@@ -105,6 +119,49 @@ printf 'VALUE = 1\n' > /tmp/microcosm-scratch/src/app/__init__.py
 printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' > /tmp/microcosm-scratch/tests/test_app.py
 
 microcosm compile /tmp/microcosm-scratch
+microcosm tour /tmp/microcosm-scratch
+microcosm python-lens /tmp/microcosm-scratch
+microcosm spine
+microcosm authority
+microcosm prediction-lens
+microcosm market-boundary
+microcosm corpus-lens
+microcosm trace-lens
+microcosm repair-loop
+microcosm evidence-cells
+microcosm proof-loop-depth
+microcosm landing-replay
+microcosm durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
+microcosm research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
+microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
+microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
+microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
+microcosm view-quality
+microcosm projection-safety
+microcosm drift-control
+microcosm spatial-simulation
+microcosm circuit-attribution
+microcosm route-cleanup
+microcosm projection-import-map
+microcosm import-projector
+microcosm option-surface-lens
+microcosm stripping-guard
+microcosm standards-control
+microcosm hook-coverage
+microcosm replay-gauntlet
+microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
+microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
+microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
+microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+microcosm benchmark-lab
+microcosm legibility-scorecard
+microcosm intake
+microcosm reveal
+microcosm lean-std-premise-index run-index-bundle --input examples/lean_std_premise_index/exported_lean_std_premise_index_bundle --out receipts/runtime_shell/demo_project/organs/lean_std_premise_index
+microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop
+microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver
+microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle --input examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle --out receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier
+microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm observe /tmp/microcosm-scratch
 microcosm evidence list /tmp/microcosm-scratch
@@ -115,6 +172,46 @@ The same commands work without installing the console script:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli spine
+PYTHONPATH=src python3 -m microcosm_core.cli authority
+PYTHONPATH=src python3 -m microcosm_core.cli prediction-lens
+PYTHONPATH=src python3 -m microcosm_core.cli market-boundary
+PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens
+PYTHONPATH=src python3 -m microcosm_core.cli trace-lens
+PYTHONPATH=src python3 -m microcosm_core.cli repair-loop
+PYTHONPATH=src python3 -m microcosm_core.cli evidence-cells
+PYTHONPATH=src python3 -m microcosm_core.cli proof-loop-depth
+PYTHONPATH=src python3 -m microcosm_core.cli landing-replay
+PYTHONPATH=src python3 -m microcosm_core.cli durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
+PYTHONPATH=src python3 -m microcosm_core.cli research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
+PYTHONPATH=src python3 -m microcosm_core.cli world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
+PYTHONPATH=src python3 -m microcosm_core.cli spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
+PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
+PYTHONPATH=src python3 -m microcosm_core.cli view-quality
+PYTHONPATH=src python3 -m microcosm_core.cli projection-safety
+PYTHONPATH=src python3 -m microcosm_core.cli drift-control
+PYTHONPATH=src python3 -m microcosm_core.cli spatial-simulation
+PYTHONPATH=src python3 -m microcosm_core.cli circuit-attribution
+PYTHONPATH=src python3 -m microcosm_core.cli route-cleanup
+PYTHONPATH=src python3 -m microcosm_core.cli projection-import-map
+PYTHONPATH=src python3 -m microcosm_core.cli import-projector
+PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens
+PYTHONPATH=src python3 -m microcosm_core.cli stripping-guard
+PYTHONPATH=src python3 -m microcosm_core.cli standards-control
+PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
+PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
+PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
+PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
+PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
+PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab
+PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard
+PYTHONPATH=src python3 -m microcosm_core.cli intake
+PYTHONPATH=src python3 -m microcosm_core.cli reveal
+PYTHONPATH=src python3 -m microcosm_core.cli lean-std-premise-index run-index-bundle --input examples/lean_std_premise_index/exported_lean_std_premise_index_bundle --out receipts/runtime_shell/demo_project/organs/lean_std_premise_index
+PYTHONPATH=src python3 -m microcosm_core.cli cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli observe /tmp/microcosm-scratch
 ```
@@ -131,6 +228,211 @@ microcosm evidence list
 Evidence receipts are the black-box recorder, not the cockpit. Start with the
 project loop; open receipts only when you need a drilldown.
 
+`microcosm tour <project>` is the compressed cold-reader route. It compiles
+the project, then emits one public-safe ten-minute path through spine,
+authority, prediction, corpus, trace repair, repair-loop curriculum, formal
+evidence cells, proof-loop depth, work landing replay, durable agent work
+landing replay, research replication replay, world-model projection drift control,
+view quality, projection safety, hook
+intervention coverage, projection import map, import-projector contract,
+compression-profile option surface, stripping guard, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal,
+observatory, and evidence drilldowns. It writes
+`receipts/runtime_shell/public_ten_minute_tour.json` and
+keeps release, hosting, provider calls, source mutation, private-data
+equivalence, proof authority, and financial advice unauthorized.
+
+`microcosm spine` is the compact x-ray for first-run evaluation: accepted
+adapter-backed organs, the concrete command path, surface counts, evidence
+policy, and the public-safe authority ceiling in one read-only JSON view.
+
+`microcosm python-lens <project>` is the project-local Python route lens. It
+emits `.microcosm/python_lens.json` with Python file roles, package roots,
+readiness checks, and route rows while redacting source bodies. It does not
+execute Python, mutate source files, call providers, claim static-analysis
+authority, or certify package quality.
+
+`microcosm authority` is the boundary map. It aggregates the runtime status,
+spine, intake bridge, reveal board, accepted organs, projection cells, hard
+public boundaries, safe local-only exceptions, and evidence refs into one
+read-only JSON surface. It is the quickest way to verify that release,
+publication, provider calls, source mutation, private-data equivalence,
+general proof authority, and trading advice remain unauthorized.
+
+`microcosm trace-lens` is the formal verifier trace-repair lens. It shows
+failure classes, trace grades, repair routing, negative cases, and the
+cold-rerun promotion gate while omitting proof bodies, oracle-needed premise
+ids, provider payloads, and proof-correctness authority.
+
+`microcosm repair-loop` is the formal verifier repair-loop curriculum lens. It
+turns trace rows into explicit stages and transitions: capture verifier
+failure, classify failure, route metadata-only repair, require a cold rerun,
+then promote only a receipt-backed curriculum cell. It omits proof bodies,
+oracle-needed premise ids, provider payloads, source mutation, and
+proof-correctness authority.
+
+`microcosm evidence-cells` is the public formal evidence-cell resolver. It
+turns proof-adjacent language into explicit cell ids, receipt refs, negative
+cases, and authority ceilings before a cold reader trusts it. It accepts only
+metadata cells with public receipt anchors and rejects unknown cells, missing
+source anchors, embedded proof bodies, private refs, general theorem-solution
+claims, and release overclaims.
+
+`microcosm proof-loop-depth` is the public formal proof-loop depth lens. It
+shows the metadata-only route from corpus boundary through premise retrieval,
+tactic availability, target-shape routing, verifier trace repair, cold rerun,
+and evidence-cell resolution. It is a projection protocol, not a proof engine:
+it exports no proof bodies, oracle premise ids, provider payloads, benchmark
+scores, source mutation authority, release authority, or theorem-solution
+claims.
+
+`microcosm landing-replay` is the public work-landing replay lens. It turns the
+dirty-tree landing rules into a compact decision table: scoped commit for
+isolated owned paths, broad checkpoint only with explicit operator
+authorization, metadata-blocked patch-bundle recovery, and hard stop for
+secrets or private leakage. It records blocker and ledger refs without
+mutating Git, staging unrelated dirt, exporting private source bodies, or
+claiming that a commit landed.
+
+`microcosm view-quality` is the public view-quality action-map lens. It uses
+synthetic rows to show that every requested view receives one typed next
+action, including missing and partially measured views. Its hot-action rollup
+is a projection, not the complete universe, and it exports no private
+screenshot paths, controls no browser, claims no complete frontend quality,
+and authorizes no release.
+
+`microcosm projection-safety` is the public omission-receipt audit lens. It
+checks that compressed public projections carry named omission receipts,
+drilldowns, source refs, and authority ceilings before they are treated as
+legible public state. It exports no private bodies, proof bodies, provider
+payloads, source mutation authority, or release claims.
+
+`microcosm market-boundary` is the public market/prediction evidence boundary.
+It separates observations from forecasts, requires base-rate or prior-context
+hooks before narrative pressure, names scenario-tree and confidence-band gates,
+and keeps decision policy distinct from trading or investment advice. It is
+metadata-only: no live market data, private portfolio/account export, provider
+payloads, performance guarantees, publication, or release authority.
+
+`microcosm drift-control` is the public projection-drift control lens. It
+turns world-model, route, view-quality, CAP-assimilation, and entry-payload
+drift signals into rows with source refs, repair routes, validation refs, and
+authority ceilings. It is metadata-only: no live repair, source mutation,
+private runtime export, provider payload export, doctrine promotion, or
+release authority.
+
+`microcosm route-cleanup` is the public route cleanup contract lens. It names
+the first-contact, context-pack, generated-region, option-surface, Work Ledger,
+scoped landing, seed reentry, and public/private cleanup rows with owner
+routes, validator refs, and authority ceilings. It is metadata-only: no route
+deletion, generated-region hand edit, private export, provider payload export,
+source mutation, doctrine promotion, or release authority.
+
+`microcosm projection-import-map` is the public projection import map. It names
+which macro pattern each runtime lens came from, what was copied, what was
+cleaned, what was omitted, which validators prove the projection, and which
+authority ceiling still applies. It does not automate imports, export private
+bodies, expose proof bodies or provider payloads, claim private-root
+equivalence, or authorize release.
+
+`microcosm import-projector` is the public contract for making future macro
+imports cheaper without making them unsafe. It turns a prospective import into
+six explicit stages: candidate selection, public manifest, stripping and
+omission, fixture projection, runtime binding, and validation closeout. Each
+row names source, public replacement, omitted material, validation refs, and
+authority ceiling. It is a read-model only: no automated import execution, no
+private body export, no proof/provider payload export, no source mutation, no
+private-root equivalence claim, and no release authority.
+
+`microcosm option-surface-lens` is the first concrete consumer of that
+projector contract for `compression_profile_governed_option_surface`. It turns
+profile choice into public command, endpoint, receipt, sidecar, validation, and
+authority rows. It does not switch profiles, auto-select options, export private
+context or sidecar bodies, hand-edit generated regions, mutate source, claim
+lossless projection, or authorize release.
+
+`microcosm stripping-guard` is the public/private export guard. It names the
+denials that must remain true before a macro pattern becomes public runtime
+state: no private source body, proof body, provider payload, raw private path,
+example secret, financial advice, source mutation, release, or private-root
+equivalence export. It is a read-model and not a complete secret scanner.
+
+`microcosm standards-control` is the public standards control lens. It ties the
+standards registry, public standard pressure, validator receipt coverage,
+fixture manifests, acceptance commands, docs, authority ceilings, and projection
+safety into one read-model. It does not make the registry source authority,
+prove complete coverage, mutate source, call providers, or authorize release.
+
+`microcosm hook-coverage` is the public hook intervention coverage lens. It
+compresses the `agent_route_observability_runtime` receipts into hook-shadow,
+route-compliance, actor-axis, anti-pattern debt, and route-lease intervention
+rows. It exposes missing-authority and negative-case metadata without reading
+live operator state, provider payloads, browser/HUD/cockpit state, mutating
+Task Ledger, authorizing pattern assimilation, certifying runtime behavior, or
+claiming release.
+
+`microcosm replay-gauntlet` is the public synthetic agent-reliability replay
+lens. It projects benchmark-integrity, monitor falsification, sabotage,
+sandbox escape, MCP/tool-authority, indirect prompt-injection, temporal memory
+conflict, and sleeper-memory poisoning cases as redacted containment metadata.
+It does not run live agents or tools, export real secrets, import real user
+memory, authorize sandbox escape, claim benchmark performance, prove complete
+security, mutate source, call providers, or authorize release.
+
+`microcosm benchmark-lab` is the public synthetic repository benchmark
+transaction lab. It projects two issue/patch fixtures with oracle diffs,
+FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped diff
+receipts, workitem admission, and provider-slot cooldown metadata. It does not
+claim SWE-bench performance, mutate live repos, call providers, import private
+issues, export private repositories, authorize broad checkpointing, prove
+production delivery rate, or authorize release.
+
+`microcosm legibility-scorecard` is the cold-reader comprehension contract. It
+maps five questions to runnable proof commands, six checkpoints, endpoint
+parity, evidence refs, and negative cases so a stranger can evaluate the
+public reveal without reading the private macro root first. It does not prove
+every reader will understand the system, claim private-root equivalence,
+publish, call providers, mutate source, export benchmark scores, prove
+mathematical correctness, or authorize release.
+
+`microcosm prediction-lens` is the public read-model for the
+`prediction_oracle_reconciliation` organ. It shows synthetic target-universe
+gating, CP1 bifurcation resolution, CP2 prediction rows, oracle diff grading,
+bounded dossier mutation, negative-case coverage, and source/projection refs
+without live market data or private bodies. It is not trading, financial or
+investment advice, forecast-performance evidence, publication authority, or a
+release claim.
+
+`microcosm market-boundary` complements the prediction lens with the public
+claim contract a cold reader needs before trusting market-facing reasoning:
+observation/forecast separation, timestamped evidence boundaries, base-rate and
+scenario-tree gates, and explicit denial of advice, live data, private account
+state, and performance guarantees.
+
+`microcosm corpus-lens` is the public read-model for the
+`corpus_readiness_mathlib_absence_gate` organ. It shows Mathlib import
+absence, available and absent corpora, translation-smoke-only rows, allowed and
+blocked formal-math consumers, negative-case coverage, and the metadata-only
+authority ceiling before retrieval or proof-witness work. It is not Lean/Lake
+execution, Mathlib proof authority, benchmark evidence, corpus-completeness
+evidence, provider output, source mutation, or a release claim.
+
+`microcosm intake` is the runtime reveal/import bridge. It connects the macro
+projection intake board, the formal-math readiness extension board, the
+public reveal bundle, and runtime evidence refs into one redacted view so a
+cold reader can see which projection cells are ready, landed, bridged, or
+already consumed as public replacements
+without opening private macro material.
+
+`microcosm reveal` projects the ten-minute public reveal board. It is the
+short path for a cold technical reader: compile a repo, inspect
+`.microcosm/`, open one route explanation, see the observatory causal chain,
+then drill into receipts and authority ceilings.
+
+`microcosm cold-reader-route-map run-route-map-bundle` validates the entry path
+itself. The `cold_reader_route_map` organ binds first-run steps to commands,
+docs refs, receipt refs, and authority ceilings so "what should I run first?"
+is executable evidence instead of prose.
+
 ## Architecture Kernel
 
 `microcosm explain <project> <route_id>` is the main density surface. It shows
@@ -141,29 +443,344 @@ contracts, event refs, and evidence refs.
 `microcosm serve <project> --host 127.0.0.1 --port 8765` opens a tiny local
 observatory. The first screen shows the causal chain before raw JSON: project
 summary, resolved pattern bindings, standard pressure, selected route, work
-state history, event refs, and evidence drilldowns. The JSON endpoints remain
+state history, event refs, and evidence drilldowns. It also exposes the
+runtime spine/intake/reveal bridge in the browser: `/spine`, `/intake`, and
+`/reveal` show the same accepted runtime spine, projection-cell status counts,
+open-actionable intake count, reveal board, and evidence refs that the CLI
+commands print. `/tour` adds the same ten-minute route compression that
+`microcosm tour <project>` emits. `/authority` adds the same authority-ceiling
+map in browser form, `/prediction` adds the synthetic prediction-mechanics
+lens with its no-advice/no-live-data boundary, `/market-boundary` adds the
+market/prediction evidence contract, `/corpus` adds the formal-math
+corpus readiness lens with its no-proof/no-Mathlib boundary, `/trace` and
+`/repair-loop` expose proof-adjacent repair metadata boundaries,
+`/evidence-cells` exposes evidence-cell boundaries, `/proof-loop-depth` shows
+the public proof-loop gate chain and no-proof/no-benchmark authority ceiling,
+`/landing-replay` shows dirty-tree landing lanes and commit-claim limits, `/view-quality` shows
+all-view action rows and hot-action projection limits, `/projection-safety`
+shows omission receipts and reversible projection drilldowns,
+`/market-boundary` shows observation/forecast, timestamp, base-rate,
+scenario-tree, and no-advice gates,
+`/drift-control` shows projection-drift rows with repair routes and validation
+refs,
+`/route-cleanup` shows first-contact, generated-region, option-surface, Work
+Ledger, scoped landing, and seed reentry cleanup rows,
+`/projection-import-map` shows the copy/clean/omit/validate/authority rows for
+macro-pattern projections, `/import-projector` shows the staged future-import
+contract rows, `/option-surface-lens` shows compression-profile option rows,
+`/stripping-guard` shows export-denial guard rows,
+`/standards-control` shows registry/pressure/validator/authority control rows,
+`/hook-coverage` shows hook-intervention and live-state boundaries,
+`/replay-gauntlet` shows synthetic agent reliability
+replay and containment boundaries, `/benchmark-lab` shows repository benchmark
+transaction fixtures and oracle-grading boundaries, `/legibility-scorecard`
+shows the cold-reader question/checkpoint contract, and `/project/python-lens`
+exposes the project-local Python route lens. The JSON endpoints remain
 available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package still carries seven adapter-backed runtime organs behind
+The public package now carries thirty-one adapter-backed runtime organs behind
 the local substrate loop:
 
 1. `pattern_binding_contract`
 2. `executable_doctrine_grammar`
 3. `proof_diagnostic_evidence_spine`
 4. `formal_math_readiness_gate`
-5. `navigation_hologram_route_plane`
-6. `mission_transaction_work_spine`
-7. `agent_route_observability_runtime`
-8. `pattern_assimilation_step`
+5. `corpus_readiness_mathlib_absence_gate`
+6. `mathematical_strategy_atlas_hypothesis_scorer`
+7. `tactic_portfolio_availability_probe`
+8. `target_shape_tactic_routing_gate`
+9. `lean_std_premise_index`
+10. `formal_math_premise_retrieval`
+11. `formal_math_verifier_trace_repair_loop`
+12. `formal_evidence_cell_anchor_resolver`
+13. `undeclared_library_prior_symbol_classifier`
+14. `ring2_premise_retrieval_precision_recall_harness`
+15. `agent_benchmark_integrity_anti_gaming_replay`
+16. `provider_context_recipe_budget_policy`
+17. `formal_math_lean_proof_witness`
+18. `navigation_hologram_route_plane`
+19. `mission_transaction_work_spine`
+20. `durable_agent_work_landing_replay`
+21. `research_replication_rubric_artifact_replay`
+22. `world_model_projection_drift_control_room`
+23. `spatial_world_model_counterfactual_simulation_replay`
+24. `mechanistic_interpretability_circuit_attribution_replay`
+25. `agent_route_observability_runtime`
+26. `pattern_assimilation_step`
+27. `public_reveal_walkthrough`
+28. `macro_projection_import_protocol`
+29. `prediction_oracle_reconciliation`
+30. `standards_meta_diagnostics`
+31. `cold_reader_route_map`
+32. `agent_monitor_redteam_falsification_replay`
+33. `agent_memory_temporal_conflict_replay`
+34. `sleeper_memory_poisoning_quarantine_replay`
+35. `mcp_tool_authority_replay`
+
+`agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
+integrity boundary: it validates locked evaluator ids, evaluator config hashes,
+file-access logs, contamination checks, trusted-reference score refs,
+output-replay refs, held-out guards, and anti-gaming negative cases before any
+benchmark-style language is admitted. Run `microcosm
+agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle`
+to inspect the synthetic replay bundle. The organ rejects evaluator edits,
+train/test leakage, oracle patch bodies, hidden-gold access,
+final-answer-only grading, provider payloads, score overclaims, pass-k
+cherry-picking, misleading tests, and private issue bodies without claiming a
+SWE-bench score, live repo mutation, provider execution, or release authority.
+
+`agent_monitor_redteam_falsification_replay` is the monitor/redteam honesty
+boundary: it validates synthetic trajectories, monitor verdicts, adversarial
+probe refs, escalation refs, redaction refs, mitigation refs, and cold replay
+refs before monitor-language is admitted. Run `microcosm
+agent-monitor-redteam-falsification-replay run-monitor-bundle` to inspect the
+exported bundle. The organ rejects private chain-of-thought, internal code,
+exploit instruction detail, credential material, live agent traffic, monitor
+product-performance claims, and coverage labels without adversarial probes
+without claiming live monitoring performance, control-eval scores, provider
+execution, source mutation, or release authority.
+
+`agent_memory_temporal_conflict_replay` is the agent-memory honesty boundary:
+it validates a synthetic three-episode replay where ADD, UPDATE, DELETE, and
+NOOP memory decisions, conflict-edge refs, stale-downgrade refs, metadata-only
+private refs, paired memory-on/off cold replay receipts, and an answer-delta
+receipt must align before memory-language is admitted. Run `microcosm
+agent-memory-temporal-conflict-replay run-memory-bundle` to inspect the
+exported bundle. The organ rejects raw transcript export, private candidate
+auto-promotion, stale preference override, memory as source authority, vector
+recall without evidence, final-answer-only memory credit, and active injection
+as authoritative without claiming live memory product quality, provider
+execution, source mutation, or release authority.
+
+`sleeper_memory_poisoning_quarantine_replay` is the persistent-memory security
+boundary: it validates a synthetic four-session replay where source capsule
+refs, provenance refs, quarantine verdicts, retrieval influence gates, rollback
+audit refs, and cold-rerun receipts must align before sleeper-memory poisoning
+language is admitted. Run `microcosm
+sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle` to inspect
+the exported bundle. The organ rejects private memory bodies, live user memory
+claims, raw transcript export, provenance-less writes, trusted promotion from
+untrusted context, deletion without audit, final-answer-only grading, and
+unmetered poison influence without claiming live memory security, provider
+execution, benchmark performance, source mutation, or release authority.
+
+`mcp_tool_authority_replay` is the agent tool-authority boundary: it validates
+a synthetic MCP-like replay where manifest scopes, call argument hashes,
+approval refs, side-effect ledger refs, rollback refs, untrusted-output
+instruction/data splits, and cold replay receipts must align before tool-use
+authority language is admitted. Run `microcosm
+mcp-tool-authority-replay run-tool-authority-bundle` to inspect the exported
+bundle. The organ rejects overbroad scopes, hidden credential export,
+tool-output-as-instruction, unapproved side effects, live account access,
+final-answer-only grading, missing rollback receipts, and unredacted tool
+payloads without claiming live MCP account safety, provider execution,
+benchmark performance, source mutation, or release authority.
+
+`mission_transaction_work_spine` now includes the public checkpoint lane
+decision receipt: clean and mixed owned-path work can choose scoped commit,
+broad checkpoint requires explicit operator authorization, and suspected
+private leakage forces a hard stop. This keeps the demo honest about how work
+lands in a dirty tree without implying broad staging authority.
+
+`durable_agent_work_landing_replay` is the work-landing transaction replay
+organ: it validates claimed owned paths, owner-native validation refs, scoped
+commit attempts, HEAD-advance checks before landed language, metadata-blocked
+patch-bundle recovery, Task Ledger blocker refs, and Work Ledger finalizers.
+Run `microcosm durable-agent-work-landing-replay run-work-landing-bundle` to
+inspect the public bundle. The organ rejects missing evidence, missing ledger
+closeout, commit claims without HEAD advance, live Git mutation authority,
+unrelated dirty-path staging, uncaptured blockers, release overclaims, and
+private path/body leakage without proving a commit landed or authorizing
+release.
+
+`research_replication_rubric_artifact_replay` is the public research-replay
+rubric organ: it validates synthetic paper capsules, artifact hash plans,
+grader reports, cold rerun receipts, ablation diffs, failure taxonomies, and
+cost/runtime ceilings before any replication-style language is admitted. Run
+`microcosm research-replication-rubric-artifact-replay run-replication-bundle`
+to inspect the exported replay bundle. The organ rejects original-author code
+reuse, hidden rubric leakage, report-only success, benchmark performance claims,
+private paper/data bodies, unbounded compute search, and final-answer-only
+grading without claiming external benchmark performance, live provider calls,
+publication, release, or proof of real-world replication.
+
+`world_model_projection_drift_control_room` is the public drift-control organ:
+it validates synthetic world-model projection rows with source signals, public
+source refs, repair routes, validation refs, public replacement refs, and
+metadata-only authority ceilings. Run `microcosm
+world-model-projection-drift-control-room run-drift-control-bundle` to inspect
+the exported drift-control bundle. The organ rejects missing source refs,
+missing validation refs, source-authority claims, live repair authority,
+private runtime export, provider payload export, automatic doctrine promotion,
+and release claims without inspecting private runtime bodies, mutating source,
+repairing live routes, promoting doctrine, or authorizing release.
+
+`spatial_world_model_counterfactual_simulation_replay` is the public spatial
+counterfactual replay organ: it validates synthetic scene states, action traces,
+predicted states, transition diffs, oracle checks, sensor packet refs,
+rare-event labels, fidelity limits, and limitation labels. Run `microcosm
+spatial-world-model-counterfactual-simulation-replay run-simulation-bundle` or
+`microcosm spatial-simulation` to inspect the exported simulation bundle. The
+organ rejects private video export, raw sensor export, live robot or AV
+operation, real-world location claims, simulator-product claims,
+generated-video-only authority, geographic accuracy claims, benchmark score
+overclaims, and release claims without claiming a trained simulator, geographic
+truth, generated-video proof, live operation authority, benchmark score,
+publication, or release.
+
+`mechanistic_interpretability_circuit_attribution_replay` is the public
+mechanistic-interpretability replay organ: it validates toy prompt refs, sparse
+feature ids, machine-readable graph nodes and edges, replacement-model
+approximation scores, feature visualization summary refs, causal inhibition and
+injection delta refs, sufficiency labels, faithfulness limits, contradiction
+cases, and cold replay refs. Run `microcosm
+mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle`
+or `microcosm circuit-attribution` to inspect the exported attribution bundle.
+The organ rejects private model weights, raw activation dumps, proprietary
+prompts, hidden chain-of-thought, unverifiable feature names, screenshot-only
+graphs, transparency claims without intervention receipts, faithfulness claims
+without limits, benchmark overclaims, provider payloads, and release claims
+without claiming private model internals, a model-transparency product,
+benchmark score, publication, or release.
 
 `formal_math_readiness_gate` is accepted as a metadata-only readiness boundary:
 it validates synthetic corpus, tactic, premise, route, and provider-context
-policy packets without executing Lean/Lake or exposing proof bodies.
-`formal_math_lean_proof_witness` remains deferred. Lean/Lake is not authorized
-by this public root. Fixtures and exported bundles are regression inputs and
-examples; they are not the primary product runtime.
+policy packets without executing Lean/Lake or exposing proof bodies. It also
+emits `formal_math_readiness_extension_board.json`, the public replacement for
+the `formal_math_readiness_extensions` intake cell: namespace/split coverage
+for the closed premise index, tactic probe availability, target-shape routing
+admissibility, provider-context budgets, source intake refs, selected pattern
+ids, and validation refs.
+`corpus_readiness_mathlib_absence_gate` is the sharper corpus/toolchain
+readiness boundary: it makes Mathlib import absence explicit, marks translation
+corpora as smoke-only, blocks absent LeanDojo/Pantograph consumers, and rejects
+proof-body, private-source, and release-authority overclaims before downstream
+formal-math organs run. `microcosm corpus-lens` projects that board as a
+single cold-reader read-model and writes
+`receipts/runtime_shell/public_corpus_readiness_lens.json`.
+`mathematical_strategy_atlas_hypothesis_scorer` is the pre-oracle strategy
+layer: it maps public problem features to a known strategy enum, expands
+retrieval terms, and records typed `STRATEGY_SELECTION_MISS` rows when no
+strategy matches. It is a retrieval lens and hypothesis scorer, not proof
+authority, oracle visibility, provider output, test tuning, or release
+authority.
+`tactic_portfolio_availability_probe` is the environment-scoped tactic
+callability layer: it records compile-status metadata for a synthetic public
+portfolio, marks Mathlib-dependent `aesop` unavailable when the Mathlib import
+probe fails, and rejects missing statuses, unprobed consumers, proof-body
+leakage, and proof/provider/benchmark/release overclaims. It is availability
+metadata, not proof authority or a complete tactic inventory.
+`target_shape_tactic_routing_gate` is the pre-execution tactic admissibility
+layer: it compares target shapes with a public tactic portfolio and strategy
+route before Lean/Lake runs, records why a tactic was admitted or rejected, and
+blocks unavailable tactics, unprobed tactics, proof-body leakage,
+post-execution routing, and release overclaims. It is route gating metadata,
+not proof authority or toolchain authority.
+`formal_math_lean_proof_witness` is now accepted only as a bounded public
+witness: it copies a tiny synthetic Lake project into a temporary workspace,
+runs the installed local Lean/Lake toolchain, and emits redacted receipts with
+source hashes and declaration names. That does not authorize Mathlib-dependent
+proofs, provider calls, benchmark claims, private proof import, or release.
+Fixtures and exported bundles are regression inputs and examples; they are not
+the primary product runtime.
+
+`formal_math_premise_retrieval` is the first real formal-math import tranche
+through the projection protocol: a Lean/Std premise index, term-scored
+retrieval queries, context-budget recipes, strategy gates, synthetic recall,
+and leakage negative cases. It is retrieval machinery, not theorem proof
+authority.
+
+`formal_math_verifier_trace_repair_loop` is the proof-lab self-repair tranche:
+verifier failure classes, trace grades, repair actions, failure-mode ledger
+updates, curriculum deltas, and cold-rerun promotion gates are all explicit
+public metadata. It rejects proof bodies, oracle premise ids, provider payload
+bodies, and human approval as proof correctness. Use
+`formal-math-verifier-trace-repair-loop` to validate the runnable replay; it is
+repair-loop machinery, not theorem proof authority.
+
+`formal_evidence_cell_anchor_resolver` is the claim-boundary tranche: toy paper
+claims resolve to public evidence-cell ids, each cell carries source-anchor refs
+and machine-anchor metadata, and proof-language claims fail if the cell is
+unknown, missing anchors, or trying to claim theorem correctness. Use
+`formal-evidence-cell-anchor-resolver` to validate the public anchor bundle; it
+is evidence metadata, not proof authority.
+
+`undeclared_library_prior_symbol_classifier` is the out-of-recipe proof-symbol
+tranche: redacted proof observations carry only body hashes, qualified symbol
+refs, allowed premise ids, and cited-unallowed premise ids. Known symbols outside
+the allowed set classify as `UNDECLARED_LIBRARY_PRIOR` and bridge-escalate, while
+explicit cited-unallowed premise ids stay `PREMISE_BUDGET_VIOLATION` and retry.
+Use `undeclared-library-prior-symbol-classifier` to validate the public symbol
+bundle; it is redacted classifier metadata, not theorem proof authority.
+
+`lean_std_premise_index` isolates the premise-index substrate itself as a
+closed public metadata lane: Init-sourced declaration refs, namespace
+coverage, split eligibility, and retrieval terms. It rejects Mathlib refs,
+proof bodies, oracle-needed ids, test-split tuning, provider authority, and
+release overclaims before retrieval machinery consumes the index.
+
+`ring2_premise_retrieval_precision_recall_harness` is the retrieval-quality
+boundary: it computes public synthetic precision/recall against after-the-fact
+Ring-2 labels, separates retrieval misses from proof failures despite premise
+hits, and requires an adversarial decoy miss. It is metric metadata, not proof,
+benchmark, provider, or release authority.
+
+`provider_context_recipe_budget_policy` is the provider-context boundary: it
+validates fixed 4KB/16KB/32KB/64KB recipe budgets, ordered section fill,
+omitted-section manifests, graph roles, and deliverable routes without calling
+providers or exposing proof/oracle bodies. It is context metadata, not provider
+or proof authority.
+
+`public_reveal_walkthrough` validates the first-ten-minutes entry path as a
+real organ. Its receipts bind the public claim, commands, evidence refs,
+negative cases, and authority ceiling so the reveal is inspectable rather than
+marketing-only.
+
+`macro_projection_import_protocol` validates how macro substrate enters this
+public root: source refs and pattern metadata may be projected into fixtures,
+standards, paper modules, exported bundles, and receipts, while private bodies,
+missing omission receipts, authority upgrades, missing validation refs, release
+claims, and private-equivalence claims are rejected.
+
+It also exposes a non-writing intake preview:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core.cli macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle
+```
+
+That board is the handoff surface for future import waves: each proposed cell
+shows source refs, target refs, validation refs, selected pattern ids, copy
+policy, omitted material, authority ceiling, and ready/blocked status before
+anything is copied. The intake board now also carries the cell-state protocol:
+`projection_status`, `cell_state`, `action_required`, status reason, landed
+evidence refs, status counts, and open-actionable count. `microcosm intake` is
+the public runtime bridge over that board: it shows
+`formal_math_readiness_extensions` as a landed public replacement,
+`projection_protocol_self_host` as the landed self-hosted status protocol, and
+`runtime_reveal_import_bridge` as a landed runtime bridge with a command plus
+runtime receipt.
+
+`prediction_oracle_reconciliation` validates a synthetic prediction-engine
+tranche: CP1 branch resolution, CP2 target-universe gating, pre-target evidence
+discipline, oracle diff grading, and bounded dossier mutation. It is not
+trading or financial advice, not investment advice, not live market data, not a
+provider integration, not a performance claim, and not publication or release
+authority.
+
+`standards_meta_diagnostics` is the terminal coverage diagnostic for the public
+runtime spine: it checks that accepted organs remain mapped to standards,
+runtime contracts, receipt refs, and authority ceilings. It is a projection
+over public refs, not source authority for the registries, private macro source
+access, release authority, provider authority, proof authority, or
+whole-system correctness.
+
+`cold_reader_route_map` is the executable entry-map organ: it validates the
+first-run route sequence, commands, docs refs, receipt refs, and route-map
+authority ceiling. It is projection-only metadata, not route-registry
+authority, source mutation authority, release authority, provider authority,
+private-data equivalence, trading advice, or whole-system correctness.
 
 ## Validation Commands
 
@@ -173,6 +790,60 @@ PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readi
 PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json
 PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate
+PYTHONPATH=src python3 -m microcosm_core.cli formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input
+PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate
+PYTHONPATH=src python3 -m microcosm_core.cli corpus-readiness-mathlib-absence-gate run-projection-bundle --input examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle --out receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate
+PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens
+PYTHONPATH=src python3 -m microcosm_core.cli import-projector
+PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens
+PYTHONPATH=src python3 -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer
+PYTHONPATH=src python3 -m microcosm_core.cli mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle --input examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle --out receipts/runtime_shell/demo_project/organs/mathematical_strategy_atlas_hypothesis_scorer
+PYTHONPATH=src python3 -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe --acceptance-out receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli tactic-portfolio-availability-probe run-availability-bundle --input examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle --out receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe
+PYTHONPATH=src python3 -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate
+PYTHONPATH=src python3 -m microcosm_core.cli target-shape-tactic-routing-gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate
+PYTHONPATH=src python3 -m microcosm_core.organs.lean_std_premise_index run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index --acceptance-out receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli lean-std-premise-index run-index-bundle --input examples/lean_std_premise_index/exported_lean_std_premise_index_bundle --out receipts/runtime_shell/demo_project/organs/lean_std_premise_index
+PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval
+PYTHONPATH=src python3 -m microcosm_core.cli formal-math-premise-retrieval run-retrieval-bundle --input examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval
+PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop
+PYTHONPATH=src python3 -m microcosm_core.cli formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop
+PYTHONPATH=src python3 -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver
+PYTHONPATH=src python3 -m microcosm_core.cli formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver
+PYTHONPATH=src python3 -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier
+PYTHONPATH=src python3 -m microcosm_core.cli undeclared-library-prior-symbol-classifier run-symbol-bundle --input examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle --out receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier
+PYTHONPATH=src python3 -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness
+PYTHONPATH=src python3 -m microcosm_core.cli ring2-premise-retrieval-precision-recall-harness run-precision-recall-bundle --input examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle --out receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness
+PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy
+PYTHONPATH=src python3 -m microcosm_core.cli provider-context-recipe-budget-policy run-budget-bundle --input examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle --out receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy
+PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness
+PYTHONPATH=src python3 -m microcosm_core.cli formal-math-lean-proof-witness run-witness-bundle --input examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness
+PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough
+PYTHONPATH=src python3 -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol
+PYTHONPATH=src python3 -m microcosm_core.cli macro-projection-import-protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol
+PYTHONPATH=src python3 -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation
+PYTHONPATH=src python3 -m microcosm_core.cli prediction-oracle-reconciliation run-prediction-bundle --input examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle --out receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation
+PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay --acceptance-out receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.world_model_projection_drift_control_room run --input fixtures/first_wave/world_model_projection_drift_control_room/input --out receipts/first_wave/world_model_projection_drift_control_room --acceptance-out receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
+PYTHONPATH=src python3 -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay --acceptance-out receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay --acceptance-out receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay --acceptance-out receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay --acceptance-out receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay --acceptance-out receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay --acceptance-out receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics --acceptance-out receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics
+PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map --acceptance-out receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map
 PYTHONPATH=src python3 -m microcosm_core.validators.research_kernel_density --root . --project /tmp/microcosm-scratch --out receipts/first_wave/research_kernel_density.json
 PYTHONPATH=src python3 -m microcosm_core.validators.transaction_evidence_stability --root . --project /tmp/microcosm-scratch --out receipts/first_wave/transaction_evidence_stability.json
 PYTHONPATH=src python3 -m microcosm_core.validators.observatory_legibility --root . --project /tmp/microcosm-scratch --out receipts/first_wave/observatory_legibility.json
@@ -195,6 +866,33 @@ should not be edited by hand.
   standard rows.
 - `paper_modules/*.md` are cold-read summaries of accepted organs and deferred
   proof boundaries.
+- `paper_modules/public_reveal_walkthrough.md` explains the ten-minute public
+  reveal organ.
+- `paper_modules/macro_projection_import_protocol.md` explains the
+  public-safe macro projection/import membrane.
+- `paper_modules/prediction_oracle_reconciliation.md` explains the synthetic
+  prediction-reconciliation organ and its no-trading/no-advice authority
+  ceiling.
+- `paper_modules/standards_meta_diagnostics.md` explains the terminal standards
+  coverage diagnostic and its projection-only authority ceiling.
+- `paper_modules/research_replication_rubric_artifact_replay.md` explains the
+  synthetic research-replication replay rubric and artifact-rerun boundary.
+- `paper_modules/cold_reader_route_map.md` explains the executable route map
+  for the ten-minute cold-reader path.
+- `paper_modules/corpus_readiness_mathlib_absence.md` explains the Mathlib
+  absence and corpus-readiness gate.
+- `paper_modules/mathematical_strategy_atlas.md` explains the pre-oracle
+  mathematical strategy atlas and typed strategy-miss boundary.
+- `paper_modules/formal_math_premise_retrieval.md` explains the first
+  retrieval-grade formal-math import tranche.
+- `paper_modules/formal_evidence_cell_anchor_resolver.md` explains the public
+  evidence-cell claim boundary.
+- `paper_modules/undeclared_library_prior_classifier.md` explains the redacted
+  proof-symbol classifier and premise-budget precedence boundary.
+- `paper_modules/lean_std_premise_index.md` explains the closed Lean/Std
+  premise metadata index and its proof/Mathlib authority ceiling.
+- `paper_modules/provider_context_recipe_budget.md` explains the provider
+  context recipe budget boundary.
 - `skills/cold_start_navigation.md` gives the shortest safe path for a fresh
   public clone.
 
@@ -216,6 +914,8 @@ publication surfaces, prediction/market material, or old scratch-root contents
 as source authority.
 
 Anti-claim: this README documents public runtime-spine entry and validation
-only. It does not authorize release, hosted-public readiness, publication,
-recipient work, provider calls, private-data equivalence, Lean/Lake execution,
-or whole-system correctness.
+only. It does not authorize trading, financial or investment advice, live
+market data, release, hosted-public readiness, publication, recipient work,
+provider calls, private-data equivalence, Lean/Lake execution beyond the
+bounded public witness fixture, or whole-system correctness. These docs do not
+authorize release.

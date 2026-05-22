@@ -140,6 +140,27 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "authority_ceiling",
         "receipt_paths",
     ],
+    "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "checkpoint_lane_decisions",
+        "recommended_lane_by_case",
+        "selection_policy",
+        "broad_checkpoint_requires_operator_authorization",
+        "suspected_secret_requires_hard_stop",
+        "dirty_tree_blocks_scoped_commit",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "receipt_paths",
+    ],
 }
 
 
@@ -182,6 +203,20 @@ def test_mission_transaction_work_spine_observes_required_negative_cases(
     assert result["closeout_status_projection"]["receipt_refs_drained"] == [
         "receipt_expected_001"
     ]
+    assert result["checkpoint_lane_decision"]["recommended_lane_by_case"][
+        "mixed_owned_dirty_tree"
+    ] == "scoped_commit"
+    assert result["checkpoint_lane_decision"]["recommended_lane_by_case"][
+        "operator_requested_broad_checkpoint"
+    ] == "broad_checkpoint"
+    assert result["checkpoint_lane_decision"]["recommended_lane_by_case"][
+        "suspected_secret_without_hard_stop"
+    ] == "hard_stop"
+    assert result["checkpoint_lane_decision"]["dirty_tree_blocks_scoped_commit"] is False
+    assert "CHECKPOINT_BROAD_AUTH_REQUIRED" in result["error_codes"]
+    assert "CHECKPOINT_SECRET_REQUIRES_HARD_STOP" in result["error_codes"]
+    assert "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER" in result["error_codes"]
+    assert "CHECKPOINT_LANE_DECISION_REQUIRED" in result["error_codes"]
 
 
 def test_mission_transaction_work_spine_receipts_are_public_relative_and_redacted(
@@ -252,6 +287,7 @@ def test_mission_transaction_work_spine_receipts_satisfy_macro_field_floor(
         ).read_text(encoding="utf-8")
     )
     assert reconcile["ordered_controller_action_ids"] == [
+        "select_checkpoint_lane",
         "record_scoped_commit_landing",
         "intake_exact_receipt_refs",
         "drain_exact_receipts",
@@ -287,11 +323,22 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
     assert result["resolved_dependency_refs"] == ["cap_navigation_adapter_accepted"]
     assert result["claim_preflight_result"]["replan_required"] is False
     assert result["scoped_mutation_receipt"]["broad_stage_used"] is False
+    assert result["checkpoint_lane_decision"]["recommended_lane_by_case"][
+        "runtime_public_operator_broad_checkpoint"
+    ] == "broad_checkpoint"
+    assert result["checkpoint_lane_decision"]["recommended_lane_by_case"][
+        "runtime_public_secret_suspected"
+    ] == "hard_stop"
+    assert result["checkpoint_lane_decision"][
+        "broad_checkpoint_requires_operator_authorization"
+    ] is True
+    assert result["checkpoint_lane_decision"]["dirty_tree_blocks_scoped_commit"] is False
     assert result["closeout_status_projection"]["derived_not_authority"] is True
     assert result["receipt_drain_plan"]["receipt_drain_exclusivity_status"] == (
         "only_declared_receipts_drained"
     )
     assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == [
+        "select_checkpoint_lane",
         "record_scoped_commit_landing",
         "intake_exact_receipt_refs",
         "drain_exact_receipts",
@@ -340,6 +387,8 @@ def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
     assert payload["expected_negative_cases"] == {}
     assert payload["metadata_projection_not_live_ledger_authority"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["authority_ceiling"]["broad_checkpoint_requires_operator_authorization"] is True
+    assert payload["checkpoint_lane_decision"]["dirty_tree_blocks_scoped_commit"] is False
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
     for hit in payload["private_state_scan"]["hits"]:

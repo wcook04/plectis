@@ -1,0 +1,383 @@
+{
+  "anti_claim": "The import-projector contract is a public-safe read-model and checklist. It does not execute imports, copy private source bodies, expose proof bodies or provider payloads, hand-edit generated regions, mutate source, claim lossless private projection, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "automated_import_execution_authorized": false,
+    "generated_region_hand_edit_authorized": false,
+    "hosted_public_authorized": false,
+    "lossless_projection_claim": false,
+    "private_body_export_authorized": false,
+    "private_data_equivalence_claim": false,
+    "projector_contract_read_model_only": true,
+    "proof_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "provider_payload_export_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "body_redacted": true,
+  "command": "microcosm import-projector",
+  "contract_stages": [
+    {
+      "purpose": "choose a macro pattern only when it has a public-safe target shape",
+      "required_evidence": [
+        "source ref",
+        "public target surface",
+        "private-state risk class"
+      ],
+      "stage_id": "candidate_selection"
+    },
+    {
+      "purpose": "write the projection manifest before copying any implementation detail",
+      "required_evidence": [
+        "copied list",
+        "cleaned list",
+        "omitted list",
+        "authority ceiling"
+      ],
+      "stage_id": "public_manifest"
+    },
+    {
+      "purpose": "replace private bodies with public refs and reversible omission receipts",
+      "required_evidence": [
+        "body_redacted=true",
+        "drilldown ref",
+        "negative case ids"
+      ],
+      "stage_id": "stripping_and_omission"
+    },
+    {
+      "purpose": "bind the public replacement to synthetic fixtures or metadata-only rows",
+      "required_evidence": [
+        "fixture ref",
+        "validator ref",
+        "anti-claim"
+      ],
+      "stage_id": "fixture_projection"
+    },
+    {
+      "purpose": "expose the projection through a command, endpoint, receipt, and observatory card",
+      "required_evidence": [
+        "CLI command",
+        "HTTP endpoint",
+        "receipt path",
+        "HTML section"
+      ],
+      "stage_id": "runtime_binding"
+    },
+    {
+      "purpose": "prove the projection and rewrite the autonomous seed reentry prompt",
+      "required_evidence": [
+        "runtime test",
+        "CLI smoke",
+        "launch receipt",
+        "observatory receipt",
+        "seed closeout"
+      ],
+      "stage_id": "validation_and_closeout"
+    }
+  ],
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/import-projector",
+  "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
+  "lens_id": "public_import_projector_contract_lens",
+  "negative_case_ids": [
+    "private_source_body_copied_into_projector_rejected",
+    "projector_row_without_omission_receipt_rejected",
+    "projector_row_without_authority_ceiling_rejected",
+    "projector_row_without_validation_ref_rejected",
+    "generated_region_hand_edit_claim_rejected",
+    "automated_import_execution_claim_rejected",
+    "provider_payload_export_rejected",
+    "release_claim_from_projector_rejected",
+    "lossless_private_projection_claim_rejected"
+  ],
+  "organ_family": "projection_import",
+  "projector_rows": [
+    {
+      "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+      "cleaned": [
+        "private source path bodies",
+        "operator-specific context"
+      ],
+      "copied": [
+        "pattern id",
+        "public readiness signal",
+        "source authority pointer"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "raw macro source bodies",
+        "unreviewed publication claims"
+      ],
+      "owner_route": "build_public_microcosm_flagship_prep.py --json",
+      "private_body_exported": false,
+      "projector_row_id": "source_candidate_contract",
+      "projector_stage": "candidate_selection",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "selected_pattern_ids plus source authority refs",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_import_projector_contract_lens_is_public_safe"
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
+      "cleaned": [
+        "lossless-import language",
+        "automatic success language"
+      ],
+      "copied": [
+        "stage vocabulary",
+        "public replacement refs"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "private implementation bodies",
+        "provider payload bodies"
+      ],
+      "owner_route": "runtime_shell.projection_import_map",
+      "private_body_exported": false,
+      "projector_row_id": "public_manifest_contract",
+      "projector_stage": "public_manifest",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "projection manifest row with copied, cleaned, omitted, and validated fields",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "microcosm projection-import-map::import_stages",
+      "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_import_map_lens_is_public_safe"
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
+      "cleaned": [
+        "private bodies",
+        "proof bodies",
+        "raw private paths"
+      ],
+      "copied": [
+        "guard row id",
+        "public replacement",
+        "strip rule"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "secret-like material",
+        "provider prompts and completions"
+      ],
+      "owner_route": "runtime_shell.stripping_guard",
+      "private_body_exported": false,
+      "projector_row_id": "stripping_omission_contract",
+      "projector_stage": "stripping_and_omission",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "omission receipt with drilldown before claim",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "microcosm stripping-guard::guard_rows",
+      "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe"
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+      "cleaned": [
+        "release permission ambiguity",
+        "private-data equivalence claims"
+      ],
+      "copied": [
+        "forbidden authority flags",
+        "safe local exception vocabulary"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "publication authorization",
+        "provider call authorization"
+      ],
+      "owner_route": "runtime_shell.authority",
+      "private_body_exported": false,
+      "projector_row_id": "authority_ceiling_contract",
+      "projector_stage": "public_manifest",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "surface-specific authority ceiling and anti-claim",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "microcosm authority::surface_authority",
+      "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe"
+    },
+    {
+      "authority_ceiling_ref": "microcosm projection-safety::projection_rows",
+      "cleaned": [
+        "private examples",
+        "real user or account data"
+      ],
+      "copied": [
+        "synthetic row shape",
+        "public metric names"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "production data",
+        "private benchmark bodies"
+      ],
+      "owner_route": "fixture-backed validator",
+      "private_body_exported": false,
+      "projector_row_id": "fixture_projection_contract",
+      "projector_stage": "fixture_projection",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "synthetic fixture or metadata-only replacement",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "microcosm-substrate/examples",
+      "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha"
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::surface_authority",
+      "cleaned": [
+        "unstable local file paths",
+        "private route payloads"
+      ],
+      "copied": [
+        "schema version",
+        "command id",
+        "endpoint id"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "source mutation action",
+        "automated import execution"
+      ],
+      "owner_route": "runtime_shell.<lens>",
+      "private_body_exported": false,
+      "projector_row_id": "runtime_surface_contract",
+      "projector_stage": "runtime_binding",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "microcosm command, endpoint, receipt, and status row",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "src/microcosm_core/runtime_shell.py",
+      "validation_ref": "tests/test_cli.py::test_cli_import_projector_contract_smoke"
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::local_observatory",
+      "cleaned": [
+        "raw JSON first-screen dependence",
+        "private drilldown payloads"
+      ],
+      "copied": [
+        "section title",
+        "row counts",
+        "negative cases"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "operator browser state",
+        "private screenshot paths"
+      ],
+      "owner_route": "runtime_shell._observatory_html",
+      "private_body_exported": false,
+      "projector_row_id": "observatory_binding_contract",
+      "projector_stage": "runtime_binding",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "first-screen HTML section plus JSON drilldown endpoint",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "microcosm project-observatory model",
+      "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain"
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_projection_safety_audit_lens",
+      "cleaned": [
+        "unbounded export claims",
+        "private body assumptions"
+      ],
+      "copied": [
+        "projection id",
+        "public ref",
+        "owner route"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "proof body text",
+        "provider payload bodies"
+      ],
+      "owner_route": "runtime_shell.projection_safety",
+      "private_body_exported": false,
+      "projector_row_id": "projection_safety_registration_contract",
+      "projector_stage": "stripping_and_omission",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "registered projection row with omission receipt",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "microcosm projection-safety::projection_rows",
+      "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe"
+    },
+    {
+      "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
+      "cleaned": [
+        "private prompt bodies",
+        "unlanded release language"
+      ],
+      "copied": [
+        "selected tranche",
+        "commands/tests",
+        "next reentry prompt"
+      ],
+      "generated_region_hand_edit_authorized": false,
+      "omitted": [
+        "operator raw seed voice",
+        "unreviewed publication claims"
+      ],
+      "owner_route": "type_a_autonomous_seed_loop",
+      "private_body_exported": false,
+      "projector_row_id": "seed_and_ledger_closeout_contract",
+      "projector_stage": "validation_and_closeout",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_output": "seed closeout, next reentry prompt, Work Ledger append, and scoped landing attempt",
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+      "validation_ref": "kernel.py --validate-seed-heartbeat"
+    }
+  ],
+  "projector_summary": {
+    "authority_ceiling_row_count": 9,
+    "generated_region_hand_edit_authorized_count": 0,
+    "negative_case_count": 9,
+    "owner_route_count": 9,
+    "private_body_export_count": 0,
+    "proof_body_export_count": 0,
+    "provider_payload_export_count": 0,
+    "release_authorized_count": 0,
+    "row_count": 9,
+    "source_mutation_authorized_count": 0,
+    "source_ref_count": 9,
+    "stage_count": 6,
+    "validation_ref_count": 9
+  },
+  "public_claim": "Microcosm exposes a repeatable import-projector contract: future macro patterns must name what was copied, cleaned, omitted, bounded, validated, surfaced, and closed out before they become public runtime cells.",
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "generated_regions_require_owner_builders": true,
+    "private_paths_omitted": true,
+    "private_source_bodies_omitted": true,
+    "projector_is_read_model_only": true,
+    "proof_bodies_omitted": true,
+    "provider_payloads_omitted": true
+  },
+  "schema_version": "microcosm_public_import_projector_contract_lens_v1",
+  "selected_pattern_ids": [
+    "macro_projection_import_protocol",
+    "omission_receipt_reversible_projection_boundary",
+    "public_private_stripping_guard",
+    "route_cleanup_contract_plane",
+    "microcosm_substrate_flagship_population_seed"
+  ],
+  "status": "pass"
+}

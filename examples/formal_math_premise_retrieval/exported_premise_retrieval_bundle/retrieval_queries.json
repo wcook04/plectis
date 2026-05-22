@@ -1,0 +1,42 @@
+{
+  "schema_version": "formal_math_retrieval_queries_fixture_v1",
+  "query_set_id": "lean_std_public_synthetic_queries_v1",
+  "queries": [
+    {
+      "query_id": "q_nat_add_comm",
+      "split": "train",
+      "query_terms": ["nat", "addition", "commutative", "rewrite"],
+      "strategy_id": "commutativity_rewrite",
+      "recipe_id": "strategy_classification_4kb",
+      "top_k": 3,
+      "expected_public_premise_ids": ["Nat.add_comm"]
+    },
+    {
+      "query_id": "q_list_length_append",
+      "split": "dev",
+      "query_terms": ["list", "length", "append"],
+      "strategy_id": "structural_list",
+      "recipe_id": "skill_32kb",
+      "top_k": 3,
+      "expected_public_premise_ids": ["List.length_append"]
+    },
+    {
+      "query_id": "q_bool_and_comm",
+      "split": "test",
+      "query_terms": ["bool", "and", "commutative"],
+      "strategy_id": "boolean_normalization",
+      "recipe_id": "minimal_4kb",
+      "top_k": 2,
+      "expected_public_premise_ids": ["Bool.and_comm"]
+    },
+    {
+      "query_id": "q_iff_forward",
+      "split": "test",
+      "query_terms": ["iff", "forward", "implication"],
+      "strategy_id": "iff_split",
+      "recipe_id": "minimal_4kb",
+      "top_k": 2,
+      "expected_public_premise_ids": ["Iff.mp"]
+    }
+  ]
+}

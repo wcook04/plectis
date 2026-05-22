@@ -1,0 +1,14 @@
+{
+  "schema_version": "public_reveal_negative_case_v1",
+  "expected_negative_case_id": "missing_evidence_route",
+  "steps": [
+    {
+      "step_id": "marketing_jump_without_evidence",
+      "commands": [
+        "microcosm compile /tmp/microcosm-scratch"
+      ],
+      "inspect_refs": [],
+      "evidence_refs": []
+    }
+  ]
+}

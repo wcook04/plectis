@@ -1,0 +1,20 @@
+{
+  "blocker_capture_ref": "wie_fixture_negative_blocker",
+  "body_redacted": true,
+  "claimed_path_refs": [
+    "microcosm-substrate/README.md"
+  ],
+  "commit_claimed_landed": true,
+  "expected_negative_case_id": "commit_claim_without_head_change",
+  "head_after": "sha256:aaaaaa",
+  "head_before": "sha256:aaaaaa",
+  "landing_status": "metadata_blocked_patch_bundle",
+  "live_git_mutation_authorized": false,
+  "release_claim_authorized": false,
+  "run_id": "neg_commit_claim_without_head_change",
+  "unrelated_dirty_paths_staged": false,
+  "validation_refs": [
+    "tests/test_durable_agent_work_landing_replay.py"
+  ],
+  "work_ledger_closeout_ref": "wlr_fixture_negative_closeout"
+}

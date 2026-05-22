@@ -1,0 +1,71 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "formal_math_lean_proof_witness",
+  "fixture_id": "fixture::formal_math_lean_proof_witness::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate a bounded public Lean/Lake proof witness: a tiny synthetic Lake project compiles with the installed local toolchain while receipts redact proof bodies and negative cases preserve the authority ceiling.",
+  "inputs": [
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/invalid_proof.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/mathlib_import_forbidden.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/manifest_with_private_source_ref.json",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/manifest_with_proof_body.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "receipts/first_wave/formal_math_lean_proof_witness/lean_proof_witness_board.json",
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
+  "expected_negative_cases": [
+    "invalid_proof_rejected",
+    "mathlib_import_forbidden",
+    "private_source_ref_forbidden",
+    "proof_body_in_manifest_forbidden"
+  ],
+  "stable_error_codes": [
+    "LEAN_WITNESS_INVALID_PROOF_REJECTED",
+    "LEAN_WITNESS_FORBIDDEN_IMPORT",
+    "LEAN_WITNESS_PRIVATE_SOURCE_REF_FORBIDDEN",
+    "LEAN_WITNESS_PROOF_BODY_IN_MANIFEST_FORBIDDEN"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "witness_id",
+    "source_pattern_ids",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "tool_versions",
+    "lake_build",
+    "source_file_count",
+    "compiled_declaration_count"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "public synthetic Lean source is allowed; JSON manifests and receipts must not embed proof bodies",
+    "private_source_refs": "forbidden in public witness manifests",
+    "mathlib_imports": "forbidden until a later Mathlib-specific authority ceiling exists",
+    "provider_payload_bodies": "forbidden; this organ runs local Lean/Lake only",
+    "build_artifacts": "temporary Lake build output stays outside tracked source"
+  },
+  "authority_ceiling": "bounded public Lean/Lake witness only; not Mathlib authority, provider authority, release readiness, benchmark performance, or theorem-program authority beyond the declared toy fixture",
+  "anti_claim": "This fixture manifest accepts only a tiny public Lean/Lake witness compiled in a temporary workspace. It does not authorize Mathlib, provider calls, private proofs, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}

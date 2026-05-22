@@ -1,0 +1,13 @@
+{
+  "receipt_id": "neg.allowed_symbol_false_positive",
+  "expected_negative_case_id": "allowed_symbol_false_positive",
+  "proof_symbol_refs": [
+    "Nat.add_comm"
+  ],
+  "allowed_premise_ids": [
+    "premise.nat.add_comm"
+  ],
+  "cited_unallowed_premise_ids": [],
+  "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
+  "review_outcome": "bridge_escalate"
+}

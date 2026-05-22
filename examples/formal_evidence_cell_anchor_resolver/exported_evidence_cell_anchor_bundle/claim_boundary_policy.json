@@ -1,0 +1,23 @@
+{
+  "schema_version": "formal_evidence_cell_claim_boundary_policy_v1",
+  "policy_id": "public_formal_evidence_cell_runtime_boundary_policy",
+  "proof_language_requires_machine_anchor": true,
+  "theorem_correctness_claims_allowed": false,
+  "claim_strength_levels": [
+    {
+      "strength_id": "formal_evidence_cell_present",
+      "requires_evidence_cell": true,
+      "claim_authority": "metadata_claim_only"
+    },
+    {
+      "strength_id": "machine_anchor_metadata_present",
+      "requires_evidence_cell": true,
+      "claim_authority": "anchor_metadata_not_theorem_correctness"
+    },
+    {
+      "strength_id": "claim_boundary_policy_present",
+      "requires_evidence_cell": true,
+      "claim_authority": "policy_shape_not_formal_truth"
+    }
+  ]
+}

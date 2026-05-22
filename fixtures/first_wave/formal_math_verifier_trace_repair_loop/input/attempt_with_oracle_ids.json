@@ -1,0 +1,21 @@
+{
+  "schema_version": "formal_math_verifier_trace_negative_fixture_v1",
+  "attempts": [
+    {
+      "expected_negative_case_id": "attempt_with_oracle_ids",
+      "attempt_id": "negative_attempt_with_oracle_ids",
+      "verifier_class": "missing_premise",
+      "trace_grade": "oracle_leak",
+      "repair_action_id": "repair_strip_oracle_ids",
+      "oracle_needed_premise_ids": [
+        "oracle_private_needed_premise"
+      ],
+      "trace_events": [
+        {
+          "event_id": "negative_trace_oracle",
+          "event_class": "oracle_leak_detected"
+        }
+      ]
+    }
+  ]
+}

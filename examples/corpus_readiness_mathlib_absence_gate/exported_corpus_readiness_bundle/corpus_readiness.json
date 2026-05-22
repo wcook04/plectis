@@ -1,0 +1,49 @@
+{
+  "schema_version": "corpus_readiness_mathlib_absence_fixture_v1",
+  "source_pattern_ids": [
+    "corpus_readiness_mathlib_absence_gate"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+  ],
+  "corpora": [
+    {
+      "corpus_id": "lean_std_core",
+      "corpus_status": "available",
+      "lean_available": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": false,
+      "consumer_rule": "Query mathlib_lake_project_import_available before attempting Mathlib-dependent proof work."
+    },
+    {
+      "corpus_id": "minif2f_lean4_mathlib_translation",
+      "corpus_status": "available",
+      "lean_available": true,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": true,
+      "consumer_rule": "Treat translation rows as smoke metadata only until a Mathlib import probe passes."
+    },
+    {
+      "corpus_id": "leandojo",
+      "corpus_status": "absent",
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false,
+      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists."
+    },
+    {
+      "corpus_id": "pantograph",
+      "corpus_status": "absent",
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false,
+      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists."
+    }
+  ],
+  "anti_claim": "Runtime corpus readiness metadata does not authorize Lean/Lake execution or formal proof authority."
+}

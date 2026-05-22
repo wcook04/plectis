@@ -1,0 +1,16 @@
+{
+  "schema_version": "tactic_portfolio_availability_probe_fixture_v1",
+  "portfolio_id": "synthetic_core_tactic_portfolio_v1",
+  "environment_id": "lean_std_synthetic_mathlib_absent_v1",
+  "tactics": [
+    {"tactic_id": "rfl", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "decide", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "omega", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "simp", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "simp_all", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "grind", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "native_decide", "compile_status": "compile_pass", "environment": "lean_std_synthetic", "requires_mathlib": false},
+    {"tactic_id": "aesop", "compile_status": "environment_fail", "failure_classifier": "MATHLIB_IMPORT_MISSING", "environment": "mathlib_absent_synthetic", "requires_mathlib": true, "diagnostic": "unknown module prefix Mathlib"}
+  ],
+  "anti_claim": "This is a synthetic public tactic availability probe, not a proof-success claim and not a complete Lean tactic inventory."
+}

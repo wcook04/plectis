@@ -1,0 +1,156 @@
+{
+  "anti_claim": "Tactic portfolio availability validates public environment-scoped tactic callability metadata only. It does not run Lean/Lake in this public organ, prove any goal, authorize unavailable tactics, call providers, claim benchmark performance, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+    "availability_is_environment_scoped": true,
+    "benchmark_performance_authority": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_absence_is_probe_result": true,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "available_tactic_ids": [
+    "decide",
+    "grind",
+    "native_decide",
+    "omega",
+    "rfl",
+    "simp",
+    "simp_all"
+  ],
+  "body_redacted": true,
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe",
+  "compile_status_counts": {
+    "compile_pass": 7,
+    "environment_fail": 1
+  },
+  "created_at": "2026-05-21T17:08:53+00:00",
+  "environment_id": "lean_std_synthetic_mathlib_absent_v1",
+  "error_codes": [
+    "TACTIC_PORTFOLIO_AUTHORITY_OVERCLAIM",
+    "TACTIC_PORTFOLIO_MATHLIB_CLAIM_WITHOUT_PROBE",
+    "TACTIC_PORTFOLIO_MISSING_COMPILE_STATUS",
+    "TACTIC_PORTFOLIO_PROOF_BODY_FORBIDDEN",
+    "TACTIC_PORTFOLIO_UNPROBED_TACTIC_REFERENCED"
+  ],
+  "expected_negative_cases": {
+    "authority_overclaim": [
+      "TACTIC_PORTFOLIO_AUTHORITY_OVERCLAIM"
+    ],
+    "mathlib_claim_without_probe": [
+      "TACTIC_PORTFOLIO_MATHLIB_CLAIM_WITHOUT_PROBE"
+    ],
+    "missing_compile_status": [
+      "TACTIC_PORTFOLIO_MISSING_COMPILE_STATUS"
+    ],
+    "proof_body_leakage": [
+      "TACTIC_PORTFOLIO_PROOF_BODY_FORBIDDEN"
+    ],
+    "unprobed_tactic_referenced": [
+      "TACTIC_PORTFOLIO_UNPROBED_TACTIC_REFERENCED"
+    ]
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "TACTIC_PORTFOLIO_MISSING_COMPILE_STATUS",
+      "message": "A tactic row omitted compile_status.",
+      "negative_case_id": "missing_compile_status",
+      "subject_id": "simp",
+      "subject_kind": "tactic_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TACTIC_PORTFOLIO_MATHLIB_CLAIM_WITHOUT_PROBE",
+      "message": "Mathlib-dependent tactic availability was claimed without a passing Mathlib probe.",
+      "negative_case_id": "mathlib_claim_without_probe",
+      "subject_id": "aesop",
+      "subject_kind": "tactic_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TACTIC_PORTFOLIO_UNPROBED_TACTIC_REFERENCED",
+      "message": "Consumers may only reference tactics present in the declared portfolio probe.",
+      "negative_case_id": "unprobed_tactic_referenced",
+      "subject_id": "magic_tactic",
+      "subject_kind": "tactic_id"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TACTIC_PORTFOLIO_PROOF_BODY_FORBIDDEN",
+      "message": "Availability probe fixtures cannot carry proof, Lean, or provider bodies.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "omega",
+      "subject_kind": "payload"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "TACTIC_PORTFOLIO_AUTHORITY_OVERCLAIM",
+      "message": "Tactic availability cannot authorize proof authority, provider calls, benchmarks, or release.",
+      "negative_case_id": "authority_overclaim",
+      "subject_id": "benchmark_performance_claimed,formal_proof_authority,lean_lake_execution_authorized,provider_calls_authorized,release_authorized",
+      "subject_kind": "authority_ceiling"
+    }
+  ],
+  "fixture_id": "first_wave.tactic_portfolio_availability_probe",
+  "input_mode": "first_wave_fixture",
+  "mathlib_absence_gate_enforced": true,
+  "mathlib_dependent_tactic_ids": [
+    "aesop"
+  ],
+  "mathlib_lake_project_import_available": false,
+  "mathlib_probe_status": "environment_fail",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "authority_overclaim": [
+      "TACTIC_PORTFOLIO_AUTHORITY_OVERCLAIM"
+    ],
+    "mathlib_claim_without_probe": [
+      "TACTIC_PORTFOLIO_MATHLIB_CLAIM_WITHOUT_PROBE"
+    ],
+    "missing_compile_status": [
+      "TACTIC_PORTFOLIO_MISSING_COMPILE_STATUS"
+    ],
+    "proof_body_leakage": [
+      "TACTIC_PORTFOLIO_PROOF_BODY_FORBIDDEN"
+    ],
+    "unprobed_tactic_referenced": [
+      "TACTIC_PORTFOLIO_UNPROBED_TACTIC_REFERENCED"
+    ]
+  },
+  "organ_id": "tactic_portfolio_availability_probe",
+  "portfolio_id": "synthetic_core_tactic_portfolio_v1",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "receipt_id": "tactic_portfolio_availability_result_receipt_v1",
+  "receipt_paths": [
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+    "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
+  ],
+  "schema_version": "tactic_portfolio_availability_result_receipt_v1",
+  "source_pattern_ids": [
+    "tactic_portfolio_availability_probe"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+  ],
+  "status": "pass",
+  "tactic_count": 8,
+  "unavailable_tactic_ids": [
+    "aesop"
+  ],
+  "validator_id": "validator.microcosm.organs.tactic_portfolio_availability_probe"
+}

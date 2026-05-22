@@ -1,0 +1,153 @@
+{
+  "anti_claim": "Formal math verifier-trace repair loop validates a public synthetic replay of verifier feedback, trace grading, repair actions, failure-mode ledger updates, curriculum deltas, and cold rerun promotion gates. It does not run Lean or Lake, call providers, expose proof bodies or oracle premise ids, treat human or provider advice as proof correctness, prove theorem correctness, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_synthetic_verifier_trace_repair_metadata_only",
+    "formal_proof_authority": false,
+    "human_approval_as_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "oracle_premise_ids_allowed": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "board_id": "formal_math_verifier_trace_repair_loop_public_board",
+  "body_redacted": true,
+  "curriculum_edges": [
+    {
+      "body_redacted": true,
+      "delta_class": "add_retrieval_terms",
+      "from_failure_mode_id": "fm_missing_commutativity_prior",
+      "to_curriculum_node_id": "curriculum_closed_std_premise_terms"
+    },
+    {
+      "body_redacted": true,
+      "delta_class": "route_around_unavailable_dependency",
+      "from_failure_mode_id": "fm_mathlib_tactic_unavailable",
+      "to_curriculum_node_id": "curriculum_std_only_tactic_route"
+    },
+    {
+      "body_redacted": true,
+      "delta_class": "repair_after_cold_rerun",
+      "from_failure_mode_id": "fm_invalid_body_shape",
+      "to_curriculum_node_id": "curriculum_goal_shape_repair"
+    }
+  ],
+  "failure_mode_ledger": [
+    {
+      "accepted_after_cold_rerun": false,
+      "body_redacted": true,
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_missing_commutativity_prior",
+      "repair_action_id": "repair_add_closed_std_premise_terms",
+      "verifier_class": "missing_premise"
+    },
+    {
+      "accepted_after_cold_rerun": false,
+      "body_redacted": true,
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_mathlib_tactic_unavailable",
+      "repair_action_id": "repair_route_to_std_only_tactic",
+      "verifier_class": "unavailable_tactic"
+    },
+    {
+      "accepted_after_cold_rerun": true,
+      "body_redacted": true,
+      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
+      "failure_mode_id": "fm_invalid_body_shape",
+      "repair_action_id": "repair_change_goal_shape_route",
+      "verifier_class": "invalid_proof_body_redacted"
+    }
+  ],
+  "formal_proof_authority": false,
+  "input_mode": "fixture",
+  "mechanics": [
+    {
+      "authority": "teaching_signal_not_proof_result",
+      "count": 6,
+      "mechanic_id": "verifier_feedback_trace"
+    },
+    {
+      "authority": "repair_metadata_requires_verifier_class",
+      "count": 3,
+      "mechanic_id": "repair_action_gate"
+    },
+    {
+      "authority": "promotion_requires_cold_rerun_receipt",
+      "count": 1,
+      "mechanic_id": "cold_rerun_promotion"
+    },
+    {
+      "authority": "failure_mode_ledger_delta_not_theorem_correctness",
+      "count": 3,
+      "mechanic_id": "curriculum_delta"
+    }
+  ],
+  "organ_id": "formal_math_verifier_trace_repair_loop",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+  ],
+  "schema_version": "formal_math_verifier_trace_repair_loop_board_v1",
+  "source_pattern_ids": [
+    "formal_math_verifier_trace_repair_loop_compound",
+    "lean_std_toolchain_premise_index",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "formal_math_premise_retrieval",
+    "proof_diagnostic_evidence_spine"
+  ],
+  "status": "pass",
+  "verifier_attempts": [
+    {
+      "attempt_id": "attempt_a_missing_premise",
+      "body_redacted": true,
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_missing_commutativity_prior",
+      "promoted_after_cold_rerun": false,
+      "public_input_hash": "sha256:toy-a-redacted",
+      "repair_action_id": "repair_add_closed_std_premise_terms",
+      "statement_id": "toy_nat_add_comm_goal",
+      "trace_event_count": 2,
+      "trace_grade": "blocked_before_tactic",
+      "verifier_class": "missing_premise"
+    },
+    {
+      "attempt_id": "attempt_b_unavailable_tactic",
+      "body_redacted": true,
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_mathlib_tactic_unavailable",
+      "promoted_after_cold_rerun": false,
+      "public_input_hash": "sha256:toy-b-redacted",
+      "repair_action_id": "repair_route_to_std_only_tactic",
+      "statement_id": "toy_list_append_assoc_goal",
+      "trace_event_count": 2,
+      "trace_grade": "blocked_by_environment",
+      "verifier_class": "unavailable_tactic"
+    },
+    {
+      "attempt_id": "attempt_c_invalid_body_redacted",
+      "body_redacted": true,
+      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
+      "failure_mode_id": "fm_invalid_body_shape",
+      "promoted_after_cold_rerun": true,
+      "public_input_hash": "sha256:toy-c-redacted",
+      "repair_action_id": "repair_change_goal_shape_route",
+      "statement_id": "toy_bool_and_comm_goal",
+      "trace_event_count": 2,
+      "trace_grade": "failed_checker_then_repaired",
+      "verifier_class": "invalid_proof_body_redacted"
+    }
+  ]
+}

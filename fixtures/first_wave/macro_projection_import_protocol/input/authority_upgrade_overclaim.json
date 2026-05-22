@@ -1,0 +1,11 @@
+{
+  "schema_version": "macro_projection_import_negative_case_v1",
+  "case_id": "authority_upgrade_overclaim",
+  "expected_negative_case_id": "authority_upgrade_overclaim",
+  "authority_ceiling": {
+    "source_authority_above_macro_contracts": true,
+    "live_macro_source_authority": true,
+    "whole_system_correctness_claim": true
+  },
+  "body_redacted": true
+}

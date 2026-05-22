@@ -1,0 +1,59 @@
+{
+  "authority_ceiling": {
+    "broad_checkpoint_authorized": false,
+    "live_git_mutation_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "unrelated_dirty_paths_authorized": false
+  },
+  "body_redacted": true,
+  "lane_decision_table": [
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "scoped_commit",
+      "release_authorized": false,
+      "requires": [
+        "owned_path_claims",
+        "owner_native_validation",
+        "clean_staged_index",
+        "head_compare_and_swap"
+      ],
+      "stages_unrelated_dirty_paths": false
+    },
+    {
+      "allowed_without_operator_authorization": false,
+      "lane_id": "broad_checkpoint",
+      "release_authorized": false,
+      "requires": [
+        "explicit_operator_authorization",
+        "quick_safety_checks",
+        "private_root_trust_envelope"
+      ],
+      "stages_unrelated_dirty_paths": "only_after_operator_authorization"
+    },
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "metadata_blocked_patch_bundle",
+      "release_authorized": false,
+      "requires": [
+        "validation_transcript",
+        "task_ledger_blocker_capture",
+        "work_ledger_finalizer",
+        "seed_reentry_update"
+      ],
+      "stages_unrelated_dirty_paths": false
+    },
+    {
+      "allowed_without_operator_authorization": true,
+      "lane_id": "hard_stop",
+      "release_authorized": false,
+      "requires": [
+        "stop_mutation",
+        "capture_blocker",
+        "preserve_unrelated_changes"
+      ],
+      "stages_unrelated_dirty_paths": false
+    }
+  ],
+  "policy_id": "durable_agent_work_landing_policy_v1"
+}

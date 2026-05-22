@@ -1,0 +1,35 @@
+{
+  "schema_version": "public_reveal_claim_floor_v1",
+  "claim_id": "microcosm_public_reveal_claim",
+  "target_audience": [
+    "technical founder",
+    "research engineer",
+    "agent-systems reviewer"
+  ],
+  "public_claim": "Microcosm turns a repo into a local operating substrate: patterns, routes, work transactions, events, evidence, and explanations.",
+  "required_public_claim_phrases": [
+    "repo",
+    "local operating substrate",
+    "patterns",
+    "routes",
+    "work transactions",
+    "events",
+    "evidence",
+    "explanations"
+  ],
+  "forbidden_claims": [
+    "release ready",
+    "hosted public service",
+    "private data equivalent",
+    "whole-system correctness"
+  ],
+  "authority_ceiling": {
+    "release_authorized": false,
+    "hosted_public_authorized": false,
+    "publication_authorized": false,
+    "recipient_work_authorized": false,
+    "provider_calls_authorized": false,
+    "private_data_equivalence_claim": false,
+    "whole_system_correctness_claim": false
+  }
+}

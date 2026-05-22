@@ -1,0 +1,16 @@
+{
+  "active_injection_adopted": false,
+  "body_exported": false,
+  "decision": "ADD",
+  "episode_id": "negative_auto_promotion",
+  "episode_order": 9,
+  "event_id": "negative_private_candidate_auto_promotion",
+  "evidence_handle_ref": "evidence.memory.negative.private_candidate",
+  "expected_negative_case_id": "private_candidate_auto_promotion",
+  "memory_route_ref": "route.memory.write.synthetic.private_candidate",
+  "memory_subject_id": "private_candidate_without_receipt",
+  "metadata_only_ref": true,
+  "private_candidate_auto_promoted": true,
+  "private_thread_ref": "thread_ref.synthetic.private.metadata_only",
+  "source_authority_claim": false
+}

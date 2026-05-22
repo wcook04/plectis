@@ -1,0 +1,114 @@
+{
+  "anti_claim": "This fixture validates synthetic public circuit-attribution metadata only; it does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, benchmark scores, or release authority.",
+  "authority_ceiling": "synthetic circuit attribution metadata only; no private weights, raw activations, proprietary prompts, hidden reasoning, provider payload, private internals, benchmark, product-transparency, publication, or release authority",
+  "expected_negative_cases": [
+    "private_model_weights_export",
+    "raw_activation_dump",
+    "proprietary_prompt_export",
+    "hidden_chain_of_thought_export",
+    "unverifiable_feature_name",
+    "graph_screenshot_without_edges",
+    "transparency_claim_without_intervention",
+    "faithfulness_claim_without_sufficiency_limit"
+  ],
+  "fixture_id": "fixture::mechanistic_interpretability_circuit_attribution_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_protocol.json",
+      "role": "macro-to-public attribution protocol"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/intervention_policy.json",
+      "role": "metadata-only intervention policy"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/feature_catalog.json",
+      "role": "positive sparse-feature catalog rows"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
+      "role": "positive circuit-attribution replay rows"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/private_model_weights_export.json",
+      "role": "negative case: private_model_weights_export"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/raw_activation_dump.json",
+      "role": "negative case: raw_activation_dump"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/proprietary_prompt_export.json",
+      "role": "negative case: proprietary_prompt_export"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/hidden_chain_of_thought_export.json",
+      "role": "negative case: hidden_chain_of_thought_export"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/unverifiable_feature_name.json",
+      "role": "negative case: unverifiable_feature_name"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/graph_screenshot_without_edges.json",
+      "role": "negative case: graph_screenshot_without_edges"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/transparency_claim_without_intervention.json",
+      "role": "negative case: transparency_claim_without_intervention"
+    },
+    {
+      "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/faithfulness_claim_without_sufficiency_limit.json",
+      "role": "negative case: faithfulness_claim_without_sufficiency_limit"
+    }
+  ],
+  "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "INTERPRETABILITY_PRIVATE_WEIGHTS_FORBIDDEN",
+    "INTERPRETABILITY_RAW_ACTIVATION_DUMP_FORBIDDEN",
+    "INTERPRETABILITY_PROPRIETARY_PROMPT_FORBIDDEN",
+    "INTERPRETABILITY_HIDDEN_COT_FORBIDDEN",
+    "INTERPRETABILITY_FEATURE_NAME_UNVERIFIABLE",
+    "INTERPRETABILITY_MACHINE_READABLE_EDGES_REQUIRED",
+    "INTERPRETABILITY_INTERVENTION_RECEIPT_REQUIRED",
+    "INTERPRETABILITY_FAITHFULNESS_REQUIRES_LIMITS"
+  ],
+  "title": "Mechanistic interpretability circuit attribution replay fixture",
+  "validator": "microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay",
+  "validator_command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
+  "validator_contract_ratchet_v1": {
+    "per_output_receipt_field_floor": {
+      "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json": [
+        "status",
+        "organ_id",
+        "selected_route_id",
+        "selected_pattern_ids",
+        "attribution_summary",
+        "negative_case_summary",
+        "authority_ceiling",
+        "private_state_scan",
+        "anti_claim"
+      ],
+      "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json": [
+        "status",
+        "organ_id",
+        "fixture_id",
+        "replay_count",
+        "expected_negative_case_count",
+        "observed_negative_case_count",
+        "authority_ceiling",
+        "anti_claim"
+      ]
+    },
+    "required_negative_case_count": 8,
+    "required_positive_row_count": 6,
+    "status": "active"
+  }
+}

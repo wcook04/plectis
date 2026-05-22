@@ -1,0 +1,50 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::standards_meta_diagnostics::first_wave_contract_v1",
+  "organ_id": "standards_meta_diagnostics",
+  "title": "Standards meta diagnostics fixture",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+      "role": "synthetic public organ-to-standard inventory"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+      "role": "synthetic public organ runtime contract inventory"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+      "role": "diagnostic policy and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/missing_standard_ref.json",
+      "role": "negative case: missing standard ref"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/unmapped_accepted_organ.json",
+      "role": "negative case: accepted organ absent from mapping"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/missing_receipt_ref.json",
+      "role": "negative case: missing receipt ref"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/release_overclaim.json",
+      "role": "negative case: release/provider/global authority overclaim"
+    },
+    {
+      "path": "fixtures/first_wave/standards_meta_diagnostics/input/private_source_leakage.json",
+      "role": "negative case: private source body leakage"
+    }
+  ],
+  "validator": "microcosm_core.organs.standards_meta_diagnostics",
+  "validator_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
+  "generated_receipts": [
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+    "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
+  ],
+  "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
+  "anti_claim": "This fixture validates public coverage diagnostics only; it does not become source authority, expose private sources, or authorize release."
+}

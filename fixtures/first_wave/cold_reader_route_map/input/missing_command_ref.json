@@ -1,0 +1,13 @@
+{
+  "schema_version": "cold_reader_route_negative_case_v1",
+  "case_id": "missing_command_ref",
+  "routes": [
+    {
+      "route_id": "missing_command_ref",
+      "docs_refs": [
+        "README.md"
+      ]
+    }
+  ],
+  "body_redacted": true
+}

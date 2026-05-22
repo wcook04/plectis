@@ -1,0 +1,15 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "unknown_strategy_id",
+  "cases": [
+    {
+      "case_id": "unknown_strategy_enum_member",
+      "problem_id": "toy_iff_equivalence",
+      "candidate_strategy_ids": [
+        "non_public_strategy"
+      ],
+      "pre_oracle": true,
+      "body_redacted": true
+    }
+  ]
+}

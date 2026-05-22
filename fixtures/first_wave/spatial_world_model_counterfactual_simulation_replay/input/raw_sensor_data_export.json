@@ -1,0 +1,38 @@
+{
+  "counterfactual_replay": {
+    "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
+    "benchmark_score_claim": false,
+    "body_redacted": true,
+    "cold_replay_ref": "receipts/cold_replay/warehouse_occlusion_left_forklift_stop.json",
+    "consistency_budget": {
+      "max_heading_delta_deg": 3,
+      "max_position_delta_m": 0.09,
+      "max_timestep_lag": 1
+    },
+    "counterfactual_event": "occluded_forklift_enters_aisle",
+    "fidelity_limit_label": "synthetic_grid_only",
+    "generated_video_only_authority": false,
+    "geographic_accuracy_claim": false,
+    "limitation_labels": [
+      "synthetic_metadata",
+      "not_geographic_ground_truth"
+    ],
+    "live_av_operation_authorized": false,
+    "live_robot_operation_authorized": false,
+    "oracle_state_check_ref": "oracle_check::warehouse_occlusion_left_forklift_stop",
+    "predicted_state_ref": "predicted_state::warehouse_occlusion_left_forklift_stop",
+    "private_video_exported": false,
+    "rare_event_coverage_label": "occlusion",
+    "raw_sensor_data_exported": true,
+    "real_world_location_claim": false,
+    "release_authorized": false,
+    "replay_id": "negative_raw_sensor_data_export",
+    "scene_state_ref": "scene_state::warehouse_occlusion_left_forklift_stop",
+    "sensor_packet_refs": [
+      "public_sensor_packet::warehouse_occlusion_left_forklift_stop::geometry",
+      "public_sensor_packet::warehouse_occlusion_left_forklift_stop::occupancy"
+    ],
+    "simulator_product_claim": false,
+    "transition_diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop"
+  }
+}

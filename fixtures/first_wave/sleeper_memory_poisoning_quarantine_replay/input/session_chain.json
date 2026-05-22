@@ -1,0 +1,37 @@
+{
+  "schema_version": "sleeper_memory_session_chain_v1",
+  "session_chain": [
+    {
+      "body_redacted": true,
+      "chronological_order": 1,
+      "private_ref_metadata_only": true,
+      "public_evidence_ref": "evidence.sleeper_memory.session_a.source_capsule",
+      "session_id": "session_a_poisoned_source_seen",
+      "session_role": "poisoned_source_seen"
+    },
+    {
+      "body_redacted": true,
+      "chronological_order": 2,
+      "private_ref_metadata_only": true,
+      "public_evidence_ref": "evidence.sleeper_memory.session_b.quarantine_receipt",
+      "session_id": "session_b_memory_write_quarantined",
+      "session_role": "memory_write_quarantined"
+    },
+    {
+      "body_redacted": true,
+      "chronological_order": 3,
+      "private_ref_metadata_only": true,
+      "public_evidence_ref": "evidence.sleeper_memory.session_c.retrieval_gate",
+      "session_id": "session_c_later_retrieval_action_gated",
+      "session_role": "later_retrieval_action_gated"
+    },
+    {
+      "body_redacted": true,
+      "chronological_order": 4,
+      "private_ref_metadata_only": true,
+      "public_evidence_ref": "evidence.sleeper_memory.session_d.rollback_rerun",
+      "session_id": "session_d_rollback_and_cold_rerun",
+      "session_role": "rollback_and_cold_rerun"
+    }
+  ]
+}

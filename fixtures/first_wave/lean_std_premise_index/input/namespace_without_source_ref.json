@@ -1,0 +1,25 @@
+{
+  "schema_version": "lean_std_premise_index_negative_case_v1",
+  "expected_negative_case_id": "namespace_without_source_ref",
+  "premises": [
+    {
+      "premise_id": "missing_source_ref",
+      "declaration_name": "Bool.and_comm",
+      "namespace": "Bool",
+      "source_ref": "",
+      "statement_shape": "public_metadata_only",
+      "retrieval_terms": [
+        "boolean",
+        "and",
+        "commutative"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

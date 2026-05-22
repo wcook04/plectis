@@ -1,0 +1,35 @@
+{
+  "contribution_decomposition_ref": "capsules/contribution_decomposition_public.json",
+  "rubric_tree_ref": "rubrics/replication_rubric_tree_public.json",
+  "allowed_public_input_refs": [
+    "inputs/public_problem_statement.md",
+    "inputs/public_synthetic_table.csv"
+  ],
+  "scratch_repo_scaffold_ref": "scratch/scaffold_manifest_public.json",
+  "experiment_dag_ref": "experiments/experiment_dag_public.json",
+  "metric_script_refs": [
+    "metrics/compute_primary_metric.py",
+    "metrics/check_ablation_delta.py"
+  ],
+  "artifact_hash_refs": [
+    "artifacts/model_trace.sha256",
+    "artifacts/result_table.sha256"
+  ],
+  "grader_report_ref": "grader/grader_report_public.json",
+  "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
+  "ablation_diff_ref": "ablations/ablation_diff_public.json",
+  "failure_taxonomy_ref": "failures/failure_taxonomy_public.json",
+  "cold_rerun_receipt_ref": "rerun/cold_rerun_receipt.json",
+  "original_author_code_reused": false,
+  "original_author_code_allowed": false,
+  "hidden_rubric_exported": false,
+  "replication_status": "success",
+  "report_only_success": false,
+  "benchmark_performance_claim_authorized": false,
+  "compute_search": "bounded",
+  "compute_budget_capped": true,
+  "grading_mode": "artifact_replay_grader",
+  "artifact_replay_required": true,
+  "paper_id": "neg_private_body",
+  "private_paper_body": "[redacted synthetic private paper body]"
+}

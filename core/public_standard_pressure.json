@@ -1,20 +1,11 @@
 {
-  "schema_version": "public_microcosm_standard_pressure_v1",
-  "surface_id": "public_microcosm_standard_pressure",
-  "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
-  "source_ref": "core/public_standard_pressure.json",
+  "anti_claim": "Standard pressure rows are public-safe constraints over local Microcosm state. They do not promote global doctrine, authorize source mutation, or prove release readiness.",
   "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
   "private_source_bodies_included": false,
-  "anti_claim": "Standard pressure rows are public-safe constraints over local Microcosm state. They do not promote global doctrine, authorize source mutation, or prove release readiness.",
   "rows": [
     {
-      "standard_id": "json_contract_markdown_projection",
-      "title": "JSON Contract, Markdown Projection",
+      "authority_boundary": "public_contract_projection_not_private_doctrine_body",
       "claim": "Project-local JSON is the contract; markdown and browser views are projections.",
-      "source_refs": [
-        "principles:pri_001",
-        "standards/std_microcosm_standard.json"
-      ],
       "kernel_primitive_refs": [
         "project",
         "catalog",
@@ -26,16 +17,16 @@
         "*"
       ],
       "runtime_hook": "architecture.write_project_architecture",
-      "authority_boundary": "public_contract_projection_not_private_doctrine_body"
+      "source_refs": [
+        "principles:pri_001",
+        "standards/std_microcosm_standard.json"
+      ],
+      "standard_id": "json_contract_markdown_projection",
+      "title": "JSON Contract, Markdown Projection"
     },
     {
-      "standard_id": "substrate_derived_projection",
-      "title": "Substrate-Derived Projection",
+      "authority_boundary": "local_state_projection_not_source_authority",
       "claim": "Explanations must derive from local state files instead of hand-authored proof prose.",
-      "source_refs": [
-        "principles:pri_121",
-        "paper_modules:system_self_comprehension_root"
-      ],
       "kernel_primitive_refs": [
         "catalog",
         "pattern",
@@ -46,16 +37,16 @@
         "*"
       ],
       "runtime_hook": "architecture.explain_route",
-      "authority_boundary": "local_state_projection_not_source_authority"
+      "source_refs": [
+        "principles:pri_121",
+        "paper_modules:system_self_comprehension_root"
+      ],
+      "standard_id": "substrate_derived_projection",
+      "title": "Substrate-Derived Projection"
     },
     {
-      "standard_id": "projection_lineage_not_authority",
-      "title": "Projection Lineage, Not Authority",
+      "authority_boundary": "generated_projection_interface_not_owner_source",
       "claim": "Generated route, graph, explanation, and evidence views must expose lineage and anti-claims.",
-      "source_refs": [
-        "principles:pri_142",
-        "paper_modules:navigation_hologram_theory"
-      ],
       "kernel_primitive_refs": [
         "route",
         "event",
@@ -66,17 +57,16 @@
         "*"
       ],
       "runtime_hook": "architecture.build_graph",
-      "authority_boundary": "generated_projection_interface_not_owner_source"
+      "source_refs": [
+        "principles:pri_142",
+        "paper_modules:navigation_hologram_theory"
+      ],
+      "standard_id": "projection_lineage_not_authority",
+      "title": "Projection Lineage, Not Authority"
     },
     {
-      "standard_id": "reversible_work_transaction",
-      "title": "Reversible Work Transaction",
+      "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
       "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
-      "source_refs": [
-        "paper_modules:operational_work_item_spine",
-        "standards/std_microcosm_work_item.json",
-        "standards/std_microcosm_mission.json"
-      ],
       "kernel_primitive_refs": [
         "route",
         "work",
@@ -88,17 +78,17 @@
         "*"
       ],
       "runtime_hook": "project_substrate.create_work/run_work",
-      "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation"
+      "source_refs": [
+        "paper_modules:operational_work_item_spine",
+        "standards/std_microcosm_work_item.json",
+        "standards/std_microcosm_mission.json"
+      ],
+      "standard_id": "reversible_work_transaction",
+      "title": "Reversible Work Transaction"
     },
     {
-      "standard_id": "evidence_as_black_box_recorder",
-      "title": "Evidence As Black-Box Recorder",
+      "authority_boundary": "local_observability_not_live_telemetry_authority",
       "claim": "Events and receipts record what happened; they are drilldown evidence, not the cockpit.",
-      "source_refs": [
-        "organs:proof_diagnostic_evidence_spine",
-        "organs:agent_route_observability_runtime",
-        "standards/std_microcosm_evidence_graph.json"
-      ],
       "kernel_primitive_refs": [
         "event",
         "evidence",
@@ -108,16 +98,17 @@
         "*"
       ],
       "runtime_hook": "project_substrate.observe_project/list_evidence",
-      "authority_boundary": "local_observability_not_live_telemetry_authority"
+      "source_refs": [
+        "organs:proof_diagnostic_evidence_spine",
+        "organs:agent_route_observability_runtime",
+        "standards/std_microcosm_evidence_graph.json"
+      ],
+      "standard_id": "evidence_as_black_box_recorder",
+      "title": "Evidence As Black-Box Recorder"
     },
     {
-      "standard_id": "assimilation_without_promotion",
-      "title": "Assimilation Without Promotion",
+      "authority_boundary": "local_closeout_metadata_not_global_learning_authority",
       "claim": "Closeout records next local actions and residuals without promoting global doctrine.",
-      "source_refs": [
-        "core/pattern_assimilation_policy.json",
-        "organs:pattern_assimilation_step"
-      ],
       "kernel_primitive_refs": [
         "work",
         "assimilation",
@@ -127,7 +118,572 @@
         "*"
       ],
       "runtime_hook": "project_substrate.run_work",
-      "authority_boundary": "local_closeout_metadata_not_global_learning_authority"
+      "source_refs": [
+        "core/pattern_assimilation_policy.json",
+        "organs:pattern_assimilation_step"
+      ],
+      "standard_id": "assimilation_without_promotion",
+      "title": "Assimilation Without Promotion"
+    },
+    {
+      "authority_boundary": "readiness_metadata_not_formal_proof_authority",
+      "claim": "Formal-math readiness surfaces may report closed premise, tactic, route, and context availability, but they must not claim theorem proof, Mathlib, provider, or Lean/Lake execution authority.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_readiness_gate.plan_readiness_extensions",
+      "source_refs": [
+        "organs:formal_math_readiness_gate",
+        "standards/std_microcosm_formal_math_readiness_gate.json"
+      ],
+      "standard_id": "formal_readiness_not_proof_authority",
+      "title": "Formal Readiness, Not Proof Authority"
+    },
+    {
+      "authority_boundary": "corpus_environment_metadata_not_mathlib_proof_or_benchmark_authority",
+      "claim": "Corpus readiness surfaces must make Mathlib absence explicit and block dependent consumers before proof work.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "corpus_readiness_mathlib_absence_gate.run_projection_bundle",
+      "source_refs": [
+        "organs:corpus_readiness_mathlib_absence_gate",
+        "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json"
+      ],
+      "standard_id": "corpus_readiness_mathlib_absence_gate",
+      "title": "Corpus Readiness Mathlib Absence Gate"
+    },
+    {
+      "authority_boundary": "retrieval_metadata_not_formal_proof_authority",
+      "claim": "Formal-math retrieval surfaces may rank public synthetic premises, but they must not claim theorem proof or Lean/Lake authority.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_premise_retrieval.run_retrieval_bundle",
+      "source_refs": [
+        "organs:formal_math_premise_retrieval",
+        "standards/std_microcosm_formal_math_premise_retrieval.json"
+      ],
+      "standard_id": "formal_retrieval_not_proof_authority",
+      "title": "Formal Retrieval, Not Proof Authority"
+    },
+    {
+      "authority_boundary": "context_budget_metadata_not_provider_or_proof_authority",
+      "claim": "Provider context recipes may budget public sections and deliverable routes, but they must not call providers, expose proof bodies, or include oracle-only truth-side material.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "provider_context_recipe_budget_policy.run_budget_bundle",
+      "source_refs": [
+        "organs:provider_context_recipe_budget_policy",
+        "standards/std_microcosm_provider_context_recipe_budget_policy.json"
+      ],
+      "standard_id": "provider_context_recipe_budget_no_provider_authority",
+      "title": "Provider Context Recipe Budget, No Provider Authority"
+    },
+    {
+      "authority_boundary": "pre_oracle_strategy_hypothesis_metadata_not_proof_or_oracle_authority",
+      "claim": "Strategy selection is a pre-oracle metadata hypothesis and retrieval lens; it cannot carry proof bodies, oracle labels, provider output, test tuning, or release authority.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "mathematical_strategy_atlas_hypothesis_scorer.run_strategy_bundle",
+      "source_refs": [
+        "organs:mathematical_strategy_atlas_hypothesis_scorer",
+        "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json"
+      ],
+      "standard_id": "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "title": "Mathematical Strategy Atlas, Pre-Oracle Hypothesis Boundary"
+    },
+    {
+      "authority_boundary": "environment_scoped_tactic_callability_metadata_not_proof_authority",
+      "claim": "Tactic availability is an environment-scoped probe artifact; Mathlib-dependent tactics cannot be marked available without a passing Mathlib import probe, and unprobed tactics cannot be consumed downstream.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "tactic_portfolio_availability_probe.run_availability_bundle",
+      "source_refs": [
+        "organs:tactic_portfolio_availability_probe",
+        "standards/std_microcosm_tactic_portfolio_availability_probe.json"
+      ],
+      "standard_id": "tactic_portfolio_availability_probe_environment_boundary",
+      "title": "Tactic Portfolio Availability, Environment Boundary"
+    },
+    {
+      "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
+      "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release readiness.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "target_shape_tactic_routing_gate.run_routing_bundle",
+      "source_refs": [
+        "organs:target_shape_tactic_routing_gate",
+        "standards/std_microcosm_target_shape_tactic_routing_gate.json"
+      ],
+      "standard_id": "target_shape_tactic_routing_gate_no_proof_authority",
+      "title": "Target Shape Tactic Routing, No Proof Authority"
+    },
+    {
+      "authority_boundary": "bounded_public_lean_lake_witness_not_mathlib_or_release_authority",
+      "claim": "Lean/Lake may run only for the tiny public witness fixture, with redacted receipts and no Mathlib or provider authority.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_lean_proof_witness.run_witness_bundle",
+      "source_refs": [
+        "organs:formal_math_lean_proof_witness",
+        "standards/std_microcosm_formal_math_lean_proof_witness.json"
+      ],
+      "standard_id": "formal_lean_witness_bounded_authority",
+      "title": "Formal Lean Witness, Bounded Authority"
+    },
+    {
+      "authority_boundary": "synthetic_prediction_reconciliation_not_trading_advice_or_live_market_authority",
+      "claim": "Prediction reconciliation is synthetic fixture reasoning only; it must not imply trading, financial advice, live market data, provider authority, performance claims, publication, or release.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "prediction_oracle_reconciliation.run_prediction_bundle",
+      "source_refs": [
+        "organs:prediction_oracle_reconciliation",
+        "standards/std_microcosm_prediction_oracle_reconciliation.json"
+      ],
+      "standard_id": "prediction_oracle_reconciliation_no_advice_authority",
+      "title": "Prediction Oracle Reconciliation, No Advice Authority"
+    },
+    {
+      "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
+      "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release readiness.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "ring2_premise_retrieval_precision_recall_harness.run_precision_recall_bundle",
+      "source_refs": [
+        "organs:ring2_premise_retrieval_precision_recall_harness",
+        "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json"
+      ],
+      "standard_id": "ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "title": "Ring-2 Retrieval Precision/Recall, No Proof Authority"
+    },
+    {
+      "authority_boundary": "coverage_projection_not_registry_or_release_authority",
+      "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, private-data equivalence, trading advice, or whole-system correctness.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "standards_meta_diagnostics.run_diagnostics_bundle",
+      "source_refs": [
+        "organs:standards_meta_diagnostics",
+        "standards/std_microcosm_standards_meta_diagnostics.json"
+      ],
+      "standard_id": "standards_meta_diagnostics_projection_only",
+      "title": "Standards Meta Diagnostics, Projection Only"
+    },
+    {
+      "authority_boundary": "route_map_projection_not_registry_or_release_authority",
+      "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, private-data equivalence, trading advice, source mutation, or whole-system correctness.",
+      "kernel_primitive_refs": [
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "cold_reader_route_map.run_route_map_bundle",
+      "source_refs": [
+        "organs:cold_reader_route_map",
+        "standards/std_microcosm_cold_reader_route_map.json"
+      ],
+      "standard_id": "cold_reader_route_map_projection_only",
+      "title": "Cold-Reader Route Map, Projection Only"
+    },
+    {
+      "authority_boundary": "closed_metadata_index_not_proof_or_release_authority",
+      "claim": "Lean/Std premise indexes may expose closed public metadata with Init source refs, namespace coverage, split eligibility, and retrieval terms, but must not expose Mathlib imports, proof bodies, oracle-needed ids, test split tuning, provider calls, or release authority.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "lean_std_premise_index.run_index_bundle",
+      "source_refs": [
+        "organs:lean_std_premise_index",
+        "standards/std_microcosm_lean_std_premise_index.json"
+      ],
+      "standard_id": "lean_std_premise_index_closed_metadata_only",
+      "title": "Lean/Std Premise Index, Closed Metadata Only"
+    },
+    {
+      "authority_boundary": "verifier_trace_repair_metadata_not_theorem_proof_authority",
+      "claim": "Verifier feedback may drive repair and curriculum metadata only when trace events, verifier classes, and cold rerun receipts are present.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_verifier_trace_repair_loop.run",
+      "source_refs": [
+        "organs:formal_math_verifier_trace_repair_loop",
+        "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
+        "paper_modules/formal_math_verifier_trace_repair_loop.md"
+      ],
+      "standard_id": "formal_math_verifier_trace_repair_loop_public_pressure",
+      "title": "Verifier Trace Repair Is Not Proof Authority"
+    },
+    {
+      "authority_boundary": "evidence_cell_anchor_metadata_not_theorem_correctness_authority",
+      "claim": "Proof-language claims must resolve to public evidence-cell metadata with source-anchor refs before they can be stated as evidence-cell-present claims.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_evidence_cell_anchor_resolver.run",
+      "source_refs": [
+        "organs:formal_evidence_cell_anchor_resolver",
+        "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
+        "paper_modules/formal_evidence_cell_anchor_resolver.md"
+      ],
+      "standard_id": "formal_evidence_cell_anchor_resolver_public_pressure",
+      "title": "Evidence Cell Anchors Are Not Theorem Authority"
+    },
+    {
+      "authority_boundary": "redacted_symbol_observation_not_theorem_correctness_authority",
+      "claim": "Lean-accepted proof receipts that use a known library symbol outside the allowed premise set must be quarantined as undeclared library priors, unless an explicit cited-unallowed premise already makes it a premise-budget violation.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "undeclared_library_prior_symbol_classifier.run",
+      "source_refs": [
+        "organs:undeclared_library_prior_symbol_classifier",
+        "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
+        "paper_modules/undeclared_library_prior_classifier.md"
+      ],
+      "standard_id": "undeclared_library_prior_symbol_classifier_public_pressure",
+      "title": "Undeclared Library Priors Are Quarantined Separately From Premise Budgets"
+    },
+    {
+      "authority_boundary": "synthetic_benchmark_integrity_replay_not_score_authority",
+      "claim": "Benchmark-style agent capability claims must pass through locked evaluator, contamination, file-access, trusted-reference, and anti-gaming replay receipts before any score language is allowed.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "benchmark-lab",
+        "replay-gauntlet"
+      ],
+      "runtime_hook": "agent_benchmark_integrity_anti_gaming_replay.run",
+      "source_refs": [
+        "organs:agent_benchmark_integrity_anti_gaming_replay",
+        "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json",
+        "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md"
+      ],
+      "standard_id": "agent_benchmark_integrity_anti_gaming_replay_public_pressure",
+      "title": "Benchmark Integrity Requires Anti-Gaming Replay Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_work_landing_replay_not_live_commit_authority",
+      "claim": "Durable agent work must pass through owned-path claims, validation refs, scoped commit attempt evidence, blocker capture, and Work Ledger closeout before public landed-language claims are allowed.",
+      "kernel_primitive_refs": [
+        "work",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "landing-replay",
+        "spine"
+      ],
+      "runtime_hook": "durable_agent_work_landing_replay.run",
+      "source_refs": [
+        "organs:durable_agent_work_landing_replay",
+        "standards/std_microcosm_durable_agent_work_landing_replay.json",
+        "paper_modules/durable_agent_work_landing_replay.md"
+      ],
+      "standard_id": "durable_agent_work_landing_replay_public_pressure",
+      "title": "Work Landing Requires Transaction Replay Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_replay_receipt_not_benchmark_or_publication_claim",
+      "claim": "Replication language requires rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts before success language.",
+      "kernel_primitive_refs": [
+        "evidence",
+        "event",
+        "explanation"
+      ],
+      "route_refs": [
+        "research-replication-rubric-artifact-replay"
+      ],
+      "runtime_hook": "microcosm_core.organs.research_replication_rubric_artifact_replay.run",
+      "source_refs": [
+        "standards/std_microcosm_research_replication_rubric_artifact_replay.json",
+        "paper_modules/research_replication_rubric_artifact_replay.md"
+      ],
+      "standard_id": "research_replication_rubric_artifact_replay",
+      "title": "Research Replication Needs Artifact Replay"
+    },
+    {
+      "authority_boundary": "synthetic_projection_drift_control_metadata_not_repair_authority",
+      "claim": "Projection-drift language must cite source signals, repair routes, validation refs, public replacements, and explicit no-source-authority/no-live-repair ceilings before it becomes public evidence.",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "drift-control",
+        "projection-safety",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.world_model_projection_drift_control_room.run",
+      "source_refs": [
+        "organs:world_model_projection_drift_control_room",
+        "standards/std_microcosm_world_model_projection_drift_control_room.json",
+        "paper_modules/world_model_projection_drift_control_room.md"
+      ],
+      "standard_id": "world_model_projection_drift_control_room_public_pressure",
+      "title": "World-Model Projection Drift Requires Repair-Route Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_spatial_replay_metadata_not_simulator_or_live_operation_authority",
+      "claim": "Spatial world-model counterfactual language must cite scene states, action traces, predicted states, transition diffs, oracle checks, sensor packet refs, and explicit no-private-video/no-raw-sensor/no-live-operation ceilings before it becomes public evidence.",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "spatial-simulation",
+        "projection-safety",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay.run",
+      "source_refs": [
+        "organs:spatial_world_model_counterfactual_simulation_replay",
+        "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
+        "paper_modules/spatial_world_model_counterfactual_simulation_replay.md"
+      ],
+      "standard_id": "spatial_world_model_counterfactual_simulation_replay_public_pressure",
+      "title": "Spatial Counterfactual Replay Requires Public Metadata Boundaries"
+    },
+    {
+      "authority_boundary": "synthetic_circuit_attribution_metadata_not_model_transparency_or_private_internals_authority",
+      "claim": "Mechanistic interpretability language must cite toy prompt refs, sparse feature ids, machine-readable graph edges, replacement-model approximation scores, causal intervention deltas, sufficiency labels, faithfulness limits, contradiction cases, and explicit no-private-weights/no-raw-activations/no-hidden-reasoning ceilings before it becomes public evidence.",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "circuit-attribution",
+        "projection-safety",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay.run",
+      "source_refs": [
+        "organs:mechanistic_interpretability_circuit_attribution_replay",
+        "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json",
+        "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md"
+      ],
+      "standard_id": "mechanistic_interpretability_circuit_attribution_replay_public_pressure",
+      "title": "Circuit Attribution Replay Requires Causal Intervention Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_agent_monitor_redteam_metadata_not_monitor_product_or_control_eval_authority",
+      "claim": "Agent-monitor honesty language must cite synthetic trajectories, monitor verdicts, adversarial probe refs, escalation refs, mitigation refs, redaction refs, negative cases, and explicit no-live-traffic/no-private-reasoning/no-product-performance ceilings before it becomes public evidence.",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "replay-gauntlet",
+        "hook-coverage",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.agent_monitor_redteam_falsification_replay.run",
+      "source_refs": [
+        "organs:agent_monitor_redteam_falsification_replay",
+        "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json",
+        "paper_modules/agent_monitor_redteam_falsification_replay.md"
+      ],
+      "standard_id": "agent_monitor_redteam_falsification_replay_public_pressure",
+      "title": "Monitor Redteam Replay Requires Falsification Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_agent_memory_conflict_metadata_not_live_memory_product_or_source_authority",
+      "claim": "Agent-memory honesty language must cite memory route refs, ADD/UPDATE/DELETE/NOOP decisions, conflict-edge refs, stale-downgrade refs, metadata-only private refs, paired memory-on/off replay receipts, answer-delta refs, negative cases, and explicit no-private-transcript/no-live-memory-product/no-source-authority ceilings before it becomes public evidence.",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "replay-gauntlet",
+        "standards-control",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.agent_memory_temporal_conflict_replay.run",
+      "source_refs": [
+        "organs:agent_memory_temporal_conflict_replay",
+        "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
+        "paper_modules/agent_memory_temporal_conflict_replay.md"
+      ],
+      "standard_id": "agent_memory_temporal_conflict_replay_public_pressure",
+      "title": "Memory Temporal-Conflict Replay Requires Conflict and Downgrade Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_fixture_receipts_only_not_live_memory_security_authority",
+      "domain": "agent_memory_security",
+      "negative_case_ids": [
+        "private_memory_body_export",
+        "live_user_memory_claim",
+        "raw_transcript_export",
+        "memory_write_without_provenance",
+        "trusted_promotion_from_untrusted_context",
+        "deletion_without_audit",
+        "final_answer_only_grading",
+        "unmetered_poison_influence"
+      ],
+      "owner_surfaces": [
+        "organs:sleeper_memory_poisoning_quarantine_replay",
+        "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
+        "paper_modules/sleeper_memory_poisoning_quarantine_replay.md"
+      ],
+      "pressure": "typed sleeper-memory poisoning quarantine claims require provenance, negative cases, rollback receipts, and authority ceiling",
+      "release_authorized": false,
+      "runtime_hook": "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay.run",
+      "standard_id": "sleeper_memory_poisoning_quarantine_replay_public_pressure"
+    },
+    {
+      "authority_boundary": "synthetic_fixture_receipts_only_not_live_mcp_tool_or_account_safety_authority",
+      "claim": "Tool-use honesty language must cite manifest scopes, call argument hashes, approval token refs, side-effect ledger refs, rollback refs, untrusted-output instruction/data split refs, cold replay refs, negative cases, and explicit no-live-account/no-credential/no-provider-payload ceilings before it becomes public evidence.",
+      "domain": "agent_tool_authority",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "negative_case_ids": [
+        "overbroad_scope",
+        "hidden_credential_export",
+        "tool_output_as_instruction",
+        "unapproved_side_effect",
+        "live_account_access",
+        "final_answer_only_grading",
+        "missing_rollback_receipt",
+        "unredacted_tool_payload"
+      ],
+      "owner_surfaces": [
+        "organs:mcp_tool_authority_replay",
+        "standards/std_microcosm_mcp_tool_authority_replay.json",
+        "paper_modules/mcp_tool_authority_replay.md"
+      ],
+      "pressure": "typed MCP tool-authority claims require scoped manifests, approval refs, side-effect ledger refs, rollback receipts, untrusted-output data boundaries, cold replay receipts, negative cases, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "replay-gauntlet",
+        "standards-control",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.mcp_tool_authority_replay.run",
+      "source_refs": [
+        "organs:mcp_tool_authority_replay",
+        "standards/std_microcosm_mcp_tool_authority_replay.json",
+        "paper_modules/mcp_tool_authority_replay.md"
+      ],
+      "standard_id": "mcp_tool_authority_replay_public_pressure",
+      "title": "MCP Tool Authority Replay Requires Scope, Side-Effect, and Rollback Receipts"
     }
-  ]
+  ],
+  "schema_version": "public_microcosm_standard_pressure_v1",
+  "source_ref": "core/public_standard_pressure.json",
+  "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
+  "surface_id": "public_microcosm_standard_pressure"
 }

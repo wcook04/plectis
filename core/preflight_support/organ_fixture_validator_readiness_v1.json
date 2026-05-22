@@ -1,12 +1,10 @@
 {
-  "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1",
+  "anti_claim": "This support snapshot is only for public clean-clone preflight tests. It authorizes only bounded public Lean/Lake fixture execution and synthetic prediction reconciliation fixture execution; it does not authorize trading, financial advice, release, private reconstruction source authority, provider calls, Mathlib-dependent proofs, or private-data equivalence.",
   "authority_boundary": "public_safe_support_snapshot_for_clean_clone_tests_not_macro_source_authority",
   "organ_readiness": [
     {
-      "organ_id": "pattern_binding_contract",
-      "fixture_id": "fixture::pattern_binding_contract::first_wave_contract_v1",
       "build_dependencies": [],
-      "fixture_manifest": "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
+      "fixture_id": "fixture::pattern_binding_contract::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl",
         "fixtures/first_wave/pattern_binding_contract/input/source_capsules.json",
@@ -17,29 +15,29 @@
         "fixtures/first_wave/pattern_binding_contract/input/duplicate_pattern_id_conflict.jsonl",
         "fixtures/first_wave/pattern_binding_contract/input/valid_binding_overclaim_public_leaf.json",
         "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
+      "organ_id": "pattern_binding_contract"
     },
     {
-      "organ_id": "executable_doctrine_grammar",
-      "fixture_id": "fixture::executable_doctrine_grammar::first_wave_contract_v1",
       "build_dependencies": [
         "pattern_binding_contract"
       ],
-      "fixture_manifest": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+      "fixture_id": "fixture::executable_doctrine_grammar::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json",
         "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/toy_navigation_route_plane.md",
         "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+      "organ_id": "executable_doctrine_grammar"
     },
     {
-      "organ_id": "proof_diagnostic_evidence_spine",
-      "fixture_id": "fixture::proof_diagnostic_evidence_spine::first_wave_contract_v1",
       "build_dependencies": [
         "pattern_binding_contract",
         "executable_doctrine_grammar"
       ],
-      "fixture_manifest": "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json",
+      "fixture_id": "fixture::proof_diagnostic_evidence_spine::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
         "fixtures/first_wave/proof_diagnostic_evidence_spine/input/provider_advisory_payloads.json",
@@ -48,18 +46,18 @@
         "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_board_source_authority_claim.json",
         "fixtures/first_wave/proof_diagnostic_evidence_spine/input/stale_proof_receipt_fingerprint.json",
         "fixtures/first_wave/proof_diagnostic_evidence_spine/input/passing_check_overclaims_runtime.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json",
+      "organ_id": "proof_diagnostic_evidence_spine"
     },
     {
-      "organ_id": "navigation_hologram_route_plane",
-      "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
       "build_dependencies": [
         "pattern_binding_contract",
         "executable_doctrine_grammar",
         "proof_diagnostic_evidence_spine",
         "formal_math_readiness_gate"
       ],
-      "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
+      "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/navigation_hologram_route_plane/input/toy_kind_rows.json",
         "fixtures/first_wave/navigation_hologram_route_plane/input/std_toy_option_surface.json",
@@ -74,17 +72,17 @@
         "fixtures/first_wave/navigation_hologram_route_plane/input/entry_packet_admission_floor.json",
         "fixtures/first_wave/navigation_hologram_route_plane/input/affordance_passport_selection.json",
         "fixtures/first_wave/navigation_hologram_route_plane/input/code_architecture_projection_packet.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
+      "organ_id": "navigation_hologram_route_plane"
     },
     {
-      "organ_id": "formal_math_readiness_gate",
-      "fixture_id": "fixture::formal_math_readiness_gate::first_wave_contract_v1",
       "build_dependencies": [
         "pattern_binding_contract",
         "executable_doctrine_grammar",
         "proof_diagnostic_evidence_spine"
       ],
-      "fixture_manifest": "core/fixture_manifests/formal_math_readiness_gate.fixture_manifest.json",
+      "fixture_id": "fixture::formal_math_readiness_gate::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/formal_math_readiness_gate/input/corpus_readiness.json",
         "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
@@ -96,55 +94,704 @@
         "fixtures/first_wave/formal_math_readiness_gate/input/premise_index_with_proof_body.json",
         "fixtures/first_wave/formal_math_readiness_gate/input/routing_allows_unavailable_tactic.json",
         "fixtures/first_wave/formal_math_readiness_gate/input/provider_context_recipe_overclaim.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/formal_math_readiness_gate.fixture_manifest.json",
+      "organ_id": "formal_math_readiness_gate"
     },
     {
-      "organ_id": "mission_transaction_work_spine",
-      "fixture_id": "fixture::mission_transaction_work_spine::first_wave_contract_v1",
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "macro_projection_import_protocol",
+        "lean_std_premise_index"
+      ],
+      "fixture_id": "fixture::formal_math_premise_retrieval::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/retrieval_queries.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipes.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/strategy_cases.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index_with_proof_body.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/query_with_oracle_ids.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/test_split_tuning_attempt.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipe_budget_overflow.json",
+        "fixtures/first_wave/formal_math_premise_retrieval/input/unknown_strategy_id.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/formal_math_premise_retrieval.fixture_manifest.json",
+      "organ_id": "formal_math_premise_retrieval"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval",
+        "proof_diagnostic_evidence_spine",
+        "macro_projection_import_protocol"
+      ],
+      "fixture_id": "fixture::formal_math_verifier_trace_repair_loop::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/attempt_with_proof_body.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/attempt_with_oracle_ids.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/trace_grade_without_trace.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_without_verifier_class.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_without_cold_rerun.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/provider_payload_leakage.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/human_approval_as_proof.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/formal_math_verifier_trace_repair_loop.fixture_manifest.json",
+      "organ_id": "formal_math_verifier_trace_repair_loop"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_math_lean_proof_witness"
+      ],
+      "fixture_id": "fixture::formal_evidence_cell_anchor_resolver::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/paper_claims.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/evidence_cell_registry.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/claim_boundary_policy.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/unknown_cell_overclaim.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/missing_source_anchor.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/proof_language_without_cell.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/private_source_ref_leakage.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/proof_body_leakage.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/theorem_correctness_overclaim.json",
+        "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/human_approval_as_evidence_cell.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/formal_evidence_cell_anchor_resolver.fixture_manifest.json",
+      "organ_id": "formal_evidence_cell_anchor_resolver"
+    },
+    {
+      "build_dependencies": [
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_evidence_cell_anchor_resolver"
+      ],
+      "fixture_id": "fixture::undeclared_library_prior_symbol_classifier::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/projection_protocol.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_index.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/classifier_policy.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/proof_body_leakage.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/private_source_ref_leakage.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/missing_escalation_for_undeclared_symbol.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_budget_precedence_violation.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/allowed_symbol_false_positive.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/unqualified_symbol_overclaim.json",
+        "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/theorem_correctness_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/undeclared_library_prior_symbol_classifier.fixture_manifest.json",
+      "organ_id": "undeclared_library_prior_symbol_classifier"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval"
+      ],
+      "fixture_id": "fixture::ring2_premise_retrieval_precision_recall_harness::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_rankings.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/oracle_labels_in_ranking.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/proof_body_leakage.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/test_split_tuning_attempt.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/metric_overclaim.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/missing_adversarial_decoy.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness"
+    },
+    {
+      "build_dependencies": [
+        "ring2_premise_retrieval_precision_recall_harness",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "fixture_id": "fixture::agent_benchmark_integrity_anti_gaming_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/locked_evaluator_policy.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/benchmark_cases.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/evaluator_edit_attempt.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/train_test_leakage.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/oracle_patch_body_leakage.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/hidden_gold_access.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/final_answer_only_grading.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/provider_payload_leakage.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/score_overclaim.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/pass_k_cherry_picking.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/misleading_test_admitted.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/private_issue_body_leakage.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_benchmark_integrity_anti_gaming_replay.fixture_manifest.json",
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval",
+        "ring2_premise_retrieval_precision_recall_harness"
+      ],
+      "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/budget_overflow_recipe.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/truth_side_section.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/proof_body_leakage.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_call_authorized.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/deliverable_type_route_mismatch.json",
+        "fixtures/first_wave/provider_context_recipe_budget_policy/input/omitted_sections_suppressed.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/provider_context_recipe_budget_policy.fixture_manifest.json",
+      "organ_id": "provider_context_recipe_budget_policy"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate"
+      ],
+      "fixture_id": "fixture::corpus_readiness_mathlib_absence_gate::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/mathlib_available_without_probe.json",
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_skips_readiness_gate.json",
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/private_corpus_source_ref.json",
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/proof_body_leakage.json",
+        "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/release_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/corpus_readiness_mathlib_absence_gate.fixture_manifest.json",
+      "organ_id": "corpus_readiness_mathlib_absence_gate"
+    },
+    {
+      "build_dependencies": [
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_math_readiness_gate",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_id": "fixture::mathematical_strategy_atlas_hypothesis_scorer::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/strategy_atlas.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/problem_features.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/hypothesis_cases.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/unknown_strategy_id.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/proof_body_with_strategy.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/oracle_strategy_label_leakage.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/post_oracle_strategy_selection.json",
+        "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/release_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/mathematical_strategy_atlas_hypothesis_scorer.fixture_manifest.json",
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer"
+      ],
+      "fixture_id": "fixture::tactic_portfolio_availability_probe::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/tactic_portfolio_probe.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/environment_probe.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/availability_policy.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/missing_compile_status.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/mathlib_claim_without_probe.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/unprobed_tactic_referenced.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/proof_body_leakage.json",
+        "fixtures/first_wave/tactic_portfolio_availability_probe/input/authority_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/tactic_portfolio_availability_probe.fixture_manifest.json",
+      "organ_id": "tactic_portfolio_availability_probe"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe"
+      ],
+      "fixture_id": "fixture::target_shape_tactic_routing_gate::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/tactic_portfolio_availability.json",
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json",
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/unavailable_tactic_admitted.json",
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/unprobed_tactic_allowed.json",
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/proof_body_leakage.json",
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/post_execution_route.json",
+        "fixtures/first_wave/target_shape_tactic_routing_gate/input/release_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/target_shape_tactic_routing_gate.fixture_manifest.json",
+      "organ_id": "target_shape_tactic_routing_gate"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "target_shape_tactic_routing_gate",
+        "macro_projection_import_protocol"
+      ],
+      "fixture_id": "fixture::lean_std_premise_index::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/lean_std_premise_index/input/projection_protocol.json",
+        "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+        "fixtures/first_wave/lean_std_premise_index/input/index_policy.json",
+        "fixtures/first_wave/lean_std_premise_index/input/mathlib_premise_forbidden.json",
+        "fixtures/first_wave/lean_std_premise_index/input/proof_body_leakage.json",
+        "fixtures/first_wave/lean_std_premise_index/input/oracle_needed_ids_leakage.json",
+        "fixtures/first_wave/lean_std_premise_index/input/test_split_tuning_attempt.json",
+        "fixtures/first_wave/lean_std_premise_index/input/namespace_without_source_ref.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/lean_std_premise_index.fixture_manifest.json",
+      "organ_id": "lean_std_premise_index"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "formal_math_premise_retrieval",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "provider_context_recipe_budget_policy",
+        "macro_projection_import_protocol"
+      ],
+      "fixture_id": "fixture::formal_math_lean_proof_witness::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/invalid_proof.lean",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/mathlib_import_forbidden.lean",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/manifest_with_private_source_ref.json",
+        "fixtures/first_wave/formal_math_lean_proof_witness/input/manifest_with_proof_body.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/formal_math_lean_proof_witness.fixture_manifest.json",
+      "organ_id": "formal_math_lean_proof_witness"
+    },
+    {
       "build_dependencies": [
         "pattern_binding_contract",
         "executable_doctrine_grammar",
         "proof_diagnostic_evidence_spine",
         "navigation_hologram_route_plane"
       ],
-      "fixture_manifest": "core/fixture_manifests/mission_transaction_work_spine.fixture_manifest.json",
+      "fixture_id": "fixture::mission_transaction_work_spine::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl",
         "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json",
         "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/mission_transaction_work_spine.fixture_manifest.json",
+      "organ_id": "mission_transaction_work_spine"
     },
     {
-      "organ_id": "agent_route_observability_runtime",
-      "fixture_id": "fixture::agent_route_observability_runtime::first_wave_contract_v1",
+      "build_dependencies": [
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "fixture_id": "fixture::durable_agent_work_landing_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/projection_protocol.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/claim_without_work_ledger_closeout.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/commit_claim_without_head_change.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/dirty_tree_boundary_missing.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/live_git_mutation_authorized.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/missing_evidence_ref.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/private_path_leakage.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/release_overclaim.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json",
+      "organ_id": "durable_agent_work_landing_replay"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "durable_agent_work_landing_replay"
+      ],
+      "fixture_id": "fixture::research_replication_rubric_artifact_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/replication_policy.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/original_author_code_reuse_forbidden.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/hidden_rubric_leakage.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/report_only_success.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/benchmark_performance_claim.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/private_paper_body_leakage.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/unbounded_compute_search.json",
+        "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/research_replication_rubric_artifact_replay.fixture_manifest.json",
+      "organ_id": "research_replication_rubric_artifact_replay"
+    },
+    {
+      "build_dependencies": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "standards_meta_diagnostics"
+      ],
+      "fixture_id": "fixture::world_model_projection_drift_control_room::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/projection_protocol.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_policy.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_row_without_source_ref.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/repair_route_without_validation_ref.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/projection_claiming_source_authority.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/live_repair_action_authorized.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/private_runtime_data_export.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/provider_payload_export.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/automatic_doctrine_promotion.json",
+        "fixtures/first_wave/world_model_projection_drift_control_room/input/release_from_drift_projection.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/world_model_projection_drift_control_room.fixture_manifest.json",
+      "organ_id": "world_model_projection_drift_control_room"
+    },
+    {
+      "build_dependencies": [
+        "world_model_projection_drift_control_room",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "standards_meta_diagnostics"
+      ],
+      "fixture_id": "fixture::spatial_world_model_counterfactual_simulation_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulation_protocol.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/replay_policy.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/scene_states.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/counterfactual_replays.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/private_video_export.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/real_world_location_claim.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/live_robot_or_av_operation.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/raw_sensor_data_export.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/simulator_product_claim.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/generated_video_only_authority.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/geographic_accuracy_claim.json",
+        "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/benchmark_score_without_state_diff.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/spatial_world_model_counterfactual_simulation_replay.fixture_manifest.json",
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+        "world_model_projection_drift_control_room",
+        "macro_projection_import_protocol",
+        "standards_meta_diagnostics"
+      ],
+      "fixture_id": "fixture::mechanistic_interpretability_circuit_attribution_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_protocol.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/intervention_policy.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/feature_catalog.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/private_model_weights_export.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/raw_activation_dump.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/proprietary_prompt_export.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/hidden_chain_of_thought_export.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/unverifiable_feature_name.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/graph_screenshot_without_edges.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/transparency_claim_without_intervention.json",
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/faithfulness_claim_without_sufficiency_limit.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/mechanistic_interpretability_circuit_attribution_replay.fixture_manifest.json",
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay"
+    },
+    {
       "build_dependencies": [
         "navigation_hologram_route_plane",
         "mission_transaction_work_spine",
         "proof_diagnostic_evidence_spine"
       ],
-      "fixture_manifest": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+      "fixture_id": "fixture::agent_route_observability_runtime::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl",
         "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json",
         "fixtures/first_wave/agent_route_observability_runtime/input/anti_pattern_debt.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+      "organ_id": "agent_route_observability_runtime"
     },
     {
-      "organ_id": "pattern_assimilation_step",
-      "fixture_id": "fixture::pattern_assimilation_step::first_wave_contract_v1",
       "build_dependencies": [
         "agent_route_observability_runtime",
         "mission_transaction_work_spine",
         "proof_diagnostic_evidence_spine"
       ],
-      "fixture_manifest": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+      "fixture_id": "fixture::pattern_assimilation_step::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/pattern_assimilation_step/input/organ_landing_summaries.jsonl",
         "fixtures/first_wave/pattern_assimilation_step/input/refinement_case.json",
         "fixtures/first_wave/pattern_assimilation_step/input/nothing_to_refine_case.json",
         "fixtures/first_wave/pattern_assimilation_step/input/missing_closeout_case.json"
-      ]
+      ],
+      "fixture_manifest": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+      "organ_id": "pattern_assimilation_step"
+    },
+    {
+      "build_dependencies": [
+        "pattern_assimilation_step",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "fixture_id": "fixture::public_reveal_walkthrough::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/public_reveal_walkthrough/input/reveal_walkthrough.json",
+        "fixtures/first_wave/public_reveal_walkthrough/input/substrate_evidence_map.json",
+        "fixtures/first_wave/public_reveal_walkthrough/input/audience_claim_floor.json",
+        "fixtures/first_wave/public_reveal_walkthrough/input/release_or_hosting_overclaim.json",
+        "fixtures/first_wave/public_reveal_walkthrough/input/private_equivalence_overclaim.json",
+        "fixtures/first_wave/public_reveal_walkthrough/input/missing_evidence_route.json",
+        "fixtures/first_wave/public_reveal_walkthrough/input/marketing_without_runtime.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json",
+      "organ_id": "public_reveal_walkthrough"
+    },
+    {
+      "build_dependencies": [
+        "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/private_body_import_overclaim.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/missing_omission_receipt.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/authority_upgrade_overclaim.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/missing_validation_ref.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/release_or_private_equivalence_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/macro_projection_import_protocol.fixture_manifest.json",
+      "organ_id": "macro_projection_import_protocol"
+    },
+    {
+      "build_dependencies": [
+        "macro_projection_import_protocol",
+        "pattern_assimilation_step",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_id": "fixture::prediction_oracle_reconciliation::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/invalid_cp2_target.json",
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/missing_bifurcation_resolution.json",
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/post_t_evidence_ref.json",
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/unconfirmed_equity_lane_claim.json",
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/unsafe_dossier_mutation.json",
+        "fixtures/first_wave/prediction_oracle_reconciliation/input/trading_advice_overclaim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/prediction_oracle_reconciliation.fixture_manifest.json",
+      "organ_id": "prediction_oracle_reconciliation"
+    },
+    {
+      "build_dependencies": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_premise_retrieval",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "provider_context_recipe_budget_policy",
+        "formal_math_lean_proof_witness",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "macro_projection_import_protocol",
+        "prediction_oracle_reconciliation",
+        "lean_std_premise_index"
+      ],
+      "fixture_id": "fixture::standards_meta_diagnostics::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/missing_standard_ref.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/unmapped_accepted_organ.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/missing_receipt_ref.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/release_overclaim.json",
+        "fixtures/first_wave/standards_meta_diagnostics/input/private_source_leakage.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+      "organ_id": "standards_meta_diagnostics"
+    },
+    {
+      "build_dependencies": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "macro_projection_import_protocol",
+        "standards_meta_diagnostics"
+      ],
+      "fixture_id": "fixture::cold_reader_route_map::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
+        "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
+        "fixtures/first_wave/cold_reader_route_map/input/route_policy.json",
+        "fixtures/first_wave/cold_reader_route_map/input/missing_command_ref.json",
+        "fixtures/first_wave/cold_reader_route_map/input/missing_receipt_ref.json",
+        "fixtures/first_wave/cold_reader_route_map/input/route_sequence_gap.json",
+        "fixtures/first_wave/cold_reader_route_map/input/release_overclaim.json",
+        "fixtures/first_wave/cold_reader_route_map/input/private_source_leakage.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/cold_reader_route_map.fixture_manifest.json",
+      "organ_id": "cold_reader_route_map"
+    },
+    {
+      "build_dependencies": [
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_route_observability_runtime"
+      ],
+      "fixture_id": "fixture::agent_monitor_redteam_falsification_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_policy.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/trajectory_cases.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/private_chain_of_thought_leakage.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/internal_code_export.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/exploit_instruction_material.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/credential_material.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/live_agent_traffic.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_product_performance_claim.json",
+        "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/coverage_without_adversarial_probe.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_monitor_redteam_falsification_replay.fixture_manifest.json",
+      "organ_id": "agent_monitor_redteam_falsification_replay"
+    },
+    {
+      "build_dependencies": [
+        "agent_monitor_redteam_falsification_replay",
+        "agent_route_observability_runtime"
+      ],
+      "fixture_id": "fixture::agent_memory_temporal_conflict_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/projection_protocol.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_policy.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_episodes.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/replay_observations.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/raw_transcript_export.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/private_candidate_auto_promotion.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/stale_preference_override.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_as_source_authority.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/vector_recall_without_evidence_handle.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/final_answer_only_memory_credit.json",
+        "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/active_injection_as_authoritative.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_memory_temporal_conflict_replay.fixture_manifest.json",
+      "organ_id": "agent_memory_temporal_conflict_replay"
+    },
+    {
+      "build_dependencies": [
+        "agent_memory_temporal_conflict_replay",
+        "agent_monitor_redteam_falsification_replay"
+      ],
+      "fixture_id": "fixture::sleeper_memory_poisoning_quarantine_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/projection_protocol.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/memory_policy.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/session_chain.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/quarantine_events.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/retrieval_replays.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/rollback_rerun.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/private_memory_body_export.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/live_user_memory_claim.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/raw_transcript_export.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/memory_write_without_provenance.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/trusted_promotion_from_untrusted_context.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/deletion_without_audit.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/final_answer_only_grading.json",
+        "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/unmetered_poison_influence.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/sleeper_memory_poisoning_quarantine_replay.fixture_manifest.json",
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay"
+    },
+    {
+      "build_dependencies": [
+        "agent_monitor_redteam_falsification_replay",
+        "sleeper_memory_poisoning_quarantine_replay"
+      ],
+      "fixture_id": "fixture::mcp_tool_authority_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/mcp_tool_authority_replay/input/projection_protocol.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/tool_policy.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/tool_manifest.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/tool_calls.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/tool_results.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/side_effect_ledger.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/cold_replay.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/overbroad_scope.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/hidden_credential_export.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/tool_output_as_instruction.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/unapproved_side_effect.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/live_account_access.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/final_answer_only_grading.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/missing_rollback_receipt.json",
+        "fixtures/first_wave/mcp_tool_authority_replay/input/unredacted_tool_payload.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json",
+      "organ_id": "mcp_tool_authority_replay"
     }
   ],
-  "anti_claim": "This support snapshot is only for public clean-clone preflight tests. It does not authorize release, private reconstruction source authority, provider calls, Lean/Lake, or private-data equivalence."
+  "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"
 }

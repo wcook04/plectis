@@ -1,0 +1,71 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "lean_std_premise_index",
+  "fixture_id": "fixture::lean_std_premise_index::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate a closed public Lean/Std premise index imported as metadata only: projection protocol refs, Init source refs, namespace coverage, split eligibility, and negative-case leakage controls.",
+  "inputs": [
+    "fixtures/first_wave/lean_std_premise_index/input/projection_protocol.json",
+    "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "fixtures/first_wave/lean_std_premise_index/input/index_policy.json",
+    "fixtures/first_wave/lean_std_premise_index/input/mathlib_premise_forbidden.json",
+    "fixtures/first_wave/lean_std_premise_index/input/proof_body_leakage.json",
+    "fixtures/first_wave/lean_std_premise_index/input/oracle_needed_ids_leakage.json",
+    "fixtures/first_wave/lean_std_premise_index/input/test_split_tuning_attempt.json",
+    "fixtures/first_wave/lean_std_premise_index/input/namespace_without_source_ref.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
+    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_board.json",
+    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
+    "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.lean_std_premise_index run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index",
+  "expected_negative_cases": [
+    "mathlib_premise_forbidden",
+    "proof_body_leakage",
+    "oracle_needed_ids_leakage",
+    "test_split_tuning_attempt",
+    "namespace_without_source_ref"
+  ],
+  "stable_error_codes": [
+    "LEAN_STD_INDEX_MATHLIB_FORBIDDEN",
+    "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+    "LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN",
+    "LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN",
+    "LEAN_STD_INDEX_SOURCE_REF_REQUIRED"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "protocol_id",
+    "source_pattern_ids",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "premise_count",
+    "namespace_counts"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "forbidden; premise rows expose metadata only",
+    "oracle_needed_premise_ids": "forbidden in public index inputs",
+    "Mathlib": "forbidden; source refs must be Init/ only",
+    "test_split_tuning": "forbidden; split labels are eligibility metadata only",
+    "provider_payload_bodies": "forbidden; no provider context is included"
+  },
+  "authority_ceiling": "closed public Lean/Std premise metadata only; not proof authority, Mathlib authority, provider authority, oracle authority, or release readiness",
+  "anti_claim": "This standard governs a closed public Lean/Std premise metadata index only; it does not authorize Mathlib imports, Lean/Lake execution, proof bodies, oracle leakage, theorem correctness claims, provider calls, or release/publication work."
+}

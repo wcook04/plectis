@@ -1,0 +1,210 @@
+{
+  "anti_claim": "The standards-control lens is a public-safe read-model over existing standard, validator, fixture, acceptance, docs, and authority surfaces. It does not make the standards registry source authority, prove complete coverage, export private bodies, expose proof bodies or provider payloads, call providers, mutate source, claim private equivalence, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "private_body_export_authorized": false,
+    "private_data_equivalence_claim": false,
+    "proof_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "provider_payload_export_authorized": false,
+    "read_model_only": true,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "standards_completeness_claim": false,
+    "standards_registry_source_authority": false
+  },
+  "body_redacted": true,
+  "command": "microcosm standards-control",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/standards-control",
+  "input_refs": {
+    "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
+    "public_standard_pressure": "core/public_standard_pressure.json",
+    "standards_meta_fixture_manifest": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+    "standards_registry": "core/standards_registry.json",
+    "validator_receipt_coverage_map": "core/preflight_support/validator_receipt_coverage_map_v1.json"
+  },
+  "lens_id": "public_standards_control_lens",
+  "negative_case_ids": [
+    "standard_without_registry_row_rejected",
+    "public_standard_pressure_without_authority_boundary_rejected",
+    "validator_receipt_missing_from_coverage_map_rejected",
+    "acceptance_command_treated_as_release_approval_rejected",
+    "fixture_manifest_without_negative_cases_rejected",
+    "docs_claim_without_runtime_command_rejected",
+    "standards_projection_claims_private_source_authority_rejected",
+    "release_or_publication_claim_from_standards_pass_rejected"
+  ],
+  "organ_family": "standards_control",
+  "public_claim": "Microcosm exposes a public standards-control lens: standards registry, standard pressure, validator receipt coverage, fixture manifests, acceptance commands, docs, authority ceilings, and projection safety are checked as one read-model before public claims can strengthen.",
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "private_paths_omitted": true,
+    "private_source_bodies_omitted": true,
+    "projection_is_read_model_only": true,
+    "proof_bodies_omitted": true,
+    "provider_payloads_omitted": true,
+    "receipt_refs_only": true
+  },
+  "schema_version": "microcosm_public_standards_control_lens_v1",
+  "selected_pattern_ids": [
+    "standards_meta_diagnostics",
+    "public_standard_pressure_contract",
+    "validator_receipt_coverage_map",
+    "omission_receipt_reversible_projection_boundary"
+  ],
+  "source_statuses": {
+    "acceptance_command_count": 33,
+    "fixture_manifest_schema": "microcosm_fixture_manifest_v1",
+    "public_standard_pressure_schema": "public_microcosm_standard_pressure_v1",
+    "standards_registry_schema": "standards_registry_v1",
+    "validator_receipt_coverage_schema": "public_preflight_support_validator_receipt_coverage_map_v1"
+  },
+  "standards_control_ref": "receipts/runtime_shell/public_standards_control_lens.json",
+  "standards_rows": [
+    {
+      "control_row_id": "standards_registry_contract",
+      "observed_count": 80,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "public standard index and first-wave required standard surface",
+      "release_authorized": false,
+      "required_signal": "standard_count and authority_ceiling present",
+      "source_authority_claim": false,
+      "source_ref": "core/standards_registry.json",
+      "validation_refs": [
+        "tests/test_runtime_shell.py::test_runtime_shell_standards_control_lens_is_public_safe",
+        "tests/test_cli.py::test_cli_standards_control_smoke"
+      ]
+    },
+    {
+      "control_row_id": "public_standard_pressure_contract",
+      "observed_count": 32,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "project-local standard pressure rows used by architecture/explanation state",
+      "release_authorized": false,
+      "required_signal": "rows carry authority_boundary and source refs",
+      "source_authority_claim": false,
+      "source_ref": "core/public_standard_pressure.json",
+      "validation_refs": [
+        "tests/test_launch_compression.py",
+        "tests/test_observatory_legibility.py"
+      ]
+    },
+    {
+      "control_row_id": "validator_receipt_coverage_contract",
+      "observed_count": 108,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "receipt coverage map for clean-clone and validator evidence",
+      "release_authorized": false,
+      "required_signal": "receipt_coverage entries are refs, not source bodies",
+      "source_authority_claim": false,
+      "source_ref": "core/preflight_support/validator_receipt_coverage_map_v1.json",
+      "validation_refs": [
+        "core/preflight_support/validator_receipt_coverage_map_v1.json",
+        "tests/test_runtime_shell.py::test_runtime_shell_standards_control_lens_is_public_safe"
+      ]
+    },
+    {
+      "control_row_id": "acceptance_gate_contract",
+      "observed_count": 33,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "first-wave acceptance command set and authority organ map",
+      "release_authorized": false,
+      "required_signal": "acceptance commands remain validation commands, not release approval",
+      "source_authority_claim": false,
+      "source_ref": "core/acceptance/first_wave_acceptance.json",
+      "validation_refs": [
+        "core/acceptance/first_wave_acceptance.json",
+        "microcosm standards-registry --registry core/standards_registry.json"
+      ]
+    },
+    {
+      "control_row_id": "fixture_manifest_contract",
+      "observed_count": 35,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "standards meta-diagnostics fixture manifest and negative cases",
+      "release_authorized": false,
+      "required_signal": "fixture inputs include explicit negative cases and anti-claim",
+      "source_authority_claim": false,
+      "source_ref": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+      "validation_refs": [
+        "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+        "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
+      ]
+    },
+    {
+      "control_row_id": "docs_entry_contract",
+      "observed_count": 3,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "human entry docs name standard pressure without private doctrine bodies",
+      "release_authorized": false,
+      "required_signal": "docs point to runtime commands and public JSON refs",
+      "source_authority_claim": false,
+      "source_ref": "README.md + AGENTS.md + skills/cold_start_navigation.md",
+      "validation_refs": [
+        "tests/test_launch_compression.py",
+        "tests/test_observatory_legibility.py"
+      ]
+    },
+    {
+      "control_row_id": "authority_ceiling_contract",
+      "observed_count": 1,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "global authority map lists standards control as read-model only",
+      "release_authorized": false,
+      "required_signal": "release, provider, source mutation, and private equivalence are false",
+      "source_authority_claim": false,
+      "source_ref": "microcosm authority::public_standards_control_lens",
+      "validation_refs": [
+        "microcosm authority",
+        "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe"
+      ]
+    },
+    {
+      "control_row_id": "projection_safety_contract",
+      "observed_count": 1,
+      "private_body_exported": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_role": "compressed standards-control projection has omission receipt and drilldown",
+      "release_authorized": false,
+      "required_signal": "projection row is reversible and carries authority ceiling",
+      "source_authority_claim": false,
+      "source_ref": "microcosm projection-safety::public_standards_control_lens",
+      "validation_refs": [
+        "microcosm projection-safety",
+        "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe"
+      ]
+    }
+  ],
+  "standards_summary": {
+    "acceptance_command_count": 33,
+    "fixture_manifest_count": 35,
+    "negative_case_count": 8,
+    "private_body_export_count": 0,
+    "proof_body_export_count": 0,
+    "provider_payload_export_count": 0,
+    "release_authorized": false,
+    "source_authority_claim_count": 0,
+    "standard_count": 80,
+    "standard_pressure_row_count": 32,
+    "standards_control_row_count": 8,
+    "validation_ref_count": 16,
+    "validator_receipt_ref_count": 108
+  },
+  "status": "pass"
+}

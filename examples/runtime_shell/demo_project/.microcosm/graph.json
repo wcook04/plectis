@@ -1,0 +1,1071 @@
+{
+  "created_at": "2026-05-22T06:15:26+00:00",
+  "edge_count": 141,
+  "edges": [
+    {
+      "from": "project",
+      "relation": "indexes",
+      "to": "catalog"
+    },
+    {
+      "from": "catalog",
+      "relation": "grounds",
+      "to": "pattern"
+    },
+    {
+      "from": "pattern",
+      "relation": "projects_to",
+      "to": "pattern_surface"
+    },
+    {
+      "from": "pattern_surface",
+      "relation": "opens",
+      "to": "route"
+    },
+    {
+      "from": "route",
+      "relation": "resolves_pattern_refs_against",
+      "to": "pattern_surface"
+    },
+    {
+      "from": "route",
+      "relation": "resolves_standard_pressure_against",
+      "to": "standard_pressure_surface"
+    },
+    {
+      "from": "pattern",
+      "relation": "opens",
+      "to": "route"
+    },
+    {
+      "from": "route",
+      "relation": "selects",
+      "to": "work"
+    },
+    {
+      "from": "work",
+      "relation": "emits",
+      "to": "event"
+    },
+    {
+      "from": "event",
+      "relation": "references",
+      "to": "evidence"
+    },
+    {
+      "from": "route",
+      "relation": "explains",
+      "to": "explanation"
+    },
+    {
+      "from": "explanation",
+      "relation": "explains_against",
+      "to": "pattern_surface"
+    },
+    {
+      "from": "explanation",
+      "relation": "explains_against",
+      "to": "standard_pressure_surface"
+    },
+    {
+      "from": "pattern_surface",
+      "relation": "governed_by",
+      "to": "standard:std_microcosm_pattern"
+    },
+    {
+      "from": "pattern_surface",
+      "relation": "governed_by",
+      "to": "standard:std_microcosm_pattern_binding_contract"
+    },
+    {
+      "from": "pattern_surface",
+      "relation": "closed_by",
+      "to": "assimilation_policy"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:json_contract_markdown_projection"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:substrate_derived_projection"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:projection_lineage_not_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:reversible_work_transaction"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:evidence_as_black_box_recorder"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:assimilation_without_promotion"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:formal_readiness_not_proof_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:corpus_readiness_mathlib_absence_gate"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:formal_retrieval_not_proof_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:provider_context_recipe_budget_no_provider_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:mathematical_strategy_atlas_pre_oracle_hypothesis_boundary"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:tactic_portfolio_availability_probe_environment_boundary"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:target_shape_tactic_routing_gate_no_proof_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:formal_lean_witness_bounded_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:prediction_oracle_reconciliation_no_advice_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:ring2_premise_retrieval_precision_recall_no_proof_authority"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:standards_meta_diagnostics_projection_only"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:cold_reader_route_map_projection_only"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:lean_std_premise_index_closed_metadata_only"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:formal_math_verifier_trace_repair_loop_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:formal_evidence_cell_anchor_resolver_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:undeclared_library_prior_symbol_classifier_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agent_benchmark_integrity_anti_gaming_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:durable_agent_work_landing_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:research_replication_rubric_artifact_replay"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:world_model_projection_drift_control_room_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:spatial_world_model_counterfactual_simulation_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:mechanistic_interpretability_circuit_attribution_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agent_monitor_redteam_falsification_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:agent_memory_temporal_conflict_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:sleeper_memory_poisoning_quarantine_replay_public_pressure"
+    },
+    {
+      "from": "standard_pressure_surface",
+      "relation": "contains",
+      "to": "standard_pressure:mcp_tool_authority_replay_public_pressure"
+    },
+    {
+      "from": "pattern:repo_has_readme",
+      "relation": "supports",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:json_contract_markdown_projection",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:substrate_derived_projection",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:projection_lineage_not_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:reversible_work_transaction",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:evidence_as_black_box_recorder",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:assimilation_without_promotion",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:formal_readiness_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:corpus_readiness_mathlib_absence_gate",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:formal_retrieval_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:provider_context_recipe_budget_no_provider_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:tactic_portfolio_availability_probe_environment_boundary",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:target_shape_tactic_routing_gate_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:formal_lean_witness_bounded_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:prediction_oracle_reconciliation_no_advice_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:standards_meta_diagnostics_projection_only",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:cold_reader_route_map_projection_only",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:lean_std_premise_index_closed_metadata_only",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:formal_math_verifier_trace_repair_loop_public_pressure",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:formal_evidence_cell_anchor_resolver_public_pressure",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "standard_pressure:undeclared_library_prior_symbol_classifier_public_pressure",
+      "relation": "constrains",
+      "to": "route:readme_onboarding_route"
+    },
+    {
+      "from": "pattern:repo_has_package_manifest",
+      "relation": "supports",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:json_contract_markdown_projection",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:substrate_derived_projection",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:projection_lineage_not_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:reversible_work_transaction",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:evidence_as_black_box_recorder",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:assimilation_without_promotion",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:formal_readiness_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:corpus_readiness_mathlib_absence_gate",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:formal_retrieval_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:provider_context_recipe_budget_no_provider_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:tactic_portfolio_availability_probe_environment_boundary",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:target_shape_tactic_routing_gate_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:formal_lean_witness_bounded_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:prediction_oracle_reconciliation_no_advice_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:standards_meta_diagnostics_projection_only",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:cold_reader_route_map_projection_only",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:lean_std_premise_index_closed_metadata_only",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:formal_math_verifier_trace_repair_loop_public_pressure",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:formal_evidence_cell_anchor_resolver_public_pressure",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "standard_pressure:undeclared_library_prior_symbol_classifier_public_pressure",
+      "relation": "constrains",
+      "to": "route:package_runtime_route"
+    },
+    {
+      "from": "pattern:repo_has_source_core",
+      "relation": "supports",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:json_contract_markdown_projection",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:substrate_derived_projection",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:projection_lineage_not_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:reversible_work_transaction",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:evidence_as_black_box_recorder",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:assimilation_without_promotion",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:formal_readiness_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:corpus_readiness_mathlib_absence_gate",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:formal_retrieval_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:provider_context_recipe_budget_no_provider_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:tactic_portfolio_availability_probe_environment_boundary",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:target_shape_tactic_routing_gate_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:formal_lean_witness_bounded_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:prediction_oracle_reconciliation_no_advice_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:standards_meta_diagnostics_projection_only",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:cold_reader_route_map_projection_only",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:lean_std_premise_index_closed_metadata_only",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:formal_math_verifier_trace_repair_loop_public_pressure",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:formal_evidence_cell_anchor_resolver_public_pressure",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "standard_pressure:undeclared_library_prior_symbol_classifier_public_pressure",
+      "relation": "constrains",
+      "to": "route:source_core_route"
+    },
+    {
+      "from": "pattern:repo_has_tests",
+      "relation": "supports",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:json_contract_markdown_projection",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:substrate_derived_projection",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:projection_lineage_not_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:reversible_work_transaction",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:evidence_as_black_box_recorder",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:assimilation_without_promotion",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:formal_readiness_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:corpus_readiness_mathlib_absence_gate",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:formal_retrieval_not_proof_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:provider_context_recipe_budget_no_provider_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:tactic_portfolio_availability_probe_environment_boundary",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:target_shape_tactic_routing_gate_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:formal_lean_witness_bounded_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:prediction_oracle_reconciliation_no_advice_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:standards_meta_diagnostics_projection_only",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:cold_reader_route_map_projection_only",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:lean_std_premise_index_closed_metadata_only",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:formal_math_verifier_trace_repair_loop_public_pressure",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:formal_evidence_cell_anchor_resolver_public_pressure",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "standard_pressure:undeclared_library_prior_symbol_classifier_public_pressure",
+      "relation": "constrains",
+      "to": "route:test_behavior_route"
+    },
+    {
+      "from": "route:missing_tests_route",
+      "relation": "instantiates",
+      "to": "work:work_0001"
+    }
+  ],
+  "graph_ref": ".microcosm/graph.json",
+  "node_count": 57,
+  "nodes": [
+    {
+      "kind": "primitive",
+      "label": "Project",
+      "node_id": "project"
+    },
+    {
+      "kind": "primitive",
+      "label": "Catalog",
+      "node_id": "catalog"
+    },
+    {
+      "kind": "primitive",
+      "label": "Pattern",
+      "node_id": "pattern"
+    },
+    {
+      "evidence_ref": ".microcosm/evidence/patterns.json",
+      "kind": "surface",
+      "label": "Public Pattern Surface",
+      "node_id": "pattern_surface",
+      "state_ref": ".microcosm/patterns.json"
+    },
+    {
+      "kind": "surface",
+      "label": "Public Standard Pressure",
+      "node_id": "standard_pressure_surface",
+      "source_ref": "core/public_standard_pressure.json",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface"
+    },
+    {
+      "kind": "primitive",
+      "label": "Route",
+      "node_id": "route"
+    },
+    {
+      "kind": "primitive",
+      "label": "Work",
+      "node_id": "work"
+    },
+    {
+      "kind": "primitive",
+      "label": "Event",
+      "node_id": "event"
+    },
+    {
+      "kind": "primitive",
+      "label": "Evidence",
+      "node_id": "evidence"
+    },
+    {
+      "kind": "primitive",
+      "label": "Explanation",
+      "node_id": "explanation"
+    },
+    {
+      "kind": "standard",
+      "label": "std_microcosm_pattern",
+      "node_id": "standard:std_microcosm_pattern",
+      "state_ref": "standards/std_microcosm_pattern.json"
+    },
+    {
+      "kind": "standard",
+      "label": "std_microcosm_pattern_binding_contract",
+      "node_id": "standard:std_microcosm_pattern_binding_contract",
+      "state_ref": "standards/std_microcosm_pattern_binding_contract.json"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "JSON Contract, Markdown Projection",
+      "node_id": "standard_pressure:json_contract_markdown_projection",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::json_contract_markdown_projection"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Substrate-Derived Projection",
+      "node_id": "standard_pressure:substrate_derived_projection",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::substrate_derived_projection"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Projection Lineage, Not Authority",
+      "node_id": "standard_pressure:projection_lineage_not_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::projection_lineage_not_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Reversible Work Transaction",
+      "node_id": "standard_pressure:reversible_work_transaction",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::reversible_work_transaction"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Evidence As Black-Box Recorder",
+      "node_id": "standard_pressure:evidence_as_black_box_recorder",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::evidence_as_black_box_recorder"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Assimilation Without Promotion",
+      "node_id": "standard_pressure:assimilation_without_promotion",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::assimilation_without_promotion"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Formal Readiness, Not Proof Authority",
+      "node_id": "standard_pressure:formal_readiness_not_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_readiness_not_proof_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Corpus Readiness Mathlib Absence Gate",
+      "node_id": "standard_pressure:corpus_readiness_mathlib_absence_gate",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::corpus_readiness_mathlib_absence_gate"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Formal Retrieval, Not Proof Authority",
+      "node_id": "standard_pressure:formal_retrieval_not_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_retrieval_not_proof_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Provider Context Recipe Budget, No Provider Authority",
+      "node_id": "standard_pressure:provider_context_recipe_budget_no_provider_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::provider_context_recipe_budget_no_provider_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Mathematical Strategy Atlas, Pre-Oracle Hypothesis Boundary",
+      "node_id": "standard_pressure:mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::mathematical_strategy_atlas_pre_oracle_hypothesis_boundary"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Tactic Portfolio Availability, Environment Boundary",
+      "node_id": "standard_pressure:tactic_portfolio_availability_probe_environment_boundary",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::tactic_portfolio_availability_probe_environment_boundary"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Target Shape Tactic Routing, No Proof Authority",
+      "node_id": "standard_pressure:target_shape_tactic_routing_gate_no_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::target_shape_tactic_routing_gate_no_proof_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Formal Lean Witness, Bounded Authority",
+      "node_id": "standard_pressure:formal_lean_witness_bounded_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_lean_witness_bounded_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Prediction Oracle Reconciliation, No Advice Authority",
+      "node_id": "standard_pressure:prediction_oracle_reconciliation_no_advice_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::prediction_oracle_reconciliation_no_advice_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Ring-2 Retrieval Precision/Recall, No Proof Authority",
+      "node_id": "standard_pressure:ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::ring2_premise_retrieval_precision_recall_no_proof_authority"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Standards Meta Diagnostics, Projection Only",
+      "node_id": "standard_pressure:standards_meta_diagnostics_projection_only",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::standards_meta_diagnostics_projection_only"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Cold-Reader Route Map, Projection Only",
+      "node_id": "standard_pressure:cold_reader_route_map_projection_only",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::cold_reader_route_map_projection_only"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Lean/Std Premise Index, Closed Metadata Only",
+      "node_id": "standard_pressure:lean_std_premise_index_closed_metadata_only",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::lean_std_premise_index_closed_metadata_only"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Verifier Trace Repair Is Not Proof Authority",
+      "node_id": "standard_pressure:formal_math_verifier_trace_repair_loop_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_math_verifier_trace_repair_loop_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Evidence Cell Anchors Are Not Theorem Authority",
+      "node_id": "standard_pressure:formal_evidence_cell_anchor_resolver_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_evidence_cell_anchor_resolver_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Undeclared Library Priors Are Quarantined Separately From Premise Budgets",
+      "node_id": "standard_pressure:undeclared_library_prior_symbol_classifier_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::undeclared_library_prior_symbol_classifier_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Benchmark Integrity Requires Anti-Gaming Replay Receipts",
+      "node_id": "standard_pressure:agent_benchmark_integrity_anti_gaming_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_benchmark_integrity_anti_gaming_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Work Landing Requires Transaction Replay Receipts",
+      "node_id": "standard_pressure:durable_agent_work_landing_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::durable_agent_work_landing_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Research Replication Needs Artifact Replay",
+      "node_id": "standard_pressure:research_replication_rubric_artifact_replay",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::research_replication_rubric_artifact_replay"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "World-Model Projection Drift Requires Repair-Route Receipts",
+      "node_id": "standard_pressure:world_model_projection_drift_control_room_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::world_model_projection_drift_control_room_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Spatial Counterfactual Replay Requires Public Metadata Boundaries",
+      "node_id": "standard_pressure:spatial_world_model_counterfactual_simulation_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::spatial_world_model_counterfactual_simulation_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Circuit Attribution Replay Requires Causal Intervention Receipts",
+      "node_id": "standard_pressure:mechanistic_interpretability_circuit_attribution_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::mechanistic_interpretability_circuit_attribution_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Monitor Redteam Replay Requires Falsification Receipts",
+      "node_id": "standard_pressure:agent_monitor_redteam_falsification_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_monitor_redteam_falsification_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "Memory Temporal-Conflict Replay Requires Conflict and Downgrade Receipts",
+      "node_id": "standard_pressure:agent_memory_temporal_conflict_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::agent_memory_temporal_conflict_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "sleeper_memory_poisoning_quarantine_replay_public_pressure",
+      "node_id": "standard_pressure:sleeper_memory_poisoning_quarantine_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::sleeper_memory_poisoning_quarantine_replay_public_pressure"
+    },
+    {
+      "kind": "standard_pressure",
+      "label": "MCP Tool Authority Replay Requires Scope, Side-Effect, and Rollback Receipts",
+      "node_id": "standard_pressure:mcp_tool_authority_replay_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::mcp_tool_authority_replay_public_pressure"
+    },
+    {
+      "kind": "policy",
+      "label": "Pattern Assimilation Policy",
+      "node_id": "assimilation_policy",
+      "state_ref": "core/pattern_assimilation_policy.json"
+    },
+    {
+      "kind": "pattern",
+      "label": "README-first onboarding surface",
+      "node_id": "pattern:repo_has_readme"
+    },
+    {
+      "kind": "pattern",
+      "label": "installable or runnable package metadata",
+      "node_id": "pattern:repo_has_package_manifest"
+    },
+    {
+      "kind": "pattern",
+      "label": "visible source core",
+      "node_id": "pattern:repo_has_source_core"
+    },
+    {
+      "kind": "pattern",
+      "label": "behavior tests visible",
+      "node_id": "pattern:repo_has_tests"
+    },
+    {
+      "kind": "pattern",
+      "label": "documentation surface visible",
+      "node_id": "pattern:repo_has_docs"
+    },
+    {
+      "kind": "pattern",
+      "label": "example usage surface visible",
+      "node_id": "pattern:repo_has_examples"
+    },
+    {
+      "kind": "pattern",
+      "label": "operator scripts or admin commands visible",
+      "node_id": "pattern:repo_has_scripts"
+    },
+    {
+      "kind": "route",
+      "label": "Inspect README onboarding",
+      "node_id": "route:readme_onboarding_route"
+    },
+    {
+      "kind": "route",
+      "label": "Inspect package/runtime metadata",
+      "node_id": "route:package_runtime_route"
+    },
+    {
+      "kind": "route",
+      "label": "Inspect source core",
+      "node_id": "route:source_core_route"
+    },
+    {
+      "kind": "route",
+      "label": "Run or inspect behavior tests",
+      "node_id": "route:test_behavior_route"
+    },
+    {
+      "kind": "work",
+      "label": "missing_tests_route",
+      "node_id": "work:work_0001"
+    }
+  ],
+  "pattern_surface": {
+    "assimilation_policy_ref": "core/pattern_assimilation_policy.json",
+    "binding_standard_refs": [
+      "standards/std_microcosm_pattern.json",
+      "standards/std_microcosm_pattern_binding_contract.json"
+    ],
+    "evidence_ref": ".microcosm/evidence/patterns.json",
+    "organ_refs": [
+      "pattern_binding_contract",
+      "pattern_assimilation_step"
+    ],
+    "private_source_bodies_included": false,
+    "projection_rule": "Catalog role observations become public pattern rows; routes carry pattern_refs that must resolve against local .microcosm/patterns.json before explanation.",
+    "state_ref": ".microcosm/patterns.json",
+    "surface_id": "public_microcosm_pattern_surface"
+  },
+  "project_id": "demo_project",
+  "project_ref": ".",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "schema_version": "microcosm_project_asset_graph_v1",
+  "source_files_mutated": false,
+  "standard_pressure_surface": {
+    "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
+    "private_source_bodies_included": false,
+    "row_count": 32,
+    "source_ref": "core/public_standard_pressure.json",
+    "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
+    "surface_id": "public_microcosm_standard_pressure"
+  },
+  "state_ref": ".microcosm",
+  "status": "pass"
+}

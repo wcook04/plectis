@@ -1,0 +1,12 @@
+{
+  "schema_version": "formal_evidence_cell_negative_fixture_v1",
+  "claims": [
+    {
+      "expected_negative_case_id": "unknown_cell_overclaim",
+      "claim_id": "negative.unknown_cell_overclaim",
+      "evidence_cell_id": "cell.unknown.private_or_missing",
+      "claim_strength": "formal_evidence_cell_present",
+      "uses_proof_language": true
+    }
+  ]
+}

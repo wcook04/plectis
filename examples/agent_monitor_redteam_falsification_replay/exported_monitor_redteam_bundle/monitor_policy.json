@@ -1,0 +1,26 @@
+{
+  "policy_id": "public_agent_monitor_redteam_policy_v1",
+  "allowed_monitor_verdicts": [
+    "pass",
+    "escalate",
+    "block"
+  ],
+  "required_observation_fields": [
+    "trajectory_id",
+    "monitor_id",
+    "coverage_label",
+    "suspicious_action_span_ref",
+    "adversarial_probe_ref",
+    "monitor_verdict",
+    "severity_tier",
+    "human_escalation_ref",
+    "privacy_redaction_ref",
+    "mitigation_diff_ref",
+    "cold_replay_ref"
+  ],
+  "monitor_product_performance_claim_authorized": false,
+  "live_agent_traffic_import_authorized": false,
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "authority_ceiling": "synthetic monitor-redteam receipt validation only"
+}

@@ -1,0 +1,103 @@
+{
+  "anti_claim": "The cold-reader route map validates a public ten-minute route projection only. It does not become route registry authority, expose private macro sources, authorize release, call providers, mutate source projects, or prove whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "cold_reader_route_map_projection_only_not_route_authority",
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "route_registry_authority": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "board_ref": "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+  "body_redacted": true,
+  "command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+  "command_count": 7,
+  "created_at": "2026-05-21T17:44:33+00:00",
+  "error_codes": [
+    "COLD_ROUTE_AUTHORITY_OVERCLAIM",
+    "COLD_ROUTE_MISSING_COMMAND_REF",
+    "COLD_ROUTE_MISSING_RECEIPT_REF",
+    "COLD_ROUTE_PRIVATE_SOURCE_FORBIDDEN",
+    "COLD_ROUTE_SEQUENCE_GAP"
+  ],
+  "expected_negative_cases": {
+    "missing_command_ref": [
+      "COLD_ROUTE_MISSING_COMMAND_REF"
+    ],
+    "missing_receipt_ref": [
+      "COLD_ROUTE_MISSING_RECEIPT_REF"
+    ],
+    "private_source_leakage": [
+      "COLD_ROUTE_PRIVATE_SOURCE_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "COLD_ROUTE_AUTHORITY_OVERCLAIM"
+    ],
+    "route_sequence_gap": [
+      "COLD_ROUTE_SEQUENCE_GAP"
+    ]
+  },
+  "finding_count": 7,
+  "first_run_sequence": [
+    "compile_project",
+    "inspect_route",
+    "open_observatory",
+    "inspect_public_spine",
+    "open_import_bridge",
+    "open_reveal_board",
+    "inspect_cold_reader_route_map"
+  ],
+  "fixture_id": "first_wave.cold_reader_route_map",
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "missing_command_ref": [
+      "COLD_ROUTE_MISSING_COMMAND_REF"
+    ],
+    "missing_receipt_ref": [
+      "COLD_ROUTE_MISSING_RECEIPT_REF"
+    ],
+    "private_source_leakage": [
+      "COLD_ROUTE_PRIVATE_SOURCE_FORBIDDEN"
+    ],
+    "release_overclaim": [
+      "COLD_ROUTE_AUTHORITY_OVERCLAIM"
+    ],
+    "route_sequence_gap": [
+      "COLD_ROUTE_SEQUENCE_GAP"
+    ]
+  },
+  "organ_id": "cold_reader_route_map",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+    "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+  ],
+  "receipt_ref_count": 7,
+  "result_ref": "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+  "route_count": 7,
+  "schema_version": "cold_reader_route_map_validation_receipt_v1",
+  "source_pattern_ids": [
+    "navigation_hologram_unified_route_plane",
+    "compression_profile_governed_option_surface",
+    "entry_agent_behavior_governance_suborgan"
+  ],
+  "source_refs": [
+    "microcosm-substrate/src/microcosm_core/runtime_shell.py",
+    "microcosm-substrate/README.md",
+    "microcosm-substrate/AGENTS.md"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.cold_reader_route_map"
+}

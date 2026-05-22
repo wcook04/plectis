@@ -14,6 +14,7 @@
     "transaction_plan.json",
     "receipt_drain_plan.json",
     "closeout_projection_packet.json",
-    "scoped_mutation_policy.json"
+    "scoped_mutation_policy.json",
+    "checkpoint_lane_policy.json"
   ]
 }

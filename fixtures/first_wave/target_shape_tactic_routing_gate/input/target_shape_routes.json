@@ -1,0 +1,46 @@
+{
+  "schema_version": "target_shape_tactic_routing_fixture_v1",
+  "route_cases": [
+    {
+      "route_case_id": "closed_nat_mod_decision",
+      "target_shape": "closed_nat_mod_decision",
+      "candidate_tactic_ids": ["decide", "simp_all", "aesop"],
+      "allowed_tactic_ids": ["decide"],
+      "selected_tactic_id": "decide",
+      "expected_tactic_id": "decide",
+      "route_stage": "pre_execution",
+      "reason": "Closed arithmetic decision routes to the smallest probed decision tactic."
+    },
+    {
+      "route_case_id": "int_linear_arithmetic",
+      "target_shape": "int_linear_arithmetic",
+      "candidate_tactic_ids": ["omega", "decide", "aesop"],
+      "allowed_tactic_ids": ["omega"],
+      "selected_tactic_id": "omega",
+      "expected_tactic_id": "omega",
+      "route_stage": "pre_execution",
+      "reason": "Linear arithmetic is gated to the probed arithmetic tactic."
+    },
+    {
+      "route_case_id": "conjunction_goal",
+      "target_shape": "conjunction",
+      "candidate_tactic_ids": ["simp_all", "omega", "aesop"],
+      "allowed_tactic_ids": ["simp_all"],
+      "selected_tactic_id": "simp_all",
+      "expected_tactic_id": "simp_all",
+      "route_stage": "pre_execution",
+      "reason": "Conjunction cleanup can use probed simplification only."
+    },
+    {
+      "route_case_id": "true_intro",
+      "target_shape": "true_intro",
+      "candidate_tactic_ids": ["rfl", "decide", "aesop"],
+      "allowed_tactic_ids": ["rfl"],
+      "selected_tactic_id": "rfl",
+      "expected_tactic_id": "rfl",
+      "route_stage": "pre_execution",
+      "reason": "Tiny truth introduction remains in the synthetic core lane."
+    }
+  ],
+  "anti_claim": "Routing constrains synthetic tactic selection before execution; it is not a proof of success."
+}

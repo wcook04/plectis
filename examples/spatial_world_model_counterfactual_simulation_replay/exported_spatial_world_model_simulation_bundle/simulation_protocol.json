@@ -1,0 +1,35 @@
+{
+  "authority_ceiling": {
+    "benchmark_score_claim_authorized": false,
+    "generated_video_authority_authorized": false,
+    "geographic_accuracy_claim_authorized": false,
+    "hosted_public_authorized": false,
+    "live_av_operation_authorized": false,
+    "live_robot_operation_authorized": false,
+    "metadata_projection_only": true,
+    "private_video_exported": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "raw_sensor_data_exported": false,
+    "real_world_location_claim_authorized": false,
+    "release_authorized": false,
+    "trained_simulator_claim_authorized": false
+  },
+  "body_redacted": true,
+  "schema_version": "spatial_world_model_counterfactual_simulation_protocol_v1",
+  "selected_pattern_ids": [
+    "warehouse_occlusion_left_forklift_stop",
+    "crosswalk_child_emergence_slowdown",
+    "drone_corridor_gust_recovery",
+    "mobile_robot_reflective_floor_detour",
+    "loading_dock_pallet_shift_replan",
+    "intersection_unprotected_turn_yield"
+  ],
+  "selected_route_id": "spatial_world_model_counterfactual_simulation_replay",
+  "source_pattern_id": "spatial_world_model_counterfactual_simulation_replay_compound",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::spatial_world_model_counterfactual_simulation_replay_compound",
+    "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
+    "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json"
+  ]
+}

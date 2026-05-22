@@ -1,0 +1,8 @@
+{
+  "schema_version": "cold_reader_route_negative_case_v1",
+  "case_id": "missing_receipt_ref",
+  "route_id": "missing_receipt_ref",
+  "command": "microcosm spine",
+  "receipt_refs": [],
+  "body_redacted": true
+}

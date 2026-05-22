@@ -1,0 +1,74 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "formal_math_premise_retrieval",
+  "fixture_id": "fixture::formal_math_premise_retrieval::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate a public-safe formal-math premise retrieval tranche imported through the macro projection protocol: Lean/Std premise index metadata, term scoring, context-budget recipes, strategy gating, and negative-case leakage controls.",
+  "inputs": [
+    "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/retrieval_queries.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipes.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/strategy_cases.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index_with_proof_body.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/query_with_oracle_ids.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/test_split_tuning_attempt.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipe_budget_overflow.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/unknown_strategy_id.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+    "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
+  "expected_negative_cases": [
+    "premise_index_proof_body_forbidden",
+    "query_oracle_ids_forbidden",
+    "test_split_tuning_attempt",
+    "context_recipe_budget_overflow",
+    "unknown_strategy_id"
+  ],
+  "stable_error_codes": [
+    "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
+    "FORMAL_RETRIEVAL_ORACLE_IDS_FORBIDDEN",
+    "FORMAL_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
+    "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
+    "FORMAL_RETRIEVAL_UNKNOWN_STRATEGY"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "protocol_id",
+    "source_pattern_ids",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "premise_count",
+    "query_count",
+    "mean_synthetic_recall"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "forbidden; premise rows expose retrieval metadata only",
+    "oracle_needed_premise_ids": "forbidden in public query inputs",
+    "test_split_tuning": "forbidden; test split examples may be scored only by public synthetic expected ids",
+    "provider_payload_bodies": "forbidden; context recipes are budgets and deliverable metadata only",
+    "lean_lake": "not executed; retrieval metadata only"
+  },
+  "authority_ceiling": "public synthetic formal-math retrieval fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, or release readiness",
+  "anti_claim": "This fixture manifest accepts only public Lean/Std premise retrieval metadata, term scoring, context-budget checks, and negative-case leakage coverage. It does not authorize formal_math_lean_proof_witness, Lean/Lake, provider calls, proof bodies, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}

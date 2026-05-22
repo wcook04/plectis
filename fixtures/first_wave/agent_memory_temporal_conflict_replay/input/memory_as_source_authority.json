@@ -1,0 +1,15 @@
+{
+  "active_injection_adopted": false,
+  "body_exported": false,
+  "decision": "NOOP",
+  "episode_id": "negative_source_authority",
+  "episode_order": 9,
+  "event_id": "negative_memory_as_source_authority",
+  "evidence_handle_ref": "evidence.memory.negative.source_authority",
+  "expected_negative_case_id": "memory_as_source_authority",
+  "memory_route_ref": "route.memory.replay.synthetic.source_authority",
+  "memory_subject_id": "memory_claim_source_authority",
+  "metadata_only_ref": true,
+  "private_thread_ref": "thread_ref.synthetic.source.metadata_only",
+  "source_authority_claim": true
+}

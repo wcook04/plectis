@@ -1,0 +1,80 @@
+{
+  "anti_claim": "This fixture validates public synthetic memory temporal-conflict replay boundaries only; it does not claim live memory product quality, expose private transcripts, auto-promote private candidates, treat memory as source authority, adopt active injection, call providers, mutate source, or authorize release.",
+  "authority_ceiling": "synthetic agent-memory temporal-conflict replay receipts only; no live memory product, private transcript, private auto-promotion, memory source-authority, active injection, provider, source-mutation, or release authority",
+  "expected_negative_cases": [
+    "raw_transcript_export",
+    "private_candidate_auto_promotion",
+    "stale_preference_override",
+    "memory_as_source_authority",
+    "vector_recall_without_evidence_handle",
+    "final_answer_only_memory_credit",
+    "active_injection_as_authoritative"
+  ],
+  "fixture_id": "fixture::agent_memory_temporal_conflict_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with copy/reimplement/clean/omit receipts"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_policy.json",
+      "role": "memory decision policy and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_episodes.json",
+      "role": "positive three-episode memory events with ADD/UPDATE/DELETE/NOOP decisions"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/replay_observations.json",
+      "role": "paired memory-enabled and memory-disabled cold replay observations"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/raw_transcript_export.json",
+      "role": "negative case: raw_transcript_export"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/private_candidate_auto_promotion.json",
+      "role": "negative case: private_candidate_auto_promotion"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/stale_preference_override.json",
+      "role": "negative case: stale_preference_override"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_as_source_authority.json",
+      "role": "negative case: memory_as_source_authority"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/vector_recall_without_evidence_handle.json",
+      "role": "negative case: vector_recall_without_evidence_handle"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/final_answer_only_memory_credit.json",
+      "role": "negative case: final_answer_only_memory_credit"
+    },
+    {
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/active_injection_as_authoritative.json",
+      "role": "negative case: active_injection_as_authoritative"
+    }
+  ],
+  "organ_id": "agent_memory_temporal_conflict_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "MEMORY_CONFLICT_RAW_TRANSCRIPT_FORBIDDEN",
+    "MEMORY_CONFLICT_PRIVATE_CANDIDATE_AUTO_PROMOTION",
+    "MEMORY_CONFLICT_STALE_OVERRIDE_FORBIDDEN",
+    "MEMORY_CONFLICT_SOURCE_AUTHORITY_FORBIDDEN",
+    "MEMORY_CONFLICT_VECTOR_RECALL_WITHOUT_EVIDENCE",
+    "MEMORY_CONFLICT_FINAL_ANSWER_ONLY_CREDIT",
+    "MEMORY_CONFLICT_ACTIVE_INJECTION_AUTHORITY_FORBIDDEN"
+  ],
+  "title": "Agent memory temporal-conflict replay fixture",
+  "validator": "microcosm_core.organs.agent_memory_temporal_conflict_replay",
+  "validator_command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay"
+}

@@ -1,0 +1,359 @@
+{
+  "allowed_tool_classes": [
+    "readonly_lookup",
+    "untrusted_result",
+    "write_side_effect"
+  ],
+  "anti_claim": "MCP tool authority replay validates a synthetic tool-use contract: manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback receipts, untrusted-output instruction/data separation, cold replay, negative cases, and generated receipts. It does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
+  "approved_side_effect_count": 1,
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "credential_export_authorized": false,
+    "live_mcp_account_access_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "unapproved_side_effect_authorized": false,
+    "untrusted_tool_output_instruction_authorized": false
+  },
+  "bundle_id": null,
+  "call_count": 3,
+  "call_rows": [
+    {
+      "approval_token_ref": "not_required",
+      "body_redacted": true,
+      "call_arguments_hash": "sha256:docs_lookup_public_hash_001",
+      "call_id": "call_docs_lookup_001",
+      "capability_scope_ref": "scope/docs_lookup_readonly",
+      "cold_replay_receipt_ref": "receipts/cold_replay/docs_lookup_001.json",
+      "computed_verdict": "accepted_tool_call_metadata",
+      "instruction_data_split_ref": "split/docs_lookup_instruction_data_v1",
+      "ledger_diff_ref": "none",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "result_source_capsule_ref": "source/public_docs_capsule_001",
+      "rollback_receipt_ref": "none",
+      "side_effect_class": "none",
+      "tool_class": "readonly_lookup",
+      "tool_id": "tool_docs_lookup"
+    },
+    {
+      "approval_token_ref": "approval/synthetic_ticket_update_001",
+      "body_redacted": true,
+      "call_arguments_hash": "sha256:ticket_update_redacted_hash_001",
+      "call_id": "call_ticket_update_001",
+      "capability_scope_ref": "scope/ticket_update_limited",
+      "cold_replay_receipt_ref": "receipts/cold_replay/ticket_update_001.json",
+      "computed_verdict": "accepted_tool_call_metadata",
+      "instruction_data_split_ref": "split/ticket_update_instruction_data_v1",
+      "ledger_diff_ref": "ledger_diff/synthetic_ticket_update_001",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "result_source_capsule_ref": "source/synthetic_ticket_capsule_001",
+      "rollback_receipt_ref": "rollback/synthetic_ticket_update_001",
+      "side_effect_class": "write",
+      "tool_class": "write_side_effect",
+      "tool_id": "tool_ticket_update"
+    },
+    {
+      "approval_token_ref": "not_required",
+      "body_redacted": true,
+      "call_arguments_hash": "sha256:untrusted_web_result_hash_001",
+      "call_id": "call_untrusted_web_result_001",
+      "capability_scope_ref": "scope/untrusted_web_result_readonly",
+      "cold_replay_receipt_ref": "receipts/cold_replay/untrusted_web_result_001.json",
+      "computed_verdict": "accepted_tool_call_metadata",
+      "instruction_data_split_ref": "split/untrusted_tool_output_data_only_v1",
+      "ledger_diff_ref": "none",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "result_source_capsule_ref": "source/untrusted_web_capsule_001",
+      "rollback_receipt_ref": "none",
+      "side_effect_class": "none",
+      "tool_class": "untrusted_result",
+      "tool_id": "tool_web_result"
+    }
+  ],
+  "cold_replay_count": 3,
+  "cold_replay_pass_count": 3,
+  "cold_replay_rows": [
+    {
+      "body_redacted": true,
+      "call_id": "call_docs_lookup_001",
+      "evidence_refs": [
+        "tool_manifest:tool_docs_lookup",
+        "tool_calls:call_docs_lookup_001"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_replay_docs_lookup_001",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "call_id": "call_ticket_update_001",
+      "evidence_refs": [
+        "tool_manifest:tool_ticket_update",
+        "side_effect_ledger:side_effect_ticket_update_001"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_replay_ticket_update_001",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "call_id": "call_untrusted_web_result_001",
+      "evidence_refs": [
+        "tool_manifest:tool_web_result",
+        "tool_results:result_untrusted_web_001"
+      ],
+      "private_ref_metadata_only": true,
+      "replay_id": "cold_replay_untrusted_web_result_001",
+      "status": "pass"
+    }
+  ],
+  "command": "python -m microcosm_core.organs.mcp_tool_authority_replay run",
+  "created_at": "2026-05-22T06:06:19+00:00",
+  "error_codes": [
+    "MCP_TOOL_FINAL_ANSWER_ONLY_GRADING",
+    "MCP_TOOL_HIDDEN_CREDENTIAL_EXPORT",
+    "MCP_TOOL_LIVE_ACCOUNT_ACCESS",
+    "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
+    "MCP_TOOL_OUTPUT_AS_INSTRUCTION",
+    "MCP_TOOL_OVERBROAD_SCOPE",
+    "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
+    "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT"
+  ],
+  "expected_negative_cases": [
+    "final_answer_only_grading",
+    "hidden_credential_export",
+    "live_account_access",
+    "missing_rollback_receipt",
+    "overbroad_scope",
+    "tool_output_as_instruction",
+    "unapproved_side_effect",
+    "unredacted_tool_payload"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_FINAL_ANSWER_ONLY_GRADING",
+      "message": "Tool-authority claims require manifest, call, side-effect, rollback, and cold-replay evidence, not final answers alone.",
+      "negative_case_id": "final_answer_only_grading",
+      "subject_id": "negative_final_answer_only_grading",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_HIDDEN_CREDENTIAL_EXPORT",
+      "message": "Public replay cannot export credential values, provider payloads, or hidden account material.",
+      "negative_case_id": "hidden_credential_export",
+      "subject_id": "negative_hidden_credential_export",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_LIVE_ACCOUNT_ACCESS",
+      "message": "Synthetic public fixtures cannot call or claim access to live MCP accounts.",
+      "negative_case_id": "live_account_access",
+      "subject_id": "negative_live_account_access",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_MISSING_ROLLBACK_RECEIPT",
+      "message": "Write-capable tool calls require rollback receipt refs before admission.",
+      "negative_case_id": "missing_rollback_receipt",
+      "subject_id": "negative_missing_rollback_receipt",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_OVERBROAD_SCOPE",
+      "message": "Tool calls must bind to a narrow capability scope ref before admission.",
+      "negative_case_id": "overbroad_scope",
+      "subject_id": "negative_overbroad_scope",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_OUTPUT_AS_INSTRUCTION",
+      "message": "Untrusted tool output must stay data, not become an instruction to the agent.",
+      "negative_case_id": "tool_output_as_instruction",
+      "subject_id": "negative_tool_output_as_instruction",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_UNAPPROVED_SIDE_EFFECT",
+      "message": "Write-capable tool calls require approval token refs and side-effect ledger refs.",
+      "negative_case_id": "unapproved_side_effect",
+      "subject_id": "negative_unapproved_side_effect",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT",
+      "message": "Tool call payloads must be redacted and private refs must remain metadata-only.",
+      "negative_case_id": "unredacted_tool_payload",
+      "subject_id": "negative_unredacted_tool_payload",
+      "subject_kind": "negative_case"
+    }
+  ],
+  "fixture_id": "first_wave.mcp_tool_authority_replay",
+  "input_mode": "fixture",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "final_answer_only_grading": [
+      "MCP_TOOL_FINAL_ANSWER_ONLY_GRADING"
+    ],
+    "hidden_credential_export": [
+      "MCP_TOOL_HIDDEN_CREDENTIAL_EXPORT"
+    ],
+    "live_account_access": [
+      "MCP_TOOL_LIVE_ACCOUNT_ACCESS"
+    ],
+    "missing_rollback_receipt": [
+      "MCP_TOOL_MISSING_ROLLBACK_RECEIPT"
+    ],
+    "overbroad_scope": [
+      "MCP_TOOL_OVERBROAD_SCOPE"
+    ],
+    "tool_output_as_instruction": [
+      "MCP_TOOL_OUTPUT_AS_INSTRUCTION"
+    ],
+    "unapproved_side_effect": [
+      "MCP_TOOL_UNAPPROVED_SIDE_EFFECT"
+    ],
+    "unredacted_tool_payload": [
+      "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT"
+    ]
+  },
+  "organ_id": "mcp_tool_authority_replay",
+  "output_instruction_ignored_count": 1,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 15,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+  ],
+  "protocol_id": "mcp_tool_authority_public_projection_protocol",
+  "public_replacement_refs": [
+    "fixtures/first_wave/mcp_tool_authority_replay/input/tool_manifest.json",
+    "fixtures/first_wave/mcp_tool_authority_replay/input/tool_calls.json",
+    "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/bundle_manifest.json"
+  ],
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+  ],
+  "rollback_receipt_count": 1,
+  "schema_version": "mcp_tool_authority_replay_result_receipt_v1",
+  "side_effect_count": 1,
+  "side_effect_rows": [
+    {
+      "approval_token_ref": "approval/synthetic_ticket_update_001",
+      "body_redacted": true,
+      "call_id": "call_ticket_update_001",
+      "ledger_diff_ref": "ledger_diff/synthetic_ticket_update_001",
+      "rollback_receipt_ref": "rollback/synthetic_ticket_update_001",
+      "side_effect_class": "write",
+      "side_effect_id": "side_effect_ticket_update_001"
+    }
+  ],
+  "source_pattern_ids": [
+    "mcp_tool_authority_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl:340",
+    "state/microcosm_portfolio/reconstruction_seeds/mcp_tool_authority_replay.seed.json",
+    "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet_metadata",
+    "state/microcosm_portfolio/substrate_bindings.jsonl::mcp_tool_authority_replay_compound"
+  ],
+  "status": "pass",
+  "tool_classes": [
+    "readonly_lookup",
+    "untrusted_result",
+    "write_side_effect"
+  ],
+  "tool_count": 3,
+  "tool_policy_id": "mcp_tool_authority_public_policy",
+  "tool_result_count": 3,
+  "tool_result_rows": [
+    {
+      "body_redacted": true,
+      "call_id": "call_docs_lookup_001",
+      "output_instruction_ignored": false,
+      "private_ref_metadata_only": true,
+      "result_id": "result_docs_lookup_001",
+      "source_capsule_ref": "source/public_docs_capsule_001",
+      "untrusted_output": false
+    },
+    {
+      "body_redacted": true,
+      "call_id": "call_ticket_update_001",
+      "output_instruction_ignored": false,
+      "private_ref_metadata_only": true,
+      "result_id": "result_ticket_update_001",
+      "source_capsule_ref": "source/synthetic_ticket_capsule_001",
+      "untrusted_output": false
+    },
+    {
+      "body_redacted": true,
+      "call_id": "call_untrusted_web_result_001",
+      "output_instruction_ignored": true,
+      "private_ref_metadata_only": true,
+      "result_id": "result_untrusted_web_001",
+      "source_capsule_ref": "source/untrusted_web_capsule_001",
+      "untrusted_output": true
+    }
+  ],
+  "tool_rows": [
+    {
+      "body_redacted": true,
+      "capability_scope_ref": "scope/docs_lookup_readonly",
+      "computed_verdict": "accepted_tool_metadata",
+      "reason_codes": [],
+      "requires_approval": false,
+      "requires_rollback_receipt": false,
+      "tool_class": "readonly_lookup",
+      "tool_id": "tool_docs_lookup",
+      "untrusted_result": false
+    },
+    {
+      "body_redacted": true,
+      "capability_scope_ref": "scope/ticket_update_limited",
+      "computed_verdict": "accepted_tool_metadata",
+      "reason_codes": [],
+      "requires_approval": true,
+      "requires_rollback_receipt": true,
+      "tool_class": "write_side_effect",
+      "tool_id": "tool_ticket_update",
+      "untrusted_result": false
+    },
+    {
+      "body_redacted": true,
+      "capability_scope_ref": "scope/untrusted_web_result_readonly",
+      "computed_verdict": "accepted_tool_metadata",
+      "reason_codes": [],
+      "requires_approval": false,
+      "requires_rollback_receipt": false,
+      "tool_class": "untrusted_result",
+      "tool_id": "tool_web_result",
+      "untrusted_result": true
+    }
+  ],
+  "untrusted_result_count": 1,
+  "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay",
+  "write_side_effect_count": 1
+}

@@ -1,0 +1,173 @@
+{
+  "anti_claim": "The observatory intake bridge is a public-safe browser/read-model over runtime command outputs and receipt refs. It does not host, publish, authorize release, import private bodies, call providers, or prove private-root equivalence.",
+  "authority_ceiling": {
+    "hosted_public_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "whole_system_correctness_claim": false
+  },
+  "body_redacted": true,
+  "bridge_id": "intake_observatory_bridge",
+  "cell_status": [
+    {
+      "action_required": false,
+      "cell_id": "formal_math_readiness_extensions",
+      "cell_state": "consumed_public_replacement",
+      "landed_evidence_refs": [
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "paper_modules/formal_math_readiness_gate.md"
+      ],
+      "next_runtime_surface": "microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input",
+      "projection_status": "public_replacement_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "projection_protocol_self_host",
+      "cell_state": "consumed_protocol_self_host",
+      "landed_evidence_refs": [
+        "standards/std_microcosm_macro_projection_import_protocol.json",
+        "paper_modules/macro_projection_import_protocol.md",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+      ],
+      "next_runtime_surface": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+      "projection_status": "self_hosted_status_protocol_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "runtime_reveal_import_bridge",
+      "cell_state": "bridged_runtime_surface",
+      "landed_evidence_refs": [
+        "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+        "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+        "paper_modules/public_reveal_walkthrough.md"
+      ],
+      "next_runtime_surface": "microcosm intake",
+      "projection_status": "runtime_bridge_landed"
+    }
+  ],
+  "closed_cell_count": 3,
+  "commands": [
+    "microcosm tour <project>",
+    "microcosm spine",
+    "microcosm authority",
+    "microcosm prediction-lens",
+    "microcosm market-boundary",
+    "microcosm corpus-lens",
+    "microcosm trace-lens",
+    "microcosm repair-loop",
+    "microcosm evidence-cells",
+    "microcosm proof-loop-depth",
+    "microcosm landing-replay",
+    "microcosm view-quality",
+    "microcosm projection-safety",
+    "microcosm drift-control",
+    "microcosm route-cleanup",
+    "microcosm projection-import-map",
+    "microcosm import-projector",
+    "microcosm option-surface-lens",
+    "microcosm stripping-guard",
+    "microcosm standards-control",
+    "microcosm hook-coverage",
+    "microcosm replay-gauntlet",
+    "microcosm benchmark-lab",
+    "microcosm legibility-scorecard",
+    "microcosm intake",
+    "microcosm reveal",
+    "microcosm evidence inspect <receipt>"
+  ],
+  "consumed_cell_count": 3,
+  "endpoints": {
+    "authority": "/authority",
+    "benchmark_lab": "/benchmark-lab",
+    "corpus": "/corpus",
+    "evidence": "/evidence",
+    "evidence_cells": "/evidence-cells",
+    "hook_coverage": "/hook-coverage",
+    "import_projector": "/import-projector",
+    "intake": "/intake",
+    "landing_replay": "/landing-replay",
+    "legibility_scorecard": "/legibility-scorecard",
+    "market_boundary": "/market-boundary",
+    "option_surface": "/option-surface-lens",
+    "prediction": "/prediction",
+    "projection_drift": "/drift-control",
+    "projection_import_map": "/projection-import-map",
+    "projection_safety": "/projection-safety",
+    "proof_loop_depth": "/proof-loop-depth",
+    "repair_loop": "/repair-loop",
+    "replay_gauntlet": "/replay-gauntlet",
+    "reveal": "/reveal",
+    "route_cleanup": "/route-cleanup",
+    "spine": "/spine",
+    "standards_control": "/standards-control",
+    "stripping_guard": "/stripping-guard",
+    "tour": "/tour",
+    "trace": "/trace",
+    "view_quality": "/view-quality"
+  },
+  "evidence_refs": [
+    "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+    "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+    "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+    "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+    "receipts/runtime_shell/public_market_prediction_evidence_boundary_lens.json",
+    "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
+    "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+    "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+    "receipts/runtime_shell/public_work_landing_replay_lens.json",
+    "receipts/runtime_shell/public_view_quality_action_map_lens.json",
+    "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+    "receipts/runtime_shell/public_projection_drift_control_lens.json",
+    "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
+    "receipts/runtime_shell/public_projection_import_map_lens.json",
+    "receipts/runtime_shell/public_import_projector_contract_lens.json",
+    "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+    "receipts/runtime_shell/public_stripping_guard_lens.json",
+    "receipts/runtime_shell/public_standards_control_lens.json",
+    "receipts/runtime_shell/public_hook_intervention_coverage_lens.json",
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+    "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+    "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json"
+  ],
+  "landed_cell_count": 3,
+  "open_actionable_cell_count": 0,
+  "projection_status_counts": {
+    "public_replacement_landed": 1,
+    "runtime_bridge_landed": 1,
+    "self_hosted_status_protocol_landed": 1
+  },
+  "projection_status_protocol": {
+    "anti_claim": "Cell status is a public intake state machine over metadata and receipt refs. It is not private source authority, release readiness, or proof of whole-system correctness.",
+    "authority_ceiling": "metadata_fixture_receipt_ref_status_only",
+    "cell_state_field": "cell_state",
+    "closed_statuses": [
+      "public_replacement_landed",
+      "self_hosted_status_protocol_landed",
+      "runtime_bridge_landed"
+    ],
+    "open_action_field": "action_required",
+    "open_statuses": [
+      "ready_for_projection",
+      "blocked"
+    ],
+    "schema_version": "macro_projection_cell_status_protocol_v1",
+    "status_field": "projection_status"
+  },
+  "public_claim": "The local observatory shows the same spine, intake, reveal, and evidence causality that the JSON commands expose.",
+  "reveal_summary": {
+    "evidence_ref": "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+    "evidence_ref_count": 11,
+    "status": "pass",
+    "step_count": 5,
+    "time_budget_minutes": 10
+  },
+  "schema_version": "microcosm_observatory_intake_bridge_v1",
+  "status": "pass"
+}

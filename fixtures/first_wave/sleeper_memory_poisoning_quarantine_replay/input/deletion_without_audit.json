@@ -1,0 +1,11 @@
+{
+  "body_redacted": true,
+  "deletion_audit_ref": "",
+  "expected_negative_case_id": "deletion_without_audit",
+  "memory_absent_after_rerun": true,
+  "proposed_memory_ref": "memory_candidate.synthetic.deleted_without_audit",
+  "rerun_receipt_ref": "receipt.synthetic.rerun_without_audit",
+  "rollback_id": "negative_deletion_without_audit",
+  "rollback_receipt_ref": "receipt.synthetic.rollback_without_audit",
+  "session_id": "negative_session"
+}

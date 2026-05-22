@@ -1,0 +1,10 @@
+{
+  "schema_version": "undeclared_library_prior_classifier_policy_v1",
+  "policy_id": "closed_symbol_classifier_public_policy_v1",
+  "qualified_symbol_regex": "\\b(?:Nat|List|Bool|Iff|Eq)\\.[A-Za-z0-9_.'+]+",
+  "undeclared_review_outcome": "bridge_escalate",
+  "premise_budget_review_outcome": "retry",
+  "proof_bodies_allowed": false,
+  "cited_unallowed_short_circuits_symbol_regex": true,
+  "body_redacted": true
+}

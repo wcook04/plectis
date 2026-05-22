@@ -2,22 +2,77 @@
   "accepted_claim_ids": [
     "claim_public_mission_adapter_runtime"
   ],
-  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, receipt-drain, and closeout metadata. It does not mutate live Task Ledger or Work Ledger state, authorize release, or complete later organs.",
+  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does not mutate live Task Ledger or Work Ledger state, authorize broad staging without operator intent, authorize release, or complete later organs.",
   "authority_ceiling": {
     "authority_ceiling": "mission_transaction_bundle_metadata_not_live_ledger_authority",
+    "broad_checkpoint_requires_operator_authorization": true,
     "broad_stage_authorized": false,
+    "dirty_tree_blocks_scoped_commit": false,
     "later_organs_authorized": false,
     "live_task_ledger_mutation_authorized": false,
     "live_work_ledger_mutation_authorized": false,
     "live_work_state_mutation_authorized": false,
     "release_authorized": false,
-    "status": "pass"
+    "status": "pass",
+    "suspected_secret_requires_hard_stop": true
   },
   "blocked_workitem_ids": [],
-  "bundle_fingerprint": "c7fa07e06b18ed22210bc40ec547fce44e45adfdfd02469a56d3cc254fa86ee0",
+  "bundle_fingerprint": "31073c4f20ff0bffa6b5e07eaf1b8887a8a9cfdf3a495bfb0a13a2d4bf0056a0",
   "bundle_id": "public_mission_transaction_work_spine_runtime_example",
   "bundle_manifest_schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
   "cannot_fake_predicate_status": "pass",
+  "checkpoint_lane_decision": {
+    "body_redacted": true,
+    "broad_checkpoint_authorization_required_case_ids": [],
+    "broad_checkpoint_requires_operator_authorization": true,
+    "checkpoint_lane_decisions": [
+      {
+        "body_redacted": true,
+        "case_id": "runtime_public_scoped_commit",
+        "dirty_tree_present": false,
+        "operator_authorized_broad_checkpoint": false,
+        "owned_paths_isolated": true,
+        "recommended_lane": "scoped_commit",
+        "selected_lane": "scoped_commit",
+        "suspected_secret": false
+      },
+      {
+        "body_redacted": true,
+        "case_id": "runtime_public_operator_broad_checkpoint",
+        "dirty_tree_present": true,
+        "operator_authorized_broad_checkpoint": true,
+        "owned_paths_isolated": false,
+        "recommended_lane": "broad_checkpoint",
+        "selected_lane": "broad_checkpoint",
+        "suspected_secret": false
+      },
+      {
+        "body_redacted": true,
+        "case_id": "runtime_public_secret_suspected",
+        "dirty_tree_present": true,
+        "operator_authorized_broad_checkpoint": false,
+        "owned_paths_isolated": false,
+        "recommended_lane": "hard_stop",
+        "selected_lane": "hard_stop",
+        "suspected_secret": true
+      }
+    ],
+    "dirty_tree_blocks_scoped_commit": false,
+    "dirty_tree_not_scoped_blocker_case_ids": [],
+    "findings": [],
+    "hard_stop_case_ids": [
+      "runtime_public_secret_suspected"
+    ],
+    "observed_negative_cases": {},
+    "recommended_lane_by_case": {
+      "runtime_public_operator_broad_checkpoint": "broad_checkpoint",
+      "runtime_public_scoped_commit": "scoped_commit",
+      "runtime_public_secret_suspected": "hard_stop"
+    },
+    "selection_policy": "dirty_trees_block_broad_accidental_staging_not_scoped_owned_path_commits",
+    "status": "pass",
+    "suspected_secret_requires_hard_stop": true
+  },
   "claim_preflight_result": {
     "accepted_claim_ids": [
       "claim_public_mission_adapter_runtime"
@@ -49,7 +104,7 @@
     "work_item_id": "cap_public_mission_adapter_runtime"
   },
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-20T19:57:11+00:00",
+  "created_at": "2026-05-22T06:15:12+00:00",
   "dependency_refs": [
     "cap_navigation_adapter_accepted"
   ],
@@ -102,7 +157,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 8,
+    "scanned_path_count": 9,
     "status": "pass"
   },
   "public_replacement_refs": [
@@ -113,7 +168,8 @@
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/transaction_plan.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/receipt_drain_plan.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/closeout_projection_packet.json",
-    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/scoped_mutation_policy.json"
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/scoped_mutation_policy.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_policy.json"
   ],
   "receipt_drain_plan": {
     "derived_not_authority": true,
@@ -160,7 +216,8 @@
     "work_ledger_runtime_claims",
     "task_ledger_exact_receipt_drain",
     "work_landing_reconcile_finalizer_plan",
-    "workitem_dependency_unlock_scheduler"
+    "workitem_dependency_unlock_scheduler",
+    "checkpoint_solo_dev_three_lanes"
   ],
   "status": "pass",
   "synthetic_fixture_payload_policy": "synthetic_fixture_metadata_only_no_live_state",
@@ -175,13 +232,23 @@
   "work_landing_reconcile_plan": {
     "actions": [
       {
+        "action_id": "select_checkpoint_lane",
+        "apply_status": "metadata_projection_only",
+        "blocked_by": [],
+        "evidence_if_already_done": [
+          "checkpoint_lane_decision"
+        ],
+        "idempotency_key": "mission-public-1",
+        "would_mutate": false
+      },
+      {
         "action_id": "record_scoped_commit_landing",
         "apply_status": "metadata_projection_only",
         "blocked_by": [],
         "evidence_if_already_done": [
           "scoped_commit_receipt"
         ],
-        "idempotency_key": "mission-public-1",
+        "idempotency_key": "mission-public-2",
         "would_mutate": false
       },
       {
@@ -191,7 +258,7 @@
         "evidence_if_already_done": [
           "receipt_drain_plan"
         ],
-        "idempotency_key": "mission-public-2",
+        "idempotency_key": "mission-public-3",
         "would_mutate": false
       },
       {
@@ -201,7 +268,7 @@
         "evidence_if_already_done": [
           "receipt_refs_drained"
         ],
-        "idempotency_key": "mission-public-3",
+        "idempotency_key": "mission-public-4",
         "would_mutate": false
       },
       {
@@ -211,7 +278,7 @@
         "evidence_if_already_done": [
           "closeout_projection_packet"
         ],
-        "idempotency_key": "mission-public-4",
+        "idempotency_key": "mission-public-5",
         "would_mutate": false
       },
       {
@@ -221,7 +288,7 @@
         "evidence_if_already_done": [
           "claim_table"
         ],
-        "idempotency_key": "mission-public-5",
+        "idempotency_key": "mission-public-6",
         "would_mutate": false
       },
       {
@@ -231,7 +298,7 @@
         "evidence_if_already_done": [
           "closeout_status_projection"
         ],
-        "idempotency_key": "mission-public-6",
+        "idempotency_key": "mission-public-7",
         "would_mutate": false
       }
     ],
@@ -248,6 +315,7 @@
       "release_authorized": false
     },
     "ordered_controller_action_ids": [
+      "select_checkpoint_lane",
       "record_scoped_commit_landing",
       "intake_exact_receipt_refs",
       "drain_exact_receipts",

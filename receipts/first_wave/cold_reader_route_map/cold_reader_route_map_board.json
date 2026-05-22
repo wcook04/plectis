@@ -1,0 +1,116 @@
+{
+  "anti_claim": "The cold-reader route map validates a public ten-minute route projection only. It does not become route registry authority, expose private macro sources, authorize release, call providers, mutate source projects, or prove whole-system correctness.",
+  "authority_ceiling": {
+    "authority_ceiling": "cold_reader_route_map_projection_only_not_route_authority",
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "route_registry_authority": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
+  "board_id": "cold_reader_route_map_first_run_board",
+  "body_redacted": true,
+  "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
+  "created_at": "2026-05-21T17:44:33+00:00",
+  "finding_count": 7,
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_MISSING_COMMAND_REF",
+      "message": "A route card without a command cannot guide a cold reader.",
+      "negative_case_id": "missing_command_ref",
+      "subject_id": "missing_command_ref",
+      "subject_kind": "command"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_MISSING_COMMAND_REF",
+      "message": "A route card without a command cannot guide a cold reader.",
+      "negative_case_id": "missing_command_ref",
+      "subject_id": "missing_command_ref",
+      "subject_kind": "command"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_MISSING_RECEIPT_REF",
+      "message": "A route card without receipt refs is not evidence-backed.",
+      "negative_case_id": "missing_receipt_ref",
+      "subject_id": "missing_receipt_ref",
+      "subject_kind": "receipt_refs"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_SEQUENCE_GAP",
+      "message": "The first-run sequence must start from compile_project.",
+      "negative_case_id": "route_sequence_gap",
+      "subject_id": "route_sequence_gap",
+      "subject_kind": "first_run_sequence"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_AUTHORITY_OVERCLAIM",
+      "message": "Cold-reader route maps cannot authorize release or global authority.",
+      "negative_case_id": "release_overclaim",
+      "subject_id": "release_overclaim",
+      "subject_kind": "release_authorized"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_AUTHORITY_OVERCLAIM",
+      "message": "Cold-reader route maps cannot authorize release or global authority.",
+      "negative_case_id": "release_overclaim",
+      "subject_id": "release_overclaim",
+      "subject_kind": "provider_calls_authorized"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "COLD_ROUTE_PRIVATE_SOURCE_FORBIDDEN",
+      "message": "Cold-reader route maps must not carry private source bodies.",
+      "negative_case_id": "private_source_leakage",
+      "subject_id": "private_source_leakage",
+      "subject_kind": "private_source"
+    }
+  ],
+  "organ_id": "cold_reader_route_map",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+    "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+  ],
+  "route_map": {
+    "command_count": 7,
+    "covered_route_ids": [
+      "compile_project",
+      "inspect_cold_reader_route_map",
+      "inspect_public_spine",
+      "inspect_route",
+      "open_import_bridge",
+      "open_observatory",
+      "open_reveal_board"
+    ],
+    "first_run_sequence": [
+      "compile_project",
+      "inspect_route",
+      "open_observatory",
+      "inspect_public_spine",
+      "open_import_bridge",
+      "open_reveal_board",
+      "inspect_cold_reader_route_map"
+    ],
+    "receipt_ref_count": 7,
+    "route_count": 7
+  },
+  "schema_version": "cold_reader_route_map_board_v1",
+  "status": "pass"
+}

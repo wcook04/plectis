@@ -1,0 +1,10 @@
+{
+  "schema_version": "lean_std_premise_index_bundle_manifest_v1",
+  "bundle_id": "public_lean_std_premise_index_runtime_example",
+  "organ_id": "lean_std_premise_index",
+  "input_mode": "exported_lean_std_premise_index_bundle",
+  "contains_negative_cases": false,
+  "receipt_ref": "receipts/runtime_shell/demo_project/organs/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json",
+  "authority_ceiling": "closed_public_metadata_index_only",
+  "body_redacted": true
+}

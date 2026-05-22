@@ -1,0 +1,16 @@
+{
+  "schema_version": "provider_context_negative_fixture_v1",
+  "expected_negative_case_id": "provider_call_authorized",
+  "recipes": [
+    {
+      "recipe_id": "minimal_4kb",
+      "byte_budget": 4096,
+      "graph_role": "minimal_statement_context",
+      "deliverable_type": "environment_metadata",
+      "sections": ["statement", "declared_imports"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": true
+    }
+  ]
+}

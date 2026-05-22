@@ -1,0 +1,78 @@
+{
+  "schema_version": "std_microcosm_tactic_portfolio_availability_probe_v1",
+  "standard_id": "std_microcosm_tactic_portfolio_availability_probe",
+  "kind_id": "microcosm_public_runtime_organ_standard",
+  "status": "accepted_public_runtime_standard",
+  "authority_boundary": "public_tactic_availability_probe_metadata_only",
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+  ],
+  "relationships": {
+    "used_by_organs": [
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate"
+    ],
+    "depends_on_standards": [
+      "std_microcosm_corpus_readiness_mathlib_absence_gate",
+      "std_microcosm_target_shape_tactic_routing_gate",
+      "std_microcosm_omission_receipt"
+    ]
+  },
+  "required_fields": [
+    "portfolio_id",
+    "environment_id",
+    "tactics",
+    "tactic_id",
+    "compile_status",
+    "requires_mathlib",
+    "mathlib_lake_project_import_available"
+  ],
+  "validation_rules": [
+    "Each tactic row declares compile_status in a scoped pass/fail vocabulary.",
+    "Mathlib-dependent tactics cannot be marked available unless the Mathlib import probe passed.",
+    "Consumers cannot reference tactics absent from the declared portfolio probe.",
+    "Proof bodies, raw provider payloads, benchmark claims, release authority, and private paths are rejected."
+  ],
+  "receipt_expectations": [
+    "tactic_portfolio_availability_result.json",
+    "tactic_portfolio_availability_board.json",
+    "tactic_portfolio_availability_validation_receipt.json",
+    "tactic_portfolio_availability_probe_fixture_acceptance.json"
+  ],
+  "validator_contract": {
+    "runner": "microcosm_core.organs.tactic_portfolio_availability_probe",
+    "fixture_command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe",
+    "runtime_bundle_command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run-availability-bundle --input examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle --out receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe"
+  },
+  "receipt_contract": {
+    "status_field": "status",
+    "required_negative_cases": [
+      "missing_compile_status",
+      "mathlib_claim_without_probe",
+      "unprobed_tactic_referenced",
+      "proof_body_leakage",
+      "authority_overclaim"
+    ],
+    "redaction_required": true
+  },
+  "public_private_boundary": {
+    "public_inputs": "synthetic tactic portfolio and environment probe metadata",
+    "private_inputs_forbidden": [
+      "private Lean proof bodies",
+      "provider payloads",
+      "private source paths",
+      "live benchmark claims"
+    ],
+    "release_authorized": false
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "tactic_availability_authority": "environment_scoped_metadata_only",
+    "formal_proof_authority": false,
+    "provider_calls_authorized": false,
+    "benchmark_performance_authority": false,
+    "release_authorized": false
+  },
+  "anti_claim": "Tactic portfolio availability is an environment-scoped probe artifact; it does not prove theorem correctness, authorize provider output, claim benchmark performance, or authorize release."
+}

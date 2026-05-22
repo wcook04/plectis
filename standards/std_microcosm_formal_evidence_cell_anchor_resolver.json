@@ -1,0 +1,179 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
+  "kind_id": "formal_evidence_cell_anchor_resolver",
+  "kind_name": "Formal evidence cell anchor resolver",
+  "status": "draft",
+  "first_wave_required": true,
+  "wave": "w1_formal_evidence_cell_anchor_resolver",
+  "authority_boundary": "public_evidence_cell_anchor_metadata_not_theorem_authority",
+  "source_refs": [
+    {
+      "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json",
+      "field": "projection_protocol",
+      "role": "public_fixture_source"
+    },
+    {
+      "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
+      "field": "runtime_example",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#formal_evidence_cell_anchor_resolver",
+    "used_by_organs": [
+      "formal_evidence_cell_anchor_resolver"
+    ],
+    "source_pattern_id_sample": [
+      "formal_evidence_cell_anchor_resolver",
+      "formal_math_verifier_trace_repair_loop_compound",
+      "formal_math_readiness_proof_spine_compound"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "paper_claims",
+    "evidence_cells",
+    "claim_boundary_policy",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require macro projection protocol refs and public replacement refs",
+    "resolve public paper claims to evidence cell ids",
+    "require source-anchor refs on proof-language evidence cells",
+    "require machine-anchor class metadata before proof language",
+    "reject unknown cell overclaims",
+    "reject proof-language claims without cell ids",
+    "reject proof bodies and private source refs",
+    "reject human approval as proof authority",
+    "reject theorem-correctness claims from metadata cells",
+    "emit private-state scan and redacted receipts"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.formal_evidence_cell_anchor_resolver",
+    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, claim counts, resolved cell counts, source-anchor counts, negative-case coverage, private-state scan, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.formal_evidence_cell_anchor_resolver",
+    "minimum_checks": [
+      "projection_protocol_floor",
+      "claim_to_cell_resolution",
+      "source_anchor_required",
+      "machine_anchor_required_for_proof_language",
+      "proof_body_rejection",
+      "private_source_ref_rejection",
+      "human_approval_rejection",
+      "theorem_correctness_overclaim_rejection",
+      "negative_case_coverage"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.formal_evidence_cell_anchor_resolver",
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "source_refs",
+      "projection_receipt_refs",
+      "public_replacement_refs",
+      "claim_count",
+      "resolved_cell_count",
+      "source_anchor_count",
+      "machine_anchor_count",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_cell_metadata_fixture_receipt_only",
+    "allowed_public_inputs": [
+      "claim ids",
+      "paper module slugs",
+      "evidence cell ids",
+      "source-anchor refs",
+      "machine-anchor classes",
+      "claim-strength ids",
+      "projection receipt refs"
+    ],
+    "forbidden_public_inputs": [
+      "proof bodies",
+      "private source refs",
+      "oracle source refs",
+      "provider payload bodies",
+      "credentials",
+      "human approval as proof authority",
+      "theorem correctness claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "evidence_cell_anchor_metadata_fixture_receipt_schema_only",
+    "formal_proof_authority": false,
+    "theorem_correctness_authority": false,
+    "lean_lake_authority": false,
+    "provider_authority": false,
+    "human_approval_as_proof_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs public evidence-cell anchor metadata only; it does not prove theorem correctness, authorize Lean/Lake execution, expose proof bodies or private source refs, treat human approval as proof authority, or authorize release/publication work.",
+  "standard_payload": {
+    "ontology": "A public-safe evidence-cell anchor resolver: paper claims, evidence cells, source anchors, machine-anchor classes, claim-strength boundaries, receipts, and leakage negative cases.",
+    "teleology": "Make Microcosm demonstrate proof-evidence legibility while preserving the boundary between evidence metadata and theorem correctness.",
+    "anti_purpose": "Turning evidence-cell metadata into proof authority.",
+    "compression_bands": [
+      "protocol",
+      "claim",
+      "cell",
+      "anchor",
+      "boundary",
+      "receipt"
+    ],
+    "failure_modes": [
+      "claim references unknown cell while using proof language",
+      "proof language lacks source-anchor refs",
+      "proof language has no evidence cell id",
+      "claim row leaks private source ref",
+      "claim row leaks proof body",
+      "metadata cell is treated as theorem correctness",
+      "human approval is treated as proof authority"
+    ],
+    "rebuild_action": "draft"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json"
+  ],
+  "validator_refs": [
+    "microcosm_core.organs.formal_evidence_cell_anchor_resolver"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "formal_evidence_cell_anchor_resolver"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "proof bodies",
+      "private source refs",
+      "oracle source refs",
+      "provider payload bodies",
+      "Lean/Lake execution receipts"
+    ],
+    "reason": "public tranche carries evidence-cell metadata and synthetic fixture evidence only",
+    "drilldown": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "formal evidence-cell material must state that anchor metadata is not theorem correctness"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  }
+}

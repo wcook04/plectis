@@ -1,0 +1,58 @@
+{
+  "accepted_negative_cases": [
+    "deletion_without_audit",
+    "final_answer_only_grading",
+    "live_user_memory_claim",
+    "memory_write_without_provenance",
+    "private_memory_body_export",
+    "raw_transcript_export",
+    "trusted_promotion_from_untrusted_context",
+    "unmetered_poison_influence"
+  ],
+  "anti_claim": "Sleeper memory poisoning quarantine replay validates a synthetic four-session memory security contract: poisoned source metadata, provenance-bound write proposal, quarantine verdict, later retrieval influence gating, rollback, cold rerun, negative cases, and receipts. It does not export private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_sleeper_memory_poisoning_quarantine_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "live_memory_product_claim_authorized": false,
+    "live_user_memory_claim_authorized": false,
+    "private_memory_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "raw_transcript_export_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "trusted_promotion_from_untrusted_context_authorized": false
+  },
+  "created_at": "2026-05-22T05:37:32+00:00",
+  "error_codes": [
+    "SLEEPER_MEMORY_DELETION_WITHOUT_AUDIT",
+    "SLEEPER_MEMORY_FINAL_ANSWER_ONLY_GRADING",
+    "SLEEPER_MEMORY_LIVE_USER_MEMORY_CLAIM",
+    "SLEEPER_MEMORY_PRIVATE_BODY_EXPORT",
+    "SLEEPER_MEMORY_RAW_TRANSCRIPT_EXPORT",
+    "SLEEPER_MEMORY_TRUSTED_PROMOTION_FORBIDDEN",
+    "SLEEPER_MEMORY_UNMETERED_POISON_INFLUENCE",
+    "SLEEPER_MEMORY_WRITE_WITHOUT_PROVENANCE"
+  ],
+  "fixture_id": "first_wave.sleeper_memory_poisoning_quarantine_replay",
+  "missing_negative_cases": [],
+  "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 14,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "sleeper_memory_poisoning_quarantine_fixture_acceptance_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.sleeper_memory_poisoning_quarantine_replay"
+}

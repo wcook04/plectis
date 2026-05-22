@@ -1,0 +1,52 @@
+{
+  "schema_version": "undeclared_library_prior_symbol_observations_fixture_v1",
+  "symbol_observations": [
+    {
+      "receipt_id": "receipt.lean_passes_but_nat_add_comm_out_of_recipe",
+      "problem_id": "toy.nat_comm_hidden_prior",
+      "lean_status": "pass",
+      "proof_body_hash": "sha256:toy-redacted-nat-add-comm",
+      "proof_symbol_refs": [
+        "Nat.add_comm"
+      ],
+      "allowed_premise_ids": [
+        "premise.list.append_assoc"
+      ],
+      "cited_unallowed_premise_ids": [],
+      "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
+      "review_outcome": "bridge_escalate"
+    },
+    {
+      "receipt_id": "receipt.cited_unallowed_short_circuits_classifier",
+      "problem_id": "toy.explicit_budget_violation",
+      "lean_status": "pass",
+      "proof_body_hash": "sha256:toy-redacted-cited-unallowed",
+      "proof_symbol_refs": [
+        "Nat.add_comm"
+      ],
+      "allowed_premise_ids": [
+        "premise.list.append_assoc"
+      ],
+      "cited_unallowed_premise_ids": [
+        "premise.nat.add_comm"
+      ],
+      "classified_failure_class": "PREMISE_BUDGET_VIOLATION",
+      "review_outcome": "retry"
+    },
+    {
+      "receipt_id": "receipt.allowed_nat_add_comm_not_flagged",
+      "problem_id": "toy.allowed_symbol",
+      "lean_status": "pass",
+      "proof_body_hash": "sha256:toy-redacted-allowed-symbol",
+      "proof_symbol_refs": [
+        "Nat.add_comm"
+      ],
+      "allowed_premise_ids": [
+        "premise.nat.add_comm"
+      ],
+      "cited_unallowed_premise_ids": [],
+      "classified_failure_class": "NONE",
+      "review_outcome": "accept_as_advisory"
+    }
+  ]
+}

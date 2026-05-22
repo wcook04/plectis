@@ -1,0 +1,176 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_formal_math_readiness_gate",
+  "kind_id": "formal_math_readiness_gate",
+  "kind_name": "Formal math readiness gate",
+  "status": "draft",
+  "first_wave_required": true,
+  "wave": "w1_formal_math_readiness",
+  "authority_boundary": "public_synthetic_formal_math_readiness_metadata_not_proof_authority",
+  "source_refs": [
+    {
+      "path": "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+      "field": "premises",
+      "role": "public_closed_premise_index_fixture"
+    },
+    {
+      "path": "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+      "field": "tactics",
+      "role": "public_tactic_probe_fixture"
+    },
+    {
+      "path": "fixtures/first_wave/formal_math_readiness_gate/input/target_shape_tactic_routing.json",
+      "field": "route_cases",
+      "role": "public_target_shape_routing_fixture"
+    },
+    {
+      "path": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json#formal_math_readiness_extensions",
+      "field": "projection_cells",
+      "role": "macro_projection_intake_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#formal_math_readiness_gate",
+    "used_by_organs": ["formal_math_readiness_gate"],
+    "source_pattern_id_sample": [
+      "lean_std_toolchain_premise_index",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate"
+    ],
+    "downstream_boundaries": [
+      "formal_math_premise_retrieval",
+      "formal_math_lean_proof_witness"
+    ]
+  },
+  "required_fields": [
+    "corpus_readiness",
+    "premise_index",
+    "tactic_portfolio_availability",
+    "target_shape_tactic_routing",
+    "provider_context_recipes",
+    "readiness_extension_board",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "reject Mathlib availability without a passing probe",
+    "reject tactic availability claims without probe receipts",
+    "reject premise rows that carry proof or oracle body fields",
+    "reject target-shape routes that admit unavailable tactics",
+    "reject provider recipes that exceed public byte budgets",
+    "reject provider recipes that allow proof bodies or provider payload bodies",
+    "emit a formal_math_readiness_extension_board with selected pattern ids, source intake ref, target refs, validation refs, premise namespace coverage, tactic availability coverage, routing admissibility, and authority ceiling",
+    "keep Lean/Lake execution unauthorized in this organ"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.formal_math_readiness_gate",
+    "receipt must cite the formal_math_readiness_extensions projection cell, selected pattern ids, fixture refs, generated extension board, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.formal_math_readiness_gate",
+    "minimum_checks": [
+      "corpus_readiness_boundary",
+      "tactic_probe_receipt_required",
+      "premise_index_metadata_only",
+      "target_shape_tactic_admissibility",
+      "provider_context_budget",
+      "readiness_extension_board_projection",
+      "negative_case_coverage",
+      "private_state_scan"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.formal_math_readiness_gate",
+    "must_record": [
+      "projection_cell_id",
+      "selected_pattern_ids",
+      "blocked_capabilities",
+      "available_tactic_ids",
+      "unavailable_tactic_ids",
+      "premise_count",
+      "route_case_count",
+      "recipe_count",
+      "readiness_extension_board",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_metadata_fixture_receipt_only",
+    "allowed_public_inputs": [
+      "corpus availability metadata",
+      "tactic ids and probe receipt refs",
+      "premise ids, namespaces, retrieval terms, and split eligibility",
+      "target-shape route cases and admissible tactic ids",
+      "provider context recipe ids and byte budgets",
+      "macro projection intake refs"
+    ],
+    "forbidden_public_inputs": [
+      "proof bodies",
+      "oracle-needed premise ids",
+      "provider payload bodies",
+      "private run logs",
+      "credentials",
+      "Mathlib availability claims without passing probe receipts",
+      "Lean/Lake execution authority"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "readiness_metadata_fixture_receipt_schema_only",
+    "formal_proof_authority": false,
+    "lean_lake_authority": false,
+    "mathlib_presence_authority": false,
+    "provider_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs public synthetic formal-math readiness metadata only; it does not authorize Lean/Lake execution, Mathlib-dependent proof work, provider calls, proof bodies, theorem correctness claims, or release/publication work.",
+  "standard_payload": {
+    "ontology": "A public-safe readiness gate for Lean/Std premise availability, tactic availability, target-shape routing, and context-recipe constraints.",
+    "teleology": "Turn the formal_math_readiness_extensions intake cell into a runnable boundary board future formal-math organs can inspect before proof or retrieval work.",
+    "anti_purpose": "Turning readiness metadata into theorem-proof authority.",
+    "compression_bands": ["corpus", "premise_index", "tactic_portfolio", "routing", "extension_board", "receipt"],
+    "failure_modes": [
+      "Mathlib availability overclaim",
+      "unprobed tactic admitted",
+      "premise index leaks proof body",
+      "route admits unavailable tactic",
+      "provider context recipe smuggles proof body"
+    ],
+    "rebuild_action": "draft"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
+  ],
+  "validator_refs": [
+    "microcosm_core.organs.formal_math_readiness_gate"
+  ],
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "formal_math_readiness_gate"
+  },
+  "omission_receipt": {
+    "omitted": [
+      "proof bodies",
+      "oracle-needed premise ids",
+      "provider payload bodies",
+      "private run logs",
+      "Lean/Lake execution receipts"
+    ],
+    "reason": "public readiness gate carries metadata, synthetic fixtures, and receipt evidence only",
+    "drilldown": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "formal readiness material must state that readiness is not proof authority"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  }
+}

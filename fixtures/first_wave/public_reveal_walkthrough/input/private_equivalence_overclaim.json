@@ -1,0 +1,7 @@
+{
+  "schema_version": "public_reveal_negative_case_v1",
+  "expected_negative_case_id": "private_equivalence_overclaim",
+  "claim_id": "negative_private_equivalence_claim",
+  "private_data_equivalence_claim": true,
+  "whole_system_correctness_claim": true
+}

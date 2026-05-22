@@ -1,0 +1,221 @@
+{
+  "counterfactual_replays": [
+    {
+      "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/warehouse_occlusion_left_forklift_stop.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 3,
+        "max_position_delta_m": 0.09,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "occluded_forklift_enters_aisle",
+      "fidelity_limit_label": "synthetic_grid_only",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::warehouse_occlusion_left_forklift_stop",
+      "predicted_state_ref": "predicted_state::warehouse_occlusion_left_forklift_stop",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "occlusion",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "warehouse_occlusion_left_forklift_stop",
+      "scene_state_ref": "scene_state::warehouse_occlusion_left_forklift_stop",
+      "sensor_packet_refs": [
+        "public_sensor_packet::warehouse_occlusion_left_forklift_stop::geometry",
+        "public_sensor_packet::warehouse_occlusion_left_forklift_stop::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop"
+    },
+    {
+      "action_trace_ref": "action_trace::crosswalk_child_emergence_slowdown",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/crosswalk_child_emergence_slowdown.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 4,
+        "max_position_delta_m": 0.1,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "small_pedestrian_enters_crosswalk",
+      "fidelity_limit_label": "no_photoreal_video",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::crosswalk_child_emergence_slowdown",
+      "predicted_state_ref": "predicted_state::crosswalk_child_emergence_slowdown",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "vulnerable_road_user",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "crosswalk_child_emergence_slowdown",
+      "scene_state_ref": "scene_state::crosswalk_child_emergence_slowdown",
+      "sensor_packet_refs": [
+        "public_sensor_packet::crosswalk_child_emergence_slowdown::geometry",
+        "public_sensor_packet::crosswalk_child_emergence_slowdown::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::crosswalk_child_emergence_slowdown"
+    },
+    {
+      "action_trace_ref": "action_trace::drone_corridor_gust_recovery",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/drone_corridor_gust_recovery.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 5,
+        "max_position_delta_m": 0.11,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "lateral_gust_pushes_vehicle",
+      "fidelity_limit_label": "bounded_2d_wind_model",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::drone_corridor_gust_recovery",
+      "predicted_state_ref": "predicted_state::drone_corridor_gust_recovery",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "wind_disturbance",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "drone_corridor_gust_recovery",
+      "scene_state_ref": "scene_state::drone_corridor_gust_recovery",
+      "sensor_packet_refs": [
+        "public_sensor_packet::drone_corridor_gust_recovery::geometry",
+        "public_sensor_packet::drone_corridor_gust_recovery::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::drone_corridor_gust_recovery"
+    },
+    {
+      "action_trace_ref": "action_trace::mobile_robot_reflective_floor_detour",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/mobile_robot_reflective_floor_detour.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 6,
+        "max_position_delta_m": 0.12,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "specular_floor_false_free_space",
+      "fidelity_limit_label": "no_material_truth_claim",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::mobile_robot_reflective_floor_detour",
+      "predicted_state_ref": "predicted_state::mobile_robot_reflective_floor_detour",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "surface_reflection",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "mobile_robot_reflective_floor_detour",
+      "scene_state_ref": "scene_state::mobile_robot_reflective_floor_detour",
+      "sensor_packet_refs": [
+        "public_sensor_packet::mobile_robot_reflective_floor_detour::geometry",
+        "public_sensor_packet::mobile_robot_reflective_floor_detour::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::mobile_robot_reflective_floor_detour"
+    },
+    {
+      "action_trace_ref": "action_trace::loading_dock_pallet_shift_replan",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/loading_dock_pallet_shift_replan.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 7,
+        "max_position_delta_m": 0.13,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "pallet_stack_shifts_into_lane",
+      "fidelity_limit_label": "kinematic_shift_only",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::loading_dock_pallet_shift_replan",
+      "predicted_state_ref": "predicted_state::loading_dock_pallet_shift_replan",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "load_shift",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "loading_dock_pallet_shift_replan",
+      "scene_state_ref": "scene_state::loading_dock_pallet_shift_replan",
+      "sensor_packet_refs": [
+        "public_sensor_packet::loading_dock_pallet_shift_replan::geometry",
+        "public_sensor_packet::loading_dock_pallet_shift_replan::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::loading_dock_pallet_shift_replan"
+    },
+    {
+      "action_trace_ref": "action_trace::intersection_unprotected_turn_yield",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/intersection_unprotected_turn_yield.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 8,
+        "max_position_delta_m": 0.14,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "oncoming_vehicle_accelerates_late",
+      "fidelity_limit_label": "no_map_accuracy_claim",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::intersection_unprotected_turn_yield",
+      "predicted_state_ref": "predicted_state::intersection_unprotected_turn_yield",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "late_yield",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "intersection_unprotected_turn_yield",
+      "scene_state_ref": "scene_state::intersection_unprotected_turn_yield",
+      "sensor_packet_refs": [
+        "public_sensor_packet::intersection_unprotected_turn_yield::geometry",
+        "public_sensor_packet::intersection_unprotected_turn_yield::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::intersection_unprotected_turn_yield"
+    }
+  ],
+  "schema_version": "counterfactual_replays_v1"
+}

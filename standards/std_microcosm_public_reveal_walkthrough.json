@@ -1,0 +1,158 @@
+{
+  "anti_claim": "This standard is a public-safe first-entry walkthrough schema only; it does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "public reveal material must state what the walkthrough does not authorize"
+  },
+  "anti_claims": [
+    "This public standard does not prove runtime completeness or publication readiness.",
+    "This public standard does not claim private macro-system equivalence."
+  ],
+  "authority_boundary": "public_safe_walkthrough_schema_not_source_body_authority",
+  "authority_ceiling": {
+    "private_data_equivalence_authority": false,
+    "release_authority": false,
+    "source_body_authority": false,
+    "standard_authority": "walkthrough_schema_and_validator_expectation_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "public_reveal_walkthrough",
+  "kind_name": "Public reveal walkthrough",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/public_reveal_walkthrough/input/reveal_walkthrough.json",
+    "omitted": [
+      "private macro source bodies",
+      "operator thread content",
+      "provider payload bodies",
+      "release or recipient material"
+    ],
+    "reason": "public reveal carries commands, refs, and anti-claims only"
+  },
+  "omission_receipt_contract": {
+    "required": true,
+    "rule": "walkthrough receipts must list omitted authority surfaces"
+  },
+  "paper_module_contract": {
+    "module_slug": "public_reveal_walkthrough",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public commands",
+      "public-root file refs",
+      "receipt refs",
+      "redacted authority ceilings",
+      "synthetic negative cases"
+    ],
+    "default_posture": "public_safe_when_command_and_evidence_backed",
+    "forbidden_public_inputs": [
+      "live_raw_seed",
+      "prompt_shelf_bodies",
+      "provider_payload_bodies",
+      "operator_thread_content",
+      "recipient_or_publication_surfaces",
+      "private_data_equivalence_claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "walkthrough_id",
+      "step_count",
+      "commands",
+      "evidence_refs",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.public_reveal_walkthrough",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.public_reveal_walkthrough",
+    "receipt must cite the ten-minute steps, command refs, evidence refs, negative-case coverage, private-state scan, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#public_reveal_walkthrough",
+    "source_pattern_id_count": 4,
+    "source_pattern_id_sample": [
+      "cold_start_agent_skills_pack",
+      "public_runtime_option_surface",
+      "workingness_record",
+      "authority_boundary_anti_claim"
+    ],
+    "used_by_organs": [
+      "public_reveal_walkthrough"
+    ]
+  },
+  "required_fields": [
+    "walkthrough_id",
+    "target_reader",
+    "time_budget_minutes",
+    "steps",
+    "commands",
+    "inspect_refs",
+    "evidence_refs",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "walkthrough refs must stay public-root relative or explicit localhost URLs"
+  },
+  "source_refs": [
+    {
+      "field": "fixtures/first_wave/public_reveal_walkthrough/input/reveal_walkthrough.json",
+      "path": "fixtures/first_wave/public_reveal_walkthrough/input/reveal_walkthrough.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
+      "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_public_reveal_walkthrough",
+  "standard_payload": {
+    "anti_purpose": "Marketing-only reveal copy without runnable command or evidence refs.",
+    "compression_bands": [
+      "card",
+      "board",
+      "receipt"
+    ],
+    "failure_modes": [
+      "first entry requires private Atlas knowledge",
+      "walkthrough claims release readiness",
+      "walkthrough hides evidence behind raw JSON first",
+      "walkthrough lacks executable commands"
+    ],
+    "ontology": "A short public entry path that ties product claim, commands, substrate refs, evidence refs, and authority ceiling.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm legible to a cold technical reader in under ten minutes."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require at least five walkthrough steps within a ten-minute budget",
+    "require commands and evidence refs for each reveal move",
+    "reject release, hosting, publication, provider, private-equivalence, and whole-system-correctness overclaims",
+    "require private-state scan and redacted receipts"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "walkthrough_density",
+      "command_presence",
+      "evidence_ref_presence",
+      "negative_case_coverage",
+      "authority_ceiling"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.public_reveal_walkthrough"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.public_reveal_walkthrough"
+  ],
+  "wave": "w1_public_reveal_legibility"
+}

@@ -26,6 +26,7 @@ DEPENDENCY_BLOCKED_NAME = "dependency_blocked.json"
 WORK_LANDING_ATTEMPT_NAME = "work_landing_attempt.json"
 CLAIM_PREFLIGHT_NAME = "claim_preflight_result.json"
 SCOPED_MUTATION_NAME = "scoped_mutation_receipt.json"
+CHECKPOINT_LANE_NAME = "checkpoint_lane_decision.json"
 CLOSEOUT_STATUS_NAME = "closeout_status_projection.json"
 DEPENDENCY_UNLOCK_NAME = "dependency_unlock_scheduler_receipt.json"
 RECONCILE_PLAN_NAME = "work_landing_reconcile_plan.json"
@@ -37,6 +38,7 @@ EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
     "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
     "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+    "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
     "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
     "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
     "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json",
@@ -61,6 +63,12 @@ EXPECTED_NEGATIVE_CASES = {
     ],
     "dependency_unlock_without_resolution_receipt": ["DANGLING_DEPENDENCY_REF"],
     "ready_workitem_with_unsatisfied_hard_dep": ["READY_WITH_INCOMPLETE_HARD_DEP"],
+    "broad_checkpoint_without_operator_authorization": [
+        "CHECKPOINT_BROAD_AUTH_REQUIRED"
+    ],
+    "suspected_secret_without_hard_stop": ["CHECKPOINT_SECRET_REQUIRES_HARD_STOP"],
+    "dirty_tree_blocks_scoped_lane": ["CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER"],
+    "missing_selected_lane_for_state": ["CHECKPOINT_LANE_DECISION_REQUIRED"],
 }
 
 MISSION_AUTHORITY_CEILING = {
@@ -68,13 +76,17 @@ MISSION_AUTHORITY_CEILING = {
     "authority_ceiling": "mission_transaction_metadata_not_live_closeout_authority",
     "live_work_state_mutation_authorized": False,
     "broad_stage_authorized": False,
+    "broad_checkpoint_requires_operator_authorization": True,
+    "suspected_secret_requires_hard_stop": True,
+    "dirty_tree_blocks_scoped_commit": False,
     "derived_status_projection_is_authority": False,
     "later_organs_authorized": False,
 }
 MISSION_ANTI_CLAIM = (
     "Mission transaction receipts validate public work, claim, dependency, landing, "
-    "receipt-drain, and schedulability metadata plus regression fixtures; they do not mutate live state, "
-    "certify live closeout, authorize later organs, or prove whole Wave 1."
+    "checkpoint-lane, receipt-drain, and schedulability metadata plus regression fixtures; "
+    "they do not mutate live state, certify live closeout, authorize broad staging without "
+    "operator intent, authorize later organs, or prove whole Wave 1."
 )
 
 SOURCE_PATTERN_IDS = [
@@ -84,6 +96,7 @@ SOURCE_PATTERN_IDS = [
     "task_ledger_exact_receipt_drain",
     "work_landing_reconcile_finalizer_plan",
     "workitem_dependency_unlock_scheduler",
+    "checkpoint_solo_dev_three_lanes",
 ]
 
 VALIDATOR_CONTRACT_RATCHET_REFS = [
@@ -93,6 +106,7 @@ VALIDATOR_CONTRACT_RATCHET_REFS = [
 ]
 
 ORDERED_CONTROLLER_ACTION_IDS = [
+    "select_checkpoint_lane",
     "record_scoped_commit_landing",
     "intake_exact_receipt_refs",
     "drain_exact_receipts",
@@ -121,6 +135,11 @@ def _input_file_paths(input_dir: Path) -> list[Path]:
         "scoped_receipt_global_authority_claim.json",
         "live_task_ledger_body_in_fixture.json",
         "preflight_pass_claims_work_landed.json",
+        "checkpoint_lane_policy.json",
+        "broad_checkpoint_without_operator_authorization.json",
+        "suspected_secret_without_hard_stop.json",
+        "dirty_tree_blocks_scoped_lane.json",
+        "missing_selected_lane_for_state.json",
     )
     return [input_dir / name for name in names]
 
@@ -135,6 +154,7 @@ def _mission_bundle_paths(input_dir: Path) -> list[Path]:
         "receipt_drain_plan.json",
         "closeout_projection_packet.json",
         "scoped_mutation_policy.json",
+        "checkpoint_lane_policy.json",
     )
     return [input_dir / name for name in names]
 
@@ -165,6 +185,13 @@ def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
         "preflight_overclaim": read_json_strict(
             input_dir / "preflight_pass_claims_work_landed.json"
         ),
+        "checkpoint_lane_policy": read_json_strict(input_dir / "checkpoint_lane_policy.json"),
+        "checkpoint_negative_cases": [
+            read_json_strict(input_dir / "broad_checkpoint_without_operator_authorization.json"),
+            read_json_strict(input_dir / "suspected_secret_without_hard_stop.json"),
+            read_json_strict(input_dir / "dirty_tree_blocks_scoped_lane.json"),
+            read_json_strict(input_dir / "missing_selected_lane_for_state.json"),
+        ],
     }
 
 
@@ -623,6 +650,139 @@ def validate_exported_scoped_mutation_policy(payload: object) -> dict[str, Any]:
     }
 
 
+def _checkpoint_cases(payload: object, extra_cases: list[object] | None = None) -> list[dict[str, Any]]:
+    cases = list(_rows(payload, "lane_cases"))
+    for item in extra_cases or []:
+        if isinstance(item, dict):
+            cases.append(item)
+    return cases
+
+
+def _recommended_checkpoint_lane(case: dict[str, Any]) -> str:
+    if case.get("suspected_secret") is True:
+        return "hard_stop"
+    if (
+        case.get("operator_authorized_broad_checkpoint") is True
+        and case.get("broad_checkpoint_requested") is True
+    ):
+        return "broad_checkpoint"
+    return "scoped_commit"
+
+
+def validate_checkpoint_lane_policy(
+    payload: object,
+    extra_cases: list[object] | None = None,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    cases = _checkpoint_cases(payload, extra_cases)
+    checkpoint_lane_decisions: list[dict[str, Any]] = []
+    recommended_lane_by_case: dict[str, str] = {}
+    hard_stop_case_ids: list[str] = []
+    broad_authorization_required_case_ids: list[str] = []
+    dirty_tree_not_scoped_blocker_case_ids: list[str] = []
+
+    for index, case in enumerate(cases, start=1):
+        case_id = str(case.get("case_id") or f"checkpoint_lane_case_{index}")
+        selected_lane = str(case.get("selected_lane") or "").strip()
+        recommended_lane = _recommended_checkpoint_lane(case)
+        recommended_lane_by_case[case_id] = recommended_lane
+        negative_case_id = str(case.get("negative_case_id") or case_id)
+
+        if recommended_lane == "hard_stop":
+            hard_stop_case_ids.append(case_id)
+        if selected_lane == "broad_checkpoint" and case.get(
+            "operator_authorized_broad_checkpoint"
+        ) is not True:
+            broad_authorization_required_case_ids.append(case_id)
+            _record(
+                findings,
+                observed,
+                "CHECKPOINT_BROAD_AUTH_REQUIRED",
+                "Broad checkpoint lane requires explicit operator authorization.",
+                case_id=negative_case_id,
+                subject_id=case_id,
+                subject_kind="checkpoint_lane_case",
+            )
+        if case.get("suspected_secret") is True and selected_lane != "hard_stop":
+            _record(
+                findings,
+                observed,
+                "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
+                "Suspected secret or private leakage requires the hard-stop lane.",
+                case_id=negative_case_id,
+                subject_id=case_id,
+                subject_kind="checkpoint_lane_case",
+            )
+        if (
+            case.get("dirty_tree_present") is True
+            and case.get("owned_paths_isolated") is True
+            and case.get("suspected_secret") is not True
+            and (
+                selected_lane == "hard_stop"
+                or case.get("dirty_tree_blocks_scoped_lane") is True
+            )
+        ):
+            dirty_tree_not_scoped_blocker_case_ids.append(case_id)
+            _record(
+                findings,
+                observed,
+                "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
+                "Mixed dirty tree state blocks broad accidental staging, not scoped owned-path commit.",
+                case_id=negative_case_id,
+                subject_id=case_id,
+                subject_kind="checkpoint_lane_case",
+            )
+        if not selected_lane:
+            _record(
+                findings,
+                observed,
+                "CHECKPOINT_LANE_DECISION_REQUIRED",
+                "Checkpoint lane case must name scoped_commit, broad_checkpoint, or hard_stop.",
+                case_id=negative_case_id,
+                subject_id=case_id,
+                subject_kind="checkpoint_lane_case",
+            )
+
+        checkpoint_lane_decisions.append(
+            {
+                "case_id": case_id,
+                "selected_lane": selected_lane or "missing",
+                "recommended_lane": recommended_lane,
+                "dirty_tree_present": case.get("dirty_tree_present") is True,
+                "owned_paths_isolated": case.get("owned_paths_isolated") is True,
+                "operator_authorized_broad_checkpoint": case.get(
+                    "operator_authorized_broad_checkpoint"
+                )
+                is True,
+                "suspected_secret": case.get("suspected_secret") is True,
+                "body_redacted": True,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+        "checkpoint_lane_decisions": checkpoint_lane_decisions,
+        "recommended_lane_by_case": recommended_lane_by_case,
+        "hard_stop_case_ids": sorted(set(hard_stop_case_ids)),
+        "broad_checkpoint_authorization_required_case_ids": sorted(
+            set(broad_authorization_required_case_ids)
+        ),
+        "dirty_tree_not_scoped_blocker_case_ids": sorted(
+            set(dirty_tree_not_scoped_blocker_case_ids)
+        ),
+        "selection_policy": (
+            "dirty_trees_block_broad_accidental_staging_not_scoped_owned_path_commits"
+        ),
+        "broad_checkpoint_requires_operator_authorization": True,
+        "suspected_secret_requires_hard_stop": True,
+        "dirty_tree_blocks_scoped_commit": False,
+        "body_redacted": True,
+    }
+
+
 def validate_dependency_unlock_scheduler(payload: object) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -927,7 +1087,7 @@ def _without_common_receipt_overrides(payload: dict[str, Any]) -> dict[str, Any]
     return {
         key: value
         for key, value in payload.items()
-        if key not in {"findings", "observed_negative_cases"}
+        if key not in {"findings", "observed_negative_cases", "status"}
     }
 
 
@@ -962,6 +1122,7 @@ def write_receipts(
         "work_landing_attempt": target / WORK_LANDING_ATTEMPT_NAME,
         "claim_preflight_result": target / CLAIM_PREFLIGHT_NAME,
         "scoped_mutation_receipt": target / SCOPED_MUTATION_NAME,
+        "checkpoint_lane_decision": target / CHECKPOINT_LANE_NAME,
         "closeout_status_projection": target / CLOSEOUT_STATUS_NAME,
         "dependency_unlock_scheduler_receipt": target / DEPENDENCY_UNLOCK_NAME,
         "work_landing_reconcile_plan": target / RECONCILE_PLAN_NAME,
@@ -1006,6 +1167,15 @@ def write_receipts(
     )
     scoped.update(validation_result["scoped_mutation_receipt"])
 
+    checkpoint_lane = _common_receipt(
+        validation_result,
+        schema_version="mission_transaction_work_spine_checkpoint_lane_decision_v1",
+        receipt_paths=receipt_paths,
+    )
+    checkpoint_lane.update(
+        _without_common_receipt_overrides(validation_result["checkpoint_lane_decision"])
+    )
+
     closeout = _common_receipt(
         validation_result,
         schema_version="mission_transaction_work_spine_closeout_status_projection_v1",
@@ -1041,6 +1211,13 @@ def write_receipts(
             "scoped_mutation_status": validation_result["scoped_mutation_receipt"][
                 "mutation_status"
             ],
+            "checkpoint_lane_policy_status": "pass",
+            "checkpoint_lane_decision_path": public_relative_path(
+                paths["checkpoint_lane_decision"], display_root=receipt_root
+            ),
+            "broad_checkpoint_requires_operator_authorization": True,
+            "suspected_secret_requires_hard_stop": True,
+            "dirty_tree_blocks_scoped_commit": False,
             "receipt_drain_status": validation_result["closeout_status_projection"][
                 "receipt_drain_exclusivity_status"
             ],
@@ -1066,6 +1243,7 @@ def write_receipts(
         ("work_landing_attempt", work_landing),
         ("claim_preflight_result", claim),
         ("scoped_mutation_receipt", scoped),
+        ("checkpoint_lane_decision", checkpoint_lane),
         ("closeout_status_projection", closeout),
         ("dependency_unlock_scheduler_receipt", dependency_unlock),
         ("work_landing_reconcile_plan", reconcile),
@@ -1127,6 +1305,7 @@ def _write_mission_bundle_receipt(
             "downstream_unlock_edges": validation_result["downstream_unlock_edges"],
             "claim_preflight_result": validation_result["claim_preflight_result"],
             "scoped_mutation_receipt": validation_result["scoped_mutation_receipt"],
+            "checkpoint_lane_decision": validation_result["checkpoint_lane_decision"],
             "closeout_status_projection": validation_result["closeout_status_projection"],
             "receipt_drain_plan": validation_result["receipt_drain_plan"],
             "work_landing_reconcile_plan": validation_result["work_landing_reconcile_plan"],
@@ -1168,6 +1347,9 @@ def run_mission_transaction_bundle(
     scoped_policy_result = validate_exported_scoped_mutation_policy(
         payloads["scoped_mutation_policy"]
     )
+    checkpoint_lane_result = validate_checkpoint_lane_policy(
+        payloads["checkpoint_lane_policy"]
+    )
 
     all_findings = sorted(
         [
@@ -1178,6 +1360,7 @@ def run_mission_transaction_bundle(
             *receipt_drain_result["findings"],
             *closeout_result["findings"],
             *scoped_policy_result["findings"],
+            *checkpoint_lane_result["findings"],
         ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
@@ -1207,6 +1390,7 @@ def run_mission_transaction_bundle(
             "receipt_drain_plan": payloads["receipt_drain_plan"],
             "closeout_projection_packet": payloads["closeout_projection_packet"],
             "scoped_mutation_policy": payloads["scoped_mutation_policy"],
+            "checkpoint_lane_policy": payloads["checkpoint_lane_policy"],
         }
     )
 
@@ -1224,8 +1408,9 @@ def run_mission_transaction_bundle(
             "validator_id": VALIDATOR_ID,
             "anti_claim": (
                 "The exported mission transaction bundle validates public work, claim, "
-                "dependency, receipt-drain, and closeout metadata. It does not mutate live "
-                "Task Ledger or Work Ledger state, authorize release, or complete later organs."
+                "dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does "
+                "not mutate live Task Ledger or Work Ledger state, authorize broad staging "
+                "without operator intent, authorize release, or complete later organs."
             ),
             "authority_ceiling": {
                 "status": PASS,
@@ -1234,6 +1419,9 @@ def run_mission_transaction_bundle(
                 "live_task_ledger_mutation_authorized": False,
                 "live_work_ledger_mutation_authorized": False,
                 "broad_stage_authorized": False,
+                "broad_checkpoint_requires_operator_authorization": True,
+                "suspected_secret_requires_hard_stop": True,
+                "dirty_tree_blocks_scoped_commit": False,
                 "release_authorized": False,
                 "later_organs_authorized": False,
             },
@@ -1275,6 +1463,7 @@ def run_mission_transaction_bundle(
                 "replan_required": False,
             },
             "scoped_mutation_receipt": scoped_policy_result,
+            "checkpoint_lane_decision": checkpoint_lane_result,
             "closeout_status_projection": {
                 **closeout_result,
                 "receipt_refs_drained": receipt_drain_result["receipt_refs_drained"],
@@ -1336,6 +1525,10 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     scoped_result = validate_scoped_receipt_authority(payloads["scoped_receipt"])
     private_marker_result = validate_private_marker(payloads["private_marker"])
     preflight_result = validate_preflight_overclaim(payloads["preflight_overclaim"])
+    checkpoint_lane_result = validate_checkpoint_lane_policy(
+        payloads["checkpoint_lane_policy"],
+        payloads["checkpoint_negative_cases"],
+    )
 
     observed = _merge_observed(
         dependency_result,
@@ -1343,6 +1536,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         scoped_result,
         private_marker_result,
         preflight_result,
+        checkpoint_lane_result,
     )
     missing_cases = sorted(set(EXPECTED_NEGATIVE_CASES) - set(observed))
     error_codes = sorted({code for codes in observed.values() for code in codes})
@@ -1353,6 +1547,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             *scoped_result["findings"],
             *private_marker_result["findings"],
             *preflight_result["findings"],
+            *checkpoint_lane_result["findings"],
         ],
         key=lambda item: (
             str(item.get("negative_case_id") or ""),
@@ -1406,6 +1601,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "scoped_authority_result": scoped_result,
             "private_marker_result": private_marker_result,
             "preflight_overclaim_result": preflight_result,
+            "checkpoint_lane_decision": checkpoint_lane_result,
             "work_landing_attempt": {
                 "attempt_id": "attempt_toy_route_fixture_001",
                 "work_item_id": "cap_toy_route_fixture",

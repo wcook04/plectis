@@ -1,0 +1,183 @@
+{
+  "anti_claim": "This fixture validates public synthetic MCP tool-authority boundaries only; it does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "MCP tool-authority material must state that synthetic replay is not live tool/account safety authority"
+  },
+  "authority_boundary": "synthetic_mcp_tool_authority_replay_not_live_tool_or_account_safety_authority",
+  "authority_ceiling": {
+    "benchmark_security_authority": false,
+    "credential_export_authority": false,
+    "live_mcp_account_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_mcp_tool_authority_replay_schema_only",
+    "status": "pass",
+    "unapproved_side_effect_authority": false,
+    "untrusted_tool_output_instruction_authority": false
+  },
+  "first_wave_required": true,
+  "kind_id": "mcp_tool_authority_replay",
+  "kind_name": "MCP tool authority replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/mcp_tool_authority_replay/input/projection_protocol.json",
+    "omitted": [
+      "credential values",
+      "provider payloads",
+      "raw tool payloads",
+      "private account ids",
+      "live MCP account refs",
+      "benchmark security claims"
+    ],
+    "reason": "public tranche carries synthetic tool-authority metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "mcp_tool_authority_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic tool ids",
+      "tool classes",
+      "capability scope refs",
+      "call argument hashes",
+      "approval token refs",
+      "side-effect ledger refs",
+      "rollback receipt refs",
+      "cold replay receipt refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_mcp_tool_authority_receipts_only",
+    "forbidden_public_inputs": [
+      "credential values",
+      "provider payloads",
+      "raw tool payloads",
+      "raw tool results",
+      "private account ids",
+      "live MCP account access",
+      "benchmark security claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "tool_count",
+      "call_count",
+      "write_side_effect_count",
+      "approved_side_effect_count",
+      "output_instruction_ignored_count",
+      "rollback_receipt_count",
+      "cold_replay_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.mcp_tool_authority_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.mcp_tool_authority_replay",
+    "receipt must cite source refs, source pattern ids, tool count, call count, side-effect count, output instruction boundary count, rollback count, cold replay count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#mcp_tool_authority_replay",
+    "source_pattern_id_sample": [
+      "mcp_tool_authority_replay_compound",
+      "agent_reliability_replay_gauntlet"
+    ],
+    "used_by_organs": [
+      "mcp_tool_authority_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "tools",
+    "tool_calls",
+    "tool_results",
+    "side_effects",
+    "cold_replays",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/mcp_tool_authority_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_mcp_tool_authority_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating synthetic tool metadata as live MCP account safety, credential handling, benchmark performance, or provider/tool execution authority.",
+    "compression_bands": [
+      "protocol",
+      "manifest",
+      "call",
+      "side_effect",
+      "untrusted_output",
+      "rollback",
+      "replay",
+      "receipt"
+    ],
+    "failure_modes": [
+      "overbroad_scope",
+      "hidden_credential_export",
+      "tool_output_as_instruction",
+      "unapproved_side_effect",
+      "live_account_access",
+      "final_answer_only_grading",
+      "missing_rollback_receipt",
+      "unredacted_tool_payload"
+    ],
+    "ontology": "A public-safe MCP-like tool-authority replay: synthetic tool manifests, scoped calls, approval refs, side-effect ledger refs, rollback refs, untrusted-output data boundaries, cold replay receipts, and falsification fixtures.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how tool-use authority claims are admitted only when scope, approval, side-effect, rollback, untrusted-output, cold replay, negative cases, and authority ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require three scoped synthetic tools: readonly lookup, write side effect, and untrusted result",
+    "require every call to cite capability scope, call argument hash, source capsule, instruction/data split, and cold replay receipt refs",
+    "require write-capable calls to cite approval token, ledger diff, and rollback receipt refs",
+    "require untrusted tool output to stay data and be ignored as instruction",
+    "reject overbroad scopes, credential export, tool-output-as-instruction, unapproved side effects, live account access, final-answer-only grading, missing rollback receipts, and unredacted tool payloads",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "tool_policy_authority_floor",
+      "tool_manifest_scope_floor",
+      "tool_call_authority_floor",
+      "side_effect_approval_and_rollback",
+      "untrusted_output_instruction_boundary",
+      "cold_replay_coverage",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.mcp_tool_authority_replay"
+  ],
+  "wave": "w1_mcp_tool_authority_replay"
+}

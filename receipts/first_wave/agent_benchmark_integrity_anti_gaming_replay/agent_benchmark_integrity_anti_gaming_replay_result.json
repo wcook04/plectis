@@ -1,0 +1,292 @@
+{
+  "anti_claim": "Agent benchmark integrity anti-gaming replay validates synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_benchmark_integrity_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_gold_access_authorized": false,
+    "live_repo_mutation_authorized": false,
+    "oracle_patch_body_export_authorized": false,
+    "private_issue_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "swe_bench_performance_claim_authorized": false
+  },
+  "benchmark_case_count": 3,
+  "benchmark_cases": [
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_001",
+      "held_out_guard_ids": [
+        "guard_fail_to_pass_001",
+        "guard_pass_to_pass_001"
+      ],
+      "patch_hash": "sha256:patch001",
+      "split": "dev",
+      "task_hash": "sha256:task001"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_002",
+      "held_out_guard_ids": [
+        "guard_file_access_002",
+        "guard_hidden_gold_002"
+      ],
+      "patch_hash": "sha256:patch002",
+      "split": "test",
+      "task_hash": "sha256:task002"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_003",
+      "held_out_guard_ids": [
+        "guard_misleading_test_003",
+        "guard_attempt_log_003"
+      ],
+      "patch_hash": "sha256:patch003",
+      "split": "test",
+      "task_hash": "sha256:task003"
+    }
+  ],
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run",
+  "created_at": "2026-05-22T01:58:38+00:00",
+  "error_codes": [
+    "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
+    "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS",
+    "BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED",
+    "BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING",
+    "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
+    "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"
+  ],
+  "expected_negative_cases": [
+    "evaluator_edit_attempt",
+    "final_answer_only_grading",
+    "hidden_gold_access",
+    "misleading_test_admitted",
+    "oracle_patch_body_leakage",
+    "pass_k_cherry_picking",
+    "private_issue_body_leakage",
+    "provider_payload_leakage",
+    "score_overclaim",
+    "train_test_leakage"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
+      "message": "Evaluator ids and configs must be locked before replay.",
+      "negative_case_id": "evaluator_edit_attempt",
+      "subject_id": "neg_evaluator_edit",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
+      "message": "Repository repair benchmarks require replayable patch/test evidence, not final-answer-only grading.",
+      "negative_case_id": "final_answer_only_grading",
+      "subject_id": "neg_final_answer",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS",
+      "message": "Hidden-gold access invalidates benchmark integrity replay.",
+      "negative_case_id": "hidden_gold_access",
+      "subject_id": "neg_hidden_gold",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED",
+      "message": "Misleading tests must be denied or quarantined before benchmark scoring.",
+      "negative_case_id": "misleading_test_admitted",
+      "subject_id": "neg_misleading_test",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN",
+      "message": "Oracle patch bodies may not enter public benchmark replay inputs.",
+      "negative_case_id": "oracle_patch_body_leakage",
+      "subject_id": "neg_oracle_patch",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING",
+      "message": "Pass@k-style cherry-picking must be labeled and cannot promote a single best replay as the score.",
+      "negative_case_id": "pass_k_cherry_picking",
+      "subject_id": "neg_pass_k",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
+      "message": "Private issue bodies may not enter public benchmark replay inputs.",
+      "negative_case_id": "private_issue_body_leakage",
+      "subject_id": "neg_private_issue",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
+      "message": "Provider payload bodies are outside the public benchmark replay boundary.",
+      "negative_case_id": "provider_payload_leakage",
+      "subject_id": "neg_provider_payload",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
+      "message": "Synthetic replay receipts cannot claim a benchmark score or capability metric.",
+      "negative_case_id": "score_overclaim",
+      "subject_id": "neg_score_overclaim",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE",
+      "message": "Benchmark replay must reject train/test contamination.",
+      "negative_case_id": "train_test_leakage",
+      "subject_id": "neg_train_test",
+      "subject_kind": "negative_case"
+    }
+  ],
+  "fixture_id": "first_wave.agent_benchmark_integrity_anti_gaming_replay",
+  "held_out_guard_count": 6,
+  "input_mode": "fixture",
+  "integrity_pass_count": 2,
+  "locked_evaluator_ids": [
+    "locked_regression_guard_scorer_v1",
+    "locked_repo_repair_scorer_v1"
+  ],
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "evaluator_edit_attempt": [
+      "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN"
+    ],
+    "final_answer_only_grading": [
+      "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING"
+    ],
+    "hidden_gold_access": [
+      "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS"
+    ],
+    "misleading_test_admitted": [
+      "BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED"
+    ],
+    "oracle_patch_body_leakage": [
+      "BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN"
+    ],
+    "pass_k_cherry_picking": [
+      "BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING"
+    ],
+    "private_issue_body_leakage": [
+      "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN"
+    ],
+    "provider_payload_leakage": [
+      "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN"
+    ],
+    "score_overclaim": [
+      "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM"
+    ],
+    "train_test_leakage": [
+      "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"
+    ]
+  },
+  "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 14,
+    "status": "pass"
+  },
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
+  ],
+  "protocol_id": "agent_benchmark_integrity_public_fixture",
+  "public_replacement_refs": [
+    "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
+    "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json",
+    "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
+    "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json"
+  ],
+  "quarantine_count": 1,
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+  ],
+  "replay_count": 3,
+  "replay_rows": [
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_001",
+      "computed_integrity_verdict": "integrity_pass",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
+      "evaluator_id": "locked_repo_repair_scorer_v1",
+      "expected_negative_case_id": null,
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_001.json",
+      "integrity_verdict": "integrity_pass",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "replay_id": "replay_repo_issue_public_001_clean",
+      "required_field_count": 8,
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_001.json"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_002",
+      "computed_integrity_verdict": "integrity_pass",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
+      "evaluator_id": "locked_regression_guard_scorer_v1",
+      "expected_negative_case_id": null,
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_002.json",
+      "integrity_verdict": "integrity_pass",
+      "missing_required_fields": [],
+      "reason_codes": [],
+      "replay_id": "replay_repo_issue_public_002_clean",
+      "required_field_count": 8,
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_002.json"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "repo_issue_public_003",
+      "computed_integrity_verdict": "quarantine",
+      "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",
+      "evaluator_id": "locked_repo_repair_scorer_v1",
+      "expected_negative_case_id": null,
+      "file_access_log_ref": "receipts/benchmark_integrity/file_access_log_003.json",
+      "integrity_verdict": "quarantine",
+      "missing_required_fields": [],
+      "reason_codes": [
+        "quarantine_reason_ref"
+      ],
+      "replay_id": "replay_repo_issue_public_003_quarantined",
+      "required_field_count": 8,
+      "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_003.json"
+    }
+  ],
+  "schema_version": "agent_benchmark_integrity_anti_gaming_replay_result_receipt_v1",
+  "source_pattern_ids": [
+    "agent_benchmark_integrity_anti_gaming_replay_compound",
+    "repository_agent_benchmark_transaction_lab",
+    "agent_reliability_replay_gauntlet"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_benchmark_integrity_anti_gaming_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:agent_benchmark_integrity_anti_gaming_replay_compound"
+  ],
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
+}

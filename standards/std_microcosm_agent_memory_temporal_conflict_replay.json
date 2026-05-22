@@ -1,0 +1,184 @@
+{
+  "anti_claim": "This fixture validates public synthetic memory temporal-conflict replay boundaries only; it does not claim live memory product quality, expose private transcripts, auto-promote private candidates, treat memory as source authority, adopt active injection, call providers, mutate source, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "memory temporal-conflict material must state that synthetic replay is not live memory product quality or source authority"
+  },
+  "authority_boundary": "synthetic_agent_memory_temporal_conflict_replay_not_live_memory_product_authority",
+  "authority_ceiling": {
+    "active_injection_authority": false,
+    "live_memory_product_authority": false,
+    "memory_source_authority": false,
+    "private_candidate_auto_promotion_authority": false,
+    "private_transcript_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "standard_authority": "synthetic_memory_temporal_conflict_replay_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "agent_memory_temporal_conflict_replay",
+  "kind_name": "Agent memory temporal-conflict replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/projection_protocol.json",
+    "omitted": [
+      "private transcript bodies",
+      "private memory candidate bodies",
+      "provider payloads",
+      "live user memory values",
+      "active injection text",
+      "raw answer bodies"
+    ],
+    "reason": "public tranche carries synthetic memory metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "agent_memory_temporal_conflict_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic episode ids",
+      "memory route refs",
+      "ADD/UPDATE/DELETE/NOOP decisions",
+      "memory subject ids",
+      "evidence handle refs",
+      "metadata-only private thread refs",
+      "conflict edge refs",
+      "stale downgrade refs",
+      "prompt adoption observation refs",
+      "answer hashes",
+      "cold replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_memory_conflict_replay_receipts_only",
+    "forbidden_public_inputs": [
+      "raw transcript bodies",
+      "private thread bodies",
+      "private memory candidate bodies",
+      "provider payloads",
+      "credential or secret values",
+      "active injection text",
+      "live user memory values",
+      "live memory product claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "event_count",
+      "episode_count",
+      "decision_counts",
+      "conflict_edge_count",
+      "stale_downgrade_count",
+      "replay_observation_count",
+      "answer_delta_ref",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.agent_memory_temporal_conflict_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.agent_memory_temporal_conflict_replay",
+    "receipt must cite source refs, source pattern ids, decision counts, conflict-edge count, stale-downgrade count, replay-pair counts, answer-delta ref, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#agent_memory_temporal_conflict_replay",
+    "source_pattern_id_sample": [
+      "agent_memory_temporal_conflict_replay_compound",
+      "agent_reliability_replay_gauntlet",
+      "sleeper_memory_poisoning_quarantine_replay_compound"
+    ],
+    "used_by_organs": [
+      "agent_memory_temporal_conflict_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "memory_policy",
+    "memory_events",
+    "replay_observations",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating synthetic memory metadata as live memory product performance, source authority, or private transcript export.",
+    "compression_bands": [
+      "protocol",
+      "memory",
+      "conflict",
+      "downgrade",
+      "replay",
+      "evidence",
+      "receipt"
+    ],
+    "failure_modes": [
+      "raw_transcript_export",
+      "private_candidate_auto_promotion",
+      "stale_preference_override",
+      "memory_as_source_authority",
+      "vector_recall_without_evidence_handle",
+      "final_answer_only_memory_credit",
+      "active_injection_as_authoritative"
+    ],
+    "ontology": "A public-safe memory temporal-conflict replay: synthetic memory events, conflict edges, stale downgrade refs, metadata-only private refs, paired cold replay receipts, answer-delta refs, and falsification fixtures.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how agent-memory honesty claims are gated by temporal conflict edges, stale-memory downgrades, negative cases, and authority ceilings before any public claim is admitted."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require ADD, UPDATE, DELETE, and NOOP memory decisions",
+    "require conflict-edge refs before updates or stale fact deletion can affect replay",
+    "require stale-downgrade refs before replay credit",
+    "require metadata-only private thread refs and body_exported false",
+    "require paired memory-enabled and memory-disabled cold replay receipts with answer-delta ref",
+    "reject raw transcript exports, private auto-promotion, stale overrides, source-authority overclaims, vector-only recall, final-answer-only credit, and active-injection authority",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "memory_policy_decisions",
+      "memory_event_required_fields",
+      "temporal_conflict_edges",
+      "stale_downgrade_refs",
+      "paired_replay_receipts",
+      "safety_boundary_rejections",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.agent_memory_temporal_conflict_replay"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.agent_memory_temporal_conflict_replay"
+  ],
+  "wave": "w1_agent_memory_temporal_conflict_replay"
+}

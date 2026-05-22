@@ -1,0 +1,30 @@
+{
+  "anti_claim": "Exported bundle is synthetic spatial replay metadata only; it is not a simulator product, generated video proof, robot/AV command surface, geographic truth source, benchmark claim, or release artifact.",
+  "authority_ceiling": {
+    "benchmark_score_claim_authorized": false,
+    "generated_video_authority_authorized": false,
+    "geographic_accuracy_claim_authorized": false,
+    "hosted_public_authorized": false,
+    "live_av_operation_authorized": false,
+    "live_robot_operation_authorized": false,
+    "metadata_projection_only": true,
+    "private_video_exported": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "raw_sensor_data_exported": false,
+    "real_world_location_claim_authorized": false,
+    "release_authorized": false,
+    "trained_simulator_claim_authorized": false
+  },
+  "bundle_id": "exported_spatial_world_model_simulation_bundle",
+  "input_mode": "exported_spatial_world_model_simulation_bundle",
+  "negative_fixtures_included": false,
+  "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+  "positive_input_files": [
+    "counterfactual_replays.json",
+    "replay_policy.json",
+    "scene_states.json",
+    "simulation_protocol.json"
+  ],
+  "schema_version": "exported_spatial_world_model_simulation_bundle_manifest_v1"
+}

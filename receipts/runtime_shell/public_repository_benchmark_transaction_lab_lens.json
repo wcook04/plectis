@@ -1,0 +1,166 @@
+{
+  "anti_claim": "The repository benchmark transaction lab is a public-safe synthetic fixture. It does not claim SWE-bench performance, mutate live repos, call providers, import private issues, export private repositories, authorize broad checkpointing, prove production delivery rate, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "benchmark_score_claim": false,
+    "broad_checkpoint_authorized": false,
+    "live_repo_mutation_authorized": false,
+    "private_repo_exported": false,
+    "production_delivery_rate_claim": false,
+    "provider_call_authorized": false,
+    "real_issue_imported": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "swe_bench_performance_claim": false,
+    "synthetic_fixture_only": true
+  },
+  "benchmark_lab_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+  "body_redacted": true,
+  "command": "microcosm benchmark-lab",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/benchmark-lab",
+  "fixture_protocol": {
+    "fail_to_pass_required": true,
+    "misleading_tests_must_be_denied": true,
+    "oracle_diff_required": true,
+    "pass_to_pass_required": true,
+    "provider_slot_cooldown_blocks_live_provider_calls": true,
+    "scoped_diff_receipt_required": true,
+    "synthetic_two_repo_benchmark_only": true,
+    "workitem_admission_gate_required": true
+  },
+  "lens_id": "public_repository_benchmark_transaction_lab_lens",
+  "negative_case_ids": [
+    "swe_bench_score_claim_rejected",
+    "live_repo_mutation_without_authority_rejected",
+    "provider_call_during_fixture_replay_rejected",
+    "misleading_test_hacking_rejected",
+    "broad_checkpoint_as_patch_receipt_rejected",
+    "pass_to_pass_regression_ignored_rejected",
+    "private_issue_body_export_rejected",
+    "production_delivery_rate_claim_rejected"
+  ],
+  "oracle_rows": [
+    {
+      "benchmark_score_exported": false,
+      "broad_checkpoint_allowed": false,
+      "expected_change_class": "minimal_bugfix",
+      "fail_to_pass_count": 1,
+      "grading_mode": "oracle_diff_plus_tests",
+      "oracle_id": "oracle_patch_inventory_rounding_001",
+      "pass_to_pass_count": 1,
+      "scoped_diff_receipt_required": true,
+      "task_id": "inventory_tax_rounding_bugfix"
+    },
+    {
+      "benchmark_score_exported": false,
+      "broad_checkpoint_allowed": false,
+      "expected_change_class": "feature_with_regression_guard",
+      "fail_to_pass_count": 1,
+      "grading_mode": "oracle_diff_plus_tests",
+      "oracle_id": "oracle_patch_permissions_audit_002",
+      "pass_to_pass_count": 1,
+      "scoped_diff_receipt_required": true,
+      "task_id": "permissions_audit_trail_feature"
+    }
+  ],
+  "organ_family": "repository_benchmark_transaction_lab",
+  "public_claim": "Microcosm exposes a synthetic repository benchmark transaction lab: two issue/patch fixtures are graded by oracle diffs, FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped diff receipts, workitem admission, and provider-slot cooldown metadata.",
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "oracle_patch_bodies_omitted": true,
+    "private_repo_paths_omitted": true,
+    "provider_payloads_omitted": true,
+    "receipt_refs_only_for_projection": true,
+    "synthetic_issue_bodies_only": true
+  },
+  "schema_version": "microcosm_public_repository_benchmark_transaction_lab_lens_v1",
+  "scorecard": {
+    "benchmark_score_claim": false,
+    "fail_to_pass_count": 2,
+    "live_repo_mutation_authorized": false,
+    "misleading_test_denial_count": 1,
+    "oracle_patch_count": 2,
+    "pass_to_pass_count": 2,
+    "provider_call_authorized": false,
+    "provider_cooldown_count": 1,
+    "repo_fixture_count": 2,
+    "scoped_diff_receipt_count": 2,
+    "task_count": 2,
+    "workitem_gate_count": 2
+  },
+  "selected_pattern_ids": [
+    "repository_issue_patch_oracle_diff_replay_compound",
+    "ci_evolution_skill_regression_replay_compound",
+    "durable_agent_work_landing_replay_compound",
+    "proof_derived_governed_mutation_authorization_compound",
+    "workitem_write_admission_gate",
+    "workitem_contract_gap_triage_views",
+    "provider_slot_claim_cooldown_backpressure"
+  ],
+  "status": "pass",
+  "task_rows": [
+    {
+      "body_redacted": true,
+      "fail_to_pass": [
+        "tests/test_invoice_tax_rounding.py::test_invoice_total_matches_line_items"
+      ],
+      "issue_summary": "rounding mismatch between item tax and invoice total",
+      "live_repo_mutation_authorized": false,
+      "misleading_test_ids_denied": [
+        "tests/test_invoice_tax_rounding.py::test_accepts_floor_rounding_regression"
+      ],
+      "oracle_patch_id": "oracle_patch_inventory_rounding_001",
+      "pass_to_pass": [
+        "tests/test_inventory_snapshot.py::test_existing_stock_totals_stay_stable"
+      ],
+      "provider_slot_decision": "cooldown_applied_no_provider_call",
+      "repo_fixture_id": "synthetic_retail_inventory_service",
+      "request_kind": "bugfix",
+      "scoped_diff_receipt_id": "scoped_diff_inventory_rounding_public",
+      "source_mutation_authorized": false,
+      "task_id": "inventory_tax_rounding_bugfix",
+      "workitem_admission": "admitted_with_scoped_paths"
+    },
+    {
+      "body_redacted": true,
+      "fail_to_pass": [
+        "tests/test_permission_audit.py::test_role_change_emits_audit_receipt"
+      ],
+      "issue_summary": "write audit receipt when an admin role changes",
+      "live_repo_mutation_authorized": false,
+      "misleading_test_ids_denied": [],
+      "oracle_patch_id": "oracle_patch_permissions_audit_002",
+      "pass_to_pass": [
+        "tests/test_permissions.py::test_existing_role_matrix_is_unchanged"
+      ],
+      "provider_slot_decision": "local_fixture_only",
+      "repo_fixture_id": "synthetic_admin_permissions_app",
+      "request_kind": "feature",
+      "scoped_diff_receipt_id": "scoped_diff_permissions_audit_public",
+      "source_mutation_authorized": false,
+      "task_id": "permissions_audit_trail_feature",
+      "workitem_admission": "admitted_with_contract_gap_check"
+    }
+  ],
+  "transaction_gate_rows": [
+    {
+      "decision": "admit_only_after_issue_contract_and_owned_path_scope",
+      "failure_mode_blocked": "write_without_claimed_owner_paths",
+      "gate_id": "workitem_write_admission",
+      "task_count": 2
+    },
+    {
+      "decision": "deny_provider_execution_when_fixture_has_no_live_slot_authority",
+      "failure_mode_blocked": "provider_call_as_benchmark_assistance",
+      "gate_id": "provider_slot_cooldown",
+      "task_count": 1
+    },
+    {
+      "decision": "reject fixture tests that encode the known-bad behavior",
+      "failure_mode_blocked": "test_hacking_or_regression_acceptance",
+      "gate_id": "misleading_test_denial",
+      "task_count": 1
+    }
+  ]
+}

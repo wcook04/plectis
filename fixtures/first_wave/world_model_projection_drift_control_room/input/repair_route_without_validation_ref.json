@@ -1,0 +1,17 @@
+{
+  "schema_version": "world_model_projection_drift_control_negative_case_v1",
+  "case_id": "repair_route_without_validation_ref",
+  "drift_row": {
+    "drift_row_id": "view_quality_all_view_action_map",
+    "source_signal": "view-quality action rows need repair-route evidence before cold-reader claims",
+    "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::view_quality_all_view_action_map",
+    "repair_route": "microcosm view-quality -> microcosm drift-control",
+    "validation_ref": "",
+    "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::view_quality_all_view_action_map",
+    "body_redacted": true,
+    "source_authority_claim": false,
+    "live_repair_authorized": false,
+    "source_mutation_authorized": false,
+    "automatic_doctrine_promotion_authorized": false
+  }
+}

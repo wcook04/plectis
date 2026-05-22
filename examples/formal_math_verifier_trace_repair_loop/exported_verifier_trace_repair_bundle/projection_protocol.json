@@ -1,0 +1,49 @@
+{
+  "schema_version": "formal_math_verifier_trace_repair_projection_protocol_v1",
+  "protocol_id": "formal_math_verifier_trace_repair_loop_runtime_projection_v1",
+  "source_pattern_ids": [
+    "formal_math_verifier_trace_repair_loop_compound",
+    "lean_std_toolchain_premise_index",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "formal_math_premise_retrieval",
+    "proof_diagnostic_evidence_spine"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "codex/doctrine/paper_modules/formal_maths_direction_atlas.md",
+    "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "microcosm-substrate/src/microcosm_core/organs/formal_math_readiness_gate.py",
+    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json"
+  ],
+  "public_replacement_refs": [
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json",
+    "paper_modules/formal_math_verifier_trace_repair_loop.md"
+  ],
+  "omitted_material": [
+    {
+      "material_id": "private_proof_bodies",
+      "material_class": "proof_body",
+      "omission_receipt_ref": "formal_math_verifier_trace_repair_loop.omission.proof_bodies"
+    },
+    {
+      "material_id": "oracle_needed_premise_ids",
+      "material_class": "oracle_answer",
+      "omission_receipt_ref": "formal_math_verifier_trace_repair_loop.omission.oracle_ids"
+    },
+    {
+      "material_id": "provider_payload_bodies",
+      "material_class": "provider_payload_body",
+      "omission_receipt_ref": "formal_math_verifier_trace_repair_loop.omission.provider_payloads"
+    }
+  ]
+}

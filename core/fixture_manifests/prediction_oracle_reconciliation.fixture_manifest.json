@@ -1,0 +1,72 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "prediction_oracle_reconciliation",
+  "fixture_id": "fixture::prediction_oracle_reconciliation::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate synthetic prediction reconciliation through CP1 bifurcation resolution, CP2 target-universe gating, oracle diff grading, and bounded dossier mutation without trading, advice, live market data, or provider authority.",
+  "inputs": [
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/invalid_cp2_target.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/missing_bifurcation_resolution.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/post_t_evidence_ref.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/unconfirmed_equity_lane_claim.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/unsafe_dossier_mutation.json",
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/trading_advice_overclaim.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
+    "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
+    "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
+  "expected_negative_cases": [
+    "invalid_cp2_target",
+    "missing_bifurcation_resolution",
+    "post_t_evidence_ref",
+    "unconfirmed_equity_lane_claim",
+    "unsafe_dossier_mutation",
+    "trading_advice_overclaim"
+  ],
+  "stable_error_codes": [
+    "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE",
+    "PREDICTION_CP1_BIFURCATION_UNRESOLVED",
+    "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN",
+    "PREDICTION_EQUITY_CONFIRMATION_REQUIRED",
+    "PREDICTION_DOSSIER_MUTATION_UNSAFE",
+    "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "source_pattern_ids",
+    "valid_prediction_targets",
+    "cp1_branch_count",
+    "cp2_prediction_count",
+    "oracle_diff_graded_count",
+    "dossier_mutation_count",
+    "reconciliation_rows"
+  ],
+  "private_state_exclusion_rules": {
+    "live_market_data": "forbidden; fixtures are synthetic and static",
+    "provider_payload_bodies": "forbidden; oracle refs are fixture ids only",
+    "trading_or_financial_advice": "forbidden; the organ validates reasoning mechanics only",
+    "performance_claims": "forbidden; oracle diff is a synthetic grading example",
+    "private_source_bodies": "forbidden; pattern ids and public replacement refs are enough"
+  },
+  "authority_ceiling": "synthetic prediction reconciliation fixture only; not trading, financial advice, investment advice, live market data, provider authority, performance authority, publication, release, or private-data equivalence",
+  "anti_claim": "This fixture manifest accepts only synthetic prediction reconciliation mechanics and negative-case coverage. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, release, hosted-public readiness, or private-data equivalence."
+}

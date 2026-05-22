@@ -1,0 +1,8 @@
+{
+  "body_redacted": true,
+  "bundle_id": "sleeper_memory_poisoning_quarantine_replay_runtime_example",
+  "expected_negative_cases": [],
+  "input_mode": "exported_sleeper_memory_poisoning_bundle",
+  "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+  "schema_version": "sleeper_memory_poisoning_runtime_bundle_manifest_v1"
+}

@@ -1,0 +1,12 @@
+{
+  "receipt_id": "neg.theorem_correctness_overclaim",
+  "expected_negative_case_id": "theorem_correctness_overclaim",
+  "proof_symbol_refs": [
+    "Nat.add_comm"
+  ],
+  "allowed_premise_ids": [],
+  "cited_unallowed_premise_ids": [],
+  "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
+  "review_outcome": "bridge_escalate",
+  "claims_theorem_correctness": true
+}

@@ -1,0 +1,188 @@
+{
+  "anti_claim": "Agent memory temporal-conflict replay validates a synthetic three-episode memory update/replay contract with conflict edges, stale downgrades, metadata-only private refs, paired memory-on/off replay, negative cases, and receipts. It does not claim live memory product quality, export private transcripts, promote private candidates, treat memory recall as source authority, adopt active injection, call providers, mutate source, or authorize release.",
+  "authority_ceiling": {
+    "active_injection_authority_authorized": false,
+    "authority_ceiling": "synthetic_agent_memory_temporal_conflict_replay_receipts_only",
+    "live_memory_product_claim_authorized": false,
+    "memory_as_source_authority_authorized": false,
+    "private_candidate_auto_promotion_authorized": false,
+    "private_transcript_export_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "vector_recall_without_evidence_authorized": false
+  },
+  "board_id": "agent_memory_temporal_conflict_public_board",
+  "body_redacted": true,
+  "decision_counts": {
+    "ADD": 2,
+    "DELETE": 1,
+    "NOOP": 1,
+    "UPDATE": 1
+  },
+  "input_mode": "fixture",
+  "mechanics": [
+    {
+      "authority": "updates_and_deletes_require_conflict_edge_refs",
+      "count": 2,
+      "mechanic_id": "temporal_conflict_edges_before_memory_update"
+    },
+    {
+      "authority": "stale_facts_are_downgraded_before_replay_credit",
+      "count": 2,
+      "mechanic_id": "stale_memory_downgrade_before_answer_authority"
+    },
+    {
+      "authority": "memory_enabled_and_disabled_replays_bound_answer_delta",
+      "count": 2,
+      "mechanic_id": "paired_memory_replay_before_utility_claim"
+    }
+  ],
+  "memory_rows": [
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_memory_metadata",
+      "conflict_edge_ref": null,
+      "decision": "ADD",
+      "episode_id": "episode_a_initial_memory_write",
+      "episode_order": 1,
+      "event_id": "episode_a_preference_add",
+      "evidence_handle_ref": "evidence.memory.episode_a.preference_hash",
+      "memory_route_ref": "route.memory.write.synthetic.preference.add",
+      "memory_subject_id": "pref_response_style_brief_scope_general",
+      "metadata_only_ref": true,
+      "missing_required_fields": [],
+      "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
+      "prompt_adoption_observation_ref": "observation.prompt_adoption.episode_a.preference_recorded",
+      "reason_codes": [],
+      "stale_downgrade_ref": null
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_memory_metadata",
+      "conflict_edge_ref": null,
+      "decision": "ADD",
+      "episode_id": "episode_a_initial_memory_write",
+      "episode_order": 1,
+      "event_id": "episode_a_tool_fact_add",
+      "evidence_handle_ref": "evidence.memory.episode_a.tool_fact_hash",
+      "memory_route_ref": "route.memory.write.synthetic.tool_fact.add",
+      "memory_subject_id": "tool_fact_package_manager_v1",
+      "metadata_only_ref": true,
+      "missing_required_fields": [],
+      "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
+      "prompt_adoption_observation_ref": null,
+      "reason_codes": [],
+      "stale_downgrade_ref": null
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_memory_metadata",
+      "conflict_edge_ref": "edge.memory.temporal_conflict.preference_scope.a_to_b",
+      "decision": "UPDATE",
+      "episode_id": "episode_b_temporal_conflict",
+      "episode_order": 2,
+      "event_id": "episode_b_preference_scope_update",
+      "evidence_handle_ref": "evidence.memory.episode_b.preference_scope_hash",
+      "memory_route_ref": "route.memory.write.synthetic.preference.update",
+      "memory_subject_id": "pref_response_style_brief_scope_code_reviews_only",
+      "metadata_only_ref": true,
+      "missing_required_fields": [],
+      "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
+      "prompt_adoption_observation_ref": null,
+      "reason_codes": [],
+      "stale_downgrade_ref": "receipt.memory.stale_preference_general_scope_downgraded"
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_memory_metadata",
+      "conflict_edge_ref": "edge.memory.temporal_conflict.tool_fact.a_to_b",
+      "decision": "DELETE",
+      "episode_id": "episode_b_temporal_conflict",
+      "episode_order": 2,
+      "event_id": "episode_b_tool_fact_delete",
+      "evidence_handle_ref": "evidence.memory.episode_b.tool_fact_invalidated_hash",
+      "memory_route_ref": "route.memory.write.synthetic.tool_fact.delete",
+      "memory_subject_id": "tool_fact_package_manager_v1",
+      "metadata_only_ref": true,
+      "missing_required_fields": [],
+      "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
+      "prompt_adoption_observation_ref": null,
+      "reason_codes": [],
+      "stale_downgrade_ref": "receipt.memory.stale_tool_fact_deleted_before_replay"
+    },
+    {
+      "body_redacted": true,
+      "computed_verdict": "accepted_memory_metadata",
+      "conflict_edge_ref": null,
+      "decision": "NOOP",
+      "episode_id": "episode_c_cold_replay",
+      "episode_order": 3,
+      "event_id": "episode_c_replay_noop",
+      "evidence_handle_ref": "evidence.memory.episode_c.replay_pair_hash",
+      "memory_route_ref": "route.memory.replay.synthetic.noop",
+      "memory_subject_id": "no_new_memory_write_on_replay",
+      "metadata_only_ref": true,
+      "missing_required_fields": [],
+      "private_thread_ref": "thread_ref.synthetic.c.metadata_only",
+      "prompt_adoption_observation_ref": null,
+      "reason_codes": [],
+      "stale_downgrade_ref": null
+    }
+  ],
+  "organ_id": "agent_memory_temporal_conflict_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
+  ],
+  "replay_rows": [
+    {
+      "answer_hash": "sha256:memory_disabled_answer_hash_public_synthetic",
+      "body_redacted": true,
+      "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_disabled.json",
+      "computed_verdict": "accepted_replay_metadata",
+      "episode_id": "episode_c_cold_replay",
+      "evidence_used_refs": [],
+      "memory_enabled": false,
+      "missing_required_fields": [],
+      "observation_id": "episode_c_memory_disabled_replay",
+      "reason_codes": [],
+      "replay_group_id": "episode_c_memory_on_off_pair"
+    },
+    {
+      "answer_hash": "sha256:memory_enabled_answer_hash_public_synthetic",
+      "body_redacted": true,
+      "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_enabled.json",
+      "computed_verdict": "accepted_replay_metadata",
+      "episode_id": "episode_c_cold_replay",
+      "evidence_used_refs": [
+        "evidence.memory.episode_b.preference_scope_hash",
+        "receipt.memory.stale_tool_fact_deleted_before_replay"
+      ],
+      "memory_enabled": true,
+      "missing_required_fields": [],
+      "observation_id": "episode_c_memory_enabled_replay",
+      "reason_codes": [],
+      "replay_group_id": "episode_c_memory_on_off_pair"
+    }
+  ],
+  "schema_version": "agent_memory_temporal_conflict_replay_board_v1",
+  "source_pattern_ids": [
+    "agent_memory_temporal_conflict_replay_compound",
+    "agent_reliability_replay_gauntlet",
+    "memory_injection_tiers"
+  ],
+  "status": "pass"
+}

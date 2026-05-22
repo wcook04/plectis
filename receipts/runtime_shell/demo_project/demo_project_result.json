@@ -6,7 +6,7 @@
     "provider_calls_authorized": false,
     "release_authorized": false
   },
-  "created_at": "2026-05-20T19:57:11+00:00",
+  "created_at": "2026-05-22T06:15:12+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -39,7 +39,147 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_04_navigation_hologram_route_plane",
+      "event_id": "evt_04_formal_math_readiness_gate",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/formal_math_readiness_gate/exported_formal_math_readiness_bundle_validation_result.json",
+      "input_mode": "exported_formal_math_readiness_bundle",
+      "inputs": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle",
+      "organ_id": "formal_math_readiness_gate",
+      "outputs": "receipts/runtime_shell/demo_project/organs/formal_math_readiness_gate",
+      "span": "formal_math_readiness.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_05_corpus_readiness_mathlib_absence_gate",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json",
+      "input_mode": "exported_corpus_readiness_bundle",
+      "inputs": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle",
+      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "outputs": "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate",
+      "span": "corpus_readiness_mathlib_absence.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_06_mathematical_strategy_atlas_hypothesis_scorer",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle_validation_result.json",
+      "input_mode": "exported_mathematical_strategy_atlas_bundle",
+      "inputs": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle",
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "outputs": "receipts/runtime_shell/demo_project/organs/mathematical_strategy_atlas_hypothesis_scorer",
+      "span": "mathematical_strategy_atlas.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_07_tactic_portfolio_availability_probe",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
+      "input_mode": "exported_tactic_portfolio_availability_bundle",
+      "inputs": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle",
+      "organ_id": "tactic_portfolio_availability_probe",
+      "outputs": "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe",
+      "span": "tactic_portfolio_availability.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_08_target_shape_tactic_routing_gate",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
+      "input_mode": "exported_target_shape_tactic_routing_bundle",
+      "inputs": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
+      "organ_id": "target_shape_tactic_routing_gate",
+      "outputs": "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
+      "span": "target_shape_tactic_routing.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_09_lean_std_premise_index",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json",
+      "input_mode": "exported_lean_std_premise_index_bundle",
+      "inputs": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle",
+      "organ_id": "lean_std_premise_index",
+      "outputs": "receipts/runtime_shell/demo_project/organs/lean_std_premise_index",
+      "span": "lean_std_premise_index.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_10_formal_math_premise_retrieval",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+      "input_mode": "exported_premise_retrieval_bundle",
+      "inputs": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle",
+      "organ_id": "formal_math_premise_retrieval",
+      "outputs": "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
+      "span": "formal_math_premise_retrieval.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_11_formal_math_verifier_trace_repair_loop",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+      "input_mode": "exported_verifier_trace_repair_bundle",
+      "inputs": "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle",
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "outputs": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+      "span": "formal_math_verifier_trace_repair_loop.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_12_formal_evidence_cell_anchor_resolver",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json",
+      "input_mode": "exported_evidence_cell_anchor_bundle",
+      "inputs": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "outputs": "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
+      "span": "formal_evidence_cell_anchor_resolver.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_13_undeclared_library_prior_symbol_classifier",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle_validation_result.json",
+      "input_mode": "exported_symbol_classifier_bundle",
+      "inputs": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle",
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "outputs": "receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier",
+      "span": "undeclared_library_prior_symbol_classifier.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_14_ring2_premise_retrieval_precision_recall_harness",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+      "input_mode": "exported_ring2_precision_recall_bundle",
+      "inputs": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "outputs": "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness",
+      "span": "ring2_precision_recall.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_15_agent_benchmark_integrity_anti_gaming_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json",
+      "input_mode": "exported_benchmark_integrity_bundle",
+      "inputs": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle",
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay",
+      "span": "agent_benchmark_integrity.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_16_provider_context_recipe_budget_policy",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle_validation_result.json",
+      "input_mode": "exported_provider_context_budget_bundle",
+      "inputs": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle",
+      "organ_id": "provider_context_recipe_budget_policy",
+      "outputs": "receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy",
+      "span": "provider_context_budget.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_17_formal_math_lean_proof_witness",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json",
+      "input_mode": "exported_lean_proof_witness_bundle",
+      "inputs": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle",
+      "organ_id": "formal_math_lean_proof_witness",
+      "outputs": "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness",
+      "span": "formal_math_lean_proof_witness.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_18_navigation_hologram_route_plane",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
       "input_mode": "exported_route_plane_bundle",
       "inputs": "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
@@ -49,7 +189,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_05_mission_transaction_work_spine",
+      "event_id": "evt_19_mission_transaction_work_spine",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
       "input_mode": "exported_mission_transaction_bundle",
       "inputs": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
@@ -59,7 +199,57 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_06_agent_route_observability_runtime",
+      "event_id": "evt_20_durable_agent_work_landing_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay/exported_work_landing_replay_bundle_validation_result.json",
+      "input_mode": "exported_work_landing_replay_bundle",
+      "inputs": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
+      "organ_id": "durable_agent_work_landing_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay",
+      "span": "durable_work_landing_replay.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_21_research_replication_rubric_artifact_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay/exported_research_replication_bundle_validation_result.json",
+      "input_mode": "exported_research_replication_bundle",
+      "inputs": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay",
+      "span": "research_replication_replay.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_22_world_model_projection_drift_control_room",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
+      "input_mode": "exported_projection_drift_control_bundle",
+      "inputs": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+      "organ_id": "world_model_projection_drift_control_room",
+      "outputs": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
+      "span": "projection_drift_control_room.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_23_spatial_world_model_counterfactual_simulation_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle_validation_result.json",
+      "input_mode": "exported_spatial_world_model_simulation_bundle",
+      "inputs": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
+      "span": "spatial_world_model_counterfactual_simulation.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_24_mechanistic_interpretability_circuit_attribution_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json",
+      "input_mode": "exported_circuit_attribution_bundle",
+      "inputs": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+      "span": "mechanistic_interpretability_circuit_attribution.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_25_agent_route_observability_runtime",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
       "input_mode": "exported_observability_bundle",
       "inputs": "examples/agent_route_observability_runtime/exported_observability_bundle",
@@ -69,7 +259,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_07_pattern_assimilation_step",
+      "event_id": "evt_26_pattern_assimilation_step",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json",
       "input_mode": "exported_assimilation_bundle",
       "inputs": "examples/pattern_assimilation_step/exported_assimilation_bundle",
@@ -77,16 +267,134 @@
       "outputs": "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
       "span": "assimilation.validate",
       "status": "pass"
+    },
+    {
+      "event_id": "evt_27_public_reveal_walkthrough",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+      "input_mode": "exported_public_reveal_bundle",
+      "inputs": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
+      "organ_id": "public_reveal_walkthrough",
+      "outputs": "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough",
+      "span": "public_reveal.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_28_macro_projection_import_protocol",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+      "input_mode": "exported_projection_import_bundle",
+      "inputs": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+      "organ_id": "macro_projection_import_protocol",
+      "outputs": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+      "span": "macro_projection_import.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_29_prediction_oracle_reconciliation",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation/exported_prediction_oracle_bundle_validation_result.json",
+      "input_mode": "exported_prediction_oracle_bundle",
+      "inputs": "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle",
+      "organ_id": "prediction_oracle_reconciliation",
+      "outputs": "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation",
+      "span": "prediction_oracle_reconciliation.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_30_standards_meta_diagnostics",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
+      "input_mode": "exported_standards_meta_diagnostics_bundle",
+      "inputs": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+      "organ_id": "standards_meta_diagnostics",
+      "outputs": "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics",
+      "span": "standards_meta_diagnostics.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_31_cold_reader_route_map",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
+      "input_mode": "exported_cold_reader_route_map_bundle",
+      "inputs": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+      "organ_id": "cold_reader_route_map",
+      "outputs": "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+      "span": "cold_reader_route_map.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_32_agent_monitor_redteam_falsification_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle_validation_result.json",
+      "input_mode": "exported_monitor_redteam_bundle",
+      "inputs": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle",
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
+      "span": "agent_monitor_redteam.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_33_agent_memory_temporal_conflict_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
+      "input_mode": "exported_memory_temporal_conflict_bundle",
+      "inputs": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay",
+      "span": "agent_memory_temporal_conflict.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_34_sleeper_memory_poisoning_quarantine_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
+      "input_mode": "exported_sleeper_memory_poisoning_bundle",
+      "inputs": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay",
+      "span": "sleeper_memory_poisoning_quarantine.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_35_mcp_tool_authority_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
+      "input_mode": "exported_mcp_tool_authority_bundle",
+      "inputs": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
+      "organ_id": "mcp_tool_authority_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
+      "span": "mcp_tool_authority_replay.validate",
+      "status": "pass"
     }
   ],
   "evidence_refs": [
     "receipts/runtime_shell/demo_project/organs/pattern_binding_contract/exported_substrate_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/executable_doctrine_grammar/exported_standards_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_readiness_gate/exported_formal_math_readiness_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay/exported_work_landing_replay_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay/exported_research_replication_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
-    "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation/exported_prediction_oracle_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json"
   ],
   "next_actions": [
     "microcosm route list",
@@ -101,9 +409,37 @@
     "pattern_binding_contract: pass via exported_substrate_bundle",
     "executable_doctrine_grammar: pass via exported_standards_bundle",
     "proof_diagnostic_evidence_spine: pass via exported_evidence_bundle",
+    "formal_math_readiness_gate: pass via exported_formal_math_readiness_bundle",
+    "corpus_readiness_mathlib_absence_gate: pass via exported_corpus_readiness_bundle",
+    "mathematical_strategy_atlas_hypothesis_scorer: pass via exported_mathematical_strategy_atlas_bundle",
+    "tactic_portfolio_availability_probe: pass via exported_tactic_portfolio_availability_bundle",
+    "target_shape_tactic_routing_gate: pass via exported_target_shape_tactic_routing_bundle",
+    "lean_std_premise_index: pass via exported_lean_std_premise_index_bundle",
+    "formal_math_premise_retrieval: pass via exported_premise_retrieval_bundle",
+    "formal_math_verifier_trace_repair_loop: pass via exported_verifier_trace_repair_bundle",
+    "formal_evidence_cell_anchor_resolver: pass via exported_evidence_cell_anchor_bundle",
+    "undeclared_library_prior_symbol_classifier: pass via exported_symbol_classifier_bundle",
+    "ring2_premise_retrieval_precision_recall_harness: pass via exported_ring2_precision_recall_bundle",
+    "agent_benchmark_integrity_anti_gaming_replay: pass via exported_benchmark_integrity_bundle",
+    "provider_context_recipe_budget_policy: pass via exported_provider_context_budget_bundle",
+    "formal_math_lean_proof_witness: pass via exported_lean_proof_witness_bundle",
     "navigation_hologram_route_plane: pass via exported_route_plane_bundle",
     "mission_transaction_work_spine: pass via exported_mission_transaction_bundle",
+    "durable_agent_work_landing_replay: pass via exported_work_landing_replay_bundle",
+    "research_replication_rubric_artifact_replay: pass via exported_research_replication_bundle",
+    "world_model_projection_drift_control_room: pass via exported_projection_drift_control_bundle",
+    "spatial_world_model_counterfactual_simulation_replay: pass via exported_spatial_world_model_simulation_bundle",
+    "mechanistic_interpretability_circuit_attribution_replay: pass via exported_circuit_attribution_bundle",
     "agent_route_observability_runtime: pass via exported_observability_bundle",
-    "pattern_assimilation_step: pass via exported_assimilation_bundle"
+    "pattern_assimilation_step: pass via exported_assimilation_bundle",
+    "public_reveal_walkthrough: pass via exported_public_reveal_bundle",
+    "macro_projection_import_protocol: pass via exported_projection_import_bundle",
+    "prediction_oracle_reconciliation: pass via exported_prediction_oracle_bundle",
+    "standards_meta_diagnostics: pass via exported_standards_meta_diagnostics_bundle",
+    "cold_reader_route_map: pass via exported_cold_reader_route_map_bundle",
+    "agent_monitor_redteam_falsification_replay: pass via exported_monitor_redteam_bundle",
+    "agent_memory_temporal_conflict_replay: pass via exported_memory_temporal_conflict_bundle",
+    "sleeper_memory_poisoning_quarantine_replay: pass via exported_sleeper_memory_poisoning_bundle",
+    "mcp_tool_authority_replay: pass via exported_mcp_tool_authority_bundle"
   ]
 }

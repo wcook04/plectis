@@ -1,0 +1,16 @@
+{
+  "schema_version": "provider_context_negative_fixture_v1",
+  "expected_negative_case_id": "budget_overflow_recipe",
+  "recipes": [
+    {
+      "recipe_id": "fewshot_64kb",
+      "byte_budget": 131072,
+      "graph_role": "fewshot_advisory_context",
+      "deliverable_type": "redacted_synthesis_advisory",
+      "sections": ["statement", "fewshot_examples"],
+      "emit_omitted_sections_manifest": true,
+      "proof_bodies_allowed": false,
+      "provider_calls_authorized": false
+    }
+  ]
+}

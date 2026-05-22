@@ -1,0 +1,19 @@
+{
+  "schema_version": "formal_math_verifier_trace_negative_fixture_v1",
+  "attempts": [
+    {
+      "expected_negative_case_id": "human_approval_as_proof",
+      "attempt_id": "negative_human_approval_as_proof",
+      "verifier_class": "advisory_human_review",
+      "trace_grade": "human_approved",
+      "repair_action_id": "repair_require_checker_receipt",
+      "human_approval_claims_proof_correctness": true,
+      "trace_events": [
+        {
+          "event_id": "negative_trace_human",
+          "event_class": "human_approval_overclaim"
+        }
+      ]
+    }
+  ]
+}

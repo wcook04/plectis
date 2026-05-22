@@ -1,0 +1,21 @@
+{
+  "schema_version": "ring2_retrieval_runs_v1",
+  "runs": [
+    {
+      "run_id": "ring2_public_fixture_v1",
+      "source_pattern_id": "ring2_premise_retrieval_precision_recall_harness",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+      ],
+      "ranking_scope": "synthetic_public_ring2_fixture",
+      "after_the_fact_labels_allowed_for_metrics": true,
+      "labels_allowed_in_provider_context": false,
+      "proof_bodies_included": false,
+      "test_split_tuning_authorized": false,
+      "benchmark_performance_claimed": false,
+      "release_authorized": false
+    }
+  ]
+}

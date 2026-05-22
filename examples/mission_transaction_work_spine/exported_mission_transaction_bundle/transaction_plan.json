@@ -4,6 +4,7 @@
   "mode": "metadata_projection_only",
   "recommended_next_action": "validate_exported_mission_transaction_bundle_then_reduce",
   "ordered_controller_action_ids": [
+    "select_checkpoint_lane",
     "record_scoped_commit_landing",
     "intake_exact_receipt_refs",
     "drain_exact_receipts",
@@ -13,11 +14,21 @@
   ],
   "actions": [
     {
-      "action_id": "record_scoped_commit_landing",
+      "action_id": "select_checkpoint_lane",
       "apply_status": "metadata_projection_only",
       "would_mutate": false,
       "blocked_by": [],
       "idempotency_key": "mission-public-1",
+      "evidence_if_already_done": [
+        "checkpoint_lane_decision"
+      ]
+    },
+    {
+      "action_id": "record_scoped_commit_landing",
+      "apply_status": "metadata_projection_only",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-2",
       "evidence_if_already_done": [
         "scoped_commit_receipt"
       ]
@@ -27,7 +38,7 @@
       "apply_status": "metadata_projection_only",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-2",
+      "idempotency_key": "mission-public-3",
       "evidence_if_already_done": [
         "receipt_drain_plan"
       ]
@@ -37,7 +48,7 @@
       "apply_status": "metadata_projection_only",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-3",
+      "idempotency_key": "mission-public-4",
       "evidence_if_already_done": [
         "receipt_refs_drained"
       ]
@@ -47,7 +58,7 @@
       "apply_status": "metadata_projection_only",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-4",
+      "idempotency_key": "mission-public-5",
       "evidence_if_already_done": [
         "closeout_projection_packet"
       ]
@@ -57,7 +68,7 @@
       "apply_status": "metadata_projection_only",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-5",
+      "idempotency_key": "mission-public-6",
       "evidence_if_already_done": [
         "claim_table"
       ]
@@ -67,7 +78,7 @@
       "apply_status": "metadata_projection_only",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-6",
+      "idempotency_key": "mission-public-7",
       "evidence_if_already_done": [
         "closeout_status_projection"
       ]

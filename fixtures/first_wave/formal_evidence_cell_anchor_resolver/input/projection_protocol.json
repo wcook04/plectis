@@ -1,0 +1,37 @@
+{
+  "schema_version": "formal_evidence_cell_anchor_projection_protocol_v1",
+  "protocol_id": "formal_evidence_cell_anchor_projection_public_fixture",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_evidence_cell_anchor_resolver",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::formal_math",
+    "codex/doctrine/paper_modules/navigation_rosetta_math.md::formal_evidence_cells",
+    "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_MICROCOSM_PATTERN_KERNEL_STABILITY_SEED.md::proof_boundary"
+  ],
+  "source_pattern_ids": [
+    "formal_evidence_cell_anchor_resolver",
+    "formal_math_verifier_trace_repair_loop_compound",
+    "formal_math_readiness_proof_spine_compound"
+  ],
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+    "receipts/runtime_shell/public_proof_loop_depth_lens.json"
+  ],
+  "public_replacement_refs": [
+    "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
+    "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/paper_claims.json",
+    "paper_modules/formal_evidence_cell_anchor_resolver.md",
+    "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json"
+  ],
+  "omitted_material": [
+    {
+      "material_id": "proof_bodies",
+      "omission_receipt_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+      "replacement": "cell ids plus machine-anchor class metadata only"
+    },
+    {
+      "material_id": "private_source_refs",
+      "omission_receipt_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+      "replacement": "public source-anchor refs only"
+    }
+  ]
+}

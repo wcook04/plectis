@@ -1,0 +1,28 @@
+{
+  "schema_version": "lean_std_premise_index_negative_case_v1",
+  "expected_negative_case_id": "oracle_needed_ids_leakage",
+  "premises": [
+    {
+      "premise_id": "oracle_needed_ids_leak",
+      "declaration_name": "Nat.mul_comm",
+      "namespace": "Nat",
+      "source_ref": "Init/Prelude.lean",
+      "statement_shape": "public_metadata_only",
+      "retrieval_terms": [
+        "multiplication",
+        "commutative",
+        "Nat",
+        "*"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev"
+      ],
+      "body_redacted": true,
+      "oracle_needed_premise_ids": [
+        "nat_add_comm"
+      ]
+    }
+  ],
+  "body_redacted": true
+}

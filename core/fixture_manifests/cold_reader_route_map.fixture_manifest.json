@@ -1,0 +1,50 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::cold_reader_route_map::first_wave_contract_v1",
+  "organ_id": "cold_reader_route_map",
+  "title": "Cold-reader route map fixture",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
+      "role": "positive route map with commands and docs refs"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
+      "role": "positive route-to-receipt bindings"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/route_policy.json",
+      "role": "first-run route order and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/missing_command_ref.json",
+      "role": "negative case: route without command ref"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/missing_receipt_ref.json",
+      "role": "negative case: route without receipt ref"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/route_sequence_gap.json",
+      "role": "negative case: first-run sequence gap"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/release_overclaim.json",
+      "role": "negative case: release/provider/global authority overclaim"
+    },
+    {
+      "path": "fixtures/first_wave/cold_reader_route_map/input/private_source_leakage.json",
+      "role": "negative case: private source body field present"
+    }
+  ],
+  "validator": "microcosm_core.organs.cold_reader_route_map",
+  "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+  "generated_receipts": [
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+    "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+  ],
+  "authority_ceiling": "cold_reader_route_map_projection_only_not_route_authority",
+  "anti_claim": "This fixture validates public cold-reader route projection only; it does not become route registry authority, expose private sources, or authorize release."
+}

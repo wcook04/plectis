@@ -1,0 +1,24 @@
+{
+  "schema_version": "exported_mathematical_strategy_atlas_bundle_manifest_v1",
+  "bundle_id": "mathematical_strategy_atlas_runtime_example",
+  "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+  "input_mode": "exported_mathematical_strategy_atlas_bundle",
+  "source_pattern_ids": [
+    "mathematical_strategy_atlas_hypothesis_scorer"
+  ],
+  "expected_files": [
+    "strategy_atlas.json",
+    "problem_features.json",
+    "hypothesis_cases.json"
+  ],
+  "authority_ceiling": {
+    "status": "pass",
+    "strategy_hypothesis_authority": "pre_oracle_metadata_only",
+    "lean_lake_execution_authorized": false,
+    "formal_proof_authority": false,
+    "oracle_label_visibility_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This exported bundle is a runtime example for public strategy scoring; it is not proof authority, oracle visibility, provider output, or release readiness."
+}

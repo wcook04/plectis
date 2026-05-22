@@ -1,0 +1,116 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_world_model_projection_drift_control_room",
+  "kind_id": "world_model_projection_drift_control_room",
+  "kind_name": "World-model projection drift control room",
+  "status": "draft",
+  "first_wave_required": true,
+  "authority_boundary": "synthetic_projection_drift_control_metadata_not_source_or_repair_authority",
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/world_model_projection_drift_control_room/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#world_model_projection_drift_control_room",
+    "used_by_organs": [
+      "world_model_projection_drift_control_room"
+    ],
+    "source_pattern_id_sample": [
+      "world_model_cross_plane_drift_aggregate",
+      "view_quality_all_view_action_map",
+      "compression_profile_governed_option_surface",
+      "navigation_hologram_unified_route_plane",
+      "agent_principle_failure_cap_assimilation_loop",
+      "operator_autonomy_phrase_active_standard_bridge",
+      "omission_receipt_reversible_projection_boundary",
+      "entry_payload_admission_nonnegotiable_floor"
+    ]
+  },
+  "required_fields": [
+    "selected_route_id",
+    "selected_pattern_ids",
+    "drift_rows",
+    "source_signal",
+    "source_ref",
+    "repair_route",
+    "validation_ref",
+    "public_replacement_ref",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require every drift row to cite source signal, source ref, repair route, validation ref, and public replacement ref",
+    "reject source authority claims, live repair authority, source mutation, automatic doctrine promotion, private runtime data export, provider payload export, and release authority",
+    "require metadata-only authority and body-redacted public fixture rows"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.world_model_projection_drift_control_room",
+    "receipt must cite row counts, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room",
+    "command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run --input fixtures/first_wave/world_model_projection_drift_control_room/input --out receipts/first_wave/world_model_projection_drift_control_room",
+    "expected_negative_cases": [
+      "drift_row_without_source_ref",
+      "repair_route_without_validation_ref",
+      "projection_claiming_source_authority",
+      "live_repair_action_authorized",
+      "private_runtime_data_export",
+      "provider_payload_export",
+      "automatic_doctrine_promotion",
+      "release_from_drift_projection"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.world_model_projection_drift_control_room",
+    "must_record": [
+      "selected_route_id",
+      "selected_pattern_ids",
+      "drift_summary",
+      "negative_case_summary",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_synthetic_metadata_only",
+    "allowed_public_inputs": [
+      "source signal labels",
+      "public source refs",
+      "repair route labels",
+      "validation receipt refs",
+      "public replacement refs"
+    ],
+    "forbidden_public_inputs": [
+      "private runtime bodies",
+      "provider payload bodies",
+      "raw private paths",
+      "live repair actions",
+      "source mutation diffs",
+      "release claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "synthetic_projection_drift_control_schema_only",
+    "source_authority_claim": false,
+    "source_mutation_authorized": false,
+    "live_route_repair_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_runtime_data_exported": false,
+    "provider_payload_exported": false,
+    "automatic_doctrine_promotion_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This standard governs synthetic projection-drift metadata and public replacement refs only. It does not authorize source authority, live repairs, source mutation, doctrine promotion, provider calls, private runtime export, or release."
+}

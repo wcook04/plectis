@@ -1,0 +1,9 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "release_overclaim",
+  "release_authorized": true,
+  "publication_authorized": true,
+  "formal_proof_authority": true,
+  "provider_calls_authorized": true,
+  "lean_lake_execution_authorized": true
+}

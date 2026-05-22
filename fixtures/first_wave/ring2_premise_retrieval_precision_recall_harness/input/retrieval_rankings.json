@@ -1,0 +1,40 @@
+{
+  "schema_version": "ring2_retrieval_rankings_v1",
+  "rankings": [
+    {
+      "run_id": "ring2_public_fixture_v1",
+      "problem_id": "ring2_nat_add_comm_assoc",
+      "top_k": 4,
+      "retrieved_premise_ids": ["Nat.add_comm", "Nat.add_assoc", "Bool.and_comm", "List.append_assoc"],
+      "proof_outcome": "pass"
+    },
+    {
+      "run_id": "ring2_public_fixture_v1",
+      "problem_id": "ring2_list_append_length",
+      "top_k": 4,
+      "retrieved_premise_ids": ["List.map_append", "List.append_assoc", "Bool.or_comm", "List.length_append"],
+      "proof_outcome": "pass"
+    },
+    {
+      "run_id": "ring2_public_fixture_v1",
+      "problem_id": "ring2_iff_direction",
+      "top_k": 4,
+      "retrieved_premise_ids": ["Iff.mp", "Bool.and_comm", "Bool.or_comm", "Nat.add_comm"],
+      "proof_outcome": "fail"
+    },
+    {
+      "run_id": "ring2_public_fixture_v1",
+      "problem_id": "ring2_nat_mul_comm_failure_after_hit",
+      "top_k": 3,
+      "retrieved_premise_ids": ["Bool.and_comm", "Nat.mul_comm", "Nat.add_comm"],
+      "proof_outcome": "fail"
+    },
+    {
+      "run_id": "ring2_public_fixture_v1",
+      "problem_id": "ring2_list_map_map_index_miss",
+      "top_k": 3,
+      "retrieved_premise_ids": ["List.map_append", "List.length_append", "List.append_assoc"],
+      "proof_outcome": "not_run"
+    }
+  ]
+}

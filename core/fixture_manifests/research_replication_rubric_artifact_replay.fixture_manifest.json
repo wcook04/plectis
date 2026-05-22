@@ -1,0 +1,76 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::research_replication_rubric_artifact_replay::first_wave_contract_v1",
+  "organ_id": "research_replication_rubric_artifact_replay",
+  "title": "Research replication rubric-artifact replay fixture",
+  "validator": "microcosm_core.organs.research_replication_rubric_artifact_replay",
+  "validator_command": "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/replication_policy.json",
+      "role": "rubric and artifact replay policy"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json",
+      "role": "positive two-paper synthetic replay rows"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/original_author_code_reuse_forbidden.json",
+      "role": "negative case: original_author_code_reuse_forbidden"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/hidden_rubric_leakage.json",
+      "role": "negative case: hidden_rubric_leakage"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/report_only_success.json",
+      "role": "negative case: report_only_success"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/benchmark_performance_claim.json",
+      "role": "negative case: benchmark_performance_claim"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/private_paper_body_leakage.json",
+      "role": "negative case: private_paper_body_leakage"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/unbounded_compute_search.json",
+      "role": "negative case: unbounded_compute_search"
+    },
+    {
+      "path": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/final_answer_only_grading.json",
+      "role": "negative case: final_answer_only_grading"
+    }
+  ],
+  "expected_negative_cases": [
+    "benchmark_performance_claim",
+    "final_answer_only_grading",
+    "hidden_rubric_leakage",
+    "original_author_code_reuse_forbidden",
+    "private_paper_body_leakage",
+    "report_only_success",
+    "unbounded_compute_search"
+  ],
+  "stable_error_codes": [
+    "REPLICATION_AUTHOR_CODE_REUSE_FORBIDDEN",
+    "REPLICATION_BENCHMARK_PERFORMANCE_OVERCLAIM",
+    "REPLICATION_FINAL_ANSWER_ONLY_GRADING",
+    "REPLICATION_HIDDEN_RUBRIC_LEAKAGE",
+    "REPLICATION_PRIVATE_BODY_LEAKAGE",
+    "REPLICATION_REPORT_ONLY_SUCCESS",
+    "REPLICATION_UNBOUNDED_COMPUTE_SEARCH"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_result.json",
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_board.json",
+    "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
+  ],
+  "authority_ceiling": "synthetic research replication replay receipts only; no benchmark performance, private bodies, hidden rubrics, provider calls, or publication",
+  "anti_claim": "This fixture validates public synthetic research-replication replay boundaries only; it does not claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication."
+}

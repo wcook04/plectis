@@ -1,0 +1,15 @@
+{
+  "schema_version": "provider_context_budget_bundle_manifest_v1",
+  "bundle_id": "provider_context_budget_runtime_example",
+  "organ_id": "provider_context_recipe_budget_policy",
+  "input_mode": "exported_provider_context_budget_bundle",
+  "files": [
+    "provider_context_recipes.json",
+    "section_materials.json"
+  ],
+  "authority_ceiling": {
+    "provider_calls_authorized": false,
+    "formal_proof_authority": false,
+    "release_authorized": false
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "formal_math_verifier_trace_negative_fixture_v1",
+  "attempts": [
+    {
+      "expected_negative_case_id": "provider_payload_leakage",
+      "attempt_id": "negative_provider_payload_leakage",
+      "verifier_class": "provider_advice_leak",
+      "trace_grade": "provider_payload_included",
+      "repair_action_id": "repair_strip_provider_body",
+      "provider_payload_body": "synthetic forbidden provider payload",
+      "trace_events": [
+        {
+          "event_id": "negative_trace_provider",
+          "event_class": "provider_payload_leak_detected"
+        }
+      ]
+    }
+  ]
+}

@@ -20,6 +20,7 @@
   "generated_receipts": [
     "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
     "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
   ],
@@ -56,7 +57,10 @@
     "receipt_paths",
     "blocked_capabilities",
     "available_tactic_ids",
-    "unavailable_tactic_ids"
+    "unavailable_tactic_ids",
+    "projection_cell_id",
+    "selected_pattern_ids",
+    "readiness_extension_board"
   ],
   "private_state_exclusion_rules": {
     "lean_lake": "not executed; readiness metadata only",

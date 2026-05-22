@@ -1,0 +1,69 @@
+{
+  "schema_version": "macro_projection_import_plan_fixture_v1",
+  "plan_id": "public_macro_projection_import_plan_v1",
+  "next_best_lane": "real_substrate_import_tranche",
+  "proposed_cells": [
+    {
+      "cell_id": "formal_math_readiness_extensions",
+      "selected_pattern_ids": [
+        "lean_std_toolchain_premise_index",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate"
+      ],
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+      ],
+      "target_refs": [
+        "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+        "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json"
+      ],
+      "validation_refs": [
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
+      ],
+      "authority_ceiling": "fixture_and_receipt_refs_only",
+      "body_copied": false,
+      "body_redacted": true
+    },
+    {
+      "cell_id": "projection_protocol_self_host",
+      "selected_pattern_ids": [
+        "compression_profile_governed_option_surface",
+        "authority_boundary_anti_claim"
+      ],
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+      ],
+      "target_refs": [
+        "standards/std_microcosm_macro_projection_import_protocol.json",
+        "paper_modules/macro_projection_import_protocol.md"
+      ],
+      "validation_refs": [
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+      ],
+      "authority_ceiling": "protocol_metadata_only",
+      "body_copied": false,
+      "body_redacted": true
+    },
+    {
+      "cell_id": "runtime_reveal_import_bridge",
+      "selected_pattern_ids": [
+        "cold_start_agent_skills_pack",
+        "workingness_record"
+      ],
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol"
+      ],
+      "validation_refs": [
+        "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
+      ],
+      "authority_ceiling": "runtime_exported_bundle_validation_only",
+      "body_copied": false,
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

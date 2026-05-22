@@ -1,0 +1,54 @@
+{
+  "schema_version": "mission_transaction_work_spine_checkpoint_lane_policy_v1",
+  "policy_id": "public_mission_checkpoint_lane_policy",
+  "lane_cases": [
+    {
+      "case_id": "clean_owned_paths",
+      "tree_state": "clean",
+      "dirty_tree_present": false,
+      "owned_paths_isolated": true,
+      "broad_checkpoint_requested": false,
+      "operator_authorized_broad_checkpoint": false,
+      "suspected_secret": false,
+      "selected_lane": "scoped_commit"
+    },
+    {
+      "case_id": "mixed_owned_dirty_tree",
+      "tree_state": "mixed_dirty_tree",
+      "dirty_tree_present": true,
+      "owned_paths_isolated": true,
+      "broad_checkpoint_requested": false,
+      "operator_authorized_broad_checkpoint": false,
+      "suspected_secret": false,
+      "selected_lane": "scoped_commit",
+      "policy_note": "Dirty trees block broad accidental staging, not scoped owned-path commits."
+    },
+    {
+      "case_id": "operator_requested_broad_checkpoint",
+      "tree_state": "mixed_dirty_tree",
+      "dirty_tree_present": true,
+      "owned_paths_isolated": false,
+      "broad_checkpoint_requested": true,
+      "operator_authorized_broad_checkpoint": true,
+      "suspected_secret": false,
+      "selected_lane": "broad_checkpoint"
+    },
+    {
+      "case_id": "suspected_private_leakage",
+      "tree_state": "mixed_dirty_tree",
+      "dirty_tree_present": true,
+      "owned_paths_isolated": false,
+      "broad_checkpoint_requested": false,
+      "operator_authorized_broad_checkpoint": false,
+      "suspected_secret": true,
+      "selected_lane": "hard_stop"
+    }
+  ],
+  "authority_ceiling": {
+    "live_git_mutation_authorized": false,
+    "broad_stage_authorized": false,
+    "operator_authorization_required_for_broad_checkpoint": true,
+    "suspected_secret_requires_hard_stop": true
+  },
+  "body_redacted": true
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "macro_projection_import_cleaning_policy_fixture_v1",
+  "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
+  "default_copy_mode": "metadata_or_fixture_shape_only",
+  "forbidden_material_classes": [
+    "raw_seed_body",
+    "operator_thread_body",
+    "provider_payload_body",
+    "private_source_body",
+    "credential",
+    "secret",
+    "recipient_packet_body",
+    "release_packet_body"
+  ],
+  "required_cleaning_actions": [
+    "strip_private_absolute_paths",
+    "replace_private_bodies_with_public_refs",
+    "preserve_source_ref_lineage",
+    "attach_omission_receipt",
+    "attach_authority_ceiling",
+    "validate_private_state_scan"
+  ],
+  "requires_omission_receipt": true,
+  "requires_validation_ref": true,
+  "release_authorized": false,
+  "private_data_equivalence_claim": false,
+  "body_redacted": true
+}

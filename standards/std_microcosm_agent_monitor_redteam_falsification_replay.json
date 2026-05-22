@@ -1,0 +1,184 @@
+{
+  "anti_claim": "This standard governs synthetic agent-monitor redteam replay receipts only; it does not claim monitor product performance, expose private reasoning or internal code, include exploit instructions or credentials, import live agent traffic, call providers, mutate source, or authorize release/publication work.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "monitor redteam material must state that synthetic replay is not product monitor performance or complete-control-eval authority"
+  },
+  "authority_boundary": "synthetic_agent_monitor_redteam_replay_not_monitor_product_performance_authority",
+  "authority_ceiling": {
+    "control_eval_score_authority": false,
+    "credential_material_authority": false,
+    "exploit_instruction_authority": false,
+    "live_agent_traffic_authority": false,
+    "monitor_product_performance_authority": false,
+    "private_reasoning_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "standard_authority": "synthetic_monitor_redteam_replay_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "agent_monitor_redteam_falsification_replay",
+  "kind_name": "Agent monitor redteam falsification replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json",
+    "omitted": [
+      "private chain-of-thought",
+      "internal code",
+      "exploit instruction detail",
+      "credential material",
+      "live agent traffic",
+      "provider payloads",
+      "monitor product performance claims"
+    ],
+    "reason": "public tranche carries synthetic monitor metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "agent_monitor_redteam_falsification_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic trajectory ids",
+      "trajectory hashes",
+      "monitor ids",
+      "coverage labels",
+      "adversarial probe refs",
+      "monitor verdicts",
+      "severity tiers",
+      "escalation refs",
+      "redaction refs",
+      "mitigation refs",
+      "cold replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_monitor_replay_receipts_only",
+    "forbidden_public_inputs": [
+      "private chain-of-thought",
+      "hidden reasoning",
+      "internal code",
+      "actionable exploit instructions",
+      "credential values",
+      "live agent traffic",
+      "provider payload bodies",
+      "monitor product performance claims",
+      "complete control-eval score claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "trajectory_case_count",
+      "observation_count",
+      "adversarial_probe_count",
+      "pass_count",
+      "escalate_count",
+      "block_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.agent_monitor_redteam_falsification_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.agent_monitor_redteam_falsification_replay",
+    "receipt must cite source refs, source pattern ids, trajectory count, observation count, adversarial probe count, verdict counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#agent_monitor_redteam_falsification_replay",
+    "source_pattern_id_sample": [
+      "agent_monitor_redteam_falsification_replay_compound",
+      "agent_reliability_replay_gauntlet",
+      "mcp_tool_authority_replay_compound"
+    ],
+    "used_by_organs": [
+      "agent_monitor_redteam_falsification_replay"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "monitor_policy",
+    "trajectory_cases",
+    "monitor_observations",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating synthetic monitor metadata as product monitor performance, live control-eval results, or complete-security evidence.",
+    "compression_bands": [
+      "protocol",
+      "trajectory",
+      "monitor",
+      "probe",
+      "verdict",
+      "escalation",
+      "mitigation",
+      "receipt"
+    ],
+    "failure_modes": [
+      "private_chain_of_thought_leakage",
+      "internal_code_export",
+      "exploit_instruction_material",
+      "credential_material",
+      "live_agent_traffic",
+      "monitor_product_performance_claim",
+      "coverage_without_adversarial_probe"
+    ],
+    "ontology": "A public-safe monitor redteam replay: synthetic trajectories, adversarial probe refs, monitor verdicts, escalation refs, mitigation refs, redaction refs, cold replay refs, and falsification fixtures.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how agent-monitor honesty claims are gated by adversarial probes, redacted evidence, negative cases, and authority ceilings before any public claim is admitted."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require monitor verdicts to be one of pass, escalate, or block",
+    "require suspicious span, adversarial probe, escalation, redaction, mitigation, and cold replay refs",
+    "reject private reasoning, internal code, exploit instruction detail, credential material, and live traffic exports",
+    "reject monitor product performance and control-eval score overclaims",
+    "reject coverage labels that lack adversarial probe refs",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "monitor_policy_verdicts",
+      "trajectory_metadata_floor",
+      "observation_required_fields",
+      "safety_boundary_rejections",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.agent_monitor_redteam_falsification_replay"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.agent_monitor_redteam_falsification_replay"
+  ],
+  "wave": "w1_agent_monitor_redteam_falsification_replay"
+}

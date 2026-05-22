@@ -1,0 +1,10 @@
+{
+  "schema_version": "world_model_projection_drift_control_bundle_manifest_v1",
+  "bundle_id": "public_world_model_projection_drift_control_room_runtime_example",
+  "organ_id": "world_model_projection_drift_control_room",
+  "input_mode": "exported_projection_drift_control_bundle",
+  "fixture_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input",
+  "receipt_ref": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
+  "projection_not_authority": true,
+  "body_redacted": true
+}

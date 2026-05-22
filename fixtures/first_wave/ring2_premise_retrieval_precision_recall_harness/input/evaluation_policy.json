@@ -1,0 +1,18 @@
+{
+  "schema_version": "ring2_retrieval_evaluation_policy_v1",
+  "policy_id": "ring2_public_precision_recall_policy_v1",
+  "minimum_problem_count": 5,
+  "default_top_k": 4,
+  "expected_failure_modes": [
+    "retrieval_hit",
+    "partial_retrieval_miss",
+    "retrieval_miss",
+    "proof_failure_despite_hit"
+  ],
+  "adversarial_decoy_case_id": "ring2_list_map_map_index_miss",
+  "labels_allowed_in_provider_context": false,
+  "test_split_tuning_authorized": false,
+  "proof_bodies_allowed": false,
+  "benchmark_performance_claimed": false,
+  "release_authorized": false
+}

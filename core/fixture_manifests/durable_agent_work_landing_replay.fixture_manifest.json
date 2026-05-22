@@ -1,0 +1,82 @@
+{
+  "anti_claim": "This fixture validates public synthetic work-landing replay boundaries only; it does not mutate Git, prove a commit landed, expose private source bodies, run providers, or authorize release.",
+  "authority_ceiling": "synthetic work-landing replay receipts only; no live Git mutation, broad checkpoint, unrelated staging, private bodies, provider calls, or release",
+  "expected_negative_cases": [
+    "claim_without_work_ledger_closeout",
+    "commit_claim_without_head_change",
+    "dirty_tree_boundary_missing",
+    "live_git_mutation_authorized",
+    "missing_evidence_ref",
+    "private_path_leakage",
+    "release_overclaim",
+    "uncaptured_blocker"
+  ],
+  "fixture_id": "fixture::durable_agent_work_landing_replay::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_result.json",
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_board.json",
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with omission receipts"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
+      "role": "scoped commit, broad checkpoint, metadata-blocked, and hard-stop lane policy"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
+      "role": "positive work landing replay rows"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/claim_without_work_ledger_closeout.json",
+      "role": "negative case: claim without work ledger closeout"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/commit_claim_without_head_change.json",
+      "role": "negative case: commit claim without head change"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/dirty_tree_boundary_missing.json",
+      "role": "negative case: dirty tree boundary missing"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/live_git_mutation_authorized.json",
+      "role": "negative case: live git mutation authorized"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/missing_evidence_ref.json",
+      "role": "negative case: missing evidence ref"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/private_path_leakage.json",
+      "role": "negative case: private path leakage"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/release_overclaim.json",
+      "role": "negative case: release overclaim"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json",
+      "role": "negative case: uncaptured blocker"
+    }
+  ],
+  "organ_id": "durable_agent_work_landing_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "WORK_LANDING_BLOCKER_CAPTURE_MISSING",
+    "WORK_LANDING_DIRTY_TREE_BOUNDARY_MISSING",
+    "WORK_LANDING_EVIDENCE_REF_MISSING",
+    "WORK_LANDING_HEAD_ADVANCE_MISSING",
+    "WORK_LANDING_LEDGER_CLOSEOUT_MISSING",
+    "WORK_LANDING_LIVE_GIT_MUTATION_AUTHORITY",
+    "WORK_LANDING_PRIVATE_PATH_LEAKAGE",
+    "WORK_LANDING_RELEASE_OVERCLAIM"
+  ],
+  "title": "Durable agent work-landing replay fixture",
+  "validator": "microcosm_core.organs.durable_agent_work_landing_replay",
+  "validator_command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run --input fixtures/first_wave/durable_agent_work_landing_replay/input --out receipts/first_wave/durable_agent_work_landing_replay"
+}

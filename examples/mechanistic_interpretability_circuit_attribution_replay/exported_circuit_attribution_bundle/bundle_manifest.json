@@ -1,0 +1,13 @@
+{
+  "body_redacted": true,
+  "files": [
+    "attribution_protocol.json",
+    "intervention_policy.json",
+    "feature_catalog.json",
+    "attribution_replays.json"
+  ],
+  "input_mode": "exported_circuit_attribution_bundle",
+  "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+  "release_authorized": false,
+  "schema_version": "mechanistic_interpretability_bundle_manifest_v1"
+}

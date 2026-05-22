@@ -1,0 +1,84 @@
+{
+  "schema_version": "std_microcosm_ring2_premise_retrieval_precision_recall_harness_v1",
+  "standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+  "kind_id": "microcosm_runtime_organ",
+  "status": "accepted",
+  "authority_boundary": {
+    "owner": "ring2_premise_retrieval_precision_recall_harness",
+    "allowed_claim": "Public Ring-2 retrieval rankings can be scored against after-the-fact labels to report precision, recall, adversarial misses, and retrieval-versus-proof failure attribution.",
+    "forbidden_claims": [
+      "precision/recall metrics prove theorem correctness",
+      "labels may enter provider context",
+      "proof bodies or oracle-needed premise ids may appear in rankings",
+      "test split labels may tune retrieval",
+      "benchmark performance, release, publication, or recipient work is authorized"
+    ]
+  },
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+  ],
+  "relationships": {
+    "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+    "fixture_manifest": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+    "paper_module": "paper_modules/ring2_premise_precision_recall.md",
+    "depends_on": [
+      "formal_math_premise_retrieval",
+      "target_shape_tactic_routing_gate"
+    ],
+    "feeds": [
+      "provider_context_recipe_budget_policy",
+      "formal_math_lean_proof_witness"
+    ]
+  },
+  "required_fields": [
+    "retrieval_runs.runs[].run_id",
+    "problem_labels.problems[].problem_id",
+    "problem_labels.problems[].needed_premise_ids",
+    "retrieval_rankings.rankings[].retrieved_premise_ids",
+    "retrieval_rankings.rankings[].proof_outcome",
+    "evaluation_policy.adversarial_decoy_case_id"
+  ],
+  "validation_rules": [
+    "Precision and recall must be computed after ranking from metric labels, not used to tune retrieval.",
+    "The fixture must include an adversarial decoy/miss case.",
+    "Failure attribution must distinguish retrieval_hit, partial_retrieval_miss, retrieval_miss, and proof_failure_despite_hit.",
+    "Proof bodies, provider bodies, private source bodies, and oracle-needed ids inside rankings are forbidden.",
+    "Metrics cannot claim proof, benchmark, provider, release, publication, or recipient-work authority."
+  ],
+  "receipt_expectations": [
+    "result receipt with precision/recall metrics and failure attribution",
+    "board receipt with public contract and authority ceiling",
+    "validation receipt with negative-case coverage",
+    "fixture acceptance receipt"
+  ],
+  "validator_contract": {
+    "module": "microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness",
+    "actions": ["run", "run-precision-recall-bundle"],
+    "negative_case_count": 5
+  },
+  "receipt_contract": {
+    "result": "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+    "board": "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
+    "validation": "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json",
+    "acceptance": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
+  },
+  "public_private_boundary": {
+    "private_source_bodies_included": false,
+    "proof_bodies_included": false,
+    "provider_payloads_included": false,
+    "labels_allowed_in_provider_context": false,
+    "fixture_kind": "synthetic_public_metric_metadata"
+  },
+  "authority_ceiling": {
+    "labels_allowed_in_provider_context": false,
+    "proof_bodies_allowed": false,
+    "test_split_tuning_authorized": false,
+    "provider_calls_authorized": false,
+    "formal_proof_authority": false,
+    "benchmark_performance_authority": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This standard governs public Ring-2 retrieval precision/recall metadata only; it does not expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence."
+}

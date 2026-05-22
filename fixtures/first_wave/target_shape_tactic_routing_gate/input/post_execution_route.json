@@ -1,0 +1,13 @@
+{
+  "schema_version": "target_shape_tactic_routing_negative_case_v1",
+  "expected_negative_case_id": "post_execution_route",
+  "route_cases": [
+    {
+      "route_case_id": "bad_post_execution_route",
+      "target_shape": "int_linear_arithmetic",
+      "allowed_tactic_ids": ["omega"],
+      "route_stage": "post_execution",
+      "lean_receipt_ref": "private/oracle/receipt.json"
+    }
+  ]
+}

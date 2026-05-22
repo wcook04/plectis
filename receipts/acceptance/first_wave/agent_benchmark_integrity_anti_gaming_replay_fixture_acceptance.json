@@ -1,0 +1,61 @@
+{
+  "accepted_negative_cases": [
+    "evaluator_edit_attempt",
+    "final_answer_only_grading",
+    "hidden_gold_access",
+    "misleading_test_admitted",
+    "oracle_patch_body_leakage",
+    "pass_k_cherry_picking",
+    "private_issue_body_leakage",
+    "provider_payload_leakage",
+    "score_overclaim",
+    "train_test_leakage"
+  ],
+  "anti_claim": "Agent benchmark integrity anti-gaming replay validates synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_benchmark_integrity_replay_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_gold_access_authorized": false,
+    "live_repo_mutation_authorized": false,
+    "oracle_patch_body_export_authorized": false,
+    "private_issue_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "swe_bench_performance_claim_authorized": false
+  },
+  "created_at": "2026-05-22T01:58:38+00:00",
+  "error_codes": [
+    "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
+    "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS",
+    "BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED",
+    "BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING",
+    "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
+    "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
+    "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"
+  ],
+  "fixture_id": "first_wave.agent_benchmark_integrity_anti_gaming_replay",
+  "missing_negative_cases": [],
+  "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 14,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.agent_benchmark_integrity_anti_gaming_replay"
+}

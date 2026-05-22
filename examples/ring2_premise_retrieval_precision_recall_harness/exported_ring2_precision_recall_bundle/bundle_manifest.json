@@ -1,0 +1,18 @@
+{
+  "schema_version": "ring2_precision_recall_bundle_manifest_v1",
+  "bundle_id": "ring2_precision_recall_runtime_example",
+  "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+  "input_mode": "exported_ring2_precision_recall_bundle",
+  "files": [
+    "retrieval_runs.json",
+    "problem_labels.json",
+    "retrieval_rankings.json",
+    "evaluation_policy.json"
+  ],
+  "authority_ceiling": {
+    "labels_allowed_in_provider_context": false,
+    "formal_proof_authority": false,
+    "benchmark_performance_authority": false,
+    "release_authorized": false
+  }
+}

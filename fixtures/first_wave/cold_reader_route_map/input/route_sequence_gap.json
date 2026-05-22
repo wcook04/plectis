@@ -1,0 +1,9 @@
+{
+  "schema_version": "cold_reader_route_negative_case_v1",
+  "case_id": "route_sequence_gap",
+  "first_run_sequence": [
+    "inspect_route",
+    "open_reveal_board"
+  ],
+  "body_redacted": true
+}

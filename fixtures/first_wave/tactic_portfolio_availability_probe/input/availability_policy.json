@@ -1,0 +1,25 @@
+{
+  "schema_version": "tactic_portfolio_availability_policy_v1",
+  "policy_id": "public_tactic_portfolio_availability_policy",
+  "required_row_fields": [
+    "tactic_id",
+    "compile_status",
+    "environment",
+    "requires_mathlib"
+  ],
+  "pass_statuses": [
+    "compile_pass",
+    "available",
+    "pass"
+  ],
+  "fail_statuses": [
+    "environment_fail",
+    "compile_fail",
+    "unavailable"
+  ],
+  "mathlib_dependent_tactics_require_passing_mathlib_probe": true,
+  "proof_bodies_allowed": false,
+  "provider_payloads_allowed": false,
+  "release_authorized": false,
+  "body_redacted": true
+}

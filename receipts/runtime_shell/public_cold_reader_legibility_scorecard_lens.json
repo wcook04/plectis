@@ -1,0 +1,196 @@
+{
+  "anti_claim": "The cold-reader legibility scorecard is a public-safe read-model. It does not prove every reader will understand the system, authorize release or publication, claim private-root equivalence, call providers, mutate source, prove mathematical correctness, export benchmark scores, or certify production readiness.",
+  "authority_ceiling": {
+    "benchmark_score_claim": false,
+    "hosted_public_authorized": false,
+    "private_data_equivalence_claim": false,
+    "proof_correctness_claim": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "reader_success_guarantee": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "synthetic_public_read_model_only": true
+  },
+  "body_redacted": true,
+  "checkpoint_rows": [
+    {
+      "checkpoint_id": "repo_to_local_substrate",
+      "command": "microcosm compile <project>",
+      "endpoint": "/project/observatory",
+      "evidence_ref": ".microcosm/project_manifest.json",
+      "expected_signal": ".microcosm catalog, routes, work transaction, events, and evidence exist",
+      "minute_budget": 2,
+      "pass_condition": "compile_status_pass_and_source_files_mutated_false",
+      "reader_question": "What does this thing do?"
+    },
+    {
+      "checkpoint_id": "entry_path_visible",
+      "command": "microcosm tour <project>",
+      "endpoint": "/tour",
+      "evidence_ref": "receipts/runtime_shell/public_ten_minute_tour.json",
+      "expected_signal": "route cards fit in a 10-minute path before raw receipt drilldown",
+      "minute_budget": 2,
+      "pass_condition": "tour_status_pass_and_route_cards_present",
+      "reader_question": "Where do I start?"
+    },
+    {
+      "checkpoint_id": "authority_ceiling_visible",
+      "command": "microcosm authority",
+      "endpoint": "/authority",
+      "evidence_ref": "receipts/runtime_shell/public_authority_map.json",
+      "expected_signal": "release, provider, source mutation, proof, benchmark, and private-equivalence ceilings are false",
+      "minute_budget": 1,
+      "pass_condition": "authority_surface_has_false_public_ceiling",
+      "reader_question": "What is not being claimed?"
+    },
+    {
+      "checkpoint_id": "weird_substrate_visible",
+      "command": "microcosm trace-lens && microcosm replay-gauntlet && microcosm benchmark-lab",
+      "endpoint": "/trace + /replay-gauntlet + /benchmark-lab",
+      "evidence_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+      "expected_signal": "formal repair, agent reliability replay, and repository benchmark fixtures are public-safe metadata",
+      "minute_budget": 2,
+      "pass_condition": "formal_agent_and_benchmark_lenses_pass",
+      "reader_question": "Where is the unusual intelligence compression?"
+    },
+    {
+      "checkpoint_id": "observatory_not_decorative",
+      "command": "microcosm serve <project>",
+      "endpoint": "/",
+      "evidence_ref": "receipts/runtime_shell/wave039_observatory_legibility.json",
+      "expected_signal": "HTML shows causal chain, route, work, events, evidence, and JSON drilldowns",
+      "minute_budget": 2,
+      "pass_condition": "observatory_sections_visible_before_raw_json",
+      "reader_question": "Can I inspect it in a browser without losing the evidence chain?"
+    },
+    {
+      "checkpoint_id": "receipts_after_causality",
+      "command": "microcosm evidence inspect <receipt>",
+      "endpoint": "/evidence",
+      "evidence_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+      "expected_signal": "receipt refs are drilldowns after commands, not the first screen",
+      "minute_budget": 1,
+      "pass_condition": "evidence_refs_exist_and_private_paths_absent",
+      "reader_question": "How do I verify the claim without reading the macro root?"
+    }
+  ],
+  "command": "microcosm legibility-scorecard",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/legibility-scorecard",
+  "evidence_refs": [
+    "receipts/runtime_shell/public_ten_minute_tour.json",
+    "receipts/runtime_shell/public_authority_map.json",
+    "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+    "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+    "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+    "receipts/runtime_shell/wave039_launch_compression.json",
+    "receipts/runtime_shell/wave039_observatory_legibility.json"
+  ],
+  "fixture_protocol": {
+    "authority_ceiling_visible_before_public_claim_strength": true,
+    "endpoint_parity_required": true,
+    "first_screen_before_receipts": true,
+    "public_private_boundary_explicit": true,
+    "question_to_command_mapping_required": true,
+    "receipt_drilldown_after_causal_path": true
+  },
+  "legibility_scorecard_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+  "lens_id": "public_cold_reader_legibility_scorecard_lens",
+  "negative_case_ids": [
+    "architecture_legible_without_running_commands_rejected",
+    "receipt_forward_first_screen_rejected",
+    "private_macro_equivalence_claim_rejected",
+    "release_or_publication_claim_from_scorecard_rejected",
+    "benchmark_score_from_synthetic_lab_rejected",
+    "proof_correctness_from_trace_metadata_rejected",
+    "provider_execution_required_for_demo_rejected",
+    "cold_reader_success_guarantee_rejected"
+  ],
+  "organ_family": "cold_reader_legibility",
+  "public_claim": "Microcosm exposes a cold-reader legibility scorecard: the public reveal must answer what it is, what to run, what evidence exists, what is not claimed, and how to extend it inside a 10-minute local path.",
+  "reader_question_rows": [
+    {
+      "answer_contract": "repo -> .microcosm local operating substrate",
+      "proof_command": "microcosm compile <project>",
+      "question": "What is Microcosm?",
+      "question_id": "identity"
+    },
+    {
+      "answer_contract": "compile, tour, authority, observatory, then receipts",
+      "proof_command": "microcosm tour <project>",
+      "question": "What should I run first?",
+      "question_id": "first_run"
+    },
+    {
+      "answer_contract": "JSON outputs, receipts, validators, and endpoint parity",
+      "proof_command": "microcosm projection-safety",
+      "question": "What makes this more than prose?",
+      "question_id": "evidence"
+    },
+    {
+      "answer_contract": "no release, private equivalence, provider execution, proof correctness, benchmark score, or reader-success guarantee",
+      "proof_command": "microcosm authority",
+      "question": "What claims are out of scope?",
+      "question_id": "limits"
+    },
+    {
+      "answer_contract": "add an owned runtime surface, receipt, validator, docs, and authority ceiling",
+      "proof_command": "microcosm legibility-scorecard",
+      "question": "How would I add a new organ or lens?",
+      "question_id": "extension"
+    }
+  ],
+  "release_authorized": false,
+  "required_commands": [
+    "microcosm compile <project>",
+    "microcosm tour <project>",
+    "microcosm authority",
+    "microcosm projection-safety",
+    "microcosm replay-gauntlet",
+    "microcosm benchmark-lab",
+    "microcosm legibility-scorecard",
+    "microcosm serve <project>"
+  ],
+  "required_endpoints": [
+    "/tour",
+    "/authority",
+    "/projection-safety",
+    "/replay-gauntlet",
+    "/benchmark-lab",
+    "/legibility-scorecard",
+    "/project/observatory",
+    "/evidence"
+  ],
+  "safe_to_show": {
+    "body_redacted": true,
+    "private_macro_context_omitted": true,
+    "private_paths_omitted": true,
+    "proof_bodies_omitted": true,
+    "provider_payloads_omitted": true,
+    "receipt_refs_only": true
+  },
+  "schema_version": "microcosm_public_cold_reader_legibility_scorecard_lens_v1",
+  "scorecard": {
+    "blocking_gap_count": 0,
+    "checkpoint_count": 6,
+    "evidence_ref_count": 8,
+    "negative_case_count": 8,
+    "reader_question_count": 5,
+    "reader_success_guarantee": false,
+    "release_authorized": false,
+    "required_command_count": 8,
+    "required_endpoint_count": 8,
+    "time_budget_minutes": 10
+  },
+  "selected_pattern_ids": [
+    "cold_reader_route_map",
+    "omission_receipt_reversible_projection_boundary",
+    "runtime_reveal_import_bridge",
+    "public_repository_benchmark_transaction_lab_lens",
+    "public_agent_reliability_replay_gauntlet_lens",
+    "public_view_quality_action_map_lens"
+  ],
+  "status": "pass"
+}

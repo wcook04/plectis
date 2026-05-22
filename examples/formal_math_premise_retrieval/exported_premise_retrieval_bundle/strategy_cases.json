@@ -1,0 +1,34 @@
+{
+  "schema_version": "formal_math_strategy_case_fixture_v1",
+  "strategy_set_id": "public_strategy_ids_v1",
+  "allowed_strategy_ids": [
+    "commutativity_rewrite",
+    "associativity_rewrite",
+    "boolean_normalization",
+    "structural_list",
+    "iff_split",
+    "unknown"
+  ],
+  "strategy_cases": [
+    {
+      "query_id": "q_nat_add_comm",
+      "strategy_id": "commutativity_rewrite",
+      "selected_pre_oracle": true
+    },
+    {
+      "query_id": "q_list_length_append",
+      "strategy_id": "structural_list",
+      "selected_pre_oracle": true
+    },
+    {
+      "query_id": "q_bool_and_comm",
+      "strategy_id": "boolean_normalization",
+      "selected_pre_oracle": true
+    },
+    {
+      "query_id": "q_iff_forward",
+      "strategy_id": "iff_split",
+      "selected_pre_oracle": true
+    }
+  ]
+}

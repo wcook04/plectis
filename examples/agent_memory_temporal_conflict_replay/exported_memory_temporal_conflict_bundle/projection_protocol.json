@@ -1,0 +1,49 @@
+{
+  "authority_ceiling": "synthetic memory conflict replay metadata only; no private transcript export, live memory product claim, active-injection authority, provider call, or release authority",
+  "cleaned": [
+    "private thread refs reduced to metadata ids",
+    "answer text reduced to hashes and delta refs",
+    "candidate memories reduced to synthetic subjects and evidence handles"
+  ],
+  "copied": [
+    "no private thread body copied",
+    "no provider payload copied"
+  ],
+  "copied_private_thread_bodies": false,
+  "omitted": [
+    "private transcript bodies",
+    "private memory candidate bodies",
+    "provider payloads",
+    "live user memory values",
+    "active injection text"
+  ],
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json"
+  ],
+  "protocol_id": "agent_memory_temporal_conflict_public_projection_v1",
+  "public_projection_posture": "synthetic_memory_conflict_receipts_only",
+  "public_replacement_refs": [
+    "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_episodes.json",
+    "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/replay_observations.json",
+    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json"
+  ],
+  "reimplemented": [
+    "temporal conflict edge classification as synthetic JSON rows",
+    "memory write ADD/UPDATE/DELETE/NOOP decision policy",
+    "paired memory-enabled and memory-disabled cold replay receipts"
+  ],
+  "schema_version": "memory_temporal_conflict_projection_protocol_v1",
+  "source_pattern_ids": [
+    "agent_memory_temporal_conflict_replay_compound",
+    "agent_reliability_replay_gauntlet",
+    "memory_injection_tiers"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_memory_temporal_conflict_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+    "codex/doctrine/paper_modules/claude_memory_plane_contract.md",
+    "codex/doctrine/paper_modules/memory_injection_tiers.md",
+    "tools/meta/observability/operator_thread_memory.py::project_thread_records"
+  ]
+}

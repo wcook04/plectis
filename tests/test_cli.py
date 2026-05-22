@@ -52,11 +52,40 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "index",
         "catalog",
         "compile",
+        "python-lens",
         "patterns",
         "route",
         "work",
         "observe",
         "evidence",
+        "spine",
+        "tour",
+        "authority",
+        "prediction-lens",
+        "market-boundary",
+        "corpus-lens",
+        "trace-lens",
+        "repair-loop",
+        "evidence-cells",
+        "proof-loop-depth",
+        "landing-replay",
+        "durable-agent-work-landing-replay",
+        "view-quality",
+        "projection-safety",
+        "drift-control",
+        "spatial-simulation",
+        "circuit-attribution",
+        "route-cleanup",
+        "projection-import-map",
+        "import-projector",
+        "option-surface-lens",
+        "stripping-guard",
+        "standards-control",
+        "hook-coverage",
+        "replay-gauntlet",
+        "benchmark-lab",
+        "legibility-scorecard",
+        "intake",
         "private-state-scan",
         "public-entry-docs",
         "launch-compression",
@@ -66,12 +95,570 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "pattern-binding",
         "executable-doctrine-grammar",
         "proof-diagnostic-evidence-spine",
+        "formal-math-readiness-gate",
+        "corpus-readiness-mathlib-absence-gate",
+        "mathematical-strategy-atlas-hypothesis-scorer",
+        "tactic-portfolio-availability-probe",
+        "target-shape-tactic-routing-gate",
+        "formal-math-lean-proof-witness",
+        "formal-math-premise-retrieval",
+        "formal-math-verifier-trace-repair-loop",
+        "formal-evidence-cell-anchor-resolver",
+        "undeclared-library-prior-symbol-classifier",
+        "provider-context-recipe-budget-policy",
         "navigation-hologram-route-plane",
         "mission-transaction-work-spine",
         "agent-route-observability-runtime",
         "pattern-assimilation-step",
+        "public-reveal-walkthrough",
+        "macro-projection-import-protocol",
+        "prediction-oracle-reconciliation",
+        "standards-meta-diagnostics",
+        "cold-reader-route-map",
+        "agent-monitor-redteam-falsification-replay",
+        "agent-memory-temporal-conflict-replay",
+        "sleeper-memory-poisoning-quarantine-replay",
+        "mcp-tool-authority-replay",
+        "world-model-projection-drift-control-room",
+        "spatial-world-model-counterfactual-simulation-replay",
+        "mechanistic-interpretability-circuit-attribution-replay",
     ]:
         assert command in output
+
+
+def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["spine"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
+    assert payload["status"] == "pass"
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 35
+    assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
+    assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
+    assert payload["first_run_path"][5]["command"] == "microcosm spine"
+    assert payload["first_run_path"][6]["command"] == "microcosm authority"
+    assert payload["first_run_path"][7]["command"] == "microcosm prediction-lens"
+    assert payload["first_run_path"][8]["command"] == "microcosm market-boundary"
+    assert payload["first_run_path"][9]["command"] == "microcosm corpus-lens"
+    assert payload["first_run_path"][10]["command"] == "microcosm trace-lens"
+    assert payload["first_run_path"][11]["command"] == "microcosm repair-loop"
+    assert payload["first_run_path"][12]["command"] == "microcosm evidence-cells"
+    assert payload["first_run_path"][13]["command"] == "microcosm proof-loop-depth"
+    assert payload["first_run_path"][14]["command"] == "microcosm landing-replay"
+    assert payload["first_run_path"][15]["command"] == (
+        "microcosm durable-agent-work-landing-replay run-work-landing-bundle"
+    )
+    assert payload["first_run_path"][16]["command"].startswith(
+        "microcosm research-replication-rubric-artifact-replay"
+    )
+    assert payload["first_run_path"][17]["command"] == "microcosm view-quality"
+    assert payload["first_run_path"][18]["command"] == "microcosm projection-safety"
+    assert payload["first_run_path"][19]["command"] == "microcosm drift-control"
+    assert payload["first_run_path"][20]["command"].startswith(
+        "microcosm world-model-projection-drift-control-room"
+    )
+    assert payload["first_run_path"][21]["command"].startswith(
+        "microcosm spatial-world-model-counterfactual-simulation-replay"
+    )
+    assert payload["first_run_path"][22]["command"].startswith(
+        "microcosm mechanistic-interpretability-circuit-attribution-replay"
+    )
+    assert payload["first_run_path"][23]["command"] == "microcosm route-cleanup"
+    assert payload["first_run_path"][24]["command"] == "microcosm projection-import-map"
+    assert payload["first_run_path"][25]["command"] == "microcosm import-projector"
+    assert payload["first_run_path"][26]["command"] == "microcosm option-surface-lens"
+    assert payload["first_run_path"][27]["command"] == "microcosm stripping-guard"
+    assert payload["first_run_path"][28]["command"] == "microcosm standards-control"
+    assert payload["first_run_path"][29]["command"] == "microcosm hook-coverage"
+    assert payload["first_run_path"][30]["command"] == "microcosm replay-gauntlet"
+    assert payload["first_run_path"][31]["command"].startswith(
+        "microcosm agent-monitor-redteam-falsification-replay"
+    )
+    assert payload["first_run_path"][32]["command"].startswith(
+        "microcosm agent-memory-temporal-conflict-replay"
+    )
+    assert payload["first_run_path"][33]["command"].startswith(
+        "microcosm sleeper-memory-poisoning-quarantine-replay"
+    )
+    assert payload["first_run_path"][34]["command"].startswith(
+        "microcosm mcp-tool-authority-replay"
+    )
+    assert payload["first_run_path"][35]["command"] == "microcosm benchmark-lab"
+    assert payload["first_run_path"][36]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
+    assert payload["first_run_path"][37]["command"] == "microcosm legibility-scorecard"
+    assert payload["first_run_path"][40]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert payload["authority_ceiling"]["release_authorized"] is False
+
+
+def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["authority"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_authority_map_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm authority"
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["surface_counts"]["organ_authority_count"] == 35
+    assert payload["surface_counts"]["surface_authority_count"] == 35
+    assert any(row["surface_id"] == "project_python_lens" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/authority" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/tour" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/market-boundary" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/hook-coverage" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/replay-gauntlet" for row in payload["surface_authority"])
+    assert any(row["surface_id"] == "public_mcp_tool_authority_replay_lens" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/corpus" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/trace" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/repair-loop" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/evidence-cells" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/proof-loop-depth" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/landing-replay" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/view-quality" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/projection-safety" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/drift-control" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/spatial-simulation" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/circuit-attribution" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/route-cleanup" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/projection-import-map" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/import-projector" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/option-surface-lens" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/stripping-guard" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/standards-control" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/benchmark-lab" for row in payload["surface_authority"])
+    assert any(row["endpoint"] == "/legibility-scorecard" for row in payload["surface_authority"])
+
+
+def test_cli_tour_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["tour"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_ten_minute_tour_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm tour <project>"
+    assert payload["endpoint"] == "/tour"
+    assert payload["time_budget_minutes"] == 10
+    assert payload["compile_summary"]["headline"] == "repo -> .microcosm"
+    assert payload["authority_ceiling"]["release_authorized"] is False
+
+
+def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["prediction-lens"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_prediction_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm prediction-lens"
+    assert payload["endpoint"] == "/prediction"
+    assert payload["organ_id"] == "prediction_oracle_reconciliation"
+    assert payload["mechanics"][2]["count"] == 2
+    assert payload["authority_ceiling"]["financial_advice_authorized"] is False
+
+
+def test_cli_market_prediction_boundary_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["market-boundary"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert (
+        payload["schema_version"]
+        == "microcosm_public_market_prediction_evidence_boundary_lens_v1"
+    )
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm market-boundary"
+    assert payload["endpoint"] == "/market-boundary"
+    assert payload["boundary_summary"]["row_count"] == 8
+    assert payload["boundary_summary"]["decision_boundary_count"] == 8
+    assert payload["boundary_summary"]["trading_advice_authorized_count"] == 0
+    assert payload["boundary_summary"]["private_portfolio_export_count"] == 0
+    assert payload["authority_ceiling"]["synthetic_fixture_only"] is True
+    assert payload["authority_ceiling"]["live_market_data_authorized"] is False
+    assert payload["authority_ceiling"]["investment_recommendation_authorized"] is False
+    assert payload["safe_to_show"]["decision_policy_not_trading_advice"] is True
+
+
+def test_cli_corpus_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["corpus-lens"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_corpus_readiness_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm corpus-lens"
+    assert payload["endpoint"] == "/corpus"
+    assert payload["organ_id"] == "corpus_readiness_mathlib_absence_gate"
+    assert payload["corpus_summary"]["corpus_count"] == 4
+    assert payload["corpus_summary"]["mathlib_lake_project_import_available"] is False
+    assert payload["consumer_gate"]["allowed_case_ids"] == ["std_core_boolean_simp_allowed"]
+    assert payload["authority_ceiling"]["mathlib_dependent_proof_authority"] is False
+
+
+def test_cli_trace_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["trace-lens"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_verifier_trace_repair_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm trace-lens"
+    assert payload["endpoint"] == "/trace"
+    assert payload["repair_summary"]["attempt_count"] == 4
+    assert payload["authority_ceiling"]["formal_proof_authority"] is False
+    assert payload["authority_ceiling"]["proof_bodies_exported"] is False
+
+
+def test_cli_repair_loop_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["repair-loop"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_verifier_repair_loop_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm repair-loop"
+    assert payload["endpoint"] == "/repair-loop"
+    assert payload["repair_loop_summary"]["stage_count"] == 5
+    assert payload["repair_loop_summary"]["transition_count"] == 4
+    assert payload["authority_ceiling"]["formal_proof_authority"] is False
+    assert payload["authority_ceiling"]["proof_bodies_exported"] is False
+
+
+def test_cli_evidence_cells_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["evidence-cells"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_formal_evidence_cell_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm evidence-cells"
+    assert payload["endpoint"] == "/evidence-cells"
+    assert payload["resolver_summary"]["cell_count"] == 4
+    assert payload["resolver_summary"]["present_cell_count"] == 2
+    assert payload["authority_ceiling"]["formal_proof_authority"] is False
+    assert payload["authority_ceiling"]["proof_bodies_exported"] is False
+    assert payload["authority_ceiling"]["private_source_refs_exported"] is False
+
+
+def test_cli_proof_loop_depth_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["proof-loop-depth"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_proof_loop_depth_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm proof-loop-depth"
+    assert payload["endpoint"] == "/proof-loop-depth"
+    assert payload["proof_loop_summary"]["gate_count"] == 11
+    assert payload["proof_loop_summary"]["proof_body_export_count"] == 0
+    assert payload["authority_ceiling"]["formal_proof_authority"] is False
+    assert payload["authority_ceiling"]["benchmark_score_claim"] is False
+
+
+def test_cli_landing_replay_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["landing-replay"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_work_landing_replay_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm landing-replay"
+    assert payload["endpoint"] == "/landing-replay"
+    assert payload["replay_summary"]["lane_count"] == 4
+    assert payload["authority_ceiling"]["live_git_mutation_authorized"] is False
+    assert payload["authority_ceiling"]["broad_checkpoint_authorized"] is False
+
+
+def test_cli_view_quality_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["view-quality"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_view_quality_action_map_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm view-quality"
+    assert payload["endpoint"] == "/view-quality"
+    assert payload["action_summary"]["action_row_count"] == 5
+    assert payload["action_summary"]["hot_action_count"] == 4
+    assert payload["authority_ceiling"]["private_screenshot_paths_exported"] is False
+    assert payload["authority_ceiling"]["live_browser_control_authorized"] is False
+
+
+def test_cli_projection_safety_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["projection-safety"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_projection_safety_audit_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm projection-safety"
+    assert payload["endpoint"] == "/projection-safety"
+    assert payload["projection_summary"]["omission_receipt_count"] == 35
+    assert payload["projection_summary"]["private_body_export_count"] == 0
+    assert payload["projection_summary"]["proof_body_export_count"] == 0
+    assert payload["authority_ceiling"]["source_mutation_authorized"] is False
+
+
+def test_cli_projection_drift_control_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["drift-control"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_projection_drift_control_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm drift-control"
+    assert payload["endpoint"] == "/drift-control"
+    assert payload["drift_summary"]["row_count"] == 8
+    assert payload["drift_summary"]["source_authority_claim_count"] == 0
+    assert payload["drift_summary"]["live_repair_authorized_count"] == 0
+    assert payload["authority_ceiling"]["metadata_projection_only"] is True
+    assert payload["authority_ceiling"]["live_route_repair_authorized"] is False
+    assert payload["safe_to_show"]["repair_is_route_metadata_only"] is True
+
+
+def test_cli_spatial_simulation_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["spatial-simulation"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert (
+        payload["schema_version"]
+        == "microcosm_public_spatial_world_model_counterfactual_simulation_replay_lens_v1"
+    )
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm spatial-simulation"
+    assert payload["endpoint"] == "/spatial-simulation"
+    assert payload["simulation_summary"]["replay_count"] == 6
+    assert payload["simulation_summary"]["private_video_export_count"] == 0
+    assert payload["simulation_summary"]["live_operation_authorized_count"] == 0
+    assert payload["authority_ceiling"]["private_video_exported"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+
+
+def test_cli_route_cleanup_contract_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["route-cleanup"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_route_cleanup_contract_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm route-cleanup"
+    assert payload["endpoint"] == "/route-cleanup"
+    assert payload["cleanup_summary"]["row_count"] == 8
+    assert payload["cleanup_summary"]["owner_route_count"] == 8
+    assert payload["cleanup_summary"]["route_deletion_authorized_count"] == 0
+    assert payload["cleanup_summary"]["generated_region_hand_edit_authorized_count"] == 0
+    assert payload["authority_ceiling"]["metadata_projection_only"] is True
+    assert payload["authority_ceiling"]["route_deletion_authorized"] is False
+    assert payload["safe_to_show"]["route_cleanup_is_metadata_only"] is True
+
+
+def test_cli_projection_import_map_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["projection-import-map"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm projection-import-map"
+    assert payload["endpoint"] == "/projection-import-map"
+    assert payload["map_summary"]["row_count"] == 6
+    assert payload["map_summary"]["stage_count"] == 6
+    assert payload["map_summary"]["private_body_export_count"] == 0
+    assert payload["authority_ceiling"]["automated_import_guarantee"] is False
+
+
+def test_cli_import_projector_contract_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["import-projector"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_import_projector_contract_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm import-projector"
+    assert payload["endpoint"] == "/import-projector"
+    assert payload["projector_summary"]["row_count"] == 9
+    assert payload["projector_summary"]["stage_count"] == 6
+    assert payload["projector_summary"]["private_body_export_count"] == 0
+    assert payload["authority_ceiling"]["automated_import_execution_authorized"] is False
+    assert payload["authority_ceiling"]["lossless_projection_claim"] is False
+
+
+def test_cli_option_surface_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["option-surface-lens"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_compression_profile_option_surface_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm option-surface-lens"
+    assert payload["endpoint"] == "/option-surface-lens"
+    assert payload["option_surface_summary"]["row_count"] == 6
+    assert payload["option_surface_summary"]["stage_count"] == 6
+    assert payload["option_surface_summary"]["private_body_export_count"] == 0
+    assert payload["authority_ceiling"]["profile_switch_execution_authorized"] is False
+    assert payload["authority_ceiling"]["automatic_profile_selection_authorized"] is False
+    assert payload["authority_ceiling"]["lossless_projection_claim"] is False
+
+
+def test_cli_stripping_guard_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["stripping-guard"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_private_stripping_guard_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm stripping-guard"
+    assert payload["endpoint"] == "/stripping-guard"
+    assert payload["guard_summary"]["guard_row_count"] == 8
+    assert payload["guard_summary"]["private_body_export_count"] == 0
+    assert payload["authority_ceiling"]["secret_detection_completeness_claim"] is False
+    assert payload["authority_ceiling"]["financial_advice_authorized"] is False
+
+
+def test_cli_standards_control_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["standards-control"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_standards_control_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm standards-control"
+    assert payload["endpoint"] == "/standards-control"
+    assert payload["standards_summary"]["standards_control_row_count"] == 8
+    assert payload["standards_summary"]["negative_case_count"] == 8
+    assert payload["standards_summary"]["private_body_export_count"] == 0
+    assert payload["standards_summary"]["source_authority_claim_count"] == 0
+    assert payload["authority_ceiling"]["standards_registry_source_authority"] is False
+    assert payload["authority_ceiling"]["standards_completeness_claim"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+
+
+def test_cli_hook_coverage_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["hook-coverage"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_hook_intervention_coverage_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm hook-coverage"
+    assert payload["endpoint"] == "/hook-coverage"
+    assert payload["coverage_summary"]["intervention_row_count"] == 5
+    assert payload["coverage_summary"]["missing_authority_count"] == 1
+    assert payload["authority_ceiling"]["live_operator_state_read"] is False
+    assert payload["authority_ceiling"]["provider_payload_read"] is False
+    assert payload["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
+
+
+def test_cli_replay_gauntlet_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["replay-gauntlet"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_agent_reliability_replay_gauntlet_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm replay-gauntlet"
+    assert payload["endpoint"] == "/replay-gauntlet"
+    assert payload["coverage_summary"]["episode_count"] == 8
+    assert payload["coverage_summary"]["blocked_episode_count"] == 6
+    assert payload["authority_ceiling"]["live_agent_execution_authorized"] is False
+    assert payload["authority_ceiling"]["complete_security_claim"] is False
+
+
+def test_cli_benchmark_lab_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["benchmark-lab"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_repository_benchmark_transaction_lab_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm benchmark-lab"
+    assert payload["endpoint"] == "/benchmark-lab"
+    assert payload["scorecard"]["task_count"] == 2
+    assert payload["scorecard"]["oracle_patch_count"] == 2
+    assert payload["scorecard"]["fail_to_pass_count"] == 2
+    assert payload["scorecard"]["pass_to_pass_count"] == 2
+    assert payload["authority_ceiling"]["live_repo_mutation_authorized"] is False
+    assert payload["authority_ceiling"]["swe_bench_performance_claim"] is False
+
+
+def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["legibility-scorecard"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_public_cold_reader_legibility_scorecard_lens_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm legibility-scorecard"
+    assert payload["endpoint"] == "/legibility-scorecard"
+    assert payload["scorecard"]["checkpoint_count"] == 6
+    assert payload["scorecard"]["reader_question_count"] == 5
+    assert payload["scorecard"]["time_budget_minutes"] == 10
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["authority_ceiling"]["reader_success_guarantee"] is False
+
+
+def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(["intake"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
+    assert payload["bridge_id"] == "runtime_reveal_import_bridge"
+    assert payload["projection_cell_count"] == 3
+    assert payload["cell_status"][1]["projection_status"] == "self_hosted_status_protocol_landed"
+    assert payload["cell_status"][2]["projection_status"] == "runtime_bridge_landed"
+    assert payload["open_actionable_cell_count"] == 0
+    assert payload["authority_ceiling"]["release_authorized"] is False
+
+
+def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(
+        [
+            "macro-projection-import-protocol",
+            "plan",
+            "--input",
+            (
+                MICROCOSM_ROOT
+                / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+            ).as_posix(),
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
+    assert payload["projection_intake_board"]["ready_cell_count"] == 3
+    assert payload["projection_intake_board"]["blocked_cell_count"] == 0
+    assert payload["projection_intake_board"]["projection_status_counts"][
+        "self_hosted_status_protocol_landed"
+    ] == 1
+    assert payload["projection_intake_board"]["open_actionable_cell_count"] == 0
+    assert payload["authority_ceiling"]["release_authorized"] is False
+
+
+def test_cli_formal_math_readiness_plan_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+    status = cli.main(
+        [
+            "formal-math-readiness-gate",
+            "plan",
+            "--input",
+            (MICROCOSM_ROOT / "fixtures/first_wave/formal_math_readiness_gate/input").as_posix(),
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "formal_math_readiness_extension_preview_v1"
+    assert payload["projection_cell_id"] == "formal_math_readiness_extensions"
+    assert payload["readiness_extension_board"]["premise_index_projection"][
+        "premise_count"
+    ] == 11
+    assert payload["readiness_extension_board"]["tactic_portfolio_projection"][
+        "available_tactic_count"
+    ] == 6
+    assert payload["authority_ceiling"]["lean_lake_execution_authorized"] is False
 
 
 def test_cli_public_entry_docs_smoke_uses_temp_output(

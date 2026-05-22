@@ -1,0 +1,16 @@
+{
+  "schema_version": "mathematical_strategy_negative_case_v1",
+  "expected_negative_case_id": "oracle_strategy_label_leakage",
+  "problems": [
+    {
+      "problem_id": "test_split_strategy_label_visible",
+      "split": "test",
+      "feature_tags": [
+        "iff_goal"
+      ],
+      "oracle_strategy_id": "iff_split",
+      "oracle_labels_visible": true,
+      "body_redacted": true
+    }
+  ]
+}

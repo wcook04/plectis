@@ -1,0 +1,83 @@
+{
+  "schema_version": "std_microcosm_provider_context_recipe_budget_policy_v1",
+  "standard_id": "std_microcosm_provider_context_recipe_budget_policy",
+  "kind_id": "microcosm_runtime_organ",
+  "status": "accepted",
+  "authority_boundary": {
+    "owner": "provider_context_recipe_budget_policy",
+    "allowed_claim": "Public provider context recipes can describe bounded byte budgets, ordered section fill, omitted-section manifests, graph roles, and reducer deliverable types.",
+    "forbidden_claims": [
+      "providers may be called",
+      "proof bodies or oracle-only truth-side material may enter public context",
+      "strategy classification emits proof bodies",
+      "Lean/Lake or Mathlib-dependent proof execution is authorized",
+      "release, publication, or recipient work is authorized"
+    ]
+  },
+  "source_refs": [
+    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+  ],
+  "relationships": {
+    "organ_id": "provider_context_recipe_budget_policy",
+    "fixture_manifest": "core/fixture_manifests/provider_context_recipe_budget_policy.fixture_manifest.json",
+    "paper_module": "paper_modules/provider_context_recipe_budget.md",
+    "depends_on": [
+      "formal_math_premise_retrieval",
+      "target_shape_tactic_routing_gate"
+    ],
+    "feeds": [
+      "formal_math_lean_proof_witness"
+    ]
+  },
+  "required_fields": [
+    "provider_context_recipes.recipes[].recipe_id",
+    "provider_context_recipes.recipes[].byte_budget",
+    "provider_context_recipes.recipes[].sections",
+    "provider_context_recipes.recipes[].graph_role",
+    "provider_context_recipes.recipes[].deliverable_type",
+    "provider_context_recipes.recipes[].emit_omitted_sections_manifest",
+    "section_materials.sections[].section_id",
+    "section_materials.sections[].declared_byte_size"
+  ],
+  "validation_rules": [
+    "Every recipe budget must match the public recipe table ceiling.",
+    "Recipes must fill sections in order and emit omitted-section manifests when material is excluded by the budget.",
+    "Truth-side, oracle-only, provider body, and proof body fields are forbidden.",
+    "Provider call authority must stay false.",
+    "Every recipe deliverable type must match its reducer route contract.",
+    "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected."
+  ],
+  "receipt_expectations": [
+    "result receipt with recipe projections and omitted-section metadata",
+    "board receipt with public contract and authority ceiling",
+    "validation receipt with negative-case coverage",
+    "fixture acceptance receipt"
+  ],
+  "validator_contract": {
+    "module": "microcosm_core.organs.provider_context_recipe_budget_policy",
+    "actions": ["run", "run-budget-bundle"],
+    "negative_case_count": 6
+  },
+  "receipt_contract": {
+    "result": "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
+    "board": "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
+    "validation": "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
+    "acceptance": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
+  },
+  "public_private_boundary": {
+    "private_source_bodies_included": false,
+    "proof_bodies_included": false,
+    "provider_payloads_included": false,
+    "oracle_labels_included": false,
+    "fixture_kind": "synthetic_public_metadata"
+  },
+  "authority_ceiling": {
+    "provider_calls_authorized": false,
+    "lean_lake_execution_authorized": false,
+    "formal_proof_authority": false,
+    "truth_side_material_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This standard governs public provider context recipe budgets only; it does not call providers, expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence."
+}

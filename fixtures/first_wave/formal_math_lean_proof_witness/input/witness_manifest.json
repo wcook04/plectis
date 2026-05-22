@@ -1,0 +1,48 @@
+{
+  "schema_version": "formal_math_lean_proof_witness_manifest_v1",
+  "witness_id": "formal_math_lean_proof_witness_v1",
+  "source_refs": [
+    "pattern_id:formal_math_lean_self_contained_proof_organ",
+    "pattern_id:corpus_readiness_mathlib_absence_gate",
+    "pattern_id:tactic_portfolio_availability_probe",
+    "toolchain:local_lean_4_29_1_lake_5"
+  ],
+  "source_pattern_ids": [
+    "formal_math_lean_self_contained_proof_organ",
+    "corpus_readiness_mathlib_absence_gate",
+    "tactic_portfolio_availability_probe"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
+  ],
+  "positive_witnesses": [
+    {
+      "witness_id": "core_nat_bool_prop_witness",
+      "lean_file": "lake_project/MicrocosmProofWitness/Basic.lean",
+      "expected_declarations": [
+        "nat_add_zero_public",
+        "bool_and_true_public",
+        "and_comm_public",
+        "eq_self_public"
+      ],
+      "allowed_imports": [],
+      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
+      "split": "public_synthetic"
+    }
+  ],
+  "omitted_material": [
+    {
+      "material_id": "macro_private_prover_runs",
+      "reason": "Private prover run bodies, oracle proofs, and provider payloads are replaced by a tiny public synthetic Lake project.",
+      "omission_receipt_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json"
+    }
+  ],
+  "authority_ceiling": "bounded_public_lean_lake_witness_only",
+  "body_redacted": true
+}

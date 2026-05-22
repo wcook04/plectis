@@ -1,0 +1,10 @@
+{
+  "schema_version": "tactic_portfolio_availability_negative_case_v1",
+  "expected_negative_case_id": "unprobed_tactic_referenced",
+  "consumer_requests": [
+    {
+      "consumer_id": "bad_route",
+      "tactic_id": "magic_tactic"
+    }
+  ]
+}

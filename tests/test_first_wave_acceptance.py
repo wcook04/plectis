@@ -23,28 +23,29 @@ def _copy_public_tree(tmp_path: Path) -> Path:
     return public_root
 
 
-def test_first_wave_acceptance_plan_keeps_deferred_boundaries() -> None:
+def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesses() -> None:
     acceptance = json.loads(
         (MICROCOSM_ROOT / "core/acceptance/first_wave_acceptance.json").read_text(
             encoding="utf-8"
         )
     )
 
-    assert acceptance["status"] == "accepted_runtime_spine_lean_deferred"
-    assert len(acceptance["accepted_current_authority_organs"]) == 8
-    assert {row["organ_id"] for row in acceptance["deferred_organs"]} == {
-        "formal_math_lean_proof_witness"
-    }
-    assert acceptance["lean_lake_authorized"] is False
+    assert acceptance["status"] == (
+        "accepted_runtime_spine_mcp_tool_authority_replay_bound"
+    )
+    assert len(acceptance["accepted_current_authority_organs"]) == 35
+    assert acceptance["deferred_organs"] == []
+    assert acceptance["lean_lake_authorized"] == "bounded_public_witness_only"
     assert acceptance["release_authorized"] is False
     assert acceptance["hosted_public_authorized"] is False
     assert acceptance["publication_authorized"] is False
     assert acceptance["recipient_work_authorized"] is False
     assert acceptance["provider_calls_authorized"] is False
+    assert acceptance["trading_or_financial_advice_authorized"] is False
     assert acceptance["private_data_equivalence_authorized"] is False
 
 
-def test_acceptance_summary_records_runtime_spine_without_lean_authority(tmp_path: Path) -> None:
+def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tmp_path: Path) -> None:
     public_root = _copy_public_tree(tmp_path)
     run_fixture_freshness(
         READINESS,
@@ -66,12 +67,40 @@ def test_acceptance_summary_records_runtime_spine_without_lean_authority(tmp_pat
         "executable_doctrine_grammar",
         "proof_diagnostic_evidence_spine",
         "formal_math_readiness_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "lean_std_premise_index",
+        "formal_math_premise_retrieval",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_evidence_cell_anchor_resolver",
+        "undeclared_library_prior_symbol_classifier",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "agent_benchmark_integrity_anti_gaming_replay",
+        "provider_context_recipe_budget_policy",
+        "formal_math_lean_proof_witness",
         "navigation_hologram_route_plane",
         "mission_transaction_work_spine",
+        "durable_agent_work_landing_replay",
+        "research_replication_rubric_artifact_replay",
+        "world_model_projection_drift_control_room",
+        "spatial_world_model_counterfactual_simulation_replay",
+        "mechanistic_interpretability_circuit_attribution_replay",
         "agent_route_observability_runtime",
         "pattern_assimilation_step",
+        "public_reveal_walkthrough",
+        "macro_projection_import_protocol",
+        "prediction_oracle_reconciliation",
+        "standards_meta_diagnostics",
+        "cold_reader_route_map",
+        "agent_monitor_redteam_falsification_replay",
+        "agent_memory_temporal_conflict_replay",
+        "sleeper_memory_poisoning_quarantine_replay",
+        "mcp_tool_authority_replay",
     ]
-    assert summary["deferred_organs"] == ["formal_math_lean_proof_witness"]
-    assert summary["lean_lake_authorized"] is False
+    assert summary["deferred_organs"] == []
+    assert summary["lean_lake_authorized"] == "bounded_public_witness_only"
     assert summary["release_authorized"] is False
+    assert summary["trading_or_financial_advice_authorized"] is False
     assert summary["private_data_equivalence_authorized"] is False

@@ -1,0 +1,30 @@
+{
+  "schema_version": "corpus_readiness_consumer_gate_cases_v1",
+  "cases": [
+    {
+      "case_id": "std_core_boolean_simp_allowed",
+      "target_corpus_id": "lean_std_core",
+      "requested_capability": "lean_std_boolean_simp",
+      "requires_mathlib_lake_project_import": false,
+      "readiness_gate_checked": true,
+      "expected_decision": "allowed"
+    },
+    {
+      "case_id": "mathlib_search_blocked_until_probe",
+      "target_corpus_id": "minif2f_lean4_mathlib_translation",
+      "requested_capability": "mathlib_search",
+      "requires_mathlib_lake_project_import": true,
+      "readiness_gate_checked": true,
+      "expected_decision": "blocked"
+    },
+    {
+      "case_id": "leandojo_training_blocked_absent",
+      "target_corpus_id": "leandojo",
+      "requested_capability": "lean_dojo_training_replay",
+      "requires_mathlib_lake_project_import": true,
+      "readiness_gate_checked": true,
+      "expected_decision": "blocked"
+    }
+  ],
+  "anti_claim": "Runtime consumer gates are fixture decisions only."
+}

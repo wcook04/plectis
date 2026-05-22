@@ -1,0 +1,44 @@
+{
+  "schema_version": "formal_math_verifier_trace_repair_curriculum_fixture_v1",
+  "failure_mode_ledger": [
+    {
+      "failure_mode_id": "fm_missing_commutativity_prior",
+      "verifier_class": "missing_premise",
+      "repair_action_id": "repair_add_closed_std_premise_terms",
+      "accepted_after_cold_rerun": false,
+      "body_redacted": true
+    },
+    {
+      "failure_mode_id": "fm_mathlib_tactic_unavailable",
+      "verifier_class": "unavailable_tactic",
+      "repair_action_id": "repair_route_to_std_only_tactic",
+      "accepted_after_cold_rerun": false,
+      "body_redacted": true
+    },
+    {
+      "failure_mode_id": "fm_invalid_body_shape",
+      "verifier_class": "invalid_proof_body_redacted",
+      "repair_action_id": "repair_change_goal_shape_route",
+      "accepted_after_cold_rerun": true,
+      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
+      "body_redacted": true
+    }
+  ],
+  "curriculum_edges": [
+    {
+      "from_failure_mode_id": "fm_missing_commutativity_prior",
+      "to_curriculum_node_id": "curriculum_closed_std_premise_terms",
+      "delta_class": "add_retrieval_terms"
+    },
+    {
+      "from_failure_mode_id": "fm_mathlib_tactic_unavailable",
+      "to_curriculum_node_id": "curriculum_std_only_tactic_route",
+      "delta_class": "route_around_unavailable_dependency"
+    },
+    {
+      "from_failure_mode_id": "fm_invalid_body_shape",
+      "to_curriculum_node_id": "curriculum_goal_shape_repair",
+      "delta_class": "repair_after_cold_rerun"
+    }
+  ]
+}

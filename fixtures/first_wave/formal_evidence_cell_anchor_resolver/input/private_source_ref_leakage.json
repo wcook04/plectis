@@ -1,0 +1,13 @@
+{
+  "schema_version": "formal_evidence_cell_negative_fixture_v1",
+  "claims": [
+    {
+      "expected_negative_case_id": "private_source_ref_leakage",
+      "claim_id": "negative.private_source_ref_leakage",
+      "evidence_cell_id": "cell.lean_decl_count.public_fixture",
+      "claim_strength": "formal_evidence_cell_present",
+      "uses_proof_language": true,
+      "private_source_ref": "private://macro-formal-lab/source-body/redacted"
+    }
+  ]
+}

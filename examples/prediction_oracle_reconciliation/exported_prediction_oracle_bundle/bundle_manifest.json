@@ -1,0 +1,19 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "public_prediction_oracle_reconciliation_runtime_example",
+  "organ_id": "prediction_oracle_reconciliation",
+  "input_mode": "exported_prediction_oracle_bundle",
+  "fixture_refs": [
+    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json"
+  ],
+  "authority_ceiling": {
+    "trading_authorized": false,
+    "financial_advice_authorized": false,
+    "investment_advice_authorized": false,
+    "live_market_data_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "private_data_equivalence_claim": false
+  },
+  "anti_claim": "This exported bundle is a synthetic prediction-reconciliation demo only, not trading, financial advice, investment advice, or live market prediction authority."
+}

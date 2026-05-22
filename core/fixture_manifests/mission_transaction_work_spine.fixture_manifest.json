@@ -11,9 +11,17 @@
     "mission_fixture_private_task_ledger_body",
     "clean_preflight_overclaims_landing_complete",
     "dependency_unlock_without_resolution_receipt",
-    "ready_workitem_with_unsatisfied_hard_dep"
+    "ready_workitem_with_unsatisfied_hard_dep",
+    "broad_checkpoint_without_operator_authorization",
+    "suspected_secret_without_hard_stop",
+    "dirty_tree_blocks_scoped_lane",
+    "missing_selected_lane_for_state"
   ],
   "stable_error_codes": [
+    "CHECKPOINT_BROAD_AUTH_REQUIRED",
+    "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
+    "CHECKPOINT_LANE_DECISION_REQUIRED",
+    "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
     "DANGLING_DEPENDENCY_REF",
     "EXPECTED_PARENT_MISMATCH",
     "LIVE_TASK_LEDGER_BODY_IN_FIXTURE",
@@ -35,6 +43,7 @@
       "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
       "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
       "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+      "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
       "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
       "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
       "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
@@ -174,9 +183,30 @@
         "private_state_scan",
         "authority_ceiling",
         "receipt_paths"
+      ],
+      "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "checkpoint_lane_decisions",
+        "recommended_lane_by_case",
+        "selection_policy",
+        "broad_checkpoint_requires_operator_authorization",
+        "suspected_secret_requires_hard_stop",
+        "dirty_tree_blocks_scoped_commit",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "receipt_paths"
       ]
     }
   },
-  "authority_ceiling": "synthetic_mission_transaction_fixture_only_not_live_workitem_closeout_or_public_runtime_proof",
-  "anti_claim": "Mission transaction receipts validate synthetic dependency, claim, landing, exact-drain, and schedulability fixtures only. They do not mutate live work state, certify live mission closeout, authorize later organs, or prove whole Wave 1."
+  "authority_ceiling": "synthetic_mission_transaction_fixture_only_not_live_workitem_closeout_checkpoint_lane_or_public_runtime_proof",
+  "anti_claim": "Mission transaction receipts validate synthetic dependency, claim, landing, checkpoint-lane, exact-drain, and schedulability fixtures only. They do not mutate live work state, certify live mission closeout, authorize broad staging without operator intent, authorize later organs, or prove whole Wave 1."
 }

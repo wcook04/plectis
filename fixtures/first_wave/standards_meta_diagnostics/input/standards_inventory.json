@@ -1,0 +1,608 @@
+{
+  "schema_version": "standards_meta_diagnostics_inventory_v1",
+  "standards_inventory": [
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/pattern_binding_contract_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 1,
+      "organ_id": "pattern_binding_contract",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[pattern_binding_contract_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+        "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+        "receipts/first_wave/pattern_binding_contract/omission_receipt.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_pattern_binding_contract]",
+      "standard_id": "std_microcosm_pattern_binding_contract",
+      "standard_ref": "standards/std_microcosm_pattern_binding_contract.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 2,
+      "organ_id": "executable_doctrine_grammar",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[executable_doctrine_grammar_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/executable_doctrine_grammar/paper_module_validation_report.json",
+        "receipts/first_wave/executable_doctrine_grammar/standards_group_index.json",
+        "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
+        "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_executable_doctrine_grammar]",
+      "standard_id": "std_microcosm_executable_doctrine_grammar",
+      "standard_ref": "standards/std_microcosm_executable_doctrine_grammar.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 3,
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[proof_diagnostic_evidence_spine_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json",
+        "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+        "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_proof_diagnostic_evidence_spine]",
+      "standard_id": "std_microcosm_proof_diagnostic_evidence_spine",
+      "standard_ref": "standards/std_microcosm_proof_diagnostic_evidence_spine.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 4,
+      "organ_id": "formal_math_readiness_gate",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_readiness_gate_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_readiness_gate/readiness_gate_result.json",
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_board.json",
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_readiness_gate]",
+      "standard_id": "std_microcosm_formal_math_readiness_gate",
+      "standard_ref": "standards/std_microcosm_formal_math_readiness_gate.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 5,
+      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[corpus_readiness_mathlib_absence_gate_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+        "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+        "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
+        "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_corpus_readiness_mathlib_absence_gate]",
+      "standard_id": "std_microcosm_corpus_readiness_mathlib_absence_gate",
+      "standard_ref": "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 6,
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[mathematical_strategy_atlas_hypothesis_scorer_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_result.json",
+        "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_board.json",
+        "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_validation_receipt.json",
+        "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mathematical_strategy_atlas_hypothesis_scorer]",
+      "standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
+      "standard_ref": "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 7,
+      "organ_id": "tactic_portfolio_availability_probe",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[tactic_portfolio_availability_probe_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+        "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+        "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+        "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_tactic_portfolio_availability_probe]",
+      "standard_id": "std_microcosm_tactic_portfolio_availability_probe",
+      "standard_ref": "standards/std_microcosm_tactic_portfolio_availability_probe.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 8,
+      "organ_id": "target_shape_tactic_routing_gate",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[target_shape_tactic_routing_gate_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+        "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+        "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
+        "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_target_shape_tactic_routing_gate]",
+      "standard_id": "std_microcosm_target_shape_tactic_routing_gate",
+      "standard_ref": "standards/std_microcosm_target_shape_tactic_routing_gate.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 9,
+      "organ_id": "lean_std_premise_index",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[lean_std_premise_index_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
+        "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_board.json",
+        "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
+        "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_lean_std_premise_index]",
+      "standard_id": "std_microcosm_lean_std_premise_index",
+      "standard_ref": "standards/std_microcosm_lean_std_premise_index.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 10,
+      "organ_id": "formal_math_premise_retrieval",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_premise_retrieval_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+        "receipts/first_wave/formal_math_premise_retrieval/premise_retrieval_board.json",
+        "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_premise_retrieval]",
+      "standard_id": "std_microcosm_formal_math_premise_retrieval",
+      "standard_ref": "standards/std_microcosm_formal_math_premise_retrieval.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 11,
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_verifier_trace_repair_loop_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_verifier_trace_repair_loop]",
+      "standard_id": "std_microcosm_formal_math_verifier_trace_repair_loop",
+      "standard_ref": "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 12,
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_evidence_cell_anchor_resolver_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_evidence_cell_anchor_resolver]",
+      "standard_id": "std_microcosm_formal_evidence_cell_anchor_resolver",
+      "standard_ref": "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 13,
+      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[undeclared_library_prior_symbol_classifier_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_result.json",
+        "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_board.json",
+        "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
+        "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_undeclared_library_prior_symbol_classifier]",
+      "standard_id": "std_microcosm_undeclared_library_prior_symbol_classifier",
+      "standard_ref": "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 14,
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[ring2_premise_retrieval_precision_recall_harness_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+        "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
+        "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json",
+        "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_ring2_premise_retrieval_precision_recall_harness]",
+      "standard_id": "std_microcosm_ring2_premise_retrieval_precision_recall_harness",
+      "standard_ref": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 15,
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_benchmark_integrity_anti_gaming_replay_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_result.json",
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_board.json",
+        "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_benchmark_integrity_anti_gaming_replay]",
+      "standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
+      "standard_ref": "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 16,
+      "organ_id": "provider_context_recipe_budget_policy",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[provider_context_recipe_budget_policy_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
+        "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
+        "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
+        "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_provider_context_recipe_budget_policy]",
+      "standard_id": "std_microcosm_provider_context_recipe_budget_policy",
+      "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 17,
+      "organ_id": "formal_math_lean_proof_witness",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_lean_proof_witness_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+        "receipts/first_wave/formal_math_lean_proof_witness/lean_proof_witness_board.json",
+        "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
+        "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_formal_math_lean_proof_witness]",
+      "standard_id": "std_microcosm_formal_math_lean_proof_witness",
+      "standard_ref": "standards/std_microcosm_formal_math_lean_proof_witness.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/navigation_hologram_route_plane_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 18,
+      "organ_id": "navigation_hologram_route_plane",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[navigation_hologram_route_plane_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",
+        "receipts/first_wave/navigation_hologram_route_plane/code_architecture_projection_packet_receipt.json",
+        "receipts/first_wave/navigation_hologram_route_plane/entry_payload_admission_receipt.json",
+        "receipts/first_wave/navigation_hologram_route_plane/route_lease.json",
+        "receipts/first_wave/navigation_hologram_route_plane/source_coupling_result.json",
+        "receipts/first_wave/navigation_hologram_route_plane/toy_kind_card.json",
+        "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_navigation_hologram_route_plane]",
+      "standard_id": "std_microcosm_navigation_hologram_route_plane",
+      "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/mission_transaction_work_spine_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 19,
+      "organ_id": "mission_transaction_work_spine",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[mission_transaction_work_spine_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/mission_transaction_work_spine/checkpoint_lane_decision.json",
+        "receipts/first_wave/mission_transaction_work_spine/claim_preflight_result.json",
+        "receipts/first_wave/mission_transaction_work_spine/closeout_status_projection.json",
+        "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json",
+        "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
+        "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json",
+        "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
+        "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mission_transaction_work_spine]",
+      "standard_id": "std_microcosm_mission_transaction_work_spine",
+      "standard_ref": "standards/std_microcosm_mission_transaction_work_spine.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 20,
+      "organ_id": "durable_agent_work_landing_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[durable_agent_work_landing_replay_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_result.json",
+        "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_board.json",
+        "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_durable_agent_work_landing_replay]",
+      "standard_id": "std_microcosm_durable_agent_work_landing_replay",
+      "standard_ref": "standards/std_microcosm_durable_agent_work_landing_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 21,
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[research_replication_rubric_artifact_replay_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_result.json",
+        "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_board.json",
+        "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_research_replication_rubric_artifact_replay]",
+      "standard_id": "std_microcosm_research_replication_rubric_artifact_replay",
+      "standard_ref": "standards/std_microcosm_research_replication_rubric_artifact_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 22,
+      "organ_id": "world_model_projection_drift_control_room",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[world_model_projection_drift_control_room_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+        "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
+        "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
+        "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_world_model_projection_drift_control_room]",
+      "standard_id": "std_microcosm_world_model_projection_drift_control_room",
+      "standard_ref": "standards/std_microcosm_world_model_projection_drift_control_room.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 23,
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[spatial_world_model_counterfactual_simulation_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_result.json",
+        "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_board.json",
+        "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_spatial_world_model_counterfactual_simulation_replay]",
+      "standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
+      "standard_ref": "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_route_observability_runtime_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 24,
+      "organ_id": "agent_route_observability_runtime",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_route_observability_runtime_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+        "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+        "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+        "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_route_observability_runtime]",
+      "standard_id": "std_microcosm_agent_route_observability_runtime",
+      "standard_ref": "standards/std_microcosm_agent_route_observability_runtime.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/pattern_assimilation_step_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 25,
+      "organ_id": "pattern_assimilation_step",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[pattern_assimilation_step_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/pattern_assimilation_acceptance.json",
+        "receipts/first_wave/pattern_assimilation_receipt.json",
+        "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_pattern_assimilation_step]",
+      "standard_id": "std_microcosm_pattern_assimilation_step",
+      "standard_ref": "standards/std_microcosm_pattern_assimilation_step.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 26,
+      "organ_id": "public_reveal_walkthrough",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[public_reveal_walkthrough_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
+        "receipts/first_wave/public_reveal_walkthrough/ten_minute_reveal_board.json",
+        "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json",
+        "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_public_reveal_walkthrough]",
+      "standard_id": "std_microcosm_public_reveal_walkthrough",
+      "standard_ref": "standards/std_microcosm_public_reveal_walkthrough.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 27,
+      "organ_id": "macro_projection_import_protocol",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[macro_projection_import_protocol_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_board.json",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_macro_projection_import_protocol]",
+      "standard_id": "std_microcosm_macro_projection_import_protocol",
+      "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 28,
+      "organ_id": "prediction_oracle_reconciliation",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[prediction_oracle_reconciliation_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+        "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
+        "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
+        "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_prediction_oracle_reconciliation]",
+      "standard_id": "std_microcosm_prediction_oracle_reconciliation",
+      "standard_ref": "standards/std_microcosm_prediction_oracle_reconciliation.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 29,
+      "organ_id": "standards_meta_diagnostics",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[standards_meta_diagnostics_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+        "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+        "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+        "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_standards_meta_diagnostics]",
+      "standard_id": "std_microcosm_standards_meta_diagnostics",
+      "standard_ref": "standards/std_microcosm_standards_meta_diagnostics.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 30,
+      "organ_id": "cold_reader_route_map",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[cold_reader_route_map_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+        "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+        "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_cold_reader_route_map]",
+      "standard_id": "std_microcosm_cold_reader_route_map",
+      "standard_ref": "standards/std_microcosm_cold_reader_route_map.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 31,
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[mechanistic_interpretability_circuit_attribution_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mechanistic_interpretability_circuit_attribution_replay]",
+      "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+      "standard_ref": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 32,
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_monitor_redteam_falsification_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_result.json",
+        "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_board.json",
+        "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_monitor_redteam_falsification_replay]",
+      "standard_id": "std_microcosm_agent_monitor_redteam_falsification_replay",
+      "standard_ref": "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 33,
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_memory_temporal_conflict_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
+        "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_board.json",
+        "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_memory_temporal_conflict_replay]",
+      "standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
+      "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 34,
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[sleeper_memory_poisoning_quarantine_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_result.json",
+        "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_board.json",
+        "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_sleeper_memory_poisoning_quarantine_replay]",
+      "standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+      "standard_ref": "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 35,
+      "organ_id": "mcp_tool_authority_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[mcp_tool_authority_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
+        "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
+        "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mcp_tool_authority_replay]",
+      "standard_id": "std_microcosm_mcp_tool_authority_replay",
+      "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "fixture_id": "fixture::undeclared_library_prior_symbol_classifier::first_wave_contract_v1",
+  "organ_id": "undeclared_library_prior_symbol_classifier",
+  "title": "Undeclared library prior symbol classifier fixture",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with omission receipts"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_index.json",
+      "role": "closed public Lean/Std premise symbol index"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
+      "role": "positive redacted symbol-observation receipts"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/classifier_policy.json",
+      "role": "classifier policy and review-outcome contract"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/proof_body_leakage.json",
+      "role": "negative case: proof body field is present"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/private_source_ref_leakage.json",
+      "role": "negative case: private source ref is present"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/missing_escalation_for_undeclared_symbol.json",
+      "role": "negative case: undeclared library prior does not bridge-escalate"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_budget_precedence_violation.json",
+      "role": "negative case: cited unallowed premise is misclassified as library prior"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/allowed_symbol_false_positive.json",
+      "role": "negative case: allowed symbol is falsely quarantined"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/unqualified_symbol_overclaim.json",
+      "role": "negative case: unqualified token claims qualified library-prior class"
+    },
+    {
+      "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/theorem_correctness_overclaim.json",
+      "role": "negative case: classifier claims theorem correctness authority"
+    }
+  ],
+  "validator": "microcosm_core.organs.undeclared_library_prior_symbol_classifier",
+  "validator_command": "python -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier",
+  "generated_receipts": [
+    "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_result.json",
+    "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_board.json",
+    "receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
+    "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
+  ],
+  "expected_negative_cases": [
+    "proof_body_leakage",
+    "private_source_ref_leakage",
+    "missing_escalation_for_undeclared_symbol",
+    "premise_budget_precedence_violation",
+    "allowed_symbol_false_positive",
+    "unqualified_symbol_overclaim",
+    "theorem_correctness_overclaim"
+  ],
+  "stable_error_codes": [
+    "SYMBOL_CLASSIFIER_PROOF_BODY_FORBIDDEN",
+    "SYMBOL_CLASSIFIER_PRIVATE_SOURCE_REF_FORBIDDEN",
+    "SYMBOL_CLASSIFIER_UNDECLARED_LIBRARY_PRIOR_NOT_ESCALATED",
+    "SYMBOL_CLASSIFIER_PREMISE_BUDGET_PRECEDENCE",
+    "SYMBOL_CLASSIFIER_ALLOWED_SYMBOL_FALSE_POSITIVE",
+    "SYMBOL_CLASSIFIER_UNQUALIFIED_SYMBOL_OVERCLAIM",
+    "SYMBOL_CLASSIFIER_THEOREM_CORRECTNESS_OVERCLAIM"
+  ],
+  "authority_ceiling": "public redacted symbol-observation metadata only; not theorem correctness, Lean/Lake execution, proof bodies, private source refs, provider calls, or release readiness",
+  "anti_claim": "This fixture validates public redacted symbol observations against a closed premise index only; it does not prove theorem correctness, expose proof bodies, widen Lean/Lake execution, or authorize release."
+}

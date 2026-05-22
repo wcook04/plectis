@@ -1,0 +1,17 @@
+{
+  "schema_version": "formal_math_verifier_trace_negative_fixture_v1",
+  "attempts": [
+    {
+      "expected_negative_case_id": "repair_without_verifier_class",
+      "attempt_id": "negative_repair_without_verifier_class",
+      "trace_grade": "repair_claimed",
+      "repair_action_id": "repair_without_failure_class",
+      "trace_events": [
+        {
+          "event_id": "negative_trace_repair_without_class",
+          "event_class": "repair_claim"
+        }
+      ]
+    }
+  ]
+}

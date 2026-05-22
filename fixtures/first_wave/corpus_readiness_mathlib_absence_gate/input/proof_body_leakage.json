@@ -1,0 +1,11 @@
+{
+  "schema_version": "corpus_readiness_negative_case_v1",
+  "expected_negative_case_id": "proof_body_leakage",
+  "corpora": [
+    {
+      "corpus_id": "minif2f_lean4_mathlib_translation",
+      "proof_body": "synthetic forbidden proof material redacted by receipt policy"
+    }
+  ],
+  "anti_claim": "This negative case uses synthetic placeholder text only."
+}

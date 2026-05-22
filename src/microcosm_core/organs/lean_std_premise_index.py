@@ -1,0 +1,727 @@
+from __future__ import annotations
+
+import argparse
+import json
+from collections import Counter, defaultdict
+from pathlib import Path
+from typing import Any
+
+from microcosm_core.private_state_scan import (
+    PASS,
+    load_forbidden_classes,
+    public_relative_path,
+    scan_paths,
+)
+from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.schemas import read_json_strict
+
+
+ORGAN_ID = "lean_std_premise_index"
+FIXTURE_ID = "first_wave.lean_std_premise_index"
+VALIDATOR_ID = "validator.microcosm.organs.lean_std_premise_index"
+
+RESULT_NAME = "lean_std_premise_index_result.json"
+BOARD_NAME = "lean_std_premise_index_board.json"
+VALIDATION_RECEIPT_NAME = "lean_std_premise_index_validation_receipt.json"
+ACCEPTANCE_RECEIPT_REL = (
+    "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
+)
+BUNDLE_RESULT_NAME = "exported_lean_std_premise_index_bundle_validation_result.json"
+
+SOURCE_PATTERN_IDS = [
+    "lean_std_toolchain_premise_index",
+    "closed_premise_admission_boundary",
+    "formal_math_premise_retrieval",
+]
+SOURCE_REFS = [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
+]
+
+INPUT_NAMES = ("projection_protocol.json", "premise_index.json", "index_policy.json")
+NEGATIVE_INPUT_NAMES = (
+    "mathlib_premise_forbidden.json",
+    "proof_body_leakage.json",
+    "oracle_needed_ids_leakage.json",
+    "test_split_tuning_attempt.json",
+    "namespace_without_source_ref.json",
+)
+
+EXPECTED_NEGATIVE_CASES = {
+    "mathlib_premise_forbidden": ["LEAN_STD_INDEX_MATHLIB_FORBIDDEN"],
+    "proof_body_leakage": ["LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN"],
+    "oracle_needed_ids_leakage": ["LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN"],
+    "test_split_tuning_attempt": ["LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN"],
+    "namespace_without_source_ref": ["LEAN_STD_INDEX_SOURCE_REF_REQUIRED"],
+}
+
+REQUIRED_NAMESPACES = {"Nat", "Bool", "List", "Iff"}
+ALLOWED_SPLITS = {"train", "dev", "test"}
+FORBIDDEN_BODY_KEYS = (
+    "proof_body",
+    "ground_truth_proof",
+    "provider_payload_body",
+    "oracle_needed_premise_ids",
+    "private_source_body",
+)
+OVERCLAIM_KEYS = (
+    "mathlib_allowed",
+    "proof_bodies_allowed",
+    "oracle_needed_ids_public",
+    "test_split_tuning_authorized",
+    "provider_calls_authorized",
+    "release_authorized",
+)
+
+AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "lean_std_premise_index_closed_metadata_only",
+    "index_authority": "public_closed_fixture_index_only",
+    "mathlib_allowed": False,
+    "formal_proof_authority": False,
+    "proof_bodies_allowed": False,
+    "oracle_needed_ids_public": False,
+    "test_split_tuning_authorized": False,
+    "provider_calls_authorized": False,
+    "lean_lake_execution_authorized": False,
+    "release_authorized": False,
+}
+ANTI_CLAIM = (
+    "The Lean/Std premise index validates a closed public metadata index over "
+    "synthetic Init-sourced declarations only. It does not import Mathlib, run Lean "
+    "or Lake, expose proof bodies or oracle-needed premise ids, tune on test split "
+    "truth, call providers, prove theorem correctness, or authorize release."
+)
+
+
+def _public_root_for_path(path: str | Path) -> Path:
+    resolved = Path(path).resolve(strict=False)
+    start = resolved if resolved.is_dir() else resolved.parent
+    for candidate in (start, *start.parents):
+        if candidate.name == "microcosm-substrate":
+            return candidate
+    return Path.cwd().resolve(strict=False)
+
+
+def _display(path: Path, *, public_root: Path) -> str:
+    return public_relative_path(path, display_root=public_root)
+
+
+def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    value = payload.get(key, [])
+    if not isinstance(value, list):
+        return []
+    return [row for row in value if isinstance(row, dict)]
+
+
+def _strings(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    return [input_dir / name for name in names]
+
+
+def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
+    payloads = {Path(name).stem: read_json_strict(input_dir / name) for name in names}
+    bundle_manifest = input_dir / "bundle_manifest.json"
+    if bundle_manifest.is_file():
+        payloads["bundle_manifest"] = read_json_strict(bundle_manifest)
+    return payloads
+
+
+def _walk_dicts(value: object) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if isinstance(value, dict):
+        rows.append(value)
+        for child in value.values():
+            rows.extend(_walk_dicts(child))
+    elif isinstance(value, list):
+        for child in value:
+            rows.extend(_walk_dicts(child))
+    return rows
+
+
+def _finding(
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> dict[str, Any]:
+    return {
+        "error_code": code,
+        "message": message,
+        "negative_case_id": case_id,
+        "subject_id": subject_id,
+        "subject_kind": subject_kind,
+        "body_redacted": True,
+    }
+
+
+def _record(
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    code: str,
+    message: str,
+    *,
+    case_id: str,
+    subject_id: str,
+    subject_kind: str,
+) -> None:
+    findings.append(
+        _finding(
+            code,
+            message,
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind=subject_kind,
+        )
+    )
+    observed[case_id].add(code)
+
+
+def _has_mathlib(value: object) -> bool:
+    if isinstance(value, str):
+        return "mathlib" in value.lower()
+    if isinstance(value, dict):
+        return any(_has_mathlib(child) for child in value.values())
+    if isinstance(value, list):
+        return any(_has_mathlib(child) for child in value)
+    return False
+
+
+def _entry_rows(payload: object) -> list[dict[str, Any]]:
+    rows = _rows(payload, "premises")
+    if rows:
+        return rows
+    return _rows(payload, "entries")
+
+
+def _forbidden_keys(row: dict[str, Any]) -> list[str]:
+    return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
+
+
+def _validate_entries(
+    payload: object,
+    *,
+    case_id: str,
+    require_density: bool,
+) -> dict[str, Any]:
+    entries = _entry_rows(payload)
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    namespaces: Counter[str] = Counter()
+    split_counts: Counter[str] = Counter()
+    seen_ids: list[str] = []
+    for row in entries:
+        premise_id = str(row.get("premise_id") or row.get("declaration_name") or "premise")
+        seen_ids.append(premise_id)
+        namespace = str(row.get("namespace") or "")
+        if namespace:
+            namespaces[namespace] += 1
+        source_ref = str(row.get("source_ref") or "")
+        if not source_ref or not source_ref.startswith("Init/"):
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
+                "Every public Lean/Std premise row must cite an Init/ source ref.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="source_ref",
+            )
+        if _has_mathlib(row):
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_MATHLIB_FORBIDDEN",
+                "The public Lean/Std premise index must not include Mathlib refs.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="premise",
+            )
+        forbidden = _forbidden_keys(row)
+        if forbidden:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+                "Public premise rows must not include proof bodies or private payload bodies.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="premise",
+            )
+        if "oracle_needed_premise_ids" in row:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN",
+                "Oracle-needed premise ids stay out of public premise-index inputs.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="oracle_ids",
+            )
+        retrieval_terms = _strings(row.get("retrieval_terms"))
+        if not retrieval_terms:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_RETRIEVAL_TERMS_REQUIRED",
+                "Every public Lean/Std premise row must carry retrieval terms.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="retrieval_terms",
+            )
+        splits = set(_strings(row.get("allowed_for_split")))
+        split_counts.update(splits)
+        if not splits or not splits <= ALLOWED_SPLITS:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_SPLIT_BOUNDARY_INVALID",
+                "allowed_for_split must be a nonempty subset of train/dev/test.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="split_policy",
+            )
+    duplicate_ids = sorted(pid for pid in set(seen_ids) if seen_ids.count(pid) > 1)
+    for premise_id in duplicate_ids:
+        _record(
+            findings,
+            observed,
+            "LEAN_STD_INDEX_DUPLICATE_PREMISE_ID",
+            "Premise ids must be unique inside the closed public index.",
+            case_id=case_id,
+            subject_id=premise_id,
+            subject_kind="premise_id",
+        )
+    if require_density:
+        missing_namespaces = sorted(REQUIRED_NAMESPACES - set(namespaces))
+        if len(entries) < 10:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_DENSITY_MISSING",
+                "The public Lean/Std premise index must carry at least ten entries.",
+                case_id=case_id,
+                subject_id="premise_index",
+                subject_kind="index_density",
+            )
+        for namespace in missing_namespaces:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_NAMESPACE_MISSING",
+                "The public Lean/Std premise index must cover Nat, Bool, List, and Iff.",
+                case_id=case_id,
+                subject_id=namespace,
+                subject_kind="namespace",
+            )
+    return {
+        "findings": findings,
+        "observed_negative_cases": {
+            key: sorted(values) for key, values in sorted(observed.items())
+        },
+        "entry_count": len(entries),
+        "namespace_counts": dict(sorted(namespaces.items())),
+        "split_counts": dict(sorted(split_counts.items())),
+        "premise_ids": sorted(seen_ids),
+    }
+
+
+def _validate_policy(payload: object, *, case_id: str) -> dict[str, Any]:
+    policy = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    for key in OVERCLAIM_KEYS:
+        if policy.get(key) is True:
+            code = "LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN" if key == "test_split_tuning_authorized" else "LEAN_STD_INDEX_AUTHORITY_OVERCLAIM"
+            _record(
+                findings,
+                observed,
+                code,
+                "Lean/Std premise-index policy must keep authority ceilings false.",
+                case_id=case_id,
+                subject_id=key,
+                subject_kind="policy",
+            )
+    if policy.get("closed_index_only") is not True:
+        _record(
+            findings,
+            observed,
+            "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+            "The public premise index must be declared as a closed set.",
+            case_id=case_id,
+            subject_id="closed_index_only",
+            subject_kind="policy",
+        )
+    allowed = set(_strings(policy.get("allowed_splits")))
+    if allowed != ALLOWED_SPLITS:
+        _record(
+            findings,
+            observed,
+            "LEAN_STD_INDEX_SPLIT_POLICY_MISSING",
+            "Policy must explicitly name train/dev/test as the only public split labels.",
+            case_id=case_id,
+            subject_id="allowed_splits",
+            subject_kind="policy",
+        )
+    return {
+        "findings": findings,
+        "observed_negative_cases": {
+            key: sorted(values) for key, values in sorted(observed.items())
+        },
+    }
+
+
+def _validate_protocol(payload: object) -> dict[str, Any]:
+    protocol = payload if isinstance(payload, dict) else {}
+    source_refs = _strings(protocol.get("source_refs"))
+    replacements = _strings(protocol.get("public_replacement_refs"))
+    receipts = _strings(protocol.get("projection_receipt_refs"))
+    source_patterns = _strings(protocol.get("source_pattern_ids"))
+    findings: list[dict[str, Any]] = []
+    if len(source_refs) < 2 or len(replacements) < 2 or len(receipts) < 1:
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_PROTOCOL_DENSITY_MISSING",
+                "Lean/Std premise index must cite macro refs, public replacements, and projection receipts.",
+                case_id="projection_protocol_floor",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="projection_protocol",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "protocol_id": protocol.get("protocol_id"),
+        "source_refs": source_refs,
+        "source_pattern_ids": source_patterns,
+        "public_replacement_refs": replacements,
+        "projection_receipt_refs": receipts,
+    }
+
+
+def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    merged: dict[str, set[str]] = defaultdict(set)
+    for result in results:
+        for case_id, codes in result.get("observed_negative_cases", {}).items():
+            for code in codes:
+                merged[case_id].add(str(code))
+    return {case_id: sorted(codes) for case_id, codes in sorted(merged.items())}
+
+
+def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    for result in results:
+        findings.extend(result.get("findings", []))
+    return sorted(
+        findings,
+        key=lambda row: (
+            str(row.get("negative_case_id") or ""),
+            str(row.get("subject_kind") or ""),
+            str(row.get("subject_id") or ""),
+            str(row.get("error_code") or ""),
+        ),
+    )
+
+
+def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
+    safe = dict(scan)
+    safe.pop("forbidden_output_fields", None)
+    return safe
+
+
+def _scan_inputs(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return _receipt_safe_scan(
+        scan_paths(
+            _input_paths(input_dir, include_negative=include_negative),
+            forbidden_classes=policy,
+            display_root=public_root,
+        )
+    )
+
+
+def _build_result(
+    input_dir: Path,
+    *,
+    command: str,
+    input_mode: str,
+    include_negative: bool,
+) -> dict[str, Any]:
+    payloads = _load_payloads(input_dir, include_negative=include_negative)
+    protocol = _validate_protocol(payloads.get("projection_protocol"))
+    index = _validate_entries(
+        payloads.get("premise_index"),
+        case_id="positive_premise_index",
+        require_density=True,
+    )
+    policy = _validate_policy(payloads.get("index_policy"), case_id="positive_policy")
+    negative_results: list[dict[str, Any]] = []
+    if include_negative:
+        for name in NEGATIVE_INPUT_NAMES:
+            stem = Path(name).stem
+            payload = payloads.get(stem)
+            entry_result = _validate_entries(payload, case_id=stem, require_density=False)
+            policy_result = _validate_policy(payload, case_id=stem)
+            negative_results.extend([entry_result, policy_result])
+    observed = _merge_observed(*negative_results)
+    expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
+    missing = [
+        case_id
+        for case_id, codes in expected.items()
+        if not set(codes) <= set(observed.get(case_id, []))
+    ]
+    positive_findings = _merge_findings(protocol, index, policy)
+    negative_findings = _merge_findings(*negative_results)
+    error_codes = sorted({row["error_code"] for row in positive_findings + negative_findings})
+    private_scan = _scan_inputs(input_dir, include_negative=include_negative)
+    bundle_manifest = payloads.get("bundle_manifest", {})
+    if not isinstance(bundle_manifest, dict):
+        bundle_manifest = {}
+    status = (
+        PASS
+        if not positive_findings
+        and not missing
+        and not private_scan["blocking_hit_count"]
+        else "blocked"
+    )
+    return {
+        "schema_version": "lean_std_premise_index_result_v1",
+        "created_at": utc_now(),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command,
+        "input_mode": input_mode,
+        "bundle_id": bundle_manifest.get("bundle_id"),
+        "source_pattern_ids": SOURCE_PATTERN_IDS,
+        "source_refs": SOURCE_REFS,
+        "protocol_id": protocol.get("protocol_id"),
+        "projection_receipt_refs": protocol.get("projection_receipt_refs", []),
+        "public_replacement_refs": protocol.get("public_replacement_refs", []),
+        "expected_negative_cases": expected,
+        "observed_negative_cases": observed,
+        "missing_negative_cases": missing,
+        "error_codes": error_codes,
+        "findings": positive_findings + negative_findings,
+        "private_state_scan": private_scan,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "premise_count": index["entry_count"],
+        "namespace_counts": index["namespace_counts"],
+        "split_counts": index["split_counts"],
+        "premise_ids": index["premise_ids"],
+        "closed_index_only": True,
+        "body_redacted": True,
+    }
+
+
+def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
+    return [_display(path, public_root=public_root) for path in paths.values()]
+
+
+def _common_receipt(
+    result: dict[str, Any],
+    *,
+    schema_version: str,
+    receipt_paths: list[str],
+) -> dict[str, Any]:
+    return {
+        "schema_version": schema_version,
+        "created_at": result["created_at"],
+        "status": result["status"],
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": result["command"],
+        "input_mode": result["input_mode"],
+        "bundle_id": result.get("bundle_id"),
+        "source_pattern_ids": result["source_pattern_ids"],
+        "source_refs": result["source_refs"],
+        "protocol_id": result.get("protocol_id"),
+        "projection_receipt_refs": result["projection_receipt_refs"],
+        "public_replacement_refs": result["public_replacement_refs"],
+        "premise_count": result["premise_count"],
+        "namespace_counts": result["namespace_counts"],
+        "split_counts": result["split_counts"],
+        "expected_negative_cases": result["expected_negative_cases"],
+        "observed_negative_cases": result["observed_negative_cases"],
+        "missing_negative_cases": result["missing_negative_cases"],
+        "error_codes": result["error_codes"],
+        "findings": result["findings"],
+        "private_state_scan": result["private_state_scan"],
+        "authority_ceiling": result["authority_ceiling"],
+        "anti_claim": result["anti_claim"],
+        "receipt_paths": receipt_paths,
+        "body_redacted": True,
+    }
+
+
+def _build_board(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "lean_std_premise_index_board_v1",
+        "created_at": result["created_at"],
+        "status": result["status"],
+        "organ_id": ORGAN_ID,
+        "public_claim": "A closed Lean/Std premise index is available as public metadata for retrieval and explanation.",
+        "premise_count": result["premise_count"],
+        "namespace_counts": result["namespace_counts"],
+        "split_counts": result["split_counts"],
+        "closed_index_only": True,
+        "mathlib_allowed": False,
+        "proof_bodies_allowed": False,
+        "oracle_needed_ids_public": False,
+        "test_split_tuning_authorized": False,
+        "authority_ceiling": result["authority_ceiling"],
+        "anti_claim": result["anti_claim"],
+        "body_redacted": True,
+    }
+
+
+def _write_receipts(
+    result: dict[str, Any],
+    out_dir: Path,
+    *,
+    acceptance_out: Path | None,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(out_dir)
+    paths = {
+        "result": out_dir / RESULT_NAME,
+        "board": out_dir / BOARD_NAME,
+        "validation": out_dir / VALIDATION_RECEIPT_NAME,
+    }
+    if acceptance_out is not None:
+        paths["acceptance"] = acceptance_out
+    receipt_paths = _relative_receipt_paths(paths, public_root)
+    result_receipt = _common_receipt(
+        result,
+        schema_version="lean_std_premise_index_result_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    board = _build_board(result)
+    board["receipt_paths"] = receipt_paths
+    validation = _common_receipt(
+        result,
+        schema_version="lean_std_premise_index_validation_receipt_v1",
+        receipt_paths=receipt_paths,
+    )
+    validation["negative_case_coverage_status"] = (
+        PASS if not result["missing_negative_cases"] else "blocked"
+    )
+    for path in paths.values():
+        path.parent.mkdir(parents=True, exist_ok=True)
+    write_json_atomic(paths["result"], result_receipt)
+    write_json_atomic(paths["board"], board)
+    write_json_atomic(paths["validation"], validation)
+    if acceptance_out is not None:
+        acceptance = _common_receipt(
+            result,
+            schema_version="lean_std_premise_index_fixture_acceptance_v1",
+            receipt_paths=receipt_paths,
+        )
+        acceptance["acceptance_status"] = (
+            "accepted_current_authority" if result["status"] == PASS else "blocked"
+        )
+        acceptance["accepted_organ_id"] = ORGAN_ID
+        write_json_atomic(acceptance_out, acceptance)
+    result["receipt_paths"] = receipt_paths
+    return result
+
+
+def run(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str = "python -m microcosm_core.organs.lean_std_premise_index run",
+    *,
+    acceptance_out: str | Path | None = None,
+) -> dict[str, Any]:
+    result = _build_result(
+        Path(input_dir),
+        command=command,
+        input_mode="first_wave_fixture",
+        include_negative=True,
+    )
+    return _write_receipts(
+        result,
+        Path(out_dir),
+        acceptance_out=Path(acceptance_out) if acceptance_out else None,
+    )
+
+
+def run_index_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str = "python -m microcosm_core.organs.lean_std_premise_index run-index-bundle",
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
+    result = _build_result(
+        Path(input_dir),
+        command=command,
+        input_mode="exported_lean_std_premise_index_bundle",
+        include_negative=False,
+    )
+    target = Path(out_dir)
+    path = target / BUNDLE_RESULT_NAME
+    path.parent.mkdir(parents=True, exist_ok=True)
+    receipt_ref = _display(path, public_root=public_root)
+    receipt = _common_receipt(
+        result,
+        schema_version="exported_lean_std_premise_index_bundle_validation_result_v1",
+        receipt_paths=[receipt_ref],
+    )
+    write_json_atomic(path, receipt)
+    result["receipt_paths"] = [receipt_ref]
+    return result
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Validate public Lean/Std premise index")
+    sub = parser.add_subparsers(dest="command", required=True)
+    run_parser = sub.add_parser("run")
+    run_parser.add_argument("--input", required=True)
+    run_parser.add_argument("--out", required=True)
+    run_parser.add_argument("--acceptance-out")
+    bundle_parser = sub.add_parser("run-index-bundle")
+    bundle_parser.add_argument("--input", required=True)
+    bundle_parser.add_argument("--out", required=True)
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    if args.command == "run":
+        command = (
+            "python -m microcosm_core.organs.lean_std_premise_index run "
+            f"--input {args.input} --out {args.out}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
+    else:
+        command = (
+            "python -m microcosm_core.organs.lean_std_premise_index "
+            f"run-index-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_index_bundle(args.input, args.out, command=command)
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0 if result["status"] == PASS else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

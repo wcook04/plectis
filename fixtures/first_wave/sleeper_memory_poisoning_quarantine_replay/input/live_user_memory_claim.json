@@ -1,0 +1,19 @@
+{
+  "audit_ref": "audit.synthetic.live_user_memory",
+  "body_redacted": true,
+  "classifier_labels": [
+    "sleeper_poisoning"
+  ],
+  "expected_negative_case_id": "live_user_memory_claim",
+  "live_user_memory_claim": true,
+  "private_body_exported": false,
+  "proposal_id": "negative_live_user_memory_claim",
+  "proposed_memory_ref": "memory_candidate.synthetic.live_user_memory",
+  "provenance_ref": "provenance.synthetic.live_user_memory",
+  "quarantine_verdict": "quarantine",
+  "raw_transcript_exported": false,
+  "session_id": "negative_session",
+  "source_capsule_ref": "capsule.synthetic.live_user_memory",
+  "source_trust_tier": "untrusted_context",
+  "trusted_promotion": false
+}

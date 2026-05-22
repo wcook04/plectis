@@ -1,0 +1,451 @@
+{
+  "anti_claim": "Spatial world-model counterfactual simulation replay validates synthetic metadata rows that bind scene states, action traces, predicted states, transition diffs, oracle checks, and limitation labels. It does not export private video or raw sensor bodies, operate robots or AVs, claim real-world geographic accuracy, sell a simulator product, use generated video as sole authority, report benchmark scores, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_spatial_counterfactual_replay_metadata_only",
+    "benchmark_score_claim_authorized": false,
+    "generated_video_authority_authorized": false,
+    "geographic_accuracy_claim_authorized": false,
+    "hosted_public_authorized": false,
+    "live_av_operation_authorized": false,
+    "live_robot_operation_authorized": false,
+    "metadata_projection_only": true,
+    "private_video_exported": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "raw_sensor_data_exported": false,
+    "real_world_location_claim_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "trained_simulator_claim_authorized": false
+  },
+  "body_redacted": true,
+  "command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run",
+  "counterfactual_replays": [
+    {
+      "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/warehouse_occlusion_left_forklift_stop.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 3,
+        "max_position_delta_m": 0.09,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "occluded_forklift_enters_aisle",
+      "fidelity_limit_label": "synthetic_grid_only",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::warehouse_occlusion_left_forklift_stop",
+      "predicted_state_ref": "predicted_state::warehouse_occlusion_left_forklift_stop",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "occlusion",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "warehouse_occlusion_left_forklift_stop",
+      "scene_state_ref": "scene_state::warehouse_occlusion_left_forklift_stop",
+      "sensor_packet_refs": [
+        "public_sensor_packet::warehouse_occlusion_left_forklift_stop::geometry",
+        "public_sensor_packet::warehouse_occlusion_left_forklift_stop::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop"
+    },
+    {
+      "action_trace_ref": "action_trace::crosswalk_child_emergence_slowdown",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/crosswalk_child_emergence_slowdown.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 4,
+        "max_position_delta_m": 0.1,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "small_pedestrian_enters_crosswalk",
+      "fidelity_limit_label": "no_photoreal_video",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::crosswalk_child_emergence_slowdown",
+      "predicted_state_ref": "predicted_state::crosswalk_child_emergence_slowdown",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "vulnerable_road_user",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "crosswalk_child_emergence_slowdown",
+      "scene_state_ref": "scene_state::crosswalk_child_emergence_slowdown",
+      "sensor_packet_refs": [
+        "public_sensor_packet::crosswalk_child_emergence_slowdown::geometry",
+        "public_sensor_packet::crosswalk_child_emergence_slowdown::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::crosswalk_child_emergence_slowdown"
+    },
+    {
+      "action_trace_ref": "action_trace::drone_corridor_gust_recovery",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/drone_corridor_gust_recovery.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 5,
+        "max_position_delta_m": 0.11,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "lateral_gust_pushes_vehicle",
+      "fidelity_limit_label": "bounded_2d_wind_model",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::drone_corridor_gust_recovery",
+      "predicted_state_ref": "predicted_state::drone_corridor_gust_recovery",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "wind_disturbance",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "drone_corridor_gust_recovery",
+      "scene_state_ref": "scene_state::drone_corridor_gust_recovery",
+      "sensor_packet_refs": [
+        "public_sensor_packet::drone_corridor_gust_recovery::geometry",
+        "public_sensor_packet::drone_corridor_gust_recovery::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::drone_corridor_gust_recovery"
+    },
+    {
+      "action_trace_ref": "action_trace::mobile_robot_reflective_floor_detour",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/mobile_robot_reflective_floor_detour.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 6,
+        "max_position_delta_m": 0.12,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "specular_floor_false_free_space",
+      "fidelity_limit_label": "no_material_truth_claim",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::mobile_robot_reflective_floor_detour",
+      "predicted_state_ref": "predicted_state::mobile_robot_reflective_floor_detour",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "surface_reflection",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "mobile_robot_reflective_floor_detour",
+      "scene_state_ref": "scene_state::mobile_robot_reflective_floor_detour",
+      "sensor_packet_refs": [
+        "public_sensor_packet::mobile_robot_reflective_floor_detour::geometry",
+        "public_sensor_packet::mobile_robot_reflective_floor_detour::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::mobile_robot_reflective_floor_detour"
+    },
+    {
+      "action_trace_ref": "action_trace::loading_dock_pallet_shift_replan",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/loading_dock_pallet_shift_replan.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 7,
+        "max_position_delta_m": 0.13,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "pallet_stack_shifts_into_lane",
+      "fidelity_limit_label": "kinematic_shift_only",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::loading_dock_pallet_shift_replan",
+      "predicted_state_ref": "predicted_state::loading_dock_pallet_shift_replan",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "load_shift",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "loading_dock_pallet_shift_replan",
+      "scene_state_ref": "scene_state::loading_dock_pallet_shift_replan",
+      "sensor_packet_refs": [
+        "public_sensor_packet::loading_dock_pallet_shift_replan::geometry",
+        "public_sensor_packet::loading_dock_pallet_shift_replan::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::loading_dock_pallet_shift_replan"
+    },
+    {
+      "action_trace_ref": "action_trace::intersection_unprotected_turn_yield",
+      "benchmark_score_claim": false,
+      "body_redacted": true,
+      "cold_replay_ref": "receipts/cold_replay/intersection_unprotected_turn_yield.json",
+      "consistency_budget": {
+        "max_heading_delta_deg": 8,
+        "max_position_delta_m": 0.14,
+        "max_timestep_lag": 1
+      },
+      "counterfactual_event": "oncoming_vehicle_accelerates_late",
+      "fidelity_limit_label": "no_map_accuracy_claim",
+      "generated_video_only_authority": false,
+      "geographic_accuracy_claim": false,
+      "limitation_labels": [
+        "synthetic_metadata",
+        "not_geographic_ground_truth"
+      ],
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "oracle_state_check_ref": "oracle_check::intersection_unprotected_turn_yield",
+      "predicted_state_ref": "predicted_state::intersection_unprotected_turn_yield",
+      "private_video_exported": false,
+      "rare_event_coverage_label": "late_yield",
+      "raw_sensor_data_exported": false,
+      "real_world_location_claim": false,
+      "release_authorized": false,
+      "replay_id": "intersection_unprotected_turn_yield",
+      "scene_state_ref": "scene_state::intersection_unprotected_turn_yield",
+      "sensor_packet_refs": [
+        "public_sensor_packet::intersection_unprotected_turn_yield::geometry",
+        "public_sensor_packet::intersection_unprotected_turn_yield::occupancy"
+      ],
+      "simulator_product_claim": false,
+      "transition_diff_ref": "transition_diff::intersection_unprotected_turn_yield"
+    }
+  ],
+  "created_at": "2026-05-22T03:18:42+00:00",
+  "finding_count": 0,
+  "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
+  "input_mode": "fixture",
+  "input_ref": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input",
+  "negative_case_findings": [
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_PRIVATE_VIDEO_FORBIDDEN",
+      "message": "private_video_exported must be false for public spatial replay rows",
+      "negative_case_id": "private_video_export",
+      "subject_id": "negative_private_video_export",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_REAL_LOCATION_CLAIM_FORBIDDEN",
+      "message": "real_world_location_claim must be false for public spatial replay rows",
+      "negative_case_id": "real_world_location_claim",
+      "subject_id": "negative_real_world_location_claim",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_LIVE_OPERATION_FORBIDDEN",
+      "message": "public spatial replay rows cannot authorize live robot or AV operation",
+      "negative_case_id": "live_robot_or_av_operation",
+      "subject_id": "negative_live_robot_or_av_operation",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_RAW_SENSOR_DATA_FORBIDDEN",
+      "message": "raw_sensor_data_exported must be false for public spatial replay rows",
+      "negative_case_id": "raw_sensor_data_export",
+      "subject_id": "negative_raw_sensor_data_export",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_SIMULATOR_PRODUCT_CLAIM_FORBIDDEN",
+      "message": "simulator_product_claim must be false for public spatial replay rows",
+      "negative_case_id": "simulator_product_claim",
+      "subject_id": "negative_simulator_product_claim",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_GENERATED_VIDEO_ONLY_AUTHORITY_FORBIDDEN",
+      "message": "generated_video_only_authority must be false for public spatial replay rows",
+      "negative_case_id": "generated_video_only_authority",
+      "subject_id": "negative_generated_video_only_authority",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_GEOGRAPHIC_ACCURACY_FORBIDDEN",
+      "message": "geographic_accuracy_claim must be false for public spatial replay rows",
+      "negative_case_id": "geographic_accuracy_claim",
+      "subject_id": "negative_geographic_accuracy_claim",
+      "subject_kind": "counterfactual_replay"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "SPATIAL_BENCHMARK_SCORE_REQUIRES_STATE_DIFF",
+      "message": "benchmark score language is forbidden without a transition diff ref",
+      "negative_case_id": "benchmark_score_without_state_diff",
+      "subject_id": "negative_benchmark_score_without_state_diff",
+      "subject_kind": "counterfactual_replay"
+    }
+  ],
+  "negative_case_summary": {
+    "expected_missing": {},
+    "expected_negative_case_count": 8,
+    "observed_codes": {
+      "benchmark_score_without_state_diff": [
+        "SPATIAL_BENCHMARK_SCORE_REQUIRES_STATE_DIFF"
+      ],
+      "generated_video_only_authority": [
+        "SPATIAL_GENERATED_VIDEO_ONLY_AUTHORITY_FORBIDDEN"
+      ],
+      "geographic_accuracy_claim": [
+        "SPATIAL_GEOGRAPHIC_ACCURACY_FORBIDDEN"
+      ],
+      "live_robot_or_av_operation": [
+        "SPATIAL_LIVE_OPERATION_FORBIDDEN"
+      ],
+      "private_video_export": [
+        "SPATIAL_PRIVATE_VIDEO_FORBIDDEN"
+      ],
+      "raw_sensor_data_export": [
+        "SPATIAL_RAW_SENSOR_DATA_FORBIDDEN"
+      ],
+      "real_world_location_claim": [
+        "SPATIAL_REAL_LOCATION_CLAIM_FORBIDDEN"
+      ],
+      "simulator_product_claim": [
+        "SPATIAL_SIMULATOR_PRODUCT_CLAIM_FORBIDDEN"
+      ]
+    },
+    "observed_negative_case_count": 8
+  },
+  "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+  "positive_findings": [],
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 12,
+    "status": "pass"
+  },
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "live_operation_omitted": true,
+    "metadata_only": true,
+    "private_video_bodies_omitted": true,
+    "raw_sensor_payloads_omitted": true,
+    "real_world_location_omitted": true
+  },
+  "scene_states": [
+    {
+      "actor_count": 4,
+      "body_redacted": true,
+      "private_video_exported": false,
+      "public_scene_ref": "fixtures/public_spatial_scenes/warehouse_occlusion_left_forklift_stop.json",
+      "raw_sensor_data_exported": false,
+      "scene_state_id": "scene_state::warehouse_occlusion_left_forklift_stop",
+      "topology_ref": "topology::01"
+    },
+    {
+      "actor_count": 5,
+      "body_redacted": true,
+      "private_video_exported": false,
+      "public_scene_ref": "fixtures/public_spatial_scenes/crosswalk_child_emergence_slowdown.json",
+      "raw_sensor_data_exported": false,
+      "scene_state_id": "scene_state::crosswalk_child_emergence_slowdown",
+      "topology_ref": "topology::02"
+    },
+    {
+      "actor_count": 6,
+      "body_redacted": true,
+      "private_video_exported": false,
+      "public_scene_ref": "fixtures/public_spatial_scenes/drone_corridor_gust_recovery.json",
+      "raw_sensor_data_exported": false,
+      "scene_state_id": "scene_state::drone_corridor_gust_recovery",
+      "topology_ref": "topology::03"
+    },
+    {
+      "actor_count": 7,
+      "body_redacted": true,
+      "private_video_exported": false,
+      "public_scene_ref": "fixtures/public_spatial_scenes/mobile_robot_reflective_floor_detour.json",
+      "raw_sensor_data_exported": false,
+      "scene_state_id": "scene_state::mobile_robot_reflective_floor_detour",
+      "topology_ref": "topology::04"
+    },
+    {
+      "actor_count": 8,
+      "body_redacted": true,
+      "private_video_exported": false,
+      "public_scene_ref": "fixtures/public_spatial_scenes/loading_dock_pallet_shift_replan.json",
+      "raw_sensor_data_exported": false,
+      "scene_state_id": "scene_state::loading_dock_pallet_shift_replan",
+      "topology_ref": "topology::05"
+    },
+    {
+      "actor_count": 9,
+      "body_redacted": true,
+      "private_video_exported": false,
+      "public_scene_ref": "fixtures/public_spatial_scenes/intersection_unprotected_turn_yield.json",
+      "raw_sensor_data_exported": false,
+      "scene_state_id": "scene_state::intersection_unprotected_turn_yield",
+      "topology_ref": "topology::06"
+    }
+  ],
+  "schema_version": "spatial_world_model_counterfactual_simulation_replay_result_v1",
+  "selected_pattern_ids": [
+    "warehouse_occlusion_left_forklift_stop",
+    "crosswalk_child_emergence_slowdown",
+    "drone_corridor_gust_recovery",
+    "mobile_robot_reflective_floor_detour",
+    "loading_dock_pallet_shift_replan",
+    "intersection_unprotected_turn_yield"
+  ],
+  "selected_route_id": "spatial_world_model_counterfactual_simulation_replay",
+  "simulation_summary": {
+    "benchmark_score_claim_count": 0,
+    "fidelity_limit_count": 6,
+    "generated_video_only_authority_count": 0,
+    "geographic_accuracy_claim_count": 0,
+    "live_operation_authorized_count": 0,
+    "oracle_state_check_count": 6,
+    "private_video_export_count": 0,
+    "rare_event_coverage_count": 6,
+    "raw_sensor_data_export_count": 0,
+    "real_world_location_claim_count": 0,
+    "replay_count": 6,
+    "scene_state_count": 6,
+    "sensor_packet_ref_count": 12,
+    "simulator_product_claim_count": 0,
+    "transition_diff_count": 6
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
+}

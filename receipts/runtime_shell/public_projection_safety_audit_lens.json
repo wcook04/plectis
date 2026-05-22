@@ -1,0 +1,883 @@
+{
+  "anti_claim": "The projection-safety audit is a public-safe read-model over omission receipts and authority ceilings. It does not prove every private projection is lossless, export private bodies, expose proof bodies, publish provider payloads, mutate source, authorize release, or claim public/private system equivalence.",
+  "authority_ceiling": {
+    "formal_proof_authority": false,
+    "hosted_public_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "trading_or_financial_advice_authorized": false,
+    "whole_system_correctness_claim": false
+  },
+  "body_redacted": true,
+  "command": "microcosm projection-safety",
+  "created_at": "2026-05-22T06:15:36+00:00",
+  "endpoint": "/projection-safety",
+  "lens_id": "public_projection_safety_audit_lens",
+  "negative_case_ids": [
+    "compressed_projection_without_omission_receipt",
+    "omission_receipt_without_drilldown",
+    "private_source_body_exported",
+    "proof_body_exported_as_public_evidence",
+    "provider_payload_exported",
+    "authority_ceiling_missing",
+    "release_claim_from_projection",
+    "irreversible_projection_without_owner_route"
+  ],
+  "organ_family": "compression_projection",
+  "projection_policy": {
+    "authority_ceiling_required_per_projection": true,
+    "low_band_rows_must_carry_omission_receipt": true,
+    "omission_receipt_requires_drilldown": true,
+    "omission_receipt_requires_source_ref": true,
+    "public_projection_is_reversible_read_model": true
+  },
+  "projection_rows": [
+    {
+      "authority_ceiling_ref": "microcosm authority::public_ten_minute_tour",
+      "command": "microcosm tour <project>",
+      "endpoint": "/tour",
+      "omission_receipt": {
+        "drilldown": "microcosm evidence inspect <receipt>",
+        "omitted": [
+          "raw compile payloads",
+          "raw receipt bodies"
+        ],
+        "source_ref": "microcosm tour <project>::evidence_refs"
+      },
+      "owner_route": "runtime_shell.tour",
+      "private_body_exported": false,
+      "projection_id": "public_ten_minute_tour",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_ten_minute_tour.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::surface_authority",
+      "command": "microcosm authority",
+      "endpoint": "/authority",
+      "omission_receipt": {
+        "drilldown": "/authority",
+        "omitted": [
+          "private source bodies",
+          "unreviewed release claims"
+        ],
+        "source_ref": "core/organ_registry.json"
+      },
+      "owner_route": "runtime_shell.authority",
+      "private_body_exported": false,
+      "projection_id": "public_authority_map",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_authority_map.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_prediction_lens",
+      "command": "microcosm prediction-lens",
+      "endpoint": "/prediction",
+      "omission_receipt": {
+        "drilldown": "/prediction",
+        "omitted": [
+          "live market data",
+          "private dossiers",
+          "provider payloads"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::prediction_oracle_reconciliation"
+      },
+      "owner_route": "runtime_shell.prediction_lens",
+      "private_body_exported": false,
+      "projection_id": "public_prediction_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_prediction_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_market_prediction_evidence_boundary_lens",
+      "command": "microcosm market-boundary",
+      "endpoint": "/market-boundary",
+      "omission_receipt": {
+        "drilldown": "/market-boundary",
+        "omitted": [
+          "live market data",
+          "private portfolio or account state",
+          "provider payloads",
+          "trading or investment advice",
+          "forecast performance guarantees"
+        ],
+        "source_ref": "microcosm market-boundary::boundary_rows"
+      },
+      "owner_route": "runtime_shell.market_boundary",
+      "private_body_exported": false,
+      "projection_id": "public_market_prediction_evidence_boundary_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_market_prediction_evidence_boundary_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_corpus_readiness_lens",
+      "command": "microcosm corpus-lens",
+      "endpoint": "/corpus",
+      "omission_receipt": {
+        "drilldown": "/corpus",
+        "omitted": [
+          "private corpus bodies",
+          "Mathlib-dependent proof attempts"
+        ],
+        "source_ref": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json"
+      },
+      "owner_route": "runtime_shell.corpus_lens",
+      "private_body_exported": false,
+      "projection_id": "public_corpus_readiness_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
+      "command": "microcosm trace-lens",
+      "endpoint": "/trace",
+      "omission_receipt": {
+        "drilldown": "/trace",
+        "omitted": [
+          "proof bodies",
+          "oracle-needed premise ids",
+          "provider payloads"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_math_verifier_trace_repair_loop_compound"
+      },
+      "owner_route": "runtime_shell.trace_lens",
+      "private_body_exported": false,
+      "projection_id": "public_verifier_trace_repair_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_verifier_repair_loop_lens",
+      "command": "microcosm repair-loop",
+      "endpoint": "/repair-loop",
+      "omission_receipt": {
+        "drilldown": "/repair-loop",
+        "omitted": [
+          "proof bodies",
+          "oracle-needed premise ids",
+          "provider payloads"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_math_verifier_trace_repair_loop_compound"
+      },
+      "owner_route": "runtime_shell.repair_loop",
+      "private_body_exported": false,
+      "projection_id": "public_verifier_repair_loop_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_formal_evidence_cell_lens",
+      "command": "microcosm evidence-cells",
+      "endpoint": "/evidence-cells",
+      "omission_receipt": {
+        "drilldown": "/evidence-cells",
+        "omitted": [
+          "proof bodies",
+          "private source refs",
+          "general theorem claims"
+        ],
+        "source_ref": "codex/standards/std_paper_module.json::formal_evidence_cells"
+      },
+      "owner_route": "runtime_shell.evidence_cells",
+      "private_body_exported": false,
+      "projection_id": "public_formal_evidence_cell_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_undeclared_library_prior_symbol_lens",
+      "command": "microcosm undeclared-library-prior-symbol-classifier",
+      "endpoint": "/undeclared-library-priors",
+      "omission_receipt": {
+        "drilldown": "/undeclared-library-priors",
+        "omitted": [
+          "proof bodies",
+          "private theorem/source refs",
+          "oracle premise bodies",
+          "provider payloads",
+          "theorem correctness claims"
+        ],
+        "source_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/symbol_observations.json"
+      },
+      "owner_route": "runtime_shell.undeclared_library_prior_symbol_classifier",
+      "private_body_exported": false,
+      "projection_id": "public_undeclared_library_prior_symbol_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_undeclared_library_prior_symbol_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_proof_loop_depth_lens",
+      "command": "microcosm proof-loop-depth",
+      "endpoint": "/proof-loop-depth",
+      "omission_receipt": {
+        "drilldown": "/proof-loop-depth",
+        "omitted": [
+          "proof bodies",
+          "oracle-needed premise ids",
+          "provider payloads",
+          "benchmark claims",
+          "general theorem-solution claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_math_verifier_trace_repair_loop_compound"
+      },
+      "owner_route": "runtime_shell.proof_loop_depth",
+      "private_body_exported": false,
+      "projection_id": "public_proof_loop_depth_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_work_landing_replay_lens",
+      "command": "microcosm landing-replay",
+      "endpoint": "/landing-replay",
+      "omission_receipt": {
+        "drilldown": "/landing-replay",
+        "omitted": [
+          "unrelated dirty path bodies",
+          "live git metadata",
+          "commit-only proof claims"
+        ],
+        "source_ref": "tools/meta/control/work_landing.py"
+      },
+      "owner_route": "runtime_shell.landing_replay",
+      "private_body_exported": false,
+      "projection_id": "public_work_landing_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_work_landing_replay_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_durable_agent_work_landing_replay_lens",
+      "command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+      "endpoint": "/landing-replay",
+      "omission_receipt": {
+        "drilldown": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+        "omitted": [
+          "private worktree paths",
+          "raw diffs",
+          "live git metadata",
+          "provider payloads",
+          "commit-landed claims without HEAD evidence"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::durable_agent_work_landing_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.durable_agent_work_landing_replay",
+      "private_body_exported": false,
+      "projection_id": "public_durable_agent_work_landing_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay/exported_work_landing_replay_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_research_replication_rubric_artifact_replay_lens",
+      "command": "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
+      "endpoint": "/research-replication",
+      "omission_receipt": {
+        "drilldown": "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
+        "omitted": [
+          "private paper and data bodies",
+          "hidden rubrics",
+          "original-author code bodies",
+          "provider payloads",
+          "benchmark performance claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::research_replication_rubric_artifact_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.research_replication_rubric_artifact_replay",
+      "private_body_exported": false,
+      "projection_id": "public_research_replication_rubric_artifact_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay/exported_research_replication_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_world_model_projection_drift_control_room_lens",
+      "command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle",
+      "endpoint": "/drift-control",
+      "omission_receipt": {
+        "drilldown": "microcosm world-model-projection-drift-control-room run-drift-control-bundle",
+        "omitted": [
+          "private runtime bodies",
+          "live route repair actions",
+          "provider payloads",
+          "source mutation authority",
+          "automatic doctrine promotion"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::frontier_combination_routes[world_model_projection_drift_control_room]"
+      },
+      "owner_route": "microcosm_core.organs.world_model_projection_drift_control_room",
+      "private_body_exported": false,
+      "projection_id": "public_world_model_projection_drift_control_room_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_spatial_world_model_counterfactual_simulation_replay_lens",
+      "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle",
+      "endpoint": "/spatial-simulation",
+      "omission_receipt": {
+        "drilldown": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle",
+        "omitted": [
+          "private video bodies",
+          "raw sensor payloads",
+          "live robot or AV operation",
+          "real-world location claims",
+          "generated video authority",
+          "geographic accuracy claims",
+          "benchmark score claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::spatial_world_model_counterfactual_simulation_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay",
+      "private_body_exported": false,
+      "projection_id": "public_spatial_world_model_counterfactual_simulation_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_mechanistic_interpretability_circuit_attribution_replay_lens",
+      "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle",
+      "endpoint": "/circuit-attribution",
+      "omission_receipt": {
+        "drilldown": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle",
+        "omitted": [
+          "private model weights",
+          "raw activation dumps",
+          "proprietary prompt bodies",
+          "hidden chain-of-thought",
+          "provider payload bodies",
+          "private model internals claims",
+          "benchmark score claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay",
+      "private_body_exported": false,
+      "projection_id": "public_mechanistic_interpretability_circuit_attribution_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_view_quality_action_map_lens",
+      "command": "microcosm view-quality",
+      "endpoint": "/view-quality",
+      "omission_receipt": {
+        "drilldown": "/view-quality",
+        "omitted": [
+          "private screenshot paths",
+          "live browser state",
+          "complete quality claims"
+        ],
+        "source_ref": "codex/standards/std_station_aesthetic.json::view_quality_action_map_v1"
+      },
+      "owner_route": "runtime_shell.view_quality",
+      "private_body_exported": false,
+      "projection_id": "public_view_quality_action_map_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_projection_drift_control_lens",
+      "command": "microcosm drift-control",
+      "endpoint": "/drift-control",
+      "omission_receipt": {
+        "drilldown": "/drift-control",
+        "omitted": [
+          "private runtime bodies",
+          "live route repair actions",
+          "provider payloads",
+          "source mutation authority"
+        ],
+        "source_ref": "microcosm drift-control::drift_rows"
+      },
+      "owner_route": "runtime_shell.projection_drift",
+      "private_body_exported": false,
+      "projection_id": "public_projection_drift_control_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_route_cleanup_contract_lens",
+      "command": "microcosm route-cleanup",
+      "endpoint": "/route-cleanup",
+      "omission_receipt": {
+        "drilldown": "/route-cleanup",
+        "omitted": [
+          "private route bodies",
+          "live cleanup actions",
+          "generated region bodies",
+          "provider payloads"
+        ],
+        "source_ref": "microcosm route-cleanup::cleanup_rows"
+      },
+      "owner_route": "runtime_shell.route_cleanup",
+      "private_body_exported": false,
+      "projection_id": "public_route_cleanup_contract_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_hook_intervention_coverage_lens",
+      "command": "microcosm hook-coverage",
+      "endpoint": "/hook-coverage",
+      "omission_receipt": {
+        "drilldown": "/hook-coverage",
+        "omitted": [
+          "live operator state",
+          "provider payloads",
+          "browser/HUD/cockpit state"
+        ],
+        "source_ref": "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
+      },
+      "owner_route": "runtime_shell.hook_coverage",
+      "private_body_exported": false,
+      "projection_id": "public_hook_intervention_coverage_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_hook_intervention_coverage_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_agent_reliability_replay_gauntlet_lens",
+      "command": "microcosm replay-gauntlet",
+      "endpoint": "/replay-gauntlet",
+      "omission_receipt": {
+        "drilldown": "/replay-gauntlet",
+        "omitted": [
+          "real secret material",
+          "live agent transcripts",
+          "untrusted tool payload bodies",
+          "private memory/user data"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_reliability_replay_gauntlet"
+      },
+      "owner_route": "runtime_shell.replay_gauntlet",
+      "private_body_exported": false,
+      "projection_id": "public_agent_reliability_replay_gauntlet_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_repository_benchmark_transaction_lab_lens",
+      "command": "microcosm benchmark-lab",
+      "endpoint": "/benchmark-lab",
+      "omission_receipt": {
+        "drilldown": "/benchmark-lab",
+        "omitted": [
+          "private issue bodies",
+          "oracle patch bodies",
+          "live repository paths",
+          "provider payloads"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::repository_agent_benchmark_transaction_lab"
+      },
+      "owner_route": "runtime_shell.benchmark_lab",
+      "private_body_exported": false,
+      "projection_id": "public_repository_benchmark_transaction_lab_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_agent_benchmark_integrity_anti_gaming_lens",
+      "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle",
+      "endpoint": "/benchmark-lab",
+      "omission_receipt": {
+        "drilldown": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle",
+        "omitted": [
+          "private issue bodies",
+          "oracle patch bodies",
+          "hidden-gold answers",
+          "provider payloads",
+          "benchmark score claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_benchmark_integrity_anti_gaming_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",
+      "private_body_exported": false,
+      "projection_id": "public_agent_benchmark_integrity_anti_gaming_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_agent_monitor_redteam_falsification_lens",
+      "command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle",
+      "endpoint": "/replay-gauntlet",
+      "omission_receipt": {
+        "drilldown": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle",
+        "omitted": [
+          "private chain-of-thought",
+          "internal code",
+          "exploit instruction detail",
+          "credential material",
+          "live agent traffic",
+          "monitor product performance claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_monitor_redteam_falsification_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.agent_monitor_redteam_falsification_replay",
+      "private_body_exported": false,
+      "projection_id": "public_agent_monitor_redteam_falsification_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_agent_memory_temporal_conflict_lens",
+      "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
+      "endpoint": "/replay-gauntlet",
+      "omission_receipt": {
+        "drilldown": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
+        "omitted": [
+          "raw transcript bodies",
+          "private memory candidate bodies",
+          "live user memory values",
+          "provider payloads",
+          "active injection text",
+          "live memory product claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_memory_temporal_conflict_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.agent_memory_temporal_conflict_replay",
+      "private_body_exported": false,
+      "projection_id": "public_agent_memory_temporal_conflict_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_sleeper_memory_poisoning_quarantine_lens",
+      "command": "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
+      "endpoint": "/replay-gauntlet",
+      "omission_receipt": {
+        "drilldown": "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
+        "omitted": [
+          "private memory bodies",
+          "raw transcript bodies",
+          "live user memory values",
+          "hidden trigger text",
+          "provider payloads",
+          "benchmark security claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::sleeper_memory_poisoning_quarantine_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay",
+      "private_body_exported": false,
+      "projection_id": "public_sleeper_memory_poisoning_quarantine_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_mcp_tool_authority_replay_lens",
+      "command": "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
+      "endpoint": "/replay-gauntlet",
+      "omission_receipt": {
+        "drilldown": "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
+        "omitted": [
+          "credential values",
+          "provider payloads",
+          "raw tool payloads",
+          "live MCP account refs",
+          "untrusted tool-output bodies",
+          "benchmark security claims"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mcp_tool_authority_replay_compound"
+      },
+      "owner_route": "microcosm_core.organs.mcp_tool_authority_replay",
+      "private_body_exported": false,
+      "projection_id": "public_mcp_tool_authority_replay_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_cold_reader_legibility_scorecard_lens",
+      "command": "microcosm legibility-scorecard",
+      "endpoint": "/legibility-scorecard",
+      "omission_receipt": {
+        "drilldown": "/legibility-scorecard",
+        "omitted": [
+          "private macro context",
+          "reader transcripts",
+          "proof bodies",
+          "provider payloads"
+        ],
+        "source_ref": "microcosm legibility-scorecard::checkpoint_rows"
+      },
+      "owner_route": "runtime_shell.legibility_scorecard",
+      "private_body_exported": false,
+      "projection_id": "public_cold_reader_legibility_scorecard_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
+      "command": "microcosm projection-import-map",
+      "endpoint": "/projection-import-map",
+      "omission_receipt": {
+        "drilldown": "/projection-import-map",
+        "omitted": [
+          "private macro bodies",
+          "proof bodies",
+          "provider payloads",
+          "automated import guarantee"
+        ],
+        "source_ref": "microcosm projection-import-map::import_rows"
+      },
+      "owner_route": "runtime_shell.projection_import_map",
+      "private_body_exported": false,
+      "projection_id": "public_projection_import_map_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_projection_import_map_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+      "command": "microcosm import-projector",
+      "endpoint": "/import-projector",
+      "omission_receipt": {
+        "drilldown": "/import-projector",
+        "omitted": [
+          "private source bodies",
+          "proof bodies",
+          "provider payloads",
+          "automated import execution",
+          "lossless private projection claims"
+        ],
+        "source_ref": "microcosm import-projector::projector_rows"
+      },
+      "owner_route": "runtime_shell.import_projector",
+      "private_body_exported": false,
+      "projection_id": "public_import_projector_contract_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
+      "command": "microcosm option-surface-lens",
+      "endpoint": "/option-surface-lens",
+      "omission_receipt": {
+        "drilldown": "/option-surface-lens",
+        "omitted": [
+          "private profile bodies",
+          "raw sidecar payload bodies",
+          "profile switching authority",
+          "lossless private projection claims"
+        ],
+        "source_ref": "microcosm option-surface-lens::option_rows"
+      },
+      "owner_route": "runtime_shell.option_surface_lens",
+      "private_body_exported": false,
+      "projection_id": "public_compression_profile_option_surface_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
+      "command": "microcosm stripping-guard",
+      "endpoint": "/stripping-guard",
+      "omission_receipt": {
+        "drilldown": "/stripping-guard",
+        "omitted": [
+          "private source bodies",
+          "proof bodies",
+          "provider payloads",
+          "raw private path refs",
+          "secret detector completeness claims"
+        ],
+        "source_ref": "microcosm stripping-guard::guard_rows"
+      },
+      "owner_route": "runtime_shell.stripping_guard",
+      "private_body_exported": false,
+      "projection_id": "public_stripping_guard_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_stripping_guard_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_standards_control_lens",
+      "command": "microcosm standards-control",
+      "endpoint": "/standards-control",
+      "omission_receipt": {
+        "drilldown": "/standards-control",
+        "omitted": [
+          "private doctrine bodies",
+          "raw source bodies behind standards",
+          "release/publication authority",
+          "standards completeness guarantee"
+        ],
+        "source_ref": "microcosm standards-control::standards_rows"
+      },
+      "owner_route": "runtime_shell.standards_control",
+      "private_body_exported": false,
+      "projection_id": "public_standards_control_lens",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_standards_control_lens.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::runtime_reveal_import_bridge",
+      "command": "microcosm intake",
+      "endpoint": "/intake",
+      "omission_receipt": {
+        "drilldown": "/intake",
+        "omitted": [
+          "macro private bodies",
+          "unprojected raw seed voice"
+        ],
+        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json"
+      },
+      "owner_route": "runtime_shell.intake",
+      "private_body_exported": false,
+      "projection_id": "runtime_reveal_import_bridge",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/intake_bridge/observatory_intake_bridge.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ceiling_ref": "microcosm authority::public_reveal_view",
+      "command": "microcosm reveal",
+      "endpoint": "/reveal",
+      "omission_receipt": {
+        "drilldown": "/reveal",
+        "omitted": [
+          "private macro equivalence claims",
+          "publication authority"
+        ],
+        "source_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/reveal_plan.json"
+      },
+      "owner_route": "runtime_shell.reveal",
+      "private_body_exported": false,
+      "projection_id": "public_reveal_view",
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "public_ref": "receipts/runtime_shell/public_reveal_walkthrough.json",
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    }
+  ],
+  "projection_safety_lens_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+  "projection_summary": {
+    "authority_ceiling_row_count": 35,
+    "omission_receipt_count": 35,
+    "private_body_export_count": 0,
+    "projection_row_count": 35,
+    "proof_body_export_count": 0,
+    "provider_payload_export_count": 0,
+    "release_authorized_count": 0,
+    "reversible_drilldown_count": 35,
+    "source_mutation_authorized_count": 0
+  },
+  "public_claim": "Microcosm exposes a projection-safety audit: every compressed public lens carries an omission receipt, a named drilldown, and an explicit authority ceiling before it can be treated as legible public state.",
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_redacted": true,
+    "omitted_content_has_named_drilldown": true,
+    "private_paths_omitted": true,
+    "projection_is_read_model_only": true,
+    "proof_bodies_omitted": true,
+    "provider_payloads_omitted": true
+  },
+  "schema_version": "microcosm_public_projection_safety_audit_lens_v1",
+  "selected_pattern_id": "omission_receipt_reversible_projection_boundary",
+  "source_projection_refs": [
+    "codex/standards/std_command_output_projection.json",
+    "codex/standards/std_paper_module.json",
+    "codex/doctrine/skills/compression/profile_governed_compression.md",
+    "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+    "system/lib/navigation_context_pack.py",
+    "system/lib/kernel/commands/comprehension_snapshot.py"
+  ],
+  "status": "pass"
+}

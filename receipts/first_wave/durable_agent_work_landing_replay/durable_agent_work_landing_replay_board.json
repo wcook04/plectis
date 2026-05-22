@@ -1,0 +1,63 @@
+{
+  "anti_claim": "Durable agent work-landing replay validates synthetic transaction evidence for owned-path claims, validation receipts, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed, export private source bodies, run providers, publish, host, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_work_landing_replay_receipts_only",
+    "broad_checkpoint_authorized": false,
+    "commit_landed_claim_authorized_without_head_advance": false,
+    "live_git_mutation_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "unrelated_dirty_paths_authorized": false
+  },
+  "board_id": "durable_agent_work_landing_public_board",
+  "body_redacted": true,
+  "input_mode": "fixture",
+  "lane_ids": [
+    "broad_checkpoint",
+    "hard_stop",
+    "metadata_blocked_patch_bundle",
+    "scoped_commit"
+  ],
+  "mechanics": [
+    {
+      "authority": "claimed_path_refs_and_validation_refs_required",
+      "count": 3,
+      "mechanic_id": "claim_before_mutation"
+    },
+    {
+      "authority": "commit_claim_requires_head_before_after_change",
+      "count": 1,
+      "mechanic_id": "head_advance_before_landed_commit_language"
+    },
+    {
+      "authority": "blocker_capture_and_work_ledger_finalizer_required",
+      "count": 1,
+      "mechanic_id": "metadata_blocked_patch_bundle"
+    }
+  ],
+  "organ_id": "durable_agent_work_landing_replay",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 11,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_result.json",
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_board.json",
+    "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
+  ],
+  "schema_version": "durable_agent_work_landing_replay_board_v1",
+  "source_pattern_ids": [
+    "durable_agent_work_landing_replay_compound",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims"
+  ],
+  "status": "pass"
+}

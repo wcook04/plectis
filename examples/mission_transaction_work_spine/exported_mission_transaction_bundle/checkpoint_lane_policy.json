@@ -1,0 +1,43 @@
+{
+  "schema_version": "mission_transaction_work_spine_checkpoint_lane_policy_v1",
+  "policy_id": "public_mission_adapter_checkpoint_lane_policy",
+  "lane_cases": [
+    {
+      "case_id": "runtime_public_scoped_commit",
+      "tree_state": "clean",
+      "dirty_tree_present": false,
+      "owned_paths_isolated": true,
+      "broad_checkpoint_requested": false,
+      "operator_authorized_broad_checkpoint": false,
+      "suspected_secret": false,
+      "selected_lane": "scoped_commit"
+    },
+    {
+      "case_id": "runtime_public_operator_broad_checkpoint",
+      "tree_state": "mixed_dirty_tree",
+      "dirty_tree_present": true,
+      "owned_paths_isolated": false,
+      "broad_checkpoint_requested": true,
+      "operator_authorized_broad_checkpoint": true,
+      "suspected_secret": false,
+      "selected_lane": "broad_checkpoint"
+    },
+    {
+      "case_id": "runtime_public_secret_suspected",
+      "tree_state": "mixed_dirty_tree",
+      "dirty_tree_present": true,
+      "owned_paths_isolated": false,
+      "broad_checkpoint_requested": false,
+      "operator_authorized_broad_checkpoint": false,
+      "suspected_secret": true,
+      "selected_lane": "hard_stop"
+    }
+  ],
+  "authority_ceiling": {
+    "live_git_mutation_authorized": false,
+    "broad_stage_authorized": false,
+    "operator_authorization_required_for_broad_checkpoint": true,
+    "suspected_secret_requires_hard_stop": true
+  },
+  "body_redacted": true
+}

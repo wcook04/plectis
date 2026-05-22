@@ -1,0 +1,15 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "formal_math_lean_proof_witness_runtime_example",
+  "organ_id": "formal_math_lean_proof_witness",
+  "input_mode": "exported_lean_proof_witness_bundle",
+  "entry_file": "witness_manifest.json",
+  "included_files": [
+    "witness_manifest.json",
+    "lake_project/lakefile.lean",
+    "lake_project/MicrocosmProofWitness.lean",
+    "lake_project/MicrocosmProofWitness/Basic.lean"
+  ],
+  "authority_ceiling": "bounded_public_lean_lake_witness_only",
+  "body_redacted": true
+}

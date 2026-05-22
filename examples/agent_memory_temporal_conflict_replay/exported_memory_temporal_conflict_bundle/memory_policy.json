@@ -1,0 +1,34 @@
+{
+  "active_injection_authority_authorized": false,
+  "allowed_memory_decisions": [
+    "ADD",
+    "UPDATE",
+    "DELETE",
+    "NOOP"
+  ],
+  "conflict_edges_required_before_update": true,
+  "live_memory_product_claim_authorized": false,
+  "memory_as_source_authority_authorized": false,
+  "paired_memory_replay_required": true,
+  "policy_id": "agent_memory_temporal_conflict_policy_v1",
+  "private_candidate_auto_promotion_authorized": false,
+  "private_transcript_export_authorized": false,
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "required_memory_event_fields": [
+    "event_id",
+    "episode_id",
+    "episode_order",
+    "memory_route_ref",
+    "decision",
+    "memory_subject_id",
+    "evidence_handle_ref",
+    "private_thread_ref",
+    "metadata_only_ref",
+    "body_exported",
+    "source_authority_claim",
+    "active_injection_adopted"
+  ],
+  "schema_version": "memory_temporal_conflict_policy_v1",
+  "stale_downgrade_required_before_replay_credit": true
+}

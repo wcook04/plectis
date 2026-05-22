@@ -1,0 +1,7 @@
+{
+  "schema_version": "cold_reader_route_negative_case_v1",
+  "case_id": "release_overclaim",
+  "release_authorized": true,
+  "provider_calls_authorized": true,
+  "body_redacted": true
+}

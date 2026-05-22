@@ -1,0 +1,14 @@
+{
+  "schema_version": "macro_projection_import_negative_case_v1",
+  "expected_negative_case_id": "private_body_import_overclaim",
+  "material_requests": [
+    {
+      "material_id": "raw_seed_body_copy_request",
+      "material_class": "raw_seed_body",
+      "body_copied": true,
+      "private_body_requested": true,
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

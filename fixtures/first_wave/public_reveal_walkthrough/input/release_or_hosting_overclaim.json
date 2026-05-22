@@ -1,0 +1,9 @@
+{
+  "schema_version": "public_reveal_negative_case_v1",
+  "expected_negative_case_id": "release_or_hosting_overclaim",
+  "claim_id": "negative_release_claim",
+  "release_authorized": true,
+  "hosted_public_authorized": true,
+  "publication_authorized": true,
+  "recipient_work_authorized": true
+}
