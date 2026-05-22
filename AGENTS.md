@@ -52,6 +52,7 @@ explanation, and assimilation primitives, not through production claims.
 - `proof_derived_governed_mutation_authorization`
 - `belief_state_process_reward_replay`
 - `agent_sandbox_policy_escape_replay`
+- `indirect_prompt_injection_information_flow_policy_replay`
 
 ## Rules
 
@@ -239,6 +240,15 @@ explanation, and assimilation primitives, not through production claims.
    export real secrets, live network targets, raw environments, host filesystem
    paths, executable escape payloads, provider payloads, security benchmark
    claims, source mutation, or release authority.
+   The `indirect_prompt_injection_information_flow_policy_replay` organ is the
+   runnable public indirect prompt-injection information-flow lane: use
+   `indirect-prompt-injection-information-flow-policy-replay` or
+   `replay-gauntlet` to validate synthetic source trust labels, taint graph
+   rows, pre-action policy verdicts, sanitized output refs, cold replay
+   receipts, and negative cases before prompt-injection language is admitted.
+   It must not export real account material, secrets, raw prompt bodies,
+   credentials, hidden system messages, provider payloads, source mutation,
+   live tool calls, benchmark claims, or release authority.
    The `agent_memory_temporal_conflict_replay` organ is the runnable public
    memory temporal-conflict lane: use
    `agent-memory-temporal-conflict-replay` or `replay-gauntlet` to validate
@@ -487,7 +497,8 @@ explanation, and assimilation primitives, not through production claims.
    `agent_benchmark_integrity_anti_gaming_replay`, and
    `agent_monitor_redteam_falsification_replay`,
    `agent_sabotage_scheming_monitor_replay`, and
-   `agent_sandbox_policy_escape_replay`, and
+   `agent_sandbox_policy_escape_replay`,
+   `indirect_prompt_injection_information_flow_policy_replay`, and
    `provider_context_recipe_budget_policy` are
    metadata/retrieval/admissibility/metric/context-budget lanes only, and
    `formal_math_lean_proof_witness` authorizes only the tiny public witness

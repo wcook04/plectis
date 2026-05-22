@@ -26,6 +26,9 @@ from microcosm_core.organs import formal_math_lean_proof_witness
 from microcosm_core.organs import formal_math_premise_retrieval
 from microcosm_core.organs import formal_math_readiness_gate
 from microcosm_core.organs import formal_math_verifier_trace_repair_loop
+from microcosm_core.organs import (
+    indirect_prompt_injection_information_flow_policy_replay,
+)
 from microcosm_core.organs import lean_std_premise_index
 from microcosm_core.organs import macro_projection_import_protocol
 from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
@@ -465,6 +468,20 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         runner=agent_sandbox_policy_escape_replay.run_sandbox_bundle,
         receipt_name="exported_sandbox_policy_escape_bundle_validation_result.json",
     ),
+    RuntimeStep(
+        organ_id="indirect_prompt_injection_information_flow_policy_replay",
+        span="indirect_prompt_injection_information_flow_policy_replay.validate",
+        input_mode="exported_prompt_injection_flow_bundle",
+        example_rel=(
+            "examples/indirect_prompt_injection_information_flow_policy_replay/"
+            "exported_prompt_injection_flow_bundle"
+        ),
+        runner=(
+            indirect_prompt_injection_information_flow_policy_replay
+            .run_prompt_injection_bundle
+        ),
+        receipt_name="exported_prompt_injection_flow_bundle_validation_result.json",
+    ),
 )
 
 
@@ -752,6 +769,10 @@ class RuntimeShell:
                     (
                         "microcosm agent-sandbox-policy-escape-replay "
                         "run-sandbox-bundle"
+                    ),
+                    (
+                        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                        "run-prompt-injection-bundle"
                     ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
@@ -1301,6 +1322,20 @@ class RuntimeShell:
                         "blocked requests with zero side effects plus allowed/reviewed requests with diff and rollback receipts",
                         "real-secret, live-network, raw-env, post-hoc-policy, unlogged-side-effect, tool-output-bypass, executable-payload, and benchmark-claim denials",
                         "no live sandbox escape, secret handling, network access, host mutation, provider, benchmark-security, source mutation, or release authority",
+                    ],
+                },
+                {
+                    "step_id": "inspect_indirect_prompt_injection_information_flow_policy_replay",
+                    "command": (
+                        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                        "run-prompt-injection-bundle"
+                    ),
+                    "shows": [
+                        "five synthetic sources across trusted user/policy and untrusted web/tool/browser channels",
+                        "source-to-sink taint graph rows before any policy verdict is admitted",
+                        "allow, warn, block, and review verdicts with sanitized-output and cold-replay receipts",
+                        "real-account, secret-exfiltration, raw-prompt, tool-output-instruction, hidden-system-promotion, credential, final-answer-only, and untrusted-privileged-sink denials",
+                        "no real email/docs/accounts, raw prompts, credentials, live tool calls, provider payloads, benchmark robustness, source mutation, or release authority",
                     ],
                 },
                 {
@@ -4683,6 +4718,50 @@ class RuntimeShell:
                 "provider_payload_exported": False,
             },
             {
+                "projection_id": "public_indirect_prompt_injection_information_flow_policy_replay_lens",
+                "command": (
+                    "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                    "run-prompt-injection-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "public_ref": (
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "indirect_prompt_injection_information_flow_policy_replay/"
+                    "exported_prompt_injection_flow_bundle_validation_result.json"
+                ),
+                "owner_route": (
+                    "microcosm_core.organs."
+                    "indirect_prompt_injection_information_flow_policy_replay"
+                ),
+                "authority_ceiling_ref": (
+                    "microcosm authority::"
+                    "public_indirect_prompt_injection_information_flow_policy_replay_lens"
+                ),
+                "omission_receipt": {
+                    "omitted": [
+                        "real email, document, browser, or account material",
+                        "raw system, developer, prompt, or tool-output bodies",
+                        "secrets or credentials",
+                        "provider payloads",
+                        "hidden system-message bodies",
+                        "general prompt-injection robustness claims",
+                    ],
+                    "drilldown": (
+                        "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                        "run-prompt-injection-bundle"
+                    ),
+                    "source_ref": (
+                        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
+                        "indirect_prompt_injection_information_flow_policy_replay_compound"
+                    ),
+                },
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "private_body_exported": False,
+                "proof_body_exported": False,
+                "provider_payload_exported": False,
+            },
+            {
                 "projection_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
                     "microcosm agent-memory-temporal-conflict-replay "
@@ -7099,6 +7178,15 @@ class RuntimeShell:
                 "source_pattern_id": "indirect_prompt_injection_information_flow_policy_replay_compound",
                 "threat_model": "untrusted tool text asks the agent to exfiltrate trusted context",
                 "fixture_input": "synthetic retrieved page with injection body redacted",
+                "generated_receipt_ref": (
+                    "receipts/first_wave/"
+                    "indirect_prompt_injection_information_flow_policy_replay/"
+                    "indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
+                ),
+                "cold_reader_command": (
+                    "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                    "run-prompt-injection-bundle"
+                ),
                 "monitor_verdict": "blocked",
                 "containment_action": "separate_untrusted_text_from_instruction_channel",
                 "negative_case_id": "untrusted_tool_output_as_instruction_rejected",
@@ -8857,6 +8945,26 @@ class RuntimeShell:
                 "executable_escape_payload_export_authorized": False,
                 "raw_environment_export_authorized": False,
                 "security_benchmark_claim_authorized": False,
+            },
+            {
+                "surface_id": "public_indirect_prompt_injection_information_flow_policy_replay_lens",
+                "command": (
+                    "microcosm indirect-prompt-injection-information-flow-policy-replay "
+                    "run-prompt-injection-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "authority_role": "synthetic indirect prompt-injection information-flow replay and source-trust boundary",
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "live_tool_call_authorized": False,
+                "real_email_or_document_account_use_authorized": False,
+                "raw_prompt_body_export_authorized": False,
+                "secret_or_credential_exfiltration_authorized": False,
+                "tool_output_instruction_authority_authorized": False,
+                "hidden_system_message_promotion_authorized": False,
+                "general_prompt_injection_robustness_claim_authorized": False,
+                "benchmark_score_claim_authorized": False,
             },
             {
                 "surface_id": "public_agent_memory_temporal_conflict_lens",

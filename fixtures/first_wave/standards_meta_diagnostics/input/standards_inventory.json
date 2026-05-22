@@ -671,6 +671,23 @@
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_sandbox_policy_escape_replay]",
       "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
       "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 40,
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[indirect_prompt_injection_information_flow_policy_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
+        "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
+        "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_indirect_prompt_injection_information_flow_policy_replay]",
+      "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+      "standard_ref": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json"
     }
   ]
 }

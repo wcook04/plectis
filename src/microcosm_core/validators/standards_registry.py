@@ -74,6 +74,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
+    "indirect_prompt_injection_information_flow_policy_replay",
 ]
 
 

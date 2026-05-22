@@ -56,6 +56,7 @@ ACCEPTED_ORGAN_IDS = [
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
     "agent_sandbox_policy_escape_replay",
+    "indirect_prompt_injection_information_flow_policy_replay",
 ]
 DEFERRED_ORGAN_IDS = ["formal_math_lean_proof_organ"]
 

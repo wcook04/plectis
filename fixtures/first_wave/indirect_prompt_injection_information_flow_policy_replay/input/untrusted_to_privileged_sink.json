@@ -1,0 +1,5 @@
+{
+  "body_redacted": true,
+  "case_id": "untrusted_to_privileged_sink",
+  "untrusted_to_privileged_sink_allowed": true
+}

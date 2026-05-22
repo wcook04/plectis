@@ -1,7 +1,7 @@
 {
   "agent_reliability_replay_gauntlet_proof": {
-    "blocked_episode_count": 7,
-    "episode_count": 9,
+    "blocked_episode_count": 8,
+    "episode_count": 10,
     "lens_id": "public_agent_reliability_replay_gauntlet_lens",
     "live_agent_execution_authorized": false,
     "negative_case_ids": [
@@ -90,7 +90,7 @@
     "status": "pass",
     "time_budget_minutes": 10
   },
-  "command": "python -m microcosm_core.validators.observatory_legibility --root microcosm-substrate --project demo_project --out microcosm-substrate/receipts/first_wave/observatory_legibility.json",
+  "command": "python -m microcosm_core.validators.observatory_legibility --root microcosm-substrate --project microcosm-scratch --out microcosm-substrate/receipts/first_wave/observatory_legibility.json",
   "compression_profile_option_surface_proof": {
     "automatic_profile_selection_authorized": false,
     "lens_id": "public_compression_profile_option_surface_lens",
@@ -368,7 +368,7 @@
     "scanned_path_count": 4,
     "status": "pass"
   },
-  "project_ref": "demo_project",
+  "project_ref": "microcosm-scratch",
   "projection_drift_control_proof": {
     "lens_id": "public_projection_drift_control_lens",
     "live_route_repair_authorized": false,
@@ -419,9 +419,9 @@
       "release_claim_from_projection",
       "irreversible_projection_without_owner_route"
     ],
-    "omission_receipt_count": 36,
+    "omission_receipt_count": 40,
     "private_body_export_count": 0,
-    "projection_row_count": 36,
+    "projection_row_count": 40,
     "status": "pass"
   },
   "proof_loop_depth_proof": {
@@ -528,11 +528,11 @@
     "release_authorized": false,
     "row_count": 8,
     "source_authority_claim_count": 0,
-    "standard_count": 81,
+    "standard_count": 85,
     "standards_completeness_claim": false,
     "standards_registry_source_authority": false,
     "status": "pass",
-    "validator_receipt_ref_count": 115
+    "validator_receipt_ref_count": 181
   },
   "status": "pass",
   "stripping_guard_proof": {

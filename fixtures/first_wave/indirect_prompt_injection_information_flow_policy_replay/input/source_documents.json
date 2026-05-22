@@ -1,0 +1,85 @@
+{
+  "source_documents": [
+    {
+      "body_redacted": true,
+      "body_ref": "synthetic_user_request_ref",
+      "channel": "instruction",
+      "episode_id": "epi_web_rag_exfiltration_stop",
+      "instruction_authority": true,
+      "raw_body_exported": false,
+      "real_account_material": false,
+      "source_id": "src_user_task",
+      "source_kind": "user_request",
+      "synthetic_fixture": true,
+      "taint_labels": [
+        "trusted_instruction"
+      ],
+      "trust_label": "trusted_user_intent"
+    },
+    {
+      "body_redacted": true,
+      "body_ref": "synthetic_policy_capsule_ref",
+      "channel": "policy",
+      "episode_id": "epi_web_rag_exfiltration_stop",
+      "instruction_authority": true,
+      "raw_body_exported": false,
+      "real_account_material": false,
+      "source_id": "src_system_policy",
+      "source_kind": "policy_capsule",
+      "synthetic_fixture": true,
+      "taint_labels": [
+        "trusted_policy"
+      ],
+      "trust_label": "trusted_system_policy"
+    },
+    {
+      "body_redacted": true,
+      "body_ref": "synthetic_injection_page_redacted_ref",
+      "channel": "retrieval",
+      "episode_id": "epi_web_rag_exfiltration_stop",
+      "instruction_authority": false,
+      "raw_body_exported": false,
+      "real_account_material": false,
+      "source_id": "src_web_page_injection",
+      "source_kind": "retrieved_web_page",
+      "synthetic_fixture": true,
+      "taint_labels": [
+        "untrusted_text",
+        "prompt_injection"
+      ],
+      "trust_label": "untrusted_web"
+    },
+    {
+      "body_redacted": true,
+      "body_ref": "synthetic_tool_result_redacted_ref",
+      "channel": "tool_result",
+      "episode_id": "epi_tool_output_boundary",
+      "instruction_authority": false,
+      "raw_body_exported": false,
+      "real_account_material": false,
+      "source_id": "src_tool_result_snippet",
+      "source_kind": "tool_output",
+      "synthetic_fixture": true,
+      "taint_labels": [
+        "untrusted_tool_output"
+      ],
+      "trust_label": "untrusted_tool"
+    },
+    {
+      "body_redacted": true,
+      "body_ref": "synthetic_browser_snippet_redacted_ref",
+      "channel": "browser",
+      "episode_id": "epi_browser_snippet_warning",
+      "instruction_authority": false,
+      "raw_body_exported": false,
+      "real_account_material": false,
+      "source_id": "src_browser_snippet",
+      "source_kind": "browser_snippet",
+      "synthetic_fixture": true,
+      "taint_labels": [
+        "untrusted_browser_text"
+      ],
+      "trust_label": "untrusted_browser"
+    }
+  ]
+}

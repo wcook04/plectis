@@ -590,6 +590,18 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+      "generated_receipt_count": 4,
+      "input_mode": "exported_prompt_injection_flow_bundle",
+      "ordinal": 40,
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false
     }
   ],
   "projection_cells": [
@@ -1069,6 +1081,23 @@
       "surface_id": "public_agent_sandbox_policy_escape_replay_lens"
     },
     {
+      "authority_role": "synthetic indirect prompt-injection information-flow replay and source-trust boundary",
+      "benchmark_score_claim_authorized": false,
+      "command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle",
+      "endpoint": "/replay-gauntlet",
+      "general_prompt_injection_robustness_claim_authorized": false,
+      "hidden_system_message_promotion_authorized": false,
+      "live_tool_call_authorized": false,
+      "provider_calls_authorized": false,
+      "raw_prompt_body_export_authorized": false,
+      "real_email_or_document_account_use_authorized": false,
+      "release_authorized": false,
+      "secret_or_credential_exfiltration_authorized": false,
+      "source_mutation_authorized": false,
+      "surface_id": "public_indirect_prompt_injection_information_flow_policy_replay_lens",
+      "tool_output_instruction_authority_authorized": false
+    },
+    {
       "active_injection_authority_authorized": false,
       "authority_role": "synthetic agent memory temporal-conflict replay and source-authority boundary",
       "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
@@ -1198,9 +1227,9 @@
   ],
   "surface_counts": {
     "hard_boundary_count": 6,
-    "organ_authority_count": 39,
+    "organ_authority_count": 40,
     "projection_cell_count": 3,
     "safe_local_exception_count": 3,
-    "surface_authority_count": 39
+    "surface_authority_count": 40
   }
 }

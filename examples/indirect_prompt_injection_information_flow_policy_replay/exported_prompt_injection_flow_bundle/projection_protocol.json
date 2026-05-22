@@ -1,0 +1,36 @@
+{
+  "authorizes_live_tool_calls": false,
+  "claims_general_robustness": false,
+  "copied_private_source": false,
+  "exports_private_state": false,
+  "exports_raw_prompt_bodies": false,
+  "exports_real_accounts": false,
+  "omitted_private_material": [
+    "real email bodies",
+    "real browser snippets",
+    "real account identifiers",
+    "raw system/developer prompts",
+    "provider payloads",
+    "credential material",
+    "private workspace documents"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+    "receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle_validation_result.json"
+  ],
+  "protocol_id": "public_indirect_prompt_injection_information_flow_policy_replay_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/source_documents.json",
+    "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/information_flow_graph.json",
+    "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle"
+  ],
+  "source_pattern_ids": [
+    "indirect_prompt_injection_information_flow_policy_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl:364",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::agent_safety_replay_growth",
+    "microcosm-substrate/src/microcosm_core/runtime_shell.py::replay_gauntlet",
+    "microcosm-substrate/src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py"
+  ]
+}

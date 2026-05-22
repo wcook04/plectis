@@ -1,7 +1,7 @@
 {
   "agent_reliability_replay_gauntlet_summary": {
-    "blocked_episode_count": 7,
-    "episode_count": 9,
+    "blocked_episode_count": 8,
+    "episode_count": 10,
     "live_agent_execution_authorized": false,
     "live_tool_calls_authorized": false,
     "quarantined_episode_count": 2,
@@ -157,11 +157,11 @@
     "status": "pass",
     "time_budget_minutes": 10
   },
-  "command": "python -m microcosm_core.validators.launch_compression --root microcosm-substrate --project demo_project --out microcosm-substrate/receipts/first_wave/launch_compression.json",
+  "command": "python -m microcosm_core.validators.launch_compression --root microcosm-substrate --project microcosm-scratch --out microcosm-substrate/receipts/first_wave/launch_compression.json",
   "compiled_summary": {
-    "event_count": 1413,
+    "event_count": 103,
     "evidence_count": 9,
-    "file_count": 5,
+    "file_count": 4,
     "headline": "repo -> .microcosm",
     "open_observatory": "microcosm serve <project> --host 127.0.0.1 --port 8765",
     "passing_pattern_count": 4,
@@ -238,7 +238,7 @@
     "scanned_path_count": 6,
     "status": "pass"
   },
-  "project_ref": "demo_project",
+  "project_ref": "microcosm-scratch",
   "projection_drift_summary": {
     "live_route_repair_authorized": false,
     "projection_drift_lens_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
@@ -260,9 +260,9 @@
     "validation_ref_count": 12
   },
   "projection_safety_summary": {
-    "omission_receipt_count": 36,
+    "omission_receipt_count": 40,
     "private_body_export_count": 0,
-    "projection_row_count": 36,
+    "projection_row_count": 40,
     "projection_safety_lens_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
     "release_authorized": false,
     "status": "pass"
@@ -319,12 +319,12 @@
     "release_authorized": false,
     "row_count": 8,
     "source_authority_claim_count": 0,
-    "standard_count": 81,
-    "standard_pressure_row_count": 33,
+    "standard_count": 85,
+    "standard_pressure_row_count": 37,
     "standards_completeness_claim": false,
     "standards_control_ref": "receipts/runtime_shell/public_standards_control_lens.json",
     "status": "pass",
-    "validator_receipt_ref_count": 115
+    "validator_receipt_ref_count": 181
   },
   "status": "pass",
   "stripping_guard_summary": {

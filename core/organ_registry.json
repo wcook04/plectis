@@ -537,9 +537,22 @@
       "runner": "microcosm_core.organs.agent_sandbox_policy_escape_replay",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
+        "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
+        "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "runner": "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
     }
   ],
-  "registry_status": "current_authority_public_runtime_spine_agent_sabotage_scheming_monitor_replay_bound",
+  "registry_status": "accepted_runtime_spine_indirect_prompt_injection_information_flow_policy_replay_bound",
   "schema_version": "organ_registry_v1",
   "unauthorized_surfaces": [
     "release",

@@ -9,10 +9,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 83,
+  "first_wave_required_standard_count": 85,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 84,
+  "standard_count": 85,
   "standards": [
     {
       "first_wave_required": true,
@@ -1284,7 +1284,18 @@
       ],
       "validator_id": "validator.microcosm.organs.agent_sandbox_policy_escape_replay",
       "wave": "w1_agent_sandbox_policy_escape_replay"
+    },
+    {
+      "kind_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "path": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
+      "receipt_id": "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
+      "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+      "used_by_organs": [
+        "indirect_prompt_injection_information_flow_policy_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay",
+      "wave": "w1_indirect_prompt_injection_information_flow_policy_replay"
     }
   ],
-  "status": "current_public_standard_registry_agent_sandbox_policy_escape_replay_bound"
+  "status": "current_public_standard_registry_indirect_prompt_injection_information_flow_policy_replay_bound"
 }

@@ -373,6 +373,17 @@
       "projection_not_authority": true,
       "receipt_id": "refine_agent_sandbox_policy_escape_replay_bundle",
       "refinement_result": "validator_contract_refined"
+    },
+    {
+      "body_redacted": true,
+      "changed_surface_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
+      "projection_not_authority": true,
+      "receipt_id": "refine_indirect_prompt_injection_information_flow_policy_replay_bundle",
+      "refinement_result": "validator_contract_refined"
     }
   ],
   "schema_version": "pattern_assimilation_step_refinement_receipts_v1"

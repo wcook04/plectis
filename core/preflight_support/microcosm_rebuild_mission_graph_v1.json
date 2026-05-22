@@ -40,7 +40,8 @@
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay"
+    "agent_sandbox_policy_escape_replay",
+    "indirect_prompt_injection_information_flow_policy_replay"
   ],
   "schema_version": "public_preflight_support_microcosm_rebuild_mission_graph_v1"
 }

@@ -1,0 +1,60 @@
+{
+  "allowed_verdicts": [
+    "allow",
+    "warn",
+    "block",
+    "review"
+  ],
+  "credential_exfiltration_authorized": false,
+  "general_robustness_claim_authorized": false,
+  "hidden_system_message_promotion_authorized": false,
+  "live_tool_call_authorized": false,
+  "policy_id": "synthetic_indirect_prompt_injection_flow_policy_v1",
+  "raw_prompt_body_export_authorized": false,
+  "real_account_material_authorized": false,
+  "release_authorized": false,
+  "required_flow_fields": [
+    "flow_id",
+    "episode_id",
+    "from_source_id",
+    "to_sink_id",
+    "sink_kind",
+    "source_trust_label",
+    "taint_labels",
+    "sanitization_applied",
+    "proposed_action_ref",
+    "privileged_sink",
+    "body_redacted"
+  ],
+  "required_output_fields": [
+    "flow_id",
+    "sanitized_answer_ref",
+    "trusted_context_disclosed",
+    "untrusted_instruction_obeyed",
+    "confirmation_boundary_ref",
+    "counterfactual_safe_path_ref",
+    "body_redacted"
+  ],
+  "required_source_fields": [
+    "source_id",
+    "episode_id",
+    "source_kind",
+    "trust_label",
+    "channel",
+    "body_ref",
+    "taint_labels",
+    "instruction_authority",
+    "body_redacted"
+  ],
+  "required_verdict_fields": [
+    "flow_id",
+    "policy_version",
+    "verdict",
+    "rule_refs",
+    "pre_action",
+    "confirmation_required",
+    "decision_reason_ref",
+    "body_redacted"
+  ],
+  "tool_output_instruction_authority_authorized": false
+}

@@ -1,0 +1,172 @@
+{
+  "anti_claim": "This fixture validates public synthetic indirect prompt-injection information-flow replay metadata only; it does not use real email, docs, browser snippets, accounts, raw prompts, credentials, provider payloads, live tools, benchmark claims, source mutation, or release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Prompt-injection flow material must state that synthetic replay receipts are not live robustness, account, prompt, provider, benchmark, source-mutation, or release authority"
+  },
+  "authority_boundary": "synthetic_indirect_prompt_injection_information_flow_replay_not_live_account_prompt_or_tool_authority",
+  "authority_ceiling": {
+    "benchmark_score_claim_authority": false,
+    "hidden_system_message_promotion_authority": false,
+    "live_tool_call_authority": false,
+    "provider_authority": false,
+    "raw_prompt_body_export_authority": false,
+    "real_account_material_authority": false,
+    "release_authority": false,
+    "secret_or_credential_exfiltration_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_prompt_injection_information_flow_replay_schema_only",
+    "status": "pass",
+    "tool_output_instruction_authority": false
+  },
+  "first_wave_required": true,
+  "kind_id": "indirect_prompt_injection_information_flow_policy_replay",
+  "kind_name": "Indirect prompt-injection information-flow policy replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/projection_protocol.json",
+    "omitted": [
+      "real accounts",
+      "raw prompt bodies",
+      "secrets or credentials",
+      "provider payloads",
+      "hidden system-message bodies",
+      "general robustness claims"
+    ],
+    "reason": "public tranche carries synthetic trust/taint/flow metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "indirect_prompt_injection_information_flow_policy_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "source trust labels",
+      "taint labels",
+      "source-to-sink refs",
+      "policy rule refs",
+      "sanitized answer refs",
+      "counterfactual safe path refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_prompt_injection_flow_receipts_only",
+    "forbidden_public_inputs": [
+      "real email, document, browser, or account material",
+      "raw system/developer/prompt/tool bodies",
+      "secrets or credentials",
+      "provider payloads",
+      "hidden system-message bodies",
+      "general robustness or benchmark claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "source_document_count",
+      "information_flow_count",
+      "policy_verdict_count",
+      "sanitized_output_count",
+      "cold_replay_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
+    "receipt must cite source refs, source pattern ids, source/flow/verdict/output/replay counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#indirect_prompt_injection_information_flow_policy_replay",
+    "source_pattern_id_sample": [
+      "indirect_prompt_injection_information_flow_policy_replay_compound"
+    ],
+    "used_by_organs": [
+      "indirect_prompt_injection_information_flow_policy_replay"
+    ]
+  },
+  "required_fields": [
+    "projection_protocol",
+    "injection_policy",
+    "source_documents",
+    "information_flow_graph",
+    "policy_verdicts",
+    "sanitized_outputs",
+    "cold_replay",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating final-answer behavior, a demo transcript, or untrusted tool text as evidence that prompt injection is solved.",
+    "compression_bands": [
+      "protocol",
+      "source",
+      "flow",
+      "verdict",
+      "sanitized_output",
+      "replay",
+      "receipt"
+    ],
+    "failure_modes": [
+      "real_account_material",
+      "secret_exfiltration",
+      "raw_prompt_body_export",
+      "tool_output_as_instruction",
+      "hidden_system_message_promotion",
+      "credential_exfiltration",
+      "final_answer_only_success",
+      "untrusted_to_privileged_sink"
+    ],
+    "ontology": "A public-safe indirect prompt-injection information-flow replay: synthetic trust labels, taint graph, policy verdicts, sanitized outputs, cold replay, falsification fixtures, and authority ceilings.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how prompt-injection robustness-adjacent claims are admitted only when source trust, taint, policy, sanitization, negative cases, receipts, and ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require synthetic source documents with trust labels, taint labels, and no raw body export",
+    "require source-to-sink information-flow graph rows before policy verdicts",
+    "require allow, warn, block, and review verdicts to precede synthetic actions",
+    "require sanitized outputs to disclose no trusted context and obey no untrusted instruction",
+    "reject real accounts, secret exfiltration, raw prompt body export, tool-output instruction authority, hidden-system-message promotion, credential exfiltration, final-answer-only success, and ungated untrusted privileged sinks",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "injection_policy_authority_floor",
+      "source_document_trust_floor",
+      "information_flow_graph_floor",
+      "pre_action_policy_verdict_floor",
+      "sanitized_output_floor",
+      "cold_replay_floor",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay"
+  },
+  "wave": "w1_indirect_prompt_injection_information_flow_policy_replay"
+}

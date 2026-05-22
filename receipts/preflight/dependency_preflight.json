@@ -49,7 +49,8 @@
     "mcp_tool_authority_replay",
     "proof_derived_governed_mutation_authorization",
     "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay"
+    "agent_sandbox_policy_escape_replay",
+    "indirect_prompt_injection_information_flow_policy_replay"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
   "command": "python -m microcosm_core.validators.dependency_preflight --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --out microcosm-substrate/receipts/preflight/dependency_preflight.json",
@@ -495,6 +496,16 @@
       "missing_dependencies": [],
       "organ_id": "agent_sandbox_policy_escape_replay",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_sandbox_policy_escape_replay",
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -887,9 +898,19 @@
       "missing_fixture_inputs": [],
       "organ_id": "agent_sandbox_policy_escape_replay",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::indirect_prompt_injection_information_flow_policy_replay::first_wave_contract_v1",
+      "fixture_input_count": 15,
+      "fixture_manifest": "core/fixture_manifests/indirect_prompt_injection_information_flow_policy_replay.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 15,
+      "missing_fixture_inputs": [],
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 18,
+  "negative_matrix_case_count": 19,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -949,7 +970,8 @@
       "mcp_tool_authority_replay",
       "proof_derived_governed_mutation_authorization",
       "belief_state_process_reward_replay",
-      "agent_sandbox_policy_escape_replay"
+      "agent_sandbox_policy_escape_replay",
+      "indirect_prompt_injection_information_flow_policy_replay"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -990,7 +1012,8 @@
       "mcp_tool_authority_replay",
       "proof_derived_governed_mutation_authorization",
       "belief_state_process_reward_replay",
-      "agent_sandbox_policy_escape_replay"
+      "agent_sandbox_policy_escape_replay",
+      "indirect_prompt_injection_information_flow_policy_replay"
     ],
     "status": "pass"
   }

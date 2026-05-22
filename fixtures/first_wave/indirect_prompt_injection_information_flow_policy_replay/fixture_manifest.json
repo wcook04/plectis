@@ -1,0 +1,36 @@
+{
+  "authority_ceiling": "synthetic_indirect_prompt_injection_information_flow_replay_receipts_only",
+  "expected_negative_cases": [
+    "credential_exfiltration.json",
+    "final_answer_only_success.json",
+    "hidden_system_message_promotion.json",
+    "raw_prompt_body_export.json",
+    "real_account_material.json",
+    "secret_exfiltration.json",
+    "tool_output_as_instruction.json",
+    "untrusted_to_privileged_sink.json"
+  ],
+  "fixture_id": "first_wave.indirect_prompt_injection_information_flow_policy_replay",
+  "negative_inputs": [
+    "credential_exfiltration.json",
+    "final_answer_only_success.json",
+    "hidden_system_message_promotion.json",
+    "raw_prompt_body_export.json",
+    "real_account_material.json",
+    "secret_exfiltration.json",
+    "tool_output_as_instruction.json",
+    "untrusted_to_privileged_sink.json"
+  ],
+  "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+  "positive_inputs": [
+    "cold_replay.json",
+    "information_flow_graph.json",
+    "injection_policy.json",
+    "policy_verdicts.json",
+    "projection_protocol.json",
+    "sanitized_outputs.json",
+    "source_documents.json"
+  ],
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "validator": "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay"
+}

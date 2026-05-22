@@ -898,6 +898,33 @@
       ],
       "fixture_manifest": "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
       "organ_id": "agent_sandbox_policy_escape_replay"
+    },
+    {
+      "build_dependencies": [
+        "agent_sandbox_policy_escape_replay",
+        "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization"
+      ],
+      "fixture_id": "fixture::indirect_prompt_injection_information_flow_policy_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/projection_protocol.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/injection_policy.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/source_documents.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/information_flow_graph.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/policy_verdicts.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/sanitized_outputs.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/cold_replay.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/real_account_material.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/secret_exfiltration.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/raw_prompt_body_export.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/tool_output_as_instruction.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/hidden_system_message_promotion.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/credential_exfiltration.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/final_answer_only_success.json",
+        "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/untrusted_to_privileged_sink.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/indirect_prompt_injection_information_flow_policy_replay.fixture_manifest.json",
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

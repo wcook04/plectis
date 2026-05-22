@@ -19,6 +19,9 @@ from microcosm_core.organs import formal_evidence_cell_anchor_resolver
 from microcosm_core.organs import formal_math_premise_retrieval
 from microcosm_core.organs import formal_math_readiness_gate
 from microcosm_core.organs import formal_math_verifier_trace_repair_loop
+from microcosm_core.organs import (
+    indirect_prompt_injection_information_flow_policy_replay,
+)
 from microcosm_core.organs import lean_std_premise_index
 from microcosm_core.organs import macro_projection_import_protocol
 from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
@@ -272,6 +275,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(sandbox_policy_parser)
     sandbox_policy_parser.add_argument("--acceptance-out")
+
+    prompt_injection_parser = subparsers.add_parser(
+        "indirect-prompt-injection-information-flow-policy-replay"
+    )
+    prompt_injection_parser.add_argument(
+        "action", choices=["run", "run-prompt-injection-bundle"]
+    )
+    _add_input_out(prompt_injection_parser)
+    prompt_injection_parser.add_argument("--acceptance-out")
 
     memory_conflict_parser = subparsers.add_parser(
         "agent-memory-temporal-conflict-replay"
@@ -663,6 +675,19 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             sandbox_policy_args.extend(["--acceptance-out", args.acceptance_out])
         return agent_sandbox_policy_escape_replay.main(sandbox_policy_args)
+    if args.command == "indirect-prompt-injection-information-flow-policy-replay":
+        prompt_injection_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out and args.action == "run":
+            prompt_injection_args.extend(["--acceptance-out", args.acceptance_out])
+        return indirect_prompt_injection_information_flow_policy_replay.main(
+            prompt_injection_args
+        )
     if args.command == "agent-memory-temporal-conflict-replay":
         memory_conflict_args = [args.action, "--input", args.input, "--out", args.out]
         if args.acceptance_out and args.action == "run":

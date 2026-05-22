@@ -1,0 +1,66 @@
+{
+  "policy_verdicts": [
+    {
+      "body_redacted": true,
+      "confirmation_required": false,
+      "decision_reason_ref": "verdict_ref_block_web_to_email",
+      "flow_id": "flow_block_web_to_email",
+      "policy_version": "synthetic_indirect_prompt_injection_flow_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "untrusted_text_no_privileged_sink",
+        "no_secret_exfiltration"
+      ],
+      "verdict": "block"
+    },
+    {
+      "body_redacted": true,
+      "confirmation_required": false,
+      "decision_reason_ref": "verdict_ref_allow_user_summary",
+      "flow_id": "flow_allow_user_to_summary",
+      "policy_version": "synthetic_indirect_prompt_injection_flow_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "trusted_user_intent_allowed"
+      ],
+      "verdict": "allow"
+    },
+    {
+      "body_redacted": true,
+      "confirmation_required": true,
+      "decision_reason_ref": "verdict_ref_review_tool_db",
+      "flow_id": "flow_review_tool_to_db",
+      "policy_version": "synthetic_indirect_prompt_injection_flow_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "untrusted_tool_state_mutation_requires_review"
+      ],
+      "verdict": "review"
+    },
+    {
+      "body_redacted": true,
+      "confirmation_required": false,
+      "decision_reason_ref": "verdict_ref_warn_browser_quote",
+      "flow_id": "flow_warn_browser_quote",
+      "policy_version": "synthetic_indirect_prompt_injection_flow_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "untrusted_browser_answer_quote_needs_label"
+      ],
+      "verdict": "warn"
+    },
+    {
+      "body_redacted": true,
+      "confirmation_required": false,
+      "decision_reason_ref": "verdict_ref_block_hidden_policy",
+      "flow_id": "flow_block_hidden_policy_promotion",
+      "policy_version": "synthetic_indirect_prompt_injection_flow_policy_v1",
+      "pre_action": true,
+      "rule_refs": [
+        "tool_output_not_instruction_channel",
+        "hidden_message_promotion_forbidden"
+      ],
+      "verdict": "block"
+    }
+  ]
+}

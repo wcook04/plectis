@@ -153,6 +153,16 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    action requests, pre-execution policy verdicts, side-effect diff receipts,
    rollback refs, cold replay receipts, and real-secret/live-network/raw-env/
    payload/benchmark denials before trusting sandbox-security claims.
+30. Run `microcosm indirect-prompt-injection-information-flow-policy-replay
+   run-prompt-injection-bundle --input
+   examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle
+   --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay`
+   or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
+   indirect-prompt-injection-information-flow-policy-replay
+   run-prompt-injection-bundle` path to inspect source trust labels, taint
+   graph rows, pre-action policy verdicts, sanitized output refs, cold replay
+   receipts, and real-account/secret/raw-prompt/tool-output-as-instruction
+   denials before trusting prompt-injection claims.
 30. Run `microcosm agent-memory-temporal-conflict-replay
    run-memory-bundle --input
    examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle
@@ -263,6 +273,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.cli agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
 PYTHONPATH=src python3 -m microcosm_core.cli agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay
+PYTHONPATH=src python3 -m microcosm_core.cli indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
 PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
 PYTHONPATH=src python3 -m microcosm_core.cli belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay

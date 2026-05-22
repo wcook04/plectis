@@ -350,6 +350,15 @@
       "organ_id": "agent_sandbox_policy_escape_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_sandbox_policy_escape_replay"
+    },
+    {
+      "body_redacted": true,
+      "cli_command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+      "ordinal": 40,
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "runtime_receipt_count": 4,
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::indirect_prompt_injection_information_flow_policy_replay"
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

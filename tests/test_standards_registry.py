@@ -45,8 +45,8 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     )
 
     assert receipt["status"] == "pass"
-    assert receipt["standard_count"] == 84
-    assert receipt["checked_standard_count"] == 84
+    assert receipt["standard_count"] == 85
+    assert receipt["checked_standard_count"] == 85
     assert "std_microcosm_corpus_readiness_mathlib_absence_gate" in receipt["checked_standard_ids"]
     assert "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer" in receipt["checked_standard_ids"]
     assert "std_microcosm_target_shape_tactic_routing_gate" in receipt["checked_standard_ids"]
@@ -65,6 +65,10 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     assert "std_microcosm_agent_monitor_redteam_falsification_replay" in receipt["checked_standard_ids"]
     assert "std_microcosm_agent_sabotage_scheming_monitor_replay" in receipt["checked_standard_ids"]
     assert "std_microcosm_agent_sandbox_policy_escape_replay" in receipt["checked_standard_ids"]
+    assert (
+        "std_microcosm_indirect_prompt_injection_information_flow_policy_replay"
+        in receipt["checked_standard_ids"]
+    )
     assert "std_microcosm_agent_memory_temporal_conflict_replay" in receipt["checked_standard_ids"]
     assert "std_microcosm_sleeper_memory_poisoning_quarantine_replay" in receipt["checked_standard_ids"]
     assert "std_microcosm_mcp_tool_authority_replay" in receipt["checked_standard_ids"]

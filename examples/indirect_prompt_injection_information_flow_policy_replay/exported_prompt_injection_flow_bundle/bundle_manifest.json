@@ -1,0 +1,6 @@
+{
+  "bundle_id": "indirect_prompt_injection_information_flow_policy_replay_runtime_example",
+  "input_mode": "exported_prompt_injection_flow_bundle",
+  "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
+  "schema_version": "microcosm_exported_bundle_manifest_v1"
+}

@@ -2,15 +2,15 @@
   "next_best_lane_checks": [
     {
       "body_redacted": true,
-      "check_id": "next_lane_after_agent_sandbox_policy_escape_replay",
+      "check_id": "next_lane_after_indirect_prompt_injection_information_flow_policy_replay",
       "next_best_lane_checked": true,
-      "next_route": "indirect_prompt_injection_information_flow_policy_replay_compound",
+      "next_route": "agentic_vulnerability_discovery_patch_proof_replay_compound",
       "next_seed_path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
       "projection_not_authority": true,
       "release_authorized": false,
-      "result": "indirect_prompt_injection_information_flow_policy_replay_compound",
-      "selected_candidate_consumed": "agent_sandbox_policy_escape_replay",
-      "why": "Sandbox policy-escape replay is now accepted; next pass should prefer indirect prompt-injection information-flow policy replay unless fresh prep shows a stronger absent public-safety contract gap."
+      "result": "agentic_vulnerability_discovery_patch_proof_replay_compound",
+      "selected_candidate_consumed": "indirect_prompt_injection_information_flow_policy_replay",
+      "why": "Indirect prompt-injection information-flow replay is now accepted; next pass should prefer agentic vulnerability discovery patch-proof replay unless fresh prep shows a stronger absent public-safety contract gap."
     }
   ],
   "schema_version": "pattern_assimilation_step_next_best_lane_checks_v1"
