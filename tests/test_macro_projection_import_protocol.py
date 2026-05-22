@@ -155,7 +155,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
-        "public_safe_with_light_edits": 1
+        "verified_light_edit": 1
     }
     by_material = {
         row["material_id"]: row
@@ -178,7 +178,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         row["cell_id"]: row for row in result["projection_intake_board"]["projection_cells"]
     }
     assert by_cell["formal_math_readiness_extensions"]["copy_policy"] == (
-        "public_safe_body_with_provenance_and_claim_ceiling"
+        "verified_macro_body_with_claim_floor"
     )
     assert by_cell["formal_math_readiness_extensions"]["public_safe_body_material_ids"] == [
         "lean_certificate_kernel_body_import"
@@ -370,7 +370,7 @@ def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
         if row["material_id"] == "lean_certificate_kernel_body_import":
             (public_root / row["target_ref"]).unlink()
             row["body_digest"] = (
-                "sha256:public-safe-body-digest-placeholder-lean-certificate-kernel"
+                "sha256:placeholder-lean-certificate-kernel"
             )
             break
 
@@ -476,7 +476,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
         for row in result["projection_intake_board"]["public_safe_body_imports"]
     }
     assert by_material["lean_certificate_kernel_body_import"]["route"] == (
-        "public_safe_with_light_edits"
+        "verified_light_edit"
     )
     assert by_material["lean_certificate_kernel_body_import"]["source_refs"] == [
         "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"

@@ -1,17 +1,17 @@
 {
   "schema_version": "macro_projection_import_cleaning_policy_fixture_v1",
-  "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
-  "default_copy_mode": "public_safe_body_with_provenance_or_fixture_shape",
+  "policy_id": "verified_macro_projection_cleaning_policy_v1",
+  "default_copy_mode": "verified_macro_body_or_honest_regression_fixture",
   "forbidden_material_classes": [
     "raw_seed_body",
     "operator_thread_body",
     "provider_payload_body",
     "non_public_evidence_body",
-    "private_operator_source_body",
+    "credential_bearing_operator_source_body",
     "credential",
     "secret",
-    "recipient_packet_body",
-    "release_packet_body"
+    "credential_bearing_recipient_packet_body",
+    "hosted_release_packet_body"
   ],
   "direct_import_material_classes": [
     "public_macro_pattern_body",
@@ -22,8 +22,8 @@
   "required_cleaning_actions": [
     "classify_private_state_risk",
     "strip_private_absolute_paths",
-    "preserve_public_safe_bodies_with_provenance",
-    "replace_true_private_bodies_with_public_refs",
+    "preserve_verified_macro_bodies_with_source_to_target_evidence",
+    "replace_only_credential_or_account_bound_bodies_with_public_refs",
     "preserve_source_ref_lineage",
     "attach_omission_receipt",
     "attach_authority_ceiling",
@@ -32,7 +32,7 @@
   ],
   "requires_omission_receipt": true,
   "requires_validation_ref": true,
-  "release_authorized": false,
+  "hosted_publication_authorized": false,
   "private_data_equivalence_claim": false,
   "body_redacted": true
 }

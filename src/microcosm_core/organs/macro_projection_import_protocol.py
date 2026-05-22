@@ -85,7 +85,7 @@ PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
     "public_macro_receipt_body",
     "public_macro_proof_body",
 }
-PUBLIC_SAFE_BODY_COPY_POLICY = "public_safe_body_with_provenance_and_claim_ceiling"
+PUBLIC_SAFE_BODY_COPY_POLICY = "verified_macro_body_with_claim_floor"
 METADATA_COPY_POLICY = "metadata_fixture_receipt_ref_only"
 MACRO_ORIGIN_REF_POLICY = "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
 STANDALONE_RUNTIME_ROOT_REF = "microcosm-substrate"
@@ -152,11 +152,11 @@ BODY_IMPORT_VERIFICATION_MODES = {
     "verified_light_edit_recipe",
 }
 ANTI_CLAIM = (
-    "The macro projection import protocol validates public-safe projection "
-    "metadata, omission receipts, replacement refs, authority ceilings, and "
-    "validation refs. It does not copy private bodies, authorize release or "
-    "publication, claim private-root equivalence, elevate Microcosm above its "
-    "public receipts, run provider calls, or make macro source authority public."
+    "The macro projection import protocol validates verified non-secret macro "
+    "body imports and honest demotions. Metadata, provenance, and replacement "
+    "refs are not body imports. The only hard omissions are secrets, credentials, "
+    "operator conversation bodies, provider payloads, and account-bound material; "
+    "hosted publication remains a separate action."
 )
 CELL_STATUS_PROTOCOL = {
     "schema_version": "macro_projection_cell_status_protocol_v1",
@@ -172,10 +172,10 @@ CELL_STATUS_PROTOCOL = {
         "ready_for_projection",
         "blocked",
     ],
-    "authority_ceiling": "metadata_fixture_receipt_ref_status_only",
+    "authority_ceiling": "cell_status_only_not_body_import",
     "anti_claim": (
-        "Cell status is a public intake state machine over metadata and receipt refs. "
-        "It is not private source authority, release readiness, or proof of whole-system correctness."
+        "Cell status is intake coordination. It is not an imported macro body, "
+        "a capability proof, or a reason to avoid importing real non-secret substrate."
     ),
 }
 LANDING_PROJECTION_STATUSES = set(CELL_STATUS_PROTOCOL["closed_statuses"])
@@ -496,9 +496,9 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
         "defects": defects,
         "findings": findings,
         "anti_claim": (
-            "This check proves runtime severance consumed the public preflight lifecycle "
-            "receipt. It does not authorize release, publication, provider calls, "
-            "private-source equivalence, or proof of organ semantics."
+            "This check proves runtime severance consumed the preflight lifecycle "
+            "receipt. It is not a substitute for an imported macro body, provider "
+            "execution, or proof of organ semantics."
         ),
         "body_redacted": True,
     }
@@ -571,7 +571,7 @@ def _body_import_verification_findings(
         return [
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_MISSING",
-                "body_copied public-safe material must carry a verified source-to-target import record.",
+                "body_copied verified macro material must carry a verified source-to-target import record.",
                 case_id="public_safe_body_import_floor",
                 subject_id=material_id,
                 subject_kind="copied_material",
@@ -584,7 +584,7 @@ def _body_import_verification_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_UNVERIFIED",
-                "body_copied public-safe material must be marked verified after source-to-target checking.",
+                "body_copied verified macro material must be marked verified after source-to-target checking.",
                 case_id="public_safe_body_import_floor",
                 subject_id=material_id,
                 subject_kind="copied_material",
@@ -594,7 +594,7 @@ def _body_import_verification_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_MODE_INVALID",
-                "body_copied public-safe material must use a known verification mode.",
+                "body_copied verified macro material must use a known verification mode.",
                 case_id="public_safe_body_import_floor",
                 subject_id=material_id,
                 subject_kind="copied_material",
@@ -671,7 +671,7 @@ def _body_import_verification_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_RUNTIME_CONSUMER_MISSING",
-                "body_copied public-safe material must name the command or test that consumes the imported target.",
+                "body_copied verified macro material must name the command or test that consumes the imported target.",
                 case_id="public_safe_body_import_floor",
                 subject_id=material_id,
                 subject_kind="copied_material",
@@ -695,7 +695,7 @@ def _public_safe_body_target_findings(
         return [
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_REF_MISSING",
-                "body_copied public-safe material must name the Microcosm target_ref that contains the copied body.",
+                "body_copied verified macro material must name the Microcosm target_ref that contains the copied body.",
                 case_id="public_safe_body_import_floor",
                 subject_id=material_id,
                 subject_kind="copied_material",
@@ -707,7 +707,7 @@ def _public_safe_body_target_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_REF_UNSAFE",
-                "body_copied public-safe material must target a relative path inside microcosm-substrate.",
+                "body_copied verified macro material must target a relative path inside microcosm-substrate.",
                 case_id="public_safe_body_import_floor",
                 subject_id=target_ref,
                 subject_kind="copied_material",
@@ -721,7 +721,7 @@ def _public_safe_body_target_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_MISSING",
-                "body_copied public-safe material must point at a real file inside microcosm-substrate.",
+                "body_copied verified macro material must point at a real file inside microcosm-substrate.",
                 case_id="public_safe_body_import_floor",
                 subject_id=target_ref,
                 subject_kind="copied_material",
@@ -731,7 +731,7 @@ def _public_safe_body_target_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_PLACEHOLDER",
-                "body_copied public-safe material must carry a real sha256 digest, not a placeholder.",
+                "body_copied verified macro material must carry a real sha256 digest, not a placeholder.",
                 case_id="public_safe_body_import_floor",
                 subject_id=material_id,
                 subject_kind="copied_material",
@@ -741,7 +741,7 @@ def _public_safe_body_target_findings(
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-                "body_copied public-safe material digest must match the target_ref file.",
+                "body_copied verified macro material digest must match the target_ref file.",
                 case_id="public_safe_body_import_floor",
                 subject_id=target_ref,
                 subject_kind="copied_material",
@@ -827,7 +827,7 @@ def validate_projection_protocol(
                 findings.append(
                     _finding(
                         str(finding.get("error_code") or "PUBLIC_SAFE_IMPORT_BLOCKED"),
-                        str(finding.get("message") or "Public-safe import classification blocked."),
+                        str(finding.get("message") or "Verified macro import classification blocked."),
                         case_id="public_safe_body_import_floor",
                         subject_id=material_id,
                         subject_kind="copied_material",
@@ -839,7 +839,7 @@ def validate_projection_protocol(
             findings.append(
                 _finding(
                     "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
-                    "Copied material may carry metadata, fixture shape, or classified public-safe bodies only; true private bodies remain forbidden.",
+                    "Copied material may carry metadata, fixture shape, or verified macro bodies only; credential-bound and raw operator/provider bodies remain forbidden.",
                     case_id="protocol_floor",
                     subject_id=material_id,
                     subject_kind="copied_material",
@@ -1005,7 +1005,7 @@ def validate_cleaning_policy(payload: object) -> dict[str, Any]:
     return {
         "status": PASS
         if not findings
-        and policy.get("default_copy_mode") == "public_safe_body_with_provenance_or_fixture_shape"
+        and policy.get("default_copy_mode") == "verified_macro_body_or_honest_regression_fixture"
         and len(actions) >= 4
         else "blocked",
         "policy_id": policy.get("policy_id"),
@@ -1055,7 +1055,7 @@ def validate_import_plan(
             findings.append(
                 _finding(
                     "MACRO_PROJECTION_PUBLIC_SAFE_BODY_MATERIAL_MISSING",
-                    "Projection cell references public-safe body material not present in the projection protocol.",
+            "Projection cell references verified macro body material not present in the projection protocol.",
                     case_id="import_plan_floor",
                     subject_id=cell_id,
                     subject_kind="projection_cell",
@@ -1190,7 +1190,7 @@ def validate_standalone_runtime_severance(
             findings,
             observed,
             "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
-            "Runtime severance rejects runtime dependencies on macro/private roots.",
+            "Runtime severance rejects runtime dependencies on the live macro root.",
             case_id="standalone_dependency_leak",
             subject_id=str(leak["dependency_id"]),
             subject_kind="negative_case",
@@ -1410,7 +1410,7 @@ def _build_projection_intake_board(
     )
     return {
         "schema_version": "macro_projection_import_intake_board_v1",
-        "headline": "Macro source refs become queued public projection cells; public-safe bodies may flow only through provenance and claim-ceiling classification.",
+        "headline": "Macro source refs become import candidates; verified non-secret macro bodies flow only with source-to-target evidence and claim floors.",
         "input_mode": input_mode,
         "protocol_id": protocol["protocol_id"],
         "policy_id": cleaning_policy["policy_id"],
@@ -1421,7 +1421,7 @@ def _build_projection_intake_board(
             "standard schema",
             "receipt summary",
             "public-root replacement ref",
-            "public-safe macro body with provenance",
+            "verified non-secret macro body",
         ],
         "allowed_material_classes": _strings(protocol_payload.get("material_classes")),
         "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
@@ -1730,7 +1730,7 @@ def _build_result(
         "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
         "next_best_lane": import_plan["next_best_lane"],
         "projection_board": {
-            "headline": "Macro material enters Microcosm through public-safe classification, provenance, and bounded claims; true private bodies stay blocked.",
+            "headline": "Macro material enters Microcosm as verified non-secret substrate; only secrets, credentials, operator conversation bodies, provider payloads, and account-bound material stay blocked.",
             "protocol_id": protocol["protocol_id"],
             "allowed_material": [
                 "metadata",
@@ -1738,7 +1738,7 @@ def _build_result(
                 "standard schema",
                 "receipt summary",
                 "public-root replacement ref",
-                "public-safe macro body with provenance",
+                "verified non-secret macro body",
             ],
             "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
             "public_safe_body_material_count": protocol["public_safe_body_material_count"],

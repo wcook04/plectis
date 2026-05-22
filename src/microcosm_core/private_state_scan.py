@@ -146,7 +146,7 @@ def classify_public_safe_macro_import(
     *,
     forbidden_classes: dict[str, Any],
 ) -> dict[str, Any]:
-    """Classify one requested macro import without exposing source bodies."""
+    """Classify one requested macro import without exposing credential-bound bodies."""
 
     policy = _import_policy(forbidden_classes)
     material_class = str(row.get("material_class") or "").strip()
@@ -167,7 +167,7 @@ def classify_public_safe_macro_import(
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_TRUE_FORBIDDEN_CLASS",
-                "message": "True private material classes cannot enter public macro import.",
+                "message": "Credential-bound, operator, provider, or raw-seed material classes cannot enter verified macro import.",
                 "material_class": material_class,
                 "body_redacted": True,
             }
@@ -176,26 +176,26 @@ def classify_public_safe_macro_import(
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_UNKNOWN_BODY_CLASS",
-                "message": "Body-bearing material must declare a public-safe macro body class.",
+                "message": "Body-bearing material must declare a verified public macro body class.",
                 "material_class": material_class,
                 "body_redacted": True,
             }
         )
 
-    if route == "case_review":
+    if route in {"case_review", "case_review_for_secret_risk"}:
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_CASE_REVIEW_REQUIRED",
-                "message": "Medium or unclassified private-state risk requires case review before body import.",
+                "message": "Medium or unclassified secret/account-bound risk requires case review before body import.",
                 "material_class": material_class,
                 "body_redacted": True,
             }
         )
-    elif route == "synthetic_only":
+    elif route in {"synthetic_only", "credential_or_account_bound_exclusion"}:
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_SYNTHETIC_ONLY",
-                "message": "High private-state risk remains synthetic-only.",
+                "message": "High credential/account-bound risk is excluded from real macro import.",
                 "material_class": material_class,
                 "body_redacted": True,
             }
@@ -206,7 +206,7 @@ def classify_public_safe_macro_import(
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_MODE_UNSUPPORTED",
-                "message": "Public-safe body import must use an allowed provenance mode.",
+                "message": "Verified macro body import must use an allowed real-substrate mode.",
                 "material_class": material_class,
                 "body_redacted": True,
             }
@@ -224,7 +224,7 @@ def classify_public_safe_macro_import(
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_PROVENANCE_MISSING",
-                "message": "Public-safe body import requires provenance, validation, risk, mode, and claim ceiling fields.",
+                "message": "Verified macro body import requires source, provenance, validation, risk, mode, claim floor, and body verification fields.",
                 "missing_fields": missing_fields,
                 "material_class": material_class,
                 "body_redacted": True,
@@ -238,7 +238,7 @@ def classify_public_safe_macro_import(
         findings.append(
             {
                 "error_code": "PUBLIC_SAFE_IMPORT_AUTHORITY_OVERCLAIM",
-                "message": "Public-safe body import cannot upgrade itself into source, release, equivalence, or whole-system authority.",
+                "message": "Verified macro body import cannot upgrade itself into hosted publication, account/root mirror, or whole-system authority.",
                 "forbidden_flags": sorted(set(forbidden_claim_flags)),
                 "material_class": material_class,
                 "body_redacted": True,

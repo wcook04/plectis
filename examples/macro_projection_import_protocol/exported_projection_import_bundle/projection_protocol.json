@@ -1,7 +1,7 @@
 {
   "schema_version": "macro_projection_import_protocol_fixture_v1",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "purpose": "Project private-root macro substrate into Microcosm as public-safe metadata, fixture shape, standards, receipts, and replacement refs.",
+  "purpose": "Import or refactor real non-secret macro substrate into Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -27,7 +27,7 @@
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
       "material_class": "pattern_metadata",
       "body_copied": false,
-      "public_safe_mode": "metadata_only",
+      "public_safe_mode": "metadata_reference_not_body",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
       "body_redacted": true
     },
@@ -37,7 +37,7 @@
       "target_ref": "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
       "material_class": "fixture_shape",
       "body_copied": false,
-      "public_safe_mode": "synthetic_fixture_shape_only",
+      "public_safe_mode": "regression_fixture_shape_only",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
       "body_redacted": true
     },
@@ -51,14 +51,14 @@
       "target_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
       "material_class": "public_replacement_ref",
       "body_copied": false,
-      "public_safe_mode": "source_ref_and_public_replacement_pending_real_tool_import",
+      "public_safe_mode": "source_ref_and_public_replacement_pending_verified_real_tool_import",
       "import_disposition": "demoted_from_body_import_digest_theater",
       "private_state_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
-      "required_correction": "Import or refactor the named macro tool bodies into a standalone public-safe macro_tools area, then promote this row back to public_macro_tool_body only after source-to-target verification passes.",
+      "required_correction": "Import or refactor the named macro tool bodies into a standalone public macro_tools area, then promote this row back to public_macro_tool_body only after source-to-target verification passes.",
       "validation_refs": [
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_source_ref_is_not_counted_as_body_import"
       ],
@@ -74,7 +74,7 @@
       "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
       "material_class": "public_macro_proof_body",
       "body_copied": true,
-      "public_safe_mode": "public_safe_body_with_light_edits",
+      "public_safe_mode": "verified_public_macro_proof_body_exact_copy",
       "private_state_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
@@ -88,7 +88,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification"
       ],
-      "claim_ceiling": "proof body import only; not theorem-solution claim, release authority, or private-root equivalence",
+      "claim_ceiling": "proof body import only; not theorem-solution claim, hosted publication action, or raw macro-root mirror",
       "body_digest": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
       "body_import_verification": {
         "verification_status": "verified",
@@ -118,16 +118,16 @@
   ],
   "omitted_material": [
     {
-      "material_id": "true_private_source_bodies",
-      "omitted_class": "non_public_evidence_body",
-      "reason": "True private bodies stay out of public Microcosm; public-safe macro bodies use the direct import classification lane instead of this omission lane.",
+      "material_id": "credential_or_account_bound_source_bodies",
+      "omitted_class": "credential_or_account_bound_body",
+      "reason": "Only credential-bearing or account-bound bodies use this omission lane; real non-secret macro bodies use the direct import classification lane.",
       "public_replacement_ref": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     },
     {
       "material_id": "operator_and_provider_bodies",
       "omitted_class": "operator_thread_body_or_provider_payload_body",
-      "reason": "Operator and provider bodies are never public projection material.",
+      "reason": "Operator conversation bodies and provider payload bodies stay out; non-secret macro code, proof, pattern, and receipt bodies do not use this omission lane.",
       "public_replacement_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     }
@@ -146,12 +146,12 @@
   "steps": [
     {
       "step_id": "select_macro_source_refs",
-      "action": "Select macro refs as path-level evidence only.",
+      "action": "Select macro refs as import candidates, not as evidence-only substitutes.",
       "validation_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     },
     {
       "step_id": "clean_and_omit_private_material",
-      "action": "Strip private bodies, add omission receipt refs, and preserve only public replacement refs.",
+      "action": "Exclude credentials, operator conversation bodies, and provider payloads; import verified non-secret bodies; use replacement refs only when a body cannot stand alone.",
       "validation_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     },
     {

@@ -81,18 +81,22 @@ def test_public_root_is_allowed_as_target_and_blocked_as_source() -> None:
     assert source["hits"][0]["forbidden_class"] == "target_only_not_source"
 
 
-def test_public_safe_macro_import_allows_tool_and_proof_bodies_with_provenance() -> None:
+def test_public_safe_macro_import_allows_verified_tool_and_proof_bodies() -> None:
     policy = load_forbidden_classes(POLICY_PATH)
 
     tool = classify_public_safe_macro_import(
         {
             "material_class": "public_macro_tool_body",
             "private_state_risk": "low",
-            "public_safe_mode": "public_safe_body_with_light_edits",
+            "public_safe_mode": "verified_public_macro_body_light_edit",
             "source_refs": ["tools/meta/control/work_landing.py"],
             "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
             "validation_refs": ["microcosm-substrate/tests/test_private_state_scan.py"],
             "claim_ceiling": "algorithmic body import only",
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "verified_light_edit_recipe",
+            },
         },
         forbidden_classes=policy,
     )
@@ -100,35 +104,43 @@ def test_public_safe_macro_import_allows_tool_and_proof_bodies_with_provenance()
         {
             "material_class": "public_macro_proof_body",
             "private_state_risk": "low",
-            "public_safe_mode": "public_safe_body_with_light_edits",
+            "public_safe_mode": "verified_public_macro_proof_body_exact_copy",
             "source_refs": [
                 "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
             ],
             "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
             "validation_refs": ["microcosm-substrate/tests/test_private_state_scan.py"],
             "claim_ceiling": "proof body import only",
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "exact_source_digest_match",
+            },
         },
         forbidden_classes=policy,
     )
 
     assert tool["status"] == PASS
-    assert tool["route"] == "public_safe_with_light_edits"
+    assert tool["route"] == "verified_light_edit"
     assert proof["status"] == PASS
-    assert proof["route"] == "public_safe_with_light_edits"
+    assert proof["route"] == "verified_light_edit"
 
 
-def test_public_safe_macro_import_still_blocks_true_private_classes() -> None:
+def test_verified_macro_import_still_blocks_credential_bound_classes() -> None:
     policy = load_forbidden_classes(POLICY_PATH)
 
     result = classify_public_safe_macro_import(
         {
             "material_class": "raw_seed_body",
             "private_state_risk": "none",
-            "public_safe_mode": "direct_public_with_provenance",
+            "public_safe_mode": "direct_verified_macro_body",
             "source_refs": ["raw_seed.md"],
             "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
             "validation_refs": ["microcosm-substrate/tests/test_private_state_scan.py"],
             "claim_ceiling": "not allowed",
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "exact_source_digest_match",
+            },
         },
         forbidden_classes=policy,
     )

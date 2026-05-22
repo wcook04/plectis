@@ -1,15 +1,15 @@
 {
   "schema_version": "private_state_forbidden_classes_v1",
-  "authority_boundary": "scanner_policy_for_public_safe_slice",
+  "authority_boundary": "scanner_policy_for_verified_macro_substrate_import",
   "public_safe_macro_import": {
-    "policy_id": "public_safe_macro_import_classification_v1",
-    "source_context": "public_safe_macro_import",
-    "summary": "Body-bearing macro material is not forbidden merely because it is a body. True private classes remain blocked; public-safe macro proof, tool, pattern, and receipt bodies may flow with provenance, light edits, scanner coverage, and bounded claims.",
+    "policy_id": "verified_macro_import_classification_v1",
+    "source_context": "verified_macro_import",
+    "summary": "Body-bearing macro material is not forbidden merely because it is a body. Real non-secret macro proof, tool, pattern, and receipt bodies are the default import target; only secrets, credentials, operator conversation bodies, provider payloads, account-bound material, and raw operator voice stay blocked.",
     "risk_routing": {
-      "none": "direct_public",
-      "low": "public_safe_with_light_edits",
-      "medium": "case_review",
-      "high": "synthetic_only"
+      "none": "direct_verified_public",
+      "low": "verified_light_edit",
+      "medium": "case_review_for_secret_risk",
+      "high": "credential_or_account_bound_exclusion"
     },
     "public_safe_body_material_classes": [
       "public_macro_pattern_body",
@@ -23,11 +23,11 @@
       "provider_payload_body",
       "credential",
       "secret",
-      "recipient_packet_body",
-      "release_packet_body",
+      "credential_bearing_recipient_packet_body",
+      "hosted_release_packet_body",
       "live_operator_state",
       "non_public_evidence_body",
-      "private_operator_source_body"
+      "credential_bearing_operator_source_body"
     ],
     "required_public_body_fields": [
       "source_refs",
@@ -35,11 +35,13 @@
       "validation_refs",
       "claim_ceiling",
       "private_state_risk",
-      "public_safe_mode"
+      "public_safe_mode",
+      "body_import_verification"
     ],
     "allowed_public_safe_modes": [
-      "direct_public_with_provenance",
-      "public_safe_body_with_light_edits"
+      "direct_verified_macro_body",
+      "verified_public_macro_body_light_edit",
+      "verified_public_macro_proof_body_exact_copy"
     ],
     "claim_ceiling_forbidden_flags": [
       "release_authorized",
@@ -55,7 +57,7 @@
     {
       "class_id": "forbidden_content_body",
       "label": "forbidden content body",
-      "remediation": "replace with a synthetic replacement fixture or schema-only projection",
+      "remediation": "exclude credential/account-bound material; use synthetic fixtures only for scanner regression tests",
       "terms": [
         {
           "term_id": "raw_seed_body_sentinel",
@@ -74,7 +76,7 @@
     {
       "class_id": "live_operator_state",
       "label": "live operator state",
-      "remediation": "exclude or replace with a synthetic fixture",
+      "remediation": "exclude live operator state; use regression sentinels only in tests",
       "terms": [
         {
           "term_id": "operator_thread_body_sentinel",
@@ -89,7 +91,7 @@
     {
       "class_id": "non_public_evidence_body",
       "label": "non-public evidence body",
-      "remediation": "emit path-level lineage, an omission receipt, or route through public_safe_macro_import if the material is a public-safe body class with provenance",
+      "remediation": "emit an omission receipt only for credential/account-bound material; route real non-secret macro bodies through verified macro import",
       "terms": [
         {
           "term_id": "private_source_body_sentinel",
