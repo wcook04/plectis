@@ -10037,6 +10037,9 @@ class RuntimeShell:
             "microcosm intake",
         )
         projection_board = projection_preview.get("projection_intake_board", {})
+        flagship_tranche_board = projection_preview.get("flagship_tranche_board", {})
+        if not isinstance(flagship_tranche_board, dict):
+            flagship_tranche_board = {}
         cells = _rows(projection_board if isinstance(projection_board, dict) else {}, "projection_cells")
         cells_by_id = {str(row.get("cell_id") or ""): row for row in cells}
         runtime_cell = cells_by_id.get("runtime_reveal_import_bridge", {})
@@ -10153,7 +10156,8 @@ class RuntimeShell:
             "bridge_id": "runtime_reveal_import_bridge",
             "public_claim": (
                 "Microcosm turns macro-pattern intake into a runnable public path: "
-                "compile, spine, intake, reveal, and evidence drilldown."
+                "compile, spine, intake, reveal, evidence drilldown, and a flagship "
+                "macro tranche."
             ),
             "cold_reader_goal": "under_10_minutes_with_import_context_visible",
             "command": "microcosm intake",
@@ -10195,6 +10199,12 @@ class RuntimeShell:
                 },
             ],
             "projection_cell_count": len(cells),
+            "flagship_tranche_status": flagship_tranche_board.get("flagship_tranche_status"),
+            "flagship_tranche_lane_count": flagship_tranche_board.get("lane_count"),
+            "flagship_tranche_pattern_count": flagship_tranche_board.get(
+                "selected_pattern_count"
+            ),
+            "flagship_tranche_board": flagship_tranche_board,
             "ready_cell_count": projection_board.get("ready_cell_count"),
             "projection_status_protocol": projection_board.get("projection_status_protocol"),
             "projection_status_counts": projection_board.get("projection_status_counts", {}),
@@ -10205,6 +10215,7 @@ class RuntimeShell:
             "runtime_bridge_evidence_refs": [
                 bridge_receipt_ref,
                 reveal_receipt_ref,
+                "examples/macro_projection_import_protocol/exported_projection_import_bundle/flagship_tranche.json",
                 "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
                 "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
             ],

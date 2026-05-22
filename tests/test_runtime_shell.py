@@ -2321,6 +2321,16 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert intake["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert intake["bridge_id"] == "runtime_reveal_import_bridge"
     assert intake["projection_cell_count"] == 3
+    assert intake["flagship_tranche_status"] == "pass"
+    assert intake["flagship_tranche_lane_count"] == 6
+    assert intake["flagship_tranche_pattern_count"] >= 20
+    assert set(intake["flagship_tranche_board"]["selected_pattern_ids"]) >= {
+        "durable_agent_work_landing_replay_compound",
+        "formal_math_verifier_trace_repair_loop_compound",
+        "navigation_hologram_unified_route_plane",
+        "workingness_instrument",
+    }
+    assert intake["flagship_tranche_board"]["private_runtime_dependency_count"] == 0
     assert [step["command"] for step in intake["first_run_bridge"]] == [
         "microcosm compile <project>",
         "microcosm spine",

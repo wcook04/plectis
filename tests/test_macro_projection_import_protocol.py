@@ -59,11 +59,15 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["standalone_release_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
     assert result["private_runtime_dependency_count"] == 0
+    assert result["flagship_tranche_status"] == "pass"
+    assert result["flagship_tranche_lane_count"] == 6
+    assert result["flagship_tranche_pattern_count"] >= 20
     assert result["authority_ceiling"]["private_source_bodies_exported"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["projection_board"]["next_best_lane"] == "real_substrate_import_tranche"
     assert result["projection_board"]["intake_board_ref"] == "projection_import_intake_board.json"
     assert result["projection_board"]["standalone_release_board_embedded"] is True
+    assert result["projection_board"]["flagship_tranche_board_embedded"] is True
     assert result["projection_intake_board"]["ready_cell_count"] == 3
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
@@ -141,6 +145,32 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         receipt_ref.endswith("projection_import_intake_board.json")
         for receipt_ref in result["receipt_paths"]
     )
+    flagship_board = result["flagship_tranche_board"]
+    assert flagship_board["status"] == "pass"
+    assert flagship_board["lane_ids"] == [
+        "navigation_option_surface",
+        "observatory_provenance_diagnostics",
+        "pattern_doctrine_compiler",
+        "proof_formal_kernel",
+        "prover_evaluator_lab",
+        "work_landing_governance",
+    ]
+    assert set(flagship_board["public_safe_body_material_ids"]) == {
+        "lean_certificate_kernel_body_import",
+        "work_landing_tool_body_import",
+    }
+    assert set(flagship_board["selected_pattern_ids"]) >= {
+        "formal_math_verifier_trace_repair_loop_compound",
+        "durable_agent_work_landing_replay_compound",
+        "navigation_hologram_unified_route_plane",
+        "pattern_deliverables_registry",
+        "workingness_instrument",
+    }
+    assert flagship_board["private_runtime_dependency_count"] == 0
+    assert flagship_board["macro_origin_refs_runtime_required"] is False
+    assert flagship_board["cold_reader_answers"]["local_run_surface"].startswith("microcosm intake")
+    for ref in flagship_board["release_artifact_refs"]:
+        assert (MICROCOSM_ROOT / ref.split("::", 1)[0]).exists()
 
 
 def test_macro_projection_import_protocol_receipts_are_public_relative_and_redacted(
@@ -162,6 +192,7 @@ def test_macro_projection_import_protocol_receipts_are_public_relative_and_redac
     assert result["status"] == "pass"
     assert result["standalone_release_board"]["standalone_release_candidate"] is True
     assert result["standalone_release_board"]["private_runtime_dependency_count"] == 0
+    assert result["flagship_tranche_board"]["flagship_tranche_status"] == "pass"
     for receipt_ref in result["receipt_paths"]:
         receipt_file = public_root / receipt_ref
         assert receipt_file.is_file()
@@ -202,6 +233,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["standalone_release_status"] == "pass"
     assert result["standalone_release_board"]["macro_origin_refs_runtime_required"] is False
     assert result["standalone_release_board"]["private_runtime_dependency_count"] == 0
+    assert result["flagship_tranche_board"]["lane_count"] == 6
+    assert result["flagship_tranche_board"]["selected_pattern_count"] >= 20
     assert {
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
@@ -231,6 +264,9 @@ def test_macro_projection_import_plan_preview_is_non_writing() -> None:
     }
     assert result["standalone_release_board"]["runtime_dependency_status"] == "pass"
     assert result["standalone_release_board"]["macro_origin_refs_runtime_required"] is False
+    assert result["flagship_tranche_board"]["status"] == "pass"
+    assert result["flagship_tranche_board"]["standalone_release_status"] == "pass"
+    assert result["flagship_tranche_board"]["selected_pattern_count"] >= 20
     assert all(
         row["selected_pattern_ids"]
         for row in result["projection_intake_board"]["projection_cells"]
