@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -48,6 +49,18 @@ README_NAMES = {"README.md", "README.rst", "README.txt", "README"}
 SOURCE_SUFFIXES = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".swift"}
 DOC_SUFFIXES = {".md", ".rst", ".txt"}
 PYTHON_LENS_STATE = "python_lens.json"
+STD_PYTHON_NAVIGATION_LADDER = [
+    "module_docs",
+    "file_card",
+    "symbol_capsule",
+    "graph_context",
+    "source_span",
+]
+PROBE_DISPOSITION_OUTCOMES = [
+    "file_local_defect",
+    "standard_amendment_candidate",
+    "nothing_to_refine",
+]
 
 
 def _project_name(project: Path) -> str:
@@ -257,13 +270,10 @@ def init_project(project_path: str | Path) -> dict[str, Any]:
     }
 
 
-def index_project(project_path: str | Path) -> dict[str, Any]:
-    project = Path(project_path).expanduser().resolve(strict=False)
-    if not (_state_dir(project) / "project_manifest.json").is_file():
-        init_project(project)
+def _project_catalog_payload(project: Path) -> dict[str, Any]:
     files = _walk_project(project)
     by_role = _rows_by_role(files)
-    catalog = {
+    return {
         **_base_payload("microcosm_project_catalog_v1", project),
         "file_count": len(files),
         "role_counts": {role: len(paths) for role, paths in by_role.items()},
@@ -277,13 +287,20 @@ def index_project(project_path: str | Path) -> dict[str, Any]:
             {Path(path).parts[0] for path in by_role.get("test", []) if Path(path).parts}
         ),
     }
+
+
+def index_project(project_path: str | Path) -> dict[str, Any]:
+    project = Path(project_path).expanduser().resolve(strict=False)
+    if not (_state_dir(project) / "project_manifest.json").is_file():
+        init_project(project)
+    catalog = _project_catalog_payload(project)
     write_json_atomic(_state_dir(project) / "catalog.json", catalog)
     architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.index",
         PASS,
-        file_count=len(files),
+        file_count=catalog["file_count"],
         catalog_ref=f"{STATE_DIR}/catalog.json",
         evidence_ref=f"{STATE_DIR}/{EVIDENCE_DIR}/index.json",
     )
@@ -292,7 +309,7 @@ def index_project(project_path: str | Path) -> dict[str, Any]:
     return {
         **_base_payload("microcosm_project_index_result_v1", project),
         "catalog_ref": f"{STATE_DIR}/catalog.json",
-        "file_count": len(files),
+        "file_count": catalog["file_count"],
         "role_counts": catalog["role_counts"],
         "evidence_ref": evidence_ref,
     }
@@ -448,9 +465,10 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
     return payload
 
 
-def _read_text_prefix(path: Path, limit: int = 20000) -> str:
+def _read_text_prefix(path: Path, limit: int | None = 20000) -> str:
     try:
-        return path.read_text(encoding="utf-8", errors="ignore")[:limit]
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        return text if limit is None else text[:limit]
     except OSError:
         return ""
 
@@ -496,10 +514,204 @@ def _python_route(route_id: str, title: str, refs: list[str], readiness: str) ->
     }
 
 
-def python_lens(project_path: str | Path) -> dict[str, Any]:
+def _python_symbol_kind(node: ast.AST) -> str:
+    if isinstance(node, ast.ClassDef):
+        return "class"
+    if isinstance(node, ast.AsyncFunctionDef):
+        return "async_function"
+    return "function"
+
+
+def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
+    line_count = max(1, len(text.splitlines()))
+    module_span = {
+        "span_id": f"{rel}::module",
+        "path": rel,
+        "symbol_name": "<module>",
+        "symbol_kind": "module",
+        "line_start": 1,
+        "line_end": line_count,
+        "depth_band": "source_span",
+        "body_redacted": True,
+        "authority": "source_span_locator_not_source_body_or_correctness_authority",
+    }
+    try:
+        tree = ast.parse(text)
+    except SyntaxError as exc:
+        return {
+            "parse_status": "syntax_error",
+            "module_has_docstring": False,
+            "source_span_rows": [module_span],
+            "symbol_capsule_rows": [],
+            "import_edges": [],
+            "parse_error": {
+                "path": rel,
+                "line": exc.lineno,
+                "message": exc.msg,
+                "body_redacted": True,
+            },
+        }
+
+    source_span_rows = [module_span]
+    symbol_capsule_rows: list[dict[str, Any]] = []
+
+    def visit_scope(node: ast.AST, parents: list[str]) -> None:
+        body = getattr(node, "body", [])
+        for child in body if isinstance(body, list) else []:
+            if isinstance(child, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
+                qualname = ".".join([*parents, child.name])
+                line_start = int(getattr(child, "lineno", 1))
+                line_end = int(getattr(child, "end_lineno", line_start))
+                symbol_kind = _python_symbol_kind(child)
+                span_id = f"{rel}::{qualname}"
+                source_span_rows.append(
+                    {
+                        "span_id": span_id,
+                        "path": rel,
+                        "symbol_name": qualname,
+                        "symbol_kind": symbol_kind,
+                        "line_start": line_start,
+                        "line_end": line_end,
+                        "depth_band": "source_span",
+                        "body_redacted": True,
+                        "authority": "source_span_locator_not_source_body_or_correctness_authority",
+                    }
+                )
+                symbol_capsule_rows.append(
+                    {
+                        "symbol_id": span_id,
+                        "path": rel,
+                        "symbol_name": qualname,
+                        "symbol_kind": symbol_kind,
+                        "source_span_ref": span_id,
+                        "depth_band": "symbol_capsule",
+                        "body_redacted": True,
+                    }
+                )
+                visit_scope(child, [*parents, child.name])
+            else:
+                visit_scope(child, parents)
+
+    visit_scope(tree, [])
+    import_edges: list[dict[str, Any]] = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                import_edges.append(
+                    {
+                        "path": rel,
+                        "edge": "imports",
+                        "target": alias.name,
+                        "line": int(getattr(node, "lineno", 1)),
+                        "depth_band": "graph_context",
+                    }
+                )
+        elif isinstance(node, ast.ImportFrom):
+            prefix = "." * int(getattr(node, "level", 0))
+            target = f"{prefix}{node.module or ''}"
+            import_edges.append(
+                {
+                    "path": rel,
+                    "edge": "imports_from",
+                    "target": target,
+                    "line": int(getattr(node, "lineno", 1)),
+                    "depth_band": "graph_context",
+                }
+            )
+    return {
+        "parse_status": "parsed",
+        "module_has_docstring": ast.get_docstring(tree) is not None,
+        "source_span_rows": source_span_rows,
+        "symbol_capsule_rows": symbol_capsule_rows,
+        "import_edges": import_edges[:48],
+        "parse_error": None,
+    }
+
+
+def _python_route_probe_tasks(route_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    depth_by_route = {
+        "python_package_metadata_route": "file_card",
+        "python_source_core_route": "source_span",
+        "python_test_behavior_route": "source_span",
+        "python_entrypoint_route": "source_span",
+    }
+    prompts_by_route = {
+        "python_package_metadata_route": "Find the package metadata source for this project.",
+        "python_source_core_route": "Find the primary Python source span for this project.",
+        "python_test_behavior_route": "Find the source span that proves Python behavior is tested.",
+        "python_entrypoint_route": "Find the source span for a runnable Python entrypoint, if this project has one.",
+    }
+    tasks: list[dict[str, Any]] = []
+    for row in route_rows:
+        route_id = str(row.get("route_id") or "")
+        readiness = str(row.get("readiness") or "missing")
+        disposition = "nothing_to_refine" if readiness == PASS else "file_local_defect"
+        if route_id == "python_entrypoint_route" and readiness != PASS:
+            disposition = "nothing_to_refine"
+        tasks.append(
+            {
+                "task_id": f"probe:{route_id}",
+                "route_id": route_id,
+                "prompt": prompts_by_route.get(route_id, f"Find the source evidence for {route_id}."),
+                "expected_depth_band": depth_by_route.get(route_id, "file_card"),
+                "expected_refs": row.get("grounded_refs", []),
+                "readiness": readiness,
+                "probe_disposition": disposition,
+                "reentry_condition": (
+                    "project declares a runnable Python entrypoint"
+                    if route_id == "python_entrypoint_route" and readiness != PASS
+                    else "route readiness changes"
+                ),
+            }
+        )
+    return tasks
+
+
+def _python_probe_disposition_rows(
+    route_probe_tasks: list[dict[str, Any]],
+    parse_error_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for task in route_probe_tasks:
+        rows.append(
+            {
+                "disposition_id": f"disposition:{task['route_id']}",
+                "subject_id": task["route_id"],
+                "subject_kind": "route_probe_task",
+                "outcome": task["probe_disposition"],
+                "readiness": task["readiness"],
+                "expected_depth_band": task["expected_depth_band"],
+                "reentry_condition": task["reentry_condition"],
+            }
+        )
+    for row in parse_error_rows:
+        rows.append(
+            {
+                "disposition_id": f"disposition:parse:{row.get('path')}",
+                "subject_id": row.get("path"),
+                "subject_kind": "python_parse_projection",
+                "outcome": "file_local_defect",
+                "readiness": "blocked",
+                "expected_depth_band": "source_span",
+                "reentry_condition": "syntax parses or file is removed from Python lens scope",
+                "line": row.get("line"),
+                "body_redacted": True,
+            }
+        )
+    return rows
+
+
+def _disposition_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
+    return {
+        outcome: sum(1 for row in rows if row.get("outcome") == outcome)
+        for outcome in PROBE_DISPOSITION_OUTCOMES
+    }
+
+
+def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[str, Any]:
     """Project Python route/readiness signals without exposing source bodies."""
     project = Path(project_path).expanduser().resolve(strict=False)
-    catalog = catalog_project(project)
+    catalog = catalog_project(project) if write_state else _project_catalog_payload(project)
     roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
     files = catalog.get("files", []) if isinstance(catalog.get("files"), list) else []
     python_files = [
@@ -508,15 +720,30 @@ def python_lens(project_path: str | Path) -> dict[str, Any]:
         if isinstance(row, dict) and str(row.get("suffix") or "") == ".py"
     ]
     path_rows: list[dict[str, Any]] = []
+    source_span_rows: list[dict[str, Any]] = []
+    symbol_capsule_rows: list[dict[str, Any]] = []
+    import_edges: list[dict[str, Any]] = []
+    parse_error_rows: list[dict[str, Any]] = []
+    module_docstring_refs: list[str] = []
     for row in python_files:
         rel = str(row.get("path") or "")
-        text = _read_text_prefix(project / rel)
+        text = _read_text_prefix(project / rel, limit=None)
+        span_projection = _python_span_projection(rel, text)
+        source_span_rows.extend(span_projection["source_span_rows"])
+        symbol_capsule_rows.extend(span_projection["symbol_capsule_rows"])
+        import_edges.extend(span_projection["import_edges"])
+        if span_projection["module_has_docstring"]:
+            module_docstring_refs.append(rel)
+        parse_error = span_projection.get("parse_error")
+        if isinstance(parse_error, dict):
+            parse_error_rows.append(parse_error)
         path_rows.append(
             {
                 "path": rel,
                 "catalog_role": row.get("role"),
                 "python_role": _python_lens_role(row),
                 "bytes": row.get("bytes", 0),
+                "parse_status": span_projection["parse_status"],
                 "has_main_guard": "__main__" in text and "__name__" in text,
                 "relative_import_count": sum(
                     1 for line in text.splitlines() if line.strip().startswith("from .")
@@ -602,6 +829,47 @@ def python_lens(project_path: str | Path) -> dict[str, Any]:
             PASS if entrypoint_refs else "missing",
         ),
     ]
+    route_probe_tasks = _python_route_probe_tasks(route_rows)
+    probe_dispositions = _python_probe_disposition_rows(route_probe_tasks, parse_error_rows)
+    disposition_counts = _disposition_counts(probe_dispositions)
+    depth_band_coverage = {
+        "module_docs": len(module_docstring_refs),
+        "file_card": len(path_rows),
+        "symbol_capsule": len(symbol_capsule_rows),
+        "graph_context": len(import_edges),
+        "source_span": len(source_span_rows),
+    }
+    navigation_assay = {
+        "schema_version": "microcosm_python_navigation_assay_v1",
+        "assay_id": "std_python_microcosm_navigation_assay",
+        "target_surface": "project_python_route_lens",
+        "standard_ref": "macro:codex/standards/std_python.py::navigation_contract",
+        "canonical_depth_ladder": STD_PYTHON_NAVIGATION_LADDER,
+        "adapter_bands_quarantined": [
+            "cluster_flag",
+            "flag",
+            "card",
+            "source_span",
+        ],
+        "depth_band_coverage": depth_band_coverage,
+        "route_probe_tasks": route_probe_tasks,
+        "probe_dispositions": probe_dispositions,
+        "probe_disposition_counts": disposition_counts,
+        "standard_amendment_candidates": [
+            row
+            for row in probe_dispositions
+            if row.get("outcome") == "standard_amendment_candidate"
+        ],
+        "file_local_defect_count": disposition_counts["file_local_defect"],
+        "standard_amendment_candidate_count": disposition_counts["standard_amendment_candidate"],
+        "nothing_to_refine_count": disposition_counts["nothing_to_refine"],
+        "source_span_count": len(source_span_rows),
+        "symbol_capsule_count": len(symbol_capsule_rows),
+        "graph_edge_count": len(import_edges),
+        "parse_error_count": len(parse_error_rows),
+        "authority": "generated_project_local_assay_not_std_python_source_authority",
+        "reentry_condition": "rerun after Python file, catalog, route-readiness, or std_python ladder changes",
+    }
     payload = {
         **_base_payload("microcosm_project_python_lens_v1", project),
         "lens_id": "project_python_route_lens",
@@ -614,12 +882,21 @@ def python_lens(project_path: str | Path) -> dict[str, Any]:
         "python_file_count": len(path_rows),
         "package_roots": package_roots,
         "path_rows": path_rows,
+        "symbol_capsule_rows": symbol_capsule_rows,
+        "source_span_rows": source_span_rows,
+        "graph_context_edges": import_edges,
+        "source_span_count": len(source_span_rows),
+        "symbol_capsule_count": len(symbol_capsule_rows),
+        "graph_edge_count": len(import_edges),
         "readiness_checks": checks,
         "passing_check_count": sum(1 for row in checks if row["status"] == PASS),
         "missing_check_count": sum(1 for row in checks if row["status"] != PASS),
         "route_rows": route_rows,
+        "navigation_assay": navigation_assay,
         "ready_route_count": sum(1 for row in route_rows if row["readiness"] == PASS),
         "standard_refs": [
+            "macro:codex/standards/std_python.py::navigation_contract",
+            "macro:codex/standards/std_navigation_population_acceptance.json::probe_disposition_contract",
             "standards/std_microcosm_route_decision.json",
             "standards/std_microcosm_source_capsule.json",
             "standards/std_microcosm_evidence_cell.json",
@@ -630,15 +907,22 @@ def python_lens(project_path: str | Path) -> dict[str, Any]:
             "source_files_mutated": False,
             "source_bodies_exported": False,
             "static_analysis_authority_claim": False,
+            "source_span_authority_claim": False,
             "private_data_equivalence_authorized": False,
         },
         "body_redacted": True,
         "anti_claim": (
-            "The Python lens is a public-safe path and route-readiness read-model. "
-            "It does not execute Python, infer correctness, export source bodies, mutate "
-            "source, call providers, or claim production/package quality."
+            "The Python lens is a public-safe path, source-span, and route-readiness "
+            "read-model. It does not execute Python, infer correctness, export source "
+            "bodies, mutate source, call providers, or claim production/package quality."
         ),
+        "state_written": write_state,
     }
+    if not write_state:
+        payload["evidence_ref"] = None
+        payload["event_id"] = None
+        return payload
+
     write_json_atomic(_state_dir(project) / PYTHON_LENS_STATE, payload)
     architecture_kernel.write_project_architecture(project)
     event = _event(
@@ -1051,8 +1335,27 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         "file_count": index_result.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
         "python_lens_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        "python_navigation_assay_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::navigation_assay",
         "python_file_count": python_projection.get("python_file_count", 0),
         "python_ready_route_count": python_projection.get("ready_route_count", 0),
+        "python_source_span_count": python_projection.get("source_span_count", 0),
+        "python_navigation_assay": {
+            "assay_id": (
+                python_projection.get("navigation_assay", {}).get("assay_id")
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else None
+            ),
+            "canonical_depth_ladder": (
+                python_projection.get("navigation_assay", {}).get("canonical_depth_ladder", [])
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else []
+            ),
+            "probe_disposition_counts": (
+                python_projection.get("navigation_assay", {}).get("probe_disposition_counts", {})
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else {}
+            ),
+        },
         "primitive_ids": architecture.get("primitive_ids", []),
         "passing_pattern_count": patterns.get("passing_pattern_count", 0),
         "route_count": routes.get("route_count", 0),

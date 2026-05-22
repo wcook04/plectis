@@ -62,7 +62,42 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert python_lens["ready_route_count"] == 3
     assert python_lens["package_roots"] == ["src/scratch_app"]
     assert python_lens["body_redacted"] is True
+    assert python_lens["state_written"] is True
     assert python_lens["authority_ceiling"]["source_bodies_exported"] is False
+    assert python_lens["source_span_count"] == 3
+    assert python_lens["symbol_capsule_count"] == 1
+    assert python_lens["graph_edge_count"] == 1
+    assert python_lens["navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
+    assert python_lens["navigation_assay"]["canonical_depth_ladder"] == [
+        "module_docs",
+        "file_card",
+        "symbol_capsule",
+        "graph_context",
+        "source_span",
+    ]
+    assert python_lens["navigation_assay"]["depth_band_coverage"] == {
+        "module_docs": 0,
+        "file_card": 2,
+        "symbol_capsule": 1,
+        "graph_context": 1,
+        "source_span": 3,
+    }
+    assert python_lens["navigation_assay"]["probe_disposition_counts"] == {
+        "file_local_defect": 0,
+        "standard_amendment_candidate": 0,
+        "nothing_to_refine": 4,
+    }
+    assert python_lens["navigation_assay"]["route_probe_tasks"][0]["expected_depth_band"] == "file_card"
+    assert python_lens["navigation_assay"]["route_probe_tasks"][1]["expected_depth_band"] == "source_span"
+    assert python_lens["navigation_assay"]["standard_amendment_candidate_count"] == 0
+    assert python_lens["navigation_assay"]["parse_error_count"] == 0
+    test_span = next(
+        row
+        for row in python_lens["source_span_rows"]
+        if row["span_id"] == "tests/test_smoke.py::test_value"
+    )
+    assert test_span["line_start"] == 4
+    assert test_span["body_redacted"] is True
     assert all(row["body_redacted"] is True for row in python_lens["path_rows"])
     assert {row["route_id"]: row["readiness"] for row in python_lens["route_rows"]} == {
         "python_package_metadata_route": "pass",
@@ -152,8 +187,11 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["headline"] == "repo -> .microcosm"
     assert compiled["selected_route_id"] == "readme_onboarding_route"
     assert compiled["python_lens_ref"] == ".microcosm/python_lens.json"
+    assert compiled["python_navigation_assay_ref"] == ".microcosm/python_lens.json::navigation_assay"
     assert compiled["python_file_count"] == 2
     assert compiled["python_ready_route_count"] == 3
+    assert compiled["python_source_span_count"] == 3
+    assert compiled["python_navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
     assert compiled["work_id"] == "work_0001"
     assert compiled["idempotent_replay"] is True
     assert compiled["source_files_mutated"] is False
@@ -178,6 +216,25 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in sorted((project / ".microcosm").rglob("*.json")))
     assert tmp_path.as_posix() not in state_text
     assert "/Users/" not in state_text
+
+
+def test_python_lens_can_emit_navigation_assay_without_writing_state(tmp_path: Path) -> None:
+    project = _scratch_project(tmp_path)
+
+    python_lens = project_substrate.python_lens(project, write_state=False)
+
+    assert python_lens["status"] == "pass"
+    assert python_lens["state_written"] is False
+    assert python_lens["evidence_ref"] is None
+    assert python_lens["event_id"] is None
+    assert python_lens["navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
+    assert python_lens["navigation_assay"]["probe_disposition_counts"] == {
+        "file_local_defect": 0,
+        "standard_amendment_candidate": 0,
+        "nothing_to_refine": 4,
+    }
+    assert python_lens["source_span_count"] == 3
+    assert not (project / ".microcosm").exists()
 
 
 def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
