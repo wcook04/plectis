@@ -1,0 +1,37 @@
+{
+  "cold_replays": [
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "proof.inspect.repo_state.v1",
+        "verdict.inspect.policy.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proposal_id": "proposal.inspect_repo_state",
+      "replay_id": "cold.readonly_inspection.v1",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "proof.write.scoped_config.v1",
+        "rollback.synthetic_config_write.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proposal_id": "proposal.scoped_config_change",
+      "replay_id": "cold.scoped_config_write.v1",
+      "status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "proof.rollback.scoped_config.v1",
+        "rollback.rollback_verification.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proposal_id": "proposal.rollback_config_change",
+      "replay_id": "cold.rollback_config_change.v1",
+      "status": "pass"
+    }
+  ]
+}

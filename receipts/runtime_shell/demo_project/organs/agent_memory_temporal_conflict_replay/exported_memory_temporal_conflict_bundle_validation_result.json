@@ -22,9 +22,9 @@
     "vector_recall_without_evidence_authorized": false
   },
   "bundle_id": "agent_memory_temporal_conflict_replay_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-22T06:15:12+00:00",
+  "created_at": "2026-05-22T07:06:32+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,

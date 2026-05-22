@@ -32,7 +32,8 @@
     "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
     "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay",
     "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay --acceptance-out receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
-    "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay --acceptance-out receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
+    "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay --acceptance-out receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
+    "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
   ],
   "accepted_current_authority_organs": [
     {
@@ -465,6 +466,18 @@
       "organ_id": "mcp_tool_authority_replay",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+        "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+      ],
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization"
     }
   ],
   "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, private-data equivalence, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",
@@ -495,7 +508,8 @@
     "status": "pass",
     "target_shape_tactic_routing_authority": "pre_execution_metadata_only_not_proof_authority",
     "trading_or_financial_advice_authority": false,
-    "whole_wave1_correctness": false
+    "whole_wave1_correctness": false,
+    "proof_derived_governed_mutation_authorization_authority": "synthetic governed-mutation authorization receipts only; no standing credential, live cloud/account, provider-payload, source-mutation, irreversible-mutation, benchmark, or release authority"
   },
   "deferred_organs": [],
   "generated_from": [
@@ -533,8 +547,8 @@
   "recipient_work_authorized": false,
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
-  "standard_count": 80,
+  "standard_count": 81,
   "standards_registry_ref": "core/standards_registry.json",
-  "status": "accepted_runtime_spine_mcp_tool_authority_replay_bound",
+  "status": "accepted_runtime_spine_proof_derived_governed_mutation_authorization_bound",
   "trading_or_financial_advice_authorized": false
 }

@@ -1,0 +1,48 @@
+{
+  "copied_private_proof_bodies": false,
+  "cleaned": [
+    "private path refs collapsed to public replacement refs",
+    "execution identities replaced with synthetic metadata refs",
+    "side-effect diffs reduced to body-redacted synthetic handles"
+  ],
+  "omitted": [
+    "private proof bodies",
+    "provider payloads",
+    "live credentials",
+    "account identifiers",
+    "irreversible mutation authority"
+  ],
+  "protocol_id": "projection.protocol.proof_derived_governed_mutation_authorization.v1",
+  "projection_receipt_refs": [
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/mutation_proposals.json",
+    "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/proof_evidence_cells.json",
+    "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_verdicts.json",
+    "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle"
+  ],
+  "reimplemented": [
+    "pre-execution authorization reducer",
+    "proof-cell and policy-verdict join",
+    "side-effect ledger and rollback receipt gate",
+    "negative-case coverage receipt"
+  ],
+  "source_pattern_ids": [
+    "proof_derived_governed_mutation_authorization_compound",
+    "mission_transaction_landing",
+    "work_ledger_runtime_claims",
+    "mcp_tool_authority_replay_compound",
+    "truth_maintenance_typed_authority_classes"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::proof_derived_governed_mutation_authorization_compound",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/control/scoped_commit.py",
+    "tools/meta/factory/work_ledger.py",
+    "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+  ]
+}

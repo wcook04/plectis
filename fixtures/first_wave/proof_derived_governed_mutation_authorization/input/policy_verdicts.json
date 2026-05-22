@@ -1,0 +1,76 @@
+{
+  "verdicts": [
+    {
+      "body_redacted": true,
+      "evaluator_id": "policy_gate.synthetic",
+      "evidence_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "hidden_policy_vote": false,
+      "proposal_id": "proposal.inspect_repo_state",
+      "verdict": "allow",
+      "verdict_id": "verdict.inspect.policy.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "evaluator_id": "owner_scope.synthetic",
+      "evidence_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "hidden_policy_vote": false,
+      "proposal_id": "proposal.inspect_repo_state",
+      "verdict": "warn",
+      "verdict_id": "verdict.inspect.owner.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "evaluator_id": "policy_gate.synthetic",
+      "evidence_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "hidden_policy_vote": false,
+      "proposal_id": "proposal.scoped_config_change",
+      "verdict": "allow",
+      "verdict_id": "verdict.write.policy.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "evaluator_id": "owner_scope.synthetic",
+      "evidence_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "hidden_policy_vote": false,
+      "proposal_id": "proposal.scoped_config_change",
+      "verdict": "warn",
+      "verdict_id": "verdict.write.owner.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "evaluator_id": "policy_gate.synthetic",
+      "evidence_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "hidden_policy_vote": false,
+      "proposal_id": "proposal.rollback_config_change",
+      "verdict": "allow",
+      "verdict_id": "verdict.rollback.policy.v1",
+      "visible_to_receipt": true
+    },
+    {
+      "body_redacted": true,
+      "evaluator_id": "owner_scope.synthetic",
+      "evidence_refs": [
+        "proof.rollback.scoped_config.v1"
+      ],
+      "hidden_policy_vote": false,
+      "proposal_id": "proposal.rollback_config_change",
+      "verdict": "warn",
+      "verdict_id": "verdict.rollback.owner.v1",
+      "visible_to_receipt": true
+    }
+  ]
+}

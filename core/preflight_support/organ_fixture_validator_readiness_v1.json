@@ -791,6 +791,34 @@
       ],
       "fixture_manifest": "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json",
       "organ_id": "mcp_tool_authority_replay"
+    },
+    {
+      "build_dependencies": [
+        "mission_transaction_work_spine",
+        "mcp_tool_authority_replay",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "fixture_id": "fixture::proof_derived_governed_mutation_authorization::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/projection_protocol.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/authorization_policy.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/mutation_proposals.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/proof_evidence_cells.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_verdicts.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/side_effect_ledger.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/rollback_receipts.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/cold_replay.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/standing_credential_authority.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_after_execution.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/hidden_policy_vote.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/live_cloud_credential.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/irreversible_mutation.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/unlogged_side_effect.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/consensus_without_evidence.json",
+        "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/final_answer_only_success.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/proof_derived_governed_mutation_authorization.fixture_manifest.json",
+      "organ_id": "proof_derived_governed_mutation_authorization"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

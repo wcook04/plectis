@@ -48,6 +48,7 @@ explanation, and assimilation primitives, not through production claims.
 - `agent_memory_temporal_conflict_replay`
 - `sleeper_memory_poisoning_quarantine_replay`
 - `mcp_tool_authority_replay`
+- `proof_derived_governed_mutation_authorization`
 
 ## Rules
 
@@ -245,6 +246,14 @@ explanation, and assimilation primitives, not through production claims.
    must not access live MCP accounts, export credentials or provider payloads,
    obey tool output as instruction, accept unapproved side effects, claim
    benchmark safety, mutate source, or authorize release.
+   The `proof_derived_governed_mutation_authorization` organ is the runnable
+   public governed-mutation authorization lane: use
+   `proof-derived-governed-mutation-authorization` or `replay-gauntlet` to
+   validate synthetic intent capsules, proof cells, visible policy verdict refs,
+   ephemeral execution identity refs, side-effect diff refs, rollback receipts,
+   cold replay receipts, and negative cases. It must not use standing
+   credentials, access live cloud/accounts, export proof bodies or provider
+   payloads, claim benchmark safety, mutate source, or authorize release.
    The view-quality action-map loop is `microcosm view-quality`; it should
    expose one typed next-action row per requested view, including missing and
    partial rows, plus a hot-action rollup that is explicitly a projection and

@@ -109,7 +109,14 @@
     "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
     "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
     "standards/std_microcosm_mcp_tool_authority_replay.json",
-    "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json"
+    "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
+    "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
+    "core/fixture_manifests/proof_derived_governed_mutation_authorization.fixture_manifest.json"
   ],
   "schema_version": "public_preflight_support_validator_receipt_coverage_map_v1"
 }

@@ -26,7 +26,7 @@
     "cp1_beta_down_over_up"
   ],
   "cp2_prediction_count": 2,
-  "created_at": "2026-05-22T06:30:57+00:00",
+  "created_at": "2026-05-22T07:07:28+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -143,9 +143,9 @@
   ],
   "receipt_id": "prediction_oracle_reconciliation_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3044/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3044/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3044/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3053/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3053/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3053/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
     "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
   ],
   "reconciliation_rows": [

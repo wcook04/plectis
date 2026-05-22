@@ -209,6 +209,22 @@
       ],
       "organ_id": "mcp_tool_authority_replay",
       "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "proof_derived_governed_mutation_authorization_negative_cases",
+      "expected_negative_cases": [
+        "standing_credential_authority",
+        "policy_after_execution",
+        "hidden_policy_vote",
+        "live_cloud_credential",
+        "irreversible_mutation",
+        "unlogged_side_effect",
+        "consensus_without_evidence",
+        "final_answer_only_success"
+      ],
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "status": "covered_by_fixture_manifest"
     }
   ],
   "schema_version": "public_preflight_support_fixture_negative_case_matrix_v1"

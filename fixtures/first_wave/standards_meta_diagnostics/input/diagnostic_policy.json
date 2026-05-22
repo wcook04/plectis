@@ -34,11 +34,12 @@
     "agent_monitor_redteam_falsification_replay",
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay"
+    "mcp_tool_authority_replay",
+    "proof_derived_governed_mutation_authorization"
   ],
   "body_redacted": true,
-  "minimum_runtime_contract_count": 34,
-  "minimum_standard_mapping_count": 34,
+  "minimum_runtime_contract_count": 36,
+  "minimum_standard_mapping_count": 36,
   "private_data_equivalence_claim": false,
   "provider_calls_authorized": false,
   "publication_authorized": false,

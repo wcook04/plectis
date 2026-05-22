@@ -164,6 +164,15 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    untrusted-output data boundaries, cold replay receipts, and
    credential/live-account/tool-output-as-instruction denials before trusting
    tool-authority claims.
+31. Run `microcosm proof-derived-governed-mutation-authorization
+   run-authorization-bundle --input
+   examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle
+   --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization`
+   or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
+   proof-derived-governed-mutation-authorization run-authorization-bundle` path
+   to inspect proof cells, visible policy verdicts, side-effect diffs, rollback
+   receipts, cold replay, and standing-credential/policy-after-execution
+   denials before trusting governed-mutation authorization claims.
 30. Run `microcosm benchmark-lab` or
    `PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab` to inspect
    synthetic repository issue/patch benchmark transactions, oracle diffs,
@@ -226,6 +235,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
 PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
 PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab
 PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard
 PYTHONPATH=src python3 -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer

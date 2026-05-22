@@ -153,6 +153,7 @@ microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input 
 microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
 microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
 microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+microcosm proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
 microcosm benchmark-lab
 microcosm legibility-scorecard
 microcosm intake
@@ -206,6 +207,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification
 PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
 PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
 PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab
 PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard
 PYTHONPATH=src python3 -m microcosm_core.cli intake
@@ -518,6 +520,7 @@ the local substrate loop:
 33. `agent_memory_temporal_conflict_replay`
 34. `sleeper_memory_poisoning_quarantine_replay`
 35. `mcp_tool_authority_replay`
+36. `proof_derived_governed_mutation_authorization`
 
 `agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
 integrity boundary: it validates locked evaluator ids, evaluator config hashes,
@@ -577,6 +580,18 @@ tool-output-as-instruction, unapproved side effects, live account access,
 final-answer-only grading, missing rollback receipts, and unredacted tool
 payloads without claiming live MCP account safety, provider execution,
 benchmark performance, source mutation, or release authority.
+
+`proof_derived_governed_mutation_authorization` is the governed-mutation
+authority boundary: it validates synthetic intent capsules, proof evidence
+cells, visible policy verdict refs, ephemeral execution identity refs, logged
+side-effect diffs, rollback receipts, and cold replay receipts before mutation
+authorization language is admitted. Run `microcosm
+proof-derived-governed-mutation-authorization run-authorization-bundle` to
+inspect the exported bundle. The organ rejects standing credential authority,
+policy-after-execution, hidden policy votes, live cloud credentials,
+irreversible mutation, unlogged side effects, consensus without evidence, and
+final-answer-only success without claiming live account action, source mutation,
+provider execution, benchmark performance, or release authority.
 
 `mission_transaction_work_spine` now includes the public checkpoint lane
 decision receipt: clean and mixed owned-path work can choose scoped commit,
@@ -840,6 +855,8 @@ PYTHONPATH=src python3 -m microcosm_core.organs.sleeper_memory_poisoning_quarant
 PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay --acceptance-out receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
 PYTHONPATH=src python3 -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics --acceptance-out receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics
 PYTHONPATH=src python3 -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map --acceptance-out receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json

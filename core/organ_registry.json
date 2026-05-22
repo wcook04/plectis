@@ -485,9 +485,22 @@
       "runner": "microcosm_core.organs.mcp_tool_authority_replay",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+        "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+      ],
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "runner": "microcosm_core.organs.proof_derived_governed_mutation_authorization",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization"
     }
   ],
-  "registry_status": "current_authority_public_runtime_spine_mcp_tool_authority_replay_bound",
+  "registry_status": "current_authority_public_runtime_spine_proof_derived_governed_mutation_authorization_bound",
   "schema_version": "organ_registry_v1",
   "unauthorized_surfaces": [
     "release",

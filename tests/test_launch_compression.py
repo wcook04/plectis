@@ -113,8 +113,8 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["view_quality_summary"]["action_row_count"] == 5
     assert receipt["view_quality_summary"]["hot_action_count"] == 4
     assert receipt["view_quality_summary"]["private_screenshot_paths_exported"] is False
-    assert receipt["projection_safety_summary"]["projection_row_count"] == 35
-    assert receipt["projection_safety_summary"]["omission_receipt_count"] == 35
+    assert receipt["projection_safety_summary"]["projection_row_count"] == 36
+    assert receipt["projection_safety_summary"]["omission_receipt_count"] == 36
     assert receipt["projection_safety_summary"]["private_body_export_count"] == 0
     assert receipt["market_prediction_boundary_summary"]["row_count"] == 8
     assert receipt["market_prediction_boundary_summary"]["decision_boundary_count"] == 8
@@ -157,8 +157,8 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["hook_intervention_coverage_summary"]["intervention_row_count"] == 5
     assert receipt["hook_intervention_coverage_summary"]["missing_authority_count"] == 1
     assert receipt["hook_intervention_coverage_summary"]["live_operator_state_read"] is False
-    assert receipt["agent_reliability_replay_gauntlet_summary"]["episode_count"] == 8
-    assert receipt["agent_reliability_replay_gauntlet_summary"]["blocked_episode_count"] == 6
+    assert receipt["agent_reliability_replay_gauntlet_summary"]["episode_count"] == 9
+    assert receipt["agent_reliability_replay_gauntlet_summary"]["blocked_episode_count"] == 7
     assert receipt["agent_reliability_replay_gauntlet_summary"]["live_agent_execution_authorized"] is False
     assert receipt["agent_reliability_replay_gauntlet_summary"]["real_secret_material_exported"] is False
     assert receipt["repository_benchmark_transaction_lab_summary"]["task_count"] == 2

@@ -603,6 +603,23 @@
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mcp_tool_authority_replay]",
       "standard_id": "std_microcosm_mcp_tool_authority_replay",
       "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 36,
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[proof_derived_governed_mutation_authorization_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+        "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+        "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_proof_derived_governed_mutation_authorization]",
+      "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+      "standard_ref": "standards/std_microcosm_proof_derived_governed_mutation_authorization.json"
     }
   ]
 }

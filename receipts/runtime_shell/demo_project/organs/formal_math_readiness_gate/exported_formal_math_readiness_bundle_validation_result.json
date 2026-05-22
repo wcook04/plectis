@@ -22,7 +22,7 @@
   ],
   "body_redacted": true,
   "bundle_id": "public_formal_math_readiness_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
   "corpus_readiness": [
     {
       "body_redacted": true,
@@ -34,7 +34,7 @@
       "translation_smoke_only": true
     }
   ],
-  "created_at": "2026-05-22T06:15:10+00:00",
+  "created_at": "2026-05-22T07:06:30+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],

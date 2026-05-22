@@ -1,0 +1,28 @@
+{
+  "side_effects": [
+    {
+      "body_redacted": true,
+      "diff_ref": "diff.synthetic_config_write.v1",
+      "live_cloud_account_touched": false,
+      "proposal_id": "proposal.scoped_config_change",
+      "reversible": true,
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "side_effect_class": "scoped_config_write",
+      "side_effect_id": "side_effect.synthetic_config_write.v1",
+      "side_effect_logged": true,
+      "synthetic_side_effect": true
+    },
+    {
+      "body_redacted": true,
+      "diff_ref": "diff.synthetic_rollback.v1",
+      "live_cloud_account_touched": false,
+      "proposal_id": "proposal.rollback_config_change",
+      "reversible": true,
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "side_effect_class": "rollback",
+      "side_effect_id": "side_effect.synthetic_rollback.v1",
+      "side_effect_logged": true,
+      "synthetic_side_effect": true
+    }
+  ]
+}

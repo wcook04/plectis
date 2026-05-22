@@ -34,7 +34,8 @@
     "agent_monitor_redteam_falsification_replay",
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay"
+    "mcp_tool_authority_replay",
+    "proof_derived_governed_mutation_authorization"
   ],
   "anti_claim": "The exported assimilation bundle validates public organ-landing, refinement, nothing-to-refine, stewardship, re-entry, and next-best-lane metadata. It does not read raw seed bodies, mutate live Task Ledger, promote global doctrine, authorize release, call providers, or prove live learning behavior.",
   "assimilation_policy": {
@@ -58,7 +59,7 @@
     "release_or_publication_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "ceb0277518865f86092a7329979ffec00840e34f6cedbfed2df9d1a83d724d89",
+  "bundle_fingerprint": "a3b003c34eb5845ed91ce59380de8a034b97e87226af77e7a466659ac734c38b",
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "bundle_manifest_schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
   "closeout_by_organ": {
@@ -85,6 +86,7 @@
     "pattern_assimilation_step": "validator_contract_refined",
     "pattern_binding_contract": "validator_contract_refined",
     "prediction_oracle_reconciliation": "validator_contract_refined",
+    "proof_derived_governed_mutation_authorization": "validator_contract_refined",
     "proof_diagnostic_evidence_spine": "nothing_to_refine",
     "provider_context_recipe_budget_policy": "validator_contract_refined",
     "public_reveal_walkthrough": "validator_contract_refined",
@@ -98,8 +100,8 @@
     "undeclared_library_prior_symbol_classifier": "validator_contract_refined",
     "world_model_projection_drift_control_room": "validator_contract_refined"
   },
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T06:15:12+00:00",
+  "command": "microcosm run microcosm-substrate/examples/runtime_shell/demo_project",
+  "created_at": "2026-05-22T07:06:32+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -130,6 +132,7 @@
     "pattern_assimilation_step",
     "pattern_binding_contract",
     "prediction_oracle_reconciliation",
+    "proof_derived_governed_mutation_authorization",
     "proof_diagnostic_evidence_spine",
     "provider_context_recipe_budget_policy",
     "public_reveal_walkthrough",
@@ -161,6 +164,7 @@
     "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
     "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
     "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
     "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
     "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
@@ -183,9 +187,9 @@
   "metadata_projection_not_live_learning_authority": true,
   "missing_negative_cases": [],
   "next_best_lane_check_count": 1,
-  "next_best_lane_result": "proof_derived_governed_mutation_authorization_or_agent_benchmark_integrity_anti_gaming_replay_compound_refresh",
+  "next_best_lane_result": "belief_state_process_reward_replay_compound_or_agent_sabotage_scheming_monitor_replay_compound_refresh",
   "next_routes": [
-    "proof_derived_governed_mutation_authorization_or_agent_benchmark_integrity_anti_gaming_replay_compound_refresh"
+    "belief_state_process_reward_replay_compound_or_agent_sabotage_scheming_monitor_replay_compound_refresh"
   ],
   "next_seed_paths": [
     "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
@@ -196,9 +200,9 @@
     "nothing_to_refine_proof_spine_adapter"
   ],
   "observed_negative_cases": {},
-  "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_memory_conflict_sleeper_memory_quarantine_and_mcp_tool_authority_bound",
+  "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_and_governed_mutation_authorization_bound",
   "organ_id": "pattern_assimilation_step",
-  "organ_landing_count": 35,
+  "organ_landing_count": 36,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -247,6 +251,7 @@
     "microcosm-substrate/src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "microcosm-substrate/src/microcosm_core/organs/pattern_binding_contract.py",
     "microcosm-substrate/src/microcosm_core/organs/prediction_oracle_reconciliation.py",
+    "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
     "microcosm-substrate/src/microcosm_core/organs/provider_context_recipe_budget_policy.py",
     "microcosm-substrate/src/microcosm_core/organs/public_reveal_walkthrough.py",
     "microcosm-substrate/src/microcosm_core/organs/research_replication_rubric_artifact_replay.py",
@@ -259,7 +264,7 @@
     "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
     "microcosm-substrate/src/microcosm_core/validators/acceptance.py"
   ],
-  "refinement_receipt_count": 30,
+  "refinement_receipt_count": 31,
   "refinement_receipt_ids": [
     "refine_agent_benchmark_integrity_anti_gaming_replay_bundle",
     "refine_agent_memory_temporal_conflict_replay_bundle",
@@ -281,6 +286,7 @@
     "refine_pattern_assimilation_exported_bundle",
     "refine_pattern_binding_exported_bundle",
     "refine_prediction_oracle_reconciliation_bundle",
+    "refine_proof_derived_governed_mutation_authorization_bundle",
     "refine_provider_context_recipe_budget_policy_bundle",
     "refine_public_reveal_walkthrough_bundle",
     "refine_research_replication_rubric_artifact_replay_bundle",
@@ -313,6 +319,7 @@
     "pattern_assimilation_step": "validator_contract_refined",
     "pattern_binding_contract": "validator_contract_refined",
     "prediction_oracle_reconciliation": "validator_contract_refined",
+    "proof_derived_governed_mutation_authorization": "validator_contract_refined",
     "provider_context_recipe_budget_policy": "validator_contract_refined",
     "public_reveal_walkthrough": "validator_contract_refined",
     "research_replication_rubric_artifact_replay": "validator_contract_refined",

@@ -1,7 +1,7 @@
 {
   "agent_reliability_replay_gauntlet_summary": {
-    "blocked_episode_count": 6,
-    "episode_count": 8,
+    "blocked_episode_count": 7,
+    "episode_count": 9,
     "live_agent_execution_authorized": false,
     "live_tool_calls_authorized": false,
     "quarantined_episode_count": 2,
@@ -157,9 +157,9 @@
     "status": "pass",
     "time_budget_minutes": 10
   },
-  "command": "python -m microcosm_core.validators.launch_compression --root . --project demo_project --out receipts/first_wave/launch_compression.json",
+  "command": "python -m microcosm_core.validators.launch_compression --root microcosm-substrate --project demo_project --out microcosm-substrate/receipts/first_wave/launch_compression.json",
   "compiled_summary": {
-    "event_count": 1330,
+    "event_count": 1413,
     "evidence_count": 9,
     "file_count": 5,
     "headline": "repo -> .microcosm",
@@ -260,9 +260,9 @@
     "validation_ref_count": 12
   },
   "projection_safety_summary": {
-    "omission_receipt_count": 35,
+    "omission_receipt_count": 36,
     "private_body_export_count": 0,
-    "projection_row_count": 35,
+    "projection_row_count": 36,
     "projection_safety_lens_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
     "release_authorized": false,
     "status": "pass"
@@ -319,12 +319,12 @@
     "release_authorized": false,
     "row_count": 8,
     "source_authority_claim_count": 0,
-    "standard_count": 80,
-    "standard_pressure_row_count": 32,
+    "standard_count": 81,
+    "standard_pressure_row_count": 33,
     "standards_completeness_claim": false,
     "standards_control_ref": "receipts/runtime_shell/public_standards_control_lens.json",
     "status": "pass",
-    "validator_receipt_ref_count": 108
+    "validator_receipt_ref_count": 115
   },
   "status": "pass",
   "stripping_guard_summary": {

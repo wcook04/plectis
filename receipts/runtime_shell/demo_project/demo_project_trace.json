@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-22T06:15:12+00:00",
+  "created_at": "2026-05-22T07:06:32+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -350,15 +350,25 @@
       "outputs": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
       "span": "mcp_tool_authority_replay.validate",
       "status": "pass"
+    },
+    {
+      "event_id": "evt_36_proof_derived_governed_mutation_authorization",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
+      "input_mode": "exported_governed_mutation_authorization_bundle",
+      "inputs": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "outputs": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization",
+      "span": "proof_derived_governed_mutation_authorization.validate",
+      "status": "pass"
     }
   ],
   "otel_shape": {
     "logs_as_events": true,
     "metrics": {
-      "runtime_steps_passed": 35,
-      "runtime_steps_total": 35
+      "runtime_steps_passed": 36,
+      "runtime_steps_total": 36
     },
-    "span_count": 35,
+    "span_count": 36,
     "trace_id": "runtime_shell_demo_project"
   },
   "project_id": "demo_project",

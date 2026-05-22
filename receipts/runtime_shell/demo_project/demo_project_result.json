@@ -6,7 +6,7 @@
     "provider_calls_authorized": false,
     "release_authorized": false
   },
-  "created_at": "2026-05-22T06:15:12+00:00",
+  "created_at": "2026-05-22T07:06:32+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -357,6 +357,16 @@
       "outputs": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
       "span": "mcp_tool_authority_replay.validate",
       "status": "pass"
+    },
+    {
+      "event_id": "evt_36_proof_derived_governed_mutation_authorization",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
+      "input_mode": "exported_governed_mutation_authorization_bundle",
+      "inputs": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "outputs": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization",
+      "span": "proof_derived_governed_mutation_authorization.validate",
+      "status": "pass"
     }
   ],
   "evidence_refs": [
@@ -394,7 +404,8 @@
     "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
-    "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json"
   ],
   "next_actions": [
     "microcosm route list",
@@ -440,6 +451,7 @@
     "agent_monitor_redteam_falsification_replay: pass via exported_monitor_redteam_bundle",
     "agent_memory_temporal_conflict_replay: pass via exported_memory_temporal_conflict_bundle",
     "sleeper_memory_poisoning_quarantine_replay: pass via exported_sleeper_memory_poisoning_bundle",
-    "mcp_tool_authority_replay: pass via exported_mcp_tool_authority_bundle"
+    "mcp_tool_authority_replay: pass via exported_mcp_tool_authority_bundle",
+    "proof_derived_governed_mutation_authorization: pass via exported_governed_mutation_authorization_bundle"
   ]
 }

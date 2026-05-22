@@ -1,0 +1,189 @@
+{
+  "anti_claim": "This fixture validates public synthetic governed-mutation authorization metadata only; it does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Governed-mutation material must state that synthetic authorization receipts are not live credential, account, source-mutation, or release authority"
+  },
+  "authority_boundary": "synthetic_proof_derived_governed_mutation_authorization_not_live_mutation_authority",
+  "authority_ceiling": {
+    "benchmark_security_authority": false,
+    "hidden_policy_vote_authority": false,
+    "irreversible_mutation_authority": false,
+    "live_cloud_account_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_governed_mutation_authorization_schema_only",
+    "standing_credential_authority": false,
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "proof_derived_governed_mutation_authorization",
+  "kind_name": "Proof-derived governed mutation authorization",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/projection_protocol.json",
+    "omitted": [
+      "standing credentials",
+      "live cloud or account credentials",
+      "private proof bodies",
+      "provider payloads",
+      "raw policy vote bodies",
+      "irreversible mutation authority"
+    ],
+    "reason": "public tranche carries synthetic governed-mutation metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "proof_derived_governed_mutation_authorization",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "synthetic proposal ids",
+      "action classes",
+      "intent capsule refs",
+      "proof cell refs",
+      "policy verdict refs",
+      "ephemeral execution identity refs",
+      "side-effect diff refs",
+      "rollback receipt refs",
+      "cold replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_governed_mutation_receipts_only",
+    "forbidden_public_inputs": [
+      "standing credentials",
+      "credential values",
+      "provider payloads",
+      "raw proof bodies",
+      "raw policy vote bodies",
+      "live account ids",
+      "cloud account ids",
+      "irreversible mutation authority",
+      "benchmark security claims"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "proposal_count",
+      "authorized_mutation_count",
+      "proof_cell_count",
+      "visible_policy_verdict_count",
+      "logged_side_effect_count",
+      "rollback_pass_count",
+      "cold_replay_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.proof_derived_governed_mutation_authorization",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.proof_derived_governed_mutation_authorization",
+    "receipt must cite source refs, source pattern ids, proposal count, authorized mutation count, proof-cell count, visible verdict count, side-effect count, rollback count, cold replay count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#proof_derived_governed_mutation_authorization",
+    "source_pattern_id_sample": [
+      "proof_derived_governed_mutation_authorization_compound",
+      "mission_transaction_landing",
+      "mcp_tool_authority_replay_compound"
+    ],
+    "used_by_organs": [
+      "proof_derived_governed_mutation_authorization"
+    ]
+  },
+  "required_fields": [
+    "protocol_id",
+    "source_refs",
+    "source_pattern_ids",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "authorization_policy",
+    "mutation_proposals",
+    "proof_cells",
+    "policy_verdicts",
+    "side_effects",
+    "rollback_receipts",
+    "cold_replays",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+  "standard_payload": {
+    "anti_purpose": "Treating credentials, successful tool calls, final answers, opaque consensus, or post-hoc policy checks as mutation authority.",
+    "compression_bands": [
+      "protocol",
+      "policy",
+      "proposal",
+      "proof_cell",
+      "policy_verdict",
+      "side_effect",
+      "rollback",
+      "replay",
+      "receipt"
+    ],
+    "failure_modes": [
+      "standing_credential_authority",
+      "policy_after_execution",
+      "hidden_policy_vote",
+      "live_cloud_credential",
+      "irreversible_mutation",
+      "unlogged_side_effect",
+      "consensus_without_evidence",
+      "final_answer_only_success"
+    ],
+    "ontology": "A public-safe governed-mutation authorization replay: synthetic proposals, proof cells, visible policy verdicts, ephemeral identity refs, side-effect diffs, rollback receipts, cold replay, and falsification fixtures.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how mutation-authority claims are admitted only when proof, policy consensus, side-effect evidence, rollback, replay, negative cases, and authority ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require three synthetic proposals: read-only inspection, scoped config write, and rollback",
+    "require every proposal to cite intent capsule, proof cells, visible policy verdicts, authority ceiling, ephemeral identity, evidence-chain hash, and cold replay refs",
+    "require write and rollback proposals to cite logged side-effect diff refs and rollback receipt refs",
+    "reject standing credential authority, policy-after-execution, hidden policy votes, live cloud credentials, irreversible mutation, unlogged side effects, consensus without evidence, and final-answer-only success",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "authorization_policy_authority_floor",
+      "proposal_authorization_floor",
+      "proof_cell_receipt_floor",
+      "visible_policy_verdict_floor",
+      "side_effect_log_and_rollback",
+      "cold_replay_coverage",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization"
+  },
+  "validator_refs": [
+    "microcosm_core.organs.proof_derived_governed_mutation_authorization"
+  ],
+  "wave": "w1_proof_derived_governed_mutation_authorization"
+}

@@ -12,7 +12,7 @@
   "first_wave_required_standard_count": 80,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 80,
+  "standard_count": 81,
   "standards": [
     {
       "first_wave_required": true,
@@ -1240,7 +1240,18 @@
       ],
       "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay",
       "wave": "w1_mcp_tool_authority_replay"
+    },
+    {
+      "kind_id": "proof_derived_governed_mutation_authorization",
+      "path": "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
+      "receipt_id": "receipt.microcosm.proof_derived_governed_mutation_authorization",
+      "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+      "used_by_organs": [
+        "proof_derived_governed_mutation_authorization"
+      ],
+      "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization",
+      "wave": "w1_proof_derived_governed_mutation_authorization"
     }
   ],
-  "status": "current_public_standard_registry_mcp_tool_authority_replay_bound"
+  "status": "current_public_standard_registry_proof_derived_governed_mutation_authorization_bound"
 }

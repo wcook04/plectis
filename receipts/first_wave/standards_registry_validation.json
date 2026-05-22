@@ -35,7 +35,8 @@
       "agent_monitor_redteam_falsification_replay",
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
-      "mcp_tool_authority_replay"
+      "mcp_tool_authority_replay",
+      "proof_derived_governed_mutation_authorization"
     ],
     "deferred_organs": [],
     "lean_lake_authorized": "bounded_public_witness_only",
@@ -54,7 +55,7 @@
     "status": "pass",
     "trading_or_financial_advice_authorized": false
   },
-  "checked_standard_count": 80,
+  "checked_standard_count": 81,
   "checked_standard_ids": [
     "std_microcosm_agent_trace",
     "std_microcosm_anti_claim",
@@ -135,9 +136,10 @@
     "std_microcosm_agent_monitor_redteam_falsification_replay",
     "std_microcosm_agent_memory_temporal_conflict_replay",
     "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
-    "std_microcosm_mcp_tool_authority_replay"
+    "std_microcosm_mcp_tool_authority_replay",
+    "std_microcosm_proof_derived_governed_mutation_authorization"
   ],
-  "command": "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
+  "command": "python -m microcosm_core.validators.standards_registry --registry microcosm-substrate/core/standards_registry.json --standards-dir microcosm-substrate/standards --acceptance microcosm-substrate/core/acceptance/first_wave_acceptance.json --out microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
   "duplicate_standard_ids": [],
   "fixture_id": "first_wave.standards_registry",
   "missing_required_fields_by_standard": {},
@@ -148,17 +150,17 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 82,
+    "scanned_path_count": 83,
     "status": "pass"
   },
   "receipt_paths": [
-    "receipts/first_wave/standards_registry_validation.json",
-    "core/standards_registry.json",
-    "core/acceptance/first_wave_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
+    "microcosm-substrate/core/standards_registry.json",
+    "microcosm-substrate/core/acceptance/first_wave_acceptance.json"
   ],
-  "registry_declared_standard_count": 80,
+  "registry_declared_standard_count": 81,
   "schema_version": "standards_registry_validation_receipt_v1",
-  "standard_count": 80,
+  "standard_count": 81,
   "status": "pass",
   "validator_id": "validator.microcosm.validators.standards_registry"
 }

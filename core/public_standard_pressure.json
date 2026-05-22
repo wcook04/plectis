@@ -680,6 +680,47 @@
       ],
       "standard_id": "mcp_tool_authority_replay_public_pressure",
       "title": "MCP Tool Authority Replay Requires Scope, Side-Effect, and Rollback Receipts"
+    },
+    {
+      "authority_boundary": "synthetic_fixture_receipts_only_not_live_mutation_or_credential_authority",
+      "claim": "Governed-mutation honesty language must cite intent capsule refs, proof evidence cells, visible policy verdict refs, ephemeral execution identity refs, side-effect diff refs, rollback receipts, cold replay refs, negative cases, and explicit no-standing-credential/no-live-cloud/no-source-mutation ceilings before it becomes public evidence.",
+      "domain": "agent_governed_mutation_authorization",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "negative_case_ids": [
+        "standing_credential_authority",
+        "policy_after_execution",
+        "hidden_policy_vote",
+        "live_cloud_credential",
+        "irreversible_mutation",
+        "unlogged_side_effect",
+        "consensus_without_evidence",
+        "final_answer_only_success"
+      ],
+      "owner_surfaces": [
+        "organs:proof_derived_governed_mutation_authorization",
+        "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
+        "paper_modules/proof_derived_governed_mutation_authorization.md"
+      ],
+      "pressure": "typed governed-mutation claims require proof cells, visible verdicts, side-effect diffs, rollback receipts, cold replay, negative cases, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "replay-gauntlet",
+        "standards-control",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.proof_derived_governed_mutation_authorization.run",
+      "source_refs": [
+        "organs:proof_derived_governed_mutation_authorization",
+        "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
+        "paper_modules/proof_derived_governed_mutation_authorization.md"
+      ],
+      "standard_id": "proof_derived_governed_mutation_authorization_public_pressure",
+      "title": "Proof-Derived Governed Mutation Requires Proof, Verdict, Side-Effect, and Rollback Receipts"
     }
   ],
   "schema_version": "public_microcosm_standard_pressure_v1",

@@ -50,6 +50,7 @@ REQUIRED_DOCS = [
     "paper_modules/agent_memory_temporal_conflict_replay.md",
     "paper_modules/sleeper_memory_poisoning_quarantine_replay.md",
     "paper_modules/mcp_tool_authority_replay.md",
+    "paper_modules/proof_derived_governed_mutation_authorization.md",
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md",
 ]
@@ -89,6 +90,7 @@ ACCEPTED_ORGAN_IDS = [
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
+    "proof_derived_governed_mutation_authorization",
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
@@ -129,8 +131,10 @@ REQUIRED_PHRASES_BY_DOC = {
         "agent_memory_temporal_conflict_replay",
         "sleeper_memory_poisoning_quarantine_replay",
         "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization",
         "sleeper_memory_poisoning_quarantine_replay",
         "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization",
         "formal-math-lean-proof-witness",
         "corpus-readiness-mathlib-absence-gate",
         "mathematical-strategy-atlas-hypothesis-scorer",
@@ -158,8 +162,10 @@ REQUIRED_PHRASES_BY_DOC = {
         "agent-memory-temporal-conflict-replay",
         "sleeper-memory-poisoning-quarantine-replay",
         "mcp-tool-authority-replay",
+        "proof-derived-governed-mutation-authorization",
         "sleeper-memory-poisoning-quarantine-replay",
         "mcp-tool-authority-replay",
+        "proof-derived-governed-mutation-authorization",
         "not trading or financial advice",
         "not authorize release",
     ],
@@ -200,6 +206,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "agent_monitor_redteam_falsification_replay",
         "agent_memory_temporal_conflict_replay",
         "mcp_tool_authority_replay",
+        "proof_derived_governed_mutation_authorization",
         "formal-math-lean-proof-witness",
         "corpus-readiness-mathlib-absence-gate",
         "mathematical-strategy-atlas-hypothesis-scorer",
@@ -226,6 +233,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "agent-monitor-redteam-falsification-replay",
         "agent-memory-temporal-conflict-replay",
         "mcp-tool-authority-replay",
+        "proof-derived-governed-mutation-authorization",
         "Do not treat prediction fixtures as trading or financial advice",
     ],
 }

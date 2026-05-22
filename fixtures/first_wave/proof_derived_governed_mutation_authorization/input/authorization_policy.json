@@ -1,0 +1,32 @@
+{
+  "allowed_action_classes": [
+    "read_only_inspection",
+    "scoped_config_write",
+    "rollback"
+  ],
+  "hidden_policy_votes_authorized": false,
+  "irreversible_mutation_authorized": false,
+  "live_cloud_account_authorized": false,
+  "minimum_independent_verdicts": 2,
+  "policy_after_execution_authorized": false,
+  "policy_id": "authorization.policy.synthetic_governed_mutation.v1",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "required_proposal_fields": [
+    "proposal_id",
+    "action_class",
+    "intent_capsule_ref",
+    "authority_ceiling_ref",
+    "proof_cell_refs",
+    "policy_verdict_refs",
+    "ephemeral_identity_ref",
+    "side_effect_class",
+    "policy_evaluated_before_execution",
+    "execution_state",
+    "evidence_chain_hash",
+    "cold_replay_ref",
+    "body_redacted",
+    "private_ref_metadata_only"
+  ],
+  "standing_credentials_authorized": false
+}

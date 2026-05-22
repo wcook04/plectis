@@ -1,0 +1,30 @@
+{
+  "mutation_proposals": [
+    {
+      "action_class": "scoped_config_write",
+      "authority_ceiling_ref": "authority.synthetic_governed_mutation.scoped_write.v1",
+      "body_redacted": true,
+      "cold_replay_ref": "cold.scoped_config_write.v1",
+      "ephemeral_identity_ref": "ephemeral.synthetic.scoped_write.v1",
+      "evidence_chain_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "execution_state": "not_executed_in_public_fixture",
+      "expected_negative_case_id": "irreversible_mutation",
+      "intent_capsule_ref": "intent.scoped_config_change.v1",
+      "irreversible_side_effect": true,
+      "policy_evaluated_before_execution": true,
+      "policy_verdict_refs": [
+        "verdict.write.policy.v1",
+        "verdict.write.owner.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proof_cell_refs": [
+        "proof.write.scoped_config.v1"
+      ],
+      "proposal_id": "negative.irreversible_mutation",
+      "rollback_receipt_ref": "",
+      "side_effect_class": "scoped_config_write",
+      "side_effect_diff_ref": "diff.synthetic_config_write.v1",
+      "side_effect_logged": true
+    }
+  ]
+}

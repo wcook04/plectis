@@ -27,6 +27,7 @@ from microcosm_core.organs import navigation_hologram_route_plane
 from microcosm_core.organs import pattern_binding_contract
 from microcosm_core.organs import prediction_oracle_reconciliation
 from microcosm_core.organs import proof_diagnostic_evidence_spine
+from microcosm_core.organs import proof_derived_governed_mutation_authorization
 from microcosm_core.organs import provider_context_recipe_budget_policy
 from microcosm_core.organs import public_reveal_walkthrough
 from microcosm_core.organs import research_replication_rubric_artifact_replay
@@ -275,6 +276,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(mcp_tool_parser)
     mcp_tool_parser.add_argument("--acceptance-out")
+
+    governed_mutation_parser = subparsers.add_parser(
+        "proof-derived-governed-mutation-authorization"
+    )
+    governed_mutation_parser.add_argument(
+        "action", choices=["run", "run-authorization-bundle"]
+    )
+    _add_input_out(governed_mutation_parser)
+    governed_mutation_parser.add_argument("--acceptance-out")
 
     lean_std_index_parser = subparsers.add_parser("lean-std-premise-index")
     lean_std_index_parser.add_argument("action", choices=["run", "run-index-bundle"])
@@ -630,6 +640,19 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             mcp_tool_args.extend(["--acceptance-out", args.acceptance_out])
         return mcp_tool_authority_replay.main(mcp_tool_args)
+    if args.command == "proof-derived-governed-mutation-authorization":
+        governed_mutation_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out and args.action == "run":
+            governed_mutation_args.extend(["--acceptance-out", args.acceptance_out])
+        return proof_derived_governed_mutation_authorization.main(
+            governed_mutation_args
+        )
     if args.command == "lean-std-premise-index":
         return lean_std_premise_index.main(
             [args.action, "--input", args.input, "--out", args.out]

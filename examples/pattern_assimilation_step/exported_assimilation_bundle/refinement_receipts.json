@@ -329,6 +329,17 @@
       "projection_not_authority": true,
       "receipt_id": "refine_agent_memory_temporal_conflict_replay_bundle",
       "refinement_result": "validator_contract_refined"
+    },
+    {
+      "body_redacted": true,
+      "changed_surface_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/bundle_manifest.json",
+      "claims_global_doctrine_authority": false,
+      "live_doctrine_authority": false,
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "owner_surface": "microcosm-substrate/src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+      "projection_not_authority": true,
+      "receipt_id": "refine_proof_derived_governed_mutation_authorization_bundle",
+      "refinement_result": "validator_contract_refined"
     }
   ],
   "schema_version": "pattern_assimilation_step_refinement_receipts_v1"

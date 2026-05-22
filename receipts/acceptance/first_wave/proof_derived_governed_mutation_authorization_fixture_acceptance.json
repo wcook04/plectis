@@ -1,0 +1,58 @@
+{
+  "accepted_negative_cases": [
+    "consensus_without_evidence",
+    "final_answer_only_success",
+    "hidden_policy_vote",
+    "irreversible_mutation",
+    "live_cloud_credential",
+    "policy_after_execution",
+    "standing_credential_authority",
+    "unlogged_side_effect"
+  ],
+  "anti_claim": "Proof-derived governed mutation authorization validates a synthetic mutation-authorization contract: intent capsules, proof evidence cells, independent policy verdicts, ephemeral execution identity refs, logged side-effect diffs, rollback receipts, cold replay, negative cases, private state scan, and authority ceilings. It does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "synthetic_proof_derived_governed_mutation_authorization_receipts_only",
+    "benchmark_score_claim_authorized": false,
+    "hidden_policy_votes_authorized": false,
+    "irreversible_mutation_authorized": false,
+    "live_cloud_account_authorized": false,
+    "policy_after_execution_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "standing_credentials_authorized": false,
+    "status": "pass"
+  },
+  "created_at": "2026-05-22T07:01:16+00:00",
+  "error_codes": [
+    "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+    "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS",
+    "GOV_MUT_HIDDEN_POLICY_VOTE",
+    "GOV_MUT_IRREVERSIBLE_MUTATION",
+    "GOV_MUT_LIVE_CLOUD_CREDENTIAL",
+    "GOV_MUT_POLICY_AFTER_EXECUTION",
+    "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY",
+    "GOV_MUT_UNLOGGED_SIDE_EFFECT"
+  ],
+  "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
+  "missing_negative_cases": [],
+  "organ_id": "proof_derived_governed_mutation_authorization",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 16,
+    "status": "pass"
+  },
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+  ],
+  "schema_version": "proof_derived_governed_mutation_authorization_fixture_acceptance_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization"
+}

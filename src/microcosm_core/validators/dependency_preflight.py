@@ -52,6 +52,7 @@ ACCEPTED_ORGAN_IDS = [
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
+    "proof_derived_governed_mutation_authorization",
 ]
 DEFERRED_ORGAN_IDS = ["formal_math_lean_proof_organ"]
 

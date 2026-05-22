@@ -1,0 +1,102 @@
+{
+  "anti_claim": "This fixture validates public synthetic governed-mutation authorization metadata only; it does not use standing credentials, access live cloud/accounts, mutate source, export proof bodies or provider payloads, claim benchmark safety, or authorize release.",
+  "authority_ceiling": "synthetic proof-derived governed mutation authorization receipts only; no standing credential, live cloud/account, provider-payload, source-mutation, irreversible-mutation, benchmark-safety, or release authority",
+  "expected_negative_cases": [
+    "standing_credential_authority",
+    "policy_after_execution",
+    "hidden_policy_vote",
+    "live_cloud_credential",
+    "irreversible_mutation",
+    "unlogged_side_effect",
+    "consensus_without_evidence",
+    "final_answer_only_success"
+  ],
+  "fixture_id": "fixture::proof_derived_governed_mutation_authorization::first_wave_contract_v1",
+  "generated_receipts": [
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+  ],
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/projection_protocol.json",
+      "role": "macro-to-public projection protocol with copy/reimplement/clean/omit receipts"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/authorization_policy.json",
+      "role": "governed-mutation action classes, required fields, verdict floor, and authority ceiling"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/mutation_proposals.json",
+      "role": "positive read-only, scoped write, and rollback proposals"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/proof_evidence_cells.json",
+      "role": "redacted proof cells with evidence and validator receipt refs"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_verdicts.json",
+      "role": "visible independent policy verdict refs before synthetic execution identity"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/side_effect_ledger.json",
+      "role": "logged synthetic side-effect diff refs for scoped write and rollback"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/rollback_receipts.json",
+      "role": "positive rollback receipts and reversibility refs"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/cold_replay.json",
+      "role": "positive cold replay receipts for read-only, scoped write, and rollback"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/standing_credential_authority.json",
+      "role": "negative case: standing_credential_authority"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_after_execution.json",
+      "role": "negative case: policy_after_execution"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/hidden_policy_vote.json",
+      "role": "negative case: hidden_policy_vote"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/live_cloud_credential.json",
+      "role": "negative case: live_cloud_credential"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/irreversible_mutation.json",
+      "role": "negative case: irreversible_mutation"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/unlogged_side_effect.json",
+      "role": "negative case: unlogged_side_effect"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/consensus_without_evidence.json",
+      "role": "negative case: consensus_without_evidence"
+    },
+    {
+      "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/final_answer_only_success.json",
+      "role": "negative case: final_answer_only_success"
+    }
+  ],
+  "organ_id": "proof_derived_governed_mutation_authorization",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "stable_error_codes": [
+    "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY",
+    "GOV_MUT_POLICY_AFTER_EXECUTION",
+    "GOV_MUT_HIDDEN_POLICY_VOTE",
+    "GOV_MUT_LIVE_CLOUD_CREDENTIAL",
+    "GOV_MUT_IRREVERSIBLE_MUTATION",
+    "GOV_MUT_UNLOGGED_SIDE_EFFECT",
+    "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
+    "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS"
+  ],
+  "title": "Proof-derived governed mutation authorization fixture",
+  "validator": "microcosm_core.organs.proof_derived_governed_mutation_authorization",
+  "validator_command": "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization"
+}

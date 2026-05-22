@@ -1,0 +1,9 @@
+{
+  "authority_ceiling": "synthetic governed-mutation authorization bundle only; no live credentials, source mutation, cloud/account action, provider call, benchmark score, or release authority",
+  "bundle_id": "proof_derived_governed_mutation_authorization_runtime_example",
+  "claim": "A mutation proposal is admitted only when intent, proof cells, visible policy verdicts, ephemeral identity refs, logged side effects, rollback receipts, cold replay, and authority ceiling all line up.",
+  "expected_negative_cases": [],
+  "input_mode": "exported_governed_mutation_authorization_bundle",
+  "organ_id": "proof_derived_governed_mutation_authorization",
+  "schema_version": "governed_mutation_authorization_bundle_v1"
+}

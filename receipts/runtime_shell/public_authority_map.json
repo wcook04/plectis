@@ -51,6 +51,7 @@
     "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
     "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
     "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
+    "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
     "microcosm benchmark-lab",
     "microcosm legibility-scorecard",
     "microcosm intake",
@@ -535,6 +536,18 @@
       "input_mode": "exported_mcp_tool_authority_bundle",
       "ordinal": 35,
       "organ_id": "mcp_tool_authority_replay",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "generated_receipt_count": 4,
+      "input_mode": "exported_governed_mutation_authorization_bundle",
+      "ordinal": 36,
+      "organ_id": "proof_derived_governed_mutation_authorization",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
       "release_authorized": false,
@@ -1029,6 +1042,21 @@
       "untrusted_tool_output_instruction_authorized": false
     },
     {
+      "authority_role": "synthetic proof-derived governed mutation authorization and side-effect boundary",
+      "benchmark_score_claim_authorized": false,
+      "command": "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
+      "endpoint": "/replay-gauntlet",
+      "hidden_policy_votes_authorized": false,
+      "irreversible_mutation_authorized": false,
+      "live_cloud_account_authorized": false,
+      "policy_after_execution_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "standing_credentials_authorized": false,
+      "surface_id": "public_proof_derived_governed_mutation_authorization_lens"
+    },
+    {
       "authority_role": "synthetic repository benchmark transaction lab and oracle-grading boundary",
       "benchmark_score_claim": false,
       "command": "microcosm benchmark-lab",
@@ -1085,9 +1113,9 @@
   ],
   "surface_counts": {
     "hard_boundary_count": 6,
-    "organ_authority_count": 35,
+    "organ_authority_count": 36,
     "projection_cell_count": 3,
     "safe_local_exception_count": 3,
-    "surface_authority_count": 35
+    "surface_authority_count": 36
   }
 }

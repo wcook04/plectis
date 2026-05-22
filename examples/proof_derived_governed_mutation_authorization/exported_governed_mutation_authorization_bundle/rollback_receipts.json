@@ -1,0 +1,28 @@
+{
+  "rollback_receipts": [
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "diff.synthetic_config_write.v1",
+        "cold.scoped_config_write.v1"
+      ],
+      "irreversible_mutation_authorized": false,
+      "proposal_id": "proposal.scoped_config_change",
+      "rollback_id": "rollback.synthetic_config_write.v1",
+      "rollback_receipt_ref": "rollback.synthetic_config_write.v1",
+      "rollback_status": "pass"
+    },
+    {
+      "body_redacted": true,
+      "evidence_refs": [
+        "diff.synthetic_rollback.v1",
+        "cold.rollback_config_change.v1"
+      ],
+      "irreversible_mutation_authorized": false,
+      "proposal_id": "proposal.rollback_config_change",
+      "rollback_id": "rollback.rollback_verification.v1",
+      "rollback_receipt_ref": "rollback.rollback_verification.v1",
+      "rollback_status": "pass"
+    }
+  ]
+}

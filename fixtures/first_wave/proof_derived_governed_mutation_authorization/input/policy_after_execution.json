@@ -1,0 +1,27 @@
+{
+  "mutation_proposals": [
+    {
+      "action_class": "read_only_inspection",
+      "authority_ceiling_ref": "authority.synthetic_governed_mutation.readonly.v1",
+      "body_redacted": true,
+      "cold_replay_ref": "cold.readonly_inspection.v1",
+      "ephemeral_identity_ref": "ephemeral.synthetic.readonly.v1",
+      "evidence_chain_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "executed_before_policy": true,
+      "execution_state": "not_executed_in_public_fixture",
+      "expected_negative_case_id": "policy_after_execution",
+      "intent_capsule_ref": "intent.inspect_repo_state.v1",
+      "policy_evaluated_before_execution": false,
+      "policy_verdict_refs": [
+        "verdict.inspect.policy.v1",
+        "verdict.inspect.owner.v1"
+      ],
+      "private_ref_metadata_only": true,
+      "proof_cell_refs": [
+        "proof.inspect.repo_state.v1"
+      ],
+      "proposal_id": "negative.policy_after_execution",
+      "side_effect_class": "none"
+    }
+  ]
+}

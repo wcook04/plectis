@@ -45,10 +45,11 @@
     "agent_monitor_redteam_falsification_replay",
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay"
+    "mcp_tool_authority_replay",
+    "proof_derived_governed_mutation_authorization"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
-  "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
+  "command": "python -m microcosm_core.validators.dependency_preflight --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --out microcosm-substrate/receipts/preflight/dependency_preflight.json",
   "dependency_checks": [
     {
       "build_dependencies": [],
@@ -452,6 +453,16 @@
       "missing_dependencies": [],
       "organ_id": "mcp_tool_authority_replay",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "mission_transaction_work_spine",
+        "mcp_tool_authority_replay",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -804,9 +815,19 @@
       "missing_fixture_inputs": [],
       "organ_id": "mcp_tool_authority_replay",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::proof_derived_governed_mutation_authorization::first_wave_contract_v1",
+      "fixture_input_count": 16,
+      "fixture_manifest": "core/fixture_manifests/proof_derived_governed_mutation_authorization.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 16,
+      "missing_fixture_inputs": [],
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 14,
+  "negative_matrix_case_count": 15,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -816,7 +837,7 @@
     "status": "pass"
   },
   "receipt_paths": [
-    "receipts/preflight/dependency_preflight.json"
+    "microcosm-substrate/receipts/preflight/dependency_preflight.json"
   ],
   "schema_version": "dependency_preflight_receipt_v1",
   "status": "pass",
@@ -862,7 +883,8 @@
       "agent_monitor_redteam_falsification_replay",
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
-      "mcp_tool_authority_replay"
+      "mcp_tool_authority_replay",
+      "proof_derived_governed_mutation_authorization"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -899,7 +921,8 @@
       "agent_monitor_redteam_falsification_replay",
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
-      "mcp_tool_authority_replay"
+      "mcp_tool_authority_replay",
+      "proof_derived_governed_mutation_authorization"
     ],
     "status": "pass"
   }
