@@ -56,6 +56,8 @@ def test_durable_agent_work_landing_replay_observes_negative_cases(
     assert result["run_count"] == 3
     assert result["metadata_blocked_count"] == 1
     assert result["landed_commit_count"] == 1
+    assert result["validation_order_required_count"] == 2
+    assert result["validation_order_pass_count"] == 2
     assert result["authority_ceiling"]["live_git_mutation_authorized"] is False
     assert result["authority_ceiling"]["broad_checkpoint_authorized"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -111,4 +113,6 @@ def test_durable_agent_work_landing_exported_bundle_validates_runtime_shape(
     assert result["error_codes"] == []
     assert result["run_count"] == 3
     assert result["metadata_blocked_count"] == 1
+    assert result["validation_order_required_count"] == 2
+    assert result["validation_order_pass_count"] == 2
     assert result["authority_ceiling"]["commit_landed_claim_authorized_without_head_advance"] is False

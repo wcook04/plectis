@@ -188,14 +188,14 @@
     "agent_benchmark_integrity_anti_gaming_replay": "d7514392ea6fb1f4fa4da9bd72ece18ba48566957c3fa6cda484198965c6b515",
     "agent_memory_temporal_conflict_replay": "28a47887bd460967f4f669479a61528b87cefdce00f5084f39d48da2d63747b5",
     "agent_monitor_redteam_falsification_replay": "af36b71824a87be2894402c55e96bacc420ee5071d0352c94778d91b5fd9862b",
-    "agent_route_observability_runtime": "6210d5009758be863a756d55a1e3065a681ba46590fb2ab169127d0dfb840f94",
+    "agent_route_observability_runtime": "0d261156f2159575aa1e069c0b0e4059536606958b54fbdc73e072afc69ed3ba",
     "agent_sabotage_scheming_monitor_replay": "6bb54452c734dc7716984eeda09e9ac661912be56962122edb8b89945ccf594d",
     "agent_sandbox_policy_escape_replay": "900201a4ed69580bcba068120b83ff294629a7b03288e4f2fd51e6530262c0b5",
     "agentic_vulnerability_discovery_patch_proof_replay": "21ad356b416c5bcde4b0fed73f08d3aaad4271a5fd2e9b25a89e058d8bab3592",
     "belief_state_process_reward_replay": "c38cbf828907f7abd7e513f96aa3700a251c09a0d1016ae6b73b6129e2345940",
     "cold_reader_route_map": "ce778265e6360e3d7509673ac502b26c0d1455b54f7fd19e2cbf262fa0a8691d",
     "corpus_readiness_mathlib_absence_gate": "806ce35d6d851943b8e8287e210c57a804f9d08b67f8ec356202dff663112fc9",
-    "durable_agent_work_landing_replay": "45bab5bd49f0473637c4f826e6f1001a528447569971396990c305a380b21d9c",
+    "durable_agent_work_landing_replay": "7150991d1715ce0f4ab5af39afd6d89c0fd0eccc2e5a8e51de00eb7cbd9ddccd",
     "executable_doctrine_grammar": "8e4823de0700ab1628e241e96f1d3f844683bbf93117773fcd28bcda22901bec",
     "formal_evidence_cell_anchor_resolver": "210a110d82068d14ecfafbfc6c9a6af882fa7fd739ca328100f5799cee8e08f4",
     "formal_math_lean_proof_witness": "8e16c63ac55a46ec45324dcf2b31ad4398f036633e691fd371c8f06a12a47830",
@@ -273,7 +273,7 @@
     "agent_route_observability_runtime": {
       "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl": "8edba21cfa8c48f3fd8d647af21d53f000667c4977f8c9190364c9100e31b887",
       "fixtures/first_wave/agent_route_observability_runtime/input/anti_pattern_debt.json": "5613e3aff89beaa012a4c4d7da7bdb62404f264b9ccf450675cfac89fd670d2f",
-      "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json": "6a1a82b349332f3c0fc4400fece2b3ad8665b41b441b6247aeee1399851d12b9"
+      "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json": "d877bb62019822144ce64f115dbd5c3ef6a8b9f08db60445e77ad57a7e447b25"
     },
     "agent_sabotage_scheming_monitor_replay": {
       "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json": "4d37cc33ada1bf7eb07d023e98e4b43570996b4220ac4ce8c70893063a0663bc",
@@ -367,17 +367,18 @@
       "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/release_overclaim.json": "9529cea219440dfcfb6efa3a744bdb9e7c434de192bf89a9b3cd8f25c49ca744"
     },
     "durable_agent_work_landing_replay": {
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/claim_without_work_ledger_closeout.json": "c7873ab818ef30c3bf7b3b6423e596419fba2bc6fd68a3fc95fcecdeb8fa4df1",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/commit_claim_without_head_change.json": "bd72f1281990bf257bac9ee28a7a3e0bba2235b4685e56dd2f2e2c03db27d17e",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/dirty_tree_boundary_missing.json": "6e9835aa140480dd2468683bf4ad12f222cd51393f99bf404800eb2678b6e8de",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/claim_without_work_ledger_closeout.json": "4876d9f46b49ea463ce992b06b9321289ac4a5b94a2adfb0f9bbe8de699e21fd",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/commit_claim_without_head_change.json": "23d4faf0176515b1a806263840b15bdf5e8f8ec959fcc63bf6a1eae8ca6c9b0a",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/dirty_tree_boundary_missing.json": "8a67b7a42324fd94da18382628102788513942f29662dc29df3e545f3e7ea891",
       "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json": "06619e6beed535c9af21d58162c7bcead292f694290ec488e2633d56c4ed007c",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/live_git_mutation_authorized.json": "0381a4843bcd0e68959c13b2191ad35c0dd7d3c6f5d814213c11ddfe745ab858",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/missing_evidence_ref.json": "d153428707795f505da49fd214920a5dabdd5ab14b1d124e08f71f2b35808a2a",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/private_path_leakage.json": "9b69766a6eb054c14dc151eac7be16efacf23b01a710e00683d05ab1630a0a6a",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/live_git_mutation_authorized.json": "f852148669d403280706d3c03baf1913e5c834cc9b1beb7c13159cb41c85eca9",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/missing_evidence_ref.json": "06838c32891c20194fc47000e55b2be768074db9d69c9d1857dc0609e5845939",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/private_path_leakage.json": "43a24fb2083e75ad1837d7b8af882a190054f31c2d7b123d0b9892b351c14c0b",
       "fixtures/first_wave/durable_agent_work_landing_replay/input/projection_protocol.json": "0e34401bd82010a5f5a08c8da125f9d40d71a7986d6dcb40bbf596acfe911fd0",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/release_overclaim.json": "e67cfb7617052bda4d76f41454f68df899951e83279a1860254f0c0275bbeed7",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json": "0a1cbba430c3476e5380e5091d015613f7865d93cebd8df9df743707520d80bd",
-      "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json": "edfedb6c6b59202da900b33c86fecba80df80c8e01b26c8f41eb211e3088ff69"
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/release_overclaim.json": "ac93a932e439545c84e63ee265fbd216bb91268f5d6737f19b65c47d497eec3c",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json": "e451ac0ef34cc9f464ed535ff378a5c12864d7c61a134e6cd1f83c7a7386183d",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/validation_after_commit_attempt.json": "121dfb0459cb33e22ef06910079cba8f1aa7f35c6d8c07bd252d6f5ba034ca89",
+      "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json": "3edbde5afcfb746bef9497e991bf7f879d0e359692102ab201ae6f6ff23fcb48"
     },
     "executable_doctrine_grammar": {
       "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md": "5ed0705fc2f16c98c854be2c52ac163af1239a666e3abb8bdbad3061791d0c7d",

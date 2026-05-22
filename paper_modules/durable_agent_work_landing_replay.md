@@ -12,7 +12,7 @@ Durable agent work-landing replay is the public work-spine organ for showing how
 
 ## Negative Cases
 
-The fixture rejects missing validation evidence, missing Work Ledger closeout, commit-landed language without a HEAD advance, live Git mutation authority, unrelated dirty-path staging, uncaptured metadata blockers, release overclaims, and private path/body leakage.
+The fixture rejects missing validation evidence, validation recorded after a commit attempt, missing Work Ledger closeout, commit-landed language without a HEAD advance, live Git mutation authority, unrelated dirty-path staging, uncaptured metadata blockers, release overclaims, and private path/body leakage.
 
 ## Authority Ceiling
 

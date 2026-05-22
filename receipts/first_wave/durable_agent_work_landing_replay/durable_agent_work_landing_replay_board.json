@@ -32,6 +32,11 @@
       "mechanic_id": "head_advance_before_landed_commit_language"
     },
     {
+      "authority": "commit_path_landing_requires_validation_precedes_commit_attempt_true",
+      "count": 2,
+      "mechanic_id": "validation_before_commit_attempt"
+    },
+    {
       "authority": "blocker_capture_and_work_ledger_finalizer_required",
       "count": 1,
       "mechanic_id": "metadata_blocked_patch_bundle"
@@ -44,7 +49,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 11,
+    "scanned_path_count": 12,
     "status": "pass"
   },
   "receipt_paths": [

@@ -409,6 +409,7 @@ def test_cli_landing_replay_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["command"] == "microcosm landing-replay"
     assert payload["endpoint"] == "/landing-replay"
     assert payload["replay_summary"]["lane_count"] == 4
+    assert payload["replay_summary"]["validation_before_commit_attempt_required"] is True
     assert payload["authority_ceiling"]["live_git_mutation_authorized"] is False
     assert payload["authority_ceiling"]["broad_checkpoint_authorized"] is False
 

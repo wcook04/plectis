@@ -11,7 +11,7 @@
     "status": "pass",
     "unrelated_dirty_paths_authorized": false
   },
-  "created_at": "2026-05-22T02:16:45+00:00",
+  "created_at": "2026-05-22T12:15:25+00:00",
   "fixture_id": "first_wave.durable_agent_work_landing_replay",
   "landed_commit_count": 1,
   "metadata_blocked_count": 1,
@@ -24,7 +24,8 @@
       "missing_evidence_ref",
       "private_path_leakage",
       "release_overclaim",
-      "uncaptured_blocker"
+      "uncaptured_blocker",
+      "validation_after_commit_attempt"
     ],
     "missing": [],
     "observed": {
@@ -51,6 +52,9 @@
       ],
       "uncaptured_blocker": [
         "WORK_LANDING_BLOCKER_CAPTURE_MISSING"
+      ],
+      "validation_after_commit_attempt": [
+        "WORK_LANDING_VALIDATION_ORDER_MISSING"
       ]
     }
   },
@@ -61,7 +65,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 11,
+    "scanned_path_count": 12,
     "status": "pass"
   },
   "receipt_paths": [
@@ -73,5 +77,7 @@
   "run_count": 3,
   "schema_version": "durable_agent_work_landing_replay_validation_receipt_v1",
   "status": "pass",
+  "validation_order_pass_count": 2,
+  "validation_order_required_count": 2,
   "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay"
 }

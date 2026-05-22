@@ -680,14 +680,14 @@ lands in a dirty tree without implying broad staging authority.
 
 `durable_agent_work_landing_replay` is the work-landing transaction replay
 organ: it validates claimed owned paths, owner-native validation refs, scoped
-commit attempts, HEAD-advance checks before landed language, metadata-blocked
+commit attempts, validation-before-commit ordering, HEAD-advance checks before landed language, metadata-blocked
 patch-bundle recovery, Task Ledger blocker refs, and Work Ledger finalizers.
 Run `microcosm durable-agent-work-landing-replay run-work-landing-bundle` to
 inspect the public bundle. The organ rejects missing evidence, missing ledger
-closeout, commit claims without HEAD advance, live Git mutation authority,
-unrelated dirty-path staging, uncaptured blockers, release overclaims, and
-private path/body leakage without proving a commit landed or authorizing
-release.
+closeout, validation after commit attempt, commit claims without HEAD advance,
+live Git mutation authority, unrelated dirty-path staging, uncaptured blockers,
+release overclaims, and private path/body leakage without proving a commit
+landed or authorizing release.
 
 `research_replication_rubric_artifact_replay` is the public research-replay
 rubric organ: it validates synthetic paper capsules, artifact hash plans,

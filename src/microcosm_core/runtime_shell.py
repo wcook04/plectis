@@ -3054,8 +3054,17 @@ class RuntimeShell:
             },
             {
                 "event_id": "validate_owner_native",
-                "status": "required_before_closeout",
+                "status": "required_before_commit_attempt_and_closeout",
                 "public_evidence_ref": "microcosm focused tests and validators",
+                "source_body_exported": False,
+            },
+            {
+                "event_id": "validation_before_commit_attempt",
+                "status": "required_before_landed_commit_language",
+                "public_evidence_ref": (
+                    "durable_agent_work_landing_replay::"
+                    "validation_after_commit_attempt"
+                ),
                 "source_body_exported": False,
             },
             {
@@ -3075,6 +3084,7 @@ class RuntimeShell:
             "broad_checkpoint_without_operator_authorization",
             "commit_claim_without_head_advance",
             "unrelated_dirty_paths_staged_by_scoped_lane",
+            "commit_attempt_before_owner_native_validation",
             "blocker_reported_without_task_ledger_capture",
             "validation_omitted_before_closeout",
             "private_source_body_exported",
@@ -3094,8 +3104,8 @@ class RuntimeShell:
         status = (
             PASS
             if len(lane_decision_table) == 4
-            and len(replay_events) == 4
-            and len(negative_case_ids) == 7
+            and len(replay_events) == 5
+            and len(negative_case_ids) == 8
             and authority_ceiling["live_git_mutation_authorized"] is False
             and authority_ceiling["broad_checkpoint_authorized"] is False
             and authority_ceiling["source_mutation_authorized"] is False
@@ -3131,6 +3141,7 @@ class RuntimeShell:
             "replay_policy": {
                 "ambient_dirty_tree_is_not_a_freeze_reason": True,
                 "owned_paths_must_be_claimed": True,
+                "owner_native_validation_precedes_commit_attempt": True,
                 "scoped_commit_requires_head_advance_before_landed_language": True,
                 "broad_checkpoint_requires_explicit_operator_authorization": True,
                 "metadata_blocker_requires_task_ledger_capture": True,
@@ -3147,6 +3158,7 @@ class RuntimeShell:
                 "unrelated_dirty_stage_authority_count": 0,
                 "git_metadata_blocker_ref": "wie_20260521T195941Z_cf83fa74",
                 "work_ledger_session_ref": "codex_microcosm_wave_032",
+                "validation_before_commit_attempt_required": True,
                 "head_advance_required_for_landed_commit_claim": True,
             },
             "negative_case_ids": negative_case_ids,

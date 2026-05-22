@@ -13,6 +13,7 @@
   "release_claim_authorized": false,
   "run_id": "neg_missing_evidence_ref",
   "unrelated_dirty_paths_staged": false,
+  "validation_precedes_commit_attempt": true,
   "validation_refs": [],
   "work_ledger_closeout_ref": "wlr_fixture_negative_closeout"
 }

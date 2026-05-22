@@ -12,8 +12,8 @@
     "unrelated_dirty_paths_authorized": false
   },
   "bundle_id": "durable_agent_work_landing_replay_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run-work-landing-bundle",
+  "created_at": "2026-05-22T12:15:25+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -117,6 +117,8 @@
     "system/lib/work_landing_status.py"
   ],
   "status": "pass",
+  "validation_order_pass_count": 2,
+  "validation_order_required_count": 2,
   "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay",
   "work_landing_runs": [
     {
@@ -134,6 +136,7 @@
       "release_claim_authorized": false,
       "run_id": "scoped_commit_landed_fixture",
       "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
       "validation_refs": [
         "tests/test_runtime_shell.py::test_runtime_shell_run_persists_organ_receipts"
       ],
@@ -154,6 +157,7 @@
       "release_claim_authorized": false,
       "run_id": "metadata_blocked_patch_bundle_fixture",
       "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
       "validation_refs": [
         "microcosm_core.validators.standards_registry",
         "microcosm_core.validators.acceptance"
@@ -174,6 +178,7 @@
       "release_claim_authorized": false,
       "run_id": "hard_stop_preserves_user_changes_fixture",
       "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
       "validation_refs": [
         "microcosm_core.private_state_scan"
       ],

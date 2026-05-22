@@ -9,7 +9,8 @@
     "missing_evidence_ref",
     "private_path_leakage",
     "release_overclaim",
-    "uncaptured_blocker"
+    "uncaptured_blocker",
+    "validation_after_commit_attempt"
   ],
   "fixture_id": "fixture::durable_agent_work_landing_replay::first_wave_contract_v1",
   "generated_receipts": [
@@ -62,6 +63,10 @@
     {
       "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json",
       "role": "negative case: uncaptured blocker"
+    },
+    {
+      "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/validation_after_commit_attempt.json",
+      "role": "negative case: validation recorded after commit attempt"
     }
   ],
   "organ_id": "durable_agent_work_landing_replay",
@@ -74,7 +79,8 @@
     "WORK_LANDING_LEDGER_CLOSEOUT_MISSING",
     "WORK_LANDING_LIVE_GIT_MUTATION_AUTHORITY",
     "WORK_LANDING_PRIVATE_PATH_LEAKAGE",
-    "WORK_LANDING_RELEASE_OVERCLAIM"
+    "WORK_LANDING_RELEASE_OVERCLAIM",
+    "WORK_LANDING_VALIDATION_ORDER_MISSING"
   ],
   "title": "Durable agent work-landing replay fixture",
   "validator": "microcosm_core.organs.durable_agent_work_landing_replay",

@@ -13,7 +13,7 @@
   },
   "body_redacted": true,
   "command": "microcosm landing-replay",
-  "created_at": "2026-05-22T08:52:17+00:00",
+  "created_at": "2026-05-22T12:16:57+00:00",
   "endpoint": "/landing-replay",
   "evidence_refs": [
     "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
@@ -94,6 +94,7 @@
     "broad_checkpoint_without_operator_authorization",
     "commit_claim_without_head_advance",
     "unrelated_dirty_paths_staged_by_scoped_lane",
+    "commit_attempt_before_owner_native_validation",
     "blocker_reported_without_task_ledger_capture",
     "validation_omitted_before_closeout",
     "private_source_body_exported",
@@ -113,7 +114,13 @@
       "event_id": "validate_owner_native",
       "public_evidence_ref": "microcosm focused tests and validators",
       "source_body_exported": false,
-      "status": "required_before_closeout"
+      "status": "required_before_commit_attempt_and_closeout"
+    },
+    {
+      "event_id": "validation_before_commit_attempt",
+      "public_evidence_ref": "durable_agent_work_landing_replay::validation_after_commit_attempt",
+      "source_body_exported": false,
+      "status": "required_before_landed_commit_language"
     },
     {
       "event_id": "git_metadata_blocker_capture",
@@ -133,6 +140,7 @@
     "broad_checkpoint_requires_explicit_operator_authorization": true,
     "metadata_blocker_requires_task_ledger_capture": true,
     "owned_paths_must_be_claimed": true,
+    "owner_native_validation_precedes_commit_attempt": true,
     "scoped_commit_requires_head_advance_before_landed_language": true,
     "unrelated_user_changes_are_not_reverted": true,
     "work_ledger_progress_or_append_exempt_closeout_required": true
@@ -143,6 +151,7 @@
     "lane_count": 4,
     "operator_authorized_lane_count": 1,
     "unrelated_dirty_stage_authority_count": 0,
+    "validation_before_commit_attempt_required": true,
     "work_ledger_session_ref": "codex_microcosm_wave_032"
   },
   "safe_to_show": {

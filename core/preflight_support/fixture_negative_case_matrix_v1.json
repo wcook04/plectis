@@ -80,7 +80,8 @@
         "missing_evidence_ref",
         "private_path_leakage",
         "release_overclaim",
-        "uncaptured_blocker"
+        "uncaptured_blocker",
+        "validation_after_commit_attempt"
       ],
       "organ_id": "durable_agent_work_landing_replay",
       "status": "covered_by_fixture_manifest"

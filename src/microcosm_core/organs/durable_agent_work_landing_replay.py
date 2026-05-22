@@ -38,6 +38,7 @@ NEGATIVE_INPUT_NAMES = (
     "missing_evidence_ref.json",
     "claim_without_work_ledger_closeout.json",
     "commit_claim_without_head_change.json",
+    "validation_after_commit_attempt.json",
     "live_git_mutation_authorized.json",
     "dirty_tree_boundary_missing.json",
     "uncaptured_blocker.json",
@@ -49,6 +50,7 @@ EXPECTED_NEGATIVE_CASES = {
     "missing_evidence_ref": ["WORK_LANDING_EVIDENCE_REF_MISSING"],
     "claim_without_work_ledger_closeout": ["WORK_LANDING_LEDGER_CLOSEOUT_MISSING"],
     "commit_claim_without_head_change": ["WORK_LANDING_HEAD_ADVANCE_MISSING"],
+    "validation_after_commit_attempt": ["WORK_LANDING_VALIDATION_ORDER_MISSING"],
     "live_git_mutation_authorized": ["WORK_LANDING_LIVE_GIT_MUTATION_AUTHORITY"],
     "dirty_tree_boundary_missing": ["WORK_LANDING_DIRTY_TREE_BOUNDARY_MISSING"],
     "uncaptured_blocker": ["WORK_LANDING_BLOCKER_CAPTURE_MISSING"],
@@ -79,6 +81,10 @@ REQUIRED_LANE_IDS = {
     "broad_checkpoint",
     "metadata_blocked_patch_bundle",
     "hard_stop",
+}
+COMMIT_ATTEMPT_STATUSES = {
+    "scoped_commit_landed",
+    "metadata_blocked_patch_bundle",
 }
 FORBIDDEN_BODY_KEYS = (
     "private_source_body",
@@ -323,6 +329,7 @@ def _validate_run_row(
     claimed_paths = _strings(row.get("claimed_path_refs"))
     work_ledger_closeout = str(row.get("work_ledger_closeout_ref") or "")
     blocker_ref = str(row.get("blocker_capture_ref") or "")
+    landing_status = str(row.get("landing_status") or "")
     if not validation_refs:
         _record(
             findings,
@@ -363,6 +370,19 @@ def _validate_run_row(
             subject_id=run_id,
             subject_kind="work_landing_run",
         )
+    if (
+        landing_status in COMMIT_ATTEMPT_STATUSES
+        and row.get("validation_precedes_commit_attempt") is not True
+    ):
+        _record(
+            findings,
+            observed,
+            "WORK_LANDING_VALIDATION_ORDER_MISSING",
+            "Commit-path work landing must record validation before the commit attempt.",
+            case_id=case_id,
+            subject_id=run_id,
+            subject_kind="work_landing_run",
+        )
     if row.get("live_git_mutation_authorized") is not False:
         _record(
             findings,
@@ -383,7 +403,7 @@ def _validate_run_row(
             subject_id=run_id,
             subject_kind="work_landing_run",
         )
-    if row.get("landing_status") == "metadata_blocked_patch_bundle" and not blocker_ref:
+    if landing_status == "metadata_blocked_patch_bundle" and not blocker_ref:
         _record(
             findings,
             observed,
@@ -439,6 +459,15 @@ def validate_work_landing_runs(
         "landed_commit_count": sum(1 for row in rows if row.get("commit_claimed_landed") is True),
         "metadata_blocked_count": sum(
             1 for row in rows if row.get("landing_status") == "metadata_blocked_patch_bundle"
+        ),
+        "validation_order_required_count": sum(
+            1 for row in rows if row.get("landing_status") in COMMIT_ATTEMPT_STATUSES
+        ),
+        "validation_order_pass_count": sum(
+            1
+            for row in rows
+            if row.get("landing_status") in COMMIT_ATTEMPT_STATUSES
+            and row.get("validation_precedes_commit_attempt") is True
         ),
         "work_landing_runs": rows,
         "findings": [*positive_findings, *findings],
@@ -519,6 +548,8 @@ def _build_result(
         "run_count": landing_runs["run_count"],
         "landed_commit_count": landing_runs["landed_commit_count"],
         "metadata_blocked_count": landing_runs["metadata_blocked_count"],
+        "validation_order_required_count": landing_runs["validation_order_required_count"],
+        "validation_order_pass_count": landing_runs["validation_order_pass_count"],
         "work_landing_runs": landing_runs["work_landing_runs"],
     }
 
@@ -541,6 +572,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "mechanic_id": "head_advance_before_landed_commit_language",
                 "count": result["landed_commit_count"],
                 "authority": "commit_claim_requires_head_before_after_change",
+            },
+            {
+                "mechanic_id": "validation_before_commit_attempt",
+                "count": result["validation_order_pass_count"],
+                "authority": "commit_path_landing_requires_validation_precedes_commit_attempt_true",
             },
             {
                 "mechanic_id": "metadata_blocked_patch_bundle",
@@ -600,6 +636,8 @@ def _write_receipts(
         "run_count": result["run_count"],
         "metadata_blocked_count": result["metadata_blocked_count"],
         "landed_commit_count": result["landed_commit_count"],
+        "validation_order_required_count": result["validation_order_required_count"],
+        "validation_order_pass_count": result["validation_order_pass_count"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],

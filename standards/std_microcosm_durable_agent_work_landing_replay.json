@@ -132,7 +132,8 @@
       "missing_evidence_ref",
       "private_path_leakage",
       "release_overclaim",
-      "uncaptured_blocker"
+      "uncaptured_blocker",
+      "validation_after_commit_attempt"
     ],
     "ontology": "A public-safe work landing replay: lane policy, path claims, validation refs, scoped commit attempt refs, blocker capture refs, Work Ledger closeout refs, and negative cases.",
     "rebuild_action": "draft",
@@ -142,6 +143,7 @@
   "validation_rules": [
     "require owned-path claim refs before mutation language",
     "require owner-native validation refs before closeout language",
+    "require owner-native validation to be recorded before commit-path attempts",
     "require Work Ledger closeout or append-exempt finalizer refs",
     "reject landed-commit claims without HEAD advance",
     "reject live Git mutation, unrelated dirty staging, private path/body leakage, and release overclaims"
@@ -156,7 +158,8 @@
       "missing_evidence_ref",
       "private_path_leakage",
       "release_overclaim",
-      "uncaptured_blocker"
+      "uncaptured_blocker",
+      "validation_after_commit_attempt"
     ],
     "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay"
   }

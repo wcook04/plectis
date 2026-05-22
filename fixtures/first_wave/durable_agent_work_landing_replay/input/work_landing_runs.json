@@ -16,6 +16,7 @@
       "release_claim_authorized": false,
       "run_id": "scoped_commit_landed_fixture",
       "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
       "validation_refs": [
         "tests/test_runtime_shell.py::test_runtime_shell_run_persists_organ_receipts"
       ],
@@ -36,6 +37,7 @@
       "release_claim_authorized": false,
       "run_id": "metadata_blocked_patch_bundle_fixture",
       "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
       "validation_refs": [
         "microcosm_core.validators.standards_registry",
         "microcosm_core.validators.acceptance"
@@ -56,6 +58,7 @@
       "release_claim_authorized": false,
       "run_id": "hard_stop_preserves_user_changes_fixture",
       "unrelated_dirty_paths_staged": false,
+      "validation_precedes_commit_attempt": true,
       "validation_refs": [
         "microcosm_core.private_state_scan"
       ],

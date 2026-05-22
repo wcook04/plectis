@@ -175,8 +175,8 @@ explanation, and assimilation primitives, not through production claims.
    The durable agent work-landing replay organ is
    `durable_agent_work_landing_replay`; use `durable-agent-work-landing-replay`
    to validate the exported work landing replay bundle. It must show owned-path
-   claims, validation refs, scoped commit attempts, HEAD-advance gates,
-   metadata-blocked recovery, Task Ledger blocker refs, and Work Ledger
+   claims, validation refs, validation-before-commit ordering, scoped commit
+   attempts, HEAD-advance gates, metadata-blocked recovery, Task Ledger blocker refs, and Work Ledger
    finalizers without mutating Git, staging unrelated paths, exporting private
    bodies, claiming a commit landed without evidence, or implying release
    authority.

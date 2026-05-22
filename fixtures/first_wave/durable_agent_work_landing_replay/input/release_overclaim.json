@@ -13,6 +13,7 @@
   "release_claim_authorized": true,
   "run_id": "neg_release_overclaim",
   "unrelated_dirty_paths_staged": false,
+  "validation_precedes_commit_attempt": true,
   "validation_refs": [
     "tests/test_durable_agent_work_landing_replay.py"
   ],

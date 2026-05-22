@@ -14,6 +14,7 @@
   "release_claim_authorized": false,
   "run_id": "neg_private_path_leakage",
   "unrelated_dirty_paths_staged": false,
+  "validation_precedes_commit_attempt": true,
   "validation_refs": [
     "tests/test_durable_agent_work_landing_replay.py"
   ],

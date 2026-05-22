@@ -440,7 +440,8 @@
         "fixtures/first_wave/durable_agent_work_landing_replay/input/missing_evidence_ref.json",
         "fixtures/first_wave/durable_agent_work_landing_replay/input/private_path_leakage.json",
         "fixtures/first_wave/durable_agent_work_landing_replay/input/release_overclaim.json",
-        "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json"
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json",
+        "fixtures/first_wave/durable_agent_work_landing_replay/input/validation_after_commit_attempt.json"
       ],
       "fixture_manifest": "core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json",
       "organ_id": "durable_agent_work_landing_replay"

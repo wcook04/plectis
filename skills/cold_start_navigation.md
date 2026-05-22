@@ -70,9 +70,9 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay`
    or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
    durable-agent-work-landing-replay run-work-landing-bundle` path to inspect
-   owned-path claims, validation refs, HEAD-advance gates, metadata-blocked
-   recovery, blocker capture, and Work Ledger finalizers before trusting
-   landed-work language.
+   owned-path claims, validation refs, validation-before-commit ordering,
+   HEAD-advance gates, metadata-blocked recovery, blocker capture, and Work
+   Ledger finalizers before trusting landed-work language.
 16. Run `microcosm view-quality` or
    `PYTHONPATH=src python3 -m microcosm_core.cli view-quality` to inspect one
    typed next-action row per requested view, including missing and partial

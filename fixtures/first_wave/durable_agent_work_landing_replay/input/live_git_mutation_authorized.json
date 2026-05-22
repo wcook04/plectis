@@ -13,6 +13,7 @@
   "release_claim_authorized": false,
   "run_id": "neg_live_git_mutation_authorized",
   "unrelated_dirty_paths_staged": false,
+  "validation_precedes_commit_attempt": true,
   "validation_refs": [
     "tests/test_durable_agent_work_landing_replay.py"
   ],

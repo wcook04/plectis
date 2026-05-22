@@ -788,12 +788,14 @@ def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> Non
         "broad_checkpoint_without_operator_authorization",
         "commit_claim_without_head_advance",
         "unrelated_dirty_paths_staged_by_scoped_lane",
+        "commit_attempt_before_owner_native_validation",
         "blocker_reported_without_task_ledger_capture",
         "validation_omitted_before_closeout",
         "private_source_body_exported",
         "release_claim_from_local_receipt",
     }
     assert lens["replay_policy"]["scoped_commit_requires_head_advance_before_landed_language"] is True
+    assert lens["replay_policy"]["owner_native_validation_precedes_commit_attempt"] is True
     assert lens["replay_policy"]["broad_checkpoint_requires_explicit_operator_authorization"] is True
     assert lens["replay_summary"]["lane_count"] == 4
     assert lens["replay_summary"]["unrelated_dirty_stage_authority_count"] == 0
