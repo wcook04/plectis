@@ -151,7 +151,7 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 44
     assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
@@ -237,7 +237,7 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 43
+    assert payload["surface_counts"]["organ_authority_count"] == 44
     assert payload["surface_counts"]["surface_authority_count"] == 43
     assert payload["surface_counts"]["organ_evidence_class_count"] == 5
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
@@ -245,7 +245,7 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 1,
+        "external_subprocess_witness": 2,
         "fixture_schema_replay": 2,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}

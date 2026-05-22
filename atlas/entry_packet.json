@@ -5,8 +5,31 @@
   "allowed_drilldowns": [
     "core/pattern_binding_contract.json",
     "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
-    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json"
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "microcosm python-lens <project>",
+    ".microcosm/python_lens.json",
+    ".microcosm/python_lens.json::navigation_assay",
+    ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay"
   ],
+  "python_navigation_route": {
+    "surface_id": "project_python_lens",
+    "command": "microcosm python-lens <project>",
+    "endpoint": "/project/python-lens",
+    "assay_id": "std_python_microcosm_navigation_assay",
+    "assay_ref": ".microcosm/python_lens.json::navigation_assay",
+    "implementation_atlas_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
+    "canonical_depth_ladder": [
+      "module_docs",
+      "file_card",
+      "symbol_capsule",
+      "graph_context",
+      "source_span"
+    ],
+    "selection_rule": "Start at file_card for Python orientation, then drill to symbol_capsule, graph_context, or source_span only when the task requires exact proof.",
+    "body_redacted": true,
+    "source_bodies_exported": false,
+    "authority": "project-local route pointer, not source authority, release authority, or static-analysis authority"
+  },
   "banned_routes": [
     "self-indexing-cognitive-substrate/**",
     "raw_seed.md",

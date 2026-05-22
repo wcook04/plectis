@@ -80,6 +80,7 @@ ACCEPTED_ORGAN_IDS = [
     "provider_context_recipe_budget_policy",
     "formal_math_lean_proof_witness",
     "verifier_lab_kernel",
+    "verifier_lab_execution_spine",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "durable_agent_work_landing_replay",
@@ -110,6 +111,8 @@ REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
         "repo -> .microcosm",
         "microcosm compile .",
+        "std_python_microcosm_navigation_assay",
+        "implementation_atlas.python_navigation_assay",
         "executable research prototype",
         "local project operating substrate",
         ".microcosm/",
@@ -293,6 +296,8 @@ REQUIRED_PHRASES_BY_DOC = {
     "skills/cold_start_navigation.md": [
         "evidence_class",
         "`accepted_current_authority` is not an evidence-strength claim",
+        "std_python_microcosm_navigation_assay",
+        "implementation_atlas.python_navigation_assay",
     ],
 }
 FORBIDDEN_PHRASES_BY_DOC = {

@@ -263,6 +263,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "local project operating substrate" in normalized_text
     assert "repo -> .microcosm" in text
     assert "microcosm compile ." in text
+    assert "std_python_microcosm_navigation_assay" in text
+    assert "implementation_atlas.python_navigation_assay" in text
     assert "executable research prototype" in text
     assert "Architecture Kernel" in text
     assert "microcosm explain <project> <route_id>" in text
@@ -291,3 +293,31 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
         assert "state/microcosm_portfolio/reconstruction" not in text
         assert "core/preflight_support/organ_fixture_validator_readiness_v1.json" in text
         assert "core/preflight_support/fixture_negative_case_matrix_v1.json" in text
+    cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
+        encoding="utf-8"
+    )
+    assert "std_python_microcosm_navigation_assay" in cold_start
+    assert "implementation_atlas.python_navigation_assay" in cold_start
+
+
+def test_public_entry_packet_routes_python_navigation_assay() -> None:
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+
+    route = entry_packet["python_navigation_route"]
+    assert route["surface_id"] == "project_python_lens"
+    assert route["command"] == "microcosm python-lens <project>"
+    assert route["assay_id"] == "std_python_microcosm_navigation_assay"
+    assert route["assay_ref"] == ".microcosm/python_lens.json::navigation_assay"
+    assert route["implementation_atlas_ref"] == (
+        ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay"
+    )
+    assert route["canonical_depth_ladder"] == [
+        "module_docs",
+        "file_card",
+        "symbol_capsule",
+        "graph_context",
+        "source_span",
+    ]
+    assert route["source_bodies_exported"] is False

@@ -870,6 +870,79 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         "authority": "generated_project_local_assay_not_std_python_source_authority",
         "reentry_condition": "rerun after Python file, catalog, route-readiness, or std_python ladder changes",
     }
+    primary_source_spans = [
+        str(row.get("span_id"))
+        for row in source_span_rows
+        if isinstance(row, dict) and row.get("span_id")
+    ][:12]
+    python_navigation_route = {
+        "route_id": "std_python_microcosm_navigation_assay",
+        "surface_id": "project_python_lens",
+        "command": "microcosm python-lens <project>",
+        "endpoint": "/project/python-lens",
+        "assay_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::navigation_assay",
+        "implementation_atlas_ref": (
+            f"{STATE_DIR}/{PYTHON_LENS_STATE}"
+            "::implementation_atlas.python_navigation_assay"
+        ),
+        "canonical_depth_ladder": STD_PYTHON_NAVIGATION_LADDER,
+        "depth_selection": [
+            {
+                "intent": "project_python_orientation",
+                "start_band": "file_card",
+                "drilldown_when": "task requires exact function, class, import edge, or proof span",
+            },
+            {
+                "intent": "symbol_or_dependency_question",
+                "start_band": "symbol_capsule",
+                "drilldown_when": "graph edge or caller/import context decides the next file",
+            },
+            {
+                "intent": "mutation_or_proof_question",
+                "start_band": "source_span",
+                "drilldown_when": "exact source locator is required without exporting bodies",
+            },
+        ],
+        "probe_disposition_counts": disposition_counts,
+        "source_bodies_exported": False,
+        "body_redacted": True,
+        "authority": "route_selector_over_project_local_read_model_not_release_or_static_analysis_authority",
+    }
+    implementation_atlas = {
+        "schema_version": "microcosm_project_implementation_atlas_v1",
+        "source_surface": "project_python_route_lens",
+        "python_navigation_assay": {
+            "assay_id": navigation_assay["assay_id"],
+            "assay_ref": python_navigation_route["assay_ref"],
+            "route_id": python_navigation_route["route_id"],
+            "command": python_navigation_route["command"],
+            "endpoint": python_navigation_route["endpoint"],
+            "canonical_depth_ladder": STD_PYTHON_NAVIGATION_LADDER,
+            "depth_band_coverage": depth_band_coverage,
+            "file_card_count": len(path_rows),
+            "symbol_capsule_count": len(symbol_capsule_rows),
+            "graph_edge_count": len(import_edges),
+            "source_span_count": len(source_span_rows),
+            "route_probe_task_count": len(route_probe_tasks),
+            "probe_disposition_counts": disposition_counts,
+            "standard_amendment_candidate_count": disposition_counts[
+                "standard_amendment_candidate"
+            ],
+            "file_local_defect_count": disposition_counts["file_local_defect"],
+            "nothing_to_refine_count": disposition_counts["nothing_to_refine"],
+            "parse_error_count": len(parse_error_rows),
+            "primary_code_cards": (
+                source_refs
+                or package_roots
+                or [str(row["path"]) for row in path_rows]
+            )[:12],
+            "primary_source_spans": primary_source_spans,
+            "body_redacted": True,
+            "source_bodies_exported": False,
+            "authority": navigation_assay["authority"],
+            "reentry_condition": navigation_assay["reentry_condition"],
+        },
+    }
     payload = {
         **_base_payload("microcosm_project_python_lens_v1", project),
         "lens_id": "project_python_route_lens",
@@ -893,6 +966,8 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         "missing_check_count": sum(1 for row in checks if row["status"] != PASS),
         "route_rows": route_rows,
         "navigation_assay": navigation_assay,
+        "python_navigation_route": python_navigation_route,
+        "implementation_atlas": implementation_atlas,
         "ready_route_count": sum(1 for row in route_rows if row["readiness"] == PASS),
         "standard_refs": [
             "macro:codex/standards/std_python.py::navigation_contract",
@@ -1356,6 +1431,8 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
                 else {}
             ),
         },
+        "implementation_atlas": python_projection.get("implementation_atlas", {}),
+        "python_navigation_route": python_projection.get("python_navigation_route", {}),
         "primitive_ids": architecture.get("primitive_ids", []),
         "passing_pattern_count": patterns.get("passing_pattern_count", 0),
         "route_count": routes.get("route_count", 0),

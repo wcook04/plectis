@@ -33,6 +33,7 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "provider_context_recipe_budget_policy": "algorithmic_projection",
     "formal_math_lean_proof_witness": "external_subprocess_witness",
     "verifier_lab_kernel": "algorithmic_projection",
+    "verifier_lab_execution_spine": "external_subprocess_witness",
     "navigation_hologram_route_plane": "semantic_validator",
     "mission_transaction_work_spine": "semantic_validator",
     "durable_agent_work_landing_replay": "semantic_validator",
@@ -75,7 +76,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     status = shell.status()
 
     assert status["status"] == "pass"
-    assert status["adapter_backed_organ_count"] == 43
+    assert status["adapter_backed_organ_count"] == 44
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
@@ -218,13 +219,13 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["status"] == "pass"
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
-    assert spine["surface_counts"]["adapter_backed_organ_count"] == 43
-    assert len(spine["accepted_runtime_spine"]) == 43
+    assert spine["surface_counts"]["adapter_backed_organ_count"] == 44
+    assert len(spine["accepted_runtime_spine"]) == 44
     assert spine["surface_counts"]["evidence_class_count"] == 5
     assert spine["evidence_class_registry"]["fail_closed_no_default"] is True
-    assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 43
+    assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 44
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
-    assert sum(spine["evidence_class_counts"].values()) == 43
+    assert sum(spine["evidence_class_counts"].values()) == 44
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in rows_by_id.items()} == (
         EXPECTED_ORGAN_EVIDENCE_CLASSES
@@ -233,7 +234,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 1,
+        "external_subprocess_witness": 2,
         "fixture_schema_replay": 2,
     }
     assert rows_by_id["proof_diagnostic_evidence_spine"]["evidence_class"] == (
@@ -432,19 +433,19 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "private_screenshot_paths_exported": False,
         "reader_success_guarantee": False,
     }
-    assert authority["surface_counts"]["organ_authority_count"] == 43
+    assert authority["surface_counts"]["organ_authority_count"] == 44
     assert authority["surface_counts"]["surface_authority_count"] == 43
     assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
     assert authority["evidence_class_registry"]["fail_closed_no_default"] is True
-    assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 43
+    assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 44
     assert authority["evidence_class_registry"]["unclassified_organs"] == []
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 1,
+        "external_subprocess_witness": 2,
         "fixture_schema_replay": 2,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
@@ -1863,8 +1864,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     assert result["status"] == "pass"
-    assert len(result["events"]) == 43
-    assert [event["status"] for event in result["events"]] == ["pass"] * 43
+    assert len(result["events"]) == 44
+    assert [event["status"] for event in result["events"]] == ["pass"] * 44
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
         "exported_standards_bundle",
@@ -1890,6 +1891,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
             "exported_provider_context_budget_bundle",
             "exported_lean_proof_witness_bundle",
             "exported_verifier_lab_kernel_bundle",
+            "exported_verifier_lab_execution_spine_bundle",
         "exported_route_plane_bundle",
         "exported_mission_transaction_bundle",
         "exported_observability_bundle",
@@ -1916,8 +1918,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
     assert trace["status"] == "pass"
-    assert trace["otel_shape"]["span_count"] == 43
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 43
+    assert trace["otel_shape"]["span_count"] == 44
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 44
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -2099,13 +2101,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
-    assert payload["adapter_backed_organ_count"] == 43
+    assert payload["adapter_backed_organ_count"] == 44
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
     assert authority["schema_version"] == "microcosm_public_authority_map_v1"
     assert authority["authority_ceiling"]["release_authorized"] is False
-    assert authority["surface_counts"]["organ_authority_count"] == 43
+    assert authority["surface_counts"]["organ_authority_count"] == 44
     assert authority["surface_counts"]["surface_authority_count"] == 43
     assert prediction["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert prediction["authority_ceiling"]["trading_authorized"] is False
@@ -2288,7 +2290,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 1,
+        "external_subprocess_witness": 2,
         "fixture_schema_replay": 2,
     }
     assert reveal["public_claim"].startswith("Microcosm turns a repo")

@@ -55,6 +55,7 @@ from microcosm_core.organs import standards_meta_diagnostics
 from microcosm_core.organs import tactic_portfolio_availability_probe
 from microcosm_core.organs import target_shape_tactic_routing_gate
 from microcosm_core.organs import undeclared_library_prior_symbol_classifier
+from microcosm_core.organs import verifier_lab_execution_spine
 from microcosm_core.organs import verifier_lab_kernel
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.receipts import utc_now, write_json_atomic
@@ -254,6 +255,19 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         example_rel="examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
         runner=verifier_lab_kernel.run_kernel_bundle,
         receipt_name="exported_verifier_lab_kernel_bundle_validation_result.json",
+    ),
+    RuntimeStep(
+        organ_id="verifier_lab_execution_spine",
+        span="verifier_lab_execution_spine.validate",
+        input_mode="exported_verifier_lab_execution_spine_bundle",
+        example_rel=(
+            "examples/verifier_lab_execution_spine/"
+            "exported_verifier_lab_execution_spine_bundle"
+        ),
+        runner=verifier_lab_execution_spine.run_execution_bundle,
+        receipt_name=(
+            "exported_verifier_lab_execution_spine_bundle_validation_result.json"
+        ),
     ),
     RuntimeStep(
         organ_id="navigation_hologram_route_plane",

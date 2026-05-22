@@ -91,6 +91,31 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert python_lens["navigation_assay"]["route_probe_tasks"][1]["expected_depth_band"] == "source_span"
     assert python_lens["navigation_assay"]["standard_amendment_candidate_count"] == 0
     assert python_lens["navigation_assay"]["parse_error_count"] == 0
+    assert python_lens["python_navigation_route"]["assay_ref"] == (
+        ".microcosm/python_lens.json::navigation_assay"
+    )
+    assert python_lens["python_navigation_route"]["implementation_atlas_ref"] == (
+        ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay"
+    )
+    assert python_lens["python_navigation_route"]["canonical_depth_ladder"] == [
+        "module_docs",
+        "file_card",
+        "symbol_capsule",
+        "graph_context",
+        "source_span",
+    ]
+    assert (
+        python_lens["implementation_atlas"]["python_navigation_assay"]["assay_id"]
+        == "std_python_microcosm_navigation_assay"
+    )
+    assert (
+        python_lens["implementation_atlas"]["python_navigation_assay"]["source_span_count"]
+        == 3
+    )
+    assert (
+        python_lens["implementation_atlas"]["python_navigation_assay"]["source_bodies_exported"]
+        is False
+    )
     test_span = next(
         row
         for row in python_lens["source_span_rows"]
@@ -192,6 +217,11 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["python_ready_route_count"] == 3
     assert compiled["python_source_span_count"] == 3
     assert compiled["python_navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
+    assert (
+        compiled["implementation_atlas"]["python_navigation_assay"]["assay_ref"]
+        == ".microcosm/python_lens.json::navigation_assay"
+    )
+    assert compiled["python_navigation_route"]["surface_id"] == "project_python_lens"
     assert compiled["work_id"] == "work_0001"
     assert compiled["idempotent_replay"] is True
     assert compiled["source_files_mutated"] is False
