@@ -12,55 +12,15 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import write_json_atomic
+from microcosm_core.runtime_shell import RUNTIME_STEPS
 from microcosm_core.schemas import read_json_strict
 
 
 CHECKER_ID = "checker.microcosm.validators.dependency_preflight"
-ACCEPTED_ORGAN_IDS = [
-    "pattern_binding_contract",
-    "executable_doctrine_grammar",
-    "proof_diagnostic_evidence_spine",
-    "formal_math_readiness_gate",
-    "corpus_readiness_mathlib_absence_gate",
-    "mathematical_strategy_atlas_hypothesis_scorer",
-    "tactic_portfolio_availability_probe",
-    "target_shape_tactic_routing_gate",
-    "lean_std_premise_index",
-    "formal_math_premise_retrieval",
-    "formal_math_verifier_trace_repair_loop",
-    "formal_evidence_cell_anchor_resolver",
-    "undeclared_library_prior_symbol_classifier",
-    "ring2_premise_retrieval_precision_recall_harness",
-    "agent_benchmark_integrity_anti_gaming_replay",
-    "provider_context_recipe_budget_policy",
-    "formal_math_lean_proof_witness",
-    "verifier_lab_kernel",
-    "navigation_hologram_route_plane",
-    "mission_transaction_work_spine",
-    "durable_agent_work_landing_replay",
-    "research_replication_rubric_artifact_replay",
-    "world_model_projection_drift_control_room",
-    "spatial_world_model_counterfactual_simulation_replay",
-    "mechanistic_interpretability_circuit_attribution_replay",
-    "agent_route_observability_runtime",
-    "pattern_assimilation_step",
-    "public_reveal_walkthrough",
-    "macro_projection_import_protocol",
-    "prediction_oracle_reconciliation",
-    "standards_meta_diagnostics",
-    "cold_reader_route_map",
-    "agent_monitor_redteam_falsification_replay",
-    "agent_sabotage_scheming_monitor_replay",
-    "agent_memory_temporal_conflict_replay",
-    "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay",
-    "proof_derived_governed_mutation_authorization",
-    "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay",
-    "agentic_vulnerability_discovery_patch_proof_replay",
-    "materials_chemistry_closed_loop_lab_safety_replay",
-]
+ACCEPTED_ORGAN_IDS = [step.organ_id for step in RUNTIME_STEPS]
+ACCEPTANCE_PLAN_REL = Path("core/acceptance/first_wave_acceptance.json")
+AUTHORITY_SNAPSHOT_REL = Path("receipts/runtime_shell/public_authority_map.json")
+EVIDENCE_CLASS_REGISTRY_REL = Path("core/organ_evidence_classes.json")
 DEFERRED_ORGAN_IDS = ["formal_math_lean_proof_organ"]
 
 
@@ -107,7 +67,13 @@ def _fixture_input_exists(public_root: Path, rel: str) -> bool:
 def _public_fixture_manifest(public_root: Path, organ_id: str, row: dict[str, Any]) -> Path:
     macro_manifest = Path(str(row.get("fixture_manifest") or ""))
     manifest_name = macro_manifest.name or f"{organ_id}.fixture_manifest.json"
-    return public_root / "core/fixture_manifests" / manifest_name
+    manifest_path = public_root / "core/fixture_manifests" / manifest_name
+    if manifest_path.is_file():
+        return manifest_path
+    canonical_path = (
+        public_root / "core/fixture_manifests" / f"{organ_id}.fixture_manifest.json"
+    )
+    return canonical_path if canonical_path.is_file() else manifest_path
 
 
 def _public_manifest_inputs(manifest_path: Path) -> list[str]:
@@ -137,6 +103,258 @@ def _negative_case_count(payload: Any) -> int:
                 return len(rows)
         return sum(1 for value in payload.values() if isinstance(value, (dict, list)))
     return 0
+
+
+def _id_counts(ids: list[str]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in ids:
+        counts[item] = counts.get(item, 0) + 1
+    return counts
+
+
+def _duplicates(ids: list[str]) -> list[str]:
+    return sorted(item for item, count in _id_counts(ids).items() if count > 1)
+
+
+def _accepted_plan_organs(public_root: Path) -> list[str]:
+    path = public_root / ACCEPTANCE_PLAN_REL
+    if not path.is_file():
+        return []
+    payload = read_json_strict(path)
+    return [
+        str(row.get("organ_id"))
+        for row in _rows(payload, "accepted_current_authority_organs")
+        if row.get("organ_id")
+    ]
+
+
+def _evidence_class_rows(public_root: Path) -> list[dict[str, Any]]:
+    path = public_root / EVIDENCE_CLASS_REGISTRY_REL
+    if not path.is_file():
+        return []
+    payload = read_json_strict(path)
+    return _rows(payload, "organ_evidence_classes")
+
+
+def _authority_snapshot(public_root: Path) -> dict[str, Any]:
+    path = public_root / AUTHORITY_SNAPSHOT_REL
+    if not path.is_file():
+        return {}
+    payload = read_json_strict(path)
+    return payload if isinstance(payload, dict) else {}
+
+
+def _surface_mentions_organ(surface: dict[str, Any], organ_id: str) -> bool:
+    slug = organ_id.replace("_", "-")
+    text = " ".join(
+        str(surface.get(key) or "")
+        for key in ("surface_id", "command", "endpoint", "authority_role")
+    )
+    return organ_id in text or slug in text
+
+
+def _add_lifecycle_defect(
+    defects: list[dict[str, Any]],
+    defect_id: str,
+    *,
+    organ_id: str | None = None,
+    surface: str | None = None,
+    detail: dict[str, Any] | None = None,
+) -> None:
+    defect: dict[str, Any] = {"defect_id": defect_id}
+    if organ_id is not None:
+        defect["organ_id"] = organ_id
+    if surface is not None:
+        defect["surface"] = surface
+    if detail:
+        defect["detail"] = detail
+    defects.append(defect)
+
+
+def _organ_lifecycle_coverage(
+    public_root: Path,
+    registry: dict[str, Any],
+    *,
+    accepted: list[str],
+    fixture_checks: list[dict[str, Any]],
+) -> dict[str, Any]:
+    runtime_ids = list(ACCEPTED_ORGAN_IDS)
+    accepted_plan_ids = _accepted_plan_organs(public_root)
+    evidence_rows = _evidence_class_rows(public_root)
+    evidence_ids = [str(row.get("organ_id")) for row in evidence_rows if row.get("organ_id")]
+    evidence_class_by_id = {
+        str(row.get("organ_id")): str(row.get("evidence_class"))
+        for row in evidence_rows
+        if row.get("organ_id")
+    }
+    registry_rows_by_id = {
+        str(row.get("organ_id")): row
+        for row in _rows(registry, "implemented_organs")
+        if row.get("status") == "accepted_current_authority" and row.get("organ_id")
+    }
+    authority = _authority_snapshot(public_root)
+    surface_rows = _rows(authority, "surface_authority")
+    organ_authority_rows = _rows(authority, "organ_authority")
+    organ_authority_ids = [
+        str(row.get("organ_id")) for row in organ_authority_rows if row.get("organ_id")
+    ]
+    command_path = [
+        str(command) for command in authority.get("command_path", []) if isinstance(command, str)
+    ]
+
+    defects: list[dict[str, Any]] = []
+
+    for organ_id in sorted(set(accepted) - set(runtime_ids)):
+        _add_lifecycle_defect(defects, "accepted_without_runtime_step", organ_id=organ_id)
+    for organ_id in sorted(set(runtime_ids) - set(accepted)):
+        _add_lifecycle_defect(defects, "runtime_step_without_accepted_organ", organ_id=organ_id)
+    if accepted and set(accepted) == set(runtime_ids):
+        accepted_order_status = PASS
+    else:
+        accepted_order_status = "blocked"
+
+    for organ_id in sorted(set(accepted) - set(accepted_plan_ids)):
+        _add_lifecycle_defect(defects, "accepted_without_acceptance_plan", organ_id=organ_id)
+    for organ_id in sorted(set(accepted_plan_ids) - set(accepted)):
+        _add_lifecycle_defect(defects, "acceptance_plan_without_accepted_organ", organ_id=organ_id)
+
+    for organ_id in sorted(set(accepted) - set(evidence_ids)):
+        _add_lifecycle_defect(defects, "missing_evidence_class", organ_id=organ_id)
+    for organ_id in sorted(set(evidence_ids) - set(accepted)):
+        _add_lifecycle_defect(defects, "evidence_class_without_accepted_organ", organ_id=organ_id)
+    for organ_id in _duplicates(evidence_ids):
+        _add_lifecycle_defect(defects, "duplicate_evidence_class", organ_id=organ_id)
+
+    fixture_by_id = {str(row.get("organ_id")): row for row in fixture_checks}
+    for organ_id in accepted:
+        row = fixture_by_id.get(organ_id, {})
+        if row.get("status") != PASS:
+            _add_lifecycle_defect(
+                defects,
+                "missing_fixture_bundle",
+                organ_id=organ_id,
+                detail={
+                    "missing_fixture_inputs": row.get("missing_fixture_inputs", []),
+                    "fixture_manifest": row.get("fixture_manifest"),
+                },
+            )
+        registry_row = registry_rows_by_id.get(organ_id, {})
+        if not registry_row.get("generated_receipts"):
+            _add_lifecycle_defect(defects, "missing_receipt_ref", organ_id=organ_id)
+
+    if not authority:
+        _add_lifecycle_defect(
+            defects,
+            "missing_snapshot_projection",
+            surface=AUTHORITY_SNAPSHOT_REL.as_posix(),
+        )
+    else:
+        surface_counts = authority.get("surface_counts", {})
+        declared_surface_count = (
+            surface_counts.get("surface_authority_count")
+            if isinstance(surface_counts, dict)
+            else None
+        )
+        declared_organ_count = (
+            surface_counts.get("organ_authority_count")
+            if isinstance(surface_counts, dict)
+            else None
+        )
+        if declared_surface_count != len(surface_rows):
+            _add_lifecycle_defect(
+                defects,
+                "stale_surface_authority_count",
+                detail={
+                    "declared_surface_authority_count": declared_surface_count,
+                    "actual_surface_authority_count": len(surface_rows),
+                },
+            )
+        if declared_organ_count != len(organ_authority_rows):
+            _add_lifecycle_defect(
+                defects,
+                "stale_organ_authority_count",
+                detail={
+                    "declared_organ_authority_count": declared_organ_count,
+                    "actual_organ_authority_count": len(organ_authority_rows),
+                },
+            )
+        if len(surface_rows) != len(accepted):
+            _add_lifecycle_defect(
+                defects,
+                "stale_expected_surface_count",
+                detail={
+                    "surface_authority_count": len(surface_rows),
+                    "accepted_organ_count": len(accepted),
+                },
+            )
+        for organ_id in sorted(set(accepted) - set(organ_authority_ids)):
+            _add_lifecycle_defect(defects, "missing_snapshot_projection", organ_id=organ_id)
+        for organ_id in sorted(set(organ_authority_ids) - set(accepted)):
+            _add_lifecycle_defect(defects, "snapshot_projection_without_organ", organ_id=organ_id)
+        for organ_id in _duplicates(organ_authority_ids):
+            _add_lifecycle_defect(defects, "duplicate_snapshot_projection", organ_id=organ_id)
+
+        command_path_organs = {
+            organ_id
+            for organ_id in accepted
+            if any(organ_id.replace("_", "-") in command for command in command_path)
+        }
+        for organ_id in sorted(command_path_organs):
+            if not any(_surface_mentions_organ(surface, organ_id) for surface in surface_rows):
+                _add_lifecycle_defect(defects, "missing_public_lens", organ_id=organ_id)
+
+    for organ_id, evidence_class in sorted(evidence_class_by_id.items()):
+        if evidence_class != "external_subprocess_witness":
+            continue
+        registry_row = registry_rows_by_id.get(organ_id, {})
+        if not registry_row.get("current_authority_receipt") or not registry_row.get(
+            "generated_receipts"
+        ):
+            _add_lifecycle_defect(
+                defects,
+                "external_subprocess_witness_without_tool_receipt",
+                organ_id=organ_id,
+            )
+
+    coverage_counts = {
+        "accepted_organ_count": len(accepted),
+        "runtime_step_count": len(runtime_ids),
+        "acceptance_plan_organ_count": len(accepted_plan_ids),
+        "evidence_class_row_count": len(evidence_ids),
+        "organ_authority_row_count": len(organ_authority_ids),
+        "surface_authority_row_count": len(surface_rows),
+        "fixture_check_count": len(fixture_checks),
+    }
+    return {
+        "schema_version": "organ_lifecycle_coverage_v1",
+        "status": PASS if not defects else "blocked",
+        "defect_count": len(defects),
+        "defects": defects,
+        "accepted_order_status": accepted_order_status,
+        "coverage_counts": coverage_counts,
+        "checked_surfaces": [
+            "core/organ_registry.json",
+            ACCEPTANCE_PLAN_REL.as_posix(),
+            EVIDENCE_CLASS_REGISTRY_REL.as_posix(),
+            AUTHORITY_SNAPSHOT_REL.as_posix(),
+            "core/fixture_manifests/*.fixture_manifest.json",
+            "fixtures/first_wave/<organ_id>/input",
+        ],
+        "required_invariants": [
+            "accepted organ ids equal RuntimeShell.RUNTIME_STEPS ids",
+            "accepted organ ids match first-wave acceptance rows",
+            "accepted organ ids have exactly one evidence-class row",
+            "accepted organ ids have public authority snapshot rows",
+            "public command-path organs have a matching public lens row",
+            "fixture manifests and fixture inputs exist for accepted organs",
+            "external subprocess witnesses carry tool/receipt evidence refs",
+        ],
+        "anti_claim": (
+            "Organ lifecycle coverage checks public convergence only; it does not "
+            "authorize release, provider calls, source mutation, or private-data "
+            "equivalence."
+        ),
+    }
 
 
 def run_dependency_preflight(
@@ -204,14 +422,28 @@ def run_dependency_preflight(
             }
         )
 
-    accepted_order = [organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id in accepted]
+    missing_runtime_ids = [organ_id for organ_id in accepted if organ_id not in ACCEPTED_ORGAN_IDS]
+    runtime_only_ids = [organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in accepted]
     wave_order_checks = {
-        "status": PASS if accepted_order == accepted else "blocked_wave_order_mismatch",
-        "expected_prefix_order": ACCEPTED_ORGAN_IDS,
+        "status": PASS
+        if not missing_runtime_ids and not runtime_only_ids
+        else "blocked_wave_order_mismatch",
+        "expected_runtime_ids": ACCEPTED_ORGAN_IDS,
         "observed_accepted_order": accepted,
+        "accepted_without_runtime_step": missing_runtime_ids,
+        "runtime_step_without_accepted_organ": runtime_only_ids,
     }
     if wave_order_checks["status"] != PASS:
         blocked_codes.append("ACCEPTED_ORGAN_ORDER_MISMATCH")
+
+    lifecycle_coverage = _organ_lifecycle_coverage(
+        public_root,
+        registry,
+        accepted=accepted,
+        fixture_checks=fixture_checks,
+    )
+    if lifecycle_coverage["status"] != PASS:
+        blocked_codes.append("ORGAN_LIFECYCLE_COVERAGE_DEFECT")
 
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     scan = _receipt_safe_scan(
@@ -240,6 +472,7 @@ def run_dependency_preflight(
         },
         "fixture_precondition_checks": fixture_checks,
         "wave_order_checks": wave_order_checks,
+        "organ_lifecycle_coverage": lifecycle_coverage,
         "dependency_checks": dependency_checks,
         "negative_matrix_case_count": _negative_case_count(negative_matrix),
         "blocked_dependency_count": len(blocked_codes),

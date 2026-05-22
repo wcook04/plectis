@@ -32,6 +32,10 @@ def _copy_public_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
+    shutil.copytree(
+        MICROCOSM_ROOT / "receipts/runtime_shell",
+        public_root / "receipts/runtime_shell",
+    )
     return public_root
 
 
@@ -66,6 +70,7 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "provider_context_recipe_budget_policy",
         "formal_math_lean_proof_witness",
         "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
         "navigation_hologram_route_plane",
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
@@ -94,6 +99,21 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
     ]
     assert receipt["blocked_dependency_count"] == 0
     assert receipt["blocked_dependency_codes"] == []
+    coverage = receipt["organ_lifecycle_coverage"]
+    assert coverage["status"] == "pass"
+    assert coverage["defect_count"] == 0
+    assert coverage["coverage_counts"] == {
+        "accepted_organ_count": 44,
+        "runtime_step_count": 44,
+        "acceptance_plan_organ_count": 44,
+        "evidence_class_row_count": 44,
+        "organ_authority_row_count": 44,
+        "surface_authority_row_count": 44,
+        "fixture_check_count": 44,
+    }
+    assert "missing_public_lens" not in {
+        defect["defect_id"] for defect in coverage["defects"]
+    }
     grammar_check = next(
         row
         for row in receipt["fixture_precondition_checks"]
@@ -133,3 +153,43 @@ def test_dependency_preflight_blocks_unsatisfied_accepted_dependency(tmp_path: P
     assert receipt["status"] == "blocked"
     assert receipt["blocked_dependency_count"] == 1
     assert receipt["blocked_dependency_codes"] == ["MISSING_ACCEPTED_BUILD_DEPENDENCY"]
+
+
+def test_dependency_preflight_blocks_missing_public_lens(tmp_path: Path) -> None:
+    public_root = _copy_public_tree(tmp_path)
+    authority_path = public_root / "receipts/runtime_shell/public_authority_map.json"
+    authority = json.loads(authority_path.read_text(encoding="utf-8"))
+    authority["surface_authority"] = [
+        row
+        for row in authority["surface_authority"]
+        if row["surface_id"] != "public_verifier_lab_execution_spine_lens"
+    ]
+    authority_path.write_text(
+        json.dumps(authority, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    receipt = run_dependency_preflight(
+        READINESS,
+        NEGATIVE_MATRIX,
+        public_root / "receipts/preflight/dependency_preflight.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "ORGAN_LIFECYCLE_COVERAGE_DEFECT" in receipt["blocked_dependency_codes"]
+    coverage = receipt["organ_lifecycle_coverage"]
+    defect_ids = {defect["defect_id"] for defect in coverage["defects"]}
+    assert "missing_public_lens" in defect_ids
+    assert "stale_surface_authority_count" in defect_ids
+    missing_public_lens = [
+        defect
+        for defect in coverage["defects"]
+        if defect["defect_id"] == "missing_public_lens"
+    ]
+    assert missing_public_lens == [
+        {
+            "defect_id": "missing_public_lens",
+            "organ_id": "verifier_lab_execution_spine",
+        }
+    ]

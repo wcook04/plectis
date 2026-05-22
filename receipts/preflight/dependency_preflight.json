@@ -28,6 +28,8 @@
     "agent_benchmark_integrity_anti_gaming_replay",
     "provider_context_recipe_budget_policy",
     "formal_math_lean_proof_witness",
+    "verifier_lab_kernel",
+    "verifier_lab_execution_spine",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "durable_agent_work_landing_replay",
@@ -251,6 +253,31 @@
       ],
       "missing_dependencies": [],
       "organ_id": "formal_math_lean_proof_witness",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "formal_math_readiness_gate",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "formal_math_verifier_trace_repair_loop",
+        "formal_math_lean_proof_witness",
+        "provider_context_recipe_budget_policy",
+        "macro_projection_import_protocol"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "verifier_lab_kernel",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "verifier_lab_kernel",
+        "formal_math_lean_proof_witness",
+        "target_shape_tactic_routing_gate",
+        "formal_math_verifier_trace_repair_loop"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "verifier_lab_execution_spine",
       "status": "pass"
     },
     {
@@ -698,6 +725,26 @@
       "status": "pass"
     },
     {
+      "fixture_id": "fixture::verifier_lab_kernel::first_wave_contract_v1",
+      "fixture_input_count": 6,
+      "fixture_manifest": "core/fixture_manifests/verifier_lab_kernel.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 6,
+      "missing_fixture_inputs": [],
+      "organ_id": "verifier_lab_kernel",
+      "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::verifier_lab_execution_spine::first_wave_contract_v1",
+      "fixture_input_count": 6,
+      "fixture_manifest": "core/fixture_manifests/verifier_lab_execution_spine.fixture_manifest.json",
+      "input_source": "public_fixture_manifest",
+      "macro_fixture_input_ref_count": 8,
+      "missing_fixture_inputs": [],
+      "organ_id": "verifier_lab_execution_spine",
+      "status": "pass"
+    },
+    {
       "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
       "fixture_input_count": 13,
       "fixture_manifest": "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json",
@@ -799,7 +846,7 @@
     },
     {
       "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
-      "fixture_input_count": 8,
+      "fixture_input_count": 9,
       "fixture_manifest": "core/fixture_manifests/macro_projection_import_protocol.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
       "macro_fixture_input_ref_count": 8,
@@ -948,7 +995,41 @@
       "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 21,
+  "negative_matrix_case_count": 23,
+  "organ_lifecycle_coverage": {
+    "accepted_order_status": "pass",
+    "anti_claim": "Organ lifecycle coverage checks public convergence only; it does not authorize release, provider calls, source mutation, or private-data equivalence.",
+    "checked_surfaces": [
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "core/organ_evidence_classes.json",
+      "receipts/runtime_shell/public_authority_map.json",
+      "core/fixture_manifests/*.fixture_manifest.json",
+      "fixtures/first_wave/<organ_id>/input"
+    ],
+    "coverage_counts": {
+      "acceptance_plan_organ_count": 44,
+      "accepted_organ_count": 44,
+      "evidence_class_row_count": 44,
+      "fixture_check_count": 44,
+      "organ_authority_row_count": 44,
+      "runtime_step_count": 44,
+      "surface_authority_row_count": 44
+    },
+    "defect_count": 0,
+    "defects": [],
+    "required_invariants": [
+      "accepted organ ids equal RuntimeShell.RUNTIME_STEPS ids",
+      "accepted organ ids match first-wave acceptance rows",
+      "accepted organ ids have exactly one evidence-class row",
+      "accepted organ ids have public authority snapshot rows",
+      "public command-path organs have a matching public lens row",
+      "fixture manifests and fixture inputs exist for accepted organs",
+      "external subprocess witnesses carry tool/receipt evidence refs"
+    ],
+    "schema_version": "organ_lifecycle_coverage_v1",
+    "status": "pass"
+  },
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -969,7 +1050,8 @@
     "trading_or_financial_advice": "not_authorized"
   },
   "wave_order_checks": {
-    "expected_prefix_order": [
+    "accepted_without_runtime_step": [],
+    "expected_runtime_ids": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
       "proof_diagnostic_evidence_spine",
@@ -987,12 +1069,15 @@
       "agent_benchmark_integrity_anti_gaming_replay",
       "provider_context_recipe_budget_policy",
       "formal_math_lean_proof_witness",
+      "verifier_lab_kernel",
+      "verifier_lab_execution_spine",
       "navigation_hologram_route_plane",
       "mission_transaction_work_spine",
       "durable_agent_work_landing_replay",
       "research_replication_rubric_artifact_replay",
       "world_model_projection_drift_control_room",
       "spatial_world_model_counterfactual_simulation_replay",
+      "materials_chemistry_closed_loop_lab_safety_replay",
       "mechanistic_interpretability_circuit_attribution_replay",
       "agent_route_observability_runtime",
       "pattern_assimilation_step",
@@ -1010,8 +1095,7 @@
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
-      "agentic_vulnerability_discovery_patch_proof_replay",
-      "materials_chemistry_closed_loop_lab_safety_replay"
+      "agentic_vulnerability_discovery_patch_proof_replay"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -1031,6 +1115,8 @@
       "agent_benchmark_integrity_anti_gaming_replay",
       "provider_context_recipe_budget_policy",
       "formal_math_lean_proof_witness",
+      "verifier_lab_kernel",
+      "verifier_lab_execution_spine",
       "navigation_hologram_route_plane",
       "mission_transaction_work_spine",
       "durable_agent_work_landing_replay",
@@ -1057,6 +1143,7 @@
       "agentic_vulnerability_discovery_patch_proof_replay",
       "materials_chemistry_closed_loop_lab_safety_replay"
     ],
+    "runtime_step_without_accepted_organ": [],
     "status": "pass"
   }
 }
