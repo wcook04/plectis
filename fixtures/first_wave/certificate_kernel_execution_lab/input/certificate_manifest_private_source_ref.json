@@ -1,0 +1,8 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_negative_case_v1",
+  "manifest_id": "certificate_manifest_private_source_ref",
+  "expected_negative_case_id": "certificate_manifest_private_source_ref",
+  "source_refs": ["/private/tmp/macro/CertificateKernel.lean"],
+  "proof_bodies_exported": false
+}
+

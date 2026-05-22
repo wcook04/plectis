@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -19,42 +21,44 @@ from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 
 
-ORGAN_ID = "verifier_lab_execution_spine"
-FIXTURE_ID = "first_wave.verifier_lab_execution_spine"
-VALIDATOR_ID = "validator.microcosm.organs.verifier_lab_execution_spine"
+ORGAN_ID = "certificate_kernel_execution_lab"
+FIXTURE_ID = "first_wave.certificate_kernel_execution_lab"
+VALIDATOR_ID = "validator.microcosm.organs.certificate_kernel_execution_lab"
 
-PACKET_NAME = "execution_spine_packet.json"
+PACKET_NAME = "certificate_lab_packet.json"
+MANIFEST_NAME = "certificate_manifest.json"
 LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
-RESULT_NAME = "verifier_lab_execution_spine_result.json"
-BOARD_NAME = "verifier_lab_execution_spine_board.json"
-VALIDATION_RECEIPT_NAME = "verifier_lab_execution_spine_validation_receipt.json"
+LAKE_TARGET = "MicrocosmCertificateLab"
+RESULT_NAME = "certificate_kernel_execution_lab_result.json"
+BOARD_NAME = "certificate_kernel_execution_lab_board.json"
+VALIDATION_RECEIPT_NAME = "certificate_kernel_execution_lab_validation_receipt.json"
 ACCEPTANCE_RECEIPT_REL = (
     "receipts/acceptance/first_wave/"
-    "verifier_lab_execution_spine_fixture_acceptance.json"
+    "certificate_kernel_execution_lab_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = (
-    "exported_verifier_lab_execution_spine_bundle_validation_result.json"
+    "exported_certificate_kernel_execution_lab_bundle_validation_result.json"
 )
 
 NEGATIVE_INPUT_NAMES = (
-    "transition_leaks_candidate_body.json",
-    "provider_oracle_visible_transition.json",
-    "cp2_candidate_contains_proof_body.json",
-    "evolve_mutates_unbounded_source.json",
+    "transition_provider_oracle_visible.json",
+    "cp2_certificate_contains_proof_body.json",
+    "evolve_certificate_mutates_source.json",
+    "certificate_manifest_private_source_ref.json",
 )
 EXPECTED_NEGATIVE_CASES = {
-    "transition_leaks_candidate_body": [
-        "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN"
+    "transition_provider_oracle_visible": [
+        "CERTIFICATE_KERNEL_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE"
     ],
-    "provider_oracle_visible_transition": [
-        "VERIFIER_LAB_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE"
+    "cp2_certificate_contains_proof_body": [
+        "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN"
     ],
-    "cp2_candidate_contains_proof_body": [
-        "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN"
+    "evolve_certificate_mutates_source": [
+        "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN"
     ],
-    "evolve_mutates_unbounded_source": [
-        "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN"
+    "certificate_manifest_private_source_ref": [
+        "CERTIFICATE_KERNEL_EXECUTION_PRIVATE_SOURCE_REF_FORBIDDEN"
     ],
 }
 
@@ -80,45 +84,44 @@ FORBIDDEN_CP2_KEYS = {
     "source_proof_body",
 }
 ALLOWED_ACTION_CLASSES = {
-    "cases",
-    "constructor",
-    "decide",
-    "exact_premise",
-    "induction_visible_head",
-    "premise_exact",
-    "rfl",
-    "simp_with_closed_premises",
-    "unfold_then_simp",
+    "add_certificate_row",
+    "direct_certificate_check",
+    "generated_certificate_theorem",
+    "select_certificate_row",
 }
 ALLOWED_CP2_ACTION_CLASSES = {
-    "case_split_then_constructor",
-    "exact_selected_premise",
-    "induction_on_visible_head",
-    "premise_exact",
-    "premise_query_expand",
-    "retry_with_recipe",
-    "rewrite_direction_flip",
-    "unfold_then_simp",
+    "add_certificate_row",
+    "reject_bad_certificate",
+    "retry_with_allowed_certificate",
+    "rewrite_certificate_direction",
+    "select_witness_certificate",
 }
 ALLOWED_EVOLVE_ARTIFACTS = {
-    "context_recipe_selection",
+    "certificate_row_selection_policy",
     "cp2_candidate_ordering",
-    "cp2_translation_templates",
     "failure_class_routing",
-    "repair_novelty_predicates",
     "retry_recipes",
-    "route_priors",
-    "target_shape_mapping",
     "target_shape_routing_table",
-    "tactic_action_priors",
 }
+FORBIDDEN_MANIFEST_KEYS = {
+    "proof_body",
+    "ground_truth_proof",
+    "private_source_body",
+    "provider_output_body",
+    "source_proof_body",
+}
+DECLARATION_RE = re.compile(
+    r"^\s*(?:theorem|lemma|def|structure|inductive)\s+([A-Za-z0-9_'.]+)", re.M
+)
+IMPORT_RE = re.compile(r"^\s*import\s+(.+?)\s*$", re.M)
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "bounded_public_lean_transition_execution_receipt_only",
+    "authority_ceiling": "bounded_public_certificate_kernel_execution_receipt_only",
     "lean_lake_execution_authorized": True,
     "lean_lake_execution_scope": "temporary_workspace_copy_of_public_fixture",
-    "formal_proof_authority": "bounded_public_transition_rows_only",
+    "formal_proof_authority": "bounded_public_certificate_fixture_rows_only",
+    "macro_private_body_import_authorized": False,
     "oracle_success_counts_as_forward_success": False,
     "provider_text_counts_as_proof": False,
     "cp2_outputs_are_proof_bodies": False,
@@ -126,7 +129,6 @@ AUTHORITY_CEILING = {
     "proof_bodies_allowed_in_receipts": False,
     "provider_calls_authorized": False,
     "source_mutation_authorized": False,
-    "private_body_import_authorized": False,
     "benchmark_solve_rate_claim": False,
     "release_authorized": False,
 }
@@ -135,15 +137,13 @@ RECEIPT_TRANSPARENCY_CONTRACT = {
     "receipt_body_is_public_evidence": True,
     "redaction_scope": "dangerous_payload_fields_only",
     "required_public_evidence_fields": [
-        "problem_id",
-        "target_shape",
-        "action_class",
-        "candidate_kind",
-        "allowed_premise_refs",
+        "theorem_or_declaration_names",
         "lean_lake_command_identity",
         "lean_return_code",
-        "accepted",
-        "verifier_failure_class",
+        "source_hashes",
+        "declaration_counts",
+        "accepted_transition_count",
+        "residual_transition_count",
         "negative_case_id",
         "cp2_action_class",
         "evolve_policy_artifact_id",
@@ -165,22 +165,23 @@ RECEIPT_TRANSPARENCY_CONTRACT = {
     "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted",
 }
 ANTI_CLAIM = (
-    "Verifier lab execution spine runs bounded public Lean transition candidates "
-    "in a temporary workspace and records structured public receipts with only "
-    "dangerous payload fields omitted. It does not import private proof bodies, "
-    "expose generated proof text, call providers, count oracle/provider output "
-    "as proof authority, mutate source, claim benchmark solve-rate, or authorize "
-    "release."
+    "Certificate kernel execution lab runs a public replacement Lean certificate "
+    "kernel in a temporary workspace, checks generated certificate rows, and "
+    "records structured public CP2/Evolve rerun receipts with only dangerous "
+    "payload fields omitted. It does not import macro proof bodies, export proof "
+    "text, call providers, count oracle/provider output as proof, mutate source, "
+    "claim benchmark solve-rate, or authorize release."
 )
 
 
 @dataclass(frozen=True)
-class TransitionReceipt:
+class CertificateTransitionReceipt:
+    transition_id: str
     problem_id: str
     target_shape: str
     action_class: str
     candidate_kind: str
-    allowed_premise_refs: tuple[str, ...]
+    allowed_certificate_refs: tuple[str, ...]
     lean_return_code: int | None
     accepted: bool
     verifier_failure_class: str
@@ -188,7 +189,6 @@ class TransitionReceipt:
     oracle_visible: bool
     provider_visible: bool
     proof_body_exported: bool
-    transition_id: str
     contract_rejected: bool = False
     error_codes: tuple[str, ...] = ()
     timed_out: bool = False
@@ -223,7 +223,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    paths = [input_dir / PACKET_NAME, input_dir / LAKE_PROJECT_DIR / LAKEFILE_NAME]
+    paths = [
+        input_dir / PACKET_NAME,
+        input_dir / MANIFEST_NAME,
+        input_dir / LAKE_PROJECT_DIR / LAKEFILE_NAME,
+    ]
     project_dir = input_dir / LAKE_PROJECT_DIR
     if project_dir.is_dir():
         paths.extend(sorted(project_dir.rglob("*.lean")))
@@ -241,6 +245,60 @@ def _load_json_if_exists(path: Path) -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def _import_names(text: str) -> list[str]:
+    imports: list[str] = []
+    for match in IMPORT_RE.findall(text):
+        imports.extend(part for part in match.split() if part)
+    return sorted(imports)
+
+
+def _analyze_lean_project(
+    project_dir: Path,
+    *,
+    public_root: Path,
+    source_project_dir: Path,
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    declaration_count = 0
+    imports: set[str] = set()
+    for path in sorted(project_dir.rglob("*.lean")):
+        text = path.read_text(encoding="utf-8")
+        declarations = sorted(DECLARATION_RE.findall(text))
+        file_imports = _import_names(text)
+        declaration_count += len(declarations)
+        imports.update(file_imports)
+        public_source_path = (
+            source_project_dir / path.relative_to(project_dir)
+        ).resolve(strict=False)
+        rows.append(
+            {
+                "source_ref": _display(public_source_path, public_root=public_root),
+                "sha256": _sha256(path),
+                "line_count": len(text.splitlines()),
+                "declarations": declarations,
+                "imports": file_imports,
+                "body_redacted": True,
+            }
+        )
+    return {
+        "schema_version": "certificate_kernel_execution_lab_lean_analyzer_v1",
+        "lean_file_count": len(rows),
+        "declaration_count": declaration_count,
+        "imports": sorted(imports),
+        "files": rows,
+        "generated_certificates_separate_from_kernel": True,
+        "profile_timing_available": False,
+        "anti_claim": "Analyzer metadata records public declarations, imports, hashes, and line counts only; it does not export proof bodies or prove general theorem correctness.",
+        "body_redacted": True,
+    }
+
+
 def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -> list[str]:
     found: list[str] = []
     if isinstance(value, dict):
@@ -253,6 +311,24 @@ def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -
         for index, child in enumerate(value):
             found.extend(_walk_forbidden_keys(child, forbidden, f"{prefix}[{index}]"))
     return sorted(found)
+
+
+def _private_source_refs(value: object) -> list[str]:
+    refs: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key.endswith("source_ref") or key.endswith("source_refs") or key == "source_refs":
+                values = child if isinstance(child, list) else [child]
+                for item in values:
+                    if not isinstance(item, str):
+                        continue
+                    if item.startswith(("/", "~", "../")) or "/private/" in item:
+                        refs.append(item)
+            refs.extend(_private_source_refs(child))
+    elif isinstance(value, list):
+        for child in value:
+            refs.extend(_private_source_refs(child))
+    return sorted(set(refs))
 
 
 def _finding(
@@ -348,7 +424,7 @@ def _copy_project_to_temp(input_dir: Path, temp_root: Path) -> Path:
 
 def _build_lake_project(project_dir: Path) -> dict[str, Any]:
     return _run_command(
-        ["lake", "build", "MicrocosmProofWitness"],
+        ["lake", "build", LAKE_TARGET],
         cwd=project_dir,
         timeout_seconds=60,
     )
@@ -357,38 +433,42 @@ def _build_lake_project(project_dir: Path) -> dict[str, Any]:
 def _lean_source_for_transition(row: dict[str, Any]) -> str:
     action = str(row.get("action_class") or "")
     outcome = str(row.get("expected_outcome") or "")
-    premise_refs = set(_strings(row.get("allowed_premise_refs")))
-    header = "import MicrocosmProofWitness.Basic\n\nnamespace MicrocosmExecutionSpine\n\n"
-    footer = "\nend MicrocosmExecutionSpine\n"
-    if outcome in {"fail_missing_premise", "residual_unsolved"}:
-        body = "example (n m : Nat) : n + m = m + n := by\n  exact missing_public_premise\n"
-    elif action == "decide":
-        body = "example : 17 % 5 = 2 := by\n  decide\n"
-    elif action == "rfl":
-        body = "example (n : Nat) : n = n := by\n  rfl\n"
-    elif action == "constructor":
-        body = "example : True ∧ True := by\n  constructor <;> trivial\n"
-    elif action == "cases":
+    refs = set(_strings(row.get("allowed_certificate_refs")))
+    header = (
+        "import MicrocosmCertificateLab.GeneratedCertificates\n\n"
+        "namespace MicrocosmCertificateLabExecution\n"
+        "open MicrocosmCertificateLab\n\n"
+    )
+    footer = "\nend MicrocosmCertificateLabExecution\n"
+    if outcome == "fail_missing_certificate_row":
+        body = "#check missing_public_certificate_row_5_8_13\n"
+    elif outcome == "fail_bad_certificate":
         body = (
-            "example (p q : Prop) : p ∨ q -> q ∨ p := by\n"
-            "  intro h\n"
-            "  cases h with\n"
-            "  | inl hp => exact Or.inr hp\n"
-            "  | inr hq => exact Or.inl hq\n"
+            "example : validateNatSumCertificate bad_cert_2_3_6 = true := by\n"
+            "  native_decide\n"
         )
-    elif action in {"premise_exact", "exact_premise"} and "Nat.add_comm" in premise_refs:
-        body = "example (n m : Nat) : n + m = m + n := by\n  exact Nat.add_comm n m\n"
-    elif action in {"simp_with_closed_premises", "unfold_then_simp"}:
-        body = "example (xs : List Nat) : xs ++ [] = xs := by\n  simp\n"
-    elif action == "induction_visible_head":
+    elif action == "generated_certificate_theorem" and "cert_4_7_11" in refs:
         body = (
-            "example (xs : List Nat) : xs ++ [] = xs := by\n"
-            "  induction xs with\n"
-            "  | nil => rfl\n"
-            "  | cons x xs ih => simp [List.append, ih]\n"
+            "example : validateNatSumCertificate cert_4_7_11 = true := by\n"
+            "  exact cert_4_7_11_valid\n"
+        )
+    elif action == "add_certificate_row" and "cert_8_13_21" in refs:
+        body = (
+            "example : validateNatSumCertificate cert_8_13_21 = true := by\n"
+            "  exact cert_8_13_21_valid\n"
+        )
+    elif action in {"direct_certificate_check", "select_certificate_row"} and "cert_8_13_21" in refs:
+        body = (
+            "example : validateNatSumCertificate cert_8_13_21 = true := by\n"
+            "  native_decide\n"
+        )
+    elif action in {"direct_certificate_check", "select_certificate_row"} and "cert_2_3_5" in refs:
+        body = (
+            "example : validateNatSumCertificate cert_2_3_5 = true := by\n"
+            "  native_decide\n"
         )
     else:
-        body = "example : True := by\n  exact unknown_action_witness\n"
+        body = "example : True := by\n  exact unknown_certificate_action\n"
     return f"{header}{body}{footer}"
 
 
@@ -402,14 +482,13 @@ def _validate_transition_contract(
     transition_id = str(row.get("transition_id") or row.get("case_id") or "transition")
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or transition_id)
     codes: list[str] = []
-    forbidden_keys = _walk_forbidden_keys(row, FORBIDDEN_TRANSITION_KEYS)
-    if forbidden_keys:
-        code = "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN"
+    if _walk_forbidden_keys(row, FORBIDDEN_TRANSITION_KEYS):
+        code = "CERTIFICATE_KERNEL_EXECUTION_TRANSITION_FIELD_FORBIDDEN"
         _record(
             findings,
             observed,
             code,
-            "Transition candidates may not carry proof bodies, raw tactic scripts, provider bodies, or oracle templates.",
+            "Certificate transition rows may not carry proof bodies, raw tactic scripts, provider bodies, or oracle templates.",
             case_id=case_id,
             subject_id=transition_id,
             subject_kind="transition_candidate",
@@ -417,12 +496,12 @@ def _validate_transition_contract(
         )
         codes.append(code)
     if row.get("oracle_visible") is True or row.get("provider_visible") is True:
-        code = "VERIFIER_LAB_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE"
+        code = "CERTIFICATE_KERNEL_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE"
         _record(
             findings,
             observed,
             code,
-            "Forward transition execution must not see oracle sidecars or provider hypothesis text.",
+            "Forward certificate transition execution must not see oracle sidecars or provider hypothesis text.",
             case_id=case_id,
             subject_id=transition_id,
             subject_kind="transition_candidate",
@@ -431,12 +510,12 @@ def _validate_transition_contract(
         codes.append(code)
     action = str(row.get("action_class") or "")
     if action and action not in ALLOWED_ACTION_CLASSES:
-        code = "VERIFIER_LAB_EXECUTION_ACTION_CLASS_UNKNOWN"
+        code = "CERTIFICATE_KERNEL_EXECUTION_ACTION_CLASS_UNKNOWN"
         _record(
             findings,
             observed,
             code,
-            "Transition action class is outside the bounded public action vocabulary.",
+            "Certificate transition action class is outside the bounded public action vocabulary.",
             case_id=case_id,
             subject_id=action,
             subject_kind="transition_action_class",
@@ -452,7 +531,7 @@ def _execute_transition(
     project_dir: Path,
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
-) -> TransitionReceipt:
+) -> CertificateTransitionReceipt:
     transition_id = str(row.get("transition_id") or "transition")
     codes = _validate_transition_contract(
         row,
@@ -461,13 +540,13 @@ def _execute_transition(
         negative=False,
     )
     if codes:
-        return TransitionReceipt(
+        return CertificateTransitionReceipt(
             transition_id=transition_id,
             problem_id=str(row.get("problem_id") or ""),
             target_shape=str(row.get("target_shape") or ""),
             action_class=str(row.get("action_class") or ""),
             candidate_kind=str(row.get("candidate_kind") or ""),
-            allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
+            allowed_certificate_refs=tuple(_strings(row.get("allowed_certificate_refs"))),
             lean_return_code=None,
             accepted=False,
             verifier_failure_class="CONTRACT_REJECTED",
@@ -483,13 +562,13 @@ def _execute_transition(
     source_path.write_text(_lean_source_for_transition(row), encoding="utf-8")
     lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
     accepted = lean_run["return_code"] == 0
-    return TransitionReceipt(
+    return CertificateTransitionReceipt(
         transition_id=transition_id,
         problem_id=str(row.get("problem_id") or ""),
         target_shape=str(row.get("target_shape") or ""),
         action_class=str(row.get("action_class") or ""),
         candidate_kind=str(row.get("candidate_kind") or ""),
-        allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
+        allowed_certificate_refs=tuple(_strings(row.get("allowed_certificate_refs"))),
         lean_return_code=int(lean_run["return_code"]),
         accepted=accepted,
         verifier_failure_class="NONE"
@@ -506,7 +585,7 @@ def _execute_transition(
 def _translate_cp2(
     packet: dict[str, Any],
     *,
-    transition_by_id: dict[str, TransitionReceipt],
+    transition_by_id: dict[str, CertificateTransitionReceipt],
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
@@ -518,12 +597,12 @@ def _translate_cp2(
         action = str(row.get("action_class") or "")
         codes: list[str] = []
         if forbidden_keys:
-            code = "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN"
+            code = "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN"
             _record(
                 findings,
                 observed,
                 code,
-                "CP2 translation emits typed action candidates only, never proof bodies or raw tactic scripts.",
+                "CP2 certificate translation emits typed action candidates only, never proof bodies or raw tactic scripts.",
                 case_id=case_id,
                 subject_id=request_id,
                 subject_kind="cp2_translation_request",
@@ -531,12 +610,12 @@ def _translate_cp2(
             )
             codes.append(code)
         if action and action not in ALLOWED_CP2_ACTION_CLASSES:
-            code = "VERIFIER_LAB_EXECUTION_CP2_ACTION_CLASS_UNKNOWN"
+            code = "CERTIFICATE_KERNEL_EXECUTION_CP2_ACTION_CLASS_UNKNOWN"
             _record(
                 findings,
                 observed,
                 code,
-                "CP2 action class is outside the bounded translation vocabulary.",
+                "CP2 certificate action class is outside the bounded translation vocabulary.",
                 case_id=case_id,
                 subject_id=action,
                 subject_kind="cp2_action_class",
@@ -552,6 +631,7 @@ def _translate_cp2(
                 "provider_hypothesis_id": row.get("provider_hypothesis_id"),
                 "candidate_action_class": action,
                 "candidate_kind": "typed_action_candidate",
+                "selected_certificate_refs": _strings(row.get("selected_certificate_refs")),
                 "proof_body_exported": False,
                 "raw_tactic_script_exported": False,
                 "oracle_template_exported": False,
@@ -570,7 +650,7 @@ def _translate_cp2(
 def _run_evolve(
     packet: dict[str, Any],
     *,
-    transition_by_id: dict[str, TransitionReceipt],
+    transition_by_id: dict[str, CertificateTransitionReceipt],
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
@@ -586,12 +666,12 @@ def _run_evolve(
         )
         codes: list[str] = []
         if forbidden:
-            code = "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN"
+            code = "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN"
             _record(
                 findings,
                 observed,
                 code,
-                "Evolve may mutate only bounded verifier-lab policy artifacts and must rerun the public problem set.",
+                "Evolve may mutate only bounded certificate-lab policy artifacts and must rerun the public problem set.",
                 case_id=case_id,
                 subject_id=mutation_id,
                 subject_kind="evolve_mutation",
@@ -639,6 +719,43 @@ def _run_evolve(
     return rows
 
 
+def _validate_manifest_contract(
+    payload: dict[str, Any],
+    *,
+    findings: list[dict[str, Any]],
+    observed: dict[str, set[str]],
+    negative: bool,
+) -> None:
+    case_id = str(
+        payload.get("expected_negative_case_id")
+        or payload.get("manifest_id")
+        or "certificate_manifest"
+    )
+    forbidden_keys = _walk_forbidden_keys(payload, FORBIDDEN_MANIFEST_KEYS)
+    if forbidden_keys:
+        _record(
+            findings,
+            observed,
+            "CERTIFICATE_KERNEL_EXECUTION_MANIFEST_PROOF_BODY_FORBIDDEN",
+            "Certificate manifests may carry ids, hashes, and public rows, but not proof bodies.",
+            case_id=case_id,
+            subject_id=str(payload.get("manifest_id") or "certificate_manifest"),
+            subject_kind="certificate_manifest",
+            count_observed=negative,
+        )
+    if _private_source_refs(payload):
+        _record(
+            findings,
+            observed,
+            "CERTIFICATE_KERNEL_EXECUTION_PRIVATE_SOURCE_REF_FORBIDDEN",
+            "Certificate manifests may not import private source paths or private macro bodies.",
+            case_id=case_id,
+            subject_id=str(payload.get("manifest_id") or "certificate_manifest"),
+            subject_kind="certificate_manifest",
+            count_observed=negative,
+        )
+
+
 def _validate_negative_payloads(
     payloads: dict[str, dict[str, Any]],
     *,
@@ -646,52 +763,53 @@ def _validate_negative_payloads(
     observed: dict[str, set[str]],
 ) -> None:
     for payload in payloads.values():
-        for row in _rows(payload, "transition_candidates") or (
-            [payload] if "transition_id" in payload else []
-        ):
+        if "transition_id" in payload:
             _validate_transition_contract(
-                row,
+                payload,
                 findings=findings,
                 observed=observed,
                 negative=True,
             )
-        for row in _rows(payload, "cp2_translation_requests") or (
-            [payload] if "request_id" in payload else []
-        ):
-            request_id = str(row.get("request_id") or row.get("case_id") or "cp2_request")
-            case_id = str(row.get("expected_negative_case_id") or request_id)
-            if _walk_forbidden_keys(row, FORBIDDEN_CP2_KEYS):
+        if "request_id" in payload:
+            request_id = str(payload.get("request_id") or "cp2_request")
+            case_id = str(payload.get("expected_negative_case_id") or request_id)
+            if _walk_forbidden_keys(payload, FORBIDDEN_CP2_KEYS):
                 _record(
                     findings,
                     observed,
-                    "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
+                    "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
                     "CP2 negative fixture rejected proof bodies or raw tactic scripts.",
                     case_id=case_id,
                     subject_id=request_id,
                     subject_kind="cp2_translation_request",
                     count_observed=True,
                 )
-        for row in _rows(payload, "evolve_mutations") or (
-            [payload] if "mutated_artifact" in payload else []
-        ):
-            mutation_id = str(row.get("mutation_id") or row.get("case_id") or "evolve_mutation")
-            case_id = str(row.get("expected_negative_case_id") or mutation_id)
-            artifact = str(row.get("mutated_artifact") or "")
+        if "mutated_artifact" in payload:
+            mutation_id = str(payload.get("mutation_id") or "evolve_mutation")
+            case_id = str(payload.get("expected_negative_case_id") or mutation_id)
+            artifact = str(payload.get("mutated_artifact") or "")
             if (
                 artifact not in ALLOWED_EVOLVE_ARTIFACTS
-                or row.get("arbitrary_code_mutation") is True
-                or row.get("source_mutation_authorized") is True
+                or payload.get("arbitrary_code_mutation") is True
+                or payload.get("source_mutation_authorized") is True
             ):
                 _record(
                     findings,
                     observed,
-                    "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
+                    "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
                     "Evolve negative fixture rejected unbounded source mutation.",
                     case_id=case_id,
                     subject_id=mutation_id,
                     subject_kind="evolve_mutation",
                     count_observed=True,
                 )
+        if "manifest_id" in payload:
+            _validate_manifest_contract(
+                payload,
+                findings=findings,
+                observed=observed,
+                negative=True,
+            )
 
 
 def _build_result(
@@ -703,6 +821,7 @@ def _build_result(
 ) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     packet = _load_json_if_exists(input_dir / PACKET_NAME)
+    manifest = _load_json_if_exists(input_dir / MANIFEST_NAME)
     negative_payloads = {
         Path(name).stem: _load_json_if_exists(input_dir / name)
         for name in NEGATIVE_INPUT_NAMES
@@ -721,11 +840,23 @@ def _build_result(
     tool_versions = _tool_versions()
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = {}
-    transitions: list[TransitionReceipt] = []
+    _validate_manifest_contract(
+        manifest,
+        findings=findings,
+        observed=observed,
+        negative=False,
+    )
+    transitions: list[CertificateTransitionReceipt] = []
     lake_project_build: dict[str, Any] | None = None
+    analyzer_receipt: dict[str, Any] = {}
 
-    with tempfile.TemporaryDirectory(prefix="microcosm_verifier_execution_") as temp_name:
+    with tempfile.TemporaryDirectory(prefix="microcosm_certificate_lab_") as temp_name:
         project_dir = _copy_project_to_temp(input_dir, Path(temp_name))
+        analyzer_receipt = _analyze_lean_project(
+            project_dir,
+            public_root=public_root,
+            source_project_dir=input_dir / LAKE_PROJECT_DIR,
+        )
         lake_project_build = _build_lake_project(project_dir)
         if lake_project_build["return_code"] == 0:
             for row in _rows(packet, "transition_candidates"):
@@ -780,10 +911,11 @@ def _build_result(
         and tool_versions["lake_available"]
         and lake_project_build is not None
         and lake_project_build["return_code"] == 0
+        and analyzer_receipt.get("declaration_count", 0) >= 8
         and not missing
-        and len(transitions) >= 4
-        and len(accepted_transitions) >= 2
-        and len(residuals) >= 1
+        and len(transitions) >= 5
+        and len(accepted_transitions) >= 3
+        and len(residuals) >= 2
         and len(cp2_effects) >= 1
         and len(evolve_mutations) >= 1
         and len(evolve_accepted) >= 1
@@ -791,7 +923,7 @@ def _build_result(
         else "blocked"
     )
     return {
-        "schema_version": "verifier_lab_execution_spine_result_v1",
+        "schema_version": "certificate_kernel_execution_lab_result_v1",
         "created_at": utc_now(),
         "status": status,
         "organ_id": ORGAN_ID,
@@ -800,7 +932,8 @@ def _build_result(
         "command": command,
         "input_mode": input_mode,
         "bundle_id": bundle_manifest.get("bundle_id"),
-        "execution_spine_id": packet.get("execution_spine_id"),
+        "certificate_lab_id": packet.get("certificate_lab_id"),
+        "certificate_manifest_id": manifest.get("manifest_id"),
         "source_refs": _strings(packet.get("source_refs")),
         "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
         "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
@@ -821,6 +954,23 @@ def _build_result(
         "private_state_scan": private_scan,
         "tool_versions": tool_versions,
         "lake_project_build": lake_project_build,
+        "lean_analyzer_receipt": analyzer_receipt,
+        "certificate_manifest_summary": {
+            "manifest_id": manifest.get("manifest_id"),
+            "certificate_schema": manifest.get("certificate_schema"),
+            "generated_certificate_count": len(
+                _rows(manifest, "generated_certificate_rows")
+            ),
+            "negative_certificate_count": len(
+                [
+                    row
+                    for row in _rows(manifest, "generated_certificate_rows")
+                    if row.get("expected_valid") is False
+                ]
+            ),
+            "proof_bodies_exported": False,
+            "body_redacted": True,
+        },
         "transition_trace": [asdict(row) for row in transitions],
         "cp2_translation_trace": cp2_translations,
         "evolve_mutation_trace": evolve_mutations,
@@ -851,10 +1001,13 @@ def _build_result(
             "cp2_downstream_effect_count": len(cp2_effects),
             "evolve_candidate_count": len(evolve_mutations),
             "evolve_accepted_count": len(evolve_accepted),
+            "analyzed_lean_file_count": analyzer_receipt.get("lean_file_count", 0),
+            "analyzed_declaration_count": analyzer_receipt.get("declaration_count", 0),
             "oracle_forward_success_increment_count": 0,
             "provider_results_counted": 0,
             "proof_body_export_count": 0,
             "source_mutation_count": 0,
+            "macro_private_body_import_count": 0,
         },
         "authority_ceiling": AUTHORITY_CEILING,
         "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
@@ -877,7 +1030,8 @@ def _common_receipt(
         "command",
         "input_mode",
         "bundle_id",
-        "execution_spine_id",
+        "certificate_lab_id",
+        "certificate_manifest_id",
         "expected_negative_cases",
         "observed_negative_cases",
         "missing_negative_cases",
@@ -886,6 +1040,8 @@ def _common_receipt(
         "private_state_scan",
         "tool_versions",
         "lake_project_build",
+        "lean_analyzer_receipt",
+        "certificate_manifest_summary",
         "transition_trace",
         "cp2_translation_trace",
         "evolve_mutation_trace",
@@ -931,32 +1087,35 @@ def write_receipts(
     if not acceptance_path.is_absolute():
         acceptance_path = Path.cwd() / acceptance_path
     paths = {
-        "verifier_lab_execution_spine_result": target / RESULT_NAME,
-        "verifier_lab_execution_spine_board": target / BOARD_NAME,
-        "verifier_lab_execution_spine_validation_receipt": target
+        "certificate_kernel_execution_lab_result": target / RESULT_NAME,
+        "certificate_kernel_execution_lab_board": target / BOARD_NAME,
+        "certificate_kernel_execution_lab_validation_receipt": target
         / VALIDATION_RECEIPT_NAME,
         "fixture_acceptance": acceptance_path,
     }
     receipt_paths = _relative_receipt_paths(paths, public_root_path)
     result_receipt = _common_receipt(
         result,
-        schema_version="verifier_lab_execution_spine_result_receipt_v1",
+        schema_version="certificate_kernel_execution_lab_result_receipt_v1",
         receipt_paths=receipt_paths,
     )
     board = _common_receipt(
         result,
-        schema_version="verifier_lab_execution_spine_board_v1",
+        schema_version="certificate_kernel_execution_lab_board_v1",
         receipt_paths=receipt_paths,
     )
     board.update(
         {
-            "headline": "Bounded Lean transition execution under leak-proof verifier-lab authority.",
+            "headline": "Public certificate-kernel Lean lab under leak-proof verifier authority.",
             "lean_verified_count": len(result["claim_separation"]["lean_verified"]),
             "cp2_downstream_effect_count": result["authority_counters"][
                 "cp2_downstream_effect_count"
             ],
             "evolve_accepted_count": result["authority_counters"][
                 "evolve_accepted_count"
+            ],
+            "analyzed_declaration_count": result["authority_counters"][
+                "analyzed_declaration_count"
             ],
             "proof_body_export_count": result["authority_counters"][
                 "proof_body_export_count"
@@ -971,13 +1130,16 @@ def write_receipts(
     )
     validation = _common_receipt(
         result,
-        schema_version="verifier_lab_execution_spine_validation_receipt_v1",
+        schema_version="certificate_kernel_execution_lab_validation_receipt_v1",
         receipt_paths=receipt_paths,
     )
     validation.update(
         {
-            "lean_transition_execution_status": PASS
-            if result["authority_counters"]["accepted_transition_count"] >= 2
+            "lean_certificate_kernel_execution_status": PASS
+            if result["authority_counters"]["accepted_transition_count"] >= 3
+            else "blocked",
+            "lean_analyzer_status": PASS
+            if result["authority_counters"]["analyzed_declaration_count"] >= 8
             else "blocked",
             "cp2_translation_status": PASS
             if result["authority_counters"]["cp2_downstream_effect_count"] >= 1
@@ -991,6 +1153,7 @@ def write_receipts(
             "receipts_include_proof_bodies": False,
             "provider_calls_authorized": False,
             "source_mutation_authorized": False,
+            "macro_private_body_import_authorized": False,
             "receipt_body_is_public_evidence": True,
             "redaction_scope": "dangerous_payload_fields_only",
             "release_authorized": False,
@@ -998,7 +1161,7 @@ def write_receipts(
     )
     acceptance = _common_receipt(
         result,
-        schema_version="verifier_lab_execution_spine_fixture_acceptance_v1",
+        schema_version="certificate_kernel_execution_lab_fixture_acceptance_v1",
         receipt_paths=receipt_paths,
     )
     acceptance.update(
@@ -1007,14 +1170,17 @@ def write_receipts(
             if result["status"] == PASS
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
-            "accepted_scope": "bounded_public_lean_transition_execution_only",
+            "accepted_scope": "bounded_public_certificate_kernel_execution_only",
             "runtime_shell_projection_deferred": True,
+            "public_entry_docs_projection_deferred_ref": (
+                "certificate_kernel_execution_lab_runtime_public_docs_deferred"
+            ),
         }
     )
-    write_json_atomic(paths["verifier_lab_execution_spine_result"], result_receipt)
-    write_json_atomic(paths["verifier_lab_execution_spine_board"], board)
+    write_json_atomic(paths["certificate_kernel_execution_lab_result"], result_receipt)
+    write_json_atomic(paths["certificate_kernel_execution_lab_board"], board)
     write_json_atomic(
-        paths["verifier_lab_execution_spine_validation_receipt"], validation
+        paths["certificate_kernel_execution_lab_validation_receipt"], validation
     )
     write_json_atomic(paths["fixture_acceptance"], acceptance)
     return {name: _display(path, public_root=public_root_path) for name, path in paths.items()}
@@ -1029,7 +1195,7 @@ def run(
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     command_text = command or (
-        "python -m microcosm_core.organs.verifier_lab_execution_spine run "
+        "python -m microcosm_core.organs.certificate_kernel_execution_lab run "
         f"--input {input_dir} --out {out_dir}"
     )
     result = _build_result(
@@ -1049,20 +1215,20 @@ def run(
     return result
 
 
-def run_execution_bundle(
+def run_certificate_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     command_text = command or (
-        "python -m microcosm_core.organs.verifier_lab_execution_spine "
-        f"run-execution-bundle --input {input_dir} --out {out_dir}"
+        "python -m microcosm_core.organs.certificate_kernel_execution_lab "
+        f"run-certificate-bundle --input {input_dir} --out {out_dir}"
     )
     result = _build_result(
         input_path,
         command=command_text,
-        input_mode="exported_verifier_lab_execution_spine_bundle",
+        input_mode="exported_certificate_kernel_execution_lab_bundle",
         include_negative=False,
     )
     target = Path(out_dir)
@@ -1074,7 +1240,7 @@ def run_execution_bundle(
     receipt = _common_receipt(
         result,
         schema_version=(
-            "exported_verifier_lab_execution_spine_bundle_validation_result_v1"
+            "exported_certificate_kernel_execution_lab_bundle_validation_result_v1"
         ),
         receipt_paths=[_display(result_path, public_root=public_root)],
     )
@@ -1084,9 +1250,9 @@ def run_execution_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="verifier_lab_execution_spine")
+    parser = argparse.ArgumentParser(prog="certificate_kernel_execution_lab")
     subparsers = parser.add_subparsers(dest="action", required=True)
-    for action in ("run", "run-execution-bundle"):
+    for action in ("run", "run-certificate-bundle"):
         action_parser = subparsers.add_parser(action)
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
@@ -1095,7 +1261,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.action == "run":
         result = run(args.input, args.out, acceptance_out=args.acceptance_out)
     else:
-        result = run_execution_bundle(args.input, args.out)
+        result = run_certificate_bundle(args.input, args.out)
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 

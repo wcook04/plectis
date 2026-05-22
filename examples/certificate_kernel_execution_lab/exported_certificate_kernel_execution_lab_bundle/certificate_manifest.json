@@ -1,0 +1,51 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_manifest_v1",
+  "manifest_id": "public_nat_sum_certificate_kernel_v1",
+  "certificate_schema": "NatSumCertificate(left,right,total)",
+  "kernel_declaration_refs": [
+    "MicrocosmCertificateLab.NatSumCertificate",
+    "MicrocosmCertificateLab.validateNatSumCertificate"
+  ],
+  "generated_certificate_rows": [
+    {
+      "certificate_id": "cert_2_3_5",
+      "declaration_ref": "MicrocosmCertificateLab.cert_2_3_5",
+      "input_row": {"left": 2, "right": 3, "total": 5},
+      "expected_valid": true,
+      "source_kind": "public_fixture_generated_row"
+    },
+    {
+      "certificate_id": "cert_4_7_11",
+      "declaration_ref": "MicrocosmCertificateLab.cert_4_7_11",
+      "input_row": {"left": 4, "right": 7, "total": 11},
+      "expected_valid": true,
+      "source_kind": "public_fixture_generated_row"
+    },
+    {
+      "certificate_id": "cert_8_13_21",
+      "declaration_ref": "MicrocosmCertificateLab.cert_8_13_21",
+      "input_row": {"left": 8, "right": 13, "total": 21},
+      "expected_valid": true,
+      "source_kind": "public_fixture_generated_row"
+    },
+    {
+      "certificate_id": "bad_cert_2_3_6",
+      "declaration_ref": "MicrocosmCertificateLab.bad_cert_2_3_6",
+      "input_row": {"left": 2, "right": 3, "total": 6},
+      "expected_valid": false,
+      "source_kind": "public_negative_fixture_row"
+    }
+  ],
+  "source_refs": [
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean"
+  ],
+  "lineage_refs": [
+    "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json::lean_certificate_kernel_body_import",
+    "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
+  ],
+  "lineage_boundary": "macro_pattern_transfer_public_replacement_no_private_body_import",
+  "proof_bodies_exported": false,
+  "body_redacted": true
+}
+

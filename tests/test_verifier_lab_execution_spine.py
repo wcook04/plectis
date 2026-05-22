@@ -78,7 +78,7 @@ def test_verifier_lab_execution_spine_runs_lean_cp2_and_evolve(tmp_path: Path) -
     assert board["evolve_accepted_count"] == 1
 
 
-def test_verifier_lab_execution_spine_bundle_is_public_redacted(tmp_path: Path) -> None:
+def test_verifier_lab_execution_spine_bundle_is_public_structured(tmp_path: Path) -> None:
     result = run_execution_bundle(
         EXPORTED_BUNDLE,
         tmp_path
@@ -96,7 +96,9 @@ def test_verifier_lab_execution_spine_bundle_is_public_redacted(tmp_path: Path) 
     assert result["authority_counters"]["evolve_accepted_count"] == 1
 
 
-def test_verifier_lab_execution_spine_receipts_are_redacted(tmp_path: Path) -> None:
+def test_verifier_lab_execution_spine_receipts_are_transparent_without_bodies(
+    tmp_path: Path,
+) -> None:
     out = tmp_path / "receipts/first_wave/verifier_lab_execution_spine"
     run(FIXTURE_INPUT, out, command="pytest")
 
@@ -105,6 +107,12 @@ def test_verifier_lab_execution_spine_receipts_are_redacted(tmp_path: Path) -> N
     payload = json.loads(text)
 
     assert payload["status"] == "pass"
+    assert payload["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
+    assert payload["receipt_transparency_contract"]["redaction_scope"] == (
+        "dangerous_payload_fields_only"
+    )
+    assert payload["transition_trace"][0]["problem_id"] == "closed_nat_mod_public"
+    assert payload["transition_trace"][0]["lean_return_code"] == 0
     assert payload["private_state_scan"]["body_redacted"] is True
     assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert payload["receipts_include_proof_bodies"] is False

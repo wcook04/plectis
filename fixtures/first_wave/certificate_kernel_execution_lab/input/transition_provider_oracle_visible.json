@@ -1,0 +1,11 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_negative_case_v1",
+  "transition_id": "transition_provider_oracle_visible",
+  "expected_negative_case_id": "transition_provider_oracle_visible",
+  "action_class": "direct_certificate_check",
+  "candidate_kind": "forward_direct_certificate",
+  "allowed_certificate_refs": ["cert_2_3_5"],
+  "oracle_visible": true,
+  "provider_visible": true
+}
+

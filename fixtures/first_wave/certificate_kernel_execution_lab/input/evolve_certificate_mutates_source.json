@@ -1,0 +1,11 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_negative_case_v1",
+  "mutation_id": "evolve_certificate_mutates_source",
+  "expected_negative_case_id": "evolve_certificate_mutates_source",
+  "mutated_artifact": "lean_source_file",
+  "baseline_transition_ids": ["missing_certificate_row_residual"],
+  "rerun_transition_ids": ["evolve_certificate_policy_rerun"],
+  "arbitrary_code_mutation": true,
+  "source_mutation_authorized": true
+}
+

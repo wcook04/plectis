@@ -1,0 +1,17 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_bundle_manifest_v1",
+  "bundle_id": "public_certificate_kernel_execution_lab_runtime_example",
+  "organ_id": "certificate_kernel_execution_lab",
+  "input_mode": "exported_certificate_kernel_execution_lab_bundle",
+  "contains_negative_cases": false,
+  "source_refs": [
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/certificate_lab_packet.json",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/certificate_manifest.json",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean"
+  ],
+  "authority_boundary": "public_exported_bundle_for_certificate_kernel_execution_lab_not_release_authority",
+  "proof_bodies_exported": false,
+  "body_redacted": true
+}
+

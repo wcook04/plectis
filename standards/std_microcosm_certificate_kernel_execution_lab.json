@@ -1,0 +1,105 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_certificate_kernel_execution_lab",
+  "kind_id": "certificate_kernel_execution_lab",
+  "kind_name": "Certificate kernel execution lab",
+  "status": "draft",
+  "wave": "w1_certificate_kernel_execution_lab",
+  "authority_boundary": "public_bounded_certificate_kernel_execution_receipt_not_general_proof_authority",
+  "owned_surfaces": [
+    {
+      "surface": "fixture",
+      "path": "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json"
+    },
+    {
+      "surface": "manifest",
+      "path": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json"
+    },
+    {
+      "surface": "exported_bundle",
+      "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle"
+    },
+    {
+      "surface": "organ",
+      "path": "src/microcosm_core/organs/certificate_kernel_execution_lab.py"
+    }
+  ],
+  "governs": {
+    "canonical_organ_model_ref": "src/microcosm_core/organs/certificate_kernel_execution_lab.py",
+    "fixture_refs": [
+      "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
+      "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json"
+    ],
+    "receipt_refs": [
+      "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+      "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+      "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+      "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
+    ]
+  },
+  "requirements": [
+    "Build the public Lake project with an explicit named library target.",
+    "Keep generated certificate rows separate from the abstract certificate kernel.",
+    "Record declaration/import/hash analyzer metadata without proof bodies.",
+    "Route provider/NIM material through typed CP2 action candidates only.",
+    "Limit Evolve to certificate routing policy artifacts and require rerun evidence.",
+    "Reject oracle/provider visibility in forward transition rows.",
+    "Reject proof bodies, raw tactic scripts, private source refs, and arbitrary source mutation."
+  ],
+  "authority_ceiling": {
+    "lean_lake_execution_authorized": true,
+    "formal_proof_authority": "bounded_public_certificate_kernel_fixture_rows_only",
+    "private_body_import_authorized": false,
+    "provider_calls_authorized": false,
+    "oracle_forward_success_increment_authorized": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "source_mutation_authorized": false,
+    "release_authorized": false
+  },
+  "receipt_transparency_contract": {
+    "required": true,
+    "rule": "receipts are public evidence; only dangerous private/proof/provider/oracle/stdout payload fields are redacted or omitted",
+    "receipt_body_is_public_evidence": true,
+    "redaction_scope": "dangerous_payload_fields_only",
+    "must_expose": [
+      "theorem and declaration names",
+      "Lean/Lake command identity",
+      "Lean return codes",
+      "source hashes",
+      "declaration counts",
+      "accepted and residual transition counts",
+      "negative-case ids",
+      "CP2 action class",
+      "Evolve policy artifact id",
+      "oracle/provider separation counters",
+      "authority ceiling",
+      "anti-claim"
+    ],
+    "must_not_expose": [
+      "proof bodies",
+      "raw tactic scripts",
+      "provider text",
+      "oracle ideal answers",
+      "oracle-needed premise ids",
+      "private source paths",
+      "private payload bodies",
+      "stdout/stderr bodies"
+    ]
+  },
+  "validator": {
+    "validator_id": "validator.microcosm.organs.certificate_kernel_execution_lab",
+    "command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab"
+  },
+  "receipt_id": "receipt.microcosm.certificate_kernel_execution_lab",
+  "anti_claim": "This standard governs a public replacement certificate-kernel fixture and verifier-lab execution receipt. It does not import macro proof bodies, certify general theorem correctness, call providers, authorize release, or claim benchmark solve-rate.",
+  "omission_receipt": {
+    "omitted": [
+      "macro Erdos257 proof body",
+      "raw provider output",
+      "raw tactic scripts",
+      "Lean proof bodies in JSON receipts"
+    ],
+    "reason": "The public Microcosm lab transfers the certificate-kernel pattern and receipt discipline, not private theorem bodies.",
+    "drilldown": "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json"
+  }
+}

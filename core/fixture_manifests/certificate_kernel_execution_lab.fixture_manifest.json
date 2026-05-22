@@ -1,0 +1,57 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "organ_id": "certificate_kernel_execution_lab",
+  "fixture_id": "fixture::certificate_kernel_execution_lab::first_wave_contract_v1",
+  "kind_id": "certificate_kernel_execution_lab",
+  "purpose": "Validate a public replacement Lean certificate-kernel lab under verifier-lab authority: generated certificate rows, Lean acceptance/rejection, analyzer metadata, CP2 typed-action rerun, bounded Evolve policy rerun, and negative-case leakage controls.",
+  "input_refs": [
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/transition_provider_oracle_visible.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/cp2_certificate_contains_proof_body.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/evolve_certificate_mutates_source.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+    "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+  "negative_cases": [
+    "transition_provider_oracle_visible",
+    "cp2_certificate_contains_proof_body",
+    "evolve_certificate_mutates_source",
+    "certificate_manifest_private_source_ref"
+  ],
+  "expected_error_codes": [
+    "CERTIFICATE_KERNEL_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE",
+    "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
+    "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
+    "CERTIFICATE_KERNEL_EXECUTION_PRIVATE_SOURCE_REF_FORBIDDEN"
+  ],
+  "required_receipt_fields": [
+    "transition_trace",
+    "cp2_translation_trace",
+    "evolve_mutation_trace",
+    "lean_analyzer_receipt",
+    "claim_separation",
+    "authority_counters",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "authority_ceiling": {
+    "formal_proof_authority": "bounded_public_certificate_kernel_fixture_rows_only",
+    "private_body_import_authorized": false,
+    "provider_calls_authorized": false,
+    "oracle_forward_success_increment_authorized": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "source_mutation_authorized": false,
+    "release_authorized": false
+  },
+  "anti_claim": "This fixture manifest accepts only public replacement certificate-kernel execution receipts, analyzer metadata, typed CP2 candidate metadata, bounded Evolve policy rerun rows, and negative-case leakage coverage. It does not authorize macro proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}
+

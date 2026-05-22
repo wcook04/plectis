@@ -109,13 +109,46 @@ AUTHORITY_CEILING = {
     "private_body_import_authorized": False,
     "release_authorized": False,
 }
+RECEIPT_TRANSPARENCY_CONTRACT = {
+    "schema_version": "verifier_lab_receipt_transparency_contract_v1",
+    "receipt_body_is_public_evidence": True,
+    "redaction_scope": "dangerous_payload_fields_only",
+    "required_public_evidence_fields": [
+        "theorem_or_declaration_names",
+        "lean_lake_command_identity",
+        "lean_return_code",
+        "source_hashes",
+        "declaration_counts",
+        "accepted_transition_count",
+        "residual_transition_count",
+        "negative_case_id",
+        "cp2_action_class",
+        "evolve_policy_artifact_id",
+        "oracle_provider_separation_counters",
+        "authority_ceiling",
+        "anti_claim",
+    ],
+    "forbidden_payload_fields": [
+        "proof_body",
+        "raw_tactic_script",
+        "provider_text",
+        "oracle_ideal_answer",
+        "oracle_needed_premise_ids",
+        "private_source_path",
+        "private_payload_body",
+        "stdout_body",
+        "stderr_body",
+    ],
+    "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted",
+}
 ANTI_CLAIM = (
     "Verifier lab kernel composes public fixture receipts for bounded Lean/Lake "
     "execution, tactic routing, verifier trace repair, provider-hypothesis "
-    "quarantine, CP2 action candidates, and bounded Evolve candidates. It does "
-    "not import private proof bodies, count oracle or provider output as forward "
-    "proof success, expose proof bodies, mutate source, claim benchmark solve "
-    "rate, or authorize release."
+    "quarantine, CP2 action candidates, bounded Evolve candidates, and "
+    "structured public receipts that omit only dangerous payload fields. It "
+    "does not import private proof bodies, count oracle or provider output as "
+    "forward proof success, expose proof bodies, mutate source, claim benchmark "
+    "solve rate, or authorize release."
 )
 
 
@@ -992,6 +1025,7 @@ def _build_result(
             ),
         },
         "authority_ceiling": AUTHORITY_CEILING,
+        "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
         "anti_claim": ANTI_CLAIM,
         "body_redacted": True,
     }
@@ -1024,6 +1058,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "authority_counters": result["authority_counters"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
+        "receipt_transparency_contract": result["receipt_transparency_contract"],
         "anti_claim": result["anti_claim"],
         "body_redacted": True,
     }
@@ -1086,6 +1121,9 @@ def _write_receipts(
         "authority_counters": result["authority_counters"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
+        "receipt_transparency_contract": result["receipt_transparency_contract"],
+        "receipt_body_is_public_evidence": True,
+        "redaction_scope": "dangerous_payload_fields_only",
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
     }
@@ -1102,6 +1140,9 @@ def _write_receipts(
         "authority_counters": result["authority_counters"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
+        "receipt_transparency_contract": result["receipt_transparency_contract"],
+        "receipt_body_is_public_evidence": True,
+        "redaction_scope": "dangerous_payload_fields_only",
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
     }

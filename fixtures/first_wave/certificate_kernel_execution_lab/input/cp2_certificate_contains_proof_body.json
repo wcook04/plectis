@@ -1,0 +1,10 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_negative_case_v1",
+  "request_id": "cp2_certificate_contains_proof_body",
+  "expected_negative_case_id": "cp2_certificate_contains_proof_body",
+  "action_class": "add_certificate_row",
+  "candidate_kind": "typed_action_candidate",
+  "proof_body": "by native_decide",
+  "downstream_transition_id": "cp2_add_certificate_row_rerun"
+}
+

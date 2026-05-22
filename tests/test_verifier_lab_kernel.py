@@ -77,7 +77,7 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert result["authority_ceiling"]["oracle_success_counts_as_forward_success"] is False
 
 
-def test_verifier_lab_kernel_receipts_are_public_relative_and_redacted(
+def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_without_bodies(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -102,6 +102,10 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_redacted(
         assert '"proof_body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
+        assert payload["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
+        assert payload["receipt_transparency_contract"]["redaction_scope"] == (
+            "dangerous_payload_fields_only"
+        )
         assert payload["private_state_scan"]["body_redacted"] is True
         assert payload["private_state_scan"]["blocking_hit_count"] == 0
         assert "proof_body" not in _walk_keys(payload)
