@@ -20,6 +20,9 @@
       "validation_refs": [
         "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
       ],
+      "public_safe_body_material_ids": [
+        "lean_certificate_kernel_body_import"
+      ],
       "authority_ceiling": "fixture_and_receipt_refs_only",
       "body_copied": false,
       "body_redacted": true
@@ -39,6 +42,9 @@
       ],
       "validation_refs": [
         "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+      ],
+      "public_safe_body_material_ids": [
+        "work_landing_tool_body_import"
       ],
       "authority_ceiling": "protocol_metadata_only",
       "body_copied": false,

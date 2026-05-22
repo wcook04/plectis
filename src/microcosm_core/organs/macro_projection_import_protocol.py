@@ -71,6 +71,8 @@ PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
     "public_macro_receipt_body",
     "public_macro_proof_body",
 }
+PUBLIC_SAFE_BODY_COPY_POLICY = "public_safe_body_with_provenance_and_claim_ceiling"
+METADATA_COPY_POLICY = "metadata_fixture_receipt_ref_only"
 FORBIDDEN_MATERIAL_CLASSES = TRUE_FORBIDDEN_MATERIAL_CLASSES
 FORBIDDEN_AUTHORITY_FLAGS = (
     "source_authority_above_macro_contracts",
@@ -559,9 +561,11 @@ def validate_cleaning_policy(payload: object) -> dict[str, Any]:
 def validate_import_plan(
     payload: object,
     missing_validation_negative: object | None = None,
+    public_safe_material_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     plan = payload if isinstance(payload, dict) else {}
     cells = _rows(plan, "proposed_cells")
+    known_public_safe_material_ids = public_safe_material_ids or set()
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     cell_ids: list[str] = []
@@ -572,11 +576,26 @@ def validate_import_plan(
         cell_ids.append(cell_id)
         target_refs.extend(_strings(row.get("target_refs")))
         validation_refs.extend(_strings(row.get("validation_refs")))
+        missing_body_material_ids = sorted(
+            material_id
+            for material_id in _strings(row.get("public_safe_body_material_ids"))
+            if material_id not in known_public_safe_material_ids
+        )
         if not _strings(row.get("source_refs")) or not _strings(row.get("target_refs")):
             findings.append(
                 _finding(
                     "MACRO_PROJECTION_CELL_ROUTE_MISSING",
                     "Projection cell must name source and target refs.",
+                    case_id="import_plan_floor",
+                    subject_id=cell_id,
+                    subject_kind="projection_cell",
+                )
+            )
+        if missing_body_material_ids:
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_MATERIAL_MISSING",
+                    "Projection cell references public-safe body material not present in the projection protocol.",
                     case_id="import_plan_floor",
                     subject_id=cell_id,
                     subject_kind="projection_cell",
@@ -607,20 +626,74 @@ def validate_import_plan(
                     subject_id=str(row.get("cell_id") or "projection_cell"),
                     subject_kind="negative_case",
                 )
+    blocking_findings = [
+        row for row in findings if row.get("negative_case_id") == "import_plan_floor"
+    ]
     return {
-        "status": PASS if len(cells) >= 3 and target_refs and validation_refs else "blocked",
+        "status": PASS
+        if len(cells) >= 3 and target_refs and validation_refs and not blocking_findings
+        else "blocked",
         "plan_id": plan.get("plan_id"),
         "projection_cell_count": len(cells),
         "projection_cell_ids": sorted(cell_ids),
         "target_refs": sorted(set(target_refs)),
         "validation_refs": sorted(set(validation_refs)),
         "next_best_lane": plan.get("next_best_lane"),
+        "blocking_finding_count": len(blocking_findings),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
     }
 
 
-def _projection_cell_rows(plan_payload: dict[str, Any]) -> list[dict[str, Any]]:
+def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
+    source_refs = _strings(row.get("source_refs"))
+    source_ref = row.get("source_ref")
+    if isinstance(source_ref, str) and source_ref and source_ref not in source_refs:
+        source_refs.insert(0, source_ref)
+    return source_refs
+
+
+def _public_safe_body_import_rows(
+    protocol_payload: dict[str, Any],
+    *,
+    import_policy: dict[str, Any],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for row in _rows(protocol_payload, "copied_material"):
+        classification = _public_safe_import_status(row, import_policy=import_policy)
+        if classification is None:
+            continue
+        findings = classification.get("findings", [])
+        rows.append(
+            {
+                "material_id": str(row.get("material_id") or "public_safe_body_material"),
+                "material_class": classification["material_class"],
+                "source_refs": _source_refs_for_material(row),
+                "target_ref": row.get("target_ref"),
+                "private_state_risk": classification["private_state_risk"],
+                "route": classification["route"],
+                "public_safe_mode": classification["public_safe_mode"],
+                "provenance_refs": _strings(row.get("provenance_refs")),
+                "validation_refs": _strings(row.get("validation_refs")),
+                "applied_edits": _strings(row.get("applied_edits")),
+                "claim_ceiling": row.get("claim_ceiling"),
+                "body_digest": row.get("body_digest"),
+                "body_copied": row.get("body_copied") is True,
+                "body_text_in_receipt_redacted": True,
+                "classification_status": classification["status"],
+                "flow_allowed": classification["flow_allowed"] is True,
+                "finding_count": len(findings),
+                "error_codes": sorted(str(item.get("error_code") or "") for item in findings),
+            }
+        )
+    return rows
+
+
+def _projection_cell_rows(
+    plan_payload: dict[str, Any],
+    *,
+    public_safe_imports_by_id: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
     cells: list[dict[str, Any]] = []
     for row in _rows(plan_payload, "proposed_cells"):
         cell_id = str(row.get("cell_id") or "projection_cell")
@@ -628,6 +701,17 @@ def _projection_cell_rows(plan_payload: dict[str, Any]) -> list[dict[str, Any]]:
         target_refs = _strings(row.get("target_refs"))
         validation_refs = _strings(row.get("validation_refs"))
         selected_pattern_ids = _strings(row.get("selected_pattern_ids"))
+        body_material_ids = _strings(row.get("public_safe_body_material_ids"))
+        missing_body_material_ids = sorted(
+            material_id
+            for material_id in body_material_ids
+            if material_id not in public_safe_imports_by_id
+        )
+        body_material_rows = [
+            public_safe_imports_by_id[material_id]
+            for material_id in body_material_ids
+            if material_id in public_safe_imports_by_id
+        ]
         blocking_reasons: list[str] = []
         if not source_refs:
             blocking_reasons.append("source_refs_missing")
@@ -637,7 +721,10 @@ def _projection_cell_rows(plan_payload: dict[str, Any]) -> list[dict[str, Any]]:
             blocking_reasons.append("validation_refs_missing")
         if row.get("body_copied") is True or row.get("body_included") is True:
             blocking_reasons.append("body_copy_requested")
+        if missing_body_material_ids:
+            blocking_reasons.append("public_safe_body_material_missing")
         ready_to_project = not blocking_reasons
+        copy_policy = PUBLIC_SAFE_BODY_COPY_POLICY if body_material_rows else METADATA_COPY_POLICY
         if ready_to_project:
             state = dict(
                 CELL_STATUS_OVERRIDES.get(
@@ -674,7 +761,24 @@ def _projection_cell_rows(plan_payload: dict[str, Any]) -> list[dict[str, Any]]:
                 "source_ref_count": len(source_refs),
                 "target_ref_count": len(target_refs),
                 "validation_ref_count": len(validation_refs),
-                "copy_policy": "metadata_fixture_receipt_ref_only",
+                "copy_policy": copy_policy,
+                "public_safe_body_material_ids": body_material_ids,
+                "public_safe_body_material_count": len(body_material_rows),
+                "public_safe_body_material_classes": sorted(
+                    {
+                        str(material.get("material_class") or "")
+                        for material in body_material_rows
+                        if material.get("material_class")
+                    }
+                ),
+                "public_safe_body_import_routes": sorted(
+                    {
+                        str(material.get("route") or "")
+                        for material in body_material_rows
+                        if material.get("route")
+                    }
+                ),
+                "missing_public_safe_body_material_ids": missing_body_material_ids,
                 "authority_ceiling": row.get("authority_ceiling"),
                 "body_copied": row.get("body_copied") is True,
                 "body_redacted": True,
@@ -711,6 +815,7 @@ def _build_projection_intake_board(
     cleaning_policy: dict[str, Any],
     import_plan: dict[str, Any],
     private_scan: dict[str, Any],
+    import_policy: dict[str, Any],
     input_mode: str,
     expected_negative_cases: dict[str, list[str]],
     observed_negative_cases: dict[str, list[str]],
@@ -724,11 +829,28 @@ def _build_projection_intake_board(
     plan_payload = (
         payloads.get("import_plan") if isinstance(payloads.get("import_plan"), dict) else {}
     )
-    cell_rows = _projection_cell_rows(plan_payload)
+    public_safe_body_imports = _public_safe_body_import_rows(
+        protocol_payload,
+        import_policy=import_policy,
+    )
+    imports_by_id = {
+        str(row.get("material_id")): row
+        for row in public_safe_body_imports
+        if row.get("material_id")
+    }
+    cell_rows = _projection_cell_rows(plan_payload, public_safe_imports_by_id=imports_by_id)
     ready_count = sum(1 for row in cell_rows if row["ready_to_project"])
     blocked_count = len(cell_rows) - ready_count
     status_counts = dict(
         sorted(Counter(str(row.get("projection_status") or "unknown") for row in cell_rows).items())
+    )
+    import_route_counts = dict(
+        sorted(Counter(str(row.get("route") or "unknown") for row in public_safe_body_imports).items())
+    )
+    import_class_counts = dict(
+        sorted(
+            Counter(str(row.get("material_class") or "unknown") for row in public_safe_body_imports).items()
+        )
     )
     open_actionable_count = sum(1 for row in cell_rows if row.get("action_required") is True)
     landed_count = sum(
@@ -753,6 +875,10 @@ def _build_projection_intake_board(
         "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
         "omitted_material": _omitted_material_rows(protocol_payload),
         "omitted_material_count": len(_omitted_material_rows(protocol_payload)),
+        "public_safe_body_imports": public_safe_body_imports,
+        "public_safe_body_import_count": len(public_safe_body_imports),
+        "public_safe_body_import_routes": import_route_counts,
+        "public_safe_body_import_classes": import_class_counts,
         "projection_cells": cell_rows,
         "projection_cell_count": len(cell_rows),
         "ready_cell_count": ready_count,
@@ -803,9 +929,15 @@ def _build_result(
         import_policy=policy,
     )
     cleaning_policy = validate_cleaning_policy(payloads["cleaning_policy"])
+    public_safe_material_ids = {
+        str(row.get("material_id"))
+        for row in _public_safe_body_import_rows(payloads["projection_protocol"], import_policy=policy)
+        if row.get("material_id")
+    }
     import_plan = validate_import_plan(
         payloads["import_plan"],
         payloads.get("missing_validation_ref"),
+        public_safe_material_ids=public_safe_material_ids,
     )
     observed = _merge_observed(protocol, cleaning_policy, import_plan)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
@@ -832,6 +964,7 @@ def _build_result(
         cleaning_policy=cleaning_policy,
         import_plan=import_plan,
         private_scan=private_scan,
+        import_policy=policy,
         input_mode=input_mode,
         expected_negative_cases=expected,
         observed_negative_cases=observed,
@@ -865,6 +998,8 @@ def _build_result(
         "public_safe_body_import_status": "pass"
         if protocol["public_safe_body_material_count"]
         else "not_present",
+        "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
+        "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
         "projection_cell_count": import_plan["projection_cell_count"],
         "ready_projection_cell_count": projection_intake_board["ready_cell_count"],
         "blocked_projection_cell_count": projection_intake_board["blocked_cell_count"],
@@ -889,6 +1024,8 @@ def _build_result(
             ],
             "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
             "public_safe_body_material_count": protocol["public_safe_body_material_count"],
+            "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
+            "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
             "projection_cell_count": import_plan["projection_cell_count"],
             "next_best_lane": import_plan["next_best_lane"],
             "release_authorized": False,
@@ -931,6 +1068,8 @@ def _common_receipt(
         "validation_ref_count",
         "public_safe_body_material_count",
         "public_safe_body_import_status",
+        "public_safe_body_import_count",
+        "public_safe_body_import_routes",
         "projection_cell_count",
         "ready_projection_cell_count",
         "blocked_projection_cell_count",
