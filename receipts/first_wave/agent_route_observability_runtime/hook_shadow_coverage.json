@@ -1,20 +1,26 @@
 {
   "anti_claim": "Agent observability receipts validate public trace-feedback metadata plus regression fixtures; they do not inspect live operator state, certify runtime behavior, mutate Task Ledger, authorize pattern assimilation, or prove whole Wave 1.",
   "authority_ceiling": {
-    "authority_ceiling": "agent_observability_metadata_not_live_trace_authority",
-    "behavior_change_claim_authorized_without_trace": false,
-    "later_organs_authorized": false,
+    "browser_hud_cockpit_state_read": false,
     "live_operator_state_read": false,
-    "provider_payload_read": false,
-    "status": "pass"
+    "live_task_ledger_mutation_authorized": false,
+    "pattern_assimilation_authorized": false,
+    "provider_payload_read": false
   },
-  "budget_status": "within_synthetic_budget",
+  "banned_route_intervention_count": 1,
+  "budget_status": "over_budget_denied",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
-  "created_at": "2026-05-20T16:47:17+00:00",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input microcosm-substrate/fixtures/first_wave/agent_route_observability_runtime/input --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "command_displacement_count": 1,
+  "created_at": "2026-05-22T11:57:42+00:00",
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
     "DUPLICATE_TRACE_EVENT_ID",
+    "HOOK_SHADOW_BANNED_ROUTE_INTERVENTION",
+    "HOOK_SHADOW_COMMAND_DISPLACEMENT",
+    "HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN",
+    "HOOK_SHADOW_MISSING_AUTHORITY",
+    "HOOK_SHADOW_OVER_BUDGET",
     "KERNEL_BLOAT_BEFORE_DIRECT_ACTION",
     "MISSING_ROUTE_LEASE",
     "NO_BEHAVIOR_CHANGE_EVIDENCE",
@@ -28,6 +34,21 @@
     ],
     "duplicate_trace_event_conflict": [
       "DUPLICATE_TRACE_EVENT_ID"
+    ],
+    "hook_shadow_banned_route_attempt": [
+      "HOOK_SHADOW_BANNED_ROUTE_INTERVENTION"
+    ],
+    "hook_shadow_budget_overrun": [
+      "HOOK_SHADOW_OVER_BUDGET"
+    ],
+    "hook_shadow_command_displacement": [
+      "HOOK_SHADOW_COMMAND_DISPLACEMENT"
+    ],
+    "hook_shadow_live_state_read_attempt": [
+      "HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN"
+    ],
+    "hook_shadow_missing_authority": [
+      "HOOK_SHADOW_MISSING_AUTHORITY"
     ],
     "route_compliance_overclaims_behavior_change": [
       "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
@@ -62,6 +83,46 @@
       "negative_case_id": "duplicate_trace_event_conflict",
       "subject_id": "trace_duplicate",
       "subject_kind": "agent_trace_event"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "HOOK_SHADOW_BANNED_ROUTE_INTERVENTION",
+      "message": "Hook-shadow row detects a banned first-contact route and must redirect through the kernel entry path.",
+      "negative_case_id": "hook_shadow_banned_route_attempt",
+      "subject_id": "synthetic_first_contact_route_guard",
+      "subject_kind": "hook_shadow_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "HOOK_SHADOW_OVER_BUDGET",
+      "message": "Hook-shadow row exceeds its public synthetic coverage budget and must be downgraded.",
+      "negative_case_id": "hook_shadow_budget_overrun",
+      "subject_id": "synthetic_route_ladder_budget_guard",
+      "subject_kind": "hook_shadow_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "HOOK_SHADOW_COMMAND_DISPLACEMENT",
+      "message": "Hook-shadow row detects context gathering displacing direct local action.",
+      "negative_case_id": "hook_shadow_command_displacement",
+      "subject_id": "synthetic_direct_action_guard",
+      "subject_kind": "hook_shadow_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN",
+      "message": "Hook-shadow coverage cannot read live operator, provider, browser/HUD/cockpit, or Task Ledger state.",
+      "negative_case_id": "hook_shadow_live_state_read_attempt",
+      "subject_id": "synthetic_live_operator_state_guard",
+      "subject_kind": "hook_shadow_case"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "HOOK_SHADOW_MISSING_AUTHORITY",
+      "message": "Hook-shadow row lacks authority to intervene and must remain advisory.",
+      "negative_case_id": "hook_shadow_missing_authority",
+      "subject_id": "synthetic_prompt_observer",
+      "subject_kind": "hook_shadow_case"
     },
     {
       "body_redacted": true,
@@ -113,12 +174,104 @@
     }
   ],
   "fixture_id": "first_wave.agent_route_observability_runtime",
-  "hook_shadow_coverage_status": "advisory_synthetic_coverage_only",
+  "hook_shadow_case_count": 6,
+  "hook_shadow_coverage_status": "synthetic_intervention_coverage_contract",
+  "hook_shadow_decisions": [
+    {
+      "body_redacted": true,
+      "case_id": "hook_shadow_missing_authority",
+      "coverage_claim": "advisory_only",
+      "decision": "blocked_or_advisory",
+      "error_codes": [
+        "HOOK_SHADOW_MISSING_AUTHORITY"
+      ],
+      "expected_intervention": "retain_as_advisory_until_authority_source_declared",
+      "hook_id": "synthetic_prompt_observer",
+      "repair_class": "authority_boundary_repair"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "hook_shadow_consumed_trace_feedback",
+      "coverage_claim": "feeds_patterns_after_validator_assertion",
+      "decision": "accepted",
+      "error_codes": [],
+      "expected_intervention": "admit_after_consumed_trace_feedback",
+      "hook_id": "synthetic_route_lease_feedback",
+      "repair_class": "route_lease_mode_control"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "hook_shadow_banned_route_attempt",
+      "coverage_claim": "blocks_banned_first_contact_route",
+      "decision": "blocked_or_advisory",
+      "error_codes": [
+        "HOOK_SHADOW_BANNED_ROUTE_INTERVENTION"
+      ],
+      "expected_intervention": "block_and_route_to_kernel_entry",
+      "hook_id": "synthetic_first_contact_route_guard",
+      "repair_class": "navigation_entry_repair"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "hook_shadow_command_displacement",
+      "coverage_claim": "detects_context_gathering_displacing_direct_action",
+      "decision": "blocked_or_advisory",
+      "error_codes": [
+        "HOOK_SHADOW_COMMAND_DISPLACEMENT"
+      ],
+      "expected_intervention": "preserve_direct_local_action_before_broad_context",
+      "hook_id": "synthetic_direct_action_guard",
+      "repair_class": "direct_action_repair"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "hook_shadow_live_state_read_attempt",
+      "coverage_claim": "rejects_live_state_read",
+      "decision": "blocked_or_advisory",
+      "error_codes": [
+        "HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN"
+      ],
+      "expected_intervention": "deny_live_state_read_and_keep_metadata_only",
+      "hook_id": "synthetic_live_operator_state_guard",
+      "repair_class": "private_state_scan_posture"
+    },
+    {
+      "body_redacted": true,
+      "case_id": "hook_shadow_budget_overrun",
+      "coverage_claim": "downgrades_over_budget_shadow_to_advisory",
+      "decision": "blocked_or_advisory",
+      "error_codes": [
+        "HOOK_SHADOW_OVER_BUDGET"
+      ],
+      "expected_intervention": "deny_promotion_until_budget_contract_is_met",
+      "hook_id": "synthetic_route_ladder_budget_guard",
+      "repair_class": "route_budget_control"
+    }
+  ],
+  "hook_shadow_expected_negative_case_ids": [
+    "hook_shadow_banned_route_attempt",
+    "hook_shadow_budget_overrun",
+    "hook_shadow_command_displacement",
+    "hook_shadow_live_state_read_attempt",
+    "hook_shadow_missing_authority"
+  ],
+  "hook_shadow_repair_class_count": 6,
   "input_mode": null,
-  "intervention": "retain_as_advisory_until_trace_feedback_consumed",
+  "intervention": "admit_shadow_rows_only_with_mapped_repair_and_authority_ceiling",
+  "live_state_read_denial_count": 1,
+  "mapped_repair_classes": [
+    "authority_boundary_repair",
+    "direct_action_repair",
+    "navigation_entry_repair",
+    "private_state_scan_posture",
+    "route_budget_control",
+    "route_lease_mode_control"
+  ],
   "missing_authority": [
     "hook_shadow_missing_authority"
   ],
+  "missing_authority_count": 1,
+  "missing_hook_shadow_negative_cases": [],
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "agent_trace_missing_route_lease": [
@@ -126,6 +279,21 @@
     ],
     "duplicate_trace_event_conflict": [
       "DUPLICATE_TRACE_EVENT_ID"
+    ],
+    "hook_shadow_banned_route_attempt": [
+      "HOOK_SHADOW_BANNED_ROUTE_INTERVENTION"
+    ],
+    "hook_shadow_budget_overrun": [
+      "HOOK_SHADOW_OVER_BUDGET"
+    ],
+    "hook_shadow_command_displacement": [
+      "HOOK_SHADOW_COMMAND_DISPLACEMENT"
+    ],
+    "hook_shadow_live_state_read_attempt": [
+      "HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN"
+    ],
+    "hook_shadow_missing_authority": [
+      "HOOK_SHADOW_MISSING_AUTHORITY"
     ],
     "route_compliance_overclaims_behavior_change": [
       "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
@@ -145,6 +313,7 @@
     ]
   },
   "organ_id": "agent_route_observability_runtime",
+  "over_budget_denial_count": 1,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -157,6 +326,7 @@
       "telemetry_private_transcript_body"
     ]
   },
+  "projection_not_authority": true,
   "receipt_id": "agent_route_observability_runtime_hook_shadow_coverage_v1",
   "receipt_paths": [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -170,9 +340,11 @@
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
-    "trace_feedback_behavior_change_gate"
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
   ],
   "status": "pass",
+  "structural_error_codes": [],
   "validator_asserted_feeds_patterns": [
     {
       "assertion_id": "route_lease_feedback_requires_consumed_trace",
@@ -187,6 +359,11 @@
     {
       "assertion_id": "debt_retirement_requires_behavior_change_evidence",
       "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
       "status": "pass"
     }
   ],

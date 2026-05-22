@@ -366,8 +366,9 @@ explanation, and assimilation primitives, not through production claims.
    The hook intervention coverage loop is `microcosm hook-coverage`; it should
    compress `agent_route_observability_runtime` receipts into public hook-shadow,
    route-compliance, actor-axis, anti-pattern debt, and route-lease intervention
-   rows. It must not read live operator state, provider payloads,
-   browser/HUD/cockpit state, mutate Task Ledger, authorize pattern
+   rows with mapped repair classes and hook-shadow denial cases. It must not
+   read live operator state, provider payloads, browser/HUD/cockpit state,
+   mutate Task Ledger, authorize pattern
    assimilation, certify runtime behavior, or imply release authority.
    The same organ owns the computer-use action-trace replay path:
    `agent-route-observability-runtime validate-computer-use-bundle` validates

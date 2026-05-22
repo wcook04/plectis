@@ -75,6 +75,14 @@ def test_agent_route_observability_runtime_observes_required_negative_cases(
     assert all(not Path(path).is_absolute() for path in result["receipt_paths"])
     assert result["route_compliance"]["actor_axis_mismatch_count"] == 1
     assert result["route_compliance"]["authority_rejection_count"] == 1
+    assert result["hook_shadow_coverage"]["hook_shadow_case_count"] == 6
+    assert result["hook_shadow_coverage"]["hook_shadow_repair_class_count"] == 6
+    assert result["hook_shadow_coverage"]["missing_authority_count"] == 1
+    assert result["hook_shadow_coverage"]["banned_route_intervention_count"] == 1
+    assert result["hook_shadow_coverage"]["command_displacement_count"] == 1
+    assert result["hook_shadow_coverage"]["live_state_read_denial_count"] == 1
+    assert result["hook_shadow_coverage"]["over_budget_denial_count"] == 1
+    assert result["hook_shadow_coverage"]["missing_hook_shadow_negative_cases"] == []
     assert result["route_lease_mode_control"]["kernel_bloat_before_direct_action_count"] == 1
     assert result["route_lease_mode_control"]["static_metadata_without_trace_feedback_count"] == 1
     assert result["debt_retirement"]["debt_retirement_count"] == 1
@@ -176,6 +184,9 @@ def test_agent_route_observability_exported_bundle_validates_runtime_shape(
     assert result["hook_shadow_coverage"]["hook_shadow_coverage_status"] == (
         "public_metadata_coverage_only"
     )
+    assert result["hook_shadow_coverage"]["hook_shadow_case_count"] == 4
+    assert result["hook_shadow_coverage"]["hook_shadow_repair_class_count"] == 3
+    assert result["hook_shadow_coverage"]["missing_authority_count"] == 1
     assert result["actor_axis_checks"]["actor_axis_check_count"] == 2
     assert result["debt_retirement"]["debt_retirement_count"] == 1
     assert result["process_audit_rows"]["process_audit_row_count"] == 2

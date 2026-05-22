@@ -926,6 +926,44 @@
       "title": "Agentic Vulnerability Replay Requires Patch, Test, Sandbox, and Negative-Case Receipts"
     },
     {
+      "authority_boundary": "synthetic_hook_shadow_metadata_only_not_live_operator_or_provider_authority",
+      "claim": "Hook-shadow intervention language must cite synthetic cases, mapped repair classes, expected interventions, missing-authority denials, banned-route and command-displacement denials, live-state-read denial, over-budget denial, private-state scan, and explicit no-live-operator/no-provider/no-live-ledger ceilings before it becomes public evidence.",
+      "domain": "agent_observability_runtime_hooks",
+      "kernel_primitive_refs": [
+        "event",
+        "evidence",
+        "explanation",
+        "route"
+      ],
+      "negative_case_ids": [
+        "hook_shadow_missing_authority",
+        "hook_shadow_banned_route_attempt",
+        "hook_shadow_command_displacement",
+        "hook_shadow_live_state_read_attempt",
+        "hook_shadow_budget_overrun"
+      ],
+      "owner_surfaces": [
+        "organs:agent_route_observability_runtime::runtime_hook_shadow_intervention_coverage",
+        "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json::agent_route_observability_runtime_trace_feedback_field_floor_v1",
+        "receipts/runtime_shell/public_hook_intervention_coverage_lens.json"
+      ],
+      "pressure": "typed hook-shadow claims require synthetic cases, mapped repair classes, expected interventions, negative cases, generated receipts, private-state scan posture, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "hook-coverage",
+        "agent-route-observability-runtime run",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.runtime_shell.RuntimeShell.hook_coverage",
+      "source_refs": [
+        "organs:agent_route_observability_runtime",
+        "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+        "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
+      ],
+      "standard_id": "runtime_hook_shadow_intervention_coverage_public_pressure",
+      "title": "Runtime Hook-Shadow Coverage Requires Mapped Repairs, Denials, and Authority Ceilings"
+    },
+    {
       "authority_boundary": "synthetic_fixture_receipts_only_not_live_browser_or_account_authority",
       "claim": "Computer-use language must cite synthetic observation digests, affordance refs, action ids, pre-action authority verdicts, state-transition receipts, recovery receipts, cold replay refs, negative cases, and explicit no-live-browser/no-account/no-credential/no-network/no-benchmark ceilings before it becomes public evidence.",
       "domain": "agent_observability_computer_use",

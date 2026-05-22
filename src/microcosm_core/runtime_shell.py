@@ -6839,9 +6839,11 @@ class RuntimeShell:
 
         route_decisions = _rows(route, "route_compliance_decisions")
         actor_axis_decisions = _rows(route, "actor_axis_decisions")
+        hook_shadow_decisions = _rows(hook, "hook_shadow_decisions")
         debt_decisions = _rows(debt, "anti_pattern_debt_decisions")
         lease_decisions = _rows(lease, "route_lease_feedback_decisions")
         missing_authority = _strings(hook.get("missing_authority"))
+        hook_repair_classes = _strings(hook.get("mapped_repair_classes"))
         observed_negative_cases = sorted(
             set(
                 [
@@ -6854,6 +6856,11 @@ class RuntimeShell:
                         str(key)
                         for key in lease.get("observed_negative_cases", {})
                         if isinstance(lease.get("observed_negative_cases"), dict)
+                    ),
+                    *(
+                        str(key)
+                        for key in hook.get("observed_negative_cases", {})
+                        if isinstance(hook.get("observed_negative_cases"), dict)
                     ),
                 ]
             )
@@ -6889,6 +6896,16 @@ class RuntimeShell:
                 "coverage_status": hook.get("hook_shadow_coverage_status"),
                 "intervention": hook.get("intervention"),
                 "missing_authority_case_ids": missing_authority,
+                "hook_shadow_case_count": hook.get("hook_shadow_case_count"),
+                "mapped_repair_classes": hook_repair_classes,
+                "banned_route_intervention_count": hook.get(
+                    "banned_route_intervention_count"
+                ),
+                "command_displacement_count": hook.get("command_displacement_count"),
+                "live_state_read_denial_count": hook.get(
+                    "live_state_read_denial_count"
+                ),
+                "over_budget_denial_count": hook.get("over_budget_denial_count"),
                 "decision": "retain_as_advisory_public_metadata",
                 "body_redacted": True,
             },
@@ -6960,8 +6977,11 @@ class RuntimeShell:
             if all(payload.get("status") == PASS for payload in [route, hook, debt, lease])
             and len(intervention_rows) == 5
             and len(missing_authority) >= 1
+            and int(hook.get("hook_shadow_case_count") or 0) >= 6
+            and int(hook.get("hook_shadow_repair_class_count") or 0) >= 5
             and not route.get("missing_negative_cases")
             and not hook.get("missing_negative_cases")
+            and not hook.get("missing_hook_shadow_negative_cases")
             and not lease.get("missing_negative_cases")
             and all(value is False for value in forbidden_export_summary.values())
             else "blocked"
@@ -7012,6 +7032,18 @@ class RuntimeShell:
                 }
                 for row in actor_axis_decisions
             ],
+            "hook_shadow_decisions": [
+                {
+                    "case_id": row.get("case_id"),
+                    "hook_id": row.get("hook_id"),
+                    "repair_class": row.get("repair_class"),
+                    "expected_intervention": row.get("expected_intervention"),
+                    "decision": row.get("decision"),
+                    "error_codes": row.get("error_codes", []),
+                    "body_redacted": True,
+                }
+                for row in hook_shadow_decisions
+            ],
             "debt_decisions": [
                 {
                     "debt_id": row.get("debt_id"),
@@ -7046,8 +7078,21 @@ class RuntimeShell:
                     "route_lease_warning_session_count"
                 ),
                 "missing_authority_count": len(missing_authority),
+                "hook_shadow_case_count": hook.get("hook_shadow_case_count"),
+                "hook_shadow_repair_class_count": hook.get(
+                    "hook_shadow_repair_class_count"
+                ),
+                "banned_route_intervention_count": hook.get(
+                    "banned_route_intervention_count"
+                ),
+                "command_displacement_count": hook.get("command_displacement_count"),
+                "live_state_read_denial_count": hook.get(
+                    "live_state_read_denial_count"
+                ),
+                "over_budget_denial_count": hook.get("over_budget_denial_count"),
                 "observed_negative_case_count": len(observed_negative_cases),
             },
+            "mapped_hook_shadow_repair_classes": hook_repair_classes,
             "missing_authority_case_ids": missing_authority,
             "negative_case_ids": observed_negative_cases,
             "forbidden_export_summary": forbidden_export_summary,

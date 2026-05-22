@@ -119,7 +119,8 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
 25. Run `microcosm hook-coverage` or
    `PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage` to inspect
    hook-shadow, route-compliance, actor-axis, debt-retirement, and route-lease
-   intervention coverage without live operator state or provider payloads.
+   intervention coverage, including mapped repair classes and hook-shadow
+   denial cases, without live operator state or provider payloads.
    For the computer-use showcase, run
    `PYTHONPATH=src python3 -m microcosm_core.cli
    agent-route-observability-runtime validate-computer-use-bundle --input

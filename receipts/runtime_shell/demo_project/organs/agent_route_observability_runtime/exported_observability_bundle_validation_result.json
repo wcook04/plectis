@@ -51,15 +51,15 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "74918654018cb031ad7e16198dfa0c3f7092fdc3a18802134082cad481b8ba58",
+  "bundle_fingerprint": "55ccf6c3fb024949f9fe9faa3d53c88c77a0cbd7a96928bcde3ce2a1488f92e0",
   "bundle_id": "public_agent_route_observability_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-observability-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
   "consumed_route_lease_ids": [
     "lease_public_advisory_boundary",
     "lease_public_observability_runtime"
   ],
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "created_at": "2026-05-22T11:57:55+00:00",
   "debt_retirement": {
     "anti_pattern_debt_decisions": [
       {
@@ -89,11 +89,59 @@
   "hook_shadow_coverage": {
     "covered_hook_ids": [
       "public_actor_axis_boundary_shadow",
-      "public_route_lease_feedback_shadow"
+      "public_first_contact_route_guard_shadow",
+      "public_route_lease_feedback_shadow",
+      "public_unowned_hook_shadow"
     ],
     "findings": [],
+    "hook_shadow_case_count": 4,
     "hook_shadow_coverage_status": "public_metadata_coverage_only",
+    "hook_shadow_decisions": [
+      {
+        "body_redacted": true,
+        "coverage_status": "covered_by_public_metadata",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "admit_after_consumed_trace_feedback",
+        "hook_id": "public_route_lease_feedback_shadow",
+        "repair_class": "route_lease_mode_control"
+      },
+      {
+        "body_redacted": true,
+        "coverage_status": "covered_by_public_metadata",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "reject_mutation_claim_from_advisory_actor_axis",
+        "hook_id": "public_actor_axis_boundary_shadow",
+        "repair_class": "authority_boundary_repair"
+      },
+      {
+        "body_redacted": true,
+        "coverage_status": "covered_by_public_metadata",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "block_banned_route_and_require_kernel_entry",
+        "hook_id": "public_first_contact_route_guard_shadow",
+        "repair_class": "navigation_entry_repair"
+      },
+      {
+        "body_redacted": true,
+        "coverage_status": "advisory_until_authority_declared",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "retain_as_advisory_until_authority_source_declared",
+        "hook_id": "public_unowned_hook_shadow",
+        "repair_class": "authority_boundary_repair"
+      }
+    ],
     "hook_shadow_projection_not_authority": true,
+    "hook_shadow_repair_class_count": 3,
+    "mapped_repair_classes": [
+      "authority_boundary_repair",
+      "navigation_entry_repair",
+      "route_lease_mode_control"
+    ],
+    "missing_authority_count": 1,
     "status": "pass"
   },
   "input_mode": "exported_observability_bundle",
@@ -182,7 +230,8 @@
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
-    "trace_feedback_behavior_change_gate"
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
   ],
   "status": "pass",
   "validator_asserted_feeds_patterns": [
@@ -199,6 +248,11 @@
     {
       "assertion_id": "debt_retirement_requires_behavior_change_evidence",
       "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
       "status": "pass"
     }
   ],

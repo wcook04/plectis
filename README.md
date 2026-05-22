@@ -374,10 +374,11 @@ prove complete coverage, mutate source, call providers, or authorize release.
 `microcosm hook-coverage` is the public hook intervention coverage lens. It
 compresses the `agent_route_observability_runtime` receipts into hook-shadow,
 route-compliance, actor-axis, anti-pattern debt, and route-lease intervention
-rows. It exposes missing-authority and negative-case metadata without reading
-live operator state, provider payloads, browser/HUD/cockpit state, mutating
-Task Ledger, authorizing pattern assimilation, certifying runtime behavior, or
-claiming release.
+rows. It exposes mapped repair classes, expected interventions,
+missing-authority, banned-route, command-displacement, live-state-read, and
+budget negative-case metadata without reading live operator state, provider
+payloads, browser/HUD/cockpit state, mutating Task Ledger, authorizing pattern
+assimilation, certifying runtime behavior, or claiming release.
 
 `agent-route-observability-runtime validate-computer-use-bundle` is the
 computer-use action-trace showcase under the same observability organ. It

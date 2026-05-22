@@ -14,7 +14,7 @@
   },
   "body_redacted": true,
   "command": "microcosm standards-control",
-  "created_at": "2026-05-22T11:09:30+00:00",
+  "created_at": "2026-05-22T12:02:09+00:00",
   "endpoint": "/standards-control",
   "input_refs": {
     "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
@@ -80,7 +80,7 @@
     },
     {
       "control_row_id": "public_standard_pressure_contract",
-      "observed_count": 38,
+      "observed_count": 40,
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -201,7 +201,7 @@
     "release_authorized": false,
     "source_authority_claim_count": 0,
     "standard_count": 86,
-    "standard_pressure_row_count": 38,
+    "standard_pressure_row_count": 40,
     "standards_control_row_count": 8,
     "validation_ref_count": 16,
     "validator_receipt_ref_count": 185

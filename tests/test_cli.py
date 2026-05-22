@@ -589,6 +589,9 @@ def test_cli_hook_coverage_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["endpoint"] == "/hook-coverage"
     assert payload["coverage_summary"]["intervention_row_count"] == 5
     assert payload["coverage_summary"]["missing_authority_count"] == 1
+    assert payload["coverage_summary"]["hook_shadow_case_count"] == 6
+    assert payload["coverage_summary"]["hook_shadow_repair_class_count"] == 6
+    assert payload["coverage_summary"]["live_state_read_denial_count"] == 1
     assert payload["authority_ceiling"]["live_operator_state_read"] is False
     assert payload["authority_ceiling"]["provider_payload_read"] is False
     assert payload["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False

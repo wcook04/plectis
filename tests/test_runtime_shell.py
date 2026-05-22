@@ -1364,10 +1364,21 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     assert lens["coverage_summary"]["authority_rejection_count"] == 1
     assert lens["coverage_summary"]["debt_retirement_count"] == 1
     assert lens["coverage_summary"]["route_lease_warning_session_count"] == 2
+    assert lens["coverage_summary"]["hook_shadow_case_count"] == 6
+    assert lens["coverage_summary"]["hook_shadow_repair_class_count"] == 6
+    assert lens["coverage_summary"]["banned_route_intervention_count"] == 1
+    assert lens["coverage_summary"]["command_displacement_count"] == 1
+    assert lens["coverage_summary"]["live_state_read_denial_count"] == 1
+    assert lens["coverage_summary"]["over_budget_denial_count"] == 1
     assert lens["missing_authority_case_ids"] == ["hook_shadow_missing_authority"]
     assert set(lens["negative_case_ids"]) == {
         "agent_trace_missing_route_lease",
         "duplicate_trace_event_conflict",
+        "hook_shadow_banned_route_attempt",
+        "hook_shadow_budget_overrun",
+        "hook_shadow_command_displacement",
+        "hook_shadow_live_state_read_attempt",
+        "hook_shadow_missing_authority",
         "route_compliance_overclaims_behavior_change",
         "route_lease_broad_kernel_bloat_before_direct_action",
         "route_lease_static_metadata_without_trace_feedback",
@@ -1969,6 +1980,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert standards_control["authority_ceiling"]["standards_completeness_claim"] is False
     assert hook_coverage["schema_version"] == "microcosm_public_hook_intervention_coverage_lens_v1"
     assert hook_coverage["coverage_summary"]["intervention_row_count"] == 5
+    assert hook_coverage["coverage_summary"]["hook_shadow_case_count"] == 6
     assert hook_coverage["authority_ceiling"]["live_operator_state_read"] is False
     assert replay_gauntlet["schema_version"] == (
         "microcosm_public_agent_reliability_replay_gauntlet_lens_v1"

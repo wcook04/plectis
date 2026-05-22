@@ -4,17 +4,57 @@
     {
       "hook_id": "public_route_lease_feedback_shadow",
       "coverage_status": "covered_by_public_metadata",
+      "repair_class": "route_lease_mode_control",
+      "expected_intervention": "admit_after_consumed_trace_feedback",
       "projection_not_authority": true,
       "missing_authority": false,
       "browser_hud_state_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "live_operator_state_read": false,
+      "provider_payload_read": false,
+      "live_task_ledger_mutation_authorized": false,
       "body_redacted": true
     },
     {
       "hook_id": "public_actor_axis_boundary_shadow",
       "coverage_status": "covered_by_public_metadata",
+      "repair_class": "authority_boundary_repair",
+      "expected_intervention": "reject_mutation_claim_from_advisory_actor_axis",
       "projection_not_authority": true,
       "missing_authority": false,
       "browser_hud_state_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "live_operator_state_read": false,
+      "provider_payload_read": false,
+      "live_task_ledger_mutation_authorized": false,
+      "body_redacted": true
+    },
+    {
+      "hook_id": "public_first_contact_route_guard_shadow",
+      "coverage_status": "covered_by_public_metadata",
+      "repair_class": "navigation_entry_repair",
+      "expected_intervention": "block_banned_route_and_require_kernel_entry",
+      "projection_not_authority": true,
+      "missing_authority": false,
+      "browser_hud_state_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "live_operator_state_read": false,
+      "provider_payload_read": false,
+      "live_task_ledger_mutation_authorized": false,
+      "body_redacted": true
+    },
+    {
+      "hook_id": "public_unowned_hook_shadow",
+      "coverage_status": "advisory_until_authority_declared",
+      "repair_class": "authority_boundary_repair",
+      "expected_intervention": "retain_as_advisory_until_authority_source_declared",
+      "projection_not_authority": true,
+      "missing_authority": true,
+      "browser_hud_state_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "live_operator_state_read": false,
+      "provider_payload_read": false,
+      "live_task_ledger_mutation_authorized": false,
       "body_redacted": true
     }
   ]

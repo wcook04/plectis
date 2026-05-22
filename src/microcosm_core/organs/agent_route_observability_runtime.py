@@ -66,6 +66,14 @@ EXPECTED_NEGATIVE_CASES = {
     ],
     "route_lease_static_metadata_without_trace_feedback": ["ROUTE_LEASE_NOT_CONSUMED"],
 }
+HOOK_SHADOW_EXPECTED_NEGATIVE_CASES = {
+    "hook_shadow_missing_authority": ["HOOK_SHADOW_MISSING_AUTHORITY"],
+    "hook_shadow_banned_route_attempt": ["HOOK_SHADOW_BANNED_ROUTE_INTERVENTION"],
+    "hook_shadow_command_displacement": ["HOOK_SHADOW_COMMAND_DISPLACEMENT"],
+    "hook_shadow_live_state_read_attempt": ["HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN"],
+    "hook_shadow_budget_overrun": ["HOOK_SHADOW_OVER_BUDGET"],
+}
+EXPECTED_NEGATIVE_CASES.update(HOOK_SHADOW_EXPECTED_NEGATIVE_CASES)
 COMPUTER_USE_EXPECTED_NEGATIVE_CASES = {
     "live_account_action": ["COMPUTER_USE_LIVE_ACCOUNT_ACTION_FORBIDDEN"],
     "credential_entry": ["COMPUTER_USE_CREDENTIAL_ENTRY_FORBIDDEN"],
@@ -125,6 +133,7 @@ SOURCE_PATTERN_IDS = [
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
     "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage",
 ]
 COMPUTER_USE_SOURCE_PATTERN_IDS = [
     "computer_use_action_trace_replay_compound",
@@ -191,6 +200,11 @@ VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
     {
         "assertion_id": "debt_retirement_requires_behavior_change_evidence",
         "source_pattern_id": "anti_pattern_debt_retirement",
+        "status": PASS,
+    },
+    {
+        "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+        "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
         "status": PASS,
     },
 ]
@@ -660,6 +674,16 @@ def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "hook_shadow_rows")
     covered_hook_ids: list[str] = []
+    decisions: list[dict[str, Any]] = []
+    repair_classes: set[str] = set()
+    missing_authority_count = 0
+    forbidden_fields = (
+        "browser_hud_state_read",
+        "browser_hud_cockpit_state_read",
+        "live_operator_state_read",
+        "provider_payload_read",
+        "live_task_ledger_mutation_authorized",
+    )
     if not rows:
         findings.append(
             _bundle_finding(
@@ -671,21 +695,83 @@ def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
         )
     for row in rows:
         hook_id = str(row.get("hook_id") or "")
+        repair_class = str(row.get("repair_class") or "")
+        row_codes: list[str] = []
         covered_hook_ids.append(hook_id)
-        if row.get("projection_not_authority") is not True or row.get("browser_hud_state_read") is not False:
+        if repair_class:
+            repair_classes.add(repair_class)
+        if row.get("missing_authority") is True:
+            missing_authority_count += 1
+        if _missing(
+            row,
+            (
+                "hook_id",
+                "coverage_status",
+                "repair_class",
+                "expected_intervention",
+            ),
+        ):
+            row_codes.append("OBSERVABILITY_BUNDLE_HOOK_SHADOW_REQUIRED_FIELD_MISSING")
             findings.append(
                 _bundle_finding(
-                    "OBSERVABILITY_BUNDLE_HOOK_SHADOW_AUTHORITY_OVERCLAIM",
-                    "Hook shadow row must remain metadata and reject browser/HUD state access.",
+                    "OBSERVABILITY_BUNDLE_HOOK_SHADOW_REQUIRED_FIELD_MISSING",
+                    "Hook shadow row must map a hook id to coverage status, repair class, and expected intervention.",
                     subject_id=hook_id or "hook_shadow",
                     subject_kind="hook_shadow",
                 )
             )
+        if row.get("projection_not_authority") is not True:
+            row_codes.append("OBSERVABILITY_BUNDLE_HOOK_SHADOW_PROJECTION_FLAG_MISSING")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_HOOK_SHADOW_PROJECTION_FLAG_MISSING",
+                    "Hook shadow row must declare projection_not_authority.",
+                    subject_id=hook_id or "hook_shadow",
+                    subject_kind="hook_shadow",
+                )
+            )
+        for field in forbidden_fields:
+            if row.get(field) is not False:
+                row_codes.append("OBSERVABILITY_BUNDLE_HOOK_SHADOW_AUTHORITY_OVERCLAIM")
+                findings.append(
+                    _bundle_finding(
+                        "OBSERVABILITY_BUNDLE_HOOK_SHADOW_AUTHORITY_OVERCLAIM",
+                        "Hook shadow row must reject live operator, provider, browser/HUD/cockpit, and Task Ledger authority.",
+                        subject_id=hook_id or field,
+                        subject_kind="hook_shadow",
+                    )
+                )
+        if row.get("body_redacted") is not True:
+            row_codes.append("OBSERVABILITY_BUNDLE_HOOK_SHADOW_BODY_NOT_REDACTED")
+            findings.append(
+                _bundle_finding(
+                    "OBSERVABILITY_BUNDLE_HOOK_SHADOW_BODY_NOT_REDACTED",
+                    "Hook shadow row must be metadata-only and body-redacted.",
+                    subject_id=hook_id or "hook_shadow",
+                    subject_kind="hook_shadow",
+                )
+            )
+        decisions.append(
+            {
+                "hook_id": hook_id,
+                "repair_class": repair_class,
+                "expected_intervention": row.get("expected_intervention"),
+                "coverage_status": row.get("coverage_status"),
+                "decision": "accepted" if not row_codes else "blocked",
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
         "hook_shadow_coverage_status": "public_metadata_coverage_only",
         "covered_hook_ids": sorted(hook_id for hook_id in covered_hook_ids if hook_id),
+        "hook_shadow_case_count": len(rows),
+        "hook_shadow_decisions": decisions,
+        "mapped_repair_classes": sorted(repair_classes),
+        "hook_shadow_repair_class_count": len(repair_classes),
+        "missing_authority_count": missing_authority_count,
         "hook_shadow_projection_not_authority": True,
     }
 
@@ -1004,22 +1090,217 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def validate_hook_shadow(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
     cases = _rows(payload, "cases")
-    missing_authority = sorted(
-        str(row.get("case_id") or "case")
-        for row in cases
-        if row.get("missing_authority")
+    decisions: list[dict[str, Any]] = []
+    repair_classes: set[str] = set()
+    missing_authority: list[str] = []
+    structural_error_codes: list[str] = []
+    forbidden_live_fields = (
+        "browser_hud_state_read",
+        "browser_hud_cockpit_state_read",
+        "live_operator_state_read",
+        "provider_payload_read",
+        "live_task_ledger_mutation_authorized",
     )
+    if not cases:
+        findings.append(
+            _finding(
+                "HOOK_SHADOW_CASES_MISSING",
+                "Hook-shadow coverage must include at least one synthetic case.",
+                case_id="hook_shadow_cases_missing",
+                subject_id="hook_shadow_cases",
+                subject_kind="hook_shadow_case",
+            )
+        )
+        structural_error_codes.append("HOOK_SHADOW_CASES_MISSING")
+
+    for row in cases:
+        case_id = str(row.get("case_id") or "hook_shadow_case")
+        hook_id = str(row.get("hook_id") or "")
+        repair_class = str(row.get("repair_class") or "")
+        row_codes: list[str] = []
+        if repair_class:
+            repair_classes.add(repair_class)
+        missing_fields = _missing(
+            row,
+            (
+                "case_id",
+                "hook_id",
+                "coverage_claim",
+                "repair_class",
+                "expected_intervention",
+            ),
+        )
+        if missing_fields:
+            row_codes.append("HOOK_SHADOW_REQUIRED_FIELD_MISSING")
+            structural_error_codes.append("HOOK_SHADOW_REQUIRED_FIELD_MISSING")
+            findings.append(
+                _finding(
+                    "HOOK_SHADOW_REQUIRED_FIELD_MISSING",
+                    "Hook-shadow case must map case id, hook id, coverage claim, repair class, and expected intervention.",
+                    case_id=case_id,
+                    subject_id=hook_id or case_id,
+                    subject_kind="hook_shadow_case",
+                )
+            )
+        if row.get("projection_not_authority") is not True:
+            row_codes.append("HOOK_SHADOW_PROJECTION_FLAG_MISSING")
+            structural_error_codes.append("HOOK_SHADOW_PROJECTION_FLAG_MISSING")
+            findings.append(
+                _finding(
+                    "HOOK_SHADOW_PROJECTION_FLAG_MISSING",
+                    "Hook-shadow case must declare projection_not_authority.",
+                    case_id=case_id,
+                    subject_id=hook_id or case_id,
+                    subject_kind="hook_shadow_case",
+                )
+            )
+        if row.get("redaction_status") != "metadata_only":
+            row_codes.append("HOOK_SHADOW_NON_METADATA_REDACTION")
+            structural_error_codes.append("HOOK_SHADOW_NON_METADATA_REDACTION")
+            findings.append(
+                _finding(
+                    "HOOK_SHADOW_NON_METADATA_REDACTION",
+                    "Hook-shadow cases must remain metadata-only.",
+                    case_id=case_id,
+                    subject_id=hook_id or case_id,
+                    subject_kind="hook_shadow_case",
+                )
+            )
+        live_field_denied = False
+        for field in forbidden_live_fields:
+            if row.get(field) is not False:
+                live_field_denied = True
+                row_codes.append("HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN")
+        if live_field_denied:
+            _record(
+                findings,
+                observed,
+                "HOOK_SHADOW_LIVE_STATE_READ_FORBIDDEN",
+                "Hook-shadow coverage cannot read live operator, provider, browser/HUD/cockpit, or Task Ledger state.",
+                case_id=case_id,
+                subject_id=hook_id or case_id,
+                subject_kind="hook_shadow_case",
+            )
+        if row.get("missing_authority") is True:
+            missing_authority.append(case_id)
+            row_codes.append("HOOK_SHADOW_MISSING_AUTHORITY")
+            _record(
+                findings,
+                observed,
+                "HOOK_SHADOW_MISSING_AUTHORITY",
+                "Hook-shadow row lacks authority to intervene and must remain advisory.",
+                case_id=case_id,
+                subject_id=hook_id or case_id,
+                subject_kind="hook_shadow_case",
+            )
+        if row.get("banned_route_attempt"):
+            row_codes.append("HOOK_SHADOW_BANNED_ROUTE_INTERVENTION")
+            _record(
+                findings,
+                observed,
+                "HOOK_SHADOW_BANNED_ROUTE_INTERVENTION",
+                "Hook-shadow row detects a banned first-contact route and must redirect through the kernel entry path.",
+                case_id=case_id,
+                subject_id=hook_id or case_id,
+                subject_kind="hook_shadow_case",
+            )
+        if row.get("command_displacement") is True:
+            row_codes.append("HOOK_SHADOW_COMMAND_DISPLACEMENT")
+            _record(
+                findings,
+                observed,
+                "HOOK_SHADOW_COMMAND_DISPLACEMENT",
+                "Hook-shadow row detects context gathering displacing direct local action.",
+                case_id=case_id,
+                subject_id=hook_id or case_id,
+                subject_kind="hook_shadow_case",
+            )
+        if row.get("budget_status") == "over_budget":
+            row_codes.append("HOOK_SHADOW_OVER_BUDGET")
+            _record(
+                findings,
+                observed,
+                "HOOK_SHADOW_OVER_BUDGET",
+                "Hook-shadow row exceeds its public synthetic coverage budget and must be downgraded.",
+                case_id=case_id,
+                subject_id=hook_id or case_id,
+                subject_kind="hook_shadow_case",
+            )
+        decisions.append(
+            {
+                "case_id": case_id,
+                "hook_id": hook_id,
+                "repair_class": repair_class,
+                "coverage_claim": row.get("coverage_claim"),
+                "expected_intervention": row.get("expected_intervention"),
+                "decision": "accepted" if not row_codes else "blocked_or_advisory",
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
     budget_status = "within_synthetic_budget"
     if any(row.get("budget_status") == "over_budget" for row in cases):
-        budget_status = "over_budget_red_flag"
+        budget_status = "over_budget_denied"
+    observed_payload = {key: sorted(value) for key, value in observed.items()}
+    missing_hook_cases = sorted(
+        set(HOOK_SHADOW_EXPECTED_NEGATIVE_CASES) - set(observed_payload)
+    )
     return {
-        "findings": [],
-        "observed_negative_cases": {},
-        "hook_shadow_coverage_status": "advisory_synthetic_coverage_only",
-        "intervention": "retain_as_advisory_until_trace_feedback_consumed",
-        "missing_authority": missing_authority,
+        "status": (
+            PASS
+            if cases
+            and not set(structural_error_codes)
+            and not missing_hook_cases
+            else "blocked"
+        ),
+        "findings": sorted(
+            findings,
+            key=lambda item: (
+                str(item.get("negative_case_id") or ""),
+                str(item.get("subject_id") or ""),
+                str(item.get("error_code") or ""),
+            ),
+        ),
+        "observed_negative_cases": observed_payload,
+        "hook_shadow_coverage_status": "synthetic_intervention_coverage_contract",
+        "intervention": "admit_shadow_rows_only_with_mapped_repair_and_authority_ceiling",
+        "hook_shadow_decisions": decisions,
+        "hook_shadow_case_count": len(cases),
+        "hook_shadow_expected_negative_case_ids": sorted(
+            HOOK_SHADOW_EXPECTED_NEGATIVE_CASES
+        ),
+        "missing_hook_shadow_negative_cases": missing_hook_cases,
+        "mapped_repair_classes": sorted(repair_classes),
+        "hook_shadow_repair_class_count": len(repair_classes),
+        "missing_authority": sorted(missing_authority),
+        "missing_authority_count": len(missing_authority),
+        "banned_route_intervention_count": sum(
+            1 for row in cases if row.get("banned_route_attempt")
+        ),
+        "command_displacement_count": sum(
+            1 for row in cases if row.get("command_displacement") is True
+        ),
+        "live_state_read_denial_count": sum(
+            1
+            for row in cases
+            if any(row.get(field) is not False for field in forbidden_live_fields)
+        ),
+        "over_budget_denial_count": sum(
+            1 for row in cases if row.get("budget_status") == "over_budget"
+        ),
+        "structural_error_codes": sorted(set(structural_error_codes)),
         "budget_status": budget_status,
+        "projection_not_authority": True,
+        "authority_ceiling": {
+            "live_operator_state_read": False,
+            "provider_payload_read": False,
+            "browser_hud_cockpit_state_read": False,
+            "live_task_ledger_mutation_authorized": False,
+            "pattern_assimilation_authorized": False,
+        },
     }
 
 
@@ -2405,7 +2686,11 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     missing_cases = sorted(set(EXPECTED_NEGATIVE_CASES) - set(observed))
     error_codes = sorted({code for codes in observed.values() for code in codes})
     findings = sorted(
-        [*route_compliance["findings"], *route_lease["findings"]],
+        [
+            *route_compliance["findings"],
+            *hook_shadow["findings"],
+            *route_lease["findings"],
+        ],
         key=lambda item: (
             str(item.get("negative_case_id") or ""),
             str(item.get("subject_kind") or ""),
@@ -2423,7 +2708,13 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
         {
-            "status": PASS if not missing_cases and scan_result["status"] == PASS else "blocked",
+            "status": (
+                PASS
+                if not missing_cases
+                and scan_result["status"] == PASS
+                and hook_shadow["status"] == PASS
+                else "blocked"
+            ),
             "validator_id": VALIDATOR_ID,
             "anti_claim": OBSERVABILITY_ANTI_CLAIM,
             "authority_ceiling": OBSERVABILITY_AUTHORITY_CEILING,
