@@ -1,0 +1,169 @@
+{
+  "analyzer_summary": {
+    "declaration_count": 23,
+    "generated_certificates_separate_from_kernel": true,
+    "lean_file_count": 5,
+    "schema_version": "certificate_kernel_execution_lab_lean_analyzer_v1",
+    "source_refs_public_root_relative": true
+  },
+  "anti_claim": "Certificate kernel execution lab runs a public replacement Lean certificate kernel in a temporary workspace, checks generated certificate rows, and records structured public CP2/Evolve rerun receipts with only dangerous payload fields omitted. It does not import macro proof bodies, export proof text, call providers, count oracle/provider output as proof, mutate source, claim benchmark solve-rate, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "bounded_public_certificate_kernel_execution_receipt_only",
+    "benchmark_solve_rate_claim": false,
+    "cp2_outputs_are_proof_bodies": false,
+    "evolve_mutates_arbitrary_code": false,
+    "formal_proof_authority": "bounded_public_certificate_fixture_rows_only",
+    "lean_lake_execution_authorized": true,
+    "lean_lake_execution_scope": "temporary_workspace_copy_of_public_fixture",
+    "macro_private_body_import_authorized": false,
+    "oracle_success_counts_as_forward_success": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "provider_calls_authorized": false,
+    "provider_text_counts_as_proof": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "authority_counters": {
+    "accepted_transition_count": 7,
+    "analyzed_declaration_count": 23,
+    "analyzed_lean_file_count": 5,
+    "cp2_downstream_effect_count": 2,
+    "cp2_translation_count": 2,
+    "evolve_accepted_count": 2,
+    "evolve_candidate_count": 2,
+    "macro_private_body_import_count": 0,
+    "oracle_forward_success_increment_count": 0,
+    "proof_body_export_count": 0,
+    "provider_results_counted": 0,
+    "residual_transition_count": 3,
+    "source_mutation_count": 0,
+    "transition_count": 10
+  },
+  "body_redacted": true,
+  "certificate_lab_id": "public_certificate_kernel_execution_lab_v2",
+  "certificate_manifest_id": "public_certificate_kernel_v2",
+  "command": "microcosm certificate-kernel-execution-lab readout",
+  "created_at": "2026-05-22T18:20:17+00:00",
+  "dangerous_payload_absent": true,
+  "dangerous_payload_fields_omitted": true,
+  "evidence_refs": [
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+    "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json"
+  ],
+  "kernel_declaration_refs": [
+    "MicrocosmCertificateLab.NatSumCertificate",
+    "MicrocosmCertificateLab.validateNatSumCertificate",
+    "MicrocosmCertificateLab.BoundedOrderCertificate",
+    "MicrocosmCertificateLab.validateBoundedOrderCertificate"
+  ],
+  "organ_id": "certificate_kernel_execution_lab",
+  "public_claim": "The certificate-kernel lab is legible as a public proof-authority loop: public kernel, generated rows, Lean/Lake check, residuals, CP2 typed actions, bounded Evolve policy, and explicit anti-claims.",
+  "public_flow": [
+    {
+      "evidence_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json",
+      "shows": [
+        "public certificate schemas",
+        "kernel declaration refs",
+        "generated row lineage"
+      ],
+      "stage_id": "public_certificate_kernel"
+    },
+    {
+      "certificate_families": [
+        {
+          "family_id": "nat_sum_certificate",
+          "negative_row_count": 1,
+          "row_count": 4,
+          "schema": "NatSumCertificate(left,right,total)",
+          "valid_row_count": 3
+        },
+        {
+          "family_id": "bounded_order_certificate",
+          "negative_row_count": 1,
+          "row_count": 3,
+          "schema": "BoundedOrderCertificate(base,period,modulus,witness)",
+          "valid_row_count": 2
+        }
+      ],
+      "generated_certificate_count": 7,
+      "stage_id": "generated_certificate_rows"
+    },
+    {
+      "analyzed_declaration_count": 23,
+      "analyzed_lean_file_count": 5,
+      "evidence_ref": "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+      "lean_return_code": 0,
+      "stage_id": "lean_lake_execution"
+    },
+    {
+      "accepted_transition_count": 7,
+      "negative_case_ids": [
+        "certificate_manifest_private_source_ref",
+        "cp2_certificate_contains_proof_body",
+        "evolve_certificate_mutates_source",
+        "transition_provider_oracle_visible"
+      ],
+      "residual_transition_count": 3,
+      "stage_id": "transition_adjudication",
+      "transition_count": 10
+    },
+    {
+      "action_classes_only": true,
+      "cp2_downstream_effect_count": 2,
+      "cp2_translation_count": 2,
+      "stage_id": "cp2_translation_rerun"
+    },
+    {
+      "evolve_accepted_count": 2,
+      "evolve_candidate_count": 2,
+      "source_mutation_count": 0,
+      "stage_id": "bounded_evolve_policy_rerun"
+    },
+    {
+      "macro_private_body_import_count": 0,
+      "oracle_forward_success_increment_count": 0,
+      "proof_body_export_count": 0,
+      "provider_results_counted": 0,
+      "stage_id": "authority_counter_boundary"
+    }
+  ],
+  "readout_id": "certificate_kernel_execution_lab_runtime_readout",
+  "receipt_transparency_contract": {
+    "forbidden_payload_fields": [
+      "proof_body",
+      "raw_tactic_script",
+      "provider_text",
+      "oracle_ideal_answer",
+      "oracle_needed_premise_ids",
+      "private_source_path",
+      "private_payload_body",
+      "stdout_body",
+      "stderr_body"
+    ],
+    "receipt_body_is_public_evidence": true,
+    "redaction_scope": "dangerous_payload_fields_only",
+    "required_public_evidence_fields": [
+      "theorem_or_declaration_names",
+      "lean_lake_command_identity",
+      "lean_return_code",
+      "source_hashes",
+      "declaration_counts",
+      "accepted_transition_count",
+      "residual_transition_count",
+      "negative_case_id",
+      "cp2_action_class",
+      "evolve_policy_artifact_id",
+      "oracle_provider_separation_counters",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "schema_version": "verifier_lab_receipt_transparency_contract_v1",
+    "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
+  },
+  "schema_version": "certificate_kernel_execution_lab_public_readout_v1",
+  "status": "pass"
+}
