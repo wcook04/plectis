@@ -56,7 +56,7 @@ ORACLE_LABEL_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "strategy_hypothesis_metadata_not_proof_or_oracle_authority",
+    "authority_ceiling": "strategy_hypothesis_projection_not_substrate_or_proof_authority",
     "lean_lake_execution_authorized": False,
     "mathlib_dependent_proof_authority": False,
     "formal_proof_authority": False,
@@ -67,10 +67,11 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Mathematical strategy atlas scoring validates public pre-oracle strategy "
-    "hypotheses and retrieval lenses only. It does not run Lean or Lake, prove "
-    "theorem correctness, expose proof bodies or oracle labels, tune on test "
-    "answers, call providers, or authorize release."
+    "Mathematical strategy atlas projection is a drilldown regression surface "
+    "for public pre-oracle strategy hypotheses and retrieval lenses only. It is "
+    "not a Microcosm product organ, does not import a macro substrate body, does "
+    "not run Lean or Lake, prove theorem correctness, expose proof bodies or "
+    "oracle labels, tune on test answers, call providers, or authorize release."
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -206,7 +207,7 @@ def _atlas_by_id(payload: object) -> dict[str, dict[str, Any]]:
     return {str(row["strategy_id"]): row for row in _strategy_rows(payload)}
 
 
-def _strategy_score(problem_features: set[str], strategy: dict[str, Any]) -> int:
+def _feature_overlap_count(problem_features: set[str], strategy: dict[str, Any]) -> int:
     match_features = {
         str(value)
         for value in strategy.get("match_features", [])
@@ -238,12 +239,12 @@ def _score_case(
         if strategy is None:
             continue
         order = strategy_order.index(strategy_id) if strategy_id in strategy_order else len(strategy_order)
-        scored.append((_strategy_score(problem_features, strategy), -order, strategy_id))
+        scored.append((_feature_overlap_count(problem_features, strategy), -order, strategy_id))
     selected_strategy_id = UNKNOWN_STRATEGY_ID
-    score = 0
+    feature_overlap_count = 0
     if scored:
-        score, _, selected_strategy_id = max(scored)
-        if score <= 0:
+        feature_overlap_count, _, selected_strategy_id = max(scored)
+        if feature_overlap_count <= 0:
             selected_strategy_id = UNKNOWN_STRATEGY_ID
     selected = atlas_by_id.get(selected_strategy_id, {})
     classifier = (
@@ -263,7 +264,7 @@ def _score_case(
         "feature_tags": sorted(problem_features),
         "candidate_strategy_ids": candidate_ids,
         "selected_strategy_id": selected_strategy_id,
-        "score": score,
+        "feature_overlap_count": feature_overlap_count,
         "classifier": classifier,
         "expected_strategy_id": expected,
         "expectation_met": selected_strategy_id == expected,
@@ -395,7 +396,7 @@ def validate_strategy_selection(
                 findings,
                 observed,
                 "MATH_STRATEGY_RELEASE_OVERCLAIM",
-                "Strategy scoring attempted to authorize release, proof authority, providers, or test tuning.",
+                "Strategy projection attempted to authorize release, proof authority, providers, or test tuning.",
                 case_id=case_id,
                 subject_id=",".join(sorted(overclaim_fields)),
                 subject_kind="authority_ceiling",
@@ -432,6 +433,7 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
         "public_contract": {
             "strategy_selected_pre_oracle": True,
             "strategy_is_hypothesis_not_proof": True,
+            "drilldown_regression_not_product_organ": True,
             "known_strategy_ids_only": True,
             "unknown_strategy_is_typed_miss": True,
             "proof_bodies_excluded": True,

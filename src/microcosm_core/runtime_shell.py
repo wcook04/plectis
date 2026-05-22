@@ -632,8 +632,30 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
+PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
+    {
+        "mathematical_strategy_atlas_hypothesis_scorer",
+    }
+)
+
+PRODUCT_PATH_DEMOTION_REASONS = {
+    "mathematical_strategy_atlas_hypothesis_scorer": (
+        "strategy-atlas overlap projection remains runnable as a regression "
+        "drilldown, but scoring/projection rows are not product-spine substrate."
+    )
+}
+
+
 def _runtime_organ_ids() -> list[str]:
     return [step.organ_id for step in RUNTIME_STEPS]
+
+
+def _product_runtime_steps() -> list[RuntimeStep]:
+    return [
+        step
+        for step in RUNTIME_STEPS
+        if step.organ_id not in PRODUCT_PATH_DEMOTED_ORGAN_IDS
+    ]
 
 
 def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
@@ -760,6 +782,14 @@ class RuntimeShell:
             organ_id = str(row.get("organ_id") or "")
             step = by_step.get(organ_id)
             evidence_profile = _organ_evidence_profile(organ_id, evidence_registry)
+            product_demoted = organ_id in PRODUCT_PATH_DEMOTED_ORGAN_IDS
+            runtime_mode = (
+                "adapter_backed"
+                if step and not product_demoted
+                else "drilldown_only"
+                if step
+                else "registry_only"
+            )
             organs.append(
                 {
                     "organ_id": organ_id,
@@ -768,7 +798,15 @@ class RuntimeShell:
                     "validator_command": row.get("validator_command"),
                     "current_authority_receipt": row.get("current_authority_receipt"),
                     "generated_receipts": row.get("generated_receipts", []),
-                    "runtime_mode": "adapter_backed" if step else "registry_only",
+                    "runtime_mode": runtime_mode,
+                    "product_path_role": (
+                        "drilldown_regression_not_runtime_spine"
+                        if product_demoted
+                        else "runtime_spine"
+                        if step
+                        else "registry_only"
+                    ),
+                    "demotion_reason": PRODUCT_PATH_DEMOTION_REASONS.get(organ_id),
                     "input_mode": step.input_mode if step else None,
                     "example_ref": step.example_rel if step else None,
                     "fixture_runner_backed": False if step else None,
@@ -834,6 +872,10 @@ class RuntimeShell:
     def status(self) -> dict[str, Any]:
         organs = self.organs()
         adapter_backed = [row["organ_id"] for row in organs if row.get("runtime_mode") == "adapter_backed"]
+        product_steps = _product_runtime_steps()
+        demoted_drilldowns = [
+            row for row in organs if row.get("runtime_mode") == "drilldown_only"
+        ]
         routes = self.routes()
         workitems = self.workitems()
         evidence = self.evidence()
@@ -841,7 +883,7 @@ class RuntimeShell:
         standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
         return {
             "schema_version": "microcosm_runtime_status_v1",
-            "status": PASS if len(adapter_backed) == len(RUNTIME_STEPS) else "blocked",
+            "status": PASS if len(adapter_backed) == len(product_steps) else "blocked",
             "posture": "executable_research_prototype",
             "public_root": _public_relative(self.root, self.root),
             "runtime_surface": {
@@ -967,7 +1009,6 @@ class RuntimeShell:
                     ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
-                    "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle",
                     "microcosm tactic-portfolio-availability-probe run-availability-bundle",
                     "microcosm target-shape-tactic-routing-gate run-routing-bundle",
                     "microcosm macro-projection-import-protocol run-projection-bundle",
@@ -981,11 +1022,27 @@ class RuntimeShell:
                     "microcosm evidence list",
                     "microcosm evidence inspect <receipt>",
                 ],
+                "demoted_drilldown_commands": [
+                    (
+                        "microcosm mathematical-strategy-atlas-hypothesis-scorer "
+                        "run-strategy-bundle"
+                    )
+                ],
                 "receipts_are_drilldown_evidence": True,
                 "fixtures_are_tests": True,
             },
             "organ_count": len(organs),
             "adapter_backed_organ_count": len(adapter_backed),
+            "product_path_demoted_organ_count": len(demoted_drilldowns),
+            "product_path_demoted_organs": [
+                {
+                    "organ_id": str(row.get("organ_id") or ""),
+                    "runtime_mode": row.get("runtime_mode"),
+                    "product_path_role": row.get("product_path_role"),
+                    "demotion_reason": row.get("demotion_reason"),
+                }
+                for row in demoted_drilldowns
+            ],
             "fixture_runner_backed_organ_count": 0,
             "accepted_adapter_backed_organs": adapter_backed,
             "route_count": len(routes),
@@ -1045,13 +1102,17 @@ class RuntimeShell:
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
         adapter_backed = [row for row in organs if row.get("runtime_mode") == "adapter_backed"]
+        product_steps = _product_runtime_steps()
+        demoted_drilldowns = [
+            row for row in organs if row.get("runtime_mode") == "drilldown_only"
+        ]
         patterns = self.patterns()
         routes = self.routes()
         workitems = self.workitems()
         evidence = self.evidence()
         return {
             "schema_version": "microcosm_public_runtime_spine_v1",
-            "status": PASS if len(adapter_backed) == len(RUNTIME_STEPS) else "blocked",
+            "status": PASS if len(adapter_backed) == len(product_steps) else "blocked",
             "posture": "executable_research_prototype",
             "public_claim": (
                 "Microcosm turns a repo into local substrate state: catalog, "
@@ -1621,7 +1682,7 @@ class RuntimeShell:
                         "10-minute comprehension checkpoints",
                         "runtime surface and endpoint coverage",
                         "evidence refs and negative cases",
-                        "no release, benchmark, private-equivalence, or reader-success claim",
+                        "no release, benchmark, secret-export, or reader-success claim",
                     ],
                 },
                 {
@@ -1660,14 +1721,15 @@ class RuntimeShell:
             "surface_counts": {
                 "organ_count": len(organs),
                 "adapter_backed_organ_count": len(adapter_backed),
+                "product_path_demoted_organ_count": len(demoted_drilldowns),
                 "pattern_count": len(patterns),
                 "route_count": len(routes),
                 "workitem_count": len(workitems),
                 "evidence_count": len(evidence),
-                "evidence_class_count": len(_evidence_class_counts(organs)),
+                "evidence_class_count": len(_evidence_class_counts(adapter_backed)),
             },
             "evidence_class_registry": _evidence_registry_summary(evidence_registry),
-            "evidence_class_counts": _evidence_class_counts(organs),
+            "evidence_class_counts": _evidence_class_counts(adapter_backed),
             "accepted_runtime_spine": [
                 {
                     "ordinal": index,
@@ -1690,7 +1752,20 @@ class RuntimeShell:
                     "classification_basis": row.get("classification_basis"),
                     "evidence_strength_disclosed": row.get("evidence_strength_disclosed") is True,
                 }
-                for index, row in enumerate(organs, start=1)
+                for index, row in enumerate(adapter_backed, start=1)
+            ],
+            "demoted_drilldown_surfaces": [
+                {
+                    "organ_id": str(row.get("organ_id") or ""),
+                    "runtime_mode": row.get("runtime_mode"),
+                    "product_path_role": row.get("product_path_role"),
+                    "demotion_reason": row.get("demotion_reason"),
+                    "input_mode": row.get("input_mode"),
+                    "example_ref": row.get("example_ref"),
+                    "evidence_class": row.get("evidence_class"),
+                    "claim_ceiling": row.get("claim_ceiling"),
+                }
+                for row in demoted_drilldowns
             ],
             "evidence_policy": {
                 "receipts_are_drilldown_evidence": True,
@@ -2531,7 +2606,7 @@ class RuntimeShell:
                 "The verifier trace-repair lens is a metadata-only public read-model. It "
                 "does not run Lean/Lake, prove theorem correctness, expose proof bodies "
                 "or oracle-needed premise identifiers, call providers, treat human "
-                "approval as proof authority, mutate source, claim private equivalence, "
+                "approval as proof authority, mutate source, claim secret export, "
                 "or authorize release."
             ),
         }
@@ -2732,7 +2807,7 @@ class RuntimeShell:
                 "The verifier repair-loop lens is a metadata-only curriculum read-model. "
                 "It does not run Lean/Lake, prove theorem correctness, expose proof "
                 "bodies or oracle-needed premise identifiers, call providers, treat human "
-                "approval as proof authority, mutate source, claim private equivalence, "
+                "approval as proof authority, mutate source, claim secret export, "
                 "or authorize release."
             ),
         }
@@ -3199,7 +3274,7 @@ class RuntimeShell:
                 "theorem correctness, export proof bodies or oracle-needed premise "
                 "identifiers, call providers, treat human approval as proof authority, "
                 "claim benchmark performance or a general theorem solution, mutate "
-                "source, claim private equivalence, or authorize release."
+                "source, claim secret export, or authorize release."
             ),
         }
         write_json_atomic(lens_path, payload)
@@ -3478,7 +3553,7 @@ class RuntimeShell:
                 "quality_posture": "monitor_acceptance",
                 "action_class": "regression_guard",
                 "next_action": "keep_monitor_regression_guard",
-                "score": 12,
+                "priority_weight": 12,
                 "included_in_hot_action_rollup": False,
                 "reason": "monitor rows preserve acceptance signal without creating resolution pressure",
                 "private_screenshot_path_exported": False,
@@ -3490,7 +3565,7 @@ class RuntimeShell:
                 "quality_posture": "resolution_pressure",
                 "action_class": "resolution_work",
                 "next_action": "resolve_navigation_layout_watch_row",
-                "score": 92,
+                "priority_weight": 92,
                 "included_in_hot_action_rollup": True,
                 "reason": "public entry navigation is present but still carries quality pressure",
                 "private_screenshot_path_exported": False,
@@ -3502,7 +3577,7 @@ class RuntimeShell:
                 "quality_posture": "capture_binding_gap",
                 "action_class": "bind_capture_or_repair_geometry",
                 "next_action": "bind_graph_geometry_capture_before_quality_claim",
-                "score": 88,
+                "priority_weight": 88,
                 "included_in_hot_action_rollup": True,
                 "reason": "graph legibility cannot be claimed until capture evidence is bound",
                 "private_screenshot_path_exported": False,
@@ -3514,7 +3589,7 @@ class RuntimeShell:
                 "quality_posture": "contract_marker_gap",
                 "action_class": "add_contract_markers",
                 "next_action": "add_or_bind_contract_markers_for_partial_row",
-                "score": 84,
+                "priority_weight": 84,
                 "included_in_hot_action_rollup": True,
                 "reason": "partial measurement debt must become a typed action, not prose",
                 "private_screenshot_path_exported": False,
@@ -3526,7 +3601,7 @@ class RuntimeShell:
                 "quality_posture": "census_binding_gap",
                 "action_class": "add_to_census_or_bind_capture",
                 "next_action": "create_public_safe_census_row_or_drop_unowned_requested_view",
-                "score": 95,
+                "priority_weight": 95,
                 "included_in_hot_action_rollup": True,
                 "reason": "every requested view gets an action row, including missing views",
                 "private_screenshot_path_exported": False,
@@ -3539,13 +3614,17 @@ class RuntimeShell:
                 "view_id": row["view_id"],
                 "action_class": row["action_class"],
                 "next_action": row["next_action"],
-                "score": row["score"],
+                "priority_weight": row["priority_weight"],
             }
             for index, row in enumerate(
                 [
                     row
-                    for row in sorted(action_rows, key=lambda item: int(item["score"]), reverse=True)
-                    if int(row["score"]) >= 80
+                    for row in sorted(
+                        action_rows,
+                        key=lambda item: int(item["priority_weight"]),
+                        reverse=True,
+                    )
+                    if int(row["priority_weight"]) >= 80
                     and row["included_in_hot_action_rollup"] is True
                     and row["action_class"] != "regression_guard"
                 ],
@@ -5778,7 +5857,7 @@ class RuntimeShell:
                 "public_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
                 "copied": ["question-to-command map", "10-minute comprehension budget"],
                 "cleaned": ["reader transcripts", "private macro context"],
-                "omitted": ["reader success guarantee", "public/private equivalence claim"],
+                "omitted": ["reader success guarantee", "public/secret export claim"],
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
                     "tests/test_observatory_legibility.py",
@@ -6739,7 +6818,7 @@ class RuntimeShell:
                 "guard_row_id": "release_and_private_equivalence_denial",
                 "source_risk": "a public microcosm is a projection, not release approval or private-root equivalence",
                 "public_replacement": "anti-claim row, authority ceiling, and release_authorized=false",
-                "strip_rule": "deny publication, hosted-public, benchmark, and private-equivalence claims",
+                "strip_rule": "deny publication, hosted-public, benchmark, and secret-export claims",
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_tour_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
@@ -6857,7 +6936,7 @@ class RuntimeShell:
                 "It is not a complete secret scanner, does not export private bodies, "
                 "proof bodies, provider payloads, raw private paths, or example secret "
                 "material, does not give financial advice, mutate source, prove "
-                "public/private equivalence, publish, host, or authorize release."
+                "public/secret export, publish, host, or authorize release."
             ),
         }
         write_json_atomic(lens_path, payload)
@@ -6981,7 +7060,7 @@ class RuntimeShell:
                 "control_row_id": "authority_ceiling_contract",
                 "source_ref": "microcosm authority::public_standards_control_lens",
                 "public_role": "global authority map lists standards control as read-model only",
-                "required_signal": "release, provider, source mutation, and private equivalence are false",
+                "required_signal": "release, provider, source mutation, and secret export are false",
                 "observed_count": 1,
                 "validation_refs": [
                     "microcosm authority",
@@ -7131,7 +7210,7 @@ class RuntimeShell:
                 "standard, validator, fixture, acceptance, docs, and authority surfaces. "
                 "It does not make the standards registry source authority, prove complete "
                 "coverage, export private bodies, expose proof bodies or provider payloads, "
-                "call providers, mutate source, claim private equivalence, publish, host, "
+                "call providers, mutate source, claim secret export, publish, host, "
                 "or authorize release."
             ),
         }
@@ -8094,7 +8173,7 @@ class RuntimeShell:
                 "reader_question": "What is not being claimed?",
                 "command": "microcosm authority",
                 "endpoint": "/authority",
-                "expected_signal": "release, provider, source mutation, proof, benchmark, and private-equivalence ceilings are false",
+                "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false",
                 "evidence_ref": "receipts/runtime_shell/public_authority_map.json",
                 "minute_budget": 1,
                 "pass_condition": "authority_surface_has_false_public_ceiling",
@@ -8152,7 +8231,7 @@ class RuntimeShell:
             {
                 "question_id": "limits",
                 "question": "What claims are out of scope?",
-                "answer_contract": "no release, private equivalence, provider execution, proof correctness, benchmark score, or reader-success guarantee",
+                "answer_contract": "no release, secret export, provider execution, proof correctness, benchmark score, or reader-success guarantee",
                 "proof_command": "microcosm authority",
             },
             {
@@ -10355,7 +10434,7 @@ class RuntimeShell:
         evidence_refs: list[str] = []
         summaries: list[str] = []
 
-        for index, step in enumerate(RUNTIME_STEPS, start=1):
+        for index, step in enumerate(_product_runtime_steps(), start=1):
             input_dir = self.root / step.example_rel
             out_dir = run_root / "organs" / step.organ_id
             command = f"microcosm run {_public_relative(project_path, self.root)}"

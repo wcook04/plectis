@@ -20,7 +20,6 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "proof_diagnostic_evidence_spine": "algorithmic_projection",
     "formal_math_readiness_gate": "algorithmic_projection",
     "corpus_readiness_mathlib_absence_gate": "algorithmic_projection",
-    "mathematical_strategy_atlas_hypothesis_scorer": "algorithmic_projection",
     "tactic_portfolio_availability_probe": "algorithmic_projection",
     "target_shape_tactic_routing_gate": "algorithmic_projection",
     "lean_std_premise_index": "algorithmic_projection",
@@ -79,7 +78,8 @@ def test_runtime_shell_status_is_product_centered() -> None:
     status = shell.status()
 
     assert status["status"] == "pass"
-    assert status["adapter_backed_organ_count"] == 45
+    assert status["adapter_backed_organ_count"] == 44
+    assert status["product_path_demoted_organ_count"] == 1
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
@@ -115,8 +115,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert "microcosm reveal" in status["runtime_surface"]["commands"]
     assert (
         "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
-        in status["runtime_surface"]["commands"]
+        not in status["runtime_surface"]["commands"]
     )
+    assert status["runtime_surface"]["demoted_drilldown_commands"] == [
+        "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
+    ]
     assert (
         "microcosm tactic-portfolio-availability-probe run-availability-bundle"
         in status["runtime_surface"]["commands"]
@@ -226,20 +229,21 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["status"] == "pass"
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
-    assert spine["surface_counts"]["adapter_backed_organ_count"] == 45
-    assert len(spine["accepted_runtime_spine"]) == 45
+    assert spine["surface_counts"]["adapter_backed_organ_count"] == 44
+    assert spine["surface_counts"]["product_path_demoted_organ_count"] == 1
+    assert len(spine["accepted_runtime_spine"]) == 44
     assert spine["surface_counts"]["evidence_class_count"] == 5
     assert spine["evidence_class_registry"]["fail_closed_no_default"] is True
     assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 45
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
-    assert sum(spine["evidence_class_counts"].values()) == 45
+    assert sum(spine["evidence_class_counts"].values()) == 44
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in rows_by_id.items()} == (
         EXPECTED_ORGAN_EVIDENCE_CLASSES
     )
     assert spine["evidence_class_counts"] == {
         "semantic_validator": 12,
-        "algorithmic_projection": 15,
+        "algorithmic_projection": 14,
         "fixture_echo_smoke": 13,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
@@ -259,6 +263,24 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert rows_by_id["research_replication_rubric_artifact_replay"]["evidence_class"] == (
         "fixture_schema_replay"
     )
+    assert spine["demoted_drilldown_surfaces"] == [
+        {
+            "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+            "runtime_mode": "drilldown_only",
+            "product_path_role": "drilldown_regression_not_runtime_spine",
+            "demotion_reason": (
+                "strategy-atlas overlap projection remains runnable as a regression "
+                "drilldown, but scoring/projection rows are not product-spine substrate."
+            ),
+            "input_mode": "exported_mathematical_strategy_atlas_bundle",
+            "example_ref": (
+                "examples/mathematical_strategy_atlas_hypothesis_scorer/"
+                "exported_mathematical_strategy_atlas_bundle"
+            ),
+            "evidence_class": "algorithmic_projection",
+            "claim_ceiling": "projection mechanics only, not domain correctness",
+        }
+    ]
     assert all(row["evidence_strength_disclosed"] is True for row in spine["accepted_runtime_spine"])
     assert spine["evidence_policy"]["accepted_status_is_not_evidence_strength"] is True
     assert spine["evidence_policy"]["unclassified_organs_block_authority_projection"] is True
@@ -1040,6 +1062,10 @@ def test_runtime_shell_view_quality_lens_is_public_safe(tmp_path: Path) -> None:
         "graph_geometry",
         "partial_unmeasured_panel",
     ]
+    assert all("score" not in row for row in lens["action_rows"])
+    assert all("priority_weight" in row for row in lens["action_rows"])
+    assert all("score" not in row for row in lens["hot_action_rollup"])
+    assert all("priority_weight" in row for row in lens["hot_action_rollup"])
     assert set(lens["negative_case_ids"]) == {
         "hot_rollup_claimed_as_complete_universe",
         "missing_requested_view_without_action",
@@ -1883,15 +1909,14 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     assert result["status"] == "pass"
-    assert len(result["events"]) == 45
-    assert [event["status"] for event in result["events"]] == ["pass"] * 45
+    assert len(result["events"]) == 44
+    assert [event["status"] for event in result["events"]] == ["pass"] * 44
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
         "exported_standards_bundle",
         "exported_evidence_bundle",
         "exported_formal_math_readiness_bundle",
         "exported_corpus_readiness_bundle",
-        "exported_mathematical_strategy_atlas_bundle",
         "exported_tactic_portfolio_availability_bundle",
         "exported_target_shape_tactic_routing_bundle",
         "exported_lean_std_premise_index_bundle",
@@ -1938,8 +1963,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
     assert trace["status"] == "pass"
-    assert trace["otel_shape"]["span_count"] == 45
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 45
+    assert trace["otel_shape"]["span_count"] == 44
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 44
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -2121,7 +2146,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
-    assert payload["adapter_backed_organ_count"] == 45
+    assert payload["adapter_backed_organ_count"] == 44
+    assert payload["product_path_demoted_organ_count"] == 1
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"

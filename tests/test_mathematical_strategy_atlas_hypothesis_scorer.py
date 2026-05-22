@@ -60,9 +60,15 @@ def test_mathematical_strategy_atlas_scorer_covers_negative_cases(
         "recursive_data_induction",
         "unknown",
     ]
+    assert all("score" not in row for row in result["scored_cases"])
+    assert [row["feature_overlap_count"] for row in result["scored_cases"]] == [3, 3, 0]
     assert result["strategy_selection_miss_case_ids"] == ["typed_unknown_strategy_miss"]
     assert result["all_expectations_met"] is True
     assert result["strategy_board"]["public_contract"]["strategy_selected_pre_oracle"] is True
+    assert (
+        result["strategy_board"]["public_contract"]["drilldown_regression_not_product_organ"]
+        is True
+    )
     assert result["authority_ceiling"]["oracle_label_visibility_authorized"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
