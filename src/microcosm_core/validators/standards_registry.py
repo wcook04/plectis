@@ -67,6 +67,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "standards_meta_diagnostics",
     "cold_reader_route_map",
     "agent_monitor_redteam_falsification_replay",
+    "agent_sabotage_scheming_monitor_replay",
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",

@@ -1,0 +1,6 @@
+{
+  "body_redacted": true,
+  "case_id": "raw_harmful_payload_export",
+  "expected_negative_case_id": "raw_harmful_payload_export",
+  "raw_harmful_payload_included": true
+}

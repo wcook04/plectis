@@ -32,6 +32,7 @@
     "standards_meta_diagnostics",
     "cold_reader_route_map",
     "agent_monitor_redteam_falsification_replay",
+    "agent_sabotage_scheming_monitor_replay",
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
@@ -61,7 +62,7 @@
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
-    "scanned_path_count": 37,
+    "scanned_path_count": 38,
     "status": "pass"
   },
   "receipt_paths": [
@@ -98,6 +99,7 @@
     "paper_modules/standards_meta_diagnostics.md",
     "paper_modules/cold_reader_route_map.md",
     "paper_modules/agent_monitor_redteam_falsification_replay.md",
+    "paper_modules/agent_sabotage_scheming_monitor_replay.md",
     "paper_modules/agent_memory_temporal_conflict_replay.md",
     "paper_modules/sleeper_memory_poisoning_quarantine_replay.md",
     "paper_modules/mcp_tool_authority_replay.md",

@@ -16,7 +16,7 @@
   },
   "body_redacted": true,
   "command": "microcosm trace-lens",
-  "created_at": "2026-05-22T07:56:21+00:00",
+  "created_at": "2026-05-22T08:52:17+00:00",
   "endpoint": "/trace",
   "evidence_refs": [
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",

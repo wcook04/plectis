@@ -595,6 +595,46 @@
       "title": "Monitor Redteam Replay Requires Falsification Receipts"
     },
     {
+      "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_metadata_not_live_sabotage_deployment_or_product_authority",
+      "claim": "Agent-sabotage and scheming-monitor language must cite synthetic episodes, action traces, per-step monitor scores, counterfactual benign replays, cold replay refs, negative cases, and explicit no-live-sabotage/no-sensitive-export/no-deployment-claim ceilings before it becomes public evidence.",
+      "domain": "agent_sabotage_eval",
+      "kernel_primitive_refs": [
+        "event",
+        "evidence",
+        "explanation",
+        "route"
+      ],
+      "negative_case_ids": [
+        "live_sabotage_instruction",
+        "real_credentials_or_accounts",
+        "exploit_instruction_material",
+        "private_chain_of_thought_export",
+        "raw_harmful_payload_export",
+        "monitor_only_final_grading",
+        "deployment_scare_story_claim"
+      ],
+      "owner_surfaces": [
+        "organs:agent_sabotage_scheming_monitor_replay",
+        "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
+        "paper_modules/agent_sabotage_scheming_monitor_replay.md"
+      ],
+      "pressure": "typed sabotage-monitor claims require episode/action/score joins, counterfactual replays, falsification fixtures, and authority ceilings",
+      "release_authorized": false,
+      "route_refs": [
+        "replay-gauntlet",
+        "projection-safety",
+        "spine"
+      ],
+      "runtime_hook": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay.run",
+      "source_refs": [
+        "organs:agent_sabotage_scheming_monitor_replay",
+        "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
+        "paper_modules/agent_sabotage_scheming_monitor_replay.md"
+      ],
+      "standard_id": "agent_sabotage_scheming_monitor_replay_public_pressure",
+      "title": "Scheming Monitor Replay Requires Episode, Action, Score, Counterfactual, and Negative-Case Receipts"
+    },
+    {
       "authority_boundary": "synthetic_agent_memory_conflict_metadata_not_live_memory_product_or_source_authority",
       "claim": "Agent-memory honesty language must cite memory route refs, ADD/UPDATE/DELETE/NOOP decisions, conflict-edge refs, stale-downgrade refs, metadata-only private refs, paired memory-on/off replay receipts, answer-delta refs, negative cases, and explicit no-private-transcript/no-live-memory-product/no-source-authority ceilings before it becomes public evidence.",
       "kernel_primitive_refs": [

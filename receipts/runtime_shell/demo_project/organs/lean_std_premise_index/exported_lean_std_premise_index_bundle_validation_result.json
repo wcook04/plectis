@@ -16,7 +16,7 @@
   "body_redacted": true,
   "bundle_id": "public_lean_std_premise_index_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T07:53:50+00:00",
+  "created_at": "2026-05-22T08:48:43+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],

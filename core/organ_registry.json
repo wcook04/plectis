@@ -448,6 +448,19 @@
       "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
     },
     {
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "runner": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+    },
+    {
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
       "generated_receipts": [
         "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
@@ -513,7 +526,7 @@
       "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay"
     }
   ],
-  "registry_status": "current_authority_public_runtime_spine_belief_state_process_reward_replay_bound",
+  "registry_status": "current_authority_public_runtime_spine_agent_sabotage_scheming_monitor_replay_bound",
   "schema_version": "organ_registry_v1",
   "unauthorized_surfaces": [
     "release",

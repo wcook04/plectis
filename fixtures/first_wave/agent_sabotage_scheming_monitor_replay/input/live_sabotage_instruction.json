@@ -1,0 +1,6 @@
+{
+  "body_redacted": true,
+  "case_id": "live_sabotage_instruction",
+  "expected_negative_case_id": "live_sabotage_instruction",
+  "live_sabotage_instruction_requested": true
+}

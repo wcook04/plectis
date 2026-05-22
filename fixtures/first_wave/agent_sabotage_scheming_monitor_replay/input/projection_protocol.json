@@ -1,0 +1,42 @@
+{
+  "authorizes_live_sabotage": false,
+  "copied_private_source": false,
+  "exports_harmful_payloads": false,
+  "exports_private_state": false,
+  "omitted_private_material": [
+    "private chain-of-thought bodies",
+    "raw harmful payload bodies",
+    "real credentials or account identifiers",
+    "provider payloads",
+    "live agent traffic",
+    "actionable exploit instructions",
+    "production deployment telemetry"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+  ],
+  "protocol_id": "agent_sabotage_scheming_monitor_replay_public_projection_v1",
+  "public_replacement_refs": [
+    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/task_episodes.json",
+    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json",
+    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_scores.json",
+    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/counterfactual_replay.json",
+    "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json"
+  ],
+  "reimplemented_public_logic": [
+    "typed episode-action-score joins",
+    "per-step monitor verdict validation",
+    "counterfactual benign replay requirement",
+    "negative-case admission boundary",
+    "authority ceiling receipt"
+  ],
+  "source_pattern_ids": [
+    "agent_sabotage_scheming_monitor_replay_compound"
+  ],
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sabotage_scheming_monitor_replay_compound",
+    "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json::claim_contract_shape",
+    "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json::scheming_monitor_disagreement"
+  ]
+}

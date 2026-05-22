@@ -135,7 +135,16 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    inspect synthetic trajectories, monitor verdicts, adversarial probes,
    escalation refs, redaction refs, mitigation refs, and cold replay refs
    before trusting monitor/redteam honesty claims.
-28. Run `microcosm agent-memory-temporal-conflict-replay
+28. Run `microcosm agent-sabotage-scheming-monitor-replay
+   run-sabotage-bundle --input
+   examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle
+   --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay`
+   or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
+   agent-sabotage-scheming-monitor-replay run-sabotage-bundle` path to
+   inspect synthetic episodes, action traces, per-step monitor scores,
+   counterfactual benign replays, cold replay refs, and negative cases before
+   trusting sabotage/scheming monitor claims.
+29. Run `microcosm agent-memory-temporal-conflict-replay
    run-memory-bundle --input
    examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle
    --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay`
@@ -243,6 +252,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli standards-control
 PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
 PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
+PYTHONPATH=src python3 -m microcosm_core.cli agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
 PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
 PYTHONPATH=src python3 -m microcosm_core.cli belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay

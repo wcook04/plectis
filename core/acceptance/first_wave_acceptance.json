@@ -30,6 +30,7 @@
     "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",
     "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
     "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
+    "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
     "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay",
     "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay --acceptance-out receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
     "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay --acceptance-out receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
@@ -433,6 +434,19 @@
       "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay"
     },
     {
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+      ],
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "runner": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+    },
+    {
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
       "generated_receipts": [
         "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_result.json",
@@ -560,8 +574,8 @@
   "recipient_work_authorized": false,
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
-  "standard_count": 82,
+  "standard_count": 83,
   "standards_registry_ref": "core/standards_registry.json",
-  "status": "accepted_runtime_spine_belief_state_process_reward_replay_bound",
+  "status": "accepted_runtime_spine_agent_sabotage_scheming_monitor_replay_bound",
   "trading_or_financial_advice_authorized": false
 }

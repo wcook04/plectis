@@ -6,7 +6,7 @@
     "provider_calls_authorized": false,
     "release_authorized": false
   },
-  "created_at": "2026-05-22T07:53:52+00:00",
+  "created_at": "2026-05-22T08:48:45+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -329,7 +329,17 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_33_agent_memory_temporal_conflict_replay",
+      "event_id": "evt_33_agent_sabotage_scheming_monitor_replay",
+      "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle_validation_result.json",
+      "input_mode": "exported_sabotage_monitor_bundle",
+      "inputs": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle",
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "outputs": "receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+      "span": "agent_sabotage_scheming_monitor.validate",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_34_agent_memory_temporal_conflict_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
       "input_mode": "exported_memory_temporal_conflict_bundle",
       "inputs": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
@@ -339,7 +349,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_34_sleeper_memory_poisoning_quarantine_replay",
+      "event_id": "evt_35_sleeper_memory_poisoning_quarantine_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
       "input_mode": "exported_sleeper_memory_poisoning_bundle",
       "inputs": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
@@ -349,7 +359,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_35_mcp_tool_authority_replay",
+      "event_id": "evt_36_mcp_tool_authority_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
       "input_mode": "exported_mcp_tool_authority_bundle",
       "inputs": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
@@ -359,7 +369,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_36_proof_derived_governed_mutation_authorization",
+      "event_id": "evt_37_proof_derived_governed_mutation_authorization",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle_validation_result.json",
       "input_mode": "exported_governed_mutation_authorization_bundle",
       "inputs": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
@@ -369,7 +379,7 @@
       "status": "pass"
     },
     {
-      "event_id": "evt_37_belief_state_process_reward_replay",
+      "event_id": "evt_38_belief_state_process_reward_replay",
       "evidence_ref": "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json",
       "input_mode": "exported_belief_state_process_reward_bundle",
       "inputs": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle",
@@ -412,6 +422,7 @@
     "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/cold_reader_route_map/exported_cold_reader_route_map_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json",
@@ -460,6 +471,7 @@
     "standards_meta_diagnostics: pass via exported_standards_meta_diagnostics_bundle",
     "cold_reader_route_map: pass via exported_cold_reader_route_map_bundle",
     "agent_monitor_redteam_falsification_replay: pass via exported_monitor_redteam_bundle",
+    "agent_sabotage_scheming_monitor_replay: pass via exported_sabotage_monitor_bundle",
     "agent_memory_temporal_conflict_replay: pass via exported_memory_temporal_conflict_bundle",
     "sleeper_memory_poisoning_quarantine_replay: pass via exported_sleeper_memory_poisoning_bundle",
     "mcp_tool_authority_replay: pass via exported_mcp_tool_authority_bundle",

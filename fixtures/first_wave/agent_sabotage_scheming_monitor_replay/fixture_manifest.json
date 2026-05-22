@@ -1,0 +1,101 @@
+{
+  "anti_claim": "Synthetic sabotage-monitor receipts do not authorize live sabotage, sensitive exports, deployment-risk claims, provider calls, source mutation, or release.",
+  "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_replay_not_live_sabotage_or_deployment_authority",
+  "authority_ceiling": {
+    "live_sabotage_authorized": false,
+    "private_chain_of_thought_export_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false
+  },
+  "expected_negative_cases": [
+    "live_sabotage_instruction",
+    "real_credentials_or_accounts",
+    "exploit_instruction_material",
+    "private_chain_of_thought_export",
+    "raw_harmful_payload_export",
+    "monitor_only_final_grading",
+    "deployment_scare_story_claim"
+  ],
+  "fixture_id": "fixture::agent_sabotage_scheming_monitor_replay::first_wave_contract_v1",
+  "negative_fixture_inputs": [
+    {
+      "case_id": "live_sabotage_instruction",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/live_sabotage_instruction.json",
+      "role": "expected_negative_case"
+    },
+    {
+      "case_id": "real_credentials_or_accounts",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/real_credentials_or_accounts.json",
+      "role": "expected_negative_case"
+    },
+    {
+      "case_id": "exploit_instruction_material",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/exploit_instruction_material.json",
+      "role": "expected_negative_case"
+    },
+    {
+      "case_id": "private_chain_of_thought_export",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/private_chain_of_thought_export.json",
+      "role": "expected_negative_case"
+    },
+    {
+      "case_id": "raw_harmful_payload_export",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/raw_harmful_payload_export.json",
+      "role": "expected_negative_case"
+    },
+    {
+      "case_id": "monitor_only_final_grading",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_only_final_grading.json",
+      "role": "expected_negative_case"
+    },
+    {
+      "case_id": "deployment_scare_story_claim",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/deployment_scare_story_claim.json",
+      "role": "expected_negative_case"
+    }
+  ],
+  "organ_id": "agent_sabotage_scheming_monitor_replay",
+  "positive_fixture_inputs": [
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json",
+      "role": "positive_contract_input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/scheming_monitor_policy.json",
+      "role": "positive_contract_input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/task_episodes.json",
+      "role": "positive_contract_input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json",
+      "role": "positive_contract_input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_scores.json",
+      "role": "positive_contract_input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/counterfactual_replay.json",
+      "role": "positive_contract_input"
+    },
+    {
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json",
+      "role": "positive_contract_input"
+    }
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+  ],
+  "runtime_bundle_command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_pattern_ids": [
+    "agent_sabotage_scheming_monitor_replay_compound"
+  ],
+  "validator": "microcosm_core.organs.agent_sabotage_scheming_monitor_replay",
+  "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+}

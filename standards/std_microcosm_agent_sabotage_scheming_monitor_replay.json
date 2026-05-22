@@ -1,0 +1,166 @@
+{
+  "anti_claim": "This fixture validates public synthetic sabotage/scheming monitor replay metadata only; it does not authorize live sabotage, export private reasoning, provide exploit instructions, expose credentials or account identifiers, include raw harmful payloads, claim deployment risk, call providers, mutate source, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Sabotage-monitor material must state that synthetic replay receipts are not live-sabotage, product-performance, deployment-risk, provider, source-mutation, or release authority"
+  },
+  "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_replay_not_live_sabotage_deployment_or_product_authority",
+  "authority_ceiling": {
+    "credential_material_export_authority": false,
+    "deployment_risk_claim_authority": false,
+    "exploit_instruction_export_authority": false,
+    "harmful_payload_export_authority": false,
+    "live_sabotage_authority": false,
+    "private_reasoning_export_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "synthetic_sabotage_monitor_replay_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
+  "kind_id": "agent_sabotage_scheming_monitor_replay",
+  "kind_name": "Agent sabotage scheming-monitor replay",
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json",
+    "omitted": [
+      "live sabotage instructions",
+      "private reasoning bodies",
+      "real credentials or account identifiers",
+      "raw harmful payloads",
+      "provider payloads",
+      "production deployment telemetry"
+    ],
+    "reason": "public tranche carries synthetic sabotage-monitor metadata and redacted receipt evidence only"
+  },
+  "paper_module_contract": {
+    "module_slug": "agent_sabotage_scheming_monitor_replay",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "episode refs",
+      "action trace refs",
+      "per-step monitor scores",
+      "counterfactual replay refs",
+      "cold replay refs",
+      "negative case ids"
+    ],
+    "default_posture": "public_safe_when_synthetic_sabotage_monitor_receipts_only",
+    "forbidden_public_inputs": [
+      "live sabotage instructions",
+      "private chain-of-thought",
+      "raw harmful payloads",
+      "real credentials or account identifiers",
+      "provider payloads",
+      "production deployment telemetry"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "protocol_id",
+      "source_pattern_ids",
+      "episode_count",
+      "action_trace_count",
+      "monitor_score_count",
+      "counterfactual_replay_count",
+      "cold_replay_pass_count",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "negative_case_coverage"
+    ],
+    "receipt_id": "receipt.microcosm.agent_sabotage_scheming_monitor_replay",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.agent_sabotage_scheming_monitor_replay",
+    "receipt must cite source refs, source pattern ids, episode/action/monitor/counterfactual/replay counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#agent_sabotage_scheming_monitor_replay",
+    "source_pattern_id_sample": [
+      "agent_sabotage_scheming_monitor_replay_compound"
+    ],
+    "used_by_organs": [
+      "agent_sabotage_scheming_monitor_replay"
+    ]
+  },
+  "required_fields": [
+    "projection_protocol",
+    "scheming_monitor_policy",
+    "task_episodes",
+    "action_traces",
+    "monitor_scores",
+    "counterfactual_replay",
+    "cold_replay",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_refs": [
+    {
+      "field": "projection_protocol",
+      "path": "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle",
+      "role": "runtime_example_source"
+    }
+  ],
+  "standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+  "standard_payload": {
+    "anti_purpose": "Treating final self-report, live sabotage, exploit detail, hidden reasoning, or deployment-risk language as evidence.",
+    "compression_bands": [
+      "protocol",
+      "policy",
+      "episode",
+      "action",
+      "monitor_score",
+      "counterfactual",
+      "replay",
+      "receipt"
+    ],
+    "failure_modes": [
+      "live_sabotage_instruction",
+      "real_credentials_or_accounts",
+      "exploit_instruction_material",
+      "private_chain_of_thought_export",
+      "raw_harmful_payload_export",
+      "monitor_only_final_grading",
+      "deployment_scare_story_claim"
+    ],
+    "ontology": "A public-safe sabotage/scheming monitor replay: synthetic episodes, action traces, per-step monitor scores, counterfactual benign replay, cold replay, falsification fixtures, and authority ceilings.",
+    "rebuild_action": "draft",
+    "teleology": "Make Microcosm show how scheming-monitor claims are admitted only when evidence joins, negative cases, receipts, and ceilings align."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require synthetic episodes with task refs, hidden-side-objective labels, action traces, and monitor scores",
+    "require counterfactual replay that removes side-task success while preserving main task",
+    "reject live sabotage, real credentials/accounts, exploit instructions, private reasoning export, raw harmful payloads, final-only grading, and deployment scare claims",
+    "emit redacted receipts and private-state scan"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "projection_protocol_density",
+      "monitor_policy_authority_floor",
+      "episode_action_score_join",
+      "counterfactual_replay_floor",
+      "cold_replay_floor",
+      "negative_case_coverage"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.agent_sabotage_scheming_monitor_replay"
+  },
+  "wave": "w1_agent_sabotage_scheming_monitor_replay"
+}

@@ -1,0 +1,18 @@
+{
+  "authority_ceiling_ref": "microcosm authority::public_agent_sabotage_scheming_monitor_replay_lens",
+  "body_redacted": true,
+  "bundle_id": "agent_sabotage_scheming_monitor_replay_runtime_example",
+  "included_files": [
+    "projection_protocol.json",
+    "scheming_monitor_policy.json",
+    "task_episodes.json",
+    "action_traces.json",
+    "monitor_scores.json",
+    "counterfactual_replay.json",
+    "cold_replay.json"
+  ],
+  "input_mode": "exported_sabotage_monitor_bundle",
+  "negative_cases_included": false,
+  "organ_id": "agent_sabotage_scheming_monitor_replay",
+  "schema_version": "exported_sabotage_monitor_bundle_manifest_v1"
+}

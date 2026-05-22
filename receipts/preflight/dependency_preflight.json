@@ -43,6 +43,7 @@
     "standards_meta_diagnostics",
     "cold_reader_route_map",
     "agent_monitor_redteam_falsification_replay",
+    "agent_sabotage_scheming_monitor_replay",
     "agent_memory_temporal_conflict_replay",
     "sleeper_memory_poisoning_quarantine_replay",
     "mcp_tool_authority_replay",
@@ -431,6 +432,15 @@
     {
       "build_dependencies": [
         "agent_monitor_redteam_falsification_replay",
+        "agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "agent_monitor_redteam_falsification_replay",
         "agent_route_observability_runtime"
       ],
       "missing_dependencies": [],
@@ -798,6 +808,16 @@
       "status": "pass"
     },
     {
+      "fixture_id": "fixture::agent_sabotage_scheming_monitor_replay::first_wave_contract_v1",
+      "fixture_input_count": 14,
+      "fixture_manifest": "core/fixture_manifests/agent_sabotage_scheming_monitor_replay.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 14,
+      "missing_fixture_inputs": [],
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "status": "pass"
+    },
+    {
       "fixture_id": "fixture::agent_memory_temporal_conflict_replay::first_wave_contract_v1",
       "fixture_input_count": 11,
       "fixture_manifest": "core/fixture_manifests/agent_memory_temporal_conflict_replay.fixture_manifest.json",
@@ -848,7 +868,7 @@
       "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 16,
+  "negative_matrix_case_count": 17,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -902,6 +922,7 @@
       "standards_meta_diagnostics",
       "cold_reader_route_map",
       "agent_monitor_redteam_falsification_replay",
+      "agent_sabotage_scheming_monitor_replay",
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
       "mcp_tool_authority_replay",
@@ -941,6 +962,7 @@
       "standards_meta_diagnostics",
       "cold_reader_route_map",
       "agent_monitor_redteam_falsification_replay",
+      "agent_sabotage_scheming_monitor_replay",
       "agent_memory_temporal_conflict_replay",
       "sleeper_memory_poisoning_quarantine_replay",
       "mcp_tool_authority_replay",

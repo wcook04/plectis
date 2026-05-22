@@ -165,6 +165,21 @@
     },
     {
       "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
+      "case_id": "agent_sabotage_scheming_monitor_replay_negative_cases",
+      "expected_negative_cases": [
+        "live_sabotage_instruction",
+        "real_credentials_or_accounts",
+        "exploit_instruction_material",
+        "private_chain_of_thought_export",
+        "raw_harmful_payload_export",
+        "monitor_only_final_grading",
+        "deployment_scare_story_claim"
+      ],
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "status": "covered_by_fixture_manifest"
+    },
+    {
+      "anti_claim": "Negative-case authority remains with the organ fixture manifest and generated receipts.",
       "case_id": "agent_memory_temporal_conflict_replay_negative_cases",
       "expected_negative_cases": [
         "raw_transcript_export",

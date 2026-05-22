@@ -4,36 +4,63 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_binding_real_substrate_adapter_receipt_v1.json",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
       "live_learning_authority": false,
-      "organ_id": "pattern_binding_contract",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "standard_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_real_substrate_adapter_receipt_v1.json",
-      "live_learning_authority": false,
-      "organ_id": "executable_doctrine_grammar",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "nothing_to_refine",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_real_substrate_adapter_receipt_v1.json",
-      "live_learning_authority": false,
-      "organ_id": "proof_diagnostic_evidence_spine",
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
       "projection_not_authority": true
     },
     {
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
       "live_learning_authority": false,
-      "organ_id": "formal_math_readiness_gate",
+      "organ_id": "agent_memory_temporal_conflict_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "agent_route_observability_runtime",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "belief_state_process_reward_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "cold_reader_route_map",
       "projection_not_authority": true
     },
     {
@@ -49,9 +76,234 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "durable_agent_work_landing_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "standard_refined",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "executable_doctrine_grammar",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "formal_math_lean_proof_witness",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "formal_math_premise_retrieval",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "formal_math_readiness_gate",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "lean_std_premise_index",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "macro_projection_import_protocol",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
       "landing_receipt_ref": "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
       "live_learning_authority": false,
       "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "mcp_tool_authority_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "nothing_to_refine",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "mission_transaction_work_spine",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "navigation_hologram_route_plane",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "pattern_assimilation_step",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_binding_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "pattern_binding_contract",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "prediction_oracle_reconciliation",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "proof_derived_governed_mutation_authorization",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "nothing_to_refine",
+      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_real_substrate_adapter_receipt_v1.json",
+      "live_learning_authority": false,
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "provider_context_recipe_budget_policy",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "public_reveal_walkthrough",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "research_replication_rubric_artifact_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "projection_not_authority": true
+    },
+    {
+      "adapter_status": "accepted_adapter_backed_runtime_organ",
+      "body_redacted": true,
+      "closeout_refinement_result": "validator_contract_refined",
+      "landing_receipt_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
+      "live_learning_authority": false,
+      "organ_id": "standards_meta_diagnostics",
       "projection_not_authority": true
     },
     {
@@ -76,42 +328,6 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "lean_std_premise_index",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "formal_math_premise_retrieval",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "formal_math_verifier_trace_repair_loop",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "formal_evidence_cell_anchor_resolver",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
       "landing_receipt_ref": "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
       "live_learning_authority": false,
       "organ_id": "undeclared_library_prior_symbol_classifier",
@@ -121,216 +337,9 @@
       "adapter_status": "accepted_adapter_backed_runtime_organ",
       "body_redacted": true,
       "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "provider_context_recipe_budget_policy",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "formal_math_lean_proof_witness",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_real_substrate_adapter_receipt_v1.json",
-      "live_learning_authority": false,
-      "organ_id": "navigation_hologram_route_plane",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "nothing_to_refine",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_real_substrate_adapter_receipt_v1.json",
-      "live_learning_authority": false,
-      "organ_id": "mission_transaction_work_spine",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "durable_agent_work_landing_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "research_replication_rubric_artifact_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
       "landing_receipt_ref": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
       "live_learning_authority": false,
       "organ_id": "world_model_projection_drift_control_room",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_real_substrate_adapter_receipt_v1.json",
-      "live_learning_authority": false,
-      "organ_id": "agent_route_observability_runtime",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
-      "live_learning_authority": false,
-      "organ_id": "pattern_assimilation_step",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "public_reveal_walkthrough",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "macro_projection_import_protocol",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "prediction_oracle_reconciliation",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "standards_meta_diagnostics",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "cold_reader_route_map",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "agent_monitor_redteam_falsification_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "agent_memory_temporal_conflict_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "mcp_tool_authority_replay",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "proof_derived_governed_mutation_authorization",
-      "projection_not_authority": true
-    },
-    {
-      "adapter_status": "accepted_adapter_backed_runtime_organ",
-      "body_redacted": true,
-      "closeout_refinement_result": "validator_contract_refined",
-      "landing_receipt_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
-      "live_learning_authority": false,
-      "organ_id": "belief_state_process_reward_replay",
       "projection_not_authority": true
     }
   ],

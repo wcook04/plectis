@@ -209,9 +209,18 @@
     },
     {
       "body_redacted": true,
+      "cli_command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+      "ordinal": 24,
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "runtime_receipt_count": 4,
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mechanistic_interpretability_circuit_attribution_replay"
+    },
+    {
+      "body_redacted": true,
       "cli_command": "microcosm agent_route_observability_runtime run run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_route_observability_runtime_fixture_acceptance.json",
-      "ordinal": 24,
+      "ordinal": 25,
       "organ_id": "agent_route_observability_runtime",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_route_observability_runtime"
@@ -220,7 +229,7 @@
       "body_redacted": true,
       "cli_command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step run --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
       "current_authority_receipt": "receipts/acceptance/first_wave/pattern_assimilation_step_fixture_acceptance.json",
-      "ordinal": 25,
+      "ordinal": 26,
       "organ_id": "pattern_assimilation_step",
       "runtime_receipt_count": 3,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::pattern_assimilation_step"
@@ -229,7 +238,7 @@
       "body_redacted": true,
       "cli_command": "microcosm public_reveal_walkthrough run run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
       "current_authority_receipt": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
-      "ordinal": 26,
+      "ordinal": 27,
       "organ_id": "public_reveal_walkthrough",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::public_reveal_walkthrough"
@@ -238,7 +247,7 @@
       "body_redacted": true,
       "cli_command": "microcosm macro_projection_import_protocol run run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
       "current_authority_receipt": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
-      "ordinal": 27,
+      "ordinal": 28,
       "organ_id": "macro_projection_import_protocol",
       "runtime_receipt_count": 5,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::macro_projection_import_protocol"
@@ -247,7 +256,7 @@
       "body_redacted": true,
       "cli_command": "microcosm prediction_oracle_reconciliation run run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
       "current_authority_receipt": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
-      "ordinal": 28,
+      "ordinal": 29,
       "organ_id": "prediction_oracle_reconciliation",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::prediction_oracle_reconciliation"
@@ -256,7 +265,7 @@
       "body_redacted": true,
       "cli_command": "microcosm standards_meta_diagnostics run run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
       "current_authority_receipt": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
-      "ordinal": 29,
+      "ordinal": 30,
       "organ_id": "standards_meta_diagnostics",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::standards_meta_diagnostics"
@@ -265,19 +274,10 @@
       "body_redacted": true,
       "cli_command": "microcosm cold_reader_route_map run run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
       "current_authority_receipt": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
-      "ordinal": 30,
+      "ordinal": 31,
       "organ_id": "cold_reader_route_map",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::cold_reader_route_map"
-    },
-    {
-      "body_redacted": true,
-      "cli_command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
-      "current_authority_receipt": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
-      "ordinal": 31,
-      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
-      "runtime_receipt_count": 4,
-      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mechanistic_interpretability_circuit_attribution_replay"
     },
     {
       "body_redacted": true,
@@ -290,9 +290,18 @@
     },
     {
       "body_redacted": true,
+      "cli_command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
+      "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
+      "ordinal": 33,
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "runtime_receipt_count": 4,
+      "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_sabotage_scheming_monitor_replay"
+    },
+    {
+      "body_redacted": true,
       "cli_command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
-      "ordinal": 33,
+      "ordinal": 34,
       "organ_id": "agent_memory_temporal_conflict_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_memory_temporal_conflict_replay"
@@ -301,7 +310,7 @@
       "body_redacted": true,
       "cli_command": "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
-      "ordinal": 34,
+      "ordinal": 35,
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::sleeper_memory_poisoning_quarantine_replay"
@@ -310,7 +319,7 @@
       "body_redacted": true,
       "cli_command": "microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
-      "ordinal": 35,
+      "ordinal": 36,
       "organ_id": "mcp_tool_authority_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mcp_tool_authority_replay"
@@ -319,7 +328,7 @@
       "body_redacted": true,
       "cli_command": "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization",
       "current_authority_receipt": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
-      "ordinal": 36,
+      "ordinal": 37,
       "organ_id": "proof_derived_governed_mutation_authorization",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::proof_derived_governed_mutation_authorization"
@@ -328,7 +337,7 @@
       "body_redacted": true,
       "cli_command": "microcosm belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
-      "ordinal": 37,
+      "ordinal": 38,
       "organ_id": "belief_state_process_reward_replay",
       "runtime_receipt_count": 4,
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::belief_state_process_reward_replay"

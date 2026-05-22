@@ -31,9 +31,9 @@ def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesse
     )
 
     assert acceptance["status"] == (
-        "accepted_runtime_spine_belief_state_process_reward_replay_bound"
+        "accepted_runtime_spine_agent_sabotage_scheming_monitor_replay_bound"
     )
-    assert len(acceptance["accepted_current_authority_organs"]) == 37
+    assert len(acceptance["accepted_current_authority_organs"]) == 38
     assert acceptance["deferred_organs"] == []
     assert acceptance["lean_lake_authorized"] == "bounded_public_witness_only"
     assert acceptance["release_authorized"] is False
@@ -95,6 +95,7 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         "standards_meta_diagnostics",
         "cold_reader_route_map",
         "agent_monitor_redteam_falsification_replay",
+        "agent_sabotage_scheming_monitor_replay",
         "agent_memory_temporal_conflict_replay",
         "sleeper_memory_poisoning_quarantine_replay",
         "mcp_tool_authority_replay",

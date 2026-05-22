@@ -402,9 +402,26 @@
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
-      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_route_observability_runtime_fixture_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
       "body_redacted": true,
       "ordinal": 24,
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[mechanistic_interpretability_circuit_attribution_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mechanistic_interpretability_circuit_attribution_replay]",
+      "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
+      "standard_ref": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_route_observability_runtime_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 25,
       "organ_id": "agent_route_observability_runtime",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_route_observability_runtime_projection_only]",
       "receipt_refs": [
@@ -421,7 +438,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/pattern_assimilation_step_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 25,
+      "ordinal": 26,
       "organ_id": "pattern_assimilation_step",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[pattern_assimilation_step_projection_only]",
       "receipt_refs": [
@@ -437,7 +454,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 26,
+      "ordinal": 27,
       "organ_id": "public_reveal_walkthrough",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[public_reveal_walkthrough_projection_only]",
       "receipt_refs": [
@@ -454,7 +471,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 27,
+      "ordinal": 28,
       "organ_id": "macro_projection_import_protocol",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[macro_projection_import_protocol_projection_only]",
       "receipt_refs": [
@@ -472,7 +489,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 28,
+      "ordinal": 29,
       "organ_id": "prediction_oracle_reconciliation",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[prediction_oracle_reconciliation_projection_only]",
       "receipt_refs": [
@@ -489,7 +506,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 29,
+      "ordinal": 30,
       "organ_id": "standards_meta_diagnostics",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[standards_meta_diagnostics_projection_only]",
       "receipt_refs": [
@@ -506,7 +523,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 30,
+      "ordinal": 31,
       "organ_id": "cold_reader_route_map",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[cold_reader_route_map_projection_only]",
       "receipt_refs": [
@@ -518,23 +535,6 @@
       "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_cold_reader_route_map]",
       "standard_id": "std_microcosm_cold_reader_route_map",
       "standard_ref": "standards/std_microcosm_cold_reader_route_map.json"
-    },
-    {
-      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
-      "authority_ceiling_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
-      "body_redacted": true,
-      "ordinal": 31,
-      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
-      "pressure_row_ref": "core/public_standard_pressure.json::rows[mechanistic_interpretability_circuit_attribution_replay_public_pressure]",
-      "receipt_refs": [
-        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
-        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
-        "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
-        "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
-      ],
-      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_mechanistic_interpretability_circuit_attribution_replay]",
-      "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
-      "standard_ref": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json"
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
@@ -555,9 +555,26 @@
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
-      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
       "body_redacted": true,
       "ordinal": 33,
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_sabotage_scheming_monitor_replay_public_pressure]",
+      "receipt_refs": [
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
+        "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
+        "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_agent_sabotage_scheming_monitor_replay]",
+      "standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+      "standard_ref": "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 34,
       "organ_id": "agent_memory_temporal_conflict_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_memory_temporal_conflict_replay_public_pressure]",
       "receipt_refs": [
@@ -574,7 +591,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 34,
+      "ordinal": 35,
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[sleeper_memory_poisoning_quarantine_replay_public_pressure]",
       "receipt_refs": [
@@ -591,7 +608,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 35,
+      "ordinal": 36,
       "organ_id": "mcp_tool_authority_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[mcp_tool_authority_replay_public_pressure]",
       "receipt_refs": [
@@ -608,7 +625,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 36,
+      "ordinal": 37,
       "organ_id": "proof_derived_governed_mutation_authorization",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[proof_derived_governed_mutation_authorization_public_pressure]",
       "receipt_refs": [
@@ -625,7 +642,7 @@
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
       "body_redacted": true,
-      "ordinal": 37,
+      "ordinal": 38,
       "organ_id": "belief_state_process_reward_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[belief_state_process_reward_replay_public_pressure]",
       "receipt_refs": [

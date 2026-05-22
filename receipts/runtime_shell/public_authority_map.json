@@ -508,10 +508,22 @@
       "source_mutation_authorized": false
     },
     {
+      "authority_ref": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
+      "generated_receipt_count": 4,
+      "input_mode": "exported_sabotage_monitor_bundle",
+      "ordinal": 33,
+      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false
+    },
+    {
       "authority_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
       "generated_receipt_count": 4,
       "input_mode": "exported_memory_temporal_conflict_bundle",
-      "ordinal": 33,
+      "ordinal": 34,
       "organ_id": "agent_memory_temporal_conflict_replay",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
@@ -523,7 +535,7 @@
       "authority_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
       "generated_receipt_count": 4,
       "input_mode": "exported_sleeper_memory_poisoning_bundle",
-      "ordinal": 34,
+      "ordinal": 35,
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
@@ -535,7 +547,7 @@
       "authority_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
       "generated_receipt_count": 4,
       "input_mode": "exported_mcp_tool_authority_bundle",
-      "ordinal": 35,
+      "ordinal": 36,
       "organ_id": "mcp_tool_authority_replay",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
@@ -547,7 +559,7 @@
       "authority_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
       "generated_receipt_count": 4,
       "input_mode": "exported_governed_mutation_authorization_bundle",
-      "ordinal": 36,
+      "ordinal": 37,
       "organ_id": "proof_derived_governed_mutation_authorization",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
@@ -559,7 +571,7 @@
       "authority_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
       "generated_receipt_count": 4,
       "input_mode": "exported_belief_state_process_reward_bundle",
-      "ordinal": 37,
+      "ordinal": 38,
       "organ_id": "belief_state_process_reward_replay",
       "private_data_equivalence_claim": false,
       "provider_calls_authorized": false,
@@ -1011,6 +1023,23 @@
       "surface_id": "public_agent_monitor_redteam_falsification_lens"
     },
     {
+      "authority_role": "synthetic agent sabotage scheming-monitor replay and live-sabotage/deployment-claim boundary",
+      "command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
+      "credential_material_export_authorized": false,
+      "deployment_risk_claim_authorized": false,
+      "endpoint": "/replay-gauntlet",
+      "exploit_instruction_export_authorized": false,
+      "harmful_payload_export_authorized": false,
+      "live_agent_execution_authorized": false,
+      "live_sabotage_authorized": false,
+      "monitor_product_performance_claim_authorized": false,
+      "private_reasoning_export_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "surface_id": "public_agent_sabotage_scheming_monitor_replay_lens"
+    },
+    {
       "active_injection_authority_authorized": false,
       "authority_role": "synthetic agent memory temporal-conflict replay and source-authority boundary",
       "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
@@ -1140,9 +1169,9 @@
   ],
   "surface_counts": {
     "hard_boundary_count": 6,
-    "organ_authority_count": 37,
+    "organ_authority_count": 38,
     "projection_cell_count": 3,
     "safe_local_exception_count": 3,
-    "surface_authority_count": 37
+    "surface_authority_count": 38
   }
 }

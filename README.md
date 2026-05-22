@@ -150,6 +150,7 @@ microcosm standards-control
 microcosm hook-coverage
 microcosm replay-gauntlet
 microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
+microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
 microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
 microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
 microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
@@ -483,7 +484,7 @@ available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package now carries thirty-one adapter-backed runtime organs behind
+The public package now carries thirty-eight adapter-backed runtime organs behind
 the local substrate loop:
 
 1. `pattern_binding_contract`
@@ -518,11 +519,12 @@ the local substrate loop:
 30. `standards_meta_diagnostics`
 31. `cold_reader_route_map`
 32. `agent_monitor_redteam_falsification_replay`
-33. `agent_memory_temporal_conflict_replay`
-34. `sleeper_memory_poisoning_quarantine_replay`
-35. `mcp_tool_authority_replay`
-36. `proof_derived_governed_mutation_authorization`
-37. `belief_state_process_reward_replay`
+33. `agent_sabotage_scheming_monitor_replay`
+34. `agent_memory_temporal_conflict_replay`
+35. `sleeper_memory_poisoning_quarantine_replay`
+36. `mcp_tool_authority_replay`
+37. `proof_derived_governed_mutation_authorization`
+38. `belief_state_process_reward_replay`
 
 `agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
 integrity boundary: it validates locked evaluator ids, evaluator config hashes,
@@ -545,6 +547,17 @@ exported bundle. The organ rejects private chain-of-thought, internal code,
 exploit instruction detail, credential material, live agent traffic, monitor
 product-performance claims, and coverage labels without adversarial probes
 without claiming live monitoring performance, control-eval scores, provider
+execution, source mutation, or release authority.
+
+`agent_sabotage_scheming_monitor_replay` is the scheming-monitor falsification
+boundary: it validates synthetic task episodes, action traces, per-step monitor
+scores, counterfactual benign replays, and cold replay refs before
+sabotage-monitor language is admitted. Run `microcosm
+agent-sabotage-scheming-monitor-replay run-sabotage-bundle` to inspect the
+exported bundle. The organ rejects live sabotage instructions, real credentials
+or account identifiers, exploit details, private chain-of-thought export, raw
+harmful payloads, monitor-only final grading, and deployment scare-story claims
+without claiming live sabotage detection, monitor product performance, provider
 execution, source mutation, or release authority.
 
 `agent_memory_temporal_conflict_replay` is the agent-memory honesty boundary:
@@ -863,6 +876,8 @@ PYTHONPATH=src python3 -m microcosm_core.organs.mechanistic_interpretability_cir
 PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay --acceptance-out receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
+PYTHONPATH=src python3 -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json
+PYTHONPATH=src python3 -m microcosm_core.cli agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay --acceptance-out receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay --acceptance-out receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json

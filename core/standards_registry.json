@@ -9,10 +9,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 81,
+  "first_wave_required_standard_count": 82,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 82,
+  "standard_count": 83,
   "standards": [
     {
       "first_wave_required": true,
@@ -1206,6 +1206,17 @@
       "wave": "w1_agent_monitor_redteam_falsification_replay"
     },
     {
+      "kind_id": "agent_sabotage_scheming_monitor_replay",
+      "path": "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
+      "receipt_id": "receipt.microcosm.agent_sabotage_scheming_monitor_replay",
+      "standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+      "used_by_organs": [
+        "agent_sabotage_scheming_monitor_replay"
+      ],
+      "validator_id": "validator.microcosm.organs.agent_sabotage_scheming_monitor_replay",
+      "wave": "w1_agent_sabotage_scheming_monitor_replay"
+    },
+    {
       "first_wave_required": true,
       "kind_id": "agent_memory_temporal_conflict_replay",
       "kind_name": "Agent memory temporal-conflict replay",
@@ -1264,5 +1275,5 @@
       "wave": "w1_belief_state_process_reward_replay"
     }
   ],
-  "status": "current_public_standard_registry_belief_state_process_reward_replay_bound"
+  "status": "current_public_standard_registry_agent_sabotage_scheming_monitor_replay_bound"
 }

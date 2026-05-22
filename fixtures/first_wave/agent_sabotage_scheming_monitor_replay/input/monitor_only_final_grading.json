@@ -1,0 +1,7 @@
+{
+  "body_redacted": true,
+  "case_id": "monitor_only_final_grading",
+  "expected_negative_case_id": "monitor_only_final_grading",
+  "final_grading_only": true,
+  "monitor_score_per_step": false
+}

@@ -113,8 +113,8 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["view_quality_summary"]["action_row_count"] == 5
     assert receipt["view_quality_summary"]["hot_action_count"] == 4
     assert receipt["view_quality_summary"]["private_screenshot_paths_exported"] is False
-    assert receipt["projection_safety_summary"]["projection_row_count"] == 37
-    assert receipt["projection_safety_summary"]["omission_receipt_count"] == 37
+    assert receipt["projection_safety_summary"]["projection_row_count"] == 38
+    assert receipt["projection_safety_summary"]["omission_receipt_count"] == 38
     assert receipt["projection_safety_summary"]["private_body_export_count"] == 0
     assert receipt["market_prediction_boundary_summary"]["row_count"] == 8
     assert receipt["market_prediction_boundary_summary"]["decision_boundary_count"] == 8

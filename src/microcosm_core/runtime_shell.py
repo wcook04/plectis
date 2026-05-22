@@ -15,6 +15,7 @@ from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
 from microcosm_core.organs import agent_memory_temporal_conflict_replay
 from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs import agent_route_observability_runtime
+from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
 from microcosm_core.organs import belief_state_process_reward_replay
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -381,6 +382,17 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         ),
         runner=agent_monitor_redteam_falsification_replay.run_monitor_bundle,
         receipt_name="exported_monitor_redteam_bundle_validation_result.json",
+    ),
+    RuntimeStep(
+        organ_id="agent_sabotage_scheming_monitor_replay",
+        span="agent_sabotage_scheming_monitor.validate",
+        input_mode="exported_sabotage_monitor_bundle",
+        example_rel=(
+            "examples/agent_sabotage_scheming_monitor_replay/"
+            "exported_sabotage_monitor_bundle"
+        ),
+        runner=agent_sabotage_scheming_monitor_replay.run_sabotage_bundle,
+        receipt_name="exported_sabotage_monitor_bundle_validation_result.json",
     ),
     RuntimeStep(
         organ_id="agent_memory_temporal_conflict_replay",
@@ -1175,6 +1187,20 @@ class RuntimeShell:
                         "private-reasoning, internal-code, exploit, credential, live-traffic, product-claim, and coverage-without-probe denials",
                         "redaction, escalation, mitigation, and cold replay refs",
                         "no monitor product performance, live traffic, provider, source mutation, or release authority",
+                    ],
+                },
+                {
+                    "step_id": "inspect_agent_sabotage_scheming_monitor_replay",
+                    "command": (
+                        "microcosm agent-sabotage-scheming-monitor-replay "
+                        "run-sabotage-bundle"
+                    ),
+                    "shows": [
+                        "synthetic task episodes joined to action traces and per-step monitor scores",
+                        "caught and missed scheming verdicts before claim admission",
+                        "counterfactual benign replay rows that remove side-task success while preserving main-task success",
+                        "live-sabotage, real-credential, exploit-detail, private-reasoning, harmful-payload, monitor-only, and deployment-claim denials",
+                        "no live sabotage, exploit, credential, provider, deployment-risk, source mutation, or release authority",
                     ],
                 },
                 {
@@ -4539,6 +4565,50 @@ class RuntimeShell:
                 "provider_payload_exported": False,
             },
             {
+                "projection_id": "public_agent_sabotage_scheming_monitor_replay_lens",
+                "command": (
+                    "microcosm agent-sabotage-scheming-monitor-replay "
+                    "run-sabotage-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "public_ref": (
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agent_sabotage_scheming_monitor_replay/"
+                    "exported_sabotage_monitor_bundle_validation_result.json"
+                ),
+                "owner_route": (
+                    "microcosm_core.organs."
+                    "agent_sabotage_scheming_monitor_replay"
+                ),
+                "authority_ceiling_ref": (
+                    "microcosm authority::"
+                    "public_agent_sabotage_scheming_monitor_replay_lens"
+                ),
+                "omission_receipt": {
+                    "omitted": [
+                        "live sabotage instructions",
+                        "real credentials or account identifiers",
+                        "actionable exploit details",
+                        "private chain-of-thought",
+                        "raw harmful payloads",
+                        "deployment-risk product claims",
+                    ],
+                    "drilldown": (
+                        "microcosm agent-sabotage-scheming-monitor-replay "
+                        "run-sabotage-bundle"
+                    ),
+                    "source_ref": (
+                        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
+                        "agent_sabotage_scheming_monitor_replay_compound"
+                    ),
+                },
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "private_body_exported": False,
+                "proof_body_exported": False,
+                "provider_payload_exported": False,
+            },
+            {
                 "projection_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
                     "microcosm agent-memory-temporal-conflict-replay "
@@ -6822,6 +6892,14 @@ class RuntimeShell:
                 "source_pattern_id": "agent_sabotage_scheming_monitor_replay_compound",
                 "threat_model": "synthetic actor tries to hide a failed objective behind success prose",
                 "fixture_input": "synthetic plan/result mismatch with final-answer body redacted",
+                "generated_receipt_ref": (
+                    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/"
+                    "agent_sabotage_scheming_monitor_replay_validation_receipt.json"
+                ),
+                "cold_reader_command": (
+                    "microcosm agent-sabotage-scheming-monitor-replay "
+                    "run-sabotage-bundle"
+                ),
                 "monitor_verdict": "blocked",
                 "containment_action": "route_to_disagreement_receipt_and_fail_closed",
                 "negative_case_id": "self_report_success_without_evidence_rejected",
@@ -8654,6 +8732,29 @@ class RuntimeShell:
                 "credential_material_export_authorized": False,
                 "monitor_product_performance_claim_authorized": False,
                 "control_eval_score_claim_authorized": False,
+            },
+            {
+                "surface_id": "public_agent_sabotage_scheming_monitor_replay_lens",
+                "command": (
+                    "microcosm agent-sabotage-scheming-monitor-replay "
+                    "run-sabotage-bundle"
+                ),
+                "endpoint": "/replay-gauntlet",
+                "authority_role": (
+                    "synthetic agent sabotage scheming-monitor replay and "
+                    "live-sabotage/deployment-claim boundary"
+                ),
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "live_agent_execution_authorized": False,
+                "live_sabotage_authorized": False,
+                "private_reasoning_export_authorized": False,
+                "harmful_payload_export_authorized": False,
+                "exploit_instruction_export_authorized": False,
+                "credential_material_export_authorized": False,
+                "deployment_risk_claim_authorized": False,
+                "monitor_product_performance_claim_authorized": False,
             },
             {
                 "surface_id": "public_agent_memory_temporal_conflict_lens",

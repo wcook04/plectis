@@ -116,6 +116,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "standards-meta-diagnostics",
         "cold-reader-route-map",
         "agent-monitor-redteam-falsification-replay",
+        "agent-sabotage-scheming-monitor-replay",
         "agent-memory-temporal-conflict-replay",
         "sleeper-memory-poisoning-quarantine-replay",
         "mcp-tool-authority-replay",
@@ -135,7 +136,7 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 37
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 38
     assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
@@ -178,24 +179,27 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
         "microcosm agent-monitor-redteam-falsification-replay"
     )
     assert payload["first_run_path"][32]["command"].startswith(
-        "microcosm agent-memory-temporal-conflict-replay"
+        "microcosm agent-sabotage-scheming-monitor-replay"
     )
     assert payload["first_run_path"][33]["command"].startswith(
-        "microcosm sleeper-memory-poisoning-quarantine-replay"
+        "microcosm agent-memory-temporal-conflict-replay"
     )
     assert payload["first_run_path"][34]["command"].startswith(
-        "microcosm mcp-tool-authority-replay"
+        "microcosm sleeper-memory-poisoning-quarantine-replay"
     )
     assert payload["first_run_path"][35]["command"].startswith(
-        "microcosm proof-derived-governed-mutation-authorization"
+        "microcosm mcp-tool-authority-replay"
     )
     assert payload["first_run_path"][36]["command"].startswith(
+        "microcosm proof-derived-governed-mutation-authorization"
+    )
+    assert payload["first_run_path"][37]["command"].startswith(
         "microcosm belief-state-process-reward-replay"
     )
-    assert payload["first_run_path"][37]["command"] == "microcosm benchmark-lab"
-    assert payload["first_run_path"][38]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert payload["first_run_path"][39]["command"] == "microcosm legibility-scorecard"
-    assert payload["first_run_path"][42]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert payload["first_run_path"][38]["command"] == "microcosm benchmark-lab"
+    assert payload["first_run_path"][39]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
+    assert payload["first_run_path"][40]["command"] == "microcosm legibility-scorecard"
+    assert payload["first_run_path"][43]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 
@@ -208,14 +212,18 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 37
-    assert payload["surface_counts"]["surface_authority_count"] == 37
+    assert payload["surface_counts"]["organ_authority_count"] == 38
+    assert payload["surface_counts"]["surface_authority_count"] == 38
     assert any(row["surface_id"] == "project_python_lens" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/authority" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/tour" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/market-boundary" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/hook-coverage" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/replay-gauntlet" for row in payload["surface_authority"])
+    assert any(
+        row["surface_id"] == "public_agent_sabotage_scheming_monitor_replay_lens"
+        for row in payload["surface_authority"]
+    )
     assert any(row["surface_id"] == "public_mcp_tool_authority_replay_lens" for row in payload["surface_authority"])
     assert any(
         row["surface_id"]
@@ -411,7 +419,7 @@ def test_cli_projection_safety_smoke(capsys: pytest.CaptureFixture[str]) -> None
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm projection-safety"
     assert payload["endpoint"] == "/projection-safety"
-    assert payload["projection_summary"]["omission_receipt_count"] == 37
+    assert payload["projection_summary"]["omission_receipt_count"] == 38
     assert payload["projection_summary"]["private_body_export_count"] == 0
     assert payload["projection_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["source_mutation_authorized"] is False

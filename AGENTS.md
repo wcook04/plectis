@@ -45,6 +45,7 @@ explanation, and assimilation primitives, not through production claims.
 - `standards_meta_diagnostics`
 - `cold_reader_route_map`
 - `agent_monitor_redteam_falsification_replay`
+- `agent_sabotage_scheming_monitor_replay`
 - `agent_memory_temporal_conflict_replay`
 - `sleeper_memory_poisoning_quarantine_replay`
 - `mcp_tool_authority_replay`
@@ -220,6 +221,15 @@ explanation, and assimilation primitives, not through production claims.
    credentials, live agent traffic, provider payloads, monitor product
    performance claims, control-eval scores, source mutation, or release
    authority.
+   The `agent_sabotage_scheming_monitor_replay` organ is the runnable public
+   scheming-monitor replay lane: use
+   `agent-sabotage-scheming-monitor-replay` or `replay-gauntlet` to validate
+   synthetic episodes, action traces, per-step monitor scores, counterfactual
+   benign replays, cold replay receipts, and negative cases before
+   sabotage-monitor language is admitted. It must not export live sabotage
+   instructions, real credentials or account identifiers, exploit details,
+   private chain-of-thought, raw harmful payloads, deployment-risk claims,
+   provider payloads, source mutation, or release authority.
    The `agent_memory_temporal_conflict_replay` organ is the runnable public
    memory temporal-conflict lane: use
    `agent-memory-temporal-conflict-replay` or `replay-gauntlet` to validate
@@ -466,7 +476,8 @@ explanation, and assimilation primitives, not through production claims.
    `undeclared_library_prior_symbol_classifier`,
    `ring2_premise_retrieval_precision_recall_harness`,
    `agent_benchmark_integrity_anti_gaming_replay`, and
-   `agent_monitor_redteam_falsification_replay`, and
+   `agent_monitor_redteam_falsification_replay`,
+   `agent_sabotage_scheming_monitor_replay`, and
    `provider_context_recipe_budget_policy` are
    metadata/retrieval/admissibility/metric/context-budget lanes only, and
    `formal_math_lean_proof_witness` authorizes only the tiny public witness

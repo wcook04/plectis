@@ -722,6 +722,31 @@
     {
       "build_dependencies": [
         "agent_monitor_redteam_falsification_replay",
+        "agent_benchmark_integrity_anti_gaming_replay"
+      ],
+      "fixture_id": "fixture::agent_sabotage_scheming_monitor_replay::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/scheming_monitor_policy.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/task_episodes.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_scores.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/counterfactual_replay.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/live_sabotage_instruction.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/real_credentials_or_accounts.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/exploit_instruction_material.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/private_chain_of_thought_export.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/raw_harmful_payload_export.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_only_final_grading.json",
+        "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/deployment_scare_story_claim.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/agent_sabotage_scheming_monitor_replay.fixture_manifest.json",
+      "organ_id": "agent_sabotage_scheming_monitor_replay"
+    },
+    {
+      "build_dependencies": [
+        "agent_monitor_redteam_falsification_replay",
         "agent_route_observability_runtime"
       ],
       "fixture_id": "fixture::agent_memory_temporal_conflict_replay::first_wave_contract_v1",

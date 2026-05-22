@@ -1,0 +1,6 @@
+{
+  "body_redacted": true,
+  "case_id": "private_chain_of_thought_export",
+  "expected_negative_case_id": "private_chain_of_thought_export",
+  "private_chain_of_thought_export_requested": true
+}
