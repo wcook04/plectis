@@ -1,7 +1,7 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-22T06:15:26+00:00",
+  "created_at": "2026-05-22T06:30:46+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,18 +21,8 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_1369",
+  "event_id": "evt_1375",
   "event_refs": [
-    {
-      "event_id": "evt_1332",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1333",
-      "span": "project.explain",
-      "status": "pass"
-    },
     {
       "event_id": "evt_1338",
       "span": "project.route",
@@ -80,6 +70,16 @@
     },
     {
       "event_id": "evt_1368",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1369",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1374",
       "span": "project.route",
       "status": "pass"
     }

@@ -1,7 +1,7 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-22T06:15:26+00:00",
+  "created_at": "2026-05-22T06:30:46+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,18 +21,8 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_1369",
+  "event_id": "evt_1375",
   "event_refs": [
-    {
-      "event_id": "evt_1332",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1333",
-      "span": "project.explain",
-      "status": "pass"
-    },
     {
       "event_id": "evt_1338",
       "span": "project.route",
@@ -82,6 +72,16 @@
       "event_id": "evt_1368",
       "span": "project.route",
       "status": "pass"
+    },
+    {
+      "event_id": "evt_1369",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1374",
+      "span": "project.route",
+      "status": "pass"
     }
   ],
   "evidence_ref": ".microcosm/evidence/explain_readme_onboarding_route.json",
@@ -92,7 +92,7 @@
   "evidence_replacement": {
     "append_only_event_history_ref": ".microcosm/events.jsonl",
     "policy": "stable_ref_latest_body",
-    "previous_sha256": "b08c1e98179c94f9f86a7ad48ff6036bbf76bd9d927bc2d716990d793c8121f2",
+    "previous_sha256": "ddfcf13fcb508aced271e0ac89e869ee27c0a5b30b18a18ae4f08bb8ce04ce6d",
     "replacement_recorded": true,
     "stable_ref": ".microcosm/evidence/explain_readme_onboarding_route.json"
   },
