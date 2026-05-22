@@ -11,7 +11,8 @@
     "private_issue_body_leakage",
     "provider_payload_leakage",
     "score_overclaim",
-    "train_test_leakage"
+    "train_test_leakage",
+    "unregistered_case_replay"
   ],
   "fixture_id": "fixture::agent_benchmark_integrity_anti_gaming_replay::first_wave_contract_v1",
   "generated_receipts": [
@@ -76,6 +77,10 @@
     {
       "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/private_issue_body_leakage.json",
       "role": "negative case: private issue body leakage"
+    },
+    {
+      "path": "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/unregistered_case_replay.json",
+      "role": "negative case: replay row references a case outside benchmark_cases.json"
     }
   ],
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
@@ -90,7 +95,8 @@
     "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
     "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
     "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
-    "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE"
+    "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE",
+    "BENCHMARK_INTEGRITY_UNREGISTERED_CASE_REPLAY"
   ],
   "title": "Agent benchmark integrity anti-gaming replay fixture",
   "validator": "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay",

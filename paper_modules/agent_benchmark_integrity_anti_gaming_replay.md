@@ -14,11 +14,14 @@ the public boundary.
 ## Public Mechanics
 
 - A replay cannot pass unless the evaluator id and config hash are locked.
+- A replay row cannot pass unless its case id appears in the declared
+  `benchmark_cases.json` roster.
 - File-access logs, contamination checks, trusted references, and output replay
   refs are required before any benchmark-style language can be considered.
 - Train/test leakage, hidden-gold access, oracle patch bodies, provider
   payloads, final-answer-only grading, pass-k cherry-picking, misleading tests,
-  private issue bodies, and score overclaims are quarantine cases.
+  private issue bodies, unregistered case replays, and score overclaims are
+  quarantine cases.
 - `integrity_pass` is evidence that a synthetic replay respected the boundary,
   not evidence of a SWE-bench score or live agent capability.
 - Receipts expose ids, refs, verdicts, counts, negative cases, and authority

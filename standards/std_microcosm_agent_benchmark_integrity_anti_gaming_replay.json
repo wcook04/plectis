@@ -58,6 +58,7 @@
       "protocol_id",
       "source_pattern_ids",
       "locked_evaluator_ids",
+      "known_benchmark_case_ids",
       "benchmark_case_count",
       "replay_count",
       "integrity_pass_count",
@@ -72,7 +73,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
-    "receipt must cite source refs, source pattern ids, locked evaluator ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source refs, source pattern ids, locked evaluator ids, known benchmark case ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
@@ -139,7 +140,8 @@
       "score_overclaim",
       "pass_k_cherry_picking",
       "misleading_test_admitted",
-      "private_issue_body_leakage"
+      "private_issue_body_leakage",
+      "unregistered_case_replay"
     ],
     "ontology": "A public-safe benchmark integrity replay: locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, and negative cases.",
     "rebuild_action": "draft",
@@ -148,6 +150,7 @@
   "status": "draft",
   "validation_rules": [
     "require locked evaluator id and config hash before score interpretation",
+    "require each replay row to bind to a case id declared in benchmark_cases.json",
     "require file-access log, contamination check, trusted reference score, and output replay refs",
     "reject private issue bodies, oracle patch bodies, hidden-gold access, provider payloads, and score overclaims",
     "reject final-answer-only grading, pass-k cherry-picking, train/test leakage, and misleading-test admission",
@@ -157,6 +160,7 @@
     "minimum_checks": [
       "locked_evaluator_policy",
       "required_replay_fields",
+      "locked_case_roster_binding",
       "contamination_quarantine",
       "body_leak_rejection",
       "score_overclaim_rejection",

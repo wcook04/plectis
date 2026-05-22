@@ -64,7 +64,8 @@
         "private_issue_body_leakage",
         "provider_payload_leakage",
         "score_overclaim",
-        "train_test_leakage"
+        "train_test_leakage",
+        "unregistered_case_replay"
       ],
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
       "status": "covered_by_fixture_manifest"

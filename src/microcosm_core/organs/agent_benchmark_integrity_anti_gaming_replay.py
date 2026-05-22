@@ -48,6 +48,7 @@ NEGATIVE_INPUT_NAMES = (
     "pass_k_cherry_picking.json",
     "misleading_test_admitted.json",
     "private_issue_body_leakage.json",
+    "unregistered_case_replay.json",
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -61,6 +62,7 @@ EXPECTED_NEGATIVE_CASES = {
     "pass_k_cherry_picking": ["BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING"],
     "misleading_test_admitted": ["BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED"],
     "private_issue_body_leakage": ["BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN"],
+    "unregistered_case_replay": ["BENCHMARK_INTEGRITY_UNREGISTERED_CASE_REPLAY"],
 }
 
 REQUIRED_REPLAY_FIELDS = (
@@ -333,11 +335,13 @@ def _validate_replay_row(
     row: dict[str, Any],
     *,
     locked_evaluators: set[str],
+    known_case_ids: set[str],
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
     negative: bool,
 ) -> dict[str, Any]:
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or "replay")
+    replay_case_id = str(row.get("case_id") or "")
     replay_id = str(row.get("replay_id") or row.get("case_id") or case_id)
     subject_kind = "negative_case" if negative else "replay_observation"
 
@@ -456,6 +460,17 @@ def _validate_replay_row(
             subject_id=replay_id,
             subject_kind=subject_kind,
         )
+    if replay_case_id not in known_case_ids:
+        reasons.append("unregistered_case_replay")
+        _record(
+            findings,
+            observed,
+            "BENCHMARK_INTEGRITY_UNREGISTERED_CASE_REPLAY",
+            "Replay observations must bind to a case id declared in benchmark_cases.json.",
+            case_id=case_id,
+            subject_id=replay_id,
+            subject_kind=subject_kind,
+        )
     if missing_fields:
         reasons.append("replay_field_missing")
     if row.get("quarantine_reason_ref"):
@@ -466,7 +481,7 @@ def _validate_replay_row(
         computed_verdict = "quarantine"
     return {
         "replay_id": replay_id,
-        "case_id": str(row.get("case_id") or ""),
+        "case_id": replay_case_id,
         "expected_negative_case_id": case_id if negative else None,
         "evaluator_id": evaluator_id,
         "integrity_verdict": verdict or computed_verdict,
@@ -484,10 +499,16 @@ def _validate_replay_row(
 def validate_replay_observations(
     payload: object,
     policy: object,
+    benchmark_case_payload: object,
     negative_payloads: dict[str, object],
 ) -> dict[str, Any]:
     policy_rows = policy if isinstance(policy, dict) else {}
     locked = set(_strings(policy_rows.get("locked_evaluator_ids")))
+    known_case_ids = {
+        str(row.get("case_id"))
+        for row in _rows(benchmark_case_payload, "benchmark_cases")
+        if row.get("case_id")
+    }
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     rows: list[dict[str, Any]] = []
@@ -496,6 +517,7 @@ def validate_replay_observations(
             _validate_replay_row(
                 row,
                 locked_evaluators=locked,
+                known_case_ids=known_case_ids,
                 findings=findings,
                 observed=observed,
                 negative=False,
@@ -509,6 +531,7 @@ def validate_replay_observations(
             _validate_replay_row(
                 row,
                 locked_evaluators=locked,
+                known_case_ids=known_case_ids,
                 findings=findings,
                 observed=observed,
                 negative=True,
@@ -529,6 +552,7 @@ def validate_replay_observations(
         "quarantine_count": sum(
             1 for row in rows if row["computed_integrity_verdict"] == "quarantine"
         ),
+        "known_benchmark_case_ids": sorted(known_case_ids),
         "replay_rows": sorted(rows, key=lambda row: row["replay_id"]),
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
@@ -559,6 +583,7 @@ def _build_result(
     observations = validate_replay_observations(
         payloads["replay_observations"],
         payloads["locked_evaluator_policy"],
+        payloads["benchmark_cases"],
         {
             name: payloads[name]
             for name in (Path(item).stem for item in NEGATIVE_INPUT_NAMES)
@@ -606,6 +631,7 @@ def _build_result(
         "public_replacement_refs": projection["public_replacement_refs"],
         "locked_evaluator_ids": evaluator_policy["locked_evaluator_ids"],
         "benchmark_case_count": benchmark_cases["benchmark_case_count"],
+        "known_benchmark_case_ids": observations["known_benchmark_case_ids"],
         "held_out_guard_count": benchmark_cases["held_out_guard_count"],
         "replay_count": observations["replay_count"],
         "integrity_pass_count": observations["integrity_pass_count"],
@@ -635,11 +661,17 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "hidden_gold_oracle_patch_and_train_test_leakage_reject_score_claim",
             },
             {
+                "mechanic_id": "locked_case_roster_binding",
+                "count": len(result["known_benchmark_case_ids"]),
+                "authority": "replay_rows_must_bind_to_declared_benchmark_case_ids",
+            },
+            {
                 "mechanic_id": "no_score_from_replay",
                 "count": result["replay_count"],
                 "authority": "synthetic_replay_is_integrity_evidence_not_benchmark_metric",
             },
         ],
+        "known_benchmark_case_ids": result["known_benchmark_case_ids"],
         "benchmark_cases": result["benchmark_cases"],
         "replay_rows": result["replay_rows"],
         "body_redacted": True,
@@ -694,6 +726,7 @@ def _write_receipts(
         "replay_count": result["replay_count"],
         "integrity_pass_count": result["integrity_pass_count"],
         "quarantine_count": result["quarantine_count"],
+        "known_benchmark_case_ids": result["known_benchmark_case_ids"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -708,6 +741,7 @@ def _write_receipts(
         "validator_id": VALIDATOR_ID,
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
+        "known_benchmark_case_ids": result["known_benchmark_case_ids"],
         "error_codes": result["error_codes"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],

@@ -1396,6 +1396,7 @@ class RuntimeShell:
                     ),
                     "shows": [
                         "locked evaluator and config-hash receipts",
+                        "benchmark-case roster binding for each replay row",
                         "file-access logs, contamination checks, and trusted references",
                         "hidden-gold, oracle-patch, pass-k, and misleading-test denial",
                         "score-claim boundary before public benchmark language",

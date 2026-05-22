@@ -54,6 +54,11 @@ def test_agent_benchmark_integrity_replay_observes_negative_cases(
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert result["benchmark_case_count"] == 3
+    assert result["known_benchmark_case_ids"] == [
+        "repo_issue_public_001",
+        "repo_issue_public_002",
+        "repo_issue_public_003",
+    ]
     assert result["replay_count"] == 3
     assert result["integrity_pass_count"] == 2
     assert result["quarantine_count"] == 1
@@ -111,5 +116,10 @@ def test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape(
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
     assert result["benchmark_case_count"] == 3
+    assert result["known_benchmark_case_ids"] == [
+        "repo_issue_public_001",
+        "repo_issue_public_002",
+        "repo_issue_public_003",
+    ]
     assert result["replay_count"] == 3
     assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False

@@ -246,7 +246,8 @@
         "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/score_overclaim.json",
         "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/pass_k_cherry_picking.json",
         "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/misleading_test_admitted.json",
-        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/private_issue_body_leakage.json"
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/private_issue_body_leakage.json",
+        "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/unregistered_case_replay.json"
       ],
       "fixture_manifest": "core/fixture_manifests/agent_benchmark_integrity_anti_gaming_replay.fixture_manifest.json",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay"

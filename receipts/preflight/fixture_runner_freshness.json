@@ -185,7 +185,7 @@
   "checker_id": "checker.microcosm.validators.fixture_freshness",
   "command": "python -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
   "fixture_manifest_sha256_by_organ": {
-    "agent_benchmark_integrity_anti_gaming_replay": "d7514392ea6fb1f4fa4da9bd72ece18ba48566957c3fa6cda484198965c6b515",
+    "agent_benchmark_integrity_anti_gaming_replay": "ae36f1a26b20e1e647d264f1d5582247f824e5e761762e62b92c074725761ee3",
     "agent_memory_temporal_conflict_replay": "28a47887bd460967f4f669479a61528b87cefdce00f5084f39d48da2d63747b5",
     "agent_monitor_redteam_falsification_replay": "af36b71824a87be2894402c55e96bacc420ee5071d0352c94778d91b5fd9862b",
     "agent_route_observability_runtime": "0d261156f2159575aa1e069c0b0e4059536606958b54fbdc73e072afc69ed3ba",
@@ -242,7 +242,8 @@
       "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/provider_payload_leakage.json": "60b851e7a29c8ecf903b802e3766eaa57c2a4715776d42a8522159d14c11fda8",
       "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json": "93aa53925341205df39c6d01912927c34319ac28b5cfe3da7664c1c0c485e43e",
       "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/score_overclaim.json": "333ae1a50a406fa7b2a70803a428edd4cce78329eb2745a0fb3e73ff6f157208",
-      "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/train_test_leakage.json": "53a92349799444b18a9ccf28ff9061fe7cd6907557ac334f58239ddefdcde88a"
+      "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/train_test_leakage.json": "53a92349799444b18a9ccf28ff9061fe7cd6907557ac334f58239ddefdcde88a",
+      "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/unregistered_case_replay.json": "3de1211a81c899178dc3a8c7c2e3b841cae4cd0e35314825066e20a40e9dcd6a"
     },
     "agent_memory_temporal_conflict_replay": {
       "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/active_injection_as_authoritative.json": "5c5c8261596125cd9e0928b7790f4bb589494b51d9681073ffba5369c80baecb",

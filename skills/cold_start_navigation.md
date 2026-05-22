@@ -244,8 +244,9 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
    agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle`
    path to inspect locked evaluator receipts, contamination checks,
-   file-access logs, trusted-reference scoring refs, held-out guards, and
-   anti-gaming denials before trusting benchmark-style claims.
+   file-access logs, trusted-reference scoring refs, held-out guards,
+   benchmark-case roster binding, and anti-gaming denials before trusting
+   benchmark-style claims.
 30. Run `microcosm legibility-scorecard` or
    `PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard` to
    inspect the cold-reader question-to-command scorecard, six comprehension

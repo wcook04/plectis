@@ -49,8 +49,8 @@
     }
   ],
   "bundle_id": "agent_benchmark_integrity_anti_gaming_replay_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:43+00:00",
+  "command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run-benchmark-integrity-bundle",
+  "created_at": "2026-05-22T12:37:00+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -58,6 +58,11 @@
   "held_out_guard_count": 6,
   "input_mode": "exported_benchmark_integrity_bundle",
   "integrity_pass_count": 2,
+  "known_benchmark_case_ids": [
+    "repo_issue_public_001",
+    "repo_issue_public_002",
+    "repo_issue_public_003"
+  ],
   "locked_evaluator_ids": [
     "locked_regression_guard_scorer_v1",
     "locked_repo_repair_scorer_v1"

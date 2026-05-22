@@ -552,8 +552,9 @@ agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle`
 to inspect the synthetic replay bundle. The organ rejects evaluator edits,
 train/test leakage, oracle patch bodies, hidden-gold access,
 final-answer-only grading, provider payloads, score overclaims, pass-k
-cherry-picking, misleading tests, and private issue bodies without claiming a
-SWE-bench score, live repo mutation, provider execution, or release authority.
+cherry-picking, misleading tests, private issue bodies, and replay rows whose
+case id is outside the declared benchmark roster without claiming a SWE-bench
+score, live repo mutation, provider execution, or release authority.
 
 `agent_monitor_redteam_falsification_replay` is the monitor/redteam honesty
 boundary: it validates synthetic trajectories, monitor verdicts, adversarial

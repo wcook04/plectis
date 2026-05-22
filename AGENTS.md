@@ -465,9 +465,9 @@ explanation, and assimilation primitives, not through production claims.
    The `agent_benchmark_integrity_anti_gaming_replay` organ is the benchmark
    integrity boundary: use `agent-benchmark-integrity-anti-gaming-replay` to
    validate locked evaluators, contamination checks, file-access logs,
-   trusted-reference scoring, held-out guards, and anti-gaming negative cases
-   without claiming a benchmark score, exposing private issue/oracle bodies, or
-   authorizing provider execution.
+   trusted-reference scoring, held-out guards, benchmark-case roster binding,
+   and anti-gaming negative cases without claiming a benchmark score, exposing
+   private issue/oracle bodies, or authorizing provider execution.
    The `provider_context_recipe_budget_policy` organ is the provider-context
    budget boundary: use `provider-context-recipe-budget-policy` to validate
    fixed recipe byte ceilings, ordered section fill, omitted-section manifests,
