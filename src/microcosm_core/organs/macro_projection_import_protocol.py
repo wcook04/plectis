@@ -42,6 +42,7 @@ NEGATIVE_INPUT_NAMES = (
     "authority_upgrade_overclaim.json",
     "missing_validation_ref.json",
     "release_or_private_equivalence_overclaim.json",
+    "standalone_dependency_leak.json",
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -52,6 +53,7 @@ EXPECTED_NEGATIVE_CASES = {
     "release_or_private_equivalence_overclaim": [
         "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM"
     ],
+    "standalone_dependency_leak": ["MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK"],
 }
 
 TRUE_FORBIDDEN_MATERIAL_CLASSES = {
@@ -73,6 +75,39 @@ PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
 }
 PUBLIC_SAFE_BODY_COPY_POLICY = "public_safe_body_with_provenance_and_claim_ceiling"
 METADATA_COPY_POLICY = "metadata_fixture_receipt_ref_only"
+MACRO_ORIGIN_REF_POLICY = "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
+STANDALONE_RELEASE_ROOT_REF = "microcosm-substrate"
+STANDALONE_RUNTIME_ALLOWED_PREFIXES = (
+    "AGENTS.md",
+    "README.md",
+    "core/",
+    "examples/",
+    "fixtures/",
+    "paper_modules/",
+    "pyproject.toml",
+    "receipts/",
+    "src/",
+    "standards/",
+    "tests/",
+)
+STANDALONE_RUNTIME_BLOCKED_PREFIXES = (
+    "/",
+    "../",
+    "codex/ledger/",
+    "formal_math/",
+    "obsidian/",
+    "state/",
+    "tools/meta/",
+)
+STANDALONE_RUNTIME_BLOCKED_TOKENS = (
+    "credential",
+    "operator_thread",
+    "private_root",
+    "provider_payload",
+    "raw_seed",
+    "recipient_packet",
+    "release_packet",
+)
 FORBIDDEN_MATERIAL_CLASSES = TRUE_FORBIDDEN_MATERIAL_CLASSES
 FORBIDDEN_AUTHORITY_FLAGS = (
     "source_authority_above_macro_contracts",
@@ -653,6 +688,95 @@ def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
     return source_refs
 
 
+def _normalize_release_runtime_ref(ref: str) -> str:
+    if ref.startswith(f"{STANDALONE_RELEASE_ROOT_REF}/"):
+        return ref[len(STANDALONE_RELEASE_ROOT_REF) + 1 :]
+    return ref
+
+
+def _runtime_ref_leak_reason(ref: str) -> str | None:
+    normalized = _normalize_release_runtime_ref(ref)
+    if not normalized:
+        return "empty_runtime_ref"
+    if any(normalized.startswith(prefix) for prefix in STANDALONE_RUNTIME_BLOCKED_PREFIXES):
+        return "blocked_runtime_prefix"
+    if any(token in normalized for token in STANDALONE_RUNTIME_BLOCKED_TOKENS):
+        return "blocked_runtime_token"
+    if not any(normalized == prefix or normalized.startswith(prefix) for prefix in STANDALONE_RUNTIME_ALLOWED_PREFIXES):
+        return "outside_release_tree"
+    return None
+
+
+def _standalone_runtime_ref_rows(refs: list[str], *, role: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for ref in refs:
+        normalized = _normalize_release_runtime_ref(ref)
+        leak_reason = _runtime_ref_leak_reason(ref)
+        rows.append(
+            {
+                "ref": ref,
+                "normalized_ref": normalized,
+                "dependency_role": role,
+                "status": PASS if leak_reason is None else "blocked",
+                "leak_reason": leak_reason,
+            }
+        )
+    return rows
+
+
+def _runtime_dependency_rows(payload: object) -> list[dict[str, Any]]:
+    rows = _rows(payload, "runtime_dependencies")
+    if rows:
+        return rows
+    if isinstance(payload, dict):
+        ref = payload.get("runtime_ref") or payload.get("ref") or payload.get("path")
+        if isinstance(ref, str) and ref:
+            return [payload]
+    return []
+
+
+def _standalone_dependency_leaks(payload: object) -> list[dict[str, Any]]:
+    leaks: list[dict[str, Any]] = []
+    for row in _runtime_dependency_rows(payload):
+        ref = str(row.get("runtime_ref") or row.get("ref") or row.get("path") or "")
+        reason = _runtime_ref_leak_reason(ref)
+        if row.get("private_runtime_dependency") is True:
+            reason = reason or "declared_private_runtime_dependency"
+        if reason is not None:
+            leaks.append(
+                {
+                    "dependency_id": str(row.get("dependency_id") or row.get("case_id") or ref),
+                    "ref": ref,
+                    "dependency_role": str(row.get("dependency_role") or "runtime_required"),
+                    "leak_reason": reason,
+                    "body_redacted": True,
+                }
+            )
+    return leaks
+
+
+def validate_standalone_release_severance(
+    standalone_negative: object | None = None,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    observed: dict[str, set[str]] = defaultdict(set)
+    for leak in _standalone_dependency_leaks(standalone_negative):
+        _record(
+            findings,
+            observed,
+            "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
+            "Standalone release rejects runtime dependencies on macro/private roots.",
+            case_id="standalone_dependency_leak",
+            subject_id=str(leak["dependency_id"]),
+            subject_kind="negative_case",
+        )
+    return {
+        "status": PASS,
+        "findings": findings,
+        "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
+    }
+
+
 def _public_safe_body_import_rows(
     protocol_payload: dict[str, Any],
     *,
@@ -902,6 +1026,99 @@ def _build_projection_intake_board(
     }
 
 
+def _build_standalone_release_board(
+    projection_intake_board: dict[str, Any],
+    *,
+    protocol: dict[str, Any],
+    import_plan: dict[str, Any],
+) -> dict[str, Any]:
+    runtime_rows: list[dict[str, Any]] = []
+    seen_runtime: set[tuple[str, str]] = set()
+
+    def add_runtime_refs(refs: list[str], *, role: str) -> None:
+        for row in _standalone_runtime_ref_rows(refs, role=role):
+            key = (str(row["ref"]), role)
+            if key in seen_runtime:
+                continue
+            seen_runtime.add(key)
+            runtime_rows.append(row)
+
+    origin_refs: set[str] = set(protocol["source_refs"])
+    for row in projection_intake_board["public_safe_body_imports"]:
+        origin_refs.update(_strings(row.get("source_refs")))
+        origin_refs.update(_strings(row.get("provenance_refs")))
+        target_ref = row.get("target_ref")
+        add_runtime_refs([target_ref] if isinstance(target_ref, str) else [], role="imported_body_target")
+        add_runtime_refs(_strings(row.get("validation_refs")), role="import_validation")
+
+    for row in projection_intake_board["projection_cells"]:
+        origin_refs.update(_strings(row.get("source_refs")))
+        add_runtime_refs(_strings(row.get("target_refs")), role="projection_cell_target")
+        add_runtime_refs(_strings(row.get("validation_refs")), role="projection_cell_validation")
+        add_runtime_refs(_strings(row.get("landed_evidence_refs")), role="landed_evidence")
+
+    leaked_runtime_rows = [
+        row for row in runtime_rows if row.get("status") != PASS
+    ]
+    findings = [
+        _finding(
+            "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
+            "Standalone release runtime refs must resolve inside the Microcosm release tree; macro-origin refs are provenance only.",
+            case_id="standalone_release_floor",
+            subject_id=str(row.get("ref") or "runtime_dependency"),
+            subject_kind="standalone_release_runtime_dependency",
+        )
+        for row in leaked_runtime_rows
+    ]
+    status = PASS if not leaked_runtime_rows else "blocked"
+    return {
+        "schema_version": "macro_projection_standalone_release_severance_board_v1",
+        "status": status,
+        "standalone_release_status": status,
+        "standalone_release_candidate": status == PASS,
+        "standalone_release_root": STANDALONE_RELEASE_ROOT_REF,
+        "source_to_standalone_policy": "copy_vendor_rewrite_or_replace_then_run_without_private_root",
+        "macro_origin_ref_policy": MACRO_ORIGIN_REF_POLICY,
+        "macro_origin_refs": sorted(origin_refs),
+        "macro_origin_ref_count": len(origin_refs),
+        "macro_origin_refs_runtime_required": False,
+        "runtime_dependency_status": status,
+        "runtime_dependency_refs": sorted({str(row["ref"]) for row in runtime_rows}),
+        "runtime_dependency_count": len(runtime_rows),
+        "private_runtime_dependency_count": len(leaked_runtime_rows),
+        "runtime_dependencies": sorted(
+            runtime_rows,
+            key=lambda row: (str(row.get("dependency_role") or ""), str(row.get("ref") or "")),
+        ),
+        "blocked_runtime_dependencies": leaked_runtime_rows,
+        "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
+        "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
+        "public_safe_body_import_classes": projection_intake_board["public_safe_body_import_classes"],
+        "projection_cell_count": import_plan["projection_cell_count"],
+        "ready_projection_cell_count": projection_intake_board["ready_cell_count"],
+        "claim_ceiling": AUTHORITY_CEILING,
+        "release_authorized": False,
+        "publication_authorized": False,
+        "private_data_equivalence_claim": False,
+        "severance_checks": [
+            {
+                "check_id": "macro_origin_refs_are_provenance_only",
+                "status": PASS,
+            },
+            {
+                "check_id": "runtime_refs_stay_inside_release_tree",
+                "status": status,
+            },
+            {
+                "check_id": "claim_ceiling_remains_false_for_release_and_private_equivalence",
+                "status": PASS,
+            },
+        ],
+        "findings": findings,
+        "body_redacted": True,
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -929,6 +1146,9 @@ def _build_result(
         import_policy=policy,
     )
     cleaning_policy = validate_cleaning_policy(payloads["cleaning_policy"])
+    standalone_negative = validate_standalone_release_severance(
+        payloads.get("standalone_dependency_leak")
+    )
     public_safe_material_ids = {
         str(row.get("material_id"))
         for row in _public_safe_body_import_rows(payloads["projection_protocol"], import_policy=policy)
@@ -939,24 +1159,14 @@ def _build_result(
         payloads.get("missing_validation_ref"),
         public_safe_material_ids=public_safe_material_ids,
     )
-    observed = _merge_observed(protocol, cleaning_policy, import_plan)
+    observed = _merge_observed(protocol, cleaning_policy, import_plan, standalone_negative)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(protocol, cleaning_policy, import_plan)
-    error_codes = sorted({str(row["error_code"]) for row in findings})
+    findings = _merge_findings(protocol, cleaning_policy, import_plan, standalone_negative)
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()
         else {}
-    )
-    status = (
-        PASS
-        if not missing
-        and private_scan["blocking_hit_count"] == 0
-        and protocol["status"] == PASS
-        and cleaning_policy["status"] == PASS
-        and import_plan["status"] == PASS
-        else "blocked"
     )
     projection_intake_board = _build_projection_intake_board(
         payloads,
@@ -969,6 +1179,31 @@ def _build_result(
         expected_negative_cases=expected,
         observed_negative_cases=observed,
         missing_negative_cases=missing,
+    )
+    standalone_release_board = _build_standalone_release_board(
+        projection_intake_board,
+        protocol=protocol,
+        import_plan=import_plan,
+    )
+    findings = sorted(
+        [*findings, *standalone_release_board["findings"]],
+        key=lambda row: (
+            str(row.get("negative_case_id") or ""),
+            str(row.get("subject_kind") or ""),
+            str(row.get("subject_id") or ""),
+            str(row.get("error_code") or ""),
+        ),
+    )
+    error_codes = sorted({str(row["error_code"]) for row in findings})
+    status = (
+        PASS
+        if not missing
+        and private_scan["blocking_hit_count"] == 0
+        and protocol["status"] == PASS
+        and cleaning_policy["status"] == PASS
+        and import_plan["status"] == PASS
+        and standalone_release_board["status"] == PASS
+        else "blocked"
     )
     return {
         "schema_version": "macro_projection_import_protocol_result_v1",
@@ -1000,6 +1235,12 @@ def _build_result(
         else "not_present",
         "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
         "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
+        "standalone_release_status": standalone_release_board["standalone_release_status"],
+        "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
+        "private_runtime_dependency_count": standalone_release_board[
+            "private_runtime_dependency_count"
+        ],
+        "macro_origin_ref_count": standalone_release_board["macro_origin_ref_count"],
         "projection_cell_count": import_plan["projection_cell_count"],
         "ready_projection_cell_count": projection_intake_board["ready_cell_count"],
         "blocked_projection_cell_count": projection_intake_board["blocked_cell_count"],
@@ -1026,6 +1267,9 @@ def _build_result(
             "public_safe_body_material_count": protocol["public_safe_body_material_count"],
             "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
             "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
+            "standalone_release_status": standalone_release_board["standalone_release_status"],
+            "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
+            "standalone_release_board_embedded": True,
             "projection_cell_count": import_plan["projection_cell_count"],
             "next_best_lane": import_plan["next_best_lane"],
             "release_authorized": False,
@@ -1034,6 +1278,7 @@ def _build_result(
             "intake_board_ref": INTAKE_BOARD_NAME,
         },
         "projection_intake_board": projection_intake_board,
+        "standalone_release_board": standalone_release_board,
         "body_redacted": True,
     }
 
@@ -1070,6 +1315,10 @@ def _common_receipt(
         "public_safe_body_import_status",
         "public_safe_body_import_count",
         "public_safe_body_import_routes",
+        "standalone_release_status",
+        "runtime_dependency_status",
+        "private_runtime_dependency_count",
+        "macro_origin_ref_count",
         "projection_cell_count",
         "ready_projection_cell_count",
         "blocked_projection_cell_count",
@@ -1079,6 +1328,7 @@ def _common_receipt(
         "validation_refs",
         "forbidden_material_classes",
         "next_best_lane",
+        "standalone_release_board",
         "body_redacted",
     )
     payload = {
@@ -1157,6 +1407,8 @@ def write_receipts(
             in result["observed_negative_cases"],
             "release_and_equivalence_overclaims_rejected": "release_or_private_equivalence_overclaim"
             in result["observed_negative_cases"],
+            "standalone_dependency_leaks_rejected": "standalone_dependency_leak"
+            in result["observed_negative_cases"],
             "projection_intake_board_ref": _display(
                 paths["projection_import_intake_board"], public_root=public_root_path
             ),
@@ -1177,6 +1429,10 @@ def write_receipts(
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
             "projection_import_boundary": "metadata_fixture_receipt_ref_import_only",
+            "standalone_release_boundary": (
+                "macro_origin_provenance_only_public_runtime_tree_required"
+            ),
+            "standalone_release_status": result["standalone_release_status"],
         }
     )
 
@@ -1266,6 +1522,7 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
         "command": command_text,
         "input_mode": result["input_mode"],
         "projection_intake_board": result["projection_intake_board"],
+        "standalone_release_board": result["standalone_release_board"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,

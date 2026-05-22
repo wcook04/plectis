@@ -56,10 +56,14 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["validation_ref_count"] >= 2
     assert result["public_safe_body_material_count"] == 2
     assert result["public_safe_body_import_status"] == "pass"
+    assert result["standalone_release_status"] == "pass"
+    assert result["runtime_dependency_status"] == "pass"
+    assert result["private_runtime_dependency_count"] == 0
     assert result["authority_ceiling"]["private_source_bodies_exported"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["projection_board"]["next_best_lane"] == "real_substrate_import_tranche"
     assert result["projection_board"]["intake_board_ref"] == "projection_import_intake_board.json"
+    assert result["projection_board"]["standalone_release_board_embedded"] is True
     assert result["projection_intake_board"]["ready_cell_count"] == 3
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
@@ -116,6 +120,23 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert by_cell["runtime_reveal_import_bridge"]["copy_policy"] == (
         "metadata_fixture_receipt_ref_only"
     )
+    release_board = result["standalone_release_board"]
+    assert release_board["standalone_release_candidate"] is True
+    assert release_board["macro_origin_ref_policy"] == (
+        "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
+    )
+    assert release_board["macro_origin_refs_runtime_required"] is False
+    assert release_board["private_runtime_dependency_count"] == 0
+    assert release_board["blocked_runtime_dependencies"] == []
+    assert "tools/meta/control/work_landing.py" in release_board["macro_origin_refs"]
+    assert (
+        "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/"
+        "CertificateKernel.lean"
+        in release_board["macro_origin_refs"]
+    )
+    assert all(not ref.startswith("state/") for ref in release_board["runtime_dependency_refs"])
+    assert all(not ref.startswith("formal_math/") for ref in release_board["runtime_dependency_refs"])
+    assert all(not ref.startswith("tools/meta/") for ref in release_board["runtime_dependency_refs"])
     assert any(
         receipt_ref.endswith("projection_import_intake_board.json")
         for receipt_ref in result["receipt_paths"]
@@ -139,6 +160,8 @@ def test_macro_projection_import_protocol_receipts_are_public_relative_and_redac
     )
 
     assert result["status"] == "pass"
+    assert result["standalone_release_board"]["standalone_release_candidate"] is True
+    assert result["standalone_release_board"]["private_runtime_dependency_count"] == 0
     for receipt_ref in result["receipt_paths"]:
         receipt_file = public_root / receipt_ref
         assert receipt_file.is_file()
@@ -176,6 +199,9 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_board"]["private_data_equivalence_claim"] is False
     assert result["public_safe_body_material_count"] == 2
     assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
+    assert result["standalone_release_status"] == "pass"
+    assert result["standalone_release_board"]["macro_origin_refs_runtime_required"] is False
+    assert result["standalone_release_board"]["private_runtime_dependency_count"] == 0
     assert {
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
@@ -203,6 +229,8 @@ def test_macro_projection_import_plan_preview_is_non_writing() -> None:
         "public_macro_proof_body": 1,
         "public_macro_tool_body": 1,
     }
+    assert result["standalone_release_board"]["runtime_dependency_status"] == "pass"
+    assert result["standalone_release_board"]["macro_origin_refs_runtime_required"] is False
     assert all(
         row["selected_pattern_ids"]
         for row in result["projection_intake_board"]["projection_cells"]
@@ -239,6 +267,12 @@ def test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance(
     assert by_material["lean_certificate_kernel_body_import"]["source_refs"] == [
         "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
     ]
+    assert result["standalone_release_board"]["standalone_release_status"] == "pass"
+    assert (
+        "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/"
+        "CertificateKernel.lean"
+        not in result["standalone_release_board"]["runtime_dependency_refs"]
+    )
 
 
 def test_import_plan_rejects_missing_public_safe_body_material_id() -> None:

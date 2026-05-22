@@ -1,0 +1,14 @@
+{
+  "schema_version": "macro_projection_import_negative_case_v1",
+  "expected_negative_case_id": "standalone_dependency_leak",
+  "runtime_dependencies": [
+    {
+      "dependency_id": "live_macro_prover_run_required_at_release_runtime",
+      "ref": "state/runs/PROVER_PRIVATE/live_oracle_payload.json",
+      "dependency_role": "runtime_required",
+      "private_runtime_dependency": true,
+      "body_redacted": true
+    }
+  ],
+  "body_redacted": true
+}

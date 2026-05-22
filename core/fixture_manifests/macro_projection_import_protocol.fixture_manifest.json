@@ -4,7 +4,7 @@
   "organ_id": "macro_projection_import_protocol",
   "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate the public-safe membrane for projecting macro substrate into Microcosm without private bodies, authority upgrades, or release/private-equivalence claims.",
+  "purpose": "Validate the public-safe membrane for projecting macro substrate into Microcosm and proving standalone release severance without private runtime dependencies, authority upgrades, or release/private-equivalence claims.",
   "inputs": [
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
@@ -13,11 +13,13 @@
     "fixtures/first_wave/macro_projection_import_protocol/input/missing_omission_receipt.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/authority_upgrade_overclaim.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/missing_validation_ref.json",
-    "fixtures/first_wave/macro_projection_import_protocol/input/release_or_private_equivalence_overclaim.json"
+    "fixtures/first_wave/macro_projection_import_protocol/input/release_or_private_equivalence_overclaim.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/standalone_dependency_leak.json"
   ],
   "generated_receipts": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
     "receipts/first_wave/macro_projection_import_protocol/projection_import_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
   ],
@@ -27,14 +29,16 @@
     "missing_omission_receipt",
     "authority_upgrade_overclaim",
     "missing_validation_ref",
-    "release_or_private_equivalence_overclaim"
+    "release_or_private_equivalence_overclaim",
+    "standalone_dependency_leak"
   ],
   "stable_error_codes": [
     "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
     "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
     "MACRO_PROJECTION_VALIDATION_REF_MISSING",
-    "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM"
+    "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
+    "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK"
   ],
   "receipt_field_floor": [
     "schema_version",
@@ -59,9 +63,9 @@
   "private_state_exclusion_rules": {
     "raw_seed_body": "forbidden; use path-level source refs and omission receipts only",
     "provider_payload_bodies": "forbidden; fixture shape and receipt summaries are the public replacement",
-    "private_source_bodies": "forbidden; no source body copy into public Microcosm",
+    "private_source_bodies": "true private bodies are forbidden; public-safe macro proof/tool/pattern/receipt bodies use the classified import lane with provenance and claim ceilings",
     "release": "never authorized by projection import"
   },
-  "authority_ceiling": "public macro-projection metadata, fixture shape, standards, and receipt refs only; not private source authority, release, publication, provider authority, private-data equivalence, or whole-system correctness",
-  "anti_claim": "This fixture manifest accepts only public projection metadata and negative-case coverage. It does not authorize private body export, release, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake, or whole-system correctness."
+  "authority_ceiling": "classified public macro bodies, metadata, fixture shape, standards, and receipt refs may enter the Microcosm release tree with provenance; macro-origin refs are not runtime dependencies and do not authorize release, publication, provider authority, private-data equivalence, or whole-system correctness",
+  "anti_claim": "This fixture manifest accepts classified public-safe macro body imports plus standalone severance evidence. It does not authorize true private body export, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake special casing, or whole-system correctness."
 }
