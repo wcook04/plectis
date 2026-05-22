@@ -171,6 +171,144 @@ def _add_lifecycle_defect(
     defects.append(defect)
 
 
+def _consumer_contract_row(
+    surface_id: str,
+    *,
+    required_for_organ_ids: list[str],
+    observed_organ_ids: list[str],
+    owner_surface: str,
+    receipt_ref: str | None = None,
+) -> dict[str, Any]:
+    missing = [
+        organ_id for organ_id in required_for_organ_ids if organ_id not in observed_organ_ids
+    ]
+    stale = [
+        organ_id for organ_id in observed_organ_ids if organ_id not in required_for_organ_ids
+    ]
+    row: dict[str, Any] = {
+        "surface_id": surface_id,
+        "status": PASS if not missing and not stale else "blocked",
+        "required_for_organ_ids": required_for_organ_ids,
+        "observed_organ_ids": observed_organ_ids,
+        "missing_organ_ids": missing,
+        "stale_organ_ids": stale,
+        "owner_surface": owner_surface,
+    }
+    if receipt_ref is not None:
+        row["receipt_ref"] = receipt_ref
+    return row
+
+
+def _organ_lifecycle_convergence(
+    *,
+    accepted: list[str],
+    runtime_ids: list[str],
+    accepted_plan_ids: list[str],
+    evidence_ids: list[str],
+    organ_authority_ids: list[str],
+    command_path_organs: set[str],
+    public_lens_organs: set[str],
+    fixture_checks: list[dict[str, Any]],
+) -> dict[str, Any]:
+    fixture_pass_ids = [
+        str(row.get("organ_id"))
+        for row in fixture_checks
+        if row.get("organ_id") and row.get("status") == PASS
+    ]
+    ordered_command_path_organs = [
+        organ_id for organ_id in accepted if organ_id in command_path_organs
+    ]
+    ordered_public_lens_organs = [
+        organ_id for organ_id in accepted if organ_id in public_lens_organs
+    ]
+    consumer_surfaces = [
+        _consumer_contract_row(
+            "runtime_steps",
+            required_for_organ_ids=accepted,
+            observed_organ_ids=runtime_ids,
+            owner_surface="microcosm_core.runtime_shell.RUNTIME_STEPS",
+        ),
+        _consumer_contract_row(
+            "first_wave_acceptance_plan",
+            required_for_organ_ids=accepted,
+            observed_organ_ids=accepted_plan_ids,
+            owner_surface=ACCEPTANCE_PLAN_REL.as_posix(),
+        ),
+        _consumer_contract_row(
+            "organ_evidence_class_registry",
+            required_for_organ_ids=accepted,
+            observed_organ_ids=evidence_ids,
+            owner_surface=EVIDENCE_CLASS_REGISTRY_REL.as_posix(),
+        ),
+        _consumer_contract_row(
+            "public_authority_organ_rows",
+            required_for_organ_ids=accepted,
+            observed_organ_ids=organ_authority_ids,
+            owner_surface="RuntimeShell.authority().organ_authority",
+            receipt_ref=AUTHORITY_SNAPSHOT_REL.as_posix(),
+        ),
+        _consumer_contract_row(
+            "public_command_lens_rows",
+            required_for_organ_ids=ordered_command_path_organs,
+            observed_organ_ids=ordered_public_lens_organs,
+            owner_surface="RuntimeShell.authority().surface_authority",
+            receipt_ref=AUTHORITY_SNAPSHOT_REL.as_posix(),
+        ),
+        _consumer_contract_row(
+            "fixture_bundle_checks",
+            required_for_organ_ids=accepted,
+            observed_organ_ids=fixture_pass_ids,
+            owner_surface="core/fixture_manifests/*.fixture_manifest.json",
+        ),
+    ]
+    affected_surfaces = [
+        row["surface_id"] for row in consumer_surfaces if row["status"] != PASS
+    ]
+    affected_organs = sorted(
+        {
+            organ_id
+            for row in consumer_surfaces
+            if row["status"] != PASS
+            for organ_id in [*row["missing_organ_ids"], *row["stale_organ_ids"]]
+        }
+    )
+    return {
+        "schema_version": "organ_lifecycle_convergence_v1",
+        "status": PASS if not affected_surfaces else "blocked",
+        "source_registry_ref": "core/organ_registry.json",
+        "evidence_registry_ref": EVIDENCE_CLASS_REGISTRY_REL.as_posix(),
+        "organ_count": len(accepted),
+        "consumer_surfaces": consumer_surfaces,
+        "affected_consumer_surfaces": affected_surfaces,
+        "changed_organ_ids": affected_organs,
+        "negative_guard_surface_refs": [
+            "non-consumer notes, demos, and incidental receipts are excluded from the "
+            "organ lifecycle contract unless listed in checked_surfaces"
+        ],
+        "false_positive_guard_result": PASS if not affected_surfaces else "not_applicable",
+        "required_snapshot_refs": [
+            AUTHORITY_SNAPSHOT_REL.as_posix(),
+            "receipts/preflight/dependency_preflight.json",
+        ],
+        "incidental_receipt_churn_excluded": True,
+        "validation_refs": [
+            "microcosm_core.validators.dependency_preflight",
+            "tests/test_dependency_preflight.py",
+        ],
+        "public_authority_boundary": (
+            "consumer-contract convergence only; not release, source, proof, or "
+            "provider-call authority"
+        ),
+        "release_authority": False,
+        "proof_authority": False,
+        "source_body_exported": False,
+        "next_reentry_condition": (
+            "rerun dependency preflight after accepted organ, evidence-class, "
+            "runtime-step, public authority, or fixture-manifest changes"
+        ),
+    }
+
+
 def _organ_lifecycle_coverage(
     public_root: Path,
     registry: dict[str, Any],
@@ -299,9 +437,17 @@ def _organ_lifecycle_coverage(
             for organ_id in accepted
             if any(organ_id.replace("_", "-") in command for command in command_path)
         }
+        public_lens_organs = {
+            organ_id
+            for organ_id in command_path_organs
+            if any(_surface_mentions_organ(surface, organ_id) for surface in surface_rows)
+        }
         for organ_id in sorted(command_path_organs):
-            if not any(_surface_mentions_organ(surface, organ_id) for surface in surface_rows):
+            if organ_id not in public_lens_organs:
                 _add_lifecycle_defect(defects, "missing_public_lens", organ_id=organ_id)
+    if not authority:
+        command_path_organs = set()
+        public_lens_organs = set()
 
     for organ_id, evidence_class in sorted(evidence_class_by_id.items()):
         if evidence_class != "external_subprocess_witness":
@@ -325,6 +471,16 @@ def _organ_lifecycle_coverage(
         "surface_authority_row_count": len(surface_rows),
         "fixture_check_count": len(fixture_checks),
     }
+    convergence = _organ_lifecycle_convergence(
+        accepted=accepted,
+        runtime_ids=runtime_ids,
+        accepted_plan_ids=accepted_plan_ids,
+        evidence_ids=evidence_ids,
+        organ_authority_ids=organ_authority_ids,
+        command_path_organs=command_path_organs,
+        public_lens_organs=public_lens_organs,
+        fixture_checks=fixture_checks,
+    )
     return {
         "schema_version": "organ_lifecycle_coverage_v1",
         "status": PASS if not defects else "blocked",
@@ -332,6 +488,7 @@ def _organ_lifecycle_coverage(
         "defects": defects,
         "accepted_order_status": accepted_order_status,
         "coverage_counts": coverage_counts,
+        "organ_lifecycle_convergence": convergence,
         "checked_surfaces": [
             "core/organ_registry.json",
             ACCEPTANCE_PLAN_REL.as_posix(),

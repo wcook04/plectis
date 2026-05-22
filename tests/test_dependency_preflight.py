@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.validators import dependency_preflight
 from microcosm_core.validators.dependency_preflight import run_dependency_preflight
 
 
@@ -112,6 +113,25 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "surface_authority_row_count": 45,
         "fixture_check_count": 45,
     }
+    convergence = coverage["organ_lifecycle_convergence"]
+    assert convergence["schema_version"] == "organ_lifecycle_convergence_v1"
+    assert convergence["status"] == "pass"
+    assert convergence["affected_consumer_surfaces"] == []
+    assert convergence["changed_organ_ids"] == []
+    assert convergence["false_positive_guard_result"] == "pass"
+    assert convergence["incidental_receipt_churn_excluded"] is True
+    assert convergence["release_authority"] is False
+    assert convergence["proof_authority"] is False
+    assert convergence["source_body_exported"] is False
+    consumer_by_id = {
+        row["surface_id"]: row for row in convergence["consumer_surfaces"]
+    }
+    assert consumer_by_id["runtime_steps"]["status"] == "pass"
+    assert consumer_by_id["public_command_lens_rows"]["status"] == "pass"
+    assert (
+        "certificate_kernel_execution_lab"
+        in consumer_by_id["runtime_steps"]["observed_organ_ids"]
+    )
     assert "missing_public_lens" not in {
         defect["defect_id"] for defect in coverage["defects"]
     }
@@ -194,3 +214,83 @@ def test_dependency_preflight_blocks_missing_public_lens(tmp_path: Path) -> None
             "organ_id": "verifier_lab_execution_spine",
         }
     ]
+    convergence = coverage["organ_lifecycle_convergence"]
+    public_lens_contract = next(
+        row
+        for row in convergence["consumer_surfaces"]
+        if row["surface_id"] == "public_command_lens_rows"
+    )
+    assert public_lens_contract["status"] == "blocked"
+    assert public_lens_contract["missing_organ_ids"] == [
+        "verifier_lab_execution_spine"
+    ]
+    assert convergence["affected_consumer_surfaces"] == ["public_command_lens_rows"]
+    assert convergence["changed_organ_ids"] == ["verifier_lab_execution_spine"]
+
+
+def test_dependency_preflight_names_missing_runtime_step_contract(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    public_root = _copy_public_tree(tmp_path)
+    runtime_without_certificate = [
+        organ_id
+        for organ_id in dependency_preflight.ACCEPTED_ORGAN_IDS
+        if organ_id != "certificate_kernel_execution_lab"
+    ]
+    monkeypatch.setattr(
+        dependency_preflight,
+        "ACCEPTED_ORGAN_IDS",
+        runtime_without_certificate,
+    )
+
+    receipt = run_dependency_preflight(
+        READINESS,
+        NEGATIVE_MATRIX,
+        public_root / "receipts/preflight/dependency_preflight.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    coverage = receipt["organ_lifecycle_coverage"]
+    runtime_defect = next(
+        defect
+        for defect in coverage["defects"]
+        if defect["defect_id"] == "accepted_without_runtime_step"
+    )
+    assert runtime_defect["organ_id"] == "certificate_kernel_execution_lab"
+    runtime_contract = next(
+        row
+        for row in coverage["organ_lifecycle_convergence"]["consumer_surfaces"]
+        if row["surface_id"] == "runtime_steps"
+    )
+    assert runtime_contract["status"] == "blocked"
+    assert runtime_contract["missing_organ_ids"] == [
+        "certificate_kernel_execution_lab"
+    ]
+    assert (
+        "runtime_steps"
+        in coverage["organ_lifecycle_convergence"]["affected_consumer_surfaces"]
+    )
+
+
+def test_dependency_preflight_convergence_ignores_unrelated_public_note(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_tree(tmp_path)
+    note = public_root / "notes/operator_note.md"
+    note.parent.mkdir(parents=True)
+    note.write_text("not part of the public organ lifecycle contract\n", encoding="utf-8")
+
+    receipt = run_dependency_preflight(
+        READINESS,
+        NEGATIVE_MATRIX,
+        public_root / "receipts/preflight/dependency_preflight.json",
+        command="pytest",
+    )
+
+    convergence = receipt["organ_lifecycle_coverage"]["organ_lifecycle_convergence"]
+    assert receipt["status"] == "pass"
+    assert convergence["status"] == "pass"
+    assert convergence["affected_consumer_surfaces"] == []
+    assert convergence["changed_organ_ids"] == []
+    assert convergence["false_positive_guard_result"] == "pass"
