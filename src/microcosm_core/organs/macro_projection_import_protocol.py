@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -146,6 +147,9 @@ AUTHORITY_CEILING = {
     "live_macro_source_authority": False,
     "whole_system_correctness_claim": False,
 }
+BODY_DIGEST_PREFIX = "sha256:"
+BODY_DIGEST_HEX_LENGTH = 64
+PLACEHOLDER_DIGEST_TOKENS = ("placeholder", "todo", "example")
 ANTI_CLAIM = (
     "The macro projection import protocol validates public-safe projection "
     "metadata, omission receipts, replacement refs, authority ceilings, and "
@@ -538,6 +542,92 @@ def _public_safe_import_status(
     return classify_public_safe_macro_import(row, forbidden_classes=import_policy)
 
 
+def _sha256_digest(path: Path) -> str:
+    return f"{BODY_DIGEST_PREFIX}{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _body_digest_is_placeholder(value: str) -> bool:
+    lowered = value.lower()
+    if not value.startswith(BODY_DIGEST_PREFIX):
+        return True
+    digest = value.removeprefix(BODY_DIGEST_PREFIX)
+    if len(digest) != BODY_DIGEST_HEX_LENGTH:
+        return True
+    if any(token in lowered for token in PLACEHOLDER_DIGEST_TOKENS):
+        return True
+    return any(char not in "0123456789abcdef" for char in digest.lower())
+
+
+def _public_safe_body_target_findings(
+    row: dict[str, Any],
+    *,
+    public_root: Path | None,
+) -> list[dict[str, Any]]:
+    if public_root is None or row.get("body_copied") is not True:
+        return []
+
+    material_id = str(row.get("material_id") or "public_safe_body_material")
+    target_ref = row.get("target_ref")
+    findings: list[dict[str, Any]] = []
+    if not isinstance(target_ref, str) or not target_ref.strip():
+        return [
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_REF_MISSING",
+                "body_copied public-safe material must name the Microcosm target_ref that contains the copied body.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        ]
+
+    target_path = Path(target_ref.split("::", 1)[0])
+    if target_path.is_absolute() or ".." in target_path.parts:
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_REF_UNSAFE",
+                "body_copied public-safe material must target a relative path inside microcosm-substrate.",
+                case_id="public_safe_body_import_floor",
+                subject_id=target_ref,
+                subject_kind="copied_material",
+            )
+        )
+        return findings
+
+    resolved_target = public_root / target_path
+    declared_digest = str(row.get("body_digest") or "")
+    if not resolved_target.is_file():
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_MISSING",
+                "body_copied public-safe material must point at a real file inside microcosm-substrate.",
+                case_id="public_safe_body_import_floor",
+                subject_id=target_ref,
+                subject_kind="copied_material",
+            )
+        )
+    if _body_digest_is_placeholder(declared_digest):
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_PLACEHOLDER",
+                "body_copied public-safe material must carry a real sha256 digest, not a placeholder.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        )
+    elif resolved_target.is_file() and declared_digest != _sha256_digest(resolved_target):
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
+                "body_copied public-safe material digest must match the target_ref file.",
+                case_id="public_safe_body_import_floor",
+                subject_id=target_ref,
+                subject_kind="copied_material",
+            )
+        )
+    return findings
+
+
 def _private_body_request(payload: object, *, import_policy: dict[str, Any] | None = None) -> list[str]:
     policy = import_policy or {}
     subjects: list[str] = []
@@ -575,6 +665,7 @@ def validate_projection_protocol(
     authority_negative: object | None = None,
     release_negative: object | None = None,
     import_policy: dict[str, Any] | None = None,
+    public_root: Path | None = None,
 ) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     policy = import_policy or {}
@@ -613,6 +704,7 @@ def validate_projection_protocol(
                         subject_kind="copied_material",
                     )
                 )
+            findings.extend(_public_safe_body_target_findings(row, public_root=public_root))
             continue
         if material_class in TRUE_FORBIDDEN_MATERIAL_CLASSES or row.get("body_copied") is True:
             findings.append(
@@ -697,6 +789,25 @@ def validate_projection_protocol(
         if _public_safe_import_status(row, import_policy=policy) is not None
         and not _public_safe_import_status(row, import_policy=policy)["findings"]
     )
+    public_safe_body_target_refs = [
+        str(row.get("target_ref"))
+        for row in copied_material
+        if _public_safe_import_status(row, import_policy=policy) is not None
+        and row.get("body_copied") is True
+        and isinstance(row.get("target_ref"), str)
+    ]
+    public_safe_body_digest_count = sum(
+        1
+        for row in copied_material
+        if _public_safe_import_status(row, import_policy=policy) is not None
+        and row.get("body_copied") is True
+        and not _body_digest_is_placeholder(str(row.get("body_digest") or ""))
+    )
+    public_safe_body_target_findings = [
+        row
+        for row in blocking_findings
+        if str(row.get("error_code") or "").startswith("MACRO_PROJECTION_PUBLIC_SAFE_BODY_")
+    ]
     return {
         "status": PASS
         if len(source_refs) >= 2
@@ -714,6 +825,12 @@ def validate_projection_protocol(
         "validation_refs": validation_refs,
         "copied_material_count": len(copied_material),
         "public_safe_body_material_count": public_safe_body_count,
+        "public_safe_body_target_status": PASS
+        if not public_safe_body_target_findings
+        and public_safe_body_count == len(public_safe_body_target_refs) == public_safe_body_digest_count
+        else "blocked",
+        "public_safe_body_target_refs": sorted(public_safe_body_target_refs),
+        "public_safe_body_digest_count": public_safe_body_digest_count,
         "blocking_finding_count": len(blocking_findings),
         "cleaned_material_count": len(cleaned_material),
         "omitted_material_count": len(omitted_material),
@@ -1565,6 +1682,7 @@ def _build_result(
         payloads.get("authority_upgrade_overclaim"),
         payloads.get("release_or_private_equivalence_overclaim"),
         import_policy=policy,
+        public_root=public_root,
     )
     cleaning_policy = validate_cleaning_policy(payloads["cleaning_policy"])
     standalone_negative = validate_standalone_release_severance(
@@ -1674,9 +1792,17 @@ def _build_result(
         "public_replacement_ref_count": len(protocol["public_replacement_refs"]),
         "validation_ref_count": len(set(protocol["validation_refs"] + import_plan["validation_refs"])),
         "public_safe_body_material_count": protocol["public_safe_body_material_count"],
-        "public_safe_body_import_status": "pass"
-        if protocol["public_safe_body_material_count"]
-        else "not_present",
+        "public_safe_body_import_status": (
+            "pass"
+            if protocol["public_safe_body_material_count"]
+            and protocol["public_safe_body_target_status"] == PASS
+            else "blocked"
+            if protocol["public_safe_body_material_count"]
+            else "not_present"
+        ),
+        "public_safe_body_target_status": protocol["public_safe_body_target_status"],
+        "public_safe_body_target_refs": protocol["public_safe_body_target_refs"],
+        "public_safe_body_digest_count": protocol["public_safe_body_digest_count"],
         "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
         "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
         "standalone_release_status": standalone_release_board["standalone_release_status"],

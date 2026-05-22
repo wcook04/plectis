@@ -11,6 +11,7 @@ from microcosm_core.organs.macro_projection_import_protocol import (
     run,
     run_projection_bundle,
     validate_import_plan,
+    validate_projection_protocol,
 )
 
 
@@ -60,6 +61,12 @@ def _align_organ_registry_to_dependency_preflight(public_root: Path) -> None:
     )
 
 
+def _copy_public_file(public_root: Path, rel_path: str) -> None:
+    destination = public_root / rel_path
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / rel_path, destination)
+
+
 def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
@@ -70,6 +77,15 @@ def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
     shutil.copytree(
         MICROCOSM_ROOT / "examples/macro_projection_import_protocol",
         public_root / "examples/macro_projection_import_protocol",
+    )
+    _copy_public_file(
+        public_root,
+        "src/microcosm_core/organs/mission_transaction_work_spine.py",
+    )
+    _copy_public_file(
+        public_root,
+        "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/"
+        "lake_project/MicrocosmProofWitness/CertificateKernel.lean",
     )
     _copy_dependency_preflight_receipt(public_root)
     _align_organ_registry_to_dependency_preflight(public_root)
@@ -371,6 +387,43 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
     } == {"work_landing_tool_body_import", "lean_certificate_kernel_body_import"}
+    assert result["public_safe_body_target_status"] == "pass"
+    assert result["public_safe_body_digest_count"] == 2
+
+
+def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    protocol_path = (
+        public_root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+        / "projection_protocol.json"
+    )
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    for row in protocol["copied_material"]:
+        if row["material_id"] == "lean_certificate_kernel_body_import":
+            (public_root / row["target_ref"]).unlink()
+            row["body_digest"] = (
+                "sha256:public-safe-body-digest-placeholder-lean-certificate-kernel"
+            )
+            break
+
+    result = validate_projection_protocol(
+        protocol,
+        import_policy=json.loads(
+            (public_root / "core/private_state_forbidden_classes.json").read_text(
+                encoding="utf-8"
+            )
+        ),
+        public_root=public_root,
+    )
+
+    assert result["status"] == "blocked"
+    assert result["public_safe_body_target_status"] == "blocked"
+    error_codes = {row["error_code"] for row in result["findings"]}
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_MISSING" in error_codes
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_PLACEHOLDER" in error_codes
 
 
 def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> None:
