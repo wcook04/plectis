@@ -1032,6 +1032,35 @@
       ],
       "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
       "status": "ready"
+    },
+    {
+      "organ_id": "certificate_kernel_execution_lab",
+      "fixture_id": "fixture::certificate_kernel_execution_lab::first_wave_contract_v1",
+      "fixture_manifest": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/Basic.lean",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/transition_provider_oracle_visible.json",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/cp2_certificate_contains_proof_body.json",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/evolve_certificate_mutates_source.json",
+        "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json"
+      ],
+      "build_dependencies": [
+        "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
+        "macro_projection_import_protocol"
+      ],
+      "generated_receipts": [
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+        "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
+      ],
+      "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "status": "ready"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

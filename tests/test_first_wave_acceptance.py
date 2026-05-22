@@ -31,7 +31,7 @@ def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesse
     )
 
     assert acceptance["status"] == "accepted_runtime_spine_verifier_lab_kernel_bound"
-    assert len(acceptance["accepted_current_authority_organs"]) == 44
+    assert len(acceptance["accepted_current_authority_organs"]) == 45
     assert acceptance["deferred_organs"] == []
     assert acceptance["lean_lake_authorized"] == "bounded_public_witness_only"
     assert acceptance["release_authorized"] is False
@@ -105,6 +105,7 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
+        "certificate_kernel_execution_lab",
     ]
     assert summary["deferred_organs"] == []
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"

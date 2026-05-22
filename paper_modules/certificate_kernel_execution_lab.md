@@ -2,8 +2,11 @@
 
 `certificate_kernel_execution_lab` is a public replacement specimen for the
 macro certificate-kernel pattern. It runs a small Lean/Lake certificate kernel,
-generated certificate rows, analyzer metadata, CP2 typed-action reruns, and a
-bounded Evolve policy rerun without importing private proof bodies.
+generated certificate rows, analyzer metadata, CP2 typed-action reruns, and
+bounded Evolve policy reruns without importing private proof bodies. The v2
+fixture carries both a simple `NatSumCertificate` row family and a miniature
+`BoundedOrderCertificate` family so the public lab is no longer only a
+single-shape arithmetic receipt.
 
 ## Public Surfaces
 
@@ -33,12 +36,12 @@ payload bodies.
 - Lean/Lake build receipt for `MicrocosmCertificateLab`.
 - Analyzer metadata for public Lean files: imports, declarations, hashes, and
   line counts with bodies redacted.
-- Transition rows for valid certificates, missing certificate rows, and bad
-  generated certificate rows.
-- CP2 typed-action translation over a missing-certificate residual, with a Lean
-  rerun proving downstream effect.
-- Bounded Evolve mutation over certificate row selection policy, accepted only
-  after a rerun and no leakage regression.
+- Transition rows for valid certificates, missing certificate rows, bad
+  generated certificate rows, and bounded order-certificate rows.
+- CP2 typed-action translations over missing-certificate residuals, with Lean
+  reruns proving downstream effect.
+- Bounded Evolve mutations over certificate row selection policy, accepted only
+  after reruns and no leakage regression.
 
 ## Anti-Claim
 

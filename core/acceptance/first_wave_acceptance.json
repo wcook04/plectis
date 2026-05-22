@@ -587,6 +587,19 @@
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
       ],
       "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
+    },
+    {
+      "organ_id": "certificate_kernel_execution_lab",
+      "runner": "microcosm_core.organs.certificate_kernel_execution_lab",
+      "status": "accepted_current_authority",
+      "current_authority_receipt": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+        "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
+      ],
+      "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
     }
   ],
   "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, private-data equivalence, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",
@@ -657,7 +670,7 @@
   "recipient_work_authorized": false,
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
-  "standard_count": 88,
+  "standard_count": 89,
   "standards_registry_ref": "core/standards_registry.json",
   "status": "accepted_runtime_spine_verifier_lab_kernel_bound",
   "trading_or_financial_advice_authorized": false

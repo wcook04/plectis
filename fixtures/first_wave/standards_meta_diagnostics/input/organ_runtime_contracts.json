@@ -386,6 +386,15 @@
       "current_authority_receipt": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
       "runtime_receipt_count": 4,
       "body_redacted": true
+    },
+    {
+      "ordinal": 43,
+      "organ_id": "certificate_kernel_execution_lab",
+      "cli_command": "microcosm certificate-kernel-execution-lab run-certificate-bundle --input examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle --out receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab",
+      "runtime_step": "direct_cli.certificate_kernel_execution_lab::run_certificate_bundle",
+      "current_authority_receipt": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "runtime_receipt_count": 4,
+      "body_redacted": true
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

@@ -260,6 +260,11 @@
       "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
       "evidence_class": "fixture_echo_smoke",
       "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for public-safe shape"
+    },
+    {
+      "organ_id": "certificate_kernel_execution_lab",
+      "evidence_class": "external_subprocess_witness",
+      "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters"
     }
   ]
 }

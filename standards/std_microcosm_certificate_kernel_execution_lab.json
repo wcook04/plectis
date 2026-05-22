@@ -40,6 +40,7 @@
   "requirements": [
     "Build the public Lake project with an explicit named library target.",
     "Keep generated certificate rows separate from the abstract certificate kernel.",
+    "Include more than one public certificate family so the fixture is not a single-shape arithmetic witness.",
     "Record declaration/import/hash analyzer metadata without proof bodies.",
     "Route provider/NIM material through typed CP2 action candidates only.",
     "Limit Evolve to certificate routing policy artifacts and require rerun evidence.",

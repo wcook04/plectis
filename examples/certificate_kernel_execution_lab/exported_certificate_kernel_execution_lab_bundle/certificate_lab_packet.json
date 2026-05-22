@@ -1,18 +1,20 @@
 {
   "schema_version": "certificate_kernel_execution_lab_packet_v1",
-  "certificate_lab_id": "public_nat_sum_certificate_kernel_execution_lab_v1",
+  "certificate_lab_id": "public_certificate_kernel_execution_lab_v2",
   "source_refs": [
     "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
-    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean"
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/Basic.lean"
   ],
   "source_pattern_ids": [
     "lean_certificate_kernel_body_import",
     "oracle_sidecar_forward_firewall",
     "lean_verifier_feedback_failure_classification",
     "prover_residual_diagnosis_cp1_view_v0",
-    "bounded_evolve_policy_artifact_runner"
+    "bounded_evolve_policy_artifact_runner",
+    "public_order_certificate_micro_kernel"
   ],
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -20,7 +22,8 @@
   ],
   "public_replacement_refs": [
     "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
-    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean"
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/Basic.lean"
   ],
   "transition_candidates": [
     {
@@ -29,7 +32,9 @@
       "target_shape": "certificate_kernel_validation",
       "action_class": "direct_certificate_check",
       "candidate_kind": "forward_direct_certificate",
-      "allowed_certificate_refs": ["cert_2_3_5"],
+      "allowed_certificate_refs": [
+        "cert_2_3_5"
+      ],
       "oracle_visible": false,
       "provider_visible": false
     },
@@ -39,7 +44,9 @@
       "target_shape": "generated_certificate_theorem",
       "action_class": "generated_certificate_theorem",
       "candidate_kind": "forward_direct_certificate",
-      "allowed_certificate_refs": ["cert_4_7_11"],
+      "allowed_certificate_refs": [
+        "cert_4_7_11"
+      ],
       "oracle_visible": false,
       "provider_visible": false
     },
@@ -61,7 +68,9 @@
       "target_shape": "certificate_kernel_validation",
       "action_class": "direct_certificate_check",
       "candidate_kind": "forward_negative_certificate",
-      "allowed_certificate_refs": ["bad_cert_2_3_6"],
+      "allowed_certificate_refs": [
+        "bad_cert_2_3_6"
+      ],
       "expected_outcome": "fail_bad_certificate",
       "expected_failure_class": "PROOF_SYNTHESIS_FAIL",
       "oracle_visible": false,
@@ -73,7 +82,9 @@
       "target_shape": "certificate_row_selection",
       "action_class": "add_certificate_row",
       "candidate_kind": "cp2_typed_action_rerun",
-      "allowed_certificate_refs": ["cert_8_13_21"],
+      "allowed_certificate_refs": [
+        "cert_8_13_21"
+      ],
       "oracle_visible": false,
       "provider_visible": false
     },
@@ -83,7 +94,57 @@
       "target_shape": "certificate_row_selection",
       "action_class": "select_certificate_row",
       "candidate_kind": "evolve_policy_rerun",
-      "allowed_certificate_refs": ["cert_8_13_21"],
+      "allowed_certificate_refs": [
+        "cert_8_13_21"
+      ],
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "direct_order_certificate_check_2_3_mod5",
+      "problem_id": "order_cert_2_3_mod5",
+      "target_shape": "bounded_order_certificate_validation",
+      "action_class": "direct_order_certificate_check",
+      "candidate_kind": "forward_direct_certificate",
+      "allowed_certificate_refs": [
+        "order_cert_2_3_mod5"
+      ],
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "missing_order_certificate_row_residual",
+      "problem_id": "missing_order_cert_7_11_mod13",
+      "target_shape": "bounded_order_certificate_row_selection",
+      "action_class": "select_certificate_row",
+      "candidate_kind": "forward_baseline",
+      "allowed_certificate_refs": [],
+      "expected_outcome": "fail_missing_order_certificate_row",
+      "expected_failure_class": "PREMISE_RETRIEVAL_MISS",
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "cp2_add_order_certificate_row_rerun",
+      "problem_id": "order_cert_3_4_mod5",
+      "target_shape": "bounded_order_certificate_row_selection",
+      "action_class": "add_certificate_row",
+      "candidate_kind": "cp2_typed_action_rerun",
+      "allowed_certificate_refs": [
+        "order_cert_3_4_mod5"
+      ],
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "evolve_order_certificate_policy_rerun",
+      "problem_id": "order_cert_3_4_mod5",
+      "target_shape": "bounded_order_certificate_row_selection",
+      "action_class": "select_certificate_row",
+      "candidate_kind": "evolve_policy_rerun",
+      "allowed_certificate_refs": [
+        "order_cert_3_4_mod5"
+      ],
       "oracle_visible": false,
       "provider_visible": false
     }
@@ -94,6 +155,12 @@
       "forward_problem_id": "missing_cert_5_8_13",
       "oracle_result_class": "oracle_can_name_certificate_row",
       "counted_as_forward_success": false
+    },
+    {
+      "sidecar_id": "oracle_missing_order_certificate_row_available_for_comparison_only",
+      "forward_problem_id": "missing_order_cert_7_11_mod13",
+      "oracle_result_class": "oracle_can_name_order_certificate_row",
+      "counted_as_forward_success": false
     }
   ],
   "provider_hypotheses": [
@@ -102,7 +169,19 @@
       "residual_id": "residual_missing_certificate_row",
       "residual_class": "PREMISE_RETRIEVAL_MISS",
       "missing_primitive": "public certificate row selection",
-      "candidate_action_classes": ["add_certificate_row"],
+      "candidate_action_classes": [
+        "add_certificate_row"
+      ],
+      "provider_results_counted": false
+    },
+    {
+      "hypothesis_id": "synthetic_provider_missing_order_certificate_residual",
+      "residual_id": "residual_missing_order_certificate_row",
+      "residual_class": "PREMISE_RETRIEVAL_MISS",
+      "missing_primitive": "public bounded order certificate row selection",
+      "candidate_action_classes": [
+        "add_certificate_row"
+      ],
       "provider_results_counted": false
     }
   ],
@@ -113,18 +192,49 @@
       "provider_hypothesis_id": "synthetic_provider_missing_certificate_residual",
       "action_class": "add_certificate_row",
       "candidate_kind": "typed_action_candidate",
-      "selected_certificate_refs": ["cert_8_13_21"],
+      "selected_certificate_refs": [
+        "cert_8_13_21"
+      ],
       "disconfirmation_test": "rerun certificate row residual with selected public generated certificate and require Lean acceptance",
       "downstream_transition_id": "cp2_add_certificate_row_rerun"
+    },
+    {
+      "request_id": "cp2_translate_missing_order_certificate_row",
+      "residual_id": "residual_missing_order_certificate_row",
+      "provider_hypothesis_id": "synthetic_provider_missing_order_certificate_residual",
+      "action_class": "add_certificate_row",
+      "candidate_kind": "typed_action_candidate",
+      "selected_certificate_refs": [
+        "order_cert_3_4_mod5"
+      ],
+      "disconfirmation_test": "rerun bounded order certificate row residual with selected public generated certificate and require Lean acceptance",
+      "downstream_transition_id": "cp2_add_order_certificate_row_rerun"
     }
   ],
   "evolve_mutations": [
     {
       "mutation_id": "evolve_prioritize_generated_certificate_row_after_miss",
       "mutated_artifact": "certificate_row_selection_policy",
-      "baseline_transition_ids": ["missing_certificate_row_residual"],
-      "rerun_transition_ids": ["evolve_certificate_policy_rerun"],
+      "baseline_transition_ids": [
+        "missing_certificate_row_residual"
+      ],
+      "rerun_transition_ids": [
+        "evolve_certificate_policy_rerun"
+      ],
       "rationale": "route PREMISE_RETRIEVAL_MISS to generated public certificate row selection before retrying generic exact matching",
+      "arbitrary_code_mutation": false,
+      "source_mutation_authorized": false
+    },
+    {
+      "mutation_id": "evolve_prioritize_order_certificate_row_after_miss",
+      "mutated_artifact": "certificate_row_selection_policy",
+      "baseline_transition_ids": [
+        "missing_order_certificate_row_residual"
+      ],
+      "rerun_transition_ids": [
+        "evolve_order_certificate_policy_rerun"
+      ],
+      "rationale": "route bounded order certificate misses to generated public order-certificate row selection before retrying generic exact matching",
       "arbitrary_code_mutation": false,
       "source_mutation_authorized": false
     }
@@ -139,4 +249,3 @@
   },
   "anti_claim": "This packet exercises a public replacement certificate-kernel fixture under verifier-lab authority only. It does not import macro proof bodies, expose proof text, call providers, mutate source, or claim benchmark solve-rate."
 }
-

@@ -14,5 +14,12 @@ theorem public_certificate_kernel_instance_8_13_21 :
     validateNatSumCertificate cert_8_13_21 = true := by
   exact cert_8_13_21_valid
 
-end MicrocosmCertificateLab
+theorem public_order_certificate_kernel_instance_2_3_mod5 :
+    validateBoundedOrderCertificate order_cert_2_3_mod5 = true := by
+  exact order_cert_2_3_mod5_valid
 
+theorem public_order_certificate_kernel_instance_3_4_mod5 :
+    validateBoundedOrderCertificate order_cert_3_4_mod5 = true := by
+  exact order_cert_3_4_mod5_valid
+
+end MicrocosmCertificateLab

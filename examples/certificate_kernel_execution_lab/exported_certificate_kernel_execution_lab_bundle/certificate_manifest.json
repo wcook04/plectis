@@ -1,39 +1,93 @@
 {
   "schema_version": "certificate_kernel_execution_lab_manifest_v1",
-  "manifest_id": "public_nat_sum_certificate_kernel_v1",
-  "certificate_schema": "NatSumCertificate(left,right,total)",
+  "manifest_id": "public_certificate_kernel_v2",
+  "certificate_schema": "NatSumCertificate(left,right,total) + BoundedOrderCertificate(base,period,modulus,witness)",
   "kernel_declaration_refs": [
     "MicrocosmCertificateLab.NatSumCertificate",
-    "MicrocosmCertificateLab.validateNatSumCertificate"
+    "MicrocosmCertificateLab.validateNatSumCertificate",
+    "MicrocosmCertificateLab.BoundedOrderCertificate",
+    "MicrocosmCertificateLab.validateBoundedOrderCertificate"
   ],
   "generated_certificate_rows": [
     {
       "certificate_id": "cert_2_3_5",
       "declaration_ref": "MicrocosmCertificateLab.cert_2_3_5",
-      "input_row": {"left": 2, "right": 3, "total": 5},
+      "input_row": {
+        "left": 2,
+        "right": 3,
+        "total": 5
+      },
       "expected_valid": true,
       "source_kind": "public_fixture_generated_row"
     },
     {
       "certificate_id": "cert_4_7_11",
       "declaration_ref": "MicrocosmCertificateLab.cert_4_7_11",
-      "input_row": {"left": 4, "right": 7, "total": 11},
+      "input_row": {
+        "left": 4,
+        "right": 7,
+        "total": 11
+      },
       "expected_valid": true,
       "source_kind": "public_fixture_generated_row"
     },
     {
       "certificate_id": "cert_8_13_21",
       "declaration_ref": "MicrocosmCertificateLab.cert_8_13_21",
-      "input_row": {"left": 8, "right": 13, "total": 21},
+      "input_row": {
+        "left": 8,
+        "right": 13,
+        "total": 21
+      },
       "expected_valid": true,
       "source_kind": "public_fixture_generated_row"
     },
     {
       "certificate_id": "bad_cert_2_3_6",
       "declaration_ref": "MicrocosmCertificateLab.bad_cert_2_3_6",
-      "input_row": {"left": 2, "right": 3, "total": 6},
+      "input_row": {
+        "left": 2,
+        "right": 3,
+        "total": 6
+      },
       "expected_valid": false,
       "source_kind": "public_negative_fixture_row"
+    },
+    {
+      "certificate_id": "order_cert_2_3_mod5",
+      "declaration_ref": "MicrocosmCertificateLab.order_cert_2_3_mod5",
+      "input_row": {
+        "base": 2,
+        "period": 3,
+        "modulus": 5,
+        "witness": 0
+      },
+      "expected_valid": true,
+      "source_kind": "public_fixture_generated_order_row"
+    },
+    {
+      "certificate_id": "order_cert_3_4_mod5",
+      "declaration_ref": "MicrocosmCertificateLab.order_cert_3_4_mod5",
+      "input_row": {
+        "base": 3,
+        "period": 4,
+        "modulus": 5,
+        "witness": 2
+      },
+      "expected_valid": true,
+      "source_kind": "public_fixture_generated_order_row"
+    },
+    {
+      "certificate_id": "bad_order_cert_4_2_mod5",
+      "declaration_ref": "MicrocosmCertificateLab.bad_order_cert_4_2_mod5",
+      "input_row": {
+        "base": 4,
+        "period": 2,
+        "modulus": 5,
+        "witness": 3
+      },
+      "expected_valid": false,
+      "source_kind": "public_negative_fixture_order_row"
     }
   ],
   "source_refs": [
@@ -46,6 +100,9 @@
   ],
   "lineage_boundary": "macro_pattern_transfer_public_replacement_no_private_body_import",
   "proof_bodies_exported": false,
-  "body_redacted": true
+  "body_redacted": true,
+  "certificate_schemas": [
+    "NatSumCertificate(left,right,total)",
+    "BoundedOrderCertificate(base,period,modulus,witness)"
+  ]
 }
-

@@ -48,15 +48,15 @@ def test_certificate_kernel_execution_lab_runs_lean_cp2_evolve_and_analyzer(
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     counters = result["authority_counters"]
-    assert counters["transition_count"] == 6
-    assert counters["accepted_transition_count"] == 4
-    assert counters["residual_transition_count"] == 2
-    assert counters["cp2_translation_count"] == 1
-    assert counters["cp2_downstream_effect_count"] == 1
-    assert counters["evolve_candidate_count"] == 1
-    assert counters["evolve_accepted_count"] == 1
+    assert counters["transition_count"] == 10
+    assert counters["accepted_transition_count"] == 7
+    assert counters["residual_transition_count"] == 3
+    assert counters["cp2_translation_count"] == 2
+    assert counters["cp2_downstream_effect_count"] == 2
+    assert counters["evolve_candidate_count"] == 2
+    assert counters["evolve_accepted_count"] == 2
     assert counters["analyzed_lean_file_count"] == 5
-    assert counters["analyzed_declaration_count"] >= 8
+    assert counters["analyzed_declaration_count"] >= 20
     assert counters["oracle_forward_success_increment_count"] == 0
     assert counters["provider_results_counted"] == 0
     assert counters["proof_body_export_count"] == 0
@@ -86,17 +86,20 @@ def test_certificate_kernel_execution_lab_runs_lean_cp2_evolve_and_analyzer(
     }
     assert "NatSumCertificate" in declarations
     assert "validateNatSumCertificate" in declarations
+    assert "BoundedOrderCertificate" in declarations
+    assert "validateBoundedOrderCertificate" in declarations
     assert "cert_8_13_21_valid" in declarations
+    assert "order_cert_3_4_mod5_valid" in declarations
     assert analyzer["generated_certificates_separate_from_kernel"] is True
 
     claim_separation = result["claim_separation"]
-    assert len(claim_separation["lean_verified"]) == 4
-    assert len(claim_separation["provider_suggested"]) == 1
-    assert len(claim_separation["oracle_compared"]) == 1
-    assert len(claim_separation["cp2_translated"]) == 1
-    assert len(claim_separation["retrieval_miss"]) == 1
+    assert len(claim_separation["lean_verified"]) == 7
+    assert len(claim_separation["provider_suggested"]) == 2
+    assert len(claim_separation["oracle_compared"]) == 2
+    assert len(claim_separation["cp2_translated"]) == 2
+    assert len(claim_separation["retrieval_miss"]) == 2
     assert len(claim_separation["proof_synthesis_fail"]) == 1
-    assert len(claim_separation["evolve_accepted"]) == 1
+    assert len(claim_separation["evolve_accepted"]) == 2
 
 
 def test_certificate_kernel_execution_lab_bundle_is_public_structured(
@@ -113,9 +116,9 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
     assert result["bundle_id"] == "public_certificate_kernel_execution_lab_runtime_example"
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
-    assert result["authority_counters"]["accepted_transition_count"] == 4
-    assert result["authority_counters"]["cp2_downstream_effect_count"] == 1
-    assert result["authority_counters"]["evolve_accepted_count"] == 1
+    assert result["authority_counters"]["accepted_transition_count"] == 7
+    assert result["authority_counters"]["cp2_downstream_effect_count"] == 2
+    assert result["authority_counters"]["evolve_accepted_count"] == 2
     assert result["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
 
 
@@ -134,7 +137,7 @@ def test_certificate_kernel_execution_lab_receipts_are_transparent_without_bodie
     assert payload["receipt_transparency_contract"]["redaction_scope"] == (
         "dangerous_payload_fields_only"
     )
-    assert payload["lean_analyzer_receipt"]["declaration_count"] >= 8
+    assert payload["lean_analyzer_receipt"]["declaration_count"] >= 20
     assert all(
         "/private/" not in row["source_ref"]
         for row in payload["lean_analyzer_receipt"]["files"]

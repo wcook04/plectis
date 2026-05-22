@@ -216,7 +216,20 @@
     "fixtures/first_wave/verifier_lab_execution_spine/input/transition_leaks_candidate_body.json",
     "fixtures/first_wave/verifier_lab_execution_spine/input/provider_oracle_visible_transition.json",
     "fixtures/first_wave/verifier_lab_execution_spine/input/cp2_candidate_contains_proof_body.json",
-    "fixtures/first_wave/verifier_lab_execution_spine/input/evolve_mutates_unbounded_source.json"
+    "fixtures/first_wave/verifier_lab_execution_spine/input/evolve_mutates_unbounded_source.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+    "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+    "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle_validation_result.json",
+    "standards/std_microcosm_certificate_kernel_execution_lab.json",
+    "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_lab_packet.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/transition_provider_oracle_visible.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/cp2_certificate_contains_proof_body.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/evolve_certificate_mutates_source.json",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json"
   ],
   "schema_version": "public_preflight_support_validator_receipt_coverage_map_v1"
 }

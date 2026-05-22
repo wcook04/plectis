@@ -739,6 +739,23 @@
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
       ],
       "body_redacted": true
+    },
+    {
+      "ordinal": 43,
+      "organ_id": "certificate_kernel_execution_lab",
+      "standard_id": "std_microcosm_certificate_kernel_execution_lab",
+      "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_certificate_kernel_execution_lab]",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[certificate_kernel_execution_lab_public_pressure]",
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "receipt_refs": [
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
+        "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
+        "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
+      ],
+      "body_redacted": true
     }
   ]
 }

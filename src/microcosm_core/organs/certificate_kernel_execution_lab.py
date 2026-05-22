@@ -86,6 +86,7 @@ FORBIDDEN_CP2_KEYS = {
 ALLOWED_ACTION_CLASSES = {
     "add_certificate_row",
     "direct_certificate_check",
+    "direct_order_certificate_check",
     "generated_certificate_theorem",
     "select_certificate_row",
 }
@@ -442,9 +443,35 @@ def _lean_source_for_transition(row: dict[str, Any]) -> str:
     footer = "\nend MicrocosmCertificateLabExecution\n"
     if outcome == "fail_missing_certificate_row":
         body = "#check missing_public_certificate_row_5_8_13\n"
+    elif outcome == "fail_missing_order_certificate_row":
+        body = "#check missing_public_order_certificate_row_7_11\n"
     elif outcome == "fail_bad_certificate":
         body = (
             "example : validateNatSumCertificate bad_cert_2_3_6 = true := by\n"
+            "  native_decide\n"
+        )
+    elif outcome == "fail_bad_order_certificate":
+        body = (
+            "example : validateBoundedOrderCertificate "
+            "bad_order_cert_4_2_mod5 = true := by\n"
+            "  native_decide\n"
+        )
+    elif action == "direct_order_certificate_check" and "order_cert_2_3_mod5" in refs:
+        body = (
+            "example : validateBoundedOrderCertificate "
+            "order_cert_2_3_mod5 = true := by\n"
+            "  native_decide\n"
+        )
+    elif action == "add_certificate_row" and "order_cert_3_4_mod5" in refs:
+        body = (
+            "example : validateBoundedOrderCertificate "
+            "order_cert_3_4_mod5 = true := by\n"
+            "  exact order_cert_3_4_mod5_valid\n"
+        )
+    elif action == "select_certificate_row" and "order_cert_3_4_mod5" in refs:
+        body = (
+            "example : validateBoundedOrderCertificate "
+            "order_cert_3_4_mod5 = true := by\n"
             "  native_decide\n"
         )
     elif action == "generated_certificate_theorem" and "cert_4_7_11" in refs:
