@@ -1,0 +1,14 @@
+{
+  "schema_version": "verifier_lab_execution_spine_negative_case_v1",
+  "mutation_id": "evolve_mutates_unbounded_source",
+  "expected_negative_case_id": "evolve_mutates_unbounded_source",
+  "mutated_artifact": "python_source_file",
+  "baseline_transition_ids": [
+    "baseline_add_comm_missing_premise"
+  ],
+  "rerun_transition_ids": [
+    "evolve_rerun_cp2_priority"
+  ],
+  "arbitrary_code_mutation": true,
+  "source_mutation_authorized": true
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "verifier_lab_execution_spine_negative_case_v1",
+  "transition_id": "provider_oracle_visible_transition",
+  "expected_negative_case_id": "provider_oracle_visible_transition",
+  "problem_id": "add_comm_public",
+  "target_shape": "premise_exact",
+  "action_class": "premise_exact",
+  "candidate_kind": "forward_contaminated",
+  "allowed_premise_refs": [
+    "Nat.add_comm"
+  ],
+  "oracle_visible": true,
+  "provider_visible": true
+}

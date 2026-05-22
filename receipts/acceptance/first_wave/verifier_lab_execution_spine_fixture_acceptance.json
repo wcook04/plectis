@@ -1,0 +1,563 @@
+{
+  "acceptance_status": "accepted_current_authority",
+  "accepted_organ_id": "verifier_lab_execution_spine",
+  "accepted_scope": "bounded_public_lean_transition_execution_only",
+  "anti_claim": "Verifier lab execution spine runs bounded public Lean transition candidates in a temporary workspace and records redacted receipts. It does not import private proof bodies, expose generated proof text, call providers, count oracle/provider output as proof authority, mutate source, claim benchmark solve-rate, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "bounded_public_lean_transition_execution_receipt_only",
+    "benchmark_solve_rate_claim": false,
+    "cp2_outputs_are_proof_bodies": false,
+    "evolve_mutates_arbitrary_code": false,
+    "formal_proof_authority": "bounded_public_transition_rows_only",
+    "lean_lake_execution_authorized": true,
+    "lean_lake_execution_scope": "temporary_workspace_copy_of_public_fixture",
+    "oracle_success_counts_as_forward_success": false,
+    "private_body_import_authorized": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "provider_calls_authorized": false,
+    "provider_text_counts_as_proof": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "authority_counters": {
+    "accepted_transition_count": 4,
+    "cp2_downstream_effect_count": 1,
+    "cp2_translation_count": 1,
+    "evolve_accepted_count": 1,
+    "evolve_candidate_count": 1,
+    "oracle_forward_success_increment_count": 0,
+    "proof_body_export_count": 0,
+    "provider_results_counted": 0,
+    "residual_transition_count": 2,
+    "source_mutation_count": 0,
+    "transition_count": 6
+  },
+  "body_redacted": true,
+  "bundle_id": null,
+  "claim_separation": {
+    "contract_rejected": [],
+    "cp2_translated": [
+      {
+        "candidate_action_class": "premise_exact",
+        "candidate_kind": "typed_action_candidate",
+        "contract_rejected": false,
+        "disconfirmation_test": "rerun baseline add_comm problem with premise_exact and require Lean acceptance",
+        "downstream_effect": true,
+        "downstream_transition_id": "cp2_add_comm_premise_exact_rerun",
+        "downstream_verifier_rerun": {
+          "accepted": true,
+          "action_class": "premise_exact",
+          "allowed_premise_refs": [
+            "Nat.add_comm"
+          ],
+          "candidate_kind": "cp2_typed_action_rerun",
+          "contract_rejected": false,
+          "error_codes": [],
+          "lean_return_code": 0,
+          "oracle_visible": false,
+          "problem_id": "add_comm_public",
+          "proof_body_exported": false,
+          "provider_visible": false,
+          "stdout_stderr_redacted": true,
+          "target_shape": "premise_exact",
+          "timed_out": false,
+          "transition_id": "cp2_add_comm_premise_exact_rerun",
+          "verifier_failure_class": "NONE"
+        },
+        "error_codes": [],
+        "oracle_template_exported": false,
+        "proof_body_exported": false,
+        "provider_hypothesis_id": "synthetic_provider_add_comm_residual",
+        "provider_output_body_exported": false,
+        "raw_tactic_script_exported": false,
+        "request_id": "cp2_translate_add_comm_residual",
+        "residual_id": "residual_add_comm_missing_premise"
+      }
+    ],
+    "evolve_accepted": [
+      {
+        "accepted": true,
+        "baseline_accept_count": 0,
+        "baseline_transition_ids": [
+          "baseline_add_comm_missing_premise"
+        ],
+        "body_redacted": true,
+        "contract_rejected": false,
+        "decision": "accepted",
+        "error_codes": [],
+        "leakage_regression": false,
+        "mutated_artifact": "failure_class_routing",
+        "mutation_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
+        "oracle_to_forward_contamination": false,
+        "rerun_accept_count": 1,
+        "rerun_transition_ids": [
+          "evolve_rerun_cp2_priority"
+        ],
+        "source_mutation_authorized": false
+      }
+    ],
+    "evolve_candidate": [
+      {
+        "accepted": true,
+        "baseline_accept_count": 0,
+        "baseline_transition_ids": [
+          "baseline_add_comm_missing_premise"
+        ],
+        "body_redacted": true,
+        "contract_rejected": false,
+        "decision": "accepted",
+        "error_codes": [],
+        "leakage_regression": false,
+        "mutated_artifact": "failure_class_routing",
+        "mutation_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
+        "oracle_to_forward_contamination": false,
+        "rerun_accept_count": 1,
+        "rerun_transition_ids": [
+          "evolve_rerun_cp2_priority"
+        ],
+        "source_mutation_authorized": false
+      }
+    ],
+    "lean_verified": [
+      {
+        "accepted": true,
+        "action_class": "decide",
+        "allowed_premise_refs": [],
+        "candidate_kind": "forward_direct",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 0,
+        "oracle_visible": false,
+        "problem_id": "closed_nat_mod_public",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "closed_nat_mod_decision",
+        "timed_out": false,
+        "transition_id": "direct_closed_nat_mod_decide",
+        "verifier_failure_class": "NONE"
+      },
+      {
+        "accepted": true,
+        "action_class": "constructor",
+        "allowed_premise_refs": [],
+        "candidate_kind": "forward_direct",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 0,
+        "oracle_visible": false,
+        "problem_id": "true_and_true_public",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "conjunction_constructor",
+        "timed_out": false,
+        "transition_id": "direct_constructor_true_and",
+        "verifier_failure_class": "NONE"
+      },
+      {
+        "accepted": true,
+        "action_class": "premise_exact",
+        "allowed_premise_refs": [
+          "Nat.add_comm"
+        ],
+        "candidate_kind": "cp2_typed_action_rerun",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 0,
+        "oracle_visible": false,
+        "problem_id": "add_comm_public",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "premise_exact",
+        "timed_out": false,
+        "transition_id": "cp2_add_comm_premise_exact_rerun",
+        "verifier_failure_class": "NONE"
+      },
+      {
+        "accepted": true,
+        "action_class": "premise_exact",
+        "allowed_premise_refs": [
+          "Nat.add_comm"
+        ],
+        "candidate_kind": "evolve_policy_rerun",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 0,
+        "oracle_visible": false,
+        "problem_id": "add_comm_public",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "premise_exact",
+        "timed_out": false,
+        "transition_id": "evolve_rerun_cp2_priority",
+        "verifier_failure_class": "NONE"
+      }
+    ],
+    "oracle_compared": [
+      {
+        "counted_as_forward_success": false,
+        "forward_problem_id": "add_comm_public",
+        "oracle_result_class": "oracle_can_solve",
+        "sidecar_id": "oracle_add_comm_available_for_comparison_only"
+      }
+    ],
+    "proof_synthesis_fail": [
+      {
+        "accepted": false,
+        "action_class": "exact_premise",
+        "allowed_premise_refs": [],
+        "candidate_kind": "forward_residual",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 1,
+        "oracle_visible": false,
+        "problem_id": "unknown_commutativity_prior",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "premise_exact",
+        "timed_out": false,
+        "transition_id": "residual_unsolved_unknown_premise",
+        "verifier_failure_class": "PROOF_SYNTHESIS_FAIL"
+      }
+    ],
+    "provider_suggested": [
+      {
+        "candidate_action_classes": [
+          "premise_exact"
+        ],
+        "hypothesis_id": "synthetic_provider_add_comm_residual",
+        "missing_primitive": "commutativity lemma selection",
+        "provider_results_counted": false,
+        "residual_class": "PREMISE_RETRIEVAL_MISS",
+        "residual_id": "residual_add_comm_missing_premise"
+      }
+    ],
+    "retrieval_miss": [
+      {
+        "accepted": false,
+        "action_class": "exact_premise",
+        "allowed_premise_refs": [],
+        "candidate_kind": "forward_baseline",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 1,
+        "oracle_visible": false,
+        "problem_id": "add_comm_public",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "premise_exact",
+        "timed_out": false,
+        "transition_id": "baseline_add_comm_missing_premise",
+        "verifier_failure_class": "PREMISE_RETRIEVAL_MISS"
+      }
+    ]
+  },
+  "command": "pytest",
+  "cp2_translation_trace": [
+    {
+      "candidate_action_class": "premise_exact",
+      "candidate_kind": "typed_action_candidate",
+      "contract_rejected": false,
+      "disconfirmation_test": "rerun baseline add_comm problem with premise_exact and require Lean acceptance",
+      "downstream_effect": true,
+      "downstream_transition_id": "cp2_add_comm_premise_exact_rerun",
+      "downstream_verifier_rerun": {
+        "accepted": true,
+        "action_class": "premise_exact",
+        "allowed_premise_refs": [
+          "Nat.add_comm"
+        ],
+        "candidate_kind": "cp2_typed_action_rerun",
+        "contract_rejected": false,
+        "error_codes": [],
+        "lean_return_code": 0,
+        "oracle_visible": false,
+        "problem_id": "add_comm_public",
+        "proof_body_exported": false,
+        "provider_visible": false,
+        "stdout_stderr_redacted": true,
+        "target_shape": "premise_exact",
+        "timed_out": false,
+        "transition_id": "cp2_add_comm_premise_exact_rerun",
+        "verifier_failure_class": "NONE"
+      },
+      "error_codes": [],
+      "oracle_template_exported": false,
+      "proof_body_exported": false,
+      "provider_hypothesis_id": "synthetic_provider_add_comm_residual",
+      "provider_output_body_exported": false,
+      "raw_tactic_script_exported": false,
+      "request_id": "cp2_translate_add_comm_residual",
+      "residual_id": "residual_add_comm_missing_premise"
+    }
+  ],
+  "created_at": "2026-05-22T15:52:28+00:00",
+  "error_codes": [
+    "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
+    "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
+    "VERIFIER_LAB_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE",
+    "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN"
+  ],
+  "evolve_mutation_trace": [
+    {
+      "accepted": true,
+      "baseline_accept_count": 0,
+      "baseline_transition_ids": [
+        "baseline_add_comm_missing_premise"
+      ],
+      "body_redacted": true,
+      "contract_rejected": false,
+      "decision": "accepted",
+      "error_codes": [],
+      "leakage_regression": false,
+      "mutated_artifact": "failure_class_routing",
+      "mutation_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
+      "oracle_to_forward_contamination": false,
+      "rerun_accept_count": 1,
+      "rerun_transition_ids": [
+        "evolve_rerun_cp2_priority"
+      ],
+      "source_mutation_authorized": false
+    }
+  ],
+  "execution_spine_id": "std_public_lean_transition_lab_v1",
+  "expected_negative_cases": [
+    "cp2_candidate_contains_proof_body",
+    "evolve_mutates_unbounded_source",
+    "provider_oracle_visible_transition",
+    "transition_leaks_candidate_body"
+  ],
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
+      "message": "CP2 negative fixture rejected proof bodies or raw tactic scripts.",
+      "negative_case_id": "cp2_candidate_contains_proof_body",
+      "subject_id": "cp2_candidate_contains_proof_body",
+      "subject_kind": "cp2_translation_request"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
+      "message": "Evolve negative fixture rejected unbounded source mutation.",
+      "negative_case_id": "evolve_mutates_unbounded_source",
+      "subject_id": "evolve_mutates_unbounded_source",
+      "subject_kind": "evolve_mutation"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "VERIFIER_LAB_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE",
+      "message": "Forward transition execution must not see oracle sidecars or provider hypothesis text.",
+      "negative_case_id": "provider_oracle_visible_transition",
+      "subject_id": "provider_oracle_visible_transition",
+      "subject_kind": "transition_candidate"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN",
+      "message": "Transition candidates may not carry proof bodies, raw tactic scripts, provider bodies, or oracle templates.",
+      "negative_case_id": "transition_leaks_candidate_body",
+      "subject_id": "transition_leaks_candidate_body",
+      "subject_kind": "transition_candidate"
+    }
+  ],
+  "fixture_id": "first_wave.verifier_lab_execution_spine",
+  "input_mode": "first_wave_fixture",
+  "lake_project_build": {
+    "argv": [
+      "lake",
+      "build",
+      "MicrocosmProofWitness"
+    ],
+    "body_redacted": true,
+    "cwd_name": "lake_project",
+    "return_code": 0,
+    "stderr_line_count": 0,
+    "stdout_line_count": 16,
+    "timed_out": false
+  },
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "cp2_candidate_contains_proof_body": [
+      "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN"
+    ],
+    "evolve_mutates_unbounded_source": [
+      "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN"
+    ],
+    "provider_oracle_visible_transition": [
+      "VERIFIER_LAB_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE"
+    ],
+    "transition_leaks_candidate_body": [
+      "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN"
+    ]
+  },
+  "organ_id": "verifier_lab_execution_spine",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "receipt_id": "verifier_lab_execution_spine_fixture_acceptance_v1",
+  "receipt_paths": [
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3174/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3174/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3174/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+    "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
+  ],
+  "runtime_shell_projection_deferred": true,
+  "schema_version": "verifier_lab_execution_spine_fixture_acceptance_v1",
+  "status": "pass",
+  "tool_versions": {
+    "lake_available": true,
+    "lake_version_command": {
+      "argv": [
+        "lake",
+        "--version"
+      ],
+      "body_redacted": true,
+      "cwd_name": "ai_workflow",
+      "return_code": 0,
+      "stderr_line_count": 0,
+      "stdout_line_count": 1,
+      "timed_out": false
+    },
+    "lean_available": true,
+    "lean_version_command": {
+      "argv": [
+        "lean",
+        "--version"
+      ],
+      "body_redacted": true,
+      "cwd_name": "ai_workflow",
+      "return_code": 0,
+      "stderr_line_count": 0,
+      "stdout_line_count": 1,
+      "timed_out": false
+    }
+  },
+  "transition_trace": [
+    {
+      "accepted": true,
+      "action_class": "decide",
+      "allowed_premise_refs": [],
+      "candidate_kind": "forward_direct",
+      "contract_rejected": false,
+      "error_codes": [],
+      "lean_return_code": 0,
+      "oracle_visible": false,
+      "problem_id": "closed_nat_mod_public",
+      "proof_body_exported": false,
+      "provider_visible": false,
+      "stdout_stderr_redacted": true,
+      "target_shape": "closed_nat_mod_decision",
+      "timed_out": false,
+      "transition_id": "direct_closed_nat_mod_decide",
+      "verifier_failure_class": "NONE"
+    },
+    {
+      "accepted": true,
+      "action_class": "constructor",
+      "allowed_premise_refs": [],
+      "candidate_kind": "forward_direct",
+      "contract_rejected": false,
+      "error_codes": [],
+      "lean_return_code": 0,
+      "oracle_visible": false,
+      "problem_id": "true_and_true_public",
+      "proof_body_exported": false,
+      "provider_visible": false,
+      "stdout_stderr_redacted": true,
+      "target_shape": "conjunction_constructor",
+      "timed_out": false,
+      "transition_id": "direct_constructor_true_and",
+      "verifier_failure_class": "NONE"
+    },
+    {
+      "accepted": false,
+      "action_class": "exact_premise",
+      "allowed_premise_refs": [],
+      "candidate_kind": "forward_baseline",
+      "contract_rejected": false,
+      "error_codes": [],
+      "lean_return_code": 1,
+      "oracle_visible": false,
+      "problem_id": "add_comm_public",
+      "proof_body_exported": false,
+      "provider_visible": false,
+      "stdout_stderr_redacted": true,
+      "target_shape": "premise_exact",
+      "timed_out": false,
+      "transition_id": "baseline_add_comm_missing_premise",
+      "verifier_failure_class": "PREMISE_RETRIEVAL_MISS"
+    },
+    {
+      "accepted": true,
+      "action_class": "premise_exact",
+      "allowed_premise_refs": [
+        "Nat.add_comm"
+      ],
+      "candidate_kind": "cp2_typed_action_rerun",
+      "contract_rejected": false,
+      "error_codes": [],
+      "lean_return_code": 0,
+      "oracle_visible": false,
+      "problem_id": "add_comm_public",
+      "proof_body_exported": false,
+      "provider_visible": false,
+      "stdout_stderr_redacted": true,
+      "target_shape": "premise_exact",
+      "timed_out": false,
+      "transition_id": "cp2_add_comm_premise_exact_rerun",
+      "verifier_failure_class": "NONE"
+    },
+    {
+      "accepted": false,
+      "action_class": "exact_premise",
+      "allowed_premise_refs": [],
+      "candidate_kind": "forward_residual",
+      "contract_rejected": false,
+      "error_codes": [],
+      "lean_return_code": 1,
+      "oracle_visible": false,
+      "problem_id": "unknown_commutativity_prior",
+      "proof_body_exported": false,
+      "provider_visible": false,
+      "stdout_stderr_redacted": true,
+      "target_shape": "premise_exact",
+      "timed_out": false,
+      "transition_id": "residual_unsolved_unknown_premise",
+      "verifier_failure_class": "PROOF_SYNTHESIS_FAIL"
+    },
+    {
+      "accepted": true,
+      "action_class": "premise_exact",
+      "allowed_premise_refs": [
+        "Nat.add_comm"
+      ],
+      "candidate_kind": "evolve_policy_rerun",
+      "contract_rejected": false,
+      "error_codes": [],
+      "lean_return_code": 0,
+      "oracle_visible": false,
+      "problem_id": "add_comm_public",
+      "proof_body_exported": false,
+      "provider_visible": false,
+      "stdout_stderr_redacted": true,
+      "target_shape": "premise_exact",
+      "timed_out": false,
+      "transition_id": "evolve_rerun_cp2_priority",
+      "verifier_failure_class": "NONE"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.verifier_lab_execution_spine"
+}

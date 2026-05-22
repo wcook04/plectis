@@ -1,0 +1,9 @@
+{
+  "schema_version": "verifier_lab_execution_spine_negative_case_v1",
+  "request_id": "cp2_candidate_contains_proof_body",
+  "expected_negative_case_id": "cp2_candidate_contains_proof_body",
+  "residual_id": "residual_add_comm_missing_premise",
+  "action_class": "premise_exact",
+  "proof_body": "redacted forbidden provider proof text",
+  "downstream_transition_id": "cp2_add_comm_premise_exact_rerun"
+}

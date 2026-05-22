@@ -155,6 +155,15 @@
     },
     {
       "body_redacted": true,
+      "cli_command": "microcosm verifier-lab-execution-spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine",
+      "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+      "ordinal": 43,
+      "organ_id": "verifier_lab_execution_spine",
+      "runtime_receipt_count": 4,
+      "runtime_step": "microcosm_core.organs.verifier_lab_execution_spine::run"
+    },
+    {
+      "body_redacted": true,
       "cli_command": "microcosm navigation_hologram_route_plane run run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
       "current_authority_receipt": "receipts/acceptance/first_wave/navigation_hologram_route_plane_fixture_acceptance.json",
       "ordinal": 18,

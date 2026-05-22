@@ -15,6 +15,7 @@
     "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
     "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
     "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+    "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine",
     "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
     "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
     "python -m microcosm_core.validators.dependency_preflight --readiness ../state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json --negative-matrix ../state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
@@ -263,6 +264,18 @@
       "organ_id": "verifier_lab_kernel",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel"
+    },
+    {
+      "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+        "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
+      ],
+      "organ_id": "verifier_lab_execution_spine",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine"
     },
     {
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",

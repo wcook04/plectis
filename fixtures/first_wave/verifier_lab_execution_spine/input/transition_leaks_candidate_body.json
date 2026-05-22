@@ -1,0 +1,12 @@
+{
+  "schema_version": "verifier_lab_execution_spine_negative_case_v1",
+  "transition_id": "transition_leaks_candidate_body",
+  "expected_negative_case_id": "transition_leaks_candidate_body",
+  "problem_id": "closed_nat_mod_public",
+  "target_shape": "closed_nat_mod_decision",
+  "action_class": "decide",
+  "candidate_kind": "forward_direct",
+  "candidate_body": "redacted forbidden proof text",
+  "oracle_visible": false,
+  "provider_visible": false
+}

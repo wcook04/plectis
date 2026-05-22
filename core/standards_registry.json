@@ -1036,6 +1036,20 @@
     },
     {
       "first_wave_required": true,
+      "kind_id": "verifier_lab_execution_spine",
+      "kind_name": "Verifier lab execution spine",
+      "path": "standards/std_microcosm_verifier_lab_execution_spine.json",
+      "receipt_id": "receipt.microcosm.verifier_lab_execution_spine",
+      "standard_id": "std_microcosm_verifier_lab_execution_spine",
+      "status": "draft",
+      "used_by_organs": [
+        "verifier_lab_execution_spine"
+      ],
+      "validator_id": "validator.microcosm.organs.verifier_lab_execution_spine",
+      "wave": "w1_verifier_lab_execution_spine"
+    },
+    {
+      "first_wave_required": true,
       "kind_id": "work_item",
       "kind_name": "Work item",
       "path": "standards/std_microcosm_work_item.json",

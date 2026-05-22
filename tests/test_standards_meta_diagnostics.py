@@ -45,9 +45,9 @@ def test_standards_meta_diagnostics_observes_negative_cases(tmp_path: Path) -> N
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["accepted_organ_count"] == 42
-    assert result["standard_mapping_count"] == 42
-    assert result["runtime_contract_count"] == 42
+    assert result["accepted_organ_count"] == 43
+    assert result["standard_mapping_count"] == 43
+    assert result["runtime_contract_count"] == 43
     assert "materials_chemistry_closed_loop_lab_safety_replay" in result["covered_organ_ids"]
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["authority_ceiling"]["standards_registry_authority"] is False
@@ -71,9 +71,10 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["accepted_organ_count"] == 42
+    assert result["accepted_organ_count"] == 43
     assert "lean_std_premise_index" in result["covered_organ_ids"]
     assert "formal_math_verifier_trace_repair_loop" in result["covered_organ_ids"]
+    assert "verifier_lab_execution_spine" in result["covered_organ_ids"]
     assert "formal_evidence_cell_anchor_resolver" in result["covered_organ_ids"]
     assert "undeclared_library_prior_symbol_classifier" in result["covered_organ_ids"]
     assert "agent_benchmark_integrity_anti_gaming_replay" in result["covered_organ_ids"]

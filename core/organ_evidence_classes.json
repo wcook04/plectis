@@ -132,6 +132,11 @@
       "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority"
     },
     {
+      "organ_id": "verifier_lab_execution_spine",
+      "evidence_class": "external_subprocess_witness",
+      "classification_basis": "runs bounded public Lean transition candidates through lake env lean, then records CP2 rerun effect and bounded Evolve policy rerun receipts"
+    },
+    {
       "organ_id": "navigation_hologram_route_plane",
       "evidence_class": "semantic_validator",
       "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation"

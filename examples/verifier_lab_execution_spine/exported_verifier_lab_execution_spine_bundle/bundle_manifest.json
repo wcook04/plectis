@@ -1,0 +1,8 @@
+{
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "bundle_id": "public_verifier_lab_execution_spine_runtime_example",
+  "organ_id": "verifier_lab_execution_spine",
+  "input_mode": "exported_verifier_lab_execution_spine_bundle",
+  "source_fixture_ref": "fixtures/first_wave/verifier_lab_execution_spine/input",
+  "authority_ceiling": "bounded public Lean transition execution only; not proof authority beyond fixture rows"
+}

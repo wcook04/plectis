@@ -259,6 +259,19 @@
       "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel"
     },
     {
+      "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+      "generated_receipts": [
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+        "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
+      ],
+      "organ_id": "verifier_lab_execution_spine",
+      "runner": "microcosm_core.organs.verifier_lab_execution_spine",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine"
+    },
+    {
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
       "generated_receipts": [
         "receipts/first_wave/navigation_hologram_route_plane/affordance_passport_selection_receipt.json",

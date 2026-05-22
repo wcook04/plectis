@@ -1,0 +1,173 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_verifier_lab_execution_spine",
+  "kind_id": "verifier_lab_execution_spine",
+  "kind_name": "Verifier lab execution spine",
+  "status": "draft",
+  "first_wave_required": true,
+  "wave": "w1_verifier_lab_execution_spine",
+  "authority_boundary": "public_bounded_lean_transition_execution_receipt_not_general_proof_authority",
+  "source_refs": [
+    {
+      "path": "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json",
+      "field": "execution_spine_packet",
+      "role": "public_fixture_source"
+    },
+    {
+      "path": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle",
+      "field": "runtime_example",
+      "role": "runtime_example_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#verifier_lab_execution_spine",
+    "used_by_organs": [
+      "verifier_lab_execution_spine"
+    ],
+    "source_pattern_id_sample": [
+      "oracle_sidecar_forward_firewall",
+      "target_shape_tactic_routing_gate",
+      "lean_verifier_feedback_failure_classification",
+      "prover_residual_diagnosis_cp1_view_v0",
+      "bounded_evolve_policy_artifact_runner"
+    ]
+  },
+  "required_fields": [
+    "execution_spine_id",
+    "transition_candidates",
+    "provider_hypotheses",
+    "oracle_sidecars",
+    "cp2_translation_requests",
+    "evolve_mutations",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "execute bounded public Lean transition candidates in a temporary workspace",
+    "reject transition candidates containing proof bodies, raw tactic scripts, provider bodies, or oracle templates",
+    "reject forward transition execution with oracle or provider visibility",
+    "translate CP2 residual requests into typed action candidates only",
+    "require downstream Lean rerun effect before CP2 success language",
+    "mutate only bounded policy artifacts for Evolve candidates",
+    "accept or quarantine Evolve mutations from rerun evidence and leakage regression checks",
+    "emit separated claim buckets for verifier, oracle, provider, CP2, contract rejection, residual, and Evolve outcomes"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.verifier_lab_execution_spine",
+    "receipt must cite transition trace, CP2 translation trace, Evolve mutation trace, Lean return codes, negative-case coverage, claim separation, authority counters, private-state scan, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.verifier_lab_execution_spine",
+    "minimum_checks": [
+      "lean_transition_execution",
+      "cp2_typed_action_translation",
+      "cp2_downstream_rerun_effect",
+      "bounded_evolve_policy_rerun",
+      "forward_oracle_provider_visibility_rejection",
+      "proof_body_redaction",
+      "negative_case_coverage"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.verifier_lab_execution_spine",
+    "must_record": [
+      "execution_spine_id",
+      "transition_trace",
+      "cp2_translation_trace",
+      "evolve_mutation_trace",
+      "claim_separation",
+      "authority_counters",
+      "authority_ceiling",
+      "anti_claim",
+      "private_state_scan",
+      "negative_case_coverage"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_when_fixture_receipts_and_generated_transition_bodies_are_redacted",
+    "allowed_public_inputs": [
+      "problem ids",
+      "statement summaries",
+      "target-shape ids",
+      "action-class ids",
+      "allowed public premise refs",
+      "provider hypothesis metadata",
+      "CP2 typed action candidate ids",
+      "bounded Evolve policy-artifact ids",
+      "redacted Lean return-code receipts"
+    ],
+    "forbidden_public_inputs": [
+      "proof bodies",
+      "candidate proof bodies",
+      "ideal proof bodies",
+      "repair proof bodies",
+      "raw tactic scripts",
+      "oracle templates",
+      "provider payload bodies",
+      "private run logs",
+      "source mutation patches",
+      "credentials"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "bounded_public_lean_transition_execution_receipt_schema_only",
+    "formal_proof_authority": "bounded public transition rows only",
+    "oracle_forward_authority": false,
+    "provider_authority": false,
+    "cp2_proof_body_authority": false,
+    "evolve_source_mutation_authority": false,
+    "benchmark_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs bounded public verifier-lab transition execution receipts only; it does not authorize private proof-body import, provider calls, oracle success as forward proof, CP2 proof bodies, arbitrary Evolve mutation, benchmark solve-rate claims, release, publication, or private-data equivalence.",
+  "standard_payload": {
+    "ontology": "A public-safe executing verifier-lab spine that runs Lean transition candidates, translates CP2 residuals into typed action candidates, reruns verifier checks, and accepts or quarantines bounded Evolve policy mutations.",
+    "teleology": "Make the landed leak-proof verifier lab kernel adjudicate real transitions rather than predeclared receipt rows.",
+    "anti_purpose": "Turning provider, oracle, or CP2 text into proof authority or mutating source under the Evolve name.",
+    "compression_bands": [
+      "target_shape",
+      "transition",
+      "verifier",
+      "residual",
+      "cp2",
+      "rerun",
+      "evolve",
+      "receipt"
+    ],
+    "failure_modes": [
+      "transition candidate leaks proof body",
+      "forward execution sees provider or oracle context",
+      "CP2 emits raw tactic script or proof body",
+      "CP2 success is claimed without downstream Lean rerun effect",
+      "Evolve mutates source or unbounded artifacts",
+      "positive metric lacks anti-claim and receipt ref"
+    ],
+    "rebuild_action": "draft"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json"
+  ],
+  "validator_refs": [
+    "microcosm_core.organs.verifier_lab_execution_spine"
+  ],
+  "omission_receipt": {
+    "omitted": [
+      "generated proof bodies",
+      "private Lean proof bodies",
+      "oracle templates",
+      "provider payload bodies",
+      "raw tactic scripts",
+      "private run logs",
+      "source mutation"
+    ],
+    "reason": "public tranche carries typed action classes, Lean return-code receipts, and redacted transition metadata only",
+    "drilldown": "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json"
+  },
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "execution-spine material must state that provider, oracle, CP2, and Evolve outputs are not proof authority without independent verifier receipt"
+  }
+}

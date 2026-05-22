@@ -432,6 +432,27 @@
     },
     {
       "build_dependencies": [
+        "verifier_lab_kernel",
+        "formal_math_lean_proof_witness",
+        "target_shape_tactic_routing_gate",
+        "formal_math_verifier_trace_repair_loop"
+      ],
+      "fixture_id": "fixture::verifier_lab_execution_spine::first_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/lakefile.lean",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness.lean",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/transition_leaks_candidate_body.json",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/provider_oracle_visible_transition.json",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/cp2_candidate_contains_proof_body.json",
+        "fixtures/first_wave/verifier_lab_execution_spine/input/evolve_mutates_unbounded_source.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/verifier_lab_execution_spine.fixture_manifest.json",
+      "organ_id": "verifier_lab_execution_spine"
+    },
+    {
+      "build_dependencies": [
         "pattern_binding_contract",
         "executable_doctrine_grammar",
         "proof_diagnostic_evidence_spine",

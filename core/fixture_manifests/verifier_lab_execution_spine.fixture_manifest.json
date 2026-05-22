@@ -1,0 +1,65 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "first_organ_fixture_validator_manifest",
+  "organ_id": "verifier_lab_execution_spine",
+  "fixture_id": "fixture::verifier_lab_execution_spine::first_wave_contract_v1",
+  "status": "public_slice_contract_bound",
+  "purpose": "Validate bounded public Lean transition execution under the verifier-lab kernel: direct Lean actions, CP2 typed-action translation with downstream verifier effect, bounded Evolve policy rerun, and negative-case leakage controls.",
+  "inputs": [
+    "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/transition_leaks_candidate_body.json",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/provider_oracle_visible_transition.json",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/cp2_candidate_contains_proof_body.json",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/evolve_mutates_unbounded_source.json"
+  ],
+  "generated_receipts": [
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+    "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
+  ],
+  "command": "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine",
+  "expected_negative_cases": [
+    "transition_leaks_candidate_body",
+    "provider_oracle_visible_transition",
+    "cp2_candidate_contains_proof_body",
+    "evolve_mutates_unbounded_source"
+  ],
+  "stable_error_codes": [
+    "VERIFIER_LAB_EXECUTION_TRANSITION_FIELD_FORBIDDEN",
+    "VERIFIER_LAB_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE",
+    "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
+    "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN"
+  ],
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "transition_trace",
+    "cp2_translation_trace",
+    "evolve_mutation_trace",
+    "claim_separation",
+    "authority_counters",
+    "anti_claim",
+    "private_state_scan",
+    "authority_ceiling",
+    "receipt_paths"
+  ],
+  "private_state_exclusion_rules": {
+    "proof_bodies": "forbidden in receipts and fixture packet fields; generated transition source stays local and redacted",
+    "oracle_templates": "forbidden; oracle comparison remains diagnostic only",
+    "provider_payload_bodies": "forbidden; provider hypotheses are advisory metadata only",
+    "raw_tactic_scripts": "forbidden in CP2 candidates; CP2 emits typed action classes only",
+    "evolve_source_mutation": "forbidden; Evolve is limited to bounded policy artifacts"
+  },
+  "authority_ceiling": "public verifier lab execution fixture only; not general theorem proof authority, provider authority, oracle authority, source mutation authority, benchmark authority, or release readiness",
+  "anti_claim": "This fixture manifest accepts only public Lean transition receipts, typed CP2 candidate metadata, bounded Evolve policy rerun rows, and negative-case leakage coverage. It does not authorize private proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted-public readiness, publication readiness, recipient work, or private-data equivalence."
+}

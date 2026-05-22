@@ -1,0 +1,148 @@
+{
+  "schema_version": "verifier_lab_execution_spine_packet_v1",
+  "execution_spine_id": "std_public_lean_transition_lab_v1",
+  "source_refs": [
+    "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean"
+  ],
+  "source_pattern_ids": [
+    "oracle_sidecar_forward_firewall",
+    "target_shape_tactic_routing_gate",
+    "lean_verifier_feedback_failure_classification",
+    "prover_residual_diagnosis_cp1_view_v0",
+    "bounded_evolve_policy_artifact_runner"
+  ],
+  "projection_receipt_refs": [
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json"
+  ],
+  "public_replacement_refs": [
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
+  ],
+  "transition_candidates": [
+    {
+      "transition_id": "direct_closed_nat_mod_decide",
+      "problem_id": "closed_nat_mod_public",
+      "target_shape": "closed_nat_mod_decision",
+      "action_class": "decide",
+      "candidate_kind": "forward_direct",
+      "allowed_premise_refs": [],
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "direct_constructor_true_and",
+      "problem_id": "true_and_true_public",
+      "target_shape": "conjunction_constructor",
+      "action_class": "constructor",
+      "candidate_kind": "forward_direct",
+      "allowed_premise_refs": [],
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "baseline_add_comm_missing_premise",
+      "problem_id": "add_comm_public",
+      "target_shape": "premise_exact",
+      "action_class": "exact_premise",
+      "candidate_kind": "forward_baseline",
+      "allowed_premise_refs": [],
+      "expected_outcome": "fail_missing_premise",
+      "expected_failure_class": "PREMISE_RETRIEVAL_MISS",
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "cp2_add_comm_premise_exact_rerun",
+      "problem_id": "add_comm_public",
+      "target_shape": "premise_exact",
+      "action_class": "premise_exact",
+      "candidate_kind": "cp2_typed_action_rerun",
+      "allowed_premise_refs": [
+        "Nat.add_comm"
+      ],
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "residual_unsolved_unknown_premise",
+      "problem_id": "unknown_commutativity_prior",
+      "target_shape": "premise_exact",
+      "action_class": "exact_premise",
+      "candidate_kind": "forward_residual",
+      "allowed_premise_refs": [],
+      "expected_outcome": "residual_unsolved",
+      "expected_failure_class": "PROOF_SYNTHESIS_FAIL",
+      "oracle_visible": false,
+      "provider_visible": false
+    },
+    {
+      "transition_id": "evolve_rerun_cp2_priority",
+      "problem_id": "add_comm_public",
+      "target_shape": "premise_exact",
+      "action_class": "premise_exact",
+      "candidate_kind": "evolve_policy_rerun",
+      "allowed_premise_refs": [
+        "Nat.add_comm"
+      ],
+      "oracle_visible": false,
+      "provider_visible": false
+    }
+  ],
+  "oracle_sidecars": [
+    {
+      "sidecar_id": "oracle_add_comm_available_for_comparison_only",
+      "forward_problem_id": "add_comm_public",
+      "oracle_result_class": "oracle_can_solve",
+      "counted_as_forward_success": false
+    }
+  ],
+  "provider_hypotheses": [
+    {
+      "hypothesis_id": "synthetic_provider_add_comm_residual",
+      "residual_id": "residual_add_comm_missing_premise",
+      "residual_class": "PREMISE_RETRIEVAL_MISS",
+      "missing_primitive": "commutativity lemma selection",
+      "candidate_action_classes": [
+        "premise_exact"
+      ],
+      "provider_results_counted": false
+    }
+  ],
+  "cp2_translation_requests": [
+    {
+      "request_id": "cp2_translate_add_comm_residual",
+      "residual_id": "residual_add_comm_missing_premise",
+      "provider_hypothesis_id": "synthetic_provider_add_comm_residual",
+      "action_class": "premise_exact",
+      "candidate_kind": "typed_action_candidate",
+      "selected_premise_refs": [
+        "Nat.add_comm"
+      ],
+      "disconfirmation_test": "rerun baseline add_comm problem with premise_exact and require Lean acceptance",
+      "downstream_transition_id": "cp2_add_comm_premise_exact_rerun"
+    }
+  ],
+  "evolve_mutations": [
+    {
+      "mutation_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
+      "mutated_artifact": "failure_class_routing",
+      "baseline_transition_ids": [
+        "baseline_add_comm_missing_premise"
+      ],
+      "rerun_transition_ids": [
+        "evolve_rerun_cp2_priority"
+      ],
+      "rationale": "route PREMISE_RETRIEVAL_MISS to premise_exact before retrying generic exact_premise",
+      "arbitrary_code_mutation": false,
+      "source_mutation_authorized": false
+    }
+  ],
+  "authority_ceiling": {
+    "formal_proof_authority": "bounded_public_transition_rows_only",
+    "provider_calls_authorized": false,
+    "oracle_forward_success_increment_authorized": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "source_mutation_authorized": false
+  },
+  "anti_claim": "This packet exercises bounded public Lean transition execution and CP2/Evolve policy reruns only. It does not export proof bodies, import private traces, call providers, mutate source, or claim benchmark solve-rate."
+}

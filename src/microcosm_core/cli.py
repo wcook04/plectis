@@ -48,6 +48,7 @@ from microcosm_core.organs import standards_meta_diagnostics
 from microcosm_core.organs import tactic_portfolio_availability_probe
 from microcosm_core.organs import target_shape_tactic_routing_gate
 from microcosm_core.organs import undeclared_library_prior_symbol_classifier
+from microcosm_core.organs import verifier_lab_execution_spine
 from microcosm_core.organs import verifier_lab_kernel
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.validators import acceptance
@@ -240,6 +241,15 @@ def main(argv: list[str] | None = None) -> int:
     verifier_lab_parser.add_argument("action", choices=["run", "run-kernel-bundle"])
     _add_input_out(verifier_lab_parser)
     verifier_lab_parser.add_argument("--acceptance-out")
+
+    verifier_lab_execution_parser = subparsers.add_parser(
+        "verifier-lab-execution-spine"
+    )
+    verifier_lab_execution_parser.add_argument(
+        "action", choices=["run", "run-execution-bundle"]
+    )
+    _add_input_out(verifier_lab_execution_parser)
+    verifier_lab_execution_parser.add_argument("--acceptance-out")
 
     evidence_cell_parser = subparsers.add_parser("formal-evidence-cell-anchor-resolver")
     evidence_cell_parser.add_argument("action", choices=["run", "run-anchor-bundle"])
@@ -684,6 +694,19 @@ def main(argv: list[str] | None = None) -> int:
         if args.acceptance_out and args.action == "run":
             verifier_lab_args.extend(["--acceptance-out", args.acceptance_out])
         return verifier_lab_kernel.main(verifier_lab_args)
+    if args.command == "verifier-lab-execution-spine":
+        verifier_lab_execution_args = [
+            args.action,
+            "--input",
+            args.input,
+            "--out",
+            args.out,
+        ]
+        if args.acceptance_out and args.action == "run":
+            verifier_lab_execution_args.extend(
+                ["--acceptance-out", args.acceptance_out]
+            )
+        return verifier_lab_execution_spine.main(verifier_lab_execution_args)
     if args.command == "formal-evidence-cell-anchor-resolver":
         return formal_evidence_cell_anchor_resolver.main(
             [args.action, "--input", args.input, "--out", args.out]

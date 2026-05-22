@@ -293,6 +293,23 @@
     },
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
+      "authority_ceiling_ref": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+      "body_redacted": true,
+      "ordinal": 43,
+      "organ_id": "verifier_lab_execution_spine",
+      "pressure_row_ref": "core/public_standard_pressure.json::rows[verifier_lab_execution_spine_projection_only]",
+      "receipt_refs": [
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+        "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+        "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
+      ],
+      "registry_row_ref": "core/standards_registry.json::standards[std_microcosm_verifier_lab_execution_spine]",
+      "standard_id": "std_microcosm_verifier_lab_execution_spine",
+      "standard_ref": "standards/std_microcosm_verifier_lab_execution_spine.json"
+    },
+    {
+      "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/navigation_hologram_route_plane_fixture_acceptance.json",
       "body_redacted": true,
       "ordinal": 18,
