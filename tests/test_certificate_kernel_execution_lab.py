@@ -204,3 +204,21 @@ def test_certificate_kernel_execution_lab_public_readout_is_cold_reader_route(
     assert "src/ai_workflow" not in text
     assert "proof_body" not in _walk_keys(readout)
     assert "provider_text" not in _walk_keys(readout)
+
+
+def test_certificate_kernel_execution_lab_readout_out_keeps_repo_root_path(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    output_path = (
+        Path("microcosm-substrate")
+        / "receipts/first_wave/certificate_kernel_execution_lab/"
+        / "certificate_kernel_execution_lab_public_readout.json"
+    )
+    monkeypatch.chdir(tmp_path)
+
+    build_public_readout(public_root, out=output_path)
+
+    assert (public_root / output_path.relative_to("microcosm-substrate")).is_file()
+    assert not (public_root / output_path).exists()

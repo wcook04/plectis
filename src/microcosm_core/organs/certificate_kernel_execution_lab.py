@@ -209,6 +209,28 @@ def _display(path: Path, *, public_root: Path) -> str:
     return public_relative_path(path, display_root=public_root)
 
 
+def _path_is_relative_to(path: Path, root: Path) -> bool:
+    try:
+        path.resolve(strict=False).relative_to(root.resolve(strict=False))
+    except ValueError:
+        return False
+    return True
+
+
+def _public_readout_output_path(out: str | Path, *, public_root: Path) -> Path:
+    out_path = Path(out)
+    if out_path.is_absolute():
+        return out_path
+    cwd_candidate = (Path.cwd() / out_path).resolve(strict=False)
+    if _path_is_relative_to(cwd_candidate, public_root):
+        return cwd_candidate
+    if out_path.parts and out_path.parts[0] == public_root.name:
+        sibling_candidate = (public_root.parent / out_path).resolve(strict=False)
+        if _path_is_relative_to(sibling_candidate, public_root):
+            return sibling_candidate
+    return public_root / out_path
+
+
 def _strings(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
@@ -1427,9 +1449,7 @@ def build_public_readout(
         "body_redacted": True,
     }
     if out is not None:
-        out_path = Path(out)
-        if not out_path.is_absolute():
-            out_path = root / out_path
+        out_path = _public_readout_output_path(out, public_root=root)
         write_json_atomic(out_path, payload)
     return payload
 
