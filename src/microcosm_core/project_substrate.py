@@ -810,6 +810,124 @@ def _route_utility_counts(tasks: list[dict[str, Any]]) -> dict[str, int]:
     }
 
 
+def _existing_project_refs(project: Path, refs: list[str | None]) -> list[str]:
+    existing: list[str] = []
+    seen: set[str] = set()
+    for ref in refs:
+        if not ref:
+            continue
+        rel = str(ref)
+        if rel in seen:
+            continue
+        if (project / rel).is_file():
+            seen.add(rel)
+            existing.append(rel)
+    return existing
+
+
+def _route_utility_ratchet(
+    *,
+    project: Path,
+    tasks: list[dict[str, Any]],
+    task_surface_refs: dict[str, list[str]],
+    write_state: bool,
+) -> dict[str, Any]:
+    state_path = _state_dir(project) / PYTHON_LENS_STATE
+    task_ids = [str(row.get("task_id") or "") for row in tasks if row.get("task_id")]
+    watched_refs = sorted(
+        {
+            ref
+            for refs in task_surface_refs.values()
+            for ref in refs
+            if (project / ref).is_file()
+        }
+    )
+    high_risk_route_families = [
+        "entry_packet_drilldown",
+        "implementation_atlas",
+        "source_span_locator",
+        "symbol_capsule_locator",
+        "graph_context_locator",
+        "probe_disposition_closure",
+        "redaction_boundary",
+    ]
+    if write_state:
+        return {
+            "schema_version": "microcosm_python_route_utility_ratchet_v1",
+            "seed_task_count": len(tasks),
+            "generated_task_count": 0,
+            "changed_surface_refs": [],
+            "affected_task_ids": [],
+            "stale_task_ids": [],
+            "high_risk_route_families": high_risk_route_families,
+            "sampled_from": watched_refs,
+            "state_freshness": "current_write",
+            "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+            "last_run_result": "curriculum_current",
+            "next_reentry_condition": (
+                "rerun non-writing route utility ratchet after source, test, entry, "
+                "symbol, graph, or redaction-boundary surfaces change"
+            ),
+        }
+    if not state_path.is_file():
+        return {
+            "schema_version": "microcosm_python_route_utility_ratchet_v1",
+            "seed_task_count": len(tasks),
+            "generated_task_count": 0,
+            "changed_surface_refs": [],
+            "affected_task_ids": [],
+            "stale_task_ids": [],
+            "high_risk_route_families": high_risk_route_families,
+            "sampled_from": watched_refs,
+            "state_freshness": "no_written_state",
+            "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+            "last_run_result": "nothing_to_refine",
+            "next_reentry_condition": (
+                "write python_lens state once before stale-surface comparison can "
+                "name affected route tasks"
+            ),
+        }
+    state_mtime_ns = state_path.stat().st_mtime_ns
+    changed_surface_refs = [
+        rel
+        for rel in watched_refs
+        if (project / rel).stat().st_mtime_ns > state_mtime_ns
+    ]
+    changed_set = set(changed_surface_refs)
+    affected_task_ids = [
+        task_id
+        for task_id in task_ids
+        if changed_set.intersection(task_surface_refs.get(task_id, []))
+    ]
+    last_run_result = (
+        "curriculum_stale_for_changed_surface"
+        if affected_task_ids
+        else "nothing_to_refine"
+    )
+    return {
+        "schema_version": "microcosm_python_route_utility_ratchet_v1",
+        "seed_task_count": len(tasks),
+        "generated_task_count": len(affected_task_ids),
+        "generated_task_ids": [
+            f"ratchet:{task_id}" for task_id in affected_task_ids
+        ],
+        "changed_surface_refs": changed_surface_refs,
+        "affected_task_ids": affected_task_ids,
+        "stale_task_ids": affected_task_ids,
+        "high_risk_route_families": high_risk_route_families,
+        "sampled_from": watched_refs,
+        "state_freshness": "compared_to_written_state",
+        "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        "last_run_result": last_run_result,
+        "next_reentry_condition": (
+            "refresh python_lens state or repair the named route task surfaces "
+            "before treating the curriculum as current"
+            if affected_task_ids
+            else "rerun after watched route surfaces change"
+        ),
+    }
+
+
 def _python_route_utility_curriculum(
     *,
     project: Path,
@@ -982,6 +1100,44 @@ def _python_route_utility_curriculum(
             reentry_condition="redaction or authority-ceiling fields change",
         ),
     ]
+    task_surface_refs = {
+        "route_utility:entry_surface_to_python_assay": _existing_project_refs(
+            project, ["atlas/entry_packet.json", "README.md"]
+        ),
+        "route_utility:implementation_atlas_drilldown": _existing_project_refs(
+            project, ["atlas/entry_packet.json", "README.md", source_card]
+        ),
+        "route_utility:package_metadata_file_card": _existing_project_refs(
+            project, pyproject_refs
+        ),
+        "route_utility:source_core_source_span": _existing_project_refs(
+            project, [source_card]
+        ),
+        "route_utility:test_behavior_source_span": _existing_project_refs(
+            project, [test_card]
+        ),
+        "route_utility:entrypoint_source_span": _existing_project_refs(
+            project, [entrypoint_card]
+        ),
+        "route_utility:symbol_capsule_lookup": _existing_project_refs(
+            project, [source_card]
+        ),
+        "route_utility:graph_context_lookup": _existing_project_refs(
+            project, source_refs + test_refs + entrypoint_refs
+        ),
+        "route_utility:probe_disposition_closure": _existing_project_refs(
+            project, source_refs + test_refs + pyproject_refs + entrypoint_refs
+        ),
+        "route_utility:redaction_boundary": _existing_project_refs(
+            project, source_refs + test_refs + pyproject_refs + entrypoint_refs
+        ),
+    }
+    ratchet = _route_utility_ratchet(
+        project=project,
+        tasks=tasks,
+        task_surface_refs=task_surface_refs,
+        write_state=write_state,
+    )
     disposition_counts = _route_utility_counts(tasks)
     pass_count = sum(1 for row in tasks if row.get("correctness") == PASS)
     not_applicable_count = sum(1 for row in tasks if row.get("correctness") == "not_applicable")
@@ -995,6 +1151,7 @@ def _python_route_utility_curriculum(
         "route_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::implementation_atlas.python_navigation_assay",
         "task_count": len(tasks),
         "tasks": tasks,
+        "ratchet": ratchet,
         "route_utility_metrics": {
             "pass_count": pass_count,
             "not_applicable_count": not_applicable_count,
@@ -1002,6 +1159,8 @@ def _python_route_utility_curriculum(
             "max_route_hops": max((len(row.get("route_hops", [])) for row in tasks), default=0),
             "all_failures_disposed": all(row.get("disposition") for row in tasks),
             "known_route_id_count": len(route_ids),
+            "stale_task_count": len(ratchet["stale_task_ids"]),
+            "generated_task_count": ratchet["generated_task_count"],
         },
         "disposition_counts": disposition_counts,
         "local_projection_defects": [
@@ -1191,6 +1350,9 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         "graph_edge_count": len(import_edges),
         "parse_error_count": len(parse_error_rows),
         "route_utility_curriculum_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum",
+        "route_utility_ratchet_ref": (
+            f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum.ratchet"
+        ),
         "authority": "generated_project_local_assay_not_std_python_source_authority",
         "reentry_condition": "rerun after Python file, catalog, route-readiness, or std_python ladder changes",
     }
@@ -1229,6 +1391,9 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         ],
         "probe_disposition_counts": disposition_counts,
         "route_utility_curriculum_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum",
+        "route_utility_ratchet_ref": (
+            f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum.ratchet"
+        ),
         "source_bodies_exported": False,
         "body_redacted": True,
         "authority": "route_selector_over_project_local_read_model_not_release_or_static_analysis_authority",
@@ -1252,6 +1417,9 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
             "probe_disposition_counts": disposition_counts,
             "route_utility_curriculum_ref": (
                 f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum"
+            ),
+            "route_utility_ratchet_ref": (
+                f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum.ratchet"
             ),
             "standard_amendment_candidate_count": disposition_counts[
                 "standard_amendment_candidate"
@@ -1290,14 +1458,29 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
     navigation_assay["route_utility_disposition_counts"] = route_utility_curriculum[
         "disposition_counts"
     ]
+    navigation_assay["route_utility_ratchet_status"] = route_utility_curriculum[
+        "ratchet"
+    ]["last_run_result"]
+    navigation_assay["route_utility_stale_task_count"] = len(
+        route_utility_curriculum["ratchet"]["stale_task_ids"]
+    )
     python_navigation_route["route_utility_curriculum_ref"] = navigation_assay[
         "route_utility_curriculum_ref"
+    ]
+    python_navigation_route["route_utility_ratchet_ref"] = navigation_assay[
+        "route_utility_ratchet_ref"
     ]
     implementation_atlas["python_navigation_assay"]["route_utility_task_count"] = (
         route_utility_curriculum["task_count"]
     )
     implementation_atlas["python_navigation_assay"]["route_utility_disposition_counts"] = (
         route_utility_curriculum["disposition_counts"]
+    )
+    implementation_atlas["python_navigation_assay"]["route_utility_ratchet_status"] = (
+        route_utility_curriculum["ratchet"]["last_run_result"]
+    )
+    implementation_atlas["python_navigation_assay"]["route_utility_stale_task_count"] = (
+        len(route_utility_curriculum["ratchet"]["stale_task_ids"])
     )
     payload = {
         **_base_payload("microcosm_project_python_lens_v1", project),
@@ -1798,6 +1981,20 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
                 )
                 if isinstance(python_projection.get("navigation_assay"), dict)
                 else {}
+            ),
+            "route_utility_ratchet_status": (
+                python_projection.get("navigation_assay", {}).get(
+                    "route_utility_ratchet_status"
+                )
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else None
+            ),
+            "route_utility_stale_task_count": (
+                python_projection.get("navigation_assay", {}).get(
+                    "route_utility_stale_task_count", 0
+                )
+                if isinstance(python_projection.get("navigation_assay"), dict)
+                else 0
             ),
         },
         "route_utility_curriculum": python_projection.get("route_utility_curriculum", {}),

@@ -268,7 +268,10 @@ emits `.microcosm/python_lens.json` with Python file roles, package roots,
 readiness checks, route rows, and the `std_python_microcosm_navigation_assay`
 inside `implementation_atlas.python_navigation_assay`, plus
 `route_utility_curriculum` task rows that check entry-to-span navigation while
-redacting source bodies. Use that assay to choose the `module_docs`, `file_card`,
+redacting source bodies. Its `route_utility_curriculum.ratchet` section marks
+changed watched surfaces, affected route tasks, stale task ids, and the next
+reentry condition when a non-writing inspection sees drift against written lens
+state. Use that assay to choose the `module_docs`, `file_card`,
 `symbol_capsule`, `graph_context`, or `source_span` depth before opening proof
 spans. It does not
 execute Python, mutate source files, call providers, claim static-analysis

@@ -267,6 +267,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "std_python_microcosm_navigation_assay" in text
     assert "implementation_atlas.python_navigation_assay" in text
     assert "route_utility_curriculum" in text
+    assert "route_utility_curriculum.ratchet" in text
     assert "executable research prototype" in text
     assert "Architecture Kernel" in text
     assert "microcosm explain <project> <route_id>" in text
@@ -301,6 +302,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "std_python_microcosm_navigation_assay" in cold_start
     assert "implementation_atlas.python_navigation_assay" in cold_start
     assert "route_utility_curriculum" in cold_start
+    assert "route_utility_curriculum.ratchet" in cold_start
 
 
 def test_public_entry_packet_routes_python_navigation_assay() -> None:
@@ -320,7 +322,14 @@ def test_public_entry_packet_routes_python_navigation_assay() -> None:
         route["route_utility_curriculum_ref"]
         == ".microcosm/python_lens.json::route_utility_curriculum"
     )
+    assert (
+        route["route_utility_ratchet_ref"]
+        == ".microcosm/python_lens.json::route_utility_curriculum.ratchet"
+    )
     assert ".microcosm/python_lens.json::route_utility_curriculum" in entry_packet[
+        "allowed_drilldowns"
+    ]
+    assert ".microcosm/python_lens.json::route_utility_curriculum.ratchet" in entry_packet[
         "allowed_drilldowns"
     ]
     assert route["canonical_depth_ladder"] == [

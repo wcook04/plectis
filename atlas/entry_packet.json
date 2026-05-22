@@ -10,7 +10,8 @@
     ".microcosm/python_lens.json",
     ".microcosm/python_lens.json::navigation_assay",
     ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
-    ".microcosm/python_lens.json::route_utility_curriculum"
+    ".microcosm/python_lens.json::route_utility_curriculum",
+    ".microcosm/python_lens.json::route_utility_curriculum.ratchet"
   ],
   "python_navigation_route": {
     "surface_id": "project_python_lens",
@@ -20,6 +21,7 @@
     "assay_ref": ".microcosm/python_lens.json::navigation_assay",
     "implementation_atlas_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
     "route_utility_curriculum_ref": ".microcosm/python_lens.json::route_utility_curriculum",
+    "route_utility_ratchet_ref": ".microcosm/python_lens.json::route_utility_curriculum.ratchet",
     "canonical_depth_ladder": [
       "module_docs",
       "file_card",

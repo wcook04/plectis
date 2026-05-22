@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 from microcosm_core import project_substrate
@@ -98,6 +99,14 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "macro_standard_amendment_candidate": 0,
         "nothing_to_refine": 10,
     }
+    assert (
+        python_lens["navigation_assay"]["route_utility_ratchet_ref"]
+        == ".microcosm/python_lens.json::route_utility_curriculum.ratchet"
+    )
+    assert python_lens["navigation_assay"]["route_utility_ratchet_status"] == (
+        "curriculum_current"
+    )
+    assert python_lens["navigation_assay"]["route_utility_stale_task_count"] == 0
     assert python_lens["python_navigation_route"]["assay_ref"] == (
         ".microcosm/python_lens.json::navigation_assay"
     )
@@ -106,6 +115,9 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     )
     assert python_lens["python_navigation_route"]["route_utility_curriculum_ref"] == (
         ".microcosm/python_lens.json::route_utility_curriculum"
+    )
+    assert python_lens["python_navigation_route"]["route_utility_ratchet_ref"] == (
+        ".microcosm/python_lens.json::route_utility_curriculum.ratchet"
     )
     assert python_lens["python_navigation_route"]["canonical_depth_ladder"] == [
         "module_docs",
@@ -126,6 +138,12 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         python_lens["implementation_atlas"]["python_navigation_assay"]["source_bodies_exported"]
         is False
     )
+    assert (
+        python_lens["implementation_atlas"]["python_navigation_assay"][
+            "route_utility_ratchet_status"
+        ]
+        == "curriculum_current"
+    )
     route_curriculum = python_lens["route_utility_curriculum"]
     assert route_curriculum["curriculum_id"] == "microcosm_python_route_utility_curriculum"
     assert route_curriculum["task_count"] == 10
@@ -139,6 +157,14 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     }
     assert route_curriculum["redaction_boundary_ok"] is True
     assert route_curriculum["source_bodies_exported"] is False
+    assert route_curriculum["route_utility_metrics"]["stale_task_count"] == 0
+    assert route_curriculum["ratchet"]["schema_version"] == (
+        "microcosm_python_route_utility_ratchet_v1"
+    )
+    assert route_curriculum["ratchet"]["seed_task_count"] == 10
+    assert route_curriculum["ratchet"]["generated_task_count"] == 0
+    assert route_curriculum["ratchet"]["stale_task_ids"] == []
+    assert route_curriculum["ratchet"]["last_run_result"] == "curriculum_current"
     task_by_id = {row["task_id"]: row for row in route_curriculum["tasks"]}
     assert (
         task_by_id["route_utility:entry_surface_to_python_assay"]["entry_surface_ref"]
@@ -251,11 +277,16 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["python_source_span_count"] == 3
     assert compiled["python_navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
     assert compiled["python_navigation_assay"]["route_utility_task_count"] == 10
+    assert compiled["python_navigation_assay"]["route_utility_stale_task_count"] == 0
     assert (
         compiled["implementation_atlas"]["python_navigation_assay"]["assay_ref"]
         == ".microcosm/python_lens.json::navigation_assay"
     )
     assert compiled["route_utility_curriculum"]["task_count"] == 10
+    assert (
+        compiled["route_utility_curriculum"]["ratchet"]["last_run_result"]
+        == "curriculum_current"
+    )
     assert compiled["python_navigation_route"]["surface_id"] == "project_python_lens"
     assert compiled["work_id"] == "work_0001"
     assert compiled["idempotent_replay"] is True
@@ -301,8 +332,47 @@ def test_python_lens_can_emit_navigation_assay_without_writing_state(tmp_path: P
     assert python_lens["route_utility_curriculum"]["task_count"] == 10
     assert python_lens["route_utility_curriculum"]["state_written"] is False
     assert python_lens["route_utility_curriculum"]["source_bodies_exported"] is False
+    assert python_lens["route_utility_curriculum"]["ratchet"]["last_run_result"] == (
+        "nothing_to_refine"
+    )
+    assert python_lens["route_utility_curriculum"]["ratchet"]["state_freshness"] == (
+        "no_written_state"
+    )
     assert python_lens["source_span_count"] == 3
     assert not (project / ".microcosm").exists()
+
+
+def test_python_lens_route_utility_ratchet_marks_changed_surface_without_writing(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    project_substrate.python_lens(project)
+    state_path = project / ".microcosm/python_lens.json"
+    test_path = project / "tests/test_smoke.py"
+    future = state_path.stat().st_mtime + 10
+    test_path.write_text(
+        "from scratch_app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n\n",
+        encoding="utf-8",
+    )
+    os.utime(test_path, (future, future))
+
+    python_lens = project_substrate.python_lens(project, write_state=False)
+    ratchet = python_lens["route_utility_curriculum"]["ratchet"]
+
+    assert python_lens["state_written"] is False
+    assert ratchet["last_run_result"] == "curriculum_stale_for_changed_surface"
+    assert ratchet["changed_surface_refs"] == ["tests/test_smoke.py"]
+    assert "route_utility:test_behavior_source_span" in ratchet["affected_task_ids"]
+    assert "route_utility:redaction_boundary" in ratchet["affected_task_ids"]
+    assert sorted(ratchet["stale_task_ids"]) == sorted(ratchet["affected_task_ids"])
+    assert ratchet["generated_task_count"] == len(ratchet["affected_task_ids"])
+    assert python_lens["navigation_assay"]["route_utility_ratchet_status"] == (
+        "curriculum_stale_for_changed_surface"
+    )
+    assert python_lens["navigation_assay"]["route_utility_stale_task_count"] == len(
+        ratchet["stale_task_ids"]
+    )
+    assert (project / ".microcosm/python_lens.json").is_file()
 
 
 def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
