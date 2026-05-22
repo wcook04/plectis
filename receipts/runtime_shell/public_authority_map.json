@@ -35,6 +35,7 @@
     "microcosm evidence-cells",
     "microcosm proof-loop-depth",
     "microcosm verifier-lab-execution-spine run-execution-bundle",
+    "microcosm certificate-kernel-execution-lab run-certificate-bundle",
     "microcosm landing-replay",
     "microcosm view-quality",
     "microcosm projection-safety",
@@ -54,6 +55,7 @@
     "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
     "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
     "microcosm belief-state-process-reward-replay run-reward-bundle",
+    "microcosm certificate-kernel-execution-lab run-certificate-bundle",
     "microcosm benchmark-lab",
     "microcosm legibility-scorecard",
     "microcosm intake",
@@ -64,7 +66,7 @@
   "endpoint": "/authority",
   "evidence_class_counts": {
     "algorithmic_projection": 15,
-    "external_subprocess_witness": 2,
+    "external_subprocess_witness": 3,
     "fixture_echo_smoke": 13,
     "fixture_schema_replay": 2,
     "semantic_validator": 12
@@ -75,7 +77,7 @@
     "explicit_coverage": true,
     "extra_organs": [],
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 44,
+    "organ_evidence_class_count": 45,
     "registry_id": "microcosm_organ_evidence_classes",
     "schema_version": "microcosm_organ_evidence_classes_v1",
     "source_ref": "core/organ_evidence_classes.json",
@@ -84,6 +86,7 @@
   "evidence_refs": [
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
     "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/flagship_tranche.json",
     "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
     "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
@@ -1022,6 +1025,26 @@
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
       "verdict_source": "fixture_supplied_fields"
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "claim_ceiling": "tool witness only, not general proof authority",
+      "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters",
+      "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
+      "evidence_class": "external_subprocess_witness",
+      "evidence_strength_disclosed": true,
+      "evidence_strength_rank": 4,
+      "generated_receipt_count": 4,
+      "input_mode": "exported_certificate_kernel_execution_lab_bundle",
+      "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+      "ordinal": 45,
+      "organ_id": "certificate_kernel_execution_lab",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false,
+      "verdict_source": "subprocess_or_tool_witness"
     }
   ],
   "projection_cells": [
@@ -1582,6 +1605,21 @@
       "weaponized_payload_export_authorized": false
     },
     {
+      "arbitrary_evolve_execution_authorized": false,
+      "authority_role": "public certificate-kernel execution lab and external Lean/Lake witness boundary",
+      "bounded_public_external_witness_only": true,
+      "command": "microcosm certificate-kernel-execution-lab run-certificate-bundle",
+      "endpoint": "/proof-loop-depth",
+      "formal_proof_authority": false,
+      "private_proof_body_exported": false,
+      "private_source_refs_exported": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "surface_id": "public_certificate_kernel_execution_lab_lens"
+    },
+    {
       "active_injection_authority_authorized": false,
       "authority_role": "synthetic agent memory temporal-conflict replay and source-authority boundary",
       "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
@@ -1711,10 +1749,10 @@
   ],
   "surface_counts": {
     "hard_boundary_count": 6,
-    "organ_authority_count": 44,
+    "organ_authority_count": 45,
     "organ_evidence_class_count": 5,
     "projection_cell_count": 3,
     "safe_local_exception_count": 3,
-    "surface_authority_count": 44
+    "surface_authority_count": 45
   }
 }

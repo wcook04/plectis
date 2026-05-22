@@ -54,10 +54,11 @@
     "agent_sandbox_policy_escape_replay",
     "indirect_prompt_injection_information_flow_policy_replay",
     "agentic_vulnerability_discovery_patch_proof_replay",
-    "materials_chemistry_closed_loop_lab_safety_replay"
+    "materials_chemistry_closed_loop_lab_safety_replay",
+    "certificate_kernel_execution_lab"
   ],
   "checker_id": "checker.microcosm.validators.dependency_preflight",
-  "command": "python -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json",
+  "command": "python -m microcosm_core.validators.dependency_preflight --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --out microcosm-substrate/receipts/preflight/dependency_preflight.json",
   "dependency_checks": [
     {
       "build_dependencies": [],
@@ -551,6 +552,16 @@
       "missing_dependencies": [],
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "status": "pass"
+    },
+    {
+      "build_dependencies": [
+        "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
+        "macro_projection_import_protocol"
+      ],
+      "missing_dependencies": [],
+      "organ_id": "certificate_kernel_execution_lab",
+      "status": "pass"
     }
   ],
   "fixture_precondition_checks": [
@@ -846,7 +857,7 @@
     },
     {
       "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
-      "fixture_input_count": 9,
+      "fixture_input_count": 10,
       "fixture_manifest": "core/fixture_manifests/macro_projection_import_protocol.fixture_manifest.json",
       "input_source": "public_fixture_manifest",
       "macro_fixture_input_ref_count": 8,
@@ -993,9 +1004,19 @@
       "missing_fixture_inputs": [],
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "status": "pass"
+    },
+    {
+      "fixture_id": "fixture::certificate_kernel_execution_lab::first_wave_contract_v1",
+      "fixture_input_count": 9,
+      "fixture_manifest": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
+      "input_source": "macro_readiness_fixture_inputs",
+      "macro_fixture_input_ref_count": 9,
+      "missing_fixture_inputs": [],
+      "organ_id": "certificate_kernel_execution_lab",
+      "status": "pass"
     }
   ],
-  "negative_matrix_case_count": 23,
+  "negative_matrix_case_count": 24,
   "organ_lifecycle_coverage": {
     "accepted_order_status": "pass",
     "anti_claim": "Organ lifecycle coverage checks public convergence only; it does not authorize release, provider calls, source mutation, or private-data equivalence.",
@@ -1008,13 +1029,13 @@
       "fixtures/first_wave/<organ_id>/input"
     ],
     "coverage_counts": {
-      "acceptance_plan_organ_count": 44,
-      "accepted_organ_count": 44,
-      "evidence_class_row_count": 44,
-      "fixture_check_count": 44,
-      "organ_authority_row_count": 44,
-      "runtime_step_count": 44,
-      "surface_authority_row_count": 44
+      "acceptance_plan_organ_count": 45,
+      "accepted_organ_count": 45,
+      "evidence_class_row_count": 45,
+      "fixture_check_count": 45,
+      "organ_authority_row_count": 45,
+      "runtime_step_count": 45,
+      "surface_authority_row_count": 45
     },
     "defect_count": 0,
     "defects": [],
@@ -1039,7 +1060,7 @@
     "status": "pass"
   },
   "receipt_paths": [
-    "receipts/preflight/dependency_preflight.json"
+    "microcosm-substrate/receipts/preflight/dependency_preflight.json"
   ],
   "schema_version": "dependency_preflight_receipt_v1",
   "status": "pass",
@@ -1095,7 +1116,8 @@
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
-      "agentic_vulnerability_discovery_patch_proof_replay"
+      "agentic_vulnerability_discovery_patch_proof_replay",
+      "certificate_kernel_execution_lab"
     ],
     "observed_accepted_order": [
       "pattern_binding_contract",
@@ -1141,7 +1163,8 @@
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
       "agentic_vulnerability_discovery_patch_proof_replay",
-      "materials_chemistry_closed_loop_lab_safety_replay"
+      "materials_chemistry_closed_loop_lab_safety_replay",
+      "certificate_kernel_execution_lab"
     ],
     "runtime_step_without_accepted_organ": [],
     "status": "pass"

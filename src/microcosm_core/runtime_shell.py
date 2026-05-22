@@ -21,6 +21,7 @@ from microcosm_core.organs import (
     agentic_vulnerability_discovery_patch_proof_replay,
 )
 from microcosm_core.organs import belief_state_process_reward_replay
+from microcosm_core.organs import certificate_kernel_execution_lab
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
 from microcosm_core.organs import executable_doctrine_grammar
@@ -535,6 +536,19 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         ),
         receipt_name="exported_patch_proof_bundle_validation_result.json",
     ),
+    RuntimeStep(
+        organ_id="certificate_kernel_execution_lab",
+        span="certificate_kernel_execution_lab.validate",
+        input_mode="exported_certificate_kernel_execution_lab_bundle",
+        example_rel=(
+            "examples/certificate_kernel_execution_lab/"
+            "exported_certificate_kernel_execution_lab_bundle"
+        ),
+        runner=certificate_kernel_execution_lab.run_certificate_bundle,
+        receipt_name=(
+            "exported_certificate_kernel_execution_lab_bundle_validation_result.json"
+        ),
+    ),
 )
 
 
@@ -881,6 +895,7 @@ class RuntimeShell:
                     "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle",
                     "microcosm verifier-lab-kernel run-kernel-bundle",
                     "microcosm verifier-lab-execution-spine run-execution-bundle",
+                    "microcosm certificate-kernel-execution-lab run-certificate-bundle",
                     "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle",
                     "microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle",
                     "microcosm lean-std-premise-index run-index-bundle",
@@ -1017,6 +1032,7 @@ class RuntimeShell:
                 "run microcosm mcp-tool-authority-replay run-tool-authority-bundle",
                 "run microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
                 "run microcosm belief-state-process-reward-replay run-reward-bundle",
+                "run microcosm certificate-kernel-execution-lab run-certificate-bundle",
                 "run microcosm benchmark-lab",
                 "run microcosm legibility-scorecard",
                 "run microcosm intake",
@@ -1555,6 +1571,20 @@ class RuntimeShell:
                         "false-positive triage and cold replay receipts before pass labels",
                         "live-target, real-CVE, weaponized-payload, credential, network-exfiltration, exploit-instruction, testless-patch, and benchmark-score denials",
                         "no live security testing, exploit authority, provider execution, source mutation, benchmark score, or release authority",
+                    ],
+                },
+                {
+                    "step_id": "inspect_certificate_kernel_execution_lab",
+                    "command": (
+                        "microcosm certificate-kernel-execution-lab "
+                        "run-certificate-bundle"
+                    ),
+                    "shows": [
+                        "public Lean/Lake certificate-kernel fixture evidence",
+                        "CP2 and Evolve rerun metadata separated from proof authority",
+                        "proof-body and private-source redaction counters",
+                        "external subprocess witness scope before public certificate claims",
+                        "no release, provider, source mutation, or general formal-proof authority",
                     ],
                 },
                 {
@@ -9500,6 +9530,27 @@ class RuntimeShell:
                 "benchmark_score_claim_authorized": False,
             },
             {
+                "surface_id": "public_certificate_kernel_execution_lab_lens",
+                "command": (
+                    "microcosm certificate-kernel-execution-lab "
+                    "run-certificate-bundle"
+                ),
+                "endpoint": "/proof-loop-depth",
+                "authority_role": (
+                    "public certificate-kernel execution lab and external "
+                    "Lean/Lake witness boundary"
+                ),
+                "release_authorized": False,
+                "source_mutation_authorized": False,
+                "provider_calls_authorized": False,
+                "formal_proof_authority": False,
+                "proof_correctness_claim": False,
+                "private_proof_body_exported": False,
+                "private_source_refs_exported": False,
+                "arbitrary_evolve_execution_authorized": False,
+                "bounded_public_external_witness_only": True,
+            },
+            {
                 "surface_id": "public_agent_memory_temporal_conflict_lens",
                 "command": (
                     "microcosm agent-memory-temporal-conflict-replay "
@@ -9918,6 +9969,7 @@ class RuntimeShell:
                 "microcosm evidence-cells",
                 "microcosm proof-loop-depth",
                 "microcosm verifier-lab-execution-spine run-execution-bundle",
+                "microcosm certificate-kernel-execution-lab run-certificate-bundle",
                 "microcosm landing-replay",
                 "microcosm view-quality",
                 "microcosm projection-safety",
@@ -9954,6 +10006,10 @@ class RuntimeShell:
                 (
                     "microcosm belief-state-process-reward-replay "
                     "run-reward-bundle"
+                ),
+                (
+                    "microcosm certificate-kernel-execution-lab "
+                    "run-certificate-bundle"
                 ),
                 "microcosm benchmark-lab",
                 "microcosm legibility-scorecard",

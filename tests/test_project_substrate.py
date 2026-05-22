@@ -375,6 +375,38 @@ def test_python_lens_route_utility_ratchet_marks_changed_surface_without_writing
     assert (project / ".microcosm/python_lens.json").is_file()
 
 
+def test_python_lens_route_utility_ratchet_ignores_unwatched_surface(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    project_substrate.python_lens(project)
+    state_path = project / ".microcosm/python_lens.json"
+    note_path = project / "notes/operator_note.md"
+    note_path.parent.mkdir()
+    future = state_path.stat().st_mtime + 10
+    note_path.write_text(
+        "This note is outside the Python route utility surfaces.\n",
+        encoding="utf-8",
+    )
+    os.utime(note_path, (future, future))
+
+    python_lens = project_substrate.python_lens(project, write_state=False)
+    ratchet = python_lens["route_utility_curriculum"]["ratchet"]
+
+    assert python_lens["state_written"] is False
+    assert ratchet["state_freshness"] == "compared_to_written_state"
+    assert ratchet["last_run_result"] == "nothing_to_refine"
+    assert ratchet["changed_surface_refs"] == []
+    assert ratchet["affected_task_ids"] == []
+    assert ratchet["stale_task_ids"] == []
+    assert ratchet["generated_task_count"] == 0
+    assert python_lens["route_utility_curriculum"]["route_utility_metrics"][
+        "stale_task_count"
+    ] == 0
+    assert python_lens["route_utility_curriculum"]["source_bodies_exported"] is False
+    assert (project / ".microcosm/python_lens.json").is_file()
+
+
 def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
     project = _scratch_project(tmp_path)
 

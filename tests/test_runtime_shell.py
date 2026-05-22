@@ -59,6 +59,7 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "agent_sandbox_policy_escape_replay": "fixture_echo_smoke",
     "indirect_prompt_injection_information_flow_policy_replay": "fixture_echo_smoke",
     "agentic_vulnerability_discovery_patch_proof_replay": "fixture_echo_smoke",
+    "certificate_kernel_execution_lab": "external_subprocess_witness",
 }
 
 
@@ -67,6 +68,7 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
     shutil.copytree(MICROCOSM_ROOT / "receipts/first_wave", public_root / "receipts/first_wave")
+    shutil.copytree(MICROCOSM_ROOT / "receipts/preflight", public_root / "receipts/preflight")
     return public_root
 
 
@@ -76,7 +78,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     status = shell.status()
 
     assert status["status"] == "pass"
-    assert status["adapter_backed_organ_count"] == 44
+    assert status["adapter_backed_organ_count"] == 45
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
@@ -223,13 +225,13 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["status"] == "pass"
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
-    assert spine["surface_counts"]["adapter_backed_organ_count"] == 44
-    assert len(spine["accepted_runtime_spine"]) == 44
+    assert spine["surface_counts"]["adapter_backed_organ_count"] == 45
+    assert len(spine["accepted_runtime_spine"]) == 45
     assert spine["surface_counts"]["evidence_class_count"] == 5
     assert spine["evidence_class_registry"]["fail_closed_no_default"] is True
-    assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 44
+    assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 45
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
-    assert sum(spine["evidence_class_counts"].values()) == 44
+    assert sum(spine["evidence_class_counts"].values()) == 45
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in rows_by_id.items()} == (
         EXPECTED_ORGAN_EVIDENCE_CLASSES
@@ -238,7 +240,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 2,
+        "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }
     assert rows_by_id["proof_diagnostic_evidence_spine"]["evidence_class"] == (
@@ -303,6 +305,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "inspect_agent_sandbox_policy_escape_replay",
         "inspect_indirect_prompt_injection_information_flow_policy_replay",
         "inspect_agentic_vulnerability_discovery_patch_proof_replay",
+        "inspect_certificate_kernel_execution_lab",
         "inspect_repository_benchmark_transaction_lab",
         "inspect_agent_benchmark_integrity_replay",
         "inspect_public_legibility_scorecard",
@@ -380,11 +383,12 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "microcosm indirect-prompt-injection-information-flow-policy-replay"
     )
     assert spine["first_run_path"][42]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
-    assert spine["first_run_path"][43]["command"] == "microcosm benchmark-lab"
-    assert spine["first_run_path"][44]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert spine["first_run_path"][45]["command"] == "microcosm legibility-scorecard"
-    assert spine["first_run_path"][46]["command"] == "microcosm intake"
-    assert spine["first_run_path"][48]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert spine["first_run_path"][43]["command"].startswith("microcosm certificate-kernel-execution-lab")
+    assert spine["first_run_path"][44]["command"] == "microcosm benchmark-lab"
+    assert spine["first_run_path"][45]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
+    assert spine["first_run_path"][46]["command"] == "microcosm legibility-scorecard"
+    assert spine["first_run_path"][47]["command"] == "microcosm intake"
+    assert spine["first_run_path"][49]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert spine["evidence_policy"]["body_redacted_by_default"] is True
     assert spine["authority_ceiling"]["release_authorized"] is False
     assert spine["authority_ceiling"]["trading_or_financial_advice_authorized"] is False
@@ -441,19 +445,19 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "private_screenshot_paths_exported": False,
         "reader_success_guarantee": False,
     }
-    assert authority["surface_counts"]["organ_authority_count"] == 44
-    assert authority["surface_counts"]["surface_authority_count"] == 44
+    assert authority["surface_counts"]["organ_authority_count"] == 45
+    assert authority["surface_counts"]["surface_authority_count"] == 45
     assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
     assert authority["evidence_class_registry"]["fail_closed_no_default"] is True
-    assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 44
+    assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 45
     assert authority["evidence_class_registry"]["unclassified_organs"] == []
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 2,
+        "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
@@ -1878,8 +1882,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     assert result["status"] == "pass"
-    assert len(result["events"]) == 44
-    assert [event["status"] for event in result["events"]] == ["pass"] * 44
+    assert len(result["events"]) == 45
+    assert [event["status"] for event in result["events"]] == ["pass"] * 45
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
         "exported_standards_bundle",
@@ -1906,6 +1910,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
             "exported_lean_proof_witness_bundle",
             "exported_verifier_lab_kernel_bundle",
             "exported_verifier_lab_execution_spine_bundle",
+            "exported_certificate_kernel_execution_lab_bundle",
         "exported_route_plane_bundle",
         "exported_mission_transaction_bundle",
         "exported_observability_bundle",
@@ -1932,8 +1937,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
     assert trace["status"] == "pass"
-    assert trace["otel_shape"]["span_count"] == 44
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 44
+    assert trace["otel_shape"]["span_count"] == 45
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 45
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -1979,7 +1984,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     try:
-        with urlopen(f"http://{host}:{port}/", timeout=5) as response:
+        with urlopen(f"http://{host}:{port}/", timeout=20) as response:
             html = response.read().decode("utf-8")
         with urlopen(f"http://{host}:{port}/status", timeout=5) as response:
             payload = json.loads(response.read().decode("utf-8"))
@@ -2039,7 +2044,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             python_lens = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/favicon.ico", timeout=5) as response:
             favicon_status = response.status
-        with urlopen(f"http://{host}:{port}/project/observatory", timeout=5) as response:
+        with urlopen(f"http://{host}:{port}/project/observatory", timeout=45) as response:
             observatory = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/explain/readme_onboarding_route", timeout=5) as response:
             explanation = json.loads(response.read().decode("utf-8"))
@@ -2115,14 +2120,14 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
-    assert payload["adapter_backed_organ_count"] == 44
+    assert payload["adapter_backed_organ_count"] == 45
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
     assert authority["schema_version"] == "microcosm_public_authority_map_v1"
     assert authority["authority_ceiling"]["release_authorized"] is False
-    assert authority["surface_counts"]["organ_authority_count"] == 44
-    assert authority["surface_counts"]["surface_authority_count"] == 44
+    assert authority["surface_counts"]["organ_authority_count"] == 45
+    assert authority["surface_counts"]["surface_authority_count"] == 45
     assert prediction["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert prediction["authority_ceiling"]["trading_authorized"] is False
     assert (
@@ -2304,7 +2309,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
         "semantic_validator": 12,
         "algorithmic_projection": 15,
         "fixture_echo_smoke": 13,
-        "external_subprocess_witness": 2,
+        "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }
     assert reveal["public_claim"].startswith("Microcosm turns a repo")

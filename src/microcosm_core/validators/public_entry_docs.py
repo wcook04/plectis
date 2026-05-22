@@ -106,6 +106,7 @@ ACCEPTED_ORGAN_IDS = [
     "agent_sandbox_policy_escape_replay",
     "indirect_prompt_injection_information_flow_policy_replay",
     "agentic_vulnerability_discovery_patch_proof_replay",
+    "certificate_kernel_execution_lab",
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [
