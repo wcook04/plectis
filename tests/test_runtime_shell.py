@@ -168,6 +168,20 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
     assert spine["surface_counts"]["adapter_backed_organ_count"] == 42
     assert len(spine["accepted_runtime_spine"]) == 42
+    assert spine["surface_counts"]["evidence_class_count"] == 5
+    assert sum(spine["evidence_class_counts"].values()) == 42
+    rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
+    assert rows_by_id["pattern_binding_contract"]["evidence_class"] == "semantic_validator"
+    assert (
+        rows_by_id["formal_math_lean_proof_witness"]["evidence_class"]
+        == "external_subprocess_witness"
+    )
+    assert (
+        rows_by_id["materials_chemistry_closed_loop_lab_safety_replay"]["evidence_class"]
+        == "fixture_echo_smoke"
+    )
+    assert all(row["evidence_strength_disclosed"] is True for row in spine["accepted_runtime_spine"])
+    assert spine["evidence_policy"]["accepted_status_is_not_evidence_strength"] is True
     assert [step["step_id"] for step in spine["first_run_path"]] == [
         "run_ten_minute_tour",
         "compile_project",
@@ -328,8 +342,26 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     }
     assert authority["surface_counts"]["organ_authority_count"] == 42
     assert authority["surface_counts"]["surface_authority_count"] == 42
+    assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
+    assert sum(authority["evidence_class_counts"].values()) == 42
+    organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
+    assert (
+        organ_authority_by_id["agent_sabotage_scheming_monitor_replay"]["verdict_source"]
+        == "fixture_supplied_fields"
+    )
+    assert (
+        organ_authority_by_id["agent_sabotage_scheming_monitor_replay"][
+            "negative_case_independence"
+        ]
+        == "fixture_self_declaration_or_static_flag_only"
+    )
+    assert (
+        organ_authority_by_id["formal_math_lean_proof_witness"]["verdict_source"]
+        == "subprocess_or_tool_witness"
+    )
+    assert all(row["evidence_strength_disclosed"] is True for row in authority["organ_authority"])
     assert any(row["surface_id"] == "project_python_lens" for row in authority["surface_authority"])
     assert any(row["surface_id"] == "public_authority_map" for row in authority["surface_authority"])
     assert any(row["surface_id"] == "public_ten_minute_tour" for row in authority["surface_authority"])
@@ -444,6 +476,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         for row in authority["surface_authority"]
     )
     assert authority["organ_authority"][0]["release_authorized"] is False
+    assert authority["organ_authority"][0]["evidence_class"] == "semantic_validator"
     assert all(row["allowed"] is False for row in authority["hard_boundaries"])
     assert {row["exception_id"] for row in authority["safe_local_exceptions"]} == {
         "project_local_state_writes",

@@ -224,6 +224,19 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["surface_counts"]["organ_authority_count"] == 42
     assert payload["surface_counts"]["surface_authority_count"] == 42
+    assert payload["surface_counts"]["organ_evidence_class_count"] == 5
+    assert sum(payload["evidence_class_counts"].values()) == 42
+    organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
+    assert (
+        organ_authority_by_id["materials_chemistry_closed_loop_lab_safety_replay"][
+            "evidence_class"
+        ]
+        == "fixture_echo_smoke"
+    )
+    assert (
+        organ_authority_by_id["formal_math_lean_proof_witness"]["evidence_class"]
+        == "external_subprocess_witness"
+    )
     assert any(row["surface_id"] == "project_python_lens" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/authority" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/tour" for row in payload["surface_authority"])
