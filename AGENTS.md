@@ -7,9 +7,31 @@ patterns, propose routes, inspect route explanations, record work
 transactions, observe events, and inspect evidence only when drilldown is
 needed.
 
-It is small on purpose: the public root should make the architecture legible
-through project, catalog, pattern, standard, route, work, event, evidence,
-explanation, and assimilation primitives, not through production claims.
+It is small on purpose, but it is not a synthetic safety proxy. The public root
+should make the macro architecture legible through real, runnable substrate:
+project, catalog, pattern, standard, route, work, event, evidence, explanation,
+assimilation, imported macro bodies, and exported macro-shaped bundles.
+
+## Real Substrate Posture
+
+Microcosm is the public repo form of the macro system, reorganized so a cold
+reader can run and inspect it without inheriting the private root's historical
+mess. Default to importing, refactoring, or exporting the actual non-secret
+macro mechanism into this tree. Use synthetic fixtures only as regression
+wrappers, negative cases, or toy inputs around a real mechanism.
+
+The hard exclusion set is secrets and credential-equivalent live access:
+`.env` files, API keys, tokens, passwords, private keys, cookies, browser
+profiles, keychains, account sessions, and direct credential-bearing payloads.
+Do not turn "private state" or "release authority" into a generic excuse for
+metadata-only stand-ins. Hosted launch and recipient sends are separate
+operational decisions; they do not block this repo from carrying real
+source-available content.
+
+Any `body_copied=true` claim must point at a real target file and a verified
+source-to-target import record. A source ref, provenance pointer, digest of an
+already-existing validator, activation score, or maturity label is not an
+imported macro body.
 
 ## Accepted Public Runtime Spine
 
@@ -109,7 +131,7 @@ explanation, and assimilation primitives, not through production claims.
    future macro patterns: use `macro-projection-import-protocol` only to project
    metadata, fixture shape, standards, public replacement refs, validation
    refs, and omission receipts into Microcosm. Use
-   `macro-projection-import-protocol plan` before a new import tranche; it is
+   `macro-projection-import-protocol plan` before a new import slice; it is
    the non-writing intake board for per-cell source refs, target refs,
    validation refs, copy policy, authority ceiling, omitted material, and
    ready/blocked status. It must also expose `projection_status`,
@@ -452,21 +474,21 @@ explanation, and assimilation primitives, not through production claims.
    use `lean-std-premise-index` to validate Init-sourced declaration metadata,
    namespace coverage, split eligibility, retrieval terms, and proof/Mathlib
    leakage boundaries before retrieval machinery consumes the index.
-   The `formal_math_premise_retrieval` organ is a real import tranche through
+   The `formal_math_premise_retrieval` organ is a real import slice through
    that membrane: use `formal-math-premise-retrieval` to validate public
    Lean/Std premise metadata, term scoring, context budgets, and strategy
    gates, but it must not claim proof authority.
    The `formal_math_verifier_trace_repair_loop` organ is the runnable verifier
-   self-repair tranche: use `formal-math-verifier-trace-repair-loop` to
+   self-repair slice: use `formal-math-verifier-trace-repair-loop` to
    validate verifier failure classes, trace grades, repair actions,
    failure-mode ledger updates, curriculum deltas, cold-rerun promotion gates,
    and negative-case denials without proof authority.
    The `formal_evidence_cell_anchor_resolver` organ is the claim-boundary
-   tranche: use `formal-evidence-cell-anchor-resolver` to validate public
+   slice: use `formal-evidence-cell-anchor-resolver` to validate public
    evidence-cell ids, source-anchor refs, machine-anchor metadata, and
    theorem-correctness denials without proof authority.
    The `undeclared_library_prior_symbol_classifier` organ is the redacted
-   proof-symbol tranche: use `undeclared-library-prior-symbol-classifier` to
+   proof-symbol slice: use `undeclared-library-prior-symbol-classifier` to
    classify known qualified library symbols outside `allowed_premise_ids` as
    `UNDECLARED_LIBRARY_PRIOR`, preserve cited-unallowed premise precedence as
    `PREMISE_BUDGET_VIOLATION`, and keep proof bodies/private refs out.

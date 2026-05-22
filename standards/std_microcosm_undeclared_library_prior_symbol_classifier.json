@@ -168,7 +168,7 @@
       "provider payload bodies",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public tranche carries redacted symbol metadata and synthetic fixture evidence only",
+    "reason": "public slice carries redacted symbol metadata and synthetic fixture evidence only",
     "drilldown": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/projection_protocol.json"
   },
   "anti_claim_contract": {

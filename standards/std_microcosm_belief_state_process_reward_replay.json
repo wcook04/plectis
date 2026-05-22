@@ -29,7 +29,7 @@
       "live training traces",
       "benchmark submission payloads"
     ],
-    "reason": "public tranche carries synthetic belief-state reward metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic belief-state reward metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "belief_state_process_reward_replay",

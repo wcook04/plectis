@@ -167,7 +167,7 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public tranche carries verifier trace repair metadata and synthetic fixture evidence only",
+    "reason": "public slice carries verifier trace repair metadata and synthetic fixture evidence only",
     "drilldown": "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json"
   },
   "anti_claim_contract": {

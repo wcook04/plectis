@@ -49,25 +49,21 @@
         "tools/meta/control/mission_transaction_preflight.py"
       ],
       "target_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "public_safe_mode": "public_safe_body_with_light_edits",
+      "material_class": "public_replacement_ref",
+      "body_copied": false,
+      "public_safe_mode": "source_ref_and_public_replacement_pending_real_tool_import",
+      "import_disposition": "demoted_from_body_import_digest_theater",
       "private_state_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
-        "codex/standards/std_microcosm.json#public_safe_direct_import_with_provenance"
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
-      "applied_edits": [
-        "strip_private_absolute_paths",
-        "replace_live_ledger_payload_examples_with_synthetic_ids",
-        "preserve_algorithmic_control_flow"
-      ],
+      "required_correction": "Import or refactor the named macro tool bodies into a standalone public-safe macro_tools area, then promote this row back to public_macro_tool_body only after source-to-target verification passes.",
       "validation_refs": [
-        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance"
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_source_ref_is_not_counted_as_body_import"
       ],
-      "claim_ceiling": "algorithmic tool body import only; not live Task Ledger authority, release authority, or private-root equivalence",
-      "body_digest": "sha256:86a7fa2ca9c4e9d7dd671feb4ab584c6e57e2f3a82207eaf4c2e4606cae1b04f",
-      "body_redacted": false
+      "claim_ceiling": "source-ref and public replacement only; not a copied macro tool body until a verified source-to-target import record exists",
+      "body_redacted": true
     },
     {
       "material_id": "lean_certificate_kernel_body_import",
@@ -82,7 +78,7 @@
       "private_state_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
-        "codex/standards/std_microcosm.json#public_safe_direct_import_with_provenance"
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "applied_edits": [
         "strip_private_absolute_paths",
@@ -90,10 +86,20 @@
         "bound_claim_to_imported_kernel_body_not_public_theorem_solution"
       ],
       "validation_refs": [
-        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance"
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification"
       ],
       "claim_ceiling": "proof body import only; not theorem-solution claim, release authority, or private-root equivalence",
       "body_digest": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+        "target_body_digest": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification"
+        ]
+      },
       "body_redacted": false
     }
   ],

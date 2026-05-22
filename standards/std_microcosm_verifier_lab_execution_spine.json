@@ -195,7 +195,7 @@
       "private run logs",
       "source mutation"
     ],
-    "reason": "public tranche carries full structured receipt metadata while omitting proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies",
+    "reason": "public slice carries full structured receipt metadata while omitting proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies",
     "drilldown": "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json"
   },
   "anti_claim_contract": {

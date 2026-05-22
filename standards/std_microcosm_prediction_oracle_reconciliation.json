@@ -126,7 +126,7 @@
   },
   "anti_claim": "This standard governs only synthetic prediction reconciliation fixtures. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, forecast performance claims, release/publication work, or private-data equivalence.",
   "standard_payload": {
-    "ontology": "A public-safe prediction reconciliation tranche: CP1 branch resolution, CP2 target-universe gating, oracle diff grading, and bounded public dossier mutation.",
+    "ontology": "A public-safe prediction reconciliation slice: CP1 branch resolution, CP2 target-universe gating, oracle diff grading, and bounded public dossier mutation.",
     "teleology": "Let Microcosm show prediction-engine structure without importing live markets, private data, action authority, or performance claims.",
     "anti_purpose": "Turning a fixture grader into a trading system, advice surface, or forecasting-performance claim.",
     "compression_bands": [
@@ -166,7 +166,7 @@
       "trading recommendations",
       "forecast performance claims"
     ],
-    "reason": "public tranche carries synthetic fixture rows and redacted receipts only",
+    "reason": "public slice carries synthetic fixture rows and redacted receipts only",
     "drilldown": "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json"
   },
   "anti_claim_contract": {

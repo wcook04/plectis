@@ -28,6 +28,7 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
+    shutil.copytree(MICROCOSM_ROOT / "src", public_root / "src")
     shutil.copytree(
         MICROCOSM_ROOT / "receipts/first_wave",
         public_root / "receipts/first_wave",
@@ -100,7 +101,6 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "replay-gauntlet",
         "benchmark-lab",
         "legibility-scorecard",
-        "release-activation",
         "intake",
         "private-state-scan",
         "public-entry-docs",
@@ -236,22 +236,6 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][45]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
     assert payload["first_run_path"][46]["command"] == "microcosm legibility-scorecard"
     assert payload["first_run_path"][49]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
-    assert payload["authority_ceiling"]["release_authorized"] is False
-
-
-def test_cli_release_activation_smoke(capsys: pytest.CaptureFixture[str]) -> None:
-    status = cli.main(["release-activation", "--root", str(MICROCOSM_ROOT)])
-
-    payload = json.loads(capsys.readouterr().out)
-    assert status == 0
-    assert payload["schema_version"] == "microcosm_release_activation_rehearsal_receipt_v1"
-    assert payload["status"] == "pass"
-    assert payload["activation_card_count"] == 6
-    assert payload["selected_pattern_count"] == 23
-    assert payload["cold_reader_loop_status"] == "pass"
-    assert payload["first_five_minute_path"][0]["command"] == (
-        "microcosm release-activation --root ."
-    )
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 

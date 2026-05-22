@@ -32,7 +32,7 @@
       "hidden system-message bodies",
       "general robustness claims"
     ],
-    "reason": "public tranche carries synthetic trust/taint/flow metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic trust/taint/flow metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "indirect_prompt_injection_information_flow_policy_replay",

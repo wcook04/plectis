@@ -6,26 +6,6 @@ Microcosm compiles your project folder into local state: catalog, patterns,
 routes, a governed work transaction, events, evidence, and a tiny observatory.
 It does not mutate your source files or call providers.
 
-<!-- BEGIN microcosm_release_claim_projection -->
-## Release Truth Snapshot
-
-_This block is generated from `core/public_claim_cards.json` by `python -m microcosm_core.release_claim_projection --root . --check-readme`. Do not hand-edit inside the markers._
-
-**Audience:** AI safety and agent reliability researchers evaluating public claim/evidence boundaries before trusting ambitious labels.
-
-**Run first:** `microcosm compile .` -> `microcosm authority` -> `microcosm reveal`
-
-| First-contact claim | Evidence class | Backing proof | Boundary |
-|---|---|---|---|
-| Local project substrate | `real_project_lens` | `examples/runtime_shell/demo_project/.microcosm/routes.json` | local projection only; no source mutation, provider calls, hosting, or publication authority |
-| Evidence strength disclosure | `claim_projection` | `receipts/runtime_shell/public_authority_map.json` | evidence metadata only; not release readiness, benchmark performance, or whole-system correctness |
-| Public macro-pattern import membrane | `macro_pattern_projection` | `receipts/runtime_shell/public_projection_import_map_lens.json` | public-safe body/provenance projection only; no private body import or private-root equivalence |
-| Bounded Lean/Lake witness | `bounded_execution` | `receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json` | bounded subprocess witness only; no general theorem-solving or Mathlib proof authority |
-| Schema-only safety replay boundary | `synthetic_fixture_replay` | `receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json` | synthetic fixture replay only; no live safety, benchmark, security, or model-transparency claim |
-
-**Demotion rule:** schema-only replay organs render as synthetic claim-schema fixtures unless a stronger `evidence_class` and receipt-backed demo are present.
-<!-- END microcosm_release_claim_projection -->
-
 ## Try It On Your Repo
 
 ```bash
@@ -842,13 +822,13 @@ contract rejection, retrieval miss, CP2 translation, and Evolve candidates
 without importing proof bodies or upgrading provider/oracle output into proof
 authority.
 
-`formal_math_premise_retrieval` is the first real formal-math import tranche
+`formal_math_premise_retrieval` is the first real formal-math import slice
 through the projection protocol: a Lean/Std premise index, term-scored
 retrieval queries, context-budget recipes, strategy gates, synthetic recall,
 and leakage negative cases. It is retrieval machinery, not theorem proof
 authority.
 
-`formal_math_verifier_trace_repair_loop` is the proof-lab self-repair tranche:
+`formal_math_verifier_trace_repair_loop` is the proof-lab self-repair slice:
 verifier failure classes, trace grades, repair actions, failure-mode ledger
 updates, curriculum deltas, and cold-rerun promotion gates are all explicit
 public metadata. It rejects proof bodies, oracle premise ids, provider payload
@@ -856,7 +836,7 @@ bodies, and human approval as proof correctness. Use
 `formal-math-verifier-trace-repair-loop` to validate the runnable replay; it is
 repair-loop machinery, not theorem proof authority.
 
-`formal_evidence_cell_anchor_resolver` is the claim-boundary tranche: toy paper
+`formal_evidence_cell_anchor_resolver` is the claim-boundary slice: toy paper
 claims resolve to public evidence-cell ids, each cell carries source-anchor refs
 and machine-anchor metadata, and proof-language claims fail if the cell is
 unknown, missing anchors, or trying to claim theorem correctness. Use
@@ -864,7 +844,7 @@ unknown, missing anchors, or trying to claim theorem correctness. Use
 is evidence metadata, not proof authority.
 
 `undeclared_library_prior_symbol_classifier` is the out-of-recipe proof-symbol
-tranche: redacted proof observations carry only body hashes, qualified symbol
+slice: redacted proof observations carry only body hashes, qualified symbol
 refs, allowed premise ids, and cited-unallowed premise ids. Known symbols outside
 the allowed set classify as `UNDECLARED_LIBRARY_PRIOR` and bridge-escalate, while
 explicit cited-unallowed premise ids stay `PREMISE_BUDGET_VIOLATION` and retry.
@@ -919,7 +899,7 @@ the public runtime bridge over that board: it shows
 runtime receipt.
 
 `prediction_oracle_reconciliation` validates a synthetic prediction-engine
-tranche: CP1 branch resolution, CP2 target-universe gating, pre-target evidence
+slice: CP1 branch resolution, CP2 target-universe gating, pre-target evidence
 discipline, oracle diff grading, and bounded dossier mutation. It is not
 trading or financial advice, not investment advice, not live market data, not a
 provider integration, not a performance claim, and not publication or release
@@ -1056,7 +1036,7 @@ should not be edited by hand.
 - `paper_modules/mathematical_strategy_atlas.md` explains the pre-oracle
   mathematical strategy atlas and typed strategy-miss boundary.
 - `paper_modules/formal_math_premise_retrieval.md` explains the first
-  retrieval-grade formal-math import tranche.
+  retrieval-grade formal-math import slice.
 - `paper_modules/formal_evidence_cell_anchor_resolver.md` explains the public
   evidence-cell claim boundary.
 - `paper_modules/undeclared_library_prior_classifier.md` explains the redacted

@@ -47,7 +47,6 @@ INPUT_NAMES = (
     "projection_protocol.json",
     "cleaning_policy.json",
     "import_plan.json",
-    "flagship_tranche.json",
 )
 NEGATIVE_INPUT_NAMES = (
     "private_body_import_overclaim.json",
@@ -89,7 +88,7 @@ PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
 PUBLIC_SAFE_BODY_COPY_POLICY = "public_safe_body_with_provenance_and_claim_ceiling"
 METADATA_COPY_POLICY = "metadata_fixture_receipt_ref_only"
 MACRO_ORIGIN_REF_POLICY = "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
-STANDALONE_RELEASE_ROOT_REF = "microcosm-substrate"
+STANDALONE_RUNTIME_ROOT_REF = "microcosm-substrate"
 STANDALONE_RUNTIME_ALLOWED_PREFIXES = (
     "AGENTS.md",
     "README.md",
@@ -121,8 +120,6 @@ STANDALONE_RUNTIME_BLOCKED_TOKENS = (
     "recipient_packet",
     "release_packet",
 )
-FLAGSHIP_TRANCHE_MIN_LANES = 5
-FLAGSHIP_TRANCHE_MIN_PATTERNS = 12
 FORBIDDEN_MATERIAL_CLASSES = TRUE_FORBIDDEN_MATERIAL_CLASSES
 FORBIDDEN_AUTHORITY_FLAGS = (
     "source_authority_above_macro_contracts",
@@ -150,6 +147,10 @@ AUTHORITY_CEILING = {
 BODY_DIGEST_PREFIX = "sha256:"
 BODY_DIGEST_HEX_LENGTH = 64
 PLACEHOLDER_DIGEST_TOKENS = ("placeholder", "todo", "example")
+BODY_IMPORT_VERIFICATION_MODES = {
+    "exact_source_digest_match",
+    "verified_light_edit_recipe",
+}
 ANTI_CLAIM = (
     "The macro projection import protocol validates public-safe projection "
     "metadata, omission receipts, replacement refs, authority ceilings, and "
@@ -400,7 +401,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
             findings,
             defect_code="dependency_preflight_receipt_missing",
             error_code="MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_MISSING",
-            message="Standalone release severance requires the dependency preflight receipt.",
+            message="Runtime severance requires the dependency preflight receipt.",
             subject_id=receipt_ref,
         )
     else:
@@ -420,7 +421,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
                 findings,
                 defect_code="dependency_preflight_status_blocked",
                 error_code="MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_BLOCKED",
-                message="Dependency preflight must pass before release severance can pass.",
+                message="Dependency preflight must pass before runtime severance can pass.",
                 subject_id=receipt_ref,
             )
         lifecycle_value = receipt.get("organ_lifecycle_coverage") if isinstance(receipt, dict) else None
@@ -443,7 +444,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
                     findings,
                     defect_code="organ_lifecycle_coverage_blocked",
                     error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_BLOCKED",
-                    message="Organ lifecycle coverage must pass before release severance can pass.",
+                    message="Organ lifecycle coverage must pass before runtime severance can pass.",
                     subject_id=receipt_ref,
                 )
             if lifecycle.get("defect_count", 0) not in (0, "0"):
@@ -461,7 +462,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
                     findings,
                     defect_code="accepted_organ_registry_missing",
                     error_code="MACRO_PROJECTION_ACCEPTED_ORGAN_REGISTRY_MISSING",
-                    message="Release severance must compare lifecycle coverage against accepted organs.",
+                    message="Runtime severance must compare lifecycle coverage against accepted organs.",
                     subject_id=str(ORGAN_REGISTRY_REL),
                     subject_kind="organ_registry",
                 )
@@ -476,7 +477,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
                             error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
                             message=(
                                 "Organ lifecycle coverage count must match the accepted "
-                                "organ count for release severance."
+                                "organ count for runtime severance."
                             ),
                             subject_id=field,
                             subject_kind="organ_lifecycle_count",
@@ -495,7 +496,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
         "defects": defects,
         "findings": findings,
         "anti_claim": (
-            "This gate proves release severance consumed the public preflight lifecycle "
+            "This check proves runtime severance consumed the public preflight lifecycle "
             "receipt. It does not authorize release, publication, provider calls, "
             "private-source equivalence, or proof of organ semantics."
         ),
@@ -556,6 +557,127 @@ def _body_digest_is_placeholder(value: str) -> bool:
     if any(token in lowered for token in PLACEHOLDER_DIGEST_TOKENS):
         return True
     return any(char not in "0123456789abcdef" for char in digest.lower())
+
+
+def _body_import_verification_findings(
+    row: dict[str, Any],
+    *,
+    material_id: str,
+    declared_digest: str,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    verification = row.get("body_import_verification")
+    if not isinstance(verification, dict):
+        return [
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_MISSING",
+                "body_copied public-safe material must carry a verified source-to-target import record.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        ]
+
+    mode = str(verification.get("verification_mode") or "")
+    status = str(verification.get("verification_status") or "")
+    if status != "verified":
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_UNVERIFIED",
+                "body_copied public-safe material must be marked verified after source-to-target checking.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        )
+    if mode not in BODY_IMPORT_VERIFICATION_MODES:
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_MODE_INVALID",
+                "body_copied public-safe material must use a known verification mode.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        )
+
+    target_digest = str(verification.get("target_body_digest") or "")
+    if _body_digest_is_placeholder(target_digest) or target_digest != declared_digest:
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_DIGEST_MISMATCH",
+                "body import verification must bind the target body digest to the declared target digest.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        )
+
+    if mode == "exact_source_digest_match":
+        source_digest = str(verification.get("source_body_digest") or "")
+        if _body_digest_is_placeholder(source_digest):
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISSING",
+                    "exact body imports must include the source body sha256 digest.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+        elif source_digest != target_digest:
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_TARGET_MISMATCH",
+                    "exact body imports must prove source and target body digests match.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+    elif mode == "verified_light_edit_recipe":
+        if not isinstance(verification.get("rewrite_recipe_ref"), str):
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_REWRITE_RECIPE_MISSING",
+                    "light-edit imports must cite a public rewrite recipe instead of relying on provenance prose.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+        if not _strings(verification.get("source_symbol_refs")):
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_SYMBOLS_MISSING",
+                    "light-edit imports must name source symbols carried into the public target.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+        if not _strings(verification.get("target_symbol_refs")):
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_TARGET_SYMBOLS_MISSING",
+                    "light-edit imports must name target symbols that carry the macro mechanism.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+
+    if not _strings(verification.get("runtime_consumed_by")):
+        findings.append(
+            _finding(
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_RUNTIME_CONSUMER_MISSING",
+                "body_copied public-safe material must name the command or test that consumes the imported target.",
+                case_id="public_safe_body_import_floor",
+                subject_id=material_id,
+                subject_kind="copied_material",
+            )
+        )
+    return findings
 
 
 def _public_safe_body_target_findings(
@@ -625,6 +747,13 @@ def _public_safe_body_target_findings(
                 subject_kind="copied_material",
             )
         )
+    findings.extend(
+        _body_import_verification_findings(
+            row,
+            material_id=material_id,
+            declared_digest=declared_digest,
+        )
+    )
     return findings
 
 
@@ -976,148 +1105,6 @@ def validate_import_plan(
     }
 
 
-def validate_flagship_tranche(
-    payload: object,
-    *,
-    public_safe_material_ids: set[str] | None = None,
-) -> dict[str, Any]:
-    tranche = payload if isinstance(payload, dict) else {}
-    lanes = _rows(tranche, "lanes")
-    known_public_safe_material_ids = public_safe_material_ids or set()
-    findings: list[dict[str, Any]] = []
-    lane_ids: list[str] = []
-    selected_pattern_ids: list[str] = []
-    runtime_surface_refs: list[str] = []
-    release_artifact_refs: list[str] = []
-    validation_refs: list[str] = []
-    public_safe_body_material_ids: list[str] = []
-    lane_rows: list[dict[str, Any]] = []
-
-    for row in lanes:
-        lane_id = str(row.get("lane_id") or "flagship_lane")
-        lane_ids.append(lane_id)
-        lane_patterns = _strings(row.get("selected_pattern_ids"))
-        lane_runtime_refs = _strings(row.get("runtime_surface_refs"))
-        lane_release_refs = _strings(row.get("release_artifact_refs"))
-        lane_validation_refs = _strings(row.get("validation_refs"))
-        lane_material_ids = _strings(row.get("public_safe_body_material_ids"))
-        missing_material_ids = sorted(
-            material_id
-            for material_id in lane_material_ids
-            if material_id not in known_public_safe_material_ids
-        )
-
-        selected_pattern_ids.extend(lane_patterns)
-        runtime_surface_refs.extend(lane_runtime_refs)
-        release_artifact_refs.extend(lane_release_refs)
-        validation_refs.extend(lane_validation_refs)
-        public_safe_body_material_ids.extend(lane_material_ids)
-
-        if not lane_patterns:
-            findings.append(
-                _finding(
-                    "MACRO_PROJECTION_FLAGSHIP_TRANCHE_INCOMPLETE",
-                    "Flagship tranche lane must name selected pattern ids.",
-                    case_id="flagship_tranche_floor",
-                    subject_id=lane_id,
-                    subject_kind="flagship_tranche_lane",
-                )
-            )
-        if not lane_runtime_refs or not lane_release_refs or not lane_validation_refs:
-            findings.append(
-                _finding(
-                    "MACRO_PROJECTION_FLAGSHIP_TRANCHE_INCOMPLETE",
-                    "Flagship tranche lane must name runtime, release artifact, and validation refs.",
-                    case_id="flagship_tranche_floor",
-                    subject_id=lane_id,
-                    subject_kind="flagship_tranche_lane",
-                )
-            )
-        if missing_material_ids:
-            findings.append(
-                _finding(
-                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_MATERIAL_MISSING",
-                    "Flagship tranche references public-safe body material not present in the projection protocol.",
-                    case_id="flagship_tranche_floor",
-                    subject_id=lane_id,
-                    subject_kind="flagship_tranche_lane",
-                )
-            )
-        lane_rows.append(
-            {
-                "lane_id": lane_id,
-                "lane_label": row.get("lane_label"),
-                "why_external_reader_cares": row.get("why_external_reader_cares"),
-                "selected_pattern_ids": lane_patterns,
-                "selected_pattern_count": len(set(lane_patterns)),
-                "source_refs": _strings(row.get("source_refs")),
-                "public_safe_body_material_ids": lane_material_ids,
-                "runtime_surface_refs": lane_runtime_refs,
-                "release_artifact_refs": lane_release_refs,
-                "validation_refs": lane_validation_refs,
-                "claim_ceiling": row.get("claim_ceiling"),
-                "body_redacted": True,
-            }
-        )
-
-    unique_patterns = sorted(set(selected_pattern_ids))
-    blocking_findings = [
-        row
-        for row in findings
-        if row.get("negative_case_id") == "flagship_tranche_floor"
-    ]
-    extra_blocking_findings: list[dict[str, Any]] = []
-    if len(lanes) < FLAGSHIP_TRANCHE_MIN_LANES:
-        extra_blocking_findings.append(
-            _finding(
-                "MACRO_PROJECTION_FLAGSHIP_TRANCHE_INCOMPLETE",
-                "Flagship tranche must cover at least five product lanes.",
-                case_id="flagship_tranche_floor",
-                subject_id=str(tranche.get("tranche_id") or "flagship_tranche"),
-                subject_kind="flagship_tranche",
-            )
-        )
-    if len(unique_patterns) < FLAGSHIP_TRANCHE_MIN_PATTERNS:
-        extra_blocking_findings.append(
-            _finding(
-                "MACRO_PROJECTION_FLAGSHIP_TRANCHE_INCOMPLETE",
-                "Flagship tranche must select at least twelve macro pattern ids.",
-                case_id="flagship_tranche_floor",
-                subject_id=str(tranche.get("tranche_id") or "flagship_tranche"),
-                subject_kind="flagship_tranche",
-            )
-        )
-    blocking_findings = [*blocking_findings, *extra_blocking_findings]
-    findings = sorted(
-        [*findings, *extra_blocking_findings],
-        key=lambda row: (
-            str(row.get("negative_case_id") or ""),
-            str(row.get("subject_kind") or ""),
-            str(row.get("subject_id") or ""),
-            str(row.get("error_code") or ""),
-        ),
-    )
-    return {
-        "status": PASS if not blocking_findings else "blocked",
-        "tranche_id": tranche.get("tranche_id"),
-        "selection_rule": tranche.get("selection_rule"),
-        "release_tree_surface": tranche.get("release_tree_surface"),
-        "lane_count": len(lanes),
-        "lane_ids": sorted(lane_ids),
-        "lanes": lane_rows,
-        "selected_pattern_ids": unique_patterns,
-        "selected_pattern_count": len(unique_patterns),
-        "runtime_surface_refs": sorted(set(runtime_surface_refs)),
-        "release_artifact_refs": sorted(set(release_artifact_refs)),
-        "validation_refs": sorted(set(validation_refs)),
-        "public_safe_body_material_ids": sorted(set(public_safe_body_material_ids)),
-        "acceptance_questions": _strings(tranche.get("acceptance_questions")),
-        "blocking_finding_count": len(blocking_findings),
-        "findings": findings,
-        "observed_negative_cases": {},
-    }
-
-
 def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
     source_refs = _strings(row.get("source_refs"))
     source_ref = row.get("source_ref")
@@ -1126,14 +1113,14 @@ def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
     return source_refs
 
 
-def _normalize_release_runtime_ref(ref: str) -> str:
-    if ref.startswith(f"{STANDALONE_RELEASE_ROOT_REF}/"):
-        return ref[len(STANDALONE_RELEASE_ROOT_REF) + 1 :]
+def _normalize_runtime_root_ref(ref: str) -> str:
+    if ref.startswith(f"{STANDALONE_RUNTIME_ROOT_REF}/"):
+        return ref[len(STANDALONE_RUNTIME_ROOT_REF) + 1 :]
     return ref
 
 
 def _runtime_ref_leak_reason(ref: str) -> str | None:
-    normalized = _normalize_release_runtime_ref(ref)
+    normalized = _normalize_runtime_root_ref(ref)
     if not normalized:
         return "empty_runtime_ref"
     if any(normalized.startswith(prefix) for prefix in STANDALONE_RUNTIME_BLOCKED_PREFIXES):
@@ -1141,14 +1128,14 @@ def _runtime_ref_leak_reason(ref: str) -> str | None:
     if any(token in normalized for token in STANDALONE_RUNTIME_BLOCKED_TOKENS):
         return "blocked_runtime_token"
     if not any(normalized == prefix or normalized.startswith(prefix) for prefix in STANDALONE_RUNTIME_ALLOWED_PREFIXES):
-        return "outside_release_tree"
+        return "outside_microcosm_tree"
     return None
 
 
 def _standalone_runtime_ref_rows(refs: list[str], *, role: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for ref in refs:
-        normalized = _normalize_release_runtime_ref(ref)
+        normalized = _normalize_runtime_root_ref(ref)
         leak_reason = _runtime_ref_leak_reason(ref)
         rows.append(
             {
@@ -1193,7 +1180,7 @@ def _standalone_dependency_leaks(payload: object) -> list[dict[str, Any]]:
     return leaks
 
 
-def validate_standalone_release_severance(
+def validate_standalone_runtime_severance(
     standalone_negative: object | None = None,
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
@@ -1203,7 +1190,7 @@ def validate_standalone_release_severance(
             findings,
             observed,
             "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
-            "Standalone release rejects runtime dependencies on macro/private roots.",
+            "Runtime severance rejects runtime dependencies on macro/private roots.",
             case_id="standalone_dependency_leak",
             subject_id=str(leak["dependency_id"]),
             subject_kind="negative_case",
@@ -1240,6 +1227,9 @@ def _public_safe_body_import_rows(
                 "applied_edits": _strings(row.get("applied_edits")),
                 "claim_ceiling": row.get("claim_ceiling"),
                 "body_digest": row.get("body_digest"),
+                "body_import_verification": row.get("body_import_verification")
+                if isinstance(row.get("body_import_verification"), dict)
+                else None,
                 "body_copied": row.get("body_copied") is True,
                 "body_text_in_receipt_redacted": True,
                 "classification_status": classification["status"],
@@ -1464,13 +1454,12 @@ def _build_projection_intake_board(
     }
 
 
-def _build_standalone_release_board(
+def _build_runtime_severance_board(
     projection_intake_board: dict[str, Any],
     *,
     protocol: dict[str, Any],
     import_plan: dict[str, Any],
     dependency_preflight_gate: dict[str, Any],
-    flagship_tranche: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     runtime_rows: list[dict[str, Any]] = []
     seen_runtime: set[tuple[str, str]] = set()
@@ -1497,25 +1486,16 @@ def _build_standalone_release_board(
         add_runtime_refs(_strings(row.get("validation_refs")), role="projection_cell_validation")
         add_runtime_refs(_strings(row.get("landed_evidence_refs")), role="landed_evidence")
 
-    if isinstance(flagship_tranche, dict):
-        for row in _rows(flagship_tranche, "lanes"):
-            origin_refs.update(_strings(row.get("source_refs")))
-            add_runtime_refs(
-                _strings(row.get("release_artifact_refs")),
-                role="flagship_release_artifact",
-            )
-            add_runtime_refs(_strings(row.get("validation_refs")), role="flagship_validation")
-
     leaked_runtime_rows = [
         row for row in runtime_rows if row.get("status") != PASS
     ]
     findings = [
         _finding(
             "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
-            "Standalone release runtime refs must resolve inside the Microcosm release tree; macro-origin refs are provenance only.",
-            case_id="standalone_release_floor",
+            "Runtime refs must resolve inside the Microcosm tree; macro-origin refs are provenance only.",
+            case_id="runtime_severance_floor",
             subject_id=str(row.get("ref") or "runtime_dependency"),
-            subject_kind="standalone_release_runtime_dependency",
+            subject_kind="runtime_severance_dependency",
         )
         for row in leaked_runtime_rows
     ]
@@ -1527,11 +1507,11 @@ def _build_standalone_release_board(
         else "blocked"
     )
     return {
-        "schema_version": "macro_projection_standalone_release_severance_board_v1",
+        "schema_version": "macro_projection_runtime_severance_board_v1",
         "status": status,
-        "standalone_release_status": status,
-        "standalone_release_candidate": status == PASS,
-        "standalone_release_root": STANDALONE_RELEASE_ROOT_REF,
+        "runtime_severance_status": status,
+        "standalone_runtime_candidate": status == PASS,
+        "standalone_runtime_root": STANDALONE_RUNTIME_ROOT_REF,
         "source_to_standalone_policy": "copy_vendor_rewrite_or_replace_then_run_without_private_root",
         "macro_origin_ref_policy": MACRO_ORIGIN_REF_POLICY,
         "macro_origin_refs": sorted(origin_refs),
@@ -1568,7 +1548,7 @@ def _build_standalone_release_board(
                 "status": PASS,
             },
             {
-                "check_id": "runtime_refs_stay_inside_release_tree",
+                "check_id": "runtime_refs_stay_inside_microcosm_tree",
                 "status": runtime_dependency_status,
             },
             {
@@ -1581,77 +1561,6 @@ def _build_standalone_release_board(
             },
         ],
         "findings": findings,
-        "body_redacted": True,
-    }
-
-
-def _build_flagship_tranche_board(
-    flagship_tranche: dict[str, Any],
-    *,
-    projection_intake_board: dict[str, Any],
-    standalone_release_board: dict[str, Any],
-) -> dict[str, Any]:
-    status = (
-        PASS
-        if flagship_tranche["status"] == PASS
-        and projection_intake_board["public_safe_body_import_count"] >= 2
-        and standalone_release_board["standalone_release_status"] == PASS
-        and standalone_release_board["private_runtime_dependency_count"] == 0
-        else "blocked"
-    )
-    return {
-        "schema_version": "macro_projection_flagship_tranche_board_v1",
-        "status": status,
-        "flagship_tranche_status": status,
-        "tranche_id": flagship_tranche["tranche_id"],
-        "selection_rule": flagship_tranche["selection_rule"],
-        "release_tree_surface": flagship_tranche["release_tree_surface"],
-        "lane_count": flagship_tranche["lane_count"],
-        "lane_ids": flagship_tranche["lane_ids"],
-        "lanes": flagship_tranche["lanes"],
-        "selected_pattern_ids": flagship_tranche["selected_pattern_ids"],
-        "selected_pattern_count": flagship_tranche["selected_pattern_count"],
-        "runtime_surface_refs": flagship_tranche["runtime_surface_refs"],
-        "release_artifact_refs": flagship_tranche["release_artifact_refs"],
-        "validation_refs": flagship_tranche["validation_refs"],
-        "public_safe_body_material_ids": flagship_tranche["public_safe_body_material_ids"],
-        "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
-        "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
-        "standalone_release_status": standalone_release_board["standalone_release_status"],
-        "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
-        "dependency_preflight_gate_status": standalone_release_board[
-            "dependency_preflight_gate_status"
-        ],
-        "dependency_preflight_receipt_ref": standalone_release_board[
-            "dependency_preflight_receipt_ref"
-        ],
-        "organ_lifecycle_coverage_status": standalone_release_board[
-            "organ_lifecycle_coverage_status"
-        ],
-        "private_runtime_dependency_count": standalone_release_board[
-            "private_runtime_dependency_count"
-        ],
-        "macro_origin_refs_runtime_required": standalone_release_board[
-            "macro_origin_refs_runtime_required"
-        ],
-        "acceptance_questions": flagship_tranche["acceptance_questions"],
-        "cold_reader_answers": {
-            "real_macro_origin_material_present": flagship_tranche["selected_pattern_ids"],
-            "runtime_visibility": flagship_tranche["runtime_surface_refs"],
-            "local_run_surface": "microcosm intake plus macro-projection-import-protocol plan/run-projection-bundle",
-            "provenance_surface": "source refs, body material ids, validation refs, and standalone severance board",
-            "severance_surface": "standalone_release_board with private_runtime_dependency_count=0",
-            "non_claims": [
-                "release_authorized=false",
-                "publication_authorized=false",
-                "private_data_equivalence_claim=false",
-                "whole_system_correctness_claim=false",
-            ],
-        },
-        "claim_ceiling": AUTHORITY_CEILING,
-        "release_authorized": False,
-        "publication_authorized": False,
-        "private_data_equivalence_claim": False,
         "body_redacted": True,
     }
 
@@ -1685,7 +1594,7 @@ def _build_result(
         public_root=public_root,
     )
     cleaning_policy = validate_cleaning_policy(payloads["cleaning_policy"])
-    standalone_negative = validate_standalone_release_severance(
+    standalone_negative = validate_standalone_runtime_severance(
         payloads.get("standalone_dependency_leak")
     )
     public_safe_material_ids = {
@@ -1698,15 +1607,10 @@ def _build_result(
         payloads.get("missing_validation_ref"),
         public_safe_material_ids=public_safe_material_ids,
     )
-    flagship_tranche = validate_flagship_tranche(
-        payloads["flagship_tranche"],
-        public_safe_material_ids=public_safe_material_ids,
-    )
     observed = _merge_observed(
         protocol,
         cleaning_policy,
         import_plan,
-        flagship_tranche,
         standalone_negative,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
@@ -1729,23 +1633,16 @@ def _build_result(
         observed_negative_cases=observed,
         missing_negative_cases=missing,
     )
-    standalone_release_board = _build_standalone_release_board(
+    runtime_severance_board = _build_runtime_severance_board(
         projection_intake_board,
         protocol=protocol,
         import_plan=import_plan,
         dependency_preflight_gate=dependency_preflight_gate,
-        flagship_tranche=flagship_tranche,
-    )
-    flagship_tranche_board = _build_flagship_tranche_board(
-        flagship_tranche,
-        projection_intake_board=projection_intake_board,
-        standalone_release_board=standalone_release_board,
     )
     findings = sorted(
         [
-            *_merge_findings(flagship_tranche),
             *findings,
-            *standalone_release_board["findings"],
+            *runtime_severance_board["findings"],
         ],
         key=lambda row: (
             str(row.get("negative_case_id") or ""),
@@ -1762,9 +1659,7 @@ def _build_result(
         and protocol["status"] == PASS
         and cleaning_policy["status"] == PASS
         and import_plan["status"] == PASS
-        and flagship_tranche["status"] == PASS
-        and standalone_release_board["status"] == PASS
-        and flagship_tranche_board["status"] == PASS
+        and runtime_severance_board["status"] == PASS
         else "blocked"
     )
     return {
@@ -1805,27 +1700,24 @@ def _build_result(
         "public_safe_body_digest_count": protocol["public_safe_body_digest_count"],
         "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
         "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
-        "standalone_release_status": standalone_release_board["standalone_release_status"],
-        "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
-        "dependency_preflight_gate_status": standalone_release_board[
+        "runtime_severance_status": runtime_severance_board["runtime_severance_status"],
+        "runtime_dependency_status": runtime_severance_board["runtime_dependency_status"],
+        "dependency_preflight_gate_status": runtime_severance_board[
             "dependency_preflight_gate_status"
         ],
-        "dependency_preflight_receipt_ref": standalone_release_board[
+        "dependency_preflight_receipt_ref": runtime_severance_board[
             "dependency_preflight_receipt_ref"
         ],
-        "organ_lifecycle_coverage_status": standalone_release_board[
+        "organ_lifecycle_coverage_status": runtime_severance_board[
             "organ_lifecycle_coverage_status"
         ],
-        "organ_lifecycle_coverage_counts": standalone_release_board[
+        "organ_lifecycle_coverage_counts": runtime_severance_board[
             "organ_lifecycle_coverage_counts"
         ],
-        "private_runtime_dependency_count": standalone_release_board[
+        "private_runtime_dependency_count": runtime_severance_board[
             "private_runtime_dependency_count"
         ],
-        "flagship_tranche_status": flagship_tranche_board["flagship_tranche_status"],
-        "flagship_tranche_lane_count": flagship_tranche_board["lane_count"],
-        "flagship_tranche_pattern_count": flagship_tranche_board["selected_pattern_count"],
-        "macro_origin_ref_count": standalone_release_board["macro_origin_ref_count"],
+        "macro_origin_ref_count": runtime_severance_board["macro_origin_ref_count"],
         "projection_cell_count": import_plan["projection_cell_count"],
         "ready_projection_cell_count": projection_intake_board["ready_cell_count"],
         "blocked_projection_cell_count": projection_intake_board["blocked_cell_count"],
@@ -1852,19 +1744,15 @@ def _build_result(
             "public_safe_body_material_count": protocol["public_safe_body_material_count"],
             "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
             "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
-            "standalone_release_status": standalone_release_board["standalone_release_status"],
-            "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
-            "dependency_preflight_gate_status": standalone_release_board[
+            "runtime_severance_status": runtime_severance_board["runtime_severance_status"],
+            "runtime_dependency_status": runtime_severance_board["runtime_dependency_status"],
+            "dependency_preflight_gate_status": runtime_severance_board[
                 "dependency_preflight_gate_status"
             ],
-            "organ_lifecycle_coverage_status": standalone_release_board[
+            "organ_lifecycle_coverage_status": runtime_severance_board[
                 "organ_lifecycle_coverage_status"
             ],
-            "standalone_release_board_embedded": True,
-            "flagship_tranche_status": flagship_tranche_board["flagship_tranche_status"],
-            "flagship_tranche_lane_count": flagship_tranche_board["lane_count"],
-            "flagship_tranche_pattern_count": flagship_tranche_board["selected_pattern_count"],
-            "flagship_tranche_board_embedded": True,
+            "runtime_severance_board_embedded": True,
             "projection_cell_count": import_plan["projection_cell_count"],
             "next_best_lane": import_plan["next_best_lane"],
             "release_authorized": False,
@@ -1873,8 +1761,7 @@ def _build_result(
             "intake_board_ref": INTAKE_BOARD_NAME,
         },
         "projection_intake_board": projection_intake_board,
-        "standalone_release_board": standalone_release_board,
-        "flagship_tranche_board": flagship_tranche_board,
+        "runtime_severance_board": runtime_severance_board,
         "body_redacted": True,
     }
 
@@ -1911,16 +1798,13 @@ def _common_receipt(
         "public_safe_body_import_status",
         "public_safe_body_import_count",
         "public_safe_body_import_routes",
-        "standalone_release_status",
+        "runtime_severance_status",
         "runtime_dependency_status",
         "dependency_preflight_gate_status",
         "dependency_preflight_receipt_ref",
         "organ_lifecycle_coverage_status",
         "organ_lifecycle_coverage_counts",
         "private_runtime_dependency_count",
-        "flagship_tranche_status",
-        "flagship_tranche_lane_count",
-        "flagship_tranche_pattern_count",
         "macro_origin_ref_count",
         "projection_cell_count",
         "ready_projection_cell_count",
@@ -1931,8 +1815,7 @@ def _common_receipt(
         "validation_refs",
         "forbidden_material_classes",
         "next_best_lane",
-        "standalone_release_board",
-        "flagship_tranche_board",
+        "runtime_severance_board",
         "body_redacted",
     )
     payload = {
@@ -2033,10 +1916,10 @@ def write_receipts(
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
             "projection_import_boundary": "metadata_fixture_receipt_ref_import_only",
-            "standalone_release_boundary": (
+            "runtime_severance_boundary": (
                 "macro_origin_provenance_only_public_runtime_tree_required"
             ),
-            "standalone_release_status": result["standalone_release_status"],
+            "runtime_severance_status": result["runtime_severance_status"],
         }
     )
 
@@ -2126,8 +2009,7 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
         "command": command_text,
         "input_mode": result["input_mode"],
         "projection_intake_board": result["projection_intake_board"],
-        "standalone_release_board": result["standalone_release_board"],
-        "flagship_tranche_board": result["flagship_tranche_board"],
+        "runtime_severance_board": result["runtime_severance_board"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,

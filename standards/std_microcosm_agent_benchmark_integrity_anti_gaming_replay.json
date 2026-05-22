@@ -25,7 +25,7 @@
       "provider payload bodies",
       "benchmark score claims"
     ],
-    "reason": "public tranche carries synthetic replay metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic replay metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "agent_benchmark_integrity_anti_gaming_replay",

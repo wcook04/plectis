@@ -30,7 +30,7 @@
       "live user memory values",
       "benchmark security claims"
     ],
-    "reason": "public tranche carries synthetic sleeper-memory metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic sleeper-memory metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "sleeper_memory_poisoning_quarantine_replay",

@@ -3,7 +3,7 @@
 ## Teleology
 
 `formal_math_readiness_gate` is the public runtime cell that turns the formal
-math tranche from a deferred slogan into an executable boundary. It validates
+math slice from a deferred slogan into an executable boundary. It validates
 synthetic readiness metadata for corpus availability, tactic probes, premise
 indexes, target-shape routing, and provider context recipes before any future
 Lean witness can claim authority.

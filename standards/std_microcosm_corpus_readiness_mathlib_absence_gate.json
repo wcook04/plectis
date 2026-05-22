@@ -155,7 +155,7 @@
       "private formal-math lab contents",
       "release claims"
     ],
-    "reason": "public tranche carries fixture-level metadata, source-ref labels, negative cases, and redacted receipts only",
+    "reason": "public slice carries fixture-level metadata, source-ref labels, negative cases, and redacted receipts only",
     "drilldown": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json"
   },
   "anti_claim_contract": {

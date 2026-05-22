@@ -30,7 +30,7 @@
       "live MCP account refs",
       "benchmark security claims"
     ],
-    "reason": "public tranche carries synthetic tool-authority metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic tool-authority metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "mcp_tool_authority_replay",

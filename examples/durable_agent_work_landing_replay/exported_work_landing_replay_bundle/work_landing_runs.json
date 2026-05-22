@@ -27,7 +27,7 @@
       "body_redacted": true,
       "claimed_path_refs": [
         "microcosm-substrate/AGENTS.md",
-        "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
+        "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
       ],
       "commit_claimed_landed": false,
       "head_after": "sha256:333333",

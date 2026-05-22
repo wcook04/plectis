@@ -165,7 +165,7 @@
       "provider payload bodies",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public tranche carries evidence-cell metadata and synthetic fixture evidence only",
+    "reason": "public slice carries evidence-cell metadata and synthetic fixture evidence only",
     "drilldown": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json"
   },
   "anti_claim_contract": {

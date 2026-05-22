@@ -238,7 +238,7 @@
       "transition_diff_ref": "transition_diff::intersection_unprotected_turn_yield"
     }
   ],
-  "created_at": "2026-05-22T08:52:17+00:00",
+  "created_at": "2026-05-22T20:19:05+00:00",
   "endpoint": "/spatial-simulation",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",

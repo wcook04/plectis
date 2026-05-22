@@ -118,7 +118,7 @@
   },
   "anti_claim": "This standard governs only a bounded public Lean/Lake witness fixture. It does not authorize Mathlib-dependent proofs, provider calls, private proof import, benchmark performance claims, release/publication work, or theorem-program authority beyond the declared toy witnesses.",
   "standard_payload": {
-    "ontology": "A public-safe Lean witness tranche: a tiny Lake project, local toolchain probe, temporary build, declaration metadata, redacted receipts, and leakage negative cases.",
+    "ontology": "A public-safe Lean witness slice: a tiny Lake project, local toolchain probe, temporary build, declaration metadata, redacted receipts, and leakage negative cases.",
     "teleology": "Let Microcosm honestly cross from formal-math readiness into a runnable local Lean proof witness while keeping proof authority narrow and auditable.",
     "anti_purpose": "Turning one toy Lean build into a broad theorem-proving or release-readiness claim.",
     "compression_bands": [
@@ -154,7 +154,7 @@
       "oracle proofs",
       "Mathlib-dependent corpus claims"
     ],
-    "reason": "public tranche carries a tiny synthetic Lean source fixture and redacted build receipts only",
+    "reason": "public slice carries a tiny synthetic Lean source fixture and redacted build receipts only",
     "drilldown": "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json"
   },
   "anti_claim_contract": {

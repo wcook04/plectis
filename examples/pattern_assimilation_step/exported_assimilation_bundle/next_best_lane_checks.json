@@ -5,7 +5,7 @@
       "check_id": "next_lane_after_computer_use_action_trace_replay",
       "next_best_lane_checked": true,
       "next_route": "runtime_hook_shadow_intervention_coverage",
-      "next_seed_path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+      "next_seed_path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
       "projection_not_authority": true,
       "release_authorized": false,
       "result": "runtime_hook_shadow_intervention_coverage",

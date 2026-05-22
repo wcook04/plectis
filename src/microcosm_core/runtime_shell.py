@@ -3736,11 +3736,11 @@ class RuntimeShell:
                 "source_signal": "operator autonomy phrase becomes bounded seed focus, not raw-seed overwrite",
                 "source_ref": (
                     "state/meta_missions/type_a_autonomous_seed_loop/seeds/"
-                    "microcosm_substrate_flagship_population_autonomous_seed.json"
+                    "microcosm_substrate_import_autonomous_seed.json"
                 ),
                 "repair_route": "seed reentry prompt rewrite",
                 "validation_ref": "tools/meta/factory/validate_type_a_autonomous_seed_bundle.py",
-                "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.md",
+                "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.md",
                 "body_redacted": True,
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
@@ -4103,13 +4103,13 @@ class RuntimeShell:
                 "source_signal": "autonomous seed closeout rewrites the next reentry target",
                 "source_ref": (
                     "state/meta_missions/type_a_autonomous_seed_loop/seeds/"
-                    "microcosm_substrate_flagship_population_autonomous_seed.json"
+                    "microcosm_substrate_import_autonomous_seed.json"
                 ),
                 "owner_route": "kernel.py --validate-seed-heartbeat",
                 "validation_ref": "tools/meta/factory/validate_type_a_autonomous_seed_bundle.py",
                 "public_replacement_ref": (
                     "state/meta_missions/type_a_autonomous_seed_loop/seeds/"
-                    "microcosm_substrate_flagship_population_autonomous_seed.md"
+                    "microcosm_substrate_import_autonomous_seed.md"
                 ),
                 "cleanup_action_class": "reentry_focus_cleanup",
                 "public_boundary": "seed_reentry_is_agent_synthesis_not_raw_seed_overwrite",
@@ -6010,7 +6010,7 @@ class RuntimeShell:
                 "projector_stage": "candidate_selection",
                 "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
                 "public_output": "selected_pattern_ids plus source authority refs",
-                "owner_route": "build_public_microcosm_flagship_prep.py --json",
+                "owner_route": "build_public_microcosm_substrate_import_prep.py --json",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_import_projector_contract_lens_is_public_safe",
                 "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
                 "copied": ["pattern id", "public readiness signal", "source authority pointer"],
@@ -6152,12 +6152,12 @@ class RuntimeShell:
             {
                 "projector_row_id": "seed_and_ledger_closeout_contract",
                 "projector_stage": "validation_and_closeout",
-                "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+                "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
                 "public_output": "seed closeout, next reentry prompt, Work Ledger append, and scoped landing attempt",
                 "owner_route": "type_a_autonomous_seed_loop",
                 "validation_ref": "kernel.py --validate-seed-heartbeat",
                 "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
-                "copied": ["selected tranche", "commands/tests", "next reentry prompt"],
+                "copied": ["selected import cell", "commands/tests", "next reentry prompt"],
                 "cleaned": ["private prompt bodies", "unlanded release language"],
                 "omitted": ["operator raw seed voice", "unreviewed publication claims"],
                 "source_mutation_authorized": False,
@@ -6270,7 +6270,7 @@ class RuntimeShell:
                 "omission_receipt_reversible_projection_boundary",
                 "public_private_stripping_guard",
                 "route_cleanup_contract_plane",
-                "microcosm_substrate_flagship_population_seed",
+                "microcosm_substrate_import_seed",
             ],
             "contract_stages": contract_stages,
             "projector_rows": projector_rows,
@@ -6463,9 +6463,9 @@ class RuntimeShell:
             {
                 "option_row_id": "seed_reentry_option_profile_contract",
                 "option_stage": "reentry_contract",
-                "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+                "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
                 "public_output": "seed closeout names option-surface consumption and next importable cell",
-                "copied": ["selected tranche", "validation commands", "next reentry lane"],
+                "copied": ["selected import cell", "validation commands", "next reentry lane"],
                 "cleaned": ["raw seed voice", "unreviewed public release language"],
                 "omitted": ["operator private prompt body", "publication authorization"],
                 "validation_ref": "kernel.py --validate-seed-heartbeat",
@@ -10093,9 +10093,6 @@ class RuntimeShell:
             "microcosm intake",
         )
         projection_board = projection_preview.get("projection_intake_board", {})
-        flagship_tranche_board = projection_preview.get("flagship_tranche_board", {})
-        if not isinstance(flagship_tranche_board, dict):
-            flagship_tranche_board = {}
         cells = _rows(projection_board if isinstance(projection_board, dict) else {}, "projection_cells")
         cells_by_id = {str(row.get("cell_id") or ""): row for row in cells}
         runtime_cell = cells_by_id.get("runtime_reveal_import_bridge", {})
@@ -10212,8 +10209,7 @@ class RuntimeShell:
             "bridge_id": "runtime_reveal_import_bridge",
             "public_claim": (
                 "Microcosm turns macro-pattern intake into a runnable public path: "
-                "compile, spine, intake, reveal, evidence drilldown, and a flagship "
-                "macro tranche."
+                "compile, spine, intake, reveal, and evidence drilldown."
             ),
             "cold_reader_goal": "under_10_minutes_with_import_context_visible",
             "command": "microcosm intake",
@@ -10255,12 +10251,6 @@ class RuntimeShell:
                 },
             ],
             "projection_cell_count": len(cells),
-            "flagship_tranche_status": flagship_tranche_board.get("flagship_tranche_status"),
-            "flagship_tranche_lane_count": flagship_tranche_board.get("lane_count"),
-            "flagship_tranche_pattern_count": flagship_tranche_board.get(
-                "selected_pattern_count"
-            ),
-            "flagship_tranche_board": flagship_tranche_board,
             "ready_cell_count": projection_board.get("ready_cell_count"),
             "projection_status_protocol": projection_board.get("projection_status_protocol"),
             "projection_status_counts": projection_board.get("projection_status_counts", {}),
@@ -10271,7 +10261,6 @@ class RuntimeShell:
             "runtime_bridge_evidence_refs": [
                 bridge_receipt_ref,
                 reveal_receipt_ref,
-                "examples/macro_projection_import_protocol/exported_projection_import_bundle/flagship_tranche.json",
                 "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
                 "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
             ],

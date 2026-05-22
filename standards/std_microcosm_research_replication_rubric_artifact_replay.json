@@ -138,7 +138,7 @@
       "provider payloads",
       "original-author code bodies"
     ],
-    "reason": "public tranche carries synthetic replay metadata and redacted evidence refs only",
+    "reason": "public slice carries synthetic replay metadata and redacted evidence refs only",
     "drilldown": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json"
   },
   "standard_payload": {

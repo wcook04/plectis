@@ -1,7 +1,7 @@
 # Prediction Oracle Reconciliation
 
 `prediction_oracle_reconciliation` is a public-safe fixture organ for the
-prediction-engine tranche. It compresses the macro pattern group around CP1
+prediction-engine slice. It compresses the macro pattern group around CP1
 bifurcation resolution, CP2 valid target universes, oracle grounding firewalls,
 diff grading, and dossier mutation into a synthetic packet a cold reader can run.
 

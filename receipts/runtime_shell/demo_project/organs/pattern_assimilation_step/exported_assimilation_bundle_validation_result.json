@@ -17,6 +17,7 @@
     "agent_benchmark_integrity_anti_gaming_replay",
     "provider_context_recipe_budget_policy",
     "formal_math_lean_proof_witness",
+    "verifier_lab_kernel",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "durable_agent_work_landing_replay",
@@ -65,7 +66,7 @@
     "release_or_publication_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "f8494ea9b52e2b65edfc5f6d779b2e62a0eb2e7bd2ecfbc2be95c9003c554a81",
+  "bundle_fingerprint": "f7ec39b7c4091d864678f1eea7d97202bb00f2f7118fa56c676a699ed4e42fec",
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "bundle_manifest_schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
   "closeout_by_organ": {
@@ -110,10 +111,11 @@
     "tactic_portfolio_availability_probe": "validator_contract_refined",
     "target_shape_tactic_routing_gate": "validator_contract_refined",
     "undeclared_library_prior_symbol_classifier": "validator_contract_refined",
+    "verifier_lab_kernel": "validator_contract_refined",
     "world_model_projection_drift_control_room": "validator_contract_refined"
   },
   "command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input examples/pattern_assimilation_step/exported_assimilation_bundle --out receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
-  "created_at": "2026-05-22T13:37:21+00:00",
+  "created_at": "2026-05-22T20:17:18+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -162,6 +164,7 @@
     "tactic_portfolio_availability_probe",
     "target_shape_tactic_routing_gate",
     "undeclared_library_prior_symbol_classifier",
+    "verifier_lab_kernel",
     "world_model_projection_drift_control_room"
   ],
   "landing_receipt_refs": [
@@ -199,6 +202,7 @@
     "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
     "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
     "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
     "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
     "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_real_substrate_adapter_receipt_v1.json",
     "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_real_substrate_adapter_receipt_v1.json",
@@ -216,7 +220,7 @@
     "runtime_hook_shadow_intervention_coverage"
   ],
   "next_seed_paths": [
-    "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
+    "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
   ],
   "nothing_to_refine_receipt_count": 2,
   "nothing_to_refine_receipt_ids": [
@@ -226,7 +230,7 @@
   "observed_negative_cases": {},
   "ordered_adapter_lane_status": "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_materials_lab_safety_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_agentic_vulnerability_patch_proof_and_materials_lab_safety_bound",
   "organ_id": "pattern_assimilation_step",
-  "organ_landing_count": 42,
+  "organ_landing_count": 43,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,

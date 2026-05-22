@@ -1,7 +1,7 @@
 {
   "schema_version": "macro_projection_import_plan_fixture_v1",
   "plan_id": "public_macro_projection_import_plan_v1",
-  "next_best_lane": "real_substrate_import_tranche",
+  "next_best_lane": "real_substrate_import_path",
   "proposed_cells": [
     {
       "cell_id": "formal_math_readiness_extensions",
@@ -43,9 +43,7 @@
       "validation_refs": [
         "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
       ],
-      "public_safe_body_material_ids": [
-        "work_landing_tool_body_import"
-      ],
+      "public_safe_body_material_ids": [],
       "authority_ceiling": "protocol_metadata_only",
       "body_copied": false,
       "body_redacted": true

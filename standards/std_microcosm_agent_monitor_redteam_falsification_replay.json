@@ -31,7 +31,7 @@
       "provider payloads",
       "monitor product performance claims"
     ],
-    "reason": "public tranche carries synthetic monitor metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic monitor metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "agent_monitor_redteam_falsification_replay",

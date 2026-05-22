@@ -128,11 +128,11 @@
       "private_body_exported": false,
       "provider_payload_exported": false,
       "public_boundary": "seed_reentry_is_agent_synthesis_not_raw_seed_overwrite",
-      "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.md",
+      "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.md",
       "release_authorized": false,
       "route_deletion_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
       "source_signal": "autonomous seed closeout rewrites the next reentry target",
       "validation_ref": "tools/meta/factory/validate_type_a_autonomous_seed_bundle.py"
     },
@@ -168,7 +168,7 @@
     "validation_ref_count": 8
   },
   "command": "microcosm route-cleanup",
-  "created_at": "2026-05-22T08:52:17+00:00",
+  "created_at": "2026-05-22T20:19:05+00:00",
   "endpoint": "/route-cleanup",
   "lens_id": "public_route_cleanup_contract_lens",
   "negative_case_ids": [

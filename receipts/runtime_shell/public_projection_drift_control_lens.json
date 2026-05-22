@@ -17,7 +17,7 @@
   },
   "body_redacted": true,
   "command": "microcosm drift-control",
-  "created_at": "2026-05-22T08:52:17+00:00",
+  "created_at": "2026-05-22T20:19:05+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -89,11 +89,11 @@
       "body_redacted": true,
       "drift_row_id": "operator_autonomy_phrase_active_standard_bridge",
       "live_repair_authorized": false,
-      "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.md",
+      "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.md",
       "repair_route": "seed reentry prompt rewrite",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
-      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
       "source_signal": "operator autonomy phrase becomes bounded seed focus, not raw-seed overwrite",
       "validation_ref": "tools/meta/factory/validate_type_a_autonomous_seed_bundle.py"
     },

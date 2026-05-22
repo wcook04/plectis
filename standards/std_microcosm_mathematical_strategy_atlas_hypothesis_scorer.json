@@ -157,7 +157,7 @@
       "private formal-math lab contents",
       "release claims"
     ],
-    "reason": "public tranche carries strategy metadata, synthetic feature fixtures, negative cases, and redacted receipts only",
+    "reason": "public slice carries strategy metadata, synthetic feature fixtures, negative cases, and redacted receipts only",
     "drilldown": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/strategy_atlas.json"
   },
   "anti_claim_contract": {

@@ -1,12 +1,13 @@
 {
   "anti_claim": "The macro projection import protocol validates public-safe projection metadata, omission receipts, replacement refs, authority ceilings, and validation refs. It does not copy private bodies, authorize release or publication, claim private-root equivalence, elevate Microcosm above its public receipts, run provider calls, or make macro source authority public.",
   "authority_ceiling": {
-    "authority_ceiling": "macro_projection_protocol_metadata_fixture_and_receipt_refs_only",
+    "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
     "live_macro_source_authority": false,
     "operator_thread_body_read": false,
     "private_data_equivalence_claim": false,
     "private_source_bodies_exported": false,
     "provider_payload_body_read": false,
+    "public_safe_bodies_imported_with_provenance": true,
     "publication_authorized": false,
     "raw_seed_body_read": false,
     "recipient_work_authorized": false,
@@ -18,16 +19,19 @@
   "blocked_projection_cell_count": 0,
   "body_redacted": true,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+  "created_at": "2026-05-22T20:17:01+00:00",
+  "dependency_preflight_gate_status": "pass",
+  "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.macro_projection_import_protocol",
   "forbidden_material_classes": [
     "credential",
+    "non_public_evidence_body",
     "operator_thread_body",
-    "private_source_body",
+    "private_operator_source_body",
     "provider_payload_body",
     "raw_seed_body",
     "recipient_packet_body",
@@ -35,12 +39,24 @@
     "secret"
   ],
   "input_mode": "exported_projection_import_bundle",
+  "macro_origin_ref_count": 9,
   "missing_negative_cases": [],
-  "next_best_lane": "real_substrate_import_tranche",
+  "next_best_lane": "real_substrate_import_path",
   "observed_negative_cases": {},
   "organ_id": "macro_projection_import_protocol",
+  "organ_lifecycle_coverage_counts": {
+    "acceptance_plan_organ_count": 45,
+    "accepted_organ_count": 45,
+    "evidence_class_row_count": 45,
+    "fixture_check_count": 45,
+    "organ_authority_row_count": 45,
+    "runtime_step_count": 45,
+    "surface_authority_row_count": 45
+  },
+  "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
   "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
+  "private_runtime_dependency_count": 0,
   "private_state_scan": {
     "blocking_hit_count": 0,
     "body_redacted": true,
@@ -56,26 +72,38 @@
       "fixture shape",
       "standard schema",
       "receipt summary",
-      "public-root replacement ref"
+      "public-root replacement ref",
+      "public-safe macro body with provenance"
     ],
     "body_redacted": true,
+    "dependency_preflight_gate_status": "pass",
     "forbidden_material_classes": [
       "credential",
+      "non_public_evidence_body",
       "operator_thread_body",
-      "private_source_body",
+      "private_operator_source_body",
       "provider_payload_body",
       "raw_seed_body",
       "recipient_packet_body",
       "release_packet_body",
       "secret"
     ],
-    "headline": "Macro material enters Microcosm through public-safe projection, not body copy.",
+    "headline": "Macro material enters Microcosm through public-safe classification, provenance, and bounded claims; true private bodies stay blocked.",
     "intake_board_ref": "projection_import_intake_board.json",
-    "next_best_lane": "real_substrate_import_tranche",
+    "next_best_lane": "real_substrate_import_path",
+    "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
     "projection_cell_count": 3,
     "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-    "release_authorized": false
+    "public_safe_body_import_count": 2,
+    "public_safe_body_import_routes": {
+      "public_safe_with_light_edits": 2
+    },
+    "public_safe_body_material_count": 2,
+    "release_authorized": false,
+    "runtime_dependency_status": "pass",
+    "runtime_severance_board_embedded": true,
+    "runtime_severance_status": "pass"
   },
   "projection_cell_count": 3,
   "projection_cell_ids": [
@@ -89,22 +117,28 @@
       "fixture shape",
       "standard schema",
       "receipt summary",
-      "public-root replacement ref"
+      "public-root replacement ref",
+      "public-safe macro body with provenance"
     ],
     "allowed_material_classes": [
       "pattern_metadata",
       "fixture_shape",
       "standard_schema",
       "receipt_summary",
-      "public_replacement_ref"
+      "public_replacement_ref",
+      "public_macro_pattern_body",
+      "public_macro_tool_body",
+      "public_macro_receipt_body",
+      "public_macro_proof_body"
     ],
     "authority_ceiling": {
-      "authority_ceiling": "macro_projection_protocol_metadata_fixture_and_receipt_refs_only",
+      "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
       "live_macro_source_authority": false,
       "operator_thread_body_read": false,
       "private_data_equivalence_claim": false,
       "private_source_bodies_exported": false,
       "provider_payload_body_read": false,
+      "public_safe_bodies_imported_with_provenance": true,
       "publication_authorized": false,
       "raw_seed_body_read": false,
       "recipient_work_authorized": false,
@@ -119,27 +153,28 @@
     "expected_negative_case_count": 0,
     "forbidden_material_classes": [
       "credential",
+      "non_public_evidence_body",
       "operator_thread_body",
-      "private_source_body",
+      "private_operator_source_body",
       "provider_payload_body",
       "raw_seed_body",
       "recipient_packet_body",
       "release_packet_body",
       "secret"
     ],
-    "headline": "Macro source refs become queued public projection cells before any body copy is possible.",
+    "headline": "Macro source refs become queued public projection cells; public-safe bodies may flow only through provenance and claim-ceiling classification.",
     "input_mode": "exported_projection_import_bundle",
     "landed_cell_count": 3,
     "missing_negative_cases": [],
     "negative_case_coverage_status": "pass",
-    "next_best_lane": "real_substrate_import_tranche",
+    "next_best_lane": "real_substrate_import_path",
     "observed_negative_case_count": 0,
     "omitted_material": [
       {
         "body_redacted": true,
-        "material_id": "private_source_bodies",
+        "material_id": "true_private_source_bodies",
         "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
-        "omitted_class": "private_source_body",
+        "omitted_class": "non_public_evidence_body",
         "public_replacement_ref": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json"
       },
       {
@@ -166,14 +201,25 @@
         "body_redacted": true,
         "cell_id": "formal_math_readiness_extensions",
         "cell_state": "consumed_public_replacement",
-        "copy_policy": "metadata_fixture_receipt_ref_only",
+        "copy_policy": "public_safe_body_with_provenance_and_claim_ceiling",
         "landed_evidence_refs": [
           "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
           "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
           "paper_modules/formal_math_readiness_gate.md"
         ],
+        "missing_public_safe_body_material_ids": [],
         "next_runtime_surface": "microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input",
         "projection_status": "public_replacement_landed",
+        "public_safe_body_import_routes": [
+          "public_safe_with_light_edits"
+        ],
+        "public_safe_body_material_classes": [
+          "public_macro_proof_body"
+        ],
+        "public_safe_body_material_count": 1,
+        "public_safe_body_material_ids": [
+          "lean_certificate_kernel_body_import"
+        ],
         "ready_to_project": true,
         "selected_pattern_ids": [
           "lean_std_toolchain_premise_index",
@@ -203,15 +249,26 @@
         "body_redacted": true,
         "cell_id": "projection_protocol_self_host",
         "cell_state": "consumed_protocol_self_host",
-        "copy_policy": "metadata_fixture_receipt_ref_only",
+        "copy_policy": "public_safe_body_with_provenance_and_claim_ceiling",
         "landed_evidence_refs": [
           "standards/std_microcosm_macro_projection_import_protocol.json",
           "paper_modules/macro_projection_import_protocol.md",
           "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
           "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
         ],
+        "missing_public_safe_body_material_ids": [],
         "next_runtime_surface": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "projection_status": "self_hosted_status_protocol_landed",
+        "public_safe_body_import_routes": [
+          "public_safe_with_light_edits"
+        ],
+        "public_safe_body_material_classes": [
+          "public_macro_tool_body"
+        ],
+        "public_safe_body_material_count": 1,
+        "public_safe_body_material_ids": [
+          "work_landing_tool_body_import"
+        ],
         "ready_to_project": true,
         "selected_pattern_ids": [
           "compression_profile_governed_option_surface",
@@ -246,8 +303,13 @@
           "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
           "paper_modules/public_reveal_walkthrough.md"
         ],
+        "missing_public_safe_body_material_ids": [],
         "next_runtime_surface": "microcosm intake",
         "projection_status": "runtime_bridge_landed",
+        "public_safe_body_import_routes": [],
+        "public_safe_body_material_classes": [],
+        "public_safe_body_material_count": 0,
+        "public_safe_body_material_ids": [],
         "ready_to_project": true,
         "selected_pattern_ids": [
           "cold_start_agent_skills_pack",
@@ -292,6 +354,79 @@
       "status_field": "projection_status"
     },
     "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
+    "public_safe_body_import_classes": {
+      "public_macro_proof_body": 1,
+      "public_macro_tool_body": 1
+    },
+    "public_safe_body_import_count": 2,
+    "public_safe_body_import_routes": {
+      "public_safe_with_light_edits": 2
+    },
+    "public_safe_body_imports": [
+      {
+        "applied_edits": [
+          "strip_private_absolute_paths",
+          "replace_live_ledger_payload_examples_with_synthetic_ids",
+          "preserve_algorithmic_control_flow"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:86a7fa2ca9c4e9d7dd671feb4ab584c6e57e2f3a82207eaf4c2e4606cae1b04f",
+        "body_text_in_receipt_redacted": true,
+        "claim_ceiling": "algorithmic tool body import only; not live Task Ledger authority, release authority, or private-root equivalence",
+        "classification_status": "pass",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "work_landing_tool_body_import",
+        "private_state_risk": "low",
+        "provenance_refs": [
+          "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
+          "codex/standards/std_microcosm.json#public_safe_direct_import_with_provenance"
+        ],
+        "public_safe_mode": "public_safe_body_with_light_edits",
+        "route": "public_safe_with_light_edits",
+        "source_refs": [
+          "tools/meta/control/work_landing.py",
+          "tools/meta/control/mission_transaction_preflight.py"
+        ],
+        "target_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance"
+        ]
+      },
+      {
+        "applied_edits": [
+          "strip_private_absolute_paths",
+          "preserve_theorem_body_and_certificate_kernel_structure",
+          "bound_claim_to_imported_kernel_body_not_public_theorem_solution"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+        "body_text_in_receipt_redacted": true,
+        "claim_ceiling": "proof body import only; not theorem-solution claim, release authority, or private-root equivalence",
+        "classification_status": "pass",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_proof_body",
+        "material_id": "lean_certificate_kernel_body_import",
+        "private_state_risk": "low",
+        "provenance_refs": [
+          "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
+          "codex/standards/std_microcosm.json#public_safe_direct_import_with_provenance"
+        ],
+        "public_safe_mode": "public_safe_body_with_light_edits",
+        "route": "public_safe_with_light_edits",
+        "source_refs": [
+          "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
+        ],
+        "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance"
+        ]
+      }
+    ],
     "publication_authorized": false,
     "ready_cell_count": 3,
     "release_authorized": false,
@@ -308,16 +443,326 @@
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
+  "public_safe_body_digest_count": 2,
+  "public_safe_body_import_count": 2,
+  "public_safe_body_import_routes": {
+    "public_safe_with_light_edits": 2
+  },
+  "public_safe_body_import_status": "pass",
+  "public_safe_body_material_count": 2,
+  "public_safe_body_target_refs": [
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+    "src/microcosm_core/organs/mission_transaction_work_spine.py"
+  ],
+  "public_safe_body_target_status": "pass",
   "ready_projection_cell_count": 3,
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
   ],
+  "runtime_dependency_status": "pass",
+  "runtime_severance_board": {
+    "blocked_runtime_dependencies": [],
+    "body_redacted": true,
+    "claim_ceiling": {
+      "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
+      "live_macro_source_authority": false,
+      "operator_thread_body_read": false,
+      "private_data_equivalence_claim": false,
+      "private_source_bodies_exported": false,
+      "provider_payload_body_read": false,
+      "public_safe_bodies_imported_with_provenance": true,
+      "publication_authorized": false,
+      "raw_seed_body_read": false,
+      "recipient_work_authorized": false,
+      "release_authorized": false,
+      "source_authority_above_macro_contracts": false,
+      "status": "pass",
+      "whole_system_correctness_claim": false
+    },
+    "dependency_preflight_gate": {
+      "anti_claim": "This check proves runtime severance consumed the public preflight lifecycle receipt. It does not authorize release, publication, provider calls, private-source equivalence, or proof of organ semantics.",
+      "body_redacted": true,
+      "coverage_counts": {
+        "acceptance_plan_organ_count": 45,
+        "accepted_organ_count": 45,
+        "evidence_class_row_count": 45,
+        "fixture_check_count": 45,
+        "organ_authority_row_count": 45,
+        "runtime_step_count": 45,
+        "surface_authority_row_count": 45
+      },
+      "defect_count": 0,
+      "defects": [],
+      "dependency_preflight_status": "pass",
+      "expected_accepted_organ_count": 45,
+      "findings": [],
+      "organ_lifecycle_coverage_status": "pass",
+      "receipt_ref": "receipts/preflight/dependency_preflight.json",
+      "required_count_fields": [
+        "accepted_organ_count",
+        "runtime_step_count",
+        "acceptance_plan_organ_count",
+        "evidence_class_row_count",
+        "organ_authority_row_count",
+        "surface_authority_row_count",
+        "fixture_check_count"
+      ],
+      "schema_version": "macro_projection_dependency_preflight_gate_v1",
+      "status": "pass"
+    },
+    "dependency_preflight_gate_status": "pass",
+    "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
+    "findings": [],
+    "macro_origin_ref_count": 9,
+    "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
+    "macro_origin_refs": [
+      "codex/standards/std_microcosm.json#public_safe_direct_import_with_provenance",
+      "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+      "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
+      "tools/meta/control/mission_transaction_preflight.py",
+      "tools/meta/control/work_landing.py"
+    ],
+    "macro_origin_refs_runtime_required": false,
+    "organ_lifecycle_coverage_counts": {
+      "acceptance_plan_organ_count": 45,
+      "accepted_organ_count": 45,
+      "evidence_class_row_count": 45,
+      "fixture_check_count": 45,
+      "organ_authority_row_count": 45,
+      "runtime_step_count": 45,
+      "surface_authority_row_count": 45
+    },
+    "organ_lifecycle_coverage_status": "pass",
+    "private_data_equivalence_claim": false,
+    "private_runtime_dependency_count": 0,
+    "projection_cell_count": 3,
+    "public_safe_body_import_classes": {
+      "public_macro_proof_body": 1,
+      "public_macro_tool_body": 1
+    },
+    "public_safe_body_import_count": 2,
+    "public_safe_body_import_routes": {
+      "public_safe_with_light_edits": 2
+    },
+    "publication_authorized": false,
+    "ready_projection_cell_count": 3,
+    "release_authorized": false,
+    "runtime_dependencies": [
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+        "ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "paper_modules/formal_math_readiness_gate.md",
+        "ref": "paper_modules/formal_math_readiness_gate.md",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "paper_modules/macro_projection_import_protocol.md",
+        "ref": "paper_modules/macro_projection_import_protocol.md",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "paper_modules/public_reveal_walkthrough.md",
+        "ref": "paper_modules/public_reveal_walkthrough.md",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+        "ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+        "ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+        "ref": "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+        "ref": "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+        "ref": "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "paper_modules/macro_projection_import_protocol.md",
+        "ref": "paper_modules/macro_projection_import_protocol.md",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        "ref": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+        "status": "pass"
+      }
+    ],
+    "runtime_dependency_count": 22,
+    "runtime_dependency_refs": [
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+      "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
+      "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance",
+      "paper_modules/formal_math_readiness_gate.md",
+      "paper_modules/macro_projection_import_protocol.md",
+      "paper_modules/public_reveal_walkthrough.md",
+      "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
+      "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+      "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+      "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+      "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+      "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+      "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
+      "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+      "src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "standards/std_microcosm_macro_projection_import_protocol.json"
+    ],
+    "runtime_dependency_status": "pass",
+    "runtime_severance_status": "pass",
+    "schema_version": "macro_projection_runtime_severance_board_v1",
+    "severance_checks": [
+      {
+        "check_id": "macro_origin_refs_are_provenance_only",
+        "status": "pass"
+      },
+      {
+        "check_id": "runtime_refs_stay_inside_microcosm_tree",
+        "status": "pass"
+      },
+      {
+        "check_id": "organ_lifecycle_coverage_preflight_passes",
+        "status": "pass"
+      },
+      {
+        "check_id": "claim_ceiling_remains_false_for_release_and_private_equivalence",
+        "status": "pass"
+      }
+    ],
+    "source_to_standalone_policy": "copy_vendor_rewrite_or_replace_then_run_without_private_root",
+    "standalone_runtime_candidate": true,
+    "standalone_runtime_root": "microcosm-substrate",
+    "status": "pass"
+  },
+  "runtime_severance_status": "pass",
   "schema_version": "macro_projection_import_protocol_result_v1",
-  "source_ref_count": 3,
+  "source_ref_count": 5,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-    "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json"
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+    "tools/meta/control/work_landing.py",
+    "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
   ],
   "status": "pass",
   "validation_ref_count": 5,

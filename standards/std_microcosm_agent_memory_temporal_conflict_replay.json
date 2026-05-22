@@ -29,7 +29,7 @@
       "active injection text",
       "raw answer bodies"
     ],
-    "reason": "public tranche carries synthetic memory metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic memory metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "agent_memory_temporal_conflict_replay",

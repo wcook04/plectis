@@ -4,12 +4,11 @@
   "organ_id": "macro_projection_import_protocol",
   "fixture_id": "fixture::macro_projection_import_protocol::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate the public-safe membrane for projecting macro substrate into Microcosm, exposing a runtime-visible flagship tranche, and proving standalone release severance without private runtime dependencies, authority upgrades, or release/private-equivalence claims.",
+  "purpose": "Validate the public-safe membrane for projecting macro substrate into Microcosm and proving standalone runtime severance without private runtime dependencies, authority upgrades, or release/private-equivalence claims.",
   "inputs": [
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
-    "fixtures/first_wave/macro_projection_import_protocol/input/flagship_tranche.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/private_body_import_overclaim.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/missing_omission_receipt.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/authority_upgrade_overclaim.json",
@@ -39,8 +38,7 @@
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
     "MACRO_PROJECTION_VALIDATION_REF_MISSING",
     "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
-    "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
-    "MACRO_PROJECTION_FLAGSHIP_TRANCHE_INCOMPLETE"
+    "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK"
   ],
   "receipt_field_floor": [
     "schema_version",
@@ -60,8 +58,7 @@
     "protocol_id",
     "source_refs",
     "public_replacement_refs",
-    "validation_refs",
-    "flagship_tranche_board"
+    "validation_refs"
   ],
   "private_state_exclusion_rules": {
     "raw_seed_body": "forbidden; use path-level source refs and omission receipts only",
@@ -69,6 +66,6 @@
     "private_source_bodies": "true private bodies are forbidden; public-safe macro proof/tool/pattern/receipt bodies use the classified import lane with provenance and claim ceilings",
     "release": "never authorized by projection import"
   },
-  "authority_ceiling": "classified public macro bodies, metadata, fixture shape, standards, and receipt refs may enter the Microcosm release tree with provenance; macro-origin refs are not runtime dependencies and do not authorize release, publication, provider authority, private-data equivalence, or whole-system correctness",
-  "anti_claim": "This fixture manifest accepts classified public-safe macro body imports, a runtime-visible flagship tranche, and standalone severance evidence. It does not authorize true private body export, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake special casing, or whole-system correctness."
+  "authority_ceiling": "classified public macro bodies, metadata, fixture shape, standards, and receipt refs may enter the Microcosm runtime tree with provenance; macro-origin refs are not runtime dependencies and do not authorize release, publication, provider authority, private-data equivalence, or whole-system correctness",
+  "anti_claim": "This fixture manifest accepts classified public-safe macro body imports and standalone severance evidence. It does not authorize true private body export, hosted-public readiness, publication readiness, recipient work, provider calls, private-data equivalence, Lean/Lake special casing, or whole-system correctness."
 }

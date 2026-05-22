@@ -33,7 +33,7 @@
       "provider payloads",
       "security benchmark score claims"
     ],
-    "reason": "public tranche carries synthetic sandbox policy metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic sandbox policy metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "agent_sandbox_policy_escape_replay",

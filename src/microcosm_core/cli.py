@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 
 from microcosm_core import project_substrate
-from microcosm_core import release_activation_rehearsal
 from microcosm_core import runtime_shell
 from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
 from microcosm_core.organs import agent_memory_temporal_conflict_replay
@@ -129,11 +128,6 @@ def main(argv: list[str] | None = None) -> int:
     subparsers.add_parser("replay-gauntlet")
     subparsers.add_parser("benchmark-lab")
     subparsers.add_parser("legibility-scorecard")
-    activation_parser = subparsers.add_parser("release-activation")
-    activation_parser.add_argument("--root", default=".")
-    activation_parser.add_argument("--out")
-    activation_parser.add_argument("--require-claim-card-coverage", action="store_true")
-    activation_parser.add_argument("--minimum-maturity", type=int)
     subparsers.add_parser("intake")
     subparsers.add_parser("reveal")
     run_parser = subparsers.add_parser("run")
@@ -550,15 +544,6 @@ def main(argv: list[str] | None = None) -> int:
         return runtime_shell.main(["benchmark-lab"])
     if args.command == "legibility-scorecard":
         return runtime_shell.main(["legibility-scorecard"])
-    if args.command == "release-activation":
-        activation_args = ["--root", args.root]
-        if args.out:
-            activation_args.extend(["--out", args.out])
-        if args.require_claim_card_coverage:
-            activation_args.append("--require-claim-card-coverage")
-        if args.minimum_maturity is not None:
-            activation_args.extend(["--minimum-maturity", str(args.minimum_maturity)])
-        return release_activation_rehearsal.main(activation_args)
     if args.command == "intake":
         return runtime_shell.main(["intake"])
     if args.command == "reveal":

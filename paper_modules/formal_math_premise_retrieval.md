@@ -1,6 +1,6 @@
 # Formal Math Premise Retrieval
 
-`formal_math_premise_retrieval` is the public-safe first real formal-math import tranche after the macro projection protocol. It turns the macro prover lab's premise-index, term-scoring, context-budget, and strategy-selection patterns into a runnable Microcosm organ.
+`formal_math_premise_retrieval` is the public-safe first real formal-math import slice after the macro projection protocol. It turns the macro prover lab's premise-index, term-scoring, context-budget, and strategy-selection patterns into a runnable Microcosm organ.
 
 It is still deliberately below proof authority. It validates Lean/Std premise metadata, query term scoring, split eligibility, context recipe budgets, public strategy ids, redacted receipts, and negative cases. It does not run Lean or Lake, call providers, expose proof bodies, expose oracle-needed premise ids, tune on test split truth, claim theorem correctness, or authorize release.
 

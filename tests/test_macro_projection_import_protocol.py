@@ -125,9 +125,9 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_replacement_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 2
+    assert result["public_safe_body_material_count"] == 1
     assert result["public_safe_body_import_status"] == "pass"
-    assert result["standalone_release_status"] == "pass"
+    assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
     assert result["dependency_preflight_gate_status"] == "pass"
     assert result["dependency_preflight_receipt_ref"] == (
@@ -136,15 +136,11 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["organ_lifecycle_coverage_status"] == "pass"
     assert result["organ_lifecycle_coverage_counts"]["accepted_organ_count"] == 45
     assert result["private_runtime_dependency_count"] == 0
-    assert result["flagship_tranche_status"] == "pass"
-    assert result["flagship_tranche_lane_count"] == 6
-    assert result["flagship_tranche_pattern_count"] >= 20
     assert result["authority_ceiling"]["private_source_bodies_exported"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
-    assert result["projection_board"]["next_best_lane"] == "real_substrate_import_tranche"
+    assert result["projection_board"]["next_best_lane"] == "real_substrate_import_path"
     assert result["projection_board"]["intake_board_ref"] == "projection_import_intake_board.json"
-    assert result["projection_board"]["standalone_release_board_embedded"] is True
-    assert result["projection_board"]["flagship_tranche_board_embedded"] is True
+    assert result["projection_board"]["runtime_severance_board_embedded"] is True
     assert result["projection_intake_board"]["ready_cell_count"] == 3
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
@@ -157,22 +153,22 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
-        "public_safe_with_light_edits": 2
+        "public_safe_with_light_edits": 1
     }
     by_material = {
         row["material_id"]: row
         for row in result["projection_intake_board"]["public_safe_body_imports"]
     }
-    assert by_material["work_landing_tool_body_import"]["material_class"] == "public_macro_tool_body"
     assert by_material["lean_certificate_kernel_body_import"]["material_class"] == (
         "public_macro_proof_body"
     )
-    assert by_material["work_landing_tool_body_import"]["classification_status"] == "pass"
     assert by_material["lean_certificate_kernel_body_import"]["classification_status"] == "pass"
-    assert by_material["work_landing_tool_body_import"]["body_text_in_receipt_redacted"] is True
     assert by_material["lean_certificate_kernel_body_import"]["body_text_in_receipt_redacted"] is True
+    assert by_material["lean_certificate_kernel_body_import"]["body_import_verification"][
+        "verification_mode"
+    ] == "exact_source_digest_match"
     assert result["projection_intake_board"]["negative_case_coverage_status"] == "pass"
     assert (
         result["projection_intake_board"]["projection_status_protocol"]["status_field"]
@@ -192,71 +188,43 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     )
     assert by_cell["projection_protocol_self_host"]["action_required"] is False
     assert by_cell["projection_protocol_self_host"]["copy_policy"] == (
-        "public_safe_body_with_provenance_and_claim_ceiling"
+        "metadata_fixture_receipt_ref_only"
     )
-    assert by_cell["projection_protocol_self_host"]["public_safe_body_material_ids"] == [
-        "work_landing_tool_body_import"
-    ]
+    assert by_cell["projection_protocol_self_host"]["public_safe_body_material_ids"] == []
     assert by_cell["runtime_reveal_import_bridge"]["projection_status"] == "runtime_bridge_landed"
     assert by_cell["runtime_reveal_import_bridge"]["copy_policy"] == (
         "metadata_fixture_receipt_ref_only"
     )
-    release_board = result["standalone_release_board"]
-    assert release_board["standalone_release_candidate"] is True
-    assert release_board["dependency_preflight_gate_status"] == "pass"
-    assert release_board["dependency_preflight_gate"]["status"] == "pass"
-    assert release_board["dependency_preflight_gate"]["defect_count"] == 0
-    assert release_board["organ_lifecycle_coverage_status"] == "pass"
-    assert release_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 45
+    severance_board = result["runtime_severance_board"]
+    assert severance_board["standalone_runtime_candidate"] is True
+    assert severance_board["dependency_preflight_gate_status"] == "pass"
+    assert severance_board["dependency_preflight_gate"]["status"] == "pass"
+    assert severance_board["dependency_preflight_gate"]["defect_count"] == 0
+    assert severance_board["organ_lifecycle_coverage_status"] == "pass"
+    assert severance_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 45
     assert {
         row["check_id"]: row["status"]
-        for row in release_board["severance_checks"]
+        for row in severance_board["severance_checks"]
     }["organ_lifecycle_coverage_preflight_passes"] == "pass"
-    assert release_board["macro_origin_ref_policy"] == (
+    assert severance_board["macro_origin_ref_policy"] == (
         "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
     )
-    assert release_board["macro_origin_refs_runtime_required"] is False
-    assert release_board["private_runtime_dependency_count"] == 0
-    assert release_board["blocked_runtime_dependencies"] == []
-    assert "tools/meta/control/work_landing.py" in release_board["macro_origin_refs"]
+    assert severance_board["macro_origin_refs_runtime_required"] is False
+    assert severance_board["private_runtime_dependency_count"] == 0
+    assert severance_board["blocked_runtime_dependencies"] == []
+    assert "tools/meta/control/work_landing.py" in severance_board["macro_origin_refs"]
     assert (
         "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/"
         "CertificateKernel.lean"
-        in release_board["macro_origin_refs"]
+        in severance_board["macro_origin_refs"]
     )
-    assert all(not ref.startswith("state/") for ref in release_board["runtime_dependency_refs"])
-    assert all(not ref.startswith("formal_math/") for ref in release_board["runtime_dependency_refs"])
-    assert all(not ref.startswith("tools/meta/") for ref in release_board["runtime_dependency_refs"])
+    assert all(not ref.startswith("state/") for ref in severance_board["runtime_dependency_refs"])
+    assert all(not ref.startswith("formal_math/") for ref in severance_board["runtime_dependency_refs"])
+    assert all(not ref.startswith("tools/meta/") for ref in severance_board["runtime_dependency_refs"])
     assert any(
         receipt_ref.endswith("projection_import_intake_board.json")
         for receipt_ref in result["receipt_paths"]
     )
-    flagship_board = result["flagship_tranche_board"]
-    assert flagship_board["status"] == "pass"
-    assert flagship_board["lane_ids"] == [
-        "navigation_option_surface",
-        "observatory_provenance_diagnostics",
-        "pattern_doctrine_compiler",
-        "proof_formal_kernel",
-        "prover_evaluator_lab",
-        "work_landing_governance",
-    ]
-    assert set(flagship_board["public_safe_body_material_ids"]) == {
-        "lean_certificate_kernel_body_import",
-        "work_landing_tool_body_import",
-    }
-    assert set(flagship_board["selected_pattern_ids"]) >= {
-        "formal_math_verifier_trace_repair_loop_compound",
-        "durable_agent_work_landing_replay_compound",
-        "navigation_hologram_unified_route_plane",
-        "pattern_deliverables_registry",
-        "workingness_instrument",
-    }
-    assert flagship_board["private_runtime_dependency_count"] == 0
-    assert flagship_board["macro_origin_refs_runtime_required"] is False
-    assert flagship_board["cold_reader_answers"]["local_run_surface"].startswith("microcosm intake")
-    for ref in flagship_board["release_artifact_refs"]:
-        assert (MICROCOSM_ROOT / ref.split("::", 1)[0]).exists()
 
 
 def test_macro_projection_import_protocol_receipts_are_public_relative_and_redacted(
@@ -271,9 +239,8 @@ def test_macro_projection_import_protocol_receipts_are_public_relative_and_redac
     )
 
     assert result["status"] == "pass"
-    assert result["standalone_release_board"]["standalone_release_candidate"] is True
-    assert result["standalone_release_board"]["private_runtime_dependency_count"] == 0
-    assert result["flagship_tranche_board"]["flagship_tranche_status"] == "pass"
+    assert result["runtime_severance_board"]["standalone_runtime_candidate"] is True
+    assert result["runtime_severance_board"]["private_runtime_dependency_count"] == 0
     for receipt_ref in result["receipt_paths"]:
         receipt_file = public_root / receipt_ref
         assert receipt_file.is_file()
@@ -316,17 +283,17 @@ def test_macro_projection_release_severance_requires_lifecycle_preflight(
 
     assert result["status"] == "blocked"
     assert result["runtime_dependency_status"] == "pass"
-    assert result["standalone_release_status"] == "blocked"
+    assert result["runtime_severance_status"] == "blocked"
     assert result["dependency_preflight_gate_status"] == "blocked"
     assert result["organ_lifecycle_coverage_status"] == "blocked"
     assert "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_BLOCKED" in result["error_codes"]
-    release_board = result["standalone_release_board"]
-    assert release_board["dependency_preflight_gate"]["defects"][0]["defect_code"] == (
+    severance_board = result["runtime_severance_board"]
+    assert severance_board["dependency_preflight_gate"]["defects"][0]["defect_code"] == (
         "organ_lifecycle_coverage_blocked"
     )
     assert {
         row["check_id"]: row["status"]
-        for row in release_board["severance_checks"]
+        for row in severance_board["severance_checks"]
     }["organ_lifecycle_coverage_preflight_passes"] == "blocked"
 
 
@@ -349,7 +316,7 @@ def test_macro_projection_release_severance_blocks_stale_lifecycle_counts(
     assert result["dependency_preflight_gate_status"] == "blocked"
     assert result["organ_lifecycle_coverage_status"] == "pass"
     assert "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE" in result["error_codes"]
-    defects = result["standalone_release_board"]["dependency_preflight_gate"]["defects"]
+    defects = result["runtime_severance_board"]["dependency_preflight_gate"]["defects"]
     assert {
         row["subject_id"]
         for row in defects
@@ -376,19 +343,17 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 2
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
-    assert result["standalone_release_status"] == "pass"
-    assert result["standalone_release_board"]["macro_origin_refs_runtime_required"] is False
-    assert result["standalone_release_board"]["private_runtime_dependency_count"] == 0
-    assert result["flagship_tranche_board"]["lane_count"] == 6
-    assert result["flagship_tranche_board"]["selected_pattern_count"] >= 20
+    assert result["public_safe_body_material_count"] == 1
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
+    assert result["runtime_severance_status"] == "pass"
+    assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
+    assert result["runtime_severance_board"]["private_runtime_dependency_count"] == 0
     assert {
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
-    } == {"work_landing_tool_body_import", "lean_certificate_kernel_body_import"}
+    } == {"lean_certificate_kernel_body_import"}
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 2
+    assert result["public_safe_body_digest_count"] == 1
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -426,6 +391,37 @@ def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
     assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_PLACEHOLDER" in error_codes
 
 
+def test_projection_protocol_rejects_body_import_without_verification(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    protocol_path = (
+        public_root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+        / "projection_protocol.json"
+    )
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    for row in protocol["copied_material"]:
+        if row["material_id"] == "lean_certificate_kernel_body_import":
+            row.pop("body_import_verification", None)
+            break
+
+    result = validate_projection_protocol(
+        protocol,
+        import_policy=json.loads(
+            (public_root / "core/private_state_forbidden_classes.json").read_text(
+                encoding="utf-8"
+            )
+        ),
+        public_root=public_root,
+    )
+
+    assert result["status"] == "blocked"
+    assert result["public_safe_body_target_status"] == "blocked"
+    error_codes = {row["error_code"] for row in result["findings"]}
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_VERIFICATION_MISSING" in error_codes
+
+
 def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
     result = preview_import_plan(
@@ -446,16 +442,12 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
-        "public_macro_proof_body": 1,
-        "public_macro_tool_body": 1,
+        "public_macro_proof_body": 1
     }
-    assert result["standalone_release_board"]["runtime_dependency_status"] == "pass"
-    assert result["standalone_release_board"]["macro_origin_refs_runtime_required"] is False
-    assert result["flagship_tranche_board"]["status"] == "pass"
-    assert result["flagship_tranche_board"]["standalone_release_status"] == "pass"
-    assert result["flagship_tranche_board"]["selected_pattern_count"] >= 20
+    assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
+    assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert all(
         row["selected_pattern_ids"]
         for row in result["projection_intake_board"]["projection_cells"]
@@ -463,7 +455,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "receipt_paths" not in result
 
 
-def test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance(
+def test_public_safe_macro_proof_body_is_importable_with_verification(
     tmp_path: Path,
 ) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
@@ -474,7 +466,7 @@ def test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 2
+    assert result["public_safe_body_material_count"] == 1
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -483,21 +475,49 @@ def test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance(
         row["material_id"]: row
         for row in result["projection_intake_board"]["public_safe_body_imports"]
     }
-    assert by_material["work_landing_tool_body_import"]["route"] == "public_safe_with_light_edits"
     assert by_material["lean_certificate_kernel_body_import"]["route"] == (
         "public_safe_with_light_edits"
-    )
-    assert by_material["work_landing_tool_body_import"]["source_refs"][0] == (
-        "tools/meta/control/work_landing.py"
     )
     assert by_material["lean_certificate_kernel_body_import"]["source_refs"] == [
         "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
     ]
-    assert result["standalone_release_board"]["standalone_release_status"] == "pass"
+    assert by_material["lean_certificate_kernel_body_import"]["body_import_verification"][
+        "source_body_digest"
+    ] == by_material["lean_certificate_kernel_body_import"]["body_digest"]
+    assert result["runtime_severance_board"]["runtime_severance_status"] == "pass"
     assert (
         "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/"
         "CertificateKernel.lean"
-        not in result["standalone_release_board"]["runtime_dependency_refs"]
+        not in result["runtime_severance_board"]["runtime_dependency_refs"]
+    )
+
+
+def test_work_landing_source_ref_is_not_counted_as_body_import(tmp_path: Path) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    body_import_ids = {
+        row["material_id"]
+        for row in result["projection_intake_board"]["public_safe_body_imports"]
+    }
+    assert "work_landing_tool_body_import" not in body_import_ids
+    protocol_rows = {
+        row["material_id"]: row
+        for row in json.loads(
+            (
+                public_root
+                / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+                / "projection_protocol.json"
+            ).read_text(encoding="utf-8")
+        )["copied_material"]
+    }
+    assert protocol_rows["work_landing_tool_body_import"]["body_copied"] is False
+    assert protocol_rows["work_landing_tool_body_import"]["import_disposition"] == (
+        "demoted_from_body_import_digest_theater"
     )
 
 
@@ -505,7 +525,7 @@ def test_import_plan_rejects_missing_public_safe_body_material_id() -> None:
     result = validate_import_plan(
         {
             "plan_id": "missing_public_safe_body_material",
-            "next_best_lane": "real_substrate_import_tranche",
+            "next_best_lane": "real_substrate_import_path",
             "proposed_cells": [
                 {
                     "cell_id": "cell_with_missing_material",

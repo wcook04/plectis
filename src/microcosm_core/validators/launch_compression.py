@@ -85,10 +85,8 @@ def validate_launch_compression(
     observatory_html = shell._observatory_html(project_path)
     state_files = _walk_state_files(project_path)
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
-    release_claim_marker = "<!-- BEGIN microcosm_release_claim_projection -->"
-    launch_intro_screen = readme_first_screen.split(release_claim_marker, 1)[0]
     first_screen_lower = readme_first_screen.lower()
-    launch_intro_lower = launch_intro_screen.lower()
+    launch_intro_lower = readme_first_screen.lower()
     receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
 
     assertions = {

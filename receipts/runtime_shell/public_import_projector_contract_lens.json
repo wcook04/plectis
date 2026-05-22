@@ -77,7 +77,7 @@
       "stage_id": "validation_and_closeout"
     }
   ],
-  "created_at": "2026-05-22T08:52:17+00:00",
+  "created_at": "2026-05-22T20:19:05+00:00",
   "endpoint": "/import-projector",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
   "lens_id": "public_import_projector_contract_lens",
@@ -110,7 +110,7 @@
         "raw macro source bodies",
         "unreviewed publication claims"
       ],
-      "owner_route": "build_public_microcosm_flagship_prep.py --json",
+      "owner_route": "build_public_microcosm_substrate_import_prep.py --json",
       "private_body_exported": false,
       "projector_row_id": "source_candidate_contract",
       "projector_stage": "candidate_selection",
@@ -323,7 +323,7 @@
         "unlanded release language"
       ],
       "copied": [
-        "selected tranche",
+        "selected import cell",
         "commands/tests",
         "next reentry prompt"
       ],
@@ -341,7 +341,7 @@
       "public_output": "seed closeout, next reentry prompt, Work Ledger append, and scoped landing attempt",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
       "validation_ref": "kernel.py --validate-seed-heartbeat"
     }
   ],
@@ -377,7 +377,7 @@
     "omission_receipt_reversible_projection_boundary",
     "public_private_stripping_guard",
     "route_cleanup_contract_plane",
-    "microcosm_substrate_flagship_population_seed"
+    "microcosm_substrate_import_seed"
   ],
   "status": "pass"
 }

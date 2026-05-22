@@ -30,7 +30,7 @@
       "raw policy vote bodies",
       "irreversible mutation authority"
     ],
-    "reason": "public tranche carries synthetic governed-mutation metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic governed-mutation metadata and redacted receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "proof_derived_governed_mutation_authorization",

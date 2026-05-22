@@ -119,7 +119,7 @@
   },
   "anti_claim": "This standard governs public synthetic formal-math retrieval metadata only; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
   "standard_payload": {
-    "ontology": "A public-safe Lean/Std premise retrieval tranche: premise metadata, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
+    "ontology": "A public-safe Lean/Std premise retrieval slice: premise metadata, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm capable of demonstrating a real formal-math retrieval mechanism while preserving the proof-witness boundary.",
     "anti_purpose": "Turning synthetic retrieval scores into theorem-proof authority.",
     "compression_bands": ["protocol", "index", "query", "board", "receipt"],
@@ -150,7 +150,7 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public tranche carries retrieval metadata and synthetic fixture evidence only",
+    "reason": "public slice carries retrieval metadata and synthetic fixture evidence only",
     "drilldown": "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json"
   },
   "anti_claim_contract": {

@@ -28,7 +28,7 @@ Run the exported bundle:
 PYTHONPATH=src python3 -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol
 ```
 
-Preview the next import tranche without writing receipts:
+Preview the next import slice without writing receipts:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core.organs.macro_projection_import_protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle
