@@ -20,6 +20,60 @@ BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
 )
+DEPENDENCY_PREFLIGHT_RECEIPT = (
+    MICROCOSM_ROOT / "receipts/preflight/dependency_preflight.json"
+)
+
+
+def _copy_dependency_preflight_receipt(public_root: Path) -> Path:
+    receipt = public_root / "receipts/preflight/dependency_preflight.json"
+    receipt.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(DEPENDENCY_PREFLIGHT_RECEIPT, receipt)
+    return receipt
+
+
+def _align_organ_registry_to_dependency_preflight(public_root: Path) -> None:
+    receipt = json.loads(
+        (public_root / "receipts/preflight/dependency_preflight.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    expected_count = receipt["organ_lifecycle_coverage"]["coverage_counts"][
+        "accepted_organ_count"
+    ]
+    registry_path = public_root / "core/organ_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    accepted_rows = [
+        row
+        for row in registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    ]
+    keep_ids = {row["organ_id"] for row in accepted_rows[:expected_count]}
+    registry["implemented_organs"] = [
+        row
+        for row in registry["implemented_organs"]
+        if row.get("status") != "accepted_current_authority" or row["organ_id"] in keep_ids
+    ]
+    registry_path.write_text(
+        json.dumps(registry, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/macro_projection_import_protocol",
+        public_root / "fixtures/first_wave/macro_projection_import_protocol",
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/macro_projection_import_protocol",
+        public_root / "examples/macro_projection_import_protocol",
+    )
+    _copy_dependency_preflight_receipt(public_root)
+    _align_organ_registry_to_dependency_preflight(public_root)
+    return public_root
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -37,8 +91,9 @@ def _walk_keys(payload: Any) -> list[str]:
 
 
 def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
     result = run(
-        FIXTURE_INPUT,
+        public_root / "fixtures/first_wave/macro_projection_import_protocol/input",
         tmp_path / "receipts/first_wave/macro_projection_import_protocol",
         command="pytest",
         acceptance_out=tmp_path
@@ -58,6 +113,12 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["public_safe_body_import_status"] == "pass"
     assert result["standalone_release_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
+    assert result["dependency_preflight_gate_status"] == "pass"
+    assert result["dependency_preflight_receipt_ref"] == (
+        "receipts/preflight/dependency_preflight.json"
+    )
+    assert result["organ_lifecycle_coverage_status"] == "pass"
+    assert result["organ_lifecycle_coverage_counts"]["accepted_organ_count"] == 44
     assert result["private_runtime_dependency_count"] == 0
     assert result["flagship_tranche_status"] == "pass"
     assert result["flagship_tranche_lane_count"] == 6
@@ -126,6 +187,15 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     )
     release_board = result["standalone_release_board"]
     assert release_board["standalone_release_candidate"] is True
+    assert release_board["dependency_preflight_gate_status"] == "pass"
+    assert release_board["dependency_preflight_gate"]["status"] == "pass"
+    assert release_board["dependency_preflight_gate"]["defect_count"] == 0
+    assert release_board["organ_lifecycle_coverage_status"] == "pass"
+    assert release_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 44
+    assert {
+        row["check_id"]: row["status"]
+        for row in release_board["severance_checks"]
+    }["organ_lifecycle_coverage_preflight_passes"] == "pass"
     assert release_board["macro_origin_ref_policy"] == (
         "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
     )
@@ -176,12 +246,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
 def test_macro_projection_import_protocol_receipts_are_public_relative_and_redacted(
     tmp_path: Path,
 ) -> None:
-    public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    shutil.copytree(
-        MICROCOSM_ROOT / "fixtures/first_wave/macro_projection_import_protocol",
-        public_root / "fixtures/first_wave/macro_projection_import_protocol",
-    )
+    public_root = _copy_macro_projection_public_tree(tmp_path)
 
     result = run(
         public_root / "fixtures/first_wave/macro_projection_import_protocol/input",
@@ -210,9 +275,76 @@ def test_macro_projection_import_protocol_receipts_are_public_relative_and_redac
         assert "body" not in _walk_keys(payload)
 
 
+def test_macro_projection_release_severance_requires_lifecycle_preflight(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    receipt = public_root / "receipts/preflight/dependency_preflight.json"
+    payload = json.loads(receipt.read_text(encoding="utf-8"))
+    lifecycle = payload["organ_lifecycle_coverage"]
+    lifecycle["status"] = "blocked"
+    lifecycle["defect_count"] = 1
+    lifecycle["defects"] = [
+        {
+            "defect_code": "missing_public_lens",
+            "organ_id": "verifier_lab_execution_spine",
+        }
+    ]
+    receipt.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    result = run(
+        public_root / "fixtures/first_wave/macro_projection_import_protocol/input",
+        public_root / "receipts/first_wave/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["runtime_dependency_status"] == "pass"
+    assert result["standalone_release_status"] == "blocked"
+    assert result["dependency_preflight_gate_status"] == "blocked"
+    assert result["organ_lifecycle_coverage_status"] == "blocked"
+    assert "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_BLOCKED" in result["error_codes"]
+    release_board = result["standalone_release_board"]
+    assert release_board["dependency_preflight_gate"]["defects"][0]["defect_code"] == (
+        "organ_lifecycle_coverage_blocked"
+    )
+    assert {
+        row["check_id"]: row["status"]
+        for row in release_board["severance_checks"]
+    }["organ_lifecycle_coverage_preflight_passes"] == "blocked"
+
+
+def test_macro_projection_release_severance_blocks_stale_lifecycle_counts(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    receipt = public_root / "receipts/preflight/dependency_preflight.json"
+    payload = json.loads(receipt.read_text(encoding="utf-8"))
+    payload["organ_lifecycle_coverage"]["coverage_counts"]["surface_authority_row_count"] -= 1
+    receipt.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    result = run(
+        public_root / "fixtures/first_wave/macro_projection_import_protocol/input",
+        public_root / "receipts/first_wave/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["dependency_preflight_gate_status"] == "blocked"
+    assert result["organ_lifecycle_coverage_status"] == "pass"
+    assert "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE" in result["error_codes"]
+    defects = result["standalone_release_board"]["dependency_preflight_gate"]["defects"]
+    assert {
+        row["subject_id"]
+        for row in defects
+        if row["defect_code"] == "organ_lifecycle_coverage_stale_count"
+    } == {"surface_authority_row_count"}
+
+
 def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
     result = run_projection_bundle(
-        BUNDLE_INPUT,
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
         command="pytest",
     )
@@ -241,8 +373,12 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     } == {"work_landing_tool_body_import", "lean_certificate_kernel_body_import"}
 
 
-def test_macro_projection_import_plan_preview_is_non_writing() -> None:
-    result = preview_import_plan(BUNDLE_INPUT, command="pytest")
+def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = preview_import_plan(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        command="pytest",
+    )
 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
@@ -277,8 +413,9 @@ def test_macro_projection_import_plan_preview_is_non_writing() -> None:
 def test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance(
     tmp_path: Path,
 ) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
     result = run_projection_bundle(
-        BUNDLE_INPUT,
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
         command="pytest",
     )

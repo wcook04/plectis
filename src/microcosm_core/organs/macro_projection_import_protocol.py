@@ -30,6 +30,17 @@ ACCEPTANCE_RECEIPT_REL = (
     "macro_projection_import_protocol_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_projection_import_bundle_validation_result.json"
+DEPENDENCY_PREFLIGHT_RECEIPT_REL = Path("receipts/preflight/dependency_preflight.json")
+ORGAN_REGISTRY_REL = Path("core/organ_registry.json")
+ORGAN_LIFECYCLE_COUNT_FIELDS = (
+    "accepted_organ_count",
+    "runtime_step_count",
+    "acceptance_plan_organ_count",
+    "evidence_class_row_count",
+    "organ_authority_row_count",
+    "surface_authority_row_count",
+    "fixture_check_count",
+)
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -321,6 +332,171 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
             str(row.get("error_code") or ""),
         ),
     )
+
+
+def _accepted_organ_count(public_root: Path) -> int | None:
+    registry_path = public_root / ORGAN_REGISTRY_REL
+    if not registry_path.is_file():
+        return None
+    registry = read_json_strict(registry_path)
+    rows = registry.get("implemented_organs", []) if isinstance(registry, dict) else []
+    if not isinstance(rows, list):
+        return None
+    return sum(
+        1
+        for row in rows
+        if isinstance(row, dict) and str(row.get("status") or "") == "accepted_current_authority"
+    )
+
+
+def _add_dependency_preflight_defect(
+    defects: list[dict[str, Any]],
+    findings: list[dict[str, Any]],
+    *,
+    defect_code: str,
+    error_code: str,
+    message: str,
+    subject_id: str,
+    subject_kind: str = "dependency_preflight_receipt",
+) -> None:
+    defects.append(
+        {
+            "defect_code": defect_code,
+            "error_code": error_code,
+            "message": message,
+            "subject_id": subject_id,
+            "subject_kind": subject_kind,
+            "body_redacted": True,
+        }
+    )
+    findings.append(
+        _finding(
+            error_code,
+            message,
+            case_id="dependency_preflight_lifecycle_gate",
+            subject_id=subject_id,
+            subject_kind=subject_kind,
+        )
+    )
+
+
+def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
+    receipt_path = public_root / DEPENDENCY_PREFLIGHT_RECEIPT_REL
+    receipt_ref = _display(receipt_path, public_root=public_root)
+    defects: list[dict[str, Any]] = []
+    findings: list[dict[str, Any]] = []
+    receipt: dict[str, Any] = {}
+    lifecycle: dict[str, Any] = {}
+    coverage_counts: dict[str, Any] = {}
+    expected_count = _accepted_organ_count(public_root)
+
+    if not receipt_path.is_file():
+        _add_dependency_preflight_defect(
+            defects,
+            findings,
+            defect_code="dependency_preflight_receipt_missing",
+            error_code="MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_MISSING",
+            message="Standalone release severance requires the dependency preflight receipt.",
+            subject_id=receipt_ref,
+        )
+    else:
+        receipt = read_json_strict(receipt_path)
+        if not isinstance(receipt, dict):
+            _add_dependency_preflight_defect(
+                defects,
+                findings,
+                defect_code="dependency_preflight_receipt_invalid",
+                error_code="MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_INVALID",
+                message="Dependency preflight receipt must be a JSON object.",
+                subject_id=receipt_ref,
+            )
+        elif receipt.get("status") != PASS:
+            _add_dependency_preflight_defect(
+                defects,
+                findings,
+                defect_code="dependency_preflight_status_blocked",
+                error_code="MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_BLOCKED",
+                message="Dependency preflight must pass before release severance can pass.",
+                subject_id=receipt_ref,
+            )
+        lifecycle_value = receipt.get("organ_lifecycle_coverage") if isinstance(receipt, dict) else None
+        if not isinstance(lifecycle_value, dict):
+            _add_dependency_preflight_defect(
+                defects,
+                findings,
+                defect_code="organ_lifecycle_coverage_missing",
+                error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_MISSING",
+                message="Dependency preflight receipt must include organ_lifecycle_coverage_v1.",
+                subject_id=receipt_ref,
+            )
+        else:
+            lifecycle = lifecycle_value
+            coverage_counts_value = lifecycle.get("coverage_counts", {})
+            coverage_counts = coverage_counts_value if isinstance(coverage_counts_value, dict) else {}
+            if lifecycle.get("status") != PASS:
+                _add_dependency_preflight_defect(
+                    defects,
+                    findings,
+                    defect_code="organ_lifecycle_coverage_blocked",
+                    error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_BLOCKED",
+                    message="Organ lifecycle coverage must pass before release severance can pass.",
+                    subject_id=receipt_ref,
+                )
+            if lifecycle.get("defect_count", 0) not in (0, "0"):
+                _add_dependency_preflight_defect(
+                    defects,
+                    findings,
+                    defect_code="organ_lifecycle_coverage_defects_present",
+                    error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_BLOCKED",
+                    message="Organ lifecycle coverage reports blocking lifecycle defects.",
+                    subject_id=receipt_ref,
+                )
+            if expected_count is None:
+                _add_dependency_preflight_defect(
+                    defects,
+                    findings,
+                    defect_code="accepted_organ_registry_missing",
+                    error_code="MACRO_PROJECTION_ACCEPTED_ORGAN_REGISTRY_MISSING",
+                    message="Release severance must compare lifecycle coverage against accepted organs.",
+                    subject_id=str(ORGAN_REGISTRY_REL),
+                    subject_kind="organ_registry",
+                )
+            else:
+                for field in ORGAN_LIFECYCLE_COUNT_FIELDS:
+                    count = coverage_counts.get(field)
+                    if count != expected_count:
+                        _add_dependency_preflight_defect(
+                            defects,
+                            findings,
+                            defect_code="organ_lifecycle_coverage_stale_count",
+                            error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
+                            message=(
+                                "Organ lifecycle coverage count must match the accepted "
+                                "organ count for release severance."
+                            ),
+                            subject_id=field,
+                            subject_kind="organ_lifecycle_count",
+                        )
+
+    return {
+        "schema_version": "macro_projection_dependency_preflight_gate_v1",
+        "status": PASS if not defects else "blocked",
+        "receipt_ref": receipt_ref,
+        "dependency_preflight_status": receipt.get("status") if receipt else "missing",
+        "organ_lifecycle_coverage_status": lifecycle.get("status") if lifecycle else "missing",
+        "expected_accepted_organ_count": expected_count,
+        "coverage_counts": coverage_counts,
+        "required_count_fields": list(ORGAN_LIFECYCLE_COUNT_FIELDS),
+        "defect_count": len(defects),
+        "defects": defects,
+        "findings": findings,
+        "anti_claim": (
+            "This gate proves release severance consumed the public preflight lifecycle "
+            "receipt. It does not authorize release, publication, provider calls, "
+            "private-source equivalence, or proof of organ semantics."
+        ),
+        "body_redacted": True,
+    }
 
 
 def _authority_upgrade(payload: object) -> bool:
@@ -1176,6 +1352,7 @@ def _build_standalone_release_board(
     *,
     protocol: dict[str, Any],
     import_plan: dict[str, Any],
+    dependency_preflight_gate: dict[str, Any],
     flagship_tranche: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     runtime_rows: list[dict[str, Any]] = []
@@ -1225,7 +1402,13 @@ def _build_standalone_release_board(
         )
         for row in leaked_runtime_rows
     ]
-    status = PASS if not leaked_runtime_rows else "blocked"
+    findings.extend(dependency_preflight_gate.get("findings", []))
+    runtime_dependency_status = PASS if not leaked_runtime_rows else "blocked"
+    status = (
+        PASS
+        if runtime_dependency_status == PASS and dependency_preflight_gate.get("status") == PASS
+        else "blocked"
+    )
     return {
         "schema_version": "macro_projection_standalone_release_severance_board_v1",
         "status": status,
@@ -1237,7 +1420,7 @@ def _build_standalone_release_board(
         "macro_origin_refs": sorted(origin_refs),
         "macro_origin_ref_count": len(origin_refs),
         "macro_origin_refs_runtime_required": False,
-        "runtime_dependency_status": status,
+        "runtime_dependency_status": runtime_dependency_status,
         "runtime_dependency_refs": sorted({str(row["ref"]) for row in runtime_rows}),
         "runtime_dependency_count": len(runtime_rows),
         "private_runtime_dependency_count": len(leaked_runtime_rows),
@@ -1251,6 +1434,13 @@ def _build_standalone_release_board(
         "public_safe_body_import_classes": projection_intake_board["public_safe_body_import_classes"],
         "projection_cell_count": import_plan["projection_cell_count"],
         "ready_projection_cell_count": projection_intake_board["ready_cell_count"],
+        "dependency_preflight_gate_status": dependency_preflight_gate["status"],
+        "dependency_preflight_receipt_ref": dependency_preflight_gate["receipt_ref"],
+        "organ_lifecycle_coverage_status": dependency_preflight_gate[
+            "organ_lifecycle_coverage_status"
+        ],
+        "organ_lifecycle_coverage_counts": dependency_preflight_gate["coverage_counts"],
+        "dependency_preflight_gate": dependency_preflight_gate,
         "claim_ceiling": AUTHORITY_CEILING,
         "release_authorized": False,
         "publication_authorized": False,
@@ -1262,7 +1452,11 @@ def _build_standalone_release_board(
             },
             {
                 "check_id": "runtime_refs_stay_inside_release_tree",
-                "status": status,
+                "status": runtime_dependency_status,
+            },
+            {
+                "check_id": "organ_lifecycle_coverage_preflight_passes",
+                "status": dependency_preflight_gate["status"],
             },
             {
                 "check_id": "claim_ceiling_remains_false_for_release_and_private_equivalence",
@@ -1308,6 +1502,15 @@ def _build_flagship_tranche_board(
         "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
         "standalone_release_status": standalone_release_board["standalone_release_status"],
         "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
+        "dependency_preflight_gate_status": standalone_release_board[
+            "dependency_preflight_gate_status"
+        ],
+        "dependency_preflight_receipt_ref": standalone_release_board[
+            "dependency_preflight_receipt_ref"
+        ],
+        "organ_lifecycle_coverage_status": standalone_release_board[
+            "organ_lifecycle_coverage_status"
+        ],
         "private_runtime_dependency_count": standalone_release_board[
             "private_runtime_dependency_count"
         ],
@@ -1353,6 +1556,7 @@ def _build_result(
     )
     private_scan.pop("forbidden_output_fields", None)
     private_scan["redacted_output_field_labels_omitted"] = True
+    dependency_preflight_gate = _dependency_preflight_lifecycle_gate(public_root)
 
     protocol = validate_projection_protocol(
         payloads["projection_protocol"],
@@ -1411,6 +1615,7 @@ def _build_result(
         projection_intake_board,
         protocol=protocol,
         import_plan=import_plan,
+        dependency_preflight_gate=dependency_preflight_gate,
         flagship_tranche=flagship_tranche,
     )
     flagship_tranche_board = _build_flagship_tranche_board(
@@ -1476,6 +1681,18 @@ def _build_result(
         "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
         "standalone_release_status": standalone_release_board["standalone_release_status"],
         "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
+        "dependency_preflight_gate_status": standalone_release_board[
+            "dependency_preflight_gate_status"
+        ],
+        "dependency_preflight_receipt_ref": standalone_release_board[
+            "dependency_preflight_receipt_ref"
+        ],
+        "organ_lifecycle_coverage_status": standalone_release_board[
+            "organ_lifecycle_coverage_status"
+        ],
+        "organ_lifecycle_coverage_counts": standalone_release_board[
+            "organ_lifecycle_coverage_counts"
+        ],
         "private_runtime_dependency_count": standalone_release_board[
             "private_runtime_dependency_count"
         ],
@@ -1511,6 +1728,12 @@ def _build_result(
             "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
             "standalone_release_status": standalone_release_board["standalone_release_status"],
             "runtime_dependency_status": standalone_release_board["runtime_dependency_status"],
+            "dependency_preflight_gate_status": standalone_release_board[
+                "dependency_preflight_gate_status"
+            ],
+            "organ_lifecycle_coverage_status": standalone_release_board[
+                "organ_lifecycle_coverage_status"
+            ],
             "standalone_release_board_embedded": True,
             "flagship_tranche_status": flagship_tranche_board["flagship_tranche_status"],
             "flagship_tranche_lane_count": flagship_tranche_board["lane_count"],
@@ -1564,6 +1787,10 @@ def _common_receipt(
         "public_safe_body_import_routes",
         "standalone_release_status",
         "runtime_dependency_status",
+        "dependency_preflight_gate_status",
+        "dependency_preflight_receipt_ref",
+        "organ_lifecycle_coverage_status",
+        "organ_lifecycle_coverage_counts",
         "private_runtime_dependency_count",
         "flagship_tranche_status",
         "flagship_tranche_lane_count",
