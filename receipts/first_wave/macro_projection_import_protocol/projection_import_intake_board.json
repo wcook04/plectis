@@ -39,15 +39,14 @@
   "blocked_projection_cell_count": 0,
   "body_redacted": true,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
   "consumed_cell_count": 3,
-  "created_at": "2026-05-22T17:41:23+00:00",
-  "dependency_preflight_gate_status": "blocked",
+  "created_at": "2026-05-22T18:56:15+00:00",
+  "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
     "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
-    "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
     "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
     "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
     "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
@@ -70,62 +69,6 @@
       "negative_case_id": "authority_upgrade_overclaim",
       "subject_id": "authority_upgrade_overclaim",
       "subject_kind": "negative_case"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "acceptance_plan_organ_count",
-      "subject_kind": "organ_lifecycle_count"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "accepted_organ_count",
-      "subject_kind": "organ_lifecycle_count"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "evidence_class_row_count",
-      "subject_kind": "organ_lifecycle_count"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "fixture_check_count",
-      "subject_kind": "organ_lifecycle_count"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "organ_authority_row_count",
-      "subject_kind": "organ_lifecycle_count"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "runtime_step_count",
-      "subject_kind": "organ_lifecycle_count"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-      "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-      "negative_case_id": "dependency_preflight_lifecycle_gate",
-      "subject_id": "surface_authority_row_count",
-      "subject_kind": "organ_lifecycle_count"
     },
     {
       "body_redacted": true,
@@ -250,9 +193,9 @@
       ],
       "severance_surface": "standalone_release_board with private_runtime_dependency_count=0"
     },
-    "dependency_preflight_gate_status": "blocked",
+    "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
-    "flagship_tranche_status": "blocked",
+    "flagship_tranche_status": "pass",
     "lane_count": 6,
     "lane_ids": [
       "navigation_option_surface",
@@ -563,8 +506,8 @@
       "workingness_instrument"
     ],
     "selection_rule": "external_awe_per_unit_integration_risk",
-    "standalone_release_status": "blocked",
-    "status": "blocked",
+    "standalone_release_status": "pass",
+    "status": "pass",
     "tranche_id": "microcosm_flagship_real_macro_tranche_v1",
     "validation_refs": [
       "tests/test_durable_agent_work_landing_replay.py",
@@ -584,7 +527,7 @@
   },
   "flagship_tranche_lane_count": 6,
   "flagship_tranche_pattern_count": 23,
-  "flagship_tranche_status": "blocked",
+  "flagship_tranche_status": "pass",
   "forbidden_material_classes": [
     "credential",
     "non_public_evidence_body",
@@ -644,13 +587,13 @@
   "open_actionable_cell_count": 0,
   "organ_id": "macro_projection_import_protocol",
   "organ_lifecycle_coverage_counts": {
-    "acceptance_plan_organ_count": 44,
-    "accepted_organ_count": 44,
-    "evidence_class_row_count": 44,
-    "fixture_check_count": 44,
-    "organ_authority_row_count": 44,
-    "runtime_step_count": 44,
-    "surface_authority_row_count": 44
+    "acceptance_plan_organ_count": 45,
+    "accepted_organ_count": 45,
+    "evidence_class_row_count": 45,
+    "fixture_check_count": 45,
+    "organ_authority_row_count": 45,
+    "runtime_step_count": 45,
+    "surface_authority_row_count": 45
   },
   "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
@@ -966,133 +909,19 @@
       "anti_claim": "This gate proves release severance consumed the public preflight lifecycle receipt. It does not authorize release, publication, provider calls, private-source equivalence, or proof of organ semantics.",
       "body_redacted": true,
       "coverage_counts": {
-        "acceptance_plan_organ_count": 44,
-        "accepted_organ_count": 44,
-        "evidence_class_row_count": 44,
-        "fixture_check_count": 44,
-        "organ_authority_row_count": 44,
-        "runtime_step_count": 44,
-        "surface_authority_row_count": 44
+        "acceptance_plan_organ_count": 45,
+        "accepted_organ_count": 45,
+        "evidence_class_row_count": 45,
+        "fixture_check_count": 45,
+        "organ_authority_row_count": 45,
+        "runtime_step_count": 45,
+        "surface_authority_row_count": 45
       },
-      "defect_count": 7,
-      "defects": [
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "accepted_organ_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "runtime_step_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "acceptance_plan_organ_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "evidence_class_row_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "organ_authority_row_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "surface_authority_row_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "defect_code": "organ_lifecycle_coverage_stale_count",
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "subject_id": "fixture_check_count",
-          "subject_kind": "organ_lifecycle_count"
-        }
-      ],
+      "defect_count": 0,
+      "defects": [],
       "dependency_preflight_status": "pass",
       "expected_accepted_organ_count": 45,
-      "findings": [
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "accepted_organ_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "runtime_step_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "acceptance_plan_organ_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "evidence_class_row_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "organ_authority_row_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "surface_authority_row_count",
-          "subject_kind": "organ_lifecycle_count"
-        },
-        {
-          "body_redacted": true,
-          "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-          "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-          "negative_case_id": "dependency_preflight_lifecycle_gate",
-          "subject_id": "fixture_check_count",
-          "subject_kind": "organ_lifecycle_count"
-        }
-      ],
+      "findings": [],
       "organ_lifecycle_coverage_status": "pass",
       "receipt_ref": "receipts/preflight/dependency_preflight.json",
       "required_count_fields": [
@@ -1105,68 +934,11 @@
         "fixture_check_count"
       ],
       "schema_version": "macro_projection_dependency_preflight_gate_v1",
-      "status": "blocked"
+      "status": "pass"
     },
-    "dependency_preflight_gate_status": "blocked",
+    "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
-    "findings": [
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "accepted_organ_count",
-        "subject_kind": "organ_lifecycle_count"
-      },
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "runtime_step_count",
-        "subject_kind": "organ_lifecycle_count"
-      },
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "acceptance_plan_organ_count",
-        "subject_kind": "organ_lifecycle_count"
-      },
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "evidence_class_row_count",
-        "subject_kind": "organ_lifecycle_count"
-      },
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "organ_authority_row_count",
-        "subject_kind": "organ_lifecycle_count"
-      },
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "surface_authority_row_count",
-        "subject_kind": "organ_lifecycle_count"
-      },
-      {
-        "body_redacted": true,
-        "error_code": "MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
-        "message": "Organ lifecycle coverage count must match the accepted organ count for release severance.",
-        "negative_case_id": "dependency_preflight_lifecycle_gate",
-        "subject_id": "fixture_check_count",
-        "subject_kind": "organ_lifecycle_count"
-      }
-    ],
+    "findings": [],
     "macro_origin_ref_count": 25,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
@@ -1198,13 +970,13 @@
     ],
     "macro_origin_refs_runtime_required": false,
     "organ_lifecycle_coverage_counts": {
-      "acceptance_plan_organ_count": 44,
-      "accepted_organ_count": 44,
-      "evidence_class_row_count": 44,
-      "fixture_check_count": 44,
-      "organ_authority_row_count": 44,
-      "runtime_step_count": 44,
-      "surface_authority_row_count": 44
+      "acceptance_plan_organ_count": 45,
+      "accepted_organ_count": 45,
+      "evidence_class_row_count": 45,
+      "fixture_check_count": 45,
+      "organ_authority_row_count": 45,
+      "runtime_step_count": 45,
+      "surface_authority_row_count": 45
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
@@ -1654,7 +1426,7 @@
       },
       {
         "check_id": "organ_lifecycle_coverage_preflight_passes",
-        "status": "blocked"
+        "status": "pass"
       },
       {
         "check_id": "claim_ceiling_remains_false_for_release_and_private_equivalence",
@@ -1662,13 +1434,13 @@
       }
     ],
     "source_to_standalone_policy": "copy_vendor_rewrite_or_replace_then_run_without_private_root",
-    "standalone_release_candidate": false,
+    "standalone_release_candidate": true,
     "standalone_release_root": "microcosm-substrate",
-    "standalone_release_status": "blocked",
-    "status": "blocked"
+    "standalone_release_status": "pass",
+    "status": "pass"
   },
-  "standalone_release_status": "blocked",
-  "status": "blocked",
+  "standalone_release_status": "pass",
+  "status": "pass",
   "validation_ref_count": 5,
   "validation_refs": [
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
