@@ -634,6 +634,26 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["time_budget_minutes"] == 10
     assert tour["compile_summary"]["headline"] == "repo -> .microcosm"
     assert tour["compile_summary"]["source_files_mutated"] is False
+    assert tour["snapshot_policy"] == {
+        "lifecycle": "tracked_public_snapshot_refreshed_intentionally",
+        "runtime_invocation_can_write_receipt": True,
+        "incidental_validator_reads_write_receipt": False,
+        "test_runs_should_use_temp_public_root": True,
+        "volatile_fields": [
+            "created_at",
+            "project_ref",
+            "compile_summary.event_count",
+            "compile_summary.evidence_count",
+            "compile_summary.file_count",
+        ],
+        "stable_truth_fields": [
+            "runtime_summary.organ_count",
+            "runtime_summary.surface_authority_count",
+            "authority_ceiling",
+            "safe_to_show",
+            "evidence_refs",
+        ],
+    }
     assert tour["surface_statuses"] == {
         "authority": "pass",
         "benchmark_lab": "pass",

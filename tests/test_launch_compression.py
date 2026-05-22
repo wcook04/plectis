@@ -30,6 +30,10 @@ def _scratch_project(tmp_path: Path) -> Path:
 def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> None:
     project = _scratch_project(tmp_path)
     out = tmp_path / "launch_compression.json"
+    source_tour = MICROCOSM_ROOT / "receipts/runtime_shell/public_ten_minute_tour.json"
+    source_reveal = MICROCOSM_ROOT / "receipts/runtime_shell/public_reveal/public_reveal_view.json"
+    source_tour_before = source_tour.read_text(encoding="utf-8")
+    source_reveal_before = source_reveal.read_text(encoding="utf-8")
 
     receipt = validate_launch_compression(MICROCOSM_ROOT, project, out, command="pytest")
 
@@ -43,6 +47,8 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["compiled_summary"]["event_count"] > 0
     assert receipt["compiled_summary"]["evidence_count"] > 0
     assert receipt["assertions"]["ten_minute_tour_passes"] is True
+    assert source_tour.read_text(encoding="utf-8") == source_tour_before
+    assert source_reveal.read_text(encoding="utf-8") == source_reveal_before
     assert receipt["assertions"]["verifier_trace_lens_passes"] is True
     assert receipt["assertions"]["verifier_trace_no_proof_authority"] is True
     assert receipt["assertions"]["verifier_repair_loop_lens_passes"] is True

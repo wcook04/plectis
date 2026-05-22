@@ -24,6 +24,17 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+def _copy_runtime_root(tmp_path: Path) -> Path:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
+    shutil.copytree(
+        MICROCOSM_ROOT / "receipts/first_wave",
+        public_root / "receipts/first_wave",
+    )
+    return public_root
+
+
 def test_package_metadata_describes_runtime_spine() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     project = payload["project"]
@@ -328,7 +339,16 @@ def test_cli_authority_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert any(row["endpoint"] == "/legibility-scorecard" for row in payload["surface_authority"])
 
 
-def test_cli_tour_smoke(capsys: pytest.CaptureFixture[str]) -> None:
+def test_cli_tour_smoke(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    source_tour = MICROCOSM_ROOT / "receipts/runtime_shell/public_ten_minute_tour.json"
+    source_tour_before = source_tour.read_text(encoding="utf-8")
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+
     status = cli.main(["tour"])
 
     payload = json.loads(capsys.readouterr().out)
@@ -339,7 +359,10 @@ def test_cli_tour_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["endpoint"] == "/tour"
     assert payload["time_budget_minutes"] == 10
     assert payload["compile_summary"]["headline"] == "repo -> .microcosm"
+    assert payload["snapshot_policy"]["test_runs_should_use_temp_public_root"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert (public_root / payload["tour_ref"]).is_file()
+    assert source_tour.read_text(encoding="utf-8") == source_tour_before
 
 
 def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:

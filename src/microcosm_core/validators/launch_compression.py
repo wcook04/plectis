@@ -62,7 +62,7 @@ def validate_launch_compression(
 
     compiled = project_substrate.compile_project(project_path)
     shell = RuntimeShell(public_root)
-    tour = shell.tour(project_path)
+    tour = shell.tour(project_path, persist_receipt=False)
     market_boundary = shell.market_boundary()
     trace_lens = shell.trace_lens()
     repair_loop = shell.repair_loop()

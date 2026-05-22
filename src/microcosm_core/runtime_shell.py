@@ -1660,7 +1660,12 @@ class RuntimeShell:
             ),
         }
 
-    def tour(self, project: str | Path | None = DEFAULT_PROJECT_REL) -> dict[str, Any]:
+    def tour(
+        self,
+        project: str | Path | None = DEFAULT_PROJECT_REL,
+        *,
+        persist_receipt: bool = True,
+    ) -> dict[str, Any]:
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
         project_path = Path(raw_project).expanduser()
         if not project_path.is_absolute():
@@ -1669,7 +1674,7 @@ class RuntimeShell:
 
         compiled = project_substrate.compile_project(project_path)
         spine = self.spine()
-        authority = self.authority()
+        authority = self.authority(persist_receipts=persist_receipt)
         prediction = self.prediction_lens()
         market_boundary = self.market_boundary()
         corpus = self.corpus_lens()
@@ -1694,7 +1699,7 @@ class RuntimeShell:
         benchmark_lab = self.benchmark_lab()
         legibility_scorecard = self.legibility_scorecard()
         intake = self.intake()
-        reveal = self.reveal()
+        reveal = self.reveal(persist_receipt=persist_receipt)
 
         project_ref = _public_relative(project_path, self.root)
         if project_ref.startswith("/") or project_ref.startswith(".."):
@@ -1958,6 +1963,26 @@ class RuntimeShell:
             "endpoint": "/tour",
             "tour_ref": _public_relative(tour_path, self.root),
             "project_ref": project_ref,
+            "snapshot_policy": {
+                "lifecycle": "tracked_public_snapshot_refreshed_intentionally",
+                "runtime_invocation_can_write_receipt": persist_receipt,
+                "incidental_validator_reads_write_receipt": False,
+                "test_runs_should_use_temp_public_root": True,
+                "volatile_fields": [
+                    "created_at",
+                    "project_ref",
+                    "compile_summary.event_count",
+                    "compile_summary.evidence_count",
+                    "compile_summary.file_count",
+                ],
+                "stable_truth_fields": [
+                    "runtime_summary.organ_count",
+                    "runtime_summary.surface_authority_count",
+                    "authority_ceiling",
+                    "safe_to_show",
+                    "evidence_refs",
+                ],
+            },
             "public_claim": (
                 "Microcosm turns a repo into a local operating substrate and exposes the "
                 "whole first-run path as a ten-minute public-safe tour: compile, inspect, "
@@ -2226,7 +2251,8 @@ class RuntimeShell:
                 "financial advice, or whole-system correctness claims."
             ),
         }
-        write_json_atomic(tour_path, payload)
+        if persist_receipt:
+            write_json_atomic(tour_path, payload)
         return payload
 
     def trace_lens(self) -> dict[str, Any]:
@@ -8874,11 +8900,11 @@ class RuntimeShell:
         write_json_atomic(lens_path, payload)
         return payload
 
-    def authority(self) -> dict[str, Any]:
+    def authority(self, *, persist_receipts: bool = True) -> dict[str, Any]:
         status = self.status()
         spine = self.spine()
         intake = self.intake()
-        reveal = self.reveal()
+        reveal = self.reveal(persist_receipt=persist_receipts)
         market_boundary = self.market_boundary()
         corpus_lens = self.corpus_lens()
         trace_lens = self.trace_lens()
@@ -9939,7 +9965,8 @@ class RuntimeShell:
                 "correctness claims."
             ),
         }
-        write_json_atomic(authority_path, payload)
+        if persist_receipts:
+            write_json_atomic(authority_path, payload)
         return payload
 
     def intake(self) -> dict[str, Any]:
@@ -10314,7 +10341,7 @@ class RuntimeShell:
         write_json_atomic(self.runtime_receipt_dir / "work_demo" / "work_demo_result.json", payload)
         return payload
 
-    def reveal(self) -> dict[str, Any]:
+    def reveal(self, *, persist_receipt: bool = True) -> dict[str, Any]:
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "public_reveal_walkthrough")
         input_dir = self.root / step.example_rel
         out_dir = self.runtime_receipt_dir / "public_reveal" / "organs" / step.organ_id
@@ -10342,12 +10369,16 @@ class RuntimeShell:
             "authority_ceiling": result.get("authority_ceiling"),
             "anti_claim": result.get("anti_claim"),
         }
-        write_json_atomic(self.runtime_receipt_dir / "public_reveal" / "public_reveal_view.json", payload)
+        if persist_receipt:
+            write_json_atomic(
+                self.runtime_receipt_dir / "public_reveal" / "public_reveal_view.json",
+                payload,
+            )
         return payload
 
-    def observatory_intake_bridge(self) -> dict[str, Any]:
+    def observatory_intake_bridge(self, *, persist_receipt: bool = True) -> dict[str, Any]:
         intake = self.intake()
-        reveal = self.reveal()
+        reveal = self.reveal(persist_receipt=persist_receipt)
         market_boundary = self.market_boundary()
         trace_lens = self.trace_lens()
         repair_loop = self.repair_loop()
@@ -10609,15 +10640,27 @@ class RuntimeShell:
             ),
             "body_redacted": True,
         }
-        write_json_atomic(self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json", payload)
+        if persist_receipt:
+            write_json_atomic(
+                self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json",
+                payload,
+            )
         return payload
 
-    def project_observatory(self, project: str | Path | None = None) -> dict[str, Any]:
+    def project_observatory(
+        self,
+        project: str | Path | None = None,
+        *,
+        persist_receipts: bool = True,
+    ) -> dict[str, Any]:
         project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
         status = self.status()
-        tour = self.tour(project_path if project_path is not None else DEFAULT_PROJECT_REL)
-        runtime_bridge = self.observatory_intake_bridge()
-        authority_map = self.authority()
+        tour = self.tour(
+            project_path if project_path is not None else DEFAULT_PROJECT_REL,
+            persist_receipt=persist_receipts,
+        )
+        runtime_bridge = self.observatory_intake_bridge(persist_receipt=persist_receipts)
+        authority_map = self.authority(persist_receipts=persist_receipts)
         prediction_lens = self.prediction_lens()
         market_boundary_lens = self.market_boundary()
         corpus_lens = self.corpus_lens()
@@ -10901,7 +10944,7 @@ class RuntimeShell:
         return model
 
     def _observatory_html(self, project_path: Path | None) -> str:
-        model = self.project_observatory(project_path)
+        model = self.project_observatory(project_path, persist_receipts=False)
         project_summary = model.get("project_summary", {})
         causal = model.get("causal_chain", {})
         route = causal.get("route", {}) if isinstance(causal.get("route"), dict) else {}
