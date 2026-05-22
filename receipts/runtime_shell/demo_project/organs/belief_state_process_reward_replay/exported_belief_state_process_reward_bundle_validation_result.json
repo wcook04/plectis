@@ -136,8 +136,8 @@
       "trajectory_group_id": "traj_plan_001"
     }
   ],
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "command": "python -m microcosm_core.organs.belief_state_process_reward_replay run-reward-bundle",
+  "created_at": "2026-05-22T20:29:20+00:00",
   "episode_count": 3,
   "episode_rows": [
     {
@@ -268,7 +268,7 @@
     "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/bundle_manifest.json"
   ],
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
   ],
   "reward_event_count": 9,
   "reward_policy_id": "belief_process_reward_public_policy_v1",
@@ -397,7 +397,7 @@
   ],
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#belief_state_process_reward_replay_compound",
-    "codex/doctrine/paper_modules/public_microcosm_evolution_seed.md",
+    "src/microcosm_core/organs/belief_state_process_reward_replay.py",
     "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
     "core/private_state_forbidden_classes.json",
     "AXIOMS.md#json-is-contract",

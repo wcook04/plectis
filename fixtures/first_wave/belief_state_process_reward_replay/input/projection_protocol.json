@@ -34,7 +34,7 @@
   ],
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#belief_state_process_reward_replay_compound",
-    "codex/doctrine/paper_modules/public_microcosm_evolution_seed.md",
+    "src/microcosm_core/organs/belief_state_process_reward_replay.py",
     "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
     "core/private_state_forbidden_classes.json",
     "AXIOMS.md#json-is-contract",
