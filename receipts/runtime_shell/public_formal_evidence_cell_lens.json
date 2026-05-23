@@ -13,9 +13,8 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm evidence-cells",
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-23T21:09:33+00:00",
   "endpoint": "/evidence-cells",
   "evidence_cell_lens_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
   "evidence_cells": [
@@ -26,10 +25,14 @@
       "claim_may_say_no_sorry": true,
       "claim_strength": "machine_checked_toy_witness_metadata",
       "evidence_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+      "payload_boundary_ref": "public_formal_evidence_cell_lens::evidence_cells",
       "private_source_ref_exported": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
       "resolver_status": "formal_evidence_cell_present",
-      "source_pattern_id": "formal_math_lean_proof_witness"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_pattern_id": "formal_math_lean_proof_witness",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "cell_id": "cell.verifier_trace_repair_metadata",
@@ -38,10 +41,14 @@
       "claim_may_say_no_sorry": false,
       "claim_strength": "metadata_trace_cell_only",
       "evidence_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+      "payload_boundary_ref": "public_formal_evidence_cell_lens::evidence_cells",
       "private_source_ref_exported": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
       "resolver_status": "formal_evidence_cell_present",
-      "source_pattern_id": "formal_math_verifier_trace_repair_loop"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_pattern_id": "formal_math_verifier_trace_repair_loop",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "cell_id": "cell.unknown_erdos257_solution_claim",
@@ -50,10 +57,14 @@
       "claim_may_say_no_sorry": false,
       "claim_strength": "rejected_overclaim_unknown_cell",
       "evidence_ref": null,
+      "payload_boundary_ref": "public_formal_evidence_cell_lens::evidence_cells",
       "private_source_ref_exported": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": null,
       "resolver_status": "unknown_cell_rejected",
-      "source_pattern_id": "formal_evidence_cell_anchor_resolver"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_pattern_id": "formal_evidence_cell_anchor_resolver",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "cell_id": "cell.missing_source_anchor",
@@ -62,10 +73,14 @@
       "claim_may_say_no_sorry": false,
       "claim_strength": "rejected_missing_source",
       "evidence_ref": null,
+      "payload_boundary_ref": "public_formal_evidence_cell_lens::evidence_cells",
       "private_source_ref_exported": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": null,
       "resolver_status": "missing_source_rejected",
-      "source_pattern_id": "formal_evidence_cell_anchor_resolver"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_pattern_id": "formal_evidence_cell_anchor_resolver",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "evidence_refs": [
@@ -89,6 +104,37 @@
     "release_overclaim"
   ],
   "organ_family": "formal_math",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_formal_evidence_cell_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm evidence-cells",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes a public formal evidence-cell lens: proof-strength language must resolve to an explicit cell id and receipt ref, while unknown cells, missing sources, proof bodies, private refs, and general theorem-solution claims stay rejected.",
   "release_authorized": false,
   "resolver_policy": {
@@ -96,7 +142,7 @@
     "claim_strength_requires_cell_id": true,
     "missing_source_cell_errors": true,
     "no_sorry_language_requires_present_cell": true,
-    "proof_bodies_and_private_refs_are_redacted": true,
+    "proof_bodies_and_private_refs_excluded_by_payload_boundary": true,
     "receipt_ref_required_for_positive_cell": true,
     "unknown_cell_keeps_claim_weak_or_rejected": true
   },
@@ -106,21 +152,29 @@
     "present_cell_count": 2,
     "private_source_ref_export_count": 0,
     "proof_body_export_count": 0,
-    "rejected_cell_count": 2
+    "public_drilldown_ref_count": 2,
+    "rejected_cell_count": 2,
+    "unsafe_payload_body_export_count": 0
   },
   "safe_to_show": {
-    "body_redacted": true,
+    "evidence_cells_are_public_payload_boundary_rows": true,
     "fixture_metadata_only": true,
     "private_source_refs_omitted": true,
     "proof_bodies_omitted": true,
-    "receipt_refs_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_formal_evidence_cell_lens_v1",
   "selected_pattern_id": "formal_evidence_cell_anchor_resolver",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_statuses": {
     "formal_math_lean_proof_witness": "pass",
     "formal_math_readiness_gate": "pass",
     "verifier_trace_repair_lens": "pass"
   },
-  "status": "pass"
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

@@ -530,6 +530,10 @@ def test_cli_trace_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["repair_summary"]["attempt_count"] == 4
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["authority_ceiling"]["proof_bodies_exported"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_verifier_trace_repair_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
 
 
 def test_cli_repair_loop_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -545,6 +549,10 @@ def test_cli_repair_loop_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["repair_loop_summary"]["transition_count"] == 4
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["authority_ceiling"]["proof_bodies_exported"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_verifier_repair_loop_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
 
 
 def test_cli_evidence_cells_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -561,6 +569,10 @@ def test_cli_evidence_cells_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["authority_ceiling"]["proof_bodies_exported"] is False
     assert payload["authority_ceiling"]["private_source_refs_exported"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_formal_evidence_cell_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
 
 
 def test_cli_proof_loop_depth_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -578,6 +590,10 @@ def test_cli_proof_loop_depth_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["proof_loop_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["authority_ceiling"]["benchmark_score_claim"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_proof_loop_depth_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
 
 
 def test_cli_landing_replay_smoke(capsys: pytest.CaptureFixture[str]) -> None:

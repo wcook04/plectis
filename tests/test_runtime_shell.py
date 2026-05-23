@@ -1057,7 +1057,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_trace_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_trace_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1084,22 +1084,39 @@ def test_runtime_shell_trace_lens_is_public_safe(tmp_path: Path) -> None:
         "human_approval_as_proof_correctness",
     }
     assert lens["repair_policy"]["cold_rerun_required_before_promotion"] is True
-    assert lens["repair_policy"]["proof_bodies_and_oracle_ids_are_redacted"] is True
+    assert (
+        lens["repair_policy"][
+            "proof_bodies_and_oracle_ids_excluded_by_payload_boundary"
+        ]
+        is True
+    )
     assert lens["repair_summary"]["attempt_count"] == 4
     assert lens["repair_summary"]["proof_body_export_count"] == 0
+    assert lens["repair_summary"]["public_drilldown_ref_count"] == 4
+    assert lens["repair_summary"]["unsafe_payload_body_export_count"] == 0
     assert lens["authority_ceiling"]["formal_proof_authority"] is False
     assert lens["authority_ceiling"]["proof_bodies_exported"] is False
     assert lens["authority_ceiling"]["oracle_needed_premise_ids_exported"] is False
     assert lens["authority_ceiling"]["human_approval_is_proof_authority"] is False
     assert lens["safe_to_show"]["provider_payloads_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert all(row["public_drilldown_ref"] for row in lens["trace_rows"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False for row in lens["trace_rows"]
+    )
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["payload_boundary"]["boundary_id"] == "public_verifier_trace_repair_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["trace_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in lens
+    assert "redacted_hash" not in encoded
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_repair_loop_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_repair_loop_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1141,19 +1158,31 @@ def test_runtime_shell_repair_loop_lens_is_public_safe(tmp_path: Path) -> None:
     assert lens["repair_loop_summary"]["repairable_transition_count"] == 2
     assert lens["repair_loop_summary"]["promoted_transition_count"] == 1
     assert lens["repair_loop_summary"]["proof_body_export_count"] == 0
+    assert lens["repair_loop_summary"]["public_drilldown_ref_count"] == 4
+    assert lens["repair_loop_summary"]["unsafe_payload_body_export_count"] == 0
     assert lens["authority_ceiling"]["formal_proof_authority"] is False
     assert lens["authority_ceiling"]["proof_bodies_exported"] is False
     assert lens["authority_ceiling"]["oracle_needed_premise_ids_exported"] is False
     assert lens["authority_ceiling"]["provider_calls_authorized"] is False
     assert lens["safe_to_show"]["provider_payloads_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert all(row["public_drilldown_ref"] for row in lens["transition_rows"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["transition_rows"]
+    )
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["payload_boundary"]["boundary_id"] == "public_verifier_repair_loop_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["repair_loop_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in lens
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_evidence_cell_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_evidence_cell_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1184,19 +1213,30 @@ def test_runtime_shell_evidence_cell_lens_is_public_safe(tmp_path: Path) -> None
     assert lens["resolver_summary"]["cell_count"] == 4
     assert lens["resolver_summary"]["present_cell_count"] == 2
     assert lens["resolver_summary"]["proof_body_export_count"] == 0
+    assert lens["resolver_summary"]["public_drilldown_ref_count"] == 2
+    assert lens["resolver_summary"]["unsafe_payload_body_export_count"] == 0
     assert lens["authority_ceiling"]["formal_proof_authority"] is False
     assert lens["authority_ceiling"]["proof_bodies_exported"] is False
     assert lens["authority_ceiling"]["private_source_refs_exported"] is False
     assert lens["authority_ceiling"]["general_theorem_solution_claim"] is False
     assert lens["safe_to_show"]["proof_bodies_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["evidence_cells"]
+    )
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["payload_boundary"]["boundary_id"] == "public_formal_evidence_cell_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["evidence_cell_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in lens
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_proof_loop_depth_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1237,6 +1277,8 @@ def test_runtime_shell_proof_loop_depth_lens_is_public_safe(tmp_path: Path) -> N
     assert lens["proof_loop_summary"]["evidence_ref_count"] == 12
     assert lens["proof_loop_summary"]["proof_body_export_count"] == 0
     assert lens["proof_loop_summary"]["benchmark_score_claim_count"] == 0
+    assert lens["proof_loop_summary"]["public_drilldown_ref_count"] == 11
+    assert lens["proof_loop_summary"]["unsafe_payload_body_export_count"] == 0
     assert lens["proof_loop_summary"]["proof_lab_route_component_count"] == 9
     assert lens["proof_loop_summary"]["proof_lab_lean_lake_return_code"] == 0
     assert lens["first_screen_proof_lab"]["route_ref"] == PROOF_LAB_ROUTE_REF
@@ -1246,9 +1288,18 @@ def test_runtime_shell_proof_loop_depth_lens_is_public_safe(tmp_path: Path) -> N
     assert lens["authority_ceiling"]["benchmark_score_claim"] is False
     assert lens["authority_ceiling"]["general_theorem_solution_claim"] is False
     assert lens["safe_to_show"]["provider_payloads_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert all(row["public_drilldown_ref"] for row in lens["gate_rows"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False for row in lens["gate_rows"]
+    )
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["payload_boundary"]["boundary_id"] == "public_proof_loop_depth_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["proof_loop_depth_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in lens
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 

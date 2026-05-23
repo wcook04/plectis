@@ -13,9 +13,8 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm repair-loop",
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-23T21:09:33+00:00",
   "curriculum_policy": {
     "cold_rerun_required_before_promotion": true,
     "failure_class_required_before_repair_route": true,
@@ -36,7 +35,7 @@
   "loop_stages": [
     {
       "exit_gate": "failure_class_present",
-      "input_contract": "redacted_trace_metadata_only",
+      "input_contract": "public_trace_metadata_without_payload_bodies",
       "promotion_allowed": false,
       "stage_id": "capture_verifier_failure"
     },
@@ -77,6 +76,37 @@
     "release_claim_after_repair"
   ],
   "organ_family": "formal_math",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_verifier_repair_loop_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm repair-loop",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes a public verifier repair-loop curriculum: classify failed proof attempts, route metadata-only repairs, require cold reruns, and promote only receipt-backed curriculum cells without exporting proof bodies, oracle-needed premise identifiers, provider payloads, or proof correctness claims.",
   "release_authorized": false,
   "repair_loop_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
@@ -85,78 +115,98 @@
     "oracle_needed_premise_export_count": 0,
     "promoted_transition_count": 1,
     "proof_body_export_count": 0,
+    "public_drilldown_ref_count": 4,
     "repairable_transition_count": 2,
     "stage_count": 5,
-    "transition_count": 4
+    "transition_count": 4,
+    "unsafe_payload_body_export_count": 0
   },
   "safe_to_show": {
-    "body_redacted": true,
     "fixture_metadata_only": true,
     "oracle_needed_premise_ids_omitted": true,
     "proof_bodies_omitted": true,
     "provider_payloads_omitted": true,
-    "receipt_refs_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "transition_rows_are_public_payload_boundary_rows": true,
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_verifier_repair_loop_lens_v1",
   "selected_pattern_id": "formal_math_verifier_trace_repair_loop_compound",
   "source_lens_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "transition_rows": [
     {
       "attempt_id": "attempt_a_missing_premise",
-      "body_redacted": true,
       "cold_rerun_required_before_promotion": true,
       "failure_class": "MISSING_PREMISE",
       "from_stage": "capture_verifier_failure",
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_verifier_repair_loop_lens::transition_rows",
       "promotion_allowed": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
       "repair_action": "route_to_premise_retrieval_terms",
       "repair_evidence_ref": "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "to_stage": "route_repair",
-      "trace_grade": "repairable_metadata_only"
+      "trace_grade": "repairable_metadata_only",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "attempt_id": "attempt_b_unavailable_tactic",
-      "body_redacted": true,
       "cold_rerun_required_before_promotion": true,
       "failure_class": "TACTIC_UNAVAILABLE",
       "from_stage": "capture_verifier_failure",
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_verifier_repair_loop_lens::transition_rows",
       "promotion_allowed": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
       "repair_action": "route_to_tactic_availability_probe",
       "repair_evidence_ref": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "to_stage": "route_repair",
-      "trace_grade": "repairable_metadata_only"
+      "trace_grade": "repairable_metadata_only",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "attempt_id": "attempt_c_invalid_proof_body",
-      "body_redacted": true,
       "cold_rerun_required_before_promotion": true,
       "failure_class": "INVALID_PROOF_BODY",
       "from_stage": "capture_verifier_failure",
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_verifier_repair_loop_lens::transition_rows",
       "promotion_allowed": false,
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
       "repair_action": "reject_public_proof_body_and_keep_metadata_only",
       "repair_evidence_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "to_stage": "route_repair",
-      "trace_grade": "blocked_public"
+      "trace_grade": "blocked_public",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "attempt_id": "cold_rerun_after_repair",
-      "body_redacted": true,
       "cold_rerun_required_before_promotion": false,
       "failure_class": "NONE_AFTER_METADATA_REPAIR",
       "from_stage": "cold_rerun",
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_verifier_repair_loop_lens::transition_rows",
       "promotion_allowed": true,
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
       "repair_action": "append_failure_mode_ledger_delta_and_update_curriculum_gate",
       "repair_evidence_ref": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "to_stage": "promote_metadata_cell",
-      "trace_grade": "validated_metadata_only"
+      "trace_grade": "validated_metadata_only",
+      "unsafe_payload_bodies_exported": false
     }
-  ]
+  ],
+  "unsafe_payload_bodies_in_receipt": false
 }

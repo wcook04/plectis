@@ -2856,7 +2856,7 @@ class RuntimeShell:
         trace_rows = [
             {
                 "attempt_id": "attempt_a_missing_premise",
-                "public_input_hash": "redacted_hash:attempt_a",
+                "public_input_hash": "public_trace_hash:attempt_a",
                 "verifier_failure_class": "MISSING_PREMISE",
                 "trace_grade": "repairable_metadata_only",
                 "repair_action": "route_to_premise_retrieval_terms",
@@ -2865,11 +2865,10 @@ class RuntimeShell:
                 "promotion_allowed": False,
                 "proof_body_exported": False,
                 "oracle_needed_premise_ids_exported": False,
-                "body_redacted": True,
             },
             {
                 "attempt_id": "attempt_b_unavailable_tactic",
-                "public_input_hash": "redacted_hash:attempt_b",
+                "public_input_hash": "public_trace_hash:attempt_b",
                 "verifier_failure_class": "TACTIC_UNAVAILABLE",
                 "trace_grade": "repairable_metadata_only",
                 "repair_action": "route_to_tactic_availability_probe",
@@ -2878,11 +2877,10 @@ class RuntimeShell:
                 "promotion_allowed": False,
                 "proof_body_exported": False,
                 "oracle_needed_premise_ids_exported": False,
-                "body_redacted": True,
             },
             {
                 "attempt_id": "attempt_c_invalid_proof_body",
-                "public_input_hash": "redacted_hash:attempt_c",
+                "public_input_hash": "public_trace_hash:attempt_c",
                 "verifier_failure_class": "INVALID_PROOF_BODY",
                 "trace_grade": "blocked_public",
                 "repair_action": "reject_public_proof_body_and_keep_metadata_only",
@@ -2891,11 +2889,10 @@ class RuntimeShell:
                 "promotion_allowed": False,
                 "proof_body_exported": False,
                 "oracle_needed_premise_ids_exported": False,
-                "body_redacted": True,
             },
             {
                 "attempt_id": "cold_rerun_after_repair",
-                "public_input_hash": "redacted_hash:cold_rerun",
+                "public_input_hash": "public_trace_hash:cold_rerun",
                 "verifier_failure_class": "NONE_AFTER_METADATA_REPAIR",
                 "trace_grade": "validated_metadata_only",
                 "repair_action": "append_failure_mode_ledger_delta_and_update_curriculum_gate",
@@ -2905,9 +2902,12 @@ class RuntimeShell:
                 "promotion_authority": "metadata_trace_cell_only_not_proof_correctness",
                 "proof_body_exported": False,
                 "oracle_needed_premise_ids_exported": False,
-                "body_redacted": True,
             },
         ]
+        trace_row_boundary_ref = "public_verifier_trace_repair_lens::trace_rows"
+        for row in trace_rows:
+            row["public_drilldown_ref"] = row.get("repair_evidence_ref")
+            row.update(_source_open_row_boundary(trace_row_boundary_ref))
         authority_ceiling = {
             "metadata_trace_only": True,
             "formal_proof_authority": False,
@@ -2935,6 +2935,10 @@ class RuntimeShell:
             and len(trace_rows) == 4
             and len(negative_case_ids) == 7
             and all(row.get("proof_body_exported") is False for row in trace_rows)
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False
+                for row in trace_rows
+            )
             and authority_ceiling["formal_proof_authority"] is False
             else "blocked"
         )
@@ -2972,7 +2976,7 @@ class RuntimeShell:
                 "cold_rerun_required_before_promotion": True,
                 "failure_mode_ledger_updates_curriculum_only_after_cold_rerun": True,
                 "human_or_provider_advice_is_advisory_not_proof_authority": True,
-                "proof_bodies_and_oracle_ids_are_redacted": True,
+                "proof_bodies_and_oracle_ids_excluded_by_payload_boundary": True,
             },
             "repair_summary": {
                 "attempt_count": len(trace_rows),
@@ -2982,6 +2986,12 @@ class RuntimeShell:
                 "promotion_allowed_count": 1,
                 "proof_body_export_count": 0,
                 "oracle_needed_premise_export_count": 0,
+                "public_drilldown_ref_count": sum(
+                    1 for row in trace_rows if row.get("public_drilldown_ref")
+                ),
+                "unsafe_payload_body_export_count": sum(
+                    1 for row in trace_rows if row.get("unsafe_payload_bodies_exported") is True
+                ),
             },
             "negative_case_ids": negative_case_ids,
             "evidence_refs": [
@@ -2991,17 +3001,24 @@ class RuntimeShell:
                 target_shape_ref,
                 witness_ref,
             ],
-            "safe_to_show": {
-                "body_redacted": True,
-                "proof_bodies_omitted": True,
-                "oracle_needed_premise_ids_omitted": True,
-                "provider_payloads_omitted": True,
-                "receipt_refs_only": True,
-                "fixture_metadata_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_verifier_trace_repair_lens",
+                command="microcosm trace-lens",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                proof_bodies_omitted=True,
+                oracle_needed_premise_ids_omitted=True,
+                provider_payloads_omitted=True,
+                receipt_refs_only=True,
+                fixture_metadata_only=True,
+                trace_rows_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
                 "The verifier trace-repair lens is a metadata-only public read-model. It "
                 "does not run Lean/Lake, prove theorem correctness, expose proof bodies "
@@ -3030,7 +3047,7 @@ class RuntimeShell:
         loop_stages = [
             {
                 "stage_id": "capture_verifier_failure",
-                "input_contract": "redacted_trace_metadata_only",
+                "input_contract": "public_trace_metadata_without_payload_bodies",
                 "exit_gate": "failure_class_present",
                 "promotion_allowed": False,
             },
@@ -3087,7 +3104,10 @@ class RuntimeShell:
                         "oracle_needed_premise_ids_exported"
                     )
                     is True,
-                    "body_redacted": row.get("body_redacted") is True,
+                    "public_drilldown_ref": row.get("repair_evidence_ref"),
+                    **_source_open_row_boundary(
+                        "public_verifier_repair_loop_lens::transition_rows"
+                    ),
                 }
             )
         repairable_transition_count = sum(
@@ -3123,6 +3143,10 @@ class RuntimeShell:
             and all(row.get("proof_body_exported") is False for row in transition_rows)
             and all(
                 row.get("oracle_needed_premise_ids_exported") is False
+                for row in transition_rows
+            )
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False
                 for row in transition_rows
             )
             and authority_ceiling["formal_proof_authority"] is False
@@ -3174,6 +3198,14 @@ class RuntimeShell:
                     for row in transition_rows
                     if row.get("oracle_needed_premise_ids_exported") is True
                 ),
+                "public_drilldown_ref_count": sum(
+                    1 for row in transition_rows if row.get("public_drilldown_ref")
+                ),
+                "unsafe_payload_body_export_count": sum(
+                    1
+                    for row in transition_rows
+                    if row.get("unsafe_payload_bodies_exported") is True
+                ),
             },
             "negative_case_ids": negative_case_ids,
             "evidence_refs": list(
@@ -3192,17 +3224,24 @@ class RuntimeShell:
                     ]
                 )
             ),
-            "safe_to_show": {
-                "body_redacted": True,
-                "proof_bodies_omitted": True,
-                "oracle_needed_premise_ids_omitted": True,
-                "provider_payloads_omitted": True,
-                "receipt_refs_only": True,
-                "fixture_metadata_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_verifier_repair_loop_lens",
+                command="microcosm repair-loop",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                proof_bodies_omitted=True,
+                oracle_needed_premise_ids_omitted=True,
+                provider_payloads_omitted=True,
+                receipt_refs_only=True,
+                fixture_metadata_only=True,
+                transition_rows_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
                 "The verifier repair-loop lens is a metadata-only curriculum read-model. "
                 "It does not run Lean/Lake, prove theorem correctness, expose proof "
@@ -3282,6 +3321,10 @@ class RuntimeShell:
                 "claim_may_say_general_theorem_solution": False,
             },
         ]
+        evidence_cell_boundary_ref = "public_formal_evidence_cell_lens::evidence_cells"
+        for row in evidence_cells:
+            row["public_drilldown_ref"] = row.get("evidence_ref")
+            row.update(_source_open_row_boundary(evidence_cell_boundary_ref))
         negative_case_ids = [
             "unknown_cell_id_claim",
             "missing_source_cell",
@@ -3316,6 +3359,10 @@ class RuntimeShell:
             and len(evidence_cells) == 4
             and len(negative_case_ids) == 7
             and all(row.get("proof_body_exported") is False for row in evidence_cells)
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False
+                for row in evidence_cells
+            )
             and authority_ceiling["formal_proof_authority"] is False
             else "blocked"
         )
@@ -3348,7 +3395,7 @@ class RuntimeShell:
                 "unknown_cell_keeps_claim_weak_or_rejected": True,
                 "missing_source_cell_errors": True,
                 "receipt_ref_required_for_positive_cell": True,
-                "proof_bodies_and_private_refs_are_redacted": True,
+                "proof_bodies_and_private_refs_excluded_by_payload_boundary": True,
                 "cell_id_is_receipt_anchor_not_theorem_proof": True,
             },
             "resolver_summary": {
@@ -3366,6 +3413,14 @@ class RuntimeShell:
                 ),
                 "proof_body_export_count": 0,
                 "private_source_ref_export_count": 0,
+                "public_drilldown_ref_count": sum(
+                    1 for row in evidence_cells if row.get("public_drilldown_ref")
+                ),
+                "unsafe_payload_body_export_count": sum(
+                    1
+                    for row in evidence_cells
+                    if row.get("unsafe_payload_bodies_exported") is True
+                ),
             },
             "negative_case_ids": negative_case_ids,
             "evidence_refs": [
@@ -3373,16 +3428,23 @@ class RuntimeShell:
                 for ref in [witness_ref, readiness_ref, trace_ref]
                 if isinstance(ref, str) and ref
             ],
-            "safe_to_show": {
-                "body_redacted": True,
-                "proof_bodies_omitted": True,
-                "private_source_refs_omitted": True,
-                "receipt_refs_only": True,
-                "fixture_metadata_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_formal_evidence_cell_lens",
+                command="microcosm evidence-cells",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                proof_bodies_omitted=True,
+                private_source_refs_omitted=True,
+                receipt_refs_only=True,
+                fixture_metadata_only=True,
+                evidence_cells_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
                 "The formal evidence-cell lens is a metadata resolver and claim-boundary "
                 "read-model. It does not run Lean/Lake, prove theorem correctness, expose "
@@ -3559,6 +3621,10 @@ class RuntimeShell:
                 "oracle_needed_premise_ids_exported": False,
             },
         ]
+        proof_loop_gate_boundary_ref = "public_proof_loop_depth_lens::gate_rows"
+        for row in gate_rows:
+            row["public_drilldown_ref"] = row.get("evidence_ref")
+            row.update(_source_open_row_boundary(proof_loop_gate_boundary_ref))
         negative_case_ids = [
             "proof_body_exported_as_depth_evidence",
             "oracle_needed_premise_ids_exported",
@@ -3615,6 +3681,10 @@ class RuntimeShell:
                 row.get("oracle_needed_premise_ids_exported") is False
                 for row in gate_rows
             )
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False
+                for row in gate_rows
+            )
             and authority_ceiling["formal_proof_authority"] is False
             else "blocked"
         )
@@ -3663,6 +3733,14 @@ class RuntimeShell:
                 "provider_payload_export_count": 0,
                 "benchmark_score_claim_count": 0,
                 "general_theorem_solution_claim_count": 0,
+                "public_drilldown_ref_count": sum(
+                    1 for row in gate_rows if row.get("public_drilldown_ref")
+                ),
+                "unsafe_payload_body_export_count": sum(
+                    1
+                    for row in gate_rows
+                    if row.get("unsafe_payload_bodies_exported") is True
+                ),
                 "proof_lab_route_component_count": proof_lab.get(
                     "route_component_count"
                 ),
@@ -3673,17 +3751,24 @@ class RuntimeShell:
             "first_screen_proof_lab": proof_lab,
             "negative_case_ids": negative_case_ids,
             "evidence_refs": evidence_refs,
-            "safe_to_show": {
-                "body_redacted": True,
-                "proof_bodies_omitted": True,
-                "oracle_needed_premise_ids_omitted": True,
-                "provider_payloads_omitted": True,
-                "receipt_refs_only": True,
-                "fixture_metadata_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_proof_loop_depth_lens",
+                command="microcosm proof-loop-depth",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                proof_bodies_omitted=True,
+                oracle_needed_premise_ids_omitted=True,
+                provider_payloads_omitted=True,
+                receipt_refs_only=True,
+                fixture_metadata_only=True,
+                gate_rows_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
                 "The proof-loop depth lens is a metadata-only map over public formal "
                 "math fixtures and runtime lenses. It does not run Lean/Lake, prove "
@@ -6362,8 +6447,8 @@ class RuntimeShell:
                 "cleaned": ["proof bodies", "oracle-needed premise ids", "provider payloads"],
                 "omitted": ["proof correctness claim", "Lean/Lake execution authority"],
                 "validation_refs": [
-                    "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_is_public_safe",
-                    "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_is_public_safe",
+                    "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_uses_payload_boundary",
+                    "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_uses_payload_boundary",
                 ],
                 "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
                 "projection_status": PASS,
@@ -7203,8 +7288,8 @@ class RuntimeShell:
                 "strip_rule": "export claim strength metadata, never proof body text",
                 **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
-                    "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_is_public_safe",
-                    "tests/test_runtime_shell.py::test_runtime_shell_evidence_cell_lens_is_public_safe",
+                    "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_uses_payload_boundary",
+                    "tests/test_runtime_shell.py::test_runtime_shell_evidence_cell_lens_uses_payload_boundary",
                 ],
                 "private_body_exported": False,
                 "proof_body_exported": False,

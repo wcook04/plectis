@@ -16,9 +16,8 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-23T21:09:33+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -31,129 +30,240 @@
     "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
     "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
     "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
-    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json"
+    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
   ],
+  "first_screen_proof_lab": {
+    "anti_claim": {},
+    "authority_ceiling": {
+      "formal_proof_authority": false,
+      "proof_bodies_allowed_in_receipts": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+    "card_id": "first_screen_verifier_lab_kernel",
+    "classification": "real_runtime_receipt",
+    "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "component_metrics": {
+      "corpus_count": 7,
+      "lean_std_premise_count": 11,
+      "mathlib_lake_project_import_available": false,
+      "proof_diagnostic_accepted_count": 1,
+      "proof_diagnostic_rejected_count": 0,
+      "retrieval_mean_public_recall": 1.0,
+      "retrieval_query_count": 4,
+      "ring2_mean_precision_at_k": 0.36,
+      "ring2_mean_recall_at_k": 0.9,
+      "ring2_problem_count": 10,
+      "target_shape_route_case_count": 5,
+      "verifier_trace_attempt_count": 5
+    },
+    "evidence_class": "semantic_validator",
+    "lean_compiled_declaration_count": 8,
+    "lean_lake_return_code": 0,
+    "organ_id": "verifier_lab_kernel",
+    "public_runtime_refs": [
+      "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+      "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+      "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+      "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json",
+      "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/tactic_portfolio_probe.json",
+      "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/target_shape_routes.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_runs.json",
+      "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+      "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+    ],
+    "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+    "route_component_count": 9,
+    "route_id": "formal_prover_context_strategy_gate",
+    "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "safe_to_show": {
+      "body_in_receipt": false,
+      "credential_equivalent_payloads_omitted": true,
+      "proof_bodies_omitted": true,
+      "provider_payloads_omitted": true,
+      "receipt_refs_visible": true,
+      "route_metadata_visible": true
+    },
+    "schema_version": "microcosm_first_screen_proof_lab_route_card_v1",
+    "secret_exclusion": {
+      "blocking_hit_count": 0,
+      "scanned_ref_count": null,
+      "status": "pass"
+    },
+    "status": "pass"
+  },
   "gate_rows": [
     {
       "evidence_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
       "gate_id": "corpus_readiness_boundary",
       "loop_depth": 1,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "environment_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
       "public_signal": "mathlib absence and corpus readiness are explicit metadata",
       "role": "prove the environment boundary before any proof-adjacent claim",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
       "gate_id": "formal_math_readiness_gate",
       "loop_depth": 2,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "readiness_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
       "public_signal": "formal-math cells are routed through readiness receipts",
       "role": "separate readiness extension cells from proof correctness",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
       "gate_id": "lean_std_premise_index",
       "loop_depth": 3,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "premise_index_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
       "public_signal": "sanctioned Std premise rows are explicit and bounded",
       "role": "bind retrieval to a closed public premise index",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
       "gate_id": "premise_retrieval",
       "loop_depth": 4,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "retrieval_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
       "public_signal": "retrieval terms are visible without oracle-needed ids",
       "role": "turn missing-premise feedback into public retrieval terms",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
       "gate_id": "ring2_precision_recall_harness",
       "loop_depth": 5,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "fixture_metric_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
       "public_signal": "precision/recall harness is a toy fixture, not a benchmark claim",
       "role": "grade retrieval fixture behavior before generalizing the loop",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
       "gate_id": "tactic_availability_probe",
       "loop_depth": 6,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "tactic_environment_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
       "public_signal": "unavailable tactic failures route through a typed probe",
       "role": "probe tactic availability instead of assuming it",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
       "gate_id": "target_shape_routing",
       "loop_depth": 7,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "route_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
       "public_signal": "repair routes are selected from typed target shapes",
       "role": "route target-shape features before choosing repair actions",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
       "gate_id": "verifier_trace_repair_lens",
       "loop_depth": 8,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "trace_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
       "public_signal": "failed attempts are public metadata rows, not proofs",
       "role": "classify verifier failures and trace grades before repair promotion",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
       "gate_id": "repair_loop_cold_rerun",
       "loop_depth": 9,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "curriculum_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
       "public_signal": "promotion is limited to a metadata curriculum cell",
       "role": "require a cold rerun before promoting a repair into curriculum",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
       "gate_id": "formal_evidence_cell_resolver",
       "loop_depth": 10,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "evidence_cell_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
       "public_signal": "unknown cells and missing sources stay rejected",
       "role": "force proof language to resolve to explicit evidence cells",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "evidence_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
       "gate_id": "lean_witness_boundary",
       "loop_depth": 11,
       "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
       "promotion_scope": "toy_witness_metadata_only",
       "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
       "public_signal": "toy Lean/Std witness exists without a general theorem claim",
       "role": "keep the positive machine anchor tiny and public",
-      "source_status": "pass"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "lens_id": "public_proof_loop_depth_lens",
@@ -179,27 +289,66 @@
     "release_or_publication_claim_from_proof_loop_depth"
   ],
   "organ_family": "formal_math",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_proof_loop_depth_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm proof-loop-depth",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "proof_loop_depth_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
   "proof_loop_summary": {
     "benchmark_score_claim_count": 0,
-    "evidence_ref_count": 11,
+    "evidence_ref_count": 12,
     "formal_math_gate_count": 11,
     "gate_count": 11,
     "general_theorem_solution_claim_count": 0,
     "negative_case_count": 9,
     "oracle_needed_premise_export_count": 0,
     "proof_body_export_count": 0,
-    "provider_payload_export_count": 0
+    "proof_lab_lean_lake_return_code": 0,
+    "proof_lab_route_component_count": 9,
+    "provider_payload_export_count": 0,
+    "public_drilldown_ref_count": 11,
+    "unsafe_payload_body_export_count": 0
   },
   "public_claim": "Microcosm exposes a proof-loop depth map: environment readiness, premise indexing, retrieval, tactic availability, target-shape routing, verifier trace, cold-rerun repair promotion, evidence-cell resolution, and tiny Lean witness boundaries are one inspectable metadata loop instead of a proof or benchmark claim.",
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
     "fixture_metadata_only": true,
+    "gate_rows_are_public_payload_boundary_rows": true,
     "oracle_needed_premise_ids_omitted": true,
     "proof_bodies_omitted": true,
     "provider_payloads_omitted": true,
-    "receipt_refs_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_proof_loop_depth_lens_v1",
   "selected_pattern_ids": [
@@ -209,6 +358,7 @@
     "ring2_premise_retrieval_precision_recall_harness",
     "formal_evidence_cell_anchor_resolver"
   ],
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_statuses": {
     "corpus_readiness_boundary": "pass",
     "formal_evidence_cell_resolver": "pass",
@@ -222,5 +372,6 @@
     "target_shape_routing": "pass",
     "verifier_trace_repair_lens": "pass"
   },
-  "status": "pass"
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }
