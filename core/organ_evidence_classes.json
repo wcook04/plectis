@@ -268,8 +268,8 @@
     },
     {
       "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for source-available shape"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "source-faithful public refactor over the macro agent-execution-trace substrate computes body-free patch-proof spans, authority ceilings, cold replay coverage, verifier refs, sandbox verdict refs, source/target refs, secret-exclusion scans, and negative-case denials"
     },
     {
       "organ_id": "certificate_kernel_execution_lab",

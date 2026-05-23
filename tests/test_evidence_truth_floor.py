@@ -100,13 +100,12 @@ def test_truth_floor_flags_fixture_echo_public_refactor_candidate(
     assert evidence["body_in_receipt"] is False
 
 
-def test_current_registry_no_longer_flags_mechanistic_runtime_receipt() -> None:
+def test_current_registry_no_longer_flags_landed_truth_floor_rows() -> None:
     receipt = audit_evidence_truth_floor(MICROCOSM_ROOT)
 
     assert receipt["status"] == "pass"
-    assert all(
-        candidate["organ_id"]
-        != "mechanistic_interpretability_circuit_attribution_replay"
-        for candidate in receipt["candidates"]
-    )
-    assert receipt["inspected_fixture_echo_row_count"] == 11
+    candidate_ids = {candidate["organ_id"] for candidate in receipt["candidates"]}
+    assert "mechanistic_interpretability_circuit_attribution_replay" not in candidate_ids
+    assert "agentic_vulnerability_discovery_patch_proof_replay" not in candidate_ids
+    assert receipt["candidate_count"] == 0
+    assert receipt["inspected_fixture_echo_row_count"] == 10

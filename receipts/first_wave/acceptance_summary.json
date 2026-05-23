@@ -469,13 +469,13 @@
         "truth_accounting_bucket": "regression_negative_fixture"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for source-available shape",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "source-faithful public refactor over the macro agent-execution-trace substrate computes body-free patch-proof spans, authority ceilings, cold replay coverage, verifier refs, sandbox verdict refs, source/target refs, secret-exclusion scans, and negative-case denials",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
@@ -510,13 +510,13 @@
     "copied_non_secret_macro_body_count": 0,
     "delete_or_demote_candidate_count": 0,
     "evidence_class_counts": {
-      "algorithmic_projection": 16,
+      "algorithmic_projection": 17,
       "external_subprocess_witness": 3,
-      "fixture_echo_smoke": 11,
+      "fixture_echo_smoke": 10,
       "semantic_validator": 16
     },
     "legacy_adapter_or_synthetic_placeholder_count": 0,
-    "non_progress_accepted_count": 11,
+    "non_progress_accepted_count": 10,
     "non_progress_organs": [
       "agent_benchmark_integrity_anti_gaming_replay",
       "agent_monitor_redteam_falsification_replay",
@@ -527,12 +527,11 @@
       "belief_state_process_reward_replay",
       "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
-      "agentic_vulnerability_discovery_patch_proof_replay",
       "materials_chemistry_closed_loop_lab_safety_replay"
     ],
     "real_import_validation_count": 16,
     "real_runtime_receipt_count": 3,
-    "real_substrate_progress_count": 35,
+    "real_substrate_progress_count": 36,
     "real_substrate_progress_organs": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
@@ -567,19 +566,20 @@
       "standards_meta_diagnostics",
       "cold_reader_route_map",
       "proof_derived_governed_mutation_authorization",
+      "agentic_vulnerability_discovery_patch_proof_replay",
       "certificate_kernel_execution_lab",
       "voice_to_doctrine_self_improvement_loop"
     ],
-    "regression_negative_fixture_count": 11,
+    "regression_negative_fixture_count": 10,
     "schema_version": "microcosm_acceptance_truth_accounting_v1",
     "secret_exclusion_count": 0,
-    "source_faithful_refactor_count": 16,
+    "source_faithful_refactor_count": 17,
     "source_ref": "core/organ_evidence_classes.json",
     "truth_accounting_bucket_counts": {
       "real_import_validation": 16,
       "real_runtime_receipt": 3,
-      "regression_negative_fixture": 11,
-      "source_faithful_refactor": 16
+      "regression_negative_fixture": 10,
+      "source_faithful_refactor": 17
     }
   }
 }
