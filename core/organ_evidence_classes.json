@@ -6,6 +6,8 @@
   "class_profiles": {
     "semantic_validator": {
       "evidence_strength_rank": 5,
+      "truth_accounting_bucket": "real_import_validation",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "verdict_source": "validator_computation",
       "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
@@ -13,6 +15,8 @@
     },
     "external_subprocess_witness": {
       "evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
       "verdict_source": "subprocess_or_tool_witness",
       "negative_case_independence": "bounded_to_declared_toy_witness_scope",
@@ -20,6 +24,8 @@
     },
     "algorithmic_projection": {
       "evidence_strength_rank": 3,
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "verdict_source": "derived_projection_metric",
       "negative_case_independence": "partial_policy_checks_not_real_world_validation",
@@ -27,6 +33,8 @@
     },
     "fixture_schema_replay": {
       "evidence_strength_rank": 2,
+      "truth_accounting_bucket": "regression_negative_fixture",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
       "verdict_source": "fixture_replay_contract",
       "negative_case_independence": "fixture_negative_cases_are_static_inputs",
@@ -34,6 +42,8 @@
     },
     "fixture_echo_smoke": {
       "evidence_strength_rank": 1,
+      "truth_accounting_bucket": "regression_negative_fixture",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "verdict_source": "fixture_supplied_fields",
       "negative_case_independence": "fixture_self_declaration_or_static_flag_only",

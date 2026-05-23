@@ -703,6 +703,29 @@ PRODUCT_PATH_DEMOTION_REASONS = {
     )
 }
 
+TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS = {
+    "real_runtime_receipt": "real_runtime_receipt_count",
+    "copied_non_secret_macro_body": "copied_non_secret_macro_body_count",
+    "source_faithful_refactor": "source_faithful_refactor_count",
+    "real_import_validation": "real_import_validation_count",
+    "regression_negative_fixture": "regression_negative_fixture_count",
+    "blocked_import_debt": "blocked_import_debt_count",
+    "secret_exclusion": "secret_exclusion_count",
+    "legacy_adapter_or_synthetic_placeholder": (
+        "legacy_adapter_or_synthetic_placeholder_count"
+    ),
+    "delete_or_demote_candidate": "delete_or_demote_candidate_count",
+}
+
+REAL_SUBSTRATE_PROGRESS_BUCKETS = frozenset(
+    {
+        "real_runtime_receipt",
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_import_validation",
+    }
+)
+
 
 def _runtime_organ_ids() -> list[str]:
     return [step.organ_id for step in RUNTIME_STEPS]
@@ -748,9 +771,23 @@ def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
         class_profile = profiles.get(evidence_class)
         if not isinstance(class_profile, dict):
             raise ValueError(f"organ {organ_id} references unknown evidence_class {evidence_class!r}")
+        truth_bucket = str(class_profile.get("truth_accounting_bucket") or "")
+        if truth_bucket not in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS:
+            raise ValueError(
+                f"evidence_class {evidence_class!r} has unknown truth_accounting_bucket "
+                f"{truth_bucket!r}"
+            )
+        expected_progress = truth_bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
+        if class_profile.get("counts_as_real_substrate_progress") is not expected_progress:
+            raise ValueError(
+                f"evidence_class {evidence_class!r} has inconsistent "
+                "counts_as_real_substrate_progress"
+            )
         profile_by_id[organ_id] = {
             "evidence_class": evidence_class,
             "evidence_strength_rank": class_profile["evidence_strength_rank"],
+            "truth_accounting_bucket": truth_bucket,
+            "counts_as_real_substrate_progress": expected_progress,
             "evaluator_basis": class_profile["evaluator_basis"],
             "verdict_source": class_profile["verdict_source"],
             "negative_case_independence": class_profile["negative_case_independence"],
@@ -803,6 +840,8 @@ def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
         "organ_evidence_class_count": len(organ_profiles)
         if isinstance(organ_profiles, dict)
         else 0,
+        "truth_accounting_bucket_count": len(TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS),
+        "real_substrate_progress_buckets": sorted(REAL_SUBSTRATE_PROGRESS_BUCKETS),
         "unclassified_organs": registry.get("missing_organs", []),
         "extra_organs": registry.get("extra_organs", []),
         "duplicate_organs": registry.get("duplicate_organs", []),
@@ -816,6 +855,43 @@ def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
         if isinstance(class_id, str):
             counts[class_id] = counts.get(class_id, 0) + 1
     return {class_id: count for class_id, count in counts.items() if count}
+
+
+def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    counts = {count_key: 0 for count_key in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS.values()}
+    bucket_counts: dict[str, int] = {}
+    real_organs: list[str] = []
+    non_progress_organs: list[str] = []
+    for row in rows:
+        bucket = str(row.get("truth_accounting_bucket") or "")
+        if bucket not in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS:
+            bucket = "legacy_adapter_or_synthetic_placeholder"
+        count_key = TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS[bucket]
+        counts[count_key] += 1
+        bucket_counts[bucket] = bucket_counts.get(bucket, 0) + 1
+        organ_id = str(row.get("organ_id") or "")
+        if row.get("counts_as_real_substrate_progress") is True:
+            real_organs.append(organ_id)
+        else:
+            non_progress_organs.append(organ_id)
+
+    real_substrate_progress_count = sum(
+        counts[TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS[bucket]]
+        for bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
+    )
+    scaffold_or_debt_count = len(rows) - real_substrate_progress_count
+    return {
+        "schema_version": "microcosm_truth_accounting_v1",
+        "adapter_backed_count_is_product_progress": False,
+        "accepted_current_authority_is_evidence_strength": False,
+        "real_substrate_progress_count": real_substrate_progress_count,
+        "scaffold_or_debt_count": scaffold_or_debt_count,
+        "non_progress_organ_count": scaffold_or_debt_count,
+        "truth_accounting_bucket_counts": bucket_counts,
+        "real_substrate_progress_organs": real_organs,
+        "non_progress_organs": non_progress_organs,
+        **counts,
+    }
 
 
 class RuntimeShell:
@@ -929,7 +1005,11 @@ class RuntimeShell:
 
     def status(self) -> dict[str, Any]:
         organs = self.organs()
-        adapter_backed = [row["organ_id"] for row in organs if row.get("runtime_mode") == "adapter_backed"]
+        adapter_backed_rows = [
+            row for row in organs if row.get("runtime_mode") == "adapter_backed"
+        ]
+        adapter_backed = [row["organ_id"] for row in adapter_backed_rows]
+        truth_accounting = _truth_accounting(adapter_backed_rows)
         product_steps = _product_runtime_steps()
         demoted_drilldowns = [
             row for row in organs if row.get("runtime_mode") == "drilldown_only"
@@ -1091,6 +1171,12 @@ class RuntimeShell:
             },
             "organ_count": len(organs),
             "adapter_backed_organ_count": len(adapter_backed),
+            "adapter_backed_count_is_product_progress": False,
+            "real_substrate_progress_count": truth_accounting[
+                "real_substrate_progress_count"
+            ],
+            "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+            "truth_accounting": truth_accounting,
             "product_path_demoted_organ_count": len(demoted_drilldowns),
             "product_path_demoted_organs": [
                 {
@@ -1160,6 +1246,7 @@ class RuntimeShell:
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
         adapter_backed = [row for row in organs if row.get("runtime_mode") == "adapter_backed"]
+        truth_accounting = _truth_accounting(adapter_backed)
         product_steps = _product_runtime_steps()
         demoted_drilldowns = [
             row for row in organs if row.get("runtime_mode") == "drilldown_only"
@@ -1779,6 +1866,34 @@ class RuntimeShell:
             "surface_counts": {
                 "organ_count": len(organs),
                 "adapter_backed_organ_count": len(adapter_backed),
+                "adapter_backed_count_is_product_progress": False,
+                "real_substrate_progress_count": truth_accounting[
+                    "real_substrate_progress_count"
+                ],
+                "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+                "real_runtime_receipt_count": truth_accounting[
+                    "real_runtime_receipt_count"
+                ],
+                "copied_non_secret_macro_body_count": truth_accounting[
+                    "copied_non_secret_macro_body_count"
+                ],
+                "source_faithful_refactor_count": truth_accounting[
+                    "source_faithful_refactor_count"
+                ],
+                "real_import_validation_count": truth_accounting[
+                    "real_import_validation_count"
+                ],
+                "regression_negative_fixture_count": truth_accounting[
+                    "regression_negative_fixture_count"
+                ],
+                "blocked_import_debt_count": truth_accounting["blocked_import_debt_count"],
+                "secret_exclusion_count": truth_accounting["secret_exclusion_count"],
+                "legacy_adapter_or_synthetic_placeholder_count": truth_accounting[
+                    "legacy_adapter_or_synthetic_placeholder_count"
+                ],
+                "delete_or_demote_candidate_count": truth_accounting[
+                    "delete_or_demote_candidate_count"
+                ],
                 "product_path_demoted_organ_count": len(demoted_drilldowns),
                 "pattern_count": len(patterns),
                 "route_count": len(routes),
@@ -1786,6 +1901,7 @@ class RuntimeShell:
                 "evidence_count": len(evidence),
                 "evidence_class_count": len(_evidence_class_counts(adapter_backed)),
             },
+            "truth_accounting": truth_accounting,
             "evidence_class_registry": _evidence_registry_summary(evidence_registry),
             "evidence_class_counts": _evidence_class_counts(adapter_backed),
             "accepted_runtime_spine": [
@@ -1803,6 +1919,11 @@ class RuntimeShell:
                     else 0,
                     "evidence_class": row.get("evidence_class"),
                     "evidence_strength_rank": row.get("evidence_strength_rank"),
+                    "truth_accounting_bucket": row.get("truth_accounting_bucket"),
+                    "counts_as_real_substrate_progress": row.get(
+                        "counts_as_real_substrate_progress"
+                    )
+                    is True,
                     "evaluator_basis": row.get("evaluator_basis"),
                     "verdict_source": row.get("verdict_source"),
                     "negative_case_independence": row.get("negative_case_independence"),
@@ -1811,6 +1932,26 @@ class RuntimeShell:
                     "evidence_strength_disclosed": row.get("evidence_strength_disclosed") is True,
                 }
                 for index, row in enumerate(adapter_backed, start=1)
+            ],
+            "real_substrate_progress_spine": [
+                {
+                    "organ_id": str(row.get("organ_id") or ""),
+                    "evidence_class": row.get("evidence_class"),
+                    "truth_accounting_bucket": row.get("truth_accounting_bucket"),
+                    "claim_ceiling": row.get("claim_ceiling"),
+                }
+                for row in adapter_backed
+                if row.get("counts_as_real_substrate_progress") is True
+            ],
+            "non_progress_runtime_spine": [
+                {
+                    "organ_id": str(row.get("organ_id") or ""),
+                    "evidence_class": row.get("evidence_class"),
+                    "truth_accounting_bucket": row.get("truth_accounting_bucket"),
+                    "claim_ceiling": row.get("claim_ceiling"),
+                }
+                for row in adapter_backed
+                if row.get("counts_as_real_substrate_progress") is not True
             ],
             "demoted_drilldown_surfaces": [
                 {
@@ -9861,6 +10002,11 @@ class RuntimeShell:
                 "generated_receipt_count": row.get("generated_receipt_count"),
                 "evidence_class": row.get("evidence_class"),
                 "evidence_strength_rank": row.get("evidence_strength_rank"),
+                "truth_accounting_bucket": row.get("truth_accounting_bucket"),
+                "counts_as_real_substrate_progress": row.get(
+                    "counts_as_real_substrate_progress"
+                )
+                is True,
                 "evaluator_basis": row.get("evaluator_basis"),
                 "verdict_source": row.get("verdict_source"),
                 "negative_case_independence": row.get("negative_case_independence"),
@@ -9875,6 +10021,7 @@ class RuntimeShell:
             for row in _rows(spine, "accepted_runtime_spine")
         ]
         evidence_class_counts = _evidence_class_counts(organ_authority)
+        truth_accounting = _truth_accounting(organ_authority)
         bridge_cells = [
             {
                 "cell_id": row.get("cell_id"),
@@ -10176,10 +10323,19 @@ class RuntimeShell:
                 "surface_authority_count": len(surfaces),
                 "organ_authority_count": len(organ_authority),
                 "organ_evidence_class_count": len(evidence_class_counts),
+                "adapter_backed_count_is_product_progress": False,
+                "real_substrate_progress_count": truth_accounting[
+                    "real_substrate_progress_count"
+                ],
+                "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+                "regression_negative_fixture_count": truth_accounting[
+                    "regression_negative_fixture_count"
+                ],
                 "projection_cell_count": len(bridge_cells),
                 "hard_boundary_count": len(hard_boundaries),
                 "safe_local_exception_count": len(safe_local_exceptions),
             },
+            "truth_accounting": truth_accounting,
             "evidence_class_registry": spine.get("evidence_class_registry"),
             "evidence_class_counts": evidence_class_counts,
             "evidence_refs": evidence_refs,
