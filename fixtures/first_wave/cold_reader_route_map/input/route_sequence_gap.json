@@ -5,5 +5,5 @@
     "inspect_route",
     "open_reveal_board"
   ],
-  "body_redacted": true
+  "body_in_receipt": false
 }

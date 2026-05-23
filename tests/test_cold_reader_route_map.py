@@ -81,9 +81,16 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
         "open_reveal_board",
     ]
     assert "microcosm-substrate/src/microcosm_core/runtime_shell.py" in result["source_refs"]
+    assert "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle" in result[
+        "public_runtime_refs"
+    ]
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in _walk_keys(result)
 
 
-def test_cold_reader_receipts_are_public_relative_and_redacted(tmp_path: Path) -> None:
+def test_cold_reader_receipts_are_public_relative_with_secret_exclusion(tmp_path: Path) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
@@ -112,7 +119,11 @@ def test_cold_reader_receipts_are_public_relative_and_redacted(tmp_path: Path) -
         assert '"body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["real_runtime_receipt"] is True
+        assert payload["synthetic_receipt_standin_allowed"] is False
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in _walk_keys(payload)
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)

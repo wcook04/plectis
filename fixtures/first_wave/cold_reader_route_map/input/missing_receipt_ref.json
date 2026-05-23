@@ -4,5 +4,5 @@
   "route_id": "missing_receipt_ref",
   "command": "microcosm spine",
   "receipt_refs": [],
-  "body_redacted": true
+  "body_in_receipt": false
 }

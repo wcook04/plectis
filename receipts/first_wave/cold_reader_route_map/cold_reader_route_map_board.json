@@ -11,13 +11,13 @@
     "whole_system_correctness_claim": false
   },
   "board_id": "cold_reader_route_map_first_run_board",
-  "body_redacted": true,
+  "body_in_receipt": false,
   "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
-  "created_at": "2026-05-21T17:44:33+00:00",
+  "created_at": "2026-05-23T07:00:28+00:00",
   "finding_count": 7,
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_MISSING_COMMAND_REF",
       "message": "A route card without a command cannot guide a cold reader.",
       "negative_case_id": "missing_command_ref",
@@ -25,7 +25,7 @@
       "subject_kind": "command"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_MISSING_COMMAND_REF",
       "message": "A route card without a command cannot guide a cold reader.",
       "negative_case_id": "missing_command_ref",
@@ -33,7 +33,7 @@
       "subject_kind": "command"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_MISSING_RECEIPT_REF",
       "message": "A route card without receipt refs is not evidence-backed.",
       "negative_case_id": "missing_receipt_ref",
@@ -41,7 +41,7 @@
       "subject_kind": "receipt_refs"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_SEQUENCE_GAP",
       "message": "The first-run sequence must start from compile_project.",
       "negative_case_id": "route_sequence_gap",
@@ -49,7 +49,7 @@
       "subject_kind": "first_run_sequence"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_AUTHORITY_OVERCLAIM",
       "message": "Cold-reader route maps cannot authorize release or global authority.",
       "negative_case_id": "release_overclaim",
@@ -57,7 +57,7 @@
       "subject_kind": "release_authorized"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_AUTHORITY_OVERCLAIM",
       "message": "Cold-reader route maps cannot authorize release or global authority.",
       "negative_case_id": "release_overclaim",
@@ -65,7 +65,7 @@
       "subject_kind": "provider_calls_authorized"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "COLD_ROUTE_PRIVATE_SOURCE_FORBIDDEN",
       "message": "Cold-reader route maps must not carry private source bodies.",
       "negative_case_id": "private_source_leakage",
@@ -74,14 +74,14 @@
     }
   ],
   "organ_id": "cold_reader_route_map",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "scanned_path_count": 8,
-    "status": "pass"
-  },
+  "public_runtime_refs": [
+    "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
+    "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
+    "fixtures/first_wave/cold_reader_route_map/input/route_policy.json",
+    "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+    "paper_modules/cold_reader_route_map.md"
+  ],
+  "real_runtime_receipt": true,
   "receipt_paths": [
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
@@ -112,5 +112,22 @@
     "route_count": 7
   },
   "schema_version": "cold_reader_route_map_board_v1",
-  "status": "pass"
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

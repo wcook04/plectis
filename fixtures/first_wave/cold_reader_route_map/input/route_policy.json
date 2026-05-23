@@ -28,5 +28,5 @@
     "trading_or_financial_advice_authorized": false
   },
   "private_source_bodies_exported": false,
-  "body_redacted": true
+  "body_in_receipt": false
 }

@@ -10,10 +10,10 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
   "command_count": 7,
-  "created_at": "2026-05-21T17:44:33+00:00",
+  "created_at": "2026-05-23T07:00:28+00:00",
   "error_codes": [
     "COLD_ROUTE_AUTHORITY_OVERCLAIM",
     "COLD_ROUTE_MISSING_COMMAND_REF",
@@ -69,14 +69,14 @@
     ]
   },
   "organ_id": "cold_reader_route_map",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "scanned_path_count": 8,
-    "status": "pass"
-  },
+  "public_runtime_refs": [
+    "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
+    "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
+    "fixtures/first_wave/cold_reader_route_map/input/route_policy.json",
+    "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+    "paper_modules/cold_reader_route_map.md"
+  ],
+  "real_runtime_receipt": true,
   "receipt_paths": [
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
@@ -86,6 +86,22 @@
   "receipt_ref_count": 7,
   "route_count": 7,
   "schema_version": "cold_reader_route_map_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_pattern_ids": [
     "navigation_hologram_unified_route_plane",
     "compression_profile_governed_option_surface",
@@ -97,5 +113,6 @@
     "microcosm-substrate/AGENTS.md"
   ],
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "validator_id": "validator.microcosm.organs.cold_reader_route_map"
 }

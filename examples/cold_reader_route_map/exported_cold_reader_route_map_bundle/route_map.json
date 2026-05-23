@@ -85,7 +85,7 @@
         "runtime reveal/import bridge",
         "landed readiness-extension status"
       ],
-      "authority_note": "public replacement refs only; private source bodies are forbidden"
+      "authority_note": "public runtime refs only; private source bodies are forbidden"
     },
     {
       "route_id": "open_reveal_board",
@@ -124,5 +124,5 @@
   ],
   "release_authorized": false,
   "private_source_bodies_exported": false,
-  "body_redacted": true
+  "body_in_receipt": false
 }

@@ -27,6 +27,7 @@
     "command",
     "docs_refs",
     "receipt_refs",
+    "public_runtime_refs",
     "first_run_sequence",
     "authority_ceiling"
   ],
@@ -56,7 +57,10 @@
       "release_overclaim",
       "private_source_leakage"
     ],
-    "redaction_required": true
+    "secret_exclusion_scan_required": true,
+    "body_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "synthetic_receipt_standin_allowed": false
   },
   "public_private_boundary": {
     "public_inputs": "synthetic route cards, route receipt refs, route policy, and public docs refs",

@@ -1,6 +1,6 @@
 {
   "schema_version": "cold_reader_route_negative_case_v1",
   "case_id": "private_source_leakage",
-  "private_source_body": "redacted synthetic placeholder; no private text included",
-  "body_redacted": true
+  "private_source_body": "blocked synthetic placeholder; no private text included",
+  "body_in_receipt": false
 }

@@ -9,6 +9,12 @@ commands, docs refs, receipt refs, and authority ceilings.
 A cold technical reader should not have to infer the product path from a long
 README or raw receipt tree. The route map answers one question: what should I
 run first, and what evidence proves that path is wired?
+The evidence contract is source-open by default: public route cards, route
+receipt bindings, route policy, exported bundle refs, and generated receipts
+carry the substrate, while `secret_exclusion_scan` excludes only private source
+bodies, provider payloads, account/session material, secrets, and
+credential-equivalent live-access data. Receipt bodies are not inlined; they
+are represented by `body_in_receipt: false` plus public runtime refs.
 
 The accepted path is:
 
@@ -34,8 +40,9 @@ PYTHONPATH=src python3 -m microcosm_core.cli cold-reader-route-map run-route-map
 
 The fixture observes negative cases for missing command refs, missing receipt
 refs, route sequence gaps, release/provider overclaims, and private source body
-fields. The exported bundle omits negative cases and validates the runtime
-shape used by `microcosm run`.
+fields. The exported bundle omits negative cases and validates the real runtime
+shape used by `microcosm run`, with synthetic receipt stand-ins explicitly
+disallowed as product evidence.
 
 ## Authority Ceiling
 

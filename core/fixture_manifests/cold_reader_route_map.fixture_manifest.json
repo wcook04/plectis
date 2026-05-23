@@ -39,6 +39,19 @@
   ],
   "validator": "microcosm_core.organs.cold_reader_route_map",
   "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
+  "receipt_contract": {
+    "secret_exclusion_scan": true,
+    "body_in_receipt": false,
+    "real_runtime_receipt": true,
+    "synthetic_receipt_standin_allowed": false,
+    "public_runtime_refs": [
+      "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
+      "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
+      "fixtures/first_wave/cold_reader_route_map/input/route_policy.json",
+      "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+      "paper_modules/cold_reader_route_map.md"
+    ]
+  },
   "generated_receipts": [
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",

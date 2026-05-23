@@ -5,7 +5,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -36,6 +36,13 @@ SOURCE_REFS = [
     "microcosm-substrate/src/microcosm_core/runtime_shell.py",
     "microcosm-substrate/README.md",
     "microcosm-substrate/AGENTS.md",
+]
+PUBLIC_RUNTIME_REFS = [
+    "fixtures/first_wave/cold_reader_route_map/input/route_map.json",
+    "fixtures/first_wave/cold_reader_route_map/input/route_receipts.json",
+    "fixtures/first_wave/cold_reader_route_map/input/route_policy.json",
+    "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+    "paper_modules/cold_reader_route_map.md",
 ]
 
 INPUT_NAMES = ("route_map.json", "route_receipts.json", "route_policy.json")
@@ -148,7 +155,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -389,6 +396,7 @@ def _common_receipt(
         "input_mode": result["input_mode"],
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "source_refs": SOURCE_REFS,
+        "public_runtime_refs": result["public_runtime_refs"],
         "error_codes": result["error_codes"],
         "expected_negative_cases": result["expected_negative_cases"],
         "observed_negative_cases": result["observed_negative_cases"],
@@ -400,16 +408,18 @@ def _common_receipt(
         "first_run_sequence": result["first_run_sequence"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "receipt_paths": receipt_paths,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["real_runtime_receipt"],
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
 def _build_board(
     *,
     result: dict[str, Any],
-    private_scan: dict[str, Any],
+    secret_scan: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_version": "cold_reader_route_map_board_v1",
@@ -425,12 +435,15 @@ def _build_board(
             "covered_route_ids": result["covered_route_ids"],
         },
         "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
+        "public_runtime_refs": result["public_runtime_refs"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "finding_count": len(result["findings"]),
         "findings": result["findings"],
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["real_runtime_receipt"],
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -443,7 +456,7 @@ def _build_result(
 ) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
-    private_scan = _scan_inputs(input_dir, include_negative=include_negative, public_root=public_root)
+    secret_scan = _scan_inputs(input_dir, include_negative=include_negative, public_root=public_root)
     route_map = payloads.get("route_map", {})
     route_receipts = payloads.get("route_receipts", {})
     route_policy = payloads.get("route_policy", {})
@@ -487,7 +500,7 @@ def _build_result(
         PASS
         if not positive_findings
         and not missing
-        and not private_scan["blocking_hit_count"]
+        and not secret_scan["blocking_hit_count"]
         else "blocked"
     )
     return {
@@ -502,12 +515,13 @@ def _build_result(
         "bundle_id": bundle_manifest.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "source_refs": SOURCE_REFS,
+        "public_runtime_refs": PUBLIC_RUNTIME_REFS,
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "route_count": len(route_rows),
@@ -515,7 +529,9 @@ def _build_result(
         "receipt_ref_count": receipt_ref_count,
         "first_run_sequence": first_run_sequence,
         "covered_route_ids": covered_route_ids,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -534,7 +550,7 @@ def _write_receipts(
     if acceptance_out is not None:
         paths["acceptance"] = acceptance_out
     relative_paths = _relative_receipt_paths(paths, public_root)
-    board = _build_board(result=result, private_scan=result["private_state_scan"])
+    board = _build_board(result=result, secret_scan=result["secret_exclusion_scan"])
     result_receipt = _common_receipt(
         result,
         schema_version="cold_reader_route_map_result_receipt_v1",
