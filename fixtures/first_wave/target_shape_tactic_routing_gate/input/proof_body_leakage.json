@@ -6,7 +6,7 @@
       "route_case_id": "bad_route_with_body",
       "target_shape": "closed_nat_mod_decision",
       "allowed_tactic_ids": ["decide"],
-      "proof_body": "synthetic forbidden proof material"
+      "proof_body": "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO"
     }
   ]
 }

@@ -7,7 +7,7 @@
       "target_shape": "int_linear_arithmetic",
       "allowed_tactic_ids": ["omega"],
       "route_stage": "post_execution",
-      "lean_receipt_ref": "private/oracle/receipt.json"
+      "lean_receipt_ref": "receipts/regression/post_execution_route_forbidden.json"
     }
   ]
 }

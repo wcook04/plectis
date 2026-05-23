@@ -3,16 +3,17 @@
 `target_shape_tactic_routing_gate` is the public Microcosm organ for the
 pre-execution tactic admissibility layer.
 
-It turns a small public tactic portfolio plus synthetic target-shape cases into
-route decisions: which tactics are admitted, which are rejected as unavailable,
-which are rejected as unprobed, and which are rejected because they do not match
-the declared goal shape.
+It turns the real Ring2 problem-domain, failure-class, and graph-update candidate
+refs into route decisions: which tactics are admitted, which are rejected as
+unavailable, which are rejected as unprobed, and which are rejected because they
+do not match the declared goal shape.
 
 ## Authority Boundary
 
 This organ does not run Lean or Lake and does not prove a target. It validates
-only metadata that must exist before a proof attempt: tactic probe availability,
-target-shape route cases, selected tactic ids, and negative-case receipts.
+only non-secret Ring2 route refs that must exist before a proof attempt: tactic
+probe availability, target-shape route cases, selected tactic ids, failure-class
+refs, graph-update candidate refs, and negative-case receipts.
 
 Forbidden outputs include proof bodies, provider bodies, post-execution route
 selection, Lean receipt claims, provider calls, release claims, and
@@ -36,7 +37,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli target-shape-tactic-routing-gate ru
 ## Why It Matters
 
 After corpus readiness and strategy scoring, Microcosm needs a visible gate that
-prevents wasted or misleading proof attempts. This organ makes the next step
-legible to a cold reader: a tactic is not tried just because it exists; it is
-admitted only when the target shape and the public availability probe both allow
-it.
+prevents wasted or misleading proof attempts. This organ now shows that gate over
+the same Ring2 run already feeding verifier repair, evidence anchoring, and
+proof diagnostics: a tactic is not tried just because it exists; it is admitted
+only when the target shape and the public availability probe both allow it.

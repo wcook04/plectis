@@ -3,10 +3,17 @@
   "bundle_id": "target_shape_tactic_routing_runtime_example",
   "organ_id": "target_shape_tactic_routing_gate",
   "input_mode": "exported_target_shape_tactic_routing_bundle",
+  "body_material_status": "real_ring2_target_shape_routing_refs",
+  "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+  ],
   "files": [
     "tactic_portfolio_availability.json",
     "target_shape_routes.json"
   ],
-  "authority_ceiling": "target_shape_admissibility_metadata_not_proof_authority",
+  "authority_ceiling": "target_shape_ring2_route_refs_not_proof_authority",
   "release_authorized": false
 }

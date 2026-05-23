@@ -1,12 +1,26 @@
 {
   "schema_version": "target_shape_tactic_routing_tactic_portfolio_fixture_v1",
-  "portfolio_id": "synthetic_core_tactics_v1",
-  "tactics": [
-    {"tactic_id": "decide", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
-    {"tactic_id": "omega", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
-    {"tactic_id": "simp_all", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
-    {"tactic_id": "rfl", "availability_status": "available", "environment": "lean_std_synthetic", "requires_mathlib": false},
-    {"tactic_id": "aesop", "availability_status": "unavailable", "environment": "mathlib_absent_synthetic", "requires_mathlib": true}
+  "portfolio_id": "ring2_lean_std_core_tactics_v1",
+  "body_material_status": "real_ring2_target_shape_routing_refs",
+  "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
-  "anti_claim": "This portfolio is a synthetic public probe fixture, not proof authority and not a complete Lean tactic inventory."
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
+  },
+  "tactics": [
+    {"tactic_id": "decide", "availability_status": "available", "environment": "lean_std_ring2_macro_run_v0", "requires_mathlib": false},
+    {"tactic_id": "omega", "availability_status": "available", "environment": "lean_std_ring2_macro_run_v0", "requires_mathlib": false},
+    {"tactic_id": "simp_all", "availability_status": "available", "environment": "lean_std_ring2_macro_run_v0", "requires_mathlib": false},
+    {"tactic_id": "rfl", "availability_status": "available", "environment": "lean_std_ring2_macro_run_v0", "requires_mathlib": false},
+    {"tactic_id": "aesop", "availability_status": "unavailable", "environment": "mathlib_absent_ring2_run_v0", "requires_mathlib": true}
+  ],
+  "anti_claim": "This portfolio is a Ring2 run-backed public route portfolio, not proof authority and not a complete Lean tactic inventory."
 }

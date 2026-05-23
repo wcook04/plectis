@@ -1,46 +1,114 @@
 {
   "schema_version": "target_shape_tactic_routing_fixture_v1",
+  "body_material_status": "real_ring2_target_shape_routing_refs",
+  "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+  ],
+  "receipt_anchor_refs": [
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+  ],
   "route_cases": [
     {
-      "route_case_id": "closed_nat_mod_decision",
-      "target_shape": "closed_nat_mod_decision",
+      "route_case_id": "ring2_nat_succ_injective_route",
+      "source_problem_id": "ring2_nat_succ_injective",
+      "source_problem_ids": ["ring2_nat_succ_injective"],
+      "split": "train",
+      "domain": "nat",
+      "baseline_error_class": "NONE",
+      "target_shape": "nat_injective_goal",
+      "candidate_tactic_ids": ["omega", "simp_all", "aesop"],
+      "allowed_tactic_ids": ["omega"],
+      "selected_tactic_id": "omega",
+      "expected_tactic_id": "omega",
+      "route_stage": "pre_execution",
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      ],
+      "reason": "The real Ring2 nat injectivity problem routes to the Lean/Std arithmetic tactic before proof execution."
+    },
+    {
+      "route_case_id": "ring2_bool_not_not_route",
+      "source_problem_id": "ring2_bool_not_not",
+      "source_problem_ids": ["ring2_bool_not_not"],
+      "split": "train",
+      "domain": "bool",
+      "baseline_error_class": "NONE",
+      "target_shape": "bool_decision_goal",
       "candidate_tactic_ids": ["decide", "simp_all", "aesop"],
       "allowed_tactic_ids": ["decide"],
       "selected_tactic_id": "decide",
       "expected_tactic_id": "decide",
       "route_stage": "pre_execution",
-      "reason": "Closed arithmetic decision routes to the smallest probed decision tactic."
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      ],
+      "reason": "The real Ring2 boolean problem routes to a probed decision tactic without Mathlib."
     },
     {
-      "route_case_id": "int_linear_arithmetic",
-      "target_shape": "int_linear_arithmetic",
-      "candidate_tactic_ids": ["omega", "decide", "aesop"],
-      "allowed_tactic_ids": ["omega"],
-      "selected_tactic_id": "omega",
-      "expected_tactic_id": "omega",
+      "route_case_id": "ring2_iff_intro_route",
+      "source_problem_id": "ring2_iff_intro",
+      "source_problem_ids": ["ring2_iff_intro"],
+      "split": "dev",
+      "domain": "propositional",
+      "baseline_error_class": "NONE",
+      "target_shape": "propositional_intro_goal",
+      "candidate_tactic_ids": ["rfl", "simp_all", "aesop"],
+      "allowed_tactic_ids": ["rfl"],
+      "selected_tactic_id": "rfl",
+      "expected_tactic_id": "rfl",
       "route_stage": "pre_execution",
-      "reason": "Linear arithmetic is gated to the probed arithmetic tactic."
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      ],
+      "reason": "The real Ring2 propositional problem routes to a minimal probed tactic before proof execution."
     },
     {
-      "route_case_id": "conjunction_goal",
-      "target_shape": "conjunction",
+      "route_case_id": "ring2_list_length_append_symmetry_hit_fail_route",
+      "source_problem_id": "ring2_list_length_append_symmetry_hit_fail",
+      "source_problem_ids": ["ring2_list_length_append_symmetry_hit_fail"],
+      "split": "test",
+      "domain": "list",
+      "baseline_error_class": "TACTIC_SEARCH_FAIL",
+      "graph_candidate_id": "mathlib_ring1_problem_set_v0",
+      "target_shape": "list_length_rewrite_goal",
       "candidate_tactic_ids": ["simp_all", "omega", "aesop"],
       "allowed_tactic_ids": ["simp_all"],
       "selected_tactic_id": "simp_all",
       "expected_tactic_id": "simp_all",
       "route_stage": "pre_execution",
-      "reason": "Conjunction cleanup can use probed simplification only."
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "reason": "The real Ring2 tactic-search failure remains pre-execution routed to simplification and carries the graph-update candidate that explains the failure class."
     },
     {
-      "route_case_id": "true_intro",
-      "target_shape": "true_intro",
-      "candidate_tactic_ids": ["rfl", "decide", "aesop"],
-      "allowed_tactic_ids": ["rfl"],
-      "selected_tactic_id": "rfl",
-      "expected_tactic_id": "rfl",
+      "route_case_id": "ring2_list_map_map_index_miss_route",
+      "source_problem_id": "ring2_list_map_map_index_miss",
+      "source_problem_ids": ["ring2_list_map_map_index_miss"],
+      "split": "test",
+      "domain": "list",
+      "baseline_error_class": "PREMISE_RETRIEVAL_MISS",
+      "graph_candidate_id": "retrieval_query_recipe_update",
+      "target_shape": "list_map_index_rewrite_goal",
+      "candidate_tactic_ids": ["simp_all", "omega", "aesop"],
+      "allowed_tactic_ids": ["simp_all"],
+      "selected_tactic_id": "simp_all",
+      "expected_tactic_id": "simp_all",
       "route_stage": "pre_execution",
-      "reason": "Tiny truth introduction remains in the synthetic core lane."
+      "source_digest_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "reason": "The real Ring2 premise-retrieval miss keeps the routing gate honest by linking a list-rewrite target shape to the retrieval-query update candidate."
     }
   ],
-  "anti_claim": "Routing constrains synthetic tactic selection before execution; it is not a proof of success."
+  "anti_claim": "Routing constrains real Ring2 tactic selection before execution; it is not a proof of success, a Lean run, or a release signal."
 }

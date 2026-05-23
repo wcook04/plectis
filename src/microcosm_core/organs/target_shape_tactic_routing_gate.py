@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -31,9 +31,32 @@ BUNDLE_RESULT_NAME = "exported_target_shape_tactic_routing_bundle_validation_res
 
 SOURCE_PATTERN_IDS = ["target_shape_tactic_routing_gate"]
 SOURCE_REFS = [
-    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_manifest.json",
-    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_value_table.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/run_summary.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+    "formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+    "formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/"
+    "proof_evidence_validation_receipt.json",
 ]
+REAL_SUBSTRATE_REFS = SOURCE_REFS[:4]
+RECEIPT_ANCHOR_REFS = SOURCE_REFS[4:]
+SOURCE_DIGESTS = {
+    REAL_SUBSTRATE_REFS[0]: "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    REAL_SUBSTRATE_REFS[1]: "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+}
+BODY_MATERIAL_STATUS = "real_ring2_target_shape_routing_refs"
+ROUTING_EVIDENCE_STATUS = "real_ring2_problem_domain_failure_class_route_refs"
+BODY_IN_RECEIPT = False
 
 FORBIDDEN_BODY_KEYS = (
     "proof_body",
@@ -44,7 +67,7 @@ FORBIDDEN_BODY_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "target_shape_admissibility_metadata_not_proof_authority",
+    "authority_ceiling": "target_shape_ring2_route_refs_not_proof_authority",
     "lean_lake_execution_authorized": False,
     "mathlib_dependent_proof_authority": False,
     "formal_proof_authority": False,
@@ -54,10 +77,11 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Target-shape tactic routing validates public pre-execution admissibility "
-    "metadata only. It rejects unavailable, unprobed, or shape-inadmissible "
-    "tactics before any Lean call; it does not run Lean/Lake, prove the goal, "
-    "emit proof bodies, call providers, or authorize release."
+    "Target-shape tactic routing validates real Ring2 problem-domain, "
+    "failure-class, and graph-update route references before proof execution. "
+    "It rejects unavailable, unprobed, or shape-inadmissible tactics before any "
+    "Lean call; it does not run Lean/Lake, prove the goal, emit proof bodies, "
+    "call providers, or authorize release."
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -177,7 +201,8 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_material_status": "negative_fixture_forbidden_material_excluded",
     }
 
 
@@ -292,6 +317,20 @@ def _score_case(
     return {
         "route_case_id": route_case_id,
         "target_shape": str(row.get("target_shape") or ""),
+        "source_problem_id": row.get("source_problem_id"),
+        "source_problem_ids": _strings(row.get("source_problem_ids")),
+        "split": row.get("split"),
+        "domain": row.get("domain"),
+        "baseline_error_class": row.get("baseline_error_class"),
+        "graph_candidate_id": row.get("graph_candidate_id"),
+        "source_refs": _strings(row.get("source_refs")) or REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": _strings(row.get("receipt_anchor_refs"))
+        or RECEIPT_ANCHOR_REFS,
+        "source_digests": {
+            key: SOURCE_DIGESTS[key]
+            for key in _strings(row.get("source_digest_refs")) or REAL_SUBSTRATE_REFS
+            if key in SOURCE_DIGESTS
+        },
         "allowed_tactic_ids": sorted(allowed),
         "candidate_tactic_ids": sorted(candidates),
         "selected_tactic_id": selected,
@@ -303,7 +342,9 @@ def _score_case(
         "integrity_codes": sorted(integrity_codes),
         "pre_execution": not integrity_codes
         or "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN" not in integrity_codes,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
     }
 
 
@@ -467,7 +508,7 @@ def _negative_findings(
     }
 
 
-def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
+def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "target_shape_tactic_routing_board_v1",
         "status": result["status"],
@@ -482,7 +523,8 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "unprobed_tactics_rejected": True,
             "proof_bodies_excluded": True,
             "lean_lake_not_run": True,
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_material_status": BODY_MATERIAL_STATUS,
         },
         "routing_projection": {
             "tactic_count": result["tactic_count"],
@@ -492,12 +534,18 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "target_shapes": result["target_shapes"],
             "selected_tactic_ids": result["selected_tactic_ids"],
             "shape_decisions": result["scored_route_cases"],
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
         },
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
+        "real_substrate_refs": REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+        "source_digests": SOURCE_DIGESTS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
     }
 
 
@@ -522,7 +570,13 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "body_material_status",
+        "routing_evidence_status",
+        "body_in_receipt",
+        "real_substrate_refs",
+        "receipt_anchor_refs",
+        "source_digests",
         "authority_ceiling",
         "anti_claim",
         "tactic_count",
@@ -532,7 +586,6 @@ def _common_receipt(
         "target_shapes",
         "selected_tactic_ids",
         "all_expectations_met",
-        "body_redacted",
     )
     payload = {
         "schema_version": schema_version,
@@ -562,13 +615,12 @@ def _build_result(
         name: payloads[name] for name in NEGATIVE_INPUT_NAMES_STEMS if name in payloads
     }
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
 
     portfolio = _portfolio(payloads["tactic_portfolio_availability"])
     known = set(portfolio["known_tactic_ids"])
@@ -600,7 +652,7 @@ def _build_result(
         if not missing
         and not route_findings
         and all_expectations_met
-        and not private_scan["blocking_hit_count"]
+        and not secret_scan["blocking_hit_count"]
         else "blocked"
     )
     bundle_manifest = (
@@ -627,7 +679,13 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "real_substrate_refs": REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+        "source_digests": SOURCE_DIGESTS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "tactic_count": portfolio["tactic_count"],
@@ -644,9 +702,8 @@ def _build_result(
             key=lambda item: item["route_case_id"],
         ),
         "all_expectations_met": all_expectations_met,
-        "body_redacted": True,
     }
-    result["routing_board"] = _build_board(result=result, private_scan=private_scan)
+    result["routing_board"] = _build_board(result=result, secret_scan=secret_scan)
     return result
 
 
@@ -723,7 +780,7 @@ def write_receipts(
             if result["status"] == PASS
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
-            "projection_status": "public_replacement_landed"
+            "projection_status": "real_ring2_target_shape_routing_landed"
             if result["status"] == PASS
             else "blocked",
             "authority_boundary_retained": True,

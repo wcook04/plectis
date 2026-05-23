@@ -2,10 +2,29 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "fixture_id": "fixture::target_shape_tactic_routing_gate::first_wave_contract_v1",
   "organ_id": "target_shape_tactic_routing_gate",
-  "purpose": "Validate source-available target-shape tactic admissibility metadata without running Lean/Lake, calling providers, or exposing proof bodies.",
+  "purpose": "Validate real Ring2 target-shape tactic admissibility refs without running Lean/Lake, calling providers, or exposing proof bodies.",
+  "body_material_status": "real_ring2_target_shape_routing_refs",
+  "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
+  "real_substrate_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+  ],
+  "receipt_anchor_refs": [
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
+  },
   "inputs": [
-    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/tactic_portfolio_availability.json", "role": "synthetic public tactic probe portfolio"},
-    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json", "role": "synthetic target-shape route cases"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/tactic_portfolio_availability.json", "role": "real Ring2 Lean/Std tactic route portfolio"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json", "role": "real Ring2 problem-domain and failure-class route cases"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unavailable_tactic_admitted.json", "role": "negative case: unavailable tactic admitted"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unprobed_tactic_allowed.json", "role": "negative case: unprobed tactic admitted"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/proof_body_leakage.json", "role": "negative case: proof body leakage"},
@@ -33,5 +52,5 @@
     "provider_calls_authorized": false,
     "release_authorized": false
   },
-  "anti_claim": "Target-shape tactic routing fixtures validate pre-execution admissibility metadata only; they do not prove goals, execute Lean/Lake, call providers, expose proof bodies, or authorize release."
+  "anti_claim": "Target-shape tactic routing fixtures validate pre-execution Ring2 route refs only; they do not prove goals, execute Lean/Lake, call providers, expose proof bodies, or authorize release."
 }

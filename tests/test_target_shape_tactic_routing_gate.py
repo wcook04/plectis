@@ -51,15 +51,23 @@ def test_target_shape_tactic_routing_gate_observes_negative_cases(
     assert result["source_pattern_ids"] == SOURCE_PATTERN_IDS
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["route_case_count"] == 4
+    assert result["route_case_count"] == 5
     assert result["target_shapes"] == [
-        "closed_nat_mod_decision",
-        "conjunction",
-        "int_linear_arithmetic",
-        "true_intro",
+        "bool_decision_goal",
+        "list_length_rewrite_goal",
+        "list_map_index_rewrite_goal",
+        "nat_injective_goal",
+        "propositional_intro_goal",
     ]
     assert result["selected_tactic_ids"] == ["decide", "omega", "rfl", "simp_all"]
     assert result["all_expectations_met"] is True
+    assert result["body_material_status"] == "real_ring2_target_shape_routing_refs"
+    assert (
+        result["routing_evidence_status"]
+        == "real_ring2_problem_domain_failure_class_route_refs"
+    )
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["routing_board"]["public_contract"]["routing_pre_execution"] is True
     assert result["authority_ceiling"]["lean_lake_execution_authorized"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -82,13 +90,18 @@ def test_target_shape_tactic_routing_gate_accepts_exported_bundle(
     assert result["observed_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["route_case_count"] == 4
+    assert result["route_case_count"] == 5
+    assert result["body_material_status"] == "real_ring2_target_shape_routing_refs"
+    assert (
+        result["routing_evidence_status"]
+        == "real_ring2_problem_domain_failure_class_route_refs"
+    )
     assert result["receipt_paths"] == [
         "receipts/exported_target_shape_tactic_routing_bundle_validation_result.json"
     ]
 
 
-def test_target_shape_tactic_routing_receipts_are_redacted_and_public_relative(
+def test_target_shape_tactic_routing_receipts_use_real_substrate_contract(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -113,10 +126,18 @@ def test_target_shape_tactic_routing_receipts_are_redacted_and_public_relative(
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
-        assert "synthetic forbidden proof material" not in text
+        assert "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO" not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
+        assert payload["body_material_status"] == "real_ring2_target_shape_routing_refs"
+        assert (
+            payload["routing_evidence_status"]
+            == "real_ring2_problem_domain_failure_class_route_refs"
+        )
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in payload
         assert payload["authority_ceiling"]["lean_lake_execution_authorized"] is False
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
