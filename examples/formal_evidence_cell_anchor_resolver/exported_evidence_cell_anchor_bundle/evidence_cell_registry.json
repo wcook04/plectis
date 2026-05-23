@@ -1,6 +1,6 @@
 {
   "schema_version": "formal_evidence_cell_registry_fixture_v1",
-  "registry_id": "toy_formal_evidence_cells_runtime_registry",
+  "registry_id": "runtime_formal_evidence_cells_public_registry",
   "evidence_cells": [
     {
       "cell_id": "cell.lean_decl_count.public_fixture",

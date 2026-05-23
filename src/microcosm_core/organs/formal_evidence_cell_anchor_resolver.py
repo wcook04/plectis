@@ -5,7 +5,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -71,7 +71,7 @@ PRIVATE_SOURCE_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "public_evidence_cell_anchor_metadata_only",
+    "authority_ceiling": "formal_evidence_cell_anchor_real_runtime_receipt_not_theorem_authority",
     "formal_proof_authority": False,
     "theorem_correctness_authority": False,
     "lean_lake_execution_authorized": False,
@@ -82,11 +82,12 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Formal evidence cell anchor resolver validates public claim-to-cell "
-    "metadata, source-anchor refs, claim-strength boundaries, and negative-case "
-    "leakage controls. It does not prove theorem correctness, run Lean or Lake, "
-    "call providers, expose proof bodies or private source refs, treat human "
-    "approval as proof authority, or authorize release."
+    "Formal evidence cell anchor resolver emits real runtime receipts over "
+    "claim-to-cell resolution, source-anchor refs, claim-strength boundaries, "
+    "and negative-case leakage controls. It does not prove theorem correctness, "
+    "run Lean or Lake, call providers, expose non-receipt proof bodies or "
+    "credential-equivalent private source refs, treat human approval as proof "
+    "authority, or authorize release."
 )
 
 
@@ -148,7 +149,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -214,27 +215,27 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
-    omitted = _rows(protocol, "omitted_material")
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    excluded = _rows(protocol, "secret_exclusion_material")
     findings: list[dict[str, Any]] = []
-    if len(source_refs) < 3 or len(source_pattern_ids) < 2 or len(public_replacements) < 3:
+    if len(source_refs) < 3 or len(source_pattern_ids) < 2 or len(public_runtime_refs) < 3:
         findings.append(
             _finding(
                 "EVIDENCE_CELL_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Evidence-cell projection must cite source refs, pattern ids, and public replacements.",
+                "Evidence-cell projection must cite source refs, pattern ids, and public runtime refs.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )
         )
-    for row in omitted:
-        if not row.get("omission_receipt_ref"):
+    for row in excluded:
+        if not row.get("exclusion_receipt_ref"):
             findings.append(
                 _finding(
-                    "EVIDENCE_CELL_OMISSION_RECEIPT_MISSING",
-                    "Omitted proof/private-source material must carry an omission receipt.",
+                    "EVIDENCE_CELL_SECRET_EXCLUSION_RECEIPT_MISSING",
+                    "Secret or credential-equivalent material must carry an exclusion receipt.",
                     case_id="projection_protocol_floor",
-                    subject_id=str(row.get("material_id") or "omitted_material"),
+                    subject_id=str(row.get("material_id") or "secret_exclusion_material"),
                     subject_kind="projection_protocol",
                 )
             )
@@ -243,15 +244,15 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         if source_refs
         and source_pattern_ids
         and projection_receipts
-        and public_replacements
+        and public_runtime_refs
         and not findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
-        "omitted_material_count": len(omitted),
+        "public_runtime_refs": public_runtime_refs,
+        "secret_exclusion_material_count": len(excluded),
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -293,7 +294,7 @@ def validate_cell_registry(payload: object) -> dict[str, Any]:
                 "machine_anchor_class": machine_anchor_class,
                 "allowed_claim_strengths": allowed,
                 "public_status": row.get("public_status"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -331,7 +332,7 @@ def validate_claim_boundary_policy(payload: object) -> dict[str, Any]:
                 "strength_id": row.get("strength_id"),
                 "requires_evidence_cell": row.get("requires_evidence_cell") is True,
                 "claim_authority": row.get("claim_authority"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
             for row in levels
         ],
@@ -466,7 +467,7 @@ def _inspect_claim_row(
         "uses_proof_language": uses_proof_language,
         "machine_anchor_class": cell.get("machine_anchor_class") if cell else None,
         "source_anchor_refs": _strings(cell.get("source_anchor_refs")) if cell else [],
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -536,13 +537,11 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     cells = validate_cell_registry(payloads["evidence_cell_registry"])
@@ -568,7 +567,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
         and cells["status"] == PASS
         and boundary["status"] == PASS
@@ -590,14 +589,17 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "public_runtime_refs": projection["public_runtime_refs"],
         "evidence_cell_count": cells["evidence_cell_count"],
         "source_anchor_count": cells["source_anchor_count"],
         "machine_anchor_count": cells["machine_anchor_count"],
@@ -646,8 +648,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         ],
         "formal_proof_authority": False,
         "theorem_correctness_authority": False,
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["status"] == PASS,
+        "synthetic_receipt_standin_allowed": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -701,7 +705,10 @@ def _write_receipts(
         "machine_anchor_count": result["machine_anchor_count"],
         "formal_proof_authority": False,
         "theorem_correctness_authority": False,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["status"] == PASS,
+        "synthetic_receipt_standin_allowed": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -716,7 +723,10 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["status"] == PASS,
+        "synthetic_receipt_standin_allowed": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

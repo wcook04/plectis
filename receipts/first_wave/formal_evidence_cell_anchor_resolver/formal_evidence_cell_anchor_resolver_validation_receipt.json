@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Formal evidence cell anchor resolver validates public claim-to-cell metadata, source-anchor refs, claim-strength boundaries, and negative-case leakage controls. It does not prove theorem correctness, run Lean or Lake, call providers, expose proof bodies or private source refs, treat human approval as proof authority, or authorize release.",
+  "anti_claim": "Formal evidence cell anchor resolver emits real runtime receipts over claim-to-cell resolution, source-anchor refs, claim-strength boundaries, and negative-case leakage controls. It does not prove theorem correctness, run Lean or Lake, call providers, expose non-receipt proof bodies or credential-equivalent private source refs, treat human approval as proof authority, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "public_evidence_cell_anchor_metadata_only",
+    "authority_ceiling": "formal_evidence_cell_anchor_real_runtime_receipt_not_theorem_authority",
     "formal_proof_authority": false,
     "human_approval_as_proof_authority": false,
     "lean_lake_execution_authorized": false,
@@ -12,8 +12,9 @@
     "status": "pass",
     "theorem_correctness_authority": false
   },
+  "body_in_receipt": false,
   "claim_count": 3,
-  "created_at": "2026-05-22T01:16:19+00:00",
+  "created_at": "2026-05-23T05:17:16+00:00",
   "fixture_id": "first_wave.formal_evidence_cell_anchor_resolver",
   "formal_proof_authority": false,
   "machine_anchor_count": 3,
@@ -53,15 +54,7 @@
     }
   },
   "organ_id": "formal_evidence_cell_anchor_resolver",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 11,
-    "status": "pass"
-  },
+  "real_runtime_receipt": true,
   "receipt_paths": [
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
@@ -70,8 +63,25 @@
   ],
   "resolved_cell_count": 3,
   "schema_version": "formal_evidence_cell_anchor_resolver_validation_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 11,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_anchor_count": 6,
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "theorem_correctness_authority": false,
   "validator_id": "validator.microcosm.organs.formal_evidence_cell_anchor_resolver"
 }

@@ -35,7 +35,7 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
     "paper_claims",
     "evidence_cells",
     "claim_boundary_policy",
@@ -43,7 +43,7 @@
     "anti_claim"
   ],
   "validation_rules": [
-    "require macro projection protocol refs and public replacement refs",
+    "require macro projection protocol refs and public runtime refs",
     "resolve public paper claims to evidence cell ids",
     "require source-anchor refs on proof-language evidence cells",
     "require machine-anchor class metadata before proof language",
@@ -52,11 +52,11 @@
     "reject proof bodies and private source refs",
     "reject human approval as proof authority",
     "reject theorem-correctness claims from metadata cells",
-    "emit private-state scan and redacted receipts"
+    "emit secret-exclusion scan and real runtime receipt contract"
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_evidence_cell_anchor_resolver",
-    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, claim counts, resolved cell counts, source-anchor counts, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, claim counts, resolved cell counts, source-anchor counts, negative-case coverage, secret-exclusion scan, body-in-receipt policy, real-runtime receipt status, synthetic standin refusal, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -81,19 +81,22 @@
       "source_pattern_ids",
       "source_refs",
       "projection_receipt_refs",
-      "public_replacement_refs",
+      "public_runtime_refs",
       "claim_count",
       "resolved_cell_count",
       "source_anchor_count",
       "machine_anchor_count",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_cell_metadata_fixture_receipt_only",
+    "default_posture": "source_open_real_runtime_receipt_with_secret_exclusion",
     "allowed_public_inputs": [
       "claim ids",
       "paper module slugs",
@@ -123,7 +126,7 @@
     "human_approval_as_proof_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs public evidence-cell anchor metadata only; it does not prove theorem correctness, authorize Lean/Lake execution, expose proof bodies or private source refs, treat human approval as proof authority, or authorize release/publication work.",
+  "anti_claim": "This standard governs real runtime evidence-cell anchor receipts; it does not prove theorem correctness, authorize Lean/Lake execution, expose non-receipt proof bodies or credential-equivalent private source refs, treat human approval as proof authority, or authorize release/publication work.",
   "standard_payload": {
     "ontology": "A public-safe evidence-cell anchor resolver: paper claims, evidence cells, source anchors, machine-anchor classes, claim-strength boundaries, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm demonstrate proof-evidence legibility while preserving the boundary between evidence metadata and theorem correctness.",
@@ -157,15 +160,15 @@
     "required": true,
     "module_slug": "formal_evidence_cell_anchor_resolver"
   },
-  "omission_receipt": {
-    "omitted": [
+  "secret_exclusion_receipt": {
+    "excluded": [
       "proof bodies",
       "private source refs",
       "oracle source refs",
       "provider payload bodies",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public slice carries evidence-cell metadata and synthetic fixture evidence only",
+    "reason": "this organ carries real evidence-cell anchor receipts; excluded material is limited to non-receipt proof bodies, credential-equivalent private refs, provider payloads, and execution receipts owned by other organs",
     "drilldown": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json"
   },
   "anti_claim_contract": {
@@ -174,6 +177,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs and public runtime refs stay public-root relative; synthetic standins are not acceptable positive evidence"
   }
 }

@@ -14,16 +14,17 @@
     "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
     "receipts/runtime_shell/public_proof_loop_depth_lens.json"
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
     "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/paper_claims.json",
     "paper_modules/formal_evidence_cell_anchor_resolver.md"
   ],
-  "omitted_material": [
+  "secret_exclusion_material": [
     {
       "material_id": "proof_bodies",
-      "omission_receipt_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
-      "replacement": "public cell ids and machine-anchor metadata"
+      "exclusion_receipt_ref": "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+      "exclusion_class": "non_receipt_body_payload",
+      "replacement": "public cell ids, source anchors, and machine-anchor refs carried by the runtime receipt"
     }
   ]
 }

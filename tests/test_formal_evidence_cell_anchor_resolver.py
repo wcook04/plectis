@@ -63,7 +63,7 @@ def test_formal_evidence_cell_anchor_resolver_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_formal_evidence_cell_anchor_receipts_are_public_relative_and_redacted(
+def test_formal_evidence_cell_anchor_receipts_are_public_relative_with_secret_exclusion(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -97,8 +97,13 @@ def test_formal_evidence_cell_anchor_receipts_are_public_relative_and_redacted(
         assert '"body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert payload["body_in_receipt"] is False
+        assert payload["real_runtime_receipt"] is True
+        assert payload["synthetic_receipt_standin_allowed"] is False
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in _walk_keys(payload)
         assert "proof_body" not in _walk_keys(payload)
         assert "private_source_ref" not in _walk_keys(payload)
         assert "matched_excerpt" not in _walk_keys(payload)

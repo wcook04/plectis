@@ -9,5 +9,5 @@
     "evidence_cell_registry.json",
     "claim_boundary_policy.json"
   ],
-  "anti_claim": "This exported bundle validates public evidence-cell anchor metadata only; it does not prove theorem correctness or expose proof bodies."
+  "anti_claim": "This exported bundle emits a real runtime receipt over evidence-cell anchor inputs; it does not prove theorem correctness, inline non-receipt proof bodies, or authorize release."
 }

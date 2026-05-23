@@ -10,9 +10,9 @@
       "uses_proof_language": true
     },
     {
-      "claim_id": "claim.verifier_trace_is_redacted_metadata",
+      "claim_id": "claim.verifier_trace_has_runtime_receipt_anchor",
       "paper_module_slug": "formal_evidence_cell_anchor_resolver",
-      "evidence_cell_id": "cell.verifier_trace.redacted",
+      "evidence_cell_id": "cell.verifier_trace.runtime_receipt",
       "claim_strength": "repair_trace_metadata_present",
       "uses_proof_language": false
     },
