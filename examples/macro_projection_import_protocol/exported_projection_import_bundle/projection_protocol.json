@@ -24,11 +24,38 @@
     {
       "material_id": "ledger_row_metadata_projection",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
-      "material_class": "pattern_metadata",
-      "body_copied": false,
-      "public_safe_mode": "metadata_reference_not_body",
-      "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
+      "material_class": "public_macro_pattern_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_pattern_ledger_jsonl_into_public_bundle",
+        "bind_pattern_ledger_copy_to_projection_protocol_self_host_cell",
+        "preserve_secret_exclusion_boundary_without_using_metadata_reference_as_body_evidence"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy"
+      ],
+      "claim_ceiling": "public macro pattern ledger body import only; not live state authority, private-root equivalence, release, publication, or recipient work authorization",
+      "body_digest": "sha256:414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+        "target_body_digest": "sha256:414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy"
+        ]
+      },
       "body_in_receipt": false
     },
     {

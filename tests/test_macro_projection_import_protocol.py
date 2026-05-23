@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -132,7 +133,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 2
+    assert result["public_safe_body_material_count"] == 3
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -160,14 +161,22 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 3
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
-        "verified_light_edit": 2
+        "verified_light_edit": 3
     }
     by_material = {
         row["material_id"]: row
         for row in result["projection_intake_board"]["public_safe_body_imports"]
     }
+    assert by_material["ledger_row_metadata_projection"]["material_class"] == (
+        "public_macro_pattern_body"
+    )
+    assert by_material["ledger_row_metadata_projection"]["classification_status"] == "pass"
+    assert by_material["ledger_row_metadata_projection"]["body_text_in_receipt"] is False
+    assert by_material["ledger_row_metadata_projection"]["body_import_verification"][
+        "verification_mode"
+    ] == "exact_source_digest_match"
     assert by_material["lean_certificate_kernel_body_import"]["material_class"] == (
         "public_macro_proof_body"
     )
@@ -206,9 +215,11 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     )
     assert by_cell["projection_protocol_self_host"]["action_required"] is False
     assert by_cell["projection_protocol_self_host"]["copy_policy"] == (
-        "metadata_or_regression_wrapper_no_body_import"
+        "verified_macro_body_with_claim_floor"
     )
-    assert by_cell["projection_protocol_self_host"]["public_safe_body_material_ids"] == []
+    assert by_cell["projection_protocol_self_host"]["public_safe_body_material_ids"] == [
+        "ledger_row_metadata_projection"
+    ]
     assert by_cell["runtime_reveal_import_bridge"]["projection_status"] == "runtime_bridge_landed"
     assert by_cell["runtime_reveal_import_bridge"]["copy_policy"] == (
         "verified_macro_body_with_claim_floor"
@@ -368,17 +379,21 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 2
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
+    assert result["public_safe_body_material_count"] == 3
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 3
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
     assert {
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
-    } == {"lean_certificate_kernel_body_import", "work_landing_tool_body_import"}
+    } == {
+        "ledger_row_metadata_projection",
+        "lean_certificate_kernel_body_import",
+        "work_landing_tool_body_import",
+    }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 2
+    assert result["public_safe_body_digest_count"] == 3
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -502,8 +517,9 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 3
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
+        "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_tool_body": 1,
     }
@@ -527,7 +543,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 2
+    assert result["public_safe_body_material_count"] == 3
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -551,6 +567,52 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
         "CertificateKernel.lean"
         not in result["runtime_severance_board"]["runtime_dependency_refs"]
     )
+
+
+def test_pattern_ledger_body_is_imported_as_exact_copy(tmp_path: Path) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    body_import_ids = {
+        row["material_id"]
+        for row in result["projection_intake_board"]["public_safe_body_imports"]
+    }
+    assert "ledger_row_metadata_projection" in body_import_ids
+    protocol_rows = {
+        row["material_id"]: row
+        for row in json.loads(
+            (
+                public_root
+                / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+                / "projection_protocol.json"
+            ).read_text(encoding="utf-8")
+        )["copied_material"]
+    }
+    ledger_row = protocol_rows["ledger_row_metadata_projection"]
+    target = public_root / ledger_row["target_ref"]
+    digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
+    assert target.is_file()
+    assert target.read_text(encoding="utf-8").count("\n") == 373
+    assert ledger_row["body_copied"] is True
+    assert ledger_row["material_class"] == "public_macro_pattern_body"
+    assert ledger_row["public_safe_mode"] == "direct_verified_macro_body"
+    assert ledger_row["body_digest"] == digest
+    assert ledger_row["body_import_verification"]["verification_mode"] == (
+        "exact_source_digest_match"
+    )
+    assert ledger_row["body_import_verification"]["source_body_digest"] == digest
+    assert ledger_row["body_import_verification"]["target_body_digest"] == digest
+    by_cell = {
+        row["cell_id"]: row
+        for row in result["projection_intake_board"]["projection_cells"]
+    }
+    assert by_cell["projection_protocol_self_host"]["public_safe_body_material_ids"] == [
+        "ledger_row_metadata_projection"
+    ]
 
 
 def test_work_landing_tool_body_is_imported_as_light_edit(tmp_path: Path) -> None:

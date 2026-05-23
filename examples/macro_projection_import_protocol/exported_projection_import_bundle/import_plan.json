@@ -34,17 +34,21 @@
         "authority_boundary_anti_claim"
       ],
       "source_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
         "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
       ],
       "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "standards/std_microcosm_macro_projection_import_protocol.json",
         "paper_modules/macro_projection_import_protocol.md"
       ],
       "validation_refs": [
         "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
       ],
-      "public_safe_body_material_ids": [],
-      "authority_ceiling": "protocol_metadata_or_runtime_ref",
+      "public_safe_body_material_ids": [
+        "ledger_row_metadata_projection"
+      ],
+      "authority_ceiling": "verified_public_pattern_ledger_body_and_protocol_metadata",
       "body_copied": false,
       "body_in_receipt": false
     },
