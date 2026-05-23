@@ -19,6 +19,6 @@
     "publication_authorized": false,
     "provider_calls_authorized": false
   },
-  "claim_boundary": "synthetic closed-loop lab-safety replay metadata only",
+  "claim_boundary": "source-faithful public Lab/Evolve replay metadata only",
   "anti_claim": "No wetlab protocol, hazardous synthesis, reagent quantity, robot command, discovery, benchmark, or release authority is admitted."
 }

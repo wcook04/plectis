@@ -61,14 +61,14 @@ def test_fixture_freshness_passes_and_emits_acceptance_summary(tmp_path: Path) -
     assert receipt["private_state_scan"]["blocking_hit_count"] == 0
     assert summary["status"] == "pass"
     assert summary["accepted_count"] == 46
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 42
-    assert summary["truth_accounting"]["non_progress_accepted_count"] == 4
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == 43
+    assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
     assert summary["truth_accounting"]["real_import_validation_count"] == 16
-    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 4
+    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
     assert summary["truth_accounting"]["evidence_class_counts"] == {
-        "algorithmic_projection": 23,
+        "algorithmic_projection": 24,
         "external_subprocess_witness": 3,
-        "fixture_echo_smoke": 4,
+        "fixture_echo_smoke": 3,
         "semantic_validator": 16,
     }
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"

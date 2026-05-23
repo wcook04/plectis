@@ -11,6 +11,6 @@
     "bioactivity_target": false,
     "discovery_claim": false,
     "private_lab_notebook_exported": true,
-    "body_redacted": true
+    "body_in_receipt": false
   }
 }

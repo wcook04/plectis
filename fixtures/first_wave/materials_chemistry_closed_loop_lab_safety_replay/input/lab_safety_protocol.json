@@ -19,7 +19,7 @@
     ],
     "cleaned": [
       "all materials are abstract labels, not actionable formulas",
-      "all result tables are synthetic public references"
+      "all result tables are public simulator references"
     ],
     "omitted": [
       "wetlab protocols",
@@ -29,8 +29,8 @@
       "robot commands",
       "private lab notebooks"
     ],
-    "public_replacement": "synthetic simulator-only metadata bundle with falsification fixtures",
-    "authority_ceiling": "metadata-only lab-safety replay; no wetlab or discovery authority",
+    "public_refactor": "source-faithful Lab/Evolve replay graph with body-free public simulator rows and falsification cases",
+    "authority_ceiling": "source-faithful public replay metadata; no wetlab or discovery authority",
     "validation_proves": "positive rows bind candidate, safety-screen, assay, decision, and cold-replay refs while negative rows are rejected"
   },
   "authority_ceiling": {

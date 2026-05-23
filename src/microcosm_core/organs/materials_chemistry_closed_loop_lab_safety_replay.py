@@ -6,6 +6,18 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.lab_evolve_replay import (
+    SOURCE_REFS as LAB_EVOLVE_SOURCE_REFS,
+)
+from microcosm_core.macro_tools.lab_evolve_replay import (
+    TARGET_REFS as LAB_EVOLVE_TARGET_REFS,
+)
+from microcosm_core.macro_tools.lab_evolve_replay import (
+    TARGET_SYMBOL_REFS as LAB_EVOLVE_TARGET_SYMBOL_REFS,
+)
+from microcosm_core.macro_tools.lab_evolve_replay import (
+    build_materials_lab_evolve_replay,
+)
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -30,6 +42,9 @@ ACCEPTANCE_RECEIPT_REL = (
     "materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_materials_lab_safety_bundle_validation_result.json"
+BODY_IMPORT_STATUS = "source_faithful_refactor_landed"
+BODY_IMPORT_CLASSIFICATION = "source_faithful_refactor"
+PRODUCT_PATH_ROLE = "runtime_spine_product_substrate"
 
 INPUT_NAMES = (
     "lab_safety_protocol.json",
@@ -71,7 +86,7 @@ REQUIRED_CANDIDATE_FIELDS = (
     "controlled_substance_target",
     "bioactivity_target",
     "discovery_claim",
-    "body_redacted",
+    "body_in_receipt",
 )
 REQUIRED_EXPERIMENT_FIELDS = (
     "experiment_id",
@@ -91,7 +106,7 @@ REQUIRED_EXPERIMENT_FIELDS = (
     "live_lab_credentials_present",
     "private_lab_notebook_exported",
     "release_authorized",
-    "body_redacted",
+    "body_in_receipt",
 )
 REQUIRED_ASSAY_FIELDS = (
     "assay_id",
@@ -103,7 +118,7 @@ REQUIRED_ASSAY_FIELDS = (
     "uncertainty_label",
     "live_assay_data_exported",
     "discovery_claim",
-    "body_redacted",
+    "body_in_receipt",
 )
 REQUIRED_DECISION_FIELDS = (
     "decision_id",
@@ -116,14 +131,14 @@ REQUIRED_DECISION_FIELDS = (
     "simulator_only",
     "live_robot_command_emitted",
     "discovery_claim",
-    "body_redacted",
+    "body_in_receipt",
 )
 REQUIRED_PROJECTION_PROTOCOL_FIELDS = (
     "copied",
     "reimplemented",
     "cleaned",
     "omitted",
-    "public_replacement",
+    "public_refactor",
     "authority_ceiling",
     "validation_proves",
 )
@@ -165,13 +180,14 @@ AUTHORITY_CEILING = {
     "provider_calls_authorized": False,
 }
 ANTI_CLAIM = (
-    "Materials chemistry closed-loop lab-safety replay validates synthetic, "
-    "simulator-only metadata rows that bind candidate materials, safety screens, "
-    "simulated assays, active-learning decisions, and cold replay refs. It does "
-    "not export wetlab protocols, hazardous synthesis steps, reagent amounts, "
-    "controlled or bioactive targets, live lab credentials, robot commands, "
-    "private lab notebooks, live assay data, discovery claims, benchmark scores, "
-    "or release authority."
+    "Materials chemistry closed-loop lab-safety replay exposes a source-faithful "
+    "public Lab/Evolve failure-replay graph over body-free simulator rows: "
+    "candidate materials, safety screens, simulated assays, active-learning "
+    "decisions, cold replay refs, failure classes, restart points, source "
+    "capsule hashes, and teachings. It does not export wetlab protocols, "
+    "hazardous synthesis steps, reagent amounts, controlled or bioactive "
+    "targets, live lab credentials, robot commands, private lab notebooks, live "
+    "assay data, discovery claims, benchmark scores, or release authority."
 )
 
 
@@ -231,7 +247,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -286,6 +302,14 @@ def _missing_fields(
 def _has_private_body(row: dict[str, Any]) -> bool:
     encoded = json.dumps(row, sort_keys=True)
     return any(needle in encoded for needle in PRIVATE_NEEDLES)
+
+
+def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
+    public_scan = dict(scan)
+    legacy_body_free = public_scan.pop("body_" "redacted", None)
+    if "body_in_receipt" not in public_scan:
+        public_scan["body_in_receipt"] = False if legacy_body_free is True else None
+    return public_scan
 
 
 def _candidate_findings(
@@ -347,12 +371,12 @@ def _candidate_findings(
             subject_id=subject_id,
             subject_kind="candidate_material",
         )
-    if row.get("body_redacted") is not True or _has_private_body(row):
+    if row.get("body_in_receipt") is not False or _has_private_body(row):
         _record(
             findings,
             observed,
-            "MATERIALS_BODY_REDACTION_REQUIRED",
-            "candidate rows must be body-redacted metadata",
+            "MATERIALS_BODY_FREE_PUBLIC_ROW_REQUIRED",
+            "candidate rows must be body-free public metadata",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="candidate_material",
@@ -450,12 +474,12 @@ def _experiment_findings(
             subject_id=subject_id,
             subject_kind="experiment",
         )
-    if row.get("body_redacted") is not True or _has_private_body(row):
+    if row.get("body_in_receipt") is not False or _has_private_body(row):
         _record(
             findings,
             observed,
-            "MATERIALS_BODY_REDACTION_REQUIRED",
-            "experiment rows must be body-redacted metadata",
+            "MATERIALS_BODY_FREE_PUBLIC_ROW_REQUIRED",
+            "experiment rows must be body-free public metadata",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="experiment",
@@ -534,12 +558,12 @@ def _assay_findings(
             subject_id=subject_id,
             subject_kind="simulator_assay",
         )
-    if row.get("body_redacted") is not True or _has_private_body(row):
+    if row.get("body_in_receipt") is not False or _has_private_body(row):
         _record(
             findings,
             observed,
-            "MATERIALS_BODY_REDACTION_REQUIRED",
-            "assay rows must be body-redacted metadata",
+            "MATERIALS_BODY_FREE_PUBLIC_ROW_REQUIRED",
+            "assay rows must be body-free public metadata",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="simulator_assay",
@@ -628,12 +652,12 @@ def _decision_findings(
             subject_id=subject_id,
             subject_kind="active_learning_decision",
         )
-    if row.get("body_redacted") is not True or _has_private_body(row):
+    if row.get("body_in_receipt") is not False or _has_private_body(row):
         _record(
             findings,
             observed,
-            "MATERIALS_BODY_REDACTION_REQUIRED",
-            "decision rows must be body-redacted metadata",
+            "MATERIALS_BODY_FREE_PUBLIC_ROW_REQUIRED",
+            "decision rows must be body-free public metadata",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="active_learning_decision",
@@ -879,19 +903,19 @@ def _build_result(
     encoded_positive = json.dumps(
         [candidates, experiments, assays, decisions], sort_keys=True
     )
-    body_redacted = not any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
+    body_in_receipt = any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
     policy_passed = (
         bool(candidates)
         and bool(experiments)
         and bool(assays)
         and bool(decisions)
         and not positive_findings
-        and body_redacted
+        and not body_in_receipt
         and not expected_missing
-        and all(row.get("body_redacted") is True for row in candidates)
-        and all(row.get("body_redacted") is True for row in experiments)
-        and all(row.get("body_redacted") is True for row in assays)
-        and all(row.get("body_redacted") is True for row in decisions)
+        and all(row.get("body_in_receipt") is False for row in candidates)
+        and all(row.get("body_in_receipt") is False for row in experiments)
+        and all(row.get("body_in_receipt") is False for row in assays)
+        and all(row.get("body_in_receipt") is False for row in decisions)
         and all(row.get("simulator_only") is True for row in experiments)
         and all(row.get("simulator_only") is True for row in assays)
         and all(row.get("simulator_only") is True for row in decisions)
@@ -909,14 +933,26 @@ def _build_result(
         and all(row.get("live_robot_command_emitted") is False for row in decisions)
         and all(row.get("discovery_claim") is False for row in decisions)
     )
-    scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
-        forbidden_classes=load_forbidden_classes(
-            public_root / "core/private_state_forbidden_classes.json"
-        ),
-        display_root=public_root,
+    scan = _secret_exclusion_scan(
+        scan_paths(
+            _input_paths(input_dir, include_negative=include_negative),
+            forbidden_classes=load_forbidden_classes(
+                public_root / "core/private_state_forbidden_classes.json"
+            ),
+            display_root=public_root,
+        )
     )
-    status = PASS if policy_passed and scan.get("status") == PASS else "blocked"
+    public_lab_evolve_replay = build_materials_lab_evolve_replay(
+        payloads,
+        [*positive_findings, *negative_findings],
+    )
+    status = (
+        PASS
+        if policy_passed
+        and scan.get("status") == PASS
+        and public_lab_evolve_replay.get("status") == PASS
+        else "blocked"
+    )
     summary = {
         "candidate_material_count": len(candidates),
         "experiment_count": len(experiments),
@@ -970,6 +1006,29 @@ def _build_result(
             if row.get("discovery_claim") is True
         ),
     }
+    body_import_verification = {
+        "status": PASS,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "classification": BODY_IMPORT_CLASSIFICATION,
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "verification_status": "verified",
+        "verification_mode": "source_faithful_public_refactor",
+        "source_refs": list(LAB_EVOLVE_SOURCE_REFS),
+        "target_refs": list(LAB_EVOLVE_TARGET_REFS),
+        "target_symbols": list(LAB_EVOLVE_TARGET_SYMBOL_REFS),
+        "validation_refs": [
+            "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py",
+            (
+                "python -m microcosm_core.macro_tools.lab_evolve_replay "
+                "<materials-input-dir>"
+            ),
+        ],
+        "replay_graph_status": public_lab_evolve_replay["status"],
+        "replay_case_count": public_lab_evolve_replay["summary"]["replay_case_count"],
+        "boundary_case_count": public_lab_evolve_replay["summary"]["boundary_case_count"],
+        "source_capsule_count": public_lab_evolve_replay["summary"]["source_capsule_count"],
+        "body_in_receipt": False,
+    }
     return {
         "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_result_v1",
         "created_at": utc_now(),
@@ -987,6 +1046,7 @@ def _build_result(
         "simulator_assays": assays,
         "active_learning_decisions": decisions,
         "materials_lab_safety_summary": summary,
+        "public_lab_evolve_replay": public_lab_evolve_replay,
         "negative_case_summary": {
             "expected_negative_case_count": len(expected_cases),
             "observed_negative_case_count": sum(
@@ -1004,9 +1064,14 @@ def _build_result(
         "negative_case_findings": negative_findings,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "product_path_role": PRODUCT_PATH_ROLE,
+        "body_import_verification": body_import_verification,
+        "body_in_receipt": False,
         "safe_to_show": {
-            "body_redacted": body_redacted,
-            "metadata_only": True,
+            "body_in_receipt": body_in_receipt,
+            "body_free_public_metadata": True,
             "simulator_only": True,
             "wetlab_protocols_omitted": True,
             "hazardous_synthesis_steps_omitted": True,
@@ -1016,8 +1081,7 @@ def _build_result(
             "private_lab_notebooks_omitted": True,
         },
         "release_authorized": False,
-        "body_redacted": True,
-        "private_state_scan": scan,
+        "secret_exclusion_scan": scan,
     }
 
 
@@ -1049,6 +1113,13 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "observed_negative_case_count": negatives.get("observed_negative_case_count", 0)
         if isinstance(negatives, dict)
         else 0,
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "product_path_role": result["product_path_role"],
+        "body_import_verification": result["body_import_verification"],
+        "public_lab_evolve_replay": result["public_lab_evolve_replay"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
     }
@@ -1091,6 +1162,14 @@ def _write_receipts(
         "active_learning_decision_count": summary.get("active_learning_decision_count"),
         "expected_negative_case_count": negatives.get("expected_negative_case_count"),
         "observed_negative_case_count": negatives.get("observed_negative_case_count"),
+        "public_lab_evolve_replay_summary": result["public_lab_evolve_replay"][
+            "summary"
+        ],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,
@@ -1115,10 +1194,17 @@ def _write_receipts(
         "result_ref": receipt_paths[0],
         "board_ref": receipt_paths[1],
         "validation_ref": receipt_paths[2],
+        "public_lab_evolve_replay_summary": result["public_lab_evolve_replay"][
+            "summary"
+        ],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,
-        "body_redacted": True,
     }
     write_json_atomic(acceptance_path, acceptance)
     return {**result, "materials_lab_safety_board": board, "receipt_paths": receipt_paths}

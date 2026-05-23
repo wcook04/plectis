@@ -8,9 +8,9 @@
     "simulator_only": true,
     "property_proxy": "unsupported_discovery_proxy",
     "result_table_ref": "result_table:negative_discovery_claim",
-    "uncertainty_label": "bounded_synthetic_uncertainty",
+    "uncertainty_label": "bounded_public_simulator_uncertainty",
     "live_assay_data_exported": false,
     "discovery_claim": true,
-    "body_redacted": true
+    "body_in_receipt": false
   }
 }

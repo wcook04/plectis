@@ -264,12 +264,11 @@ def test_cli_authority_smoke(
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["surface_counts"]["organ_authority_count"] == 42
     assert payload["surface_counts"]["surface_authority_count"] == 45
-    assert payload["surface_counts"]["organ_evidence_class_count"] == 4
+    assert payload["surface_counts"]["organ_evidence_class_count"] == 3
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
         "semantic_validator": 16,
-        "algorithmic_projection": 22,
-        "fixture_echo_smoke": 1,
+        "algorithmic_projection": 23,
         "external_subprocess_witness": 3,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
@@ -277,7 +276,7 @@ def test_cli_authority_smoke(
         organ_authority_by_id["materials_chemistry_closed_loop_lab_safety_replay"][
             "evidence_class"
         ]
-        == "fixture_echo_smoke"
+        == "algorithmic_projection"
     )
     assert (
         organ_authority_by_id["agent_sandbox_policy_escape_replay"][

@@ -12,5 +12,5 @@
     "simulator_assays.json",
     "active_learning_decisions.json"
   ],
-  "authority_ceiling": "metadata-only lab-safety replay; no wetlab protocol, hazardous synthesis, reagent quantity, credential, robot-command, discovery, benchmark, or release authority"
+  "authority_ceiling": "source-faithful public Lab/Evolve replay metadata; no wetlab protocol, hazardous synthesis, reagent quantity, credential, robot-command, discovery, benchmark, or release authority"
 }

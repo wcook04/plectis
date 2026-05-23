@@ -7,12 +7,12 @@
       "candidate_material_ref": "mat_polymer_membrane_001",
       "next_action_class": "simulate_assay",
       "decision_rationale_ref": "decision_rationale:membrane_001",
-      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "uncertainty_label": "bounded_public_simulator_uncertainty",
       "cold_replay_ref": "cold_replay:membrane_001",
       "simulator_only": true,
       "live_robot_command_emitted": false,
       "discovery_claim": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "decision_id": "decision_electrolyte_002",
@@ -20,12 +20,12 @@
       "candidate_material_ref": "mat_solid_electrolyte_002",
       "next_action_class": "update_surrogate_model",
       "decision_rationale_ref": "decision_rationale:electrolyte_002",
-      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "uncertainty_label": "bounded_public_simulator_uncertainty",
       "cold_replay_ref": "cold_replay:electrolyte_002",
       "simulator_only": true,
       "live_robot_command_emitted": false,
       "discovery_claim": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "decision_id": "decision_support_003",
@@ -33,12 +33,12 @@
       "candidate_material_ref": "mat_catalyst_support_003",
       "next_action_class": "choose_next_simulation",
       "decision_rationale_ref": "decision_rationale:support_003",
-      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "uncertainty_label": "bounded_public_simulator_uncertainty",
       "cold_replay_ref": "cold_replay:support_003",
       "simulator_only": true,
       "live_robot_command_emitted": false,
       "discovery_claim": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "decision_id": "decision_sorbent_004",
@@ -46,12 +46,12 @@
       "candidate_material_ref": "mat_sorbent_surface_004",
       "next_action_class": "screen_candidate",
       "decision_rationale_ref": "decision_rationale:sorbent_004",
-      "uncertainty_label": "bounded_synthetic_uncertainty",
+      "uncertainty_label": "bounded_public_simulator_uncertainty",
       "cold_replay_ref": "cold_replay:sorbent_004",
       "simulator_only": true,
       "live_robot_command_emitted": false,
       "discovery_claim": false,
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ]
 }

@@ -174,9 +174,9 @@
       "evidence_class": "semantic_validator",
       "organ_id": "spatial_world_model_counterfactual_simulation_replay"
     },
-    {
-      "classification_basis": "fixture-supplied safety booleans are checked for source-available shape, not chemistry safety",
-      "evidence_class": "fixture_echo_smoke",
+  {
+      "classification_basis": "body-free simulator rows are consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, and teaching carryforward; no wetlab or discovery authority is claimed",
+      "evidence_class": "algorithmic_projection",
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay"
     },
     {

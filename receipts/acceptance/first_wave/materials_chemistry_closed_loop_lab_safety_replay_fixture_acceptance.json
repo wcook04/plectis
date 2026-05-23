@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Materials chemistry closed-loop lab-safety replay validates synthetic, simulator-only metadata rows that bind candidate materials, safety screens, simulated assays, active-learning decisions, and cold replay refs. It does not export wetlab protocols, hazardous synthesis steps, reagent amounts, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
+  "anti_claim": "Materials chemistry closed-loop lab-safety replay exposes a source-faithful public Lab/Evolve failure-replay graph over body-free simulator rows: candidate materials, safety screens, simulated assays, active-learning decisions, cold replay refs, failure classes, restart points, source capsule hashes, and teachings. It does not export wetlab protocols, hazardous synthesis steps, reagent amounts, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
   "authority_ceiling": {
     "authority_ceiling": "simulator_only_materials_chemistry_lab_safety_metadata",
     "benchmark_score_claim_authorized": false,
@@ -22,13 +22,73 @@
     "wetlab_protocol_authorized": false
   },
   "board_ref": "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
-  "body_redacted": true,
-  "created_at": "2026-05-22T13:36:15+00:00",
+  "body_import_classification": "source_faithful_refactor",
+  "body_import_status": "source_faithful_refactor_landed",
+  "body_import_verification": {
+    "body_import_classification": "source_faithful_refactor",
+    "body_import_status": "source_faithful_refactor_landed",
+    "body_in_receipt": false,
+    "boundary_case_count": 8,
+    "classification": "source_faithful_refactor",
+    "replay_case_count": 4,
+    "replay_graph_status": "pass",
+    "source_capsule_count": 12,
+    "source_refs": [
+      "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "codex/standards/std_laboratory.json"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/lab_evolve_replay.py"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.lab_evolve_replay::build_materials_lab_evolve_replay",
+      "microcosm_core.macro_tools.lab_evolve_replay::build_materials_lab_evolve_replay_from_dir",
+      "microcosm_core.macro_tools.lab_evolve_replay::main"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py",
+      "python -m microcosm_core.macro_tools.lab_evolve_replay <materials-input-dir>"
+    ],
+    "verification_mode": "source_faithful_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "created_at": "2026-05-23T16:12:55+00:00",
   "fixture_id": "first_wave.materials_chemistry_closed_loop_lab_safety_replay",
   "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+  "public_lab_evolve_replay_summary": {
+    "active_learning_decision_count": 4,
+    "boundary_case_count": 8,
+    "candidate_material_count": 4,
+    "discovery_claim_count": 0,
+    "experiment_count": 4,
+    "public_safe_source_count": 12,
+    "replay_case_count": 4,
+    "robot_command_count": 0,
+    "semantic_carryforward_count": 12,
+    "simulator_assay_count": 4,
+    "source_capsule_count": 12,
+    "wetlab_protocol_export_count": 0
+  },
   "release_authorized": false,
   "result_ref": "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
   "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "forbidden_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 14,
+    "status": "pass"
+  },
   "status": "pass",
   "validation_ref": "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
   "validator_id": "validator.microcosm.organs.materials_chemistry_closed_loop_lab_safety_replay"

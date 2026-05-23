@@ -19,7 +19,7 @@
       "live_lab_credentials_present": false,
       "private_lab_notebook_exported": false,
       "release_authorized": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "experiment_id": "exp_electrolyte_screen_002",
@@ -39,7 +39,7 @@
       "live_lab_credentials_present": false,
       "private_lab_notebook_exported": false,
       "release_authorized": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "experiment_id": "exp_support_screen_003",
@@ -59,7 +59,7 @@
       "live_lab_credentials_present": false,
       "private_lab_notebook_exported": false,
       "release_authorized": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "experiment_id": "exp_sorbent_screen_004",
@@ -79,7 +79,7 @@
       "live_lab_credentials_present": false,
       "private_lab_notebook_exported": false,
       "release_authorized": false,
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ]
 }

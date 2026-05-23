@@ -7,11 +7,11 @@
     "candidate_material_ref": "mat_polymer_membrane_001",
     "next_action_class": "simulate_assay",
     "decision_rationale_ref": "decision_rationale:negative_robot_command",
-    "uncertainty_label": "bounded_synthetic_uncertainty",
+    "uncertainty_label": "bounded_public_simulator_uncertainty",
     "cold_replay_ref": "cold_replay:negative_robot_command",
     "simulator_only": true,
     "live_robot_command_emitted": true,
     "discovery_claim": false,
-    "body_redacted": true
+    "body_in_receipt": false
   }
 }

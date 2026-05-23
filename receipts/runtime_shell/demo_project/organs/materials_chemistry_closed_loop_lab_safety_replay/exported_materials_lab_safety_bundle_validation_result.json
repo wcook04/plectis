@@ -1,7 +1,7 @@
 {
   "active_learning_decisions": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_polymer_membrane_001",
       "cold_replay_ref": "cold_replay:membrane_001",
       "decision_id": "decision_membrane_001",
@@ -11,10 +11,10 @@
       "live_robot_command_emitted": false,
       "next_action_class": "simulate_assay",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_solid_electrolyte_002",
       "cold_replay_ref": "cold_replay:electrolyte_002",
       "decision_id": "decision_electrolyte_002",
@@ -24,10 +24,10 @@
       "live_robot_command_emitted": false,
       "next_action_class": "update_surrogate_model",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_catalyst_support_003",
       "cold_replay_ref": "cold_replay:support_003",
       "decision_id": "decision_support_003",
@@ -37,10 +37,10 @@
       "live_robot_command_emitted": false,
       "next_action_class": "choose_next_simulation",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_sorbent_surface_004",
       "cold_replay_ref": "cold_replay:sorbent_004",
       "decision_id": "decision_sorbent_004",
@@ -50,10 +50,10 @@
       "live_robot_command_emitted": false,
       "next_action_class": "screen_candidate",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     }
   ],
-  "anti_claim": "Materials chemistry closed-loop lab-safety replay validates synthetic, simulator-only metadata rows that bind candidate materials, safety screens, simulated assays, active-learning decisions, and cold replay refs. It does not export wetlab protocols, hazardous synthesis steps, reagent amounts, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
+  "anti_claim": "Materials chemistry closed-loop lab-safety replay exposes a source-faithful public Lab/Evolve failure-replay graph over body-free simulator rows: candidate materials, safety screens, simulated assays, active-learning decisions, cold replay refs, failure classes, restart points, source capsule hashes, and teachings. It does not export wetlab protocols, hazardous synthesis steps, reagent amounts, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
   "authority_ceiling": {
     "authority_ceiling": "simulator_only_materials_chemistry_lab_safety_metadata",
     "benchmark_score_claim_authorized": false,
@@ -75,11 +75,45 @@
     "status": "pass",
     "wetlab_protocol_authorized": false
   },
-  "body_redacted": true,
+  "body_import_classification": "source_faithful_refactor",
+  "body_import_status": "source_faithful_refactor_landed",
+  "body_import_verification": {
+    "body_import_classification": "source_faithful_refactor",
+    "body_import_status": "source_faithful_refactor_landed",
+    "body_in_receipt": false,
+    "boundary_case_count": 0,
+    "classification": "source_faithful_refactor",
+    "replay_case_count": 4,
+    "replay_graph_status": "pass",
+    "source_capsule_count": 4,
+    "source_refs": [
+      "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "codex/standards/std_laboratory.json"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/lab_evolve_replay.py"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.lab_evolve_replay::build_materials_lab_evolve_replay",
+      "microcosm_core.macro_tools.lab_evolve_replay::build_materials_lab_evolve_replay_from_dir",
+      "microcosm_core.macro_tools.lab_evolve_replay::main"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py",
+      "python -m microcosm_core.macro_tools.lab_evolve_replay <materials-input-dir>"
+    ],
+    "verification_mode": "source_faithful_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
   "candidate_materials": [
     {
       "bioactivity_target": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_polymer_membrane_001",
       "controlled_substance_target": false,
       "discovery_claim": false,
@@ -91,7 +125,7 @@
     },
     {
       "bioactivity_target": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_solid_electrolyte_002",
       "controlled_substance_target": false,
       "discovery_claim": false,
@@ -103,7 +137,7 @@
     },
     {
       "bioactivity_target": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_catalyst_support_003",
       "controlled_substance_target": false,
       "discovery_claim": false,
@@ -115,7 +149,7 @@
     },
     {
       "bioactivity_target": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_id": "mat_sorbent_surface_004",
       "controlled_substance_target": false,
       "discovery_claim": false,
@@ -126,13 +160,13 @@
       "target_property_label": "adsorption_proxy"
     }
   ],
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T13:36:26+00:00",
+  "command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run-lab-bundle",
+  "created_at": "2026-05-23T16:12:59+00:00",
   "experiments": [
     {
       "action_class": "screen_candidate",
       "assay_ref": "assay_membrane_proxy_001",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "budget_ref": "budget:simulator_tokens_001",
       "candidate_material_ref": "mat_polymer_membrane_001",
       "cold_replay_ref": "cold_replay:membrane_001",
@@ -152,7 +186,7 @@
     {
       "action_class": "simulate_assay",
       "assay_ref": "assay_electrolyte_proxy_002",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "budget_ref": "budget:simulator_tokens_002",
       "candidate_material_ref": "mat_solid_electrolyte_002",
       "cold_replay_ref": "cold_replay:electrolyte_002",
@@ -172,7 +206,7 @@
     {
       "action_class": "update_surrogate_model",
       "assay_ref": "assay_support_proxy_003",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "budget_ref": "budget:simulator_tokens_003",
       "candidate_material_ref": "mat_catalyst_support_003",
       "cold_replay_ref": "cold_replay:support_003",
@@ -192,7 +226,7 @@
     {
       "action_class": "choose_next_simulation",
       "assay_ref": "assay_sorbent_proxy_004",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "budget_ref": "budget:simulator_tokens_004",
       "candidate_material_ref": "mat_sorbent_surface_004",
       "cold_replay_ref": "cold_replay:sorbent_004",
@@ -240,9 +274,570 @@
   },
   "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
   "positive_findings": [],
-  "private_state_scan": {
+  "product_path_role": "runtime_spine_product_substrate",
+  "public_lab_evolve_replay": {
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "bioactivity_target_authorized": false,
+      "controlled_substance_target_authorized": false,
+      "discovery_claim_authorized": false,
+      "hazardous_synthesis_authorized": false,
+      "live_assay_data_exported": false,
+      "live_lab_credentials_authorized": false,
+      "private_lab_notebook_exported": false,
+      "reagent_amounts_authorized": false,
+      "release_authorized": false,
+      "robot_command_authorized": false,
+      "simulator_only": true,
+      "wetlab_protocol_authorized": false
+    },
+    "body_in_receipt": false,
+    "cases": [
+      {
+        "assay_ref": "assay_membrane_proxy_001",
+        "candidate_material_ref": "mat_polymer_membrane_001",
+        "case_id": "materials_lab_case.exp_membrane_screen_001",
+        "cold_replay_ref": "cold_replay:membrane_001",
+        "decision_ref": "decision_membrane_001",
+        "experiment_ref": "exp_membrane_screen_001",
+        "failure_class": null,
+        "restart_point": null,
+        "safety_screen_ref": "safety_screen:membrane_001",
+        "source_capsule": {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_membrane_screen_001",
+          "clip_hash": "15c5e6d791a7e95b34795cfa3d09cb7814cf25f2fa83daf01374f984d7b114ae",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_membrane_screen_001",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "15c5e6d791a7e95b34795cfa3d09cb7814cf25f2fa83daf01374f984d7b114ae",
+            "teaching_ref": "teaching.exp_membrane_screen_001.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_membrane_proxy_001",
+            "candidate_material_ref": "mat_polymer_membrane_001",
+            "case_id": "materials_lab_case.exp_membrane_screen_001",
+            "cold_replay_ref": "cold_replay:membrane_001",
+            "decision_ref": "decision_membrane_001",
+            "experiment_ref": "exp_membrane_screen_001",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:membrane_001",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_membrane_screen_001]",
+          "status": "pass"
+        },
+        "source_ref": "experiment_dag.experiments[exp_membrane_screen_001]",
+        "status": "pass",
+        "teaching_id": "teaching.exp_membrane_screen_001.simulator_boundary",
+        "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+      },
+      {
+        "assay_ref": "assay_electrolyte_proxy_002",
+        "candidate_material_ref": "mat_solid_electrolyte_002",
+        "case_id": "materials_lab_case.exp_electrolyte_screen_002",
+        "cold_replay_ref": "cold_replay:electrolyte_002",
+        "decision_ref": "decision_electrolyte_002",
+        "experiment_ref": "exp_electrolyte_screen_002",
+        "failure_class": null,
+        "restart_point": null,
+        "safety_screen_ref": "safety_screen:electrolyte_002",
+        "source_capsule": {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_electrolyte_screen_002",
+          "clip_hash": "d7d70341d689f9f379b3a66a79f5179469d0ad4ecf23b6d098bda3232d2296c9",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_electrolyte_screen_002",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "d7d70341d689f9f379b3a66a79f5179469d0ad4ecf23b6d098bda3232d2296c9",
+            "teaching_ref": "teaching.exp_electrolyte_screen_002.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_electrolyte_proxy_002",
+            "candidate_material_ref": "mat_solid_electrolyte_002",
+            "case_id": "materials_lab_case.exp_electrolyte_screen_002",
+            "cold_replay_ref": "cold_replay:electrolyte_002",
+            "decision_ref": "decision_electrolyte_002",
+            "experiment_ref": "exp_electrolyte_screen_002",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:electrolyte_002",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_electrolyte_screen_002]",
+          "status": "pass"
+        },
+        "source_ref": "experiment_dag.experiments[exp_electrolyte_screen_002]",
+        "status": "pass",
+        "teaching_id": "teaching.exp_electrolyte_screen_002.simulator_boundary",
+        "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+      },
+      {
+        "assay_ref": "assay_support_proxy_003",
+        "candidate_material_ref": "mat_catalyst_support_003",
+        "case_id": "materials_lab_case.exp_support_screen_003",
+        "cold_replay_ref": "cold_replay:support_003",
+        "decision_ref": "decision_support_003",
+        "experiment_ref": "exp_support_screen_003",
+        "failure_class": null,
+        "restart_point": null,
+        "safety_screen_ref": "safety_screen:support_003",
+        "source_capsule": {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_support_screen_003",
+          "clip_hash": "34d495f7cbbd6c67cb50175e271f93cca42ce8d65dece8ef9c0ece81c68177f6",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_support_screen_003",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "34d495f7cbbd6c67cb50175e271f93cca42ce8d65dece8ef9c0ece81c68177f6",
+            "teaching_ref": "teaching.exp_support_screen_003.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_support_proxy_003",
+            "candidate_material_ref": "mat_catalyst_support_003",
+            "case_id": "materials_lab_case.exp_support_screen_003",
+            "cold_replay_ref": "cold_replay:support_003",
+            "decision_ref": "decision_support_003",
+            "experiment_ref": "exp_support_screen_003",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:support_003",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_support_screen_003]",
+          "status": "pass"
+        },
+        "source_ref": "experiment_dag.experiments[exp_support_screen_003]",
+        "status": "pass",
+        "teaching_id": "teaching.exp_support_screen_003.simulator_boundary",
+        "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+      },
+      {
+        "assay_ref": "assay_sorbent_proxy_004",
+        "candidate_material_ref": "mat_sorbent_surface_004",
+        "case_id": "materials_lab_case.exp_sorbent_screen_004",
+        "cold_replay_ref": "cold_replay:sorbent_004",
+        "decision_ref": "decision_sorbent_004",
+        "experiment_ref": "exp_sorbent_screen_004",
+        "failure_class": null,
+        "restart_point": null,
+        "safety_screen_ref": "safety_screen:sorbent_004",
+        "source_capsule": {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_sorbent_screen_004",
+          "clip_hash": "094506664adbac5b35dfea3a4b2efe28aba2dd88e236af4f5e4294c916f70dd1",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_sorbent_screen_004",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "094506664adbac5b35dfea3a4b2efe28aba2dd88e236af4f5e4294c916f70dd1",
+            "teaching_ref": "teaching.exp_sorbent_screen_004.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_sorbent_proxy_004",
+            "candidate_material_ref": "mat_sorbent_surface_004",
+            "case_id": "materials_lab_case.exp_sorbent_screen_004",
+            "cold_replay_ref": "cold_replay:sorbent_004",
+            "decision_ref": "decision_sorbent_004",
+            "experiment_ref": "exp_sorbent_screen_004",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:sorbent_004",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_sorbent_screen_004]",
+          "status": "pass"
+        },
+        "source_ref": "experiment_dag.experiments[exp_sorbent_screen_004]",
+        "status": "pass",
+        "teaching_id": "teaching.exp_sorbent_screen_004.simulator_boundary",
+        "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+      }
+    ],
+    "global_teaching_ledger": {
+      "global_rule_candidates": [
+        {
+          "evidence_refs": [
+            "source_capsule.materials_lab_case.exp_membrane_screen_001",
+            "source_capsule.materials_lab_case.exp_electrolyte_screen_002",
+            "source_capsule.materials_lab_case.exp_support_screen_003",
+            "source_capsule.materials_lab_case.exp_sorbent_screen_004"
+          ],
+          "observed_case_count": 4,
+          "rule": "A public science replay can carry candidate, simulator, decision, failure, restart, and teaching refs as product substrate only when source clips are body-free and wetlab, credential, robot, private notebook, discovery, benchmark, publication, and release authority stay false.",
+          "rule_id": "rule.materials_public_replay_boundary_restart",
+          "status": "candidate_global_rule_local_public_replay_only"
+        }
+      ],
+      "kind": "materials_lab_evolve_teaching_ledger",
+      "local_teachings": [
+        {
+          "case_id": "materials_lab_case.exp_membrane_screen_001",
+          "failure_class": null,
+          "restart_point": null,
+          "source_capsule_ref": "source_capsule.materials_lab_case.exp_membrane_screen_001",
+          "status": "pass",
+          "teaching_id": "teaching.exp_membrane_screen_001.simulator_boundary"
+        },
+        {
+          "case_id": "materials_lab_case.exp_electrolyte_screen_002",
+          "failure_class": null,
+          "restart_point": null,
+          "source_capsule_ref": "source_capsule.materials_lab_case.exp_electrolyte_screen_002",
+          "status": "pass",
+          "teaching_id": "teaching.exp_electrolyte_screen_002.simulator_boundary"
+        },
+        {
+          "case_id": "materials_lab_case.exp_support_screen_003",
+          "failure_class": null,
+          "restart_point": null,
+          "source_capsule_ref": "source_capsule.materials_lab_case.exp_support_screen_003",
+          "status": "pass",
+          "teaching_id": "teaching.exp_support_screen_003.simulator_boundary"
+        },
+        {
+          "case_id": "materials_lab_case.exp_sorbent_screen_004",
+          "failure_class": null,
+          "restart_point": null,
+          "source_capsule_ref": "source_capsule.materials_lab_case.exp_sorbent_screen_004",
+          "status": "pass",
+          "teaching_id": "teaching.exp_sorbent_screen_004.simulator_boundary"
+        }
+      ],
+      "schema_version": "materials_lab_evolve_teaching_ledger_v0",
+      "summary": {
+        "failure_class_counts": {
+          "none": 4
+        },
+        "restart_point_counts": {
+          "none": 4
+        },
+        "teaching_count": 4
+      }
+    },
+    "graph": {
+      "edges": [
+        [
+          "candidate_material",
+          "safety_screen_gate"
+        ],
+        [
+          "safety_screen_gate",
+          "simulator_experiment_plan"
+        ],
+        [
+          "simulator_experiment_plan",
+          "simulator_assay"
+        ],
+        [
+          "simulator_assay",
+          "active_learning_decision"
+        ],
+        [
+          "active_learning_decision",
+          "classify_failure"
+        ],
+        [
+          "classify_failure",
+          "choose_restart_point"
+        ],
+        [
+          "choose_restart_point",
+          "record_teaching"
+        ]
+      ],
+      "graph_id": "materials_lab_evolve_failure_replay_graph",
+      "nodes": [
+        {
+          "contract": "Accept body-free public candidate metadata and literature capsule refs.",
+          "node_id": "candidate_material",
+          "node_type": "source",
+          "restartable": false
+        },
+        {
+          "contract": "Reject wetlab, controlled-target, credential, robot, notebook, and discovery authority.",
+          "node_id": "safety_screen_gate",
+          "node_type": "boundary",
+          "restartable": true
+        },
+        {
+          "contract": "Bind candidates to simulator-only experiment refs and cold replay refs.",
+          "node_id": "simulator_experiment_plan",
+          "node_type": "transform",
+          "restartable": true
+        },
+        {
+          "contract": "Evaluate only public simulator proxy rows, never live assay data.",
+          "node_id": "simulator_assay",
+          "node_type": "evaluator",
+          "restartable": false
+        },
+        {
+          "contract": "Choose the next simulator-only action class without robot execution.",
+          "node_id": "active_learning_decision",
+          "node_type": "decision",
+          "restartable": true
+        },
+        {
+          "contract": "Localize a blocked row to the nearest authority boundary.",
+          "node_id": "classify_failure",
+          "node_type": "failure_classifier",
+          "restartable": false
+        },
+        {
+          "contract": "Restart from the nearest body-free public row rather than replaying the whole graph.",
+          "node_id": "choose_restart_point",
+          "node_type": "restart",
+          "restartable": false
+        },
+        {
+          "contract": "Carry the source clip hash, restart point, and anti-claim together.",
+          "node_id": "record_teaching",
+          "node_type": "teaching",
+          "restartable": false
+        }
+      ]
+    },
+    "schema_version": "materials_lab_evolve_replay_refactor_v0",
+    "source_capsule_provenance": {
+      "capsule_count": 4,
+      "carryforward_contract": {
+        "required_fields": [
+          "case_id",
+          "failure_class",
+          "restart_point",
+          "teaching_ref",
+          "source_clip_hash",
+          "body_in_receipt"
+        ],
+        "rule": "Every reusable teaching must carry its body-free source clip, deterministic hash, restart point, and authority anti-claim."
+      },
+      "hash_algorithm": "sha256",
+      "kind": "source_capsule_provenance",
+      "schema_version": "source_capsule_provenance_v0",
+      "source_capsules": [
+        {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_membrane_screen_001",
+          "clip_hash": "15c5e6d791a7e95b34795cfa3d09cb7814cf25f2fa83daf01374f984d7b114ae",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_membrane_screen_001",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "15c5e6d791a7e95b34795cfa3d09cb7814cf25f2fa83daf01374f984d7b114ae",
+            "teaching_ref": "teaching.exp_membrane_screen_001.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_membrane_proxy_001",
+            "candidate_material_ref": "mat_polymer_membrane_001",
+            "case_id": "materials_lab_case.exp_membrane_screen_001",
+            "cold_replay_ref": "cold_replay:membrane_001",
+            "decision_ref": "decision_membrane_001",
+            "experiment_ref": "exp_membrane_screen_001",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:membrane_001",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_membrane_screen_001]",
+          "status": "pass"
+        },
+        {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_electrolyte_screen_002",
+          "clip_hash": "d7d70341d689f9f379b3a66a79f5179469d0ad4ecf23b6d098bda3232d2296c9",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_electrolyte_screen_002",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "d7d70341d689f9f379b3a66a79f5179469d0ad4ecf23b6d098bda3232d2296c9",
+            "teaching_ref": "teaching.exp_electrolyte_screen_002.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_electrolyte_proxy_002",
+            "candidate_material_ref": "mat_solid_electrolyte_002",
+            "case_id": "materials_lab_case.exp_electrolyte_screen_002",
+            "cold_replay_ref": "cold_replay:electrolyte_002",
+            "decision_ref": "decision_electrolyte_002",
+            "experiment_ref": "exp_electrolyte_screen_002",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:electrolyte_002",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_electrolyte_screen_002]",
+          "status": "pass"
+        },
+        {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_support_screen_003",
+          "clip_hash": "34d495f7cbbd6c67cb50175e271f93cca42ce8d65dece8ef9c0ece81c68177f6",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_support_screen_003",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "34d495f7cbbd6c67cb50175e271f93cca42ce8d65dece8ef9c0ece81c68177f6",
+            "teaching_ref": "teaching.exp_support_screen_003.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_support_proxy_003",
+            "candidate_material_ref": "mat_catalyst_support_003",
+            "case_id": "materials_lab_case.exp_support_screen_003",
+            "cold_replay_ref": "cold_replay:support_003",
+            "decision_ref": "decision_support_003",
+            "experiment_ref": "exp_support_screen_003",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:support_003",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_support_screen_003]",
+          "status": "pass"
+        },
+        {
+          "authority_boundary": "Capsule hashes prove deterministic public replay carryforward only; they are not chemistry safety proof, wetlab authority, benchmark evidence, publication permission, or release authorization.",
+          "capsule_id": "source_capsule.materials_lab_case.exp_sorbent_screen_004",
+          "clip_hash": "094506664adbac5b35dfea3a4b2efe28aba2dd88e236af4f5e4294c916f70dd1",
+          "clip_hash_algorithm": "sha256",
+          "semantic_carryforward": {
+            "body_in_receipt": false,
+            "case_id": "materials_lab_case.exp_sorbent_screen_004",
+            "failure_class": null,
+            "restart_point": null,
+            "source_clip_hash": "094506664adbac5b35dfea3a4b2efe28aba2dd88e236af4f5e4294c916f70dd1",
+            "teaching_ref": "teaching.exp_sorbent_screen_004.simulator_boundary"
+          },
+          "source_class": "public_materials_lab_evolve_replay_case",
+          "source_clip": {
+            "assay_ref": "assay_sorbent_proxy_004",
+            "candidate_material_ref": "mat_sorbent_surface_004",
+            "case_id": "materials_lab_case.exp_sorbent_screen_004",
+            "cold_replay_ref": "cold_replay:sorbent_004",
+            "decision_ref": "decision_sorbent_004",
+            "experiment_ref": "exp_sorbent_screen_004",
+            "failure_class": null,
+            "restart_point": null,
+            "safety_screen_ref": "safety_screen:sorbent_004",
+            "teaching_rule": "When the candidate, safety screen, simulator assay, decision, and cold replay refs are valid, freeze those public refs and keep wetlab, robot, credential, and discovery authority outside the replay graph."
+          },
+          "source_ref": "experiment_dag.experiments[exp_sorbent_screen_004]",
+          "status": "pass"
+        }
+      ],
+      "status": "pass",
+      "summary": {
+        "capsule_count": 4,
+        "hashed_source_clip_count": 4,
+        "public_safe_source_count": 4,
+        "semantic_carryforward_count": 4
+      }
+    },
+    "source_faithful_refactor": {
+      "omitted_live_material": [
+        "wetlab protocol bodies",
+        "hazardous synthesis steps",
+        "reagent quantities",
+        "live lab credentials",
+        "robot commands",
+        "private notebooks",
+        "live assay data",
+        "provider payload bodies"
+      ],
+      "preserved_semantics": [
+        "graph_nodes_and_edges",
+        "failure_classification",
+        "restart_point_selection",
+        "bounded_replay_cases",
+        "teaching_ledger",
+        "source_capsule_hash_carryforward",
+        "anti_claim_authority_boundary"
+      ],
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/lab_evolve_replay.py",
+      "verification_mode": "source_faithful_public_refactor"
+    },
+    "source_refs": [
+      "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "codex/standards/std_laboratory.json"
+    ],
+    "source_symbols": [
+      "idea_microcosm.lab_evolve_failure_replay_specimen::GRAPH_NODES",
+      "idea_microcosm.lab_evolve_failure_replay_specimen::_case_result",
+      "idea_microcosm.lab_evolve_failure_replay_specimen::_global_teaching_ledger",
+      "idea_microcosm.lab_evolve_failure_replay_specimen::_source_capsule_provenance",
+      "idea_microcosm.lab_evolve_failure_replay_specimen::_grammar_bridge_case"
+    ],
+    "status": "pass",
+    "summary": {
+      "active_learning_decision_count": 4,
+      "boundary_case_count": 0,
+      "candidate_material_count": 4,
+      "discovery_claim_count": 0,
+      "experiment_count": 4,
+      "public_safe_source_count": 4,
+      "replay_case_count": 4,
+      "robot_command_count": 0,
+      "semantic_carryforward_count": 4,
+      "simulator_assay_count": 4,
+      "source_capsule_count": 4,
+      "wetlab_protocol_export_count": 0
+    },
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/lab_evolve_replay.py"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.lab_evolve_replay::build_materials_lab_evolve_replay",
+      "microcosm_core.macro_tools.lab_evolve_replay::build_materials_lab_evolve_replay_from_dir",
+      "microcosm_core.macro_tools.lab_evolve_replay::main"
+    ]
+  },
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle_validation_result.json"
+  ],
+  "release_authorized": false,
+  "safe_to_show": {
+    "body_free_public_metadata": true,
+    "body_in_receipt": false,
+    "hazardous_synthesis_steps_omitted": true,
+    "live_lab_credentials_omitted": true,
+    "private_lab_notebooks_omitted": true,
+    "reagent_amounts_omitted": true,
+    "robot_commands_omitted": true,
+    "simulator_only": true,
+    "wetlab_protocols_omitted": true
+  },
+  "schema_version": "exported_materials_lab_safety_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
     "blocking_hit_count": 0,
-    "body_redacted": true,
+    "body_in_receipt": false,
     "forbidden_output_fields": [
       "matched_excerpt",
       "body"
@@ -252,22 +847,6 @@
     "scanned_path_count": 7,
     "status": "pass"
   },
-  "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle_validation_result.json"
-  ],
-  "release_authorized": false,
-  "safe_to_show": {
-    "body_redacted": true,
-    "hazardous_synthesis_steps_omitted": true,
-    "live_lab_credentials_omitted": true,
-    "metadata_only": true,
-    "private_lab_notebooks_omitted": true,
-    "reagent_amounts_omitted": true,
-    "robot_commands_omitted": true,
-    "simulator_only": true,
-    "wetlab_protocols_omitted": true
-  },
-  "schema_version": "exported_materials_lab_safety_bundle_validation_result_v1",
   "selected_pattern_ids": [
     "exp_membrane_screen_001",
     "exp_electrolyte_screen_002",
@@ -278,7 +857,7 @@
   "simulator_assays": [
     {
       "assay_id": "assay_membrane_proxy_001",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_polymer_membrane_001",
       "discovery_claim": false,
       "experiment_ref": "exp_membrane_screen_001",
@@ -286,11 +865,11 @@
       "property_proxy": "thermal_stability_proxy",
       "result_table_ref": "result_table:membrane_proxy_001",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
       "assay_id": "assay_electrolyte_proxy_002",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_solid_electrolyte_002",
       "discovery_claim": false,
       "experiment_ref": "exp_electrolyte_screen_002",
@@ -298,11 +877,11 @@
       "property_proxy": "ionic_transport_proxy",
       "result_table_ref": "result_table:electrolyte_proxy_002",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
       "assay_id": "assay_support_proxy_003",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_catalyst_support_003",
       "discovery_claim": false,
       "experiment_ref": "exp_support_screen_003",
@@ -310,11 +889,11 @@
       "property_proxy": "surface_area_proxy",
       "result_table_ref": "result_table:support_proxy_003",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     },
     {
       "assay_id": "assay_sorbent_proxy_004",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "candidate_material_ref": "mat_sorbent_surface_004",
       "discovery_claim": false,
       "experiment_ref": "exp_sorbent_screen_004",
@@ -322,7 +901,7 @@
       "property_proxy": "adsorption_proxy",
       "result_table_ref": "result_table:sorbent_proxy_004",
       "simulator_only": true,
-      "uncertainty_label": "bounded_synthetic_uncertainty"
+      "uncertainty_label": "bounded_public_simulator_uncertainty"
     }
   ],
   "status": "pass",

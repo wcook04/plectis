@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This fixture validates synthetic simulator-only materials chemistry lab-safety metadata only; it does not export wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
-  "authority_ceiling": "simulator-only materials chemistry lab-safety replay metadata; no wetlab, hazardous synthesis, reagent amount, credential, robot, notebook, live assay, discovery, benchmark, or release authority",
+  "anti_claim": "This fixture validates body-free simulator-only materials chemistry lab-safety rows by feeding them through a source-faithful public Lab/Evolve failure-replay graph; it does not export wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
+  "authority_ceiling": "source-faithful public Lab/Evolve replay metadata; no wetlab, hazardous synthesis, reagent amount, credential, robot, notebook, live assay, discovery, benchmark, or release authority",
   "expected_negative_cases": [
     "wetlab_protocol_steps",
     "hazardous_synthesis_steps",
@@ -25,11 +25,11 @@
     },
     {
       "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/replay_policy.json",
-      "role": "simulator-only replay policy"
+      "role": "source-faithful public Lab/Evolve replay policy"
     },
     {
       "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/candidate_materials.json",
-      "role": "positive candidate material metadata rows"
+      "role": "positive body-free candidate material metadata rows"
     },
     {
       "path": "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/experiment_dag.json",
@@ -101,7 +101,10 @@
         "materials_lab_safety_summary",
         "negative_case_summary",
         "authority_ceiling",
-        "private_state_scan",
+        "public_lab_evolve_replay",
+        "secret_exclusion_scan",
+        "body_import_status",
+        "body_import_verification",
         "anti_claim"
       ],
       "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json": [
@@ -112,6 +115,10 @@
         "experiment_count",
         "expected_negative_case_count",
         "observed_negative_case_count",
+        "public_lab_evolve_replay_summary",
+        "secret_exclusion_scan",
+        "body_import_status",
+        "body_import_verification",
         "authority_ceiling",
         "anti_claim"
       ]

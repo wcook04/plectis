@@ -58,6 +58,20 @@ def test_materials_chemistry_lab_safety_replay_observes_negative_cases(
     assert result["materials_lab_safety_summary"]["active_learning_decision_count"] == 4
     assert result["materials_lab_safety_summary"]["wetlab_protocol_export_count"] == 0
     assert result["materials_lab_safety_summary"]["robot_command_count"] == 0
+    assert result["body_import_status"] == "source_faithful_refactor_landed"
+    assert result["body_import_classification"] == "source_faithful_refactor"
+    assert result["body_import_verification"]["body_in_receipt"] is False
+    assert result["secret_exclusion_scan"]["status"] == "pass"
+    replay = result["public_lab_evolve_replay"]
+    assert replay["status"] == "pass"
+    assert replay["summary"]["replay_case_count"] == 4
+    assert replay["summary"]["boundary_case_count"] == len(EXPECTED_NEGATIVE_CASES)
+    assert replay["summary"]["source_capsule_count"] == 12
+    assert (
+        "self-indexing-cognitive-substrate/src/idea_microcosm/"
+        "lab_evolve_failure_replay_specimen.py"
+    ) in replay["source_refs"]
+    assert replay["body_in_receipt"] is False
     assert result["negative_case_summary"]["expected_negative_case_count"] == len(
         EXPECTED_NEGATIVE_CASES
     )
@@ -107,6 +121,7 @@ def test_materials_chemistry_lab_safety_receipts_are_public_relative_and_redacte
         assert "reagent_quantity_body" not in keys
         assert "robot_command_payload" not in keys
         assert "credential_secret" not in keys
+        assert "private_state_scan" not in keys
 
 
 def test_materials_chemistry_exported_bundle_validates_runtime_shape(
@@ -124,6 +139,10 @@ def test_materials_chemistry_exported_bundle_validates_runtime_shape(
     assert result["input_mode"] == "exported_materials_lab_safety_bundle"
     assert result["selected_route_id"] == "materials_chemistry_closed_loop_lab_safety_replay"
     assert result["materials_lab_safety_summary"]["experiment_count"] == 4
+    assert result["public_lab_evolve_replay"]["summary"]["replay_case_count"] == 4
+    assert result["public_lab_evolve_replay"]["summary"]["boundary_case_count"] == 0
+    assert result["body_import_status"] == "source_faithful_refactor_landed"
+    assert result["body_import_verification"]["body_in_receipt"] is False
     assert result["negative_case_summary"]["expected_negative_case_count"] == 0
     assert result["negative_case_summary"]["expected_missing"] == {}
     assert result["finding_count"] == 0
