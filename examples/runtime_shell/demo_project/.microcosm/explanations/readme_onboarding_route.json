@@ -1,7 +1,7 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-22T13:38:05+00:00",
+  "created_at": "2026-05-22T20:17:09+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,65 +21,65 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_1739",
+  "event_id": "evt_1811",
   "event_refs": [
     {
-      "event_id": "evt_1701",
+      "event_id": "evt_1775",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1706",
+      "event_id": "evt_1780",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1707",
+      "event_id": "evt_1781",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1712",
+      "event_id": "evt_1786",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1713",
+      "event_id": "evt_1787",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1718",
+      "event_id": "evt_1792",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1719",
+      "event_id": "evt_1793",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1723",
+      "event_id": "evt_1798",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1728",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1729",
+      "event_id": "evt_1799",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1733",
+      "event_id": "evt_1804",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1738",
+      "event_id": "evt_1805",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1810",
       "span": "project.route",
       "status": "pass"
     }
@@ -497,7 +497,7 @@
       "source_ref": "core/public_standard_pressure.json",
       "standard": {
         "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
-        "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release readiness.",
+        "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release operations.",
         "kernel_primitive_refs": [
           "standard",
           "route",
@@ -576,7 +576,7 @@
       "source_ref": "core/public_standard_pressure.json",
       "standard": {
         "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
-        "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release readiness.",
+        "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release operations.",
         "kernel_primitive_refs": [
           "standard",
           "evidence",
@@ -1002,7 +1002,7 @@
     },
     {
       "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
-      "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release readiness.",
+      "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release operations.",
       "kernel_primitive_refs": [
         "standard",
         "route",
@@ -1060,7 +1060,7 @@
     },
     {
       "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
-      "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release readiness.",
+      "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release operations.",
       "kernel_primitive_refs": [
         "standard",
         "evidence",
@@ -1223,7 +1223,7 @@
     "undeclared_library_prior_symbol_classifier_public_pressure"
   ],
   "standard_pressure_surface": {
-    "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
+    "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
     "private_source_bodies_included": false,
     "row_count": 41,
     "source_ref": "core/public_standard_pressure.json",

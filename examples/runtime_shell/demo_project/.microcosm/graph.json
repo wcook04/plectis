@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-22T13:38:05+00:00",
+  "created_at": "2026-05-22T20:17:09+00:00",
   "edge_count": 150,
   "edges": [
     {
@@ -1158,7 +1158,7 @@
   "schema_version": "microcosm_project_asset_graph_v1",
   "source_files_mutated": false,
   "standard_pressure_surface": {
-    "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
+    "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
     "private_source_bodies_included": false,
     "row_count": 41,
     "source_ref": "core/public_standard_pressure.json",

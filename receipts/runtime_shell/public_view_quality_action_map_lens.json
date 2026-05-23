@@ -6,10 +6,10 @@
       "included_in_hot_action_rollup": false,
       "live_browser_control_authorized": false,
       "next_action": "keep_monitor_regression_guard",
+      "priority_weight": 12,
       "private_screenshot_path_exported": false,
       "quality_posture": "monitor_acceptance",
       "reason": "monitor rows preserve acceptance signal without creating resolution pressure",
-      "score": 12,
       "view_id": "station_monitor"
     },
     {
@@ -18,10 +18,10 @@
       "included_in_hot_action_rollup": true,
       "live_browser_control_authorized": false,
       "next_action": "resolve_navigation_layout_watch_row",
+      "priority_weight": 92,
       "private_screenshot_path_exported": false,
       "quality_posture": "resolution_pressure",
       "reason": "public entry navigation is present but still carries quality pressure",
-      "score": 92,
       "view_id": "root_navigator"
     },
     {
@@ -30,10 +30,10 @@
       "included_in_hot_action_rollup": true,
       "live_browser_control_authorized": false,
       "next_action": "bind_graph_geometry_capture_before_quality_claim",
+      "priority_weight": 88,
       "private_screenshot_path_exported": false,
       "quality_posture": "capture_binding_gap",
       "reason": "graph legibility cannot be claimed until capture evidence is bound",
-      "score": 88,
       "view_id": "graph_geometry"
     },
     {
@@ -42,10 +42,10 @@
       "included_in_hot_action_rollup": true,
       "live_browser_control_authorized": false,
       "next_action": "add_or_bind_contract_markers_for_partial_row",
+      "priority_weight": 84,
       "private_screenshot_path_exported": false,
       "quality_posture": "contract_marker_gap",
       "reason": "partial measurement debt must become a typed action, not prose",
-      "score": 84,
       "view_id": "partial_unmeasured_panel"
     },
     {
@@ -54,10 +54,10 @@
       "included_in_hot_action_rollup": true,
       "live_browser_control_authorized": false,
       "next_action": "create_public_safe_census_row_or_drop_unowned_requested_view",
+      "priority_weight": 95,
       "private_screenshot_path_exported": false,
       "quality_posture": "census_binding_gap",
       "reason": "every requested view gets an action row, including missing views",
-      "score": 95,
       "view_id": "missing_operator_bridge_console"
     }
   ],
@@ -83,7 +83,7 @@
   },
   "body_redacted": true,
   "command": "microcosm view-quality",
-  "created_at": "2026-05-22T20:19:05+00:00",
+  "created_at": "2026-05-22T20:51:54+00:00",
   "endpoint": "/view-quality",
   "fixture_protocol": {
     "fixture_scope": "synthetic public rows only",
@@ -97,29 +97,29 @@
     {
       "action_class": "add_to_census_or_bind_capture",
       "next_action": "create_public_safe_census_row_or_drop_unowned_requested_view",
+      "priority_weight": 95,
       "rank": 1,
-      "score": 95,
       "view_id": "missing_operator_bridge_console"
     },
     {
       "action_class": "resolution_work",
       "next_action": "resolve_navigation_layout_watch_row",
+      "priority_weight": 92,
       "rank": 2,
-      "score": 92,
       "view_id": "root_navigator"
     },
     {
       "action_class": "bind_capture_or_repair_geometry",
       "next_action": "bind_graph_geometry_capture_before_quality_claim",
+      "priority_weight": 88,
       "rank": 3,
-      "score": 88,
       "view_id": "graph_geometry"
     },
     {
       "action_class": "add_contract_markers",
       "next_action": "add_or_bind_contract_markers_for_partial_row",
+      "priority_weight": 84,
       "rank": 4,
-      "score": 84,
       "view_id": "partial_unmeasured_panel"
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The standards-control lens is a public-safe read-model over existing standard, validator, fixture, acceptance, docs, and authority surfaces. It does not make the standards registry source authority, prove complete coverage, export private bodies, expose proof bodies or provider payloads, call providers, mutate source, claim private equivalence, publish, host, or authorize release.",
+  "anti_claim": "The standards-control lens is a public-safe read-model over existing standard, validator, fixture, acceptance, docs, and authority surfaces. It does not make the standards registry source authority, prove complete coverage, export private bodies, expose proof bodies or provider payloads, call providers, mutate source, claim secret export, publish, host, or authorize release.",
   "authority_ceiling": {
     "private_body_export_authorized": false,
     "private_data_equivalence_claim": false,
@@ -14,7 +14,7 @@
   },
   "body_redacted": true,
   "command": "microcosm standards-control",
-  "created_at": "2026-05-22T20:19:05+00:00",
+  "created_at": "2026-05-22T20:47:09+00:00",
   "endpoint": "/standards-control",
   "input_refs": {
     "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
@@ -166,7 +166,7 @@
       "provider_payload_exported": false,
       "public_role": "global authority map lists standards control as read-model only",
       "release_authorized": false,
-      "required_signal": "release, provider, source mutation, and private equivalence are false",
+      "required_signal": "release, provider, source mutation, and secret export are false",
       "source_authority_claim": false,
       "source_ref": "microcosm authority::public_standards_control_lens",
       "validation_refs": [

@@ -39,7 +39,7 @@
       "command": "microcosm authority",
       "endpoint": "/authority",
       "evidence_ref": "receipts/runtime_shell/public_authority_map.json",
-      "expected_signal": "release, provider, source mutation, proof, benchmark, and private-equivalence ceilings are false",
+      "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false",
       "minute_budget": 1,
       "pass_condition": "authority_surface_has_false_public_ceiling",
       "reader_question": "What is not being claimed?"
@@ -76,7 +76,7 @@
     }
   ],
   "command": "microcosm legibility-scorecard",
-  "created_at": "2026-05-22T20:19:05+00:00",
+  "created_at": "2026-05-22T20:47:09+00:00",
   "endpoint": "/legibility-scorecard",
   "evidence_refs": [
     "receipts/runtime_shell/public_ten_minute_tour.json",
@@ -130,7 +130,7 @@
       "question_id": "evidence"
     },
     {
-      "answer_contract": "no release, private equivalence, provider execution, proof correctness, benchmark score, or reader-success guarantee",
+      "answer_contract": "no release, secret export, provider execution, proof correctness, benchmark score, or reader-success guarantee",
       "proof_command": "microcosm authority",
       "question": "What claims are out of scope?",
       "question_id": "limits"

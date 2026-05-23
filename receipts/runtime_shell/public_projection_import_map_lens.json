@@ -15,7 +15,7 @@
   },
   "body_redacted": true,
   "command": "microcosm projection-import-map",
-  "created_at": "2026-05-22T20:19:05+00:00",
+  "created_at": "2026-05-22T20:47:09+00:00",
   "endpoint": "/projection-import-map",
   "import_rows": [
     {
@@ -84,7 +84,7 @@
       "map_row_id": "cold_reader_legibility_to_scorecard",
       "omitted": [
         "reader success guarantee",
-        "public/private equivalence claim"
+        "public/secret export claim"
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",

@@ -11,7 +11,7 @@
     "event stream",
     "evidence membrane"
   ],
-  "created_at": "2026-05-22T13:38:05+00:00",
+  "created_at": "2026-05-22T20:17:09+00:00",
   "kernel": {
     "anti_claim": "This kernel describes the public research-prototype substrate only. It does not authorize production readiness, release, hosting, publication, provider calls, source mutation, private-data equivalence, or whole-system correctness.",
     "job_sentence": "Microcosm is an executable research prototype of a local project substrate: bring a folder, build project-local state, inspect the architecture behind routes, work, events, and evidence.",
@@ -288,8 +288,8 @@
   "schema_version": "microcosm_project_architecture_v1",
   "source_files_mutated": false,
   "standard_pressure_surface": {
-    "anti_claim": "Standard pressure rows are public-safe constraints over local Microcosm state. They do not promote global doctrine, authorize source mutation, or prove release readiness.",
-    "authority_posture": "public_safe_standard_pressure_projection_not_doctrine_authority",
+    "anti_claim": "Standard pressure rows are public-safe constraints over local Microcosm state. They do not promote global doctrine, authorize source mutation, or prove release operations.",
+    "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
     "private_source_bodies_included": false,
     "rows": [
       {
@@ -534,7 +534,7 @@
       },
       {
         "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
-        "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release readiness.",
+        "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release operations.",
         "kernel_primitive_refs": [
           "standard",
           "route",
@@ -592,7 +592,7 @@
       },
       {
         "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
-        "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release readiness.",
+        "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release operations.",
         "kernel_primitive_refs": [
           "standard",
           "evidence",

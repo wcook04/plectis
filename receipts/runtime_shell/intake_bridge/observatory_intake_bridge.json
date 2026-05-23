@@ -144,8 +144,8 @@
     "self_hosted_status_protocol_landed": 1
   },
   "projection_status_protocol": {
-    "anti_claim": "Cell status is a public intake state machine over metadata and receipt refs. It is not private source authority, release readiness, or proof of whole-system correctness.",
-    "authority_ceiling": "metadata_fixture_receipt_ref_status_only",
+    "anti_claim": "Cell status is intake coordination. It is not an imported macro body, a capability proof, or a reason to avoid importing real non-secret substrate.",
+    "authority_ceiling": "cell_status_only_not_body_import",
     "cell_state_field": "cell_state",
     "closed_statuses": [
       "public_replacement_landed",
