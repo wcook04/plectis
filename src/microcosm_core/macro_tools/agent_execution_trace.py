@@ -32,6 +32,7 @@ TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
     "microcosm_core.macro_tools.agent_execution_trace::main",
 ]
 AUTHORITY_CEILING = {
@@ -238,6 +239,37 @@ def _load_mcp_tool_authority_bundle(input_dir: Path) -> dict[str, dict[str, Any]
                 "bundle_id": "mcp_tool_authority_replay_fixture_input",
                 "input_mode": "fixture",
                 "organ_id": "mcp_tool_authority_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
+
+
+def _load_agentic_vulnerability_patch_proof_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "target_manifests",
+        "issue_hypotheses",
+        "trace_evidence",
+        "exploitability_proofs",
+        "patch_diffs",
+        "regression_tests",
+        "verifier_receipts",
+        "sandbox_policy_verdicts",
+        "false_positive_triage",
+        "cold_replay",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": "agentic_vulnerability_discovery_patch_proof_replay_fixture_input",
+                "input_mode": "fixture",
+                "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
             }
         else:
             bundle[name] = {}
@@ -1444,6 +1476,251 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
     }
 
 
+def build_public_agentic_vulnerability_patch_proof_trace(
+    input_dir: str | Path,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_agentic_vulnerability_patch_proof_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(
+        manifest.get("bundle_id")
+        or "public_agentic_vulnerability_patch_proof_trace"
+    )
+    hypotheses = {
+        str(row.get("hypothesis_id")): row
+        for row in _rows(bundle["issue_hypotheses"], "issue_hypotheses")
+        if row.get("hypothesis_id")
+    }
+    targets = {
+        str(row.get("target_id")): row
+        for row in _rows(bundle["target_manifests"], "targets")
+        if row.get("target_id")
+    }
+    sandbox_by_hypothesis = {
+        str(row.get("hypothesis_id")): row
+        for row in _rows(bundle["sandbox_policy_verdicts"], "sandbox_policy_verdicts")
+        if row.get("hypothesis_id")
+    }
+    verifier_by_hypothesis: dict[str, list[dict[str, Any]]] = {}
+    for row in _rows(bundle["verifier_receipts"], "verifier_receipts"):
+        hypothesis_id = str(row.get("hypothesis_id") or "")
+        verifier_by_hypothesis.setdefault(hypothesis_id, []).append(row)
+    replayed_hypotheses = {
+        str(row.get("hypothesis_id"))
+        for row in _rows(bundle["cold_replay"], "cold_replay")
+        if row.get("hypothesis_id") and row.get("pass_label") is True
+    }
+    patch_by_hypothesis = {
+        str(row.get("hypothesis_id")): row
+        for row in _rows(bundle["patch_diffs"], "patch_diffs")
+        if row.get("hypothesis_id")
+    }
+    tests_by_patch = {
+        str(row.get("patch_id")): row
+        for row in _rows(bundle["regression_tests"], "regression_tests")
+        if row.get("patch_id")
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    sorted_traces = sorted(
+        _rows(bundle["trace_evidence"], "trace_evidence"),
+        key=lambda row: (
+            str(row.get("hypothesis_id") or ""),
+            str(row.get("trace_id") or ""),
+        ),
+    )
+    for sequence_index, row in enumerate(sorted_traces):
+        trace_id = str(row.get("trace_id") or f"trace_{sequence_index}")
+        hypothesis_id = str(row.get("hypothesis_id") or "")
+        hypothesis = hypotheses.get(hypothesis_id, {})
+        target_id = str(row.get("target_id") or hypothesis.get("target_id") or "")
+        sandbox = sandbox_by_hypothesis.get(hypothesis_id, {})
+        verifier_rows = verifier_by_hypothesis.get(hypothesis_id, [])
+        patch = patch_by_hypothesis.get(hypothesis_id, {})
+        test = tests_by_patch.get(str(patch.get("patch_id") or ""), {})
+        verdict = str(sandbox.get("policy_verdict") or "missing_sandbox_verdict")
+        verifier_result = (
+            str(verifier_rows[0].get("result"))
+            if verifier_rows
+            else "missing_verifier_receipt"
+        )
+        if hypothesis_id not in hypotheses:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_HYPOTHESIS_REF_MISSING",
+                    "Trace evidence has no matching vulnerability hypothesis.",
+                    subject_id=trace_id,
+                )
+            )
+        if target_id not in targets:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_TARGET_REF_MISSING",
+                    "Trace evidence has no matching synthetic target row.",
+                    subject_id=trace_id,
+                )
+            )
+        if hypothesis_id not in sandbox_by_hypothesis:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_SANDBOX_VERDICT_REF_MISSING",
+                    "Trace evidence has no matching pre-action sandbox verdict.",
+                    subject_id=trace_id,
+                )
+            )
+        if verifier_result == "missing_verifier_receipt":
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_VERIFIER_RECEIPT_REF_MISSING",
+                    "Trace evidence has no matching verifier receipt.",
+                    subject_id=trace_id,
+                )
+            )
+        if hypothesis_id not in replayed_hypotheses:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_COLD_REPLAY_REF_MISSING",
+                    "Trace evidence is not covered by a passing cold replay row.",
+                    subject_id=trace_id,
+                )
+            )
+        if patch and not test:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_REGRESSION_TEST_REF_MISSING",
+                    "Patch proof has no matching regression test row.",
+                    subject_id=trace_id,
+                )
+            )
+        if sandbox.get("pre_action") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_AGENTIC_VULN_SANDBOX_NOT_PRE_ACTION",
+                    "Patch-proof sandbox verdict must precede replay action.",
+                    subject_id=trace_id,
+                )
+            )
+
+        if verifier_result == "false_positive":
+            outcome = "false_positive"
+        elif verdict == "allow_synthetic_patch" and verifier_result == "pass":
+            outcome = "patch_verified"
+        elif verdict == "review":
+            outcome = "review"
+        else:
+            outcome = verifier_result
+
+        span = PublicTraceSpan(
+            span_id=f"span:{trace_id}",
+            session_id=session_id,
+            action_kind=str(row.get("trace_type") or "patch_proof_trace"),
+            sequence_index=sequence_index,
+            episode_id=hypothesis_id,
+            observation_ref=str(row.get("evidence_ref") or ""),
+            authority_verdict_id=str(sandbox.get("verdict_id") or ""),
+            state_transition_ref=str(
+                verifier_rows[0].get("receipt_ref") if verifier_rows else ""
+            ),
+            outcome=outcome,
+            target_ref=target_id,
+            input_digest=_stable_digest(
+                {
+                    "trace_id": trace_id,
+                    "hypothesis_id": hypothesis_id,
+                    "target_id": target_id,
+                    "evidence_ref": row.get("evidence_ref"),
+                    "patch_id": patch.get("patch_id"),
+                    "test_id": test.get("test_id"),
+                }
+            ),
+            recovery_ref=str(patch.get("diff_hash_ref") or ""),
+            tool_name="agentic_vulnerability_patch_proof_replay",
+            source_ref="agentic_vulnerability_discovery_patch_proof_replay_bundle",
+        ).as_dict()
+        span["hypothesis_id"] = hypothesis_id
+        span["patch_id"] = patch.get("patch_id")
+        span["regression_test_id"] = test.get("test_id")
+        span["sandbox_policy_verdict"] = verdict
+        span["verifier_result"] = verifier_result
+        span["exploitability_body_exported"] = False
+        spans.append(span)
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    coverage = {
+        "hypothesis_ref_coverage": len(spans)
+        == sum(1 for span in spans if span["hypothesis_id"] in hypotheses),
+        "synthetic_target_ref_coverage": len(spans)
+        == sum(1 for span in spans if span["target_refs"] and span["target_refs"][0] in targets),
+        "sandbox_verdict_coverage": len(spans)
+        == sum(1 for span in spans if span["hypothesis_id"] in sandbox_by_hypothesis),
+        "verifier_receipt_coverage": len(spans)
+        == sum(1 for span in spans if span["hypothesis_id"] in verifier_by_hypothesis),
+        "cold_replay_coverage": len(spans)
+        == sum(1 for span in spans if span["hypothesis_id"] in replayed_hypotheses),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "synthetic_target_refs",
+                "sandbox_policy_verdict_refs",
+                "verifier_receipt_refs",
+                "cold_replay_refs",
+            ],
+            "omitted_live_material": [
+                "live target bodies",
+                "real CVE exploitation details",
+                "weaponized exploit payloads",
+                "credentials or account state",
+                "provider payload bodies",
+                "raw issue bodies",
+                "raw patch bodies",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -1462,6 +1739,9 @@ def build_parser() -> argparse.ArgumentParser:
     mcp_tool_authority = subparsers.add_parser("mcp-tool-authority")
     mcp_tool_authority.add_argument("--input", required=True)
     mcp_tool_authority.add_argument("--pretty", action="store_true")
+    agentic_vulnerability = subparsers.add_parser("agentic-vulnerability-patch-proof")
+    agentic_vulnerability.add_argument("--input", required=True)
+    agentic_vulnerability.add_argument("--pretty", action="store_true")
     return parser
 
 
@@ -1489,6 +1769,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if payload["status"] == PASS else 1
     if args.command == "mcp-tool-authority":
         payload = build_public_mcp_tool_authority_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "agentic-vulnerability-patch-proof":
+        payload = build_public_agentic_vulnerability_patch_proof_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1
