@@ -54,7 +54,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.verifier_lab_execution_spine",
-    "receipt must cite transition trace, CP2 translation trace, Evolve mutation trace, Lean return codes, negative-case coverage, claim separation, authority counters, private-state scan, receipt transparency contract, and anti-claim"
+    "receipt must cite transition trace, CP2 translation trace, Evolve mutation trace, Lean return codes, negative-case coverage, claim separation, authority counters, secret-exclusion scan, receipt transparency contract, real runtime receipt posture, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -65,7 +65,7 @@
       "cp2_downstream_rerun_effect",
       "bounded_evolve_policy_rerun",
       "forward_oracle_provider_visibility_rejection",
-      "proof_body_redaction",
+      "proof_body_exclusion",
       "negative_case_coverage"
     ]
   },
@@ -82,15 +82,21 @@
       "authority_ceiling",
       "receipt_transparency_contract",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed",
+      "public_runtime_refs",
       "negative_case_coverage"
     ]
   },
   "receipt_transparency_contract": {
     "required": true,
-    "rule": "receipts are public evidence; only dangerous private/proof/provider/oracle/stdout payload fields are redacted or omitted",
+    "rule": "receipts are public evidence over real source-available runtime substrate; only dangerous proof/provider/oracle/private-source/stdout payload bodies are omitted from JSON receipts",
     "receipt_body_is_public_evidence": true,
-    "redaction_scope": "dangerous_payload_fields_only",
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "body_in_receipt": false,
+    "real_substrate_default": true,
     "must_expose": [
       "problem ids",
       "target-shape ids",
@@ -118,7 +124,7 @@
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_receipts_are_structured_and_only_dangerous_payload_fields_are_redacted_or_omitted",
+    "default_posture": "source_open_runtime_substrate_with_secret_exclusion_and_dangerous_payload_body_omission",
     "allowed_public_inputs": [
       "problem ids",
       "statement summaries",
@@ -156,7 +162,7 @@
   },
   "anti_claim": "This standard governs bounded public verifier-lab transition execution receipts only; it does not authorize private proof-body import, provider calls, oracle success as forward proof, CP2 proof bodies, arbitrary Evolve mutation, benchmark solve-rate claims, release, publication, or private-data equivalence.",
   "standard_payload": {
-    "ontology": "A public-safe executing verifier-lab spine that runs Lean transition candidates, translates CP2 residuals into typed action candidates, reruns verifier checks, and accepts or quarantines bounded Evolve policy mutations.",
+    "ontology": "A source-open executing verifier-lab spine that runs real public Lean transition candidates, translates CP2 residuals into typed action candidates, reruns verifier checks, and accepts or quarantines bounded Evolve policy mutations.",
     "teleology": "Make the landed leak-proof verifier lab kernel adjudicate real transitions rather than predeclared receipt rows.",
     "anti_purpose": "Turning provider, oracle, or CP2 text into proof authority or mutating source under the Evolve name.",
     "compression_bands": [
@@ -195,7 +201,7 @@
       "private run logs",
       "source mutation"
     ],
-    "reason": "public slice carries full structured receipt metadata while omitting proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies",
+    "reason": "public runtime slice carries real source refs, Lean/Lake command identity, transition traces, counters, and generated receipts while omitting only proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies",
     "drilldown": "fixtures/first_wave/verifier_lab_execution_spine/input/execution_spine_packet.json"
   },
   "anti_claim_contract": {

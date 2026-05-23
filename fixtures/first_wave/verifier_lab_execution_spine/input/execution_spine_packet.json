@@ -15,8 +15,8 @@
   "projection_receipt_refs": [
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json"
   ],
-  "public_replacement_refs": [
-    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
+  "public_runtime_refs": [
+    "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
   "transition_candidates": [
     {

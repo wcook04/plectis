@@ -15,7 +15,7 @@
   "projection_receipt_refs": [
     "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json"
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
   "transition_candidates": [

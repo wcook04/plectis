@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Verifier lab execution spine runs bounded public Lean transition candidates in a temporary workspace and records redacted receipts. It does not import private proof bodies, expose generated proof text, call providers, count oracle/provider output as proof authority, mutate source, claim benchmark solve-rate, or authorize release.",
+  "anti_claim": "Verifier lab execution spine runs bounded public Lean transition candidates in a temporary workspace and records structured public runtime receipts with only dangerous payload fields omitted. It does not import macro proof bodies, expose generated proof text, call providers, count oracle/provider output as proof authority, mutate source, claim benchmark solve-rate, or authorize release.",
   "authority_ceiling": {
     "authority_ceiling": "bounded_public_lean_transition_execution_receipt_only",
     "benchmark_solve_rate_claim": false,
@@ -8,8 +8,8 @@
     "formal_proof_authority": "bounded_public_transition_rows_only",
     "lean_lake_execution_authorized": true,
     "lean_lake_execution_scope": "temporary_workspace_copy_of_public_fixture",
+    "macro_private_body_import_authorized": false,
     "oracle_success_counts_as_forward_success": false,
-    "private_body_import_authorized": false,
     "proof_bodies_allowed_in_receipts": false,
     "provider_calls_authorized": false,
     "provider_text_counts_as_proof": false,
@@ -30,7 +30,7 @@
     "source_mutation_count": 0,
     "transition_count": 6
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": "public_verifier_lab_execution_spine_runtime_example",
   "claim_separation": {
     "contract_rejected": [],
@@ -56,7 +56,7 @@
           "problem_id": "add_comm_public",
           "proof_body_exported": false,
           "provider_visible": false,
-          "stdout_stderr_redacted": true,
+          "stdout_stderr_in_receipt": false,
           "target_shape": "premise_exact",
           "timed_out": false,
           "transition_id": "cp2_add_comm_premise_exact_rerun",
@@ -79,7 +79,7 @@
         "baseline_transition_ids": [
           "baseline_add_comm_missing_premise"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "contract_rejected": false,
         "decision": "accepted",
         "error_codes": [],
@@ -101,7 +101,7 @@
         "baseline_transition_ids": [
           "baseline_add_comm_missing_premise"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "contract_rejected": false,
         "decision": "accepted",
         "error_codes": [],
@@ -129,7 +129,7 @@
         "problem_id": "closed_nat_mod_public",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "closed_nat_mod_decision",
         "timed_out": false,
         "transition_id": "direct_closed_nat_mod_decide",
@@ -147,7 +147,7 @@
         "problem_id": "true_and_true_public",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "conjunction_constructor",
         "timed_out": false,
         "transition_id": "direct_constructor_true_and",
@@ -167,7 +167,7 @@
         "problem_id": "add_comm_public",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "premise_exact",
         "timed_out": false,
         "transition_id": "cp2_add_comm_premise_exact_rerun",
@@ -187,7 +187,7 @@
         "problem_id": "add_comm_public",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "premise_exact",
         "timed_out": false,
         "transition_id": "evolve_rerun_cp2_priority",
@@ -215,7 +215,7 @@
         "problem_id": "unknown_commutativity_prior",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "premise_exact",
         "timed_out": false,
         "transition_id": "residual_unsolved_unknown_premise",
@@ -247,7 +247,7 @@
         "problem_id": "add_comm_public",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "premise_exact",
         "timed_out": false,
         "transition_id": "baseline_add_comm_missing_premise",
@@ -255,7 +255,7 @@
       }
     ]
   },
-  "command": "python -m microcosm_core.organs.verifier_lab_execution_spine run-execution-bundle --input microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+  "command": "python -m microcosm_core.organs.verifier_lab_execution_spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
   "cp2_translation_trace": [
     {
       "candidate_action_class": "premise_exact",
@@ -278,7 +278,7 @@
         "problem_id": "add_comm_public",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "premise_exact",
         "timed_out": false,
         "transition_id": "cp2_add_comm_premise_exact_rerun",
@@ -294,7 +294,7 @@
       "residual_id": "residual_add_comm_missing_premise"
     }
   ],
-  "created_at": "2026-05-22T15:48:19+00:00",
+  "created_at": "2026-05-23T05:58:16+00:00",
   "error_codes": [],
   "evolve_mutation_trace": [
     {
@@ -303,7 +303,7 @@
       "baseline_transition_ids": [
         "baseline_add_comm_missing_premise"
       ],
-      "body_redacted": true,
+      "body_in_receipt": false,
       "contract_rejected": false,
       "decision": "accepted",
       "error_codes": [],
@@ -329,31 +329,79 @@
       "build",
       "MicrocosmProofWitness"
     ],
-    "body_redacted": true,
     "cwd_name": "lake_project",
     "return_code": 0,
     "stderr_line_count": 2,
     "stdout_line_count": 17,
+    "stdout_stderr_in_receipt": false,
     "timed_out": false
   },
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "verifier_lab_execution_spine",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 2,
-    "status": "pass"
-  },
+  "public_runtime_refs": [
+    "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+  ],
+  "real_runtime_receipt": true,
   "receipt_id": "exported_verifier_lab_execution_spine_bundle_validation_result_v1",
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle_validation_result.json"
   ],
+  "receipt_transparency_contract": {
+    "body_in_receipt": false,
+    "forbidden_payload_fields": [
+      "proof_body",
+      "raw_tactic_script",
+      "provider_text",
+      "oracle_ideal_answer",
+      "oracle_needed_premise_ids",
+      "private_source_path",
+      "private_payload_body",
+      "stdout_body",
+      "stderr_body"
+    ],
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "real_substrate_default": true,
+    "receipt_body_is_public_evidence": true,
+    "required_public_evidence_fields": [
+      "problem_id",
+      "target_shape",
+      "action_class",
+      "candidate_kind",
+      "allowed_premise_refs",
+      "lean_lake_command_identity",
+      "lean_return_code",
+      "accepted",
+      "verifier_failure_class",
+      "negative_case_id",
+      "cp2_action_class",
+      "evolve_policy_artifact_id",
+      "oracle_provider_separation_counters",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "schema_version": "verifier_lab_receipt_transparency_contract_v1",
+    "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
+  },
   "schema_version": "exported_verifier_lab_execution_spine_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 2,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "tool_versions": {
     "lake_available": true,
     "lake_version_command": {
@@ -361,11 +409,11 @@
         "lake",
         "--version"
       ],
-      "body_redacted": true,
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
+      "stdout_stderr_in_receipt": false,
       "timed_out": false
     },
     "lean_available": true,
@@ -374,11 +422,11 @@
         "lean",
         "--version"
       ],
-      "body_redacted": true,
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
+      "stdout_stderr_in_receipt": false,
       "timed_out": false
     }
   },
@@ -395,7 +443,7 @@
       "problem_id": "closed_nat_mod_public",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "closed_nat_mod_decision",
       "timed_out": false,
       "transition_id": "direct_closed_nat_mod_decide",
@@ -413,7 +461,7 @@
       "problem_id": "true_and_true_public",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "conjunction_constructor",
       "timed_out": false,
       "transition_id": "direct_constructor_true_and",
@@ -431,7 +479,7 @@
       "problem_id": "add_comm_public",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "premise_exact",
       "timed_out": false,
       "transition_id": "baseline_add_comm_missing_premise",
@@ -451,7 +499,7 @@
       "problem_id": "add_comm_public",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "premise_exact",
       "timed_out": false,
       "transition_id": "cp2_add_comm_premise_exact_rerun",
@@ -469,7 +517,7 @@
       "problem_id": "unknown_commutativity_prior",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "premise_exact",
       "timed_out": false,
       "transition_id": "residual_unsolved_unknown_premise",
@@ -489,7 +537,7 @@
       "problem_id": "add_comm_public",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "premise_exact",
       "timed_out": false,
       "transition_id": "evolve_rerun_cp2_priority",

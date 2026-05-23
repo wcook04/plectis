@@ -65,8 +65,17 @@ def test_verifier_lab_execution_spine_runs_lean_cp2_and_evolve(tmp_path: Path) -
     assert len(claim_separation["retrieval_miss"]) == 1
     assert len(claim_separation["evolve_accepted"]) == 1
     assert all(row["proof_body_exported"] is False for row in result["transition_trace"])
+    assert all(row["stdout_stderr_in_receipt"] is False for row in result["transition_trace"])
     assert all(row["provider_visible"] is False for row in result["transition_trace"])
     assert all(row["oracle_visible"] is False for row in result["transition_trace"])
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert all(
+        ref.startswith("fixtures/first_wave/verifier_lab_execution_spine/input/")
+        for ref in result["public_runtime_refs"]
+    )
 
     board_path = (
         tmp_path
@@ -94,6 +103,18 @@ def test_verifier_lab_execution_spine_bundle_is_public_structured(tmp_path: Path
     assert result["authority_counters"]["accepted_transition_count"] == 4
     assert result["authority_counters"]["cp2_downstream_effect_count"] == 1
     assert result["authority_counters"]["evolve_accepted_count"] == 1
+    assert result["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert all(
+        ref.startswith(
+            "examples/verifier_lab_execution_spine/"
+            "exported_verifier_lab_execution_spine_bundle/"
+        )
+        for ref in result["public_runtime_refs"]
+    )
 
 
 def test_verifier_lab_execution_spine_receipts_are_transparent_without_bodies(
@@ -108,16 +129,21 @@ def test_verifier_lab_execution_spine_receipts_are_transparent_without_bodies(
 
     assert payload["status"] == "pass"
     assert payload["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
-    assert payload["receipt_transparency_contract"]["redaction_scope"] == (
-        "dangerous_payload_fields_only"
+    assert payload["receipt_transparency_contract"]["omitted_payload_scope"] == (
+        "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only"
     )
+    assert payload["body_in_receipt"] is False
+    assert payload["real_runtime_receipt"] is True
+    assert payload["synthetic_receipt_standin_allowed"] is False
     assert payload["transition_trace"][0]["problem_id"] == "closed_nat_mod_public"
     assert payload["transition_trace"][0]["lean_return_code"] == 0
-    assert payload["private_state_scan"]["body_redacted"] is True
-    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["receipts_include_proof_bodies"] is False
     assert payload["provider_calls_authorized"] is False
     assert payload["source_mutation_authorized"] is False
+    assert "private_state_scan" not in payload
+    assert "body_redacted" not in payload
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text

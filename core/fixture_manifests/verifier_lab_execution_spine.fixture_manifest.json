@@ -49,12 +49,12 @@
     "claim_separation",
     "authority_counters",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "receipt_paths"
   ],
-  "private_state_exclusion_rules": {
-    "proof_bodies": "forbidden in receipts and fixture packet fields; generated transition source stays local and redacted",
+  "secret_exclusion_rules": {
+    "proof_bodies": "forbidden in receipts and fixture packet fields; generated transition source stays local and body content is not inlined in JSON receipts",
     "oracle_templates": "forbidden; oracle comparison remains diagnostic only",
     "provider_payload_bodies": "forbidden; provider hypotheses are advisory metadata only",
     "raw_tactic_scripts": "forbidden in CP2 candidates; CP2 emits typed action classes only",
