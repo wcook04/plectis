@@ -8,6 +8,11 @@ from pathlib import Path
 import pytest
 
 from microcosm_core import cli
+from microcosm_core.runtime_shell import (
+    PROOF_LAB_FIRST_SCREEN_COMMAND,
+    PROOF_LAB_RECEIPT_REF,
+    PROOF_LAB_ROUTE_REF,
+)
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -171,9 +176,14 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][11]["command"] == "microcosm repair-loop"
     assert payload["first_run_path"][12]["command"] == "microcosm evidence-cells"
     assert payload["first_run_path"][13]["command"] == "microcosm proof-loop-depth"
-    assert payload["first_run_path"][14]["command"] == (
-        "microcosm verifier-lab-kernel run-kernel-bundle"
+    assert payload["first_screen_proof_lab"]["status"] == "pass"
+    assert payload["first_screen_proof_lab"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
     )
+    assert payload["first_run_path"][14]["command"] == PROOF_LAB_FIRST_SCREEN_COMMAND
+    assert payload["first_run_path"][14]["route_ref"] == PROOF_LAB_ROUTE_REF
+    assert payload["first_run_path"][14]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+    assert payload["first_run_path"][14]["route_component_count"] == 9
     assert payload["first_run_path"][15]["command"] == (
         "microcosm verifier-lab-execution-spine run-execution-bundle"
     )
@@ -290,7 +300,7 @@ def test_cli_authority_smoke(
     )
     assert (
         organ_authority_by_id["verifier_lab_kernel"]["evidence_class"]
-        == "algorithmic_projection"
+        == "semantic_validator"
     )
     assert (
         organ_authority_by_id["proof_diagnostic_evidence_spine"]["evidence_class"]
@@ -341,6 +351,9 @@ def test_cli_authority_smoke(
     assert any(
         row["surface_id"] == "public_verifier_lab_kernel_lens"
         and row["provider_hypothesis_proof_authority"] is False
+        and row["route_id"] == "formal_prover_context_strategy_gate"
+        and row["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+        and row["route_component_count"] == 9
         for row in payload["surface_authority"]
     )
     assert any(
@@ -417,6 +430,17 @@ def test_cli_tour_smoke(
     assert payload["compile_summary"]["headline"] == "repo -> .microcosm"
     assert payload["snapshot_policy"]["test_runs_should_use_temp_public_root"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["first_screen_proof_lab"]["status"] == "pass"
+    assert payload["first_screen_proof_lab"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert payload["first_screen_proof_lab"]["route_ref"] == PROOF_LAB_ROUTE_REF
+    assert payload["first_screen_proof_lab"]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+    assert any(
+        card["card_id"] == "verifier_lab_kernel"
+        and card["route_component_count"] == 9
+        for card in payload["route_cards"]
+    )
     assert (public_root / payload["tour_ref"]).is_file()
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
 
@@ -530,6 +554,8 @@ def test_cli_proof_loop_depth_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["command"] == "microcosm proof-loop-depth"
     assert payload["endpoint"] == "/proof-loop-depth"
     assert payload["proof_loop_summary"]["gate_count"] == 11
+    assert payload["proof_loop_summary"]["proof_lab_route_component_count"] == 9
+    assert payload["first_screen_proof_lab"]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
     assert payload["proof_loop_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["authority_ceiling"]["benchmark_score_claim"] is False

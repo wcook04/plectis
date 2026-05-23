@@ -15,6 +15,8 @@ microcosm tour .
 microcosm python-lens .
 microcosm spine
 microcosm authority
+microcosm proof-loop-depth
+microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
 microcosm reveal
 microcosm legibility-scorecard
 microcosm market-boundary
@@ -36,6 +38,22 @@ Open `http://127.0.0.1:8765` to see the causal chain. The output folder is
 Use `microcosm authority` before trusting any organ label. It shows each
 organ's explicit `evidence_class`, and `accepted_current_authority` is not an
 evidence-strength claim.
+
+The first proof-lab route is runnable from a clean clone:
+
+```bash
+microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+```
+
+It is backed by
+`receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json`
+and route metadata at
+`examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json`.
+That receipt validates route `formal_prover_context_strategy_gate` with 9 route
+components, Lean/Lake return code `0`, 8 compiled declarations, retrieval
+recall `1.0`, Ring2 precision/recall `0.36`/`0.9`, 5 target-shape cases, and 5
+verifier attempts. It does not export proof bodies, provider payloads,
+credentials, account/session state, or release authority.
 
 ## Real Substrate Posture
 
@@ -770,7 +788,7 @@ replication.
 `world_model_projection_drift_control_room` is the public drift-control organ:
 it validates synthetic world-model projection rows with source signals, public
 source refs, repair routes, validation refs, body-free public fixture refs, and
-metadata-only authority ceilings. Run `microcosm
+metadata-scoped authority ceilings. Run `microcosm
 world-model-projection-drift-control-room run-drift-control-bundle` to inspect
 the exported drift-control bundle. The organ rejects missing source refs,
 missing validation refs, source-authority claims, live repair authority,

@@ -68,6 +68,18 @@ from microcosm_core.validators import acceptance
 PASS = "pass"
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 EVIDENCE_CLASS_REGISTRY_REL = Path("core/organ_evidence_classes.json")
+PROOF_LAB_BUNDLE_REF = (
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
+)
+PROOF_LAB_ROUTE_REF = f"{PROOF_LAB_BUNDLE_REF}/proof_lab_route.json"
+PROOF_LAB_RECEIPT_REF = (
+    "receipts/first_wave/verifier_lab_kernel/"
+    "exported_verifier_lab_kernel_bundle_validation_result.json"
+)
+PROOF_LAB_FIRST_SCREEN_COMMAND = (
+    "microcosm verifier-lab-kernel run-kernel-bundle "
+    f"--input {PROOF_LAB_BUNDLE_REF} --out /tmp/microcosm-proof-lab"
+)
 
 
 Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
@@ -702,6 +714,100 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
+def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
+    receipt = _read_json_if_exists(root / PROOF_LAB_RECEIPT_REF)
+    metrics = receipt.get("proof_lab_component_metrics")
+    if not isinstance(metrics, dict):
+        metrics = {}
+    authority_ceiling = receipt.get("authority_ceiling")
+    if not isinstance(authority_ceiling, dict):
+        authority_ceiling = {}
+    secret_scan = receipt.get("secret_exclusion_scan")
+    if not isinstance(secret_scan, dict):
+        secret_scan = {}
+    runtime_refs = receipt.get("public_runtime_refs")
+    if not isinstance(runtime_refs, list):
+        runtime_refs = []
+    anti_claim = receipt.get("anti_claim")
+    return {
+        "schema_version": "microcosm_first_screen_proof_lab_route_card_v1",
+        "card_id": "first_screen_verifier_lab_kernel",
+        "status": receipt.get("status", "missing"),
+        "organ_id": "verifier_lab_kernel",
+        "evidence_class": "semantic_validator",
+        "classification": "real_runtime_receipt",
+        "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+        "bundle_ref": PROOF_LAB_BUNDLE_REF,
+        "route_ref": PROOF_LAB_ROUTE_REF,
+        "receipt_ref": PROOF_LAB_RECEIPT_REF,
+        "route_id": receipt.get("proof_lab_route_id"),
+        "route_component_count": receipt.get("proof_lab_route_component_count"),
+        "route_source_sha256": receipt.get("proof_lab_route_source_sha256"),
+        "lean_lake_return_code": receipt.get("lean_lake_return_code"),
+        "lean_compiled_declaration_count": receipt.get(
+            "lean_compiled_declaration_count"
+        ),
+        "component_metrics": {
+            "corpus_count": metrics.get("corpus_count"),
+            "lean_std_premise_count": metrics.get("lean_std_premise_count"),
+            "retrieval_mean_public_recall": metrics.get(
+                "retrieval_mean_public_recall"
+            ),
+            "retrieval_query_count": metrics.get("retrieval_query_count"),
+            "ring2_mean_precision_at_k": metrics.get("ring2_mean_precision_at_k"),
+            "ring2_mean_recall_at_k": metrics.get("ring2_mean_recall_at_k"),
+            "ring2_problem_count": metrics.get("ring2_problem_count"),
+            "target_shape_route_case_count": metrics.get(
+                "target_shape_route_case_count"
+            ),
+            "verifier_trace_attempt_count": metrics.get(
+                "verifier_trace_attempt_count"
+            ),
+            "proof_diagnostic_accepted_count": metrics.get(
+                "proof_diagnostic_accepted_count"
+            ),
+            "proof_diagnostic_rejected_count": metrics.get(
+                "proof_diagnostic_rejected_count"
+            ),
+            "mathlib_lake_project_import_available": metrics.get(
+                "mathlib_lake_project_import_available"
+            ),
+        },
+        "public_runtime_refs": [
+            ref for ref in runtime_refs if isinstance(ref, str) and ref
+        ],
+        "safe_to_show": {
+            "body_in_receipt": False,
+            "proof_bodies_omitted": True,
+            "provider_payloads_omitted": True,
+            "credential_equivalent_payloads_omitted": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+        },
+        "authority_ceiling": {
+            "formal_proof_authority": authority_ceiling.get(
+                "formal_proof_authority"
+            ),
+            "release_authorized": authority_ceiling.get("release_authorized"),
+            "provider_calls_authorized": authority_ceiling.get(
+                "provider_calls_authorized"
+            ),
+            "source_mutation_authorized": authority_ceiling.get(
+                "source_mutation_authorized"
+            ),
+            "proof_bodies_allowed_in_receipts": authority_ceiling.get(
+                "proof_bodies_allowed_in_receipts"
+            ),
+        },
+        "secret_exclusion": {
+            "status": secret_scan.get("status"),
+            "blocking_hit_count": secret_scan.get("blocking_hit_count"),
+            "scanned_ref_count": secret_scan.get("scanned_ref_count"),
+        },
+        "anti_claim": anti_claim if isinstance(anti_claim, dict) else {},
+    }
+
+
 PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
     {
         "agent_benchmark_integrity_anti_gaming_replay",
@@ -1047,6 +1153,7 @@ class RuntimeShell:
         evidence = self.evidence()
         pattern_surface = architecture_kernel.pattern_surface_contract(self.root)
         standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
+        proof_lab = _proof_lab_first_screen_card(self.root)
         return {
             "schema_version": "microcosm_runtime_status_v1",
             "status": PASS if len(adapter_backed) == len(product_steps) else "blocked",
@@ -1201,6 +1308,7 @@ class RuntimeShell:
                 "receipts_are_drilldown_evidence": True,
                 "fixtures_are_tests": True,
             },
+            "first_screen_proof_lab": proof_lab,
             "organ_count": len(organs),
             "adapter_backed_organ_count": len(adapter_backed),
             "adapter_backed_count_is_product_progress": False,
@@ -1244,6 +1352,7 @@ class RuntimeShell:
                 "run microcosm repair-loop",
                 "run microcosm evidence-cells",
                 "run microcosm proof-loop-depth",
+                f"run {PROOF_LAB_FIRST_SCREEN_COMMAND}",
                 "run microcosm landing-replay",
                 "run microcosm view-quality",
                 "run microcosm projection-safety",
@@ -1286,6 +1395,7 @@ class RuntimeShell:
         routes = self.routes()
         workitems = self.workitems()
         evidence = self.evidence()
+        proof_lab = _proof_lab_first_screen_card(self.root)
         return {
             "schema_version": "microcosm_public_runtime_spine_v1",
             "status": PASS if len(adapter_backed) == len(product_steps) else "blocked",
@@ -1295,6 +1405,7 @@ class RuntimeShell:
                 "patterns, routes, work transactions, events, evidence, and explanations."
             ),
             "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
+            "first_screen_proof_lab": proof_lab,
             "first_run_path": [
                 {
                     "step_id": "run_ten_minute_tour",
@@ -1449,9 +1560,12 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_verifier_lab_kernel",
-                    "command": (
-                        "microcosm verifier-lab-kernel run-kernel-bundle"
-                    ),
+                    "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+                    "route_id": proof_lab.get("route_id"),
+                    "route_ref": proof_lab.get("route_ref"),
+                    "receipt_ref": proof_lab.get("receipt_ref"),
+                    "route_component_count": proof_lab.get("route_component_count"),
+                    "component_metrics": proof_lab.get("component_metrics"),
                     "shows": [
                         "Lean witness, tactic routing, and verifier trace components",
                         "oracle comparator separated from forward success",
@@ -2013,6 +2127,7 @@ class RuntimeShell:
         repair_loop = self.repair_loop()
         evidence_cells = self.evidence_cells()
         proof_loop_depth = self.proof_loop_depth()
+        proof_lab = _proof_lab_first_screen_card(self.root)
         landing_replay = self.landing_replay()
         view_quality = self.view_quality()
         projection_safety = self.projection_safety()
@@ -2050,6 +2165,7 @@ class RuntimeShell:
                         repair_loop.get("repair_loop_ref"),
                         evidence_cells.get("evidence_cell_lens_ref"),
                         proof_loop_depth.get("proof_loop_depth_ref"),
+                        proof_lab.get("receipt_ref"),
                         landing_replay.get("landing_replay_ref"),
                         view_quality.get("view_quality_lens_ref"),
                         projection_safety.get("projection_safety_lens_ref"),
@@ -2087,6 +2203,7 @@ class RuntimeShell:
             "repair_loop": repair_loop.get("status"),
             "evidence_cells": evidence_cells.get("status"),
             "proof_loop_depth": proof_loop_depth.get("status"),
+            "proof_lab": proof_lab.get("status"),
             "landing_replay": landing_replay.get("status"),
             "view_quality": view_quality.get("status"),
             "projection_safety": projection_safety.get("status"),
@@ -2118,6 +2235,7 @@ class RuntimeShell:
             "microcosm repair-loop",
             "microcosm evidence-cells",
             "microcosm proof-loop-depth",
+            PROOF_LAB_FIRST_SCREEN_COMMAND,
             "microcosm landing-replay",
             "microcosm view-quality",
             "microcosm projection-safety",
@@ -2258,6 +2376,23 @@ class RuntimeShell:
                 else "blocked",
             },
             {
+                "card_id": "verifier_lab_kernel",
+                "minute_budget": 1,
+                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+                "endpoint": "/proof-loop-depth",
+                "shows": [
+                    "route id and nine-component proof-lab composition",
+                    "Lean return code and compiled declaration count",
+                    "retrieval, Ring2, target-shape, and verifier trace metrics",
+                    "receipt-backed authority ceiling before proof language",
+                ],
+                "route_id": proof_lab.get("route_id"),
+                "route_ref": proof_lab.get("route_ref"),
+                "receipt_ref": proof_lab.get("receipt_ref"),
+                "route_component_count": proof_lab.get("route_component_count"),
+                "status": proof_lab.get("status"),
+            },
+            {
                 "card_id": "intake_and_reveal",
                 "minute_budget": 3,
                 "command": "microcosm intake && microcosm reveal",
@@ -2317,8 +2452,8 @@ class RuntimeShell:
             "public_claim": (
                 "Microcosm turns a repo into a local operating substrate and exposes the "
                 "whole first-run path as a ten-minute source-open tour: compile, inspect, "
-                "bound authority, inspect prediction/corpus/formal repair lenses, intake "
-                "and reveal real-substrate receipt states, then drill receipts."
+                "bound authority, inspect prediction/corpus/formal repair lenses, inspect "
+                "the proof-lab route, reveal real-substrate receipt states, then drill receipts."
             ),
             "time_budget_minutes": 10,
             "command_path": commands,
@@ -2333,6 +2468,7 @@ class RuntimeShell:
                 "/repair-loop",
                 "/evidence-cells",
                 "/proof-loop-depth",
+                "/verifier-lab-kernel",
                 "/landing-replay",
                 "/view-quality",
                 "/projection-safety",
@@ -2431,6 +2567,19 @@ class RuntimeShell:
                 ).get("negative_case_count")
                 if isinstance(proof_loop_depth.get("proof_loop_summary"), dict)
                 else 0,
+                "proof_lab_route_component_count": proof_lab.get(
+                    "route_component_count"
+                ),
+                "proof_lab_lean_lake_return_code": proof_lab.get(
+                    "lean_lake_return_code"
+                ),
+                "proof_lab_retrieval_mean_public_recall": (
+                    (proof_lab.get("component_metrics") or {}).get(
+                        "retrieval_mean_public_recall"
+                    )
+                    if isinstance(proof_lab.get("component_metrics"), dict)
+                    else None
+                ),
                 "landing_lane_count": len(landing_replay.get("lane_decision_table", []))
                 if isinstance(landing_replay.get("lane_decision_table"), list)
                 else 0,
@@ -2554,6 +2703,7 @@ class RuntimeShell:
                 "projection_cell_count": intake.get("projection_cell_count"),
                 "reveal_step_count": reveal.get("step_count"),
             },
+            "first_screen_proof_lab": proof_lab,
             "evidence_refs": evidence_refs,
             "safe_to_show": {
                 "body_in_receipt": False,
@@ -3234,6 +3384,7 @@ class RuntimeShell:
         target_shape = _read_json_if_exists(self.root / target_shape_ref)
         witness = _read_json_if_exists(self.root / witness_ref)
         lens_path = self.runtime_receipt_dir / "public_proof_loop_depth_lens.json"
+        proof_lab = _proof_lab_first_screen_card(self.root)
 
         gate_rows = [
             {
@@ -3391,16 +3542,24 @@ class RuntimeShell:
         evidence_refs = [
             ref
             for ref in dict.fromkeys(
-                str(row.get("evidence_ref"))
-                for row in gate_rows
-                if isinstance(row.get("evidence_ref"), str) and row.get("evidence_ref")
+                [
+                    *(
+                        str(row.get("evidence_ref"))
+                        for row in gate_rows
+                        if isinstance(row.get("evidence_ref"), str)
+                        and row.get("evidence_ref")
+                    ),
+                    str(proof_lab.get("receipt_ref")),
+                ]
             )
+            if ref
         ]
         status = (
             PASS
             if len(gate_rows) == 11
             and len(negative_case_ids) == 9
             and all(row.get("source_status") == PASS for row in gate_rows)
+            and proof_lab.get("status") == PASS
             and all(row.get("proof_body_exported") is False for row in gate_rows)
             and all(
                 row.get("oracle_needed_premise_ids_exported") is False
@@ -3454,7 +3613,14 @@ class RuntimeShell:
                 "provider_payload_export_count": 0,
                 "benchmark_score_claim_count": 0,
                 "general_theorem_solution_claim_count": 0,
+                "proof_lab_route_component_count": proof_lab.get(
+                    "route_component_count"
+                ),
+                "proof_lab_lean_lake_return_code": proof_lab.get(
+                    "lean_lake_return_code"
+                ),
             },
+            "first_screen_proof_lab": proof_lab,
             "negative_case_ids": negative_case_ids,
             "evidence_refs": evidence_refs,
             "safe_to_show": {
@@ -9248,6 +9414,7 @@ class RuntimeShell:
         repair_loop = self.repair_loop()
         evidence_cells = self.evidence_cells()
         proof_loop_depth = self.proof_loop_depth()
+        proof_lab = _proof_lab_first_screen_card(self.root)
         landing_replay = self.landing_replay()
         view_quality = self.view_quality()
         projection_safety = self.projection_safety()
@@ -9429,12 +9596,18 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_verifier_lab_kernel_lens",
-                "command": "microcosm verifier-lab-kernel run-kernel-bundle",
+                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
                 "endpoint": "/proof-loop-depth",
                 "authority_role": (
                     "bounded verifier-lab composition kernel and proof-authority "
                     "separation boundary"
                 ),
+                "route_id": proof_lab.get("route_id"),
+                "route_ref": proof_lab.get("route_ref"),
+                "receipt_ref": proof_lab.get("receipt_ref"),
+                "route_component_count": proof_lab.get("route_component_count"),
+                "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
+                "component_metrics": proof_lab.get("component_metrics"),
                 "release_authorized": False,
                 "source_mutation_authorized": False,
                 "provider_calls_authorized": False,
@@ -10069,6 +10242,11 @@ class RuntimeShell:
                     ],
                     *[
                         str(ref)
+                        for ref in (proof_lab.get("receipt_ref"),)
+                        if isinstance(ref, str)
+                    ],
+                    *[
+                        str(ref)
                         for ref in (landing_replay.get("landing_replay_ref"),)
                         if isinstance(ref, str)
                     ],
@@ -10257,6 +10435,7 @@ class RuntimeShell:
                 "microcosm repair-loop",
                 "microcosm evidence-cells",
                 "microcosm proof-loop-depth",
+                PROOF_LAB_FIRST_SCREEN_COMMAND,
                 "microcosm verifier-lab-execution-spine run-execution-bundle",
                 "microcosm certificate-kernel-execution-lab run-certificate-bundle",
                 "microcosm landing-replay",
@@ -10304,6 +10483,7 @@ class RuntimeShell:
                 "microcosm evidence inspect <receipt>",
             ],
             "authority_ceiling": authority_ceiling,
+            "first_screen_proof_lab": proof_lab,
             "surface_authority": surfaces,
             "organ_authority": organ_authority,
             "projection_cells": bridge_cells,
@@ -10343,6 +10523,8 @@ class RuntimeShell:
                 "microcosm trace-lens",
                 "microcosm repair-loop",
                 "microcosm evidence-cells",
+                PROOF_LAB_RECEIPT_REF,
+                PROOF_LAB_ROUTE_REF,
                 "microcosm proof-loop-depth",
                 "microcosm landing-replay",
                 "microcosm view-quality",

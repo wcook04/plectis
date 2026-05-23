@@ -9,7 +9,12 @@ from urllib.request import urlopen
 import pytest
 
 from microcosm_core import project_substrate
-from microcosm_core.runtime_shell import RuntimeShell
+from microcosm_core.runtime_shell import (
+    PROOF_LAB_FIRST_SCREEN_COMMAND,
+    PROOF_LAB_RECEIPT_REF,
+    PROOF_LAB_ROUTE_REF,
+    RuntimeShell,
+)
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -30,10 +35,10 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "ring2_premise_retrieval_precision_recall_harness": "algorithmic_projection",
     "provider_context_recipe_budget_policy": "algorithmic_projection",
     "formal_math_lean_proof_witness": "external_subprocess_witness",
-    "verifier_lab_kernel": "algorithmic_projection",
+    "verifier_lab_kernel": "semantic_validator",
     "verifier_lab_execution_spine": "external_subprocess_witness",
     "navigation_hologram_route_plane": "semantic_validator",
-    "mission_transaction_work_spine": "semantic_validator",
+    "mission_transaction_work_spine": "algorithmic_projection",
     "durable_agent_work_landing_replay": "semantic_validator",
     "research_replication_rubric_artifact_replay": "algorithmic_projection",
     "world_model_projection_drift_control_room": "semantic_validator",
@@ -88,6 +93,20 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
+    assert status["first_screen_proof_lab"]["status"] == "pass"
+    assert status["first_screen_proof_lab"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert status["first_screen_proof_lab"]["route_ref"] == PROOF_LAB_ROUTE_REF
+    assert status["first_screen_proof_lab"]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+    assert status["first_screen_proof_lab"]["route_component_count"] == 9
+    assert status["first_screen_proof_lab"]["lean_lake_return_code"] == 0
+    assert (
+        status["first_screen_proof_lab"]["component_metrics"][
+            "retrieval_mean_public_recall"
+        ]
+        == 1.0
+    )
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
     assert "microcosm compile <project>" in status["runtime_surface"]["commands"]
     assert "microcosm python-lens <project>" in status["runtime_surface"]["commands"]
@@ -277,6 +296,11 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert spine["truth_accounting"]["real_substrate_progress_count"] == 42
     assert spine["truth_accounting"]["non_progress_organ_count"] == 0
+    assert spine["first_screen_proof_lab"]["status"] == "pass"
+    assert spine["first_screen_proof_lab"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert spine["first_screen_proof_lab"]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
     assert sum(spine["evidence_class_counts"].values()) == 42
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
@@ -502,8 +526,18 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["first_run_path"][11]["command"] == "microcosm repair-loop"
     assert spine["first_run_path"][12]["command"] == "microcosm evidence-cells"
     assert spine["first_run_path"][13]["command"] == "microcosm proof-loop-depth"
-    assert spine["first_run_path"][14]["command"] == (
-        "microcosm verifier-lab-kernel run-kernel-bundle"
+    assert spine["first_run_path"][14]["command"] == PROOF_LAB_FIRST_SCREEN_COMMAND
+    assert spine["first_run_path"][14]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert spine["first_run_path"][14]["route_ref"] == PROOF_LAB_ROUTE_REF
+    assert spine["first_run_path"][14]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+    assert spine["first_run_path"][14]["route_component_count"] == 9
+    assert (
+        spine["first_run_path"][14]["component_metrics"][
+            "ring2_mean_recall_at_k"
+        ]
+        == 0.9
     )
     assert spine["first_run_path"][15]["command"] == (
         "microcosm verifier-lab-execution-spine run-execution-bundle"
@@ -825,6 +859,9 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         row["surface_id"] == "public_verifier_lab_kernel_lens"
         and row["provider_hypothesis_proof_authority"] is False
         and row["oracle_forward_contamination_authorized"] is False
+        and row["route_id"] == "formal_prover_context_strategy_gate"
+        and row["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+        and row["route_component_count"] == 9
         for row in authority["surface_authority"]
     )
     assert any(
@@ -914,6 +951,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "projection_drift": "pass",
         "projection_safety": "pass",
         "proof_loop_depth": "pass",
+        "proof_lab": "pass",
         "prediction": "pass",
         "route_cleanup": "pass",
         "replay_gauntlet": "pass",
@@ -930,6 +968,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "runtime_spine",
         "authority",
         "prediction_and_corpus",
+        "verifier_lab_kernel",
         "intake_and_reveal",
         "evidence_drilldown",
     ]
@@ -938,6 +977,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "/repair-loop" in tour["endpoint_path"]
     assert "/evidence-cells" in tour["endpoint_path"]
     assert "/proof-loop-depth" in tour["endpoint_path"]
+    assert "/verifier-lab-kernel" in tour["endpoint_path"]
     assert "/landing-replay" in tour["endpoint_path"]
     assert "/view-quality" in tour["endpoint_path"]
     assert "/projection-safety" in tour["endpoint_path"]
@@ -1183,9 +1223,12 @@ def test_runtime_shell_proof_loop_depth_lens_is_public_safe(tmp_path: Path) -> N
         "release_or_publication_claim_from_proof_loop_depth",
     }
     assert lens["proof_loop_summary"]["gate_count"] == 11
-    assert lens["proof_loop_summary"]["evidence_ref_count"] == 11
+    assert lens["proof_loop_summary"]["evidence_ref_count"] == 12
     assert lens["proof_loop_summary"]["proof_body_export_count"] == 0
     assert lens["proof_loop_summary"]["benchmark_score_claim_count"] == 0
+    assert lens["proof_loop_summary"]["proof_lab_route_component_count"] == 9
+    assert lens["proof_loop_summary"]["proof_lab_lean_lake_return_code"] == 0
+    assert lens["first_screen_proof_lab"]["route_ref"] == PROOF_LAB_ROUTE_REF
     assert lens["authority_ceiling"]["formal_proof_authority"] is False
     assert lens["authority_ceiling"]["proof_bodies_exported"] is False
     assert lens["authority_ceiling"]["oracle_needed_premise_ids_exported"] is False
