@@ -2,31 +2,31 @@
   "schema_version": "mcp_tool_results_fixture_v1",
   "tool_results": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_id": "call_docs_lookup_001",
       "output_instruction_ignored": false,
       "private_ref_metadata_only": true,
-      "result_hash": "sha256:docs_lookup_result_redacted_hash_001",
+      "result_hash": "sha256:docs_lookup_result_body_free_hash_001",
       "result_id": "result_docs_lookup_001",
       "source_capsule_ref": "source/public_docs_capsule_001",
       "untrusted_output": false
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_id": "call_ticket_update_001",
       "output_instruction_ignored": false,
       "private_ref_metadata_only": true,
-      "result_hash": "sha256:ticket_update_result_redacted_hash_001",
+      "result_hash": "sha256:ticket_update_result_body_free_hash_001",
       "result_id": "result_ticket_update_001",
       "source_capsule_ref": "source/synthetic_ticket_capsule_001",
       "untrusted_output": false
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_id": "call_untrusted_web_result_001",
       "output_instruction_ignored": true,
       "private_ref_metadata_only": true,
-      "result_hash": "sha256:untrusted_web_result_redacted_hash_001",
+      "result_hash": "sha256:untrusted_web_result_body_free_hash_001",
       "result_id": "result_untrusted_web_001",
       "source_capsule_ref": "source/untrusted_web_capsule_001",
       "untrusted_output": true

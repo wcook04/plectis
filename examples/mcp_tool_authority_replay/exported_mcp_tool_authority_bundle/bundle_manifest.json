@@ -1,8 +1,9 @@
 {
-  "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
-  "body_redacted": true,
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_fixture",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_in_receipt": false,
   "bundle_id": "mcp_tool_authority_replay_runtime_example",
-  "claim": "synthetic MCP tool-authority replay admits only scoped, approved, redacted, replay-backed tool-use claims",
+  "claim": "public trace-backed MCP tool-authority replay admits only scoped, approved, body-free, replay-backed tool-use claims",
   "fixture_inputs": [
     "cold_replay.json",
     "projection_protocol.json",

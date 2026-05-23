@@ -5,7 +5,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_mcp_tool_authority_trace,
+)
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -78,7 +81,7 @@ REQUIRED_CALL_FIELDS = (
     "rollback_receipt_ref",
     "cold_replay_receipt_ref",
     "live_account_access",
-    "body_redacted",
+    "body_in_receipt",
     "private_ref_metadata_only",
     "untrusted_output_as_instruction",
     "credential_exported",
@@ -96,7 +99,7 @@ FORBIDDEN_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_fixture",
     "live_mcp_account_access_authorized": False,
     "credential_export_authorized": False,
     "untrusted_tool_output_instruction_authorized": False,
@@ -107,10 +110,10 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "MCP tool authority replay validates a synthetic tool-use contract: manifest "
-    "scope, call metadata, approval token refs, side-effect ledger refs, "
+    "MCP tool authority replay validates a public trace-backed tool-use contract: "
+    "manifest scope, call metadata, approval token refs, side-effect ledger refs, "
     "rollback receipts, untrusted-output instruction/data separation, cold replay, "
-    "negative cases, and generated receipts. It does not access live MCP accounts, "
+    "negative cases, and public agent-execution trace spans. It does not access live MCP accounts, "
     "export credentials or provider payloads, obey tool output as instruction, "
     "mutate source, claim benchmark safety, or authorize release."
 )
@@ -172,7 +175,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -242,20 +245,29 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    target_refs = _strings(protocol.get("target_refs"))
+    target_symbols = _strings(protocol.get("target_symbols"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    verification = protocol.get("body_import_verification", {})
+    verification_mode = (
+        verification.get("verification_mode") if isinstance(verification, dict) else None
+    )
     findings: list[dict[str, Any]] = []
     if (
-        len(source_refs) < 4
+        len(source_refs) < 5
         or "mcp_tool_authority_replay_compound" not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
-        or not _strings(protocol.get("reimplemented"))
-        or not _strings(protocol.get("omitted"))
+        or protocol.get("body_import_status")
+        != "extension_of_existing_public_refactor_landed"
+        or verification_mode != "extension_of_existing_public_refactor"
+        or len(target_refs) < 2
+        or len(target_symbols) < 2
+        or len(public_runtime_refs) < 2
     ):
         findings.append(
             _finding(
                 "MCP_TOOL_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs, projection receipts, public replacements, reimplemented pieces, and omissions.",
+                "Projection protocol must cite source refs, projection receipts, public trace refactor verification, target refs, target symbols, and runtime refs.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -277,7 +289,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "target_refs": target_refs,
+        "target_symbols": target_symbols,
+        "public_runtime_refs": public_runtime_refs,
+        "body_import_status": protocol.get("body_import_status"),
+        "body_import_verification": verification if isinstance(verification, dict) else {},
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -348,8 +364,8 @@ def validate_tool_manifest(payload: object) -> dict[str, Any]:
             reasons.append("unknown_tool_class")
         if not row.get("capability_scope_ref"):
             reasons.append("missing_capability_scope_ref")
-        if row.get("body_redacted") is not True:
-            reasons.append("body_not_redacted")
+        if row.get("body_in_receipt") is not False:
+            reasons.append("body_in_receipt_not_false")
         if _has_forbidden_key(row):
             reasons.append("forbidden_private_payload_key")
         manifest_rows.append(
@@ -362,7 +378,7 @@ def validate_tool_manifest(payload: object) -> dict[str, Any]:
                 "untrusted_result": row.get("untrusted_result") is True,
                 "computed_verdict": "accepted_tool_metadata" if not reasons else "blocked",
                 "reason_codes": sorted(reasons),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     positive_findings = [row for row in manifest_rows if row["reason_codes"]]
@@ -370,7 +386,7 @@ def validate_tool_manifest(payload: object) -> dict[str, Any]:
         findings.append(
             _finding(
                 "MCP_TOOL_MANIFEST_FLOOR_MISSING",
-                "Positive manifest must expose exactly three redacted synthetic tools: readonly lookup, write side effect, and untrusted result.",
+                "Positive manifest must expose exactly three body-free public tool metadata rows: readonly lookup, write side effect, and untrusted result.",
                 case_id="tool_manifest_floor",
                 subject_id="tool_manifest",
                 subject_kind="tool_manifest",
@@ -488,13 +504,13 @@ def _validate_call_row(
                 subject_id=call_id,
                 subject_kind=subject_kind,
             )
-    if row.get("body_redacted") is not True or row.get("private_ref_metadata_only") is not True:
-        reasons.append("unredacted_tool_payload")
+    if row.get("body_in_receipt") is not False or row.get("private_ref_metadata_only") is not True:
+        reasons.append("tool_payload_body_in_receipt")
         _record(
             findings,
             observed,
             "MCP_TOOL_UNREDACTED_PAYLOAD_EXPORT",
-            "Tool call payloads must be redacted and private refs must remain metadata-only.",
+            "Tool call payloads must stay out of receipts and private refs must remain metadata-only.",
             case_id=case_id,
             subject_id=call_id,
             subject_kind=subject_kind,
@@ -517,7 +533,7 @@ def _validate_call_row(
         "computed_verdict": "accepted_tool_call_metadata" if not reasons else "blocked",
         "reason_codes": sorted(set(reasons)),
         "missing_required_fields": missing,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -586,7 +602,7 @@ def validate_tool_results(payload: object) -> dict[str, Any]:
         for row in rows
         if row.get("untrusted_output") is True
         and row.get("output_instruction_ignored") is True
-        and row.get("body_redacted") is True
+        and row.get("body_in_receipt") is False
         and row.get("private_ref_metadata_only") is True
     ]
     if not output_ignored:
@@ -610,7 +626,7 @@ def validate_tool_results(payload: object) -> dict[str, Any]:
                 "source_capsule_ref": row.get("source_capsule_ref"),
                 "untrusted_output": row.get("untrusted_output") is True,
                 "output_instruction_ignored": row.get("output_instruction_ignored") is True,
-                "body_redacted": row.get("body_redacted") is True,
+                "body_in_receipt": row.get("body_in_receipt") is False,
                 "private_ref_metadata_only": row.get("private_ref_metadata_only") is True,
             }
             for row in rows
@@ -630,7 +646,7 @@ def validate_side_effect_ledger(payload: object) -> dict[str, Any]:
         and row.get("approval_token_ref")
         and row.get("ledger_diff_ref")
         and row.get("rollback_receipt_ref")
-        and row.get("body_redacted") is True
+        and row.get("body_in_receipt") is False
     ]
     if len(approved) != 1:
         findings.append(
@@ -655,7 +671,7 @@ def validate_side_effect_ledger(payload: object) -> dict[str, Any]:
                 "approval_token_ref": row.get("approval_token_ref"),
                 "ledger_diff_ref": row.get("ledger_diff_ref"),
                 "rollback_receipt_ref": row.get("rollback_receipt_ref"),
-                "body_redacted": row.get("body_redacted") is True,
+                "body_in_receipt": row.get("body_in_receipt") is False,
             }
             for row in rows
         ],
@@ -671,14 +687,14 @@ def validate_cold_replay(payload: object) -> dict[str, Any]:
         row
         for row in rows
         if row.get("status") == PASS
-        and row.get("body_redacted") is True
+        and row.get("body_in_receipt") is False
         and row.get("private_ref_metadata_only") is True
     ]
     if len(passing) < 3:
         findings.append(
             _finding(
                 "MCP_TOOL_COLD_REPLAY_FLOOR_MISSING",
-                "Positive fixture must include redacted cold replay receipts for readonly, write, and untrusted-output paths.",
+                "Positive fixture must include body-free cold replay receipts for readonly, write, and untrusted-output paths.",
                 case_id="cold_replay_floor",
                 subject_id="cold_replay",
                 subject_kind="cold_replay_fixture",
@@ -694,7 +710,7 @@ def validate_cold_replay(payload: object) -> dict[str, Any]:
                 "call_id": str(row.get("call_id") or ""),
                 "status": row.get("status"),
                 "evidence_refs": _strings(row.get("evidence_refs")),
-                "body_redacted": row.get("body_redacted") is True,
+                "body_in_receipt": row.get("body_in_receipt") is False,
                 "private_ref_metadata_only": row.get("private_ref_metadata_only") is True,
             }
             for row in rows
@@ -714,13 +730,11 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     negative_payloads = {
         name: payloads[name]
@@ -734,6 +748,7 @@ def _build_result(
     results = validate_tool_results(payloads["tool_results"])
     side_effects = validate_side_effect_ledger(payloads["side_effect_ledger"])
     cold_replay = validate_cold_replay(payloads["cold_replay"])
+    public_trace = build_public_mcp_tool_authority_trace(input_dir)
 
     observed = _merge_observed(
         projection,
@@ -760,7 +775,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
         and tool_policy["status"] == PASS
         and manifest["status"] == PASS
@@ -768,6 +783,7 @@ def _build_result(
         and results["status"] == PASS
         and side_effects["status"] == PASS
         and cold_replay["status"] == PASS
+        and public_trace["status"] == PASS
         else "blocked"
     )
     return {
@@ -785,14 +801,19 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "public_agent_execution_trace": public_trace,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "target_refs": projection["target_refs"],
+        "target_symbols": projection["target_symbols"],
+        "public_runtime_refs": projection["public_runtime_refs"],
+        "body_import_status": projection["body_import_status"],
+        "body_import_verification": projection["body_import_verification"],
         "tool_policy_id": tool_policy["policy_id"],
         "allowed_tool_classes": tool_policy["allowed_tool_classes"],
         "tool_count": manifest["tool_count"],
@@ -812,6 +833,7 @@ def _build_result(
         "tool_result_rows": results["tool_result_rows"],
         "side_effect_rows": side_effects["side_effect_rows"],
         "cold_replay_rows": cold_replay["cold_replay_rows"],
+        "body_in_receipt": False,
     }
 
 
@@ -849,8 +871,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "call_rows": result["call_rows"],
         "side_effect_rows": result["side_effect_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -904,7 +928,9 @@ def _write_receipts(
         "output_instruction_ignored_count": result["output_instruction_ignored_count"],
         "rollback_receipt_count": result["rollback_receipt_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -919,7 +945,9 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

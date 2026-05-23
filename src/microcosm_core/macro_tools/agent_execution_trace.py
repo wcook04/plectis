@@ -31,6 +31,7 @@ TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
     "microcosm_core.macro_tools.agent_execution_trace::main",
 ]
 AUTHORITY_CEILING = {
@@ -210,6 +211,33 @@ def _load_memory_conflict_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
                 "bundle_id": "agent_memory_temporal_conflict_replay_fixture_input",
                 "input_mode": "fixture",
                 "organ_id": "agent_memory_temporal_conflict_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
+
+
+def _load_mcp_tool_authority_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "tool_policy",
+        "tool_manifest",
+        "tool_calls",
+        "tool_results",
+        "side_effect_ledger",
+        "cold_replay",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": "mcp_tool_authority_replay_fixture_input",
+                "input_mode": "fixture",
+                "organ_id": "mcp_tool_authority_replay",
             }
         else:
             bundle[name] = {}
@@ -1110,6 +1138,312 @@ def build_public_memory_conflict_trace(input_dir: str | Path) -> dict[str, Any]:
     }
 
 
+def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_mcp_tool_authority_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(manifest.get("bundle_id") or "public_mcp_tool_authority_trace")
+    required_call_fields = {
+        "call_id",
+        "tool_id",
+        "tool_class",
+        "capability_scope_ref",
+        "call_arguments_hash",
+        "approval_token_ref",
+        "side_effect_class",
+        "result_source_capsule_ref",
+        "instruction_data_split_ref",
+        "ledger_diff_ref",
+        "rollback_receipt_ref",
+        "cold_replay_receipt_ref",
+        "live_account_access",
+        "body_in_receipt",
+        "private_ref_metadata_only",
+        "untrusted_output_as_instruction",
+        "credential_exported",
+        "final_answer_only_grading",
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    tools_by_id = {
+        str(row.get("tool_id") or ""): row
+        for row in _rows(bundle["tool_manifest"], "tools")
+    }
+    results_by_call = {
+        str(row.get("call_id") or ""): row
+        for row in _rows(bundle["tool_results"], "tool_results")
+    }
+    side_effects_by_call = {
+        str(row.get("call_id") or ""): row
+        for row in _rows(bundle["side_effect_ledger"], "side_effects")
+    }
+    cold_replays_by_call = {
+        str(row.get("call_id") or ""): row
+        for row in _rows(bundle["cold_replay"], "cold_replays")
+    }
+    sorted_calls = sorted(
+        _rows(bundle["tool_calls"], "tool_calls"),
+        key=lambda row: str(row.get("call_id") or ""),
+    )
+    for sequence_index, row in enumerate(sorted_calls):
+        call_id = str(row.get("call_id") or f"mcp_tool_call_{sequence_index}")
+        tool_id = str(row.get("tool_id") or "")
+        tool = tools_by_id.get(tool_id, {})
+        result = results_by_call.get(call_id, {})
+        side_effect = side_effects_by_call.get(call_id, {})
+        cold_replay = cold_replays_by_call.get(call_id, {})
+        missing_fields = sorted(field for field in required_call_fields if field not in row)
+        if missing_fields:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MCP_TOOL_CALL_FIELDS_MISSING",
+                    "MCP tool call span is missing public authority evidence refs.",
+                    subject_id=call_id,
+                )
+            )
+        if not tool:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MCP_TOOL_MANIFEST_REF_MISSING",
+                    "MCP tool call span references a tool absent from the public manifest.",
+                    subject_id=call_id,
+                )
+            )
+        if row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MCP_TOOL_BODY_IN_RECEIPT",
+                    "MCP tool call span must keep tool argument and result bodies out of the public receipt.",
+                    subject_id=call_id,
+                )
+            )
+        if row.get("private_ref_metadata_only") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MCP_TOOL_PRIVATE_REF_NOT_METADATA_ONLY",
+                    "MCP tool call span may expose private/account refs only as metadata refs.",
+                    subject_id=call_id,
+                )
+            )
+        for field, code, message in (
+            (
+                "live_account_access",
+                "PUBLIC_TRACE_MCP_TOOL_LIVE_ACCOUNT_ACCESS",
+                "MCP tool authority trace cannot claim live account access.",
+            ),
+            (
+                "credential_exported",
+                "PUBLIC_TRACE_MCP_TOOL_CREDENTIAL_EXPORT",
+                "MCP tool authority trace cannot export credentials or credential-equivalent payloads.",
+            ),
+            (
+                "untrusted_output_as_instruction",
+                "PUBLIC_TRACE_MCP_TOOL_OUTPUT_AS_INSTRUCTION",
+                "MCP tool authority trace cannot promote untrusted tool output into instruction authority.",
+            ),
+            (
+                "final_answer_only_grading",
+                "PUBLIC_TRACE_MCP_TOOL_FINAL_ANSWER_ONLY_GRADING",
+                "MCP tool authority trace must cite tool, side-effect, rollback, and cold-replay evidence instead of final answers alone.",
+            ),
+        ):
+            if row.get(field) is not False:
+                findings.append(_finding(code, message, subject_id=call_id))
+
+        is_write = row.get("side_effect_class") == "write"
+        if is_write:
+            if row.get("approval_token_ref") in {"", None, "missing", "not_required"}:
+                findings.append(
+                    _finding(
+                        "PUBLIC_TRACE_MCP_TOOL_WRITE_APPROVAL_REF_MISSING",
+                        "Write-capable MCP tool span must cite approval token refs before side effects.",
+                        subject_id=call_id,
+                    )
+                )
+            if not row.get("ledger_diff_ref") or not side_effect:
+                findings.append(
+                    _finding(
+                        "PUBLIC_TRACE_MCP_TOOL_SIDE_EFFECT_LEDGER_REF_MISSING",
+                        "Write-capable MCP tool span must cite a public side-effect ledger row.",
+                        subject_id=call_id,
+                    )
+                )
+            if not row.get("rollback_receipt_ref"):
+                findings.append(
+                    _finding(
+                        "PUBLIC_TRACE_MCP_TOOL_ROLLBACK_REF_MISSING",
+                        "Write-capable MCP tool span must cite rollback receipt refs.",
+                        subject_id=call_id,
+                    )
+                )
+        if row.get("tool_class") == "untrusted_result":
+            if result.get("output_instruction_ignored") is not True:
+                findings.append(
+                    _finding(
+                        "PUBLIC_TRACE_MCP_UNTRUSTED_OUTPUT_BOUNDARY_MISSING",
+                        "Untrusted MCP tool result must be recorded as data only.",
+                        subject_id=call_id,
+                    )
+                )
+        if not cold_replay or cold_replay.get("status") != PASS:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MCP_COLD_REPLAY_REF_MISSING",
+                    "MCP tool call span must cite a passing cold-replay receipt.",
+                    subject_id=call_id,
+                )
+            )
+
+        span = PublicTraceSpan(
+            span_id=f"span:{call_id}",
+            session_id=session_id,
+            action_kind="mcp_tool_authority_call",
+            sequence_index=sequence_index,
+            episode_id=call_id,
+            observation_ref=str(row.get("result_source_capsule_ref") or ""),
+            authority_verdict_id=str(row.get("approval_token_ref") or ""),
+            state_transition_ref=str(row.get("ledger_diff_ref") or ""),
+            outcome=(
+                "approved_write"
+                if is_write
+                else "untrusted_result_data_only"
+                if row.get("tool_class") == "untrusted_result"
+                else "readonly_lookup"
+            ),
+            target_ref=str(row.get("capability_scope_ref") or ""),
+            input_digest=_stable_digest(
+                {
+                    "call_id": row.get("call_id"),
+                    "tool_id": row.get("tool_id"),
+                    "tool_class": row.get("tool_class"),
+                    "capability_scope_ref": row.get("capability_scope_ref"),
+                    "call_arguments_hash": row.get("call_arguments_hash"),
+                    "approval_token_ref": row.get("approval_token_ref"),
+                    "side_effect_class": row.get("side_effect_class"),
+                    "result_source_capsule_ref": row.get("result_source_capsule_ref"),
+                    "instruction_data_split_ref": row.get("instruction_data_split_ref"),
+                    "ledger_diff_ref": row.get("ledger_diff_ref"),
+                    "rollback_receipt_ref": row.get("rollback_receipt_ref"),
+                    "cold_replay_receipt_ref": row.get("cold_replay_receipt_ref"),
+                }
+            ),
+            recovery_ref=str(row.get("rollback_receipt_ref") or ""),
+            tool_name="mcp_tool_authority_replay",
+            source_ref="mcp_tool_authority_replay_bundle",
+        ).as_dict()
+        span["tool_id"] = tool_id
+        span["tool_class"] = row.get("tool_class")
+        span["capability_scope_ref"] = row.get("capability_scope_ref")
+        span["call_arguments_hash"] = row.get("call_arguments_hash")
+        span["approval_token_ref"] = row.get("approval_token_ref")
+        span["side_effect_class"] = row.get("side_effect_class")
+        span["result_source_capsule_ref"] = row.get("result_source_capsule_ref")
+        span["instruction_data_split_ref"] = row.get("instruction_data_split_ref")
+        span["ledger_diff_ref"] = row.get("ledger_diff_ref")
+        span["rollback_receipt_ref"] = row.get("rollback_receipt_ref")
+        span["cold_replay_receipt_ref"] = row.get("cold_replay_receipt_ref")
+        span["untrusted_output_as_instruction"] = (
+            row.get("untrusted_output_as_instruction") is True
+        )
+        span["credential_exported"] = row.get("credential_exported") is True
+        span["live_account_access"] = row.get("live_account_access") is True
+        span["final_answer_only_grading"] = row.get("final_answer_only_grading") is True
+        span["private_ref_metadata_only"] = row.get("private_ref_metadata_only") is True
+        span["body_in_receipt"] = False
+        span["tool_requires_approval"] = tool.get("requires_approval") is True
+        span["tool_requires_rollback_receipt"] = (
+            tool.get("requires_rollback_receipt") is True
+        )
+        span["untrusted_output_ignored"] = result.get("output_instruction_ignored") is True
+        spans.append(span)
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    write_spans = [span for span in spans if span.get("side_effect_class") == "write"]
+    untrusted_spans = [
+        span for span in spans if span.get("tool_class") == "untrusted_result"
+    ]
+    coverage = {
+        "capability_scope_coverage": len(spans)
+        == sum(1 for span in spans if span.get("capability_scope_ref")),
+        "call_argument_hash_coverage": len(spans)
+        == sum(1 for span in spans if span.get("call_arguments_hash")),
+        "instruction_data_split_coverage": len(spans)
+        == sum(1 for span in spans if span.get("instruction_data_split_ref")),
+        "write_side_effect_approval_coverage": len(write_spans)
+        == sum(1 for span in write_spans if span.get("approval_token_ref")),
+        "write_side_effect_ledger_coverage": len(write_spans)
+        == sum(1 for span in write_spans if span.get("ledger_diff_ref")),
+        "rollback_receipt_coverage": len(write_spans)
+        == sum(1 for span in write_spans if span.get("rollback_receipt_ref")),
+        "cold_replay_receipt_coverage": len(spans)
+        == sum(1 for span in spans if span.get("cold_replay_receipt_ref")),
+        "untrusted_output_data_boundary_coverage": len(untrusted_spans)
+        == sum(1 for span in untrusted_spans if span.get("untrusted_output_ignored")),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "capability_scope_refs",
+                "approval_token_refs",
+                "side_effect_ledger_refs",
+                "rollback_receipt_refs",
+                "cold_replay_receipt_refs",
+                "instruction_data_split_refs",
+            ],
+            "omitted_live_material": [
+                "live MCP account bodies",
+                "credential values and access tokens",
+                "provider payload bodies",
+                "raw tool payload bodies",
+                "raw tool result bodies",
+                "private account identifiers",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -1125,6 +1459,9 @@ def build_parser() -> argparse.ArgumentParser:
     memory_conflict = subparsers.add_parser("memory-conflict")
     memory_conflict.add_argument("--input", required=True)
     memory_conflict.add_argument("--pretty", action="store_true")
+    mcp_tool_authority = subparsers.add_parser("mcp-tool-authority")
+    mcp_tool_authority.add_argument("--input", required=True)
+    mcp_tool_authority.add_argument("--pretty", action="store_true")
     return parser
 
 
@@ -1147,6 +1484,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if payload["status"] == PASS else 1
     if args.command == "memory-conflict":
         payload = build_public_memory_conflict_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "mcp-tool-authority":
+        payload = build_public_mcp_tool_authority_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1

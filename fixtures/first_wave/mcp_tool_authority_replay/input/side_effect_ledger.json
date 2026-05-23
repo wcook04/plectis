@@ -2,10 +2,10 @@
   "schema_version": "mcp_tool_side_effect_ledger_fixture_v1",
   "side_effects": [
     {
-      "after_state_hash": "sha256:ticket_after_redacted_hash_001",
+      "after_state_hash": "sha256:ticket_after_body_free_hash_001",
       "approval_token_ref": "approval/synthetic_ticket_update_001",
-      "before_state_hash": "sha256:ticket_before_redacted_hash_001",
-      "body_redacted": true,
+      "before_state_hash": "sha256:ticket_before_body_free_hash_001",
+      "body_in_receipt": false,
       "call_id": "call_ticket_update_001",
       "ledger_diff_ref": "ledger_diff/synthetic_ticket_update_001",
       "private_ref_metadata_only": true,

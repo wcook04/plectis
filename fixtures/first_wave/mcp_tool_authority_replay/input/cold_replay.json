@@ -1,7 +1,7 @@
 {
   "cold_replays": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_id": "call_docs_lookup_001",
       "evidence_refs": [
         "tool_manifest:tool_docs_lookup",
@@ -12,7 +12,7 @@
       "status": "pass"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_id": "call_ticket_update_001",
       "evidence_refs": [
         "tool_manifest:tool_ticket_update",
@@ -23,7 +23,7 @@
       "status": "pass"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_id": "call_untrusted_web_result_001",
       "evidence_refs": [
         "tool_manifest:tool_web_result",

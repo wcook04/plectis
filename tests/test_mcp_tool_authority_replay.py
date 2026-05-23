@@ -5,6 +5,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_mcp_tool_authority_trace,
+)
 from microcosm_core.organs.mcp_tool_authority_replay import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -75,7 +78,7 @@ def test_mcp_tool_authority_replay_observes_negative_cases(tmp_path: Path) -> No
             assert code in result["error_codes"]
 
 
-def test_mcp_tool_authority_receipts_are_public_relative_and_redacted(
+def test_mcp_tool_authority_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -107,6 +110,8 @@ def test_mcp_tool_authority_receipts_are_public_relative_and_redacted(
         assert "raw_tool_payload" not in keys
         assert "raw_tool_result" not in keys
         assert "private_account_id" not in keys
+        assert "private_state_scan" not in keys
+        assert "body_redacted" not in keys
 
 
 def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
@@ -130,6 +135,36 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
     assert result["approved_side_effect_count"] == 1
     assert result["output_instruction_ignored_count"] == 1
     assert result["cold_replay_pass_count"] == 3
+    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_verification"]["verification_mode"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["span_count"] == 3
+    assert (
+        result["public_agent_execution_trace"]["audit"]["coverage"][
+            "untrusted_output_data_boundary_coverage"
+        ]
+        is True
+    )
+    assert "public_replacement_refs" not in result
+    assert "private_state_scan" not in result
     assert (
         result["authority_ceiling"]["live_mcp_account_access_authorized"] is False
     )
+
+
+def test_public_agent_execution_trace_refactor_builds_mcp_tool_authority_spans() -> None:
+    trace = build_public_mcp_tool_authority_trace(BUNDLE_INPUT)
+
+    assert trace["status"] == "pass"
+    assert trace["span_count"] == 3
+    assert trace["source_faithful_refactor"]["verification_mode"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert trace["audit"]["coverage"]["capability_scope_coverage"] is True
+    assert trace["audit"]["coverage"]["write_side_effect_approval_coverage"] is True
+    assert trace["audit"]["coverage"]["rollback_receipt_coverage"] is True
+    assert trace["audit"]["coverage"]["cold_replay_receipt_coverage"] is True
+    assert trace["audit"]["coverage"]["body_in_receipt"] is False

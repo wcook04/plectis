@@ -5,7 +5,7 @@
       "allowed_operations": [
         "read_public_docs_index"
       ],
-      "body_redacted": true,
+      "body_in_receipt": false,
       "capability_scope_ref": "scope/docs_lookup_readonly",
       "private_ref_metadata_only": true,
       "requires_approval": false,
@@ -18,7 +18,7 @@
       "allowed_operations": [
         "update_synthetic_ticket_status"
       ],
-      "body_redacted": true,
+      "body_in_receipt": false,
       "capability_scope_ref": "scope/ticket_update_limited",
       "private_ref_metadata_only": true,
       "requires_approval": true,
@@ -31,7 +31,7 @@
       "allowed_operations": [
         "fetch_synthetic_untrusted_result"
       ],
-      "body_redacted": true,
+      "body_in_receipt": false,
       "capability_scope_ref": "scope/untrusted_web_result_readonly",
       "private_ref_metadata_only": true,
       "requires_approval": false,

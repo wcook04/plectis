@@ -3,7 +3,7 @@
   "tool_calls": [
     {
       "approval_token_ref": "not_required",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_arguments_hash": "sha256:docs_lookup_public_hash_001",
       "call_id": "call_docs_lookup_001",
       "capability_scope_ref": "scope/docs_lookup_readonly",
@@ -23,8 +23,8 @@
     },
     {
       "approval_token_ref": "approval/synthetic_ticket_update_001",
-      "body_redacted": true,
-      "call_arguments_hash": "sha256:ticket_update_redacted_hash_001",
+      "body_in_receipt": false,
+      "call_arguments_hash": "sha256:ticket_update_body_free_hash_001",
       "call_id": "call_ticket_update_001",
       "capability_scope_ref": "scope/ticket_update_limited",
       "cold_replay_receipt_ref": "receipts/cold_replay/ticket_update_001.json",
@@ -43,7 +43,7 @@
     },
     {
       "approval_token_ref": "not_required",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_arguments_hash": "sha256:untrusted_web_result_hash_001",
       "call_id": "call_untrusted_web_result_001",
       "capability_scope_ref": "scope/untrusted_web_result_readonly",

@@ -1,10 +1,10 @@
 {
-  "anti_claim": "This fixture validates public synthetic MCP tool-authority boundaries only; it does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
+  "anti_claim": "This fixture validates public trace-backed MCP tool-authority boundaries only; it does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
   "anti_claim_contract": {
     "required": true,
     "rule": "MCP tool-authority material must state that synthetic replay is not live tool/account safety authority"
   },
-  "authority_boundary": "synthetic_mcp_tool_authority_replay_not_live_tool_or_account_safety_authority",
+  "authority_boundary": "public_agent_execution_trace_refactor_not_live_tool_or_account_safety_authority",
   "authority_ceiling": {
     "benchmark_security_authority": false,
     "credential_export_authority": false,
@@ -12,11 +12,22 @@
     "provider_authority": false,
     "release_authority": false,
     "source_mutation_authority": false,
-    "standard_authority": "synthetic_mcp_tool_authority_replay_schema_only",
+    "standard_authority": "public_trace_refactor_over_mcp_tool_authority_fixture_schema",
     "status": "pass",
     "unapproved_side_effect_authority": false,
     "untrusted_tool_output_instruction_authority": false
   },
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_mcp_tool_authority_replay.py"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
   "first_wave_required": true,
   "kind_id": "mcp_tool_authority_replay",
   "kind_name": "MCP tool authority replay",
@@ -30,7 +41,7 @@
       "live MCP account refs",
       "benchmark security claims"
     ],
-    "reason": "public slice carries synthetic tool-authority metadata and redacted receipt evidence only"
+    "reason": "public slice carries body-free MCP tool-authority metadata, public trace spans, secret-exclusion scan, and fixture-negative evidence only"
   },
   "paper_module_contract": {
     "module_slug": "mcp_tool_authority_replay",
@@ -48,7 +59,7 @@
       "cold replay receipt refs",
       "negative case ids"
     ],
-    "default_posture": "public_safe_when_synthetic_mcp_tool_authority_receipts_only",
+    "default_posture": "public_safe_with_public_agent_execution_trace_refactor_and_negative_fixture_limits",
     "forbidden_public_inputs": [
       "credential values",
       "provider payloads",
@@ -70,7 +81,9 @@
       "output_instruction_ignored_count",
       "rollback_receipt_count",
       "cold_replay_pass_count",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "public_agent_execution_trace",
+      "body_import_verification",
       "authority_ceiling",
       "anti_claim",
       "negative_case_coverage"
@@ -80,7 +93,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.mcp_tool_authority_replay",
-    "receipt must cite source refs, source pattern ids, tool count, call count, side-effect count, output instruction boundary count, rollback count, cold replay count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source refs, source pattern ids, tool/call/side-effect/output-boundary/rollback/cold-replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json"
@@ -100,7 +113,11 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "target_refs",
+    "target_symbols",
+    "body_import_status",
+    "body_import_verification",
+    "public_agent_execution_trace",
     "tools",
     "tool_calls",
     "tool_results",
@@ -112,7 +129,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata while public trace targets and runtime refs prove the source-faithful refactor path"
   },
   "source_refs": [
     {
@@ -160,7 +177,7 @@
     "require write-capable calls to cite approval token, ledger diff, and rollback receipt refs",
     "require untrusted tool output to stay data and be ignored as instruction",
     "reject overbroad scopes, credential export, tool-output-as-instruction, unapproved side effects, live account access, final-answer-only grading, missing rollback receipts, and unredacted tool payloads",
-    "emit redacted receipts and private-state scan"
+    "emit body-free receipts, secret-exclusion scan, and public agent-execution trace spans"
   ],
   "validator_contract": {
     "minimum_checks": [
