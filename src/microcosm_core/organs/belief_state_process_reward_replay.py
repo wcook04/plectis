@@ -5,7 +5,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_belief_state_process_reward_trace,
+)
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -89,7 +92,9 @@ FORBIDDEN_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
+    "authority_ceiling": (
+        "public_agent_execution_trace_refactor_over_belief_state_process_reward_policy"
+    ),
     "hidden_reasoning_export_authorized": False,
     "live_rl_training_authorized": False,
     "neural_judge_only_authorized": False,
@@ -100,11 +105,10 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Belief-state process reward replay validates synthetic, public-safe "
-    "credit-assignment metadata: observation digests, typed belief summaries, "
-    "predicted next evidence, verifier or feedback observations, discrepancy "
-    "scores, process rewards, outcome rewards, reward-hacking trap results, "
-    "trajectory groups, cold replay, negative cases, private-state scan, and "
+    "Belief-state process reward replay validates a source-faithful public "
+    "agent-execution trace refactor over belief summaries, verifier or feedback "
+    "observations, process rewards, outcome rewards, reward-hacking trap results, "
+    "trajectory groups, cold replay, negative cases, secret-exclusion scan, and "
     "authority ceilings. It does not export hidden reasoning, run RL, use hidden "
     "gold labels, rely on neural-judge-only labels, claim benchmark performance, "
     "call providers, mutate source, or authorize release."
@@ -169,7 +173,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -239,20 +243,43 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    target_refs = _strings(protocol.get("target_refs"))
+    target_symbols = _strings(protocol.get("target_symbols"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    body_import = protocol.get("body_import_verification", {})
+    if not isinstance(body_import, dict):
+        body_import = {}
     findings: list[dict[str, Any]] = []
     if (
         len(source_refs) < 5
         or "belief_state_process_reward_replay_compound" not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or "system/lib/agent_execution_trace.py" not in source_refs
+        or "codex/standards/std_agent_execution_trace.json" not in source_refs
+        or not any(ref.endswith("macro_tools/agent_execution_trace.py") for ref in target_refs)
+        or not any(
+            ref.endswith("organs/belief_state_process_reward_replay.py")
+            for ref in target_refs
+        )
+        or not any(
+            ref.endswith("build_public_belief_state_process_reward_trace")
+            for ref in target_symbols
+        )
+        or not any(ref.endswith("run_reward_bundle") for ref in target_symbols)
+        or not public_runtime_refs
         or not _strings(protocol.get("reimplemented"))
         or not _strings(protocol.get("omitted"))
+        or protocol.get("body_import_status")
+        != "extension_of_existing_public_refactor_landed"
+        or body_import.get("verification_status") != "verified"
+        or body_import.get("body_import_classification")
+        != "extension_of_existing_public_refactor"
+        or protocol.get("body_in_receipt") is not False
     ):
         findings.append(
             _finding(
                 "BELIEF_REWARD_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs, projection receipts, public replacements, reimplemented pieces, and omissions.",
+                "Projection protocol must cite source refs, projection receipts, target refs, target symbols, public runtime refs, body-import verification, reimplemented pieces, and omissions.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -279,7 +306,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "target_refs": target_refs,
+        "target_symbols": target_symbols,
+        "public_runtime_refs": public_runtime_refs,
+        "body_import_status": protocol.get("body_import_status"),
+        "body_import_verification": body_import,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -380,7 +411,7 @@ def validate_task_episodes(payload: object) -> dict[str, Any]:
                 "cold_replay_ref": row.get("cold_replay_ref"),
                 "computed_verdict": "accepted_episode" if not reasons else "blocked",
                 "reason_codes": sorted(set(reasons)),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     task_types = {row["task_type"] for row in accepted if not row["reason_codes"]}
@@ -458,7 +489,7 @@ def validate_belief_states(payload: object) -> dict[str, Any]:
                 if not reasons
                 else "blocked",
                 "reason_codes": sorted(set(reasons)),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     if len(rows) < 6 or any(row["reason_codes"] for row in accepted):
@@ -516,7 +547,7 @@ def validate_verifier_feedback(payload: object) -> dict[str, Any]:
                 "evidence_ref_count": len(_strings(row.get("evidence_refs"))),
                 "computed_verdict": "accepted_feedback" if not reasons else "blocked",
                 "reason_codes": sorted(set(reasons)),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     if len(rows) < 6 or any(row["reason_codes"] for row in accepted):
@@ -582,7 +613,7 @@ def validate_reward_events(payload: object) -> dict[str, Any]:
                 if not reasons
                 else "blocked",
                 "reason_codes": sorted(set(reasons)),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     process_count = sum(
@@ -648,7 +679,7 @@ def validate_trajectory_groups(payload: object) -> dict[str, Any]:
                 if not reasons
                 else "blocked",
                 "reason_codes": sorted(set(reasons)),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     if len(rows) < 3 or any(row["reason_codes"] for row in accepted):
@@ -705,7 +736,7 @@ def validate_cold_replay(payload: object) -> dict[str, Any]:
                 "trajectory_group_id": str(row.get("trajectory_group_id") or ""),
                 "status": row.get("status"),
                 "evidence_refs": _strings(row.get("evidence_refs")),
-                "body_redacted": row.get("body_redacted") is True,
+                "body_in_receipt": False,
                 "private_ref_metadata_only": row.get("private_ref_metadata_only") is True,
             }
             for row in rows
@@ -781,7 +812,7 @@ def validate_negative_cases(payloads: dict[str, object]) -> dict[str, Any]:
                 findings,
                 observed,
                 "BELIEF_REWARD_BENCHMARK_CLAIM",
-                "Synthetic belief-state process reward replay cannot claim benchmark performance.",
+                "Public belief-state process reward replay cannot claim benchmark performance.",
                 case_id=case_id,
                 subject_id=subject_id,
                 subject_kind="negative_case",
@@ -815,13 +846,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    public_trace = build_public_belief_state_process_reward_trace(input_dir)
 
     negative_payloads = {
         name: payloads[name]
@@ -877,7 +907,8 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
+        and public_trace["status"] == PASS
         and not positive_findings
         and projection["status"] == PASS
         and reward_policy["status"] == PASS
@@ -906,14 +937,33 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "public_agent_execution_trace": public_trace,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_import_status": "extension_of_existing_public_refactor_landed",
+        "body_import_classification": "extension_of_existing_public_refactor",
+        "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
+        "body_import_verification": {
+            "verification_status": "verified",
+            "body_import_classification": "extension_of_existing_public_refactor",
+            "public_trace_status": public_trace["status"],
+            "public_trace_span_count": public_trace["span_count"],
+            "trace_digest": public_trace["summary"]["trace_digest"],
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": (
+                "microcosm-substrate/src/microcosm_core/macro_tools/"
+                "agent_execution_trace.py::build_public_belief_state_process_reward_trace"
+            ),
+        },
+        "body_in_receipt": False,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "target_refs": projection["target_refs"],
+        "target_symbols": projection["target_symbols"],
+        "public_runtime_refs": projection["public_runtime_refs"],
         "reward_policy_id": reward_policy["policy_id"],
         "allowed_process_reward_sources": reward_policy[
             "allowed_process_reward_sources"
@@ -979,8 +1029,12 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "reward_rows": result["reward_rows"],
         "trajectory_group_rows": result["trajectory_group_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -1034,7 +1088,10 @@ def _write_receipts(
         "outcome_reward_count": result["outcome_reward_count"],
         "trajectory_group_count": result["trajectory_group_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -1049,7 +1106,10 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

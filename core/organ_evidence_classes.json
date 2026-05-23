@@ -253,8 +253,8 @@
     },
     {
       "organ_id": "belief_state_process_reward_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied belief-state rewards and verifier feedback labels are checked for source-available shape"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "source-faithful public agent-execution trace refactor checks belief summaries, verifier feedback, process rewards, outcome rewards, reward-hacking traps, and cold replay"
     },
     {
       "organ_id": "agent_sandbox_policy_escape_replay",

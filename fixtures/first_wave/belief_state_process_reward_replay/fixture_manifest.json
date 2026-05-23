@@ -1,6 +1,6 @@
 {
-  "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
-  "body_redacted": true,
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_belief_state_process_reward_policy",
+  "body_in_receipt": false,
   "expected_negative_cases": {
     "benchmark_performance_claim": [
       "BELIEF_REWARD_BENCHMARK_CLAIM"

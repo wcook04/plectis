@@ -1733,7 +1733,7 @@ class RuntimeShell:
                         "run-reward-bundle"
                     ),
                     "shows": [
-                        "three synthetic partially observable episodes with observation digests and typed belief summaries",
+                        "source-faithful public trace spans over three partially observable episodes with observation digests and typed belief summaries",
                         "predicted next evidence, verifier or observed feedback refs, belief-discrepancy scores, dense process rewards, and outcome rewards",
                         "reward-hacking trap pass, trajectory grouping, and cold replay refs before claim admission",
                         "hidden-reasoning export, neural-judge-only, hidden-gold, reward-by-formatting, verifier-bypass, benchmark-claim, and final-answer-only denials",
@@ -7872,8 +7872,8 @@ class RuntimeShell:
                     "final-answer formatting without verifier-backed process evidence"
                 ),
                 "fixture_input": (
-                    "synthetic belief-state reward replay with hidden reasoning "
-                    "body omitted"
+                    "public belief-state reward trace with hidden reasoning body "
+                    "omitted"
                 ),
                 "generated_receipt_ref": (
                     "receipts/first_wave/belief_state_process_reward_replay/"
@@ -9917,8 +9917,8 @@ class RuntimeShell:
                 ),
                 "endpoint": "/replay-gauntlet",
                 "authority_role": (
-                    "synthetic belief-state process reward replay and "
-                    "credit-assignment evidence boundary"
+                    "source-faithful public agent-execution trace over "
+                    "belief-state process reward evidence"
                 ),
                 "release_authorized": False,
                 "source_mutation_authorized": False,

@@ -195,12 +195,12 @@
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
       ],
       "claim_ceiling": "public agent-execution trace tool body import only; not live session-log parsing, browser control, provider payload access, account action, source mutation, or release authority",
-      "body_digest": "sha256:591c54882a515af22eccfdebb4233b6f2fedb135636f64c40e34392b7c404ab3",
+      "body_digest": "sha256:d7d4cb2dfac7cebd570a7101d7e6ffa6ea4ffd135d5a47c770e5f69d573e85e5",
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "verified_light_edit_recipe",
         "source_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "target_body_digest": "sha256:591c54882a515af22eccfdebb4233b6f2fedb135636f64c40e34392b7c404ab3",
+        "target_body_digest": "sha256:d7d4cb2dfac7cebd570a7101d7e6ffa6ea4ffd135d5a47c770e5f69d573e85e5",
         "source_to_target_relation": "source_faithful_public_light_edit",
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::AUTHORITY_CEILING",
         "source_symbol_refs": [
@@ -214,6 +214,11 @@
           "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
           "microcosm_core.macro_tools.agent_execution_trace::main"
         ],
         "runtime_consumed_by": [

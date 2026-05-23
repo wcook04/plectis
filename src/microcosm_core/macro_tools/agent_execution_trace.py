@@ -32,6 +32,7 @@ TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
     "microcosm_core.macro_tools.agent_execution_trace::main",
 ]
@@ -239,6 +240,33 @@ def _load_mcp_tool_authority_bundle(input_dir: Path) -> dict[str, dict[str, Any]
                 "bundle_id": "mcp_tool_authority_replay_fixture_input",
                 "input_mode": "fixture",
                 "organ_id": "mcp_tool_authority_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
+
+
+def _load_belief_state_process_reward_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "task_episodes",
+        "belief_states",
+        "verifier_feedback",
+        "reward_events",
+        "trajectory_groups",
+        "cold_replay",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": "belief_state_process_reward_replay_fixture_input",
+                "input_mode": "fixture",
+                "organ_id": "belief_state_process_reward_replay",
             }
         else:
             bundle[name] = {}
@@ -1476,6 +1504,313 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
     }
 
 
+def build_public_belief_state_process_reward_trace(input_dir: str | Path) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_belief_state_process_reward_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(
+        manifest.get("bundle_id")
+        or "public_belief_state_process_reward_trace"
+    )
+    episodes = {
+        str(row.get("episode_id")): row
+        for row in _rows(bundle["task_episodes"], "episodes")
+        if row.get("episode_id")
+    }
+    feedback_by_id = {
+        str(row.get("feedback_id")): row
+        for row in _rows(bundle["verifier_feedback"], "feedback")
+        if row.get("feedback_id")
+    }
+    process_rewards_by_belief = {
+        str(row.get("belief_state_id")): row
+        for row in _rows(bundle["reward_events"], "reward_events")
+        if row.get("belief_state_id") and row.get("reward_kind") == "process"
+    }
+    outcome_rewards_by_id = {
+        str(row.get("reward_event_id")): row
+        for row in _rows(bundle["reward_events"], "reward_events")
+        if row.get("reward_event_id") and row.get("reward_kind") == "outcome"
+    }
+    trajectories_by_id = {
+        str(row.get("trajectory_group_id")): row
+        for row in _rows(bundle["trajectory_groups"], "trajectory_groups")
+        if row.get("trajectory_group_id")
+    }
+    cold_replays_by_trajectory = {
+        str(row.get("trajectory_group_id")): row
+        for row in _rows(bundle["cold_replay"], "cold_replays")
+        if row.get("trajectory_group_id")
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    sorted_beliefs = sorted(
+        _rows(bundle["belief_states"], "belief_states"),
+        key=lambda row: (
+            str(row.get("episode_id") or ""),
+            str(row.get("step_id") or ""),
+            str(row.get("belief_state_id") or ""),
+        ),
+    )
+    for sequence_index, row in enumerate(sorted_beliefs):
+        belief_id = str(row.get("belief_state_id") or f"belief_state_{sequence_index}")
+        episode_id = str(row.get("episode_id") or "")
+        feedback_id = str(row.get("feedback_ref") or "")
+        trajectory_id = str(row.get("trajectory_group_id") or "")
+        feedback = feedback_by_id.get(feedback_id, {})
+        process_reward = process_rewards_by_belief.get(belief_id, {})
+        trajectory = trajectories_by_id.get(trajectory_id, {})
+        outcome_reward_ref = str(trajectory.get("outcome_reward_ref") or "")
+        outcome_reward = outcome_rewards_by_id.get(outcome_reward_ref, {})
+        cold_replay = cold_replays_by_trajectory.get(trajectory_id, {})
+        process_reward_id = str(process_reward.get("reward_event_id") or "")
+
+        if episode_id not in episodes:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_EPISODE_REF_MISSING",
+                    "Belief-state span references an unknown task episode.",
+                    subject_id=belief_id,
+                )
+            )
+        if feedback_id not in feedback_by_id:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_FEEDBACK_REF_MISSING",
+                    "Belief-state span has no matching verifier or feedback row.",
+                    subject_id=belief_id,
+                )
+            )
+        if not process_reward:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_PROCESS_REF_MISSING",
+                    "Belief-state span has no matching process reward row.",
+                    subject_id=belief_id,
+                )
+            )
+        if trajectory_id not in trajectories_by_id:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_TRAJECTORY_REF_MISSING",
+                    "Belief-state span has no matching trajectory group.",
+                    subject_id=belief_id,
+                )
+            )
+        if outcome_reward_ref not in outcome_rewards_by_id:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_OUTCOME_REF_MISSING",
+                    "Belief-state trajectory has no matching outcome reward row.",
+                    subject_id=belief_id,
+                )
+            )
+        if not cold_replay or cold_replay.get("status") != PASS:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_COLD_REPLAY_REF_MISSING",
+                    "Belief-state trajectory is not covered by a passing cold replay.",
+                    subject_id=belief_id,
+                )
+            )
+        if row.get("hidden_chain_of_thought_exported") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_HIDDEN_REASONING_EXPORT",
+                    "Public belief-state trace cannot export hidden reasoning.",
+                    subject_id=belief_id,
+                )
+            )
+        if row.get("private_ref_metadata_only") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_PRIVATE_REF_NOT_METADATA_ONLY",
+                    "Public belief-state trace may expose private refs only as metadata refs.",
+                    subject_id=belief_id,
+                )
+            )
+        if feedback.get("neural_judge_only") is True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_NEURAL_JUDGE_ONLY",
+                    "Process reward trace must cite deterministic verifier or observed feedback refs.",
+                    subject_id=belief_id,
+                )
+            )
+        if feedback.get("hidden_gold_label_present") is True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_HIDDEN_GOLD_LABEL",
+                    "Public process reward trace cannot rely on hidden gold labels.",
+                    subject_id=belief_id,
+                )
+            )
+        for field, code, message in (
+            (
+                "reward_by_formatting",
+                "PUBLIC_TRACE_BELIEF_REWARD_FORMAT_REWARD",
+                "Process reward trace cannot admit reward-by-formatting rows.",
+            ),
+            (
+                "verifier_bypassed",
+                "PUBLIC_TRACE_BELIEF_REWARD_VERIFIER_BYPASS",
+                "Process reward trace cannot bypass verifier or observed feedback refs.",
+            ),
+            (
+                "final_answer_only_scoring",
+                "PUBLIC_TRACE_BELIEF_REWARD_FINAL_ANSWER_ONLY",
+                "Process reward trace must cite process evidence, not final answer scoring alone.",
+            ),
+        ):
+            if process_reward.get(field) is True:
+                findings.append(_finding(code, message, subject_id=belief_id))
+        if process_reward and process_reward.get("reward_hacking_trap_result") != PASS:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_BELIEF_REWARD_TRAP_FAILED",
+                    "Process reward trace must preserve reward-hacking trap pass results.",
+                    subject_id=belief_id,
+                )
+            )
+
+        reward_value = process_reward.get("reward_value")
+        outcome = (
+            "process_reward_verified"
+            if process_reward
+            and process_reward.get("reward_hacking_trap_result") == PASS
+            and process_reward.get("verifier_bypassed") is False
+            else "process_reward_blocked"
+        )
+        span = PublicTraceSpan(
+            span_id=f"span:{belief_id}",
+            session_id=session_id,
+            action_kind="belief_state_process_reward_step",
+            sequence_index=sequence_index,
+            episode_id=episode_id,
+            observation_ref=str(row.get("observation_digest_ref") or ""),
+            authority_verdict_id=feedback_id,
+            state_transition_ref=process_reward_id,
+            outcome=outcome,
+            target_ref=trajectory_id,
+            input_digest=_stable_digest(
+                {
+                    "belief_state_id": belief_id,
+                    "observation_digest_ref": row.get("observation_digest_ref"),
+                    "predicted_next_evidence": row.get("predicted_next_evidence"),
+                    "feedback_ref": feedback_id,
+                    "belief_discrepancy": row.get("belief_discrepancy"),
+                    "process_reward_ref": process_reward_id,
+                    "reward_value": reward_value,
+                    "trajectory_group_id": trajectory_id,
+                    "cold_replay_ref": cold_replay.get("replay_id"),
+                }
+            ),
+            recovery_ref=str(cold_replay.get("replay_id") or ""),
+            tool_name="belief_state_process_reward_replay",
+            source_ref="belief_state_process_reward_replay_bundle",
+        ).as_dict()
+        span["belief_state_id"] = belief_id
+        span["feedback_ref"] = feedback_id
+        span["feedback_kind"] = feedback.get("feedback_kind")
+        span["process_reward_ref"] = process_reward_id
+        span["outcome_reward_ref"] = outcome_reward_ref
+        span["reward_value"] = reward_value
+        span["outcome_reward_value"] = outcome_reward.get("reward_value")
+        span["belief_discrepancy"] = row.get("belief_discrepancy")
+        span["reward_hacking_trap_result"] = process_reward.get(
+            "reward_hacking_trap_result"
+        )
+        span["cold_replay_receipt_ref"] = cold_replay.get("replay_id")
+        span["private_ref_metadata_only"] = row.get("private_ref_metadata_only") is True
+        span["hidden_reasoning_exported"] = (
+            row.get("hidden_chain_of_thought_exported") is True
+        )
+        span["body_in_receipt"] = False
+        spans.append(span)
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    coverage = {
+        "belief_state_summary_coverage": len(spans)
+        == sum(1 for span in spans if span.get("belief_state_id")),
+        "feedback_ref_coverage": len(spans)
+        == sum(1 for span in spans if span["authority_verdict_id"] in feedback_by_id),
+        "process_reward_ref_coverage": len(spans)
+        == sum(1 for span in spans if span.get("process_reward_ref")),
+        "outcome_reward_ref_coverage": len(spans)
+        == sum(1 for span in spans if span.get("outcome_reward_ref") in outcome_rewards_by_id),
+        "cold_replay_receipt_coverage": len(spans)
+        == sum(1 for span in spans if span.get("cold_replay_receipt_ref")),
+        "no_hidden_reasoning_export_coverage": all(
+            span.get("hidden_reasoning_exported") is False for span in spans
+        ),
+        "metadata_only_private_ref_coverage": all(
+            span.get("private_ref_metadata_only") is True for span in spans
+        ),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "belief_state_summary_refs",
+                "verifier_feedback_refs",
+                "process_reward_refs",
+                "outcome_reward_refs",
+                "reward_hacking_trap_refs",
+                "cold_replay_receipt_refs",
+            ],
+            "omitted_live_material": [
+                "hidden reasoning bodies",
+                "provider payload bodies",
+                "private memory bodies",
+                "live training run ids",
+                "benchmark submission payloads",
+                "account identifiers",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
 def build_public_agentic_vulnerability_patch_proof_trace(
     input_dir: str | Path,
 ) -> dict[str, Any]:
@@ -1739,6 +2074,9 @@ def build_parser() -> argparse.ArgumentParser:
     mcp_tool_authority = subparsers.add_parser("mcp-tool-authority")
     mcp_tool_authority.add_argument("--input", required=True)
     mcp_tool_authority.add_argument("--pretty", action="store_true")
+    belief_reward = subparsers.add_parser("belief-reward")
+    belief_reward.add_argument("--input", required=True)
+    belief_reward.add_argument("--pretty", action="store_true")
     agentic_vulnerability = subparsers.add_parser("agentic-vulnerability-patch-proof")
     agentic_vulnerability.add_argument("--input", required=True)
     agentic_vulnerability.add_argument("--pretty", action="store_true")
@@ -1769,6 +2107,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if payload["status"] == PASS else 1
     if args.command == "mcp-tool-authority":
         payload = build_public_mcp_tool_authority_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "belief-reward":
+        payload = build_public_belief_state_process_reward_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1

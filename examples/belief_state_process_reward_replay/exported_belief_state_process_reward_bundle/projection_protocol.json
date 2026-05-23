@@ -1,17 +1,34 @@
 {
-  "body_redacted": true,
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "body_import_classification": "extension_of_existing_public_refactor",
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::build_public_belief_state_process_reward_trace",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
   "cleaned": [
-    "synthetic task specs use hashes and observation digests only",
-    "all feedback rows use public evidence refs instead of private transcripts"
+    "task specs use hashes and observation digests only",
+    "all feedback rows use public evidence refs instead of private transcripts",
+    "public trace spans preserve belief, verifier, process-reward, outcome-reward, and cold-replay refs"
   ],
   "copied_hidden_reasoning": false,
   "copied_private_memory_bodies": false,
   "copied_provider_payloads": false,
+  "exports_secret_or_live_access_material": false,
   "omitted": [
     "hidden reasoning bodies",
     "live model training or RL traces",
     "benchmark submission payloads",
     "provider payloads and account identifiers"
+  ],
+  "omitted_secret_or_live_access_material": [
+    "hidden reasoning bodies",
+    "provider payload bodies",
+    "private memory bodies",
+    "live training run ids",
+    "benchmark submission payloads",
+    "account identifiers"
   ],
   "private_ref_metadata_only": true,
   "projection_receipt_refs": [
@@ -19,25 +36,43 @@
     "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
   ],
   "protocol_id": "belief_state_process_reward_replay_public_projection_v1",
-  "public_replacement_refs": [
-    "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json",
-    "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json",
-    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/bundle_manifest.json"
+  "public_runtime_refs": [
+    "microcosm belief-state-process-reward-replay run-reward-bundle",
+    "python -m microcosm_core.macro_tools.agent_execution_trace belief-reward"
   ],
   "reimplemented": [
     "public typed belief-state summary schema",
     "verifier-backed dense process reward receipt logic",
-    "cold replay and reward-hacking negative-case checks"
+    "cold replay and reward-hacking negative-case checks",
+    "source-faithful public agent-execution trace projection"
   ],
   "source_pattern_ids": [
     "belief_state_process_reward_replay_compound"
   ],
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#belief_state_process_reward_replay_compound",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
     "src/microcosm_core/organs/belief_state_process_reward_replay.py",
     "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
     "core/private_state_forbidden_classes.json",
     "AXIOMS.md#json-is-contract",
     "PRINCIPLES.md#expected-negative-cases"
+  ],
+  "source_symbols": [
+    "system/lib/agent_execution_trace.py::Span",
+    "system/lib/agent_execution_trace.py::build_agent_execution_trace",
+    "codex/standards/std_agent_execution_trace.json::types.Span"
+  ],
+  "target_refs": [
+    "fixtures/first_wave/belief_state_process_reward_replay/input/belief_states.json",
+    "fixtures/first_wave/belief_state_process_reward_replay/input/reward_events.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/bundle_manifest.json",
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/belief_state_process_reward_replay.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
+    "microcosm_core.organs.belief_state_process_reward_replay::run_reward_bundle"
   ]
 }

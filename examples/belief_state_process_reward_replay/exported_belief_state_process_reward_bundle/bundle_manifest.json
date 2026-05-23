@@ -1,8 +1,8 @@
 {
-  "authority_ceiling": "synthetic_belief_state_process_reward_replay_receipts_only",
-  "body_redacted": true,
-  "bundle_id": "belief_state_process_reward_replay_runtime_example",
-  "claim": "Synthetic public-safe belief-state process reward replay validates typed belief summaries, verifier-backed process rewards, outcome rewards, reward-hacking trap passes, and cold replay without hidden reasoning or benchmark-performance claims.",
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_belief_state_process_reward_policy",
+  "body_in_receipt": false,
+  "bundle_id": "belief_state_process_reward_public_trace_refactor",
+  "claim": "Source-faithful public agent-execution trace refactor validates typed belief summaries, verifier-backed process rewards, outcome rewards, reward-hacking trap passes, and cold replay without hidden reasoning or benchmark-performance claims.",
   "negative_fixture_refs": [
     "benchmark_performance_claim.json",
     "final_answer_only_scoring.json",

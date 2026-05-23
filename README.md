@@ -721,16 +721,19 @@ final-answer-only success without claiming live account action, source mutation,
 provider execution, benchmark performance, or release authority.
 
 `belief_state_process_reward_replay` is the process-reward evidence boundary:
-it validates synthetic partially observable episodes, public typed belief-state
-summaries, predicted next evidence, verifier or observed feedback refs,
-belief-discrepancy scores, dense process rewards, outcome rewards, reward-
-hacking trap results, trajectory groups, and cold replay before reward-language
-is admitted. Run `microcosm belief-state-process-reward-replay
-run-reward-bundle` to inspect the exported bundle. The organ rejects hidden
-reasoning export, neural-judge-only labels, hidden gold labels, reward-by-
-formatting, verifier bypass, benchmark-performance claims, and final-answer-
-only scoring without claiming live RL, benchmark performance, provider
-execution, source mutation, or release authority.
+it validates a source-faithful public agent-execution trace over partially
+observable episodes, public typed belief-state summaries, predicted next
+evidence, verifier or observed feedback refs, belief-discrepancy scores, dense
+process rewards, outcome rewards, reward-hacking trap results, trajectory
+groups, and cold replay before reward-language is admitted. Run `microcosm
+belief-state-process-reward-replay run-reward-bundle` to inspect the exported
+bundle, or `python -m microcosm_core.macro_tools.agent_execution_trace
+belief-reward --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle`
+to inspect the trace projection directly. The organ rejects hidden reasoning
+export, neural-judge-only labels, hidden gold labels, reward-by-formatting,
+verifier bypass, benchmark-performance claims, and final-answer-only scoring
+without claiming live RL, benchmark performance, provider execution, source
+mutation, or release authority.
 
 `mission_transaction_work_spine` now includes the public checkpoint lane
 decision receipt: clean and mixed owned-path work can choose scoped commit,
