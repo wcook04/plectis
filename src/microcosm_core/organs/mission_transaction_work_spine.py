@@ -7,7 +7,16 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.work_landing import (
+    ORDERED_CONTROLLER_ACTION_IDS as WORK_LANDING_ORDERED_CONTROLLER_ACTION_IDS,
+    SOURCE_REF as WORK_LANDING_SOURCE_REF,
+    SOURCE_SYMBOL_REFS as WORK_LANDING_SOURCE_SYMBOL_REFS,
+    TARGET_SYMBOL_REFS as WORK_LANDING_TARGET_SYMBOL_REFS,
+    build_public_work_landing_attempt_binding,
+    build_public_work_landing_reconcile_plan,
+    build_public_work_landing_status,
+)
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -106,13 +115,14 @@ VALIDATOR_CONTRACT_RATCHET_REFS = [
 ]
 
 ORDERED_CONTROLLER_ACTION_IDS = [
-    "select_checkpoint_lane",
-    "record_scoped_commit_landing",
-    "intake_exact_receipt_refs",
-    "drain_exact_receipts",
-    "closeout_landing_attempt",
-    "release_claims",
-    "recompute_status_projection",
+    *WORK_LANDING_ORDERED_CONTROLLER_ACTION_IDS,
+]
+
+BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
+WORK_LANDING_TARGET_REF = "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py"
+WORK_LANDING_VALIDATION_REFS = [
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_receipts_consume_public_work_landing_refactor",
 ]
 
 
@@ -223,6 +233,92 @@ def _stable_hash(payload: object) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def _body_import_verification(input_refs: list[str]) -> dict[str, Any]:
+    return {
+        "verification_mode": "extension_of_existing_public_refactor",
+        "source_ref": WORK_LANDING_SOURCE_REF,
+        "source_symbols": WORK_LANDING_SOURCE_SYMBOL_REFS,
+        "target_ref": WORK_LANDING_TARGET_REF,
+        "target_symbols": WORK_LANDING_TARGET_SYMBOL_REFS,
+        "validation_refs": WORK_LANDING_VALIDATION_REFS,
+        "input_refs": sorted(dict.fromkeys(input_refs)),
+        "body_in_receipt": False,
+        "omitted_secret_or_live_access_material": [
+            "live Task Ledger bodies",
+            "live Work Ledger runtime state",
+            "Git index contents outside declared owned paths",
+            "raw operator text",
+            "credentials and account/session material",
+        ],
+    }
+
+
+def _body_import_fields(input_refs: list[str]) -> dict[str, Any]:
+    return {
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": _body_import_verification(input_refs),
+        "source_refs": [
+            WORK_LANDING_SOURCE_REF,
+            "system/lib/work_landing_status.py",
+        ],
+        "source_symbols": WORK_LANDING_SOURCE_SYMBOL_REFS,
+        "target_refs": [WORK_LANDING_TARGET_REF],
+        "target_symbols": WORK_LANDING_TARGET_SYMBOL_REFS,
+        "public_runtime_refs": input_refs,
+        "body_in_receipt": False,
+    }
+
+
+def _public_work_landing_attempt(
+    *,
+    subject_ids: list[str],
+    owned_paths: list[str],
+    session_id: str | None,
+    created_by: str = "microcosm",
+) -> dict[str, Any]:
+    return build_public_work_landing_attempt_binding(
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        session_id=session_id,
+        require_exclusive=True,
+        created_by=created_by,
+    )
+
+
+def _public_work_landing_reconcile_plan(
+    *,
+    subject_ids: list[str],
+    owned_paths: list[str],
+    session_id: str | None,
+    transaction_id: str,
+    recommended_next_action: str,
+    receipt_drain_prerequisite_status: str,
+) -> dict[str, Any]:
+    plan = build_public_work_landing_reconcile_plan(
+        subject_ids=subject_ids,
+        owned_paths=owned_paths,
+        session_id=session_id,
+        require_exclusive=True,
+    )
+    plan.update(
+        {
+            "transaction_id": transaction_id,
+            "recommended_next_action": recommended_next_action,
+            "receipt_drain_prerequisite_status": receipt_drain_prerequisite_status,
+            "mutation_policy": {
+                "live_state_mutation": False,
+                "live_task_ledger_mutation": False,
+                "live_work_ledger_mutation": False,
+                "broad_stage_used": False,
+                "provider_execution_authorized": False,
+                "release_authorized": False,
+            },
+            "claim_release_order_status": "release_after_closeout_only",
+        }
+    )
+    return plan
+
+
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     if not isinstance(payload, dict):
         return []
@@ -246,7 +342,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -278,7 +374,7 @@ def _bundle_finding(code: str, message: str, *, subject_id: str, subject_kind: s
         "message": message,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -486,7 +582,7 @@ def validate_exported_dependencies(
         "dependency_resolution_receipt": {
             "accepted_refs": sorted(resolved_refs),
             "rejected_refs": sorted(set(dangling_refs)),
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
         "downstream_unlock_edges": [
             {
@@ -498,7 +594,7 @@ def validate_exported_dependencies(
                     ].items()
                     if ref in status.get("dependency_refs", [])
                 ],
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
             for ref in sorted(resolved_refs)
         ],
@@ -568,7 +664,7 @@ def validate_exported_receipt_drain(payload: object) -> dict[str, Any]:
                 subject_kind="receipt_drain_plan",
             )
         )
-    if plan.get("drain_mode") != "metadata_projection_only":
+    if plan.get("drain_mode") != "public_work_landing_receipt_projection":
         findings.append(
             _bundle_finding(
                 "MISSION_BUNDLE_RECEIPT_DRAIN_LIVE_MUTATION_OVERCLAIM",
@@ -646,7 +742,7 @@ def validate_exported_scoped_mutation_policy(payload: object) -> dict[str, Any]:
         "mutation_status": policy.get("mutation_status"),
         "broad_stage_used": False,
         "authority_upgrade_rejected": True,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -756,7 +852,7 @@ def validate_checkpoint_lane_policy(
                 )
                 is True,
                 "suspected_secret": case.get("suspected_secret") is True,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -779,7 +875,7 @@ def validate_checkpoint_lane_policy(
         "broad_checkpoint_requires_operator_authorization": True,
         "suspected_secret_requires_hard_stop": True,
         "dirty_tree_blocks_scoped_commit": False,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -819,7 +915,7 @@ def validate_dependency_unlock_scheduler(payload: object) -> dict[str, Any]:
                     "work_item_id": work_item_id,
                     "dependency_refs": unresolved,
                     "error_code": "DANGLING_DEPENDENCY_REF",
-                    "body_redacted": True,
+                    "body_in_receipt": False,
                 }
             )
             _record(
@@ -868,7 +964,7 @@ def validate_dependency_unlock_scheduler(payload: object) -> dict[str, Any]:
         "dependency_resolution_receipt": {
             "accepted_refs": sorted(resolved_refs),
             "rejected_refs": dangling_refs,
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
         "unsatisfied_dep_ids": unsatisfied_dep_ids,
         "downstream_unlock_edges": [
@@ -879,12 +975,12 @@ def validate_dependency_unlock_scheduler(payload: object) -> dict[str, Any]:
                     for work_item_id, status in dependency_status_by_workitem.items()
                     if ref in status["dependency_refs"]
                 ],
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
             for ref in sorted(resolved_refs)
         ],
         "unlocks_by_rank": [
-            {"rank": index + 1, "work_item_id": work_item_id, "body_redacted": True}
+            {"rank": index + 1, "work_item_id": work_item_id, "body_in_receipt": False}
             for index, work_item_id in enumerate(schedulable_ids)
         ],
         "dangling_dependency_refs": dangling_refs,
@@ -1067,17 +1163,29 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "error_codes": result["error_codes"],
         "findings": result["findings"],
         "anti_claim": result["anti_claim"],
-        "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "receipt_paths": receipt_paths,
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "input_mode": result.get("input_mode"),
         "bundle_id": result.get("bundle_id"),
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_work_landing_status": result["public_work_landing_status"],
+        "body_import_status": result["body_import_status"],
+        "body_import_verification": result["body_import_verification"],
+        "source_refs": result["source_refs"],
+        "source_symbols": result["source_symbols"],
+        "target_refs": result["target_refs"],
+        "target_symbols": result["target_symbols"],
+        "public_runtime_refs": result["public_runtime_refs"],
+        "body_in_receipt": False,
         "validator_contract_ratchet_status": "pass",
         "receipt_field_floor_status": "pass",
         "cannot_fake_predicate_status": "pass",
         "negative_case_binding_status": "pass",
-        "synthetic_fixture_payload_policy": "synthetic_fixture_metadata_only_no_live_state",
+        "fixture_payload_policy": (
+            "negative_regression_fixtures_only; positive runtime evidence consumes "
+            "public work_landing substrate"
+        ),
         "validator_contract_ratchet_refs": VALIDATOR_CONTRACT_RATCHET_REFS,
     }
     return payload
@@ -1289,8 +1397,8 @@ def _write_mission_bundle_receipt(
             "claim_rows_projection_not_authority": validation_result[
                 "claim_rows_projection_not_authority"
             ],
-            "metadata_projection_not_live_ledger_authority": validation_result[
-                "metadata_projection_not_live_ledger_authority"
+            "public_work_landing_not_live_ledger_authority": validation_result[
+                "public_work_landing_not_live_ledger_authority"
             ],
             "blocked_workitem_ids": validation_result["blocked_workitem_ids"],
             "schedulable_workitem_ids": validation_result["schedulable_workitem_ids"],
@@ -1309,7 +1417,6 @@ def _write_mission_bundle_receipt(
             "closeout_status_projection": validation_result["closeout_status_projection"],
             "receipt_drain_plan": validation_result["receipt_drain_plan"],
             "work_landing_reconcile_plan": validation_result["work_landing_reconcile_plan"],
-            "public_replacement_refs": validation_result["public_replacement_refs"],
             "fixture_regression_required_elsewhere": True,
         }
     )
@@ -1328,9 +1435,6 @@ def run_mission_transaction_bundle(
     public_root = _public_root_for_path(input_path)
     payloads = _load_mission_bundle_payloads(input_path)
     scan_result = _scan_bundle_inputs(input_path, public_root)
-    private_scan = dict(scan_result)
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
     workitem_result = validate_exported_workitems(payloads["workitems"])
@@ -1371,6 +1475,35 @@ def run_mission_transaction_bundle(
     bundle_id = str(
         manifest.get("bundle_id")
         or "mission_transaction_work_spine_exported_mission_transaction_bundle"
+    )
+    scoped_owned_paths = [
+        str(path)
+        for path in scoped_policy_result.get("owned_paths", [])
+        if str(path).strip()
+    ]
+    subject_ids = [str(work_item_id) for work_item_id in workitem_result["workitem_ids"]]
+    first_claim = claim_result["accepted_claim_ids"][0] if claim_result["accepted_claim_ids"] else None
+    input_refs = [
+        public_relative_path(path, display_root=public_root)
+        for path in _mission_bundle_paths(input_path)
+    ]
+    body_import_fields = _body_import_fields(input_refs)
+    public_work_landing_status = build_public_work_landing_status(
+        subject_ids=subject_ids,
+        owned_paths=scoped_owned_paths,
+        session_id=first_claim,
+        require_exclusive=True,
+    )
+    public_reconcile_plan = _public_work_landing_reconcile_plan(
+        subject_ids=subject_ids,
+        owned_paths=scoped_owned_paths,
+        session_id=first_claim,
+        transaction_id=str(transaction_result["transaction_id"] or "missing_transaction"),
+        recommended_next_action=str(
+            transaction_result["recommended_next_action"]
+            or "verify_scoped_commit_landed_then_drain_exact_receipts"
+        ),
+        receipt_drain_prerequisite_status="public_work_landing_receipts_declared",
     )
     status = (
         PASS
@@ -1414,7 +1547,7 @@ def run_mission_transaction_bundle(
             ),
             "authority_ceiling": {
                 "status": PASS,
-                "authority_ceiling": "mission_transaction_bundle_metadata_not_live_ledger_authority",
+                "authority_ceiling": "public_work_landing_refactor_over_mission_transaction_bundle",
                 "live_work_state_mutation_authorized": False,
                 "live_task_ledger_mutation_authorized": False,
                 "live_work_ledger_mutation_authorized": False,
@@ -1430,7 +1563,9 @@ def run_mission_transaction_bundle(
             "missing_negative_cases": [],
             "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
             "findings": all_findings,
-            "private_state_scan": private_scan,
+            "secret_exclusion_scan": scan_result,
+            "public_work_landing_status": public_work_landing_status,
+            **body_import_fields,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "workitem_ids": workitem_result["workitem_ids"],
             "blocked_workitem_ids": workitem_result["blocked_workitem_ids"],
@@ -1446,7 +1581,7 @@ def run_mission_transaction_bundle(
             "claim_rows_projection_not_authority": claim_result[
                 "claim_rows_projection_not_authority"
             ],
-            "metadata_projection_not_live_ledger_authority": True,
+            "public_work_landing_not_live_ledger_authority": True,
             "resolved_dependency_refs": dependency_result["resolved_dependency_refs"],
             "dependency_resolution_receipt": dependency_result[
                 "dependency_resolution_receipt"
@@ -1458,8 +1593,8 @@ def run_mission_transaction_bundle(
                 "same_path_conflict_claim_ids": claim_result[
                     "same_path_conflict_claim_ids"
                 ],
-                "claim_conflict_recheck_status": "metadata_projection_only_no_live_claim_recheck",
-                "expected_parent_status": "not_applicable_metadata_projection",
+                "claim_conflict_recheck_status": "public_work_landing_projection_no_live_claim_recheck",
+                "expected_parent_status": "not_applicable_public_work_landing_projection",
                 "replan_required": False,
             },
             "scoped_mutation_receipt": scoped_policy_result,
@@ -1473,34 +1608,19 @@ def run_mission_transaction_bundle(
                 "receipt_drain_exclusivity_status": receipt_drain_result[
                     "receipt_drain_exclusivity_status"
                 ],
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
             "receipt_drain_plan": receipt_drain_result,
             "work_landing_reconcile_plan": {
-                "mode": transaction_result["mode"],
-                "recommended_next_action": transaction_result["recommended_next_action"],
-                "actions": transaction_result["actions"],
-                "mutation_policy": transaction_result["mutation_policy"],
-                "apply_result": transaction_result["apply_result"],
-                "ordered_controller_action_ids": transaction_result[
-                    "ordered_controller_action_ids"
-                ],
+                **public_reconcile_plan,
                 "transaction_id": transaction_result["transaction_id"],
-                "work_landing_reconcile_status": transaction_result[
-                    "work_landing_reconcile_status"
-                ],
-                "receipt_drain_prerequisite_status": "metadata_receipts_declared",
+                "source_transaction_plan_mode": transaction_result["mode"],
                 "claim_release_order_status": transaction_result[
                     "claim_release_order_status"
                 ],
-                "body_redacted": True,
             },
             "transaction_id": transaction_result["transaction_id"],
             "bundle_fingerprint": bundle_fingerprint,
-            "public_replacement_refs": [
-                public_relative_path(path, display_root=public_root)
-                for path in _mission_bundle_paths(input_path)
-            ],
         }
     )
     receipt_path = _write_mission_bundle_receipt(out_dir, result, public_root=public_root)
@@ -1556,12 +1676,40 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             str(item.get("error_code") or ""),
         ),
     )
-    private_scan = dict(scan_result)
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
-    private_scan["synthetic_boundary_negative_cases_observed"] = [
+    secret_scan = dict(scan_result)
+    secret_scan["negative_fixture_boundary_cases_observed"] = [
         "mission_fixture_private_task_ledger_body"
     ]
+    fixture_refs = [
+        public_relative_path(path, display_root=public_root)
+        for path in _input_file_paths(input_path)
+    ]
+    body_import_fields = _body_import_fields(fixture_refs)
+    public_work_landing_status = build_public_work_landing_status(
+        subject_ids=["cap_toy_route_fixture"],
+        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
+        session_id="session_a",
+        require_exclusive=True,
+    )
+    public_work_landing_attempt = _public_work_landing_attempt(
+        subject_ids=["cap_toy_route_fixture"],
+        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
+        session_id="session_a",
+    )
+    public_work_landing_attempt.update(
+        {
+            "read_set": ["fixtures/toy_repo/core/route_plane.json@toy-route-plane-before"],
+            "write_set": ["fixtures/toy_repo/core/route_plane.json"],
+        }
+    )
+    public_reconcile_plan = _public_work_landing_reconcile_plan(
+        subject_ids=["cap_toy_route_fixture"],
+        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
+        session_id="session_a",
+        transaction_id="mtx_toy_route_fixture",
+        recommended_next_action="verify_scoped_commit_landed_then_drain_exact_receipt",
+        receipt_drain_prerequisite_status="commit_landing_required_before_drain",
+    )
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
@@ -1575,7 +1723,9 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "missing_negative_cases": missing_cases,
             "error_codes": error_codes,
             "findings": all_findings,
-            "private_state_scan": private_scan,
+            "secret_exclusion_scan": secret_scan,
+            "public_work_landing_status": public_work_landing_status,
+            **body_import_fields,
             "blocked_workitem_ids": dependency_result["blocked_workitem_ids"],
             "ready_but_unsatisfied_workitem_ids": dependency_result[
                 "ready_but_unsatisfied_workitem_ids"
@@ -1603,14 +1753,9 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "preflight_overclaim_result": preflight_result,
             "checkpoint_lane_decision": checkpoint_lane_result,
             "work_landing_attempt": {
-                "attempt_id": "attempt_toy_route_fixture_001",
+                **public_work_landing_attempt,
+                "attempt_id": public_work_landing_attempt["idempotency_key"],
                 "work_item_id": "cap_toy_route_fixture",
-                "session_id": "session_a",
-                "read_set": ["fixtures/toy_repo/core/route_plane.json@toy-route-plane-before"],
-                "write_set": ["fixtures/toy_repo/core/route_plane.json"],
-                "owned_paths": ["fixtures/toy_repo/core/route_plane.json"],
-                "idempotency_key": "toy-route-fixture-session-a",
-                "body_redacted": True,
             },
             "scoped_mutation_receipt": {
                 "owned_paths": ["fixtures/toy_repo/core/route_plane.json"],
@@ -1618,7 +1763,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
                 "expected_parent_status": "pass_for_claim_a_stale_for_claim_b",
                 "broad_stage_used": False,
                 "authority_upgrade_rejected": scoped_result["scoped_receipt_authority_rejected"],
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
             "closeout_status_projection": {
                 "work_item_id": "cap_toy_route_fixture",
@@ -1629,39 +1774,13 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
                 "receipt_drain_exclusivity_status": "only_declared_receipt_drained",
                 "unrelated_receipt_refs_left_open": ["receipt_unrelated_999"],
                 "derived_not_authority": True,
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
             "dependency_unlock_scheduler": dependency_result,
             "work_landing_reconcile_plan": {
-                "mode": "dry_run",
-                "recommended_next_action": "record_scoped_commit_landing_then_drain_exact_receipt",
-                "actions": [
-                    {
-                        "action_id": action,
-                        "apply_status": "dry_run_not_mutated",
-                        "blocked_by": [],
-                        "would_mutate": False,
-                        "idempotency_key": f"mission-toy-{index}",
-                        "evidence_if_already_done": [],
-                    }
-                    for index, action in enumerate(ORDERED_CONTROLLER_ACTION_IDS, start=1)
-                ],
-                "mutation_policy": {
-                    "live_state_mutation": False,
-                    "broad_stage_used": False,
-                },
-                "apply_result": "dry_run_no_live_mutation",
-                "ordered_controller_action_ids": ORDERED_CONTROLLER_ACTION_IDS,
-                "transaction_id": "mtx_toy_route_fixture",
-                "work_landing_reconcile_status": "ordered_dry_run_plan_emitted",
-                "receipt_drain_prerequisite_status": "commit_landing_required_before_drain",
-                "claim_release_order_status": "release_after_closeout_only",
-                "body_redacted": True,
+                **public_reconcile_plan,
             },
-            "fixture_inputs": [
-                public_relative_path(path, display_root=public_root)
-                for path in _input_file_paths(input_path)
-            ],
+            "fixture_inputs": fixture_refs,
         }
     )
     paths = write_receipts(out_dir, result, public_root=public_root)

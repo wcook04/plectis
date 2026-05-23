@@ -11,8 +11,8 @@
         "microcosm-substrate/tests/test_mission_transaction_work_spine.py",
         "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
       ],
-      "status": "metadata_projection",
-      "expected_parent_sha": "metadata_only_not_live_head",
+      "status": "public_work_landing_projection",
+      "expected_parent_sha": "body_free_not_live_head",
       "projection_not_authority": true,
       "source_authority_allowed": false,
       "live_claim_authority": false

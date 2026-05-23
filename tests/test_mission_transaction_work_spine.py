@@ -9,6 +9,7 @@ from microcosm_core.organs.mission_transaction_work_spine import (
     EXPORTED_MISSION_TRANSACTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    ORDERED_CONTROLLER_ACTION_IDS,
     run,
     run_mission_transaction_bundle,
 )
@@ -37,7 +38,11 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths",
     ],
@@ -59,7 +64,11 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths",
     ],
@@ -81,7 +90,11 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths",
     ],
@@ -111,7 +124,11 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths",
     ],
@@ -136,7 +153,11 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths",
     ],
@@ -157,7 +178,11 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths",
     ],
@@ -219,7 +244,7 @@ def test_mission_transaction_work_spine_observes_required_negative_cases(
     assert "CHECKPOINT_LANE_DECISION_REQUIRED" in result["error_codes"]
 
 
-def test_mission_transaction_work_spine_receipts_are_public_relative_and_redacted(
+def test_mission_transaction_work_spine_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -249,14 +274,17 @@ def test_mission_transaction_work_spine_receipts_are_public_relative_and_redacte
         assert '"body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert "private_state_scan" not in payload
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["body_import_status"] == "extension_of_existing_public_refactor_landed"
+        assert payload["public_work_landing_status"]["status"] == "pass"
         assert payload["missing_negative_cases"] == []
         assert set(payload["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
-        for hit in payload["private_state_scan"]["hits"]:
-            assert hit["body_redacted"] is True
+        for hit in payload["secret_exclusion_scan"]["hits"]:
+            assert hit["body_in_receipt"] is False
             assert not Path(hit["path"]).is_absolute()
 
 
@@ -286,16 +314,9 @@ def test_mission_transaction_work_spine_receipts_satisfy_macro_field_floor(
             / "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
         ).read_text(encoding="utf-8")
     )
-    assert reconcile["ordered_controller_action_ids"] == [
-        "select_checkpoint_lane",
-        "record_scoped_commit_landing",
-        "intake_exact_receipt_refs",
-        "drain_exact_receipts",
-        "closeout_landing_attempt",
-        "release_claims",
-        "recompute_status_projection",
-    ]
+    assert reconcile["ordered_controller_action_ids"] == ORDERED_CONTROLLER_ACTION_IDS
     assert reconcile["mutation_policy"]["live_state_mutation"] is False
+    assert reconcile["body_in_receipt"] is False
 
 
 def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
@@ -313,7 +334,7 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["metadata_projection_not_live_ledger_authority"] is True
+    assert result["public_work_landing_not_live_ledger_authority"] is True
     assert result["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
     assert result["authority_ceiling"]["live_work_ledger_mutation_authorized"] is False
     assert result["workitem_rows_projection_not_authority"] is True
@@ -337,17 +358,13 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
     assert result["receipt_drain_plan"]["receipt_drain_exclusivity_status"] == (
         "only_declared_receipts_drained"
     )
-    assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == [
-        "select_checkpoint_lane",
-        "record_scoped_commit_landing",
-        "intake_exact_receipt_refs",
-        "drain_exact_receipts",
-        "closeout_landing_attempt",
-        "release_claims",
-        "recompute_status_projection",
-    ]
+    assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == (
+        ORDERED_CONTROLLER_ACTION_IDS
+    )
     assert result["work_landing_reconcile_plan"]["mutation_policy"]["live_state_mutation"] is False
-    assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["public_work_landing_status"]["status"] == "pass"
+    assert all(not Path(path).is_absolute() for path in result["public_runtime_refs"])
 
 
 def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
@@ -382,15 +399,42 @@ def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
     assert payload["status"] == "pass"
     assert payload["input_mode"] == "exported_mission_transaction_bundle"
     assert payload["fixture_regression_required_elsewhere"] is True
-    assert payload["private_state_scan"]["body_redacted"] is True
-    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in payload
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert payload["public_work_landing_status"]["status"] == "pass"
     assert payload["expected_negative_cases"] == {}
-    assert payload["metadata_projection_not_live_ledger_authority"] is True
+    assert payload["public_work_landing_not_live_ledger_authority"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["authority_ceiling"]["broad_checkpoint_requires_operator_authorization"] is True
     assert payload["checkpoint_lane_decision"]["dirty_tree_blocks_scoped_commit"] is False
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
-    for hit in payload["private_state_scan"]["hits"]:
-        assert hit["body_redacted"] is True
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_mission_transaction_work_spine_receipts_consume_public_work_landing_refactor(
+    tmp_path: Path,
+) -> None:
+    result = run_mission_transaction_bundle(
+        MISSION_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/mission_transaction_work_spine",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["secret_exclusion_scan"]["status"] == "pass"
+    assert result["body_import_verification"]["target_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py"
+    )
+    assert result["public_work_landing_status"]["landing_lane"] == "scoped_commit"
+    assert result["work_landing_reconcile_plan"]["source_ref"] == (
+        "tools/meta/control/work_landing.py"
+    )
+    assert result["work_landing_reconcile_plan"]["body_in_receipt"] is False
+    assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == (
+        ORDERED_CONTROLLER_ACTION_IDS
+    )

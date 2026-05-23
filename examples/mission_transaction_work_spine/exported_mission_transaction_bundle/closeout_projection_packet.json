@@ -2,7 +2,7 @@
   "schema_version": "mission_transaction_work_spine_closeout_projection_packet_v1",
   "work_item_id": "cap_public_mission_adapter_runtime",
   "status_before": "ready",
-  "status_after": "closed_metadata_projection",
+  "status_after": "closed_public_work_landing_projection",
   "derived_not_authority": true,
   "claims_live_closeout": false,
   "receipt_refs_drained": [
@@ -11,5 +11,5 @@
   "exact_receipt_drain_scope": [
     "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
   ],
-  "body_redacted": true
+  "body_in_receipt": false
 }

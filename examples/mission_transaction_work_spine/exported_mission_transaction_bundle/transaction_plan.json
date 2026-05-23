@@ -1,84 +1,95 @@
 {
   "schema_version": "mission_transaction_work_spine_transaction_plan_v1",
   "transaction_id": "mtx_public_mission_adapter_runtime",
-  "mode": "metadata_projection_only",
+  "mode": "public_work_landing_receipt_projection",
   "recommended_next_action": "validate_exported_mission_transaction_bundle_then_reduce",
   "ordered_controller_action_ids": [
-    "select_checkpoint_lane",
+    "verify_scoped_commit_landed",
+    "ensure_work_ledger_progress_event",
     "record_scoped_commit_landing",
-    "intake_exact_receipt_refs",
-    "drain_exact_receipts",
+    "ensure_task_ledger_receipt_intake_or_event",
+    "drain_task_ledger_intake_if_exclusive",
     "closeout_landing_attempt",
     "release_claims",
-    "recompute_status_projection"
+    "recompute_convergence"
   ],
   "actions": [
     {
-      "action_id": "select_checkpoint_lane",
-      "apply_status": "metadata_projection_only",
+      "action_id": "verify_scoped_commit_landed",
+      "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
       "idempotency_key": "mission-public-1",
-      "evidence_if_already_done": [
-        "checkpoint_lane_decision"
-      ]
-    },
-    {
-      "action_id": "record_scoped_commit_landing",
-      "apply_status": "metadata_projection_only",
-      "would_mutate": false,
-      "blocked_by": [],
-      "idempotency_key": "mission-public-2",
       "evidence_if_already_done": [
         "scoped_commit_receipt"
       ]
     },
     {
-      "action_id": "intake_exact_receipt_refs",
-      "apply_status": "metadata_projection_only",
+      "action_id": "ensure_work_ledger_progress_event",
+      "apply_status": "public_work_landing_receipt_projection",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-2",
+      "evidence_if_already_done": [
+        "work_ledger_append_or_append_exempt"
+      ]
+    },
+    {
+      "action_id": "record_scoped_commit_landing",
+      "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
       "idempotency_key": "mission-public-3",
+      "evidence_if_already_done": [
+        "scoped_commit_receipt"
+      ]
+    },
+    {
+      "action_id": "ensure_task_ledger_receipt_intake_or_event",
+      "apply_status": "public_work_landing_receipt_projection",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-4",
       "evidence_if_already_done": [
         "receipt_drain_plan"
       ]
     },
     {
-      "action_id": "drain_exact_receipts",
-      "apply_status": "metadata_projection_only",
+      "action_id": "drain_task_ledger_intake_if_exclusive",
+      "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-4",
+      "idempotency_key": "mission-public-5",
       "evidence_if_already_done": [
         "receipt_refs_drained"
       ]
     },
     {
       "action_id": "closeout_landing_attempt",
-      "apply_status": "metadata_projection_only",
+      "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-5",
+      "idempotency_key": "mission-public-6",
       "evidence_if_already_done": [
         "closeout_projection_packet"
       ]
     },
     {
       "action_id": "release_claims",
-      "apply_status": "metadata_projection_only",
+      "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-6",
+      "idempotency_key": "mission-public-7",
       "evidence_if_already_done": [
         "claim_table"
       ]
     },
     {
-      "action_id": "recompute_status_projection",
-      "apply_status": "metadata_projection_only",
+      "action_id": "recompute_convergence",
+      "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-7",
+      "idempotency_key": "mission-public-8",
       "evidence_if_already_done": [
         "closeout_status_projection"
       ]
@@ -92,7 +103,7 @@
     "provider_execution_authorized": false,
     "release_authorized": false
   },
-  "apply_result": "metadata_projection_no_live_mutation",
-  "work_landing_reconcile_status": "ordered_metadata_plan_emitted",
+  "apply_result": "public_work_landing_no_live_mutation",
+  "work_landing_reconcile_status": "ordered_public_work_landing_plan_emitted",
   "claim_release_order_status": "release_after_closeout_only"
 }

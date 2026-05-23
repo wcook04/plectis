@@ -1,81 +1,107 @@
 {
   "actions": [
     {
-      "action_id": "select_checkpoint_lane",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-1",
-      "would_mutate": false
+      "action_id": "verify_scoped_commit_landed",
+      "mutation_authorized": false
+    },
+    {
+      "action_id": "ensure_work_ledger_progress_event",
+      "mutation_authorized": false
     },
     {
       "action_id": "record_scoped_commit_landing",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-2",
-      "would_mutate": false
+      "mutation_authorized": false
     },
     {
-      "action_id": "intake_exact_receipt_refs",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-3",
-      "would_mutate": false
+      "action_id": "ensure_task_ledger_receipt_intake_or_event",
+      "mutation_authorized": false
     },
     {
-      "action_id": "drain_exact_receipts",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-4",
-      "would_mutate": false
+      "action_id": "drain_task_ledger_intake_if_exclusive",
+      "mutation_authorized": false
     },
     {
       "action_id": "closeout_landing_attempt",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-5",
-      "would_mutate": false
+      "mutation_authorized": false
     },
     {
       "action_id": "release_claims",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-6",
-      "would_mutate": false
+      "mutation_authorized": false
     },
     {
-      "action_id": "recompute_status_projection",
-      "apply_status": "dry_run_not_mutated",
-      "blocked_by": [],
-      "evidence_if_already_done": [],
-      "idempotency_key": "mission-toy-7",
-      "would_mutate": false
+      "action_id": "recompute_convergence",
+      "mutation_authorized": false
     }
   ],
-  "anti_claim": "Mission transaction receipts validate public work, claim, dependency, landing, checkpoint-lane, receipt-drain, and schedulability metadata plus regression fixtures; they do not mutate live state, certify live closeout, authorize broad staging without operator intent, authorize later organs, or prove whole Wave 1.",
-  "apply_result": "dry_run_no_live_mutation",
-  "authority_ceiling": {
-    "authority_ceiling": "mission_transaction_metadata_not_live_closeout_authority",
-    "broad_checkpoint_requires_operator_authorization": true,
-    "broad_stage_authorized": false,
-    "derived_status_projection_is_authority": false,
-    "dirty_tree_blocks_scoped_commit": false,
-    "later_organs_authorized": false,
-    "live_work_state_mutation_authorized": false,
-    "status": "pass",
-    "suspected_secret_requires_hard_stop": true
+  "anti_claim": "This public work-landing tool is a standalone light-edit import of the macro command shape. It emits deterministic local receipts only; it does not mutate Task Ledger, Work Ledger, Git, or private macro state.",
+  "apply_result": {
+    "applied": false,
+    "reason": "public_microcosm_tool_never_mutates_live_state"
   },
-  "body_redacted": true,
+  "authority_ceiling": {
+    "broad_checkpoint_authorized": false,
+    "git_mutation_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "private_root_required": false,
+    "release_authorized": false
+  },
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "input_refs": [
+      "fixtures/first_wave/mission_transaction_work_spine/input/broad_checkpoint_without_operator_authorization.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/checkpoint_lane_policy.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/claim_missing_owned_path.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/dependency_graph.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/dirty_tree_blocks_scoped_lane.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/live_task_ledger_body_in_fixture.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/missing_selected_lane_for_state.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/preflight_pass_claims_work_landed.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/scoped_receipt_global_authority_claim.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/suspected_secret_without_hard_stop.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl",
+      "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json",
+      "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json"
+    ],
+    "omitted_secret_or_live_access_material": [
+      "live Task Ledger bodies",
+      "live Work Ledger runtime state",
+      "Git index contents outside declared owned paths",
+      "raw operator text",
+      "credentials and account/session material"
+    ],
+    "source_ref": "tools/meta/control/work_landing.py",
+    "source_symbols": [
+      "tools/meta/control/work_landing.py::build_parser",
+      "tools/meta/control/work_landing.py::main",
+      "system/lib/work_landing_status.py::build_work_landing_status",
+      "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+      "system/lib/work_landing_status.py::build_work_landing_attempt_binding",
+      "system/lib/work_landing_status.py::build_workitem_write_admission"
+    ],
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
+    "target_symbols": [
+      "microcosm_core.macro_tools.work_landing::build_parser",
+      "microcosm_core.macro_tools.work_landing::main",
+      "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
+      "microcosm_core.macro_tools.work_landing::build_public_work_landing_reconcile_plan",
+      "microcosm_core.macro_tools.work_landing::build_public_work_landing_attempt_binding",
+      "microcosm_core.macro_tools.work_landing::build_public_workitem_write_admission"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_receipts_consume_public_work_landing_refactor"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor"
+  },
+  "body_in_receipt": false,
   "bundle_id": null,
   "cannot_fake_predicate_status": "pass",
   "claim_release_order_status": "release_after_closeout_only",
-  "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-  "created_at": "2026-05-21T18:16:58+00:00",
+  "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input --out microcosm-substrate/receipts/first_wave/mission_transaction_work_spine",
+  "commit_hash": null,
+  "created_at": "2026-05-23T06:16:11+00:00",
   "error_codes": [
     "CHECKPOINT_BROAD_AUTH_REQUIRED",
     "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
@@ -128,7 +154,7 @@
   },
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CHECKPOINT_BROAD_AUTH_REQUIRED",
       "message": "Broad checkpoint lane requires explicit operator authorization.",
       "negative_case_id": "broad_checkpoint_without_operator_authorization",
@@ -136,7 +162,7 @@
       "subject_kind": "checkpoint_lane_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREFLIGHT_PASS_OVERCLAIMS_WORK_LANDED",
       "message": "Clean preflight cannot claim landed work without closeout evidence.",
       "negative_case_id": "clean_preflight_overclaims_landing_complete",
@@ -144,7 +170,7 @@
       "subject_kind": "mission_preflight"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "EXPECTED_PARENT_MISMATCH",
       "message": "Expected parent does not match the synthetic current parent.",
       "negative_case_id": "competing_claim_and_stale_parent",
@@ -152,7 +178,7 @@
       "subject_kind": "work_ledger_claim"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "SAME_PATH_CLAIM_CONFLICT",
       "message": "Same-path claim conflict remains live at validation time.",
       "negative_case_id": "competing_claim_and_stale_parent",
@@ -160,7 +186,7 @@
       "subject_kind": "work_ledger_claim"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "DANGLING_DEPENDENCY_REF",
       "message": "Dependency unlock attempted without explicit synthetic resolution evidence.",
       "negative_case_id": "dependency_unlock_without_resolution_receipt",
@@ -168,7 +194,7 @@
       "subject_kind": "work_item"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "DANGLING_DEPENDENCY_REF",
       "message": "Dependency unlock attempted without explicit synthetic resolution evidence.",
       "negative_case_id": "dependency_unlock_without_resolution_receipt",
@@ -176,7 +202,7 @@
       "subject_kind": "work_item"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "DANGLING_DEPENDENCY_REF",
       "message": "Dependency unlock attempted without explicit synthetic resolution evidence.",
       "negative_case_id": "dependency_unlock_without_resolution_receipt",
@@ -184,7 +210,7 @@
       "subject_kind": "work_item"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
       "message": "Mixed dirty tree state blocks broad accidental staging, not scoped owned-path commit.",
       "negative_case_id": "dirty_tree_blocks_scoped_lane",
@@ -192,7 +218,7 @@
       "subject_kind": "checkpoint_lane_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CHECKPOINT_LANE_DECISION_REQUIRED",
       "message": "Checkpoint lane case must name scoped_commit, broad_checkpoint, or hard_stop.",
       "negative_case_id": "missing_selected_lane_for_state",
@@ -200,7 +226,7 @@
       "subject_kind": "checkpoint_lane_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MISSING_OWNED_PATH",
       "message": "Mission claim is missing an owned path.",
       "negative_case_id": "mission_claim_missing_owned_path",
@@ -208,7 +234,7 @@
       "subject_kind": "work_ledger_claim"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "LIVE_TASK_LEDGER_BODY_IN_FIXTURE",
       "message": "Fixture marked a live ledger payload value and was rejected.",
       "negative_case_id": "mission_fixture_private_task_ledger_body",
@@ -216,7 +242,7 @@
       "subject_kind": "synthetic_fixture"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "READY_WITH_INCOMPLETE_HARD_DEP",
       "message": "Ready state cannot override unsatisfied hard dependency refs.",
       "negative_case_id": "ready_workitem_with_unsatisfied_hard_dep",
@@ -224,7 +250,7 @@
       "subject_kind": "work_item"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "SCOPED_RECEIPT_AUTHORITY_UPGRADE",
       "message": "Scoped commit receipt attempted to claim global authority.",
       "negative_case_id": "scoped_commit_receipt_claims_global_authority",
@@ -232,7 +258,7 @@
       "subject_kind": "scoped_receipt"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CHECKPOINT_SECRET_REQUIRES_HARD_STOP",
       "message": "Suspected secret or private leakage requires the hard-stop lane.",
       "negative_case_id": "suspected_secret_without_hard_stop",
@@ -241,12 +267,18 @@
     }
   ],
   "fixture_id": "first_wave.mission_transaction_work_spine",
+  "fixture_payload_policy": "negative_regression_fixtures_only; positive runtime evidence consumes public work_landing substrate",
   "input_mode": null,
+  "missing_fields": [],
   "missing_negative_cases": [],
   "mode": "dry_run",
   "mutation_policy": {
     "broad_stage_used": false,
-    "live_state_mutation": false
+    "live_state_mutation": false,
+    "live_task_ledger_mutation": false,
+    "live_work_ledger_mutation": false,
+    "provider_execution_authorized": false,
+    "release_authorized": false
   },
   "negative_case_binding_status": "pass",
   "observed_negative_cases": {
@@ -285,26 +317,78 @@
       "CHECKPOINT_SECRET_REQUIRES_HARD_STOP"
     ]
   },
+  "only": null,
   "ordered_controller_action_ids": [
-    "select_checkpoint_lane",
+    "verify_scoped_commit_landed",
+    "ensure_work_ledger_progress_event",
     "record_scoped_commit_landing",
-    "intake_exact_receipt_refs",
-    "drain_exact_receipts",
+    "ensure_task_ledger_receipt_intake_or_event",
+    "drain_task_ledger_intake_if_exclusive",
     "closeout_landing_attempt",
     "release_claims",
-    "recompute_status_projection"
+    "recompute_convergence"
   ],
   "organ_id": "mission_transaction_work_spine",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 13,
+  "owned_paths": [
+    "fixtures/toy_repo/core/route_plane.json"
+  ],
+  "public_runtime_refs": [
+    "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl",
+    "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/dependency_graph.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/claim_missing_owned_path.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/scoped_receipt_global_authority_claim.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/live_task_ledger_body_in_fixture.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/preflight_pass_claims_work_landed.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/checkpoint_lane_policy.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/broad_checkpoint_without_operator_authorization.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/suspected_secret_without_hard_stop.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/dirty_tree_blocks_scoped_lane.json",
+    "fixtures/first_wave/mission_transaction_work_spine/input/missing_selected_lane_for_state.json"
+  ],
+  "public_work_landing_status": {
+    "anti_claim": "This public work-landing tool is a standalone light-edit import of the macro command shape. It emits deterministic local receipts only; it does not mutate Task Ledger, Work Ledger, Git, or private macro state.",
+    "authority_ceiling": {
+      "broad_checkpoint_authorized": false,
+      "git_mutation_authorized": false,
+      "live_task_ledger_mutation_authorized": false,
+      "live_work_ledger_mutation_authorized": false,
+      "private_root_required": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "claim_conflict_status": "not_evaluated_public_fixture",
+    "landing_lane": "scoped_commit",
+    "missing_fields": [],
+    "owned_paths": [
+      "fixtures/toy_repo/core/route_plane.json"
+    ],
+    "recommended_next_action": "run_reconcile_plan",
+    "require_exclusive": true,
+    "same_path_conflict_claim_ids": [],
+    "schema": "public_work_landing_status_v0",
+    "session_id": "session_a",
+    "source_ref": "tools/meta/control/work_landing.py",
+    "source_symbols": [
+      "tools/meta/control/work_landing.py::build_parser",
+      "tools/meta/control/work_landing.py::main",
+      "system/lib/work_landing_status.py::build_work_landing_status",
+      "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+      "system/lib/work_landing_status.py::build_work_landing_attempt_binding",
+      "system/lib/work_landing_status.py::build_workitem_write_admission"
+    ],
     "status": "pass",
-    "synthetic_boundary_negative_cases_observed": [
-      "mission_fixture_private_task_ledger_body"
+    "subject_ids": [
+      "cap_toy_route_fixture"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.work_landing::build_parser",
+      "microcosm_core.macro_tools.work_landing::main",
+      "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
+      "microcosm_core.macro_tools.work_landing::build_public_work_landing_reconcile_plan",
+      "microcosm_core.macro_tools.work_landing::build_public_work_landing_attempt_binding",
+      "microcosm_core.macro_tools.work_landing::build_public_workitem_write_admission"
     ]
   },
   "receipt_drain_prerequisite_status": "commit_landing_required_before_drain",
@@ -321,8 +405,30 @@
     "receipts/first_wave/mission_transaction_work_spine/dependency_unlock_scheduler_receipt.json",
     "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
   ],
-  "recommended_next_action": "record_scoped_commit_landing_then_drain_exact_receipt",
+  "recommended_next_action": "verify_scoped_commit_landed_then_drain_exact_receipt",
+  "require_exclusive": true,
+  "schema": "public_work_landing_reconcile_plan_v0",
   "schema_version": "mission_transaction_work_spine_work_landing_reconcile_plan_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "negative_fixture_boundary_cases_observed": [
+      "mission_fixture_private_task_ledger_body"
+    ],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 13,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "session_id": "session_a",
   "source_pattern_ids": [
     "task_ledger_workitem_spine",
     "mission_transaction_landing",
@@ -332,8 +438,34 @@
     "workitem_dependency_unlock_scheduler",
     "checkpoint_solo_dev_three_lanes"
   ],
+  "source_ref": "tools/meta/control/work_landing.py",
+  "source_refs": [
+    "tools/meta/control/work_landing.py",
+    "system/lib/work_landing_status.py"
+  ],
+  "source_symbols": [
+    "tools/meta/control/work_landing.py::build_parser",
+    "tools/meta/control/work_landing.py::main",
+    "system/lib/work_landing_status.py::build_work_landing_status",
+    "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+    "system/lib/work_landing_status.py::build_work_landing_attempt_binding",
+    "system/lib/work_landing_status.py::build_workitem_write_admission"
+  ],
   "status": "pass",
-  "synthetic_fixture_payload_policy": "synthetic_fixture_metadata_only_no_live_state",
+  "subject_ids": [
+    "cap_toy_route_fixture"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.work_landing::build_parser",
+    "microcosm_core.macro_tools.work_landing::main",
+    "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
+    "microcosm_core.macro_tools.work_landing::build_public_work_landing_reconcile_plan",
+    "microcosm_core.macro_tools.work_landing::build_public_work_landing_attempt_binding",
+    "microcosm_core.macro_tools.work_landing::build_public_workitem_write_admission"
+  ],
   "transaction_id": "mtx_toy_route_fixture",
   "validator_contract_ratchet_refs": [
     "fixture_manifests/mission_transaction_work_spine.fixture_manifest.json::validator_contract_ratchet_v1",

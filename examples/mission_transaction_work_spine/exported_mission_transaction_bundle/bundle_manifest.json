@@ -4,6 +4,13 @@
   "input_mode": "exported_mission_transaction_bundle",
   "organ_id": "mission_transaction_work_spine",
   "fixture_regression_required_elsewhere": true,
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "verification_mode": "extension_of_existing_public_refactor",
+    "source_ref": "tools/meta/control/work_landing.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
+    "body_in_receipt": false
+  },
   "release_authorized": false,
   "live_ledger_authority": false,
   "required_files": [

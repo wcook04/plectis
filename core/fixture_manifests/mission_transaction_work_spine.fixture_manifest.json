@@ -60,7 +60,11 @@
       "missing_negative_cases",
       "error_codes",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "public_work_landing_status",
+      "body_import_status",
+      "body_import_verification",
+      "body_in_receipt",
       "authority_ceiling",
       "receipt_paths"
     ],
@@ -81,7 +85,11 @@
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths"
       ],
@@ -103,7 +111,11 @@
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths"
       ],
@@ -125,7 +137,11 @@
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths"
       ],
@@ -155,7 +171,11 @@
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths"
       ],
@@ -180,7 +200,11 @@
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths"
       ],
@@ -201,12 +225,17 @@
         "observed_negative_cases",
         "error_codes",
         "anti_claim",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "public_work_landing_status",
+        "body_import_status",
+        "body_import_verification",
+        "body_in_receipt",
         "authority_ceiling",
         "receipt_paths"
       ]
     }
   },
-  "authority_ceiling": "synthetic_mission_transaction_fixture_only_not_live_workitem_closeout_checkpoint_lane_or_public_runtime_proof",
-  "anti_claim": "Mission transaction receipts validate synthetic dependency, claim, landing, checkpoint-lane, exact-drain, and schedulability fixtures only. They do not mutate live work state, certify live mission closeout, authorize broad staging without operator intent, authorize later organs, or prove whole Wave 1."
+  "authority_ceiling": "public_work_landing_refactor_over_mission_transaction_bundle",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "anti_claim": "Mission transaction receipts validate public work-landing, dependency, claim, checkpoint-lane, exact-drain, and schedulability evidence plus bounded negative fixtures. They do not mutate live work state, certify live mission closeout, authorize broad staging without operator intent, authorize later organs, or prove whole Wave 1."
 }

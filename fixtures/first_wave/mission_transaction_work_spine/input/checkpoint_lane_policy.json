@@ -50,5 +50,5 @@
     "operator_authorization_required_for_broad_checkpoint": true,
     "suspected_secret_requires_hard_stop": true
   },
-  "body_redacted": true
+  "body_in_receipt": false
 }

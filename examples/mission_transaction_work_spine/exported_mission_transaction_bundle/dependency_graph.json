@@ -6,12 +6,12 @@
       "dependency_id": "cap_navigation_adapter_accepted",
       "status": "resolved",
       "receipt_ref": "state/microcosm_portfolio/reconstruction/post_navigation_hologram_route_plane_real_substrate_adapter_reducer_v1.json",
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
   "unlock_policy": {
-    "scheduler_mode": "metadata_projection_only",
+    "scheduler_mode": "public_work_landing_receipt_projection",
     "live_task_ledger_mutation_authorized": false,
-    "body_redacted": true
+    "body_in_receipt": false
   }
 }
