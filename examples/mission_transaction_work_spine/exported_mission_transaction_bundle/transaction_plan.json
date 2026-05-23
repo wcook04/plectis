@@ -10,6 +10,10 @@
     "ensure_task_ledger_receipt_intake_or_event",
     "drain_task_ledger_intake_if_exclusive",
     "closeout_landing_attempt",
+    "rebuild_task_ledger_projection",
+    "check_work_ledger_projection",
+    "close_work_ledger_transaction_thread",
+    "finalize_work_ledger_session",
     "release_claims",
     "recompute_convergence"
   ],
@@ -75,11 +79,51 @@
       ]
     },
     {
-      "action_id": "release_claims",
+      "action_id": "rebuild_task_ledger_projection",
       "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
       "idempotency_key": "mission-public-7",
+      "evidence_if_already_done": [
+        "task_ledger_projection_receipt"
+      ]
+    },
+    {
+      "action_id": "check_work_ledger_projection",
+      "apply_status": "public_work_landing_receipt_projection",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-8",
+      "evidence_if_already_done": [
+        "work_ledger_projection_check"
+      ]
+    },
+    {
+      "action_id": "close_work_ledger_transaction_thread",
+      "apply_status": "public_work_landing_receipt_projection",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-9",
+      "evidence_if_already_done": [
+        "work_ledger_transaction_close_event"
+      ]
+    },
+    {
+      "action_id": "finalize_work_ledger_session",
+      "apply_status": "public_work_landing_receipt_projection",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-10",
+      "evidence_if_already_done": [
+        "work_ledger_session_finalize_receipt"
+      ]
+    },
+    {
+      "action_id": "release_claims",
+      "apply_status": "public_work_landing_receipt_projection",
+      "would_mutate": false,
+      "blocked_by": [],
+      "idempotency_key": "mission-public-11",
       "evidence_if_already_done": [
         "claim_table"
       ]
@@ -89,7 +133,7 @@
       "apply_status": "public_work_landing_receipt_projection",
       "would_mutate": false,
       "blocked_by": [],
-      "idempotency_key": "mission-public-8",
+      "idempotency_key": "mission-public-12",
       "evidence_if_already_done": [
         "closeout_status_projection"
       ]

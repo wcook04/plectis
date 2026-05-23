@@ -11,6 +11,7 @@ BLOCKED = "blocked"
 
 SOURCE_REF = "tools/meta/control/work_landing.py"
 SOURCE_SYMBOL_REFS = [
+    "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
     "tools/meta/control/work_landing.py::build_parser",
     "tools/meta/control/work_landing.py::main",
     "system/lib/work_landing_status.py::build_work_landing_status",
@@ -19,6 +20,7 @@ SOURCE_SYMBOL_REFS = [
     "system/lib/work_landing_status.py::build_workitem_write_admission",
 ]
 TARGET_SYMBOL_REFS = [
+    "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
     "microcosm_core.macro_tools.work_landing::build_parser",
     "microcosm_core.macro_tools.work_landing::main",
     "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
@@ -33,6 +35,10 @@ ORDERED_CONTROLLER_ACTION_IDS = [
     "ensure_task_ledger_receipt_intake_or_event",
     "drain_task_ledger_intake_if_exclusive",
     "closeout_landing_attempt",
+    "rebuild_task_ledger_projection",
+    "check_work_ledger_projection",
+    "close_work_ledger_transaction_thread",
+    "finalize_work_ledger_session",
     "release_claims",
     "recompute_convergence",
 ]
@@ -85,10 +91,15 @@ def _base_payload(
         "require_exclusive": require_exclusive,
         "missing_fields": missing,
         "body_in_receipt": False,
+        "source_order_ref": "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
+        "target_order_ref": (
+            "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS"
+        ),
+        "source_faithful_controller_action_ids": ORDERED_CONTROLLER_ACTION_IDS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": (
-            "This public work-landing tool is a standalone light-edit import of "
-            "the macro command shape. It emits deterministic local receipts only; "
+            "This public work-landing tool is a source-faithful public refactor of "
+            "the macro command and controller-action shape. It emits deterministic local receipts only; "
             "it does not mutate Task Ledger, Work Ledger, Git, or private macro state."
         ),
     }
@@ -150,6 +161,7 @@ def build_public_work_landing_reconcile_plan(
             "only": only,
             "commit_hash": commit_hash,
             "ordered_controller_action_ids": ORDERED_CONTROLLER_ACTION_IDS,
+            "controller_action_count": len(ORDERED_CONTROLLER_ACTION_IDS),
             "actions": actions,
             "work_landing_reconcile_status": (
                 "ordered_dry_run_plan_emitted"

@@ -41,8 +41,25 @@
       "raw operator text",
       "credentials and account/session material"
     ],
+    "source_faithful_controller_action_count": 12,
+    "source_faithful_controller_action_ids": [
+      "verify_scoped_commit_landed",
+      "ensure_work_ledger_progress_event",
+      "record_scoped_commit_landing",
+      "ensure_task_ledger_receipt_intake_or_event",
+      "drain_task_ledger_intake_if_exclusive",
+      "closeout_landing_attempt",
+      "rebuild_task_ledger_projection",
+      "check_work_ledger_projection",
+      "close_work_ledger_transaction_thread",
+      "finalize_work_ledger_session",
+      "release_claims",
+      "recompute_convergence"
+    ],
+    "source_order_ref": "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
     "source_ref": "tools/meta/control/work_landing.py",
     "source_symbols": [
+      "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
       "tools/meta/control/work_landing.py::build_parser",
       "tools/meta/control/work_landing.py::main",
       "system/lib/work_landing_status.py::build_work_landing_status",
@@ -50,8 +67,10 @@
       "system/lib/work_landing_status.py::build_work_landing_attempt_binding",
       "system/lib/work_landing_status.py::build_workitem_write_admission"
     ],
+    "target_order_ref": "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
     "target_symbols": [
+      "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
       "microcosm_core.macro_tools.work_landing::build_parser",
       "microcosm_core.macro_tools.work_landing::main",
       "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
@@ -68,8 +87,8 @@
   "body_in_receipt": false,
   "bundle_id": null,
   "cannot_fake_predicate_status": "pass",
-  "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input microcosm-substrate/fixtures/first_wave/mission_transaction_work_spine/input --out microcosm-substrate/receipts/first_wave/mission_transaction_work_spine",
-  "created_at": "2026-05-23T06:16:11+00:00",
+  "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+  "created_at": "2026-05-23T06:22:26+00:00",
   "dependency_refs": [
     "cap_dangling_ref",
     "cap_done",
@@ -299,7 +318,7 @@
     "fixtures/first_wave/mission_transaction_work_spine/input/missing_selected_lane_for_state.json"
   ],
   "public_work_landing_status": {
-    "anti_claim": "This public work-landing tool is a standalone light-edit import of the macro command shape. It emits deterministic local receipts only; it does not mutate Task Ledger, Work Ledger, Git, or private macro state.",
+    "anti_claim": "This public work-landing tool is a source-faithful public refactor of the macro command and controller-action shape. It emits deterministic local receipts only; it does not mutate Task Ledger, Work Ledger, Git, or private macro state.",
     "authority_ceiling": {
       "broad_checkpoint_authorized": false,
       "git_mutation_authorized": false,
@@ -320,8 +339,24 @@
     "same_path_conflict_claim_ids": [],
     "schema": "public_work_landing_status_v0",
     "session_id": "session_a",
+    "source_faithful_controller_action_ids": [
+      "verify_scoped_commit_landed",
+      "ensure_work_ledger_progress_event",
+      "record_scoped_commit_landing",
+      "ensure_task_ledger_receipt_intake_or_event",
+      "drain_task_ledger_intake_if_exclusive",
+      "closeout_landing_attempt",
+      "rebuild_task_ledger_projection",
+      "check_work_ledger_projection",
+      "close_work_ledger_transaction_thread",
+      "finalize_work_ledger_session",
+      "release_claims",
+      "recompute_convergence"
+    ],
+    "source_order_ref": "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
     "source_ref": "tools/meta/control/work_landing.py",
     "source_symbols": [
+      "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
       "tools/meta/control/work_landing.py::build_parser",
       "tools/meta/control/work_landing.py::main",
       "system/lib/work_landing_status.py::build_work_landing_status",
@@ -333,7 +368,9 @@
     "subject_ids": [
       "cap_toy_route_fixture"
     ],
+    "target_order_ref": "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
     "target_symbols": [
+      "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
       "microcosm_core.macro_tools.work_landing::build_parser",
       "microcosm_core.macro_tools.work_landing::main",
       "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
@@ -391,6 +428,7 @@
     "system/lib/work_landing_status.py"
   ],
   "source_symbols": [
+    "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
     "tools/meta/control/work_landing.py::build_parser",
     "tools/meta/control/work_landing.py::main",
     "system/lib/work_landing_status.py::build_work_landing_status",
@@ -403,6 +441,7 @@
     "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py"
   ],
   "target_symbols": [
+    "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS",
     "microcosm_core.macro_tools.work_landing::build_parser",
     "microcosm_core.macro_tools.work_landing::main",
     "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",

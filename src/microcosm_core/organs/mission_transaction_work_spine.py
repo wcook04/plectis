@@ -240,6 +240,12 @@ def _body_import_verification(input_refs: list[str]) -> dict[str, Any]:
         "source_symbols": WORK_LANDING_SOURCE_SYMBOL_REFS,
         "target_ref": WORK_LANDING_TARGET_REF,
         "target_symbols": WORK_LANDING_TARGET_SYMBOL_REFS,
+        "source_order_ref": "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
+        "target_order_ref": (
+            "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS"
+        ),
+        "source_faithful_controller_action_ids": ORDERED_CONTROLLER_ACTION_IDS,
+        "source_faithful_controller_action_count": len(ORDERED_CONTROLLER_ACTION_IDS),
         "validation_refs": WORK_LANDING_VALIDATION_REFS,
         "input_refs": sorted(dict.fromkeys(input_refs)),
         "body_in_receipt": False,
@@ -606,12 +612,23 @@ def validate_exported_transaction_plan(payload: object) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     plan = payload if isinstance(payload, dict) else {}
     actions = [str(action) for action in plan.get("ordered_controller_action_ids", [])]
+    action_rows = _rows(plan, "actions")
+    action_row_ids = [str(action.get("action_id") or "") for action in action_rows]
     mutation_policy = plan.get("mutation_policy", {})
     if actions != ORDERED_CONTROLLER_ACTION_IDS:
         findings.append(
             _bundle_finding(
                 "MISSION_BUNDLE_CONTROLLER_ACTION_ORDER_MISMATCH",
                 "Mission transaction plan does not preserve controller action order.",
+                subject_id=str(plan.get("transaction_id") or "transaction_plan"),
+                subject_kind="transaction_plan",
+            )
+        )
+    if action_row_ids != ORDERED_CONTROLLER_ACTION_IDS:
+        findings.append(
+            _bundle_finding(
+                "MISSION_BUNDLE_CONTROLLER_ACTION_ROWS_MISMATCH",
+                "Mission transaction action rows must preserve every source-faithful controller action in order.",
                 subject_id=str(plan.get("transaction_id") or "transaction_plan"),
                 subject_kind="transaction_plan",
             )
@@ -640,6 +657,9 @@ def validate_exported_transaction_plan(payload: object) -> dict[str, Any]:
         "findings": findings,
         "transaction_id": plan.get("transaction_id"),
         "ordered_controller_action_ids": actions,
+        "action_row_ids": action_row_ids,
+        "controller_action_rows_aligned": action_row_ids == ORDERED_CONTROLLER_ACTION_IDS,
+        "source_faithful_controller_action_count": len(ORDERED_CONTROLLER_ACTION_IDS),
         "mutation_policy": mutation_policy,
         "apply_result": plan.get("apply_result"),
         "work_landing_reconcile_status": plan.get("work_landing_reconcile_status"),

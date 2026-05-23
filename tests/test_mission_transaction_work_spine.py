@@ -21,6 +21,20 @@ MISSION_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
 )
+SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS = [
+    "verify_scoped_commit_landed",
+    "ensure_work_ledger_progress_event",
+    "record_scoped_commit_landing",
+    "ensure_task_ledger_receipt_intake_or_event",
+    "drain_task_ledger_intake_if_exclusive",
+    "closeout_landing_attempt",
+    "rebuild_task_ledger_projection",
+    "check_work_ledger_projection",
+    "close_work_ledger_transaction_thread",
+    "finalize_work_ledger_session",
+    "release_claims",
+    "recompute_convergence",
+]
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",
@@ -206,6 +220,8 @@ def _walk_keys(payload: Any) -> list[str]:
 def test_mission_transaction_work_spine_observes_required_negative_cases(
     tmp_path: Path,
 ) -> None:
+    assert ORDERED_CONTROLLER_ACTION_IDS == SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
+
     live_preflight = MICROCOSM_ROOT / "receipts/preflight/mission_transaction_work_spine.json"
     before = live_preflight.read_text(encoding="utf-8") if live_preflight.exists() else None
     result = run(MISSION_FIXTURE_INPUT, tmp_path / "receipts", command="pytest")
@@ -361,8 +377,14 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
     assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == (
         ORDERED_CONTROLLER_ACTION_IDS
     )
+    assert result["work_landing_reconcile_plan"]["controller_action_count"] == len(
+        SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
+    )
     assert result["work_landing_reconcile_plan"]["mutation_policy"]["live_state_mutation"] is False
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_verification"]["source_faithful_controller_action_ids"] == (
+        SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
+    )
     assert result["public_work_landing_status"]["status"] == "pass"
     assert all(not Path(path).is_absolute() for path in result["public_runtime_refs"])
 
@@ -437,4 +459,10 @@ def test_mission_transaction_work_spine_receipts_consume_public_work_landing_ref
     assert result["work_landing_reconcile_plan"]["body_in_receipt"] is False
     assert result["work_landing_reconcile_plan"]["ordered_controller_action_ids"] == (
         ORDERED_CONTROLLER_ACTION_IDS
+    )
+    assert result["work_landing_reconcile_plan"]["controller_action_count"] == len(
+        SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
+    )
+    assert result["body_import_verification"]["source_faithful_controller_action_count"] == len(
+        SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
     )
