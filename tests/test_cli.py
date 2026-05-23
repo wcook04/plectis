@@ -12,6 +12,7 @@ from microcosm_core.runtime_shell import (
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
+    SOURCE_OPEN_BODY_POLICY,
 )
 
 
@@ -459,6 +460,11 @@ def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["organ_id"] == "prediction_oracle_reconciliation"
     assert payload["mechanics"][2]["count"] == 2
     assert payload["authority_ceiling"]["financial_advice_authorized"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_prediction_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
+    assert "public_replacement_refs" not in payload
 
 
 def test_cli_market_prediction_boundary_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -480,7 +486,18 @@ def test_cli_market_prediction_boundary_smoke(capsys: pytest.CaptureFixture[str]
     assert payload["authority_ceiling"]["synthetic_fixture_only"] is True
     assert payload["authority_ceiling"]["live_market_data_authorized"] is False
     assert payload["authority_ceiling"]["investment_recommendation_authorized"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert (
+        payload["payload_boundary"]["boundary_id"]
+        == "public_market_prediction_evidence_boundary_lens"
+    )
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in payload["boundary_rows"]
+    )
     assert payload["safe_to_show"]["decision_policy_not_trading_advice"] is True
+    assert "body_redacted" not in payload
 
 
 def test_cli_corpus_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:

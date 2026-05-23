@@ -14,9 +14,8 @@
     "synthetic_fixture_only": true,
     "trading_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm prediction-lens",
-  "created_at": "2026-05-23T05:19:38+00:00",
+  "created_at": "2026-05-23T20:29:08+00:00",
   "endpoint": "/prediction",
   "input_refs": {
     "acceptance_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
@@ -28,42 +27,52 @@
   "lens_id": "public_prediction_lens",
   "mechanics": [
     {
-      "body_redacted": true,
       "count": 2,
       "examples": [
         "SYNTH_TARGET_ALPHA",
         "SYNTH_TARGET_BETA"
       ],
-      "mechanic_id": "target_universe_gate"
+      "mechanic_id": "target_universe_gate",
+      "payload_boundary_ref": "public_prediction_lens::mechanics",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "count": 2,
       "mechanic_id": "cp1_bifurcation_resolution",
+      "payload_boundary_ref": "public_prediction_lens::mechanics",
       "selected_branch_ids": [
         "cp1_alpha_up_over_flat",
         "cp1_beta_down_over_up"
-      ]
+      ],
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "count": 2,
-      "mechanic_id": "cp2_prediction_rows"
+      "mechanic_id": "cp2_prediction_rows",
+      "payload_boundary_ref": "public_prediction_lens::mechanics",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "graded_count": 2,
       "hit_count": 1,
-      "mechanic_id": "oracle_diff_grading"
+      "mechanic_id": "oracle_diff_grading",
+      "payload_boundary_ref": "public_prediction_lens::mechanics",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "authority": "public_fixture_delta_only",
-      "body_redacted": true,
       "count": 1,
       "mechanic_id": "bounded_dossier_mutation",
       "mutation_ids": [
         "mutation_beta_confidence_revision"
-      ]
+      ],
+      "payload_boundary_ref": "public_prediction_lens::mechanics",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "negative_case_ids": [
@@ -76,46 +85,89 @@
   ],
   "organ_command": "microcosm prediction-oracle-reconciliation run-prediction-bundle",
   "organ_id": "prediction_oracle_reconciliation",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_prediction_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm prediction-lens",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_prediction_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "prediction_lens_ref": "receipts/runtime_shell/public_prediction_lens.json",
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
   "public_claim": "Microcosm exposes prediction reasoning as public synthetic mechanics: target-universe gating, CP1 bifurcation resolution, CP2 prediction rows, oracle diff grading, and bounded dossier mutation.",
-  "public_replacement_refs": [
-    "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
-    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
-    "paper_modules/prediction_oracle_reconciliation.md"
+  "public_drilldown_refs": [
+    "microcosm_pattern_ledger:synthetic_science_oracle_dossier_reconciliation_compound",
+    "microcosm_pattern_ledger:cp1_bifurcation_reconciliation_spine",
+    "microcosm_pattern_ledger:cp2_universe_constraint_valid_prediction_targets_gate",
+    "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
   "reconciliation_rows": [
     {
-      "body_redacted": true,
       "confidence_band": "medium",
       "cp1_branch_id": "cp1_alpha_up_over_flat",
       "direction": "up",
       "direction_hit": true,
       "oracle_feed_health": "ok",
+      "payload_boundary_ref": "public_prediction_lens::reconciliation_rows",
       "prediction_id": "pred_alpha_direction",
-      "target_id": "SYNTH_TARGET_ALPHA"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "target_id": "SYNTH_TARGET_ALPHA",
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "confidence_band": "low_medium",
       "cp1_branch_id": "cp1_beta_down_over_up",
       "direction": "down",
       "direction_hit": false,
       "oracle_feed_health": "ok",
+      "payload_boundary_ref": "public_prediction_lens::reconciliation_rows",
       "prediction_id": "pred_beta_direction",
-      "target_id": "SYNTH_TARGET_BETA"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "target_id": "SYNTH_TARGET_BETA",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
+    "no_financial_or_investment_advice": true,
     "no_live_market_data": true,
+    "private_account_state_omitted": true,
+    "public_refs_are_drilldowns_not_replacements": true,
     "receipt_refs_only_for_macro_projection": true,
-    "synthetic_targets_only": true
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "synthetic_targets_only": true,
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_prediction_lens_v1",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_pattern_count": 6,
   "source_pattern_ids": [
     "synthetic_science_oracle_dossier_reconciliation_compound",
@@ -131,5 +183,6 @@
     "microcosm_pattern_ledger:cp2_universe_constraint_valid_prediction_targets_gate",
     "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop"
   ],
-  "status": "pass"
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

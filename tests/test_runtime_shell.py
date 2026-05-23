@@ -14,6 +14,7 @@ from microcosm_core.runtime_shell import (
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
     RuntimeShell,
+    SOURCE_OPEN_BODY_POLICY,
 )
 
 
@@ -906,6 +907,10 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_authority_map_uses_payload_boundary(tmp_path: Path) -> None:
+    test_runtime_shell_authority_map_is_public_safe(tmp_path)
+
+
 def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
@@ -1428,6 +1433,10 @@ def test_runtime_shell_projection_safety_lens_is_public_safe(tmp_path: Path) -> 
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_projection_safety_lens_uses_payload_boundary(tmp_path: Path) -> None:
+    test_runtime_shell_projection_safety_lens_is_public_safe(tmp_path)
 
 
 def test_runtime_shell_projection_drift_control_lens_is_public_safe(tmp_path: Path) -> None:
@@ -2130,7 +2139,7 @@ def test_runtime_shell_corpus_lens_is_public_safe(tmp_path: Path) -> None:
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_prediction_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_prediction_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -2165,15 +2174,31 @@ def test_runtime_shell_prediction_lens_is_public_safe(tmp_path: Path) -> None:
     assert lens["authority_ceiling"]["financial_advice_authorized"] is False
     assert lens["authority_ceiling"]["live_market_data_authorized"] is False
     assert lens["authority_ceiling"]["forecast_performance_claim"] is False
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_prediction_lens"
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["synthetic_targets_only"] is True
-    assert lens["body_redacted"] is True
+    assert lens["safe_to_show"]["no_financial_or_investment_advice"] is True
+    assert lens["safe_to_show"]["private_account_state_omitted"] is True
+    assert "body_redacted" not in lens
+    assert "public_replacement_refs" not in lens
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False for row in lens["mechanics"]
+    )
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["reconciliation_rows"]
+    )
     assert (public_root / lens["prediction_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_market_prediction_boundary_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary(
+    tmp_path: Path,
+) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -2222,10 +2247,20 @@ def test_runtime_shell_market_prediction_boundary_lens_is_public_safe(tmp_path: 
     assert all(row["source_ref"] for row in lens["boundary_rows"])
     assert all(row["public_rule"] for row in lens["boundary_rows"])
     assert all(row["decision_boundary"] for row in lens["boundary_rows"])
-    assert all(row["body_redacted"] is True for row in lens["boundary_rows"])
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        lens["payload_boundary"]["boundary_id"]
+        == "public_market_prediction_evidence_boundary_lens"
+    )
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["boundary_rows"]
+    )
     assert lens["safe_to_show"]["decision_policy_not_trading_advice"] is True
     assert lens["release_authorized"] is False
-    assert lens["body_redacted"] is True
+    assert "body_redacted" not in lens
     assert (public_root / lens["market_boundary_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded

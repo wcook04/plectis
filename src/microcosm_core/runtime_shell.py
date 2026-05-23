@@ -7241,7 +7241,7 @@ class RuntimeShell:
                 "strip_rule": "deny trading advice, live market claims, and private dossiers",
                 **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
-                    "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_is_public_safe",
+                    "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_uses_payload_boundary",
                     "tests/test_cli.py::test_cli_prediction_lens_smoke",
                 ],
                 "private_body_exported": False,
@@ -9163,14 +9163,7 @@ class RuntimeShell:
                 ]
             )
         )
-        public_replacements = list(
-            dict.fromkeys(
-                [
-                    *_strings(board.get("public_replacement_refs")),
-                    *_strings(packet.get("public_replacement_refs")),
-                ]
-            )
-        )
+        public_drilldowns = list(dict.fromkeys([*source_refs, *projection_refs]))
         reconciliation_rows = [
             {
                 "prediction_id": row.get("prediction_id"),
@@ -9180,7 +9173,7 @@ class RuntimeShell:
                 "confidence_band": row.get("confidence_band"),
                 "oracle_feed_health": row.get("oracle_feed_health"),
                 "direction_hit": row.get("direction_hit"),
-                "body_redacted": True,
+                **_source_open_row_boundary("public_prediction_lens::reconciliation_rows"),
             }
             for row in _rows(board, "reconciliation_rows")
         ]
@@ -9239,50 +9232,58 @@ class RuntimeShell:
             "source_pattern_count": len(source_pattern_ids),
             "source_refs": source_refs,
             "projection_receipt_refs": projection_refs,
-            "public_replacement_refs": public_replacements,
+            "public_drilldown_refs": public_drilldowns,
             "mechanics": [
                 {
                     "mechanic_id": "target_universe_gate",
                     "count": len(targets),
                     "examples": targets,
-                    "body_redacted": True,
+                    **_source_open_row_boundary("public_prediction_lens::mechanics"),
                 },
                 {
                     "mechanic_id": "cp1_bifurcation_resolution",
                     "count": board.get("cp1_branch_count", 0),
                     "selected_branch_ids": _strings(board.get("cp1_selected_branch_ids")),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("public_prediction_lens::mechanics"),
                 },
                 {
                     "mechanic_id": "cp2_prediction_rows",
                     "count": board.get("cp2_prediction_count", 0),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("public_prediction_lens::mechanics"),
                 },
                 {
                     "mechanic_id": "oracle_diff_grading",
                     "graded_count": board.get("oracle_diff_graded_count", 0),
                     "hit_count": board.get("oracle_diff_hit_count", 0),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("public_prediction_lens::mechanics"),
                 },
                 {
                     "mechanic_id": "bounded_dossier_mutation",
                     "count": board.get("dossier_mutation_count", 0),
                     "mutation_ids": _strings(board.get("dossier_mutation_ids")),
                     "authority": "public_fixture_delta_only",
-                    "body_redacted": True,
+                    **_source_open_row_boundary("public_prediction_lens::mechanics"),
                 },
             ],
             "reconciliation_rows": reconciliation_rows,
             "negative_case_ids": negative_case_ids,
             "authority_ceiling": authority_ceiling,
-            "safe_to_show": {
-                "body_redacted": True,
-                "synthetic_targets_only": True,
-                "no_live_market_data": True,
-                "receipt_refs_only_for_macro_projection": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_prediction_lens",
+                command="microcosm prediction-lens",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                synthetic_targets_only=True,
+                no_live_market_data=True,
+                receipt_refs_only_for_macro_projection=True,
+                no_financial_or_investment_advice=True,
+                private_account_state_omitted=True,
+            ),
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
                 "The public prediction lens is a synthetic fixture read-model. It does not "
                 "trade, provide financial or investment advice, use live market data, call "
@@ -9303,11 +9304,13 @@ class RuntimeShell:
                 "owner_route": "microcosm prediction-lens",
                 "validation_ref": (
                     "tests/test_runtime_shell.py::"
-                    "test_runtime_shell_market_prediction_boundary_lens_is_public_safe"
+                    "test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary"
                 ),
                 "public_rule": "observation_rows_and_forecast_rows_are_labeled_before_claims",
                 "decision_boundary": "forecast_language_requires_explicit_horizon_and_uncertainty",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9323,7 +9326,9 @@ class RuntimeShell:
                 "validation_ref": "tests/test_cli.py::test_cli_market_prediction_boundary_smoke",
                 "public_rule": "base_rate_or_prior_context_precedes_high_conviction_language",
                 "decision_boundary": "no_single_story_forecast_without_prior_context",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9342,7 +9347,9 @@ class RuntimeShell:
                 ),
                 "public_rule": "forecast_claims_name_plausible_alternatives_before_directional_readout",
                 "decision_boundary": "single_scenario_certainty_is_rejected",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9355,10 +9362,12 @@ class RuntimeShell:
                 "source_signal": "synthetic prediction rows expose confidence bands instead of certainty claims",
                 "source_ref": "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
                 "owner_route": "microcosm prediction-lens",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_is_public_safe",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_uses_payload_boundary",
                 "public_rule": "confidence_band_is_required_and_certainty_language_is_denied",
                 "decision_boundary": "forecast_is_uncertainty_annotation_not_truth_claim",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9371,10 +9380,12 @@ class RuntimeShell:
                 "source_signal": "market-facing evidence must name freshness before being interpreted",
                 "source_ref": "microcosm projection-safety::projection_rows",
                 "owner_route": "microcosm projection-safety",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
                 "public_rule": "live_or_recent_data_claims_require_timestamp_and_source_boundary",
                 "decision_boundary": "untimestamped_price_or_macro_claim_is_not_public_evidence",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9387,10 +9398,12 @@ class RuntimeShell:
                 "source_signal": "policy rows explain how to reason; they do not prescribe trades",
                 "source_ref": "microcosm authority::no_financial_or_trading_advice",
                 "owner_route": "microcosm authority",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_uses_payload_boundary",
                 "public_rule": "decision_policy_can_name_checks_but_not_buy_sell_hold_actions",
                 "decision_boundary": "portfolio_action_or_investment_recommendation_is_rejected",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9403,10 +9416,12 @@ class RuntimeShell:
                 "source_signal": "fixture evaluation can grade synthetic rows but cannot imply live performance",
                 "source_ref": "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
                 "owner_route": "microcosm prediction-lens",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_market_prediction_boundary_lens_is_public_safe",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary",
                 "public_rule": "fixture_or_backtest_metrics_are_labeled_as_retrospective_synthetic_evidence",
                 "decision_boundary": "past_fit_or_oracle_diff_score_is_not_live_performance",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9425,7 +9440,9 @@ class RuntimeShell:
                 ),
                 "public_rule": "portfolio_or_account_state_is_replaced_by_synthetic_fixture_metadata",
                 "decision_boundary": "private_position_or_account_export_is_rejected",
-                "body_redacted": True,
+                **_source_open_row_boundary(
+                    "public_market_prediction_evidence_boundary_lens::boundary_rows"
+                ),
                 "live_market_data_authorized": False,
                 "trading_advice_authorized": False,
                 "investment_recommendation_authorized": False,
@@ -9490,7 +9507,9 @@ class RuntimeShell:
             and all(row.get("validation_ref") for row in boundary_rows)
             and all(row.get("public_rule") for row in boundary_rows)
             and all(row.get("decision_boundary") for row in boundary_rows)
-            and all(row.get("body_redacted") is True for row in boundary_rows)
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False for row in boundary_rows
+            )
             and all(row.get("live_market_data_authorized") is False for row in boundary_rows)
             and all(row.get("trading_advice_authorized") is False for row in boundary_rows)
             and all(row.get("investment_recommendation_authorized") is False for row in boundary_rows)
@@ -9513,7 +9532,7 @@ class RuntimeShell:
             "endpoint": "/market-boundary",
             "market_boundary_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes market and prediction reasoning as a public-safe "
+                "Microcosm exposes market and prediction reasoning as a source-open "
                 "claim boundary: observations are separated from forecasts, base rates "
                 "and scenario trees precede directional claims, timestamps gate evidence, "
                 "and decision policy is kept distinct from trading or investment advice."
@@ -9560,20 +9579,26 @@ class RuntimeShell:
                 ),
             },
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "synthetic_fixture_only": True,
-                "observations_and_forecasts_labeled": True,
-                "no_live_market_data": True,
-                "no_private_portfolio_or_account_state": True,
-                "decision_policy_not_trading_advice": True,
-                "performance_claims_denied": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_market_prediction_evidence_boundary_lens",
+                command="microcosm market-boundary",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                synthetic_fixture_only=True,
+                observations_and_forecasts_labeled=True,
+                no_live_market_data=True,
+                no_private_portfolio_or_account_state=True,
+                decision_policy_not_trading_advice=True,
+                performance_claims_denied=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The market-boundary lens is a public-safe read-model over synthetic "
+                "The market-boundary lens is a source-open boundary read-model over synthetic "
                 "prediction mechanics and projection contracts. It does not provide "
                 "trading, financial, or investment advice; use live market data; export "
                 "private portfolio or account state; call providers; claim forecast "
