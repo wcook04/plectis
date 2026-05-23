@@ -28,7 +28,6 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "formal_evidence_cell_anchor_resolver": "algorithmic_projection",
     "undeclared_library_prior_symbol_classifier": "algorithmic_projection",
     "ring2_premise_retrieval_precision_recall_harness": "algorithmic_projection",
-    "agent_benchmark_integrity_anti_gaming_replay": "fixture_echo_smoke",
     "provider_context_recipe_budget_policy": "algorithmic_projection",
     "formal_math_lean_proof_witness": "external_subprocess_witness",
     "verifier_lab_kernel": "algorithmic_projection",
@@ -79,16 +78,16 @@ def test_runtime_shell_status_is_product_centered() -> None:
     status = shell.status()
 
     assert status["status"] == "pass"
-    assert status["adapter_backed_organ_count"] == 45
+    assert status["adapter_backed_organ_count"] == 44
     assert status["adapter_backed_count_is_product_progress"] is False
     assert status["real_substrate_progress_count"] == 30
-    assert status["non_progress_organ_count"] == 15
+    assert status["non_progress_organ_count"] == 14
     assert status["truth_accounting"]["real_runtime_receipt_count"] == 3
     assert status["truth_accounting"]["source_faithful_refactor_count"] == 14
     assert status["truth_accounting"]["real_import_validation_count"] == 13
-    assert status["truth_accounting"]["regression_negative_fixture_count"] == 15
+    assert status["truth_accounting"]["regression_negative_fixture_count"] == 14
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert status["product_path_demoted_organ_count"] == 1
+    assert status["product_path_demoted_organ_count"] == 2
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
     assert "microcosm init <project>" in status["runtime_surface"]["commands"]
@@ -126,7 +125,16 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
         not in status["runtime_surface"]["commands"]
     )
+    assert (
+        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+        "run-benchmark-integrity-bundle"
+        not in status["runtime_surface"]["commands"]
+    )
     assert status["runtime_surface"]["demoted_drilldown_commands"] == [
+        (
+            "microcosm agent-benchmark-integrity-anti-gaming-replay "
+            "run-benchmark-integrity-bundle"
+        ),
         "microcosm mathematical-strategy-atlas-hypothesis-scorer run-strategy-bundle"
     ]
     assert (
@@ -238,31 +246,31 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["status"] == "pass"
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
-    assert spine["surface_counts"]["adapter_backed_organ_count"] == 45
+    assert spine["surface_counts"]["adapter_backed_organ_count"] == 44
     assert spine["surface_counts"]["adapter_backed_count_is_product_progress"] is False
     assert spine["surface_counts"]["real_substrate_progress_count"] == 30
-    assert spine["surface_counts"]["non_progress_organ_count"] == 15
+    assert spine["surface_counts"]["non_progress_organ_count"] == 14
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 0
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 14
     assert spine["surface_counts"]["real_import_validation_count"] == 13
-    assert spine["surface_counts"]["regression_negative_fixture_count"] == 15
+    assert spine["surface_counts"]["regression_negative_fixture_count"] == 14
     assert spine["surface_counts"]["blocked_import_debt_count"] == 0
     assert spine["surface_counts"]["secret_exclusion_count"] == 0
     assert spine["surface_counts"]["legacy_adapter_or_synthetic_placeholder_count"] == 0
     assert spine["surface_counts"]["delete_or_demote_candidate_count"] == 0
-    assert spine["surface_counts"]["product_path_demoted_organ_count"] == 1
-    assert len(spine["accepted_runtime_spine"]) == 45
+    assert spine["surface_counts"]["product_path_demoted_organ_count"] == 2
+    assert len(spine["accepted_runtime_spine"]) == 44
     assert len(spine["real_substrate_progress_spine"]) == 30
-    assert len(spine["non_progress_runtime_spine"]) == 15
+    assert len(spine["non_progress_runtime_spine"]) == 14
     assert spine["surface_counts"]["evidence_class_count"] == 5
     assert spine["evidence_class_registry"]["fail_closed_no_default"] is True
     assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 46
     assert spine["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert spine["truth_accounting"]["real_substrate_progress_count"] == 30
-    assert spine["truth_accounting"]["non_progress_organ_count"] == 15
+    assert spine["truth_accounting"]["non_progress_organ_count"] == 14
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
-    assert sum(spine["evidence_class_counts"].values()) == 45
+    assert sum(spine["evidence_class_counts"].values()) == 44
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in rows_by_id.items()} == (
         EXPECTED_ORGAN_EVIDENCE_CLASSES
@@ -270,7 +278,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["evidence_class_counts"] == {
         "semantic_validator": 13,
         "algorithmic_projection": 14,
-        "fixture_echo_smoke": 13,
+        "fixture_echo_smoke": 12,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }
@@ -323,6 +331,24 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             ),
             "evidence_class": "algorithmic_projection",
             "claim_ceiling": "projection mechanics only, not domain correctness",
+        },
+        {
+            "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+            "runtime_mode": "drilldown_only",
+            "product_path_role": "drilldown_regression_not_runtime_spine",
+            "demotion_reason": (
+                "benchmark-integrity replay remains runnable as a regression drilldown, "
+                "but fixture-supplied benchmark verdict rows are not product-spine substrate."
+            ),
+            "input_mode": "exported_benchmark_integrity_bundle",
+            "example_ref": (
+                "examples/agent_benchmark_integrity_anti_gaming_replay/"
+                "exported_benchmark_integrity_bundle"
+            ),
+            "evidence_class": "fixture_echo_smoke",
+            "claim_ceiling": (
+                "smoke/projection demo only, not behavioral or safety validation"
+            ),
         }
     ]
     assert all(row["evidence_strength_disclosed"] is True for row in spine["accepted_runtime_spine"])
@@ -374,7 +400,6 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "inspect_agentic_vulnerability_discovery_patch_proof_replay",
         "inspect_certificate_kernel_execution_lab",
         "inspect_repository_benchmark_transaction_lab",
-        "inspect_agent_benchmark_integrity_replay",
         "inspect_public_legibility_scorecard",
         "open_import_bridge",
         "open_reveal_board",
@@ -452,10 +477,9 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["first_run_path"][42]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
     assert spine["first_run_path"][43]["command"].startswith("microcosm certificate-kernel-execution-lab")
     assert spine["first_run_path"][44]["command"] == "microcosm benchmark-lab"
-    assert spine["first_run_path"][45]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert spine["first_run_path"][46]["command"] == "microcosm legibility-scorecard"
-    assert spine["first_run_path"][47]["command"] == "microcosm intake"
-    assert spine["first_run_path"][49]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert spine["first_run_path"][45]["command"] == "microcosm legibility-scorecard"
+    assert spine["first_run_path"][46]["command"] == "microcosm intake"
+    assert spine["first_run_path"][48]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert spine["evidence_policy"]["body_in_receipt_by_default"] is False
     assert spine["evidence_policy"]["real_runtime_receipts_are_product_evidence"] is True
     assert spine["evidence_policy"]["copied_non_secret_macro_bodies_require_provenance"] is True
@@ -523,17 +547,17 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "private_screenshot_paths_exported": False,
         "reader_success_guarantee": False,
     }
-    assert authority["surface_counts"]["organ_authority_count"] == 45
+    assert authority["surface_counts"]["organ_authority_count"] == 44
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["adapter_backed_count_is_product_progress"] is False
     assert authority["surface_counts"]["real_substrate_progress_count"] == 30
-    assert authority["surface_counts"]["non_progress_organ_count"] == 15
-    assert authority["surface_counts"]["regression_negative_fixture_count"] == 15
+    assert authority["surface_counts"]["non_progress_organ_count"] == 14
+    assert authority["surface_counts"]["regression_negative_fixture_count"] == 14
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
     assert authority["truth_accounting"]["real_substrate_progress_count"] == 30
-    assert authority["truth_accounting"]["regression_negative_fixture_count"] == 15
+    assert authority["truth_accounting"]["regression_negative_fixture_count"] == 14
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert authority["evidence_class_registry"]["fail_closed_no_default"] is True
     assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 46
@@ -541,7 +565,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 13,
         "algorithmic_projection": 14,
-        "fixture_echo_smoke": 13,
+        "fixture_echo_smoke": 12,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }
@@ -2003,7 +2027,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     assert result["status"] == "pass"
-    assert len(result["events"]) == 45
+    assert len(result["events"]) == 44
     assert [event["status"] for event in result["events"]] == ["pass"] * 45
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
@@ -2058,8 +2082,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
     assert trace["status"] == "pass"
-    assert trace["otel_shape"]["span_count"] == 45
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 45
+    assert trace["otel_shape"]["span_count"] == 44
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 44
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -2244,14 +2268,14 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
-    assert payload["adapter_backed_organ_count"] == 45
-    assert payload["product_path_demoted_organ_count"] == 1
+    assert payload["adapter_backed_organ_count"] == 44
+    assert payload["product_path_demoted_organ_count"] == 2
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
     assert authority["schema_version"] == "microcosm_public_authority_map_v1"
     assert authority["authority_ceiling"]["release_authorized"] is False
-    assert authority["surface_counts"]["organ_authority_count"] == 45
+    assert authority["surface_counts"]["organ_authority_count"] == 44
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert prediction["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert prediction["authority_ceiling"]["trading_authorized"] is False
@@ -2433,7 +2457,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
     assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
         "semantic_validator": 13,
         "algorithmic_projection": 14,
-        "fixture_echo_smoke": 13,
+        "fixture_echo_smoke": 12,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }

@@ -704,11 +704,16 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
 
 PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
     {
+        "agent_benchmark_integrity_anti_gaming_replay",
         "mathematical_strategy_atlas_hypothesis_scorer",
     }
 )
 
 PRODUCT_PATH_DEMOTION_REASONS = {
+    "agent_benchmark_integrity_anti_gaming_replay": (
+        "benchmark-integrity replay remains runnable as a regression drilldown, "
+        "but fixture-supplied benchmark verdict rows are not product-spine substrate."
+    ),
     "mathematical_strategy_atlas_hypothesis_scorer": (
         "strategy-atlas overlap projection remains runnable as a regression "
         "drilldown, but scoring/projection rows are not product-spine substrate."
@@ -1114,10 +1119,6 @@ class RuntimeShell:
                         "run-attribution-bundle"
                     ),
                     (
-                        "microcosm agent-benchmark-integrity-anti-gaming-replay "
-                        "run-benchmark-integrity-bundle"
-                    ),
-                    (
                         "microcosm agent-monitor-redteam-falsification-replay "
                         "run-monitor-bundle"
                     ),
@@ -1173,6 +1174,10 @@ class RuntimeShell:
                     "microcosm evidence inspect <receipt>",
                 ],
                 "demoted_drilldown_commands": [
+                    (
+                        "microcosm agent-benchmark-integrity-anti-gaming-replay "
+                        "run-benchmark-integrity-bundle"
+                    ),
                     (
                         "microcosm mathematical-strategy-atlas-hypothesis-scorer "
                         "run-strategy-bundle"
@@ -1814,21 +1819,6 @@ class RuntimeShell:
                         "misleading-test denial and scoped diff receipts",
                         "workitem admission and provider-slot cooldown decisions",
                         "no SWE-bench, live repo mutation, or provider execution claim",
-                    ],
-                },
-                {
-                    "step_id": "inspect_agent_benchmark_integrity_replay",
-                    "command": (
-                        "microcosm agent-benchmark-integrity-anti-gaming-replay "
-                        "run-benchmark-integrity-bundle"
-                    ),
-                    "shows": [
-                        "locked evaluator and config-hash receipts",
-                        "benchmark-case roster binding for each replay row",
-                        "file-access logs, contamination checks, and trusted references",
-                        "hidden-gold, oracle-patch, pass-k, and misleading-test denial",
-                        "score-claim boundary before public benchmark language",
-                        "no benchmark performance, provider, private body, or release authority",
                     ],
                 },
                 {

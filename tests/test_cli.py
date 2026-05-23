@@ -159,7 +159,7 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
     assert payload["surface_counts"]["adapter_backed_organ_count"] == 44
-    assert payload["surface_counts"]["product_path_demoted_organ_count"] == 1
+    assert payload["surface_counts"]["product_path_demoted_organ_count"] == 2
     assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
@@ -234,9 +234,8 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][42]["command"].startswith("microcosm agentic-vulnerability-discovery-patch-proof-replay")
     assert payload["first_run_path"][43]["command"].startswith("microcosm certificate-kernel-execution-lab")
     assert payload["first_run_path"][44]["command"] == "microcosm benchmark-lab"
-    assert payload["first_run_path"][45]["command"].startswith("microcosm agent-benchmark-integrity-anti-gaming-replay")
-    assert payload["first_run_path"][46]["command"] == "microcosm legibility-scorecard"
-    assert payload["first_run_path"][49]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert payload["first_run_path"][45]["command"] == "microcosm legibility-scorecard"
+    assert payload["first_run_path"][48]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 
@@ -265,14 +264,14 @@ def test_cli_authority_smoke(
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 45
+    assert payload["surface_counts"]["organ_authority_count"] == 44
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 5
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
-        "semantic_validator": 12,
-        "algorithmic_projection": 15,
-        "fixture_echo_smoke": 13,
+        "semantic_validator": 13,
+        "algorithmic_projection": 14,
+        "fixture_echo_smoke": 12,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
     }
