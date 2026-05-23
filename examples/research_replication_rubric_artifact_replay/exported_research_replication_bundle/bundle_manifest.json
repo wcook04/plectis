@@ -3,5 +3,7 @@
   "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
   "organ_id": "research_replication_rubric_artifact_replay",
   "input_mode": "exported_research_replication_bundle",
-  "authority_ceiling": "synthetic research replication replay receipts only"
+  "authority_ceiling": "public agent-execution trace refactor over research replication replay fixture",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_in_receipt": false
 }

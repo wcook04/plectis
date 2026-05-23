@@ -5,7 +5,7 @@
   "kind_name": "Research replication rubric-artifact replay",
   "status": "draft",
   "first_wave_required": true,
-  "authority_boundary": "synthetic_research_replication_replay_not_benchmark_or_publication_authority",
+    "authority_boundary": "public_trace_refactor_research_replication_replay_not_benchmark_or_publication_authority",
   "source_refs": [
     {
       "field": "projection_protocol",
@@ -33,8 +33,12 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
-    "required_replay_fields",
+        "target_refs",
+        "target_symbols",
+        "body_import_status",
+        "body_import_verification",
+        "public_agent_execution_trace",
+        "required_replay_fields",
     "rubric_axes",
     "declared_artifact_hash_refs",
     "research_replays",
@@ -48,7 +52,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.research_replication_rubric_artifact_replay",
-    "receipt must cite policy, replay counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+        "receipt must cite policy, replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, authority ceiling, and anti-claim"
   ],
   "validator_contract": {
     "validator_id": "validator.microcosm.organs.research_replication_rubric_artifact_replay",
@@ -78,13 +82,15 @@
       "declared_artifact_hash_ref_count",
       "cold_rerun_count",
       "negative_case_coverage",
-      "private_state_scan",
-      "authority_ceiling",
-      "anti_claim"
-    ]
-  },
-  "public_private_boundary": {
-    "default_posture": "public_safe_when_synthetic_replay_receipts_only",
+            "secret_exclusion_scan",
+            "public_agent_execution_trace",
+            "body_import_verification",
+            "authority_ceiling",
+            "anti_claim"
+        ]
+    },
+    "public_private_boundary": {
+        "default_posture": "public_safe_trace_refactor_with_synthetic_rows_as_fixture_inputs",
     "allowed_public_inputs": [
       "paper capsule ids",
       "rubric refs",
@@ -105,16 +111,16 @@
       "publication claims"
     ]
   },
-  "authority_ceiling": {
-    "status": "pass",
-    "standard_authority": "synthetic_research_replication_replay_schema_only",
-    "benchmark_performance_authority": false,
+        "authority_ceiling": {
+            "status": "pass",
+            "standard_authority": "public_research_replication_trace_refactor_and_fixture_contract",
+            "benchmark_performance_authority": false,
     "provider_authority": false,
     "publication_authority": false,
     "private_body_authority": false,
     "undeclared_artifact_hash_ref_authority": false
-  },
-  "anti_claim": "This standard governs synthetic research-replication replay receipts only; it does not admit undeclared artifact hashes, claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
+    },
+    "anti_claim": "This standard governs public research-replication replay receipts backed by public trace spans, artifact-hash rosters, metric refs, grader refs, budget refs, failure-taxonomy refs, and cold-rerun refs. Synthetic rows remain fixture inputs and negative cases; the standard does not admit undeclared artifact hashes, claim benchmark performance, expose private paper/data bodies, run providers, or authorize publication.",
   "receipt_refs": [
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json"
   ],
@@ -126,21 +132,24 @@
     "required": true,
     "rule": "research replication material must state that replay receipts are not benchmark or publication authority"
   },
-  "source_coupling_contract": {
-    "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
-  },
-  "omission_receipt": {
-    "omitted": [
-      "private paper bodies",
-      "private data bodies",
-      "hidden rubrics",
-      "provider payloads",
-      "original-author code bodies"
+    "body_import_contract": {
+        "required": true,
+        "status": "extension_of_existing_public_refactor_landed",
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace"
+    },
+    "source_coupling_contract": {
+        "required": true,
+        "rule": "macro source refs stay path-level metadata while target refs and runtime refs bind the public trace refactor"
+    },
+    "omitted_secret_or_live_access_material": [
+            "private paper bodies",
+            "private data bodies",
+            "hidden rubric bodies",
+            "provider payload bodies",
+            "original-author code bodies"
     ],
-    "reason": "public slice carries synthetic replay metadata and redacted evidence refs only",
-    "drilldown": "fixtures/first_wave/research_replication_rubric_artifact_replay/input/projection_protocol.json"
-  },
   "standard_payload": {
     "teleology": "Make Microcosm show how research replication claims become credible only after rubric, artifact, metric, budget, ablation, failure, and cold-rerun receipts exist.",
     "anti_purpose": "Treating paper understanding, undeclared artifact hashes, final answers, or benchmark context as replication evidence.",

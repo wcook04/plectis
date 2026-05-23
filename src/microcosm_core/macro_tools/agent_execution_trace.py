@@ -29,6 +29,7 @@ TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
     "microcosm_core.macro_tools.agent_execution_trace::main",
 ]
 AUTHORITY_CEILING = {
@@ -162,6 +163,29 @@ def _load_sandbox_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
                 "bundle_id": "agent_sandbox_policy_escape_replay_fixture_input",
                 "input_mode": "fixture",
                 "organ_id": "agent_sandbox_policy_escape_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
+
+
+def _load_research_replication_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "replication_policy",
+        "research_replays",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": "research_replication_rubric_artifact_replay_fixture_input",
+                "input_mode": "fixture",
+                "organ_id": "research_replication_rubric_artifact_replay",
             }
         else:
             bundle[name] = {}
@@ -571,6 +595,200 @@ def build_public_sandbox_policy_trace(input_dir: str | Path) -> dict[str, Any]:
     }
 
 
+def build_public_research_replication_trace(input_dir: str | Path) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_research_replication_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(manifest.get("bundle_id") or "public_research_replication_trace")
+    required_replay_fields = {
+        "paper_id",
+        "contribution_decomposition_ref",
+        "rubric_tree_ref",
+        "allowed_public_input_refs",
+        "scratch_repo_scaffold_ref",
+        "experiment_dag_ref",
+        "metric_script_refs",
+        "artifact_hash_refs",
+        "declared_artifact_hash_refs",
+        "grader_report_ref",
+        "cost_runtime_budget_ref",
+        "ablation_diff_ref",
+        "failure_taxonomy_ref",
+        "cold_rerun_receipt_ref",
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    sorted_replays = sorted(
+        _rows(bundle["research_replays"], "research_replays"),
+        key=lambda row: str(row.get("paper_id") or ""),
+    )
+    for sequence_index, row in enumerate(sorted_replays):
+        paper_id = str(row.get("paper_id") or f"research_replay_{sequence_index}")
+        missing_fields = sorted(
+            field for field in required_replay_fields if not row.get(field)
+        )
+        if missing_fields:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_RESEARCH_REPLAY_FIELDS_MISSING",
+                    "Research replay row is missing public replay evidence refs.",
+                    subject_id=paper_id,
+                )
+            )
+
+        artifact_hash_refs = {
+            str(item) for item in row.get("artifact_hash_refs", []) if str(item)
+        }
+        declared_artifact_hash_refs = {
+            str(item)
+            for item in row.get("declared_artifact_hash_refs", [])
+            if str(item)
+        }
+        undeclared_artifact_hash_refs = sorted(
+            artifact_hash_refs - declared_artifact_hash_refs
+        )
+        if undeclared_artifact_hash_refs:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_RESEARCH_ARTIFACT_HASH_REF_UNDECLARED",
+                    "Research replay span references artifact hashes outside the declared public roster.",
+                    subject_id=paper_id,
+                )
+            )
+        if row.get("cold_rerun_receipt_ref") is None:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_RESEARCH_COLD_RERUN_REF_MISSING",
+                    "Research replay span has no cold-rerun receipt ref.",
+                    subject_id=paper_id,
+                )
+            )
+
+        span = PublicTraceSpan(
+            span_id=f"span:{paper_id}",
+            session_id=session_id,
+            action_kind="research_replication_artifact_replay",
+            sequence_index=sequence_index,
+            episode_id=paper_id,
+            observation_ref=str(row.get("contribution_decomposition_ref") or ""),
+            authority_verdict_id=str(row.get("rubric_tree_ref") or ""),
+            state_transition_ref=str(row.get("cold_rerun_receipt_ref") or ""),
+            outcome=str(row.get("replication_status") or "unknown"),
+            target_ref=str(row.get("scratch_repo_scaffold_ref") or ""),
+            input_digest=_stable_digest(
+                {
+                    "paper_id": row.get("paper_id"),
+                    "artifact_hash_refs": row.get("artifact_hash_refs"),
+                    "metric_script_refs": row.get("metric_script_refs"),
+                    "grader_report_ref": row.get("grader_report_ref"),
+                    "cost_runtime_budget_ref": row.get("cost_runtime_budget_ref"),
+                    "ablation_diff_ref": row.get("ablation_diff_ref"),
+                    "failure_taxonomy_ref": row.get("failure_taxonomy_ref"),
+                    "cold_rerun_receipt_ref": row.get("cold_rerun_receipt_ref"),
+                }
+            ),
+            tool_name="research_replication_replay",
+            source_ref="research_replication_rubric_artifact_replay_bundle",
+        ).as_dict()
+        span["paper_kind"] = row.get("paper_kind")
+        span["artifact_hash_refs"] = sorted(artifact_hash_refs)
+        span["declared_artifact_hash_refs"] = sorted(declared_artifact_hash_refs)
+        span["metric_script_refs"] = [
+            str(item) for item in row.get("metric_script_refs", []) if str(item)
+        ]
+        span["grader_report_ref"] = row.get("grader_report_ref")
+        span["cost_runtime_budget_ref"] = row.get("cost_runtime_budget_ref")
+        span["ablation_diff_ref"] = row.get("ablation_diff_ref")
+        span["failure_taxonomy_ref"] = row.get("failure_taxonomy_ref")
+        spans.append(span)
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    coverage = {
+        "contribution_decomposition_coverage": len(spans)
+        == sum(1 for span in spans if span["observation_ref"]),
+        "rubric_tree_coverage": len(spans)
+        == sum(1 for span in spans if span["authority_verdict_id"]),
+        "declared_artifact_hash_roster_coverage": len(spans)
+        == sum(
+            1
+            for span in spans
+            if set(span["artifact_hash_refs"]).issubset(
+                set(span["declared_artifact_hash_refs"])
+            )
+            and span["declared_artifact_hash_refs"]
+        ),
+        "metric_script_coverage": len(spans)
+        == sum(1 for span in spans if span["metric_script_refs"]),
+        "grader_report_coverage": len(spans)
+        == sum(1 for span in spans if span["grader_report_ref"]),
+        "budget_receipt_coverage": len(spans)
+        == sum(1 for span in spans if span["cost_runtime_budget_ref"]),
+        "ablation_diff_coverage": len(spans)
+        == sum(1 for span in spans if span["ablation_diff_ref"]),
+        "failure_taxonomy_coverage": len(spans)
+        == sum(1 for span in spans if span["failure_taxonomy_ref"]),
+        "cold_rerun_coverage": len(spans)
+        == sum(1 for span in spans if span["state_transition_ref"]),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "artifact_hash_roster_refs",
+                "cold_rerun_receipt_refs",
+            ],
+            "omitted_live_material": [
+                "private paper bodies",
+                "private data bodies",
+                "hidden rubric bodies",
+                "provider payload bodies",
+                "original-author code bodies",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -580,6 +798,9 @@ def build_parser() -> argparse.ArgumentParser:
     sandbox_policy = subparsers.add_parser("sandbox-policy")
     sandbox_policy.add_argument("--input", required=True)
     sandbox_policy.add_argument("--pretty", action="store_true")
+    research_replication = subparsers.add_parser("research-replication")
+    research_replication.add_argument("--input", required=True)
+    research_replication.add_argument("--pretty", action="store_true")
     return parser
 
 
@@ -592,6 +813,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if payload["status"] == PASS else 1
     if args.command == "sandbox-policy":
         payload = build_public_sandbox_policy_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "research-replication":
+        payload = build_public_research_replication_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1

@@ -13,19 +13,34 @@
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
   ],
-  "public_replacement_refs": [
-    "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json",
-    "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
-    "paper_modules/research_replication_rubric_artifact_replay.md"
-  ],
-  "omission_receipt": {
-    "omitted": [
-      "private paper bodies",
-      "private data bodies",
-      "hidden rubrics",
-      "provider payloads",
-      "original-author code bodies"
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_research_replication_rubric_artifact_replay.py"
     ],
-    "reason": "public fixture carries synthetic replay metadata and redacted evidence refs only"
-  }
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "public_runtime_refs": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+    "microcosm_core.organs.research_replication_rubric_artifact_replay::run_replication_bundle"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/research_replication_rubric_artifact_replay.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+    "microcosm_core.organs.research_replication_rubric_artifact_replay::run_replication_bundle"
+  ],
+  "omitted_secret_or_live_access_material": [
+    "private paper bodies",
+    "private data bodies",
+    "hidden rubric bodies",
+    "provider payload bodies",
+    "original-author code bodies"
+  ]
 }

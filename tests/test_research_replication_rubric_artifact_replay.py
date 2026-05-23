@@ -5,6 +5,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_research_replication_trace,
+)
 from microcosm_core.organs.research_replication_rubric_artifact_replay import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -69,7 +72,7 @@ def test_research_replication_replay_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_research_replication_receipts_are_public_relative_and_redacted(
+def test_research_replication_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -98,6 +101,8 @@ def test_research_replication_receipts_are_public_relative_and_redacted(
         assert "private_paper_body" not in keys
         assert "hidden_rubric_body" not in keys
         assert "provider_payload" not in keys
+        assert "private_state_scan" not in keys
+        assert "body_redacted" not in keys
 
 
 def test_research_replication_exported_bundle_validates_runtime_shape(
@@ -121,3 +126,42 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     assert result["replay_count"] == 2
     assert result["declared_artifact_hash_ref_count"] == 2
     assert result["authority_ceiling"]["publication_authorized"] is False
+    assert "public_replacement_refs" not in result
+    assert "private_state_scan" not in result
+    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_verification"]["verification_mode"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert (
+        result["public_agent_execution_trace"]["source_faithful_refactor"][
+            "verification_mode"
+        ]
+        == "extension_of_existing_public_refactor"
+    )
+    assert result["public_agent_execution_trace"]["span_count"] == 2
+    assert result["public_agent_execution_trace"]["audit"]["coverage"][
+        "cold_rerun_coverage"
+    ] is True
+
+
+def test_public_agent_execution_trace_refactor_builds_research_replay_spans() -> None:
+    trace = build_public_research_replication_trace(BUNDLE_INPUT)
+
+    assert trace["status"] == "pass"
+    assert trace["bundle_id"] == "research_replication_rubric_artifact_replay_runtime_example"
+    assert trace["span_count"] == 2
+    assert trace["summary"]["action_kind_counts"] == {
+        "research_replication_artifact_replay": 2
+    }
+    assert trace["summary"]["outcome_counts"] == {"success": 2}
+    assert {
+        span["tool_name"] for span in trace["spans"]
+    } == {"research_replication_replay"}
+    assert trace["audit"]["coverage"]["rubric_tree_coverage"] is True
+    assert trace["audit"]["coverage"]["declared_artifact_hash_roster_coverage"] is True
+    assert trace["audit"]["coverage"]["metric_script_coverage"] is True
+    assert trace["audit"]["coverage"]["grader_report_coverage"] is True
+    assert trace["audit"]["coverage"]["budget_receipt_coverage"] is True
+    assert trace["audit"]["coverage"]["failure_taxonomy_coverage"] is True
+    assert trace["audit"]["coverage"]["cold_rerun_coverage"] is True
+    assert "system/lib/agent_execution_trace.py" in trace["source_refs"]

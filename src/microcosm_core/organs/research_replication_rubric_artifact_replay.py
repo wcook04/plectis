@@ -5,7 +5,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_research_replication_trace,
+)
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -97,7 +100,7 @@ FORBIDDEN_BODY_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_research_replication_replay_receipts_only",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_research_replication_replay_fixture",
     "replication_success_claim_authorized_without_artifact_replay": False,
     "undeclared_artifact_hash_ref_authorized": False,
     "benchmark_performance_claim_authorized": False,
@@ -110,10 +113,11 @@ AUTHORITY_CEILING = {
     "publication_authorized": False,
 }
 ANTI_CLAIM = (
-    "Research replication rubric-artifact replay validates synthetic contribution, "
+    "Research replication rubric-artifact replay validates public contribution, "
     "rubric, experiment-DAG, metric-script, declared artifact-hash roster, "
-    "grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It "
-    "does not claim benchmark performance, use undeclared artifact hashes, "
+    "grader, budget, ablation, failure-taxonomy, cold-rerun receipts, and "
+    "public execution-trace spans. Synthetic rows remain fixture inputs around "
+    "that real replay contract. It does not claim benchmark performance, use undeclared artifact hashes, "
     "reuse forbidden original-author code, expose private paper or data bodies, "
     "run providers, perform unbounded compute search, grade final answers alone, "
     "or authorize publication."
@@ -190,7 +194,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -245,19 +249,29 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    target_refs = _strings(protocol.get("target_refs"))
+    target_symbols = _strings(protocol.get("target_symbols"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    body_import_status = str(protocol.get("body_import_status") or "")
+    body_import_verification = protocol.get("body_import_verification", {})
     findings: list[dict[str, Any]] = []
     if (
         "research_replication_rubric_artifact_replay_compound"
         not in source_pattern_ids
         or len(source_refs) < 3
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or "extension_of_existing_public_refactor_landed" != body_import_status
+        or not isinstance(body_import_verification, dict)
+        or body_import_verification.get("verification_mode")
+        != "extension_of_existing_public_refactor"
+        or len(target_refs) < 2
+        or len(target_symbols) < 2
+        or len(public_runtime_refs) < 2
     ):
         findings.append(
             _finding(
                 "REPLICATION_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Research replication projection must cite source patterns, receipts, and public replacements.",
+                "Research replication projection must cite source patterns, receipts, target refs, runtime refs, and public trace import verification.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -269,7 +283,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "target_refs": target_refs,
+        "target_symbols": target_symbols,
+        "public_runtime_refs": public_runtime_refs,
+        "body_import_status": body_import_status,
+        "body_import_verification": body_import_verification,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -503,13 +521,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    public_agent_execution_trace = build_public_research_replication_trace(input_dir)
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     replication_policy = validate_replication_policy(payloads["replication_policy"])
@@ -531,7 +548,8 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
+        and public_agent_execution_trace["status"] == PASS
         and projection["status"] == PASS
         and replication_policy["status"] == PASS
         and research_replays["status"] == PASS
@@ -552,14 +570,19 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "public_agent_execution_trace": public_agent_execution_trace,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "target_refs": projection["target_refs"],
+        "target_symbols": projection["target_symbols"],
+        "public_runtime_refs": projection["public_runtime_refs"],
+        "body_import_status": projection["body_import_status"],
+        "body_import_verification": projection["body_import_verification"],
         "policy_id": replication_policy["policy_id"],
         "required_replay_fields": replication_policy["required_replay_fields"],
         "rubric_axes": replication_policy["rubric_axes"],
@@ -608,8 +631,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "compute_budget_and_failure_taxonomy_are_receipts_not_notes",
             },
         ],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_import_status": result["body_import_status"],
+        "body_import_verification": result["body_import_verification"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -662,7 +687,9 @@ def _write_receipts(
         "cold_rerun_count": result["cold_rerun_count"],
         "declared_artifact_hash_ref_count": result["declared_artifact_hash_ref_count"],
         "declared_artifact_hash_refs": result["declared_artifact_hash_refs"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -677,7 +704,9 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
