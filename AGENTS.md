@@ -333,7 +333,7 @@ imported macro body.
    authorize release.
    The `mcp_tool_authority_replay` organ is the runnable public tool-authority
    lane: use `mcp-tool-authority-replay` or `replay-gauntlet` to validate
-   synthetic tool manifests, capability scope refs, call argument hashes,
+   body-free public tool manifests, capability scope refs, call argument hashes,
    approval token refs, side-effect ledger refs, rollback refs,
    instruction/data split refs, cold replay receipts, and negative cases. It
    must not access live MCP accounts, export credentials or provider payloads,

@@ -99,7 +99,7 @@ FORBIDDEN_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_fixture",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_policy",
     "live_mcp_account_access_authorized": False,
     "credential_export_authorized": False,
     "untrusted_tool_output_instruction_authorized": False,
@@ -465,7 +465,7 @@ def _validate_call_row(
             findings,
             observed,
             "MCP_TOOL_LIVE_ACCOUNT_ACCESS",
-            "Synthetic public fixtures cannot call or claim access to live MCP accounts.",
+                "Public trace refactors cannot call or claim access to live MCP accounts.",
             case_id=case_id,
             subject_id=call_id,
             subject_kind=subject_kind,
@@ -577,7 +577,7 @@ def validate_tool_calls(
         findings.append(
             _finding(
                 "MCP_TOOL_CALL_FLOOR_MISSING",
-                "Positive fixture must include three scoped calls with one approved write side effect and one untrusted result.",
+                "Public MCP authority bundle must include three scoped calls with one approved write side effect and one untrusted result.",
                 case_id="tool_call_floor",
                 subject_id="tool_calls",
                 subject_kind="tool_call_fixture",
@@ -609,7 +609,7 @@ def validate_tool_results(payload: object) -> dict[str, Any]:
         findings.append(
             _finding(
                 "MCP_TOOL_RESULT_UNTRUSTED_OUTPUT_GATE_MISSING",
-                "Positive fixture must show untrusted tool output treated as data and ignored as instruction.",
+                "Public MCP authority bundle must show untrusted tool output treated as data and ignored as instruction.",
                 case_id="tool_result_floor",
                 subject_id="tool_results",
                 subject_kind="tool_result_fixture",
@@ -652,7 +652,7 @@ def validate_side_effect_ledger(payload: object) -> dict[str, Any]:
         findings.append(
             _finding(
                 "MCP_TOOL_SIDE_EFFECT_LEDGER_FLOOR_MISSING",
-                "Positive fixture must expose one approved write side effect with ledger diff and rollback refs.",
+                "Public MCP authority bundle must expose one approved write side effect with ledger diff and rollback refs.",
                 case_id="side_effect_floor",
                 subject_id="side_effect_ledger",
                 subject_kind="side_effect_fixture",
@@ -694,7 +694,7 @@ def validate_cold_replay(payload: object) -> dict[str, Any]:
         findings.append(
             _finding(
                 "MCP_TOOL_COLD_REPLAY_FLOOR_MISSING",
-                "Positive fixture must include body-free cold replay receipts for readonly, write, and untrusted-output paths.",
+                "Public MCP authority bundle must include body-free cold replay receipts for readonly, write, and untrusted-output paths.",
                 case_id="cold_replay_floor",
                 subject_id="cold_replay",
                 subject_kind="cold_replay_fixture",
@@ -813,6 +813,12 @@ def _build_result(
         "target_symbols": projection["target_symbols"],
         "public_runtime_refs": projection["public_runtime_refs"],
         "body_import_status": projection["body_import_status"],
+        "body_import_classification": str(
+            projection["body_import_verification"].get("classification")
+            or projection["body_import_verification"].get("verification_mode")
+            or ""
+        ),
+        "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
         "body_import_verification": projection["body_import_verification"],
         "tool_policy_id": tool_policy["policy_id"],
         "allowed_tool_classes": tool_policy["allowed_tool_classes"],

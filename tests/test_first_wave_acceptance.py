@@ -68,16 +68,16 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         summary["truth_accounting"]["accepted_current_authority_is_evidence_strength"]
         is False
     )
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 38
-    assert summary["truth_accounting"]["non_progress_accepted_count"] == 8
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == 39
+    assert summary["truth_accounting"]["non_progress_accepted_count"] == 7
     assert summary["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 19
+    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 20
     assert summary["truth_accounting"]["real_import_validation_count"] == 16
-    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 8
+    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 7
     assert summary["truth_accounting"]["evidence_class_counts"] == {
-        "algorithmic_projection": 19,
+        "algorithmic_projection": 20,
         "external_subprocess_witness": 3,
-        "fixture_echo_smoke": 8,
+        "fixture_echo_smoke": 7,
         "semantic_validator": 16,
     }
     evidence_by_organ = {
@@ -101,6 +101,7 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         evidence_by_organ["agentic_vulnerability_discovery_patch_proof_replay"]
         == "source_faithful_refactor"
     )
+    assert evidence_by_organ["mcp_tool_authority_replay"] == "source_faithful_refactor"
     assert evidence_by_organ["formal_math_lean_proof_witness"] == "real_runtime_receipt"
     assert summary["accepted_current_authority_organs"] == [
         "pattern_binding_contract",

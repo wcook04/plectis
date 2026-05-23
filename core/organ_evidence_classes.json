@@ -243,8 +243,8 @@
     },
     {
       "organ_id": "mcp_tool_authority_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied tool-policy and side-effect flags are checked for source-available shape"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "public agent-execution trace refactor builds body-free MCP tool-authority spans, digests, capability-scope coverage, approval/side-effect ledger refs, rollback and cold-replay coverage, untrusted-output boundary checks, and negative-case denials without live MCP accounts or provider payload bodies"
     },
     {
       "organ_id": "proof_derived_governed_mutation_authorization",

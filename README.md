@@ -697,8 +697,8 @@ unmetered poison influence without claiming live memory security, provider
 execution, benchmark performance, source mutation, or release authority.
 
 `mcp_tool_authority_replay` is the agent tool-authority boundary: it validates
-a synthetic MCP-like replay where manifest scopes, call argument hashes,
-approval refs, side-effect ledger refs, rollback refs, untrusted-output
+a public agent-execution trace refactor where manifest scopes, call argument
+hashes, approval refs, side-effect ledger refs, rollback refs, untrusted-output
 instruction/data splits, and cold replay receipts must align before tool-use
 authority language is admitted. Run `microcosm
 mcp-tool-authority-replay run-tool-authority-bundle` to inspect the exported

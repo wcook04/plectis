@@ -126,7 +126,7 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_mcp_tool_authority_bundle"
-    assert result["bundle_id"] == "mcp_tool_authority_replay_runtime_example"
+    assert result["bundle_id"] == "mcp_tool_authority_public_trace_refactor"
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
@@ -136,6 +136,12 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
     assert result["output_instruction_ignored_count"] == 1
     assert result["cold_replay_pass_count"] == 3
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_classification"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert result["product_path_role"] == (
+        "source_faithful_public_agent_execution_trace_refactor"
+    )
     assert result["body_import_verification"]["verification_mode"] == (
         "extension_of_existing_public_refactor"
     )

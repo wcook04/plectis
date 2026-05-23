@@ -1,8 +1,8 @@
 {
-  "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_fixture",
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_policy",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_in_receipt": false,
-  "bundle_id": "mcp_tool_authority_replay_runtime_example",
+  "bundle_id": "mcp_tool_authority_public_trace_refactor",
   "claim": "public trace-backed MCP tool-authority replay admits only scoped, approved, body-free, replay-backed tool-use claims",
   "fixture_inputs": [
     "cold_replay.json",
