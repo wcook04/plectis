@@ -6,8 +6,8 @@
       "premise_id": "proof_body_leak",
       "declaration_name": "Nat.add_assoc",
       "namespace": "Nat",
-      "source_ref": "Init/Prelude.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Prelude.lean",
+      "statement_shape": "regression_negative_descriptor",
       "retrieval_terms": [
         "addition",
         "associative",
@@ -19,9 +19,10 @@
         "dev",
         "test"
       ],
-      "body_redacted": true,
-      "proof_body": "by omega"
+      "proof_body": "by omega",
+      "body_material_status": "regression_negative_fixture"
     }
   ],
-  "body_redacted": true
+  "fixture_class": "regression_negative_fixture",
+  "body_material_status": "regression_negative_fixture"
 }

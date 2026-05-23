@@ -13,7 +13,7 @@
   "provider_calls_authorized": false,
   "lean_lake_execution_authorized": false,
   "release_authorized": false,
-  "authority_ceiling": "closed_public_metadata_index_only",
-  "anti_claim": "This public Lean/Std premise index is metadata only and does not carry proof authority, Mathlib import authority, oracle visibility, provider authority, or release readiness.",
-  "body_redacted": true
+  "authority_ceiling": "copied_non_secret_lean_std_descriptor_index_only",
+  "anti_claim": "This public Lean/Std premise index carries copied non-secret descriptor metadata with provenance; it does not carry proof authority, Mathlib import authority, oracle visibility, provider authority, or release readiness.",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance"
 }

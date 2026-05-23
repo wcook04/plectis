@@ -4,7 +4,7 @@
   "organ_id": "lean_std_premise_index",
   "fixture_id": "fixture::lean_std_premise_index::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate a closed public Lean/Std premise index imported as metadata only: projection protocol refs, Init source refs, namespace coverage, split eligibility, and negative-case leakage controls.",
+  "purpose": "Validate a closed Lean/Std premise index imported as copied non-secret macro descriptors: projection protocol refs, public Lean toolchain Init source refs, namespace coverage, split eligibility, provenance, and negative-case leakage controls.",
   "inputs": [
     "fixtures/first_wave/lean_std_premise_index/input/projection_protocol.json",
     "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
@@ -48,24 +48,28 @@
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "receipt_paths",
     "protocol_id",
     "source_pattern_ids",
     "source_refs",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
+    "copied_material",
+    "body_copied_material_count",
+    "body_material_contract",
+    "body_material_status",
     "premise_count",
     "namespace_counts"
   ],
-  "private_state_exclusion_rules": {
-    "proof_bodies": "forbidden; premise rows expose metadata only",
+  "authority_ceiling": "copied public Lean/Std premise descriptor index only; not proof authority, Mathlib authority, provider authority, oracle authority, or release readiness",
+  "anti_claim": "This standard governs a copied public Lean/Std premise descriptor index; it does not authorize Mathlib imports, Lean/Lake execution, proof bodies, oracle leakage, theorem correctness claims, provider calls, or release/publication work.",
+  "secret_exclusion_rules": {
+    "proof_bodies": "forbidden; premise rows expose copied descriptor fields only",
     "oracle_needed_premise_ids": "forbidden in public index inputs",
-    "Mathlib": "forbidden; source refs must be Init/ only",
-    "test_split_tuning": "forbidden; split labels are eligibility metadata only",
+    "Mathlib": "forbidden; source refs must be public Lean toolchain Init refs only",
+    "test_split_tuning": "forbidden; split labels are eligibility fields only",
     "provider_payload_bodies": "forbidden; no provider context is included"
-  },
-  "authority_ceiling": "closed public Lean/Std premise metadata only; not proof authority, Mathlib authority, provider authority, oracle authority, or release readiness",
-  "anti_claim": "This standard governs a closed public Lean/Std premise metadata index only; it does not authorize Mathlib imports, Lean/Lake execution, proof bodies, oracle leakage, theorem correctness claims, provider calls, or release/publication work."
+  }
 }

@@ -38,6 +38,8 @@ SOURCE_REFS = [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
     "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
 ]
+SOURCE_SHA256 = "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
+PUBLIC_LEAN_TOOLCHAIN_PREFIX = "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/"
 
 INPUT_NAMES = ("projection_protocol.json", "premise_index.json", "index_policy.json")
 NEGATIVE_INPUT_NAMES = (
@@ -76,8 +78,8 @@ OVERCLAIM_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "lean_std_premise_index_closed_metadata_only",
-    "index_authority": "public_closed_fixture_index_only",
+    "authority_ceiling": "lean_std_premise_index_copied_macro_descriptor_index_only",
+    "index_authority": "copied_non_secret_lean_std_descriptor_index_only",
     "mathlib_allowed": False,
     "formal_proof_authority": False,
     "proof_bodies_allowed": False,
@@ -88,11 +90,27 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "The Lean/Std premise index validates a closed public metadata index over "
-    "synthetic Init-sourced declarations only. It does not import Mathlib, run Lean "
-    "or Lake, expose proof bodies or oracle-needed premise ids, tune on test split "
-    "truth, call providers, prove theorem correctness, or authorize release."
+    "The Lean/Std premise index validates copied non-secret Lean/Std premise "
+    "descriptors imported from the macro premise-index run with public path "
+    "normalization. It does not import Mathlib, run Lean or Lake, expose proof "
+    "bodies or oracle-needed premise ids, tune on test split truth, call providers, "
+    "prove theorem correctness, or authorize release."
 )
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+BODY_MATERIAL_CONTRACT = {
+    "status": PASS,
+    "body_material_status": BODY_MATERIAL_STATUS,
+    "copied_material_required": True,
+    "source_sha256": SOURCE_SHA256,
+    "secret_exclusion_scan_field": "secret_exclusion_scan",
+    "excluded_body_classes": [
+        "proof_body",
+        "ground_truth_proof",
+        "provider_payload_body",
+        "oracle_needed_premise_ids",
+        "private_source_body",
+    ],
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -163,7 +181,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_material_status": "forbidden_body_excluded",
     }
 
 
@@ -229,15 +247,28 @@ def _validate_entries(
         if namespace:
             namespaces[namespace] += 1
         source_ref = str(row.get("source_ref") or "")
-        if not source_ref or not source_ref.startswith("Init/"):
+        if not source_ref or not (
+            source_ref.startswith("Init/")
+            or source_ref.startswith(f"{PUBLIC_LEAN_TOOLCHAIN_PREFIX}Init/")
+        ):
             _record(
                 findings,
                 observed,
                 "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
-                "Every public Lean/Std premise row must cite an Init/ source ref.",
+                "Every public Lean/Std premise row must cite an Init/ Lean toolchain source ref.",
                 case_id=case_id,
                 subject_id=premise_id,
                 subject_kind="source_ref",
+            )
+        if require_density and row.get("body_copied") is not True:
+            _record(
+                findings,
+                observed,
+                "LEAN_STD_INDEX_COPIED_BODY_PROVENANCE_REQUIRED",
+                "Positive Lean/Std premise rows must be copied non-secret macro descriptors.",
+                case_id=case_id,
+                subject_id=premise_id,
+                subject_kind="copied_material",
             )
         if _has_mathlib(row):
             _record(
@@ -386,28 +417,65 @@ def _validate_policy(payload: object, *, case_id: str) -> dict[str, Any]:
 def _validate_protocol(payload: object) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
-    replacements = _strings(protocol.get("public_replacement_refs"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     receipts = _strings(protocol.get("projection_receipt_refs"))
     source_patterns = _strings(protocol.get("source_pattern_ids"))
+    copied_material = _rows(protocol, "copied_material")
+    omitted = _rows(protocol, "omitted_material")
     findings: list[dict[str, Any]] = []
-    if len(source_refs) < 2 or len(replacements) < 2 or len(receipts) < 1:
+    body_copied_material = [
+        row
+        for row in copied_material
+        if row.get("body_copied") is True
+        and row.get("source_ref")
+        and row.get("source_sha256")
+        and _strings(row.get("target_refs"))
+        and _strings(row.get("validation_refs"))
+    ]
+    stale_body_false = [row for row in copied_material if row.get("body_copied") is False]
+    if len(source_refs) < 3 or len(public_runtime_refs) < 3 or len(receipts) < 1:
         findings.append(
             _finding(
                 "LEAN_STD_INDEX_PROTOCOL_DENSITY_MISSING",
-                "Lean/Std premise index must cite macro refs, public replacements, and projection receipts.",
+                "Lean/Std premise index must cite macro refs, public runtime refs, and projection receipts.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )
         )
+    if not body_copied_material or stale_body_false:
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_REAL_SUBSTRATE_IMPORT_MISSING",
+                "Lean/Std premise index must copy at least one non-secret macro body with source, target, digest, and validation refs; stale body_copied=false rows are blocked.",
+                case_id="projection_protocol_floor",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="projection_protocol",
+            )
+        )
+    for row in omitted:
+        if not row.get("omission_receipt_ref"):
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_OMISSION_RECEIPT_MISSING",
+                    "Omitted formal-math material must carry an omission receipt.",
+                    case_id="projection_protocol_floor",
+                    subject_id=str(row.get("material_id") or "omitted_material"),
+                    subject_kind="projection_protocol",
+                )
+            )
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
         "source_pattern_ids": source_patterns,
-        "public_replacement_refs": replacements,
         "projection_receipt_refs": receipts,
+        "public_runtime_refs": public_runtime_refs,
+        "copied_material": copied_material,
+        "copied_material_count": len(copied_material),
+        "body_copied_material_count": len(body_copied_material),
+        "omitted_material_count": len(omitted),
     }
 
 
@@ -435,16 +503,29 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
-def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
-    safe = dict(scan)
-    safe.pop("forbidden_output_fields", None)
-    return safe
+def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
+    payload = dict(scan)
+    payload.pop("body_redacted", None)
+    payload.pop("forbidden_output_fields", None)
+    payload["excluded_output_field_count"] = 2
+    payload["excluded_output_field_labels_omitted"] = True
+    payload["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
+    hits: list[dict[str, Any]] = []
+    for hit in payload.get("hits", []):
+        if not isinstance(hit, dict):
+            continue
+        cleaned = dict(hit)
+        cleaned.pop("body_redacted", None)
+        cleaned["body_material_status"] = "forbidden_material_excluded"
+        hits.append(cleaned)
+    payload["hits"] = hits
+    return payload
 
 
 def _scan_inputs(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    return _receipt_safe_scan(
+    return _secret_exclusion_scan(
         scan_paths(
             _input_paths(input_dir, include_negative=include_negative),
             forbidden_classes=policy,
@@ -486,7 +567,7 @@ def _build_result(
     positive_findings = _merge_findings(protocol, index, policy)
     negative_findings = _merge_findings(*negative_results)
     error_codes = sorted({row["error_code"] for row in positive_findings + negative_findings})
-    private_scan = _scan_inputs(input_dir, include_negative=include_negative)
+    secret_scan = _scan_inputs(input_dir, include_negative=include_negative)
     bundle_manifest = payloads.get("bundle_manifest", {})
     if not isinstance(bundle_manifest, dict):
         bundle_manifest = {}
@@ -494,7 +575,7 @@ def _build_result(
         PASS
         if not positive_findings
         and not missing
-        and not private_scan["blocking_hit_count"]
+        and not secret_scan["blocking_hit_count"]
         else "blocked"
     )
     return {
@@ -508,24 +589,29 @@ def _build_result(
         "input_mode": input_mode,
         "bundle_id": bundle_manifest.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
-        "source_refs": SOURCE_REFS,
+        "source_refs": protocol.get("source_refs", []),
         "protocol_id": protocol.get("protocol_id"),
         "projection_receipt_refs": protocol.get("projection_receipt_refs", []),
-        "public_replacement_refs": protocol.get("public_replacement_refs", []),
+        "public_runtime_refs": protocol.get("public_runtime_refs", []),
+        "copied_material": protocol.get("copied_material", []),
+        "copied_material_count": protocol.get("copied_material_count", 0),
+        "body_copied_material_count": protocol.get("body_copied_material_count", 0),
+        "omitted_material_count": protocol.get("omitted_material_count", 0),
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": positive_findings + negative_findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_material_contract": BODY_MATERIAL_CONTRACT,
+        "body_material_status": BODY_MATERIAL_STATUS,
         "premise_count": index["entry_count"],
         "namespace_counts": index["namespace_counts"],
         "split_counts": index["split_counts"],
         "premise_ids": index["premise_ids"],
         "closed_index_only": True,
-        "body_redacted": True,
     }
 
 
@@ -553,7 +639,11 @@ def _common_receipt(
         "source_refs": result["source_refs"],
         "protocol_id": result.get("protocol_id"),
         "projection_receipt_refs": result["projection_receipt_refs"],
-        "public_replacement_refs": result["public_replacement_refs"],
+        "public_runtime_refs": result["public_runtime_refs"],
+        "copied_material": result["copied_material"],
+        "copied_material_count": result["copied_material_count"],
+        "body_copied_material_count": result["body_copied_material_count"],
+        "omitted_material_count": result["omitted_material_count"],
         "premise_count": result["premise_count"],
         "namespace_counts": result["namespace_counts"],
         "split_counts": result["split_counts"],
@@ -562,11 +652,12 @@ def _common_receipt(
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
         "findings": result["findings"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
+        "body_material_contract": result["body_material_contract"],
+        "body_material_status": result["body_material_status"],
         "receipt_paths": receipt_paths,
-        "body_redacted": True,
     }
 
 
@@ -576,7 +667,7 @@ def _build_board(result: dict[str, Any]) -> dict[str, Any]:
         "created_at": result["created_at"],
         "status": result["status"],
         "organ_id": ORGAN_ID,
-        "public_claim": "A closed Lean/Std premise index is available as public metadata for retrieval and explanation.",
+        "public_claim": "A closed Lean/Std premise index is available as copied non-secret macro descriptors for retrieval and explanation.",
         "premise_count": result["premise_count"],
         "namespace_counts": result["namespace_counts"],
         "split_counts": result["split_counts"],
@@ -587,7 +678,8 @@ def _build_board(result: dict[str, Any]) -> dict[str, Any]:
         "test_split_tuning_authorized": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
-        "body_redacted": True,
+        "body_material_status": result["body_material_status"],
+        "body_copied_material_count": result["body_copied_material_count"],
     }
 
 

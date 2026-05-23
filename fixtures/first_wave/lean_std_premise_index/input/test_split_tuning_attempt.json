@@ -8,5 +8,6 @@
     "test"
   ],
   "test_split_tuning_authorized": true,
-  "body_redacted": true
+  "fixture_class": "regression_negative_fixture",
+  "body_material_status": "regression_negative_fixture"
 }

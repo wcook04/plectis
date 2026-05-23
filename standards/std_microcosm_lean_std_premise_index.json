@@ -6,7 +6,7 @@
   "status": "draft",
   "first_wave_required": true,
   "wave": "w1_lean_std_premise_index",
-  "authority_boundary": "closed_public_lean_std_metadata_index_not_proof_or_mathlib_authority",
+  "authority_boundary": "copied_non_secret_lean_std_descriptor_index_not_proof_or_mathlib_authority",
   "source_refs": [
     {
       "path": "fixtures/first_wave/lean_std_premise_index/input/projection_protocol.json",
@@ -35,27 +35,29 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
+    "copied_material",
     "premises",
     "premise_id",
     "namespace",
     "source_ref",
     "retrieval_terms",
     "allowed_for_split",
+    "body_material_status",
     "authority_ceiling",
     "anti_claim"
   ],
   "validation_rules": [
-    "require projection protocol refs and public replacement refs",
-    "require at least ten public Lean/Std premise metadata rows",
+    "require macro projection protocol refs, public runtime refs, and at least one copied non-secret macro body with provenance",
+    "require at least ten copied Lean/Std premise descriptor rows",
     "require Nat, Bool, List, and Iff namespace coverage",
-    "require Init/ source refs and retrieval terms for every premise row",
+    "require public Lean toolchain Init source refs and retrieval terms for every premise row",
     "reject Mathlib refs, proof bodies, oracle-needed premise ids, test split tuning, provider authority, and release overclaims",
-    "emit redacted private-state scan and receipt paths"
+    "emit secret-exclusion scan and copied-material receipts"
   ],
   "receipt_expectations": [
     "receipt.microcosm.lean_std_premise_index",
-    "receipt must cite protocol refs, namespace coverage, split coverage, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite protocol refs, namespace coverage, split coverage, copied-material provenance, negative-case coverage, secret-exclusion scan, authority ceiling, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -79,23 +81,28 @@
       "source_pattern_ids",
       "source_refs",
       "projection_receipt_refs",
-      "public_replacement_refs",
+      "public_runtime_refs",
+      "copied_material",
+      "body_copied_material_count",
+      "body_material_contract",
+      "body_material_status",
       "premise_count",
       "namespace_counts",
       "split_counts",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_closed_metadata_fixture_receipt_only",
+    "default_posture": "public_safe_when_copied_macro_fixture_receipt",
     "allowed_public_inputs": [
       "premise ids",
       "declaration names",
       "namespaces",
-      "Init source refs",
+      "Lean toolchain Init source refs",
+      "statement excerpts",
       "retrieval terms",
       "split eligibility",
       "projection receipt refs"
@@ -111,17 +118,17 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "closed_public_metadata_index_schema_only",
+    "standard_authority": "copied_macro_lean_std_descriptor_fixture_receipt",
     "formal_proof_authority": false,
     "lean_lake_authority": false,
     "mathlib_authority": false,
     "provider_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs a closed public Lean/Std premise metadata index only; it does not authorize Mathlib imports, Lean/Lake execution, proof bodies, oracle leakage, theorem correctness claims, provider calls, or release/publication work.",
+  "anti_claim": "This standard governs a copied public Lean/Std premise descriptor index; it does not authorize Mathlib imports, Lean/Lake execution, proof bodies, oracle leakage, theorem correctness claims, provider calls, or release/publication work.",
   "standard_payload": {
-    "ontology": "A public-safe Lean/Std premise metadata index with namespace coverage, split eligibility, redacted lineage, and leakage negative cases.",
-    "teleology": "Make Microcosm show formal-math substrate density through a closed premise index a cold reader can inspect and validate.",
+    "ontology": "A public-safe Lean/Std premise descriptor index copied from the macro premise-index run with namespace coverage, split eligibility, provenance, and leakage negative cases.",
+    "teleology": "Make Microcosm show formal-math substrate density through a real copied premise index a cold reader can inspect and validate.",
     "anti_purpose": "Turning a metadata index into proof authority or Mathlib authority.",
     "compression_bands": [
       "protocol",
@@ -135,7 +142,8 @@
       "premise row leaks proof body",
       "oracle-needed ids leak",
       "test split tuning is authorized",
-      "source ref is missing or not Init/"
+      "source ref is missing or not a public Lean toolchain Init ref",
+      "copied-material provenance is missing"
     ],
     "rebuild_action": "draft"
   },
@@ -158,7 +166,7 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public slice carries closed Lean/Std metadata and synthetic fixture evidence only",
+    "reason": "public slice carries copied macro Lean/Std premise descriptors and regression negative fixture evidence only",
     "drilldown": "fixtures/first_wave/lean_std_premise_index/input/projection_protocol.json"
   },
   "anti_claim_contract": {
@@ -167,11 +175,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "must_cite": [
-      "source_pattern_ids",
-      "source_refs",
-      "projection_receipt_refs",
-      "public_replacement_refs"
-    ]
+    "rule": "macro source refs stay path-level, imported target refs stay public-root relative, and receipts must name copied body-material provenance"
   }
 }

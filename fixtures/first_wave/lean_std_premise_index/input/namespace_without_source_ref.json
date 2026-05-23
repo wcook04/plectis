@@ -7,7 +7,7 @@
       "declaration_name": "Bool.and_comm",
       "namespace": "Bool",
       "source_ref": "",
-      "statement_shape": "public_metadata_only",
+      "statement_shape": "regression_negative_descriptor",
       "retrieval_terms": [
         "boolean",
         "and",
@@ -18,8 +18,9 @@
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_material_status": "regression_negative_fixture"
     }
   ],
-  "body_redacted": true
+  "fixture_class": "regression_negative_fixture",
+  "body_material_status": "regression_negative_fixture"
 }

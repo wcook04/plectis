@@ -1,205 +1,272 @@
 {
-  "schema_version": "lean_std_premise_index_v1",
-  "index_id": "public_closed_lean_std_premise_index_v1",
+  "schema_version": "lean_std_premise_index_v2",
+  "index_id": "lean_std_toolchain_premise_index_v0_public_import",
+  "source_id": "lean_std_toolchain_premise_index_v0",
+  "source_kind": "installed_lean_toolchain_source",
+  "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+  "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+  "source_ref_normalization": {
+    "private_prefix_removed": "host-local Lean toolchain absolute prefix",
+    "public_prefix": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean",
+    "reason": "Keep the non-secret Lean/Std premise metadata while removing host-local absolute paths."
+  },
+  "local_or_annex_path": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean",
+  "leakage_policy": {
+    "allowed_before_oracle": true,
+    "oracle_needed_premise_ids_visible_to_lab": false,
+    "proof_bodies_in_index": false
+  },
+  "premise_count": 11,
   "premises": [
     {
-      "premise_id": "nat_add_comm",
+      "premise_id": "premise_nat_succ_inj",
+      "declaration_name": "Nat.succ.inj",
+      "theorem_or_def_name": "Nat.succ.inj",
+      "namespace": "Nat",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Prelude.lean",
+      "statement_excerpt": "Nat.succ m = Nat.succ n implies m = n.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
+      "retrieval_terms": [
+        "nat",
+        "successor",
+        "succ",
+        "injective",
+        "equality"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
+    },
+    {
+      "premise_id": "premise_nat_add_comm",
       "declaration_name": "Nat.add_comm",
+      "theorem_or_def_name": "Nat.add_comm",
       "namespace": "Nat",
-      "source_ref": "Init/Prelude.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "statement_excerpt": "m + n = n + m for natural numbers.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
+        "nat",
         "addition",
+        "add",
         "commutative",
-        "Nat",
-        "+"
+        "comm"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "nat_add_assoc",
+      "premise_id": "premise_nat_add_assoc",
       "declaration_name": "Nat.add_assoc",
+      "theorem_or_def_name": "Nat.add_assoc",
       "namespace": "Nat",
-      "source_ref": "Init/Prelude.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "statement_excerpt": "a + b + c = a + (b + c) for natural numbers.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
+        "nat",
         "addition",
+        "add",
         "associative",
-        "Nat",
-        "+"
+        "assoc"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "nat_mul_comm",
-      "declaration_name": "Nat.mul_comm",
+      "premise_id": "premise_nat_add_zero",
+      "declaration_name": "Nat.add_zero",
+      "theorem_or_def_name": "Nat.add_zero",
       "namespace": "Nat",
-      "source_ref": "Init/Prelude.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "statement_excerpt": "n + 0 = n for natural numbers.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
-        "multiplication",
-        "commutative",
-        "Nat",
-        "*"
-      ],
-      "allowed_for_split": [
-        "train",
-        "dev"
-      ],
-      "body_redacted": true
-    },
-    {
-      "premise_id": "bool_and_comm",
-      "declaration_name": "Bool.and_comm",
-      "namespace": "Bool",
-      "source_ref": "Init/Data/Bool/Basic.lean",
-      "statement_shape": "public_metadata_only",
-      "retrieval_terms": [
-        "boolean",
-        "and",
-        "commutative"
+        "nat",
+        "addition",
+        "zero",
+        "recursive",
+        "induction"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "bool_or_comm",
-      "declaration_name": "Bool.or_comm",
+      "premise_id": "premise_bool_not_not",
+      "declaration_name": "Bool.not_not",
+      "theorem_or_def_name": "Bool.not_not",
       "namespace": "Bool",
-      "source_ref": "Init/Data/Bool/Basic.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/Bool.lean",
+      "statement_excerpt": "Double Boolean negation returns the original Boolean.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
+        "bool",
         "boolean",
-        "or",
-        "commutative"
+        "not",
+        "negation",
+        "double"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "list_length_append",
-      "declaration_name": "List.length_append",
+      "premise_id": "premise_iff_intro",
+      "declaration_name": "Iff.intro",
+      "theorem_or_def_name": "Iff.intro",
+      "namespace": "Iff",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Prelude.lean",
+      "statement_excerpt": "Two implications assemble an iff proof.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
+      "retrieval_terms": [
+        "iff",
+        "if and only if",
+        "implication",
+        "intro"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
+    },
+    {
+      "premise_id": "premise_list_length_cons",
+      "declaration_name": "List.length_cons",
+      "theorem_or_def_name": "List.length_cons",
       "namespace": "List",
-      "source_ref": "Init/Data/List/Basic.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "The length of a cons is one more than the tail length.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
         "list",
         "length",
-        "append"
+        "cons",
+        "head",
+        "tail"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "list_map_append",
-      "declaration_name": "List.map_append",
+      "premise_id": "premise_list_length_append",
+      "declaration_name": "List.length_append",
+      "theorem_or_def_name": "List.length_append",
       "namespace": "List",
-      "source_ref": "Init/Data/List/Basic.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "The length of appended lists is the sum of their lengths.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
+      "retrieval_terms": [
+        "list",
+        "length",
+        "append",
+        "sum"
+      ],
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
+    },
+    {
+      "premise_id": "premise_list_map_map",
+      "declaration_name": "List.map_map",
+      "theorem_or_def_name": "List.map_map",
+      "namespace": "List",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "Mapping twice is mapping the composed function.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
         "list",
         "map",
-        "append"
+        "composition",
+        "compose",
+        "function"
       ],
       "allowed_for_split": [
         "train",
-        "dev"
+        "dev",
+        "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "list_append_assoc",
-      "declaration_name": "List.append_assoc",
+      "premise_id": "premise_list_mem_append",
+      "declaration_name": "List.mem_append",
+      "theorem_or_def_name": "List.mem_append",
       "namespace": "List",
-      "source_ref": "Init/Data/List/Basic.lean",
-      "statement_shape": "public_metadata_only",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "Membership in an appended list is membership in either side.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
         "list",
+        "membership",
+        "mem",
         "append",
-        "associative"
+        "or"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     },
     {
-      "premise_id": "iff_intro",
-      "declaration_name": "Iff.intro",
-      "namespace": "Iff",
-      "source_ref": "Init/PropLemmas.lean",
-      "statement_shape": "public_metadata_only",
+      "premise_id": "premise_list_reverse_reverse",
+      "declaration_name": "List.reverse_reverse",
+      "theorem_or_def_name": "List.reverse_reverse",
+      "namespace": "List",
+      "source_ref": "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "Reversing a list twice returns the original list.",
+      "statement_shape": "copied_lean_std_descriptor_excerpt",
       "retrieval_terms": [
-        "iff",
-        "intro",
-        "equivalence"
-      ],
-      "allowed_for_split": [
-        "train",
-        "dev",
-        "test"
-      ],
-      "body_redacted": true
-    },
-    {
-      "premise_id": "iff_mp",
-      "declaration_name": "Iff.mp",
-      "namespace": "Iff",
-      "source_ref": "Init/PropLemmas.lean",
-      "statement_shape": "public_metadata_only",
-      "retrieval_terms": [
-        "iff",
-        "forward",
-        "modus ponens"
-      ],
-      "allowed_for_split": [
-        "train",
-        "dev",
-        "test"
-      ],
-      "body_redacted": true
-    },
-    {
-      "premise_id": "iff_mpr",
-      "declaration_name": "Iff.mpr",
-      "namespace": "Iff",
-      "source_ref": "Init/PropLemmas.lean",
-      "statement_shape": "public_metadata_only",
-      "retrieval_terms": [
-        "iff",
+        "list",
         "reverse",
-        "modus ponens"
+        "involution",
+        "twice"
       ],
       "allowed_for_split": [
         "train",
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_copied": true,
+      "body_material_status": "imported_premise_index_row"
     }
   ],
   "namespace_floor": [
@@ -209,5 +276,5 @@
     "Iff"
   ],
   "closed_index_only": true,
-  "body_redacted": true
+  "body_material_status": "copied_non_secret_macro_body_with_provenance"
 }

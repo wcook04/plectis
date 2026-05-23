@@ -7,7 +7,7 @@
       "declaration_name": "Nat.add_comm",
       "namespace": "Nat",
       "source_ref": "Mathlib/Data/Nat/Basic.lean",
-      "statement_shape": "public_metadata_only",
+      "statement_shape": "regression_negative_descriptor",
       "retrieval_terms": [
         "addition",
         "commutative",
@@ -19,8 +19,9 @@
         "dev",
         "test"
       ],
-      "body_redacted": true
+      "body_material_status": "regression_negative_fixture"
     }
   ],
-  "body_redacted": true
+  "fixture_class": "regression_negative_fixture",
+  "body_material_status": "regression_negative_fixture"
 }

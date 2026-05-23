@@ -1,9 +1,9 @@
 {
-  "anti_claim": "The Lean/Std premise index validates a closed public metadata index over synthetic Init-sourced declarations only. It does not import Mathlib, run Lean or Lake, expose proof bodies or oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, or authorize release.",
+  "anti_claim": "The Lean/Std premise index validates copied non-secret Lean/Std premise descriptors imported from the macro premise-index run with public path normalization. It does not import Mathlib, run Lean or Lake, expose proof bodies or oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "lean_std_premise_index_closed_metadata_only",
+    "authority_ceiling": "lean_std_premise_index_copied_macro_descriptor_index_only",
     "formal_proof_authority": false,
-    "index_authority": "public_closed_fixture_index_only",
+    "index_authority": "copied_non_secret_lean_std_descriptor_index_only",
     "lean_lake_execution_authorized": false,
     "mathlib_allowed": false,
     "oracle_needed_ids_public": false,
@@ -13,31 +13,32 @@
     "status": "pass",
     "test_split_tuning_authorized": false
   },
-  "body_redacted": true,
+  "body_copied_material_count": 1,
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "closed_index_only": true,
-  "created_at": "2026-05-21T18:03:22+00:00",
+  "created_at": "2026-05-23T04:44:43+00:00",
   "mathlib_allowed": false,
   "namespace_counts": {
-    "Bool": 2,
-    "Iff": 3,
-    "List": 3,
-    "Nat": 3
+    "Bool": 1,
+    "Iff": 1,
+    "List": 5,
+    "Nat": 4
   },
   "oracle_needed_ids_public": false,
   "organ_id": "lean_std_premise_index",
   "premise_count": 11,
   "proof_bodies_allowed": false,
-  "public_claim": "A closed Lean/Std premise index is available as public metadata for retrieval and explanation.",
+  "public_claim": "A closed Lean/Std premise index is available as copied non-secret macro descriptors for retrieval and explanation.",
   "receipt_paths": [
-    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
-    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_board.json",
-    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
-    "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
+    "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_board.json",
+    "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
   ],
   "schema_version": "lean_std_premise_index_board_v1",
   "split_counts": {
     "dev": 11,
-    "test": 9,
+    "test": 11,
     "train": 11
   },
   "status": "pass",

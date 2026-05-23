@@ -48,9 +48,40 @@ def test_lean_std_premise_index_observes_negative_cases(tmp_path: Path) -> None:
     assert set(result["namespace_counts"]) == {"Bool", "Iff", "List", "Nat"}
     assert result["authority_ceiling"]["mathlib_allowed"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["body_copied_material_count"] == 1
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
+
+
+def test_lean_std_premise_index_imports_real_macro_premise_index(tmp_path: Path) -> None:
+    result = run(
+        FIXTURE_INPUT,
+        tmp_path / "receipts/first_wave/lean_std_premise_index",
+        command="pytest",
+    )
+    premise_index = json.loads((FIXTURE_INPUT / "premise_index.json").read_text())
+    copied = result["copied_material"][0]
+
+    assert premise_index["source_ref"] == (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+    )
+    assert premise_index["source_sha256"] == (
+        "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
+    )
+    assert all(row["body_copied"] is True for row in premise_index["premises"])
+    assert all(
+        row["source_ref"].startswith("lean-toolchain://leanprover/lean4/v4.29.1/src/lean/Init/")
+        for row in premise_index["premises"]
+    )
+    assert copied["classification"] == "copied_non_secret_macro_body_with_provenance"
+    assert copied["source_ref"] == premise_index["source_ref"]
+    assert copied["source_sha256"] == premise_index["source_sha256"]
+    assert "fixtures/first_wave/lean_std_premise_index/input/premise_index.json" in copied["target_refs"]
 
 
 def test_lean_std_premise_index_bundle_validates_runtime_shape(
@@ -70,9 +101,11 @@ def test_lean_std_premise_index_bundle_validates_runtime_shape(
     assert result["error_codes"] == []
     assert result["premise_count"] == 11
     assert result["closed_index_only"] is True
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["body_copied_material_count"] == 1
 
 
-def test_lean_std_premise_index_receipts_are_public_relative_and_redacted(
+def test_lean_std_premise_index_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
     out = tmp_path / "receipts/first_wave/lean_std_premise_index"
@@ -83,8 +116,11 @@ def test_lean_std_premise_index_receipts_are_public_relative_and_redacted(
     payload = json.loads(text)
 
     assert payload["status"] == "pass"
-    assert payload["private_state_scan"]["body_redacted"] is True
-    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert payload["body_copied_material_count"] == 1
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in payload
+    assert "body_redacted" not in _walk_keys(payload)
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
