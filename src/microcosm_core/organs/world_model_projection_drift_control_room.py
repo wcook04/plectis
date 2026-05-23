@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -62,8 +62,8 @@ REQUIRED_ROW_FIELDS = (
     "source_ref",
     "repair_route",
     "validation_ref",
-    "public_replacement_ref",
-    "body_redacted",
+    "target_ref",
+    "body_in_receipt",
     "source_authority_claim",
     "live_repair_authorized",
     "source_mutation_authorized",
@@ -79,8 +79,8 @@ PRIVATE_NEEDLES = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_projection_drift_control_metadata_only",
-    "metadata_projection_only": True,
+    "authority_ceiling": "public_projection_drift_control_runtime_receipt_only",
+    "public_runtime_receipt_required": True,
     "release_authorized": False,
     "hosted_public_authorized": False,
     "publication_authorized": False,
@@ -95,12 +95,40 @@ AUTHORITY_CEILING = {
     "automatic_doctrine_promotion_authorized": False,
 }
 ANTI_CLAIM = (
-    "World-model projection drift control validates synthetic metadata rows that "
-    "name source signals, repair routes, validation refs, and omission boundaries. "
-    "It does not inspect private runtime bodies, repair live routes, mutate source, "
-    "promote doctrine, export provider payloads, claim source authority, or "
-    "authorize release."
+    "World-model projection drift control validates public body-free runtime "
+    "receipt rows that name source signals, target refs, repair routes, "
+    "validation refs, and live-access exclusion boundaries. It does not inspect "
+    "private runtime bodies, repair live routes, mutate source, promote doctrine, "
+    "export provider payloads, claim source authority, or authorize release."
 )
+BODY_IMPORT_STATUS = "real_runtime_receipt_landed"
+SOURCE_REFS = [
+    "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
+    "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+]
+TARGET_REFS = [
+    "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+    "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+    "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json",
+]
+VALIDATION_REFS = [
+    "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_receipts_consume_public_runtime_refs",
+]
+BODY_IMPORT_VERIFICATION = {
+    "status": PASS,
+    "classification": "real_runtime_receipt",
+    "body_import_status": BODY_IMPORT_STATUS,
+    "source_refs": SOURCE_REFS,
+    "target_refs": TARGET_REFS,
+    "validation_refs": VALIDATION_REFS,
+    "body_in_receipt": False,
+    "secret_exclusion_policy": (
+        "exclude only credential/account/session/provider/live-access material "
+        "and private runtime bodies"
+    ),
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -159,7 +187,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -244,12 +272,22 @@ def _row_policy_findings(
                 subject_id=subject_id,
                 subject_kind="drift_row",
             )
-    if row.get("body_redacted") is not True:
+    if not row.get("target_ref"):
         _record(
             findings,
             observed,
-            "DRIFT_BODY_REDACTION_REQUIRED",
-            "drift rows must be body-redacted metadata",
+            "DRIFT_TARGET_REF_REQUIRED",
+            "drift rows must cite a public runtime target reference",
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind="drift_row",
+        )
+    if row.get("body_in_receipt") is not False:
+        _record(
+            findings,
+            observed,
+            "DRIFT_BODY_RECEIPT_BOUNDARY_REQUIRED",
+            "drift rows must keep private/provider bodies out of public runtime receipts",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="drift_row",
@@ -284,11 +322,11 @@ def _required_policy_ok(policy: dict[str, Any]) -> bool:
     if not isinstance(ceiling, dict):
         return False
     return (
-        ceiling.get("metadata_projection_only") is True
+        ceiling.get("public_runtime_receipt_required") is True
         and all(
             value is False
             for key, value in ceiling.items()
-            if key != "metadata_projection_only"
+            if key != "public_runtime_receipt_required"
         )
     )
 
@@ -318,11 +356,47 @@ def _build_result(
                 subject_kind="protocol",
             )
         )
+    protocol_target_refs = _strings(projection_protocol.get("target_refs"))
+    protocol_verification = projection_protocol.get("body_import_verification")
+    if projection_protocol.get("body_import_status") != BODY_IMPORT_STATUS:
+        positive_findings.append(
+            _finding(
+                "DRIFT_BODY_IMPORT_STATUS_REQUIRED",
+                "projection protocol must declare the public runtime receipt import status",
+                case_id="positive_fixture",
+                subject_id="projection_protocol",
+                subject_kind="protocol",
+            )
+        )
+    if TARGET_REFS[0] not in protocol_target_refs:
+        positive_findings.append(
+            _finding(
+                "DRIFT_TARGET_REF_REQUIRED",
+                "projection protocol must cite the public drift-control organ target ref",
+                case_id="positive_fixture",
+                subject_id="projection_protocol",
+                subject_kind="protocol",
+            )
+        )
+    if (
+        not isinstance(protocol_verification, dict)
+        or protocol_verification.get("status") != PASS
+        or protocol_verification.get("body_in_receipt") is not False
+    ):
+        positive_findings.append(
+            _finding(
+                "DRIFT_BODY_IMPORT_VERIFICATION_REQUIRED",
+                "projection protocol must bind body-import verification for the runtime receipt",
+                case_id="positive_fixture",
+                subject_id="projection_protocol",
+                subject_kind="protocol",
+            )
+        )
     if not _required_policy_ok(drift_policy if isinstance(drift_policy, dict) else {}):
         positive_findings.append(
             _finding(
                 "DRIFT_AUTHORITY_CEILING_REQUIRED",
-                "drift policy must declare metadata-only authority ceiling",
+                "drift policy must declare public runtime receipt authority ceiling",
                 case_id="positive_fixture",
                 subject_id="drift_policy",
                 subject_kind="policy",
@@ -370,13 +444,13 @@ def _build_result(
     }
     expected_missing = {case_id: codes for case_id, codes in expected_missing.items() if codes}
     encoded_positive = json.dumps(drift_rows, sort_keys=True)
-    body_redacted = not any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
+    body_free_public_rows = not any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
     policy_passed = (
         bool(drift_rows)
         and not positive_findings
-        and body_redacted
+        and body_free_public_rows
         and not expected_missing
-        and all(row.get("body_redacted") is True for row in drift_rows)
+        and all(row.get("body_in_receipt") is False for row in drift_rows)
         and all(row.get("source_authority_claim") is False for row in drift_rows)
         and all(row.get("live_repair_authorized") is False for row in drift_rows)
         and all(row.get("source_mutation_authorized") is False for row in drift_rows)
@@ -407,9 +481,14 @@ def _build_result(
         "selected_route_id": "world_model_projection_drift_control_room",
         "selected_pattern_ids": row_ids,
         "drift_rows": drift_rows,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "source_refs": SOURCE_REFS,
+        "target_refs": TARGET_REFS,
         "drift_summary": {
             "row_count": len(drift_rows),
             "source_ref_count": sum(1 for row in drift_rows if row.get("source_ref")),
+            "target_ref_count": sum(1 for row in drift_rows if row.get("target_ref")),
             "repair_route_count": sum(1 for row in drift_rows if row.get("repair_route")),
             "validation_ref_count": sum(1 for row in drift_rows if row.get("validation_ref")),
             "source_authority_claim_count": sum(1 for row in drift_rows if row.get("source_authority_claim") is True),
@@ -437,16 +516,16 @@ def _build_result(
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "safe_to_show": {
-            "body_redacted": body_redacted,
-            "metadata_only": True,
+            "body_in_receipt": False,
+            "real_runtime_receipt": True,
             "private_runtime_bodies_omitted": True,
             "provider_payloads_omitted": True,
             "live_repair_actions_omitted": True,
             "source_mutation_omitted": True,
         },
         "release_authorized": False,
-        "body_redacted": True,
-        "private_state_scan": scan,
+        "body_in_receipt": False,
+        "secret_exclusion_scan": scan,
     }
 
 
@@ -471,6 +550,9 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         if isinstance(negatives, dict)
         else 0,
         "authority_ceiling": AUTHORITY_CEILING,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
     }
 
@@ -510,7 +592,12 @@ def _write_receipts(
             "observed_negative_case_count"
         ),
         "authority_ceiling": AUTHORITY_CEILING,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "body_in_receipt": False,
         "release_authorized": False,
     }
     write_json_atomic(result_path, result)
@@ -532,9 +619,13 @@ def _write_receipts(
         "board_ref": receipt_paths[1],
         "validation_ref": receipt_paths[2],
         "authority_ceiling": AUTHORITY_CEILING,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "release_authorized": False,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
     write_json_atomic(acceptance_path, acceptance)
     return {**result, "drift_control_board": board, "receipt_paths": receipt_paths}

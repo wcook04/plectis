@@ -6,5 +6,11 @@
   "fixture_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input",
   "receipt_ref": "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json",
   "projection_not_authority": true,
-  "body_redacted": true
+  "body_import_status": "real_runtime_receipt_landed",
+  "body_in_receipt": false,
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+    "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json"
+  ],
+  "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material and private runtime bodies"
 }

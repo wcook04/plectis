@@ -1,31 +1,74 @@
 {
-  "anti_claim": "World-model projection drift control validates synthetic metadata rows that name source signals, repair routes, validation refs, and omission boundaries. It does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, claim source authority, or authorize release.",
+  "anti_claim": "World-model projection drift control validates public body-free runtime receipt rows that name source signals, target refs, repair routes, validation refs, and live-access exclusion boundaries. It does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, claim source authority, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_projection_drift_control_metadata_only",
+    "authority_ceiling": "public_projection_drift_control_runtime_receipt_only",
     "automatic_doctrine_promotion_authorized": false,
     "hosted_public_authorized": false,
     "live_route_repair_authorized": false,
     "live_task_ledger_mutation_authorized": false,
-    "metadata_projection_only": true,
     "private_runtime_data_exported": false,
     "proof_body_exported": false,
     "provider_calls_authorized": false,
     "provider_payload_exported": false,
+    "public_runtime_receipt_required": true,
     "publication_authorized": false,
     "release_authorized": false,
     "source_authority_claim": false,
     "source_mutation_authorized": false,
     "status": "pass"
   },
-  "board_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
-  "body_redacted": true,
-  "created_at": "2026-05-22T02:57:15+00:00",
+  "board_ref": "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
+  "body_import_status": "real_runtime_receipt_landed",
+  "body_import_verification": {
+    "body_import_status": "real_runtime_receipt_landed",
+    "body_in_receipt": false,
+    "classification": "real_runtime_receipt",
+    "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material and private runtime bodies",
+    "source_refs": [
+      "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
+      "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+      "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+      "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_exported_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_receipts_consume_public_runtime_refs"
+    ]
+  },
+  "body_in_receipt": false,
+  "created_at": "2026-05-23T07:02:08+00:00",
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "organ_id": "world_model_projection_drift_control_room",
   "release_authorized": false,
-  "result_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+  "result_ref": "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
   "schema_version": "world_model_projection_drift_control_room_fixture_acceptance_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 11,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "status": "pass",
-  "validation_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+    "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+    "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json"
+  ],
+  "validation_ref": "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
   "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room"
 }

@@ -5,7 +5,7 @@
   "kind_name": "World-model projection drift control room",
   "status": "draft",
   "first_wave_required": true,
-  "authority_boundary": "synthetic_projection_drift_control_metadata_not_source_or_repair_authority",
+  "authority_boundary": "public_projection_drift_control_runtime_receipt_not_source_or_repair_authority",
   "source_refs": [
     {
       "field": "projection_protocol",
@@ -42,18 +42,20 @@
     "source_ref",
     "repair_route",
     "validation_ref",
-    "public_replacement_ref",
+    "target_ref",
+    "body_import_status",
+    "body_import_verification",
     "authority_ceiling",
     "anti_claim"
   ],
   "validation_rules": [
-    "require every drift row to cite source signal, source ref, repair route, validation ref, and public replacement ref",
+    "require every drift row to cite source signal, source ref, repair route, validation ref, and public runtime target ref",
     "reject source authority claims, live repair authority, source mutation, automatic doctrine promotion, private runtime data export, provider payload export, and release authority",
-    "require metadata-only authority and body-redacted public fixture rows"
+    "require public runtime receipt authority, body-free public fixture rows, body-import verification, and secret-exclusion scan"
   ],
   "receipt_expectations": [
     "receipt.microcosm.world_model_projection_drift_control_room",
-    "receipt must cite row counts, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite row counts, selected pattern ids, negative-case coverage, secret-exclusion scan, body-import verification, target refs, authority ceiling, and anti-claim"
   ],
   "validator_contract": {
     "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room",
@@ -77,19 +79,23 @@
       "selected_pattern_ids",
       "drift_summary",
       "negative_case_summary",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "body_import_status",
+      "body_import_verification",
+      "target_refs",
       "authority_ceiling",
       "anti_claim"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_synthetic_metadata_only",
+    "default_posture": "public_safe_body_free_runtime_receipt",
     "allowed_public_inputs": [
       "source signal labels",
       "public source refs",
       "repair route labels",
       "validation receipt refs",
-      "public replacement refs"
+      "public runtime target refs",
+      "body-free runtime receipt metadata"
     ],
     "forbidden_public_inputs": [
       "private runtime bodies",
@@ -102,7 +108,7 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "synthetic_projection_drift_control_schema_only",
+    "standard_authority": "public_projection_drift_control_runtime_receipt_only",
     "source_authority_claim": false,
     "source_mutation_authorized": false,
     "live_route_repair_authorized": false,
@@ -112,5 +118,5 @@
     "automatic_doctrine_promotion_authorized": false,
     "release_authorized": false
   },
-  "anti_claim": "This standard governs synthetic projection-drift metadata and public replacement refs only. It does not authorize source authority, live repairs, source mutation, doctrine promotion, provider calls, private runtime export, or release."
+  "anti_claim": "This standard governs public body-free projection-drift runtime receipts and target refs. It does not authorize source authority, live repairs, source mutation, doctrine promotion, provider calls, private runtime export, or release."
 }

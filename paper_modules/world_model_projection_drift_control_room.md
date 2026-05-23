@@ -1,10 +1,10 @@
 # World-Model Projection Drift Control Room
 
-`world_model_projection_drift_control_room` is the public projection-drift control organ. It promotes the existing `microcosm drift-control` lens from read-model evidence into a runnable fixture and exported bundle: eight synthetic drift rows, source signals, source refs, repair routes, validation refs, public replacements, and negative-case receipts.
+`world_model_projection_drift_control_room` is the public projection-drift control organ. It promotes the existing `microcosm drift-control` lens from read-model evidence into a runnable fixture and exported bundle: eight body-free public runtime receipt rows, source signals, source refs, repair routes, validation refs, target refs, and negative-case receipts.
 
 ## Public Claim
 
-Microcosm can show when a projected world model is drifting without pretending the projection is source authority. The organ accepts only metadata rows: it names the source signal, the source-available source ref, the repair route, the validation receipt, and the replacement public fixture row.
+Microcosm can show when a projected world model is drifting without pretending the projection is source authority. The organ accepts body-free public runtime receipt rows: it names the source signal, the source-available source ref, the repair route, the validation receipt, the target ref, the body-import verification, and the secret/live-access exclusion boundary.
 
 ## Runtime Command
 
@@ -29,7 +29,7 @@ Negative cases reject missing source refs, missing validation refs, source-autho
 
 ## Authority Ceiling
 
-This organ is metadata-only. It does not inspect private runtime bodies, export provider payloads, mutate source, repair live routes, promote doctrine, claim registry/source authority, claim whole-system correctness, authorize publication, or authorize release.
+This organ is body-free runtime-receipt evidence. It does not inspect private runtime bodies, export provider payloads, mutate source, repair live routes, promote doctrine, claim registry/source authority, claim whole-system correctness, authorize publication, or authorize release.
 
 ## Evidence
 

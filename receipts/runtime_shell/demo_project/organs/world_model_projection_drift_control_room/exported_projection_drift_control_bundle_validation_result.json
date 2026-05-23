@@ -1,128 +1,150 @@
 {
-  "anti_claim": "World-model projection drift control validates synthetic metadata rows that name source signals, repair routes, validation refs, and omission boundaries. It does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, claim source authority, or authorize release.",
+  "anti_claim": "World-model projection drift control validates public body-free runtime receipt rows that name source signals, target refs, repair routes, validation refs, and live-access exclusion boundaries. It does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, claim source authority, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_projection_drift_control_metadata_only",
+    "authority_ceiling": "public_projection_drift_control_runtime_receipt_only",
     "automatic_doctrine_promotion_authorized": false,
     "hosted_public_authorized": false,
     "live_route_repair_authorized": false,
     "live_task_ledger_mutation_authorized": false,
-    "metadata_projection_only": true,
     "private_runtime_data_exported": false,
     "proof_body_exported": false,
     "provider_calls_authorized": false,
     "provider_payload_exported": false,
+    "public_runtime_receipt_required": true,
     "publication_authorized": false,
     "release_authorized": false,
     "source_authority_claim": false,
     "source_mutation_authorized": false,
     "status": "pass"
   },
-  "body_redacted": true,
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "body_import_status": "real_runtime_receipt_landed",
+  "body_import_verification": {
+    "body_import_status": "real_runtime_receipt_landed",
+    "body_in_receipt": false,
+    "classification": "real_runtime_receipt",
+    "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material and private runtime bodies",
+    "source_refs": [
+      "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
+      "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+      "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+      "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_exported_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_receipts_consume_public_runtime_refs"
+    ]
+  },
+  "body_in_receipt": false,
+  "command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run-drift-control-bundle",
+  "created_at": "2026-05-23T07:02:08+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "world_model_cross_plane_drift_aggregate",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::world_model_cross_plane_drift_aggregate",
       "repair_route": "microcosm drift-control -> projection_drift_control_room.validate",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::world_model_cross_plane_drift_aggregate",
       "source_signal": "aggregate drift between projected world-model rows and owner-route evidence",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::world_model_cross_plane_drift_aggregate",
       "validation_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "view_quality_all_view_action_map",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::view_quality_all_view_action_map",
       "repair_route": "microcosm view-quality -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::view_quality_all_view_action_map",
       "source_signal": "view-quality action rows need repair-route evidence before cold-reader claims",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::view_quality_all_view_action_map",
       "validation_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "compression_profile_governed_option_surface",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::compression_profile_governed_option_surface",
       "repair_route": "microcosm option-surface-lens -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::compression_profile_governed_option_surface",
       "source_signal": "compression-profile options need governed route and validation refs",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::compression_profile_governed_option_surface",
       "validation_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "navigation_hologram_unified_route_plane",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::navigation_hologram_unified_route_plane",
       "repair_route": "microcosm spine -> microcosm route-cleanup -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::navigation_hologram_unified_route_plane",
       "source_signal": "navigation route planes need unified source/ref and omission boundaries",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::navigation_hologram_unified_route_plane",
       "validation_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "agent_principle_failure_cap_assimilation_loop",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::agent_principle_failure_cap_assimilation_loop",
       "repair_route": "microcosm replay-gauntlet -> pattern_assimilation_step -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_principle_failure_cap_assimilation_loop",
       "source_signal": "principle failure capture needs typed CAP assimilation evidence",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::agent_principle_failure_cap_assimilation_loop",
       "validation_ref": "receipts/first_wave/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "operator_autonomy_phrase_active_standard_bridge",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::operator_autonomy_phrase_active_standard_bridge",
       "repair_route": "microcosm standards-control -> public_standard_pressure -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::operator_autonomy_phrase_active_standard_bridge",
       "source_signal": "operator-autonomy phrases need active standard bridge refs",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::operator_autonomy_phrase_active_standard_bridge",
       "validation_ref": "receipts/first_wave/standards_registry_validation.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "omission_receipt_reversible_projection_boundary",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::omission_receipt_reversible_projection_boundary",
       "repair_route": "microcosm projection-safety -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::omission_receipt_reversible_projection_boundary",
       "source_signal": "omission receipts must remain reversible through named drilldowns",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::omission_receipt_reversible_projection_boundary",
       "validation_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json"
     },
     {
       "automatic_doctrine_promotion_authorized": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "drift_row_id": "entry_payload_admission_nonnegotiable_floor",
       "live_repair_authorized": false,
-      "public_replacement_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::entry_payload_admission_nonnegotiable_floor",
       "repair_route": "microcosm intake -> microcosm reveal -> microcosm drift-control",
       "source_authority_claim": false,
       "source_mutation_authorized": false,
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::entry_payload_admission_nonnegotiable_floor",
       "source_signal": "entry payloads must cite admission floors and rejection receipts",
+      "target_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json::entry_payload_admission_nonnegotiable_floor",
       "validation_ref": "receipts/runtime_shell/public_ten_minute_tour.json"
     }
   ],
@@ -136,12 +158,13 @@
     "source_authority_claim_count": 0,
     "source_mutation_authorized_count": 0,
     "source_ref_count": 8,
+    "target_ref_count": 8,
     "validation_ref_count": 8
   },
   "finding_count": 0,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "input_mode": "exported_projection_drift_control_bundle",
-  "input_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+  "input_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
   "negative_case_findings": [],
   "negative_case_summary": {
     "expected_missing": {},
@@ -151,31 +174,35 @@
   },
   "organ_id": "world_model_projection_drift_control_room",
   "positive_findings": [],
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "forbidden_output_fields": [
-      "matched_excerpt",
-      "body"
-    ],
-    "hit_count": 0,
-    "hits": [],
-    "scanned_path_count": 4,
-    "status": "pass"
-  },
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
   ],
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
+    "body_in_receipt": false,
     "live_repair_actions_omitted": true,
-    "metadata_only": true,
     "private_runtime_bodies_omitted": true,
     "provider_payloads_omitted": true,
+    "real_runtime_receipt": true,
     "source_mutation_omitted": true
   },
   "schema_version": "exported_projection_drift_control_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "selected_pattern_ids": [
     "world_model_cross_plane_drift_aggregate",
     "view_quality_all_view_action_map",
@@ -187,6 +214,16 @@
     "entry_payload_admission_nonnegotiable_floor"
   ],
   "selected_route_id": "world_model_projection_drift_control_room",
+  "source_refs": [
+    "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
+    "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+  ],
   "status": "pass",
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+    "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+    "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json"
+  ],
   "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room"
 }

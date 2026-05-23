@@ -21,11 +21,33 @@
     "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
     "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
   ],
-  "public_replacement_refs": [
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
     "fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
     "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
     "paper_modules/world_model_projection_drift_control_room.md"
   ],
+  "body_import_status": "real_runtime_receipt_landed",
+  "body_import_verification": {
+    "status": "pass",
+    "classification": "real_runtime_receipt",
+    "source_refs": [
+      "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
+      "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+    ],
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+      "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input/drift_rows.json",
+      "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_exported_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_receipts_consume_public_runtime_refs"
+    ],
+    "body_in_receipt": false,
+    "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material and private runtime bodies"
+  },
   "omission_receipt": {
     "omitted": [
       "private runtime bodies",
@@ -34,6 +56,6 @@
       "live route repair actions",
       "source mutation diffs"
     ],
-    "reason": "public fixture carries synthetic drift metadata, source refs, validation refs, and authority ceilings only"
+    "reason": "public fixture carries body-free runtime receipt refs, source refs, validation refs, target refs, and authority ceilings"
   }
 }
