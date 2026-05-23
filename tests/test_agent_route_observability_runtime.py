@@ -5,6 +5,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_computer_use_trace,
+)
 from microcosm_core.organs.agent_route_observability_runtime import (
     COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
@@ -306,8 +309,18 @@ def test_computer_use_action_trace_receipt_is_public_relative_and_redacted(
     assert "provider_payload" not in _walk_keys(payload)
     assert "hidden_screen_state" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
-    for hit in payload["private_state_scan"]["hits"]:
-        assert hit["body_redacted"] is True
+    redacted_findings = [
+        finding for finding in payload["findings"] if finding.get("body_redacted") is True
+    ]
+    assert redacted_findings
+    assert all(
+        finding["subject_kind"] == "computer_use_negative_case"
+        for finding in redacted_findings
+    )
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()
 
 
@@ -342,4 +355,61 @@ def test_computer_use_action_trace_exported_bundle_validates_runtime_shape(
         "wait",
     }
     assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False
-    assert result["private_state_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "public_replacement_refs" not in result
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["span_count"] == result["action_count"]
+    assert result["public_agent_execution_trace"]["summary"]["action_kind_counts"] == {
+        "click": 2,
+        "edit_text_record": 1,
+        "navigate": 1,
+        "select": 1,
+        "type": 2,
+        "wait": 1,
+    }
+    assert result["body_import_verification"]["verification_mode"] == (
+        "source_faithful_public_refactor"
+    )
+
+
+def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor() -> None:
+    protocol = json.loads(
+        (COMPUTER_USE_BUNDLE_INPUT / "projection_protocol.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert "body_redacted" not in protocol
+    assert "public_replacement_refs" not in protocol
+    assert "omitted_private_material" not in protocol
+    assert protocol["body_import_status"] == "source_faithful_public_refactor_landed"
+    assert protocol["body_import_verification"]["verification_mode"] == (
+        "source_faithful_public_refactor"
+    )
+    assert "system/lib/agent_execution_trace.py" in protocol["source_refs"]
+    assert (
+        "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+        in protocol["target_refs"]
+    )
+
+    trace = build_public_computer_use_trace(COMPUTER_USE_BUNDLE_INPUT)
+    assert trace["status"] == "pass"
+    assert trace["source_faithful_refactor"]["source_ref"] == (
+        "system/lib/agent_execution_trace.py"
+    )
+    assert trace["source_faithful_refactor"]["verification_mode"] == (
+        "source_faithful_public_refactor"
+    )
+    assert trace["authority_ceiling"]["live_home_session_logs_read"] is False
+    assert trace["authority_ceiling"]["provider_payload_read"] is False
+    assert trace["audit"]["coverage"] == {
+        "action_observation_coverage": True,
+        "authority_verdict_coverage": True,
+        "state_transition_coverage": True,
+        "cold_replay_coverage": True,
+        "body_in_receipt": False,
+    }
+    assert trace["span_count"] == 8
+    assert all(
+        span["source_ref"] == "computer_use_action_trace_bundle"
+        for span in trace["spans"]
+    )

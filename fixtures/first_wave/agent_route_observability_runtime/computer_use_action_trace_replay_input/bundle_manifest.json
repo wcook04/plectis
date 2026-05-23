@@ -1,5 +1,5 @@
 {
-  "authority_ceiling": "synthetic_computer_use_action_trace_replay_receipts_only",
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_synthetic_computer_use_fixture",
   "bundle_id": "computer_use_action_trace_replay_fixture",
   "contains_negative_cases": true,
   "schema_version": "computer_use_action_trace_bundle_manifest_v1"

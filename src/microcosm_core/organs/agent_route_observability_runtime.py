@@ -7,6 +7,9 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_computer_use_trace,
+)
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -101,7 +104,7 @@ OBSERVABILITY_ANTI_CLAIM = (
 COMPUTER_USE_AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "synthetic_computer_use_action_trace_replay_receipts_only"
+        "public_agent_execution_trace_refactor_over_synthetic_computer_use_fixture"
     ),
     "live_browser_control_authorized": False,
     "live_account_action_authorized": False,
@@ -119,7 +122,8 @@ COMPUTER_USE_AUTHORITY_CEILING = {
 COMPUTER_USE_ANTI_CLAIM = (
     "Computer-use action trace replay validates synthetic observation, "
     "affordance, action, pre-action authority verdict, state-transition, "
-    "recovery, cold-replay, negative-case, and authority-ceiling receipts. "
+    "recovery, cold-replay, negative-case, public agent-execution trace "
+    "spans, and authority-ceiling receipts. "
     "It does not control a live browser or desktop, use real accounts, enter "
     "credentials, mutate external networks, purchase or send anything, perform "
     "destructive host actions, export raw screenshots, claim hidden screen "
@@ -1758,6 +1762,11 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
     protocol = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
+    source_refs = _strings(protocol.get("source_refs"))
+    omitted_material = _strings(protocol.get("omitted_secret_or_live_access_material"))
+    target_refs = _strings(protocol.get("target_refs"))
+    body_import = protocol.get("body_import_verification")
+    body_import = body_import if isinstance(body_import, dict) else {}
     if "computer_use_action_trace_replay_compound" not in source_pattern_ids:
         findings.append(
             _bundle_finding(
@@ -1767,18 +1776,31 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
                 subject_kind="projection_protocol",
             )
         )
-    if len(_strings(protocol.get("source_refs"))) < 4 or len(_strings(protocol.get("omitted_private_material"))) < 7:
+    if len(source_refs) < 4 or len(omitted_material) < 7:
         findings.append(
             _bundle_finding(
                 "COMPUTER_USE_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs and omitted private material.",
+                "Projection protocol must cite source refs and secret/live-access exclusions.",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="projection_protocol",
+            )
+        )
+    if (
+        "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+        not in target_refs
+        or body_import.get("verification_mode") != "source_faithful_public_refactor"
+    ):
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_AGENT_EXECUTION_TRACE_REFACTOR_MISSING",
+                "Projection protocol must bind the macro agent-execution trace source to its public Microcosm refactor.",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )
         )
     for flag in (
-        "copied_private_source",
-        "exports_private_state",
+        "copied_credential_or_account_bound_source",
+        "exports_secret_or_live_access_material",
         "exports_raw_screenshots",
         "authorizes_live_browser_control",
         "authorizes_account_actions",
@@ -1789,7 +1811,7 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
             findings.append(
                 _bundle_finding(
                     "COMPUTER_USE_PROJECTION_PROTOCOL_AUTHORITY_OVERCLAIM",
-                    "Projection protocol must deny private export, live control, account actions, mutation, and benchmark claims.",
+                    "Projection protocol must deny secret/live-access export, live control, account actions, mutation, and benchmark claims.",
                     subject_id=flag,
                     subject_kind="projection_protocol",
                 )
@@ -1798,10 +1820,12 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
         "findings": findings,
         "protocol_id": protocol.get("protocol_id"),
         "source_pattern_ids": source_pattern_ids,
-        "source_refs": _strings(protocol.get("source_refs")),
+        "source_refs": source_refs,
+        "target_refs": target_refs,
+        "body_import_verification": body_import,
         "projection_receipt_refs": _strings(protocol.get("projection_receipt_refs")),
-        "public_replacement_refs": _strings(protocol.get("public_replacement_refs")),
-        "omitted_private_material": _strings(protocol.get("omitted_private_material")),
+        "public_runtime_refs": _strings(protocol.get("public_runtime_refs")),
+        "omitted_secret_or_live_access_material": omitted_material,
     }
 
 
@@ -1888,7 +1912,7 @@ def _validate_computer_use_episodes(payload: object) -> dict[str, Any]:
                 "live_account_context": row.get("live_account_context"),
                 "external_network_allowed": row.get("external_network_allowed"),
                 "authority_ceiling_ref": row.get("authority_ceiling_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -1948,7 +1972,7 @@ def _validate_computer_use_observations(
                 "dom_or_accessibility_summary_ref": row.get("dom_or_accessibility_summary_ref"),
                 "affordance_refs": _strings(row.get("affordance_refs")),
                 "visible_state_hash": row.get("visible_state_hash"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     observed_episode_ids = {row["episode_id"] for row in exported}
@@ -2031,7 +2055,7 @@ def _validate_computer_use_actions(
                 "state_transition_ref": row.get("state_transition_ref"),
                 "recovery_ref": row.get("recovery_ref"),
                 "execution_status": row.get("execution_status"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     action_kinds = {row["action_kind"] for row in exported}
@@ -2112,7 +2136,7 @@ def _validate_computer_use_authority_verdicts(
                 "verdict": verdict,
                 "pre_action": row.get("pre_action"),
                 "rule_refs": _strings(row.get("rule_refs")),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     missing = sorted(action_verdict_ids - set(verdict_by_id))
@@ -2202,7 +2226,7 @@ def _validate_computer_use_state_transitions(
                 "oracle_status": oracle_status,
                 "diff_ref": row.get("diff_ref"),
                 "nondeterministic_success_claim": row.get("nondeterministic_success_claim"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     missing = sorted(transition_refs - {row["transition_id"] for row in exported})
@@ -2275,7 +2299,7 @@ def _validate_computer_use_recovery_receipts(
                 "recovery_status": row.get("recovery_status"),
                 "user_visible_error_ref": row.get("user_visible_error_ref"),
                 "state_restored": row.get("state_restored"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     missing = sorted(recovery_refs - {row["recovery_id"] for row in exported})
@@ -2350,7 +2374,7 @@ def _validate_computer_use_cold_replay(
                 "replay_command": row.get("replay_command"),
                 "receipt_ref": row.get("receipt_ref"),
                 "pass_label": row.get("pass_label"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     missing_actions = sorted(action_ids - replayed)
@@ -2524,6 +2548,7 @@ def run_computer_use_action_trace_bundle(
         if include_negative
         else {"findings": [], "observed_negative_cases": {}}
     )
+    public_trace = build_public_computer_use_trace(input_path)
 
     expected_negative_cases = (
         COMPUTER_USE_EXPECTED_NEGATIVE_CASES if include_negative else {}
@@ -2534,7 +2559,14 @@ def run_computer_use_action_trace_bundle(
     )
     private_scan = dict(scan_result)
     private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    private_scan.pop("body_redacted", None)
+    private_scan.pop("redacted_output_field_labels_omitted", None)
+    private_scan["omitted_output_fields"] = ["source_excerpt", "body"]
+    private_scan["body_in_receipt"] = False
+    private_scan["real_substrate_default"] = True
+    private_scan["scan_purpose"] = (
+        "credential_account_bound_and_operator_payload_exclusion"
+    )
     private_scan["raw_screenshot_bodies_exported"] = False
     positive_findings = [
             *projection["findings"],
@@ -2546,6 +2578,7 @@ def run_computer_use_action_trace_bundle(
             *transitions["findings"],
             *recoveries["findings"],
             *cold_replay["findings"],
+            *public_trace["audit"]["findings"],
     ]
     all_findings = sorted(
         [
@@ -2622,15 +2655,19 @@ def run_computer_use_action_trace_bundle(
         "command": command,
         "source_pattern_ids": projection["source_pattern_ids"] or COMPUTER_USE_SOURCE_PATTERN_IDS,
         "source_refs": projection["source_refs"],
+        "target_refs": projection["target_refs"],
+        "body_import_verification": projection["body_import_verification"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": [
+        "public_runtime_refs": [
             public_relative_path(path, display_root=public_root)
             for path in _computer_use_action_trace_paths(
                 input_path,
                 include_negative=include_negative,
             )
         ],
-        "omitted_private_material": projection["omitted_private_material"],
+        "omitted_secret_or_live_access_material": projection[
+            "omitted_secret_or_live_access_material"
+        ],
         "interaction_policy_id": policy["policy_id"],
         "allowed_action_kinds": policy["allowed_action_kinds"],
         "episode_count": episodes["episode_count"],
@@ -2660,9 +2697,10 @@ def run_computer_use_action_trace_bundle(
         "missing_negative_cases": missing_negative_cases,
         "error_codes": error_codes,
         "findings": all_findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": private_scan,
         "authority_ceiling": COMPUTER_USE_AUTHORITY_CEILING,
         "anti_claim": COMPUTER_USE_ANTI_CLAIM,
+        "public_agent_execution_trace": public_trace,
         "bundle_fingerprint": bundle_fingerprint,
         "receipt_paths": [public_receipt_path],
     }
