@@ -3998,21 +3998,29 @@ class RuntimeShell:
                 dependency_ref,
                 "wie_20260521T195941Z_cf83fa74",
             ],
-            "safe_to_show": {
-                "body_redacted": True,
-                "receipt_refs_only": True,
-                "private_paths_omitted": True,
-                "source_bodies_omitted": True,
-                "git_error_payloads_omitted": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_work_landing_replay_lens",
+                command="microcosm landing-replay",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                receipt_refs_only=True,
+                private_paths_omitted=True,
+                private_source_bodies_omitted=True,
+                git_error_payloads_omitted=True,
+                work_landing_rows_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The work-landing replay lens is a metadata-only public read-model. It "
+                "The work-landing replay lens is a source-open public coordination read-model. It "
                 "does not mutate Git, stage unrelated dirty paths, authorize broad "
-                "checkpointing without the operator, export private source bodies, prove "
-                "a commit landed, publish, host, or authorize release."
+                "checkpointing without the operator, export private source bodies or "
+                "credential-equivalent Git error payloads, prove a commit landed, "
+                "publish, host, or authorize release."
             ),
         }
         write_json_atomic(lens_path, payload)
@@ -4214,16 +4222,23 @@ class RuntimeShell:
                 "live_browser_control_authorized_count": 0,
             },
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "synthetic_view_rows_only": True,
-                "private_screenshot_paths_omitted": True,
-                "live_browser_control_omitted": True,
-                "fixture_metadata_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_view_quality_action_map_lens",
+                command="microcosm view-quality",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                synthetic_view_rows_only=True,
+                private_screenshot_paths_omitted=True,
+                live_browser_control_omitted=True,
+                fixture_rows_are_negative_case_or_regression_harness=True,
+                view_quality_actions_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
                 "The view-quality action map lens is a synthetic public read-model. It "
                 "does not export private screenshots, control a browser, import live "
@@ -9010,19 +9025,26 @@ class RuntimeShell:
                 "receipt_drilldown_after_causal_path": True,
                 "public_private_boundary_explicit": True,
             },
-            "safe_to_show": {
-                "body_redacted": True,
-                "receipt_refs_only": True,
-                "private_paths_omitted": True,
-                "private_macro_context_omitted": True,
-                "proof_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_cold_reader_legibility_scorecard_lens",
+                command="microcosm legibility-scorecard",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                receipt_refs_only=True,
+                private_paths_omitted=True,
+                private_macro_context_omitted=True,
+                proof_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                scorecard_rows_are_public_payload_boundary_rows=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The cold-reader legibility scorecard is a public-safe read-model. It "
+                "The cold-reader legibility scorecard is a source-open public read-model. It "
                 "does not prove every reader will understand the system, authorize "
                 "release or publication, claim private-root equivalence, call providers, "
                 "mutate source, prove mathematical correctness, export benchmark scores, "
@@ -9096,7 +9118,7 @@ class RuntimeShell:
                 "mathlib_probe_status": row.get("mathlib_probe_status"),
                 "translation_smoke_only": row.get("translation_smoke_only") is True,
                 "consumer_rule": row.get("consumer_rule"),
-                "body_redacted": True,
+                **_source_open_row_boundary("public_corpus_readiness_lens::corpora"),
             }
             for row in _rows(result, "corpora")
         ]
@@ -9111,7 +9133,7 @@ class RuntimeShell:
                 ),
                 "readiness_gate_checked": row.get("readiness_gate_checked") is True,
                 "blocked_reasons": _strings(row.get("blocked_reasons")),
-                "body_redacted": True,
+                **_source_open_row_boundary("public_corpus_readiness_lens::consumer_gate"),
             }
             for row in _rows(consumer_projection, "decision_rows")
         ]
@@ -9191,7 +9213,6 @@ class RuntimeShell:
                     public_contract.get("translation_smoke_only_is_not_proof_authority") is True
                 ),
                 "mathlib_lake_project_import_available": False,
-                "body_redacted": True,
             },
             "corpus_summary": {
                 "corpus_count": result.get("corpus_count") or board.get("corpus_count") or len(corpora),
@@ -9202,7 +9223,6 @@ class RuntimeShell:
                 "blocked_capabilities": _strings(board.get("blocked_capabilities"))
                 or _strings(result.get("blocked_capabilities")),
                 "mathlib_lake_project_import_available": False,
-                "body_redacted": True,
             },
             "corpora": corpora,
             "consumer_gate": {
@@ -9214,22 +9234,29 @@ class RuntimeShell:
                 "blocked_case_ids": _strings(board.get("blocked_case_ids"))
                 or _strings(result.get("blocked_case_ids")),
                 "decision_rows": consumer_gate_rows,
-                "body_redacted": True,
             },
             "negative_case_ids": negative_case_ids,
             "error_codes": _strings(result.get("error_codes")) or _strings(board.get("error_codes")),
             "authority_ceiling": authority_ceiling,
-            "safe_to_show": {
-                "body_redacted": True,
-                "fixture_metadata_only": True,
-                "no_private_source_bodies": True,
-                "no_proof_bodies": True,
-                "receipt_refs_only_for_projection": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_corpus_readiness_lens",
+                command="microcosm corpus-lens",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                fixture_metadata_only=True,
+                no_private_source_bodies=True,
+                no_proof_bodies=True,
+                receipt_refs_only_for_projection=True,
+                corpus_rows_are_public_payload_boundary_rows=True,
+            ),
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The public corpus-readiness lens is environment and corpus metadata only. "
+                "The public corpus-readiness lens is a source-open read-model over "
+                "non-secret environment and corpus metadata. "
                 "It does not run Lean/Lake, authorize Mathlib imports, prove theorems, "
                 "claim benchmark or corpus completeness, import proof bodies, call "
                 "providers, mutate source, or authorize release."

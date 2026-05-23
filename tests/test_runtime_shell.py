@@ -1339,10 +1339,18 @@ def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> Non
     assert lens["authority_ceiling"]["live_git_mutation_authorized"] is False
     assert lens["authority_ceiling"]["broad_checkpoint_authorized"] is False
     assert lens["authority_ceiling"]["source_mutation_authorized"] is False
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_work_landing_replay_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["private_paths_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert lens["safe_to_show"]["private_source_bodies_omitted"] is True
+    assert "body_redacted" not in lens
     assert (public_root / lens["landing_replay_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1398,10 +1406,18 @@ def test_runtime_shell_view_quality_lens_is_public_safe(tmp_path: Path) -> None:
     assert lens["authority_ceiling"]["private_screenshot_paths_exported"] is False
     assert lens["authority_ceiling"]["live_browser_control_authorized"] is False
     assert lens["authority_ceiling"]["complete_frontend_quality_claim"] is False
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_view_quality_action_map_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["synthetic_view_rows_only"] is True
-    assert lens["body_redacted"] is True
+    assert lens["safe_to_show"]["view_quality_actions_are_public_payload_boundary_rows"] is True
+    assert "body_redacted" not in lens
     assert (public_root / lens["view_quality_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2143,10 +2159,21 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["authority_ceiling"]["reader_success_guarantee"] is False
     assert lens["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert lens["authority_ceiling"]["benchmark_score_claim"] is False
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        lens["payload_boundary"]["boundary_id"]
+        == "public_cold_reader_legibility_scorecard_lens"
+    )
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["private_macro_context_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert lens["safe_to_show"]["scorecard_rows_are_public_payload_boundary_rows"] is True
+    assert "body_redacted" not in lens
     assert (public_root / lens["legibility_scorecard_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2208,10 +2235,23 @@ def test_runtime_shell_corpus_lens_is_public_safe(tmp_path: Path) -> None:
     assert lens["authority_ceiling"]["lean_lake_execution_authorized"] is False
     assert lens["authority_ceiling"]["mathlib_dependent_proof_authority"] is False
     assert lens["authority_ceiling"]["benchmark_or_corpus_completeness_authority"] is False
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_corpus_readiness_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
+    assert all(row["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY for row in lens["corpora"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["consumer_gate"]["decision_rows"]
+    )
     assert lens["safe_to_show"]["no_proof_bodies"] is True
-    assert lens["body_redacted"] is True
+    assert lens["safe_to_show"]["corpus_rows_are_public_payload_boundary_rows"] is True
+    assert "body_redacted" not in lens
     assert (public_root / lens["corpus_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
