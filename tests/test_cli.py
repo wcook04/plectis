@@ -108,7 +108,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "benchmark-lab",
         "legibility-scorecard",
         "intake",
-        "private-state-scan",
+        "secret-exclusion-scan",
         "public-entry-docs",
         "launch-compression",
         "standards-registry",

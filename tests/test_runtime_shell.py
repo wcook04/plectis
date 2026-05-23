@@ -1338,6 +1338,11 @@ def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> Non
     assert lens["replay_policy"]["broad_checkpoint_requires_explicit_operator_authorization"] is True
     assert lens["replay_summary"]["lane_count"] == 4
     assert lens["replay_summary"]["unrelated_dirty_stage_authority_count"] == 0
+    assert any(
+        row["event_id"] == "git_metadata_blocker_capture"
+        and row["status"] == "source_open_blocker_ref_available"
+        for row in lens["replay_events"]
+    )
     assert lens["authority_ceiling"]["live_git_mutation_authorized"] is False
     assert lens["authority_ceiling"]["broad_checkpoint_authorized"] is False
     assert lens["authority_ceiling"]["source_mutation_authorized"] is False
@@ -1386,6 +1391,12 @@ def test_runtime_shell_view_quality_lens_is_public_safe(tmp_path: Path) -> None:
         "graph_geometry",
         "partial_unmeasured_panel",
     ]
+    assert any(
+        row["view_id"] == "missing_operator_bridge_console"
+        and row["next_action"]
+        == "create_source_open_census_row_or_drop_unowned_requested_view"
+        for row in lens["action_rows"]
+    )
     assert all("score" not in row for row in lens["action_rows"])
     assert all("priority_weight" in row for row in lens["action_rows"])
     assert all("score" not in row for row in lens["hot_action_rollup"])
@@ -2032,6 +2043,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     assert lens["coverage_summary"]["live_state_read_denial_count"] == 1
     assert lens["coverage_summary"]["over_budget_denial_count"] == 1
     assert lens["missing_authority_case_ids"] == ["hook_shadow_missing_authority"]
+    assert "secret_exclusion_posture" in lens["mapped_hook_shadow_repair_classes"]
     assert set(lens["negative_case_ids"]) == {
         "agent_trace_missing_route_lease",
         "duplicate_trace_event_conflict",
@@ -2048,6 +2060,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     }
     assert lens["authority_ceiling"]["live_operator_state_read"] is False
     assert lens["authority_ceiling"]["provider_payload_read"] is False
+    assert lens["authority_ceiling"]["source_open_read_model_only"] is True
     assert lens["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
     assert lens["authority_ceiling"]["pattern_assimilation_authorized"] is False
     assert lens["safe_to_show"]["receipt_refs_only"] is True
@@ -2069,6 +2082,8 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     )
     assert (public_root / lens["hook_intervention_coverage_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "metadata_projection_only" not in encoded
+    assert "private_state_scan_posture" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 

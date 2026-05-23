@@ -155,7 +155,7 @@ imported macro body.
    The authority loop is `microcosm authority`; it should aggregate status,
    spine, intake, reveal, accepted organs, hard public boundaries, safe
    local-only exceptions, evidence refs, `evidence_class` rows, and anti-claims
-   into one redacted map. `accepted_current_authority` is not an
+   into one source-open authority map. `accepted_current_authority` is not an
    evidence-strength claim. It is the entry point for checking what Microcosm
    may not do: release,
    publish, host, call providers with credentials, mutate source unsafely,
@@ -508,7 +508,7 @@ imported macro body.
    slice: use `formal-evidence-cell-anchor-resolver` to validate public
    evidence-cell ids, source-anchor refs, machine-anchor metadata, and
    theorem-correctness denials without proof authority.
-   The `undeclared_library_prior_symbol_classifier` organ is the redacted
+   The `undeclared_library_prior_symbol_classifier` organ is the payload-boundary
    proof-symbol slice: use `undeclared-library-prior-symbol-classifier` to
    classify known qualified library symbols outside `allowed_premise_ids` as
    `UNDECLARED_LIBRARY_PRIOR`, preserve cited-unallowed premise precedence as
@@ -533,7 +533,7 @@ imported macro body.
    exposing proof/oracle bodies.
    The `formal_math_lean_proof_witness` organ is the only bounded Lean/Lake
    execution lane: use `formal-math-lean-proof-witness` for the tiny public
-   Lake witness bundle, and keep receipts redacted.
+   Lake witness bundle, and keep receipts inside the payload boundary.
    The `verifier_lab_kernel` organ is the formal-math composition root: use
    `verifier-lab-kernel` to validate bounded Lean witness execution, tactic
    portfolio/routing evidence, verifier trace repair, provider-hypothesis

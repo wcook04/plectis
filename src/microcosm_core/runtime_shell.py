@@ -799,6 +799,26 @@ def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
     return normalized
 
 
+def _normalize_runtime_compat_label(value: Any) -> Any:
+    replacements = {
+        "private_state_scan_posture": "secret_exclusion_posture",
+        "deny_live_state_read_and_keep_metadata_only": (
+            "deny_live_state_read_and_keep_payload_boundary_rows"
+        ),
+    }
+    if isinstance(value, str):
+        return replacements.get(value, value)
+    return value
+
+
+def _normalize_runtime_compat_labels(values: list[str]) -> list[str]:
+    return [
+        normalized
+        for value in values
+        if isinstance((normalized := _normalize_runtime_compat_label(value)), str)
+    ]
+
+
 def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     payload = _read_json_if_exists(path)
     return {
@@ -1596,7 +1616,7 @@ class RuntimeShell:
                     "step_id": "inspect_market_prediction_boundary",
                     "command": "microcosm market-boundary",
                     "shows": [
-                        "public-safe forecast claim contract",
+                        "source-open forecast claim contract",
                         "base-rate and scenario-tree gates before single-point claims",
                         "timestamp and data-freshness boundary",
                         "decision policy separated from trading or investment advice",
@@ -3946,7 +3966,7 @@ class RuntimeShell:
             },
             {
                 "event_id": "git_metadata_blocker_capture",
-                "status": "public_safe_blocker_ref_available",
+                "status": "source_open_blocker_ref_available",
                 "public_evidence_ref": "wie_20260521T195941Z_cf83fa74",
                 "source_body_exported": False,
             },
@@ -4159,7 +4179,7 @@ class RuntimeShell:
                 "census_status": "missing_requested_view",
                 "quality_posture": "census_binding_gap",
                 "action_class": "add_to_census_or_bind_capture",
-                "next_action": "create_public_safe_census_row_or_drop_unowned_requested_view",
+                "next_action": "create_source_open_census_row_or_drop_unowned_requested_view",
                 "priority_weight": 95,
                 "included_in_hot_action_rollup": True,
                 "reason": "every requested view gets an action row, including missing views",
@@ -7918,7 +7938,9 @@ class RuntimeShell:
         debt_decisions = _rows(debt, "anti_pattern_debt_decisions")
         lease_decisions = _rows(lease, "route_lease_feedback_decisions")
         missing_authority = _strings(hook.get("missing_authority"))
-        hook_repair_classes = _strings(hook.get("mapped_repair_classes"))
+        hook_repair_classes = _normalize_runtime_compat_labels(
+            _strings(hook.get("mapped_repair_classes"))
+        )
         observed_negative_cases = sorted(
             set(
                 [
@@ -7953,7 +7975,7 @@ class RuntimeShell:
         )
         source_receipts = [route_ref, hook_ref, debt_ref, lease_ref]
         authority_ceiling = {
-            "metadata_projection_only": True,
+            "source_open_read_model_only": True,
             "live_operator_state_read": False,
             "provider_payload_read": False,
             "browser_hud_cockpit_state_read": False,
@@ -8071,7 +8093,7 @@ class RuntimeShell:
             "endpoint": "/hook-coverage",
             "hook_intervention_coverage_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes hook intervention coverage as a public metadata lens: "
+                "Microcosm exposes hook intervention coverage as a source-open public read-model: "
                 "hook shadows, route-compliance decisions, actor-axis rejections, debt "
                 "retirement, and route-lease mode control are visible without live "
                 "operator state or provider payloads."
@@ -8111,8 +8133,12 @@ class RuntimeShell:
                 {
                     "case_id": row.get("case_id"),
                     "hook_id": row.get("hook_id"),
-                    "repair_class": row.get("repair_class"),
-                    "expected_intervention": row.get("expected_intervention"),
+                    "repair_class": _normalize_runtime_compat_label(
+                        row.get("repair_class")
+                    ),
+                    "expected_intervention": _normalize_runtime_compat_label(
+                        row.get("expected_intervention")
+                    ),
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
                     **_source_open_row_boundary("microcosm hook-coverage::hook_shadow_decisions"),
@@ -8189,7 +8215,7 @@ class RuntimeShell:
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
             "anti_claim": (
-                "The hook intervention coverage lens is a source-open public metadata read-model. It "
+                "The hook intervention coverage lens is a source-open public read-model. It "
                 "does not inspect live operator state, read provider payloads, certify "
                 "runtime behavior, mutate Task Ledger, authorize pattern assimilation, "
                 "publish, host, or authorize release."
@@ -10766,7 +10792,11 @@ class RuntimeShell:
             {
                 "boundary_id": "no_private_body_import",
                 "allowed": False,
-                "reason": "macro material enters only through redacted projection metadata and public replacements",
+                "reason": (
+                    "macro material enters through source-open payload-boundary imports "
+                    "or explicit secret-exclusion rows; public refs are drilldowns, "
+                    "not replacement bodies"
+                ),
             },
             {
                 "boundary_id": "no_general_proof_or_benchmark_claim",

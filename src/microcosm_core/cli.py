@@ -161,7 +161,7 @@ def main(argv: list[str] | None = None) -> int:
     evidence_inspect_parser.add_argument("--project")
     evidence_inspect_parser.add_argument("receipt_ref")
 
-    scan_parser = subparsers.add_parser("private-state-scan")
+    scan_parser = subparsers.add_parser("private-state-scan", help=argparse.SUPPRESS)
     scan_parser.add_argument("--root", required=True)
     scan_parser.add_argument("--out", required=True)
     scan_parser.add_argument("--policy")

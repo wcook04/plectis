@@ -463,7 +463,7 @@ authority.
 `microcosm replay-gauntlet` is the public synthetic agent-reliability replay
 lens. It projects benchmark-integrity, monitor falsification, sabotage,
 sandbox escape, MCP/tool-authority, indirect prompt-injection, temporal memory
-conflict, and sleeper-memory poisoning cases as redacted containment metadata.
+conflict, and sleeper-memory poisoning cases as source-open containment metadata.
 It does not run live agents or tools, export real secrets, import real user
 memory, authorize sandbox escape, claim benchmark performance, prove complete
 security, mutate source, call providers, or authorize release.
@@ -501,16 +501,16 @@ state, and performance guarantees.
 `microcosm corpus-lens` is the public read-model for the
 `corpus_readiness_mathlib_absence_gate` organ. It shows Mathlib import
 absence, available and absent corpora, translation-smoke-only rows, allowed and
-blocked formal-math consumers, negative-case coverage, and the metadata-only
+blocked formal-math consumers, negative-case coverage, and the read-model-only
 authority ceiling before retrieval or proof-witness work. It is not Lean/Lake
 execution, Mathlib proof authority, benchmark evidence, corpus-completeness
 evidence, provider output, source mutation, or a release claim.
 
 `microcosm intake` is the runtime reveal/import bridge. It connects the macro
 projection intake board, the formal-math readiness extension board, the
-public reveal bundle, and runtime evidence refs into one redacted view so a
+public reveal bundle, and runtime evidence refs into one source-open boundary view so a
 cold reader can see which projection cells are ready, landed, bridged, or
-already consumed as public replacements
+already consumed as public runtime imports
 without opening private macro material.
 
 `microcosm reveal` projects the ten-minute public reveal board. It is the
@@ -724,8 +724,8 @@ authority language is admitted. Run `microcosm
 mcp-tool-authority-replay run-tool-authority-bundle` to inspect the exported
 bundle. The organ rejects overbroad scopes, hidden credential export,
 tool-output-as-instruction, unapproved side effects, live account access,
-final-answer-only grading, missing rollback receipts, and unredacted tool
-payloads without claiming live MCP account safety, provider execution,
+final-answer-only grading, missing rollback receipts, and unsafe tool payload
+exports without claiming live MCP account safety, provider execution,
 benchmark performance, source mutation, or release authority.
 
 `proof_derived_governed_mutation_authorization` is the governed-mutation
@@ -870,7 +870,7 @@ post-execution routing, and release overclaims. It is route gating metadata,
 not proof authority or toolchain authority.
 `formal_math_lean_proof_witness` is now accepted only as a bounded public
 witness: it copies a tiny synthetic Lake project into a temporary workspace,
-runs the installed local Lean/Lake toolchain, and emits redacted receipts with
+runs the installed local Lean/Lake toolchain, and emits payload-boundary receipts with
 source hashes and declaration names. That does not authorize Mathlib-dependent
 proofs, provider calls, benchmark claims, private proof import, or release.
 Fixtures and exported bundles are regression inputs and examples; they are not
@@ -907,12 +907,12 @@ unknown, missing anchors, or trying to claim theorem correctness. Use
 is evidence metadata, not proof authority.
 
 `undeclared_library_prior_symbol_classifier` is the out-of-recipe proof-symbol
-slice: redacted proof observations carry only body hashes, qualified symbol
+slice: payload-boundary proof observations carry only body hashes, qualified symbol
 refs, allowed premise ids, and cited-unallowed premise ids. Known symbols outside
 the allowed set classify as `UNDECLARED_LIBRARY_PRIOR` and bridge-escalate, while
 explicit cited-unallowed premise ids stay `PREMISE_BUDGET_VIOLATION` and retry.
 Use `undeclared-library-prior-symbol-classifier` to validate the public symbol
-bundle; it is redacted classifier metadata, not theorem proof authority.
+bundle; it is source-open classifier metadata, not theorem proof authority.
 
 `lean_std_premise_index` isolates the premise-index substrate itself as a
 closed public metadata lane: Init-sourced declaration refs, namespace
@@ -1102,7 +1102,7 @@ should not be edited by hand.
   retrieval-grade formal-math import slice.
 - `paper_modules/formal_evidence_cell_anchor_resolver.md` explains the public
   evidence-cell claim boundary.
-- `paper_modules/undeclared_library_prior_classifier.md` explains the redacted
+- `paper_modules/undeclared_library_prior_classifier.md` explains the payload-boundary
   proof-symbol classifier and premise-budget precedence boundary.
 - `paper_modules/lean_std_premise_index.md` explains the closed Lean/Std
   premise metadata index and its proof/Mathlib authority ceiling.
@@ -1121,7 +1121,7 @@ provider calls, recipient sends, or secret export.
 ## Boundary
 
 The public substrate should carry real source-available macro mechanisms,
-runnable input bundles, schema rows, fixtures for tests, redacted lineage,
+runnable input bundles, schema rows, fixtures for tests, source-open lineage,
 validators, and receipt contracts. It must not carry secrets,
 credential-equivalent live access, live operator state, raw private operator
 text, provider payload bodies, browser/HUD/cockpit account state, recipient
