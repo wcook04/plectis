@@ -412,7 +412,18 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["first_run_path"][46]["command"] == "microcosm legibility-scorecard"
     assert spine["first_run_path"][47]["command"] == "microcosm intake"
     assert spine["first_run_path"][49]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
-    assert spine["evidence_policy"]["body_redacted_by_default"] is True
+    assert spine["evidence_policy"]["body_in_receipt_by_default"] is False
+    assert spine["evidence_policy"]["real_runtime_receipts_are_product_evidence"] is True
+    assert spine["evidence_policy"]["copied_non_secret_macro_bodies_require_provenance"] is True
+    assert spine["evidence_policy"]["source_faithful_refactors_are_product_evidence"] is True
+    assert spine["evidence_policy"]["synthetic_receipts_are_product_evidence"] is False
+    assert spine["evidence_policy"]["synthetic_fixtures_allowed_only_as"] == [
+        "regression_harness",
+        "negative_case",
+        "blocked_import_debt",
+    ]
+    assert spine["evidence_policy"]["blocked_import_debt_must_name_replacement_target"] is True
+    assert spine["evidence_policy"]["secret_exclusion_scan_is_receipt_owner"] is True
     assert spine["authority_ceiling"]["release_authorized"] is False
     assert spine["authority_ceiling"]["trading_or_financial_advice_authorized"] is False
     assert all(row["generated_receipt_count"] >= 1 for row in spine["accepted_runtime_spine"])
@@ -468,7 +479,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "private_screenshot_paths_exported": False,
         "reader_success_guarantee": False,
     }
-    assert authority["surface_counts"]["organ_authority_count"] == 45
+    assert authority["surface_counts"]["organ_authority_count"] == 44
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["hard_boundary_count"] == 6
@@ -478,7 +489,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["evidence_class_registry"]["unclassified_organs"] == []
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 12,
-        "algorithmic_projection": 15,
+        "algorithmic_projection": 14,
         "fixture_echo_smoke": 13,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
@@ -794,7 +805,12 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["runtime_summary"]["standards_control_negative_case_count"] == 8
     assert "microcosm evidence inspect <receipt>" in tour["command_path"]
     assert tour["authority_ceiling"]["release_authorized"] is False
-    assert tour["safe_to_show"]["private_paths_omitted"] is True
+    assert tour["safe_to_show"]["body_in_receipt"] is False
+    assert tour["safe_to_show"]["receipt_refs_only_until_drilldown"] is True
+    assert tour["safe_to_show"]["secret_or_account_bound_material_excluded"] is True
+    assert tour["safe_to_show"]["real_substrate_receipts_required"] is True
+    assert tour["safe_to_show"]["synthetic_receipts_are_not_product_evidence"] is True
+    assert tour["body_in_receipt"] is False
     assert (public_root / tour["tour_ref"]).is_file()
     encoded = json.dumps(tour, sort_keys=True)
     assert "/Users/" not in encoded
@@ -1985,7 +2001,9 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     assert route["route"]["route_id"] == "public_runtime_option_surface"
     assert evidence["status"] == "pass"
     assert evidence["receipt"]["status"] == "pass"
-    assert evidence["body_redacted"] is True
+    assert evidence["body_in_receipt"] is False
+    assert evidence["evidence_contract"]["real_runtime_receipt"] is True
+    assert evidence["evidence_contract"]["synthetic_receipt_is_product_evidence"] is False
     assert work_demo["status"] == "pass"
     assert work_demo["evidence_ref"].startswith("receipts/runtime_shell/work_demo/")
     assert work_demo["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
@@ -2153,7 +2171,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert tour["status"] == "pass"
     assert authority["schema_version"] == "microcosm_public_authority_map_v1"
     assert authority["authority_ceiling"]["release_authorized"] is False
-    assert authority["surface_counts"]["organ_authority_count"] == 45
+    assert authority["surface_counts"]["organ_authority_count"] == 44
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert prediction["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert prediction["authority_ceiling"]["trading_authorized"] is False
@@ -2303,7 +2321,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     assert observatory["runtime_bridge"]["projection_status_counts"] == {
-        "public_replacement_landed": 1,
+        "public_runtime_import_landed": 1,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
@@ -2334,7 +2352,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
     )
     assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
         "semantic_validator": 12,
-        "algorithmic_projection": 15,
+        "algorithmic_projection": 14,
         "fixture_echo_smoke": 13,
         "external_subprocess_witness": 3,
         "fixture_schema_replay": 2,
@@ -2361,7 +2379,9 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         "microcosm evidence inspect <receipt>",
     ]
     by_cell = {row["cell_id"]: row for row in intake["cell_status"]}
-    assert by_cell["formal_math_readiness_extensions"]["projection_status"] == "public_replacement_landed"
+    assert by_cell["formal_math_readiness_extensions"]["projection_status"] == (
+        "public_runtime_import_landed"
+    )
     assert by_cell["projection_protocol_self_host"]["projection_status"] == (
         "self_hosted_status_protocol_landed"
     )
@@ -2369,13 +2389,16 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert by_cell["runtime_reveal_import_bridge"]["projection_status"] == "runtime_bridge_landed"
     assert by_cell["runtime_reveal_import_bridge"]["runtime_bridge_status"] == "landed_as_microcosm_intake"
     assert intake["projection_status_counts"] == {
-        "public_replacement_landed": 1,
+        "public_runtime_import_landed": 1,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
     assert intake["open_actionable_cell_count"] == 0
     assert intake["authority_ceiling"]["release_authorized"] is False
-    assert intake["authority_ceiling"]["private_source_bodies_exported"] is False
+    assert intake["authority_ceiling"]["credential_or_account_bound_bodies_exported"] is False
+    assert intake["body_in_receipt"] is False
+    assert all(row["body_in_receipt"] is False for row in intake["cell_status"])
+    assert all("body_redacted" not in row for row in intake["cell_status"])
     for ref in intake["runtime_bridge_evidence_refs"][:2]:
         assert (public_root / ref).is_file()
     encoded = json.dumps(intake, sort_keys=True)

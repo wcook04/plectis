@@ -620,6 +620,62 @@ def _badge_list(values: list[str]) -> str:
     return "".join(f"<span class=\"badge\">{html.escape(value)}</span>" for value in values)
 
 
+def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
+    negative_case_values = (
+        payload.get("negative_case_ids"),
+        payload.get("negative_cases"),
+        payload.get("expected_negative_cases"),
+    )
+    has_negative_cases = any(isinstance(value, list) and bool(value) for value in negative_case_values)
+    has_secret_scan = isinstance(payload.get("secret_exclusion_scan"), dict)
+    has_legacy_scan = isinstance(payload.get("private_state_scan"), dict)
+    has_body_import_verification = any(
+        isinstance(payload.get(key), (dict, list)) and bool(payload.get(key))
+        for key in (
+            "body_import_verification",
+            "body_import_verification_rows",
+            "body_copy_verification",
+            "body_copy_rows",
+            "body_copied_rows",
+        )
+    )
+    blocked_import_debt = (
+        payload.get("blocked_import_debt") is True
+        or payload.get("projection_status") == "blocked_import_debt"
+    )
+    status = payload.get("status")
+    return {
+        "contract_version": "runtime_real_receipt_evidence_contract_v1",
+        "real_runtime_receipt": status == PASS and not has_negative_cases,
+        "copied_non_secret_macro_body_with_provenance": has_body_import_verification,
+        "source_faithful_refactor": False,
+        "regression_or_negative_fixture": has_negative_cases,
+        "blocked_import_debt": blocked_import_debt,
+        "synthetic_receipt_is_product_evidence": False,
+        "body_in_receipt": False,
+        "secret_exclusion_scan_present": has_secret_scan,
+        "legacy_private_state_scan_compat_present": has_legacy_scan,
+    }
+
+
+def _normalize_runtime_projection_status(status: Any) -> Any:
+    if status == "public_replacement_landed":
+        return "public_runtime_import_landed"
+    return status
+
+
+def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
+    if not isinstance(counts, dict):
+        return {}
+    normalized = dict(counts)
+    old_value = normalized.pop("public_replacement_landed", None)
+    if old_value is not None:
+        normalized["public_runtime_import_landed"] = (
+            normalized.get("public_runtime_import_landed", 0) + old_value
+        )
+    return normalized
+
+
 def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     payload = _read_json_if_exists(path)
     return {
@@ -629,6 +685,8 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
         "organ_id": payload.get("organ_id"),
         "input_mode": payload.get("input_mode"),
         "created_at": payload.get("created_at"),
+        "body_in_receipt": False,
+        "evidence_contract": _receipt_evidence_contract(payload),
     }
 
 
@@ -1124,7 +1182,7 @@ class RuntimeShell:
                     "step_id": "run_ten_minute_tour",
                     "command": "microcosm tour <project>",
                     "shows": [
-                        "one public-safe path from repo -> .microcosm",
+                        "one source-open path from repo -> .microcosm",
                         "compile summary",
                         "runtime surfaces and endpoints",
                         "authority ceilings",
@@ -1151,7 +1209,7 @@ class RuntimeShell:
                         "Python file roles",
                         "package roots",
                         "route-readiness checks",
-                        "body-redacted path metadata",
+                        "path metadata without source-body export",
                     ],
                 },
                 {
@@ -1182,7 +1240,7 @@ class RuntimeShell:
                         "accepted adapter-backed organs",
                         "runtime evidence refs",
                         "first-run command path",
-                        "public-safe authority boundary",
+                        "secret-only authority boundary",
                     ],
                 },
                 {
@@ -1769,7 +1827,18 @@ class RuntimeShell:
             ],
             "evidence_policy": {
                 "receipts_are_drilldown_evidence": True,
-                "body_redacted_by_default": True,
+                "body_in_receipt_by_default": False,
+                "real_runtime_receipts_are_product_evidence": True,
+                "copied_non_secret_macro_bodies_require_provenance": True,
+                "source_faithful_refactors_are_product_evidence": True,
+                "synthetic_receipts_are_product_evidence": False,
+                "synthetic_fixtures_allowed_only_as": [
+                    "regression_harness",
+                    "negative_case",
+                    "blocked_import_debt",
+                ],
+                "blocked_import_debt_must_name_replacement_target": True,
+                "secret_exclusion_scan_is_receipt_owner": True,
                 "fixtures_are_tests": True,
                 "accepted_status_is_not_evidence_strength": True,
                 "unclassified_organs_block_authority_projection": True,
@@ -2066,7 +2135,7 @@ class RuntimeShell:
                 "endpoint": "/intake + /reveal",
                 "shows": [
                     "macro projection cells",
-                    "public replacement refs",
+                    "public runtime refs and real-substrate receipt states",
                     "ten-minute reveal board",
                     "negative cases",
                 ],
@@ -2118,9 +2187,9 @@ class RuntimeShell:
             },
             "public_claim": (
                 "Microcosm turns a repo into a local operating substrate and exposes the "
-                "whole first-run path as a ten-minute public-safe tour: compile, inspect, "
-                "bound authority, inspect prediction/corpus/formal repair lenses, "
-                "intake/reveal, then drill receipts."
+                "whole first-run path as a ten-minute source-open tour: compile, inspect, "
+                "bound authority, inspect prediction/corpus/formal repair lenses, intake "
+                "and reveal real-substrate receipt states, then drill receipts."
             ),
             "time_budget_minutes": 10,
             "command_path": commands,
@@ -2358,10 +2427,11 @@ class RuntimeShell:
             },
             "evidence_refs": evidence_refs,
             "safe_to_show": {
-                "body_redacted": True,
-                "receipt_refs_only": True,
-                "private_paths_omitted": True,
-                "source_bodies_omitted": True,
+                "body_in_receipt": False,
+                "receipt_refs_only_until_drilldown": True,
+                "secret_or_account_bound_material_excluded": True,
+                "real_substrate_receipts_required": True,
+                "synthetic_receipts_are_not_product_evidence": True,
                 "proof_bodies_omitted": True,
             },
             "authority_ceiling": {
@@ -2376,12 +2446,13 @@ class RuntimeShell:
                 "whole_system_correctness_claim": False,
             },
             "release_authorized": False,
-            "body_redacted": True,
+            "body_in_receipt": False,
             "anti_claim": (
-                "The ten-minute tour is a local public-safe read-model and receipt index. "
-                "It does not authorize release, hosted publication, provider calls, source "
-                "mutation, private-data equivalence, proof correctness, trading or "
-                "financial advice, or whole-system correctness claims."
+                "The ten-minute tour is a local source-open runtime route and receipt "
+                "index. It treats synthetic receipts as scaffolding only and does not "
+                "authorize release, hosted publication, provider calls, source mutation, "
+                "credential/session export, proof correctness, trading or financial "
+                "advice, or whole-system correctness claims."
             ),
         }
         if persist_receipt:
@@ -10196,6 +10267,7 @@ class RuntimeShell:
             or formal_cell.get("projection_status")
             or "ready_in_intake_board"
         )
+        formal_projection_status = _normalize_runtime_projection_status(formal_projection_status)
         self_host_projection_status = (
             self_host_cell.get("projection_status") or "self_describing_protocol_available"
         )
@@ -10215,7 +10287,7 @@ class RuntimeShell:
                 "target_refs": formal_board.get("target_refs") or formal_cell.get("target_refs", []),
                 "validation_refs": formal_board.get("validation_refs") or formal_cell.get("validation_refs", []),
                 "authority_ceiling": formal_board.get("authority_ceiling") or formal_cell.get("authority_ceiling"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
             {
                 "cell_id": "projection_protocol_self_host",
@@ -10231,7 +10303,7 @@ class RuntimeShell:
                 "target_refs": self_host_cell.get("target_refs") or projection_self_host_refs,
                 "validation_refs": self_host_cell.get("validation_refs", []),
                 "authority_ceiling": self_host_cell.get("authority_ceiling"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
             {
                 "cell_id": "runtime_reveal_import_bridge",
@@ -10276,7 +10348,7 @@ class RuntimeShell:
                     ],
                 ],
                 "authority_ceiling": runtime_cell.get("authority_ceiling"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
         ]
         payload = {
@@ -10287,8 +10359,9 @@ class RuntimeShell:
             else "blocked",
             "bridge_id": "runtime_reveal_import_bridge",
             "public_claim": (
-                "Microcosm turns macro-pattern intake into a runnable public path: "
-                "compile, spine, intake, reveal, and evidence drilldown."
+                "Microcosm turns macro-pattern intake into a runnable source-open path: "
+                "compile, spine, intake, reveal, and evidence drilldown over real "
+                "substrate receipts."
             ),
             "cold_reader_goal": "under_10_minutes_with_import_context_visible",
             "command": "microcosm intake",
@@ -10332,7 +10405,9 @@ class RuntimeShell:
             "projection_cell_count": len(cells),
             "ready_cell_count": projection_board.get("ready_cell_count"),
             "projection_status_protocol": projection_board.get("projection_status_protocol"),
-            "projection_status_counts": projection_board.get("projection_status_counts", {}),
+            "projection_status_counts": _normalize_projection_status_counts(
+                projection_board.get("projection_status_counts", {})
+            ),
             "open_actionable_cell_count": projection_board.get("open_actionable_cell_count"),
             "landed_cell_count": projection_board.get("landed_cell_count"),
             "consumed_cell_count": projection_board.get("consumed_cell_count"),
@@ -10350,19 +10425,23 @@ class RuntimeShell:
                 "recipient_work_authorized": False,
                 "provider_calls_authorized": False,
                 "source_mutation_authorized": False,
-                "private_source_bodies_exported": False,
+                "credential_or_account_bound_bodies_exported": False,
                 "private_data_equivalence_claim": False,
                 "lean_lake_execution_authorized": False,
                 "trading_or_financial_advice_authorized": False,
                 "whole_system_correctness_claim": False,
             },
             "anti_claim": (
-                "The runtime reveal/import bridge is a public-safe legibility surface over "
-                "projection cells, reveal commands, and receipt refs. It does not copy private "
-                "macro bodies, authorize release or publication, call providers, run Lean/Lake, "
-                "mutate source, give financial advice, or claim private-root equivalence."
+                "The runtime reveal/import bridge is a source-open legibility surface over "
+                "projection cells, reveal commands, and receipt refs. It excludes only "
+                "secrets, credential/session material, provider payload bodies, and other "
+                "credential-equivalent live-access material; non-secret substrate must be "
+                "imported, copied with provenance, or source-faithfully refactored through "
+                "the owning organ. It does not authorize release or publication, call "
+                "providers, run Lean/Lake, mutate source, give financial advice, or claim "
+                "private-root equivalence."
             ),
-            "body_redacted": True,
+            "body_in_receipt": False,
         }
         write_json_atomic(out_dir / "runtime_reveal_import_bridge.json", payload)
         return payload
@@ -10420,7 +10499,8 @@ class RuntimeShell:
             "status": PASS,
             "receipt_ref": receipt_ref,
             "receipt": allowed,
-            "body_redacted": True,
+            "body_in_receipt": False,
+            "evidence_contract": _receipt_evidence_contract(payload),
         }
 
     def run_demo(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
