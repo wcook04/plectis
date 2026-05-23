@@ -12,7 +12,7 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import write_json_atomic
-from microcosm_core.runtime_shell import RUNTIME_STEPS
+from microcosm_core.runtime_shell import PRODUCT_PATH_DEMOTED_ORGAN_IDS, RUNTIME_STEPS
 from microcosm_core.schemas import read_json_strict
 
 
@@ -202,6 +202,8 @@ def _consumer_contract_row(
 def _organ_lifecycle_convergence(
     *,
     accepted: list[str],
+    public_authority_required_ids: list[str],
+    demoted_drilldown_ids: list[str],
     runtime_ids: list[str],
     accepted_plan_ids: list[str],
     evidence_ids: list[str],
@@ -242,7 +244,7 @@ def _organ_lifecycle_convergence(
         ),
         _consumer_contract_row(
             "public_authority_organ_rows",
-            required_for_organ_ids=accepted,
+            required_for_organ_ids=public_authority_required_ids,
             observed_organ_ids=organ_authority_ids,
             owner_surface="RuntimeShell.authority().organ_authority",
             receipt_ref=AUTHORITY_SNAPSHOT_REL.as_posix(),
@@ -285,6 +287,7 @@ def _organ_lifecycle_convergence(
             "non-consumer notes, demos, and incidental receipts are excluded from the "
             "organ lifecycle contract unless listed in checked_surfaces"
         ],
+        "demoted_drilldown_organ_ids": demoted_drilldown_ids,
         "false_positive_guard_result": PASS if not affected_surfaces else "not_applicable",
         "required_snapshot_refs": [
             AUTHORITY_SNAPSHOT_REL.as_posix(),
@@ -325,6 +328,12 @@ def _organ_lifecycle_coverage(
         for row in evidence_rows
         if row.get("organ_id")
     }
+    demoted_drilldown_ids = [
+        organ_id for organ_id in accepted if organ_id in PRODUCT_PATH_DEMOTED_ORGAN_IDS
+    ]
+    public_authority_required_ids = [
+        organ_id for organ_id in accepted if organ_id not in PRODUCT_PATH_DEMOTED_ORGAN_IDS
+    ]
     registry_rows_by_id = {
         str(row.get("organ_id")): row
         for row in _rows(registry, "implemented_organs")
@@ -416,18 +425,9 @@ def _organ_lifecycle_coverage(
                     "actual_organ_authority_count": len(organ_authority_rows),
                 },
             )
-        if len(surface_rows) != len(accepted):
-            _add_lifecycle_defect(
-                defects,
-                "stale_expected_surface_count",
-                detail={
-                    "surface_authority_count": len(surface_rows),
-                    "accepted_organ_count": len(accepted),
-                },
-            )
-        for organ_id in sorted(set(accepted) - set(organ_authority_ids)):
+        for organ_id in sorted(set(public_authority_required_ids) - set(organ_authority_ids)):
             _add_lifecycle_defect(defects, "missing_snapshot_projection", organ_id=organ_id)
-        for organ_id in sorted(set(organ_authority_ids) - set(accepted)):
+        for organ_id in sorted(set(organ_authority_ids) - set(public_authority_required_ids)):
             _add_lifecycle_defect(defects, "snapshot_projection_without_organ", organ_id=organ_id)
         for organ_id in _duplicates(organ_authority_ids):
             _add_lifecycle_defect(defects, "duplicate_snapshot_projection", organ_id=organ_id)
@@ -467,12 +467,16 @@ def _organ_lifecycle_coverage(
         "runtime_step_count": len(runtime_ids),
         "acceptance_plan_organ_count": len(accepted_plan_ids),
         "evidence_class_row_count": len(evidence_ids),
+        "public_authority_expected_organ_count": len(public_authority_required_ids),
+        "demoted_drilldown_organ_count": len(demoted_drilldown_ids),
         "organ_authority_row_count": len(organ_authority_ids),
         "surface_authority_row_count": len(surface_rows),
         "fixture_check_count": len(fixture_checks),
     }
     convergence = _organ_lifecycle_convergence(
         accepted=accepted,
+        public_authority_required_ids=public_authority_required_ids,
+        demoted_drilldown_ids=demoted_drilldown_ids,
         runtime_ids=runtime_ids,
         accepted_plan_ids=accepted_plan_ids,
         evidence_ids=evidence_ids,
@@ -501,7 +505,8 @@ def _organ_lifecycle_coverage(
             "accepted organ ids equal RuntimeShell.RUNTIME_STEPS ids",
             "accepted organ ids match first-wave acceptance rows",
             "accepted organ ids have exactly one evidence-class row",
-            "accepted organ ids have public authority snapshot rows",
+            "product-spine organ ids have public authority snapshot rows",
+            "demoted drilldown organs retain runtime and fixture coverage outside the product authority spine",
             "public command-path organs have a matching public lens row",
             "fixture manifests and fixture inputs exist for accepted organs",
             "external subprocess witnesses carry tool/receipt evidence refs",

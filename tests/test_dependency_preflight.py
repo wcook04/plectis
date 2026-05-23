@@ -98,6 +98,7 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "agentic_vulnerability_discovery_patch_proof_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
         "certificate_kernel_execution_lab",
+        "voice_to_doctrine_self_improvement_loop",
     ]
     assert receipt["blocked_dependency_count"] == 0
     assert receipt["blocked_dependency_codes"] == []
@@ -105,17 +106,23 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
     assert coverage["status"] == "pass"
     assert coverage["defect_count"] == 0
     assert coverage["coverage_counts"] == {
-        "accepted_organ_count": 45,
-        "runtime_step_count": 45,
-        "acceptance_plan_organ_count": 45,
-        "evidence_class_row_count": 45,
-        "organ_authority_row_count": 45,
+        "accepted_organ_count": 46,
+        "runtime_step_count": 46,
+        "acceptance_plan_organ_count": 46,
+        "evidence_class_row_count": 46,
+        "public_authority_expected_organ_count": 44,
+        "demoted_drilldown_organ_count": 2,
+        "organ_authority_row_count": 44,
         "surface_authority_row_count": 45,
-        "fixture_check_count": 45,
+        "fixture_check_count": 46,
     }
     convergence = coverage["organ_lifecycle_convergence"]
     assert convergence["schema_version"] == "organ_lifecycle_convergence_v1"
     assert convergence["status"] == "pass"
+    assert convergence["demoted_drilldown_organ_ids"] == [
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "agent_benchmark_integrity_anti_gaming_replay",
+    ]
     assert convergence["affected_consumer_surfaces"] == []
     assert convergence["changed_organ_ids"] == []
     assert convergence["false_positive_guard_result"] == "pass"
@@ -132,6 +139,15 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "certificate_kernel_execution_lab"
         in consumer_by_id["runtime_steps"]["observed_organ_ids"]
     )
+    assert consumer_by_id["public_authority_organ_rows"]["required_for_organ_ids"] == [
+        organ_id
+        for organ_id in receipt["checked_organs"]
+        if organ_id
+        not in {
+            "mathematical_strategy_atlas_hypothesis_scorer",
+            "agent_benchmark_integrity_anti_gaming_replay",
+        }
+    ]
     assert "missing_public_lens" not in {
         defect["defect_id"] for defect in coverage["defects"]
     }

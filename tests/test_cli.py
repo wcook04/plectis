@@ -270,10 +270,10 @@ def test_cli_authority_smoke(
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
         "semantic_validator": 13,
-        "algorithmic_projection": 14,
+        "algorithmic_projection": 15,
         "fixture_echo_smoke": 12,
         "external_subprocess_witness": 3,
-        "fixture_schema_replay": 2,
+        "fixture_schema_replay": 1,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
     assert (
@@ -310,7 +310,7 @@ def test_cli_authority_smoke(
     )
     assert (
         organ_authority_by_id["research_replication_rubric_artifact_replay"]["evidence_class"]
-        == "fixture_schema_replay"
+        == "algorithmic_projection"
     )
     assert any(row["surface_id"] == "project_python_lens" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/authority" for row in payload["surface_authority"])

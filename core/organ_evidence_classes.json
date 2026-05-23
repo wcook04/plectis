@@ -163,8 +163,8 @@
     },
     {
       "organ_id": "research_replication_rubric_artifact_replay",
-      "evidence_class": "fixture_schema_replay",
-      "classification_basis": "fixture schema and cross-reference checks over declared artifact, rubric, budget, and rerun refs"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "public agent-execution trace refactor builds replay spans, digests, and coverage checks from declared artifact, rubric, budget, failure-taxonomy, and cold-rerun refs"
     },
     {
       "organ_id": "world_model_projection_drift_control_room",

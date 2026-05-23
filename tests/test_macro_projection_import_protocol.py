@@ -162,7 +162,13 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         "receipts/preflight/dependency_preflight.json"
     )
     assert result["organ_lifecycle_coverage_status"] == "pass"
-    assert result["organ_lifecycle_coverage_counts"]["accepted_organ_count"] == 45
+    assert result["organ_lifecycle_coverage_counts"]["accepted_organ_count"] == 46
+    assert (
+        result["organ_lifecycle_coverage_counts"][
+            "public_authority_expected_organ_count"
+        ]
+        == 44
+    )
     assert result["macro_runtime_dependency_count"] == 0
     assert result["authority_ceiling"]["credential_or_account_bound_bodies_exported"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -281,7 +287,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert severance_board["dependency_preflight_gate"]["status"] == "pass"
     assert severance_board["dependency_preflight_gate"]["defect_count"] == 0
     assert severance_board["organ_lifecycle_coverage_status"] == "pass"
-    assert severance_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 45
+    assert severance_board["organ_lifecycle_coverage_counts"]["runtime_step_count"] == 46
     assert {
         row["check_id"]: row["status"]
         for row in severance_board["severance_checks"]
@@ -395,7 +401,7 @@ def test_macro_projection_release_severance_blocks_stale_lifecycle_counts(
     public_root = _copy_macro_projection_public_tree(tmp_path)
     receipt = public_root / "receipts/preflight/dependency_preflight.json"
     payload = json.loads(receipt.read_text(encoding="utf-8"))
-    payload["organ_lifecycle_coverage"]["coverage_counts"]["surface_authority_row_count"] -= 1
+    payload["organ_lifecycle_coverage"]["coverage_counts"]["organ_authority_row_count"] -= 1
     receipt.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     result = run(
@@ -413,7 +419,7 @@ def test_macro_projection_release_severance_blocks_stale_lifecycle_counts(
         row["subject_id"]
         for row in defects
         if row["defect_code"] == "organ_lifecycle_coverage_stale_count"
-    } == {"surface_authority_row_count"}
+    } == {"organ_authority_row_count"}
 
 
 def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path) -> None:

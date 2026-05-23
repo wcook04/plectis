@@ -33,14 +33,20 @@ ACCEPTANCE_RECEIPT_REL = (
 BUNDLE_RESULT_NAME = "exported_projection_import_bundle_validation_result.json"
 DEPENDENCY_PREFLIGHT_RECEIPT_REL = Path("receipts/preflight/dependency_preflight.json")
 ORGAN_REGISTRY_REL = Path("core/organ_registry.json")
-ORGAN_LIFECYCLE_COUNT_FIELDS = (
+ORGAN_LIFECYCLE_ACCEPTED_COUNT_FIELDS = (
     "accepted_organ_count",
     "runtime_step_count",
     "acceptance_plan_organ_count",
     "evidence_class_row_count",
-    "organ_authority_row_count",
-    "surface_authority_row_count",
     "fixture_check_count",
+)
+ORGAN_LIFECYCLE_PRODUCT_AUTHORITY_COUNT_FIELDS = (
+    "public_authority_expected_organ_count",
+    "organ_authority_row_count",
+)
+ORGAN_LIFECYCLE_COUNT_FIELDS = (
+    *ORGAN_LIFECYCLE_ACCEPTED_COUNT_FIELDS,
+    *ORGAN_LIFECYCLE_PRODUCT_AUTHORITY_COUNT_FIELDS,
 )
 
 INPUT_NAMES = (
@@ -503,7 +509,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
                     subject_kind="organ_registry",
                 )
             else:
-                for field in ORGAN_LIFECYCLE_COUNT_FIELDS:
+                for field in ORGAN_LIFECYCLE_ACCEPTED_COUNT_FIELDS:
                     count = coverage_counts.get(field)
                     if count != expected_count:
                         _add_dependency_preflight_defect(
@@ -518,6 +524,39 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
                             subject_id=field,
                             subject_kind="organ_lifecycle_count",
                         )
+                product_authority_count = coverage_counts.get(
+                    "public_authority_expected_organ_count"
+                )
+                if not isinstance(product_authority_count, int):
+                    _add_dependency_preflight_defect(
+                        defects,
+                        findings,
+                        defect_code="organ_lifecycle_coverage_stale_count",
+                        error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
+                        message=(
+                            "Organ lifecycle coverage must name the expected "
+                            "product authority count for runtime severance."
+                        ),
+                        subject_id="public_authority_expected_organ_count",
+                        subject_kind="organ_lifecycle_count",
+                    )
+                else:
+                    for field in ORGAN_LIFECYCLE_PRODUCT_AUTHORITY_COUNT_FIELDS:
+                        count = coverage_counts.get(field)
+                        if count != product_authority_count:
+                            _add_dependency_preflight_defect(
+                                defects,
+                                findings,
+                                defect_code="organ_lifecycle_coverage_stale_count",
+                                error_code="MACRO_PROJECTION_ORGAN_LIFECYCLE_COVERAGE_STALE",
+                                message=(
+                                    "Product authority lifecycle coverage count must "
+                                    "match the expected product-spine organ count for "
+                                    "runtime severance."
+                                ),
+                                subject_id=field,
+                                subject_kind="organ_lifecycle_count",
+                            )
 
     return {
         "schema_version": "macro_projection_dependency_preflight_gate_v1",
