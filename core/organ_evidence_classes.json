@@ -173,8 +173,8 @@
     },
     {
       "organ_id": "spatial_world_model_counterfactual_simulation_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "synthetic simulation rows carry fixture-supplied prediction and oracle-diff fields"
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived validation over public spatial replay rows, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials"
     },
     {
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
