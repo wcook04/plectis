@@ -14,16 +14,16 @@
     "status": "pass",
     "trading_authorized": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": "public_prediction_oracle_reconciliation_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run-prediction-bundle --input examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle --out receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation",
   "cp1_branch_count": 2,
   "cp1_selected_branch_ids": [
     "cp1_alpha_up_over_flat",
     "cp1_beta_down_over_up"
   ],
   "cp2_prediction_count": 2,
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "created_at": "2026-05-23T06:44:10+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -39,30 +39,22 @@
   "oracle_diff_hit_count": 1,
   "organ_id": "prediction_oracle_reconciliation",
   "packet_id": "public_prediction_oracle_reconciliation_runtime_example",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 1,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
     "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
     "paper_modules/prediction_oracle_reconciliation.md"
   ],
+  "real_runtime_receipt": true,
   "receipt_id": "exported_prediction_oracle_bundle_validation_result_v1",
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation/exported_prediction_oracle_bundle_validation_result.json"
   ],
   "reconciliation_rows": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "confidence_band": "medium",
       "cp1_branch_id": "cp1_alpha_up_over_flat",
       "direction": "up",
@@ -75,7 +67,7 @@
       "target_id": "SYNTH_TARGET_ALPHA"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "confidence_band": "low_medium",
       "cp1_branch_id": "cp1_beta_down_over_up",
       "direction": "down",
@@ -89,6 +81,22 @@
     }
   ],
   "schema_version": "exported_prediction_oracle_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 1,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_pattern_ids": [
     "synthetic_science_oracle_dossier_reconciliation_compound",
     "cp1_bifurcation_reconciliation_spine",
@@ -104,6 +112,7 @@
     "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop"
   ],
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "valid_prediction_targets": [
     "SYNTH_TARGET_ALPHA",
     "SYNTH_TARGET_BETA"

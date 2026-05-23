@@ -3,7 +3,7 @@
   "manifest_type": "first_organ_fixture_validator_manifest",
   "organ_id": "prediction_oracle_reconciliation",
   "fixture_id": "fixture::prediction_oracle_reconciliation::first_wave_contract_v1",
-  "status": "public_slice_contract_bound",
+  "status": "real_runtime_receipt_contract_bound",
   "purpose": "Validate synthetic prediction reconciliation through CP1 bifurcation resolution, CP2 target-universe gating, oracle diff grading, and bounded dossier mutation without trading, advice, live market data, or provider authority.",
   "inputs": [
     "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
@@ -49,24 +49,30 @@
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "receipt_paths",
     "source_pattern_ids",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_runtime_refs",
     "valid_prediction_targets",
     "cp1_branch_count",
     "cp2_prediction_count",
     "oracle_diff_graded_count",
     "dossier_mutation_count",
-    "reconciliation_rows"
+    "reconciliation_rows",
+    "body_in_receipt",
+    "real_runtime_receipt",
+    "synthetic_receipt_standin_allowed"
   ],
-  "private_state_exclusion_rules": {
+  "authority_ceiling": "synthetic prediction reconciliation fixture only; not trading, financial advice, investment advice, live market data, provider authority, performance authority, publication, release, or secret export",
+  "anti_claim": "This fixture manifest accepts only synthetic prediction reconciliation mechanics and negative-case coverage. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, release, hosted deployment, or secret export.",
+  "secret_exclusion_rules": {
     "live_market_data": "forbidden; fixtures are synthetic and static",
     "provider_payload_bodies": "forbidden; oracle refs are fixture ids only",
     "trading_or_financial_advice": "forbidden; the organ validates reasoning mechanics only",
     "performance_claims": "forbidden; oracle diff is a synthetic grading example",
-    "private_source_bodies": "forbidden; pattern ids and public replacement refs are enough"
-  },
-  "authority_ceiling": "synthetic prediction reconciliation fixture only; not trading, financial advice, investment advice, live market data, provider authority, performance authority, publication, release, or secret export",
-  "anti_claim": "This fixture manifest accepts only synthetic prediction reconciliation mechanics and negative-case coverage. It does not authorize trading, financial or investment advice, live market data, provider calls, public prediction publication, release, hosted deployment, or secret export."
+    "private_source_bodies": "forbidden; public runtime refs and source refs carry the non-secret substrate"
+  }
 }

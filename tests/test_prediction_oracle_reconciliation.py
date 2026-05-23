@@ -89,8 +89,13 @@ def test_prediction_oracle_reconciliation_receipts_are_public_safe(
         assert '"body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["real_runtime_receipt"] is True
+        assert payload["synthetic_receipt_standin_allowed"] is False
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in _walk_keys(payload)
+        assert "public_replacement_refs" not in payload
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
 
@@ -114,6 +119,11 @@ def test_prediction_oracle_exported_bundle_validates_runtime_shape(
     assert result["reconciliation_rows"][1]["direction_hit"] is False
     assert result["authority_ceiling"]["trading_authorized"] is False
     assert result["authority_ceiling"]["financial_advice_authorized"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in _walk_keys(result)
+    assert "public_replacement_refs" not in result
 
 
 def test_prediction_oracle_exported_bundle_receipt_is_public_safe(
@@ -146,7 +156,12 @@ def test_prediction_oracle_exported_bundle_receipt_is_public_safe(
     payload = json.loads(text)
     assert payload["status"] == "pass"
     assert payload["input_mode"] == "exported_prediction_oracle_bundle"
-    assert payload["private_state_scan"]["body_redacted"] is True
-    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["real_runtime_receipt"] is True
+    assert payload["synthetic_receipt_standin_allowed"] is False
+    assert "private_state_scan" not in payload
+    assert "body_redacted" not in _walk_keys(payload)
+    assert "public_replacement_refs" not in payload
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)

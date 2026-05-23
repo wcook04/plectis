@@ -14,7 +14,7 @@
     "status": "pass",
     "trading_authorized": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
   "cp1_branch_count": 2,
@@ -23,7 +23,7 @@
     "cp1_beta_down_over_up"
   ],
   "cp2_prediction_count": 2,
-  "created_at": "2026-05-21T08:43:23+00:00",
+  "created_at": "2026-05-23T06:44:10+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -46,7 +46,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREDICTION_CP2_TARGET_OUT_OF_UNIVERSE",
       "message": "CP2 predictions must stay inside the declared valid target universe.",
       "negative_case_id": "invalid_cp2_target",
@@ -54,7 +54,7 @@
       "subject_kind": "cp2_prediction"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREDICTION_CP1_BIFURCATION_UNRESOLVED",
       "message": "CP1 branches must resolve the chosen side and retain why the opposite side lost.",
       "negative_case_id": "missing_bifurcation_resolution",
@@ -62,7 +62,7 @@
       "subject_kind": "cp1_branch"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREDICTION_ORACLE_POST_T_EVIDENCE_FORBIDDEN",
       "message": "Oracle predictions may not use post-target evidence refs.",
       "negative_case_id": "post_t_evidence_ref",
@@ -70,7 +70,7 @@
       "subject_kind": "cp2_prediction"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREDICTION_TRADING_OR_ADVICE_OVERCLAIM",
       "message": "Prediction reconciliation rejects trading, advice, live provider, release, publication, and private-equivalence authority.",
       "negative_case_id": "trading_advice_overclaim",
@@ -78,7 +78,7 @@
       "subject_kind": "authority_ceiling"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREDICTION_EQUITY_CONFIRMATION_REQUIRED",
       "message": "Equity or market-lane claims require an explicit confirmation bit before use.",
       "negative_case_id": "unconfirmed_equity_lane_claim",
@@ -86,7 +86,7 @@
       "subject_kind": "cp1_branch"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PREDICTION_DOSSIER_MUTATION_UNSAFE",
       "message": "High-severity dossier mutation needs two evidence refs and a public-delta allowlist.",
       "negative_case_id": "unsafe_dossier_mutation",
@@ -121,23 +121,15 @@
   "oracle_diff_hit_count": 1,
   "organ_id": "prediction_oracle_reconciliation",
   "packet_id": "public_prediction_oracle_reconciliation_fixture",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 7,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json",
     "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
     "paper_modules/prediction_oracle_reconciliation.md"
   ],
+  "real_runtime_receipt": true,
   "receipt_id": "prediction_oracle_reconciliation_result_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
@@ -147,7 +139,7 @@
   ],
   "reconciliation_rows": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "confidence_band": "medium",
       "cp1_branch_id": "cp1_alpha_up_over_flat",
       "direction": "up",
@@ -160,7 +152,7 @@
       "target_id": "SYNTH_TARGET_ALPHA"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "confidence_band": "low_medium",
       "cp1_branch_id": "cp1_beta_down_over_up",
       "direction": "down",
@@ -174,6 +166,22 @@
     }
   ],
   "schema_version": "prediction_oracle_reconciliation_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_pattern_ids": [
     "synthetic_science_oracle_dossier_reconciliation_compound",
     "cp1_bifurcation_reconciliation_spine",
@@ -189,6 +197,7 @@
     "microcosm_pattern_ledger:evolve_oracle_to_dossier_mutation_loop"
   ],
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "valid_prediction_targets": [
     "SYNTH_TARGET_ALPHA",
     "SYNTH_TARGET_BETA"

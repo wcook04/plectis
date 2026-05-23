@@ -1,6 +1,6 @@
 # Prediction Oracle Reconciliation
 
-`prediction_oracle_reconciliation` is a source-available fixture organ for the
+`prediction_oracle_reconciliation` is a source-available runtime fixture organ for the
 prediction-engine slice. It compresses the macro pattern group around CP1
 bifurcation resolution, CP2 valid target universes, oracle grounding firewalls,
 diff grading, and dossier mutation into a synthetic packet a cold reader can run.
@@ -8,7 +8,11 @@ diff grading, and dossier mutation into a synthetic packet a cold reader can run
 It is deliberately not a market product. The organ has no live data, no provider
 calls, no trading authority, no financial or investment advice authority, no
 publication authority, and no release authority. Its job is to make the reasoning
-shape inspectable without making performance or action claims.
+shape inspectable without making performance or action claims. The receipt
+contract is source-open by default: public fixture packets, exported bundle refs,
+source refs, and runtime receipts carry the evidence, while
+`secret_exclusion_scan` blocks only live market feeds, provider payload bodies,
+account/session material, private dossiers, and credential-equivalent access.
 
 ## Public Contract
 
@@ -21,6 +25,8 @@ The input packet names:
 - `cp2_predictions` with pre-target evidence refs and grounding ids.
 - `oracle_diff` rows that grade synthetic realized direction against prediction.
 - `dossier_mutations` constrained to fixture deltas.
+- `public_runtime_refs` for the public fixture, exported bundle, and paper module
+  substrate refs.
 - `authority_ceiling` values that explicitly keep trading, advice, provider,
   live-market, publication, release, and secret-export authority false.
 

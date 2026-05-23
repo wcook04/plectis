@@ -18,11 +18,6 @@
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
-  "public_replacement_refs": [
-    "fixtures/first_wave/prediction_oracle_reconciliation/input/missing_bifurcation_resolution.json",
-    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
-    "paper_modules/prediction_oracle_reconciliation.md"
-  ],
   "valid_prediction_targets": [
     "SYNTH_TARGET_ALPHA",
     "SYNTH_TARGET_BETA"
@@ -116,5 +111,10 @@
     "publication_authorized": false,
     "release_authorized": false,
     "private_data_equivalence_claim": false
-  }
+  },
+  "public_runtime_refs": [
+    "fixtures/first_wave/prediction_oracle_reconciliation/input/missing_bifurcation_resolution.json",
+    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json",
+    "paper_modules/prediction_oracle_reconciliation.md"
+  ]
 }

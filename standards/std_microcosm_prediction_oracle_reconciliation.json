@@ -36,7 +36,7 @@
     "source_pattern_ids",
     "source_refs",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
     "valid_prediction_targets",
     "cp1_branches",
     "cp2_predictions",
@@ -53,11 +53,11 @@
     "grade synthetic oracle diff rows without performance overclaims",
     "allow dossier mutation only as bounded public fixture deltas",
     "reject trading, financial advice, investment advice, live market data, provider calls, publication, release, or private-equivalence authority",
-    "emit private-state scan and redacted receipts"
+    "emit secret-exclusion scan, body_in_receipt false, real-runtime receipt status, and public runtime refs"
   ],
   "receipt_expectations": [
     "receipt.microcosm.prediction_oracle_reconciliation",
-    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, target-universe status, CP1/CP2 counts, oracle diff grade counts, dossier mutation counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, target-universe status, CP1/CP2 counts, oracle diff grade counts, dossier mutation counts, negative-case coverage, secret-exclusion scan, authority ceiling, anti-claim, real_runtime_receipt, and synthetic_receipt_standin_allowed false"
   ],
   "validator_contract": {
     "required": true,
@@ -80,7 +80,7 @@
       "source_pattern_ids",
       "source_refs",
       "projection_receipt_refs",
-      "public_replacement_refs",
+      "public_runtime_refs",
       "valid_prediction_targets",
       "cp1_branch_count",
       "cp2_prediction_count",
@@ -89,12 +89,15 @@
       "reconciliation_rows",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
-      "negative_case_coverage"
+      "secret_exclusion_scan",
+      "negative_case_coverage",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_fixture_source_is_synthetic_and_receipts_are_redacted",
+    "default_posture": "source_open_fixture_and_runtime_refs_with_secret_exclusion_boundary",
     "allowed_public_inputs": [
       "synthetic target ids",
       "synthetic pre-target evidence refs",
@@ -166,7 +169,7 @@
       "trading recommendations",
       "forecast performance claims"
     ],
-    "reason": "public slice carries synthetic fixture rows and redacted receipts only",
+    "reason": "public slice carries real fixture packets, exported runtime refs, and secret-exclusion receipts while excluding live market feeds, provider payloads, private prediction dossiers, trading recommendations, and forecast performance claims",
     "drilldown": "fixtures/first_wave/prediction_oracle_reconciliation/input/reconciliation_packet.json"
   },
   "anti_claim_contract": {
@@ -175,6 +178,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay pattern-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay pattern-level metadata and public runtime refs stay public-root relative"
   }
 }

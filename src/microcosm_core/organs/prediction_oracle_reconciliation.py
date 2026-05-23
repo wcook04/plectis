@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -146,7 +146,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -340,7 +340,7 @@ def _validate_oracle_diff(packet: dict[str, Any]) -> dict[str, Any]:
                 "feed_health": row.get("feed_health", "ok"),
                 "graded": not degraded,
                 "direction_hit": (predicted == realized) if not degraded else None,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -417,7 +417,7 @@ def validate_reconciliation_packet(
     source_pattern_ids = _strings(packet.get("source_pattern_ids"))
     source_refs = _strings(packet.get("source_refs"))
     projection_receipts = _strings(packet.get("projection_receipt_refs"))
-    public_replacements = _strings(packet.get("public_replacement_refs"))
+    public_runtime_refs = _strings(packet.get("public_runtime_refs"))
 
     if len(source_pattern_ids) < 5 or len(source_refs) < 4 or not projection_receipts:
         findings.append(
@@ -429,11 +429,11 @@ def validate_reconciliation_packet(
                 subject_kind="reconciliation_packet",
             )
         )
-    if len(public_replacements) < 3:
+    if len(public_runtime_refs) < 3:
         findings.append(
             _finding(
-                "PREDICTION_RECONCILIATION_PUBLIC_REPLACEMENT_MISSING",
-                "Prediction reconciliation must cite public fixture replacements.",
+                "PREDICTION_RECONCILIATION_RUNTIME_REFS_MISSING",
+                "Prediction reconciliation must cite public runtime refs for the real fixture and bundle substrate.",
                 case_id="reconciliation_packet_floor",
                 subject_id=str(packet.get("packet_id") or "reconciliation_packet"),
                 subject_kind="reconciliation_packet",
@@ -477,7 +477,7 @@ def validate_reconciliation_packet(
         "source_pattern_ids": source_pattern_ids,
         "source_refs": source_refs,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "public_runtime_refs": public_runtime_refs,
         "valid_prediction_targets": cp2["valid_prediction_targets"],
         "cp1_branch_count": cp1["branch_count"],
         "cp1_selected_branch_ids": cp1["selected_branch_ids"],
@@ -524,7 +524,7 @@ def _reconciliation_rows(
                 "oracle_feed_health": oracle.get("feed_health"),
                 "direction_hit": oracle.get("direction_hit"),
                 "mutation_ids": mutation_ids,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return rows
@@ -557,7 +557,6 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
-    safe["redacted_output_field_labels_omitted"] = True
     return safe
 
 
@@ -571,7 +570,7 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = _receipt_safe_scan(
+    secret_scan = _receipt_safe_scan(
         scan_paths(
             _input_paths(input_dir, include_negative=include_negative),
             forbidden_classes=policy,
@@ -598,7 +597,7 @@ def _build_result(
         PASS
         if packet["status"] == PASS
         and not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         else "blocked"
     )
     return {
@@ -616,14 +615,14 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "packet_id": packet["packet_id"],
         "source_pattern_ids": packet["source_pattern_ids"],
         "source_refs": packet["source_refs"],
         "projection_receipt_refs": packet["projection_receipt_refs"],
-        "public_replacement_refs": packet["public_replacement_refs"],
+        "public_runtime_refs": packet["public_runtime_refs"],
         "valid_prediction_targets": packet["valid_prediction_targets"],
         "cp1_branch_count": packet["cp1_branch_count"],
         "cp1_selected_branch_ids": packet["cp1_selected_branch_ids"],
@@ -645,9 +644,11 @@ def _build_result(
             "live_market_data_authorized": False,
             "provider_calls_authorized": False,
             "release_authorized": False,
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -670,14 +671,14 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "packet_id",
         "source_pattern_ids",
         "source_refs",
         "projection_receipt_refs",
-        "public_replacement_refs",
+        "public_runtime_refs",
         "valid_prediction_targets",
         "cp1_branch_count",
         "cp1_selected_branch_ids",
@@ -687,7 +688,9 @@ def _common_receipt(
         "dossier_mutation_count",
         "dossier_mutation_ids",
         "reconciliation_rows",
-        "body_redacted",
+        "body_in_receipt",
+        "real_runtime_receipt",
+        "synthetic_receipt_standin_allowed",
     )
     payload = {
         "schema_version": schema_version,
