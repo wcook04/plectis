@@ -17,7 +17,7 @@
   },
   "body_redacted": true,
   "command": "microcosm option-surface-lens",
-  "created_at": "2026-05-22T20:47:09+00:00",
+  "created_at": "2026-05-23T07:48:21+00:00",
   "endpoint": "/option-surface-lens",
   "import_plan_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
@@ -269,14 +269,16 @@
   },
   "organ_family": "projection_import",
   "projection_cell": {
-    "authority_ceiling": "protocol_metadata_only",
+    "authority_ceiling": "verified_public_pattern_ledger_body_and_protocol_metadata",
     "body_copied": false,
-    "body_redacted": true,
+    "body_redacted": false,
     "cell_id": "projection_protocol_self_host",
     "source_refs": [
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
     ],
     "target_refs": [
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
       "standards/std_microcosm_macro_projection_import_protocol.json",
       "paper_modules/macro_projection_import_protocol.md"
     ],

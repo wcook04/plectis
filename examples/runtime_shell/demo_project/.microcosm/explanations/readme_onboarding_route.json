@@ -1,7 +1,7 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-22T20:17:09+00:00",
+  "created_at": "2026-05-23T04:21:57+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,18 +21,8 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_1811",
+  "event_id": "evt_1817",
   "event_refs": [
-    {
-      "event_id": "evt_1775",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1780",
-      "span": "project.route",
-      "status": "pass"
-    },
     {
       "event_id": "evt_1781",
       "span": "project.explain",
@@ -80,6 +70,16 @@
     },
     {
       "event_id": "evt_1810",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1811",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1816",
       "span": "project.route",
       "status": "pass"
     }
@@ -602,7 +602,7 @@
       "source_ref": "core/public_standard_pressure.json",
       "standard": {
         "authority_boundary": "coverage_projection_not_registry_or_release_authority",
-        "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, private-data equivalence, trading advice, or whole-system correctness.",
+        "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, secret export, trading advice, or whole-system correctness.",
         "kernel_primitive_refs": [
           "standard",
           "evidence",
@@ -628,7 +628,7 @@
       "source_ref": "core/public_standard_pressure.json",
       "standard": {
         "authority_boundary": "route_map_projection_not_registry_or_release_authority",
-        "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, private-data equivalence, trading advice, source mutation, or whole-system correctness.",
+        "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, secret export, trading advice, source mutation, or whole-system correctness.",
         "kernel_primitive_refs": [
           "route",
           "evidence",
@@ -1079,7 +1079,7 @@
     },
     {
       "authority_boundary": "coverage_projection_not_registry_or_release_authority",
-      "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, private-data equivalence, trading advice, or whole-system correctness.",
+      "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, secret export, trading advice, or whole-system correctness.",
       "kernel_primitive_refs": [
         "standard",
         "evidence",
@@ -1098,7 +1098,7 @@
     },
     {
       "authority_boundary": "route_map_projection_not_registry_or_release_authority",
-      "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, private-data equivalence, trading advice, source mutation, or whole-system correctness.",
+      "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, secret export, trading advice, source mutation, or whole-system correctness.",
       "kernel_primitive_refs": [
         "route",
         "evidence",

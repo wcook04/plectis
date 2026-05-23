@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-22T20:17:09+00:00",
-  "event_id": "evt_1809",
+  "created_at": "2026-05-23T04:21:57+00:00",
+  "event_id": "evt_1815",
   "evidence_ref": ".microcosm/evidence/patterns.json",
   "evidence_replacement": {
     "append_only_event_history_ref": ".microcosm/events.jsonl",
     "policy": "stable_ref_latest_body",
-    "previous_sha256": "d2b28f6058b140271fb621bff3482ee5bdb91a5a5e7f15567215945029eb531b",
+    "previous_sha256": "fa4099af7b61ec3b8ee705ff6090e30b58bed4a3341c842e5e6f4bd6e22b52a1",
     "replacement_recorded": true,
     "stable_ref": ".microcosm/evidence/patterns.json"
   },

@@ -1,10 +1,10 @@
 {
-  "anti_claim": "The runtime reveal/import bridge is a public-safe legibility surface over projection cells, reveal commands, and receipt refs. It does not copy private macro bodies, authorize release or publication, call providers, run Lean/Lake, mutate source, give financial advice, or claim private-root equivalence.",
+  "anti_claim": "The runtime reveal/import bridge is a source-open legibility surface over projection cells, reveal commands, and receipt refs. It excludes only secrets, credential/session material, provider payload bodies, and other credential-equivalent live-access material; non-secret substrate must be imported, copied with provenance, or source-faithfully refactored through the owning organ. It does not authorize release or publication, call providers, run Lean/Lake, mutate source, give financial advice, or claim private-root equivalence.",
   "authority_ceiling": {
+    "credential_or_account_bound_bodies_exported": false,
     "hosted_public_authorized": false,
     "lean_lake_execution_authorized": false,
     "private_data_equivalence_claim": false,
-    "private_source_bodies_exported": false,
     "provider_calls_authorized": false,
     "publication_authorized": false,
     "recipient_work_authorized": false,
@@ -13,7 +13,7 @@
     "trading_or_financial_advice_authorized": false,
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bridge_id": "runtime_reveal_import_bridge",
   "cell_status": [
     {
@@ -27,9 +27,9 @@
         "provider_calls_authorized": false,
         "status": "pass"
       },
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cell_id": "formal_math_readiness_extensions",
-      "cell_state": "consumed_public_replacement",
+      "cell_state": "consumed_verified_import",
       "intake_ready": true,
       "landed_evidence_refs": [
         "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
@@ -37,14 +37,14 @@
         "paper_modules/formal_math_readiness_gate.md"
       ],
       "next_runtime_surface": "microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input",
-      "projection_status": "public_replacement_landed",
-      "runtime_bridge_status": "public_replacement_landed",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
       "selected_pattern_ids": [
         "lean_std_toolchain_premise_index",
         "tactic_portfolio_availability_probe",
         "target_shape_tactic_routing_gate"
       ],
-      "status_reason": "The formal-math readiness extension cell has a public replacement board with premise, tactic, routing, provider-context, source-intake, and validation refs.",
+      "status_reason": "The formal-math readiness extension cell has a public runtime import board with premise, tactic, routing, provider-context, source-intake, and validation refs.",
       "target_refs": [
         "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
         "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
@@ -58,8 +58,8 @@
     },
     {
       "action_required": false,
-      "authority_ceiling": "protocol_metadata_only",
-      "body_redacted": true,
+      "authority_ceiling": "verified_public_pattern_ledger_body_and_protocol_metadata",
+      "body_in_receipt": false,
       "cell_id": "projection_protocol_self_host",
       "cell_state": "consumed_protocol_self_host",
       "intake_ready": true,
@@ -78,6 +78,7 @@
       ],
       "status_reason": "The macro projection protocol now emits this cell-status state machine directly in plan, run, receipts, and runtime intake views.",
       "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "standards/std_microcosm_macro_projection_import_protocol.json",
         "paper_modules/macro_projection_import_protocol.md"
       ],
@@ -88,7 +89,7 @@
     {
       "action_required": false,
       "authority_ceiling": "runtime_exported_bundle_validation_only",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cell_id": "runtime_reveal_import_bridge",
       "cell_state": "bridged_runtime_surface",
       "intake_ready": true,
@@ -117,12 +118,72 @@
         "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
         "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
       ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_agent_execution_trace_body_not_live_provider_or_browser_authority",
+      "body_in_receipt": false,
+      "cell_id": "agent_execution_trace_refactor",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "agent_self_observability_plane",
+        "route_lease_mode_control_trace_feedback"
+      ],
+      "status_reason": "The agent execution trace refactor is landed as a public macro tool body and consumed by the route observability runtime bundle.",
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "copied_public_route_rows_not_live_route_freshness_or_source_authority",
+      "body_in_receipt": false,
+      "cell_id": "navigation_route_plane_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "src/microcosm_core/organs/navigation_hologram_route_plane.py"
+      ],
+      "next_runtime_surface": "microcosm navigation-hologram-route-plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "navigation_hologram_unified_route_plane",
+        "agent_entry_surfaces_canonical_first_move"
+      ],
+      "status_reason": "The navigation route plane now carries copied non-secret macro route rows inside Microcosm and validates them through the route-plane runtime consumer.",
+      "target_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
-  "consumed_cell_count": 3,
-  "created_at": "2026-05-22T20:47:08+00:00",
+  "consumed_cell_count": 5,
+  "created_at": "2026-05-23T07:48:33+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",
@@ -150,22 +211,22 @@
       "why": "open receipts only after the causal path is visible"
     }
   ],
-  "landed_cell_count": 3,
+  "landed_cell_count": 5,
   "open_actionable_cell_count": 0,
-  "projection_cell_count": 3,
+  "projection_cell_count": 5,
   "projection_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
   "projection_plan_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
   "projection_status_counts": {
-    "public_replacement_landed": 1,
+    "public_runtime_import_landed": 3,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },
   "projection_status_protocol": {
     "anti_claim": "Cell status is intake coordination. It is not an imported macro body, a capability proof, or a reason to avoid importing real non-secret substrate.",
-    "authority_ceiling": "cell_status_only_not_body_import",
+    "authority_ceiling": "cell_status_only_not_body_import_or_secret_exclusion",
     "cell_state_field": "cell_state",
     "closed_statuses": [
-      "public_replacement_landed",
+      "public_runtime_import_landed",
       "self_hosted_status_protocol_landed",
       "runtime_bridge_landed"
     ],
@@ -177,8 +238,8 @@
     "schema_version": "macro_projection_cell_status_protocol_v1",
     "status_field": "projection_status"
   },
-  "public_claim": "Microcosm turns macro-pattern intake into a runnable public path: compile, spine, intake, reveal, and evidence drilldown.",
-  "ready_cell_count": 3,
+  "public_claim": "Microcosm turns macro-pattern intake into a runnable source-open path: compile, spine, intake, reveal, and evidence drilldown over real substrate receipts.",
+  "ready_cell_count": 5,
   "reveal_command": "microcosm reveal",
   "runtime_bridge_evidence_refs": [
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
@@ -188,5 +249,5 @@
   ],
   "schema_version": "microcosm_runtime_reveal_import_bridge_v1",
   "spine_command": "microcosm spine",
-  "status": "pass"
+  "status": "blocked"
 }

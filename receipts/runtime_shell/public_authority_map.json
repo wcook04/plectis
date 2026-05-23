@@ -69,7 +69,7 @@
     "external_subprocess_witness": 3,
     "fixture_echo_smoke": 13,
     "fixture_schema_replay": 2,
-    "semantic_validator": 12
+    "semantic_validator": 13
   },
   "evidence_class_registry": {
     "class_profile_count": 5,
@@ -77,10 +77,17 @@
     "explicit_coverage": true,
     "extra_organs": [],
     "fail_closed_no_default": true,
-    "organ_evidence_class_count": 45,
+    "organ_evidence_class_count": 46,
+    "real_substrate_progress_buckets": [
+      "copied_non_secret_macro_body",
+      "real_import_validation",
+      "real_runtime_receipt",
+      "source_faithful_refactor"
+    ],
     "registry_id": "microcosm_organ_evidence_classes",
     "schema_version": "microcosm_organ_evidence_classes_v1",
     "source_ref": "core/organ_evidence_classes.json",
+    "truth_accounting_bucket_count": 9,
     "unclassified_organs": []
   },
   "evidence_refs": [
@@ -149,6 +156,7 @@
       "authority_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived public contract checks over substrate bundle structure, authority handles, and negative cases",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -163,12 +171,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived public standard grammar and cross-reference validation",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -183,12 +193,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -203,12 +215,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded readiness and policy projection over synthetic formal-math fixture rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -223,12 +237,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -243,12 +259,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded tactic availability projection over declared fixture rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -263,12 +281,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded routing policy projection over target-shape fixture rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -283,12 +303,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded premise-index projection over closed public Lean/Std fixture rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -303,12 +325,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded retrieval metric projection over public fixture rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -323,12 +347,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -343,12 +369,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded evidence-cell resolution and claim-strength projection, not theorem correctness",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -363,12 +391,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded symbol-classification projection over declared public prior rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -383,12 +413,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded precision/recall projection over synthetic premise-retrieval fixtures",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -403,12 +435,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -423,12 +457,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded context-budget packing and section omission computation",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -443,12 +479,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
       "claim_ceiling": "tool witness only, not general proof authority",
       "classification_basis": "bounded Lean/Lake subprocess witness over declared toy project",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
       "evidence_class": "external_subprocess_witness",
       "evidence_strength_disclosed": true,
@@ -463,12 +501,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_runtime_receipt",
       "verdict_source": "subprocess_or_tool_witness"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -483,12 +523,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
       "claim_ceiling": "tool witness only, not general proof authority",
       "classification_basis": "runs bounded public Lean transition candidates through lake env lean, then records CP2 rerun effect and bounded Evolve policy rerun receipts",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
       "evidence_class": "external_subprocess_witness",
       "evidence_strength_disclosed": true,
@@ -503,12 +545,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_runtime_receipt",
       "verdict_source": "subprocess_or_tool_witness"
     },
     {
       "authority_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -523,12 +567,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived WorkItem/transaction contract checks over public fixture rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -543,12 +589,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived landing-lane checks for validation order, HEAD-advance claims, blockers, and scoped closeout evidence",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -563,12 +611,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
       "claim_ceiling": "schema/regression fixture only",
       "classification_basis": "fixture schema and cross-reference checks over declared artifact, rubric, budget, and rerun refs",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
       "evidence_class": "fixture_schema_replay",
       "evidence_strength_disclosed": true,
@@ -583,12 +633,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_replay_contract"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
       "claim_ceiling": "schema/regression fixture only",
       "classification_basis": "fixture schema and policy checks over drift metadata rows, source refs, repair routes, and validation refs",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
       "evidence_class": "fixture_schema_replay",
       "evidence_strength_disclosed": true,
@@ -603,12 +655,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_replay_contract"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "synthetic simulation rows carry fixture-supplied prediction and oracle-diff fields",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -623,12 +677,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied attribution scores and graph rows are shape checked",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -643,12 +699,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived observability and action-trace checks over public replay inputs",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -663,12 +721,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived acceptance-layer checks for organ landing summaries and assimilation refs",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -683,12 +743,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -703,12 +765,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived import membrane checks for copy/omit/validate/authority-ceiling rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -723,12 +787,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded prediction/oracle reconciliation projection over synthetic rows",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
       "evidence_class": "algorithmic_projection",
       "evidence_strength_disclosed": true,
@@ -743,12 +809,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived standards coverage and runtime-contract diagnostics",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -763,12 +831,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived cold-reader route ordering, command ref, docs ref, and receipt ref validation",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -783,12 +853,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied monitor verdict rows are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -803,12 +875,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -823,12 +897,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied memory decisions and conflict flags are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -843,12 +919,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied poisoning and quarantine flags are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -863,12 +941,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied tool-policy and side-effect flags are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -883,12 +963,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived authorization checks for proof cells, visible policy verdicts, side effects, rollbacks, cold replay, and negative cases",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
       "evidence_class": "semantic_validator",
       "evidence_strength_disclosed": true,
@@ -903,12 +985,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied belief-state rewards and verifier feedback labels are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -923,12 +1007,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied sandbox policy verdict flags are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -943,12 +1029,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied taint and policy verdict fields are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -963,12 +1051,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied vulnerability, patch, and sandbox verdict fields are checked for source-available shape",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -983,12 +1073,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "classification_basis": "fixture-supplied safety booleans are checked for source-available shape, not chemistry safety",
+      "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
       "evidence_class": "fixture_echo_smoke",
       "evidence_strength_disclosed": true,
@@ -1003,12 +1095,14 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "regression_negative_fixture",
       "verdict_source": "fixture_supplied_fields"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
       "claim_ceiling": "tool witness only, not general proof authority",
       "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters",
+      "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
       "evidence_class": "external_subprocess_witness",
       "evidence_strength_disclosed": true,
@@ -1023,16 +1117,39 @@
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
       "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_runtime_receipt",
       "verdict_source": "subprocess_or_tool_witness"
+    },
+    {
+      "authority_ref": "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+      "claim_ceiling": "validates declared public contract only",
+      "classification_basis": "derived self-improvement checks over owner surfaces, local lesson deposits, expected negative-case rejection, public receipt shape, and secret-exclusion policy",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+      "evidence_class": "semantic_validator",
+      "evidence_strength_disclosed": true,
+      "evidence_strength_rank": 5,
+      "generated_receipt_count": 4,
+      "input_mode": "exported_voice_to_doctrine_bundle",
+      "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+      "ordinal": 45,
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "runtime_mode": "adapter_backed",
+      "source_mutation_authorized": false,
+      "truth_accounting_bucket": "real_import_validation",
+      "verdict_source": "validator_computation"
     }
   ],
   "projection_cells": [
     {
       "action_required": false,
       "cell_id": "formal_math_readiness_extensions",
-      "cell_state": "consumed_public_replacement",
+      "cell_state": "consumed_verified_import",
       "next_runtime_surface": "microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input",
-      "projection_status": "public_replacement_landed"
+      "projection_status": "public_runtime_import_landed"
     },
     {
       "action_required": false,
@@ -1047,6 +1164,20 @@
       "cell_state": "bridged_runtime_surface",
       "next_runtime_surface": "microcosm intake",
       "projection_status": "runtime_bridge_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "agent_execution_trace_refactor",
+      "cell_state": "consumed_verified_import",
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "navigation_route_plane_import",
+      "cell_state": "consumed_verified_import",
+      "next_runtime_surface": "microcosm navigation-hologram-route-plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+      "projection_status": "public_runtime_import_landed"
     }
   ],
   "projection_not_authority": true,
@@ -1099,7 +1230,7 @@
     "microcosm benchmark-lab",
     "microcosm legibility-scorecard"
   ],
-  "status": "pass",
+  "status": "blocked",
   "surface_authority": [
     {
       "authority_role": "runtime health projection",
@@ -1727,11 +1858,87 @@
     }
   ],
   "surface_counts": {
+    "adapter_backed_count_is_product_progress": false,
     "hard_boundary_count": 6,
-    "organ_authority_count": 44,
+    "non_progress_organ_count": 15,
+    "organ_authority_count": 45,
     "organ_evidence_class_count": 5,
-    "projection_cell_count": 3,
+    "projection_cell_count": 5,
+    "real_substrate_progress_count": 30,
+    "regression_negative_fixture_count": 15,
     "safe_local_exception_count": 3,
     "surface_authority_count": 45
+  },
+  "truth_accounting": {
+    "accepted_current_authority_is_evidence_strength": false,
+    "adapter_backed_count_is_product_progress": false,
+    "blocked_import_debt_count": 0,
+    "copied_non_secret_macro_body_count": 0,
+    "delete_or_demote_candidate_count": 0,
+    "legacy_adapter_or_synthetic_placeholder_count": 0,
+    "non_progress_organ_count": 15,
+    "non_progress_organs": [
+      "agent_benchmark_integrity_anti_gaming_replay",
+      "research_replication_rubric_artifact_replay",
+      "world_model_projection_drift_control_room",
+      "spatial_world_model_counterfactual_simulation_replay",
+      "mechanistic_interpretability_circuit_attribution_replay",
+      "agent_monitor_redteam_falsification_replay",
+      "agent_sabotage_scheming_monitor_replay",
+      "agent_memory_temporal_conflict_replay",
+      "sleeper_memory_poisoning_quarantine_replay",
+      "mcp_tool_authority_replay",
+      "belief_state_process_reward_replay",
+      "agent_sandbox_policy_escape_replay",
+      "indirect_prompt_injection_information_flow_policy_replay",
+      "agentic_vulnerability_discovery_patch_proof_replay",
+      "materials_chemistry_closed_loop_lab_safety_replay"
+    ],
+    "real_import_validation_count": 13,
+    "real_runtime_receipt_count": 3,
+    "real_substrate_progress_count": 30,
+    "real_substrate_progress_organs": [
+      "pattern_binding_contract",
+      "executable_doctrine_grammar",
+      "proof_diagnostic_evidence_spine",
+      "formal_math_readiness_gate",
+      "corpus_readiness_mathlib_absence_gate",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "lean_std_premise_index",
+      "formal_math_premise_retrieval",
+      "formal_math_verifier_trace_repair_loop",
+      "formal_evidence_cell_anchor_resolver",
+      "undeclared_library_prior_symbol_classifier",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "provider_context_recipe_budget_policy",
+      "formal_math_lean_proof_witness",
+      "verifier_lab_kernel",
+      "verifier_lab_execution_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine",
+      "durable_agent_work_landing_replay",
+      "agent_route_observability_runtime",
+      "pattern_assimilation_step",
+      "public_reveal_walkthrough",
+      "macro_projection_import_protocol",
+      "prediction_oracle_reconciliation",
+      "standards_meta_diagnostics",
+      "cold_reader_route_map",
+      "proof_derived_governed_mutation_authorization",
+      "certificate_kernel_execution_lab",
+      "voice_to_doctrine_self_improvement_loop"
+    ],
+    "regression_negative_fixture_count": 15,
+    "scaffold_or_debt_count": 15,
+    "schema_version": "microcosm_truth_accounting_v1",
+    "secret_exclusion_count": 0,
+    "source_faithful_refactor_count": 14,
+    "truth_accounting_bucket_counts": {
+      "real_import_validation": 13,
+      "real_runtime_receipt": 3,
+      "regression_negative_fixture": 15,
+      "source_faithful_refactor": 14
+    }
   }
 }

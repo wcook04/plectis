@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The public reveal walkthrough validates a short public entry path, commands, evidence refs, and anti-claims. It does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, Lean/Lake execution, or whole-system correctness.",
+  "anti_claim": "The public reveal walkthrough validates a source-available public entry path, commands, evidence refs, public runtime refs, and anti-claims. It does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, Lean/Lake execution, or whole-system correctness.",
   "authority_ceiling": {
     "authority_ceiling": "public_reveal_walkthrough_metadata_and_command_plan_only",
     "hosted_public_authorized": false,
@@ -12,7 +12,7 @@
     "whole_system_correctness_claim": false
   },
   "command_count": 8,
-  "created_at": "2026-05-22T20:45:02+00:00",
+  "created_at": "2026-05-23T07:48:33+00:00",
   "evidence_ref": "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
   "evidence_ref_count": 11,
   "evidence_strength_policy": {
@@ -22,7 +22,7 @@
       "external_subprocess_witness": 3,
       "fixture_echo_smoke": 13,
       "fixture_schema_replay": 2,
-      "semantic_validator": 12
+      "semantic_validator": 13
     },
     "next_command": "microcosm authority",
     "source_ref": "core/organ_evidence_classes.json",
@@ -30,7 +30,7 @@
   },
   "public_claim": "Microcosm turns a repo into a local operating substrate: patterns, routes, work transactions, events, evidence, and explanations.",
   "reveal_board": {
-    "body_redacted": true,
+    "body_in_receipt": false,
     "evidence_is_drilldown": true,
     "first_command": "microcosm compile /tmp/microcosm-scratch",
     "headline": "Microcosm turns a repo into a local operating substrate.",
@@ -41,7 +41,7 @@
     "step_count": 5,
     "steps": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "python -m pip install -e '.[test]'",
           "microcosm compile /tmp/microcosm-scratch"
@@ -60,7 +60,7 @@
         "step_id": "install_and_compile"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm explain /tmp/microcosm-scratch readme_onboarding_route"
         ],
@@ -77,7 +77,7 @@
         "step_id": "inspect_route_explanation"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765"
         ],
@@ -94,7 +94,7 @@
         "step_id": "open_observatory"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm run examples/runtime_shell/demo_project",
           "microcosm intake"
@@ -114,7 +114,7 @@
         "step_id": "run_adapter_spine"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm evidence list",
           "microcosm status"
@@ -123,7 +123,7 @@
           "core/private_state_forbidden_classes.json",
           "receipts/preflight/fixture_runner_freshness.json"
         ],
-        "expected_signal": "The reveal stays public-safe: receipts are evidence and release remains unauthorized.",
+        "expected_signal": "The reveal stays source-open: public runtime refs and receipts are evidence while release remains unauthorized.",
         "inspect_refs": [
           "receipts/",
           "AGENTS.md",

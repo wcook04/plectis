@@ -14,7 +14,7 @@
   },
   "body_redacted": true,
   "command": "microcosm standards-control",
-  "created_at": "2026-05-22T20:47:09+00:00",
+  "created_at": "2026-05-23T07:48:21+00:00",
   "endpoint": "/standards-control",
   "input_refs": {
     "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
@@ -54,7 +54,7 @@
     "omission_receipt_reversible_projection_boundary"
   ],
   "source_statuses": {
-    "acceptance_command_count": 42,
+    "acceptance_command_count": 43,
     "fixture_manifest_schema": "microcosm_fixture_manifest_v1",
     "public_standard_pressure_schema": "public_microcosm_standard_pressure_v1",
     "standards_registry_schema": "standards_registry_v1",
@@ -64,7 +64,7 @@
   "standards_rows": [
     {
       "control_row_id": "standards_registry_contract",
-      "observed_count": 89,
+      "observed_count": 91,
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -96,7 +96,7 @@
     },
     {
       "control_row_id": "validator_receipt_coverage_contract",
-      "observed_count": 228,
+      "observed_count": 246,
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -112,7 +112,7 @@
     },
     {
       "control_row_id": "acceptance_gate_contract",
-      "observed_count": 42,
+      "observed_count": 43,
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -128,7 +128,7 @@
     },
     {
       "control_row_id": "fixture_manifest_contract",
-      "observed_count": 45,
+      "observed_count": 46,
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -192,19 +192,19 @@
     }
   ],
   "standards_summary": {
-    "acceptance_command_count": 42,
-    "fixture_manifest_count": 45,
+    "acceptance_command_count": 43,
+    "fixture_manifest_count": 46,
     "negative_case_count": 8,
     "private_body_export_count": 0,
     "proof_body_export_count": 0,
     "provider_payload_export_count": 0,
     "release_authorized": false,
     "source_authority_claim_count": 0,
-    "standard_count": 89,
+    "standard_count": 91,
     "standard_pressure_row_count": 41,
     "standards_control_row_count": 8,
     "validation_ref_count": 16,
-    "validator_receipt_ref_count": 228
+    "validator_receipt_ref_count": 246
   },
   "status": "pass"
 }
