@@ -1,9 +1,9 @@
 {
   "schema_version": "corpus_readiness_negative_case_v1",
   "expected_negative_case_id": "mathlib_available_without_probe",
-  "corpus_id": "minif2f_lean4_mathlib_translation",
+  "corpus_id": "mathlib",
   "claims_mathlib_available": true,
   "mathlib_lake_project_import_available": true,
   "mathlib_probe_status": "ENVIRONMENT_FAIL",
-  "anti_claim": "This negative case is synthetic and exists only to prove overclaim rejection."
+  "anti_claim": "This regression-only negative case exists only to prove Mathlib availability overclaim rejection."
 }

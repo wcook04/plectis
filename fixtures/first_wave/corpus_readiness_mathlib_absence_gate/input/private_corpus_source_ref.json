@@ -5,5 +5,5 @@
     "private/raw_seed.md",
     "operator_thread/prompt_payload.md"
   ],
-  "anti_claim": "This negative case contains path labels only; it does not include private source contents."
+  "anti_claim": "This regression-only negative case contains path labels only; it does not include private source contents."
 }

@@ -1,17 +1,19 @@
 {
   "schema_version": "corpus_readiness_consumer_gate_cases_v1",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
   "cases": [
     {
-      "case_id": "std_core_boolean_simp_allowed",
-      "target_corpus_id": "lean_std_core",
-      "requested_capability": "lean_std_boolean_simp",
+      "case_id": "miniF2F_lean3_translation_smoke_allowed",
+      "target_corpus_id": "miniF2F_lean3_annex",
+      "requested_capability": "lean_std_translation_smoke_regression",
       "requires_mathlib_lake_project_import": false,
       "readiness_gate_checked": true,
       "expected_decision": "allowed"
     },
     {
-      "case_id": "mathlib_search_blocked_until_probe",
-      "target_corpus_id": "minif2f_lean4_mathlib_translation",
+      "case_id": "miniF2F_lean4_mathlib_search_blocked_absent",
+      "target_corpus_id": "miniF2F_lean4_mathlib_package",
       "requested_capability": "mathlib_search",
       "requires_mathlib_lake_project_import": true,
       "readiness_gate_checked": true,
@@ -19,12 +21,20 @@
     },
     {
       "case_id": "leandojo_training_blocked_absent",
-      "target_corpus_id": "leandojo",
+      "target_corpus_id": "LeanDojo",
       "requested_capability": "lean_dojo_training_replay",
+      "requires_mathlib_lake_project_import": true,
+      "readiness_gate_checked": true,
+      "expected_decision": "blocked"
+    },
+    {
+      "case_id": "mathlib_import_blocked_until_probe",
+      "target_corpus_id": "mathlib",
+      "requested_capability": "mathlib_dependent_proof_work",
       "requires_mathlib_lake_project_import": true,
       "readiness_gate_checked": true,
       "expected_decision": "blocked"
     }
   ],
-  "anti_claim": "Runtime consumer gates are fixture decisions only."
+  "anti_claim": "Runtime consumer gates are real readiness-boundary decisions only."
 }

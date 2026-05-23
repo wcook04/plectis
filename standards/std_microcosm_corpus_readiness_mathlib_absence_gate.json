@@ -6,12 +6,32 @@
   "status": "draft",
   "first_wave_required": true,
   "wave": "w1_formal_math_corpus_readiness",
-  "authority_boundary": "corpus_environment_metadata_not_mathlib_proof_or_benchmark_authority",
+  "authority_boundary": "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority",
   "source_refs": [
+    {
+      "path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "field": "corpus_readiness",
+      "role": "copied_non_secret_macro_body_source"
+    },
+    {
+      "path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "field": "tactic_affordance_probe",
+      "role": "toolchain_boundary_source"
+    },
+    {
+      "path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "field": "mathlib_import_probe",
+      "role": "mathlib_absence_probe_source_ref_only"
+    },
+    {
+      "path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "field": "tactic_portfolio_availability",
+      "role": "adjacent_tactic_availability_source"
+    },
     {
       "path": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
       "field": "corpus_readiness",
-      "role": "public_fixture_source"
+      "role": "copied_non_secret_macro_body_target"
     },
     {
       "path": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle",
@@ -19,6 +39,12 @@
       "role": "runtime_example_source"
     }
   ],
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
+  },
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#corpus_readiness_mathlib_absence_gate",
     "used_by_organs": [
@@ -33,6 +59,10 @@
   "required_fields": [
     "source_pattern_ids",
     "source_refs",
+    "source_digests",
+    "body_material_status",
+    "corpus_readiness_status",
+    "toolchain_boundary_status",
     "corpora",
     "consumer_gate_cases",
     "blocked_capabilities",
@@ -47,11 +77,11 @@
     "mark absent corpora as blocked capabilities",
     "reject proof, provider, or oracle body fields",
     "reject private source refs and release/proof-authority overclaims",
-    "emit private-state scan and redacted receipts"
+    "emit secret-exclusion scans and provenance-bearing receipts over copied non-secret corpus readiness substrate"
   ],
   "receipt_expectations": [
     "receipt.microcosm.corpus_readiness_mathlib_absence_gate",
-    "receipt must cite source pattern ids, source refs, corpus counts, blocked capabilities, consumer-gate decisions, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source pattern ids, real source refs, source digests, body material status, corpus/toolchain readiness status, corpus counts, blocked capabilities, consumer-gate decisions, negative-case coverage, secret-exclusion scan, authority ceiling, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -79,21 +109,27 @@
       "consumer_case_count",
       "allowed_case_ids",
       "blocked_case_ids",
+      "body_material_status",
+      "corpus_readiness_status",
+      "toolchain_boundary_status",
+      "source_digests",
+      "source_target_refs",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_fixture_source_is_metadata_and_receipts_are_redacted",
+    "default_posture": "public_safe_when_copied_non_secret_macro_substrate_has_provenance_and_secret_exclusion_scan_passes",
     "allowed_public_inputs": [
       "corpus ids",
       "probe status labels",
       "translation smoke flags",
-      "public-safe source refs",
+      "public-safe real source refs and digests",
       "consumer gate metadata",
-      "fixture negative cases"
+      "copied non-secret corpus readiness rows",
+      "fixture negative cases as regression-only leakage guards"
     ],
     "forbidden_public_inputs": [
       "proof bodies",
@@ -107,7 +143,7 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "public_corpus_readiness_fixture_receipt_schema_only",
+    "standard_authority": "real_corpus_readiness_and_mathlib_absence_boundary_receipt",
     "lean_lake_authority": false,
     "mathlib_dependent_proof_authority": false,
     "formal_proof_authority": false,
@@ -115,10 +151,10 @@
     "provider_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs public corpus/toolchain readiness metadata only. It does not run Lean/Lake, claim Mathlib availability, prove theorem correctness, benchmark formal-math corpora, expose proof bodies, call providers, or authorize release.",
+  "anti_claim": "This standard governs copied non-secret corpus/toolchain readiness substrate from the 2026-05-11 proof-state curriculum smoke run. It does not run Lean/Lake, claim Mathlib availability beyond the recorded failed probe, prove theorem correctness, benchmark formal-math corpora, expose proof bodies, call providers, or authorize release.",
   "standard_payload": {
-    "ontology": "A public-safe formal-math corpus readiness gate that makes Mathlib absence explicit before downstream retrieval, tactic routing, or proof-witness work.",
-    "teleology": "Let Microcosm show why formal-math consumers must gate Mathlib-dependent work instead of pretending a public clone has the private lab's corpus environment.",
+    "ontology": "A provenance-bearing formal-math corpus readiness gate that makes the recorded Lean/Std and Mathlib absence boundary explicit before downstream retrieval, tactic routing, or proof-witness work.",
+    "teleology": "Let Microcosm carry the real non-secret corpus readiness and tactic-affordance boundary rows instead of replacing the macro run with synthetic environment metadata.",
     "anti_purpose": "Turning a readiness fixture into proof authority, corpus benchmark authority, or release authority.",
     "compression_bands": [
       "corpus",
@@ -155,7 +191,7 @@
       "private formal-math lab contents",
       "release claims"
     ],
-    "reason": "public slice carries fixture-level metadata, source-ref labels, negative cases, and redacted receipts only",
+    "reason": "public slice carries copied non-secret corpus readiness rows, real source refs, source digests, target refs, negative leakage guards, and secret-exclusion receipts; proof bodies, provider payloads, raw Mathlib source bodies, private logs, and release claims remain excluded",
     "drilldown": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json"
   },
   "anti_claim_contract": {
@@ -164,6 +200,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacement refs stay public-root relative"
+    "rule": "macro source refs and source digests remain public-root relative where applicable; copied non-secret corpus readiness rows retain provenance, while proof/provider/private bodies and raw Mathlib source bodies remain excluded"
   }
 }

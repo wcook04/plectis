@@ -3,8 +3,8 @@
   "manifest_type": "first_organ_fixture_validator_manifest",
   "organ_id": "corpus_readiness_mathlib_absence_gate",
   "fixture_id": "fixture::corpus_readiness_mathlib_absence_gate::first_wave_contract_v1",
-  "status": "public_slice_contract_bound",
-  "purpose": "Validate source-available corpus readiness metadata for explicit Mathlib absence, translation-smoke boundaries, absent corpus blocking, and consumer-gate enforcement without running Lean/Lake or exposing proof bodies.",
+  "status": "real_substrate_contract_bound",
+  "purpose": "Validate copied non-secret 2026-05-11 corpus readiness and tactic-affordance boundary substrate for explicit Mathlib absence, translation-smoke boundaries, absent corpus blocking, and consumer-gate enforcement without running Lean/Lake or exposing proof bodies.",
   "inputs": [
     "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
     "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
@@ -44,12 +44,17 @@
     "status",
     "source_pattern_ids",
     "source_refs",
+    "source_digests",
+    "source_target_refs",
+    "body_material_status",
+    "corpus_readiness_status",
+    "toolchain_boundary_status",
     "expected_negative_cases",
     "observed_negative_cases",
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "receipt_paths",
     "blocked_capabilities",
@@ -57,13 +62,14 @@
     "consumer_gate_cases",
     "readiness_board"
   ],
-  "private_state_exclusion_rules": {
-    "lean_lake": "not executed; corpus readiness metadata only",
+  "secret_exclusion_rules": {
+    "lean_lake": "not executed by this organ; receipts carry copied run output and toolchain-boundary refs only",
     "mathlib": "availability may be reported only from a passing import probe and cannot authorize dependent proof work",
-    "proof_bodies": "forbidden; negative fixtures may carry synthetic forbidden-key rows only and generated receipts may record key names only",
+    "proof_bodies": "forbidden; negative fixtures may carry regression-only forbidden-key rows and generated receipts may record key names only",
     "provider_payload_bodies": "forbidden",
-    "private_source_refs": "forbidden except source-available path-level macro lineage refs"
+    "private_source_refs": "forbidden except public-safe macro lineage refs and digests",
+    "mathlib_probe_body": "not exported as proof authority; the public fixture carries the source ref and digest only"
   },
-  "authority_ceiling": "public synthetic corpus readiness fixture only; not Lean/Lake execution, Mathlib proof authority, corpus benchmark authority, provider authority, runtime correctness, or release operations",
-  "anti_claim": "This fixture manifest accepts only corpus/toolchain readiness metadata. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export."
+  "authority_ceiling": "real corpus readiness and Mathlib absence boundary receipt only; not Lean/Lake execution, Mathlib proof authority, corpus benchmark authority, provider authority, runtime correctness, or release operations",
+  "anti_claim": "This fixture manifest accepts copied non-secret corpus/toolchain readiness substrate and regression-only leakage guards. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export."
 }

@@ -1,17 +1,21 @@
 {
   "absent_corpus_ids": [
-    "leandojo",
-    "pantograph"
+    "LeanDojo",
+    "Pantograph",
+    "ProofNet",
+    "PutnamBench_lean4",
+    "mathlib",
+    "miniF2F_lean4_mathlib_package"
   ],
   "acceptance_status": "accepted_current_authority",
   "accepted_organ_id": "corpus_readiness_mathlib_absence_gate",
   "allowed_case_ids": [
-    "std_core_boolean_simp_allowed"
+    "miniF2F_lean3_translation_smoke_allowed"
   ],
-  "anti_claim": "Corpus readiness Mathlib absence gate validates public fixture metadata only. It does not run Lean or Lake, prove theorem correctness, claim Mathlib is available, expose proof bodies, benchmark formal-math corpora, call providers, or authorize release.",
+  "anti_claim": "Corpus readiness Mathlib absence gate validates copied non-secret corpus readiness and Lean/Std toolchain-boundary rows from the 2026-05-11 proof-state curriculum smoke run. It does not rerun Lean or Lake, prove theorem correctness, claim Mathlib is available, expose proof/provider bodies, benchmark formal-math corpora, call providers, or authorize release.",
   "authority_boundary_retained": true,
   "authority_ceiling": {
-    "authority_ceiling": "corpus_readiness_environment_metadata_only_not_mathlib_proof_or_benchmark_authority",
+    "authority_ceiling": "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority",
     "benchmark_or_corpus_completeness_authority": false,
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
@@ -22,24 +26,36 @@
     "status": "pass"
   },
   "blocked_capabilities": [
-    "lean_std_core:mathlib_lake_project_import",
-    "leandojo:corpus_absent",
-    "leandojo:mathlib_lake_project_import",
-    "minif2f_lean4_mathlib_translation:mathlib_lake_project_import",
-    "pantograph:corpus_absent",
-    "pantograph:mathlib_lake_project_import"
+    "LeanDojo:corpus_absent",
+    "LeanDojo:mathlib_lake_project_import",
+    "Pantograph:corpus_absent",
+    "Pantograph:mathlib_lake_project_import",
+    "ProofNet:corpus_absent",
+    "ProofNet:mathlib_lake_project_import",
+    "PutnamBench_lean4:corpus_absent",
+    "PutnamBench_lean4:mathlib_lake_project_import",
+    "mathlib:corpus_absent",
+    "mathlib:mathlib_lake_project_import",
+    "miniF2F_lean3_annex:mathlib_lake_project_import",
+    "miniF2F_lean4_mathlib_package:corpus_absent",
+    "miniF2F_lean4_mathlib_package:mathlib_lake_project_import"
   ],
   "blocked_case_ids": [
     "leandojo_training_blocked_absent",
-    "mathlib_search_blocked_until_probe",
-    "pantograph_state_search_blocked_absent"
+    "mathlib_import_blocked_until_probe",
+    "miniF2F_lean4_mathlib_search_blocked_absent",
+    "pantograph_state_search_blocked_absent",
+    "proofnet_blocked_absent",
+    "putnambench_lean4_blocked_absent"
   ],
-  "body_redacted": true,
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
-  "consumer_case_count": 4,
-  "corpus_count": 4,
-  "created_at": "2026-05-21T13:19:57+00:00",
+  "command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input microcosm-substrate/fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate",
+  "consumer_case_count": 7,
+  "corpus_count": 7,
+  "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
+  "created_at": "2026-05-23T06:41:11+00:00",
   "error_codes": [
     "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
     "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
@@ -56,15 +72,17 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "MATHLIB_AVAILABILITY_OVERCLAIM",
       "message": "Mathlib availability was claimed without a passing import probe.",
       "negative_case_id": "mathlib_available_without_probe",
-      "subject_id": "minif2f_lean4_mathlib_translation",
+      "subject_id": "mathlib",
       "subject_kind": "corpus_readiness"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN",
       "message": "Corpus readiness source refs must be public-safe metadata refs only.",
       "negative_case_id": "private_corpus_source_ref",
@@ -72,7 +90,8 @@
       "subject_kind": "source_ref"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "PRIVATE_CORPUS_SOURCE_REF_FORBIDDEN",
       "message": "Corpus readiness source refs must be public-safe metadata refs only.",
       "negative_case_id": "private_corpus_source_ref",
@@ -80,15 +99,17 @@
       "subject_kind": "source_ref"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
       "message": "Corpus readiness metadata cannot carry proof or provider body fields.",
       "negative_case_id": "proof_body_leakage",
-      "subject_id": "minif2f_lean4_mathlib_translation",
+      "subject_id": "miniF2F_lean3_annex",
       "subject_kind": "corpus_readiness"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
       "message": "A consumer attempted Mathlib-dependent work without checking corpus readiness.",
       "negative_case_id": "consumer_skips_readiness_gate",
@@ -96,7 +117,8 @@
       "subject_kind": "consumer_gate"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "CORPUS_READINESS_RELEASE_OVERCLAIM",
       "message": "Corpus readiness metadata attempted to authorize release or proof authority.",
       "negative_case_id": "release_overclaim",
@@ -126,16 +148,18 @@
     ]
   },
   "organ_id": "corpus_readiness_mathlib_absence_gate",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 7,
-    "status": "pass"
-  },
-  "projection_status": "public_replacement_landed",
+  "projection_status": "real_corpus_readiness_boundary_landed",
+  "real_substrate_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+  ],
+  "receipt_anchor_refs": [
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json"
+  ],
   "receipt_id": "corpus_readiness_mathlib_absence_gate_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
@@ -144,16 +168,53 @@
     "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
   ],
   "schema_version": "corpus_readiness_mathlib_absence_gate_fixture_acceptance_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
+  },
   "source_pattern_ids": [
     "corpus_readiness_mathlib_absence_gate"
   ],
   "source_refs": [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+  ],
+  "source_target_refs": [
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/consumer_gate_cases.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
+    "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
   ],
   "status": "pass",
+  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
   "translation_smoke_only_ids": [
-    "minif2f_lean4_mathlib_translation"
+    "miniF2F_lean3_annex"
   ],
   "validator_id": "validator.microcosm.organs.corpus_readiness_mathlib_absence_gate"
 }

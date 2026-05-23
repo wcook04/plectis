@@ -2,9 +2,9 @@
   "schema_version": "corpus_readiness_negative_case_v1",
   "expected_negative_case_id": "consumer_skips_readiness_gate",
   "case_id": "mathlib_search_without_gate",
-  "target_corpus_id": "minif2f_lean4_mathlib_translation",
+  "target_corpus_id": "miniF2F_lean4_mathlib_package",
   "attempted_execution": true,
   "requires_mathlib_lake_project_import": true,
   "readiness_gate_checked": false,
-  "anti_claim": "This negative case is synthetic and does not execute Lean/Lake."
+  "anti_claim": "This regression-only negative case does not execute Lean/Lake."
 }

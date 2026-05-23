@@ -5,5 +5,5 @@
   "publication_authorized": true,
   "formal_proof_authority": true,
   "mathlib_dependent_proof_authority": true,
-  "anti_claim": "This negative case is synthetic and exists only to reject release/proof-authority overclaims."
+  "anti_claim": "This regression-only negative case exists only to reject release/proof-authority overclaims."
 }

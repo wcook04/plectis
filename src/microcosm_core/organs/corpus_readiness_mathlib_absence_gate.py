@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -35,8 +35,37 @@ SOURCE_PATTERN_IDS = [
 
 SOURCE_REFS = [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
 ]
+REAL_SUBSTRATE_REFS = SOURCE_REFS
+RECEIPT_ANCHOR_REFS = [
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+]
+SOURCE_TARGET_REFS = [
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json",
+    "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/consumer_gate_cases.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+    "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
+    ACCEPTANCE_RECEIPT_REL,
+    "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json",
+]
+SOURCE_DIGESTS = {
+    SOURCE_REFS[0]: "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+    SOURCE_REFS[1]: "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    SOURCE_REFS[2]: "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    SOURCE_REFS[3]: "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+}
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+CORPUS_READINESS_STATUS = "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
+TOOLCHAIN_BOUNDARY_STATUS = "real_lean_4_29_1_std_mathlib_absence_probe"
+BODY_IN_RECEIPT = False
 
 FORBIDDEN_BODY_KEYS = (
     "proof_body",
@@ -48,7 +77,7 @@ FORBIDDEN_BODY_KEYS = (
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "corpus_readiness_environment_metadata_only_not_mathlib_proof_or_benchmark_authority"
+        "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority"
     ),
     "lean_lake_execution_authorized": False,
     "mathlib_lake_project_import_authorized": False,
@@ -60,10 +89,11 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Corpus readiness Mathlib absence gate validates public fixture metadata only. "
-    "It does not run Lean or Lake, prove theorem correctness, claim Mathlib is "
-    "available, expose proof bodies, benchmark formal-math corpora, call providers, "
-    "or authorize release."
+    "Corpus readiness Mathlib absence gate validates copied non-secret corpus "
+    "readiness and Lean/Std toolchain-boundary rows from the 2026-05-11 "
+    "proof-state curriculum smoke run. It does not rerun Lean or Lake, prove "
+    "theorem correctness, claim Mathlib is available, expose proof/provider "
+    "bodies, benchmark formal-math corpora, call providers, or authorize release."
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -134,7 +164,8 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_material_status": "negative_fixture_forbidden_material_excluded",
     }
 
 
@@ -230,11 +261,18 @@ def validate_corpus_readiness(
                 "corpus_id": corpus_id,
                 "corpus_status": corpus_status,
                 "lean_available": row.get("lean_available") is True,
+                "exists": row.get("exists"),
+                "has_lake_file": row.get("has_lake_file"),
+                "local_path": row.get("local_path"),
+                "readiness_status": row.get("readiness_status"),
+                "selected_for_this_run": row.get("selected_for_this_run") is True,
                 "mathlib_lake_project_import_available": row_mathlib_available,
                 "mathlib_probe_status": mathlib_probe_status,
                 "translation_smoke_only": row.get("translation_smoke_only") is True,
                 "consumer_rule": row.get("consumer_rule"),
-                "body_redacted": True,
+                "body_in_receipt": BODY_IN_RECEIPT,
+                "body_material_status": BODY_MATERIAL_STATUS,
+                "corpus_readiness_status": CORPUS_READINESS_STATUS,
             }
         )
 
@@ -351,7 +389,9 @@ def validate_consumer_gate_cases(
                 "readiness_gate_checked": row.get("readiness_gate_checked") is True,
                 "decision": decision,
                 "blocked_reasons": blocked_reasons,
-                "body_redacted": True,
+                "body_in_receipt": BODY_IN_RECEIPT,
+                "body_material_status": BODY_MATERIAL_STATUS,
+                "corpus_readiness_status": CORPUS_READINESS_STATUS,
             }
         )
 
@@ -415,7 +455,7 @@ def validate_consumer_gate_cases(
 def _build_board(
     *,
     result: dict[str, Any],
-    private_scan: dict[str, Any],
+    secret_scan: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_version": "corpus_readiness_mathlib_absence_board_v1",
@@ -431,7 +471,8 @@ def _build_board(
             ],
             "consumer_gate_required": True,
             "translation_smoke_only_is_not_proof_authority": True,
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_material_status": BODY_MATERIAL_STATUS,
         },
         "corpus_projection": {
             "corpus_count": result["corpus_count"],
@@ -440,19 +481,29 @@ def _build_board(
             "absent_corpus_ids": result["absent_corpus_ids"],
             "source_refs": result["source_refs"],
             "source_ref_count": len(result["source_refs"]),
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "corpus_readiness_status": CORPUS_READINESS_STATUS,
+            "toolchain_boundary_status": TOOLCHAIN_BOUNDARY_STATUS,
         },
         "consumer_gate_projection": {
             "case_count": result["consumer_case_count"],
             "allowed_case_ids": result["allowed_case_ids"],
             "blocked_case_ids": result["blocked_case_ids"],
             "decision_rows": result["consumer_gate_cases"],
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "corpus_readiness_status": CORPUS_READINESS_STATUS,
         },
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "corpus_readiness_status": CORPUS_READINESS_STATUS,
+        "toolchain_boundary_status": TOOLCHAIN_BOUNDARY_STATUS,
+        "real_substrate_refs": REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+        "source_target_refs": SOURCE_TARGET_REFS,
+        "source_digests": SOURCE_DIGESTS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
     }
 
 
@@ -467,13 +518,12 @@ def _build_result(
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     negative_payloads = {name: payloads[name] for name in NEGATIVE_INPUT_NAMES_STEMS if name in payloads}
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
 
     corpus = validate_corpus_readiness(
         payloads["corpus_readiness"],
@@ -490,7 +540,7 @@ def _build_result(
     missing = sorted(case_id for case_id in expected if case_id not in observed)
     findings = _merge_findings(corpus, consumer)
     error_codes = sorted({finding["error_code"] for finding in findings})
-    status = PASS if not missing and not private_scan["blocking_hit_count"] else "blocked"
+    status = PASS if not missing and not secret_scan["blocking_hit_count"] else "blocked"
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()
@@ -515,7 +565,15 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "corpus_readiness_status": CORPUS_READINESS_STATUS,
+        "toolchain_boundary_status": TOOLCHAIN_BOUNDARY_STATUS,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "real_substrate_refs": REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+        "source_target_refs": SOURCE_TARGET_REFS,
+        "source_digests": SOURCE_DIGESTS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "corpora": corpus["corpora"],
@@ -530,9 +588,8 @@ def _build_result(
         "consumer_case_count": consumer["case_count"],
         "allowed_case_ids": consumer["allowed_case_ids"],
         "blocked_case_ids": consumer["blocked_case_ids"],
-        "body_redacted": True,
     }
-    result["readiness_board"] = _build_board(result=result, private_scan=private_scan)
+    result["readiness_board"] = _build_board(result=result, secret_scan=secret_scan)
     return result
 
 
@@ -560,7 +617,15 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "body_material_status",
+        "corpus_readiness_status",
+        "toolchain_boundary_status",
+        "body_in_receipt",
+        "real_substrate_refs",
+        "receipt_anchor_refs",
+        "source_target_refs",
+        "source_digests",
         "authority_ceiling",
         "anti_claim",
         "corpus_count",
@@ -571,7 +636,6 @@ def _common_receipt(
         "consumer_case_count",
         "allowed_case_ids",
         "blocked_case_ids",
-        "body_redacted",
     )
     payload = {
         "schema_version": schema_version,
@@ -663,7 +727,7 @@ def write_receipts(
             if result["status"] == PASS
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
-            "projection_status": "public_replacement_landed"
+            "projection_status": "real_corpus_readiness_boundary_landed"
             if result["status"] == PASS
             else "blocked",
             "authority_boundary_retained": True,

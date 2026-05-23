@@ -48,16 +48,35 @@ def test_corpus_readiness_mathlib_absence_gate_covers_negative_cases(tmp_path: P
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert result["mathlib_lake_project_import_available"] is False
-    assert result["translation_smoke_only_ids"] == ["minif2f_lean4_mathlib_translation"]
-    assert result["absent_corpus_ids"] == ["leandojo", "pantograph"]
-    assert result["corpus_count"] == 4
-    assert result["consumer_case_count"] == 4
-    assert result["allowed_case_ids"] == ["std_core_boolean_simp_allowed"]
+    assert result["translation_smoke_only_ids"] == ["miniF2F_lean3_annex"]
+    assert result["absent_corpus_ids"] == [
+        "LeanDojo",
+        "Pantograph",
+        "ProofNet",
+        "PutnamBench_lean4",
+        "mathlib",
+        "miniF2F_lean4_mathlib_package",
+    ]
+    assert result["corpus_count"] == 7
+    assert result["consumer_case_count"] == 7
+    assert result["allowed_case_ids"] == ["miniF2F_lean3_translation_smoke_allowed"]
     assert result["blocked_case_ids"] == [
         "leandojo_training_blocked_absent",
-        "mathlib_search_blocked_until_probe",
+        "mathlib_import_blocked_until_probe",
+        "miniF2F_lean4_mathlib_search_blocked_absent",
         "pantograph_state_search_blocked_absent",
+        "proofnet_blocked_absent",
+        "putnambench_lean4_blocked_absent",
     ]
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["corpus_readiness_status"] == (
+        "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
+    )
+    assert result["toolchain_boundary_status"] == "real_lean_4_29_1_std_mathlib_absence_probe"
+    assert result["body_in_receipt"] is False
+    assert result["source_digests"][
+        "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+    ] == "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
     assert result["readiness_board"]["public_contract"][
         "mathlib_probe_required_before_mathlib_proof_work"
     ] is True
@@ -85,14 +104,19 @@ def test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle(
     assert result["mathlib_lake_project_import_available"] is False
     assert result["blocked_case_ids"] == [
         "leandojo_training_blocked_absent",
-        "mathlib_search_blocked_until_probe",
+        "mathlib_import_blocked_until_probe",
+        "miniF2F_lean4_mathlib_search_blocked_absent",
     ]
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["corpus_readiness_status"] == (
+        "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
+    )
     assert result["receipt_paths"] == [
         "receipts/exported_corpus_readiness_bundle_validation_result.json"
     ]
 
 
-def test_corpus_readiness_receipts_are_redacted_and_public_relative(
+def test_corpus_readiness_receipts_are_real_substrate_and_public_relative(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -117,10 +141,16 @@ def test_corpus_readiness_receipts_are_redacted_and_public_relative(
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
-        assert "synthetic forbidden proof material" not in text
+        assert "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO" not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
+        assert payload["body_material_status"] == (
+            "copied_non_secret_macro_body_with_provenance"
+        )
+        assert payload["body_in_receipt"] is False
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in payload
+        assert payload["secret_exclusion_scan"]["real_substrate_default"] is True
         assert payload["authority_ceiling"]["lean_lake_execution_authorized"] is False
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)

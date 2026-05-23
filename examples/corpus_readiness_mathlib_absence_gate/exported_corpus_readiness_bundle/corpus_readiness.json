@@ -1,49 +1,134 @@
 {
   "schema_version": "corpus_readiness_mathlib_absence_fixture_v1",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
+  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
+  "run_id": "PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0",
   "source_pattern_ids": [
     "corpus_readiness_mathlib_absence_gate"
   ],
   "source_refs": [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean"
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
   ],
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
+  },
+  "claim_boundary": "This run uses MiniF2F-source-backed Lean4/Std translation smoke for regression and local Lean/Std proof-state curriculum rows. Direct MiniF2F Lean4/mathlib, PutnamBench, and ProofNet performance is not claimed.",
+  "lean_cli": {
+    "lean_available": true,
+    "lean_version_stdout": "Lean (version 4.29.1, arm64-apple-darwin24.6.0, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)",
+    "lake_available": true,
+    "lake_version_stdout": "Lake version 5.0.0-src+f72c35b (Lean version 4.29.1)"
+  },
+  "mathlib_available": false,
+  "mathlib_direct_import_available": false,
+  "mathlib_lake_project_import_available": false,
+  "mathlib_probe_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
   "corpora": [
     {
-      "corpus_id": "lean_std_core",
+      "corpus_id": "miniF2F_lean3_annex",
       "corpus_status": "available",
-      "lean_available": true,
-      "mathlib_lake_project_import_available": false,
-      "mathlib_probe_status": "ENVIRONMENT_FAIL",
-      "translation_smoke_only": false,
-      "consumer_rule": "Query mathlib_lake_project_import_available before attempting Mathlib-dependent proof work."
-    },
-    {
-      "corpus_id": "minif2f_lean4_mathlib_translation",
-      "corpus_status": "available",
+      "exists": true,
+      "has_lake_file": false,
+      "local_path": "annexes/miniF2F/repo",
+      "readiness_status": "translation_smoke_only_lean3_mathlib_source",
+      "selected_for_this_run": true,
       "lean_available": true,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "ENVIRONMENT_FAIL",
       "translation_smoke_only": true,
-      "consumer_rule": "Treat translation rows as smoke metadata only until a Mathlib import probe passes."
+      "consumer_rule": "Allow only Lean/Std translation-smoke regression consumers; block Mathlib-dependent proof claims until a Mathlib import probe passes."
     },
     {
-      "corpus_id": "leandojo",
+      "corpus_id": "miniF2F_lean4_mathlib_package",
       "corpus_status": "absent",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/miniF2F-lean4/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false,
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
       "translation_smoke_only": false,
-      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists."
+      "consumer_rule": "Block direct Lean4/mathlib MiniF2F consumers until a public-safe corpus fixture exists."
     },
     {
-      "corpus_id": "pantograph",
+      "corpus_id": "PutnamBench_lean4",
       "corpus_status": "absent",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/PutnamBench/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false,
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
       "translation_smoke_only": false,
-      "consumer_rule": "Block consumers that require this corpus until a public-safe corpus fixture exists."
+      "consumer_rule": "Block PutnamBench Lean4 consumers until the corpus exists in the public-safe substrate."
+    },
+    {
+      "corpus_id": "ProofNet",
+      "corpus_status": "absent",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/ProofNet/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false,
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false,
+      "consumer_rule": "Block ProofNet consumers until the corpus exists in the public-safe substrate."
+    },
+    {
+      "corpus_id": "LeanDojo",
+      "corpus_status": "absent",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/LeanDojo/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false,
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false,
+      "consumer_rule": "Block LeanDojo consumers until the corpus exists in the public-safe substrate."
+    },
+    {
+      "corpus_id": "Pantograph",
+      "corpus_status": "absent",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/Pantograph/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false,
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
+      "translation_smoke_only": false,
+      "consumer_rule": "Block Pantograph consumers until the corpus exists in the public-safe substrate."
+    },
+    {
+      "corpus_id": "mathlib",
+      "corpus_status": "absent",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/mathlib/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false,
+      "lean_available": false,
+      "mathlib_lake_project_import_available": false,
+      "mathlib_probe_status": "ENVIRONMENT_FAIL",
+      "translation_smoke_only": false,
+      "consumer_rule": "Block Mathlib-dependent proof work until the Mathlib import probe passes in a public-safe environment."
     }
   ],
-  "anti_claim": "Runtime corpus readiness metadata does not authorize Lean/Lake execution or formal proof authority."
+  "anti_claim": "Runtime corpus readiness substrate does not authorize Lean/Lake execution or formal proof authority."
 }

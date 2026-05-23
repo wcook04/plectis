@@ -7,6 +7,9 @@
     "corpus_readiness",
     "consumer_gate_cases"
   ],
-  "authority_ceiling": "public corpus readiness metadata only",
-  "anti_claim": "This bundle is standalone corpus readiness metadata. It does not run Lean or Lake, call providers, expose proof bodies, claim Mathlib availability, or authorize formal proof authority."
+  "authority_ceiling": "real corpus readiness boundary not Mathlib proof or benchmark authority",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
+  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
+  "anti_claim": "This bundle carries copied corpus readiness substrate. It does not run Lean or Lake, call providers, expose proof bodies, claim Mathlib availability, or authorize formal proof authority."
 }

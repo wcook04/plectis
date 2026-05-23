@@ -3,9 +3,9 @@
   "expected_negative_case_id": "proof_body_leakage",
   "corpora": [
     {
-      "corpus_id": "minif2f_lean4_mathlib_translation",
-      "proof_body": "synthetic forbidden proof material redacted by receipt policy"
+      "corpus_id": "miniF2F_lean3_annex",
+      "proof_body": "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO"
     }
   ],
-  "anti_claim": "This negative case uses synthetic placeholder text only."
+  "anti_claim": "This regression-only negative case proves forbidden proof bodies stay out of receipts."
 }
