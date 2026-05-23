@@ -1,5 +1,5 @@
 {
-  "anti_claim": "This standard is a public-safe first-entry walkthrough schema only; it does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim": "This standard is a source-open public runtime first-entry walkthrough schema only; it does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, or whole-system correctness.",
   "anti_claim_contract": {
     "required": true,
     "rule": "public reveal material must state what the walkthrough does not authorize"
@@ -8,7 +8,7 @@
     "This public standard does not prove runtime completeness or publication readiness.",
     "This public standard does not claim private macro-system equivalence."
   ],
-  "authority_boundary": "public_safe_walkthrough_schema_not_source_body_authority",
+  "authority_boundary": "source_open_public_runtime_walkthrough_schema_not_private_body_authority",
   "authority_ceiling": {
     "private_data_equivalence_authority": false,
     "release_authority": false,
@@ -42,10 +42,10 @@
       "public commands",
       "public-root file refs",
       "receipt refs",
-      "redacted authority ceilings",
+      "explicit authority ceilings",
       "synthetic negative cases"
     ],
-    "default_posture": "public_safe_when_command_and_evidence_backed",
+    "default_posture": "source_open_when_command_evidence_and_secret_exclusion_backed",
     "forbidden_public_inputs": [
       "live_raw_seed",
       "prompt_shelf_bodies",
@@ -62,14 +62,19 @@
       "commands",
       "evidence_refs",
       "authority_ceiling",
-      "anti_claim"
+      "anti_claim",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed",
+      "public_runtime_refs"
     ],
     "receipt_id": "receipt.microcosm.public_reveal_walkthrough",
     "required": true
   },
   "receipt_expectations": [
     "receipt.microcosm.public_reveal_walkthrough",
-    "receipt must cite the ten-minute steps, command refs, evidence refs, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite the ten-minute steps, command refs, evidence refs, public runtime refs, negative-case coverage, secret-exclusion scan, real-runtime receipt status, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/public_reveal_walkthrough/public_reveal_validation_receipt.json"
@@ -138,7 +143,7 @@
     "require at least five walkthrough steps within a ten-minute budget",
     "require commands and evidence refs for each reveal move",
     "reject release, hosting, publication, provider, private-equivalence, and whole-system-correctness overclaims",
-    "require private-state scan and redacted receipts"
+    "require secret-exclusion scan and real-runtime receipts with bodies outside receipt payloads"
   ],
   "validator_contract": {
     "minimum_checks": [

@@ -90,7 +90,7 @@
         "core/private_state_forbidden_classes.json",
         "receipts/preflight/fixture_runner_freshness.json"
       ],
-      "expected_signal": "The reveal stays public-safe: receipts are evidence and release remains unauthorized."
+      "expected_signal": "The reveal stays source-open: public runtime refs and receipts are evidence while release remains unauthorized."
     }
   ]
 }

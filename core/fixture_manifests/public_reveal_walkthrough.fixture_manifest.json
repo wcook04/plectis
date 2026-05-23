@@ -45,7 +45,11 @@
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
+    "body_in_receipt",
+    "real_runtime_receipt",
+    "synthetic_receipt_standin_allowed",
+    "public_runtime_refs",
     "authority_ceiling",
     "receipt_paths",
     "walkthrough_id",
@@ -53,7 +57,7 @@
     "commands",
     "evidence_refs"
   ],
-  "private_state_exclusion_rules": {
+  "secret_exclusion_rules": {
     "release": "never authorized by reveal walkthrough",
     "provider_payload_bodies": "forbidden; commands are local runtime commands only",
     "private_equivalence": "forbidden; public reveal is a small model, not a private-root equivalence claim",

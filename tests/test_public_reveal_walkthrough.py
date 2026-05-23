@@ -48,9 +48,16 @@ def test_public_reveal_walkthrough_observes_negative_cases(tmp_path: Path) -> No
     assert result["evidence_ref_count"] >= 4
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["reveal_board"]["primary_loop"].startswith("repo -> .microcosm")
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["public_runtime_refs"]
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result
 
 
-def test_public_reveal_walkthrough_receipts_are_public_relative_and_redacted(tmp_path: Path) -> None:
+def test_public_reveal_walkthrough_receipts_are_public_relative_and_secret_excluded(tmp_path: Path) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
@@ -76,8 +83,13 @@ def test_public_reveal_walkthrough_receipts_are_public_relative_and_redacted(tmp
         assert '"body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["body_in_receipt"] is False
+        assert payload["real_runtime_receipt"] is True
+        assert payload["synthetic_receipt_standin_allowed"] is False
+        assert payload["public_runtime_refs"]
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in payload
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
 
@@ -97,3 +109,10 @@ def test_public_reveal_exported_bundle_validates_runtime_shape(tmp_path: Path) -
     assert result["error_codes"] == []
     assert result["reveal_board"]["release_authorized"] is False
     assert result["public_claim"].startswith("Microcosm turns a repo")
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["public_runtime_refs"]
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result

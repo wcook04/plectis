@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The public reveal walkthrough validates a short public entry path, commands, evidence refs, and anti-claims. It does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, Lean/Lake execution, or whole-system correctness.",
+  "anti_claim": "The public reveal walkthrough validates a source-available public entry path, commands, evidence refs, public runtime refs, and anti-claims. It does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, Lean/Lake execution, or whole-system correctness.",
   "authority_ceiling": {
     "authority_ceiling": "public_reveal_walkthrough_metadata_and_command_plan_only",
     "hosted_public_authorized": false,
@@ -11,9 +11,9 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
+  "command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input microcosm-substrate/fixtures/first_wave/public_reveal_walkthrough/input --out microcosm-substrate/receipts/first_wave/public_reveal_walkthrough",
   "command_count": 8,
   "commands": [
     "microcosm compile /tmp/microcosm-scratch",
@@ -25,7 +25,7 @@
     "microcosm status",
     "python -m pip install -e '.[test]'"
   ],
-  "created_at": "2026-05-21T09:43:37+00:00",
+  "created_at": "2026-05-23T06:20:59+00:00",
   "error_codes": [
     "PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM",
     "PUBLIC_REVEAL_RELEASE_OVERCLAIM",
@@ -55,7 +55,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PUBLIC_REVEAL_RUNTIME_COMMAND_MISSING",
       "message": "Reveal material cannot be marketing-only without commands and evidence refs.",
       "negative_case_id": "marketing_without_runtime",
@@ -63,7 +63,7 @@
       "subject_kind": "claim_floor"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PUBLIC_REVEAL_STEP_EVIDENCE_MISSING",
       "message": "Reveal step must point at concrete substrate refs and evidence refs.",
       "negative_case_id": "missing_evidence_route",
@@ -71,7 +71,7 @@
       "subject_kind": "reveal_step"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM",
       "message": "Reveal material cannot claim private-data equivalence or whole-system correctness.",
       "negative_case_id": "private_equivalence_overclaim",
@@ -79,7 +79,7 @@
       "subject_kind": "claim_floor"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PUBLIC_REVEAL_RELEASE_OVERCLAIM",
       "message": "Reveal material cannot claim release, hosting, publication, or recipient-work authority.",
       "negative_case_id": "release_or_hosting_overclaim",
@@ -105,16 +105,35 @@
     ]
   },
   "organ_id": "public_reveal_walkthrough",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 7,
-    "status": "pass"
-  },
   "public_claim": "Microcosm turns a repo into a local operating substrate: patterns, routes, work transactions, events, evidence, and explanations.",
+  "public_runtime_refs": [
+    ".microcosm/catalog.json",
+    ".microcosm/evidence/",
+    ".microcosm/explanations/readme_onboarding_route.json",
+    ".microcosm/patterns.json",
+    ".microcosm/routes.json",
+    "/project/observatory",
+    "AGENTS.md",
+    "README.md",
+    "README.md#First Run",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/architecture_kernel.json",
+    "core/organ_registry.json",
+    "core/private_state_forbidden_classes.json",
+    "core/public_standard_pressure.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "http://127.0.0.1:8765",
+    "receipts/",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+    "receipts/first_wave/observatory_legibility.json",
+    "receipts/preflight/fixture_runner_freshness.json",
+    "receipts/runtime_shell/demo_project/demo_project_trace.json",
+    "receipts/runtime_shell/demo_project/organs/",
+    "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
+    "skills/cold_start_navigation.md",
+    "tests/test_runtime_shell.py"
+  ],
+  "real_runtime_receipt": true,
   "receipt_id": "public_reveal_walkthrough_result_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/public_reveal_walkthrough/public_reveal_walkthrough_result.json",
@@ -123,7 +142,7 @@
     "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
   ],
   "reveal_board": {
-    "body_redacted": true,
+    "body_in_receipt": false,
     "evidence_is_drilldown": true,
     "first_command": "microcosm compile /tmp/microcosm-scratch",
     "headline": "Microcosm turns a repo into a local operating substrate.",
@@ -134,7 +153,7 @@
     "step_count": 5,
     "steps": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "python -m pip install -e '.[test]'",
           "microcosm compile /tmp/microcosm-scratch"
@@ -153,7 +172,7 @@
         "step_id": "install_and_compile"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm explain /tmp/microcosm-scratch readme_onboarding_route"
         ],
@@ -170,7 +189,7 @@
         "step_id": "inspect_route_explanation"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765"
         ],
@@ -187,7 +206,7 @@
         "step_id": "open_observatory"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm run examples/runtime_shell/demo_project",
           "microcosm intake"
@@ -207,7 +226,7 @@
         "step_id": "run_adapter_spine"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "commands": [
           "microcosm evidence list",
           "microcosm status"
@@ -216,7 +235,7 @@
           "core/private_state_forbidden_classes.json",
           "receipts/preflight/fixture_runner_freshness.json"
         ],
-        "expected_signal": "The reveal stays public-safe: receipts are evidence and release remains unauthorized.",
+        "expected_signal": "The reveal stays source-open: public runtime refs and receipts are evidence while release remains unauthorized.",
         "inspect_refs": [
           "receipts/",
           "AGENTS.md",
@@ -229,6 +248,22 @@
     "time_budget_minutes": 10
   },
   "schema_version": "public_reveal_walkthrough_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "status": "pass",
   "step_count": 5,
   "substrate_ref_count": 13,
@@ -247,6 +282,7 @@
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
     "skills/cold_start_navigation.md"
   ],
+  "synthetic_receipt_standin_allowed": false,
   "target_reader": "cold technical reader",
   "time_budget_minutes": 10,
   "validator_id": "validator.microcosm.organs.public_reveal_walkthrough",

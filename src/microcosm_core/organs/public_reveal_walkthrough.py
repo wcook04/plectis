@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -59,10 +59,11 @@ AUTHORITY_CEILING = {
     "whole_system_correctness_claim": False,
 }
 ANTI_CLAIM = (
-    "The public reveal walkthrough validates a short public entry path, commands, "
-    "evidence refs, and anti-claims. It does not authorize release, hosting, "
-    "publication, recipient work, provider calls, private-data equivalence, "
-    "Lean/Lake execution, or whole-system correctness."
+    "The public reveal walkthrough validates a source-available public entry "
+    "path, commands, evidence refs, public runtime refs, and anti-claims. It "
+    "does not authorize release, hosting, publication, recipient work, "
+    "provider calls, private-data equivalence, Lean/Lake execution, or "
+    "whole-system correctness."
 )
 
 
@@ -114,7 +115,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -186,7 +187,7 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
                 "inspect_refs": inspect_refs,
                 "evidence_refs": step_evidence,
                 "expected_signal": row.get("expected_signal"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -383,13 +384,11 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     walkthrough = validate_walkthrough(
         payloads["reveal_walkthrough"],
@@ -416,7 +415,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and walkthrough["status"] == PASS
         and evidence["status"] == PASS
         and claim["status"] == PASS
@@ -437,7 +436,7 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "walkthrough_id": walkthrough["walkthrough_id"],
@@ -451,6 +450,11 @@ def _build_result(
         "commands": walkthrough["commands"],
         "evidence_refs": sorted(set(walkthrough["evidence_refs"]) | set(evidence["evidence_refs"])),
         "substrate_refs": walkthrough["substrate_refs"],
+        "public_runtime_refs": sorted(
+            set(walkthrough["substrate_refs"])
+            | set(walkthrough["evidence_refs"])
+            | set(evidence["evidence_refs"])
+        ),
         "steps": walkthrough["steps"],
         "reveal_board": {
             "headline": "Microcosm turns a repo into a local operating substrate.",
@@ -463,9 +467,11 @@ def _build_result(
             "provider_calls_authorized": False,
             "private_data_equivalence_claim": False,
             "steps": walkthrough["steps"],
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -488,7 +494,7 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "walkthrough_id",
@@ -502,7 +508,10 @@ def _common_receipt(
         "commands",
         "evidence_refs",
         "substrate_refs",
-        "body_redacted",
+        "public_runtime_refs",
+        "body_in_receipt",
+        "real_runtime_receipt",
+        "synthetic_receipt_standin_allowed",
     )
     payload = {
         "schema_version": schema_version,
