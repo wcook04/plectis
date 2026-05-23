@@ -46,23 +46,56 @@
       "source_ref": "tools/meta/control/work_landing.py",
       "source_refs": [
         "tools/meta/control/work_landing.py",
+        "system/lib/work_landing_status.py",
         "tools/meta/control/mission_transaction_preflight.py"
       ],
-      "target_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
-      "material_class": "public_runtime_ref",
-      "body_copied": false,
-      "public_safe_mode": "source_ref_and_public_runtime_ref_pending_verified_real_tool_import",
-      "import_disposition": "demoted_from_body_import_digest_theater",
+      "target_ref": "src/microcosm_core/macro_tools/work_landing.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
       "credential_exposure_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
-      "required_correction": "Import or refactor the named macro tool bodies into a standalone public macro_tools area, then promote this row back to public_macro_tool_body only after source-to-target verification passes.",
-      "validation_refs": [
-        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_source_ref_is_not_counted_as_body_import"
+      "applied_edits": [
+        "replace_private_system_lib_imports_with_standalone_public_receipt_builders",
+        "preserve_status_reconcile_begin_admission_command_shape",
+        "bound_claim_to_public_dry_run_receipts_not_live_task_ledger_or_git_mutation"
       ],
-      "claim_ceiling": "source-ref and public runtime ref only; not a copied macro tool body until a verified source-to-target import record exists",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit"
+      ],
+      "claim_ceiling": "standalone public work-landing command shape only; not live Task Ledger, Work Ledger, Git mutation, or private macro closeout authority",
+      "body_digest": "sha256:7c3e6a6007dd536c98696f3c664610bcfb3e3fd2ccadfb86740f22abbbe8bdc9",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "target_body_digest": "sha256:7c3e6a6007dd536c98696f3c664610bcfb3e3fd2ccadfb86740f22abbbe8bdc9",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "tools/meta/control/work_landing.py::build_parser",
+          "tools/meta/control/work_landing.py::main",
+          "system/lib/work_landing_status.py::build_work_landing_status",
+          "system/lib/work_landing_status.py::build_work_landing_reconcile_plan",
+          "system/lib/work_landing_status.py::build_work_landing_attempt_binding",
+          "system/lib/work_landing_status.py::build_workitem_write_admission"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.work_landing::build_parser",
+          "microcosm_core.macro_tools.work_landing::main",
+          "microcosm_core.macro_tools.work_landing::build_public_work_landing_status",
+          "microcosm_core.macro_tools.work_landing::build_public_work_landing_reconcile_plan",
+          "microcosm_core.macro_tools.work_landing::build_public_work_landing_attempt_binding",
+          "microcosm_core.macro_tools.work_landing::build_public_workitem_write_admission"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
+          "python -m microcosm_core.macro_tools.work_landing status --subject-id cap_demo --owned-path microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ]
+      },
       "body_in_receipt": false
     },
     {

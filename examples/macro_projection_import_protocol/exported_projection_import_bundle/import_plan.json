@@ -64,6 +64,9 @@
       "validation_refs": [
         "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
       ],
+      "public_safe_body_material_ids": [
+        "work_landing_tool_body_import"
+      ],
       "authority_ceiling": "runtime_exported_bundle_validation_only",
       "body_copied": false,
       "body_in_receipt": false

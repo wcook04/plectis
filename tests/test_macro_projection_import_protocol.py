@@ -5,6 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.work_landing import (
+    build_public_work_landing_reconcile_plan,
+    build_public_work_landing_status,
+    build_public_workitem_write_admission,
+)
 from microcosm_core.organs.macro_projection_import_protocol import (
     EXPECTED_NEGATIVE_CASES,
     preview_import_plan,
@@ -82,6 +87,8 @@ def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
         public_root,
         "src/microcosm_core/organs/mission_transaction_work_spine.py",
     )
+    _copy_public_file(public_root, "src/microcosm_core/macro_tools/__init__.py")
+    _copy_public_file(public_root, "src/microcosm_core/macro_tools/work_landing.py")
     _copy_public_file(
         public_root,
         "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/"
@@ -125,7 +132,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 1
+    assert result["public_safe_body_material_count"] == 2
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -153,9 +160,9 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
-        "verified_light_edit": 1
+        "verified_light_edit": 2
     }
     by_material = {
         row["material_id"]: row
@@ -169,6 +176,17 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert by_material["lean_certificate_kernel_body_import"]["body_import_verification"][
         "verification_mode"
     ] == "exact_source_digest_match"
+    assert by_material["work_landing_tool_body_import"]["material_class"] == (
+        "public_macro_tool_body"
+    )
+    assert by_material["work_landing_tool_body_import"]["classification_status"] == "pass"
+    assert by_material["work_landing_tool_body_import"]["body_text_in_receipt"] is False
+    assert by_material["work_landing_tool_body_import"]["target_ref"] == (
+        "src/microcosm_core/macro_tools/work_landing.py"
+    )
+    assert by_material["work_landing_tool_body_import"]["body_import_verification"][
+        "verification_mode"
+    ] == "verified_light_edit_recipe"
     assert result["projection_intake_board"]["negative_case_coverage_status"] == "pass"
     assert (
         result["projection_intake_board"]["projection_status_protocol"]["status_field"]
@@ -193,8 +211,11 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert by_cell["projection_protocol_self_host"]["public_safe_body_material_ids"] == []
     assert by_cell["runtime_reveal_import_bridge"]["projection_status"] == "runtime_bridge_landed"
     assert by_cell["runtime_reveal_import_bridge"]["copy_policy"] == (
-        "metadata_or_regression_wrapper_no_body_import"
+        "verified_macro_body_with_claim_floor"
     )
+    assert by_cell["runtime_reveal_import_bridge"]["public_safe_body_material_ids"] == [
+        "work_landing_tool_body_import"
+    ]
     severance_board = result["runtime_severance_board"]
     assert severance_board["standalone_runtime_candidate"] is True
     assert severance_board["dependency_preflight_gate_status"] == "pass"
@@ -221,6 +242,10 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert all(not ref.startswith("state/") for ref in severance_board["runtime_dependency_refs"])
     assert all(not ref.startswith("formal_math/") for ref in severance_board["runtime_dependency_refs"])
     assert all(not ref.startswith("tools/meta/") for ref in severance_board["runtime_dependency_refs"])
+    assert (
+        "src/microcosm_core/macro_tools/work_landing.py"
+        in severance_board["runtime_dependency_refs"]
+    )
     assert any(
         receipt_ref.endswith("projection_import_intake_board.json")
         for receipt_ref in result["receipt_paths"]
@@ -343,17 +368,17 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 1
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
+    assert result["public_safe_body_material_count"] == 2
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
     assert {
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
-    } == {"lean_certificate_kernel_body_import"}
+    } == {"lean_certificate_kernel_body_import", "work_landing_tool_body_import"}
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 1
+    assert result["public_safe_body_digest_count"] == 2
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -477,9 +502,10 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 1
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 2
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
-        "public_macro_proof_body": 1
+        "public_macro_proof_body": 1,
+        "public_macro_tool_body": 1,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -501,7 +527,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 1
+    assert result["public_safe_body_material_count"] == 2
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -527,7 +553,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
 
-def test_work_landing_source_ref_is_not_counted_as_body_import(tmp_path: Path) -> None:
+def test_work_landing_tool_body_is_imported_as_light_edit(tmp_path: Path) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
     result = run_projection_bundle(
         public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
@@ -539,7 +565,7 @@ def test_work_landing_source_ref_is_not_counted_as_body_import(tmp_path: Path) -
         row["material_id"]
         for row in result["projection_intake_board"]["public_safe_body_imports"]
     }
-    assert "work_landing_tool_body_import" not in body_import_ids
+    assert "work_landing_tool_body_import" in body_import_ids
     protocol_rows = {
         row["material_id"]: row
         for row in json.loads(
@@ -550,10 +576,31 @@ def test_work_landing_source_ref_is_not_counted_as_body_import(tmp_path: Path) -
             ).read_text(encoding="utf-8")
         )["copied_material"]
     }
-    assert protocol_rows["work_landing_tool_body_import"]["body_copied"] is False
-    assert protocol_rows["work_landing_tool_body_import"]["import_disposition"] == (
-        "demoted_from_body_import_digest_theater"
+    work_landing_row = protocol_rows["work_landing_tool_body_import"]
+    assert work_landing_row["body_copied"] is True
+    assert work_landing_row["material_class"] == "public_macro_tool_body"
+    assert work_landing_row["target_ref"] == "src/microcosm_core/macro_tools/work_landing.py"
+    assert work_landing_row["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
     )
+    status = build_public_work_landing_status(
+        subject_ids=["cap_demo"],
+        owned_paths=["microcosm-substrate/tests/test_macro_projection_import_protocol.py"],
+    )
+    reconcile = build_public_work_landing_reconcile_plan(
+        subject_ids=["cap_demo"],
+        owned_paths=["microcosm-substrate/tests/test_macro_projection_import_protocol.py"],
+    )
+    admission = build_public_workitem_write_admission(
+        subject_ids=["cap_demo"],
+        owned_paths=["microcosm-substrate/tests/test_macro_projection_import_protocol.py"],
+    )
+    assert status["status"] == "pass"
+    assert status["landing_lane"] == "scoped_commit"
+    assert reconcile["work_landing_reconcile_status"] == "ordered_dry_run_plan_emitted"
+    assert admission["write_admitted"] is True
+    assert status["body_in_receipt"] is False
+    assert status["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
 
 
 def test_import_plan_rejects_missing_public_safe_body_material_id() -> None:
