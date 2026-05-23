@@ -1,8 +1,15 @@
 {
   "schema_version": "formal_prover_policy_reducer_packet_v1",
-  "packet_id": "public_evidence_bundle_no_formal_prover",
+  "packet_id": "ring2_diagnostic_evidence_bundle_no_formal_prover",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
+  "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
   "provider_calls_by_reducer": 0,
   "lean_or_lake_execution_authorized": false,
   "formal_prover_status": "not_invoked",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
+  ],
   "anti_claim": "The proof-spine evidence bundle does not authorize Lean, Lake, provider calls, or formal proof authority."
 }

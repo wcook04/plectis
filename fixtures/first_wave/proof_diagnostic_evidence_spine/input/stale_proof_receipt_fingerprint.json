@@ -1,10 +1,10 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_stale_fingerprint_fixture_v1",
-  "receipt_id": "receipt.synthetic.stale_proof_fingerprint",
+  "receipt_id": "receipt.regression.stale_ring2_verifier_trace_repair_digest",
   "expected_negative_case_id": "stale_proof_receipt_source_coupling",
-  "source_ref": "synthetic_source_ref:toy_schema_check",
+  "source_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json::copied_material",
   "source_fingerprint_status": "stale",
-  "recorded_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "current_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "recorded_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "current_sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
   "authority_ceiling": "stale coupling is diagnostic evidence only"
 }

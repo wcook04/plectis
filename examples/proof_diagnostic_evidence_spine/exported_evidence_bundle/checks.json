@@ -2,13 +2,28 @@
   "schema_version": "proof_diagnostic_evidence_checks_bundle_v1",
   "checks": [
     {
-      "check_id": "public_schema_contract_check",
-      "claim_id": "claim.public_schema_contract_is_parseable",
+      "check_id": "ring2_failure_taxonomy_exported_anchor_check",
+      "claim_id": "claim.ring2.failure_taxonomy_exported_anchor_present",
       "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
       "expected_result": "pass",
-      "command": "python -m microcosm_core.validators.standards_registry --help",
-      "toolchain": "python_metadata_check"
+      "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+      "toolchain": "python_receipt_validation",
+      "body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json"
+      ],
+      "source_digest_refs": [
+        "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+      ],
+      "receipt_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json"
+      ],
+      "authority_ceiling": "Ring2 diagnostic receipt refs only; not theorem correctness or proof authority"
     }
   ],
-  "anti_claim": "Checks record public metadata evidence only and do not prove runtime correctness."
+  "anti_claim": "Checks record Ring2 diagnostic receipt refs and do not prove runtime correctness."
 }

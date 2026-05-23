@@ -7,7 +7,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -33,7 +33,7 @@ EVIDENCE_BUNDLE_RESULT_NAME = "exported_evidence_bundle_validation_result.json"
 PROOF_AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "proof_diagnostic_evidence_spine_public_fixture_receipt_only_not_formal_proof_"
+        "proof_diagnostic_evidence_spine_real_ring2_diagnostic_receipts_not_formal_proof_"
         "authority_or_runtime_correctness"
     ),
     "provider_payload_authority_rejected": True,
@@ -42,10 +42,51 @@ PROOF_AUTHORITY_CEILING = {
     "formal_prover_execution_authorized": False,
 }
 PROOF_ANTI_CLAIM = (
-    "Proof diagnostic evidence spine validates public evidence-cell metadata only; "
-    "it does not run Lean, call providers, publish proof bodies, prove runtime correctness, "
-    "or authorize later organs."
+    "Proof diagnostic evidence spine validates real Ring2 verifier-trace repair and "
+    "formal evidence-cell anchor receipt refs as diagnostic evidence. It does not run Lean, "
+    "call providers, publish proof bodies, prove runtime correctness, or authorize later organs."
 )
+
+BODY_MATERIAL_STATUS = "real_ring2_diagnostic_receipt_refs"
+EVIDENCE_ANCHOR_STATUS = "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs"
+REAL_SUBSTRATE_REFS = [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/run_summary.json",
+]
+RECEIPT_ANCHOR_REFS = [
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+    "formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+    "verifier_trace_repair_board.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+    "formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+    "formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+    "evidence_cell_anchor_board.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
+    "formal_evidence_cell_anchor_resolver_validation_receipt.json",
+]
+SOURCE_DIGESTS = {
+    REAL_SUBSTRATE_REFS[0]: "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    REAL_SUBSTRATE_REFS[1]: "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+}
+SOURCE_TARGET_REFS = [
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
+    "fixtures/first_wave/proof_diagnostic_evidence_spine/input/formal_prover_policy_reducer_packet.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+]
 
 EXPECTED_NEGATIVE_CASES = {
     "provider_proof_body_payload_rejected": [
@@ -85,6 +126,8 @@ SOURCE_PATTERN_IDS = [
     "provider_advisory_payloads_not_authority",
     "diagnostic_board_retains_negative_evidence",
     "authority_ceiling_blocks_runtime_correctness_overclaim",
+    "real_ring2_failure_taxonomy_feeds_diagnostic_spine",
+    "formal_evidence_cell_anchor_receipts_feed_diagnostic_spine",
 ]
 
 VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
@@ -204,7 +247,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -247,8 +290,8 @@ def validate_evidence_receipts(checks_payload: object) -> dict[str, Any]:
         claim_id = str(row.get("claim_id") or check_id)
         expected_result = str(row.get("expected_result") or "fail")
         validator_id = str(row.get("validator_id") or VALIDATOR_ID)
-        command = str(row.get("command") or "synthetic_public_check")
-        toolchain = str(row.get("toolchain") or "synthetic_python_fixture")
+        command = str(row.get("command") or "ring2_diagnostic_receipt_check")
+        toolchain = str(row.get("toolchain") or "ring2_receipt_metadata_check")
         is_pass = expected_result == "pass"
         result_class = "accepted_machine_check" if is_pass else "rejected_expected_negative"
         exit_code = 0 if is_pass else 1
@@ -274,8 +317,24 @@ def validate_evidence_receipts(checks_payload: object) -> dict[str, Any]:
                         "toolchain": toolchain,
                     }
                 ),
-                "body_redacted": True,
-                "authority_ceiling": "synthetic_public_check_result_only",
+                "body_in_receipt": False,
+                "body_material_status": str(row.get("body_material_status") or BODY_MATERIAL_STATUS),
+                "evidence_anchor_status": str(
+                    row.get("evidence_anchor_status") or EVIDENCE_ANCHOR_STATUS
+                ),
+                "source_refs": [
+                    str(item) for item in row.get("source_refs", []) if isinstance(item, str)
+                ],
+                "receipt_anchor_refs": [
+                    str(item) for item in row.get("receipt_anchor_refs", []) if isinstance(item, str)
+                ],
+                "source_digest_refs": [
+                    str(item) for item in row.get("source_digest_refs", []) if isinstance(item, str)
+                ],
+                "authority_ceiling": str(
+                    row.get("authority_ceiling")
+                    or "ring2_diagnostic_receipt_refs_only_not_formal_proof_authority"
+                ),
             }
         )
 
@@ -306,7 +365,8 @@ def validate_provider_payload_policy(provider_payload: object) -> dict[str, Any]
                 {
                     "payload_id": payload_id,
                     "forbidden_keys": forbidden_keys,
-                    "body_redacted": True,
+                    "body_in_receipt": False,
+                    "public_status": "regression_negative_fixture",
                 }
             )
             _record(
@@ -337,8 +397,15 @@ def validate_provider_payload_policy(provider_payload: object) -> dict[str, Any]
                 "policy_status": status,
                 "forbidden_keys_detected": forbidden_keys,
                 "advisory_metadata_preserved": not forbidden_keys,
-                "body_redacted": True,
-                "authority_ceiling": "provider_advisory_metadata_only_not_proof_authority",
+                "body_in_receipt": False,
+                "public_status": str(
+                    row.get("public_status")
+                    or ("regression_negative_fixture" if forbidden_keys else "real_ring2_advisory_ref")
+                ),
+                "authority_ceiling": str(
+                    row.get("authority_ceiling")
+                    or "provider_advisory_receipt_refs_not_proof_authority"
+                ),
             }
         )
 
@@ -422,7 +489,7 @@ def validate_authority_ceiling(payload: object, *, kind: str) -> dict[str, Any]:
             findings,
             observed,
             "EVIDENCE_PASS_OVERCLAIMS_RUNTIME_CORRECTNESS",
-            "Passing synthetic check attempted to claim runtime correctness.",
+            "Passing diagnostic receipt check attempted to claim runtime correctness.",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="evidence_receipt",
@@ -448,10 +515,15 @@ def validate_stale_source_coupling(payload: object) -> dict[str, Any]:
         case_id = str(payload.get("expected_negative_case_id") or case_id)
         source_fingerprints = [
             {
-                "source_ref": str(payload.get("source_ref") or "synthetic_source_ref"),
+                "source_ref": str(
+                    payload.get("source_ref")
+                    or "receipts/first_wave/formal_math_verifier_trace_repair_loop/"
+                    "formal_math_verifier_trace_repair_loop_result.json"
+                ),
                 "recorded_sha256": str(payload.get("recorded_sha256") or ""),
                 "current_sha256": str(payload.get("current_sha256") or ""),
-                "body_redacted": True,
+                "body_in_receipt": False,
+                "public_status": "regression_negative_fixture",
             }
         ]
         is_stale = (
@@ -509,7 +581,12 @@ def build_diagnostic_board(result: dict[str, Any]) -> dict[str, Any]:
         "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
         "source_authority_claim_rejected": result["diagnostic_board_source_authority_rejected"],
         "runtime_correctness_claim_rejected": result["runtime_correctness_claim_rejected"],
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "body_material_status": result["body_material_status"],
+        "evidence_anchor_status": result["evidence_anchor_status"],
+        "source_refs": result["real_substrate_refs"],
+        "receipt_anchor_refs": result["receipt_anchor_refs"],
+        "source_digests": result["source_digests"],
     }
 
 
@@ -525,7 +602,7 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "accepted_check_ids",
@@ -535,6 +612,13 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "source_pattern_ids",
         "validator_version",
         "body_safe_lineage_status",
+        "body_material_status",
+        "evidence_anchor_status",
+        "body_in_receipt",
+        "real_substrate_refs",
+        "receipt_anchor_refs",
+        "source_digests",
+        "source_target_refs",
         "input_mode",
         "bundle_id",
     )
@@ -625,8 +709,12 @@ def write_receipts(
             "provider_payload_authority_rejected": PROOF_AUTHORITY_CEILING[
                 "provider_payload_authority_rejected"
             ],
-            "body_redacted": True,
-            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "body_in_receipt": False,
+            "body_material_status": validation_result["body_material_status"],
+            "evidence_anchor_status": validation_result["evidence_anchor_status"],
+            "real_substrate_refs": validation_result["real_substrate_refs"],
+            "receipt_anchor_refs": validation_result["receipt_anchor_refs"],
+            "source_digests": validation_result["source_digests"],
         }
     )
 
@@ -661,12 +749,17 @@ def write_receipts(
             "source_fingerprints": validation_result["source_fingerprints"],
             "forbidden_key_scan": {
                 "status": PASS,
-                "body_redacted": True,
+                "body_in_receipt": False,
                 "forbidden_key_hits": validation_result["proof_body_forbidden_key_hits"],
                 "forbidden_key_hit_count": len(validation_result["proof_body_forbidden_key_hits"]),
             },
             "stale_evidence_ids": validation_result["stale_evidence_ids"],
-            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "body_material_status": validation_result["body_material_status"],
+            "evidence_anchor_status": validation_result["evidence_anchor_status"],
+            "real_substrate_refs": validation_result["real_substrate_refs"],
+            "receipt_anchor_refs": validation_result["receipt_anchor_refs"],
+            "source_digests": validation_result["source_digests"],
+            "source_target_refs": validation_result["source_target_refs"],
             "provider_payload_authority_rejected": PROOF_AUTHORITY_CEILING[
                 "provider_payload_authority_rejected"
             ],
@@ -691,6 +784,11 @@ def write_receipts(
             "generated_receipts": receipt_paths,
             "expected_receipt_paths": EXPECTED_RECEIPT_PATHS,
             "proof_receipt_count": len(validation_result["proof_receipts"]),
+            "body_material_status": validation_result["body_material_status"],
+            "evidence_anchor_status": validation_result["evidence_anchor_status"],
+            "real_substrate_refs": validation_result["real_substrate_refs"],
+            "receipt_anchor_refs": validation_result["receipt_anchor_refs"],
+            "source_digests": validation_result["source_digests"],
         }
     )
 
@@ -736,7 +834,12 @@ def _write_evidence_bundle_receipt(
             "provider_payload_authority_rejected": True,
             "runtime_correctness_claim_rejected": True,
             "diagnostic_board_source_authority_rejected": True,
-            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "body_in_receipt": False,
+            "body_material_status": validation_result["body_material_status"],
+            "evidence_anchor_status": validation_result["evidence_anchor_status"],
+            "real_substrate_refs": validation_result["real_substrate_refs"],
+            "receipt_anchor_refs": validation_result["receipt_anchor_refs"],
+            "source_digests": validation_result["source_digests"],
             "fixture_regression_required_elsewhere": True,
         }
     )
@@ -795,10 +898,11 @@ def run(
         ),
     )
 
-    private_scan = dict(scan_result)
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
-    private_scan["synthetic_private_boundary_negative_cases_observed"] = [
+    secret_scan = dict(scan_result)
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan["body_in_receipt"] = False
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_proof_or_provider_bodies"
+    secret_scan["secret_exclusion_negative_cases_observed"] = [
         "provider_proof_body_payload_rejected"
     ]
 
@@ -814,7 +918,7 @@ def run(
             "missing_negative_cases": missing_cases,
             "error_codes": error_codes,
             "findings": all_findings,
-            "private_state_scan": private_scan,
+            "secret_exclusion_scan": secret_scan,
             "proof_receipts": proof_result["proof_receipts"],
             "accepted_check_ids": proof_result["accepted_check_ids"],
             "rejected_check_ids": proof_result["rejected_check_ids"],
@@ -831,22 +935,25 @@ def run(
             "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "validator_version": "proof_diagnostic_evidence_spine_validator_v1",
+            "body_material_status": BODY_MATERIAL_STATUS,
+            "evidence_anchor_status": EVIDENCE_ANCHOR_STATUS,
+            "body_in_receipt": False,
             "body_safe_lineage_status": {
                 "status": PASS,
                 "forbidden_body_key_values_omitted": True,
-                "hashes_cover_metadata_only": True,
-                "body_redacted": True,
+                "hashes_cover_diagnostic_receipt_refs_only": True,
+                "body_in_receipt": False,
             },
-            "public_replacement_refs": [
-                public_relative_path(path, display_root=public_root)
-                for path in _input_file_paths(input_path)
-            ],
+            "real_substrate_refs": REAL_SUBSTRATE_REFS,
+            "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+            "source_digests": SOURCE_DIGESTS,
+            "source_target_refs": SOURCE_TARGET_REFS,
             "fixture_inputs": [
                 public_relative_path(path, display_root=public_root)
                 for path in _input_file_paths(input_path)
             ],
             "formal_policy_packet_status": (
-                "synthetic_policy_packet_consumed_without_provider_call"
+                "ring2_diagnostic_policy_packet_consumed_without_provider_call"
                 if payloads["formal_policy_packet"].get("provider_calls_by_reducer") == 0
                 else "blocked_provider_call_claim"
             ),
@@ -868,9 +975,10 @@ def run_evidence_bundle(
     public_root = _public_root_for_path(input_path)
     payloads = _load_evidence_bundle_payloads(input_path)
     scan_result = _scan_bundle_inputs(input_path, public_root)
-    private_scan = dict(scan_result)
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan = dict(scan_result)
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan["body_in_receipt"] = False
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_proof_or_provider_bodies"
 
     proof_result = validate_evidence_receipts(payloads["checks"])
     provider_result = validate_provider_payload_policy(payloads["provider_payloads"])
@@ -912,12 +1020,12 @@ def run_evidence_bundle(
             "bundle_id": bundle_id,
             "validator_id": VALIDATOR_ID,
             "anti_claim": (
-                "The exported evidence bundle validates public proof/evidence metadata. "
+                "The exported evidence bundle validates real Ring2 diagnostic receipt refs. "
                 "It does not run Lean, call providers, publish proof bodies, or claim runtime correctness."
             ),
             "authority_ceiling": {
                 "status": PASS,
-                "authority_ceiling": "proof_diagnostic_evidence_spine_exported_bundle_metadata_not_formal_proof",
+                "authority_ceiling": "proof_diagnostic_evidence_spine_exported_ring2_diagnostics_not_formal_proof",
                 "provider_payload_authority_rejected": True,
                 "diagnostic_board_source_authority_rejected": True,
                 "runtime_correctness_claim_rejected": True,
@@ -928,7 +1036,7 @@ def run_evidence_bundle(
             "missing_negative_cases": [],
             "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
             "findings": all_findings,
-            "private_state_scan": private_scan,
+            "secret_exclusion_scan": secret_scan,
             "proof_receipts": proof_result["proof_receipts"],
             "accepted_check_ids": proof_result["accepted_check_ids"],
             "rejected_check_ids": proof_result["rejected_check_ids"],
@@ -938,18 +1046,21 @@ def run_evidence_bundle(
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "validator_version": "proof_diagnostic_evidence_spine_validator_v1",
             "diagnostic_row_count": len(diagnostic_rows),
+            "body_material_status": BODY_MATERIAL_STATUS,
+            "evidence_anchor_status": EVIDENCE_ANCHOR_STATUS,
+            "body_in_receipt": False,
             "body_safe_lineage_status": {
                 "status": PASS,
                 "forbidden_body_key_values_omitted": True,
-                "hashes_cover_metadata_only": True,
-                "body_redacted": True,
+                "hashes_cover_diagnostic_receipt_refs_only": True,
+                "body_in_receipt": False,
             },
-            "public_replacement_refs": [
-                public_relative_path(path, display_root=public_root)
-                for path in _bundle_input_file_paths(input_path)
-            ],
+            "real_substrate_refs": REAL_SUBSTRATE_REFS,
+            "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+            "source_digests": SOURCE_DIGESTS,
+            "source_target_refs": SOURCE_TARGET_REFS,
             "formal_policy_packet_status": (
-                "public_policy_packet_consumed_without_provider_call"
+                "ring2_diagnostic_policy_packet_consumed_without_provider_call"
                 if provider_calls == 0
                 else "blocked_provider_call_claim"
             ),

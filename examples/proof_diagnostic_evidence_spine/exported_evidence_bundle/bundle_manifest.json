@@ -1,14 +1,26 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_exported_evidence_bundle_v1",
-  "bundle_id": "public_proof_diagnostic_evidence_runtime_example",
+  "bundle_id": "ring2_proof_diagnostic_evidence_runtime_example",
   "bundle_kind": "exported_evidence_bundle",
   "organ_id": "proof_diagnostic_evidence_spine",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
+  "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
   "runtime_surfaces": [
     "checks",
     "provider_advisory_payloads",
     "diagnostic_rows",
     "formal_prover_policy"
   ],
-  "authority_ceiling": "public evidence metadata validation only",
-  "anti_claim": "This bundle is standalone runtime-shaped evidence metadata. It does not expose proof bodies, call providers, run Lean, or claim runtime correctness."
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+  },
+  "authority_ceiling": "Ring2 diagnostic receipt refs only; not formal proof authority",
+  "anti_claim": "This bundle anchors runtime-shaped diagnostic evidence to real Ring2 receipts. It does not expose proof bodies, call providers, run Lean, or claim runtime correctness."
 }

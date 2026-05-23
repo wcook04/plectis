@@ -1,23 +1,31 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_provider_payloads_fixture_v1",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
   "payloads": [
     {
-      "payload_id": "provider_advisory_metadata_only",
-      "payload_kind": "provider_advisory_metadata",
-      "strategy_summary": "Synthetic advisory metadata says a later reducer may inspect typed evidence cells.",
+      "payload_id": "ring2_failure_taxonomy_advisory_ref",
+      "payload_kind": "provider_advisory_receipt_refs",
+      "public_status": "real_ring2_advisory_ref",
+      "strategy_summary": "Use Ring2 failure taxonomy and formal evidence-cell anchor receipts as advisory diagnostic context without provider output bodies.",
       "premise_refs": [
-        "premise.synthetic.schema_required_fields",
-        "premise.synthetic.authority_ceiling"
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json::cell.verifier_trace.runtime_receipt"
       ],
-      "authority_ceiling": "advisory metadata only; not proof authority"
+      "source_digest_refs": [
+        "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+      ],
+      "body_in_receipt": false,
+      "authority_ceiling": "advisory receipt refs only; not proof authority"
     },
     {
-      "payload_id": "provider_payload_with_forbidden_body_keys",
+      "payload_id": "regression_provider_payload_with_forbidden_body_keys",
       "payload_kind": "provider_advisory_negative_fixture",
+      "public_status": "regression_negative_fixture",
       "expected_negative_case_id": "provider_proof_body_payload_rejected",
-      "proof_body": "redacted synthetic forbidden proof payload value",
-      "ground_truth_proof": "redacted synthetic forbidden ground truth value",
-      "provider_output_body": "redacted synthetic forbidden provider output value",
+      "proof_body": "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO",
+      "ground_truth_proof": "NEGATIVE_FIXTURE_FORBIDDEN_GROUND_TRUTH_DO_NOT_ECHO",
+      "provider_output_body": "NEGATIVE_FIXTURE_FORBIDDEN_PROVIDER_OUTPUT_DO_NOT_ECHO",
       "authority_ceiling": "must be rejected before proof authority"
     }
   ]

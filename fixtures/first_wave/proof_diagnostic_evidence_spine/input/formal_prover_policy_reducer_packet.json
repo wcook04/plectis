@@ -1,34 +1,48 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_formal_prover_policy_reducer_packet_fixture_v1",
-  "packet_id": "formal_prover_policy_reducer_packet.synthetic.no_provider_call",
-  "synthetic_only": true,
+  "packet_id": "formal_prover_policy_reducer_packet.ring2_diagnostic.no_provider_call",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
+  "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
   "model_facing_payload": {
-    "task_id": "synthetic_no_solve_task",
-    "problem_statement_ref": "synthetic_problem_statement_hash_only",
+    "task_id": "ring2_diagnostic_spine_receipt_anchor",
+    "problem_statement_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json::summary_metrics",
     "allowed_context_refs": [
-      "premise.synthetic.schema_required_fields"
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+      "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
     ]
   },
-  "redaction_receipt_id": "redaction_receipt.synthetic_proof_spine",
+  "secret_exclusion_scan_ref": "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json::secret_exclusion_scan",
   "hash_receipts": [
     {
-      "ref": "synthetic_truth_side_omitted",
-      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      "ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+    },
+    {
+      "ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+    },
+    {
+      "ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
     }
   ],
-  "provider_receipt_id": "provider_receipt.synthetic_not_called",
-  "row_patch_id": "row_patch.synthetic_not_applied",
-  "transform_job_id": "transform_job.synthetic_public_fixture",
+  "provider_receipt_id": "provider_not_called_by_design_for_ring2_diagnostic_spine",
+  "row_patch_id": "row_patch.ring2_diagnostic_receipt_refs_imported",
+  "transform_job_id": "transform_job.ring2_diagnostic_spine_refactor",
   "allowed_premise_ids": [
-    "premise.synthetic.schema_required_fields"
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json::cell.verifier_trace.runtime_receipt"
   ],
   "premise_ids_used": [
-    "premise.synthetic.schema_required_fields"
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json::cell.verifier_trace.runtime_receipt"
   ],
   "truth_side_leakage_hits": [],
   "provider_calls_by_reducer": 0,
   "recipe_policy_passed": true,
-  "row_patch_review_outcome": "synthetic_policy_pass_without_provider_call",
-  "authority_ceiling": "policy reducer packet fixture only; no formal prover, provider, or Lean execution",
-  "anti_claim": "This synthetic packet does not authorize formal proof witness implementation or provider execution."
+  "row_patch_review_outcome": "ring2_diagnostic_policy_pass_without_provider_call",
+  "authority_ceiling": "Ring2 diagnostic receipt packet only; no formal prover, provider, or Lean execution",
+  "anti_claim": "This packet anchors the diagnostic spine to real Ring2 receipt refs. It does not authorize formal proof witness implementation or provider execution."
 }

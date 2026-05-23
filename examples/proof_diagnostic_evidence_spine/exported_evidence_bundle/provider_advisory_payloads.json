@@ -2,15 +2,18 @@
   "schema_version": "provider_advisory_payloads_bundle_v1",
   "payloads": [
     {
-      "payload_id": "public_provider_advisory_metadata_only",
-      "advisory_kind": "metadata_only",
+      "payload_id": "ring2_provider_advisory_receipt_refs",
+      "advisory_kind": "receipt_refs_without_provider_body",
+      "public_status": "real_ring2_advisory_ref",
       "premise_refs": [
-        "claim.public_schema_contract_is_parseable"
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json::cell.verifier_trace.runtime_receipt"
       ],
-      "strategy_summary": "Use only public metadata and command receipts as advisory context.",
-      "body_redacted": true,
-      "authority_ceiling": "provider_advisory_metadata_only_not_proof_authority"
+      "strategy_summary": "Use Ring2 diagnostic receipt refs as advisory context without provider output bodies.",
+      "body_in_receipt": false,
+      "authority_ceiling": "provider_advisory_receipt_refs_not_proof_authority"
     }
   ],
-  "anti_claim": "Provider advisory rows are metadata only and carry no provider output body."
+  "anti_claim": "Provider advisory rows cite receipt refs only and carry no provider output body."
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_negative_receipt_fixture_v1",
-  "receipt_id": "receipt.synthetic.missing_validator_and_anti_claim",
+  "receipt_id": "receipt.regression.missing_validator_and_anti_claim",
   "expected_negative_case_id": "evidence_receipt_missing_required_fields",
-  "claim_id": "claim.synthetic.missing_required_receipt_fields",
+  "claim_id": "claim.regression.missing_required_receipt_fields",
   "status": "pass"
 }

@@ -24,8 +24,10 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     ],
     "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json": [
         "provider_payload_authority_rejected",
-        "body_redacted",
-        "public_replacement_refs",
+        "body_in_receipt",
+        "real_substrate_refs",
+        "receipt_anchor_refs",
+        "source_digests",
     ],
     "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json": [
         "diagnostic_board_source_authority_rejected",
@@ -38,6 +40,8 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "provider_payload_authority_rejected",
         "runtime_correctness_claim_rejected",
         "diagnostic_board_source_authority_rejected",
+        "body_material_status",
+        "evidence_anchor_status",
     ],
 }
 
@@ -69,13 +73,27 @@ def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["accepted_check_ids"] == ["toy_schema_check"]
-    assert result["rejected_check_ids"] == ["toy_schema_check_broken"]
-    assert result["advisory_payload_ids"] == ["provider_advisory_metadata_only"]
-    assert result["provider_policy_rejection_ids"] == ["provider_payload_with_forbidden_body_keys"]
+    assert result["accepted_check_ids"] == [
+        "ring2_failure_taxonomy_receipt_anchor",
+        "ring2_graph_update_candidate_anchor",
+    ]
+    assert result["rejected_check_ids"] == ["regression_negative_missing_source_digest"]
+    assert result["advisory_payload_ids"] == ["ring2_failure_taxonomy_advisory_ref"]
+    assert result["provider_policy_rejection_ids"] == [
+        "regression_provider_payload_with_forbidden_body_keys"
+    ]
     assert result["diagnostic_board_source_authority_rejected"] is True
     assert result["runtime_correctness_claim_rejected"] is True
     assert result["source_fingerprint_status"] == "stale"
+    assert result["body_material_status"] == "real_ring2_diagnostic_receipt_refs"
+    assert (
+        result["evidence_anchor_status"]
+        == "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs"
+    )
+    assert "failure_taxonomy_report.json" in " ".join(result["real_substrate_refs"])
+    assert "formal_evidence_cell_anchor_resolver_result.json" in " ".join(
+        result["receipt_anchor_refs"]
+    )
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
@@ -92,15 +110,18 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_evidence_bundle"
-    assert result["bundle_id"] == "public_proof_diagnostic_evidence_runtime_example"
-    assert result["accepted_check_ids"] == ["public_schema_contract_check"]
+    assert result["bundle_id"] == "ring2_proof_diagnostic_evidence_runtime_example"
+    assert result["accepted_check_ids"] == ["ring2_failure_taxonomy_exported_anchor_check"]
     assert result["rejected_check_ids"] == []
-    assert result["advisory_payload_ids"] == ["public_provider_advisory_metadata_only"]
+    assert result["advisory_payload_ids"] == ["ring2_provider_advisory_receipt_refs"]
     assert result["provider_policy_rejection_ids"] == []
-    assert result["formal_policy_packet_status"] == "public_policy_packet_consumed_without_provider_call"
+    assert (
+        result["formal_policy_packet_status"]
+        == "ring2_diagnostic_policy_packet_consumed_without_provider_call"
+    )
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["private_state_scan"]["body_redacted"] is True
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["authority_ceiling"]["formal_prover_execution_authorized"] is False
     assert result["receipt_paths"] == [
         "receipts/exported_evidence_bundle_validation_result.json"
@@ -111,11 +132,12 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
     text = json.dumps(receipt, sort_keys=True)
     assert "matched_excerpt" not in text
-    assert '"body"' not in text
+    assert '"proof_body"' not in text
+    assert '"provider_output_body"' not in text
     assert "provider output body" not in text
 
 
-def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_redacted(
+def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_body_free(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -155,9 +177,14 @@ def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_redact
             "missing_negative_cases",
             "error_codes",
             "anti_claim",
-            "private_state_scan",
+            "secret_exclusion_scan",
             "authority_ceiling",
             "receipt_paths",
+            "body_material_status",
+            "evidence_anchor_status",
+            "real_substrate_refs",
+            "receipt_anchor_refs",
+            "source_digests",
         ):
             assert key in payload
         assert payload["status"] == "pass"
@@ -165,9 +192,9 @@ def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_redact
         assert set(payload["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
-        assert payload["private_state_scan"]["body_redacted"] is True
-        for hit in payload["private_state_scan"]["hits"]:
-            assert hit["body_redacted"] is True
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        for hit in payload["secret_exclusion_scan"]["hits"]:
+            assert hit["body_in_receipt"] is False
             assert not Path(hit["path"]).is_absolute()
 
 
@@ -196,9 +223,10 @@ def test_proof_diagnostic_evidence_spine_does_not_echo_forbidden_body_values(
             assert value not in text
     assert result["proof_body_forbidden_key_hits"] == [
         {
-            "payload_id": "provider_payload_with_forbidden_body_keys",
+            "payload_id": "regression_provider_payload_with_forbidden_body_keys",
             "forbidden_keys": ["ground_truth_proof", "proof_body", "provider_output_body"],
-            "body_redacted": True,
+            "body_in_receipt": False,
+            "public_status": "regression_negative_fixture",
         }
     ]
 
@@ -216,10 +244,15 @@ def test_proof_diagnostic_evidence_spine_diagnostic_board_keeps_weak_edges(
         (tmp_path / "receipts/diagnostic_board.json").read_text(encoding="utf-8")
     )
 
-    assert diagnostic_board["accepted_evidence"] == ["toy_schema_check"]
-    assert diagnostic_board["rejected_evidence"] == ["toy_schema_check_broken"]
+    assert diagnostic_board["accepted_evidence"] == [
+        "ring2_failure_taxonomy_receipt_anchor",
+        "ring2_graph_update_candidate_anchor",
+    ]
+    assert diagnostic_board["rejected_evidence"] == ["regression_negative_missing_source_digest"]
     assert diagnostic_board["source_authority_claim_rejected"] is True
     assert diagnostic_board["runtime_correctness_claim_rejected"] is True
+    assert diagnostic_board["body_in_receipt"] is False
+    assert "failure_taxonomy_report.json" in " ".join(diagnostic_board["source_refs"])
     assert len(diagnostic_board["validator_asserted_feeds_patterns"]) == 3
     assert result["body_safe_lineage_status"]["status"] == "pass"
 
@@ -250,9 +283,10 @@ def test_proof_diagnostic_evidence_spine_receipts_satisfy_macro_field_floor(
             / "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
         ).read_text(encoding="utf-8")
     )
-    assert validation_receipt["accepted_count"] == 1
+    assert validation_receipt["accepted_count"] == 2
     assert validation_receipt["rejected_count"] == 1
-    assert validation_receipt["forbidden_key_scan"]["body_redacted"] is True
+    assert validation_receipt["forbidden_key_scan"]["body_in_receipt"] is False
     assert validation_receipt["provider_payload_authority_rejected"] is True
     assert validation_receipt["runtime_correctness_claim_rejected"] is True
     assert validation_receipt["diagnostic_board_source_authority_rejected"] is True
+    assert validation_receipt["body_material_status"] == "real_ring2_diagnostic_receipt_refs"

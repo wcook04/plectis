@@ -1,6 +1,6 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_diagnostic_board_negative_fixture_v1",
-  "board_id": "diagnostic_board.synthetic.source_authority_overclaim",
+  "board_id": "diagnostic_board.regression.source_authority_overclaim",
   "expected_negative_case_id": "diagnostic_board_claims_source_authority",
   "claims_source_authority": true,
   "authority_ceiling": "diagnostic board may classify evidence only"

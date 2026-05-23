@@ -1,22 +1,39 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_diagnostic_rows_fixture_v1",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
+  "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
   "diagnostic_rows": [
     {
-      "row_id": "diag.accepted.synthetic_schema_check",
-      "evidence_ref": "toy_schema_check",
-      "diagnostic_class": "accepted_evidence_cell",
-      "claim_ceiling": "accepted check result only"
+      "row_id": "diag.ring2.failure_taxonomy_receipt_anchor",
+      "evidence_ref": "ring2_failure_taxonomy_receipt_anchor",
+      "diagnostic_class": "real_ring2_failure_taxonomy_anchor",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+      "body_in_receipt": false,
+      "claim_ceiling": "diagnostic receipt anchor only; not theorem correctness"
     },
     {
-      "row_id": "diag.rejected.synthetic_schema_check_broken",
-      "evidence_ref": "toy_schema_check_broken",
-      "diagnostic_class": "rejected_expected_negative",
-      "claim_ceiling": "negative evidence retained"
+      "row_id": "diag.ring2.graph_update_candidate_anchor",
+      "evidence_ref": "ring2_graph_update_candidate_anchor",
+      "diagnostic_class": "real_ring2_graph_update_candidate_anchor",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json::curriculum_edges",
+      "body_in_receipt": false,
+      "claim_ceiling": "diagnostic graph-update anchor only; not repair success authority"
+    },
+    {
+      "row_id": "diag.regression.missing_source_digest",
+      "evidence_ref": "regression_negative_missing_source_digest",
+      "diagnostic_class": "regression_negative_fixture",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "body_in_receipt": false,
+      "claim_ceiling": "negative evidence retained only as a digest-floor guard"
     },
     {
       "row_id": "diag.provider_policy_rejection",
-      "evidence_ref": "provider_payload_with_forbidden_body_keys",
+      "evidence_ref": "regression_provider_payload_with_forbidden_body_keys",
       "diagnostic_class": "provider_payload_policy_rejection",
+      "body_in_receipt": false,
       "claim_ceiling": "provider payload is not proof authority"
     }
   ]

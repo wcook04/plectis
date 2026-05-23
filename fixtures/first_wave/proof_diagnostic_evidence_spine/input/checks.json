@@ -1,24 +1,70 @@
 {
   "schema_version": "proof_diagnostic_evidence_spine_checks_fixture_v1",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
+  "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
   "checks": [
     {
-      "check_id": "toy_schema_check",
-      "claim_id": "claim.synthetic.schema_row_has_required_fields",
-      "validator_id": "validator.microcosm.synthetic_schema_check",
+      "check_id": "ring2_failure_taxonomy_receipt_anchor",
+      "claim_id": "claim.ring2.failure_taxonomy_receipt_anchor_present",
+      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop",
       "expected_result": "pass",
-      "command": "synthetic-check --fixture toy_schema_check",
-      "toolchain": "synthetic_python_fixture",
-      "authority_ceiling": "accepted evidence cell only"
+      "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
+      "toolchain": "python_receipt_validation",
+      "body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+      ],
+      "source_digest_refs": [
+        "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+      ],
+      "receipt_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+      ],
+      "authority_ceiling": "Ring2 failure taxonomy receipt refs only; not theorem correctness or proof authority"
     },
     {
-      "check_id": "toy_schema_check_broken",
-      "claim_id": "claim.synthetic.schema_row_missing_required_field",
-      "validator_id": "validator.microcosm.synthetic_schema_check",
+      "check_id": "ring2_graph_update_candidate_anchor",
+      "claim_id": "claim.ring2.graph_update_candidate_anchor_present",
+      "validator_id": "validator.microcosm.formal_math_verifier_trace_repair_loop",
+      "expected_result": "pass",
+      "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
+      "toolchain": "python_receipt_validation",
+      "body_material_status": "real_ring2_diagnostic_receipt_refs",
+      "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
+      ],
+      "source_digest_refs": [
+        "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+      ],
+      "receipt_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json"
+      ],
+      "authority_ceiling": "Ring2 graph-update diagnostic refs only; not theorem correctness or proof authority"
+    },
+    {
+      "check_id": "regression_negative_missing_source_digest",
+      "claim_id": "claim.regression.missing_source_digest_rejected",
+      "validator_id": "validator.microcosm.organs.proof_diagnostic_evidence_spine",
       "expected_result": "fail",
-      "command": "synthetic-check --fixture toy_schema_check_broken",
-      "toolchain": "synthetic_python_fixture",
-      "expected_error_code": "MISSING_REQUIRED_FIELD",
-      "authority_ceiling": "rejected expected-negative evidence cell only"
+      "command": "regression-negative-check --missing-source-digest",
+      "toolchain": "regression_negative_fixture",
+      "expected_error_code": "MISSING_SOURCE_DIGEST",
+      "body_material_status": "regression_negative_fixture",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "receipt_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json"
+      ],
+      "authority_ceiling": "regression negative only; missing digest must not count as product evidence"
     }
   ]
 }

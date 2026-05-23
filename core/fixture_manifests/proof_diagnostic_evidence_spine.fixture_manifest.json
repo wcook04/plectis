@@ -2,9 +2,11 @@
   "schema_version": "public_fixture_manifest_v1",
   "fixture_id": "fixture::proof_diagnostic_evidence_spine::first_wave_contract_v1",
   "organ_id": "proof_diagnostic_evidence_spine",
-  "status": "public_synthetic_fixture_manifest",
-  "purpose": "Validate source-available proof diagnostic evidence cells, provider advisory boundaries, diagnostic-board authority ceilings, stale source coupling, and runtime-overclaim rejection without proof bodies or provider calls.",
-  "synthetic_input_files": [
+  "status": "real_ring2_diagnostic_fixture_manifest",
+  "purpose": "Validate proof diagnostic evidence cells anchored to real Ring2 failure-taxonomy, graph-update, verifier-trace repair, and evidence-cell anchor receipts while preserving regression-only guards for forbidden proof/provider bodies and overclaims.",
+  "body_material_status": "real_ring2_diagnostic_receipt_refs",
+  "evidence_anchor_status": "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs",
+  "input_files": [
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/provider_advisory_payloads.json",
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
@@ -14,6 +16,22 @@
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/passing_check_overclaims_runtime.json",
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/formal_prover_policy_reducer_packet.json"
   ],
+  "real_substrate_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
+  },
   "generated_receipts": [
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
     "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
@@ -50,16 +68,19 @@
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
     "authority_ceiling",
+    "body_material_status",
+    "evidence_anchor_status",
+    "real_substrate_refs",
     "receipt_paths"
   ],
-  "private_state_exclusion_rules": {
-    "proof_bodies": "forbidden; fixtures may carry synthetic forbidden-key rows only and generated receipts may record key names only",
+  "secret_exclusion_rules": {
+    "proof_bodies": "forbidden; regression negative fixtures may carry forbidden-key rows only and generated receipts may record key names only",
     "provider_payload_bodies": "forbidden; advisory metadata may retain ids, premise refs, strategy summaries, and policy status",
     "source_bodies": "forbidden; stale source coupling uses path-class refs and hashes only",
     "operator_or_hud_state": "forbidden"
   },
-  "authority_ceiling": "public synthetic proof diagnostic fixture only; not formal proof authority, provider authority, runtime correctness, or later-organ authorization",
-  "anti_claim": "This manifest describes only synthetic proof-spine fixture expectations. It does not authorize Lean witness, provider calls, proof bodies, route plane, mission spine, observability, pattern assimilation, public release, hosted deployment, publication operations, recipient work, or secret export."
+  "authority_ceiling": "real Ring2 diagnostic receipt refs only; not formal proof authority, provider authority, runtime correctness, or later-organ authorization",
+  "anti_claim": "This manifest describes Ring2 diagnostic receipt anchors and regression-only proof-spine guard expectations. It does not authorize Lean witness, provider calls, proof bodies, route plane, mission spine, observability, pattern assimilation, public release, hosted deployment, publication operations, recipient work, or secret export."
 }
