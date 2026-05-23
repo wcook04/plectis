@@ -1,0 +1,97 @@
+{
+  "schema_version": "voice_to_doctrine_local_lessons_v1",
+  "lessons": [
+    {
+      "lesson_id": "microcosm_receipt_theater_rejected",
+      "input_signal_class": "operator_pressure",
+      "macro_pattern_refs": [
+        "recursive_self_improvement_operating_loop",
+        "local_to_general_propagation"
+      ],
+      "selected_owner_surface_id": "skill.public_microcosm_evolution_seed",
+      "owner_action": "refine_skill_hard_rule",
+      "status": "refined_existing_surface",
+      "evidence_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::recursive_self_improvement_operating_loop",
+        "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md::Hard Rules"
+      ],
+      "changed_surface_ref": "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md::Workflow",
+      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "closeout_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md",
+      "owner_surface_validated": true,
+      "body_exported": false,
+      "private_ref_metadata_only": true,
+      "global_promotion_requested": false
+    },
+    {
+      "lesson_id": "self_updating_dag_landed_as_public_organ",
+      "input_signal_class": "failure_class_packet",
+      "macro_pattern_refs": [
+        "recursive_self_improvement_operating_loop",
+        "doctrine_population_loop",
+        "local_failure_metabolism_dag"
+      ],
+      "selected_owner_surface_id": "paper_module.recursive_self_improvement_operating_loop",
+      "owner_action": "add_public_runtime_organ",
+      "status": "refined_existing_surface",
+      "evidence_refs": [
+        "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md::Shape",
+        "codex/doctrine/paper_modules/doctrine_population_loop.md::Shape"
+      ],
+      "changed_surface_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "closeout_ref": "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+      "owner_surface_validated": true,
+      "body_exported": false,
+      "private_ref_metadata_only": true,
+      "global_promotion_requested": false
+    },
+    {
+      "lesson_id": "private_voice_body_blocked_but_route_kept",
+      "input_signal_class": "private_boundary",
+      "macro_pattern_refs": [
+        "raw_seed_metabolism_voice_to_doctrine",
+        "doctrine_population_loop"
+      ],
+      "selected_owner_surface_id": "task_ledger.residual_capture",
+      "owner_action": "capture_blocked_private_body_import",
+      "status": "workitem_captured",
+      "evidence_refs": [
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "AGENTS.md::Real Substrate Posture"
+      ],
+      "changed_surface_ref": "state/task_ledger/events.jsonl::metadata_only_residual",
+      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py",
+      "closeout_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md::Anti-Claim",
+      "reentry_condition": "A public-safe synthetic voice fixture or redacted source capsule is selected.",
+      "owner_surface_validated": true,
+      "body_exported": false,
+      "private_ref_metadata_only": true,
+      "global_promotion_requested": false
+    },
+    {
+      "lesson_id": "option_surface_already_imported_verified",
+      "input_signal_class": "stewardship_check",
+      "macro_pattern_refs": [
+        "compression_profile_governed_option_surface",
+        "navigation_hologram_unified_route_plane"
+      ],
+      "selected_owner_surface_id": "standard.std_uppropagation_intake",
+      "owner_action": "verify_already_propagated",
+      "status": "nothing_to_refine",
+      "evidence_refs": [
+        "src/microcosm_core/runtime_shell.py::option_surface_lens",
+        "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe"
+      ],
+      "changed_surface_ref": "",
+      "validation_ref": "pytest tests/test_runtime_shell.py -k option_surface_lens",
+      "closeout_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+      "stewardship_checked": true,
+      "next_best_lane_checked": true,
+      "owner_surface_validated": true,
+      "body_exported": false,
+      "private_ref_metadata_only": true,
+      "global_promotion_requested": false
+    }
+  ]
+}

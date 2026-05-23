@@ -1,0 +1,8 @@
+{
+  "schema_version": "voice_to_doctrine_negative_case_v1",
+  "case_id": "doctrine_node_hand_edit",
+  "target_kind": "principle",
+  "mutation_route": "direct_file_edit",
+  "apply_lane_used": false,
+  "expected_error_code": "VOICE_DOCTRINE_DIRECT_NODE_EDIT_FORBIDDEN"
+}

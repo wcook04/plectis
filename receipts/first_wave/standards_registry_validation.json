@@ -45,7 +45,8 @@
       "indirect_prompt_injection_information_flow_policy_replay",
       "agentic_vulnerability_discovery_patch_proof_replay",
       "materials_chemistry_closed_loop_lab_safety_replay",
-      "certificate_kernel_execution_lab"
+      "certificate_kernel_execution_lab",
+      "voice_to_doctrine_self_improvement_loop"
     ],
     "deferred_organs": [],
     "lean_lake_authorized": "bounded_public_witness_only",
@@ -64,7 +65,7 @@
     "status": "pass",
     "trading_or_financial_advice_authorized": false
   },
-  "checked_standard_count": 90,
+  "checked_standard_count": 91,
   "checked_standard_ids": [
     "std_microcosm_agent_trace",
     "std_microcosm_anti_claim",
@@ -155,20 +156,21 @@
     "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
     "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
     "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
-    "std_microcosm_certificate_kernel_execution_lab"
+    "std_microcosm_certificate_kernel_execution_lab",
+    "std_microcosm_voice_to_doctrine_self_improvement_loop"
   ],
-  "command": "python -m microcosm_core.validators.standards_registry --registry microcosm-substrate/core/standards_registry.json --standards-dir microcosm-substrate/standards --acceptance microcosm-substrate/core/acceptance/first_wave_acceptance.json --out microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
+  "command": "python -m microcosm_core.validators.standards_registry --registry core/standards_registry.json --standards-dir standards --acceptance core/acceptance/first_wave_acceptance.json --out receipts/first_wave/standards_registry_validation.json",
   "duplicate_standard_ids": [],
   "fixture_id": "first_wave.standards_registry",
   "missing_required_fields_by_standard": {},
   "missing_standard_files": [],
   "organ_id": "standards_registry",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/standards_registry_validation.json",
-    "microcosm-substrate/core/standards_registry.json",
-    "microcosm-substrate/core/acceptance/first_wave_acceptance.json"
+    "receipts/first_wave/standards_registry_validation.json",
+    "core/standards_registry.json",
+    "core/acceptance/first_wave_acceptance.json"
   ],
-  "registry_declared_standard_count": 90,
+  "registry_declared_standard_count": 91,
   "schema_version": "standards_registry_validation_receipt_v1",
   "secret_exclusion_scan": {
     "blocking_hit_count": 0,
@@ -182,11 +184,11 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 92,
+    "scanned_path_count": 93,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "standard_count": 90,
+  "standard_count": 91,
   "status": "pass",
   "validator_id": "validator.microcosm.validators.standards_registry"
 }

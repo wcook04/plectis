@@ -1,0 +1,27 @@
+{
+  "schema_version": "voice_to_doctrine_projection_protocol_v1",
+  "protocol_id": "runtime_voice_to_doctrine_self_improvement_projection",
+  "source_pattern_refs": [
+    "recursive_self_improvement_operating_loop",
+    "doctrine_population_loop",
+    "local_to_general_propagation",
+    "raw_seed_metabolism_voice_to_doctrine",
+    "local_failure_metabolism_dag",
+    "up_propagation_intake"
+  ],
+  "source_refs": [
+    "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+    "codex/doctrine/paper_modules/doctrine_population_loop.md",
+    "codex/doctrine/paper_modules/local_to_general_propagation.md"
+  ],
+  "body_import_verification": {
+    "source_refs": [
+      "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "codex/doctrine/paper_modules/local_to_general_propagation.md"
+    ],
+    "target_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+    "target_symbol": "microcosm_core.organs.voice_to_doctrine_self_improvement_loop::run_voice_to_doctrine_bundle",
+    "verification_mode": "source_faithful_public_refactor"
+  }
+}

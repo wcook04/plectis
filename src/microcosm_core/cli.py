@@ -51,6 +51,7 @@ from microcosm_core.organs import target_shape_tactic_routing_gate
 from microcosm_core.organs import undeclared_library_prior_symbol_classifier
 from microcosm_core.organs import verifier_lab_execution_spine
 from microcosm_core.organs import verifier_lab_kernel
+from microcosm_core.organs import voice_to_doctrine_self_improvement_loop
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.validators import acceptance
 from microcosm_core.validators import dependency_preflight
@@ -474,6 +475,13 @@ def main(argv: list[str] | None = None) -> int:
     assimilation_parser = subparsers.add_parser("pattern-assimilation-step")
     assimilation_parser.add_argument("action", nargs="?", choices=["run", "validate-assimilation-bundle"], default="run")
     _add_input_out(assimilation_parser)
+
+    voice_to_doctrine_parser = subparsers.add_parser(
+        "voice-to-doctrine-self-improvement-loop"
+    )
+    voice_to_doctrine_parser.add_argument("action", choices=["run", "run-bundle"])
+    _add_input_out(voice_to_doctrine_parser)
+    voice_to_doctrine_parser.add_argument("--acceptance-out")
 
     args = parser.parse_args(argv)
     if args.command == "init":
@@ -909,6 +917,11 @@ def main(argv: list[str] | None = None) -> int:
         return agent_route_observability_runtime.main(
             [args.action, "--input", args.input, "--out", args.out]
         )
+    if args.command == "voice-to-doctrine-self-improvement-loop":
+        voice_to_doctrine_args = [args.action, "--input", args.input, "--out", args.out]
+        if args.acceptance_out and args.action == "run":
+            voice_to_doctrine_args.extend(["--acceptance-out", args.acceptance_out])
+        return voice_to_doctrine_self_improvement_loop.main(voice_to_doctrine_args)
     if args.command == "pattern-assimilation-step":
         if args.action == "validate-assimilation-bundle":
             return acceptance.main(

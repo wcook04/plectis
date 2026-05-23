@@ -1,0 +1,7 @@
+{
+  "schema_version": "voice_to_doctrine_negative_case_v1",
+  "case_id": "pattern_receipt_only_progress",
+  "owner_action": "append_receipt_only",
+  "changed_surface_ref": "",
+  "expected_error_code": "VOICE_DOCTRINE_RECEIPT_ONLY_PROGRESS"
+}

@@ -46,7 +46,8 @@
     "agent_sandbox_policy_escape_replay",
     "indirect_prompt_injection_information_flow_policy_replay",
     "agentic_vulnerability_discovery_patch_proof_replay",
-    "materials_chemistry_closed_loop_lab_safety_replay"
+    "materials_chemistry_closed_loop_lab_safety_replay",
+    "voice_to_doctrine_self_improvement_loop"
   ],
   "schema_version": "public_preflight_support_microcosm_rebuild_mission_graph_v1"
 }

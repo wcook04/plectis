@@ -1,0 +1,6 @@
+{
+  "schema_version": "voice_to_doctrine_negative_case_v1",
+  "case_id": "raw_operator_voice_export",
+  "raw_operator_voice": "synthetic private operator body must never appear in public receipts",
+  "expected_error_code": "VOICE_DOCTRINE_RAW_OPERATOR_BODY_FORBIDDEN"
+}

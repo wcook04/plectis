@@ -1,0 +1,193 @@
+{
+  "already_propagated_verified_count": 0,
+  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module and skill refs as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_only_with_real_macro_refs",
+    "doctrine_node_hand_edit_authorized": false,
+    "global_doctrine_promotion_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_thread_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "raw_operator_voice_export_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "blocking_error_codes": [],
+  "blocking_findings": [],
+  "body_import_verification": {
+    "source_refs": [
+      "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "codex/doctrine/paper_modules/local_to_general_propagation.md"
+    ],
+    "target_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+    "target_symbol": "microcosm_core.organs.voice_to_doctrine_self_improvement_loop::run",
+    "verification_mode": "source_faithful_public_refactor"
+  },
+  "body_in_receipt": false,
+  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run",
+  "created_at": "2026-05-23T07:40:05+00:00",
+  "error_codes": [
+    "VOICE_DOCTRINE_CONSUME_WITHOUT_DEPOSIT",
+    "VOICE_DOCTRINE_DIRECT_NODE_EDIT_FORBIDDEN",
+    "VOICE_DOCTRINE_GLOBAL_PROMOTION_WITHOUT_OWNER_VALIDATION",
+    "VOICE_DOCTRINE_PRIVATE_THREAD_BODY_FORBIDDEN",
+    "VOICE_DOCTRINE_RAW_OPERATOR_BODY_FORBIDDEN",
+    "VOICE_DOCTRINE_RECEIPT_ONLY_PROGRESS"
+  ],
+  "expected_negative_cases": {
+    "consume_without_deposit": [
+      "VOICE_DOCTRINE_CONSUME_WITHOUT_DEPOSIT"
+    ],
+    "doctrine_node_hand_edit": [
+      "VOICE_DOCTRINE_DIRECT_NODE_EDIT_FORBIDDEN"
+    ],
+    "global_promotion_without_owner_validation": [
+      "VOICE_DOCTRINE_GLOBAL_PROMOTION_WITHOUT_OWNER_VALIDATION"
+    ],
+    "pattern_receipt_only_progress": [
+      "VOICE_DOCTRINE_RECEIPT_ONLY_PROGRESS"
+    ],
+    "private_thread_body_export": [
+      "VOICE_DOCTRINE_PRIVATE_THREAD_BODY_FORBIDDEN"
+    ],
+    "raw_operator_voice_export": [
+      "VOICE_DOCTRINE_RAW_OPERATOR_BODY_FORBIDDEN"
+    ]
+  },
+  "findings": [
+    {
+      "body_in_receipt": false,
+      "error_code": "VOICE_DOCTRINE_CONSUME_WITHOUT_DEPOSIT",
+      "message": "Consumed surfaces require an owner mutation, capture, or typed no-op.",
+      "negative_case_id": "consume_without_deposit",
+      "subject_id": "consume_without_deposit",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "VOICE_DOCTRINE_DIRECT_NODE_EDIT_FORBIDDEN",
+      "message": "Doctrine nodes must route through apply lanes, not hand edits.",
+      "negative_case_id": "doctrine_node_hand_edit",
+      "subject_id": "doctrine_node_hand_edit",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "VOICE_DOCTRINE_GLOBAL_PROMOTION_WITHOUT_OWNER_VALIDATION",
+      "message": "Global promotion requires owner validation first.",
+      "negative_case_id": "global_promotion_without_owner_validation",
+      "subject_id": "global_promotion_without_owner_validation",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "VOICE_DOCTRINE_RECEIPT_ONLY_PROGRESS",
+      "message": "Pattern receipts are evidence, not the main progress unit.",
+      "negative_case_id": "pattern_receipt_only_progress",
+      "subject_id": "pattern_receipt_only_progress",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "VOICE_DOCTRINE_PRIVATE_THREAD_BODY_FORBIDDEN",
+      "message": "Private thread bodies must remain out of public fixtures.",
+      "negative_case_id": "private_thread_body_export",
+      "subject_id": "private_thread_body_export",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_in_receipt": false,
+      "error_code": "VOICE_DOCTRINE_RAW_OPERATOR_BODY_FORBIDDEN",
+      "message": "Raw operator voice bodies are excluded from public microcosm.",
+      "negative_case_id": "raw_operator_voice_export",
+      "subject_id": "raw_operator_voice_export",
+      "subject_kind": "negative_case"
+    }
+  ],
+  "fixture_id": "first_wave.voice_to_doctrine_self_improvement_loop",
+  "input_mode": "first_wave_fixture",
+  "lesson_count": 4,
+  "metadata_projection_not_live_learning_authority": true,
+  "missing_negative_cases": [],
+  "nothing_to_refine_count": 1,
+  "observed_negative_cases": {
+    "consume_without_deposit": [
+      "VOICE_DOCTRINE_CONSUME_WITHOUT_DEPOSIT"
+    ],
+    "doctrine_node_hand_edit": [
+      "VOICE_DOCTRINE_DIRECT_NODE_EDIT_FORBIDDEN"
+    ],
+    "global_promotion_without_owner_validation": [
+      "VOICE_DOCTRINE_GLOBAL_PROMOTION_WITHOUT_OWNER_VALIDATION"
+    ],
+    "pattern_receipt_only_progress": [
+      "VOICE_DOCTRINE_RECEIPT_ONLY_PROGRESS"
+    ],
+    "private_thread_body_export": [
+      "VOICE_DOCTRINE_PRIVATE_THREAD_BODY_FORBIDDEN"
+    ],
+    "raw_operator_voice_export": [
+      "VOICE_DOCTRINE_RAW_OPERATOR_BODY_FORBIDDEN"
+    ]
+  },
+  "organ_id": "voice_to_doctrine_self_improvement_loop",
+  "owner_counts": {
+    "paper_module.recursive_self_improvement_operating_loop": 1,
+    "skill.public_microcosm_evolution_seed": 1,
+    "standard.std_uppropagation_intake": 1,
+    "task_ledger.residual_capture": 1
+  },
+  "owner_surface_count": 5,
+  "receipt_id": "voice_to_doctrine_self_improvement_fixture_acceptance",
+  "receipt_paths": [
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_board.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_validation_receipt.json",
+    "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+  ],
+  "refined_existing_surface_count": 2,
+  "required_sequence": [
+    "sense_local_pressure",
+    "classify_pressure_shape",
+    "select_owner_surface",
+    "mutate_or_capture_owner",
+    "validate_owner_result",
+    "bind_closeout",
+    "publish_reentry_condition"
+  ],
+  "schema_version": "voice_to_doctrine_self_improvement_acceptance_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_pattern_refs": [
+    "doctrine_population_loop",
+    "local_failure_metabolism_dag",
+    "local_to_general_propagation",
+    "raw_seed_metabolism_voice_to_doctrine",
+    "recursive_self_improvement_operating_loop",
+    "up_propagation_intake"
+  ],
+  "status": "pass",
+  "status_counts": {
+    "nothing_to_refine": 1,
+    "refined_existing_surface": 2,
+    "workitem_captured": 1
+  },
+  "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
+  "workitem_capture_count": 1
+}

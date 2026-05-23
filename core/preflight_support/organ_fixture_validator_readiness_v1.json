@@ -1061,6 +1061,35 @@
       ],
       "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
       "status": "ready"
+    },
+    {
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "fixture_id": "fixture::voice_to_doctrine_self_improvement_loop::first_wave_contract_v1",
+      "fixture_manifest": "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
+      "fixture_inputs": [
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/projection_protocol.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/propagation_policy.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/owner_surfaces.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/raw_operator_voice_export.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/doctrine_node_hand_edit.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/consume_without_deposit.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/pattern_receipt_only_progress.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/global_promotion_without_owner_validation.json",
+        "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/private_thread_body_export.json"
+      ],
+      "build_dependencies": [
+        "macro_projection_import_protocol",
+        "pattern_assimilation_step"
+      ],
+      "generated_receipts": [
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_board.json",
+        "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_validation_receipt.json",
+        "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+      ],
+      "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+      "status": "ready"
     }
   ],
   "schema_version": "public_preflight_support_organ_fixture_validator_readiness_v1"

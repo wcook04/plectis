@@ -1,0 +1,131 @@
+{
+  "anti_claim": "This standard describes the public voice-to-doctrine self-improvement loop schema only; it does not authorize raw-voice export, private thread export, provider calls, live Task Ledger mutation, source mutation, global doctrine promotion, release, or publication.",
+  "authority_boundary": "public_safe_voice_to_doctrine_self_improvement_fixture_standard",
+  "authority_ceiling": {
+    "global_doctrine_promotion_authority": false,
+    "private_data_equivalence_authority": false,
+    "raw_operator_voice_export_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "status": "pass"
+  },
+  "kind_id": "voice_to_doctrine_self_improvement_loop",
+  "public_private_boundary": {
+    "allowed_public_material": [
+      "macro pattern refs",
+      "owner surface ids",
+      "public validation refs",
+      "negative-case ids and error codes",
+      "public-relative receipt refs"
+    ],
+    "forbidden_public_material": [
+      "raw operator voice bodies",
+      "private thread bodies",
+      "provider payload bodies",
+      "credential values",
+      "live Task Ledger rows"
+    ],
+    "status": "pass"
+  },
+  "receipt_contract": {
+    "body_in_receipt": false,
+    "must_emit": [
+      "voice_to_doctrine_self_improvement_loop_result.json",
+      "voice_to_doctrine_self_improvement_loop_board.json",
+      "voice_to_doctrine_self_improvement_loop_validation_receipt.json",
+      "voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
+    ],
+    "public_relative_refs_required": true
+  },
+  "receipt_expectations": [
+    "report observed and expected negative-case ids",
+    "separate blocking findings from expected negative-case rejections",
+    "include owner surface counts, status counts, and source pattern refs",
+    "include authority ceiling and anti-claim",
+    "omit raw/private/provider bodies"
+  ],
+  "relationships": {
+    "governed_by": [
+      "std_microcosm_organ",
+      "std_microcosm_receipt",
+      "std_microcosm_private_fixture"
+    ],
+    "imports_macro_patterns": [
+      "recursive_self_improvement_operating_loop",
+      "doctrine_population_loop",
+      "local_to_general_propagation"
+    ]
+  },
+  "required_fields": [
+    "lesson_id",
+    "input_signal_class",
+    "macro_pattern_refs",
+    "selected_owner_surface_id",
+    "owner_action",
+    "status",
+    "evidence_refs",
+    "validation_ref",
+    "closeout_ref"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "path": "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "role": "macro_self_improvement_source"
+    },
+    {
+      "path": "codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "role": "macro_doctrine_population_source"
+    },
+    {
+      "path": "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "role": "macro_propagation_source"
+    }
+  ],
+  "standard_id": "std_microcosm_voice_to_doctrine_self_improvement_loop",
+  "standard_payload": {
+    "allowed_outcomes": [
+      "refined_existing_surface",
+      "workitem_captured",
+      "nothing_to_refine",
+      "already_propagated_verified"
+    ],
+    "anti_purpose": "A receipt-only pattern note that claims system learning without owner-surface mutation, validation, or re-entry condition.",
+    "failure_modes": [
+      "raw operator voice body exported into public fixture",
+      "doctrine node mutated by direct file edit instead of apply lane",
+      "local skill or paper-module consumption closes without deposit",
+      "pattern receipt accepted as progress without changed owner surface",
+      "global doctrine promotion claimed without owner validation",
+      "private thread body exported"
+    ],
+    "ontology": "A public-safe organ that turns local pressure into owner-surface mutation, residual capture, or typed no-op under validation.",
+    "teleology": "Show the macro system's most important property: it learns from local work and updates its own substrate without rule drift."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require real macro pattern refs for recursive self-improvement, doctrine population, and local-to-general propagation",
+    "require owner surface ids, mutation authority, and public refs",
+    "reject raw voice, private thread, provider payload, and secret-like bodies",
+    "reject direct doctrine-node mutation routes",
+    "reject receipt-only progress",
+    "require validation and closeout refs for each lesson",
+    "require re-entry condition for residual captures",
+    "require stewardship and next-best-lane checks for nothing_to_refine"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "schema",
+      "owner_surface_map",
+      "lesson_deposit",
+      "negative_cases",
+      "secret_exclusion"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop"
+  },
+  "validator_refs": [
+    "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+    "tests/test_voice_to_doctrine_self_improvement_loop.py"
+  ]
+}

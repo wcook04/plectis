@@ -275,6 +275,11 @@
       "organ_id": "certificate_kernel_execution_lab",
       "evidence_class": "external_subprocess_witness",
       "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters"
+    },
+    {
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived self-improvement checks over owner surfaces, local lesson deposits, expected negative-case rejection, public receipt shape, and secret-exclusion policy"
     }
   ]
 }

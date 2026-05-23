@@ -58,6 +58,7 @@ from microcosm_core.organs import target_shape_tactic_routing_gate
 from microcosm_core.organs import undeclared_library_prior_symbol_classifier
 from microcosm_core.organs import verifier_lab_execution_spine
 from microcosm_core.organs import verifier_lab_kernel
+from microcosm_core.organs import voice_to_doctrine_self_improvement_loop
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
@@ -548,6 +549,17 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         receipt_name=(
             "exported_certificate_kernel_execution_lab_bundle_validation_result.json"
         ),
+    ),
+    RuntimeStep(
+        organ_id="voice_to_doctrine_self_improvement_loop",
+        span="voice_to_doctrine_self_improvement_loop.validate",
+        input_mode="exported_voice_to_doctrine_bundle",
+        example_rel=(
+            "examples/voice_to_doctrine_self_improvement_loop/"
+            "exported_voice_to_doctrine_bundle"
+        ),
+        runner=voice_to_doctrine_self_improvement_loop.run_voice_to_doctrine_bundle,
+        receipt_name="exported_voice_to_doctrine_bundle_validation_result.json",
     ),
 )
 

@@ -1,0 +1,23 @@
+{
+  "schema_version": "voice_to_doctrine_propagation_policy_v1",
+  "policy_id": "runtime_voice_to_doctrine_self_improvement_policy",
+  "required_sequence": [
+    "sense_local_pressure",
+    "classify_pressure_shape",
+    "select_owner_surface",
+    "mutate_or_capture_owner",
+    "validate_owner_result",
+    "bind_closeout",
+    "publish_reentry_condition"
+  ],
+  "allowed_outcomes": [
+    "refined_existing_surface",
+    "workitem_captured",
+    "nothing_to_refine",
+    "already_propagated_verified"
+  ],
+  "receipt_only_progress_authorized": false,
+  "global_promotion_requires_owner_validation": true,
+  "doctrine_node_mutation_requires_apply_lane": true,
+  "natural_sensing_deliberate_substrate_promotion": true
+}

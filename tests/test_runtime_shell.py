@@ -59,6 +59,7 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "indirect_prompt_injection_information_flow_policy_replay": "fixture_echo_smoke",
     "agentic_vulnerability_discovery_patch_proof_replay": "fixture_echo_smoke",
     "certificate_kernel_execution_lab": "external_subprocess_witness",
+    "voice_to_doctrine_self_improvement_loop": "semantic_validator",
 }
 
 
@@ -78,13 +79,13 @@ def test_runtime_shell_status_is_product_centered() -> None:
     status = shell.status()
 
     assert status["status"] == "pass"
-    assert status["adapter_backed_organ_count"] == 44
+    assert status["adapter_backed_organ_count"] == 45
     assert status["adapter_backed_count_is_product_progress"] is False
-    assert status["real_substrate_progress_count"] == 29
+    assert status["real_substrate_progress_count"] == 30
     assert status["non_progress_organ_count"] == 15
     assert status["truth_accounting"]["real_runtime_receipt_count"] == 3
     assert status["truth_accounting"]["source_faithful_refactor_count"] == 14
-    assert status["truth_accounting"]["real_import_validation_count"] == 12
+    assert status["truth_accounting"]["real_import_validation_count"] == 13
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 15
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert status["product_path_demoted_organ_count"] == 1
@@ -237,37 +238,37 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["status"] == "pass"
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
-    assert spine["surface_counts"]["adapter_backed_organ_count"] == 44
+    assert spine["surface_counts"]["adapter_backed_organ_count"] == 45
     assert spine["surface_counts"]["adapter_backed_count_is_product_progress"] is False
-    assert spine["surface_counts"]["real_substrate_progress_count"] == 29
+    assert spine["surface_counts"]["real_substrate_progress_count"] == 30
     assert spine["surface_counts"]["non_progress_organ_count"] == 15
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 0
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 14
-    assert spine["surface_counts"]["real_import_validation_count"] == 12
+    assert spine["surface_counts"]["real_import_validation_count"] == 13
     assert spine["surface_counts"]["regression_negative_fixture_count"] == 15
     assert spine["surface_counts"]["blocked_import_debt_count"] == 0
     assert spine["surface_counts"]["secret_exclusion_count"] == 0
     assert spine["surface_counts"]["legacy_adapter_or_synthetic_placeholder_count"] == 0
     assert spine["surface_counts"]["delete_or_demote_candidate_count"] == 0
     assert spine["surface_counts"]["product_path_demoted_organ_count"] == 1
-    assert len(spine["accepted_runtime_spine"]) == 44
-    assert len(spine["real_substrate_progress_spine"]) == 29
+    assert len(spine["accepted_runtime_spine"]) == 45
+    assert len(spine["real_substrate_progress_spine"]) == 30
     assert len(spine["non_progress_runtime_spine"]) == 15
     assert spine["surface_counts"]["evidence_class_count"] == 5
     assert spine["evidence_class_registry"]["fail_closed_no_default"] is True
-    assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 45
+    assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 46
     assert spine["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert spine["truth_accounting"]["real_substrate_progress_count"] == 29
+    assert spine["truth_accounting"]["real_substrate_progress_count"] == 30
     assert spine["truth_accounting"]["non_progress_organ_count"] == 15
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
-    assert sum(spine["evidence_class_counts"].values()) == 44
+    assert sum(spine["evidence_class_counts"].values()) == 45
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
     assert {organ_id: row["evidence_class"] for organ_id, row in rows_by_id.items()} == (
         EXPECTED_ORGAN_EVIDENCE_CLASSES
     )
     assert spine["evidence_class_counts"] == {
-        "semantic_validator": 12,
+        "semantic_validator": 13,
         "algorithmic_projection": 14,
         "fixture_echo_smoke": 13,
         "external_subprocess_witness": 3,
@@ -522,23 +523,23 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
         "private_screenshot_paths_exported": False,
         "reader_success_guarantee": False,
     }
-    assert authority["surface_counts"]["organ_authority_count"] == 44
+    assert authority["surface_counts"]["organ_authority_count"] == 45
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert authority["surface_counts"]["organ_evidence_class_count"] == 5
     assert authority["surface_counts"]["adapter_backed_count_is_product_progress"] is False
-    assert authority["surface_counts"]["real_substrate_progress_count"] == 29
+    assert authority["surface_counts"]["real_substrate_progress_count"] == 30
     assert authority["surface_counts"]["non_progress_organ_count"] == 15
     assert authority["surface_counts"]["regression_negative_fixture_count"] == 15
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
-    assert authority["truth_accounting"]["real_substrate_progress_count"] == 29
+    assert authority["truth_accounting"]["real_substrate_progress_count"] == 30
     assert authority["truth_accounting"]["regression_negative_fixture_count"] == 15
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert authority["evidence_class_registry"]["fail_closed_no_default"] is True
-    assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 45
+    assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 46
     assert authority["evidence_class_registry"]["unclassified_organs"] == []
     assert authority["evidence_class_counts"] == {
-        "semantic_validator": 12,
+        "semantic_validator": 13,
         "algorithmic_projection": 14,
         "fixture_echo_smoke": 13,
         "external_subprocess_witness": 3,
@@ -2002,8 +2003,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     result = shell.run_demo("examples/runtime_shell/demo_project")
 
     assert result["status"] == "pass"
-    assert len(result["events"]) == 44
-    assert [event["status"] for event in result["events"]] == ["pass"] * 44
+    assert len(result["events"]) == 45
+    assert [event["status"] for event in result["events"]] == ["pass"] * 45
     assert {event["input_mode"] for event in result["events"]} == {
         "exported_substrate_bundle",
         "exported_standards_bundle",
@@ -2030,6 +2031,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
             "exported_verifier_lab_kernel_bundle",
             "exported_verifier_lab_execution_spine_bundle",
             "exported_certificate_kernel_execution_lab_bundle",
+            "exported_voice_to_doctrine_bundle",
         "exported_route_plane_bundle",
         "exported_mission_transaction_bundle",
         "exported_observability_bundle",
@@ -2056,8 +2058,8 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
 
     trace = json.loads((public_root / result["trace_ref"]).read_text(encoding="utf-8"))
     assert trace["status"] == "pass"
-    assert trace["otel_shape"]["span_count"] == 44
-    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 44
+    assert trace["otel_shape"]["span_count"] == 45
+    assert trace["otel_shape"]["metrics"]["runtime_steps_passed"] == 45
     output_text = (public_root / "receipts/runtime_shell/demo_project/demo_project_result.json").read_text(
         encoding="utf-8"
     )
@@ -2242,14 +2244,14 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
-    assert payload["adapter_backed_organ_count"] == 44
+    assert payload["adapter_backed_organ_count"] == 45
     assert payload["product_path_demoted_organ_count"] == 1
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
     assert authority["schema_version"] == "microcosm_public_authority_map_v1"
     assert authority["authority_ceiling"]["release_authorized"] is False
-    assert authority["surface_counts"]["organ_authority_count"] == 44
+    assert authority["surface_counts"]["organ_authority_count"] == 45
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert prediction["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert prediction["authority_ceiling"]["trading_authorized"] is False
@@ -2429,7 +2431,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
         is True
     )
     assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
-        "semantic_validator": 12,
+        "semantic_validator": 13,
         "algorithmic_projection": 14,
         "fixture_echo_smoke": 13,
         "external_subprocess_witness": 3,

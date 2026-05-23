@@ -229,7 +229,25 @@
     "fixtures/first_wave/certificate_kernel_execution_lab/input/transition_provider_oracle_visible.json",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/cp2_certificate_contains_proof_body.json",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/evolve_certificate_mutates_source.json",
-    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json"
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_board.json",
+    "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_validation_receipt.json",
+    "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle_validation_result.json",
+    "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json",
+    "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
+    "paper_modules/voice_to_doctrine_self_improvement_loop.md",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/projection_protocol.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/propagation_policy.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/owner_surfaces.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/raw_operator_voice_export.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/doctrine_node_hand_edit.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/consume_without_deposit.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/pattern_receipt_only_progress.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/global_promotion_without_owner_validation.json",
+    "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/private_thread_body_export.json"
   ],
   "schema_version": "public_preflight_support_validator_receipt_coverage_map_v1"
 }

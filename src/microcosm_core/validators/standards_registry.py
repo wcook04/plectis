@@ -67,6 +67,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "pattern_assimilation_step",
     "public_reveal_walkthrough",
     "macro_projection_import_protocol",
+    "voice_to_doctrine_self_improvement_loop",
     "prediction_oracle_reconciliation",
     "standards_meta_diagnostics",
     "cold_reader_route_map",

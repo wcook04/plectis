@@ -67,6 +67,7 @@ imported macro body.
 - `pattern_assimilation_step`
 - `public_reveal_walkthrough`
 - `macro_projection_import_protocol`
+- `voice_to_doctrine_self_improvement_loop`
 - `prediction_oracle_reconciliation`
 - `standards_meta_diagnostics`
 - `cold_reader_route_map`
@@ -143,6 +144,14 @@ imported macro body.
    open-actionable count so a landed cell is not reread as unfinished work. Use
    `microcosm intake` when a cold reader needs the public runtime bridge from
    that intake board into spine/reveal/evidence.
+   The `voice_to_doctrine_self_improvement_loop` organ is the public self-update
+   membrane: it validates local pressure -> owner surface -> mutation or
+   capture -> validation -> closeout -> re-entry, while rejecting raw operator
+   voice export, private thread body export, direct doctrine-node edits,
+   receipt-only progress, and global promotion without owner validation. Use
+   `voice-to-doctrine-self-improvement-loop` when a Microcosm pass needs to
+   prove it imported the macro system's learning loop instead of only adding
+   pattern receipts.
    The authority loop is `microcosm authority`; it should aggregate status,
    spine, intake, reveal, accepted organs, hard public boundaries, safe
    local-only exceptions, evidence refs, `evidence_class` rows, and anti-claims

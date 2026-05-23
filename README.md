@@ -26,6 +26,7 @@ microcosm import-projector
 microcosm option-surface-lens
 microcosm stripping-guard
 microcosm standards-control
+microcosm voice-to-doctrine-self-improvement-loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json
 microcosm serve . --host 127.0.0.1 --port 8765
 ```
 
@@ -213,6 +214,7 @@ microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input example
 microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver
 microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle --input examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle --out receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier
 microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map
+microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm observe /tmp/microcosm-scratch
 microcosm evidence list /tmp/microcosm-scratch

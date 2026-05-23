@@ -1,0 +1,6 @@
+{
+  "schema_version": "voice_to_doctrine_exported_bundle_manifest_v1",
+  "bundle_id": "voice_to_doctrine_self_improvement_loop_runtime_example",
+  "organ_id": "voice_to_doctrine_self_improvement_loop",
+  "description": "Public-safe runtime example for the voice-to-doctrine self-improvement loop."
+}

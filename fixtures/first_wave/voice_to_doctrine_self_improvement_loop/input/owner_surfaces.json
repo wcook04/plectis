@@ -1,0 +1,40 @@
+{
+  "schema_version": "voice_to_doctrine_owner_surfaces_v1",
+  "owner_surfaces": [
+    {
+      "owner_surface_id": "skill.public_microcosm_evolution_seed",
+      "surface_kind": "skill",
+      "public_ref": "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md",
+      "mutation_authority": "source_skill_edit_plus_skill_catalog_refresh",
+      "why_load_bearing": "Prevents future Microcosm passes from shrinking macro import into receipt theater."
+    },
+    {
+      "owner_surface_id": "paper_module.recursive_self_improvement_operating_loop",
+      "surface_kind": "paper_module",
+      "public_ref": "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "mutation_authority": "paper_module_refresh",
+      "why_load_bearing": "Names the system-learning DAG and its evidence gates."
+    },
+    {
+      "owner_surface_id": "paper_module.doctrine_population_loop",
+      "surface_kind": "paper_module",
+      "public_ref": "codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "mutation_authority": "paper_module_refresh",
+      "why_load_bearing": "Routes pressure into concepts, mechanisms, principles, skills, standards, or paper modules without drift."
+    },
+    {
+      "owner_surface_id": "standard.std_uppropagation_intake",
+      "surface_kind": "standard",
+      "public_ref": "codex/standards/std_uppropagation_intake.json",
+      "mutation_authority": "standard_maintenance_protocol",
+      "why_load_bearing": "Keeps local failure packets typed before promotion."
+    },
+    {
+      "owner_surface_id": "task_ledger.residual_capture",
+      "surface_kind": "workitem",
+      "public_ref": "state/task_ledger/events.jsonl::quick_capture",
+      "mutation_authority": "task_ledger_apply_quick_capture",
+      "why_load_bearing": "Captures blocked owner edits with re-entry conditions instead of hiding them in chat."
+    }
+  ]
+}

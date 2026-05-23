@@ -1,0 +1,6 @@
+{
+  "schema_version": "voice_to_doctrine_negative_case_v1",
+  "case_id": "private_thread_body_export",
+  "private_thread_body": "synthetic private browser/thread body must stay out",
+  "expected_error_code": "VOICE_DOCTRINE_PRIVATE_THREAD_BODY_FORBIDDEN"
+}

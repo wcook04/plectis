@@ -1,0 +1,8 @@
+{
+  "schema_version": "voice_to_doctrine_negative_case_v1",
+  "case_id": "global_promotion_without_owner_validation",
+  "global_promotion_requested": true,
+  "owner_surface_validated": false,
+  "validation_ref": "",
+  "expected_error_code": "VOICE_DOCTRINE_GLOBAL_PROMOTION_WITHOUT_OWNER_VALIDATION"
+}

@@ -1,0 +1,83 @@
+{
+  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module and skill refs as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_only_with_real_macro_refs",
+    "doctrine_node_hand_edit_authorized": false,
+    "global_doctrine_promotion_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "private_thread_body_export_authorized": false,
+    "provider_calls_authorized": false,
+    "raw_operator_voice_export_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "board_rows": [
+    {
+      "body_in_receipt": false,
+      "changed_surface_ref": "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md::Workflow",
+      "closeout_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md",
+      "input_signal_class": "operator_pressure",
+      "lesson_id": "microcosm_receipt_theater_rejected",
+      "owner_action": "refine_skill_hard_rule",
+      "owner_surface_kind": "skill",
+      "reentry_condition": null,
+      "selected_owner_surface_id": "skill.public_microcosm_evolution_seed",
+      "status": "refined_existing_surface",
+      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py"
+    },
+    {
+      "body_in_receipt": false,
+      "changed_surface_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+      "closeout_ref": "receipts/first_wave/voice_to_doctrine_self_improvement_loop/voice_to_doctrine_self_improvement_loop_result.json",
+      "input_signal_class": "failure_class_packet",
+      "lesson_id": "self_updating_dag_landed_as_public_organ",
+      "owner_action": "add_public_runtime_organ",
+      "owner_surface_kind": "paper_module",
+      "reentry_condition": null,
+      "selected_owner_surface_id": "paper_module.recursive_self_improvement_operating_loop",
+      "status": "refined_existing_surface",
+      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py"
+    },
+    {
+      "body_in_receipt": false,
+      "changed_surface_ref": "state/task_ledger/events.jsonl::metadata_only_residual",
+      "closeout_ref": "paper_modules/voice_to_doctrine_self_improvement_loop.md::Anti-Claim",
+      "input_signal_class": "private_boundary",
+      "lesson_id": "private_voice_body_blocked_but_route_kept",
+      "owner_action": "capture_blocked_private_body_import",
+      "owner_surface_kind": "workitem",
+      "reentry_condition": "A public-safe synthetic voice fixture or redacted source capsule is selected.",
+      "selected_owner_surface_id": "task_ledger.residual_capture",
+      "status": "workitem_captured",
+      "validation_ref": "pytest tests/test_voice_to_doctrine_self_improvement_loop.py"
+    },
+    {
+      "body_in_receipt": false,
+      "changed_surface_ref": "",
+      "closeout_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+      "input_signal_class": "stewardship_check",
+      "lesson_id": "option_surface_already_imported_verified",
+      "owner_action": "verify_already_propagated",
+      "owner_surface_kind": "standard",
+      "reentry_condition": null,
+      "selected_owner_surface_id": "standard.std_uppropagation_intake",
+      "status": "nothing_to_refine",
+      "validation_ref": "pytest tests/test_runtime_shell.py -k option_surface_lens"
+    }
+  ],
+  "body_in_receipt": false,
+  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run",
+  "created_at": "2026-05-23T07:40:05+00:00",
+  "fixture_id": "first_wave.voice_to_doctrine_self_improvement_loop",
+  "organ_id": "voice_to_doctrine_self_improvement_loop",
+  "owner_surface_ids": [
+    "paper_module.doctrine_population_loop",
+    "paper_module.recursive_self_improvement_operating_loop",
+    "skill.public_microcosm_evolution_seed",
+    "standard.std_uppropagation_intake",
+    "task_ledger.residual_capture"
+  ],
+  "schema_version": "voice_to_doctrine_self_improvement_board_v1",
+  "status": "pass"
+}
