@@ -1,36 +1,127 @@
 {
-  "authority_ceiling": "synthetic_indirect_prompt_injection_information_flow_replay_receipts_only",
-  "expected_negative_cases": [
-    "credential_exfiltration.json",
-    "final_answer_only_success.json",
-    "hidden_system_message_promotion.json",
-    "raw_prompt_body_export.json",
-    "real_account_material.json",
-    "secret_exfiltration.json",
-    "tool_output_as_instruction.json",
-    "untrusted_to_privileged_sink.json"
+  "authority_ceiling": "public_agent_execution_trace_refactor_with_prompt_injection_fixture_regression_inputs",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "fixture_id": "fixture::indirect_prompt_injection_information_flow_policy_replay::first_wave_contract_v1",
+  "fixture_runtime_refs": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
+    "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay::run"
   ],
-  "fixture_id": "first_wave.indirect_prompt_injection_information_flow_policy_replay",
-  "negative_inputs": [
-    "credential_exfiltration.json",
-    "final_answer_only_success.json",
-    "hidden_system_message_promotion.json",
-    "raw_prompt_body_export.json",
-    "real_account_material.json",
-    "secret_exfiltration.json",
-    "tool_output_as_instruction.json",
-    "untrusted_to_privileged_sink.json"
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/projection_protocol.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/injection_policy.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/source_documents.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/information_flow_graph.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/policy_verdicts.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/sanitized_outputs.json",
+      "role": "positive"
+    },
+    {
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/cold_replay.json",
+      "role": "positive"
+    },
+    {
+      "negative_case_id": "real_account_material",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/real_account_material.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "secret_exfiltration",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/secret_exfiltration.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "raw_prompt_body_export",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/raw_prompt_body_export.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "tool_output_as_instruction",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/tool_output_as_instruction.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "hidden_system_message_promotion",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/hidden_system_message_promotion.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "credential_exfiltration",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/credential_exfiltration.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "final_answer_only_success",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/final_answer_only_success.json",
+      "role": "negative"
+    },
+    {
+      "negative_case_id": "untrusted_to_privileged_sink",
+      "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/untrusted_to_privileged_sink.json",
+      "role": "negative"
+    }
+  ],
+  "negative_case_count": 8,
+  "negative_case_ids": [
+    "real_account_material",
+    "secret_exfiltration",
+    "raw_prompt_body_export",
+    "tool_output_as_instruction",
+    "hidden_system_message_promotion",
+    "credential_exfiltration",
+    "final_answer_only_success",
+    "untrusted_to_privileged_sink"
+  ],
+  "omitted_secret_or_live_access_material": [
+    "real email bodies",
+    "real browser snippets",
+    "real account identifiers",
+    "raw system/developer prompts",
+    "raw tool output bodies",
+    "provider payloads",
+    "credential material",
+    "private workspace documents"
   ],
   "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
-  "positive_inputs": [
-    "cold_replay.json",
-    "information_flow_graph.json",
-    "injection_policy.json",
-    "policy_verdicts.json",
-    "projection_protocol.json",
-    "sanitized_outputs.json",
-    "source_documents.json"
-  ],
+  "positive_fixture_count": 7,
+  "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
   "schema_version": "microcosm_fixture_manifest_v1",
-  "validator": "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay"
+  "source_refs": [
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::indirect_prompt_injection_information_flow_policy_replay_compound"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
+    "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay::run"
+  ]
 }

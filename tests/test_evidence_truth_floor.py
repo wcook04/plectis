@@ -130,4 +130,4 @@ def test_current_registry_no_longer_flags_landed_truth_floor_rows() -> None:
     assert "agentic_vulnerability_discovery_patch_proof_replay" not in candidate_ids
     assert "agent_sandbox_policy_escape_replay" not in candidate_ids
     assert receipt["candidate_count"] == 0
-    assert receipt["inspected_fixture_echo_row_count"] == 5
+    assert receipt["inspected_fixture_echo_row_count"] == 4

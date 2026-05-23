@@ -1,285 +1,285 @@
 {
-  "schema_version": "microcosm_organ_evidence_classes_v1",
-  "registry_id": "microcosm_organ_evidence_classes",
   "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, secret export, or source mutation.",
-  "fail_closed_no_default": true,
   "class_profiles": {
-    "semantic_validator": {
-      "evidence_strength_rank": 5,
-      "truth_accounting_bucket": "real_import_validation",
-      "counts_as_real_substrate_progress": true,
-      "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
-      "verdict_source": "validator_computation",
-      "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-      "claim_ceiling": "validates declared public contract only"
-    },
-    "external_subprocess_witness": {
-      "evidence_strength_rank": 4,
-      "truth_accounting_bucket": "real_runtime_receipt",
-      "counts_as_real_substrate_progress": true,
-      "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
-      "verdict_source": "subprocess_or_tool_witness",
-      "negative_case_independence": "bounded_to_declared_toy_witness_scope",
-      "claim_ceiling": "tool witness only, not general proof authority"
-    },
     "algorithmic_projection": {
-      "evidence_strength_rank": 3,
-      "truth_accounting_bucket": "source_faithful_refactor",
+      "claim_ceiling": "projection mechanics only, not domain correctness",
       "counts_as_real_substrate_progress": true,
       "evaluator_basis": "bounded_algorithmic_computation_over_public_fixture_rows",
-      "verdict_source": "derived_projection_metric",
+      "evidence_strength_rank": 3,
       "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-      "claim_ceiling": "projection mechanics only, not domain correctness"
+      "truth_accounting_bucket": "source_faithful_refactor",
+      "verdict_source": "derived_projection_metric"
     },
-    "fixture_schema_replay": {
-      "evidence_strength_rank": 2,
-      "truth_accounting_bucket": "regression_negative_fixture",
-      "counts_as_real_substrate_progress": false,
-      "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
-      "verdict_source": "fixture_replay_contract",
-      "negative_case_independence": "fixture_negative_cases_are_static_inputs",
-      "claim_ceiling": "schema/regression fixture only"
+    "external_subprocess_witness": {
+      "claim_ceiling": "tool witness only, not general proof authority",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "bounded_external_tool_return_code_plus_receipt_checks",
+      "evidence_strength_rank": 4,
+      "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "verdict_source": "subprocess_or_tool_witness"
     },
     "fixture_echo_smoke": {
-      "evidence_strength_rank": 1,
-      "truth_accounting_bucket": "regression_negative_fixture",
+      "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "counts_as_real_substrate_progress": false,
       "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
-      "verdict_source": "fixture_supplied_fields",
+      "evidence_strength_rank": 1,
       "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
-      "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation"
+      "truth_accounting_bucket": "regression_negative_fixture",
+      "verdict_source": "fixture_supplied_fields"
+    },
+    "fixture_schema_replay": {
+      "claim_ceiling": "schema/regression fixture only",
+      "counts_as_real_substrate_progress": false,
+      "evaluator_basis": "fixture_shape_schema_and_cross_ref_checks",
+      "evidence_strength_rank": 2,
+      "negative_case_independence": "fixture_negative_cases_are_static_inputs",
+      "truth_accounting_bucket": "regression_negative_fixture",
+      "verdict_source": "fixture_replay_contract"
+    },
+    "semantic_validator": {
+      "claim_ceiling": "validates declared public contract only",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+      "evidence_strength_rank": 5,
+      "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+      "truth_accounting_bucket": "real_import_validation",
+      "verdict_source": "validator_computation"
     }
   },
+  "fail_closed_no_default": true,
   "organ_evidence_classes": [
     {
-      "organ_id": "pattern_binding_contract",
+      "classification_basis": "derived public contract checks over substrate bundle structure, authority handles, and negative cases",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived public contract checks over substrate bundle structure, authority handles, and negative cases"
+      "organ_id": "pattern_binding_contract"
     },
     {
-      "organ_id": "executable_doctrine_grammar",
+      "classification_basis": "derived public standard grammar and cross-reference validation",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived public standard grammar and cross-reference validation"
+      "organ_id": "executable_doctrine_grammar"
     },
     {
-      "organ_id": "proof_diagnostic_evidence_spine",
+      "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata"
+      "organ_id": "proof_diagnostic_evidence_spine"
     },
     {
-      "organ_id": "formal_math_readiness_gate",
+      "classification_basis": "bounded readiness and policy projection over synthetic formal-math fixture rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded readiness and policy projection over synthetic formal-math fixture rows"
+      "organ_id": "formal_math_readiness_gate"
     },
     {
-      "organ_id": "corpus_readiness_mathlib_absence_gate",
+      "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded corpus/toolchain availability projection over public fixture state"
+      "organ_id": "corpus_readiness_mathlib_absence_gate"
     },
     {
-      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+      "classification_basis": "bounded strategy scoring and missing-classification projection",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded strategy scoring and missing-classification projection"
+      "organ_id": "mathematical_strategy_atlas_hypothesis_scorer"
     },
     {
-      "organ_id": "tactic_portfolio_availability_probe",
+      "classification_basis": "bounded tactic availability projection over declared fixture rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded tactic availability projection over declared fixture rows"
+      "organ_id": "tactic_portfolio_availability_probe"
     },
     {
-      "organ_id": "target_shape_tactic_routing_gate",
+      "classification_basis": "bounded routing policy projection over target-shape fixture rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded routing policy projection over target-shape fixture rows"
+      "organ_id": "target_shape_tactic_routing_gate"
     },
     {
-      "organ_id": "lean_std_premise_index",
+      "classification_basis": "bounded premise-index projection over closed public Lean/Std fixture rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded premise-index projection over closed public Lean/Std fixture rows"
+      "organ_id": "lean_std_premise_index"
     },
     {
-      "organ_id": "formal_math_premise_retrieval",
+      "classification_basis": "bounded retrieval metric projection over public fixture rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded retrieval metric projection over public fixture rows"
+      "organ_id": "formal_math_premise_retrieval"
     },
     {
-      "organ_id": "formal_math_verifier_trace_repair_loop",
+      "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces"
+      "organ_id": "formal_math_verifier_trace_repair_loop"
     },
     {
-      "organ_id": "formal_evidence_cell_anchor_resolver",
+      "classification_basis": "bounded evidence-cell resolution and claim-strength projection, not theorem correctness",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded evidence-cell resolution and claim-strength projection, not theorem correctness"
+      "organ_id": "formal_evidence_cell_anchor_resolver"
     },
     {
-      "organ_id": "undeclared_library_prior_symbol_classifier",
+      "classification_basis": "bounded symbol-classification projection over declared public prior rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded symbol-classification projection over declared public prior rows"
+      "organ_id": "undeclared_library_prior_symbol_classifier"
     },
     {
-      "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "classification_basis": "bounded precision/recall projection over synthetic premise-retrieval fixtures",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded precision/recall projection over synthetic premise-retrieval fixtures"
+      "organ_id": "ring2_premise_retrieval_precision_recall_harness"
     },
     {
-      "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for source-available shape",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for source-available shape"
+      "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
     },
     {
-      "organ_id": "provider_context_recipe_budget_policy",
+      "classification_basis": "bounded context-budget packing and section omission computation",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded context-budget packing and section omission computation"
+      "organ_id": "provider_context_recipe_budget_policy"
     },
     {
-      "organ_id": "formal_math_lean_proof_witness",
+      "classification_basis": "bounded Lean/Lake subprocess witness over declared toy project",
       "evidence_class": "external_subprocess_witness",
-      "classification_basis": "bounded Lean/Lake subprocess witness over declared toy project"
+      "organ_id": "formal_math_lean_proof_witness"
     },
     {
-      "organ_id": "verifier_lab_kernel",
+      "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority"
+      "organ_id": "verifier_lab_kernel"
     },
     {
-      "organ_id": "verifier_lab_execution_spine",
+      "classification_basis": "runs bounded public Lean transition candidates through lake env lean, then records CP2 rerun effect and bounded Evolve policy rerun receipts",
       "evidence_class": "external_subprocess_witness",
-      "classification_basis": "runs bounded public Lean transition candidates through lake env lean, then records CP2 rerun effect and bounded Evolve policy rerun receipts"
+      "organ_id": "verifier_lab_execution_spine"
     },
     {
-      "organ_id": "navigation_hologram_route_plane",
+      "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation"
+      "organ_id": "navigation_hologram_route_plane"
     },
     {
-      "organ_id": "mission_transaction_work_spine",
+      "classification_basis": "derived WorkItem/transaction contract checks over public fixture rows",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived WorkItem/transaction contract checks over public fixture rows"
+      "organ_id": "mission_transaction_work_spine"
     },
     {
-      "organ_id": "durable_agent_work_landing_replay",
+      "classification_basis": "derived landing-lane checks for validation order, HEAD-advance claims, blockers, and scoped closeout evidence",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived landing-lane checks for validation order, HEAD-advance claims, blockers, and scoped closeout evidence"
+      "organ_id": "durable_agent_work_landing_replay"
     },
     {
-      "organ_id": "research_replication_rubric_artifact_replay",
+      "classification_basis": "public agent-execution trace refactor builds replay spans, digests, and coverage checks from declared artifact, rubric, budget, failure-taxonomy, and cold-rerun refs",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "public agent-execution trace refactor builds replay spans, digests, and coverage checks from declared artifact, rubric, budget, failure-taxonomy, and cold-rerun refs"
+      "organ_id": "research_replication_rubric_artifact_replay"
     },
     {
-      "organ_id": "world_model_projection_drift_control_room",
+      "classification_basis": "derived validation over body-free public runtime receipt rows, source refs, repair routes, validation refs, target refs, body-import verification, and negative-case authority denials",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived validation over body-free public runtime receipt rows, source refs, repair routes, validation refs, target refs, body-import verification, and negative-case authority denials"
+      "organ_id": "world_model_projection_drift_control_room"
     },
     {
-      "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+      "classification_basis": "derived validation over public spatial replay rows, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived validation over public spatial replay rows, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials"
+      "organ_id": "spatial_world_model_counterfactual_simulation_replay"
     },
     {
-      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "classification_basis": "fixture-supplied safety booleans are checked for source-available shape, not chemistry safety",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied safety booleans are checked for source-available shape, not chemistry safety"
+      "organ_id": "materials_chemistry_closed_loop_lab_safety_replay"
     },
     {
-      "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
+      "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials"
+      "organ_id": "mechanistic_interpretability_circuit_attribution_replay"
     },
     {
-      "organ_id": "agent_route_observability_runtime",
+      "classification_basis": "derived observability and action-trace checks over public replay inputs",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived observability and action-trace checks over public replay inputs"
+      "organ_id": "agent_route_observability_runtime"
     },
     {
-      "organ_id": "pattern_assimilation_step",
+      "classification_basis": "derived acceptance-layer checks for organ landing summaries and assimilation refs",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived acceptance-layer checks for organ landing summaries and assimilation refs"
+      "organ_id": "pattern_assimilation_step"
     },
     {
-      "organ_id": "public_reveal_walkthrough",
+      "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases"
+      "organ_id": "public_reveal_walkthrough"
     },
     {
-      "organ_id": "macro_projection_import_protocol",
+      "classification_basis": "derived import membrane checks for copy/omit/validate/authority-ceiling rows",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived import membrane checks for copy/omit/validate/authority-ceiling rows"
+      "organ_id": "macro_projection_import_protocol"
     },
     {
-      "organ_id": "prediction_oracle_reconciliation",
+      "classification_basis": "bounded prediction/oracle reconciliation projection over synthetic rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded prediction/oracle reconciliation projection over synthetic rows"
+      "organ_id": "prediction_oracle_reconciliation"
     },
     {
-      "organ_id": "standards_meta_diagnostics",
+      "classification_basis": "derived standards coverage and runtime-contract diagnostics",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived standards coverage and runtime-contract diagnostics"
+      "organ_id": "standards_meta_diagnostics"
     },
     {
-      "organ_id": "cold_reader_route_map",
+      "classification_basis": "derived cold-reader route ordering, command ref, docs ref, and receipt ref validation",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived cold-reader route ordering, command ref, docs ref, and receipt ref validation"
+      "organ_id": "cold_reader_route_map"
     },
     {
-      "organ_id": "agent_monitor_redteam_falsification_replay",
+      "classification_basis": "fixture-supplied monitor verdict rows are checked for source-available shape",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied monitor verdict rows are checked for source-available shape"
+      "organ_id": "agent_monitor_redteam_falsification_replay"
     },
     {
-      "organ_id": "agent_sabotage_scheming_monitor_replay",
+      "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for source-available shape",
       "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for source-available shape"
+      "organ_id": "agent_sabotage_scheming_monitor_replay"
     },
     {
-      "organ_id": "agent_memory_temporal_conflict_replay",
+      "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out"
+      "organ_id": "agent_memory_temporal_conflict_replay"
     },
     {
-      "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+      "classification_basis": "bounded public memory-security policy refactor derives quarantine, retrieval-gating, rollback, cold-rerun, and negative-case findings from body-free rows while keeping private memory bodies out",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "bounded public memory-security policy refactor derives quarantine, retrieval-gating, rollback, cold-rerun, and negative-case findings from body-free rows while keeping private memory bodies out"
+      "organ_id": "sleeper_memory_poisoning_quarantine_replay"
     },
     {
-      "organ_id": "mcp_tool_authority_replay",
+      "classification_basis": "public agent-execution trace refactor builds body-free MCP tool-authority spans, digests, capability-scope coverage, approval/side-effect ledger refs, rollback and cold-replay coverage, untrusted-output boundary checks, and negative-case denials without live MCP accounts or provider payload bodies",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "public agent-execution trace refactor builds body-free MCP tool-authority spans, digests, capability-scope coverage, approval/side-effect ledger refs, rollback and cold-replay coverage, untrusted-output boundary checks, and negative-case denials without live MCP accounts or provider payload bodies"
+      "organ_id": "mcp_tool_authority_replay"
     },
     {
-      "organ_id": "proof_derived_governed_mutation_authorization",
+      "classification_basis": "derived authorization checks for proof cells, visible policy verdicts, side effects, rollbacks, cold replay, and negative cases",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived authorization checks for proof cells, visible policy verdicts, side effects, rollbacks, cold replay, and negative cases"
+      "organ_id": "proof_derived_governed_mutation_authorization"
     },
     {
-      "organ_id": "belief_state_process_reward_replay",
+      "classification_basis": "source-faithful public agent-execution trace refactor checks belief summaries, verifier feedback, process rewards, outcome rewards, reward-hacking traps, and cold replay",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "source-faithful public agent-execution trace refactor checks belief summaries, verifier feedback, process rewards, outcome rewards, reward-hacking traps, and cold replay"
+      "organ_id": "belief_state_process_reward_replay"
     },
     {
-      "organ_id": "agent_sandbox_policy_escape_replay",
+      "classification_basis": "source-faithful public agent-execution trace refactor computes sandbox-policy spans, pre-execution verdict coverage, side-effect and rollback refs, cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "source-faithful public agent-execution trace refactor computes sandbox-policy spans, pre-execution verdict coverage, side-effect and rollback refs, cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows"
+      "organ_id": "agent_sandbox_policy_escape_replay"
     },
     {
-      "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied taint and policy verdict fields are checked for source-available shape"
-    },
-    {
-      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "classification_basis": "source-faithful public agent-execution trace refactor computes prompt-injection source-trust and taint-flow spans, pre-action policy-verdict coverage, sanitized-output and cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
       "evidence_class": "algorithmic_projection",
-      "classification_basis": "source-faithful public refactor over the macro agent-execution-trace substrate computes body-free patch-proof spans, authority ceilings, cold replay coverage, verifier refs, sandbox verdict refs, source/target refs, secret-exclusion scans, and negative-case denials"
+      "organ_id": "indirect_prompt_injection_information_flow_policy_replay"
     },
     {
-      "organ_id": "certificate_kernel_execution_lab",
+      "classification_basis": "source-faithful public refactor over the macro agent-execution-trace substrate computes body-free patch-proof spans, authority ceilings, cold replay coverage, verifier refs, sandbox verdict refs, source/target refs, secret-exclusion scans, and negative-case denials",
+      "evidence_class": "algorithmic_projection",
+      "organ_id": "agentic_vulnerability_discovery_patch_proof_replay"
+    },
+    {
+      "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters",
       "evidence_class": "external_subprocess_witness",
-      "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters"
+      "organ_id": "certificate_kernel_execution_lab"
     },
     {
-      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "classification_basis": "derived self-improvement checks over owner surfaces, local lesson deposits, expected negative-case rejection, public receipt shape, and secret-exclusion policy",
       "evidence_class": "semantic_validator",
-      "classification_basis": "derived self-improvement checks over owner surfaces, local lesson deposits, expected negative-case rejection, public receipt shape, and secret-exclusion policy"
+      "organ_id": "voice_to_doctrine_self_improvement_loop"
     }
-  ]
+  ],
+  "registry_id": "microcosm_organ_evidence_classes",
+  "schema_version": "microcosm_organ_evidence_classes_v1"
 }

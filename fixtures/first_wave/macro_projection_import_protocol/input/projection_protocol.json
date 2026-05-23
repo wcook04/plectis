@@ -195,12 +195,12 @@
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
       ],
       "claim_ceiling": "public agent-execution trace tool body import only; not live session-log parsing, browser control, provider payload access, account action, source mutation, or release authority",
-      "body_digest": "sha256:d7d4cb2dfac7cebd570a7101d7e6ffa6ea4ffd135d5a47c770e5f69d573e85e5",
+      "body_digest": "sha256:cb8a162c7bf56619a15134562571225139fb4520d4a61c9c7e8089a480b3be0b",
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "verified_light_edit_recipe",
         "source_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
-        "target_body_digest": "sha256:d7d4cb2dfac7cebd570a7101d7e6ffa6ea4ffd135d5a47c770e5f69d573e85e5",
+        "target_body_digest": "sha256:cb8a162c7bf56619a15134562571225139fb4520d4a61c9c7e8089a480b3be0b",
         "source_to_target_relation": "source_faithful_public_light_edit",
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::AUTHORITY_CEILING",
         "source_symbol_refs": [
@@ -214,6 +214,7 @@
           "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
@@ -223,7 +224,9 @@
         ],
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
-          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+          "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans",
+          "python -m microcosm_core.macro_tools.agent_execution_trace prompt-injection --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle"
         ]
       },
       "body_in_receipt": false
@@ -341,7 +344,8 @@
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans"
   ],
   "steps": [
     {

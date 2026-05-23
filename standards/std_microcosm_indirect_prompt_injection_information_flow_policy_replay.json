@@ -1,10 +1,10 @@
 {
-  "anti_claim": "This fixture validates public synthetic indirect prompt-injection information-flow replay metadata only; it does not use real email, docs, browser snippets, accounts, raw prompts, credentials, provider payloads, live tools, benchmark claims, source mutation, or release.",
+  "anti_claim": "This public trace refactor validates synthetic indirect prompt-injection information-flow policy mechanics over body-free public refs; it does not use real email, docs, browser snippets, accounts, raw prompts, credentials, provider payloads, live tools, benchmark claims, source mutation, or release.",
   "anti_claim_contract": {
     "required": true,
     "rule": "Prompt-injection flow material must state that synthetic replay receipts are not live robustness, account, prompt, provider, benchmark, source-mutation, or release authority"
   },
-  "authority_boundary": "synthetic_indirect_prompt_injection_information_flow_replay_not_live_account_prompt_or_tool_authority",
+  "authority_boundary": "public_agent_execution_trace_refactor_not_live_account_prompt_or_tool_authority",
   "authority_ceiling": {
     "benchmark_score_claim_authority": false,
     "hidden_system_message_promotion_authority": false,
@@ -15,7 +15,7 @@
     "release_authority": false,
     "secret_or_credential_exfiltration_authority": false,
     "source_mutation_authority": false,
-    "standard_authority": "synthetic_prompt_injection_information_flow_replay_schema_only",
+    "standard_authority": "source_faithful_public_trace_refactor_schema_only",
     "status": "pass",
     "tool_output_instruction_authority": false
   },
@@ -25,14 +25,16 @@
   "omission_receipt": {
     "drilldown": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/projection_protocol.json",
     "omitted": [
-      "real accounts",
-      "raw prompt bodies",
-      "secrets or credentials",
+      "real email bodies",
+      "real browser snippets",
+      "real account identifiers",
+      "raw system/developer prompts",
+      "raw tool output bodies",
       "provider payloads",
-      "hidden system-message bodies",
-      "general robustness claims"
+      "credential material",
+      "private workspace documents"
     ],
-    "reason": "public slice carries synthetic trust/taint/flow metadata and redacted receipt evidence only"
+    "reason": "public slice carries body-free trust/taint/flow trace rows, receipts, and secret-exclusion evidence only"
   },
   "paper_module_contract": {
     "module_slug": "indirect_prompt_injection_information_flow_policy_replay",
@@ -48,7 +50,7 @@
       "counterfactual safe path refs",
       "negative case ids"
     ],
-    "default_posture": "public_safe_when_synthetic_prompt_injection_flow_receipts_only",
+    "default_posture": "public_safe_when_body_free_prompt_injection_trace_refs_only",
     "forbidden_public_inputs": [
       "real email, document, browser, or account material",
       "raw system/developer/prompt/tool bodies",
@@ -67,7 +69,10 @@
       "policy_verdict_count",
       "sanitized_output_count",
       "cold_replay_pass_count",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "public_agent_execution_trace",
+      "body_import_status",
+      "body_import_verification",
       "authority_ceiling",
       "anti_claim",
       "negative_case_coverage"
@@ -77,7 +82,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
-    "receipt must cite source refs, source pattern ids, source/flow/verdict/output/replay counts, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source refs, target refs, source/flow/verdict/output/replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
@@ -105,7 +110,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata and public trace target refs stay public-root relative"
   },
   "source_refs": [
     {
@@ -114,9 +119,14 @@
       "role": "public_fixture_source"
     },
     {
-      "field": "runtime_example",
+      "field": "public_trace_refactor_bundle",
       "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
-      "role": "runtime_example_source"
+      "role": "source_faithful_public_trace_refactor_source"
+    },
+    {
+      "field": "macro_trace_refactor",
+      "path": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "role": "macro_substrate_public_refactor_target"
     }
   ],
   "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
@@ -141,9 +151,9 @@
       "final_answer_only_success",
       "untrusted_to_privileged_sink"
     ],
-    "ontology": "A public-safe indirect prompt-injection information-flow replay: synthetic trust labels, taint graph, policy verdicts, sanitized outputs, cold replay, falsification fixtures, and authority ceilings.",
+    "ontology": "A public-safe indirect prompt-injection information-flow replay: synthetic trust labels, taint graph, policy verdicts, sanitized outputs, cold replay, falsification fixtures, authority ceilings, and source-faithful public trace spans.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how prompt-injection robustness-adjacent claims are admitted only when source trust, taint, policy, sanitization, negative cases, receipts, and ceilings align."
+    "teleology": "Make Microcosm show how prompt-injection robustness-adjacent claims are admitted only when source trust, taint, policy, sanitization, negative cases, receipts, ceilings, and public trace spans align."
   },
   "status": "draft",
   "validation_rules": [
@@ -151,8 +161,9 @@
     "require source-to-sink information-flow graph rows before policy verdicts",
     "require allow, warn, block, and review verdicts to precede synthetic actions",
     "require sanitized outputs to disclose no trusted context and obey no untrusted instruction",
+    "require public agent-execution trace spans with source, verdict, output, and cold-replay coverage",
     "reject real accounts, secret exfiltration, raw prompt body export, tool-output instruction authority, hidden-system-message promotion, credential exfiltration, final-answer-only success, and ungated untrusted privileged sinks",
-    "emit redacted receipts and private-state scan"
+    "emit body-free public trace receipts and secret-exclusion scan"
   ],
   "validator_contract": {
     "minimum_checks": [

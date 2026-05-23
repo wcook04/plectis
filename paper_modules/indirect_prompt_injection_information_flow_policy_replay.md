@@ -1,12 +1,14 @@
 # Indirect Prompt-Injection Information-Flow Policy Replay
 
-This validator-backed claim contract admits one narrow public claim: a synthetic
-agent-safety replay separated trusted instructions from untrusted web/tool/browser
-text before any privileged action or answer claim was accepted.
+This validator-backed claim contract admits one narrow public claim: a
+source-faithful public trace refactor separated trusted instructions from
+untrusted web/tool/browser text before any privileged action or answer claim was
+accepted.
 
 The runnable contract requires source trust labels, taint labels, source-to-sink
 flow rows, pre-action policy verdicts, sanitized-output receipts, cold replay,
-private-state scan, negative cases, and an explicit authority ceiling.
+secret-exclusion scan, negative cases, a public agent-execution trace, and an
+explicit authority ceiling.
 
 ## Cold-Reader Path
 
@@ -32,6 +34,16 @@ First-wave fixture receipt:
 - `sanitized_outputs.json`: output refs proving no trusted context disclosure and no untrusted instruction obedience.
 - `cold_replay.json`: rerunnable command and receipt refs that reproduce verdicts and sanitized state.
 
+## Public Trace Refactor
+
+The product evidence is no longer the fixture verdict fields alone. The organ
+uses `microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace`
+to emit body-free spans over the public source, flow, verdict, output, and replay
+refs. That builder is a Microcosm refactor of the macro
+`system/lib/agent_execution_trace.py` span model, so the accepted receipt can
+show sequence, authority, audit, coverage, and digest mechanics without copying
+real accounts, prompt bodies, provider payloads, or live tool material.
+
 ## Negative Cases
 
 The validator rejects real account material, secret or trusted-context
@@ -44,8 +56,8 @@ live exploit traffic.
 
 ## Authority Ceiling
 
-Passing receipts prove only that this synthetic bundle satisfies the named
-prompt-injection information-flow contract. They do not prove general
-prompt-injection robustness, benchmark performance, live account safety,
-provider behavior, tool behavior, hidden-message handling in a real system,
-source mutation authority, publication authority, or release operations.
+Passing receipts prove only that this public trace refactor satisfies the named
+prompt-injection information-flow contract over body-free rows. They do not
+prove general prompt-injection robustness, benchmark performance, live account
+safety, provider behavior, tool behavior, hidden-message handling in a real
+system, source mutation authority, publication authority, or release operations.

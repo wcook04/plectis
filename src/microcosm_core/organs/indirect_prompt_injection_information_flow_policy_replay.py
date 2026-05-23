@@ -5,7 +5,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_prompt_injection_trace,
+)
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -32,6 +35,9 @@ ACCEPTANCE_RECEIPT_REL = (
     "indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_prompt_injection_flow_bundle_validation_result.json"
+BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
+BODY_IMPORT_CLASSIFICATION = "extension_of_existing_public_refactor"
+PRODUCT_PATH_ROLE = "source_faithful_public_agent_execution_trace_refactor"
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -132,7 +138,7 @@ FORBIDDEN_KEYS = (
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "synthetic_indirect_prompt_injection_information_flow_replay_receipts_only"
+        "public_agent_execution_trace_refactor_over_prompt_injection_fixture_regression_inputs"
     ),
     "general_prompt_injection_robustness_claim_authorized": False,
     "real_email_or_document_account_use_authorized": False,
@@ -147,12 +153,13 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Indirect prompt-injection information-flow replay validates a synthetic "
+    "Indirect prompt-injection information-flow replay validates synthetic "
     "source-trust, taint-graph, policy-verdict, sanitized-output, cold-replay, "
-    "negative-case, and authority-ceiling contract. It does not use real email, "
-    "documents, accounts, credentials, raw prompts, provider payloads, or live "
-    "tools, and it does not claim general prompt-injection robustness, benchmark "
-    "performance, source mutation, or release authority."
+    "negative-case, and authority-ceiling receipts, and now emits public "
+    "agent-execution trace spans over those public refs. It does not use real "
+    "email, documents, accounts, credentials, raw prompts, provider payloads, "
+    "or live tools, and it does not claim general prompt-injection robustness, "
+    "benchmark performance, source mutation, or release authority."
 )
 
 
@@ -212,7 +219,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -279,29 +286,44 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
-    omitted = _strings(protocol.get("omitted_private_material"))
+    target_refs = _strings(protocol.get("target_refs"))
+    target_symbols = _strings(protocol.get("target_symbols"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    omitted = _strings(protocol.get("omitted_secret_or_live_access_material"))
+    body_import = protocol.get("body_import_verification", {})
+    if not isinstance(body_import, dict):
+        body_import = {}
     findings: list[dict[str, Any]] = []
     if (
-        len(source_refs) < 3
+        len(source_refs) < 4
         or "indirect_prompt_injection_information_flow_policy_replay_compound"
         not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or "system/lib/agent_execution_trace.py" not in source_refs
+        or "codex/standards/std_agent_execution_trace.json" not in source_refs
+        or "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+        not in target_refs
+        or len(public_runtime_refs) < 1
         or len(omitted) < 6
+        or not any(ref.endswith("build_public_prompt_injection_trace") for ref in target_symbols)
+        or protocol.get("body_import_status") != BODY_IMPORT_STATUS
+        or body_import.get("verification_mode") != BODY_IMPORT_CLASSIFICATION
+        or body_import.get("verification_status") != "verified"
+        or body_import.get("body_import_classification") != BODY_IMPORT_CLASSIFICATION
+        or protocol.get("body_in_receipt") is not False
     ):
         findings.append(
             _finding(
                 "PROMPT_INJECTION_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs, receipts, replacements, and omitted private material.",
+                "Projection protocol must cite trace source refs, target refs, runtime refs, body-import verification, and omitted secret/live-access material.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )
         )
     for flag in (
-        "copied_private_source",
-        "exports_private_state",
+        "copied_credential_or_account_bound_source",
+        "exports_secret_or_live_access_material",
         "exports_raw_prompt_bodies",
         "exports_real_accounts",
         "authorizes_live_tool_calls",
@@ -311,7 +333,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
             findings.append(
                 _finding(
                     "PROMPT_INJECTION_PROJECTION_PROTOCOL_AUTHORITY_OVERCLAIM",
-                    "Projection protocol must deny private copy/export, raw prompt bodies, real accounts, live tools, and general robustness claims.",
+                    "Projection protocol must deny credential/account-bound copy, secret/live-access export, raw prompt bodies, real accounts, live tools, and general robustness claims.",
                     case_id="projection_protocol_floor",
                     subject_id=flag,
                     subject_kind="projection_protocol",
@@ -323,8 +345,12 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
-        "omitted_private_material": omitted,
+        "target_refs": target_refs,
+        "target_symbols": target_symbols,
+        "public_runtime_refs": public_runtime_refs,
+        "body_import_status": protocol.get("body_import_status"),
+        "body_import_verification": body_import if isinstance(body_import, dict) else {},
+        "omitted_secret_or_live_access_material": omitted,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -437,7 +463,7 @@ def validate_source_documents(payload: object) -> dict[str, Any]:
                 "channel": row.get("channel"),
                 "taint_labels": _strings(row.get("taint_labels")),
                 "instruction_authority": row.get("instruction_authority"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     trust_labels = sorted(
@@ -512,7 +538,7 @@ def validate_information_flow_graph(
                 "policy_verdict": verdict,
                 "privileged_sink": privileged,
                 "proposed_action_ref": row.get("proposed_action_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     verdicts = {row["policy_verdict"] for row in exported}
@@ -570,7 +596,7 @@ def validate_policy_verdicts(
                 "pre_action": row.get("pre_action"),
                 "confirmation_required": row.get("confirmation_required"),
                 "decision_reason_ref": row.get("decision_reason_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     verdicts = {row["verdict"] for row in exported}
@@ -636,7 +662,7 @@ def validate_sanitized_outputs(
                 "external_action_attempted": row.get("external_action_attempted"),
                 "confirmation_boundary_ref": row.get("confirmation_boundary_ref"),
                 "counterfactual_safe_path_ref": row.get("counterfactual_safe_path_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -697,7 +723,7 @@ def validate_cold_replay(payload: object, flow_ids: set[str]) -> dict[str, Any]:
                 "sanitized_output_reproduced": row.get("sanitized_output_reproduced"),
                 "trusted_context_disclosed": row.get("trusted_context_disclosed"),
                 "pass_label": row.get("pass_label"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -814,13 +840,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    public_trace = build_public_prompt_injection_trace(input_dir)
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     injection_policy = validate_injection_policy(payloads["injection_policy"])
@@ -880,16 +905,45 @@ def _build_result(
         verdicts["status"],
         outputs["status"],
         cold_replay["status"],
+        public_trace["status"],
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and all(value == PASS for value in positive_statuses)
         else "blocked"
     )
+    body_import_verification = {
+        "status": PASS,
+        "classification": BODY_IMPORT_CLASSIFICATION,
+        "verification_status": "verified",
+        "verification_mode": BODY_IMPORT_CLASSIFICATION,
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "public_trace_status": public_trace["status"],
+        "public_trace_span_count": public_trace["span_count"],
+        "trace_digest": public_trace["summary"]["trace_digest"],
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": (
+            "microcosm-substrate/src/microcosm_core/macro_tools/"
+            "agent_execution_trace.py::build_public_prompt_injection_trace"
+        ),
+        "source_symbols": public_trace["source_symbols"],
+        "target_symbols": public_trace["target_symbols"],
+        "validation_refs": [
+            (
+                "microcosm-substrate/tests/"
+                "test_indirect_prompt_injection_information_flow_policy_replay.py"
+            ),
+            (
+                "python -m microcosm_core.macro_tools.agent_execution_trace "
+                "prompt-injection --input <bundle>"
+            ),
+        ],
+        "body_in_receipt": False,
+    }
     return {
         "schema_version": (
             "indirect_prompt_injection_information_flow_policy_replay_result_v1"
@@ -911,15 +965,25 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "product_path_role": PRODUCT_PATH_ROLE,
+        "body_import_verification": body_import_verification,
+        "body_in_receipt": False,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
-        "omitted_private_material": projection["omitted_private_material"],
+        "target_refs": projection["target_refs"],
+        "target_symbols": projection["target_symbols"],
+        "public_runtime_refs": projection["public_runtime_refs"],
+        "omitted_secret_or_live_access_material": projection[
+            "omitted_secret_or_live_access_material"
+        ],
+        "public_agent_execution_trace": public_trace,
         "injection_policy_id": injection_policy["policy_id"],
         "allowed_verdicts": injection_policy["allowed_verdicts"],
         "source_document_count": sources["source_document_count"],
@@ -996,8 +1060,13 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "policy_verdict_rows": result["policy_verdict_rows"],
         "sanitized_output_rows": result["sanitized_output_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "product_path_role": result["product_path_role"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -1056,7 +1125,12 @@ def _write_receipts(
             "blocked_without_external_action_count"
         ],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -1073,7 +1147,12 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

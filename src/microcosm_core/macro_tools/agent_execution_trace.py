@@ -29,6 +29,7 @@ TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
@@ -167,6 +168,36 @@ def _load_sandbox_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
                 "bundle_id": "agent_sandbox_policy_escape_replay_fixture_input",
                 "input_mode": "fixture",
                 "organ_id": "agent_sandbox_policy_escape_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
+
+
+def _load_prompt_injection_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "injection_policy",
+        "source_documents",
+        "information_flow_graph",
+        "policy_verdicts",
+        "sanitized_outputs",
+        "cold_replay",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": (
+                    "indirect_prompt_injection_information_flow_policy_replay_"
+                    "fixture_input"
+                ),
+                "input_mode": "fixture",
+                "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
             }
         else:
             bundle[name] = {}
@@ -682,6 +713,295 @@ def build_public_sandbox_policy_trace(input_dir: str | Path) -> dict[str, Any]:
                 "host filesystem paths",
                 "live network targets",
                 "provider payload bodies",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
+def build_public_prompt_injection_trace(input_dir: str | Path) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_prompt_injection_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(manifest.get("bundle_id") or "public_prompt_injection_trace")
+    sources = {
+        str(row.get("source_id")): row
+        for row in _rows(bundle["source_documents"], "source_documents")
+        if row.get("source_id")
+    }
+    verdicts = {
+        str(row.get("flow_id")): row
+        for row in _rows(bundle["policy_verdicts"], "policy_verdicts")
+        if row.get("flow_id")
+    }
+    outputs = {
+        str(row.get("flow_id")): row
+        for row in _rows(bundle["sanitized_outputs"], "sanitized_outputs")
+        if row.get("flow_id")
+    }
+    replayed_flows = {
+        str(row.get("flow_id"))
+        for row in _rows(bundle["cold_replay"], "cold_replay")
+        if row.get("flow_id")
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    sorted_flows = sorted(
+        _rows(bundle["information_flow_graph"], "information_flows"),
+        key=lambda row: (
+            str(row.get("episode_id") or ""),
+            str(row.get("flow_id") or ""),
+        ),
+    )
+    if not sorted_flows:
+        findings.append(
+            _finding(
+                "PUBLIC_TRACE_PROMPT_INJECTION_FLOW_ROWS_MISSING",
+                "Prompt-injection trace requires at least one public information-flow row.",
+                subject_id=session_id,
+            )
+        )
+    for sequence_index, row in enumerate(sorted_flows):
+        flow_id = str(row.get("flow_id") or f"flow_{sequence_index}")
+        source_id = str(row.get("from_source_id") or "")
+        source = sources.get(source_id, {})
+        verdict = verdicts.get(flow_id, {})
+        output = outputs.get(flow_id, {})
+        verdict_label = str(verdict.get("verdict") or row.get("policy_verdict") or "")
+        sanitized = row.get("sanitization_applied") is True
+        privileged = row.get("privileged_sink") is True
+        trust_label = str(row.get("source_trust_label") or "")
+
+        if verdict_label == "block":
+            outcome = "blocked"
+        elif verdict_label == "review":
+            outcome = "review_required"
+        elif verdict_label == "warn":
+            outcome = "sanitized_warning"
+        elif sanitized:
+            outcome = "allowed_sanitized"
+        else:
+            outcome = verdict_label or "missing_verdict"
+
+        if source_id not in sources:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_SOURCE_REF_MISSING",
+                    "Prompt-injection flow has no matching public source row.",
+                    subject_id=flow_id,
+                )
+            )
+        elif source.get("trust_label") != trust_label:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_SOURCE_TRUST_MISMATCH",
+                    "Prompt-injection flow trust label does not match its source row.",
+                    subject_id=flow_id,
+                )
+            )
+        if trust_label.startswith("untrusted_") and source.get("instruction_authority") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_UNTRUSTED_AUTHORITY",
+                    "Untrusted prompt-injection source cannot carry instruction authority.",
+                    subject_id=flow_id,
+                )
+            )
+        if flow_id not in verdicts:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_VERDICT_REF_MISSING",
+                    "Prompt-injection flow has no matching pre-action policy verdict.",
+                    subject_id=flow_id,
+                )
+            )
+        elif verdict.get("pre_action") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_VERDICT_NOT_PRE_ACTION",
+                    "Prompt-injection policy verdict must be recorded before action.",
+                    subject_id=flow_id,
+                )
+            )
+        if flow_id not in outputs:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_OUTPUT_REF_MISSING",
+                    "Prompt-injection flow has no matching sanitized-output row.",
+                    subject_id=flow_id,
+                )
+            )
+        if output.get("trusted_context_disclosed") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_TRUSTED_CONTEXT_DISCLOSED",
+                    "Prompt-injection output cannot disclose trusted context.",
+                    subject_id=flow_id,
+                )
+            )
+        if output.get("untrusted_instruction_obeyed") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_UNTRUSTED_INSTRUCTION_OBEYED",
+                    "Prompt-injection output cannot obey untrusted instructions.",
+                    subject_id=flow_id,
+                )
+            )
+        if verdict_label == "block" and output.get("external_action_attempted") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_BLOCKED_ACTION_ATTEMPTED",
+                    "Blocked prompt-injection flow must not attempt an external action.",
+                    subject_id=flow_id,
+                )
+            )
+        if (
+            trust_label.startswith("untrusted_")
+            and privileged
+            and verdict_label == "allow"
+            and not sanitized
+        ):
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_UNTRUSTED_PRIVILEGED_ALLOW",
+                    "Untrusted text cannot be allowed into a privileged sink without sanitization.",
+                    subject_id=flow_id,
+                )
+            )
+        if flow_id not in replayed_flows:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_PROMPT_INJECTION_COLD_REPLAY_REF_MISSING",
+                    "Prompt-injection flow is not covered by a cold-replay receipt.",
+                    subject_id=flow_id,
+                )
+            )
+
+        span = PublicTraceSpan(
+            span_id=f"span:{flow_id}",
+            session_id=session_id,
+            action_kind=str(row.get("sink_kind") or "prompt_injection_flow"),
+            sequence_index=sequence_index,
+            episode_id=str(row.get("episode_id") or ""),
+            observation_ref=str(source.get("body_ref") or ""),
+            authority_verdict_id=f"{flow_id}:{verdict.get('policy_version', '')}",
+            state_transition_ref=str(output.get("sanitized_answer_ref") or ""),
+            outcome=outcome,
+            target_ref=str(row.get("to_sink_id") or ""),
+            input_digest=_stable_digest(
+                {
+                    "from_source_id": source_id,
+                    "proposed_action_ref": row.get("proposed_action_ref"),
+                    "taint_labels": row.get("taint_labels"),
+                    "sink_kind": row.get("sink_kind"),
+                }
+            ),
+            recovery_ref=str(output.get("counterfactual_safe_path_ref") or ""),
+            tool_name="prompt_injection_information_flow_policy",
+            source_ref="indirect_prompt_injection_information_flow_policy_replay_bundle",
+        ).as_dict()
+        span["from_source_id"] = source_id
+        span["source_trust_label"] = trust_label
+        span["taint_labels"] = [
+            str(item) for item in row.get("taint_labels", []) if isinstance(item, str)
+        ]
+        span["policy_verdict"] = verdict_label
+        span["privileged_sink"] = privileged
+        span["sanitization_applied"] = sanitized
+        span["trusted_context_disclosed"] = output.get("trusted_context_disclosed") is True
+        span["untrusted_instruction_obeyed"] = output.get("untrusted_instruction_obeyed") is True
+        span["body_in_receipt"] = False
+        spans.append(span)
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    coverage = {
+        "source_document_coverage": len(spans)
+        == sum(1 for span in spans if span["from_source_id"] in sources),
+        "policy_verdict_coverage": len(spans)
+        == sum(
+            1
+            for span in spans
+            if span["span_id"].replace("span:", "") in verdicts
+        ),
+        "pre_action_verdict_coverage": all(
+            verdicts.get(span["span_id"].replace("span:", ""), {}).get("pre_action")
+            is True
+            for span in spans
+        ),
+        "sanitized_output_coverage": len(spans)
+        == sum(
+            1
+            for span in spans
+            if span["span_id"].replace("span:", "") in outputs
+        ),
+        "cold_replay_coverage": len(spans)
+        == sum(
+            1
+            for span in spans
+            if span["span_id"].replace("span:", "") in replayed_flows
+        ),
+        "trusted_context_non_disclosure": all(
+            span["trusted_context_disclosed"] is False for span in spans
+        ),
+        "untrusted_instruction_non_adoption": all(
+            span["untrusted_instruction_obeyed"] is False for span in spans
+        ),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "source_trust_and_taint_refs",
+                "pre_action_policy_verdict_refs",
+                "sanitized_output_refs",
+            ],
+            "omitted_live_material": [
+                "real email bodies",
+                "real browser snippets",
+                "real account identifiers",
+                "raw system, developer, prompt, and tool bodies",
+                "provider payload bodies",
+                "credential material",
             ],
         },
         "authority_ceiling": AUTHORITY_CEILING,
@@ -2065,6 +2385,9 @@ def build_parser() -> argparse.ArgumentParser:
     sandbox_policy = subparsers.add_parser("sandbox-policy")
     sandbox_policy.add_argument("--input", required=True)
     sandbox_policy.add_argument("--pretty", action="store_true")
+    prompt_injection = subparsers.add_parser("prompt-injection")
+    prompt_injection.add_argument("--input", required=True)
+    prompt_injection.add_argument("--pretty", action="store_true")
     research_replication = subparsers.add_parser("research-replication")
     research_replication.add_argument("--input", required=True)
     research_replication.add_argument("--pretty", action="store_true")
@@ -2092,6 +2415,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if payload["status"] == PASS else 1
     if args.command == "sandbox-policy":
         payload = build_public_sandbox_policy_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "prompt-injection":
+        payload = build_public_prompt_injection_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1
