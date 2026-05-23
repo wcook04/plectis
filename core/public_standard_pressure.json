@@ -595,8 +595,8 @@
       "title": "Monitor Redteam Replay Requires Falsification Receipts"
     },
     {
-      "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_metadata_not_live_sabotage_deployment_or_product_authority",
-      "claim": "Agent-sabotage and scheming-monitor language must cite synthetic episodes, action traces, per-step monitor scores, counterfactual benign replays, cold replay refs, negative cases, and explicit no-live-sabotage/no-sensitive-export/no-deployment-claim ceilings before it becomes public evidence.",
+      "authority_boundary": "regression_negative_agent_sabotage_scheming_monitor_metadata_not_live_sabotage_deployment_or_product_authority",
+      "claim": "Agent-sabotage and scheming-monitor language must cite synthetic episodes, action traces, per-step monitor scores, counterfactual benign replays, cold replay refs, body-free fixture refs, negative cases, and explicit no-live-sabotage/no-sensitive-export/no-deployment-claim ceilings before it becomes public drilldown evidence.",
       "domain": "agent_sabotage_eval",
       "kernel_primitive_refs": [
         "event",
@@ -618,7 +618,7 @@
         "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
         "paper_modules/agent_sabotage_scheming_monitor_replay.md"
       ],
-      "pressure": "typed sabotage-monitor claims require episode/action/score joins, counterfactual replays, falsification fixtures, and authority ceilings",
+      "pressure": "typed sabotage-monitor claims require episode/action/score joins, counterfactual replays, body-free regression fixtures, falsification cases, and authority ceilings",
       "release_authorized": false,
       "route_refs": [
         "replay-gauntlet",

@@ -404,7 +404,7 @@ explicit stages: candidate selection, public manifest, secret stripping,
 body-import verification, runtime binding, and validation closeout. Each row
 names source, target, copied body status, omitted material, validation refs,
 and authority ceiling. It may plan the import without writing; it must not
-pretend metadata, provenance, or replacement refs are imported macro bodies.
+pretend metadata, provenance, or fixture/projection refs are imported macro bodies.
 
 `microcosm option-surface-lens` is the first concrete consumer of that
 projector contract for `compression_profile_governed_option_surface`. It turns
@@ -767,7 +767,7 @@ replication.
 
 `world_model_projection_drift_control_room` is the public drift-control organ:
 it validates synthetic world-model projection rows with source signals, public
-source refs, repair routes, validation refs, public replacement refs, and
+source refs, repair routes, validation refs, body-free public fixture refs, and
 metadata-only authority ceilings. Run `microcosm
 world-model-projection-drift-control-room run-drift-control-bundle` to inspect
 the exported drift-control bundle. The organ rejects missing source refs,

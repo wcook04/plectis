@@ -398,7 +398,7 @@
       },
       {
         "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for source-available shape",
+        "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
         "counts_as_real_substrate_progress": false,
         "evidence_class": "fixture_echo_smoke",
         "evidence_strength_rank": 1,

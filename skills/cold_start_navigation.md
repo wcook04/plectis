@@ -25,7 +25,7 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    inspect `route_utility_curriculum` to see task-to-band-to-span route checks
    and `route_utility_curriculum.ratchet` for changed-surface, affected-task,
    stale-task, and reentry-condition rows while preserving the source-body
-   redaction boundary.
+   omission boundary.
 6. Run `microcosm authority` or
    `PYTHONPATH=src python3 -m microcosm_core.cli authority` to inspect the
    public authority ceiling, hard boundaries, safe local-only exceptions,

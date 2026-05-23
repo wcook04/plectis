@@ -425,8 +425,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             "product_path_role": "drilldown_regression_not_runtime_spine",
             "demotion_reason": (
                 "sabotage-monitor replay remains runnable as a regression drilldown, "
-                "but synthetic scheming episodes, monitor scores, and public "
-                "replacement refs are not product-spine substrate."
+                "but synthetic scheming episodes, monitor scores, and body-free "
+                "regression fixture refs are not product-spine substrate."
             ),
             "input_mode": "exported_sabotage_monitor_bundle",
             "example_ref": (

@@ -4,7 +4,7 @@
     "required": true,
     "rule": "Sabotage-monitor material must state that synthetic replay receipts are not live-sabotage, product-performance, deployment-risk, provider, source-mutation, or release authority"
   },
-  "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_replay_not_live_sabotage_deployment_or_product_authority",
+  "authority_boundary": "regression_negative_agent_sabotage_scheming_monitor_replay_not_live_sabotage_deployment_or_product_authority",
   "authority_ceiling": {
     "credential_material_export_authority": false,
     "deployment_risk_claim_authority": false,
@@ -31,7 +31,7 @@
       "provider payloads",
       "production deployment telemetry"
     ],
-    "reason": "public slice carries synthetic sabotage-monitor metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic sabotage-monitor metadata and body-free receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "agent_sabotage_scheming_monitor_replay",
@@ -46,7 +46,7 @@
       "cold replay refs",
       "negative case ids"
     ],
-    "default_posture": "public_safe_when_synthetic_sabotage_monitor_receipts_only",
+    "default_posture": "public_safe_when_body_free_regression_fixture_only",
     "forbidden_public_inputs": [
       "live sabotage instructions",
       "private chain-of-thought",
@@ -65,6 +65,7 @@
       "monitor_score_count",
       "counterfactual_replay_count",
       "cold_replay_pass_count",
+      "body_in_receipt",
       "private_state_scan",
       "authority_ceiling",
       "anti_claim",
@@ -103,7 +104,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata and public regression fixture refs stay public-root relative"
   },
   "source_refs": [
     {
@@ -119,7 +120,7 @@
   ],
   "standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
   "standard_payload": {
-    "anti_purpose": "Treating final self-report, live sabotage, exploit detail, hidden reasoning, or deployment-risk language as evidence.",
+    "anti_purpose": "Treating synthetic scheming metadata, final self-report, live sabotage, exploit detail, hidden reasoning, or deployment-risk language as product monitor evidence.",
     "compression_bands": [
       "protocol",
       "policy",
@@ -139,16 +140,16 @@
       "monitor_only_final_grading",
       "deployment_scare_story_claim"
     ],
-    "ontology": "A public-safe sabotage/scheming monitor replay: synthetic episodes, action traces, per-step monitor scores, counterfactual benign replay, cold replay, falsification fixtures, and authority ceilings.",
+    "ontology": "A regression-negative sabotage/scheming monitor replay: synthetic episodes, action traces, per-step monitor scores, counterfactual benign replay, cold replay refs, body-free fixture refs, falsification fixtures, and authority ceilings.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how scheming-monitor claims are admitted only when evidence joins, negative cases, receipts, and ceilings align."
+    "teleology": "Make Microcosm show how scheming-monitor claims stay in a drilldown-only lane unless evidence joins, negative cases, body-free receipts, and ceilings align."
   },
   "status": "draft",
   "validation_rules": [
     "require synthetic episodes with task refs, hidden-side-objective labels, action traces, and monitor scores",
     "require counterfactual replay that removes side-task success while preserving main task",
     "reject live sabotage, real credentials/accounts, exploit instructions, private reasoning export, raw harmful payloads, final-only grading, and deployment scare claims",
-    "emit redacted receipts and private-state scan"
+    "emit body-free regression receipts and private-state scan"
   ],
   "validator_contract": {
     "minimum_checks": [

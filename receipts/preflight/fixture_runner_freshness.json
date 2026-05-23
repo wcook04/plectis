@@ -302,20 +302,20 @@
       "fixtures/first_wave/agent_route_observability_runtime/input/hook_shadow_cases.json": "d877bb62019822144ce64f115dbd5c3ef6a8b9f08db60445e77ad57a7e447b25"
     },
     "agent_sabotage_scheming_monitor_replay": {
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json": "4d37cc33ada1bf7eb07d023e98e4b43570996b4220ac4ce8c70893063a0663bc",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json": "4b5d0390755851762d4678b5e6e9b54704b38b8deb830e90b66b288382218ec5",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/counterfactual_replay.json": "2eb9c4eb4cdee9cc96ea3de992af240badab0db7ed79c0fd2044b7131a07a0c7",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/deployment_scare_story_claim.json": "c184f7cefd81e11baa78cde024c1b7cfc335c7886f34211c6f8c8065bb8e7025",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/exploit_instruction_material.json": "453559422375581e654564d7480049d9abb6c1ebb70e31da72c3874f8245df9d",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/live_sabotage_instruction.json": "a8c658c4b0ad4a5bfb1ec1707bbe6d022d6f75a035f96b84a97697c89e6cf7c8",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_only_final_grading.json": "fe8aef8018d951348a443f40c342e1c0fecf2d41c9c1954c682a8ef755f8735d",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_scores.json": "2bd98eba122d1c61d68a290e0eb9d9c0630fbe695da22c43fa089086be658b9f",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/private_chain_of_thought_export.json": "f7661bf60603873a36e92c549d35f493c84861ef26a6c4be4ddb3f534ae5a152",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json": "d60d9d27c4d66549453afde949277995987592aa2172db057b3701fd975cdeb7",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/raw_harmful_payload_export.json": "2a6110d117adc306a779cd978be1aad7c1d6d90d9b874594884a0719cdb4c74b",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/real_credentials_or_accounts.json": "8659e5f87c7af940547f84c348cc8ee281a5f6f5dd6690ca8a074135d852f332",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/action_traces.json": "3016870a922c373dfa4c87fbd8a91499e9290d104fb26dfe204058de1b3ebca4",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/cold_replay.json": "aca622b1ca250e877dc9b9f47088d98d856d6fd47fe3cb76b1c2c678947e9230",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/counterfactual_replay.json": "9163ef4f27a7322fb64ad3194970866c2ce144a743d1e78122e9c9b9a300f440",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/deployment_scare_story_claim.json": "21a9f88c751c320b6b32397191d463c52cf5e63fea95c80cb32b4ec7d5053355",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/exploit_instruction_material.json": "48e69832d9b61d6109a7134b118dc1d5c60dbbbd2f8a94724d06e5f75a152750",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/live_sabotage_instruction.json": "afe26eef13ac3613fc4e2ed33bb1e1dde89c3898715bf18cb02fb51097d6518c",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_only_final_grading.json": "3ea511e134d375c90ba621272bfd22d4fa37637df6443096544ca7663cc61440",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/monitor_scores.json": "dea53ac86496a1c67ce6788a03e2a8a06ccfc063bc54c17279c8e4fef7456100",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/private_chain_of_thought_export.json": "3378d0a847b4a07f116ea952a7d022ef78effdd2870962450d8b0737c609f054",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/projection_protocol.json": "6e36e0a7db25d0adc629e2b0a266e300dc96159fdcc4c85c5958d5c3015d6daa",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/raw_harmful_payload_export.json": "3749a2e9f7e395896367773894727a8d3b5efd8e3ad408a8b789941716be45b8",
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/real_credentials_or_accounts.json": "0464504ff4aa3ff6e1d028a4917f13aa2be14fbed1777ba75bd1480479e06874",
       "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/scheming_monitor_policy.json": "d2833c5e5ab0045597c0565c9355c68d4a77c64951ec729c33f5fb7bd4b88153",
-      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/task_episodes.json": "4042a01488d04b693ceaa48e6ac38458a6e69153eea1b292d441649b1e09f04d"
+      "fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input/task_episodes.json": "8b809d6fdeab615d57e529e3a05a2daeb0d6a3c7156576f3246696f097134f83"
     },
     "agent_sandbox_policy_escape_replay": {
       "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/action_requests.json": "d9814e7de44389ce7db63f532df13a0896021d7a68311b311539febbc4b2ac8c",

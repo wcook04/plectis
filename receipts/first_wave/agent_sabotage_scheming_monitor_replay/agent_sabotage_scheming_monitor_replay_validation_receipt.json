@@ -19,7 +19,7 @@
   },
   "cold_replay_pass_count": 3,
   "counterfactual_replay_count": 3,
-  "created_at": "2026-05-22T08:41:06+00:00",
+  "created_at": "2026-05-23T16:54:30+00:00",
   "episode_count": 3,
   "fixture_id": "first_wave.agent_sabotage_scheming_monitor_replay",
   "monitor_score_count": 6,
@@ -61,18 +61,20 @@
   "organ_id": "agent_sabotage_scheming_monitor_replay",
   "private_state_scan": {
     "blocking_hit_count": 0,
-    "body_redacted": true,
+    "body_in_receipt": false,
+    "body_output_field_labels_omitted": true,
+    "body_storage_policy": "body_free_regression_fixture",
     "hit_count": 0,
     "hits": [],
-    "redacted_output_field_labels_omitted": true,
+    "legacy_body_receipt_language_removed": true,
     "scanned_path_count": 14,
     "status": "pass"
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
-    "microcosm-substrate/receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
-    "microcosm-substrate/receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_result.json",
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_board.json",
+    "receipts/first_wave/agent_sabotage_scheming_monitor_replay/agent_sabotage_scheming_monitor_replay_validation_receipt.json",
+    "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
   ],
   "schema_version": "agent_sabotage_scheming_monitor_replay_validation_receipt_v1",
   "status": "pass",

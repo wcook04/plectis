@@ -1,6 +1,6 @@
 {
   "authority_ceiling_ref": "microcosm authority::public_agent_sabotage_scheming_monitor_replay_lens",
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": "agent_sabotage_scheming_monitor_replay_regression_drilldown",
   "description": "Regression-only sabotage-monitor drilldown bundle; runnable for boundary inspection, not product-spine evidence.",
   "included_files": [

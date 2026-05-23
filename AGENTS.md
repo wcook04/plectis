@@ -388,7 +388,7 @@ imported macro body.
    should name each macro-pattern-to-public-lens projection row, what was
    copied, cleaned, omitted, validated, and bounded by authority ceiling. It
    must separate body imports from metadata projections and reject provenance,
-   activation, maturity, or replacement refs as proof that a body was copied.
+   activation, maturity, or fixture/projection refs as proof that a body was copied.
    It must not automate imports, export private bodies, expose proof bodies or
    provider payloads, mutate source, or imply release authority.
    The public import-projector contract loop is `microcosm import-projector`;
@@ -397,7 +397,7 @@ imported macro body.
    runtime-binding, and validation-closeout rows with source refs, target refs,
    copied-body status, omitted material, validation refs, and per-row authority
    ceilings. It must not treat metadata, provenance, maturity, activation, or
-   public replacement refs as imported bodies; export private bodies; expose
+   public fixture/projection refs as imported bodies; export private bodies; expose
    proof bodies or provider payloads; mutate source; or imply release
    authority.
    The compression profile option-surface loop is `microcosm

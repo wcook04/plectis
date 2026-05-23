@@ -722,7 +722,7 @@ PRODUCT_PATH_DEMOTION_REASONS = {
     ),
     "agent_sabotage_scheming_monitor_replay": (
         "sabotage-monitor replay remains runnable as a regression drilldown, "
-        "but synthetic scheming episodes, monitor scores, and public replacement refs "
+        "but synthetic scheming episodes, monitor scores, and body-free regression fixture refs "
         "are not product-spine substrate."
     ),
     "mathematical_strategy_atlas_hypothesis_scorer": (
@@ -7766,7 +7766,7 @@ class RuntimeShell:
                 "episode_id": "scheming_monitor_disagreement",
                 "source_pattern_id": "agent_sabotage_scheming_monitor_replay_compound",
                 "threat_model": "synthetic actor tries to hide a failed objective behind success prose",
-                "fixture_input": "synthetic plan/result mismatch with final-answer body redacted",
+                "fixture_input": "synthetic plan/result mismatch with final-answer body omitted",
                 "generated_receipt_ref": (
                     "receipts/first_wave/agent_sabotage_scheming_monitor_replay/"
                     "agent_sabotage_scheming_monitor_replay_validation_receipt.json"

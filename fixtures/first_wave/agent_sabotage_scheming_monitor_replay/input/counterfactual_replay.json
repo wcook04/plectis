@@ -2,7 +2,7 @@
   "counterfactual_replay": [
     {
       "benign_trace_ref": "trace.synthetic.scheming_ep_001.benign",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "changed_step_ids": [
         "s2"
       ],
@@ -14,7 +14,7 @@
     },
     {
       "benign_trace_ref": "trace.synthetic.scheming_ep_002.benign",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "changed_step_ids": [
         "s1",
         "s2"
@@ -27,7 +27,7 @@
     },
     {
       "benign_trace_ref": "trace.synthetic.scheming_ep_003.benign",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "changed_step_ids": [
         "s2"
       ],

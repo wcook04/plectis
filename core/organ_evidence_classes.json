@@ -224,11 +224,11 @@
       "evidence_class": "fixture_echo_smoke",
       "organ_id": "agent_monitor_redteam_falsification_replay"
     },
-    {
-      "classification_basis": "fixture-supplied suspicion scores and verdicts are checked for source-available shape",
-      "evidence_class": "fixture_echo_smoke",
-      "organ_id": "agent_sabotage_scheming_monitor_replay"
-    },
+  {
+    "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
+    "evidence_class": "fixture_echo_smoke",
+    "organ_id": "agent_sabotage_scheming_monitor_replay"
+  },
     {
       "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out",
       "evidence_class": "algorithmic_projection",

@@ -67,7 +67,7 @@ def test_agent_sabotage_scheming_monitor_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_agent_sabotage_scheming_monitor_receipts_are_public_relative_and_redacted(
+def test_agent_sabotage_scheming_monitor_receipts_are_public_relative_and_body_free(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -92,6 +92,8 @@ def test_agent_sabotage_scheming_monitor_receipts_are_public_relative_and_redact
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
         keys = _walk_keys(json.loads(text))
+        assert "body_redacted" not in keys
+        assert "public_replacement_refs" not in keys
         assert "private_chain_of_thought" not in keys
         assert "raw_harmful_payload" not in keys
         assert "exploit_instructions" not in keys

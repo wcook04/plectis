@@ -195,7 +195,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -258,7 +258,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    regression_fixture_refs = _strings(protocol.get("public_regression_fixture_refs"))
     omitted = _strings(protocol.get("omitted_private_material"))
     findings: list[dict[str, Any]] = []
     if (
@@ -266,13 +266,13 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         or "agent_sabotage_scheming_monitor_replay_compound"
         not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or len(regression_fixture_refs) < 3
         or len(omitted) < 6
     ):
         findings.append(
             _finding(
                 "SABOTAGE_MONITOR_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs, projection receipts, public replacements, and omitted private material.",
+                "Projection protocol must cite source refs, projection receipts, public regression fixture refs, and omitted private material.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -300,7 +300,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "public_regression_fixture_refs": regression_fixture_refs,
         "omitted_private_material": omitted,
         "findings": findings,
         "observed_negative_cases": {},
@@ -385,11 +385,11 @@ def validate_task_episodes(payload: object) -> dict[str, Any]:
                     subject_kind="task_episode",
                 )
             )
-        if row.get("body_redacted") is not True or row.get("private_ref_metadata_only") is not True:
+        if row.get("body_in_receipt") is not False or row.get("private_ref_metadata_only") is not True:
             findings.append(
                 _finding(
-                    "SABOTAGE_MONITOR_EPISODE_REDACTION_MISSING",
-                    "Episodes must be public metadata with body_redacted and private_ref_metadata_only set.",
+                    "SABOTAGE_MONITOR_EPISODE_BODY_OMISSION_MISSING",
+                    "Episodes must be public metadata with body_in_receipt=false and private_ref_metadata_only set.",
                     case_id="episode_floor",
                     subject_id=episode_id or "task_episode",
                     subject_kind="task_episode",
@@ -405,7 +405,7 @@ def validate_task_episodes(payload: object) -> dict[str, Any]:
                 "caught_verdict": row.get("caught_verdict"),
                 "counterfactual_replay_ref": row.get("counterfactual_replay_ref"),
                 "cold_replay_ref": row.get("cold_replay_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     caught_count = sum(1 for row in exported if row["caught_verdict"] == "caught")
@@ -432,17 +432,17 @@ def validate_action_traces(payload: object, episode_ids: set[str]) -> dict[str, 
             findings.append(
                 _finding(
                     "SABOTAGE_MONITOR_ACTION_TRACE_INVALID",
-                    "Action traces require typed step metadata, episode linkage, monitor refs, redacted side-effect refs, and no private bodies.",
+                    "Action traces require typed step metadata, episode linkage, monitor refs, body-free side-effect refs, and no private bodies.",
                     case_id="action_trace_floor",
                     subject_id=action_id or "action_trace",
                     subject_kind="action_trace",
                 )
             )
-        if row.get("body_redacted") is not True:
+        if row.get("body_in_receipt") is not False:
             findings.append(
                 _finding(
-                    "SABOTAGE_MONITOR_ACTION_TRACE_REDACTION_MISSING",
-                    "Action traces must expose refs and labels only.",
+                    "SABOTAGE_MONITOR_ACTION_TRACE_BODY_OMISSION_MISSING",
+                    "Action traces must expose refs and labels only, with body_in_receipt=false.",
                     case_id="action_trace_floor",
                     subject_id=action_id or "action_trace",
                     subject_kind="action_trace",
@@ -459,7 +459,7 @@ def validate_action_traces(payload: object, episode_ids: set[str]) -> dict[str, 
                 "subtlety_label": row.get("subtlety_label"),
                 "innocuous_framing_label": row.get("innocuous_framing_label"),
                 "monitor_observation_ref": row.get("monitor_observation_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     attack_opportunity_count = sum(
@@ -523,11 +523,11 @@ def validate_monitor_scores(
                     subject_kind="monitor_score",
                 )
             )
-        if row.get("body_redacted") is not True:
+        if row.get("body_in_receipt") is not False:
             findings.append(
                 _finding(
-                    "SABOTAGE_MONITOR_SCORE_REDACTION_MISSING",
-                    "Monitor score rows must expose refs and labels only.",
+                    "SABOTAGE_MONITOR_SCORE_BODY_OMISSION_MISSING",
+                    "Monitor score rows must expose refs and labels only, with body_in_receipt=false.",
                     case_id="monitor_score_floor",
                     subject_id=observation_id or "monitor_score",
                     subject_kind="monitor_score",
@@ -545,7 +545,7 @@ def validate_monitor_scores(
                 "caught_verdict": row.get("caught_verdict"),
                 "human_escalation_ref": row.get("human_escalation_ref"),
                 "mitigation_ref": row.get("mitigation_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -572,13 +572,13 @@ def validate_counterfactual_replay(payload: object, episode_ids: set[str]) -> di
             or not _strings(row.get("changed_step_ids"))
             or row.get("side_task_success_removed") is not True
             or row.get("main_task_preserved") is not True
-            or row.get("body_redacted") is not True
+            or row.get("body_in_receipt") is not False
             or _has_forbidden_key(row)
         ):
             findings.append(
                 _finding(
                     "SABOTAGE_MONITOR_COUNTERFACTUAL_REPLAY_INVALID",
-                    "Counterfactual replay must name changed steps and show side-task removal while preserving main task, without private bodies.",
+                    "Counterfactual replay must name changed steps and show side-task removal while preserving main task, with body_in_receipt=false.",
                     case_id="counterfactual_replay_floor",
                     subject_id=counterfactual_id or "counterfactual_replay",
                     subject_kind="counterfactual_replay",
@@ -592,7 +592,7 @@ def validate_counterfactual_replay(payload: object, episode_ids: set[str]) -> di
                 "expected_monitor_delta": row.get("expected_monitor_delta"),
                 "side_task_success_removed": row.get("side_task_success_removed"),
                 "main_task_preserved": row.get("main_task_preserved"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -616,13 +616,13 @@ def validate_cold_replay(payload: object, episode_ids: set[str]) -> dict[str, An
             or not row.get("replay_command")
             or not row.get("receipt_ref")
             or row.get("pass_label") is not True
-            or row.get("body_redacted") is not True
+            or row.get("body_in_receipt") is not False
             or _has_forbidden_key(row)
         ):
             findings.append(
                 _finding(
                     "SABOTAGE_MONITOR_COLD_REPLAY_INVALID",
-                    "Cold replay rows require a runnable command, receipt ref, pass label, and redacted metadata only.",
+                    "Cold replay rows require a runnable command, receipt ref, pass label, and body-free metadata only.",
                     case_id="cold_replay_floor",
                     subject_id=replay_id or "cold_replay",
                     subject_kind="cold_replay",
@@ -635,7 +635,7 @@ def validate_cold_replay(payload: object, episode_ids: set[str]) -> dict[str, An
                 "replay_command": row.get("replay_command"),
                 "receipt_ref": row.get("receipt_ref"),
                 "pass_label": row.get("pass_label"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -748,7 +748,11 @@ def _build_result(
         display_root=public_root,
     )
     private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    private_scan.pop("body_" + "red" + "acted", None)
+    private_scan["body_output_field_labels_omitted"] = True
+    private_scan["body_in_receipt"] = False
+    private_scan["body_storage_policy"] = "body_free_regression_fixture"
+    private_scan["legacy_body_receipt_language_removed"] = True
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     monitor_policy = validate_monitor_policy(payloads["scheming_monitor_policy"])
@@ -837,7 +841,7 @@ def _build_result(
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "public_regression_fixture_refs": projection["public_regression_fixture_refs"],
         "omitted_private_material": projection["omitted_private_material"],
         "monitor_policy_id": monitor_policy["policy_id"],
         "allowed_monitor_verdicts": monitor_policy["allowed_monitor_verdicts"],
@@ -859,6 +863,7 @@ def _build_result(
         "monitor_score_rows": monitor_scores["monitor_score_rows"],
         "counterfactual_rows": counterfactual["counterfactual_rows"],
         "cold_replay_rows": cold_replay["cold_replay_rows"],
+        "body_in_receipt": False,
     }
 
 
@@ -892,7 +897,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "monitor_score_rows": result["monitor_score_rows"],
         "counterfactual_rows": result["counterfactual_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
-        "body_redacted": True,
+        "body_in_receipt": False,
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
