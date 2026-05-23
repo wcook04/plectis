@@ -1,7 +1,21 @@
 {
-  "authority_ceiling": "synthetic_agent_sandbox_policy_escape_replay_receipts_only_not_live_escape_secret_network_host_mutation_payload_provider_benchmark_or_release_authority",
-  "body_redacted": true,
+  "authority_ceiling": "public_agent_execution_trace_refactor_with_sandbox_policy_fixture_regression_inputs",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
   "fixture_id": "fixture::agent_sandbox_policy_escape_replay::first_wave_contract_v1",
+  "fixture_runtime_refs": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+    "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
+  ],
   "inputs": [
     {
       "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
@@ -83,7 +97,29 @@
     "executable_escape_payload",
     "security_benchmark_claim"
   ],
+  "omitted_secret_or_live_access_material": [
+    "real secrets and credentials",
+    "host filesystem paths",
+    "raw environment variables",
+    "live network targets",
+    "executable escape payload bodies",
+    "provider payloads",
+    "private operator or account state"
+  ],
   "organ_id": "agent_sandbox_policy_escape_replay",
   "positive_fixture_count": 7,
+  "source_refs": [
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sandbox_policy_escape_replay_compound"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+    "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
+  ],
   "schema_version": "microcosm_fixture_manifest_v1"
 }

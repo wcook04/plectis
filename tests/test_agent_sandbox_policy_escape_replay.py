@@ -24,6 +24,12 @@ BUNDLE_INPUT = (
     / "examples/agent_sandbox_policy_escape_replay/"
     "exported_sandbox_policy_escape_bundle"
 )
+FIXTURE_MANIFESTS = (
+    MICROCOSM_ROOT
+    / "fixtures/first_wave/agent_sandbox_policy_escape_replay/fixture_manifest.json",
+    MICROCOSM_ROOT
+    / "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
+)
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -172,3 +178,43 @@ def test_public_agent_execution_trace_refactor_builds_sandbox_policy_spans() -> 
     assert trace["audit"]["coverage"]["side_effect_receipt_coverage"] is True
     assert trace["audit"]["coverage"]["cold_replay_coverage"] is True
     assert "system/lib/agent_execution_trace.py" in trace["source_refs"]
+
+
+def test_agent_sandbox_policy_fixture_manifests_bind_public_trace_refactor() -> None:
+    for manifest_path in FIXTURE_MANIFESTS:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+        assert "body_redacted" not in manifest
+        assert "public_replacement_refs" not in manifest
+        assert "private_state_scan" not in manifest
+        assert not manifest["authority_ceiling"].startswith(
+            "synthetic_agent_sandbox_policy_escape_replay_receipts_only"
+        )
+        assert (
+            manifest["body_import_status"]
+            == "extension_of_existing_public_refactor_landed"
+        )
+        assert manifest["body_in_receipt"] is False
+        assert manifest["body_import_verification"] == {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": (
+                "microcosm-substrate/src/microcosm_core/macro_tools/"
+                "agent_execution_trace.py"
+            ),
+            "validation_refs": [
+                "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py"
+            ],
+            "verification_mode": "extension_of_existing_public_refactor",
+            "verification_status": "verified",
+        }
+        assert (
+            "microcosm_core.macro_tools.agent_execution_trace::"
+            "build_public_sandbox_policy_trace"
+            in manifest["fixture_runtime_refs"]
+        )
+        assert (
+            "microcosm-substrate/src/microcosm_core/macro_tools/"
+            "agent_execution_trace.py"
+            in manifest["target_refs"]
+        )
+        assert set(manifest["negative_case_ids"]) == set(EXPECTED_NEGATIVE_CASES)
