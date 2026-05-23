@@ -1,9 +1,9 @@
 {
-  "body_redacted": true,
+  "body_in_receipt": false,
   "work_landing_runs": [
     {
       "blocker_capture_ref": "",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/src/microcosm_core/runtime_shell.py",
         "microcosm-substrate/tests/test_runtime_shell.py"
@@ -24,7 +24,7 @@
     },
     {
       "blocker_capture_ref": "wie_fixture_git_metadata_blocker",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/AGENTS.md",
         "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
@@ -46,7 +46,7 @@
     },
     {
       "blocker_capture_ref": "wie_fixture_secret_hard_stop",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/standards/std_microcosm_durable_agent_work_landing_replay.json"
       ],
@@ -60,7 +60,7 @@
       "unrelated_dirty_paths_staged": false,
       "validation_precedes_commit_attempt": true,
       "validation_refs": [
-        "microcosm_core.private_state_scan"
+        "microcosm_core.secret_exclusion_scan"
       ],
       "work_ledger_closeout_ref": "wlr_fixture_hard_stop_closeout"
     }

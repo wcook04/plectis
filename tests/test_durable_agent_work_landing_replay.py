@@ -58,6 +58,8 @@ def test_durable_agent_work_landing_replay_observes_negative_cases(
     assert result["landed_commit_count"] == 1
     assert result["validation_order_required_count"] == 2
     assert result["validation_order_pass_count"] == 2
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["authority_ceiling"]["live_git_mutation_authorized"] is False
     assert result["authority_ceiling"]["broad_checkpoint_authorized"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -65,7 +67,7 @@ def test_durable_agent_work_landing_replay_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_durable_agent_work_landing_receipts_are_public_relative_and_redacted(
+def test_durable_agent_work_landing_receipts_use_secret_exclusion_and_public_relative(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -90,8 +92,17 @@ def test_durable_agent_work_landing_receipts_are_public_relative_and_redacted(
         assert str(public_root) not in text
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
+        assert "body_redacted" not in text
+        assert "private_state_scan" not in text
+        assert "public_replacement_refs" not in text
         assert "private_source_body" not in _walk_keys(json.loads(text))
         assert "raw_diff_body" not in _walk_keys(json.loads(text))
+        payload = json.loads(text)
+        assert payload["status"] == "pass"
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert "body_redacted" not in _walk_keys(payload)
+        assert "private_state_scan" not in _walk_keys(payload)
 
 
 def test_durable_agent_work_landing_exported_bundle_validates_runtime_shape(
@@ -115,4 +126,6 @@ def test_durable_agent_work_landing_exported_bundle_validates_runtime_shape(
     assert result["metadata_blocked_count"] == 1
     assert result["validation_order_required_count"] == 2
     assert result["validation_order_pass_count"] == 2
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["authority_ceiling"]["commit_landed_claim_authorized_without_head_advance"] is False

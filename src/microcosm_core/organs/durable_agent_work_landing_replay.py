@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -60,7 +60,7 @@ EXPECTED_NEGATIVE_CASES = {
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_work_landing_replay_receipts_only",
+    "authority_ceiling": "durable_work_landing_real_runtime_replay_receipts_only",
     "live_git_mutation_authorized": False,
     "broad_checkpoint_authorized": False,
     "unrelated_dirty_paths_authorized": False,
@@ -70,11 +70,12 @@ AUTHORITY_CEILING = {
     "commit_landed_claim_authorized_without_head_advance": False,
 }
 ANTI_CLAIM = (
-    "Durable agent work-landing replay validates synthetic transaction evidence "
-    "for owned-path claims, validation receipts, scoped commit attempts, Git "
-    "metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does "
-    "not mutate Git, stage unrelated dirty paths, prove a commit landed, export "
-    "private source bodies, run providers, publish, host, or authorize release."
+    "Durable agent work-landing replay emits real runtime receipts over imported "
+    "work-landing rows, macro tool refs, scoped commit attempts, Git metadata "
+    "blockers, Task Ledger capture, and Work Ledger finalizers. It does not "
+    "mutate Git, stage unrelated dirty paths, prove a commit landed without HEAD "
+    "advance evidence, export credential/account-bound bodies, run providers, "
+    "publish, host, or authorize release."
 )
 REQUIRED_LANE_IDS = {
     "scoped_commit",
@@ -152,7 +153,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -237,18 +238,18 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     findings: list[dict[str, Any]] = []
     if (
         "durable_agent_work_landing_replay_compound" not in source_pattern_ids
         or len(source_refs) < 3
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or len(public_runtime_refs) < 3
     ):
         findings.append(
             _finding(
                 "WORK_LANDING_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Work-landing replay projection must cite source patterns, receipts, and public replacements.",
+                "Work-landing replay projection must cite source patterns, receipts, and public runtime refs.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -260,7 +261,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "public_runtime_refs": public_runtime_refs,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -485,13 +486,11 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     landing_policy = validate_landing_policy(payloads["landing_policy"])
@@ -513,7 +512,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
         and landing_policy["status"] == PASS
         and landing_runs["status"] == PASS
@@ -534,14 +533,14 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "public_runtime_refs": projection["public_runtime_refs"],
         "policy_id": landing_policy["policy_id"],
         "lane_ids": landing_policy["lane_ids"],
         "lane_decision_table": landing_policy["lane_decision_table"],
@@ -585,8 +584,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
             },
         ],
         "lane_ids": result["lane_ids"],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["status"] == PASS,
+        "synthetic_receipt_standin_allowed": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -638,7 +639,7 @@ def _write_receipts(
         "landed_commit_count": result["landed_commit_count"],
         "validation_order_required_count": result["validation_order_required_count"],
         "validation_order_pass_count": result["validation_order_pass_count"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -653,7 +654,7 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
