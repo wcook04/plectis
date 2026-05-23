@@ -5,7 +5,7 @@
       "reference_id": "ref_supported_unresolved",
       "supported_kind": true,
       "resolved": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "expected_negative_case_id": "reference_capsule_unresolved_supported_kind",
       "expected_negative_case": true,
       "synthetic_negative_fixture": true
@@ -21,5 +21,5 @@
       "synthetic_negative_fixture": true
     }
   ],
-  "anti_claim": "Reference capsules are synthetic and body-redacted except for expected negative fixtures."
+  "anti_claim": "Reference capsules are regression/negative fixtures; body payloads are excluded unless the row is an explicit adversarial leak case."
 }

@@ -1,16 +1,22 @@
 {
-  "anti_claim": "Source capsules are redacted metadata over public-safe input rows, not source bodies.",
+  "anti_claim": "Source capsules are provenance metadata over public runtime refs or regression-harness refs; JSON receipts do not inline source bodies.",
+  "body_in_receipt": false,
   "organ_id": "pattern_binding_contract",
+  "public_runtime_refs": [
+    "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl::pb_valid_synthetic_binding"
+  ],
+  "real_runtime_receipt": true,
   "schema_version": "pattern_binding_source_capsules_receipt_v1",
   "source_capsule_count": 1,
   "source_capsules": [
     {
-      "authority_class": "synthetic_replacement_fixture",
-      "body_redacted": true,
+      "authority_class": "regression_harness_positive_control",
+      "body_in_receipt": false,
       "replacement_fixture_ref": "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl::pb_valid_synthetic_binding",
       "source_ref": "capsule.synthetic_pattern_contract",
       "source_sha256": "synthetic-fixture-hash-basis"
     }
   ],
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

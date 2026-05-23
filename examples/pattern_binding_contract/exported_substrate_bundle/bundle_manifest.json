@@ -10,6 +10,6 @@
     "reference_capsules",
     "omission_receipts"
   ],
-  "authority_ceiling": "public runtime example over redacted substrate metadata only",
-  "anti_claim": "This bundle is standalone runtime-shaped input. It does not expose source bodies or claim release readiness."
+  "authority_ceiling": "public runtime example with source-faithful runtime refs and secret-class body exclusion",
+  "anti_claim": "This bundle is standalone runtime-shaped input backed by public runtime refs. It does not inline secret/provider/operator bodies or claim release readiness."
 }

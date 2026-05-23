@@ -1,9 +1,10 @@
 {
   "anti_claim": "Authority-chain handles are routing metadata and never upgrade unsupported handles to authority.",
   "authority_chain_resolution_status": "pass",
+  "body_in_receipt": false,
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY",
       "message": "Unsupported authority-chain handle implied authority.",
       "negative_case_id": "authority_chain_unsupported_handle_implies_authority",
@@ -16,6 +17,8 @@
     ]
   },
   "organ_id": "pattern_binding_contract",
+  "real_runtime_receipt": true,
   "schema_version": "authority_chain_handle_resolver_receipt_v1",
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

@@ -3,9 +3,9 @@
   "accepted_pattern_ids": [
     "pb_valid_synthetic_binding"
   ],
-  "anti_claim": "This receipt records only the named public command output over public inputs and regression fixtures; it is not runtime product completeness or source-body authority.",
+  "anti_claim": "This receipt records the named public command output over real public inputs, source-faithful fixtures, or explicit negative cases; synthetic receipts are not product progress or substitutes for available real substrate.",
   "anti_claim_refs": [
-    "anti_claim.pattern_binding.synthetic_fixture_only"
+    "anti_claim.pattern_binding.regression_harness_only"
   ],
   "authority_ceiling": {
     "authority_ceiling": "command_receipt_evidence_not_runtime_product_completeness",
@@ -14,8 +14,9 @@
     "status": "pass"
   },
   "authority_chain_resolution_status": "pass",
-  "command": "bootstrap pattern_binding_contract validate",
-  "created_at": "2026-05-22T03:40:49+00:00",
+  "body_in_receipt": false,
+  "command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
+  "created_at": "2026-05-23T06:32:24+00:00",
   "duplicate_pattern_ids": [
     "pb_duplicate_conflict"
   ],
@@ -59,70 +60,70 @@
   },
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MISSING_GOVERNING_STANDARD",
       "message": "Pattern row lacks governing standard binding.",
       "negative_case_id": "missing_binding_contract_fields",
       "pattern_id": "pb_missing_contract_fields"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MISSING_ANTI_CLAIM_REF",
       "message": "Pattern row lacks anti-claim reference.",
       "negative_case_id": "missing_binding_contract_fields",
       "pattern_id": "pb_missing_contract_fields"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "PROJECTION_NOT_SOURCE_AUTHORITY",
       "message": "Projection row claims source authority.",
       "negative_case_id": "pattern_binding_projection_claims_source_authority",
       "pattern_id": "pb_projection_claims_source_authority"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "SOURCE_CAPSULE_PRIVATE_BODY_LEAK",
-      "message": "Source capsule body is not redacted.",
+      "message": "Source capsule body is present in a receipt payload.",
       "negative_case_id": "source_capsule_private_body_leak",
       "pattern_id": "capsule.synthetic_private_body_leak"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "SOURCE_CAPSULE_PRIVATE_BODY_LEAK",
       "message": "Source capsule contains a forbidden body marker.",
       "negative_case_id": "source_capsule_private_body_leak",
       "pattern_id": "capsule.synthetic_private_body_leak"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "DUPLICATE_PATTERN_BINDING_CONFLICT",
       "message": "Duplicate pattern id rejected deterministically.",
       "negative_case_id": "duplicate_pattern_binding_conflict",
       "pattern_id": "pb_duplicate_conflict"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BINDING_PASS_OVERCLAIMS_PUBLIC_LEAF",
       "message": "Binding row overclaims public leaf readiness.",
       "negative_case_id": "binding_success_overclaims_public_leaf",
       "pattern_id": "pb_overclaims_public_leaf"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND",
       "message": "Supported reference capsule kind did not resolve.",
       "negative_case_id": "reference_capsule_unresolved_supported_kind",
       "pattern_id": "ref_supported_unresolved"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "REFERENCE_BODY_LEAK",
-      "message": "Reference capsule body is not redacted.",
+      "message": "Reference capsule body is present in a receipt payload.",
       "negative_case_id": "reference_capsule_private_body_leak",
       "pattern_id": "ref_body_leak"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "UNSUPPORTED_AUTHORITY_HANDLE_IMPLIED_AUTHORITY",
       "message": "Unsupported authority-chain handle implied authority.",
       "negative_case_id": "authority_chain_unsupported_handle_implies_authority",
@@ -130,6 +131,7 @@
     }
   ],
   "fixture_id": "first_wave.pattern_binding_contract",
+  "fixture_role": "regression_negative_harness_with_positive_control",
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "authority_chain_unsupported_handle_implies_authority": [
@@ -160,51 +162,14 @@
   },
   "omission_receipt_count": 1,
   "organ_id": "pattern_binding_contract",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 4,
-    "hits": [
-      {
-        "body_redacted": true,
-        "expected_negative_case": true,
-        "forbidden_class": "forbidden_content_body",
-        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
-        "remediation": "replace with a synthetic replacement fixture",
-        "term_id": "private_source_body_sentinel"
-      },
-      {
-        "body_redacted": true,
-        "expected_negative_case": true,
-        "forbidden_class": "forbidden_content_body",
-        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
-        "remediation": "replace with a synthetic replacement fixture",
-        "term_id": "provider_payload_body_sentinel"
-      },
-      {
-        "body_redacted": true,
-        "expected_negative_case": true,
-        "forbidden_class": "forbidden_content_body",
-        "path": "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
-        "remediation": "replace with a synthetic replacement fixture",
-        "term_id": "provider_payload_body_sentinel"
-      },
-      {
-        "body_redacted": true,
-        "expected_negative_case": true,
-        "forbidden_class": "forbidden_content_body",
-        "path": "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
-        "remediation": "replace with a synthetic replacement fixture",
-        "term_id": "private_source_body_sentinel"
-      }
-    ],
-    "scanned_path_count": 9,
-    "status": "pass"
-  },
   "projection_mode_counts": {
     "direct_public": 1,
     "synthetic_only": 2
   },
+  "public_runtime_refs": [
+    "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl::pb_valid_synthetic_binding"
+  ],
+  "real_runtime_receipt": true,
   "receipt_id": "pattern_binding_contract_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
@@ -221,9 +186,59 @@
     "pb_projection_claims_source_authority"
   ],
   "schema_version": "pattern_binding_contract_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 4,
+    "hits": [
+      {
+        "body_in_receipt": false,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "exclude from public receipts; preserve only explicit negative fixture sentinels",
+        "term_id": "private_source_body_sentinel"
+      },
+      {
+        "body_in_receipt": false,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/private_state_forbidden_terms.json",
+        "remediation": "exclude from public receipts; preserve only explicit negative fixture sentinels",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_in_receipt": false,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/reference_capsules.json",
+        "remediation": "exclude from public receipts; preserve only explicit negative fixture sentinels",
+        "term_id": "provider_payload_body_sentinel"
+      },
+      {
+        "body_in_receipt": false,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "fixtures/first_wave/pattern_binding_contract/input/source_capsule_with_private_body.json",
+        "remediation": "exclude from public receipts; preserve only explicit negative fixture sentinels",
+        "term_id": "private_source_body_sentinel"
+      }
+    ],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 9,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_capsule_count": 1,
   "source_pattern_ids": [
     "pb_valid_synthetic_binding"
   ],
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

@@ -1,17 +1,18 @@
 {
-  "anti_claim": "Reference capsules are schema-only or redacted metadata; no source body is emitted.",
+  "anti_claim": "Reference capsules are schema/runtime refs; no source body is inlined into receipts.",
+  "body_in_receipt": false,
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "REFERENCE_CAPSULE_UNRESOLVED_SUPPORTED_KIND",
       "message": "Supported reference capsule kind did not resolve.",
       "negative_case_id": "reference_capsule_unresolved_supported_kind",
       "pattern_id": "ref_supported_unresolved"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "REFERENCE_BODY_LEAK",
-      "message": "Reference capsule body is not redacted.",
+      "message": "Reference capsule body is present in a receipt payload.",
       "negative_case_id": "reference_capsule_private_body_leak",
       "pattern_id": "ref_body_leak"
     }
@@ -25,7 +26,9 @@
     ]
   },
   "organ_id": "pattern_binding_contract",
+  "real_runtime_receipt": true,
   "reference_capsule_resolution_status": "pass",
   "schema_version": "reference_capsule_resolver_receipt_v1",
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

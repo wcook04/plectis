@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.fixture_registry import load_pattern_binding_fixture, load_pattern_binding_substrate_bundle
-from microcosm_core.private_state_scan import PASS, public_relative_path, scan_json_payload, scan_paths
+from microcosm_core.secret_exclusion_scan import PASS, public_relative_path, scan_json_payload, scan_paths
 from microcosm_core.receipts import AUTHORITY_CEILING, base_receipt, write_json_atomic
 
 
@@ -49,7 +49,7 @@ def _finding(code: str, message: str, *, case_id: str | None = None, pattern_id:
     payload: dict[str, Any] = {
         "error_code": code,
         "message": message,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
     if case_id:
         payload["negative_case_id"] = case_id
@@ -76,6 +76,29 @@ def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
     safe = dict(scan_result)
     safe.pop("forbidden_output_fields", None)
     return safe
+
+
+def _body_excluded_from_receipt(row: dict[str, Any]) -> bool:
+    return row.get("body_in_receipt") is False and "body" not in row
+
+
+def _runtime_refs(row: dict[str, Any]) -> list[str]:
+    refs: list[str] = []
+    for key in ("public_runtime_refs", "public_runtime_ref", "replacement_fixture_ref"):
+        value = row.get(key)
+        if isinstance(value, str) and value.strip():
+            refs.append(value.strip())
+        elif isinstance(value, list):
+            refs.extend(str(item).strip() for item in value if str(item).strip())
+    return refs
+
+
+def _source_capsule_runtime_refs(source_refs: list[str], source_capsules: dict[str, Any]) -> list[str]:
+    capsules = _source_capsules_by_ref(source_capsules)
+    refs: list[str] = []
+    for source_ref in source_refs:
+        refs.extend(_runtime_refs(capsules.get(source_ref, {})))
+    return sorted(set(refs))
 
 
 def _source_capsules_by_ref(source_capsules: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -216,21 +239,21 @@ def validate_pattern_bindings(
                     pattern_id=pattern_id,
                 )
                 continue
-            if capsule.get("body_redacted") is not True:
+            if not _body_excluded_from_receipt(capsule):
                 _record(
                     findings,
                     observed,
-                    "SOURCE_CAPSULE_BODY_NOT_REDACTED",
-                    "Source capsule must be body-redacted.",
+                    "SOURCE_CAPSULE_BODY_IN_RECEIPT",
+                    "Source capsule must keep source body out of JSON receipts.",
                     case_id=case_id,
                     pattern_id=pattern_id,
                 )
-            if not capsule.get("replacement_fixture_ref") and not capsule.get("public_replacement_ref"):
+            if not _runtime_refs(capsule):
                 _record(
                     findings,
                     observed,
-                    "SOURCE_CAPSULE_MISSING_REPLACEMENT_FIXTURE",
-                    "Source capsule lacks public replacement ref.",
+                    "SOURCE_CAPSULE_MISSING_RUNTIME_REF",
+                    "Source capsule lacks a public runtime or regression-harness ref.",
                     case_id=case_id,
                     pattern_id=pattern_id,
                 )
@@ -245,7 +268,7 @@ def validate_pattern_bindings(
         "accepted_rows": accepted_rows,
         "rejected_pattern_ids": sorted(pid for pid in rejected_ids if pid),
         "duplicate_pattern_ids": duplicate_pattern_ids,
-        "private_state_scan": scan_result,
+        "secret_exclusion_scan": scan_result,
     }
 
 
@@ -255,22 +278,22 @@ def validate_source_capsules(source_capsules: dict[str, Any], forbidden_terms: d
     capsules = _source_capsules_by_ref(source_capsules)
     for source_ref, capsule in capsules.items():
         case_id = capsule.get("expected_negative_case_id")
-        if capsule.get("body_redacted") is not True:
-            code = "SOURCE_CAPSULE_PRIVATE_BODY_LEAK" if case_id else "SOURCE_CAPSULE_BODY_NOT_REDACTED"
+        if not _body_excluded_from_receipt(capsule):
+            code = "SOURCE_CAPSULE_PRIVATE_BODY_LEAK" if case_id else "SOURCE_CAPSULE_BODY_IN_RECEIPT"
             _record(
                 findings,
                 observed,
                 code,
-                "Source capsule body is not redacted.",
+                "Source capsule body is present in a receipt payload.",
                 case_id=case_id,
                 pattern_id=str(source_ref),
             )
-        if not capsule.get("replacement_fixture_ref") and not capsule.get("public_replacement_ref"):
+        if not _runtime_refs(capsule):
             _record(
                 findings,
                 observed,
-                "SOURCE_CAPSULE_MISSING_REPLACEMENT_FIXTURE",
-                "Source capsule lacks public replacement ref.",
+                "SOURCE_CAPSULE_MISSING_RUNTIME_REF",
+                "Source capsule lacks a public runtime or regression-harness ref.",
                 case_id=case_id,
                 pattern_id=str(source_ref),
             )
@@ -306,12 +329,12 @@ def validate_reference_capsules(reference_capsules: object, forbidden_terms: dic
                 pattern_id=ref_id,
             )
         scan = scan_json_payload(row, path=f"reference_capsules.json::{ref_id}", forbidden_classes=forbidden_terms)
-        if scan["status"] != PASS or row.get("body_redacted") is not True:
+        if scan["status"] != PASS or not _body_excluded_from_receipt(row):
             _record(
                 findings,
                 observed,
                 "REFERENCE_BODY_LEAK",
-                "Reference capsule body is not redacted.",
+                "Reference capsule body is present in a receipt payload.",
                 case_id=case_id,
                 pattern_id=ref_id,
             )
@@ -367,7 +390,7 @@ def _source_capsule_receipt(accepted_rows: list[dict[str, Any]], source_capsules
     for source_ref in accepted_refs:
         capsule = dict(capsules[source_ref])
         capsule.pop("body", None)
-        capsule["body_redacted"] = True
+        capsule["body_in_receipt"] = False
         capsule.setdefault("source_sha256", _canonical_sha256(capsule))
         rows.append(capsule)
     return {
@@ -376,22 +399,45 @@ def _source_capsule_receipt(accepted_rows: list[dict[str, Any]], source_capsules
         "organ_id": ORGAN_ID,
         "source_capsules": rows,
         "source_capsule_count": len(rows),
-        "anti_claim": "Source capsules are redacted metadata over public-safe input rows, not source bodies.",
+        "body_in_receipt": False,
+        "real_runtime_receipt": True,
+        "synthetic_receipt_standin_allowed": False,
+        "public_runtime_refs": sorted({ref for row in rows for ref in _runtime_refs(row)}),
+        "anti_claim": (
+            "Source capsules are provenance metadata over public runtime refs "
+            "or regression-harness refs; JSON receipts do not inline source bodies."
+        ),
     }
 
 
 def _omission_receipt(redacted_count: int, scan_result: dict[str, Any]) -> dict[str, Any]:
     return {
-        "schema_version": "omission_receipt_v1",
+        "schema_version": "pattern_binding_secret_exclusion_receipt_v1",
         "status": PASS,
         "organ_id": ORGAN_ID,
-        "omitted_files": redacted_count,
+        "body_in_receipt": False,
+        "real_runtime_receipt": True,
+        "synthetic_receipt_standin_allowed": False,
+        "non_inlined_source_ref_count": redacted_count,
         "omitted_edges": 0,
         "omitted_overlays": 0,
-        "omitted_classes": ["forbidden_content_body", "non_public_evidence_body"] if redacted_count else [],
-        "reason": "source bodies intentionally omitted; public-safe metadata retained",
-        "private_state_scan": scan_result,
-        "anti_claim": "Omission counts are class-level metadata and do not expose omitted bodies.",
+        "excluded_classes": [
+            "secret_or_credential_body",
+            "provider_payload_body",
+            "operator_thread_body",
+            "credential_equivalent_live_access_material",
+        ]
+        if redacted_count
+        else [],
+        "reason": (
+            "Pattern-binding receipts carry public runtime/source refs and "
+            "regression-harness refs; they do not inline body payloads."
+        ),
+        "secret_exclusion_scan": scan_result,
+        "anti_claim": (
+            "A non-inlined body is not product evidence. The real evidence is "
+            "the public runtime refs, source refs, and command-owned receipts."
+        ),
     }
 
 
@@ -504,7 +550,10 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
             if key.startswith("reference_capsule")
         },
         "findings": reference_result["findings"],
-        "anti_claim": "Reference capsules are schema-only or redacted metadata; no source body is emitted.",
+        "body_in_receipt": False,
+        "real_runtime_receipt": True,
+        "synthetic_receipt_standin_allowed": False,
+        "anti_claim": "Reference capsules are schema/runtime refs; no source body is inlined into receipts.",
     }
     authority_receipt = {
         "schema_version": "authority_chain_handle_resolver_receipt_v1",
@@ -513,6 +562,9 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
         "authority_chain_resolution_status": authority_result["authority_chain_resolution_status"],
         "observed_negative_cases": authority_result["observed_negative_cases"],
         "findings": authority_result["findings"],
+        "body_in_receipt": False,
+        "real_runtime_receipt": True,
+        "synthetic_receipt_standin_allowed": False,
         "anti_claim": "Authority-chain handles are routing metadata and never upgrade unsupported handles to authority.",
     }
 
@@ -544,7 +596,15 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
             "duplicate_pattern_ids": sorted(set(binding_result["duplicate_pattern_ids"]) | set(duplicate_result.get("duplicate_pattern_ids", []))),
             "error_codes": error_codes,
             "anti_claim_refs": sorted({str(row.get("anti_claim_ref")) for row in accepted_rows if row.get("anti_claim_ref")}),
-            "private_state_scan": scan_result,
+            "secret_exclusion_scan": scan_result,
+            "body_in_receipt": False,
+            "real_runtime_receipt": True,
+            "synthetic_receipt_standin_allowed": False,
+            "fixture_role": "regression_negative_harness_with_positive_control",
+            "public_runtime_refs": _source_capsule_runtime_refs(
+                sorted({ref for row in accepted_rows for ref in _pattern_source_refs(row)}),
+                fixture["source_capsules"],
+            ),
             "authority_ceiling": validate_authority_ceiling({"error_codes": error_codes}),
             "source_pattern_ids": sorted(str(row["pattern_id"]) for row in accepted_rows),
             "expected_negative_cases": EXPECTED_NEGATIVE_CASES,
@@ -605,7 +665,14 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "observed_negative_cases": observed,
             "missing_negative_cases": [],
             "findings": all_findings,
-            "private_state_scan": scan_result,
+            "secret_exclusion_scan": scan_result,
+            "body_in_receipt": False,
+            "real_runtime_receipt": status == PASS,
+            "synthetic_receipt_standin_allowed": False,
+            "public_runtime_refs": _source_capsule_runtime_refs(
+                sorted({ref for row in accepted_rows for ref in _pattern_source_refs(row)}),
+                bundle["source_capsules"],
+            ),
             "authority_ceiling": {
                 "status": PASS,
                 "authority_ceiling": AUTHORITY_CEILING,

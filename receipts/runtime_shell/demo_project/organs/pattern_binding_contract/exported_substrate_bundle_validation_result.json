@@ -11,10 +11,11 @@
     "status": "pass"
   },
   "authority_chain_resolution_status": "missing_negative_case",
+  "body_in_receipt": false,
   "bundle_id": "public_pattern_binding_runtime_example",
   "bundle_manifest_schema_version": "pattern_binding_exported_substrate_bundle_v1",
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:43+00:00",
+  "command": "python -m microcosm_core.organs.pattern_binding_contract validate-substrate-bundle --input examples/pattern_binding_contract/exported_substrate_bundle --out receipts/runtime_shell/demo_project/organs/pattern_binding_contract",
+  "created_at": "2026-05-23T06:32:24+00:00",
   "duplicate_pattern_ids": [],
   "error_codes": [],
   "expected_negative_cases": {},
@@ -25,31 +26,11 @@
   "observed_negative_cases": {},
   "omission_receipt_count": 1,
   "organ_id": "pattern_binding_contract",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 2,
-    "hits": [
-      {
-        "body_redacted": true,
-        "expected_negative_case": true,
-        "forbidden_class": "forbidden_content_body",
-        "path": "examples/pattern_binding_contract/exported_substrate_bundle/private_state_forbidden_terms.json",
-        "remediation": "replace with public runtime metadata",
-        "term_id": "private_source_body_sentinel"
-      },
-      {
-        "body_redacted": true,
-        "expected_negative_case": true,
-        "forbidden_class": "forbidden_content_body",
-        "path": "examples/pattern_binding_contract/exported_substrate_bundle/private_state_forbidden_terms.json",
-        "remediation": "replace with public runtime metadata",
-        "term_id": "provider_payload_body_sentinel"
-      }
-    ],
-    "scanned_path_count": 7,
-    "status": "pass"
-  },
+  "public_runtime_refs": [
+    "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl::public_runtime_pattern_deliverables_registry",
+    "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl::public_runtime_source_capsule_provenance"
+  ],
+  "real_runtime_receipt": true,
   "receipt_id": "pattern_binding_contract_receipt_v1",
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/pattern_binding_contract/exported_substrate_bundle_validation_result.json"
@@ -58,6 +39,40 @@
   "rejected_count": 0,
   "rejected_pattern_ids": [],
   "schema_version": "pattern_binding_contract_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 2,
+    "hits": [
+      {
+        "body_in_receipt": false,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "examples/pattern_binding_contract/exported_substrate_bundle/private_state_forbidden_terms.json",
+        "remediation": "replace with public runtime metadata",
+        "term_id": "private_source_body_sentinel"
+      },
+      {
+        "body_in_receipt": false,
+        "expected_negative_case": true,
+        "forbidden_class": "forbidden_content_body",
+        "path": "examples/pattern_binding_contract/exported_substrate_bundle/private_state_forbidden_terms.json",
+        "remediation": "replace with public runtime metadata",
+        "term_id": "provider_payload_body_sentinel"
+      }
+    ],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_capsule_count": 2,
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

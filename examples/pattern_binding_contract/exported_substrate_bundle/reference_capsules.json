@@ -5,7 +5,7 @@
       "reference_id": "ref_public_pattern_binding_runtime_bundle",
       "supported_kind": true,
       "resolved": true,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "reference_class": "public_runtime_metadata"
     }
   ],

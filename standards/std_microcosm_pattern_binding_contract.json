@@ -1,14 +1,14 @@
 {
-  "anti_claim": "This standard is a public-safe schema contract projection only; it does not authorize release, provider calls, private-data equivalence, or whole-system correctness.",
+  "anti_claim": "This standard is a public runtime/source-ref schema contract only; it does not authorize release, provider calls, private-data equivalence, or whole-system correctness.",
   "anti_claim_contract": {
     "required": false,
     "rule": "fixture-backed proof must state what it does not prove"
   },
   "anti_claims": [
-    "This public standard does not copy private source bodies or prove public runtime completeness.",
+    "This public standard does not inline secret/provider/operator bodies or prove public runtime completeness.",
     "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
   ],
-  "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+  "authority_boundary": "public_runtime_source_ref_schema_standard_with_secret_exclusion_not_source_body_authority",
   "authority_ceiling": {
     "private_data_equivalence_authority": false,
     "release_authority": false,
@@ -19,18 +19,18 @@
   "first_wave_required": true,
   "kind_id": "pattern_binding_contract",
   "kind_name": "Pattern binding contract",
-  "omission_receipt": {
+  "secret_exclusion_receipt": {
     "drilldown": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
-    "omitted": [
-      "source pattern bodies",
-      "private source bodies",
-      "prompt/provider/operator/HUD bodies"
+    "excluded": [
+      "secret or credential bodies",
+      "provider payload bodies",
+      "operator/account/session/live-access bodies"
     ],
-    "reason": "public standard carries schema and id refs only"
+    "reason": "public standard carries schema, source refs, public runtime refs, and command-owned receipt refs"
   },
-  "omission_receipt_contract": {
+  "secret_exclusion_receipt_contract": {
     "required": false,
-    "rule": "compressed views must list omitted bodies and drilldown refs"
+    "rule": "compressed views must distinguish secret-class exclusion from ordinary non-secret substrate import"
   },
   "paper_module_contract": {
     "module_slug": "pattern_binding_contract_standard",
@@ -38,19 +38,21 @@
   },
   "public_private_boundary": {
     "allowed_public_inputs": [
-      "synthetic_fixtures",
+      "regression_harness_fixtures",
       "schema_only_rows",
-      "redacted_source_capsules",
+      "source_capsules_with_body_in_receipt_false",
+      "public_runtime_refs",
       "public_safe_macro_code_when_refactored"
     ],
-    "default_posture": "public_safe_when_synthetic_or_source_capsuled",
+    "default_posture": "source_open_real_substrate_with_secret_exclusion",
     "forbidden_public_inputs": [
       "live_raw_seed",
       "prompt_shelf_bodies",
       "provider_payload_bodies",
       "operator_thread_content",
       "live_task_ledger_rows",
-      "market_or_prediction_private_material"
+      "market_or_prediction_private_material",
+      "credential_equivalent_live_access_material"
     ]
   },
   "receipt_contract": {
@@ -58,7 +60,11 @@
       "command_or_validator",
       "result",
       "evidence_refs",
-      "omissions",
+      "public_runtime_refs",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed",
       "authority_ceiling"
     ],
     "receipt_id": "receipt.microcosm.pattern_binding_contract",
@@ -66,7 +72,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.pattern_binding_contract",
-    "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
+    "receipt must cite validator_id, input fixture ids, output artifact refs, public runtime refs, secret-exclusion status, body_in_receipt, real_runtime_receipt, and anti_claim ids"
   ],
   "receipt_refs": [],
   "relationships": {
@@ -110,7 +116,7 @@
     "relationships",
     "validator_refs",
     "receipt_refs",
-    "omission_receipt",
+    "secret_exclusion_receipt",
     "anti_claims",
     "pattern_binding_contract_payload"
   ],
@@ -159,7 +165,8 @@
     "failure_modes": [
       "untyped artifact admitted into rebuilt substrate",
       "current public microcosm surface treated as sufficient without coverage check",
-      "private source material exposed instead of synthetic/schema-only fixture",
+      "secret/provider/operator body material exposed instead of excluded",
+      "synthetic regression fixture counted as product evidence",
       "projection claims source authority without coupling receipt"
     ],
     "ontology": "The row-to-source-to-organ contract that makes a pattern portable and auditable.",
@@ -169,9 +176,9 @@
   "status": "draft",
   "validation_rules": [
     "validate required fields and enum values against this standard",
-    "reject missing source_refs unless the fixture declares synthetic origin",
+    "reject missing source_refs unless the fixture declares explicit regression-harness or negative-case role",
     "reject authority upgrades not backed by receipt_refs",
-    "require public_private_boundary before public projection"
+    "require public_private_boundary and secret_exclusion_scan before public projection"
   ],
   "validator_contract": {
     "minimum_checks": [

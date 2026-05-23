@@ -1,10 +1,10 @@
 {
-  "schema_version": "private_state_forbidden_classes_v1",
+  "schema_version": "secret_exclusion_forbidden_classes_v1",
   "classes": [
     {
       "class_id": "forbidden_content_body",
-      "label": "forbidden content body",
-      "remediation": "replace with a synthetic replacement fixture",
+      "label": "forbidden credential-equivalent/provider/operator body",
+      "remediation": "exclude from public receipts; preserve only explicit negative fixture sentinels",
       "terms": [
         {
           "term_id": "private_source_body_sentinel",
@@ -17,5 +17,5 @@
       ]
     }
   ],
-  "anti_claim": "These are synthetic scanner sentinels, not non-public bodies."
+  "anti_claim": "These are synthetic scanner sentinels for negative cases, not non-public bodies or evidence that ordinary macro substrate should be redacted."
 }

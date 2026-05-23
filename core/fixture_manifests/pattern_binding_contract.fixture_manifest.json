@@ -73,7 +73,9 @@
     }
   ],
   "validator_command_shape": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
-  "private_state_scan_required": true,
-  "authority_ceiling": "synthetic_fixture_manifest_contract",
-  "anti_claim": "A public fixture manifest proves synthetic fixture coverage; it is not evidence that macro fixture bodies or live run traces are public."
+  "secret_exclusion_scan_required": true,
+  "authority_ceiling": "regression_harness_plus_public_runtime_ref_contract",
+  "real_runtime_receipt_required": true,
+  "synthetic_receipt_standin_allowed": false,
+  "anti_claim": "A fixture manifest may carry regression harness controls and negative cases, but product evidence must come from public runtime refs, command-owned receipts, or explicit blocked-import debt."
 }

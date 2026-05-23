@@ -4,14 +4,18 @@
     {
       "omission_id": "public_runtime_source_body_omission",
       "omitted_classes": [
-        "source_body",
+        "secret_or_credential_body",
         "provider_payload_body",
-        "operator_thread_body"
+        "operator_thread_body",
+        "credential_equivalent_live_access_material"
       ],
       "omitted_count": 3,
-      "body_redacted": true,
-      "reversibility_status": "class_level_only_not_body_reconstructable"
+      "body_in_receipt": false,
+      "real_runtime_refs": [
+        "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl"
+      ],
+      "reversibility_status": "class_level_exclusion_with_real_public_runtime_refs"
     }
   ],
-  "anti_claim": "Omission receipts preserve class-level absence evidence only."
+  "anti_claim": "This receipt records secret-class exclusions only; product evidence is the real public runtime refs and generated receipts."
 }

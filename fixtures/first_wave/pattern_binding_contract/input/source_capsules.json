@@ -3,11 +3,11 @@
   "source_capsules": [
     {
       "source_ref": "capsule.synthetic_pattern_contract",
-      "authority_class": "synthetic_replacement_fixture",
-      "body_redacted": true,
+      "authority_class": "regression_harness_positive_control",
+      "body_in_receipt": false,
       "replacement_fixture_ref": "fixtures/first_wave/pattern_binding_contract/input/patterns.jsonl::pb_valid_synthetic_binding",
       "source_sha256": "synthetic-fixture-hash-basis"
     }
   ],
-  "anti_claim": "Source capsules in this fixture carry redacted lineage only."
+  "anti_claim": "Source capsules in this fixture are regression-harness provenance refs; they are not product evidence or substitutes for available real substrate."
 }
