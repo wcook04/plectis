@@ -1,0 +1,158 @@
+{
+  "anti_claim": "This route demonstrates the proof-lab control plane and evidence spine; it must not claim general theorem-proving capability or expose oracle material.",
+  "body_in_receipt": false,
+  "classification": "source_faithful_refactor",
+  "component_map": [
+    {
+      "component_organ_id": "corpus_readiness_mathlib_absence_gate",
+      "component_role": "corpus/toolchain boundary before retrieval or proof language",
+      "pattern_id": "corpus_readiness_mathlib_absence_gate"
+    },
+    {
+      "component_organ_id": "lean_std_premise_index",
+      "component_role": "closed public Lean/Std premise index",
+      "pattern_id": "lean_std_toolchain_premise_index"
+    },
+    {
+      "component_organ_id": "formal_math_premise_retrieval",
+      "component_role": "retrieval queries, context recipes, and recall floor",
+      "pattern_id": "prover_premise_retrieval_term_scoring"
+    },
+    {
+      "component_organ_id": "tactic_portfolio_availability_probe",
+      "component_role": "public tactic availability gate",
+      "pattern_id": "tactic_portfolio_availability_probe"
+    },
+    {
+      "component_organ_id": "target_shape_tactic_routing_gate",
+      "component_role": "target-shape to tactic route selection",
+      "pattern_id": "target_shape_tactic_routing_gate"
+    },
+    {
+      "component_organ_id": "ring2_premise_retrieval_precision_recall_harness",
+      "component_role": "Ring2 precision/recall and failure-mode metrics",
+      "pattern_id": "ring2_premise_retrieval_precision_recall_harness"
+    },
+    {
+      "component_organ_id": "formal_math_verifier_trace_repair_loop",
+      "component_role": "verifier trace failure class and repair curriculum",
+      "pattern_id": "lean_verifier_feedback_failure_classification"
+    },
+    {
+      "component_organ_id": "proof_diagnostic_evidence_spine",
+      "component_role": "diagnostic evidence refs and provider/body boundary",
+      "pattern_id": "formal_prover_context_strategy_gate"
+    },
+    {
+      "component_organ_id": "formal_math_lean_proof_witness",
+      "component_role": "bounded public Lean/Lake witness, not theorem authority",
+      "pattern_id": "formal_math_lean_self_contained_proof_organ"
+    }
+  ],
+  "foundation_route": {
+    "anti_claim_floor": "This route demonstrates the proof-lab control plane and evidence spine; it must not claim general theorem-proving capability or expose oracle material.",
+    "available_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "provider_context_recipe_budget_policy",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "prover_premise_retrieval_term_scoring",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms"
+    ],
+    "candidate_fixture": "Synthetic Lean/Std mini-corpus with one unavailable Mathlib dependency, a closed premise index, context budget receipts, tactic availability probe, strategy-classification reducer, and retrieval precision/recall buckets.",
+    "cluster_supported_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "provider_context_recipe_budget_policy",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "prover_premise_retrieval_term_scoring",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms"
+    ],
+    "detailed_binding_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "provider_context_recipe_budget_policy",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "prover_premise_retrieval_term_scoring",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms"
+    ],
+    "ledger_slice": {
+      "available_pattern_count": 9,
+      "novelty_band_counts": {
+        "high": 8,
+        "medium": 1
+      },
+      "organ_family_counts": {
+        "formal_math": 9
+      },
+      "private_state_risk_counts": {
+        "low": 1,
+        "none": 8
+      },
+      "public_projection_candidate_count": 9,
+      "status_counts": {
+        "absent": 9
+      },
+      "strong_high_authority_count": 9
+    },
+    "missing_detailed_binding_pattern_ids": [],
+    "missing_pattern_ids": [],
+    "next_refinement_move": "Project as a combined proof-diagnostic organ, then add one validator lane that checks all gate receipts are present before any solved/unsolved metric is shown.",
+    "priority_rank": 1,
+    "route_id": "formal_prover_context_strategy_gate",
+    "selection_boundary": "local_combination_priority_only_not_artifact_selection",
+    "source_cluster_ids": [
+      "formal_prover_context_library_prior_and_strategy_gate"
+    ],
+    "substrate_ref_sample": [
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "codex/doctrine/paper_modules/formal_maths_direction_atlas.md",
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "codex/doctrine/paper_modules/proof_bundle_surface.md",
+      "codex/doctrine/paper_modules/mathematics_mission_pipeline.md",
+      "tools/meta/factory/run_prover_graph_benchmark.py",
+      "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+      "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+      "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+      "tools/meta/factory/build_formal_math_support_affordance_finder.py",
+      "tools/meta/factory/build_formal_math_statement_scope_gate.py",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
+    ],
+    "substrate_refs_omitted_count": 15,
+    "target_existing_organs": [
+      "proof_diagnostic_evidence_spine",
+      "formal_prover_lab_evaluation_suborgan"
+    ],
+    "why_impressive": "A public-safe formal-math control stack where corpus readiness, allowed premise priors, provider-visible context, strategy hypotheses, tactic availability, and retrieval metrics are all explicit gates before any proof success claim."
+  },
+  "required_component_organs": [
+    "corpus_readiness_mathlib_absence_gate",
+    "formal_math_lean_proof_witness",
+    "formal_math_premise_retrieval",
+    "formal_math_verifier_trace_repair_loop",
+    "lean_std_premise_index",
+    "proof_diagnostic_evidence_spine",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate"
+  ],
+  "route_id": "formal_prover_context_strategy_gate",
+  "schema_version": "formal_prover_context_strategy_gate_public_route_slice_v1",
+  "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+  "source_row_count": 373,
+  "source_schema_version": "extracted_pattern_substrate_bindings_v1",
+  "source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45"
+}

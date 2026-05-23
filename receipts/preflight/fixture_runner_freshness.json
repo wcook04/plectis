@@ -203,7 +203,7 @@
     "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
   ],
   "checker_id": "checker.microcosm.validators.fixture_freshness",
-  "command": "python -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json",
+  "command": "python -m microcosm_core.validators.fixture_freshness --readiness microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag microcosm-substrate/core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage microcosm-substrate/core/preflight_support/validator_receipt_coverage_map_v1.json --out microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
   "fixture_manifest_sha256_by_organ": {
     "agent_benchmark_integrity_anti_gaming_replay": "ae36f1a26b20e1e647d264f1d5582247f824e5e761762e62b92c074725761ee3",
     "agent_memory_temporal_conflict_replay": "54d429b78b5e645071bf48102d77073a65a8ff9809cf29f0a8abab4b7a85e1cb",
@@ -808,26 +808,34 @@
     }
   },
   "mission_dag_node_refs": {
-    "path": "core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
+    "path": "microcosm-substrate/core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
     "status": "read_for_freshness_context"
   },
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "scanned_path_count": 6,
-    "status": "pass"
-  },
   "receipt_coverage_refs": {
-    "path": "core/preflight_support/validator_receipt_coverage_map_v1.json",
+    "path": "microcosm-substrate/core/preflight_support/validator_receipt_coverage_map_v1.json",
     "status": "read_for_freshness_context"
   },
   "receipt_paths": [
-    "receipts/preflight/fixture_runner_freshness.json",
+    "microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
     "receipts/first_wave/acceptance_summary.json"
   ],
   "schema_version": "fixture_runner_freshness_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 6,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "stale_receipt_codes": [],
   "stale_receipt_count": 0,
   "status": "pass"

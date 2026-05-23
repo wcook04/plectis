@@ -5,8 +5,13 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Callable
 
+from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
 from microcosm_core.organs import formal_math_lean_proof_witness
+from microcosm_core.organs import formal_math_premise_retrieval
 from microcosm_core.organs import formal_math_verifier_trace_repair_loop
+from microcosm_core.organs import lean_std_premise_index
+from microcosm_core.organs import proof_diagnostic_evidence_spine
+from microcosm_core.organs import ring2_premise_retrieval_precision_recall_harness
 from microcosm_core.organs import tactic_portfolio_availability_probe
 from microcosm_core.organs import target_shape_tactic_routing_gate
 from microcosm_core.secret_exclusion_scan import (
@@ -24,6 +29,7 @@ FIXTURE_ID = "first_wave.verifier_lab_kernel"
 VALIDATOR_ID = "validator.microcosm.organs.verifier_lab_kernel"
 
 PACKET_NAME = "verifier_lab_packet.json"
+PROOF_LAB_ROUTE_NAME = "proof_lab_route.json"
 RESULT_NAME = "verifier_lab_kernel_result.json"
 BOARD_NAME = "verifier_lab_kernel_board.json"
 VALIDATION_RECEIPT_NAME = "verifier_lab_kernel_validation_receipt.json"
@@ -56,6 +62,26 @@ EXPECTED_NEGATIVE_CASES = {
     "evolve_mutates_unbounded_artifact": [
         "VERIFIER_LAB_EVOLVE_SCOPE_FORBIDDEN"
     ],
+}
+EXPECTED_PROOF_LAB_ROUTE_ID = "formal_prover_context_strategy_gate"
+EXPECTED_ROUTE_COMPONENT_ORGANS = {
+    "corpus_readiness_mathlib_absence_gate",
+    "lean_std_premise_index",
+    "formal_math_premise_retrieval",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "formal_math_verifier_trace_repair_loop",
+    "proof_diagnostic_evidence_spine",
+    "formal_math_lean_proof_witness",
+}
+EXPECTED_ROUTE_PATTERN_IDS = {
+    "corpus_readiness_mathlib_absence_gate",
+    "lean_std_toolchain_premise_index",
+    "prover_premise_retrieval_term_scoring",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "ring2_premise_retrieval_precision_recall_harness",
 }
 
 FORBIDDEN_FORWARD_KEYS = {
@@ -108,6 +134,14 @@ AUTHORITY_CEILING = {
     "source_mutation_authorized": False,
     "macro_private_body_import_authorized": False,
     "release_authorized": False,
+}
+LEGACY_REDACTION_RECEIPT_KEYS = {
+    "body_redacted",
+    "matched_excerpt",
+    "public_replacement_ref",
+    "public_replacement_refs",
+    "forbidden_output_fields",
+    "redacted_output_field_labels_omitted",
 }
 RECEIPT_TRANSPARENCY_CONTRACT = {
     "schema_version": "verifier_lab_receipt_transparency_contract_v1",
@@ -240,6 +274,18 @@ Runner = Callable[..., dict[str, Any]]
 
 
 COMPONENT_RUNNERS: dict[str, dict[str, Runner]] = {
+    "corpus_readiness_mathlib_absence_gate": {
+        "fixture": corpus_readiness_mathlib_absence_gate.run,
+        "bundle": corpus_readiness_mathlib_absence_gate.run_projection_bundle,
+    },
+    "lean_std_premise_index": {
+        "fixture": lean_std_premise_index.run,
+        "bundle": lean_std_premise_index.run_index_bundle,
+    },
+    "formal_math_premise_retrieval": {
+        "fixture": formal_math_premise_retrieval.run,
+        "bundle": formal_math_premise_retrieval.run_retrieval_bundle,
+    },
     "tactic_portfolio_availability_probe": {
         "fixture": tactic_portfolio_availability_probe.run,
         "bundle": tactic_portfolio_availability_probe.run_availability_bundle,
@@ -252,6 +298,14 @@ COMPONENT_RUNNERS: dict[str, dict[str, Runner]] = {
         "fixture": formal_math_verifier_trace_repair_loop.run,
         "bundle": formal_math_verifier_trace_repair_loop.run_loop_bundle,
     },
+    "ring2_premise_retrieval_precision_recall_harness": {
+        "fixture": ring2_premise_retrieval_precision_recall_harness.run,
+        "bundle": ring2_premise_retrieval_precision_recall_harness.run_precision_recall_bundle,
+    },
+    "proof_diagnostic_evidence_spine": {
+        "fixture": proof_diagnostic_evidence_spine.run,
+        "bundle": proof_diagnostic_evidence_spine.run_evidence_bundle,
+    },
     "formal_math_lean_proof_witness": {
         "fixture": formal_math_lean_proof_witness.run,
         "bundle": formal_math_lean_proof_witness.run_witness_bundle,
@@ -260,6 +314,21 @@ COMPONENT_RUNNERS: dict[str, dict[str, Runner]] = {
 
 
 DEFAULT_COMPONENT_INPUTS = [
+    {
+        "organ_id": "corpus_readiness_mathlib_absence_gate",
+        "input_rel": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input",
+        "input_mode": "fixture",
+    },
+    {
+        "organ_id": "lean_std_premise_index",
+        "input_rel": "fixtures/first_wave/lean_std_premise_index/input",
+        "input_mode": "fixture",
+    },
+    {
+        "organ_id": "formal_math_premise_retrieval",
+        "input_rel": "fixtures/first_wave/formal_math_premise_retrieval/input",
+        "input_mode": "fixture",
+    },
     {
         "organ_id": "tactic_portfolio_availability_probe",
         "input_rel": "fixtures/first_wave/tactic_portfolio_availability_probe/input",
@@ -273,6 +342,16 @@ DEFAULT_COMPONENT_INPUTS = [
     {
         "organ_id": "formal_math_verifier_trace_repair_loop",
         "input_rel": "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input",
+        "input_mode": "fixture",
+    },
+    {
+        "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+        "input_rel": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input",
+        "input_mode": "fixture",
+    },
+    {
+        "organ_id": "proof_diagnostic_evidence_spine",
+        "input_rel": "fixtures/first_wave/proof_diagnostic_evidence_spine/input",
         "input_mode": "fixture",
     },
     {
@@ -313,7 +392,11 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (PACKET_NAME, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    paths = [input_dir / name for name in names]
+    route_path = input_dir / PROOF_LAB_ROUTE_NAME
+    if route_path.is_file():
+        paths.append(route_path)
+    return paths
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -377,6 +460,34 @@ def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -
         for index, child in enumerate(value):
             found.extend(_walk_forbidden_keys(child, forbidden, f"{prefix}[{index}]"))
     return sorted(found)
+
+
+def _without_legacy_redaction_receipt_fields(value: object) -> object:
+    if isinstance(value, dict):
+        cleaned: dict[str, object] = {}
+        for key, child in value.items():
+            if key in LEGACY_REDACTION_RECEIPT_KEYS:
+                continue
+            clean_key = "secret_exclusion_scan" if key == "private_state_scan" else key
+            cleaned[clean_key] = _without_legacy_redaction_receipt_fields(child)
+        return cleaned
+    if isinstance(value, list):
+        return [_without_legacy_redaction_receipt_fields(item) for item in value]
+    return value
+
+
+def _rewrite_json_receipt_without_legacy_redaction(path: Path) -> None:
+    payload = read_json_strict(path)
+    cleaned = _without_legacy_redaction_receipt_fields(payload)
+    if cleaned != payload:
+        write_json_atomic(path, cleaned)
+
+
+def _normalize_component_receipt_surface(target: Path) -> None:
+    if not target.exists():
+        return
+    for path in sorted(target.rglob("*.json")):
+        _rewrite_json_receipt_without_legacy_redaction(path)
 
 
 def _negative_case_id(row: dict[str, Any], fallback: str) -> str:
@@ -789,7 +900,105 @@ def _validate_packet(
 
 def _component_specs(packet: dict[str, Any]) -> list[dict[str, Any]]:
     rows = _rows(packet, "component_inputs")
-    return rows or list(DEFAULT_COMPONENT_INPUTS)
+    if not rows:
+        return list(DEFAULT_COMPONENT_INPUTS)
+    seen = {
+        str(row.get("organ_id") or "")
+        for row in rows
+        if isinstance(row, dict)
+    }
+    return [
+        *rows,
+        *[
+            row
+            for row in DEFAULT_COMPONENT_INPUTS
+            if str(row.get("organ_id") or "") not in seen
+        ],
+    ]
+
+
+def _validate_proof_lab_route(
+    payload: dict[str, Any] | None,
+    *,
+    component_specs: list[dict[str, Any]],
+    require_route: bool,
+) -> dict[str, Any]:
+    if not payload:
+        return {
+            "status": "blocked" if require_route else PASS,
+            "route_supplied": False,
+            "route_id": None,
+            "error_codes": (
+                ["VERIFIER_LAB_PROOF_ROUTE_MISSING"] if require_route else []
+            ),
+            "missing_component_organs": [],
+            "missing_pattern_ids": [],
+            "source_sha256": None,
+            "source_ref": None,
+            "available_pattern_ids": [],
+            "source_refs": [],
+        }
+
+    route = payload.get("foundation_route")
+    if not isinstance(route, dict):
+        route = {}
+    component_rows = payload.get("component_map")
+    if not isinstance(component_rows, list):
+        component_rows = []
+    expected_organs = {
+        str(row.get("component_organ_id") or "")
+        for row in component_rows
+        if isinstance(row, dict)
+    } or EXPECTED_ROUTE_COMPONENT_ORGANS
+    actual_organs = {
+        str(row.get("organ_id") or "")
+        for row in component_specs
+        if isinstance(row, dict)
+    }
+    available_pattern_ids = set(_strings(route.get("available_pattern_ids")))
+    error_codes: list[str] = []
+    route_id = str(route.get("route_id") or payload.get("route_id") or "")
+    if route_id != EXPECTED_PROOF_LAB_ROUTE_ID:
+        error_codes.append("VERIFIER_LAB_PROOF_ROUTE_ID_MISMATCH")
+    missing_organs = sorted(expected_organs - actual_organs)
+    if missing_organs:
+        error_codes.append("VERIFIER_LAB_PROOF_ROUTE_COMPONENT_MISSING")
+    missing_patterns = sorted(EXPECTED_ROUTE_PATTERN_IDS - available_pattern_ids)
+    if missing_patterns:
+        error_codes.append("VERIFIER_LAB_PROOF_ROUTE_PATTERN_MISSING")
+    source_sha256 = str(payload.get("source_sha256") or "")
+    if not source_sha256.startswith("sha256:"):
+        error_codes.append("VERIFIER_LAB_PROOF_ROUTE_SOURCE_DIGEST_MISSING")
+    source_refs = _strings(route.get("substrate_ref_sample"))
+    if not source_refs:
+        error_codes.append("VERIFIER_LAB_PROOF_ROUTE_SUBSTRATE_REFS_MISSING")
+
+    return {
+        "status": PASS if not error_codes else "blocked",
+        "route_supplied": True,
+        "route_id": route_id or None,
+        "error_codes": error_codes,
+        "missing_component_organs": missing_organs,
+        "missing_pattern_ids": missing_patterns,
+        "source_sha256": source_sha256 or None,
+        "source_ref": payload.get("source_ref"),
+        "available_pattern_ids": sorted(available_pattern_ids),
+        "detailed_binding_pattern_ids": _strings(
+            route.get("detailed_binding_pattern_ids")
+        ),
+        "component_map": [
+            {
+                "pattern_id": str(row.get("pattern_id") or ""),
+                "component_organ_id": str(row.get("component_organ_id") or ""),
+                "component_role": str(row.get("component_role") or ""),
+            }
+            for row in component_rows
+            if isinstance(row, dict)
+        ],
+        "source_refs": source_refs,
+        "anti_claim_floor": route.get("anti_claim_floor"),
+        "next_refinement_move": route.get("next_refinement_move"),
+    }
 
 
 def _run_component_stack(
@@ -826,7 +1035,10 @@ def _run_component_stack(
                 / f"{organ_id}_fixture_acceptance.json"
             )
         result = runner(input_path, target, **kwargs)
-        results[organ_id] = result
+        _normalize_component_receipt_surface(target)
+        if "acceptance_out" in kwargs:
+            _rewrite_json_receipt_without_legacy_redaction(kwargs["acceptance_out"])
+        results[organ_id] = _without_legacy_redaction_receipt_fields(result)
         refs = result.get("receipt_paths", [])
         receipt_refs[organ_id] = [str(ref) for ref in refs if isinstance(ref, str)]
     return {
@@ -850,6 +1062,51 @@ def _run_component_stack(
             "formal_math_verifier_trace_repair_loop", {}
         ).get("attempt_count"),
         "component_results": results,
+    }
+
+
+def _proof_lab_component_metrics(results: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    corpus = results.get("corpus_readiness_mathlib_absence_gate", {})
+    index = results.get("lean_std_premise_index", {})
+    retrieval = results.get("formal_math_premise_retrieval", {})
+    tactic = results.get("tactic_portfolio_availability_probe", {})
+    target_shape = results.get("target_shape_tactic_routing_gate", {})
+    ring2 = results.get("ring2_premise_retrieval_precision_recall_harness", {})
+    trace_repair = results.get("formal_math_verifier_trace_repair_loop", {})
+    diagnostics = results.get("proof_diagnostic_evidence_spine", {})
+    witness = results.get("formal_math_lean_proof_witness", {})
+    return {
+        "corpus_count": corpus.get("corpus_count"),
+        "mathlib_lake_project_import_available": corpus.get(
+            "mathlib_lake_project_import_available"
+        ),
+        "lean_std_premise_count": index.get("premise_count"),
+        "retrieval_query_count": retrieval.get("query_count"),
+        "retrieval_mean_public_recall": retrieval.get(
+            "mean_public_retrieval_recall"
+        ),
+        "tactic_probe_status": tactic.get("status"),
+        "target_shape_route_case_count": target_shape.get("route_case_count"),
+        "ring2_problem_count": ring2.get("problem_count"),
+        "ring2_mean_precision_at_k": ring2.get("mean_precision_at_k"),
+        "ring2_mean_recall_at_k": ring2.get("mean_recall_at_k"),
+        "verifier_trace_attempt_count": trace_repair.get("attempt_count"),
+        "proof_diagnostic_accepted_count": len(
+            diagnostics.get("accepted_check_ids", [])
+            if isinstance(diagnostics.get("accepted_check_ids"), list)
+            else []
+        ),
+        "proof_diagnostic_rejected_count": len(
+            diagnostics.get("rejected_check_ids", [])
+            if isinstance(diagnostics.get("rejected_check_ids"), list)
+            else []
+        ),
+        "lean_lake_return_code": witness.get("lake_build", {}).get(
+            "return_code"
+        ),
+        "lean_compiled_declaration_count": witness.get(
+            "compiled_declaration_count"
+        ),
     }
 
 
@@ -918,6 +1175,9 @@ def _build_result(
     packet = payloads.get("verifier_lab_packet", {})
     if not isinstance(packet, dict):
         packet = {}
+    proof_lab_route = payloads.get("proof_lab_route")
+    if not isinstance(proof_lab_route, dict):
+        proof_lab_route = None
     negative_payloads = {
         Path(name).stem: payloads[Path(name).stem]
         for name in NEGATIVE_INPUT_NAMES
@@ -930,11 +1190,17 @@ def _build_result(
         display_root=public_root,
     )
 
+    component_specs = _component_specs(packet)
     component = _run_component_stack(
         packet,
         input_dir=input_dir,
         out_dir=out_dir,
         command=command,
+    )
+    proof_route = _validate_proof_lab_route(
+        proof_lab_route,
+        component_specs=component_specs,
+        require_route=input_mode == "exported_verifier_lab_kernel_bundle",
     )
     packet_result = _validate_packet(
         packet,
@@ -945,13 +1211,20 @@ def _build_result(
         *packet_result["positive_findings"],
         *packet_result["negative_findings"],
     ]
-    error_codes = sorted({str(row["error_code"]) for row in findings})
+    error_codes = sorted(
+        {
+            str(row["error_code"])
+            for row in findings
+        }
+        | set(proof_route["error_codes"])
+    )
     claim_separation = _claim_separation(packet_result, component)
     status = (
         PASS
         if secret_scan["blocking_hit_count"] == 0
         and component["status"] == PASS
         and packet_result["status"] == PASS
+        and proof_route["status"] == PASS
         else "blocked"
     )
     bundle_manifest = (
@@ -976,6 +1249,19 @@ def _build_result(
         "source_refs": packet_result["source_refs"],
         "projection_receipt_refs": packet_result["projection_receipt_refs"],
         "public_runtime_refs": packet_result["public_runtime_refs"],
+        "proof_lab_route": proof_route,
+        "proof_lab_route_id": proof_route["route_id"],
+        "proof_lab_route_source_sha256": proof_route["source_sha256"],
+        "proof_lab_route_component_count": len(
+            {
+                row.get("component_organ_id")
+                for row in proof_route.get("component_map", [])
+                if isinstance(row, dict) and row.get("component_organ_id")
+            }
+        ),
+        "proof_lab_component_metrics": _proof_lab_component_metrics(
+            component["component_results"]
+        ),
         "expected_negative_cases": packet_result["expected_negative_cases"],
         "observed_negative_cases": packet_result["observed_negative_cases"],
         "missing_negative_cases": packet_result["missing_negative_cases"],
@@ -1049,12 +1335,18 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
             "provider_hypothesis_count": len(result["provider_hypotheses"]),
             "cp2_candidate_count": len(result["cp2_action_candidates"]),
             "evolve_candidate_count": len(result["evolve_candidates"]),
+            "proof_lab_route_id": result["proof_lab_route_id"],
+            "proof_lab_route_component_count": result[
+                "proof_lab_route_component_count"
+            ],
             "lean_compiled_declaration_count": result[
                 "lean_compiled_declaration_count"
             ],
             "target_shape_route_case_count": result["target_shape_route_case_count"],
             "verifier_trace_attempt_count": result["verifier_trace_attempt_count"],
         },
+        "proof_lab_route": result["proof_lab_route"],
+        "proof_lab_component_metrics": result["proof_lab_component_metrics"],
         "claim_separation": result["claim_separation"],
         "authority_split": result["authority_split"],
         "authority_counters": result["authority_counters"],
@@ -1121,6 +1413,8 @@ def _write_receipts(
             "missing": result["missing_negative_cases"],
         },
         "component_statuses": result["component_statuses"],
+        "proof_lab_route": result["proof_lab_route"],
+        "proof_lab_component_metrics": result["proof_lab_component_metrics"],
         "claim_separation_keys": sorted(result["claim_separation"]),
         "authority_counters": result["authority_counters"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1144,6 +1438,8 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "component_statuses": result["component_statuses"],
+        "proof_lab_route": result["proof_lab_route"],
+        "proof_lab_component_metrics": result["proof_lab_component_metrics"],
         "authority_counters": result["authority_counters"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],

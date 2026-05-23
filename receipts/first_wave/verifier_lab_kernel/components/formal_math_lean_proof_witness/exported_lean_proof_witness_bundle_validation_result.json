@@ -1,0 +1,114 @@
+{
+  "anti_claim": "Formal math Lean proof witness runs a tiny public Lake project with the installed local Lean toolchain and emits redacted receipts. It does not authorize Mathlib-dependent proofs, provider calls, private proof import, benchmark performance claims, public release, theorem-program authority beyond the declared toy witnesses, or publication readiness.",
+  "authority_ceiling": {
+    "authority_ceiling": "bounded_public_lean_lake_witness_only",
+    "formal_proof_authority": "only_for_declared_toy_witnesses_compiled_by_local_lean",
+    "lean_lake_execution_authorized": true,
+    "lean_lake_execution_scope": "temporary_workspace_copy_of_public_fixture",
+    "mathlib_presence_claim_authorized": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "provider_calls_authorized": false,
+    "public_synthetic_lean_source_allowed": true,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "bundle_id": "formal_math_lean_proof_witness_runtime_example",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component formal_math_lean_proof_witness",
+  "compiled_declaration_count": 8,
+  "created_at": "2026-05-23T18:36:23+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.formal_math_lean_proof_witness",
+  "forbidden_positive_imports": [],
+  "input_mode": "exported_lean_proof_witness_bundle",
+  "lake_build": {
+    "argv": [
+      "lake",
+      "build"
+    ],
+    "cwd_name": "lake_project",
+    "return_code": 0,
+    "stderr_line_count": 0,
+    "stdout_line_count": 1,
+    "timed_out": false
+  },
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "formal_math_lean_proof_witness",
+  "projection_receipt_refs": [
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
+  ],
+  "receipt_id": "exported_lean_proof_witness_bundle_validation_result_v1",
+  "receipt_paths": [
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
+  ],
+  "schema_version": "exported_lean_proof_witness_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 1,
+    "status": "pass"
+  },
+  "source_file_count": 1,
+  "source_files": [
+    {
+      "declarations": [
+        "and_comm_public",
+        "bool_and_true_public",
+        "closed_nat_mod_public",
+        "eq_self_public",
+        "eq_symm_public",
+        "list_append_nil_public",
+        "nat_add_zero_public",
+        "or_comm_public"
+      ],
+      "imports": [],
+      "line_count": 42,
+      "sha256": "a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
+      "source_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+    }
+  ],
+  "source_pattern_ids": [
+    "formal_math_lean_self_contained_proof_organ",
+    "corpus_readiness_mathlib_absence_gate",
+    "tactic_portfolio_availability_probe"
+  ],
+  "source_refs": [
+    "pattern_id:formal_math_lean_self_contained_proof_organ",
+    "pattern_id:corpus_readiness_mathlib_absence_gate",
+    "pattern_id:tactic_portfolio_availability_probe",
+    "toolchain:local_lean_4_29_1_lake_5"
+  ],
+  "status": "pass",
+  "tool_versions": {
+    "lake_available": true,
+    "lake_version_command": {
+      "argv": [
+        "lake",
+        "--version"
+      ],
+      "cwd_name": "ai_workflow",
+      "return_code": 0,
+      "stderr_line_count": 0,
+      "stdout_line_count": 1,
+      "timed_out": false
+    },
+    "lean_available": true,
+    "lean_version_command": {
+      "argv": [
+        "lean",
+        "--version"
+      ],
+      "cwd_name": "ai_workflow",
+      "return_code": 0,
+      "stderr_line_count": 0,
+      "stdout_line_count": 1,
+      "timed_out": false
+    }
+  },
+  "validator_id": "validator.microcosm.organs.formal_math_lean_proof_witness",
+  "witness_id": "formal_math_lean_proof_witness_v1"
+}

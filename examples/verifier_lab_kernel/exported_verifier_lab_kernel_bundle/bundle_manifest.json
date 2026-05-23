@@ -1,14 +1,19 @@
 {
-  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "authority_ceiling": "verifier_governed_public_proof_lab_route_receipt_only",
+  "body_in_receipt": false,
   "bundle_id": "verifier_lab_kernel_runtime_example",
-  "organ_id": "verifier_lab_kernel",
-  "input_mode": "exported_verifier_lab_kernel_bundle",
   "entry_file": "verifier_lab_packet.json",
+  "formal_prover_context_strategy_gate_ref": "proof_lab_route.json",
   "included_files": [
+    "bundle_manifest.json",
+    "proof_lab_route.json",
     "verifier_lab_packet.json"
   ],
-  "authority_ceiling": "verifier_governed_public_kernel_receipt_only",
-  "body_in_receipt": false,
+  "input_mode": "exported_verifier_lab_kernel_bundle",
+  "organ_id": "verifier_lab_kernel",
   "real_runtime_receipt": true,
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+  "source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
   "synthetic_receipt_standin_allowed": false
 }

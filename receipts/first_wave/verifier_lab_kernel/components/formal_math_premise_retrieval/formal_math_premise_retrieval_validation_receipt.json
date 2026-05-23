@@ -1,0 +1,196 @@
+{
+  "allowed_strategy_ids": [
+    "associativity_rewrite",
+    "boolean_normalization",
+    "commutativity_rewrite",
+    "iff_split",
+    "structural_list",
+    "unknown"
+  ],
+  "anti_claim": "Formal math premise retrieval validates a copied public macro Lean/Std premise index, term-scoring retrieval, context-budget recipes, and strategy gates. It does not run Lean or Lake, call providers, expose proof bodies or oracle premise ids, tune on test split truth, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the formal_math_lean_proof_witness boundary.",
+  "authority_ceiling": {
+    "authority_ceiling": "formal_math_retrieval_metadata_and_public_runtime_eval_only",
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_presence_claim_authorized": false,
+    "oracle_premise_ids_allowed_in_public_inputs": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "test_split_tuning_authorized": false
+  },
+  "body_copied_material_count": 1,
+  "body_material_contract": {
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_material_required": true,
+    "excluded_body_classes": [
+      "proof_body",
+      "ground_truth_proof",
+      "provider_output_body",
+      "oracle_needed_premise_ids",
+      "private_source_body"
+    ],
+    "secret_exclusion_scan_field": "secret_exclusion_scan",
+    "status": "pass"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run :: component formal_math_premise_retrieval",
+  "context_budget_enforced": true,
+  "copied_material": [
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "premise_index_metadata",
+      "material_id": "lean_std_toolchain_premise_index",
+      "normalization": "host-local Lean toolchain absolute paths are normalized to lean-toolchain:// public refs",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_refs": [
+        "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/premise_index.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_imports_real_macro_premise_index",
+        "microcosm-substrate/tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "copied_material_count": 1,
+  "created_at": "2026-05-23T18:36:12+00:00",
+  "error_codes": [
+    "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
+    "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
+    "FORMAL_RETRIEVAL_ORACLE_IDS_FORBIDDEN",
+    "FORMAL_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
+    "FORMAL_RETRIEVAL_UNKNOWN_STRATEGY"
+  ],
+  "expected_negative_cases": [
+    "context_recipe_budget_overflow",
+    "premise_index_proof_body_forbidden",
+    "query_oracle_ids_forbidden",
+    "test_split_tuning_attempt",
+    "unknown_strategy_id"
+  ],
+  "findings": [
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
+      "message": "Context recipe exceeded the retrieval public byte ceiling.",
+      "negative_case_id": "context_recipe_budget_overflow",
+      "subject_id": "unsafe_128kb",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
+      "message": "Premise index rejected proof/oracle body fields.",
+      "negative_case_id": "premise_index_proof_body_forbidden",
+      "subject_id": "Nat.secret_add_comm",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "FORMAL_RETRIEVAL_ORACLE_IDS_FORBIDDEN",
+      "message": "Retrieval queries cannot expose oracle-needed premise ids.",
+      "negative_case_id": "query_oracle_ids_forbidden",
+      "subject_id": "q_oracle_leak",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "FORMAL_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
+      "message": "Test split truth cannot tune retrieval ranking.",
+      "negative_case_id": "test_split_tuning_attempt",
+      "subject_id": "q_test_tuning",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "FORMAL_RETRIEVAL_UNKNOWN_STRATEGY",
+      "message": "Retrieval strategy gate rejected an unknown strategy id.",
+      "negative_case_id": "unknown_strategy_id",
+      "subject_id": "q_unknown_strategy",
+      "subject_kind": "negative_case"
+    }
+  ],
+  "fixture_id": "first_wave.formal_math_premise_retrieval",
+  "input_mode": "first_wave_fixture",
+  "lean_lake_execution_authorized": false,
+  "mean_public_retrieval_recall": 1.0,
+  "missing_negative_cases": [],
+  "negative_case_coverage_status": "pass",
+  "observed_negative_cases": {
+    "context_recipe_budget_overflow": [
+      "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED"
+    ],
+    "premise_index_proof_body_forbidden": [
+      "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN"
+    ],
+    "query_oracle_ids_forbidden": [
+      "FORMAL_RETRIEVAL_ORACLE_IDS_FORBIDDEN"
+    ],
+    "test_split_tuning_attempt": [
+      "FORMAL_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN"
+    ],
+    "unknown_strategy_id": [
+      "FORMAL_RETRIEVAL_UNKNOWN_STRATEGY"
+    ]
+  },
+  "oracle_ids_excluded": true,
+  "organ_id": "formal_math_premise_retrieval",
+  "premise_count": 11,
+  "projection_receipt_refs": [
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
+  "proof_bodies_excluded": true,
+  "protocol_id": "formal_math_premise_retrieval_macro_projection_v1",
+  "provider_calls_authorized": false,
+  "public_runtime_refs": [
+    "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/retrieval_queries.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipes.json",
+    "fixtures/first_wave/formal_math_premise_retrieval/input/strategy_cases.json"
+  ],
+  "query_count": 4,
+  "receipt_id": "formal_math_premise_retrieval_validation_receipt_v1",
+  "receipt_paths": [
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/premise_retrieval_board.json",
+    "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_premise_retrieval_fixture_acceptance.json"
+  ],
+  "recipe_count": 3,
+  "schema_version": "formal_math_premise_retrieval_validation_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "excluded_output_field_labels_omitted": true,
+    "excluded_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 10,
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "prover_premise_retrieval_term_scoring",
+    "provider_context_recipe_budget_policy",
+    "mathematical_strategy_atlas_hypothesis_scorer"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+    "tools/meta/factory/run_prover_graph_benchmark.py::_premise_index",
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+  ],
+  "status": "pass",
+  "strategy_case_count": 4,
+  "test_split_tuning_rejected": true,
+  "unknown_strategy_rejected": true,
+  "validator_id": "validator.microcosm.organs.formal_math_premise_retrieval"
+}

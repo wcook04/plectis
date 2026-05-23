@@ -1,0 +1,287 @@
+{
+  "anti_claim": "The Lean/Std premise index validates copied non-secret Lean/Std premise descriptors imported from the macro premise-index run with public path normalization. It does not import Mathlib, run Lean or Lake, expose proof bodies or oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "lean_std_premise_index_copied_macro_descriptor_index_only",
+    "formal_proof_authority": false,
+    "index_authority": "copied_non_secret_lean_std_descriptor_index_only",
+    "lean_lake_execution_authorized": false,
+    "mathlib_allowed": false,
+    "oracle_needed_ids_public": false,
+    "proof_bodies_allowed": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "test_split_tuning_authorized": false
+  },
+  "body_copied_material_count": 1,
+  "body_material_contract": {
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_material_required": true,
+    "excluded_body_classes": [
+      "proof_body",
+      "ground_truth_proof",
+      "provider_payload_body",
+      "oracle_needed_premise_ids",
+      "private_source_body"
+    ],
+    "secret_exclusion_scan_field": "secret_exclusion_scan",
+    "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    "status": "pass"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "bundle_id": null,
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run :: component lean_std_premise_index",
+  "copied_material": [
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "premise_index_metadata",
+      "material_id": "lean_std_toolchain_premise_index",
+      "normalization": "host-local Lean toolchain absolute paths are normalized to lean-toolchain:// public refs",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_refs": [
+        "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_imports_real_macro_premise_index",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "copied_material_count": 1,
+  "created_at": "2026-05-23T18:36:12+00:00",
+  "error_codes": [
+    "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+    "LEAN_STD_INDEX_MATHLIB_FORBIDDEN",
+    "LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN",
+    "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+    "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
+    "LEAN_STD_INDEX_SPLIT_POLICY_MISSING",
+    "LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN"
+  ],
+  "expected_negative_cases": {
+    "mathlib_premise_forbidden": [
+      "LEAN_STD_INDEX_MATHLIB_FORBIDDEN"
+    ],
+    "namespace_without_source_ref": [
+      "LEAN_STD_INDEX_SOURCE_REF_REQUIRED"
+    ],
+    "oracle_needed_ids_leakage": [
+      "LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN"
+    ],
+    "proof_body_leakage": [
+      "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN"
+    ],
+    "test_split_tuning_attempt": [
+      "LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN"
+    ]
+  },
+  "findings": [
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_SPLIT_POLICY_MISSING",
+      "message": "Policy must explicitly name train/dev/test as the only public split labels.",
+      "negative_case_id": "mathlib_premise_forbidden",
+      "subject_id": "allowed_splits",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "message": "The public premise index must be declared as a closed set.",
+      "negative_case_id": "mathlib_premise_forbidden",
+      "subject_id": "closed_index_only",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_MATHLIB_FORBIDDEN",
+      "message": "The public Lean/Std premise index must not include Mathlib refs.",
+      "negative_case_id": "mathlib_premise_forbidden",
+      "subject_id": "mathlib_nat_add_comm",
+      "subject_kind": "premise"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
+      "message": "Every public Lean/Std premise row must cite an Init/ Lean toolchain source ref.",
+      "negative_case_id": "mathlib_premise_forbidden",
+      "subject_id": "mathlib_nat_add_comm",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_SPLIT_POLICY_MISSING",
+      "message": "Policy must explicitly name train/dev/test as the only public split labels.",
+      "negative_case_id": "namespace_without_source_ref",
+      "subject_id": "allowed_splits",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "message": "The public premise index must be declared as a closed set.",
+      "negative_case_id": "namespace_without_source_ref",
+      "subject_id": "closed_index_only",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
+      "message": "Every public Lean/Std premise row must cite an Init/ Lean toolchain source ref.",
+      "negative_case_id": "namespace_without_source_ref",
+      "subject_id": "missing_source_ref",
+      "subject_kind": "source_ref"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN",
+      "message": "Oracle-needed premise ids stay out of public premise-index inputs.",
+      "negative_case_id": "oracle_needed_ids_leakage",
+      "subject_id": "oracle_needed_ids_leak",
+      "subject_kind": "oracle_ids"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_SPLIT_POLICY_MISSING",
+      "message": "Policy must explicitly name train/dev/test as the only public split labels.",
+      "negative_case_id": "oracle_needed_ids_leakage",
+      "subject_id": "allowed_splits",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "message": "The public premise index must be declared as a closed set.",
+      "negative_case_id": "oracle_needed_ids_leakage",
+      "subject_id": "closed_index_only",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+      "message": "Public premise rows must not include proof bodies or private payload bodies.",
+      "negative_case_id": "oracle_needed_ids_leakage",
+      "subject_id": "oracle_needed_ids_leak",
+      "subject_kind": "premise"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_SPLIT_POLICY_MISSING",
+      "message": "Policy must explicitly name train/dev/test as the only public split labels.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "allowed_splits",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "message": "The public premise index must be declared as a closed set.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "closed_index_only",
+      "subject_kind": "policy"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+      "message": "Public premise rows must not include proof bodies or private payload bodies.",
+      "negative_case_id": "proof_body_leakage",
+      "subject_id": "proof_body_leak",
+      "subject_kind": "premise"
+    },
+    {
+      "body_material_status": "forbidden_body_excluded",
+      "error_code": "LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN",
+      "message": "Lean/Std premise-index policy must keep authority ceilings false.",
+      "negative_case_id": "test_split_tuning_attempt",
+      "subject_id": "test_split_tuning_authorized",
+      "subject_kind": "policy"
+    }
+  ],
+  "fixture_id": "first_wave.lean_std_premise_index",
+  "input_mode": "first_wave_fixture",
+  "missing_negative_cases": [],
+  "namespace_counts": {
+    "Bool": 1,
+    "Iff": 1,
+    "List": 5,
+    "Nat": 4
+  },
+  "observed_negative_cases": {
+    "mathlib_premise_forbidden": [
+      "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "LEAN_STD_INDEX_MATHLIB_FORBIDDEN",
+      "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
+      "LEAN_STD_INDEX_SPLIT_POLICY_MISSING"
+    ],
+    "namespace_without_source_ref": [
+      "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "LEAN_STD_INDEX_SOURCE_REF_REQUIRED",
+      "LEAN_STD_INDEX_SPLIT_POLICY_MISSING"
+    ],
+    "oracle_needed_ids_leakage": [
+      "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "LEAN_STD_INDEX_ORACLE_IDS_FORBIDDEN",
+      "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+      "LEAN_STD_INDEX_SPLIT_POLICY_MISSING"
+    ],
+    "proof_body_leakage": [
+      "LEAN_STD_INDEX_CLOSED_SET_REQUIRED",
+      "LEAN_STD_INDEX_PROOF_BODY_FORBIDDEN",
+      "LEAN_STD_INDEX_SPLIT_POLICY_MISSING"
+    ],
+    "test_split_tuning_attempt": [
+      "LEAN_STD_INDEX_TEST_SPLIT_TUNING_FORBIDDEN"
+    ]
+  },
+  "omitted_material_count": 3,
+  "organ_id": "lean_std_premise_index",
+  "premise_count": 11,
+  "projection_receipt_refs": [
+    "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
+  "protocol_id": "lean_std_premise_index_macro_projection_v1",
+  "public_runtime_refs": [
+    "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "fixtures/first_wave/lean_std_premise_index/input/index_policy.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+    "standards/std_microcosm_lean_std_premise_index.json"
+  ],
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/lean_std_premise_index_result.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/lean_std_premise_index_board.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/lean_std_premise_index_fixture_acceptance.json"
+  ],
+  "schema_version": "lean_std_premise_index_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "excluded_output_field_count": 2,
+    "excluded_output_field_labels_omitted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 8,
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "lean_std_toolchain_premise_index",
+    "closed_premise_admission_boundary",
+    "formal_math_premise_retrieval"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py"
+  ],
+  "split_counts": {
+    "dev": 11,
+    "test": 11,
+    "train": 11
+  },
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.lean_std_premise_index"
+}

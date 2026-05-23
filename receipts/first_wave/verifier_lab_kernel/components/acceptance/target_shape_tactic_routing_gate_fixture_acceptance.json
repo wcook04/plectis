@@ -2,10 +2,10 @@
   "acceptance_status": "accepted_current_authority",
   "accepted_organ_id": "target_shape_tactic_routing_gate",
   "all_expectations_met": true,
-  "anti_claim": "Target-shape tactic routing validates public pre-execution admissibility metadata only. It rejects unavailable, unprobed, or shape-inadmissible tactics before any Lean call; it does not run Lean/Lake, prove the goal, emit proof bodies, call providers, or authorize release.",
+  "anti_claim": "Target-shape tactic routing validates real Ring2 problem-domain, failure-class, and graph-update route references before proof execution. It rejects unavailable, unprobed, or shape-inadmissible tactics before any Lean call; it does not run Lean/Lake, prove the goal, emit proof bodies, call providers, or authorize release.",
   "authority_boundary_retained": true,
   "authority_ceiling": {
-    "authority_ceiling": "target_shape_admissibility_metadata_not_proof_authority",
+    "authority_ceiling": "target_shape_ring2_route_refs_not_proof_authority",
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
     "mathlib_dependent_proof_authority": false,
@@ -20,10 +20,11 @@
     "rfl",
     "simp_all"
   ],
-  "body_redacted": true,
+  "body_in_receipt": false,
+  "body_material_status": "real_ring2_target_shape_routing_refs",
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.verifier_lab_kernel run :: component target_shape_tactic_routing_gate",
-  "created_at": "2026-05-22T15:02:17+00:00",
+  "created_at": "2026-05-23T18:36:06+00:00",
   "error_codes": [
     "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN",
     "TARGET_SHAPE_PROOF_BODY_FORBIDDEN",
@@ -40,7 +41,8 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "TARGET_SHAPE_UNAVAILABLE_TACTIC_ADMITTED",
       "message": "Route admitted an unavailable tactic before execution.",
       "negative_case_id": "unavailable_tactic_admitted",
@@ -48,7 +50,8 @@
       "subject_kind": "tactic_id"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "TARGET_SHAPE_UNPROBED_TACTIC_ALLOWED",
       "message": "Route admitted a tactic absent from the public probe portfolio.",
       "negative_case_id": "unprobed_tactic_allowed",
@@ -56,7 +59,8 @@
       "subject_kind": "tactic_id"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "TARGET_SHAPE_PROOF_BODY_FORBIDDEN",
       "message": "Routing fixtures cannot carry proof, provider, or Lean body fields.",
       "negative_case_id": "proof_body_leakage",
@@ -64,7 +68,8 @@
       "subject_kind": "route_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN",
       "message": "Routing must be selected before proof execution evidence exists.",
       "negative_case_id": "post_execution_route",
@@ -72,7 +77,8 @@
       "subject_kind": "route_stage"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "body_material_status": "negative_fixture_forbidden_material_excluded",
       "error_code": "TARGET_SHAPE_RELEASE_OVERCLAIM",
       "message": "Target-shape routing attempted to authorize release, proof authority, providers, or Lean execution.",
       "negative_case_id": "release_overclaim",
@@ -101,16 +107,18 @@
     ]
   },
   "organ_id": "target_shape_tactic_routing_gate",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 7,
-    "status": "pass"
-  },
-  "projection_status": "public_replacement_landed",
+  "projection_status": "real_ring2_target_shape_routing_landed",
+  "real_substrate_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+  ],
+  "receipt_anchor_refs": [
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
+  ],
   "receipt_id": "target_shape_tactic_routing_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/verifier_lab_kernel/components/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
@@ -118,28 +126,58 @@
     "receipts/first_wave/verifier_lab_kernel/components/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
     "receipts/first_wave/verifier_lab_kernel/components/acceptance/target_shape_tactic_routing_gate_fixture_acceptance.json"
   ],
-  "route_case_count": 4,
+  "route_case_count": 5,
+  "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
   "schema_version": "target_shape_tactic_routing_fixture_acceptance_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 7,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "selected_tactic_ids": [
     "decide",
     "omega",
     "rfl",
     "simp_all"
   ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+  },
   "source_pattern_ids": [
     "target_shape_tactic_routing_gate"
   ],
   "source_refs": [
-    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_manifest.json",
-    "state/runs/PROVER_STATEMENT_ONLY_HAMMER_BANDIT_20260511_v0/hammer_action_value_table.json"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json"
   ],
   "status": "pass",
   "tactic_count": 5,
   "target_shapes": [
-    "closed_nat_mod_decision",
-    "conjunction",
-    "int_linear_arithmetic",
-    "true_intro"
+    "bool_decision_goal",
+    "list_length_rewrite_goal",
+    "list_map_index_rewrite_goal",
+    "nat_injective_goal",
+    "propositional_intro_goal"
   ],
   "unavailable_tactic_ids": [
     "aesop"

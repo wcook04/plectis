@@ -71,14 +71,14 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
     assert summary["truth_accounting"]["real_substrate_progress_count"] == 43
     assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
     assert summary["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 25
-    assert summary["truth_accounting"]["real_import_validation_count"] == 15
+    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 24
+    assert summary["truth_accounting"]["real_import_validation_count"] == 16
     assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
     assert summary["truth_accounting"]["evidence_class_counts"] == {
-        "algorithmic_projection": 25,
+        "algorithmic_projection": 24,
         "external_subprocess_witness": 3,
         "fixture_echo_smoke": 3,
-        "semantic_validator": 15,
+        "semantic_validator": 16,
     }
     evidence_by_organ = {
         row["organ_id"]: row["truth_accounting_bucket"]

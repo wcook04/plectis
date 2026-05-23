@@ -1,0 +1,489 @@
+{
+  "anti_claim": "Verifier lab kernel composes source-available public component receipts for bounded Lean/Lake execution, tactic routing, verifier trace repair, provider-hypothesis quarantine, CP2 action candidates, bounded Evolve candidates, and structured public runtime receipts. It does not import macro proof bodies, count oracle or provider output as forward proof success, expose proof bodies, mutate source, claim benchmark solve rate, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "verifier_governed_public_kernel_receipt_only",
+    "cp2_outputs_are_proof_bodies": false,
+    "evolve_mutates_arbitrary_code": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": "bounded_public_component_witness_only",
+    "macro_private_body_import_authorized": false,
+    "oracle_success_counts_as_forward_success": false,
+    "proof_bodies_allowed_in_receipts": false,
+    "provider_calls_authorized": false,
+    "provider_text_counts_as_proof": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "authority_counters": {
+    "oracle_forward_success_increment_count": 0,
+    "proof_body_export_count": 0,
+    "provider_results_counted": 0
+  },
+  "authority_split": {
+    "cp2": "typed action candidate plus rerun receipt only",
+    "evolve": "bounded policy candidate plus rerun/quarantine receipt only",
+    "forward_success": "independent verifier receipt only",
+    "oracle": "diagnostic comparator only",
+    "provider": "advisory hypothesis only"
+  },
+  "body_in_receipt": false,
+  "bundle_id": "verifier_lab_kernel_runtime_example",
+  "claim_separation": {
+    "contract_rejected": [],
+    "cp2_translated": [
+      {
+        "action_class": "premise_exact",
+        "proposal_id": "cp2_premise_exact_add_comm",
+        "residual_id": "res_missing_commutativity_prior",
+        "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      },
+      {
+        "action_class": "retry_with_recipe",
+        "proposal_id": "cp2_retry_with_recipe_closed_std",
+        "residual_id": "res_missing_commutativity_prior",
+        "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      }
+    ],
+    "evolve_candidate": [
+      {
+        "baseline_receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+        "candidate_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
+        "mutated_artifact": "failure_class_routing",
+        "rerun_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
+      }
+    ],
+    "lean_verified": [
+      {
+        "body_in_receipt": false,
+        "compiled_declaration_count": 8,
+        "component_status": "pass",
+        "receipt_refs": [
+          "receipts/first_wave/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
+        ],
+        "source": "formal_math_lean_proof_witness"
+      },
+      {
+        "attempt_id": "attempt_closed_nat_mod_decide",
+        "component_receipt_ref": "component:formal_math_lean_proof_witness",
+        "forward_problem_id": "fp_closed_nat_mod_public",
+        "selected_tactic_id": "decide",
+        "verifier_result_class": "lean_verified"
+      },
+      {
+        "attempt_id": "attempt_or_comm_constructor",
+        "component_receipt_ref": "component:formal_math_lean_proof_witness",
+        "forward_problem_id": "fp_or_comm_public",
+        "selected_tactic_id": "constructor_cases",
+        "verifier_result_class": "lean_verified"
+      }
+    ],
+    "oracle_compared": [
+      {
+        "counted_as_forward_success": false,
+        "forward_problem_id": "fp_missing_commutativity_prior",
+        "oracle_result_class": "oracle_can_identify_missing_premise",
+        "sidecar_id": "oracle_missing_commutativity_prior"
+      }
+    ],
+    "provider_suggested": [
+      {
+        "candidate_action_classes": [
+          "premise_exact",
+          "retry_with_recipe"
+        ],
+        "hypothesis_id": "provider_hyp_missing_commutativity_prior",
+        "provider_results_counted": false,
+        "residual_class": "PREMISE_RETRIEVAL_MISS",
+        "residual_id": "res_missing_commutativity_prior"
+      }
+    ],
+    "retrieval_miss": [
+      {
+        "forward_problem_id": "fp_missing_commutativity_prior",
+        "missing_primitive": "Nat.add_comm closed premise term",
+        "residual_class": "PREMISE_RETRIEVAL_MISS",
+        "residual_id": "res_missing_commutativity_prior"
+      }
+    ]
+  },
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
+  "component_receipt_refs": {
+    "corpus_readiness_mathlib_absence_gate": [
+      "receipts/first_wave/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
+    ],
+    "formal_math_lean_proof_witness": [
+      "receipts/first_wave/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
+    ],
+    "formal_math_premise_retrieval": [
+      "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json"
+    ],
+    "formal_math_verifier_trace_repair_loop": [
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    ],
+    "lean_std_premise_index": [
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json"
+    ],
+    "proof_diagnostic_evidence_spine": [
+      "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
+    ],
+    "ring2_premise_retrieval_precision_recall_harness": [
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
+    ],
+    "tactic_portfolio_availability_probe": [
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+    ],
+    "target_shape_tactic_routing_gate": [
+      "receipts/first_wave/verifier_lab_kernel/components/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+    ]
+  },
+  "component_statuses": {
+    "corpus_readiness_mathlib_absence_gate": "pass",
+    "formal_math_lean_proof_witness": "pass",
+    "formal_math_premise_retrieval": "pass",
+    "formal_math_verifier_trace_repair_loop": "pass",
+    "lean_std_premise_index": "pass",
+    "proof_diagnostic_evidence_spine": "pass",
+    "ring2_premise_retrieval_precision_recall_harness": "pass",
+    "tactic_portfolio_availability_probe": "pass",
+    "target_shape_tactic_routing_gate": "pass"
+  },
+  "cp2_action_candidates": [
+    {
+      "action_class": "premise_exact",
+      "proposal_id": "cp2_premise_exact_add_comm",
+      "residual_id": "res_missing_commutativity_prior",
+      "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    },
+    {
+      "action_class": "retry_with_recipe",
+      "proposal_id": "cp2_retry_with_recipe_closed_std",
+      "residual_id": "res_missing_commutativity_prior",
+      "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    }
+  ],
+  "created_at": "2026-05-23T18:36:23+00:00",
+  "error_codes": [],
+  "evolve_candidates": [
+    {
+      "baseline_receipt_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+      "candidate_id": "evolve_prioritize_premise_exact_after_retrieval_miss",
+      "mutated_artifact": "failure_class_routing",
+      "rerun_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
+    }
+  ],
+  "expected_negative_cases": [],
+  "findings": [],
+  "fixture_id": "first_wave.verifier_lab_kernel",
+  "forward_problems": [
+    {
+      "allowed_premise_ids": [],
+      "problem_id": "fp_closed_nat_mod_public",
+      "public_input_hash": "sha256:fp_closed_nat_mod_public",
+      "statement_summary": "closed public Nat modular arithmetic witness",
+      "target_shape": "closed_nat_mod_decision"
+    },
+    {
+      "allowed_premise_ids": [
+        "Or.inl",
+        "Or.inr"
+      ],
+      "problem_id": "fp_or_comm_public",
+      "public_input_hash": "sha256:fp_or_comm_public",
+      "statement_summary": "public disjunction commutation witness",
+      "target_shape": "conjunction_disjunction_constructor"
+    },
+    {
+      "allowed_premise_ids": [],
+      "problem_id": "fp_missing_commutativity_prior",
+      "public_input_hash": "sha256:fp_missing_commutativity_prior",
+      "statement_summary": "public residual with deliberately missing premise terms",
+      "target_shape": "premise_exact"
+    }
+  ],
+  "input_mode": "exported_verifier_lab_kernel_bundle",
+  "kernel_id": "leak_proof_verifier_lab_kernel_runtime_bundle_v1",
+  "lean_compiled_declaration_count": 8,
+  "lean_lake_return_code": 0,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "oracle_sidecars": [
+    {
+      "counted_as_forward_success": false,
+      "forward_problem_id": "fp_missing_commutativity_prior",
+      "oracle_result_class": "oracle_can_identify_missing_premise",
+      "sidecar_id": "oracle_missing_commutativity_prior"
+    }
+  ],
+  "organ_id": "verifier_lab_kernel",
+  "projection_receipt_refs": [
+    "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
+  ],
+  "proof_lab_component_metrics": {
+    "corpus_count": 7,
+    "lean_compiled_declaration_count": 8,
+    "lean_lake_return_code": 0,
+    "lean_std_premise_count": 11,
+    "mathlib_lake_project_import_available": false,
+    "proof_diagnostic_accepted_count": 1,
+    "proof_diagnostic_rejected_count": 0,
+    "retrieval_mean_public_recall": 1.0,
+    "retrieval_query_count": 4,
+    "ring2_mean_precision_at_k": 0.36,
+    "ring2_mean_recall_at_k": 0.9,
+    "ring2_problem_count": 10,
+    "tactic_probe_status": "pass",
+    "target_shape_route_case_count": 5,
+    "verifier_trace_attempt_count": 5
+  },
+  "proof_lab_route": {
+    "anti_claim_floor": "This route demonstrates the proof-lab control plane and evidence spine; it must not claim general theorem-proving capability or expose oracle material.",
+    "available_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "prover_premise_retrieval_term_scoring",
+      "provider_context_recipe_budget_policy",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate"
+    ],
+    "component_map": [
+      {
+        "component_organ_id": "corpus_readiness_mathlib_absence_gate",
+        "component_role": "corpus/toolchain boundary before retrieval or proof language",
+        "pattern_id": "corpus_readiness_mathlib_absence_gate"
+      },
+      {
+        "component_organ_id": "lean_std_premise_index",
+        "component_role": "closed public Lean/Std premise index",
+        "pattern_id": "lean_std_toolchain_premise_index"
+      },
+      {
+        "component_organ_id": "formal_math_premise_retrieval",
+        "component_role": "retrieval queries, context recipes, and recall floor",
+        "pattern_id": "prover_premise_retrieval_term_scoring"
+      },
+      {
+        "component_organ_id": "tactic_portfolio_availability_probe",
+        "component_role": "public tactic availability gate",
+        "pattern_id": "tactic_portfolio_availability_probe"
+      },
+      {
+        "component_organ_id": "target_shape_tactic_routing_gate",
+        "component_role": "target-shape to tactic route selection",
+        "pattern_id": "target_shape_tactic_routing_gate"
+      },
+      {
+        "component_organ_id": "ring2_premise_retrieval_precision_recall_harness",
+        "component_role": "Ring2 precision/recall and failure-mode metrics",
+        "pattern_id": "ring2_premise_retrieval_precision_recall_harness"
+      },
+      {
+        "component_organ_id": "formal_math_verifier_trace_repair_loop",
+        "component_role": "verifier trace failure class and repair curriculum",
+        "pattern_id": "lean_verifier_feedback_failure_classification"
+      },
+      {
+        "component_organ_id": "proof_diagnostic_evidence_spine",
+        "component_role": "diagnostic evidence refs and provider/body boundary",
+        "pattern_id": "formal_prover_context_strategy_gate"
+      },
+      {
+        "component_organ_id": "formal_math_lean_proof_witness",
+        "component_role": "bounded public Lean/Lake witness, not theorem authority",
+        "pattern_id": "formal_math_lean_self_contained_proof_organ"
+      }
+    ],
+    "detailed_binding_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "provider_context_recipe_budget_policy",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "prover_premise_retrieval_term_scoring",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms"
+    ],
+    "error_codes": [],
+    "missing_component_organs": [],
+    "missing_pattern_ids": [],
+    "next_refinement_move": "Project as a combined proof-diagnostic organ, then add one validator lane that checks all gate receipts are present before any solved/unsolved metric is shown.",
+    "route_id": "formal_prover_context_strategy_gate",
+    "route_supplied": true,
+    "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+    "source_refs": [
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "codex/doctrine/paper_modules/formal_maths_direction_atlas.md",
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "codex/doctrine/paper_modules/proof_bundle_surface.md",
+      "codex/doctrine/paper_modules/mathematics_mission_pipeline.md",
+      "tools/meta/factory/run_prover_graph_benchmark.py",
+      "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+      "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+      "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+      "tools/meta/factory/build_formal_math_support_affordance_finder.py",
+      "tools/meta/factory/build_formal_math_statement_scope_gate.py",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
+    ],
+    "source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "status": "pass"
+  },
+  "proof_lab_route_component_count": 9,
+  "proof_lab_route_id": "formal_prover_context_strategy_gate",
+  "proof_lab_route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+  "provider_hypotheses": [
+    {
+      "candidate_action_classes": [
+        "premise_exact",
+        "retry_with_recipe"
+      ],
+      "hypothesis_id": "provider_hyp_missing_commutativity_prior",
+      "provider_results_counted": false,
+      "residual_class": "PREMISE_RETRIEVAL_MISS",
+      "residual_id": "res_missing_commutativity_prior"
+    }
+  ],
+  "public_runtime_refs": [
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+    "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/tactic_portfolio_probe.json",
+    "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/target_shape_routes.json",
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_runs.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+  ],
+  "real_runtime_receipt": true,
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
+  ],
+  "receipt_transparency_contract": {
+    "body_in_receipt": false,
+    "forbidden_payload_fields": [
+      "proof_body",
+      "raw_tactic_script",
+      "provider_text",
+      "oracle_ideal_answer",
+      "oracle_needed_premise_ids",
+      "private_source_path",
+      "private_payload_body",
+      "stdout_body",
+      "stderr_body"
+    ],
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "real_substrate_default": true,
+    "receipt_body_is_public_evidence": true,
+    "required_public_evidence_fields": [
+      "theorem_or_declaration_names",
+      "lean_lake_command_identity",
+      "lean_return_code",
+      "source_hashes",
+      "declaration_counts",
+      "accepted_transition_count",
+      "residual_transition_count",
+      "negative_case_id",
+      "cp2_action_class",
+      "evolve_policy_artifact_id",
+      "oracle_provider_separation_counters",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "schema_version": "verifier_lab_receipt_transparency_contract_v1",
+    "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
+  },
+  "residual_diagnoses": [
+    {
+      "forward_problem_id": "fp_missing_commutativity_prior",
+      "missing_primitive": "Nat.add_comm closed premise term",
+      "residual_class": "PREMISE_RETRIEVAL_MISS",
+      "residual_id": "res_missing_commutativity_prior"
+    }
+  ],
+  "schema_version": "exported_verifier_lab_kernel_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 2,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_pattern_ids": [
+    "corpus_readiness_mathlib_absence_gate",
+    "lean_std_toolchain_premise_index",
+    "provider_context_recipe_budget_policy",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+    "prover_premise_retrieval_term_scoring",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "support_affordance_mathlib_declaration_match_terms",
+    "lean_verifier_feedback_failure_classification",
+    "formal_math_lean_self_contained_proof_organ",
+    "oracle_sidecar_forward_firewall",
+    "prover_residual_diagnosis_cp1_view_v0",
+    "bounded_evolve_policy_artifact_runner"
+  ],
+  "source_refs": [
+    "route_id:formal_prover_context_strategy_gate",
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "pattern_id:oracle_sidecar_forward_firewall",
+    "pattern_id:target_shape_tactic_routing_gate",
+    "paper_module:formal_math_verifier_trace_repair_loop"
+  ],
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
+  "target_shape_route_case_count": 5,
+  "validator_id": "validator.microcosm.organs.verifier_lab_kernel",
+  "verifier_attempts": [
+    {
+      "attempt_id": "attempt_closed_nat_mod_decide",
+      "component_receipt_ref": "component:formal_math_lean_proof_witness",
+      "forward_problem_id": "fp_closed_nat_mod_public",
+      "selected_tactic_id": "decide",
+      "verifier_result_class": "lean_verified"
+    },
+    {
+      "attempt_id": "attempt_or_comm_constructor",
+      "component_receipt_ref": "component:formal_math_lean_proof_witness",
+      "forward_problem_id": "fp_or_comm_public",
+      "selected_tactic_id": "constructor_cases",
+      "verifier_result_class": "lean_verified"
+    },
+    {
+      "attempt_id": "attempt_missing_commutativity_prior",
+      "component_receipt_ref": "component:formal_math_verifier_trace_repair_loop",
+      "forward_problem_id": "fp_missing_commutativity_prior",
+      "selected_tactic_id": "premise_exact",
+      "verifier_result_class": "retrieval_miss"
+    }
+  ],
+  "verifier_trace_attempt_count": 5
+}

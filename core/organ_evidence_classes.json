@@ -135,8 +135,8 @@
       "organ_id": "formal_math_lean_proof_witness"
     },
     {
-      "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority",
-      "evidence_class": "algorithmic_projection",
+      "classification_basis": "composes the real formal_prover_context_strategy_gate route slice across corpus readiness, Lean/Std premise indexing, premise retrieval, tactic availability, target-shape routing, Ring2 retrieval metrics, verifier-trace repair, proof-diagnostic evidence, and a bounded Lean/Lake witness without upgrading them into general proof authority",
+      "evidence_class": "semantic_validator",
       "organ_id": "verifier_lab_kernel"
     },
     {
@@ -174,7 +174,7 @@
       "evidence_class": "semantic_validator",
       "organ_id": "spatial_world_model_counterfactual_simulation_replay"
     },
-  {
+    {
       "classification_basis": "body-free simulator rows are consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, and teaching carryforward; no wetlab or discovery authority is claimed",
       "evidence_class": "algorithmic_projection",
       "organ_id": "materials_chemistry_closed_loop_lab_safety_replay"
@@ -224,11 +224,11 @@
       "evidence_class": "fixture_echo_smoke",
       "organ_id": "agent_monitor_redteam_falsification_replay"
     },
-  {
-    "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
-    "evidence_class": "fixture_echo_smoke",
-    "organ_id": "agent_sabotage_scheming_monitor_replay"
-  },
+    {
+      "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
+      "evidence_class": "fixture_echo_smoke",
+      "organ_id": "agent_sabotage_scheming_monitor_replay"
+    },
     {
       "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out",
       "evidence_class": "algorithmic_projection",

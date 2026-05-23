@@ -18,6 +18,24 @@ BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 )
+SUBSTRATE_BINDINGS = (
+    MICROCOSM_ROOT.parent
+    / "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+)
+SUBSTRATE_BINDINGS_SHA256 = (
+    "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45"
+)
+EXPECTED_COMPONENTS = {
+    "corpus_readiness_mathlib_absence_gate",
+    "formal_math_lean_proof_witness",
+    "formal_math_premise_retrieval",
+    "formal_math_verifier_trace_repair_loop",
+    "lean_std_premise_index",
+    "proof_diagnostic_evidence_spine",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "tactic_portfolio_availability_probe",
+    "target_shape_tactic_routing_gate",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -48,16 +66,19 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["component_statuses"] == {
-        "formal_math_lean_proof_witness": "pass",
-        "formal_math_verifier_trace_repair_loop": "pass",
-        "tactic_portfolio_availability_probe": "pass",
-        "target_shape_tactic_routing_gate": "pass",
-    }
+    assert set(result["component_statuses"]) == EXPECTED_COMPONENTS
+    assert all(status == "pass" for status in result["component_statuses"].values())
     assert result["lean_lake_return_code"] == 0
     assert result["lean_compiled_declaration_count"] == 8
     assert result["target_shape_route_case_count"] >= 4
     assert result["verifier_trace_attempt_count"] >= 3
+    metrics = result["proof_lab_component_metrics"]
+    assert metrics["corpus_count"] == 7
+    assert metrics["lean_std_premise_count"] == 11
+    assert metrics["retrieval_query_count"] == 4
+    assert metrics["ring2_problem_count"] == 10
+    assert metrics["ring2_mean_precision_at_k"] == 0.36
+    assert metrics["proof_diagnostic_accepted_count"] >= 2
     assert set(result["claim_separation"]) == {
         "lean_verified",
         "provider_suggested",
@@ -123,6 +144,14 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_withou
         assert "public_replacement_refs" not in payload
         assert "proof_body" not in _walk_keys(payload)
 
+    for component_receipt in (
+        public_root / "receipts/first_wave/verifier_lab_kernel/components"
+    ).rglob("*.json"):
+        text = component_receipt.read_text(encoding="utf-8")
+        assert "private_state_scan" not in text
+        assert "body_redacted" not in text
+        assert "public_replacement_ref" not in text
+
 
 def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
@@ -137,12 +166,22 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_verifier_lab_kernel_bundle"
     assert result["bundle_id"] == "verifier_lab_kernel_runtime_example"
+    assert result["proof_lab_route"]["status"] == "pass"
+    assert result["proof_lab_route_id"] == "formal_prover_context_strategy_gate"
+    assert result["proof_lab_route_source_sha256"] == SUBSTRATE_BINDINGS_SHA256
+    assert result["proof_lab_route_component_count"] == len(EXPECTED_COMPONENTS)
+    assert set(result["component_statuses"]) == EXPECTED_COMPONENTS
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["component_statuses"]["formal_math_lean_proof_witness"] == "pass"
+    assert all(status == "pass" for status in result["component_statuses"].values())
     assert result["lean_lake_return_code"] == 0
     assert result["lean_compiled_declaration_count"] == 8
+    assert result["proof_lab_component_metrics"]["corpus_count"] == 7
+    assert result["proof_lab_component_metrics"]["lean_std_premise_count"] == 11
+    assert result["proof_lab_component_metrics"]["retrieval_query_count"] == 4
+    assert result["proof_lab_component_metrics"]["ring2_mean_recall_at_k"] == 0.9
+    assert result["proof_lab_component_metrics"]["proof_diagnostic_accepted_count"] == 1
     assert len(result["claim_separation"]["provider_suggested"]) == 1
     assert len(result["claim_separation"]["cp2_translated"]) == 2
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -151,3 +190,21 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in result
+
+
+def test_verifier_lab_kernel_route_slice_is_source_faithful() -> None:
+    route = json.loads((BUNDLE_INPUT / "proof_lab_route.json").read_text(encoding="utf-8"))
+    source = json.loads(SUBSTRATE_BINDINGS.read_text(encoding="utf-8"))
+    source_route = next(
+        row
+        for row in source["foundation_combination_routes"]
+        if row["route_id"] == "formal_prover_context_strategy_gate"
+    )
+
+    assert route["schema_version"] == "formal_prover_context_strategy_gate_public_route_slice_v1"
+    assert route["source_ref"] == "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+    assert route["source_sha256"] == SUBSTRATE_BINDINGS_SHA256
+    assert route["classification"] == "source_faithful_refactor"
+    assert route["foundation_route"] == source_route
+    assert set(route["required_component_organs"]) == EXPECTED_COMPONENTS
+    assert route["body_in_receipt"] is False

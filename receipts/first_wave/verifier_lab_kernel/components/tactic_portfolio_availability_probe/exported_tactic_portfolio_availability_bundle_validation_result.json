@@ -1,0 +1,111 @@
+{
+  "anti_claim": "Tactic portfolio availability validates copied non-secret Lean/Std tactic affordance probe rows from the 2026-05-11 proof-state curriculum smoke run. The public organ does not rerun Lean/Lake, prove any goal, authorize unavailable tactics, emit proof/provider bodies, claim benchmark performance, or authorize release.",
+  "authority_ceiling": {
+    "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority",
+    "availability_is_environment_scoped": true,
+    "benchmark_performance_authority": false,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "mathlib_absence_is_probe_result": true,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "status": "pass"
+  },
+  "available_tactic_ids": [
+    "decide",
+    "grind",
+    "native_decide",
+    "omega",
+    "rfl",
+    "simp",
+    "simp_all"
+  ],
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "bundle_id": "tactic_portfolio_availability_runtime_example",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component tactic_portfolio_availability_probe",
+  "compile_status_counts": {
+    "compile_pass": 7,
+    "environment_fail": 1
+  },
+  "created_at": "2026-05-23T18:36:22+00:00",
+  "environment_id": "lean_std_toolchain_20260511_mathlib_absent_probe_v0",
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.tactic_portfolio_availability_probe",
+  "input_mode": "exported_tactic_portfolio_availability_bundle",
+  "mathlib_absence_gate_enforced": true,
+  "mathlib_dependent_tactic_ids": [
+    "aesop"
+  ],
+  "mathlib_lake_project_import_available": false,
+  "mathlib_probe_status": "environment_fail",
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "tactic_portfolio_availability_probe",
+  "portfolio_id": "proof_state_curriculum_20260511_portfolio_core_v0",
+  "real_substrate_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+  ],
+  "receipt_anchor_refs": [
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json"
+  ],
+  "receipt_id": "exported_tactic_portfolio_availability_bundle_validation_result_v1",
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+  ],
+  "schema_version": "exported_tactic_portfolio_availability_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 3,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
+  },
+  "source_pattern_ids": [
+    "tactic_portfolio_availability_probe"
+  ],
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+  ],
+  "source_target_refs": [
+    "fixtures/first_wave/tactic_portfolio_availability_probe/input/tactic_portfolio_probe.json",
+    "fixtures/first_wave/tactic_portfolio_availability_probe/input/environment_probe.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/tactic_portfolio_probe.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/environment_probe.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+    "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+  ],
+  "status": "pass",
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+  "tactic_count": 8,
+  "unavailable_tactic_ids": [
+    "aesop"
+  ],
+  "validator_id": "validator.microcosm.organs.tactic_portfolio_availability_probe"
+}

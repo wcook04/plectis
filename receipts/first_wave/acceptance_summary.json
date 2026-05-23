@@ -63,27 +63,35 @@
   "checker_id": "checker.microcosm.validators.fixture_freshness",
   "deferred_organs": [],
   "dependency_preflight_receipt": "receipts/preflight/dependency_preflight.json",
-  "fixture_freshness_receipt": "receipts/preflight/fixture_runner_freshness.json",
+  "fixture_freshness_receipt": "microcosm-substrate/receipts/preflight/fixture_runner_freshness.json",
   "lean_lake_authorized": "bounded_public_witness_only",
   "preflight_receipts": [
     "receipts/preflight/dependency_preflight.json",
-    "receipts/preflight/fixture_runner_freshness.json"
+    "microcosm-substrate/receipts/preflight/fixture_runner_freshness.json"
   ],
   "private_data_equivalence_authorized": false,
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "scanned_path_count": 6,
-    "status": "pass"
-  },
   "provider_calls_authorized": false,
   "receipt_paths": [
     "receipts/first_wave/acceptance_summary.json"
   ],
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_summary_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 6,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "standards_registry_validation_receipt": "receipts/first_wave/standards_registry_validation.json",
   "status": "pass",
   "trading_or_financial_advice_authorized": false,
@@ -92,7 +100,7 @@
     "accepted_current_authority_evidence": [
       {
         "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "derived public contract checks over substrate bundle structure, authority handles, and negative cases",
+        "classification_basis": "derived public contract checks over substrate bundle structure, real pattern-ledger rows, generated substrate-binding sidecar refs, authority handles, and negative cases",
         "counts_as_real_substrate_progress": true,
         "evidence_class": "semantic_validator",
         "evidence_strength_rank": 5,
@@ -244,13 +252,13 @@
         "truth_accounting_bucket": "real_runtime_receipt"
       },
       {
-        "claim_ceiling": "projection mechanics only, not domain correctness",
-        "classification_basis": "composes bounded public verifier, tactic-routing, provider-hypothesis, CP2, and Evolve receipt rows without upgrading them into proof authority",
+        "claim_ceiling": "validates declared public contract only",
+        "classification_basis": "composes the real formal_prover_context_strategy_gate route slice across corpus readiness, Lean/Std premise indexing, premise retrieval, tactic availability, target-shape routing, Ring2 retrieval metrics, verifier-trace repair, proof-diagnostic evidence, and a bounded Lean/Lake witness without upgrading them into general proof authority",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "algorithmic_projection",
-        "evidence_strength_rank": 3,
+        "evidence_class": "semantic_validator",
+        "evidence_strength_rank": 5,
         "organ_id": "verifier_lab_kernel",
-        "truth_accounting_bucket": "source_faithful_refactor"
+        "truth_accounting_bucket": "real_import_validation"
       },
       {
         "claim_ceiling": "tool witness only, not general proof authority",
@@ -510,10 +518,10 @@
     "copied_non_secret_macro_body_count": 0,
     "delete_or_demote_candidate_count": 0,
     "evidence_class_counts": {
-      "algorithmic_projection": 25,
+      "algorithmic_projection": 24,
       "external_subprocess_witness": 3,
       "fixture_echo_smoke": 3,
-      "semantic_validator": 15
+      "semantic_validator": 16
     },
     "legacy_adapter_or_synthetic_placeholder_count": 0,
     "non_progress_accepted_count": 3,
@@ -522,7 +530,7 @@
       "agent_monitor_redteam_falsification_replay",
       "agent_sabotage_scheming_monitor_replay"
     ],
-    "real_import_validation_count": 15,
+    "real_import_validation_count": 16,
     "real_runtime_receipt_count": 3,
     "real_substrate_progress_count": 43,
     "real_substrate_progress_organs": [
@@ -573,13 +581,13 @@
     "regression_negative_fixture_count": 3,
     "schema_version": "microcosm_acceptance_truth_accounting_v1",
     "secret_exclusion_count": 0,
-    "source_faithful_refactor_count": 25,
+    "source_faithful_refactor_count": 24,
     "source_ref": "core/organ_evidence_classes.json",
     "truth_accounting_bucket_counts": {
-      "real_import_validation": 15,
+      "real_import_validation": 16,
       "real_runtime_receipt": 3,
       "regression_negative_fixture": 3,
-      "source_faithful_refactor": 25
+      "source_faithful_refactor": 24
     }
   }
 }

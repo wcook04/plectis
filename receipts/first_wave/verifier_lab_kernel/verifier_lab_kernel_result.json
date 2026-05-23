@@ -146,19 +146,50 @@
       }
     ]
   },
-  "command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
+  "command": "python -m microcosm_core.organs.verifier_lab_kernel run",
   "component_receipt_refs": {
+    "corpus_readiness_mathlib_absence_gate": [
+      "receipts/first_wave/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+      "receipts/first_wave/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
+      "receipts/first_wave/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
+      "receipts/first_wave/verifier_lab_kernel/components/acceptance/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
+    ],
     "formal_math_lean_proof_witness": [
       "receipts/first_wave/verifier_lab_kernel/components/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
       "receipts/first_wave/verifier_lab_kernel/components/formal_math_lean_proof_witness/lean_proof_witness_board.json",
       "receipts/first_wave/verifier_lab_kernel/components/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
       "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_lean_proof_witness_fixture_acceptance.json"
     ],
+    "formal_math_premise_retrieval": [
+      "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/formal_math_premise_retrieval_result.json",
+      "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/premise_retrieval_board.json",
+      "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+      "receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_premise_retrieval_fixture_acceptance.json"
+    ],
     "formal_math_verifier_trace_repair_loop": [
       "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
       "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
       "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
       "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
+    ],
+    "lean_std_premise_index": [
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/lean_std_premise_index_result.json",
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/lean_std_premise_index_board.json",
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/lean_std_premise_index_validation_receipt.json",
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/lean_std_premise_index_fixture_acceptance.json"
+    ],
+    "proof_diagnostic_evidence_spine": [
+      "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/proof_receipts.json",
+      "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
+      "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/diagnostic_board.json",
+      "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+      "receipts/first_wave/verifier_lab_kernel/components/acceptance/proof_diagnostic_evidence_spine_fixture_acceptance.json"
+    ],
+    "ring2_premise_retrieval_precision_recall_harness": [
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json",
+      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/acceptance/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
     ],
     "tactic_portfolio_availability_probe": [
       "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
@@ -174,8 +205,13 @@
     ]
   },
   "component_statuses": {
+    "corpus_readiness_mathlib_absence_gate": "pass",
     "formal_math_lean_proof_witness": "pass",
+    "formal_math_premise_retrieval": "pass",
     "formal_math_verifier_trace_repair_loop": "pass",
+    "lean_std_premise_index": "pass",
+    "proof_diagnostic_evidence_spine": "pass",
+    "ring2_premise_retrieval_precision_recall_harness": "pass",
     "tactic_portfolio_availability_probe": "pass",
     "target_shape_tactic_routing_gate": "pass"
   },
@@ -193,7 +229,7 @@
       "verifier_rerun_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json"
     }
   ],
-  "created_at": "2026-05-23T06:10:22+00:00",
+  "created_at": "2026-05-23T18:36:12+00:00",
   "error_codes": [
     "VERIFIER_LAB_CP2_PROOF_BODY_FORBIDDEN",
     "VERIFIER_LAB_EVOLVE_SCOPE_FORBIDDEN",
@@ -330,6 +366,38 @@
     "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json"
   ],
+  "proof_lab_component_metrics": {
+    "corpus_count": 7,
+    "lean_compiled_declaration_count": 8,
+    "lean_lake_return_code": 0,
+    "lean_std_premise_count": 11,
+    "mathlib_lake_project_import_available": false,
+    "proof_diagnostic_accepted_count": 2,
+    "proof_diagnostic_rejected_count": 1,
+    "retrieval_mean_public_recall": 1.0,
+    "retrieval_query_count": 4,
+    "ring2_mean_precision_at_k": 0.36,
+    "ring2_mean_recall_at_k": 0.9,
+    "ring2_problem_count": 10,
+    "tactic_probe_status": "pass",
+    "target_shape_route_case_count": 5,
+    "verifier_trace_attempt_count": 5
+  },
+  "proof_lab_route": {
+    "available_pattern_ids": [],
+    "error_codes": [],
+    "missing_component_organs": [],
+    "missing_pattern_ids": [],
+    "route_id": null,
+    "route_supplied": false,
+    "source_ref": null,
+    "source_refs": [],
+    "source_sha256": null,
+    "status": "pass"
+  },
+  "proof_lab_route_component_count": 0,
+  "proof_lab_route_id": null,
+  "proof_lab_route_source_sha256": null,
   "provider_hypotheses": [
     {
       "candidate_action_classes": [
@@ -350,10 +418,10 @@
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
-    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
-    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
-    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
-    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
   ],
   "receipt_transparency_contract": {
     "body_in_receipt": false,

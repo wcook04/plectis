@@ -7,7 +7,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -79,6 +79,8 @@ def _sha256(path: Path) -> str:
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
+    safe.pop("body_redacted", None)
+    safe.pop("redacted_output_field_labels_omitted", None)
     return safe
 
 
@@ -230,7 +232,7 @@ def _write_acceptance_summary(
     accepted: list[dict[str, Any]],
     dependency_preflight_ref: str,
     fixture_freshness_ref: str,
-    private_state_scan: dict[str, Any],
+    secret_exclusion_scan: dict[str, Any],
 ) -> dict[str, Any]:
     truth_accounting = _acceptance_truth_accounting(
         accepted,
@@ -258,7 +260,7 @@ def _write_acceptance_summary(
         "provider_calls_authorized": False,
         "trading_or_financial_advice_authorized": False,
         "private_data_equivalence_authorized": False,
-        "private_state_scan": private_state_scan,
+        "secret_exclusion_scan": secret_exclusion_scan,
         "authority_ceiling": {
             "status": PASS,
             "acceptance_summary_authority": "public_runtime_spine_receipt_summary_only",
@@ -358,7 +360,7 @@ def run_fixture_freshness(
         accepted=accepted,
         dependency_preflight_ref="receipts/preflight/dependency_preflight.json",
         fixture_freshness_ref=_display(output_file, public_root=public_root),
-        private_state_scan=acceptance_summary_scan,
+        secret_exclusion_scan=acceptance_summary_scan,
     )
     receipt_paths.append(_display(acceptance_summary_path, public_root=public_root))
 
@@ -382,7 +384,7 @@ def run_fixture_freshness(
         "stale_receipt_codes": stale_codes,
         "acceptance_summary_receipt": _display(acceptance_summary_path, public_root=public_root),
         "acceptance_summary_status": acceptance_summary["status"],
-        "private_state_scan": scan,
+        "secret_exclusion_scan": scan,
         "anti_claim": "Fixture freshness validates manifest, fixture, and receipt presence/fingerprints only; it does not authorize Lean/Lake beyond the bounded public witness fixture, hosted release operations, credentialed provider calls, or secret export.",
         "authority_ceiling": {
             "status": PASS,
