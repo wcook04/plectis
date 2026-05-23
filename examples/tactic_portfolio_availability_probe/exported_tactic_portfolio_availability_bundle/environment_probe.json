@@ -1,12 +1,25 @@
 {
   "schema_version": "tactic_portfolio_environment_probe_v1",
-  "environment_id": "lean_std_synthetic_mathlib_absent_v1",
-  "lean_toolchain_scope": "synthetic_public_metadata",
+  "environment_id": "lean_std_toolchain_20260511_mathlib_absent_probe_v0",
+  "lean_toolchain_scope": "lean_4_29_1_std_probe_v0",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
+  },
+  "lean_version_stdout": "Lean (version 4.29.1, arm64-apple-darwin24.6.0, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)",
+  "lake_version_stdout": "Lake version 5.0.0-src+f72c35b (Lean version 4.29.1)",
   "mathlib_probe_status": "environment_fail",
   "mathlib_lake_project_import_available": false,
   "mathlib_probe_diagnostic": "unknown module prefix Mathlib",
+  "mathlib_probe_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
   "lean_lake_execution_authorized": false,
   "provider_calls_authorized": false,
   "release_authorized": false,
-  "anti_claim": "Mathlib absence is a scoped probe result for this fixture, not a permanent statement about future environments."
+  "anti_claim": "Mathlib absence is the scoped result of the 2026-05-11 smoke probe, not a permanent statement about future environments."
 }

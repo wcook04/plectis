@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -32,7 +32,33 @@ SOURCE_PATTERN_IDS = ["tactic_portfolio_availability_probe"]
 SOURCE_REFS = [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
 ]
+REAL_SUBSTRATE_REFS = SOURCE_REFS
+RECEIPT_ANCHOR_REFS = [
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
+]
+SOURCE_TARGET_REFS = [
+    "fixtures/first_wave/tactic_portfolio_availability_probe/input/tactic_portfolio_probe.json",
+    "fixtures/first_wave/tactic_portfolio_availability_probe/input/environment_probe.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/tactic_portfolio_probe.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/environment_probe.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
+    "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
+    ACCEPTANCE_RECEIPT_REL,
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
+]
+SOURCE_DIGESTS = {
+    SOURCE_REFS[0]: "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    SOURCE_REFS[1]: "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    SOURCE_REFS[2]: "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+}
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+TACTIC_AVAILABILITY_STATUS = "real_lean_std_tactic_affordance_probe_rows"
+BODY_IN_RECEIPT = False
 
 INPUT_NAMES = (
     "tactic_portfolio_probe.json",
@@ -75,7 +101,7 @@ OVERCLAIM_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+    "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority",
     "availability_is_environment_scoped": True,
     "mathlib_absence_is_probe_result": True,
     "lean_lake_execution_authorized": False,
@@ -86,10 +112,11 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Tactic portfolio availability validates public environment-scoped tactic "
-    "callability metadata only. It does not run Lean/Lake in this public organ, "
-    "prove any goal, authorize unavailable tactics, call providers, claim "
-    "benchmark performance, or authorize release."
+    "Tactic portfolio availability validates copied non-secret Lean/Std tactic "
+    "affordance probe rows from the 2026-05-11 proof-state curriculum smoke run. "
+    "The public organ does not rerun Lean/Lake, prove any goal, authorize "
+    "unavailable tactics, emit proof/provider bodies, claim benchmark "
+    "performance, or authorize release."
 )
 
 
@@ -155,7 +182,8 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_material_status": "negative_fixture_forbidden_material_excluded",
     }
 
 
@@ -373,7 +401,7 @@ def _negative_findings(payloads: dict[str, Any], *, known: set[str]) -> dict[str
     }
 
 
-def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
+def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "tactic_portfolio_availability_board_v1",
         "status": result["status"],
@@ -387,7 +415,8 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "unprobed_tactics_rejected": True,
             "proof_bodies_excluded": True,
             "lean_lake_not_run_by_public_organ": True,
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_material_status": BODY_MATERIAL_STATUS,
         },
         "portfolio_projection": {
             "portfolio_id": result["portfolio_id"],
@@ -401,12 +430,19 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "mathlib_lake_project_import_available": result[
                 "mathlib_lake_project_import_available"
             ],
-            "body_redacted": True,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "tactic_availability_status": TACTIC_AVAILABILITY_STATUS,
         },
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "tactic_availability_status": TACTIC_AVAILABILITY_STATUS,
+        "real_substrate_refs": REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+        "source_target_refs": SOURCE_TARGET_REFS,
+        "source_digests": SOURCE_DIGESTS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
     }
 
 
@@ -431,7 +467,14 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "body_material_status",
+        "tactic_availability_status",
+        "body_in_receipt",
+        "real_substrate_refs",
+        "receipt_anchor_refs",
+        "source_target_refs",
+        "source_digests",
         "authority_ceiling",
         "anti_claim",
         "portfolio_id",
@@ -444,7 +487,6 @@ def _common_receipt(
         "mathlib_probe_status",
         "mathlib_lake_project_import_available",
         "mathlib_absence_gate_enforced",
-        "body_redacted",
     )
     payload = {
         "schema_version": schema_version,
@@ -474,13 +516,12 @@ def _build_result(
         name: payloads[name] for name in NEGATIVE_INPUT_STEMS if name in payloads
     }
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
 
     portfolio_payload = payloads["tactic_portfolio_probe"]
     environment_probe = payloads["environment_probe"]
@@ -518,7 +559,7 @@ def _build_result(
         PASS
         if not positive_findings
         and not missing
-        and not private_scan["blocking_hit_count"]
+        and not secret_scan["blocking_hit_count"]
         else "blocked"
     )
     return {
@@ -538,7 +579,14 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "tactic_availability_status": TACTIC_AVAILABILITY_STATUS,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "real_substrate_refs": REAL_SUBSTRATE_REFS,
+        "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
+        "source_target_refs": SOURCE_TARGET_REFS,
+        "source_digests": SOURCE_DIGESTS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "portfolio_id": str(portfolio_payload.get("portfolio_id") or ""),
@@ -553,7 +601,6 @@ def _build_result(
         "mathlib_lake_project_import_available": bool(mathlib_available),
         "mathlib_absence_gate_enforced": mathlib_available is False
         and bool(mathlib_failures),
-        "body_redacted": True,
     }
 
 
@@ -572,7 +619,7 @@ def _write_receipts(
     if acceptance_out is not None:
         paths["acceptance"] = acceptance_out
     relative_paths = _relative_receipt_paths(paths, public_root)
-    board = _build_board(result=result, private_scan=result["private_state_scan"])
+    board = _build_board(result=result, secret_scan=result["secret_exclusion_scan"])
     result_receipt = _common_receipt(
         result,
         schema_version="tactic_portfolio_availability_result_receipt_v1",

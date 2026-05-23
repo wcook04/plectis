@@ -4,7 +4,7 @@
   "tactics": [
     {
       "tactic_id": "simp",
-      "environment": "lean_std_synthetic",
+      "environment": "lean_std_toolchain_20260511_probe_v0",
       "requires_mathlib": false
     }
   ]

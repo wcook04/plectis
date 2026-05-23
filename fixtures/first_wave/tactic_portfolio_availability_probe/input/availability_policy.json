@@ -21,5 +21,7 @@
   "proof_bodies_allowed": false,
   "provider_payloads_allowed": false,
   "release_authorized": false,
-  "body_redacted": true
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows"
 }

@@ -4,11 +4,14 @@
 callability into an explicit artifact before routing or proof search treats a
 tactic as usable.
 
-The fixture is synthetic and source-available. It records a small Lean/Std tactic
-portfolio with compile-status metadata for `rfl`, `decide`, `omega`, `simp`,
-`simp_all`, `grind`, `native_decide`, and `aesop`. The Mathlib-dependent
-`aesop` row is marked `environment_fail` because the paired environment probe
-reports `mathlib_lake_project_import_available=false`.
+The fixture is copied from real non-secret macro substrate: the 2026-05-11
+`PROVER_PROOF_STATE_SEARCH_CURRICULUM` smoke run's Lean/Std tactic affordance
+probe. It records compile-status rows for `rfl`, `decide`, `omega`, `simp`,
+`simp_all`, `grind`, `native_decide`, and `aesop`, with source digests for the
+run-level affordance probe, the `portfolio_core_v0` tactic availability artifact,
+and the paired corpus-readiness boundary. The Mathlib-dependent `aesop` row is
+marked `environment_fail` because the paired environment probe reports
+`mathlib_lake_project_import_available=false`.
 
 The organ validates:
 
@@ -23,6 +26,12 @@ The generated board is a callability map, not proof evidence. It can make
 target-shape routing cheaper and more honest, but it cannot prove a goal, widen
 Lean/Lake authority, call providers, claim benchmark performance, or authorize
 release.
+
+The receipt contract reports
+`body_material_status=copied_non_secret_macro_body_with_provenance`,
+`tactic_availability_status=real_lean_std_tactic_affordance_probe_rows`, source
+digests, target refs, and `secret_exclusion_scan`. It does not use body-redaction
+or private-state-scan grammar as product evidence.
 
 Primary commands:
 

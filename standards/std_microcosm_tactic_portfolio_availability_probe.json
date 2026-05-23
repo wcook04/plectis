@@ -3,10 +3,21 @@
   "standard_id": "std_microcosm_tactic_portfolio_availability_probe",
   "kind_id": "microcosm_public_runtime_organ_standard",
   "status": "accepted_public_runtime_standard",
-  "authority_boundary": "public_tactic_availability_probe_metadata_only",
+  "authority_boundary": "public_tactic_availability_probe_real_lean_std_affordance_refs_not_proof_authority",
   "source_refs": [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
+  },
+  "receipt_anchor_refs": [
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
+    "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json"
   ],
   "relationships": {
     "used_by_organs": [
@@ -47,17 +58,19 @@
   },
   "receipt_contract": {
     "status_field": "status",
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+    "secret_exclusion_scan_required": true,
     "required_negative_cases": [
       "missing_compile_status",
       "mathlib_claim_without_probe",
       "unprobed_tactic_referenced",
       "proof_body_leakage",
       "authority_overclaim"
-    ],
-    "redaction_required": true
+    ]
   },
   "public_private_boundary": {
-    "public_inputs": "synthetic tactic portfolio and environment probe metadata",
+    "public_inputs": "copied non-secret Lean/Std tactic affordance rows, scoped Mathlib absence probe result, and corpus readiness boundary refs from the 2026-05-11 smoke run",
     "private_inputs_forbidden": [
       "private Lean proof bodies",
       "provider payloads",
@@ -68,7 +81,7 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "tactic_availability_authority": "environment_scoped_metadata_only",
+    "tactic_availability_authority": "environment_scoped_real_probe_rows",
     "formal_proof_authority": false,
     "provider_calls_authorized": false,
     "benchmark_performance_authority": false,

@@ -8,6 +8,8 @@
     "environment_probe.json",
     "availability_policy.json"
   ],
-  "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
+  "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
   "release_authorized": false
 }

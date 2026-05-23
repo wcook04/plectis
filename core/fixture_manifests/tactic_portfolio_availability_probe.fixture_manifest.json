@@ -4,8 +4,8 @@
   "organ_id": "tactic_portfolio_availability_probe",
   "title": "Tactic portfolio availability probe fixture",
   "inputs": [
-    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/tactic_portfolio_probe.json", "role": "synthetic public tactic portfolio compile-status artifact"},
-    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/environment_probe.json", "role": "synthetic public environment probe and Mathlib absence artifact"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/tactic_portfolio_probe.json", "role": "copied non-secret Lean/Std tactic affordance rows from the 2026-05-11 smoke run"},
+    {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/environment_probe.json", "role": "copied non-secret Lean/Std toolchain and Mathlib absence probe boundary"},
     {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/availability_policy.json", "role": "availability policy and authority ceiling"},
     {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/missing_compile_status.json", "role": "negative case: tactic row missing compile_status"},
     {"path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/mathlib_claim_without_probe.json", "role": "negative case: Mathlib-dependent tactic claimed available without Mathlib probe"},
@@ -21,6 +21,18 @@
     "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
     "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
   ],
-  "authority_ceiling": "tactic_portfolio_environment_probe_not_proof_authority",
-  "anti_claim": "This fixture validates tactic availability metadata for a synthetic public environment only; it does not prove goals, run providers, claim benchmark performance, or authorize release."
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+  "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority",
+  "anti_claim": "This fixture validates copied real tactic availability probe rows for a scoped public environment; it does not prove goals, run providers, claim benchmark performance, or authorize release."
 }

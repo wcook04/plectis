@@ -6,7 +6,7 @@
       "tactic_id": "omega",
       "compile_status": "compile_pass",
       "requires_mathlib": false,
-      "proof_body": "synthetic forbidden proof material"
+      "proof_body": "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO"
     }
   ]
 }

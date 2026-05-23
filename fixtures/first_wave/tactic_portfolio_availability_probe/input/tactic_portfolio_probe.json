@@ -1,58 +1,102 @@
 {
   "schema_version": "tactic_portfolio_availability_probe_fixture_v1",
-  "portfolio_id": "synthetic_core_tactic_portfolio_v1",
-  "environment_id": "lean_std_synthetic_mathlib_absent_v1",
+  "portfolio_id": "proof_state_curriculum_20260511_portfolio_core_v0",
+  "environment_id": "lean_std_toolchain_20260511_mathlib_absent_probe_v0",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+  "source_refs": [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
+  },
   "tactics": [
     {
       "tactic_id": "rfl",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 8852,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean"
     },
     {
       "tactic_id": "decide",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 1971,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean"
     },
     {
       "tactic_id": "omega",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 2567,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean"
     },
     {
       "tactic_id": "simp",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 2081,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean"
     },
     {
       "tactic_id": "simp_all",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 3685,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean"
     },
     {
       "tactic_id": "grind",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 3797,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean"
     },
     {
       "tactic_id": "native_decide",
       "compile_status": "compile_pass",
-      "environment": "lean_std_synthetic",
-      "requires_mathlib": false
+      "source_compile_status": "PASS",
+      "source_error_class": "NONE",
+      "duration_ms": 1994,
+      "environment": "lean_std_toolchain_20260511_probe_v0",
+      "requires_mathlib": false,
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean"
     },
     {
       "tactic_id": "aesop",
       "compile_status": "environment_fail",
+      "source_compile_status": "FAIL",
+      "source_error_class": "TACTIC_SEARCH_FAIL",
+      "duration_ms": 5968,
       "failure_classifier": "MATHLIB_IMPORT_MISSING",
-      "environment": "mathlib_absent_synthetic",
+      "environment": "mathlib_absent_probe_v0",
       "requires_mathlib": true,
-      "diagnostic": "unknown module prefix Mathlib"
+      "diagnostic": "unknown module prefix Mathlib",
+      "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean"
     }
   ],
-  "anti_claim": "This is a synthetic public tactic availability probe, not a proof-success claim and not a complete Lean tactic inventory."
+  "anti_claim": "This is a copied public slice of the 2026-05-11 Lean/Std tactic affordance probe, not a proof-success claim and not a complete Lean tactic inventory."
 }

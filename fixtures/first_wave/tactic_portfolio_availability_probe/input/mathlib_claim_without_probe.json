@@ -6,7 +6,7 @@
     {
       "tactic_id": "aesop",
       "compile_status": "compile_pass",
-      "environment": "mathlib_absent_synthetic",
+      "environment": "mathlib_absent_probe_v0",
       "requires_mathlib": true
     }
   ]
