@@ -21,7 +21,20 @@
     "test_split_tuning_authorized": false
   },
   "body_copied_material_count": 1,
-  "body_redacted": true,
+  "body_material_contract": {
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_material_required": true,
+    "excluded_body_classes": [
+      "proof_body",
+      "ground_truth_proof",
+      "provider_output_body",
+      "oracle_needed_premise_ids",
+      "private_source_body"
+    ],
+    "secret_exclusion_scan_field": "secret_exclusion_scan",
+    "status": "pass"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
   "copied_material": [
@@ -44,7 +57,7 @@
     }
   ],
   "copied_material_count": 1,
-  "created_at": "2026-05-23T04:18:00+00:00",
+  "created_at": "2026-05-23T04:30:21+00:00",
   "error_codes": [
     "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
     "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
@@ -61,7 +74,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_material_status": "forbidden_body_excluded",
       "error_code": "FORMAL_RETRIEVAL_CONTEXT_BUDGET_EXCEEDED",
       "message": "Context recipe exceeded the retrieval public byte ceiling.",
       "negative_case_id": "context_recipe_budget_overflow",
@@ -69,7 +82,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "forbidden_body_excluded",
       "error_code": "FORMAL_PREMISE_PROOF_BODY_FORBIDDEN",
       "message": "Premise index rejected proof/oracle body fields.",
       "negative_case_id": "premise_index_proof_body_forbidden",
@@ -77,7 +90,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "forbidden_body_excluded",
       "error_code": "FORMAL_RETRIEVAL_ORACLE_IDS_FORBIDDEN",
       "message": "Retrieval queries cannot expose oracle-needed premise ids.",
       "negative_case_id": "query_oracle_ids_forbidden",
@@ -85,7 +98,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "forbidden_body_excluded",
       "error_code": "FORMAL_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
       "message": "Test split truth cannot tune retrieval ranking.",
       "negative_case_id": "test_split_tuning_attempt",
@@ -93,7 +106,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "forbidden_body_excluded",
       "error_code": "FORMAL_RETRIEVAL_UNKNOWN_STRATEGY",
       "message": "Retrieval strategy gate rejected an unknown strategy id.",
       "negative_case_id": "unknown_strategy_id",
@@ -124,15 +137,6 @@
   },
   "organ_id": "formal_math_premise_retrieval",
   "premise_count": 11,
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 10,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
@@ -154,7 +158,7 @@
   "recipe_count": 3,
   "retrievals": [
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_bool_not_not",
@@ -168,7 +172,7 @@
       "top_k": 2
     },
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_iff_intro",
@@ -182,7 +186,7 @@
       "top_k": 2
     },
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_list_length_append",
@@ -197,7 +201,7 @@
       "top_k": 3
     },
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_nat_add_comm",
@@ -213,6 +217,19 @@
     }
   ],
   "schema_version": "formal_math_premise_retrieval_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "excluded_output_field_labels_omitted": true,
+    "excluded_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 10,
+    "status": "pass"
+  },
   "source_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "prover_premise_retrieval_term_scoring",

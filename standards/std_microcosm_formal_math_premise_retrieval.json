@@ -51,18 +51,18 @@
     "reject test split tuning attempts",
     "enforce context recipe byte budgets",
     "reject strategy ids outside the public allowed set",
-    "emit private-state scan and redacted receipts"
+    "emit secret-exclusion scan and copied-material receipts"
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_math_premise_retrieval",
-    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, copied-material provenance, public retrieval metrics, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, copied-material provenance, copied body-material contract, public retrieval metrics, negative-case coverage, secret-exclusion scan, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
     "validator_id": "validator.microcosm.formal_math_premise_retrieval",
     "minimum_checks": [
       "projection_protocol_floor",
-      "premise_index_metadata_only",
+      "premise_index_copied_non_secret_body_provenance",
       "term_scoring_retrieval",
       "context_recipe_budget",
       "strategy_id_gate",
@@ -82,17 +82,19 @@
       "public_runtime_refs",
       "copied_material",
       "body_copied_material_count",
+      "body_material_contract",
+      "body_material_status",
       "premise_count",
       "query_count",
       "mean_public_retrieval_recall",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_metadata_fixture_receipt_only",
+    "default_posture": "public_safe_when_copied_macro_fixture_receipt",
     "allowed_public_inputs": [
       "premise ids",
       "namespaces",
@@ -114,15 +116,15 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "retrieval_metadata_fixture_receipt_schema_only",
+    "standard_authority": "copied_macro_premise_retrieval_fixture_receipt",
     "formal_proof_authority": false,
     "lean_lake_authority": false,
     "provider_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs copied public macro formal-math retrieval metadata only; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
+  "anti_claim": "This standard governs a copied public macro formal-math retrieval slice; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
   "standard_payload": {
-    "ontology": "A public-safe Lean/Std premise retrieval slice: premise metadata, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
+    "ontology": "A public-safe Lean/Std premise retrieval slice copied from the macro premise index: premise descriptors, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm capable of demonstrating a real formal-math retrieval mechanism while preserving the proof-witness boundary.",
     "anti_purpose": "Turning public retrieval scores into theorem-proof authority.",
     "compression_bands": ["protocol", "index", "query", "board", "receipt"],
@@ -153,7 +155,7 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public slice carries copied macro premise metadata and negative-case fixture evidence only",
+    "reason": "public slice carries copied macro premise descriptors and negative-case fixture evidence only",
     "drilldown": "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json"
   },
   "anti_claim_contract": {
@@ -162,6 +164,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level, imported target refs stay public-root relative, and receipts must name copied body-material provenance"
   }
 }

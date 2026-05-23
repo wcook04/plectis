@@ -80,6 +80,20 @@ ANTI_CLAIM = (
     "premise ids, tune on test split truth, prove theorem correctness, authorize "
     "Mathlib-dependent proofs, or widen the formal_math_lean_proof_witness boundary."
 )
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+BODY_MATERIAL_CONTRACT = {
+    "status": PASS,
+    "body_material_status": BODY_MATERIAL_STATUS,
+    "copied_material_required": True,
+    "secret_exclusion_scan_field": "secret_exclusion_scan",
+    "excluded_body_classes": [
+        "proof_body",
+        "ground_truth_proof",
+        "provider_output_body",
+        "oracle_needed_premise_ids",
+        "private_source_body",
+    ],
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -136,7 +150,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_material_status": "forbidden_body_excluded",
     }
 
 
@@ -300,7 +314,7 @@ def validate_premise_index(
                 "allowed_for_split": _strings(row.get("allowed_for_split")),
                 "strategy_tags": _strings(row.get("strategy_tags")),
                 "source_ref": row.get("source_ref"),
-                "body_redacted": True,
+                "body_material_status": "imported_premise_index_row",
             }
         )
     if isinstance(negative_payload, dict):
@@ -356,7 +370,7 @@ def validate_context_recipes(
                 "sections": _strings(row.get("sections")),
                 "proof_bodies_allowed": row.get("proof_bodies_allowed") is True,
                 "provider_calls_authorized": row.get("provider_calls_authorized") is True,
-                "body_redacted": True,
+                "body_material_status": "public_context_recipe_no_provider_payload",
             }
         )
     if isinstance(negative_payload, dict):
@@ -408,7 +422,7 @@ def validate_strategy_cases(
                 "query_id": row.get("query_id"),
                 "strategy_id": strategy_id,
                 "selected_pre_oracle": row.get("selected_pre_oracle") is True,
-                "body_redacted": True,
+                "body_material_status": "public_strategy_gate",
             }
         )
     if isinstance(negative_payload, dict):
@@ -464,7 +478,7 @@ def _score_query(
                 "overlap_terms": overlap,
                 "strategy_bonus": strategy_bonus,
                 "source_ref": premise.get("source_ref"),
-                "body_redacted": True,
+                "body_material_status": "retrieval_score_over_imported_index",
             }
         )
     return sorted(ranked, key=lambda row: (-int(row["score"]), str(row["premise_id"])))
@@ -539,7 +553,7 @@ def validate_retrieval_queries(
                 "retrieved_premise_ids": [str(row["premise_id"]) for row in top],
                 "expected_public_premise_count": len(expected),
                 "public_retrieval_recall": recall,
-                "body_redacted": True,
+                "body_material_status": "retrieval_result_over_imported_index",
             }
         )
 
@@ -561,6 +575,25 @@ def validate_retrieval_queries(
     }
 
 
+def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
+    payload = dict(scan)
+    payload.pop("body_redacted", None)
+    excluded_fields = payload.pop("forbidden_output_fields", None)
+    payload["excluded_output_fields"] = excluded_fields or ["matched_excerpt", "body"]
+    payload["excluded_output_field_labels_omitted"] = True
+    payload["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
+    hits: list[dict[str, Any]] = []
+    for hit in payload.get("hits", []):
+        if not isinstance(hit, dict):
+            continue
+        cleaned = dict(hit)
+        cleaned.pop("body_redacted", None)
+        cleaned["body_material_status"] = "forbidden_material_excluded"
+        hits.append(cleaned)
+    payload["hits"] = hits
+    return payload
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -571,13 +604,13 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
-        forbidden_classes=policy,
-        display_root=public_root,
+    secret_scan = _secret_exclusion_scan(
+        scan_paths(
+            _input_paths(input_dir, include_negative=include_negative),
+            forbidden_classes=policy,
+            display_root=public_root,
+        )
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     premise_index = validate_premise_index(
@@ -613,7 +646,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
         and premise_index["status"] == PASS
         and recipes["status"] == PASS
@@ -636,9 +669,11 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_material_contract": BODY_MATERIAL_CONTRACT,
+        "body_material_status": BODY_MATERIAL_STATUS,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
@@ -668,9 +703,8 @@ def _build_result(
             "formal_proof_authority": False,
             "provider_calls_authorized": False,
             "proof_bodies_allowed": False,
-            "body_redacted": True,
+            "body_material_status": BODY_MATERIAL_STATUS,
         },
-        "body_redacted": True,
     }
 
 
@@ -693,9 +727,11 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
+        "body_material_contract",
+        "body_material_status",
         "protocol_id",
         "source_refs",
         "source_pattern_ids",
@@ -710,7 +746,6 @@ def _common_receipt(
         "strategy_case_count",
         "allowed_strategy_ids",
         "mean_public_retrieval_recall",
-        "body_redacted",
     )
     payload = {
         "schema_version": schema_version,

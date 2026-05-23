@@ -50,7 +50,7 @@
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "receipt_paths",
     "protocol_id",
@@ -60,11 +60,13 @@
     "public_runtime_refs",
     "copied_material",
     "body_copied_material_count",
+    "body_material_contract",
+    "body_material_status",
     "premise_count",
     "query_count",
     "mean_public_retrieval_recall"
   ],
-  "private_state_exclusion_rules": {
+  "secret_exclusion_rules": {
     "proof_bodies": "forbidden; premise rows expose retrieval metadata only",
     "oracle_needed_premise_ids": "forbidden in public query inputs",
     "test_split_tuning": "forbidden; test split examples may be scored only by public expected premise ids",

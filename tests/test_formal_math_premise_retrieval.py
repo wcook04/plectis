@@ -61,7 +61,7 @@ def test_formal_math_premise_retrieval_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_formal_math_premise_retrieval_receipts_are_public_relative_and_redacted(
+def test_formal_math_premise_retrieval_receipts_are_public_relative_and_secret_scanned(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -89,8 +89,15 @@ def test_formal_math_premise_retrieval_receipts_are_public_relative_and_redacted
         assert '"proof_body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["secret_exclusion_scan"]["body_material_status"] == (
+            "secret_exclusion_scan_no_payload_body_export"
+        )
+        assert payload["body_material_status"] == (
+            "copied_non_secret_macro_body_with_provenance"
+        )
+        assert "body_redacted" not in _walk_keys(payload)
+        assert "private_state_scan" not in payload
         assert "proof_body" not in _walk_keys(payload)
 
 

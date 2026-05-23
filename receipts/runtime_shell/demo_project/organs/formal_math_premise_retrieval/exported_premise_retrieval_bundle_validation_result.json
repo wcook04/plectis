@@ -21,7 +21,20 @@
     "test_split_tuning_authorized": false
   },
   "body_copied_material_count": 1,
-  "body_redacted": true,
+  "body_material_contract": {
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_material_required": true,
+    "excluded_body_classes": [
+      "proof_body",
+      "ground_truth_proof",
+      "provider_output_body",
+      "oracle_needed_premise_ids",
+      "private_source_body"
+    ],
+    "secret_exclusion_scan_field": "secret_exclusion_scan",
+    "status": "pass"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "formal_math_premise_retrieval_runtime_example",
   "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run-retrieval-bundle --input examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
   "copied_material": [
@@ -44,7 +57,7 @@
     }
   ],
   "copied_material_count": 1,
-  "created_at": "2026-05-23T04:18:00+00:00",
+  "created_at": "2026-05-23T04:30:21+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -55,15 +68,6 @@
   "observed_negative_cases": {},
   "organ_id": "formal_math_premise_retrieval",
   "premise_count": 11,
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 5,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
   ],
@@ -82,7 +86,7 @@
   "recipe_count": 3,
   "retrievals": [
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_bool_not_not",
@@ -96,7 +100,7 @@
       "top_k": 2
     },
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_iff_intro",
@@ -110,7 +114,7 @@
       "top_k": 2
     },
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_list_length_append",
@@ -125,7 +129,7 @@
       "top_k": 3
     },
     {
-      "body_redacted": true,
+      "body_material_status": "retrieval_result_over_imported_index",
       "expected_public_premise_count": 1,
       "public_retrieval_recall": 1.0,
       "query_id": "q_ring2_nat_add_comm",
@@ -141,6 +145,19 @@
     }
   ],
   "schema_version": "exported_premise_retrieval_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "excluded_output_field_labels_omitted": true,
+    "excluded_output_fields": [
+      "matched_excerpt",
+      "body"
+    ],
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
   "source_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "prover_premise_retrieval_term_scoring",
