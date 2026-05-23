@@ -168,8 +168,8 @@
     },
     {
       "organ_id": "world_model_projection_drift_control_room",
-      "evidence_class": "fixture_schema_replay",
-      "classification_basis": "fixture schema and policy checks over drift metadata rows, source refs, repair routes, and validation refs"
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived validation over body-free public runtime receipt rows, source refs, repair routes, validation refs, target refs, body-import verification, and negative-case authority denials"
     },
     {
       "organ_id": "spatial_world_model_counterfactual_simulation_replay",

@@ -31,7 +31,7 @@ def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesse
     )
 
     assert acceptance["status"] == "accepted_runtime_spine_verifier_lab_kernel_bound"
-    assert len(acceptance["accepted_current_authority_organs"]) == 45
+    assert len(acceptance["accepted_current_authority_organs"]) == 46
     assert acceptance["deferred_organs"] == []
     assert acceptance["lean_lake_authorized"] == "bounded_public_witness_only"
     assert acceptance["release_authorized"] is False
@@ -60,26 +60,25 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
     )
 
     assert summary["status"] == "pass"
-    assert summary["accepted_count"] == 45
-    assert summary["accepted_current_authority_count"] == 45
+    assert summary["accepted_count"] == 46
+    assert summary["accepted_current_authority_count"] == 46
     assert summary["accepted_count_is_product_progress"] is False
     assert summary["truth_accounting"]["accepted_count_is_product_progress"] is False
     assert (
         summary["truth_accounting"]["accepted_current_authority_is_evidence_strength"]
         is False
     )
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 30
-    assert summary["truth_accounting"]["non_progress_accepted_count"] == 15
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == 33
+    assert summary["truth_accounting"]["non_progress_accepted_count"] == 13
     assert summary["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 15
-    assert summary["truth_accounting"]["real_import_validation_count"] == 12
-    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 15
+    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 16
+    assert summary["truth_accounting"]["real_import_validation_count"] == 14
+    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 13
     assert summary["truth_accounting"]["evidence_class_counts"] == {
-        "algorithmic_projection": 15,
+        "algorithmic_projection": 16,
         "external_subprocess_witness": 3,
         "fixture_echo_smoke": 13,
-        "fixture_schema_replay": 2,
-        "semantic_validator": 12,
+        "semantic_validator": 14,
     }
     evidence_by_organ = {
         row["organ_id"]: row["truth_accounting_bucket"]
@@ -87,7 +86,10 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
     }
     assert (
         evidence_by_organ["research_replication_rubric_artifact_replay"]
-        == "regression_negative_fixture"
+        == "source_faithful_refactor"
+    )
+    assert evidence_by_organ["world_model_projection_drift_control_room"] == (
+        "real_import_validation"
     )
     assert evidence_by_organ["formal_math_lean_proof_witness"] == "real_runtime_receipt"
     assert summary["accepted_current_authority_organs"] == [
@@ -136,6 +138,7 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         "agentic_vulnerability_discovery_patch_proof_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
         "certificate_kernel_execution_lab",
+        "voice_to_doctrine_self_improvement_loop",
     ]
     assert summary["deferred_organs"] == []
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"
