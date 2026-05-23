@@ -1,17 +1,150 @@
 from __future__ import annotations
 
+from pathlib import Path
+from typing import Any
+
+from . import private_state_scan as _legacy
 from .private_state_scan import (
+    BLOCKED_CASE_REVIEW,
+    BLOCKED_PRIVATE,
+    BLOCKED_PUBLIC_WRITE,
     PASS,
-    classify_public_safe_macro_import,
     load_forbidden_classes,
     public_relative_path,
-    scan_paths,
 )
 
+BLOCKED_SECRET_EXCLUSION = BLOCKED_PRIVATE
+
+
+def _without_legacy_body_fields(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: value
+        for key, value in row.items()
+        if key not in {"body_redacted", "matched_excerpt", "body"}
+    }
+
+
+def normalize_secret_exclusion_scan(raw_scan: dict[str, Any]) -> dict[str, Any]:
+    """Return the receipt-facing secret-exclusion shape.
+
+    Legacy scanner internals still know how to find sentinel terms, but the
+    public receipt contract is source-open by default: the scanner proves that
+    secrets/account-bound payload bodies are excluded, not that ordinary macro
+    substrate was redacted.
+    """
+
+    legacy_scan_keys = {
+        "body_redacted",
+        "forbidden_output_fields",
+        "redacted_output_field_labels_omitted",
+    }
+    scan = {key: value for key, value in raw_scan.items() if key not in legacy_scan_keys}
+    scan["scan_purpose"] = "credential_account_bound_and_operator_payload_exclusion"
+    scan["omitted_output_fields"] = ["source_excerpt", "body"]
+    scan["body_in_receipt"] = False
+    scan["real_substrate_default"] = True
+    scan["synthetic_receipt_policy"] = (
+        "Synthetic receipts are admissible only as regression or negative-case "
+        "harness artifacts, or as named blocked-import debt. They are not "
+        "substitutes for non-secret macro substrate, real runtime receipts, "
+        "real copied bodies, or source-faithful refactors."
+    )
+    scan["exclusion_policy"] = (
+        "Open-source macro substrate by default; exclude only secrets, "
+        "credentials, operator conversation bodies, provider payloads, "
+        "account/session state, and credential-equivalent live-access material."
+    )
+    scan["hits"] = [
+        _without_legacy_body_fields(dict(hit)) | {"body_in_receipt": False}
+        for hit in raw_scan.get("hits", [])
+        if isinstance(hit, dict)
+    ]
+    return scan
+
+
+def classify_public_safe_macro_import(
+    row: dict[str, Any],
+    *,
+    forbidden_classes: dict[str, Any],
+) -> dict[str, Any]:
+    raw = _legacy.classify_public_safe_macro_import(
+        row,
+        forbidden_classes=forbidden_classes,
+    )
+    result = _without_legacy_body_fields(dict(raw))
+    result["body_in_receipt"] = False
+    result["real_substrate_default"] = True
+    result["synthetic_receipt_policy"] = "not_a_substitute_for_available_real_substrate"
+    result["findings"] = [
+        _without_legacy_body_fields(dict(finding)) | {"body_in_receipt": False}
+        for finding in raw.get("findings", [])
+        if isinstance(finding, dict)
+    ]
+    return result
+
+
+def scan_text(
+    text: str,
+    *,
+    path: str,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+) -> dict[str, Any]:
+    return normalize_secret_exclusion_scan(
+        _legacy.scan_text(
+            text,
+            path=path,
+            forbidden_classes=forbidden_classes,
+            source_context=source_context,
+        )
+    )
+
+
+def scan_paths(
+    paths: list[str | Path],
+    *,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+    display_root: str | Path | None = None,
+) -> dict[str, Any]:
+    return normalize_secret_exclusion_scan(
+        _legacy.scan_paths(
+            paths,
+            forbidden_classes=forbidden_classes,
+            source_context=source_context,
+            display_root=display_root,
+        )
+    )
+
+
+def scan_json_payload(
+    payload: object,
+    *,
+    path: str,
+    forbidden_classes: dict[str, Any],
+    source_context: str = "target",
+) -> dict[str, Any]:
+    return normalize_secret_exclusion_scan(
+        _legacy.scan_json_payload(
+            payload,
+            path=path,
+            forbidden_classes=forbidden_classes,
+            source_context=source_context,
+        )
+    )
+
+
 __all__ = [
+    "BLOCKED_CASE_REVIEW",
+    "BLOCKED_PRIVATE",
+    "BLOCKED_PUBLIC_WRITE",
+    "BLOCKED_SECRET_EXCLUSION",
     "PASS",
     "classify_public_safe_macro_import",
     "load_forbidden_classes",
+    "normalize_secret_exclusion_scan",
     "public_relative_path",
+    "scan_json_payload",
     "scan_paths",
+    "scan_text",
 ]

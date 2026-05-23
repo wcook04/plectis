@@ -60,6 +60,7 @@ from microcosm_core.validators import observatory_legibility
 from microcosm_core.validators import private_state_scan
 from microcosm_core.validators import public_entry_docs
 from microcosm_core.validators import research_kernel_density
+from microcosm_core.validators import secret_exclusion_scan
 from microcosm_core.validators import standards_registry
 from microcosm_core.validators import transaction_evidence_stability
 
@@ -163,6 +164,10 @@ def main(argv: list[str] | None = None) -> int:
     scan_parser.add_argument("--root", required=True)
     scan_parser.add_argument("--out", required=True)
     scan_parser.add_argument("--policy")
+    secret_scan_parser = subparsers.add_parser("secret-exclusion-scan")
+    secret_scan_parser.add_argument("--root", required=True)
+    secret_scan_parser.add_argument("--out", required=True)
+    secret_scan_parser.add_argument("--policy")
 
     public_entry_parser = subparsers.add_parser("public-entry-docs")
     _add_root_out(public_entry_parser)
@@ -594,6 +599,8 @@ def main(argv: list[str] | None = None) -> int:
             return runtime_shell.main(["evidence", "inspect", args.receipt_ref])
     if args.command == "private-state-scan":
         return private_state_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
+    if args.command == "secret-exclusion-scan":
+        return secret_exclusion_scan.main(["--root", args.root, "--out", args.out] + (["--policy", args.policy] if args.policy else []))
     if args.command == "public-entry-docs":
         return public_entry_docs.main(["--root", args.root, "--out", args.out])
     if args.command == "research-kernel-density":

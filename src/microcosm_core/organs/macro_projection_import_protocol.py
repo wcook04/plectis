@@ -339,33 +339,6 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
-def _secret_exclusion_scan(raw_scan: dict[str, Any]) -> dict[str, Any]:
-    scan = dict(raw_scan)
-    legacy_body_key = "body_" + "red" + "acted"
-    legacy_label_key = "red" + "acted_" + "output_field_labels_omitted"
-    scan.pop(legacy_body_key, None)
-    scan.pop("forbidden_output_fields", None)
-    scan.pop(legacy_label_key, None)
-    scan["scan_purpose"] = "credential_account_bound_and_operator_payload_exclusion"
-    scan["omitted_output_fields"] = ["source_excerpt", "body"]
-    scan["body_in_receipt"] = False
-    scan["exclusion_policy"] = (
-        "Open-source macro substrate by default; exclude only secrets, credentials, "
-        "operator conversation bodies, provider payloads, and account-bound material."
-    )
-    scan["hits"] = [
-        {
-            key: value
-            for key, value in dict(hit).items()
-            if key not in {legacy_body_key, "matched_excerpt", "body"}
-        }
-        | {"body_in_receipt": False}
-        for hit in raw_scan.get("hits", [])
-        if isinstance(hit, dict)
-    ]
-    return scan
-
-
 def _accepted_organ_count(public_root: Path) -> int | None:
     registry_path = public_root / ORGAN_REGISTRY_REL
     if not registry_path.is_file():
@@ -1653,12 +1626,10 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    secret_scan = _secret_exclusion_scan(
-        scan_paths(
-            _input_paths(input_dir, include_negative=include_negative),
-            forbidden_classes=policy,
-            display_root=public_root,
-        )
+    secret_scan = scan_paths(
+        _input_paths(input_dir, include_negative=include_negative),
+        forbidden_classes=policy,
+        display_root=public_root,
     )
     dependency_preflight_gate = _dependency_preflight_lifecycle_gate(public_root)
 

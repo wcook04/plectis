@@ -10,8 +10,9 @@ from typing import Any
 
 AUTHORITY_CEILING = "command_receipt_evidence_not_runtime_product_completeness"
 ANTI_CLAIM = (
-    "This receipt records only the named public command output over public inputs "
-    "and regression fixtures; it is not runtime product completeness or source-body authority."
+    "This receipt records the named public command output over real public inputs, "
+    "source-faithful fixtures, or explicit negative cases; synthetic receipts are "
+    "not product progress or substitutes for available real substrate."
 )
 
 
@@ -46,7 +47,7 @@ def base_receipt(organ_id: str, fixture_id: str, command: str | None = None) -> 
         "status": "pending",
         "command": command,
         "anti_claim": ANTI_CLAIM,
-        "private_state_scan": {"status": "not_run"},
+        "secret_exclusion_scan": {"status": "not_run"},
         "authority_ceiling": AUTHORITY_CEILING,
         "receipt_paths": [],
     }

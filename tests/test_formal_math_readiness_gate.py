@@ -56,7 +56,9 @@ def test_formal_math_readiness_gate_covers_negative_cases(tmp_path: Path) -> Non
     assert result["selected_pattern_ids"] == SELECTED_PATTERN_IDS
     extension = result["readiness_extension_board"]
     assert extension["source_intake_ref"].endswith("#formal_math_readiness_extensions")
-    assert extension["projection_status"] == "public_replacement_landed"
+    assert extension["projection_status"] == "public_runtime_import_landed"
+    assert extension["projection_contract"]["real_substrate_receipt"] is True
+    assert extension["projection_contract"]["synthetic_receipt_standin_allowed"] is False
     assert extension["premise_index_projection"]["namespace_counts"] == {
         "Bool": 2,
         "Iff": 3,
@@ -106,7 +108,7 @@ def test_formal_math_readiness_gate_accepts_exported_bundle(tmp_path: Path) -> N
     ]
 
 
-def test_formal_math_readiness_receipts_are_redacted_and_public_relative(
+def test_formal_math_readiness_receipts_use_secret_exclusion_and_public_relative(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -134,7 +136,10 @@ def test_formal_math_readiness_receipts_are_redacted_and_public_relative(
         assert "synthetic redacted proof payload" not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
+        assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert "body_redacted" not in _walk_keys(payload)
+        assert "private_state_scan" not in _walk_keys(payload)
         assert payload["authority_ceiling"]["lean_lake_execution_authorized"] is False
         if payload["schema_version"] == "formal_math_readiness_extension_board_receipt_v1":
             assert payload["cell_id"] == "formal_math_readiness_extensions"
@@ -152,7 +157,7 @@ def test_formal_math_readiness_plan_is_non_writing_extension_preview(
     assert result["schema_version"] == "formal_math_readiness_extension_preview_v1"
     assert result["projection_cell_id"] == "formal_math_readiness_extensions"
     assert result["selected_pattern_ids"] == SELECTED_PATTERN_IDS
-    assert result["readiness_extension_board"]["projection_status"] == "public_replacement_landed"
+    assert result["readiness_extension_board"]["projection_status"] == "public_runtime_import_landed"
     assert result["readiness_extension_board"]["provider_context_projection"][
         "provider_calls_authorized"
     ] is False

@@ -49,6 +49,14 @@ fixtures, receipts, standards, and tests. Synthetic fixtures are allowed only
 as regression wrappers, negative cases, or small inputs around a real
 mechanism.
 
+Receipts obey real-substrate maximality. A receipt is not good because it is
+clean; it is good because it proves real substrate. Prefer real runtime
+receipts, copied non-secret macro bodies with provenance, and source-faithful
+public refactors. A synthetic receipt is admissible only when it is intrinsically
+test scaffolding, a negative case, or named blocked-import debt with a concrete
+replacement target. It is never a substitute for available non-secret macro
+code, doctrine, tool output, receipt output, proof body, or runtime behavior.
+
 The exclusion set is narrow: secrets and credential-equivalent live access
 (`.env` files, API keys, tokens, passwords, private keys, cookies, browser
 profiles, keychains, account sessions, and direct credential-bearing payloads),
@@ -60,8 +68,8 @@ outside this repo; they do not block source-available content from being
 imported here.
 
 Any `body_copied=true` claim must name the source file, target file, and
-validator or receipt that proves the import. A source ref, digest, label, or
-replacement pointer is not an imported body.
+validator or receipt that proves the import. A source ref, digest, label,
+synthetic receipt, or replacement pointer is not an imported body.
 
 ## Before / After
 
@@ -951,7 +959,7 @@ secret-export authority, trading advice, or whole-system correctness.
 ## Validation Commands
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.validators.private_state_scan --root . --out receipts/first_wave/private_state_scan.json
+PYTHONPATH=src python3 -m microcosm_core.validators.secret_exclusion_scan --root . --out receipts/first_wave/secret_exclusion_scan.json
 PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
 PYTHONPATH=src python3 -m microcosm_core.validators.fixture_freshness --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --mission-dag core/preflight_support/microcosm_rebuild_mission_graph_v1.json --receipt-coverage core/preflight_support/validator_receipt_coverage_map_v1.json --out receipts/preflight/fixture_runner_freshness.json
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json

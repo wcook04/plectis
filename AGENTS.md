@@ -616,9 +616,17 @@ imported macro body.
 
 ## Receipt Floor
 
-Every validator receipt must include `status`, `private_state_scan`,
+Every new validator receipt must include `status`, `secret_exclusion_scan`,
 `authority_ceiling`, `anti_claim`, and `receipt_paths`. Organ receipts also
-include `organ_id` and `fixture_id`.
+include `organ_id` and `fixture_id`. Legacy `private_state_scan` is a
+compatibility surface only; do not introduce it in new receipt contracts.
+
+Receipt evidence has a real-substrate supremacy floor. Prefer real runtime
+receipts, copied non-secret macro bodies with provenance, and source-faithful
+public refactors. Synthetic receipts are allowed only as regression/negative
+harness artifacts or temporary blocked-import debt with a named real substrate
+replacement target; they are defects when they stand in for available real
+substrate.
 
 ## Anti-Claim
 

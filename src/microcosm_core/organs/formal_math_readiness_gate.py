@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -38,7 +38,7 @@ FORBIDDEN_BODY_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+    "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
     "lean_lake_execution_authorized": False,
     "mathlib_presence_claim_authorized": False,
     "formal_proof_authority": False,
@@ -46,10 +46,10 @@ AUTHORITY_CEILING = {
     "proof_bodies_allowed": False,
 }
 ANTI_CLAIM = (
-    "Formal math readiness gate validates public synthetic readiness metadata only. "
-    "It does not run Lean or Lake, call providers, expose proof bodies, prove theorem "
-    "correctness, authorize Mathlib-dependent proofs, or widen the bounded "
-    "formal_math_lean_proof_witness boundary."
+    "Formal math readiness gate emits a real runtime receipt over imported readiness "
+    "fixtures and source refs. It does not run Lean or Lake, call providers, expose "
+    "proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, "
+    "or widen the bounded formal_math_lean_proof_witness boundary."
 )
 
 EXTENSION_CELL_ID = "formal_math_readiness_extensions"
@@ -143,7 +143,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -210,7 +210,7 @@ def validate_corpus_readiness(
                 "mathlib_probe_status": mathlib_probe_status,
                 "translation_smoke_only": row.get("translation_smoke_only") is True,
                 "consumer_rule": row.get("consumer_rule"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -267,7 +267,7 @@ def validate_tactic_portfolio(
                 "availability_status": status,
                 "probe_receipt_ref": row.get("probe_receipt_ref"),
                 "failure_class": row.get("failure_class"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -315,7 +315,7 @@ def validate_premise_index(
                 else 0,
                 "allowed_for_split": row.get("allowed_for_split", []),
                 "source_ref": row.get("source_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -368,7 +368,7 @@ def validate_target_shape_routing(
                 "target_shape": row.get("target_shape"),
                 "allowed_tactic_ids": allowed,
                 "blocked_unavailable_tactic_ids": blocked,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
         if negative and blocked:
@@ -413,7 +413,7 @@ def validate_provider_context_recipes(
                 else 0,
                 "proof_bodies_allowed": row.get("proof_bodies_allowed") is True,
                 "provider_calls_authorized": row.get("provider_calls_authorized") is True,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -477,7 +477,7 @@ def _build_extension_board(
     recipes: dict[str, Any],
     input_mode: str,
     bundle_id: Any,
-    private_scan: dict[str, Any],
+    secret_scan: dict[str, Any],
     status: str,
 ) -> dict[str, Any]:
     premises = premise_index["premises"]
@@ -505,7 +505,7 @@ def _build_extension_board(
     return {
         "schema_version": "formal_math_readiness_extension_board_v1",
         "cell_id": EXTENSION_CELL_ID,
-        "projection_status": "public_replacement_landed" if status == PASS else "blocked",
+        "projection_status": "public_runtime_import_landed" if status == PASS else "blocked",
         "source_intake_ref": EXTENSION_SOURCE_INTAKE_REF,
         "selected_pattern_ids": SELECTED_PATTERN_IDS,
         "input_mode": input_mode,
@@ -520,10 +520,12 @@ def _build_extension_board(
             "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
         ],
         "projection_contract": {
-            "copy_policy": "metadata_fixture_receipt_ref_only",
+            "copy_policy": "real_runtime_receipt_with_secret_exclusion",
             "body_copied": False,
-            "body_redacted": True,
-            "private_source_bodies_allowed": False,
+            "body_in_receipt": False,
+            "real_substrate_receipt": True,
+            "synthetic_receipt_standin_allowed": False,
+            "credential_or_account_bound_bodies_allowed": False,
             "authority_ceiling": AUTHORITY_CEILING["authority_ceiling"],
         },
         "premise_index_projection": {
@@ -561,7 +563,7 @@ def _build_extension_board(
                     "blocked_unavailable_tactic_ids": row.get(
                         "blocked_unavailable_tactic_ids", []
                     ),
-                    "body_redacted": True,
+                    "body_in_receipt": False,
                 }
                 for row in route_cases
             ],
@@ -583,10 +585,10 @@ def _build_extension_board(
             "mathlib_available": not corpus["blocked_capabilities"],
             "lean_lake_execution_authorized": False,
         },
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -600,13 +602,11 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     corpus = validate_corpus_readiness(
         payloads["corpus_readiness"],
@@ -635,7 +635,7 @@ def _build_result(
     missing = sorted(case_id for case_id in expected if case_id not in observed)
     findings = _merge_findings(corpus, tactics, premise_index, routing, recipes)
     error_codes = sorted({finding["error_code"] for finding in findings})
-    status = PASS if not missing and not private_scan["blocking_hit_count"] else "blocked"
+    status = PASS if not missing and not secret_scan["blocking_hit_count"] else "blocked"
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()
@@ -649,7 +649,7 @@ def _build_result(
         recipes=recipes,
         input_mode=input_mode,
         bundle_id=bundle_manifest.get("bundle_id") if isinstance(bundle_manifest, dict) else None,
-        private_scan=private_scan,
+        secret_scan=secret_scan,
         status=status,
     )
     return {
@@ -667,7 +667,7 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "corpus_readiness": corpus["corpora"],
@@ -692,9 +692,9 @@ def _build_result(
             "route_case_count": routing["route_case_count"],
             "premise_count": premise_index["premise_count"],
             "next_boundary": "formal_math_lean_proof_witness now carries the bounded public witness; readiness still does not run Lean/Lake itself",
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -717,7 +717,7 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "blocked_capabilities",
@@ -729,7 +729,7 @@ def _common_receipt(
         "projection_cell_id",
         "selected_pattern_ids",
         "readiness_extension_status",
-        "body_redacted",
+        "body_in_receipt",
     )
     payload = {
         "schema_version": schema_version,
@@ -953,7 +953,7 @@ def plan_readiness_extensions(
         "readiness_extension_board": result["readiness_extension_board"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
