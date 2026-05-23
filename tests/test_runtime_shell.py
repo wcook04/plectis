@@ -1853,7 +1853,13 @@ def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> 
     assert lens["authority_ceiling"]["release_authorized"] is False
     assert lens["safe_to_show"]["receipt_refs_only"] is True
     assert lens["safe_to_show"]["projection_is_read_model_only"] is True
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_standards_control_lens"
+    assert "body_redacted" not in lens
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False for row in lens["standards_rows"]
+    )
     assert (public_root / lens["standards_control_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
@@ -1903,7 +1909,22 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     assert lens["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
     assert lens["authority_ceiling"]["pattern_assimilation_authorized"] is False
     assert lens["safe_to_show"]["receipt_refs_only"] is True
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_hook_intervention_coverage_lens"
+    assert "body_redacted" not in lens
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["intervention_rows"]
+    )
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["route_compliance_decisions"]
+    )
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["hook_shadow_decisions"]
+    )
     assert (public_root / lens["hook_intervention_coverage_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded

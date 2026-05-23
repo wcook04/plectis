@@ -7440,6 +7440,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "public_standard_pressure_contract",
@@ -7456,6 +7457,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "validator_receipt_coverage_contract",
@@ -7472,6 +7474,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "acceptance_gate_contract",
@@ -7488,6 +7491,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "fixture_manifest_contract",
@@ -7504,6 +7508,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "docs_entry_contract",
@@ -7520,6 +7525,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "authority_ceiling_contract",
@@ -7536,6 +7542,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
             {
                 "control_row_id": "projection_safety_contract",
@@ -7552,6 +7559,7 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "provider_payload_exported": False,
                 "release_authorized": False,
+                **_source_open_row_boundary("microcosm standards-control::standards_rows"),
             },
         ]
         negative_case_ids = [
@@ -7658,20 +7666,26 @@ class RuntimeShell:
             "standards_rows": standards_rows,
             "standards_summary": standards_summary,
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "private_source_bodies_omitted": True,
-                "proof_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-                "receipt_refs_only": True,
-                "projection_is_read_model_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_standards_control_lens",
+                command="microcosm standards-control",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                private_source_bodies_omitted=True,
+                proof_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                receipt_refs_only=True,
+                projection_is_read_model_only=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The standards-control lens is a public-safe read-model over existing "
+                "The standards-control lens is a source-open payload-boundary read-model over existing "
                 "standard, validator, fixture, acceptance, docs, and authority surfaces. "
                 "It does not make the standards registry source authority, prove complete "
                 "coverage, export private bodies, expose proof bodies or provider payloads, "
@@ -7763,7 +7777,7 @@ class RuntimeShell:
                 ),
                 "over_budget_denial_count": hook.get("over_budget_denial_count"),
                 "decision": "retain_as_advisory_public_metadata",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "route_compliance_trace_feedback_gate",
@@ -7776,7 +7790,7 @@ class RuntimeShell:
                 ),
                 "duplicate_trace_event_ids": _strings(route.get("duplicate_trace_event_ids")),
                 "decision": "reject_overclaiming_or_duplicate_trace_metadata",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "actor_axis_authority_boundary",
@@ -7784,7 +7798,7 @@ class RuntimeShell:
                 "authority_rejection_count": route.get("authority_rejection_count"),
                 "actor_axis_mismatch_count": route.get("actor_axis_mismatch_count"),
                 "decision": "type_b_advisory_cannot_claim_mutation_authority",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "anti_pattern_debt_retirement_gate",
@@ -7795,7 +7809,7 @@ class RuntimeShell:
                 ),
                 "evidence_only_trace_ids": _strings(debt.get("evidence_only_trace_ids")),
                 "decision": "retire_only_with_behavior_change_trace_evidence",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
             },
             {
                 "intervention_id": "route_lease_mode_control_gate",
@@ -7811,7 +7825,7 @@ class RuntimeShell:
                     "static_metadata_without_trace_feedback_count"
                 ),
                 "decision": "consume_route_lease_trace_before_broad_context_return",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm hook-coverage::intervention_rows"),
             },
         ]
         forbidden_export_summary = {
@@ -7872,7 +7886,7 @@ class RuntimeShell:
                     "event_id": row.get("event_id"),
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("microcosm hook-coverage::route_compliance_decisions"),
                 }
                 for row in route_decisions
             ],
@@ -7884,7 +7898,7 @@ class RuntimeShell:
                         "mutation_authority_claim_rejected"
                     )
                     is True,
-                    "body_redacted": True,
+                    **_source_open_row_boundary("microcosm hook-coverage::actor_axis_decisions"),
                 }
                 for row in actor_axis_decisions
             ],
@@ -7896,7 +7910,7 @@ class RuntimeShell:
                     "expected_intervention": row.get("expected_intervention"),
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("microcosm hook-coverage::hook_shadow_decisions"),
                 }
                 for row in hook_shadow_decisions
             ],
@@ -7909,7 +7923,7 @@ class RuntimeShell:
                         [],
                     ),
                     "evidence_only_trace_ids": row.get("evidence_only_trace_ids", []),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("microcosm hook-coverage::debt_decisions"),
                 }
                 for row in debt_decisions
             ],
@@ -7920,7 +7934,7 @@ class RuntimeShell:
                     "lease_consumed": row.get("lease_consumed") is True,
                     "decision": row.get("decision"),
                     "error_codes": row.get("error_codes", []),
-                    "body_redacted": True,
+                    **_source_open_row_boundary("microcosm hook-coverage::route_lease_decisions"),
                 }
                 for row in lease_decisions
             ],
@@ -7952,19 +7966,25 @@ class RuntimeShell:
             "missing_authority_case_ids": missing_authority,
             "negative_case_ids": observed_negative_cases,
             "forbidden_export_summary": forbidden_export_summary,
-            "safe_to_show": {
-                "body_redacted": True,
-                "receipt_refs_only": True,
-                "live_operator_state_omitted": True,
-                "provider_payloads_omitted": True,
-                "browser_hud_cockpit_state_omitted": True,
-                "task_ledger_mutation_omitted": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_hook_intervention_coverage_lens",
+                command="microcosm hook-coverage",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                receipt_refs_only=True,
+                live_operator_state_omitted=True,
+                provider_payloads_omitted=True,
+                browser_hud_cockpit_state_omitted=True,
+                task_ledger_mutation_omitted=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The hook intervention coverage lens is a public metadata read-model. It "
+                "The hook intervention coverage lens is a source-open public metadata read-model. It "
                 "does not inspect live operator state, read provider payloads, certify "
                 "runtime behavior, mutate Task Ledger, authorize pattern assimilation, "
                 "publish, host, or authorize release."

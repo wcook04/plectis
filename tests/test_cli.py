@@ -760,6 +760,12 @@ def test_cli_standards_control_smoke(capsys: pytest.CaptureFixture[str]) -> None
     assert payload["authority_ceiling"]["standards_registry_source_authority"] is False
     assert payload["authority_ceiling"]["standards_completeness_claim"] is False
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_standards_control_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in payload["standards_rows"]
+    )
 
 
 def test_cli_hook_coverage_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -779,6 +785,12 @@ def test_cli_hook_coverage_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["authority_ceiling"]["live_operator_state_read"] is False
     assert payload["authority_ceiling"]["provider_payload_read"] is False
     assert payload["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_hook_intervention_coverage_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in payload["intervention_rows"]
+    )
 
 
 def test_cli_replay_gauntlet_smoke(capsys: pytest.CaptureFixture[str]) -> None:
