@@ -1,5 +1,5 @@
 {
-  "accepted_organ_count": 42,
+  "accepted_organ_count": 44,
   "anti_claim": "Standards meta diagnostics summarizes public Microcosm standard, organ, runtime-contract, and receipt coverage only. It does not become source authority for the registries, expose private macro sources, authorize release, call providers, prove theorem correctness, or claim whole-system correctness.",
   "authority_ceiling": {
     "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
@@ -11,7 +11,7 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": "public_standards_meta_diagnostics_runtime_example",
   "command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics",
   "covered_organ_ids": [
@@ -23,6 +23,7 @@
     "agent_sandbox_policy_escape_replay",
     "agentic_vulnerability_discovery_patch_proof_replay",
     "belief_state_process_reward_replay",
+    "certificate_kernel_execution_lab",
     "cold_reader_route_map",
     "corpus_readiness_mathlib_absence_gate",
     "durable_agent_work_landing_replay",
@@ -56,9 +57,10 @@
     "tactic_portfolio_availability_probe",
     "target_shape_tactic_routing_gate",
     "undeclared_library_prior_symbol_classifier",
+    "verifier_lab_execution_spine",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-22T13:37:27+00:00",
+  "created_at": "2026-05-23T07:19:57+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -67,23 +69,42 @@
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "standards_meta_diagnostics",
-  "pressure_row_count": 42,
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 3,
-    "status": "pass"
-  },
+  "pressure_row_count": 44,
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+    "paper_modules/standards_meta_diagnostics.md"
+  ],
+  "real_runtime_receipt": true,
   "receipt_id": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json"
   ],
-  "receipt_ref_count": 176,
-  "runtime_contract_count": 42,
+  "receipt_ref_count": 184,
+  "runtime_contract_count": 44,
   "schema_version": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 3,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_pattern_ids": [
     "standards_meta_diagnostics",
     "checkpoint_solo_dev_three_lanes",
@@ -94,7 +115,8 @@
     "microcosm-substrate/core/organ_registry.json",
     "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json"
   ],
-  "standard_mapping_count": 42,
+  "standard_mapping_count": 44,
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "validator_id": "validator.microcosm.organs.standards_meta_diagnostics"
 }

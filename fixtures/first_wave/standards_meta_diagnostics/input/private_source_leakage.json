@@ -3,5 +3,5 @@
   "expected_negative_case_id": "private_source_leakage",
   "organ_id": "standards_meta_diagnostics",
   "private_source_body_present": true,
-  "private_source_ref": "private_macro_body_redacted"
+  "private_source_ref": "private_macro_body_blocked"
 }

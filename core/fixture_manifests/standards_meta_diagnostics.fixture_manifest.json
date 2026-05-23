@@ -6,11 +6,11 @@
   "inputs": [
     {
       "path": "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
-      "role": "synthetic public organ-to-standard inventory"
+      "role": "public organ-to-standard inventory over registry and receipt refs"
     },
     {
       "path": "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
-      "role": "synthetic public organ runtime contract inventory"
+      "role": "public organ runtime contract inventory over runnable commands"
     },
     {
       "path": "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
@@ -45,6 +45,23 @@
     "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
     "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
   ],
+  "receipt_contract": {
+    "secret_exclusion_scan": true,
+    "body_in_receipt": false,
+    "real_runtime_receipt": true,
+    "synthetic_receipt_standin_allowed": false,
+    "public_runtime_refs": [
+      "core/standards_registry.json",
+      "core/organ_registry.json",
+      "core/acceptance/first_wave_acceptance.json",
+      "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+      "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+      "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+      "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+      "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+      "paper_modules/standards_meta_diagnostics.md"
+    ]
+  },
   "authority_ceiling": "standards_meta_diagnostics_projection_only_not_registry_authority",
   "anti_claim": "This fixture validates public coverage diagnostics only; it does not become source authority, expose private sources, or authorize release."
 }

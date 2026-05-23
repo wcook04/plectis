@@ -52,6 +52,16 @@ def test_standards_meta_diagnostics_observes_negative_cases(tmp_path: Path) -> N
     assert "materials_chemistry_closed_loop_lab_safety_replay" in result["covered_organ_ids"]
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["authority_ceiling"]["standards_registry_authority"] is False
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert any(
+        ref.endswith("core/standards_registry.json")
+        for ref in result["public_runtime_refs"]
+    )
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in _walk_keys(result)
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
@@ -94,9 +104,14 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert "belief_state_process_reward_replay" in result["covered_organ_ids"]
     assert "materials_chemistry_closed_loop_lab_safety_replay" in result["covered_organ_ids"]
     assert result["authority_ceiling"]["whole_system_correctness_claim"] is False
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in _walk_keys(result)
 
 
-def test_standards_meta_diagnostics_receipts_are_redacted(tmp_path: Path) -> None:
+def test_standards_meta_diagnostics_receipts_use_secret_exclusion(tmp_path: Path) -> None:
     out = tmp_path / "receipts/first_wave/standards_meta_diagnostics"
     run(FIXTURE_INPUT, out, command="pytest")
 
@@ -105,11 +120,16 @@ def test_standards_meta_diagnostics_receipts_are_redacted(tmp_path: Path) -> Non
     payload = json.loads(text)
 
     assert payload["status"] == "pass"
-    assert payload["private_state_scan"]["body_redacted"] is True
-    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["body_in_receipt"] is False
+    assert payload["real_runtime_receipt"] is True
+    assert payload["synthetic_receipt_standin_allowed"] is False
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
     assert '"body":' not in text
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
+    assert "private_state_scan" not in payload
+    assert "body_redacted" not in _walk_keys(payload)

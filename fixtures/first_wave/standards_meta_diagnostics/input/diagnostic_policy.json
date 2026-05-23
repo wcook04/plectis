@@ -45,7 +45,7 @@
     "agentic_vulnerability_discovery_patch_proof_replay",
     "materials_chemistry_closed_loop_lab_safety_replay"
   ],
-  "body_redacted": true,
+  "body_in_receipt": false,
   "minimum_runtime_contract_count": 44,
   "minimum_standard_mapping_count": 44,
   "private_data_equivalence_claim": false,

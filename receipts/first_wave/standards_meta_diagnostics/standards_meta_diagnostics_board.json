@@ -10,35 +10,40 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": null,
   "diagnostic_projection": {
-    "accepted_organ_count": 42,
-    "body_redacted": true,
-    "pressure_row_count": 42,
-    "receipt_ref_count": 176,
-    "runtime_contract_count": 42,
-    "standard_mapping_count": 42
+    "accepted_organ_count": 44,
+    "body_in_receipt": false,
+    "pressure_row_count": 44,
+    "receipt_ref_count": 184,
+    "runtime_contract_count": 44,
+    "standard_mapping_count": 44
   },
   "input_mode": "first_wave_fixture",
   "organ_id": "standards_meta_diagnostics",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 8,
-    "status": "pass"
-  },
   "public_contract": {
-    "body_redacted": true,
+    "body_in_receipt": false,
     "private_source_bodies_forbidden": true,
+    "real_runtime_receipt": true,
     "receipt_refs_are_required": true,
     "release_overclaims_rejected": true,
     "runtime_contracts_are_mapped_to_organs": true,
-    "standards_are_mapped_to_organs": true
+    "standards_are_mapped_to_organs": true,
+    "synthetic_receipt_standin_allowed": false
   },
+  "public_runtime_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+    "paper_modules/standards_meta_diagnostics.md"
+  ],
+  "real_runtime_receipt": true,
   "receipt_paths": [
     "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
     "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
@@ -46,10 +51,27 @@
     "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
   ],
   "schema_version": "standards_meta_diagnostics_board_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "selected_pattern_ids": [
     "standards_meta_diagnostics",
     "checkpoint_solo_dev_three_lanes",
     "compression_profile_governed_option_surface"
   ],
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

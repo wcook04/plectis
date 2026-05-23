@@ -4,7 +4,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/pattern_binding_contract_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 1,
       "organ_id": "pattern_binding_contract",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[pattern_binding_contract_projection_only]",
@@ -20,7 +20,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 2,
       "organ_id": "executable_doctrine_grammar",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[executable_doctrine_grammar_projection_only]",
@@ -37,7 +37,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 3,
       "organ_id": "proof_diagnostic_evidence_spine",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[proof_diagnostic_evidence_spine_projection_only]",
@@ -55,7 +55,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 4,
       "organ_id": "formal_math_readiness_gate",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_readiness_gate_projection_only]",
@@ -73,7 +73,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 5,
       "organ_id": "corpus_readiness_mathlib_absence_gate",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[corpus_readiness_mathlib_absence_gate_projection_only]",
@@ -90,7 +90,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 6,
       "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[mathematical_strategy_atlas_hypothesis_scorer_projection_only]",
@@ -107,7 +107,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 7,
       "organ_id": "tactic_portfolio_availability_probe",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[tactic_portfolio_availability_probe_projection_only]",
@@ -124,7 +124,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 8,
       "organ_id": "target_shape_tactic_routing_gate",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[target_shape_tactic_routing_gate_projection_only]",
@@ -141,7 +141,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 9,
       "organ_id": "lean_std_premise_index",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[lean_std_premise_index_projection_only]",
@@ -158,7 +158,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 10,
       "organ_id": "formal_math_premise_retrieval",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_premise_retrieval_projection_only]",
@@ -175,7 +175,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 11,
       "organ_id": "formal_math_verifier_trace_repair_loop",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_verifier_trace_repair_loop_projection_only]",
@@ -192,7 +192,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 12,
       "organ_id": "formal_evidence_cell_anchor_resolver",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_evidence_cell_anchor_resolver_projection_only]",
@@ -209,7 +209,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 13,
       "organ_id": "undeclared_library_prior_symbol_classifier",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[undeclared_library_prior_symbol_classifier_projection_only]",
@@ -226,7 +226,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 14,
       "organ_id": "ring2_premise_retrieval_precision_recall_harness",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[ring2_premise_retrieval_precision_recall_harness_projection_only]",
@@ -243,7 +243,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 15,
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_benchmark_integrity_anti_gaming_replay_projection_only]",
@@ -260,7 +260,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 16,
       "organ_id": "provider_context_recipe_budget_policy",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[provider_context_recipe_budget_policy_projection_only]",
@@ -277,7 +277,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 17,
       "organ_id": "formal_math_lean_proof_witness",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[formal_math_lean_proof_witness_projection_only]",
@@ -294,7 +294,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 43,
       "organ_id": "verifier_lab_execution_spine",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[verifier_lab_execution_spine_projection_only]",
@@ -311,7 +311,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/navigation_hologram_route_plane_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 18,
       "organ_id": "navigation_hologram_route_plane",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[navigation_hologram_route_plane_projection_only]",
@@ -331,7 +331,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/mission_transaction_work_spine_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 19,
       "organ_id": "mission_transaction_work_spine",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[mission_transaction_work_spine_projection_only]",
@@ -352,7 +352,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 20,
       "organ_id": "durable_agent_work_landing_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[durable_agent_work_landing_replay_projection_only]",
@@ -369,7 +369,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 21,
       "organ_id": "research_replication_rubric_artifact_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[research_replication_rubric_artifact_replay_projection_only]",
@@ -386,7 +386,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 22,
       "organ_id": "world_model_projection_drift_control_room",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[world_model_projection_drift_control_room_public_pressure]",
@@ -403,7 +403,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 23,
       "organ_id": "spatial_world_model_counterfactual_simulation_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[spatial_world_model_counterfactual_simulation_replay_public_pressure]",
@@ -420,7 +420,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 24,
       "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[mechanistic_interpretability_circuit_attribution_replay_public_pressure]",
@@ -437,7 +437,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_route_observability_runtime_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 25,
       "organ_id": "agent_route_observability_runtime",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_route_observability_runtime_projection_only]",
@@ -454,7 +454,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/pattern_assimilation_step_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 26,
       "organ_id": "pattern_assimilation_step",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[pattern_assimilation_step_projection_only]",
@@ -470,7 +470,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 27,
       "organ_id": "public_reveal_walkthrough",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[public_reveal_walkthrough_projection_only]",
@@ -487,7 +487,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 28,
       "organ_id": "macro_projection_import_protocol",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[macro_projection_import_protocol_projection_only]",
@@ -505,7 +505,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 29,
       "organ_id": "prediction_oracle_reconciliation",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[prediction_oracle_reconciliation_projection_only]",
@@ -522,7 +522,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 30,
       "organ_id": "standards_meta_diagnostics",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[standards_meta_diagnostics_projection_only]",
@@ -539,7 +539,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 31,
       "organ_id": "cold_reader_route_map",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[cold_reader_route_map_projection_only]",
@@ -556,7 +556,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 32,
       "organ_id": "agent_monitor_redteam_falsification_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_monitor_redteam_falsification_replay_public_pressure]",
@@ -573,7 +573,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 33,
       "organ_id": "agent_sabotage_scheming_monitor_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_sabotage_scheming_monitor_replay_public_pressure]",
@@ -590,7 +590,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 34,
       "organ_id": "agent_memory_temporal_conflict_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_memory_temporal_conflict_replay_public_pressure]",
@@ -607,7 +607,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 35,
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[sleeper_memory_poisoning_quarantine_replay_public_pressure]",
@@ -624,7 +624,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 36,
       "organ_id": "mcp_tool_authority_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[mcp_tool_authority_replay_public_pressure]",
@@ -641,7 +641,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 37,
       "organ_id": "proof_derived_governed_mutation_authorization",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[proof_derived_governed_mutation_authorization_public_pressure]",
@@ -658,7 +658,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 38,
       "organ_id": "belief_state_process_reward_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[belief_state_process_reward_replay_public_pressure]",
@@ -675,7 +675,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 39,
       "organ_id": "agent_sandbox_policy_escape_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[agent_sandbox_policy_escape_replay_public_pressure]",
@@ -692,7 +692,7 @@
     {
       "acceptance_ref": "core/acceptance/first_wave_acceptance.json",
       "authority_ceiling_ref": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "ordinal": 40,
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
       "pressure_row_ref": "core/public_standard_pressure.json::rows[indirect_prompt_injection_information_flow_policy_replay_public_pressure]",
@@ -721,7 +721,7 @@
         "receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay/agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
       ],
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "ordinal": 42,
@@ -738,7 +738,7 @@
         "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
       ],
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "ordinal": 43,
@@ -755,7 +755,7 @@
         "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_validation_receipt.json",
         "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
       ],
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ]
 }

@@ -29,6 +29,7 @@
     "standard_ref",
     "registry_row_ref",
     "receipt_refs",
+    "public_runtime_refs",
     "runtime_contracts",
     "authority_ceiling"
   ],
@@ -58,10 +59,13 @@
       "release_overclaim",
       "private_source_leakage"
     ],
-    "redaction_required": true
+    "secret_exclusion_scan_required": true,
+    "body_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "synthetic_receipt_standin_allowed": false
   },
   "public_private_boundary": {
-    "public_inputs": "synthetic standards inventory, runtime contracts, diagnostic policy, and receipt refs",
+    "public_inputs": "public standards inventory, runtime contracts, diagnostic policy, registry refs, and receipt refs",
     "private_inputs_forbidden": [
       "private macro source bodies",
       "provider payload bodies",

@@ -1,7 +1,7 @@
 {
   "runtime_contracts": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm pattern_binding_contract validate run --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
       "current_authority_receipt": "receipts/acceptance/first_wave/pattern_binding_contract_fixture_acceptance.json",
       "ordinal": 1,
@@ -10,7 +10,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::pattern_binding_contract"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm executable_doctrine_grammar validate run --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar",
       "current_authority_receipt": "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json",
       "ordinal": 2,
@@ -19,7 +19,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::executable_doctrine_grammar"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm proof_diagnostic_evidence_spine run run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
       "current_authority_receipt": "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json",
       "ordinal": 3,
@@ -28,7 +28,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::proof_diagnostic_evidence_spine"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm formal_math_readiness_gate run run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
       "current_authority_receipt": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
       "ordinal": 4,
@@ -37,7 +37,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::formal_math_readiness_gate"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm corpus_readiness_mathlib_absence_gate run run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
       "current_authority_receipt": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
       "ordinal": 5,
@@ -46,7 +46,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::corpus_readiness_mathlib_absence_gate"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm mathematical_strategy_atlas_hypothesis_scorer run run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
       "current_authority_receipt": "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
       "ordinal": 6,
@@ -55,7 +55,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mathematical_strategy_atlas_hypothesis_scorer"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm tactic_portfolio_availability_probe run run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe",
       "current_authority_receipt": "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
       "ordinal": 7,
@@ -64,7 +64,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::tactic_portfolio_availability_probe"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm target_shape_tactic_routing_gate run run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate",
       "current_authority_receipt": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
       "ordinal": 8,
@@ -73,7 +73,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::target_shape_tactic_routing_gate"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm lean_std_premise_index run run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index",
       "current_authority_receipt": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
       "ordinal": 9,
@@ -82,7 +82,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::lean_std_premise_index"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm formal_math_premise_retrieval run run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
       "current_authority_receipt": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
       "ordinal": 10,
@@ -91,7 +91,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::formal_math_premise_retrieval"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm formal_math_verifier_trace_repair_loop run run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
       "current_authority_receipt": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
       "ordinal": 11,
@@ -100,7 +100,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::formal_math_verifier_trace_repair_loop"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm formal_evidence_cell_anchor_resolver run run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver",
       "current_authority_receipt": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
       "ordinal": 12,
@@ -109,7 +109,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::formal_evidence_cell_anchor_resolver"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm undeclared_library_prior_symbol_classifier run run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier",
       "current_authority_receipt": "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
       "ordinal": 13,
@@ -118,7 +118,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::undeclared_library_prior_symbol_classifier"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm ring2_premise_retrieval_precision_recall_harness run run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness",
       "current_authority_receipt": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
       "ordinal": 14,
@@ -127,7 +127,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::ring2_premise_retrieval_precision_recall_harness"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm agent_benchmark_integrity_anti_gaming_replay run run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
       "ordinal": 15,
@@ -136,7 +136,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_benchmark_integrity_anti_gaming_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm provider_context_recipe_budget_policy run run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
       "current_authority_receipt": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
       "ordinal": 16,
@@ -145,7 +145,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::provider_context_recipe_budget_policy"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm formal_math_lean_proof_witness run run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
       "current_authority_receipt": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
       "ordinal": 17,
@@ -154,7 +154,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::formal_math_lean_proof_witness"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm verifier-lab-execution-spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine",
       "current_authority_receipt": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
       "ordinal": 43,
@@ -163,7 +163,7 @@
       "runtime_step": "microcosm_core.organs.verifier_lab_execution_spine::run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm navigation_hologram_route_plane run run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
       "current_authority_receipt": "receipts/acceptance/first_wave/navigation_hologram_route_plane_fixture_acceptance.json",
       "ordinal": 18,
@@ -172,7 +172,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::navigation_hologram_route_plane"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm mission_transaction_work_spine run run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
       "current_authority_receipt": "receipts/acceptance/first_wave/mission_transaction_work_spine_fixture_acceptance.json",
       "ordinal": 19,
@@ -181,7 +181,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mission_transaction_work_spine"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
       "current_authority_receipt": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
       "ordinal": 20,
@@ -190,7 +190,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::durable_agent_work_landing_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
       "current_authority_receipt": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
       "ordinal": 21,
@@ -199,7 +199,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::research_replication_rubric_artifact_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room",
       "current_authority_receipt": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
       "ordinal": 22,
@@ -208,7 +208,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::world_model_projection_drift_control_room"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm spatial-world-model-counterfactual-simulation-replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
       "ordinal": 23,
@@ -217,7 +217,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::spatial_world_model_counterfactual_simulation_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
       "ordinal": 24,
@@ -226,7 +226,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mechanistic_interpretability_circuit_attribution_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm agent_route_observability_runtime run run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_route_observability_runtime_fixture_acceptance.json",
       "ordinal": 25,
@@ -235,7 +235,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_route_observability_runtime"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step run --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
       "current_authority_receipt": "receipts/acceptance/first_wave/pattern_assimilation_step_fixture_acceptance.json",
       "ordinal": 26,
@@ -244,7 +244,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::pattern_assimilation_step"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm public_reveal_walkthrough run run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
       "current_authority_receipt": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
       "ordinal": 27,
@@ -253,7 +253,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::public_reveal_walkthrough"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm macro_projection_import_protocol run run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
       "current_authority_receipt": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
       "ordinal": 28,
@@ -262,7 +262,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::macro_projection_import_protocol"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm prediction_oracle_reconciliation run run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
       "current_authority_receipt": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
       "ordinal": 29,
@@ -271,7 +271,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::prediction_oracle_reconciliation"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm standards_meta_diagnostics run run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
       "current_authority_receipt": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
       "ordinal": 30,
@@ -280,7 +280,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::standards_meta_diagnostics"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm cold_reader_route_map run run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
       "current_authority_receipt": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
       "ordinal": 31,
@@ -289,7 +289,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::cold_reader_route_map"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
       "ordinal": 32,
@@ -298,7 +298,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_monitor_redteam_falsification_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
       "ordinal": 33,
@@ -307,7 +307,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_sabotage_scheming_monitor_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
       "ordinal": 34,
@@ -316,7 +316,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_memory_temporal_conflict_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
       "ordinal": 35,
@@ -325,7 +325,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::sleeper_memory_poisoning_quarantine_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
       "ordinal": 36,
@@ -334,7 +334,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::mcp_tool_authority_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization",
       "current_authority_receipt": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
       "ordinal": 37,
@@ -343,7 +343,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::proof_derived_governed_mutation_authorization"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
       "ordinal": 38,
@@ -352,7 +352,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::belief_state_process_reward_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
       "ordinal": 39,
@@ -361,7 +361,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agent_sandbox_policy_escape_replay"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cli_command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
       "ordinal": 40,
@@ -376,7 +376,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::agentic_vulnerability_discovery_patch_proof_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
       "runtime_receipt_count": 4,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "ordinal": 42,
@@ -385,7 +385,7 @@
       "runtime_step": "microcosm_core.runtime_shell.RUNTIME_STEPS::materials_chemistry_closed_loop_lab_safety_replay",
       "current_authority_receipt": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
       "runtime_receipt_count": 4,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "ordinal": 43,
@@ -394,7 +394,7 @@
       "runtime_step": "direct_cli.certificate_kernel_execution_lab::run_certificate_bundle",
       "current_authority_receipt": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
       "runtime_receipt_count": 4,
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
   "schema_version": "standards_meta_diagnostics_runtime_contracts_v1"

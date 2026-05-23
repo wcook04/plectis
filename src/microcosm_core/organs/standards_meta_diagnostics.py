@@ -5,7 +5,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -37,6 +37,17 @@ SOURCE_REFS = [
     "microcosm-substrate/core/standards_registry.json",
     "microcosm-substrate/core/organ_registry.json",
     "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json",
+]
+PUBLIC_RUNTIME_REFS = [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+    "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+    "paper_modules/standards_meta_diagnostics.md",
 ]
 
 INPUT_NAMES = (
@@ -155,7 +166,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -354,7 +365,7 @@ def _negative_findings(payloads: dict[str, Any], *, known_organs: set[str]) -> d
                         findings,
                         observed,
                         "STANDARDS_META_PRIVATE_SOURCE_FORBIDDEN",
-                        "Public diagnostics must carry redacted refs, not private source bodies.",
+                        "Public diagnostics must carry public refs, not private source bodies.",
                         case_id=case_id,
                         subject_id=str(row.get("organ_id") or row.get("case_id") or "payload"),
                         subject_kind="private_source",
@@ -365,7 +376,7 @@ def _negative_findings(payloads: dict[str, Any], *, known_organs: set[str]) -> d
     }
 
 
-def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
+def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "standards_meta_diagnostics_board_v1",
         "status": result["status"],
@@ -373,13 +384,14 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
         "selected_pattern_ids": SOURCE_PATTERN_IDS,
         "input_mode": result["input_mode"],
         "bundle_id": result.get("bundle_id"),
+        "public_runtime_refs": PUBLIC_RUNTIME_REFS,
         "diagnostic_projection": {
             "accepted_organ_count": result["accepted_organ_count"],
             "standard_mapping_count": result["standard_mapping_count"],
             "runtime_contract_count": result["runtime_contract_count"],
             "receipt_ref_count": result["receipt_ref_count"],
             "pressure_row_count": result["pressure_row_count"],
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
         "public_contract": {
             "standards_are_mapped_to_organs": True,
@@ -387,12 +399,16 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "receipt_refs_are_required": True,
             "private_source_bodies_forbidden": True,
             "release_overclaims_rejected": True,
-            "body_redacted": True,
+            "body_in_receipt": False,
+            "real_runtime_receipt": result["real_runtime_receipt"],
+            "synthetic_receipt_standin_allowed": False,
         },
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["real_runtime_receipt"],
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -412,12 +428,13 @@ def _common_receipt(
         "bundle_id",
         "source_pattern_ids",
         "source_refs",
+        "public_runtime_refs",
         "expected_negative_cases",
         "observed_negative_cases",
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "accepted_organ_count",
@@ -426,7 +443,9 @@ def _common_receipt(
         "receipt_ref_count",
         "pressure_row_count",
         "covered_organ_ids",
-        "body_redacted",
+        "body_in_receipt",
+        "real_runtime_receipt",
+        "synthetic_receipt_standin_allowed",
     )
     payload = {
         "schema_version": schema_version,
@@ -456,13 +475,11 @@ def _build_result(
         name: payloads[name] for name in NEGATIVE_INPUT_STEMS if name in payloads
     }
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     inventory_payload = payloads["standards_inventory"]
     contracts_payload = payloads["organ_runtime_contracts"]
@@ -506,7 +523,7 @@ def _build_result(
         PASS
         if not positive_findings
         and not missing
-        and not private_scan["blocking_hit_count"]
+        and not secret_scan["blocking_hit_count"]
         else "blocked"
     )
     return {
@@ -521,12 +538,13 @@ def _build_result(
         "bundle_id": bundle_manifest.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "source_refs": SOURCE_REFS,
+        "public_runtime_refs": PUBLIC_RUNTIME_REFS,
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "accepted_organ_count": len(diagnostic_policy.get("accepted_organ_ids", [])),
@@ -535,7 +553,9 @@ def _build_result(
         "receipt_ref_count": receipt_ref_count,
         "pressure_row_count": pressure_row_count,
         "covered_organ_ids": covered_organs,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -554,7 +574,7 @@ def _write_receipts(
     if acceptance_out is not None:
         paths["acceptance"] = acceptance_out
     relative_paths = _relative_receipt_paths(paths, public_root)
-    board = _build_board(result=result, private_scan=result["private_state_scan"])
+    board = _build_board(result=result, secret_scan=result["secret_exclusion_scan"])
     result_receipt = _common_receipt(
         result,
         schema_version="standards_meta_diagnostics_result_receipt_v1",
