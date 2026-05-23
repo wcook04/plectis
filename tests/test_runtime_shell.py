@@ -2572,6 +2572,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Release remains unauthorized" in html
     assert "Python Route Lens" in html
     assert "/project/python-lens" in html
+    assert "Payload boundary" in html
+    assert "Body redacted" not in html
     assert "Ten-Minute Tour" in html
     assert "/tour" in html
     assert "Spine / Intake / Reveal Bridge" in html
@@ -2725,7 +2727,12 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert python_lens["schema_version"] == "microcosm_project_python_lens_v1"
     assert python_lens["python_file_count"] == 1
     assert python_lens["ready_route_count"] == 2
-    assert python_lens["body_redacted"] is True
+    assert python_lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert python_lens["unsafe_payload_bodies_in_receipt"] is False
+    assert python_lens["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
+    assert python_lens["payload_boundary"]["legacy_schema_compat_present"] is True
+    assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
+    assert "body_redacted" not in python_lens
     assert favicon_status == 204
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
@@ -2783,6 +2790,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["python_lens"]["schema_version"] == "microcosm_project_python_lens_v1"
     assert observatory["python_lens"]["python_file_count"] == 1
     assert observatory["python_lens"]["ready_route_count"] == 2
+    assert observatory["python_lens"]["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert observatory["python_lens"]["payload_boundary"]["boundary_id"] == (
+        "project_python_lens_read_model"
+    )
+    assert "body_redacted" not in observatory["python_lens"]
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     assert observatory["runtime_bridge"]["projection_status_counts"] == {
@@ -2886,5 +2898,30 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     for ref in intake["runtime_bridge_evidence_refs"][:2]:
         assert (public_root / ref).is_file()
     encoded = json.dumps(intake, sort_keys=True)
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_observatory_intake_bridge_uses_payload_boundary(tmp_path: Path) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+
+    bridge = shell.observatory_intake_bridge()
+
+    assert bridge["status"] == "pass"
+    assert bridge["schema_version"] == "microcosm_observatory_intake_bridge_v1"
+    assert bridge["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert bridge["unsafe_payload_bodies_in_receipt"] is False
+    assert bridge["payload_boundary"]["boundary_id"] == "public_observatory_intake_bridge"
+    assert bridge["payload_boundary"]["source_open_default"] is True
+    assert (
+        bridge["safe_to_show"]["observatory_bridge_rows_are_public_payload_boundary_rows"]
+        is True
+    )
+    assert bridge["safe_to_show"]["private_browser_or_live_access_payloads_omitted"] is True
+    assert "body_redacted" not in bridge
+    encoded = json.dumps(bridge, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded

@@ -676,6 +676,41 @@ def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
     }
 
 
+def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str, Any]:
+    legacy_body_redacted_present = python_lens.get("body_redacted") is True
+    surface_ref = str(
+        python_lens.get("state_file_ref")
+        or python_lens.get("evidence_ref")
+        or ".microcosm/python_lens.json"
+    )
+    return {
+        "schema_version": python_lens.get("schema_version"),
+        "status": python_lens.get("status"),
+        "lens_id": python_lens.get("lens_id"),
+        "command": python_lens.get("command"),
+        "python_file_count": python_lens.get("python_file_count", 0),
+        "package_roots": python_lens.get("package_roots", []),
+        "readiness_checks": python_lens.get("readiness_checks", []),
+        "route_rows": python_lens.get("route_rows", []),
+        "ready_route_count": python_lens.get("ready_route_count", 0),
+        "evidence_ref": python_lens.get("evidence_ref"),
+        "state_file_ref": python_lens.get("state_file_ref"),
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "payload_boundary": public_payload_boundary(
+            boundary_id="project_python_lens_read_model",
+            command=str(python_lens.get("command") or "microcosm python-lens <project>"),
+            surface_ref=surface_ref,
+            legacy_schema_compat_present=legacy_body_redacted_present,
+        ),
+        "safe_to_show": _source_open_safe_to_show(
+            project_source_bodies_omitted=True,
+            python_lens_rows_are_public_payload_boundary_rows=True,
+        ),
+        "legacy_body_redacted_compat_present": legacy_body_redacted_present,
+    }
+
+
 def _badge_list(values: list[str]) -> str:
     if not values:
         return "<span class=\"muted\">none</span>"
@@ -11348,6 +11383,9 @@ class RuntimeShell:
         return payload
 
     def observatory_intake_bridge(self, *, persist_receipt: bool = True) -> dict[str, Any]:
+        bridge_receipt_path = (
+            self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json"
+        )
         intake = self.intake()
         reveal = self.reveal(persist_receipt=persist_receipt)
         market_boundary = self.market_boundary()
@@ -11517,6 +11555,18 @@ class RuntimeShell:
             and legibility_scorecard.get("status") == PASS
             else "blocked",
             "bridge_id": "intake_observatory_bridge",
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=bridge_receipt_path,
+                boundary_id="public_observatory_intake_bridge",
+                command="microcosm serve <project> /project/observatory",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                observatory_bridge_rows_are_public_payload_boundary_rows=True,
+                private_browser_or_live_access_payloads_omitted=True,
+            ),
             "public_claim": (
                 "The local observatory shows the same spine, intake, reveal, and evidence "
                 "causality that the JSON commands expose."
@@ -11604,18 +11654,14 @@ class RuntimeShell:
                 "whole_system_correctness_claim": False,
             },
             "anti_claim": (
-                "The observatory intake bridge is a public-safe browser/read-model over "
-                "runtime command outputs and receipt refs. It does not host, publish, "
-                "authorize release, import private bodies, call providers, or prove "
-                "private-root equivalence."
+                "The observatory intake bridge is a source-open browser/read-model over "
+                "runtime command outputs and receipt refs. It omits only unsafe payload "
+                "bodies and credential-equivalent live access; it does not host, publish, "
+                "authorize release, call providers, or prove private-root equivalence."
             ),
-            "body_redacted": True,
         }
         if persist_receipt:
-            write_json_atomic(
-                self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json",
-                payload,
-            )
+            write_json_atomic(bridge_receipt_path, payload)
         return payload
 
     def project_observatory(
@@ -11775,19 +11821,7 @@ class RuntimeShell:
                     "python_file_count": python_lens.get("python_file_count", 0),
                     "python_ready_route_count": python_lens.get("ready_route_count", 0),
                 },
-                "python_lens": {
-                    "schema_version": python_lens.get("schema_version"),
-                    "status": python_lens.get("status"),
-                    "lens_id": python_lens.get("lens_id"),
-                    "command": python_lens.get("command"),
-                    "python_file_count": python_lens.get("python_file_count", 0),
-                    "package_roots": python_lens.get("package_roots", []),
-                    "readiness_checks": python_lens.get("readiness_checks", []),
-                    "route_rows": python_lens.get("route_rows", []),
-                    "ready_route_count": python_lens.get("ready_route_count", 0),
-                    "evidence_ref": python_lens.get("evidence_ref"),
-                    "body_redacted": python_lens.get("body_redacted") is True,
-                },
+                "python_lens": _public_project_python_lens_payload(python_lens),
                 "causal_chain": {
                     "python_lens": {
                         "lens_id": python_lens.get("lens_id"),
@@ -12839,7 +12873,7 @@ class RuntimeShell:
           {row("Package roots", ", ".join([str(value) for value in project_python_lens.get("package_roots", [])]) if isinstance(project_python_lens.get("package_roots"), list) else "")}
           {row("Ready route count", project_python_lens.get("ready_route_count"))}
           {row("Evidence ref", project_python_lens.get("evidence_ref"))}
-          {row("Body redacted", project_python_lens.get("body_redacted") is True)}
+          {row("Payload boundary", _safe_text((project_python_lens.get("payload_boundary") or {}).get("boundary_id") if isinstance(project_python_lens.get("payload_boundary"), dict) else ""))}
         </table>
         <h3>Readiness checks</h3>
         {_badge_list([str(item.get("check_id")) + ":" + str(item.get("status")) for item in python_readiness_checks if isinstance(item, dict)])}
@@ -13622,7 +13656,12 @@ class RuntimeShell:
                 elif path == "/project/catalog" and project_path is not None:
                     self._send(200, project_substrate.catalog_project(project_path))
                 elif path == "/project/python-lens" and project_path is not None:
-                    self._send(200, project_substrate.python_lens(project_path))
+                    self._send(
+                        200,
+                        _public_project_python_lens_payload(
+                            project_substrate.python_lens(project_path)
+                        ),
+                    )
                 elif path == "/project/patterns" and project_path is not None:
                     self._send(200, project_substrate.discover_patterns(project_path))
                 elif path == "/project/routes" and project_path is not None:
