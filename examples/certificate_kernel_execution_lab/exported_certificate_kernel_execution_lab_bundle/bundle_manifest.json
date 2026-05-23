@@ -12,6 +12,7 @@
   ],
   "authority_boundary": "public_exported_bundle_for_certificate_kernel_execution_lab_not_release_authority",
   "proof_bodies_exported": false,
-  "body_redacted": true
+  "body_in_receipt": false,
+  "real_runtime_receipt": true,
+  "synthetic_receipt_standin_allowed": false
 }
-

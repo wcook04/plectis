@@ -6,7 +6,7 @@
     "schema_version": "certificate_kernel_execution_lab_lean_analyzer_v1",
     "source_refs_public_root_relative": true
   },
-  "anti_claim": "Certificate kernel execution lab runs a public replacement Lean certificate kernel in a temporary workspace, checks generated certificate rows, and records structured public CP2/Evolve rerun receipts with only dangerous payload fields omitted. It does not import macro proof bodies, export proof text, call providers, count oracle/provider output as proof, mutate source, claim benchmark solve-rate, or authorize release.",
+  "anti_claim": "Certificate kernel execution lab runs a source-available public Lean certificate kernel in a temporary workspace, checks generated certificate rows, and records structured public CP2/Evolve rerun receipts with only dangerous payload fields omitted. It does not import macro proof bodies, export proof text, call providers, count oracle/provider output as proof, mutate source, claim benchmark solve-rate, or authorize release.",
   "authority_ceiling": {
     "authority_ceiling": "bounded_public_certificate_kernel_execution_receipt_only",
     "benchmark_solve_rate_claim": false,
@@ -40,11 +40,11 @@
     "source_mutation_count": 0,
     "transition_count": 10
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "certificate_lab_id": "public_certificate_kernel_execution_lab_v2",
   "certificate_manifest_id": "public_certificate_kernel_v2",
   "command": "microcosm certificate-kernel-execution-lab readout",
-  "created_at": "2026-05-22T18:20:17+00:00",
+  "created_at": "2026-05-23T05:45:56+00:00",
   "dangerous_payload_absent": true,
   "dangerous_payload_fields_omitted": true,
   "evidence_refs": [
@@ -132,7 +132,9 @@
     }
   ],
   "readout_id": "certificate_kernel_execution_lab_runtime_readout",
+  "real_runtime_receipt": true,
   "receipt_transparency_contract": {
+    "body_in_receipt": false,
     "forbidden_payload_fields": [
       "proof_body",
       "raw_tactic_script",
@@ -144,8 +146,9 @@
       "stdout_body",
       "stderr_body"
     ],
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "real_substrate_default": true,
     "receipt_body_is_public_evidence": true,
-    "redaction_scope": "dangerous_payload_fields_only",
     "required_public_evidence_fields": [
       "theorem_or_declaration_names",
       "lean_lake_command_identity",
@@ -165,5 +168,6 @@
     "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
   },
   "schema_version": "certificate_kernel_execution_lab_public_readout_v1",
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

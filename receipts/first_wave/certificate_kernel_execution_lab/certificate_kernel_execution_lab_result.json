@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Certificate kernel execution lab runs a public replacement Lean certificate kernel in a temporary workspace, checks generated certificate rows, and records structured public CP2/Evolve rerun receipts with only dangerous payload fields omitted. It does not import macro proof bodies, export proof text, call providers, count oracle/provider output as proof, mutate source, claim benchmark solve-rate, or authorize release.",
+  "anti_claim": "Certificate kernel execution lab runs a source-available public Lean certificate kernel in a temporary workspace, checks generated certificate rows, and records structured public CP2/Evolve rerun receipts with only dangerous payload fields omitted. It does not import macro proof bodies, export proof text, call providers, count oracle/provider output as proof, mutate source, claim benchmark solve-rate, or authorize release.",
   "authority_ceiling": {
     "authority_ceiling": "bounded_public_certificate_kernel_execution_receipt_only",
     "benchmark_solve_rate_claim": false,
@@ -33,12 +33,12 @@
     "source_mutation_count": 0,
     "transition_count": 10
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": null,
   "certificate_lab_id": "public_certificate_kernel_execution_lab_v2",
   "certificate_manifest_id": "public_certificate_kernel_v2",
   "certificate_manifest_summary": {
-    "body_redacted": true,
+    "body_in_receipt": false,
     "certificate_schema": "NatSumCertificate(left,right,total) + BoundedOrderCertificate(base,period,modulus,witness)",
     "generated_certificate_count": 7,
     "manifest_id": "public_certificate_kernel_v2",
@@ -69,7 +69,7 @@
           "problem_id": "cert_8_13_21",
           "proof_body_exported": false,
           "provider_visible": false,
-          "stdout_stderr_redacted": true,
+          "stdout_stderr_in_receipt": false,
           "target_shape": "certificate_row_selection",
           "timed_out": false,
           "transition_id": "cp2_add_certificate_row_rerun",
@@ -108,7 +108,7 @@
           "problem_id": "order_cert_3_4_mod5",
           "proof_body_exported": false,
           "provider_visible": false,
-          "stdout_stderr_redacted": true,
+          "stdout_stderr_in_receipt": false,
           "target_shape": "bounded_order_certificate_row_selection",
           "timed_out": false,
           "transition_id": "cp2_add_order_certificate_row_rerun",
@@ -134,7 +134,7 @@
         "baseline_transition_ids": [
           "missing_certificate_row_residual"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "contract_rejected": false,
         "decision": "accepted",
         "error_codes": [],
@@ -154,7 +154,7 @@
         "baseline_transition_ids": [
           "missing_order_certificate_row_residual"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "contract_rejected": false,
         "decision": "accepted",
         "error_codes": [],
@@ -176,7 +176,7 @@
         "baseline_transition_ids": [
           "missing_certificate_row_residual"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "contract_rejected": false,
         "decision": "accepted",
         "error_codes": [],
@@ -196,7 +196,7 @@
         "baseline_transition_ids": [
           "missing_order_certificate_row_residual"
         ],
-        "body_redacted": true,
+        "body_in_receipt": false,
         "contract_rejected": false,
         "decision": "accepted",
         "error_codes": [],
@@ -226,7 +226,7 @@
         "problem_id": "cert_2_3_5",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "certificate_kernel_validation",
         "timed_out": false,
         "transition_id": "direct_certificate_check_2_3_5",
@@ -246,7 +246,7 @@
         "problem_id": "cert_4_7_11",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "generated_certificate_theorem",
         "timed_out": false,
         "transition_id": "direct_generated_certificate_theorem_4_7_11",
@@ -266,7 +266,7 @@
         "problem_id": "cert_8_13_21",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "certificate_row_selection",
         "timed_out": false,
         "transition_id": "cp2_add_certificate_row_rerun",
@@ -286,7 +286,7 @@
         "problem_id": "cert_8_13_21",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "certificate_row_selection",
         "timed_out": false,
         "transition_id": "evolve_certificate_policy_rerun",
@@ -306,7 +306,7 @@
         "problem_id": "order_cert_2_3_mod5",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "bounded_order_certificate_validation",
         "timed_out": false,
         "transition_id": "direct_order_certificate_check_2_3_mod5",
@@ -326,7 +326,7 @@
         "problem_id": "order_cert_3_4_mod5",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "bounded_order_certificate_row_selection",
         "timed_out": false,
         "transition_id": "cp2_add_order_certificate_row_rerun",
@@ -346,7 +346,7 @@
         "problem_id": "order_cert_3_4_mod5",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "bounded_order_certificate_row_selection",
         "timed_out": false,
         "transition_id": "evolve_order_certificate_policy_rerun",
@@ -382,7 +382,7 @@
         "problem_id": "bad_cert_2_3_6",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "certificate_kernel_validation",
         "timed_out": false,
         "transition_id": "bad_generated_certificate_rejected",
@@ -424,7 +424,7 @@
         "problem_id": "missing_cert_5_8_13",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "certificate_row_selection",
         "timed_out": false,
         "transition_id": "missing_certificate_row_residual",
@@ -442,7 +442,7 @@
         "problem_id": "missing_order_cert_7_11_mod13",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "bounded_order_certificate_row_selection",
         "timed_out": false,
         "transition_id": "missing_order_certificate_row_residual",
@@ -473,7 +473,7 @@
         "problem_id": "cert_8_13_21",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "certificate_row_selection",
         "timed_out": false,
         "transition_id": "cp2_add_certificate_row_rerun",
@@ -512,7 +512,7 @@
         "problem_id": "order_cert_3_4_mod5",
         "proof_body_exported": false,
         "provider_visible": false,
-        "stdout_stderr_redacted": true,
+        "stdout_stderr_in_receipt": false,
         "target_shape": "bounded_order_certificate_row_selection",
         "timed_out": false,
         "transition_id": "cp2_add_order_certificate_row_rerun",
@@ -531,7 +531,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-22T17:31:50+00:00",
+  "created_at": "2026-05-23T05:45:50+00:00",
   "error_codes": [
     "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
     "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
@@ -545,7 +545,7 @@
       "baseline_transition_ids": [
         "missing_certificate_row_residual"
       ],
-      "body_redacted": true,
+      "body_in_receipt": false,
       "contract_rejected": false,
       "decision": "accepted",
       "error_codes": [],
@@ -565,7 +565,7 @@
       "baseline_transition_ids": [
         "missing_order_certificate_row_residual"
       ],
-      "body_redacted": true,
+      "body_in_receipt": false,
       "contract_rejected": false,
       "decision": "accepted",
       "error_codes": [],
@@ -588,7 +588,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CERTIFICATE_KERNEL_EXECUTION_PRIVATE_SOURCE_REF_FORBIDDEN",
       "message": "Certificate manifests may not import private source paths or private macro bodies.",
       "negative_case_id": "certificate_manifest_private_source_ref",
@@ -596,7 +596,7 @@
       "subject_kind": "certificate_manifest"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CERTIFICATE_KERNEL_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
       "message": "CP2 negative fixture rejected proof bodies or raw tactic scripts.",
       "negative_case_id": "cp2_certificate_contains_proof_body",
@@ -604,7 +604,7 @@
       "subject_kind": "cp2_translation_request"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CERTIFICATE_KERNEL_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
       "message": "Evolve negative fixture rejected unbounded source mutation.",
       "negative_case_id": "evolve_certificate_mutates_source",
@@ -612,7 +612,7 @@
       "subject_kind": "evolve_mutation"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "CERTIFICATE_KERNEL_EXECUTION_PROVIDER_OR_ORACLE_VISIBLE",
       "message": "Forward certificate transition execution must not see oracle sidecars or provider hypothesis text.",
       "negative_case_id": "transition_provider_oracle_visible",
@@ -628,20 +628,20 @@
       "build",
       "MicrocosmCertificateLab"
     ],
-    "body_redacted": true,
     "cwd_name": "lake_project",
     "return_code": 0,
     "stderr_line_count": 2,
     "stdout_line_count": 5,
+    "stdout_stderr_in_receipt": false,
     "timed_out": false
   },
   "lean_analyzer_receipt": {
     "anti_claim": "Analyzer metadata records public declarations, imports, hashes, and line counts only; it does not export proof bodies or prove general theorem correctness.",
-    "body_redacted": true,
+    "body_in_receipt": false,
     "declaration_count": 23,
     "files": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "declarations": [
           "public_certificate_kernel_instance_2_3_5",
           "public_certificate_kernel_instance_4_7_11",
@@ -657,7 +657,7 @@
         "source_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/Basic.lean"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "declarations": [
           "BoundedOrderCertificate",
           "NatSumCertificate",
@@ -672,7 +672,7 @@
         "source_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "declarations": [
           "bad_cert_2_3_6",
           "bad_order_cert_4_2_mod5",
@@ -695,7 +695,7 @@
         "source_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "declarations": [],
         "imports": [
           "MicrocosmCertificateLab.Basic",
@@ -707,7 +707,7 @@
         "source_ref": "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab.lean"
       },
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "declarations": [],
         "imports": [
           "Lake"
@@ -744,15 +744,12 @@
     ]
   },
   "organ_id": "certificate_kernel_execution_lab",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 6,
-    "status": "pass"
-  },
+  "public_runtime_refs": [
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
+    "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/Basic.lean"
+  ],
+  "real_runtime_receipt": true,
   "receipt_id": "certificate_kernel_execution_lab_result_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
@@ -761,6 +758,7 @@
     "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
   ],
   "receipt_transparency_contract": {
+    "body_in_receipt": false,
     "forbidden_payload_fields": [
       "proof_body",
       "raw_tactic_script",
@@ -772,8 +770,9 @@
       "stdout_body",
       "stderr_body"
     ],
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "real_substrate_default": true,
     "receipt_body_is_public_evidence": true,
-    "redaction_scope": "dangerous_payload_fields_only",
     "required_public_evidence_fields": [
       "theorem_or_declaration_names",
       "lean_lake_command_identity",
@@ -793,7 +792,24 @@
     "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
   },
   "schema_version": "certificate_kernel_execution_lab_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 6,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "tool_versions": {
     "lake_available": true,
     "lake_version_command": {
@@ -801,11 +817,11 @@
         "lake",
         "--version"
       ],
-      "body_redacted": true,
       "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
+      "stdout_stderr_in_receipt": false,
       "timed_out": false
     },
     "lean_available": true,
@@ -814,11 +830,11 @@
         "lean",
         "--version"
       ],
-      "body_redacted": true,
       "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
+      "stdout_stderr_in_receipt": false,
       "timed_out": false
     }
   },
@@ -837,7 +853,7 @@
       "problem_id": "cert_2_3_5",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "certificate_kernel_validation",
       "timed_out": false,
       "transition_id": "direct_certificate_check_2_3_5",
@@ -857,7 +873,7 @@
       "problem_id": "cert_4_7_11",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "generated_certificate_theorem",
       "timed_out": false,
       "transition_id": "direct_generated_certificate_theorem_4_7_11",
@@ -875,7 +891,7 @@
       "problem_id": "missing_cert_5_8_13",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "certificate_row_selection",
       "timed_out": false,
       "transition_id": "missing_certificate_row_residual",
@@ -895,7 +911,7 @@
       "problem_id": "bad_cert_2_3_6",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "certificate_kernel_validation",
       "timed_out": false,
       "transition_id": "bad_generated_certificate_rejected",
@@ -915,7 +931,7 @@
       "problem_id": "cert_8_13_21",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "certificate_row_selection",
       "timed_out": false,
       "transition_id": "cp2_add_certificate_row_rerun",
@@ -935,7 +951,7 @@
       "problem_id": "cert_8_13_21",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "certificate_row_selection",
       "timed_out": false,
       "transition_id": "evolve_certificate_policy_rerun",
@@ -955,7 +971,7 @@
       "problem_id": "order_cert_2_3_mod5",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "bounded_order_certificate_validation",
       "timed_out": false,
       "transition_id": "direct_order_certificate_check_2_3_mod5",
@@ -973,7 +989,7 @@
       "problem_id": "missing_order_cert_7_11_mod13",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "bounded_order_certificate_row_selection",
       "timed_out": false,
       "transition_id": "missing_order_certificate_row_residual",
@@ -993,7 +1009,7 @@
       "problem_id": "order_cert_3_4_mod5",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "bounded_order_certificate_row_selection",
       "timed_out": false,
       "transition_id": "cp2_add_order_certificate_row_rerun",
@@ -1013,7 +1029,7 @@
       "problem_id": "order_cert_3_4_mod5",
       "proof_body_exported": false,
       "provider_visible": false,
-      "stdout_stderr_redacted": true,
+      "stdout_stderr_in_receipt": false,
       "target_shape": "bounded_order_certificate_row_selection",
       "timed_out": false,
       "transition_id": "evolve_order_certificate_policy_rerun",

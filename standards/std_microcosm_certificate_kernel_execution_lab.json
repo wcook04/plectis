@@ -36,7 +36,7 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
     "transition_trace",
     "cp2_translation_trace",
     "evolve_mutation_trace",
@@ -57,7 +57,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.certificate_kernel_execution_lab",
-    "receipt must cite certificate ids, source refs, source pattern ids, projection receipts, transition trace, CP2 translation trace, Evolve mutation trace, authority counters, receipt transparency contract, private-state scan, negative-case coverage, and anti-claim"
+    "receipt must cite certificate ids, source refs, source pattern ids, projection receipts, public runtime refs, transition trace, CP2 translation trace, Evolve mutation trace, authority counters, receipt transparency contract, secret-exclusion scan, negative-case coverage, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -89,12 +89,15 @@
       "authority_ceiling",
       "receipt_transparency_contract",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_receipts_are_structured_and_only_dangerous_payload_fields_are_omitted",
+    "default_posture": "source_open_when_receipts_are_structured_and_only_proof_provider_oracle_private_source_stdout_stderr_bodies_are_omitted",
     "allowed_public_inputs": [
       "certificate lab ids",
       "certificate manifest ids",
@@ -174,9 +177,11 @@
   },
   "receipt_transparency_contract": {
     "required": true,
-    "rule": "receipts are public evidence; only dangerous private/proof/provider/oracle/stdout payload fields are redacted or omitted",
+    "rule": "receipts are public evidence; only proof/provider/oracle/private-source/stdout payload bodies are omitted",
     "receipt_body_is_public_evidence": true,
-    "redaction_scope": "dangerous_payload_fields_only",
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "body_in_receipt": false,
+    "real_substrate_default": true,
     "must_expose": [
       "theorem and declaration names",
       "Lean/Lake command identity",
@@ -207,7 +212,7 @@
     "command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab"
   },
   "receipt_id": "receipt.microcosm.certificate_kernel_execution_lab",
-  "anti_claim": "This standard governs a public certificate-kernel fixture and verifier-lab execution receipt. It does not import macro proof bodies, certify general theorem correctness, call providers, authorize release, or claim benchmark solve-rate.",
+  "anti_claim": "This standard governs a source-available public certificate-kernel fixture and verifier-lab execution receipt. It does not import macro proof bodies, certify general theorem correctness, call providers, authorize release, or claim benchmark solve-rate.",
   "omission_receipt": {
     "omitted": [
       "macro Erdos257 proof body",

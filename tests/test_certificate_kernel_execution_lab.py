@@ -66,7 +66,10 @@ def test_certificate_kernel_execution_lab_runs_lean_cp2_evolve_and_analyzer(
 
     transparency = result["receipt_transparency_contract"]
     assert transparency["receipt_body_is_public_evidence"] is True
-    assert transparency["redaction_scope"] == "dangerous_payload_fields_only"
+    assert transparency["omitted_payload_scope"] == (
+        "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only"
+    )
+    assert transparency["body_in_receipt"] is False
     assert "theorem_or_declaration_names" in transparency["required_public_evidence_fields"]
     assert "proof_body" in transparency["forbidden_payload_fields"]
     assert "provider_text" in transparency["forbidden_payload_fields"]
@@ -121,6 +124,17 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
     assert result["authority_counters"]["cp2_downstream_effect_count"] == 2
     assert result["authority_counters"]["evolve_accepted_count"] == 2
     assert result["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert all(
+        ref.startswith(
+            "examples/certificate_kernel_execution_lab/"
+            "exported_certificate_kernel_execution_lab_bundle/"
+        )
+        for ref in result["public_runtime_refs"]
+    )
 
 
 def test_certificate_kernel_execution_lab_receipts_are_transparent_without_bodies(
@@ -135,9 +149,14 @@ def test_certificate_kernel_execution_lab_receipts_are_transparent_without_bodie
 
     assert payload["status"] == "pass"
     assert payload["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
-    assert payload["receipt_transparency_contract"]["redaction_scope"] == (
-        "dangerous_payload_fields_only"
+    assert payload["receipt_transparency_contract"]["omitted_payload_scope"] == (
+        "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only"
     )
+    assert payload["body_in_receipt"] is False
+    assert payload["real_runtime_receipt"] is True
+    assert payload["synthetic_receipt_standin_allowed"] is False
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["lean_analyzer_receipt"]["declaration_count"] >= 20
     assert all(
         "/private/" not in row["source_ref"]
@@ -145,10 +164,10 @@ def test_certificate_kernel_execution_lab_receipts_are_transparent_without_bodie
     )
     assert payload["transition_trace"][0]["problem_id"] == "cert_2_3_5"
     assert payload["transition_trace"][0]["lean_return_code"] == 0
-    assert payload["private_state_scan"]["body_redacted"] is True
-    assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert payload["provider_calls_authorized"] is False
     assert payload["source_mutation_authorized"] is False
+    assert "private_state_scan" not in payload
+    assert "body_redacted" not in payload
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
@@ -198,12 +217,16 @@ def test_certificate_kernel_execution_lab_public_readout_is_cold_reader_route(
     assert counters["source_mutation_count"] == 0
     assert readout["dangerous_payload_absent"] is True
     assert readout["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
+    assert readout["body_in_receipt"] is False
+    assert readout["real_runtime_receipt"] is True
+    assert readout["synthetic_receipt_standin_allowed"] is False
     text = json.dumps(readout, sort_keys=True)
     assert "/private/" not in text
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
     assert "proof_body" not in _walk_keys(readout)
     assert "provider_text" not in _walk_keys(readout)
+    assert "body_redacted" not in _walk_keys(readout)
 
 
 def test_certificate_kernel_execution_lab_readout_out_keeps_repo_root_path(

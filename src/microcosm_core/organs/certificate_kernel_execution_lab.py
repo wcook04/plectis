@@ -11,7 +11,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -137,7 +137,9 @@ AUTHORITY_CEILING = {
 RECEIPT_TRANSPARENCY_CONTRACT = {
     "schema_version": "verifier_lab_receipt_transparency_contract_v1",
     "receipt_body_is_public_evidence": True,
-    "redaction_scope": "dangerous_payload_fields_only",
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "body_in_receipt": False,
+    "real_substrate_default": True,
     "required_public_evidence_fields": [
         "theorem_or_declaration_names",
         "lean_lake_command_identity",
@@ -167,7 +169,7 @@ RECEIPT_TRANSPARENCY_CONTRACT = {
     "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted",
 }
 ANTI_CLAIM = (
-    "Certificate kernel execution lab runs a public replacement Lean certificate "
+    "Certificate kernel execution lab runs a source-available public Lean certificate "
     "kernel in a temporary workspace, checks generated certificate rows, and "
     "records structured public CP2/Evolve rerun receipts with only dangerous "
     "payload fields omitted. It does not import macro proof bodies, export proof "
@@ -187,7 +189,7 @@ class CertificateTransitionReceipt:
     lean_return_code: int | None
     accepted: bool
     verifier_failure_class: str
-    stdout_stderr_redacted: bool
+    stdout_stderr_in_receipt: bool
     oracle_visible: bool
     provider_visible: bool
     proof_body_exported: bool
@@ -307,7 +309,7 @@ def _analyze_lean_project(
                 "line_count": len(text.splitlines()),
                 "declarations": declarations,
                 "imports": file_imports,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -319,7 +321,7 @@ def _analyze_lean_project(
         "generated_certificates_separate_from_kernel": True,
         "profile_timing_available": False,
         "anti_claim": "Analyzer metadata records public declarations, imports, hashes, and line counts only; it does not export proof bodies or prove general theorem correctness.",
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -369,7 +371,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -414,7 +416,7 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
             "stdout_line_count": len(completed.stdout.splitlines()),
             "stderr_line_count": len(completed.stderr.splitlines()),
             "timed_out": False,
-            "body_redacted": True,
+            "stdout_stderr_in_receipt": False,
         }
     except subprocess.TimeoutExpired as exc:
         return {
@@ -424,7 +426,7 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
             "stdout_line_count": len((exc.stdout or "").splitlines()),
             "stderr_line_count": len((exc.stderr or "").splitlines()),
             "timed_out": True,
-            "body_redacted": True,
+            "stdout_stderr_in_receipt": False,
         }
 
 
@@ -600,7 +602,7 @@ def _execute_transition(
             lean_return_code=None,
             accepted=False,
             verifier_failure_class="CONTRACT_REJECTED",
-            stdout_stderr_redacted=True,
+            stdout_stderr_in_receipt=False,
             oracle_visible=row.get("oracle_visible") is True,
             provider_visible=row.get("provider_visible") is True,
             proof_body_exported=False,
@@ -624,7 +626,7 @@ def _execute_transition(
         verifier_failure_class="NONE"
         if accepted
         else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL"),
-        stdout_stderr_redacted=True,
+        stdout_stderr_in_receipt=False,
         oracle_visible=False,
         provider_visible=False,
         proof_body_exported=False,
@@ -763,7 +765,7 @@ def _run_evolve(
                 "accepted": accepted,
                 "contract_rejected": bool(codes),
                 "error_codes": codes,
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return rows
@@ -878,15 +880,13 @@ def _build_result(
         if (input_dir / name).is_file()
     }
     input_paths = _input_paths(input_dir, include_negative=include_negative)
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         input_paths,
         forbidden_classes=load_forbidden_classes(
             public_root / "core/private_state_forbidden_classes.json"
         ),
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
     tool_versions = _tool_versions()
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = {}
@@ -956,7 +956,7 @@ def _build_result(
     bundle_manifest = _load_json_if_exists(input_dir / "bundle_manifest.json")
     status = (
         PASS
-        if private_scan["blocking_hit_count"] == 0
+        if secret_scan["blocking_hit_count"] == 0
         and tool_versions["lean_available"]
         and tool_versions["lake_available"]
         and lake_project_build is not None
@@ -987,7 +987,7 @@ def _build_result(
         "source_refs": _strings(packet.get("source_refs")),
         "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
         "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
-        "public_replacement_refs": _strings(packet.get("public_replacement_refs")),
+        "public_runtime_refs": _strings(packet.get("public_runtime_refs")),
         "expected_negative_cases": sorted(expected),
         "observed_negative_cases": observed_cases,
         "missing_negative_cases": missing,
@@ -1001,7 +1001,7 @@ def _build_result(
                 str(row.get("error_code") or ""),
             ),
         ),
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "tool_versions": tool_versions,
         "lake_project_build": lake_project_build,
         "lean_analyzer_receipt": analyzer_receipt,
@@ -1019,7 +1019,7 @@ def _build_result(
                 ]
             ),
             "proof_bodies_exported": False,
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
         "transition_trace": [asdict(row) for row in transitions],
         "cp2_translation_trace": cp2_translations,
@@ -1062,7 +1062,9 @@ def _build_result(
         "authority_ceiling": AUTHORITY_CEILING,
         "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -1087,7 +1089,7 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "tool_versions",
         "lake_project_build",
         "lean_analyzer_receipt",
@@ -1100,7 +1102,10 @@ def _common_receipt(
         "authority_ceiling",
         "receipt_transparency_contract",
         "anti_claim",
-        "body_redacted",
+        "body_in_receipt",
+        "real_runtime_receipt",
+        "synthetic_receipt_standin_allowed",
+        "public_runtime_refs",
     )
     payload = {
         "schema_version": schema_version,
@@ -1205,7 +1210,10 @@ def write_receipts(
             "source_mutation_authorized": False,
             "macro_private_body_import_authorized": False,
             "receipt_body_is_public_evidence": True,
-            "redaction_scope": "dangerous_payload_fields_only",
+            "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+            "body_in_receipt": False,
+            "real_runtime_receipt": result["status"] == PASS,
+            "synthetic_receipt_standin_allowed": False,
             "release_authorized": False,
         }
     )
@@ -1446,7 +1454,9 @@ def build_public_readout(
         "authority_ceiling": result.get("authority_ceiling", AUTHORITY_CEILING),
         "anti_claim": result.get("anti_claim", ANTI_CLAIM),
         "evidence_refs": evidence_refs,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
     if out is not None:
         out_path = _public_readout_output_path(out, public_root=root)

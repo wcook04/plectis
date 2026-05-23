@@ -20,7 +20,7 @@
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json"
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/lake_project/MicrocosmCertificateLab/Basic.lean"
@@ -247,5 +247,5 @@
     "source_mutation_authorized": false,
     "private_body_import_authorized": false
   },
-  "anti_claim": "This packet exercises a public replacement certificate-kernel fixture under verifier-lab authority only. It does not import macro proof bodies, expose proof text, call providers, mutate source, or claim benchmark solve-rate."
+  "anti_claim": "This packet exercises a source-available public certificate-kernel fixture under verifier-lab authority only. It does not import macro proof bodies, expose proof text, call providers, mutate source, or claim benchmark solve-rate."
 }

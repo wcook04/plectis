@@ -98,9 +98,9 @@
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json::lean_certificate_kernel_body_import",
     "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
   ],
-  "lineage_boundary": "macro_pattern_transfer_public_replacement_no_private_body_import",
+  "lineage_boundary": "macro_pattern_transfer_source_available_public_runtime_refactor_no_private_body_import",
   "proof_bodies_exported": false,
-  "body_redacted": true,
+  "body_in_receipt": false,
   "certificate_schemas": [
     "NatSumCertificate(left,right,total)",
     "BoundedOrderCertificate(base,period,modulus,witness)"
