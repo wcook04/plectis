@@ -5,7 +5,7 @@
     "Nat.add_comm"
   ],
   "allowed_premise_ids": [
-    "premise.nat.add_comm"
+    "premise_nat_add_comm"
   ],
   "cited_unallowed_premise_ids": [],
   "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",

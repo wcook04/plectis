@@ -8,5 +8,6 @@
   "cited_unallowed_premise_ids": [],
   "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
   "review_outcome": "bridge_escalate",
-  "claims_theorem_correctness": true
+  "claims_theorem_correctness": true,
+  "anti_claim": "Regression-only negative case; classifier receipts are not theorem correctness authority."
 }

@@ -8,11 +8,12 @@
     "theorem_correctness_overclaim",
     "unqualified_symbol_overclaim"
   ],
-  "anti_claim": "Undeclared library prior symbol classifier validates redacted public symbol observation metadata against a closed premise index. It does not run Lean or Lake, prove theorem correctness, expose proof bodies or private source refs, call providers, turn the whole library into an allowlist, or authorize release.",
+  "anti_claim": "Undeclared library prior symbol classifier validates copied non-secret Lean/Std premise rows and Ring2 symbol-boundary observations with a Mathlib-absent toolchain boundary. It does not run Lean or Lake, prove theorem correctness, expose proof bodies or private source refs, call providers, turn the whole library into an allowlist, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "public_redacted_symbol_observation_metadata_only",
+    "authority_ceiling": "real_lean_std_symbol_boundary_not_theorem_authority",
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
+    "mathlib_absence_is_probe_result": true,
     "premise_budget_retry_authority": false,
     "private_source_refs_allowed": false,
     "proof_bodies_allowed": false,
@@ -21,7 +22,9 @@
     "status": "pass",
     "theorem_correctness_authority": false
   },
-  "created_at": "2026-05-22T01:38:40+00:00",
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "created_at": "2026-05-23T07:02:07+00:00",
   "error_codes": [
     "SYMBOL_CLASSIFIER_ALLOWED_SYMBOL_FALSE_POSITIVE",
     "SYMBOL_CLASSIFIER_PREMISE_BUDGET_PRECEDENCE",
@@ -34,22 +37,46 @@
   "fixture_id": "first_wave.undeclared_library_prior_symbol_classifier",
   "missing_negative_cases": [],
   "organ_id": "undeclared_library_prior_symbol_classifier",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 11,
-    "status": "pass"
-  },
+  "real_substrate_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json"
+  ],
   "receipt_paths": [
     "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_result.json",
     "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_board.json",
     "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
   ],
   "schema_version": "undeclared_library_prior_symbol_classifier_fixture_acceptance_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "body_material_status": "secret_exclusion_scan_no_proof_or_provider_bodies",
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 11,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_digests": {
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json": "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json": "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+  },
   "status": "pass",
+  "symbol_boundary_status": "real_lean_std_symbol_boundary_and_mathlib_absence_context",
+  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
   "validator_id": "validator.microcosm.organs.undeclared_library_prior_symbol_classifier"
 }

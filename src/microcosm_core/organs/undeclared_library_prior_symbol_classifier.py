@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -30,6 +30,41 @@ ACCEPTANCE_RECEIPT_REL = (
     "undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_symbol_classifier_bundle_validation_result.json"
+
+SOURCE_REFS = [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+]
+RECEIPT_ANCHOR_REFS = [
+    "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+]
+SOURCE_TARGET_REFS = [
+    "microcosm-substrate/fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_index.json",
+    "microcosm-substrate/fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
+    "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/premise_index.json",
+    "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/symbol_observations.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_result.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_board.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
+    ACCEPTANCE_RECEIPT_REL,
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle_validation_result.json",
+]
+SOURCE_DIGESTS = {
+    SOURCE_REFS[0]: "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    SOURCE_REFS[1]: "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    SOURCE_REFS[2]: "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+    SOURCE_REFS[3]: "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
+    SOURCE_REFS[4]: "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb",
+}
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+SYMBOL_BOUNDARY_STATUS = "real_lean_std_symbol_boundary_and_mathlib_absence_context"
+TOOLCHAIN_BOUNDARY_STATUS = "real_lean_4_29_1_std_mathlib_absence_probe"
+BODY_IN_RECEIPT = False
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -82,10 +117,11 @@ RETRY_OUTCOME = "retry"
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "public_redacted_symbol_observation_metadata_only",
+    "authority_ceiling": "real_lean_std_symbol_boundary_not_theorem_authority",
     "formal_proof_authority": False,
     "theorem_correctness_authority": False,
     "lean_lake_execution_authorized": False,
+    "mathlib_absence_is_probe_result": True,
     "proof_bodies_allowed": False,
     "private_source_refs_allowed": False,
     "provider_calls_authorized": False,
@@ -93,11 +129,11 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Undeclared library prior symbol classifier validates redacted public symbol "
-    "observation metadata against a closed premise index. It does not run Lean "
-    "or Lake, prove theorem correctness, expose proof bodies or private source "
-    "refs, call providers, turn the whole library into an allowlist, or "
-    "authorize release."
+    "Undeclared library prior symbol classifier validates copied non-secret "
+    "Lean/Std premise rows and Ring2 symbol-boundary observations with a "
+    "Mathlib-absent toolchain boundary. It does not run Lean or Lake, prove "
+    "theorem correctness, expose proof bodies or private source refs, call "
+    "providers, turn the whole library into an allowlist, or authorize release."
 )
 
 
@@ -159,7 +195,8 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_material_status": "negative_fixture_forbidden_material_excluded",
     }
 
 
@@ -225,14 +262,22 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    source_targets = _strings(protocol.get("source_target_refs"))
+    receipt_anchors = _strings(protocol.get("receipt_anchor_refs"))
+    source_digests = protocol.get("source_digests", {})
     omitted = _rows(protocol, "omitted_material")
     findings: list[dict[str, Any]] = []
-    if len(source_refs) < 3 or len(source_pattern_ids) < 3 or len(public_replacements) < 3:
+    if (
+        len(source_refs) < 3
+        or len(source_pattern_ids) < 3
+        or len(source_targets) < 3
+        or not isinstance(source_digests, dict)
+        or not source_digests
+    ):
         findings.append(
             _finding(
                 "SYMBOL_CLASSIFIER_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Symbol classifier projection must cite source refs, pattern ids, and public replacements.",
+                "Symbol classifier projection must cite real source refs, pattern ids, target refs, and source digests.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -254,14 +299,20 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         if source_refs
         and source_pattern_ids
         and projection_receipts
-        and public_replacements
+        and source_targets
+        and isinstance(source_digests, dict)
+        and source_digests
         and not findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "source_target_refs": source_targets,
+        "receipt_anchor_refs": receipt_anchors,
+        "source_digests": {str(key): str(value) for key, value in sorted(source_digests.items())}
+        if isinstance(source_digests, dict)
+        else {},
         "omitted_material_count": len(omitted),
         "findings": findings,
         "observed_negative_cases": {},
@@ -317,7 +368,10 @@ def validate_premise_index(payload: object) -> dict[str, Any]:
                 "namespace": namespace,
                 "source_ref": source_ref,
                 "allowed_for_split": _strings(row.get("allowed_for_split")),
-                "body_redacted": True,
+                "body_in_receipt": BODY_IN_RECEIPT,
+                "body_material_status": str(
+                    row.get("body_material_status") or "imported_premise_index_row"
+                ),
             }
         )
     return {
@@ -364,7 +418,7 @@ def _qualified_refs(row: dict[str, Any]) -> list[str]:
     values: list[str] = []
     for key in (
         "proof_symbol_refs",
-        "redacted_symbol_refs",
+        "observed_symbol_refs",
         "library_priors_used",
         "undeclared_library_prior_symbols",
     ):
@@ -376,7 +430,7 @@ def _unqualified_refs(row: dict[str, Any]) -> list[str]:
     values: list[str] = []
     for key in (
         "proof_symbol_refs",
-        "redacted_symbol_refs",
+        "observed_symbol_refs",
         "library_priors_used",
         "undeclared_library_prior_symbols",
     ):
@@ -519,7 +573,9 @@ def _classify_row(
         "computed_review_outcome": computed_outcome,
         "asserted_failure_class": asserted_class,
         "asserted_review_outcome": asserted_outcome,
-        "body_redacted": True,
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "symbol_boundary_status": SYMBOL_BOUNDARY_STATUS,
     }
 
 
@@ -595,13 +651,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_proof_or_provider_bodies"
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     premise_index = validate_premise_index(payloads["premise_index"])
@@ -625,7 +680,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
         and premise_index["status"] == PASS
         and classifier_policy["status"] == PASS
@@ -647,14 +702,21 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "symbol_boundary_status": SYMBOL_BOUNDARY_STATUS,
+        "toolchain_boundary_status": TOOLCHAIN_BOUNDARY_STATUS,
+        "body_in_receipt": BODY_IN_RECEIPT,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "receipt_anchor_refs": projection["receipt_anchor_refs"],
+        "source_target_refs": projection["source_target_refs"],
+        "source_digests": projection["source_digests"],
+        "real_substrate_refs": projection["source_refs"],
         "premise_count": premise_index["premise_count"],
         "namespace_count": premise_index["namespace_count"],
         "classification_count": observations["classification_count"],
@@ -676,6 +738,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "board_id": "undeclared_library_prior_symbol_classifier_public_board",
         "input_mode": result["input_mode"],
         "source_pattern_ids": result["source_pattern_ids"],
+        "body_material_status": result["body_material_status"],
+        "symbol_boundary_status": result["symbol_boundary_status"],
+        "toolchain_boundary_status": result["toolchain_boundary_status"],
+        "body_in_receipt": BODY_IN_RECEIPT,
         "mechanics": [
             {
                 "mechanic_id": "closed_premise_boundary",
@@ -697,8 +763,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "qualified_symbol_regex": result["qualified_symbol_regex"],
         "formal_proof_authority": False,
         "theorem_correctness_authority": False,
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "real_substrate_refs": result["real_substrate_refs"],
+        "receipt_anchor_refs": result["receipt_anchor_refs"],
+        "source_target_refs": result["source_target_refs"],
+        "source_digests": result["source_digests"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -756,7 +825,15 @@ def _write_receipts(
         "retry_count": result["retry_count"],
         "formal_proof_authority": False,
         "theorem_correctness_authority": False,
-        "private_state_scan": result["private_state_scan"],
+        "body_material_status": result["body_material_status"],
+        "symbol_boundary_status": result["symbol_boundary_status"],
+        "toolchain_boundary_status": result["toolchain_boundary_status"],
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "real_substrate_refs": result["real_substrate_refs"],
+        "receipt_anchor_refs": result["receipt_anchor_refs"],
+        "source_target_refs": result["source_target_refs"],
+        "source_digests": result["source_digests"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -771,7 +848,13 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "body_material_status": result["body_material_status"],
+        "symbol_boundary_status": result["symbol_boundary_status"],
+        "toolchain_boundary_status": result["toolchain_boundary_status"],
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "real_substrate_refs": result["real_substrate_refs"],
+        "source_digests": result["source_digests"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

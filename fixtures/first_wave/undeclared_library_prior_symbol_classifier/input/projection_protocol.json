@@ -1,38 +1,61 @@
 {
-  "schema_version": "undeclared_library_prior_symbol_classifier_projection_protocol_v1",
-  "protocol_id": "undeclared_library_prior_symbol_classifier_public_fixture",
+  "schema_version": "undeclared_library_prior_symbol_classifier_projection_protocol_v2",
+  "protocol_id": "undeclared_library_prior_symbol_classifier_real_lean_std_boundary",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "symbol_boundary_status": "real_lean_std_symbol_boundary_and_mathlib_absence_context",
+  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
   "source_refs": [
-    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::undeclared_library_prior_symbol_classifier",
-    "tools/meta/factory/reduce_prover_provider_receipts.py::failure_classification",
-    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::formal_prover_context_library_prior_and_strategy_gate",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json": "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json": "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb"
+  },
+  "source_target_refs": [
+    "microcosm-substrate/fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_index.json",
+    "microcosm-substrate/fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
+    "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/premise_index.json",
+    "microcosm-substrate/examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/symbol_observations.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_result.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_board.json",
+    "microcosm-substrate/receipts/first_wave/undeclared_library_prior_symbol_classifier/undeclared_library_prior_symbol_classifier_validation_receipt.json",
+    "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle_validation_result.json"
+  ],
+  "receipt_anchor_refs": [
+    "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json"
   ],
   "source_pattern_ids": [
     "undeclared_library_prior_symbol_classifier",
-    "lean_verifier_feedback_failure_classification",
     "lean_std_toolchain_premise_index",
-    "provider_context_recipe_budget_policy"
+    "ring2_premise_retrieval_problem_rows",
+    "corpus_readiness_mathlib_absence_boundary",
+    "tactic_portfolio_availability_probe"
   ],
   "projection_receipt_refs": [
-    "receipts/runtime_shell/public_proof_loop_depth_lens.json",
-    "receipts/runtime_shell/public_projection_safety_audit_lens.json"
-  ],
-  "public_replacement_refs": [
-    "src/microcosm_core/organs/undeclared_library_prior_symbol_classifier.py",
-    "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
-    "paper_modules/undeclared_library_prior_classifier.md",
-    "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json"
+    "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json"
   ],
   "omitted_material": [
     {
       "material_id": "proof_bodies",
-      "omission_receipt_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
-      "replacement": "proof_body_hash plus redacted qualified symbol refs only"
+      "omission_receipt_ref": "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+      "replacement": "candidate_artifact_sha256 plus extracted qualified symbol refs only"
     },
     {
       "material_id": "provider_payloads",
-      "omission_receipt_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
-      "replacement": "typed reducer receipt fields only"
+      "omission_receipt_ref": "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+      "replacement": "no provider calls in the cited Ring2 run rows"
     }
   ]
 }

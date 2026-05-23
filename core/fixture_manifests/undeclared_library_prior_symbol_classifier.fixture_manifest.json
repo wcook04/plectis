@@ -6,19 +6,19 @@
   "inputs": [
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/projection_protocol.json",
-      "role": "macro-to-public projection protocol with omission receipts"
+      "role": "real source refs, source digests, target refs, and omission receipts"
     },
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/premise_index.json",
-      "role": "closed public Lean/Std premise symbol index"
+      "role": "copied non-secret Lean/Std premise symbol index with provenance"
     },
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/symbol_observations.json",
-      "role": "positive redacted symbol-observation receipts"
+      "role": "positive real Ring2 symbol-boundary rows with candidate artifact digests"
     },
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/classifier_policy.json",
-      "role": "classifier policy and review-outcome contract"
+      "role": "classifier policy and review-outcome contract over real symbol-boundary substrate"
     },
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/proof_body_leakage.json",
@@ -75,6 +75,43 @@
     "SYMBOL_CLASSIFIER_UNQUALIFIED_SYMBOL_OVERCLAIM",
     "SYMBOL_CLASSIFIER_THEOREM_CORRECTNESS_OVERCLAIM"
   ],
-  "authority_ceiling": "public redacted symbol-observation metadata only; not theorem correctness, Lean/Lake execution, proof bodies, private source refs, provider calls, or release readiness",
-  "anti_claim": "This fixture validates public redacted symbol observations against a closed premise index only; it does not prove theorem correctness, expose proof bodies, widen Lean/Lake execution, or authorize release."
+  "authority_ceiling": "real Lean/Std symbol-boundary receipt only; not theorem correctness, Lean/Lake execution, proof bodies, private source refs, provider calls, or release readiness",
+  "anti_claim": "This fixture validates copied non-secret Lean/Std symbol-boundary substrate and regression-only leakage guards; it does not prove theorem correctness, expose proof bodies, widen Lean/Lake execution, or authorize release.",
+  "status": "real_substrate_contract_bound",
+  "purpose": "Validate copied non-secret Lean/Std premise and Ring2 symbol-boundary substrate for undeclared library-prior classification, premise-budget precedence, and Mathlib-absence boundary context without exposing proof bodies or private refs.",
+  "receipt_field_floor": [
+    "schema_version",
+    "organ_id",
+    "fixture_id",
+    "validator_id",
+    "command",
+    "status",
+    "source_pattern_ids",
+    "source_refs",
+    "source_digests",
+    "source_target_refs",
+    "receipt_anchor_refs",
+    "body_material_status",
+    "symbol_boundary_status",
+    "toolchain_boundary_status",
+    "body_in_receipt",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "anti_claim",
+    "secret_exclusion_scan",
+    "authority_ceiling",
+    "receipt_paths",
+    "premise_count",
+    "classification_count",
+    "symbol_classifier_board"
+  ],
+  "secret_exclusion_rules": {
+    "proof_bodies": "forbidden; negative fixtures may carry regression-only forbidden-key rows and generated receipts may record key names only",
+    "provider_payload_bodies": "forbidden",
+    "oracle_ids": "forbidden outside proof-authority scope",
+    "private_source_refs": "forbidden except public-safe macro lineage refs and digests",
+    "lean_lake": "not executed by this organ; receipts carry copied run output and symbol-boundary refs only"
+  }
 }

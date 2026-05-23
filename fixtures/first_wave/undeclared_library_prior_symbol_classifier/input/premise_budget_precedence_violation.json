@@ -5,10 +5,10 @@
     "Nat.add_comm"
   ],
   "allowed_premise_ids": [
-    "premise.list.append_assoc"
+    "premise_nat_add_assoc"
   ],
   "cited_unallowed_premise_ids": [
-    "premise.nat.add_comm"
+    "premise_nat_add_comm"
   ],
   "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
   "review_outcome": "bridge_escalate"

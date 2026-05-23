@@ -6,17 +6,42 @@
   "status": "draft",
   "first_wave_required": true,
   "wave": "w1_undeclared_library_prior_symbol_classifier",
-  "authority_boundary": "public_redacted_symbol_observation_metadata_not_theorem_authority",
+  "authority_boundary": "real_lean_std_symbol_boundary_not_theorem_authority",
   "source_refs": [
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "field": "premise_index",
+      "role": "macro_premise_index_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "field": "problem_results",
+      "role": "ring2_problem_symbol_boundary_source"
+    },
+    {
+      "path": "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+      "field": "premises",
+      "role": "copied_non_secret_macro_body_source"
+    },
+    {
+      "path": "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+      "field": "corpus_readiness",
+      "role": "mathlib_absence_boundary_anchor"
+    },
+    {
+      "path": "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+      "field": "tactic_portfolio_availability",
+      "role": "tactic_affordance_anchor"
+    },
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/projection_protocol.json",
       "field": "projection_protocol",
-      "role": "public_fixture_source"
+      "role": "real_substrate_fixture_target"
     },
     {
       "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle",
       "field": "runtime_example",
-      "role": "runtime_example_source"
+      "role": "runtime_example_target"
     }
   ],
   "relationships": {
@@ -33,18 +58,24 @@
   "required_fields": [
     "protocol_id",
     "source_refs",
+    "source_digests",
+    "source_target_refs",
+    "receipt_anchor_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
     "premise_index",
     "symbol_observations",
     "classifier_policy",
+    "body_material_status",
+    "symbol_boundary_status",
+    "toolchain_boundary_status",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "anti_claim"
   ],
   "validation_rules": [
-    "require macro projection protocol refs and public replacement refs",
-    "require a closed premise index with qualified theorem_or_def_name fields",
+    "require real Lean/Std premise source refs, source digests, and copied target refs",
+    "require a closed premise index with qualified theorem_or_def_name fields from the imported Lean/Std premise substrate",
     "classify known qualified symbols outside allowed_premise_ids as UNDECLARED_LIBRARY_PRIOR",
     "route undeclared library priors to bridge_escalate",
     "short-circuit cited_unallowed_premise_ids to PREMISE_BUDGET_VIOLATION",
@@ -52,11 +83,11 @@
     "reject allowed-symbol false positives",
     "reject unqualified symbol overclaims",
     "reject theorem-correctness authority claims",
-    "emit private-state scan and redacted receipts"
+    "emit secret-exclusion scans and provenance-bearing receipts over copied non-secret symbol-boundary substrate"
   ],
   "receipt_expectations": [
     "receipt.microcosm.undeclared_library_prior_symbol_classifier",
-    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, premise counts, classification counts, bridge-escalation counts, premise-budget precedence counts, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite real source refs, source digests, target refs, receipt anchors, premise counts, classification counts, bridge-escalation counts, premise-budget precedence counts, negative-case coverage, secret-exclusion scan, body material status, symbol/toolchain boundary status, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -82,30 +113,38 @@
       "protocol_id",
       "source_pattern_ids",
       "source_refs",
+      "source_digests",
+      "source_target_refs",
+      "receipt_anchor_refs",
       "projection_receipt_refs",
-      "public_replacement_refs",
       "premise_count",
       "classification_count",
       "undeclared_library_prior_count",
       "premise_budget_precedence_count",
       "bridge_escalation_count",
+      "body_material_status",
+      "symbol_boundary_status",
+      "toolchain_boundary_status",
+      "body_in_receipt",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_symbol_observation_fixture_receipt_only",
+    "default_posture": "public_safe_when_copied_non_secret_symbol_boundary_substrate_has_provenance_and_secret_exclusion_scan_passes",
     "allowed_public_inputs": [
       "receipt ids",
-      "problem ids",
-      "proof body hashes",
-      "redacted qualified symbol refs",
+      "problem ids from real Ring2 rows",
+      "candidate artifact digests",
+      "qualified symbol refs",
       "allowed premise ids",
       "cited unallowed premise ids",
       "review outcome ids",
-      "projection receipt refs"
+      "real source refs and digests",
+      "projection receipt refs",
+      "negative cases as regression-only leakage guards"
     ],
     "forbidden_public_inputs": [
       "proof bodies",
@@ -119,17 +158,17 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "redacted_symbol_observation_fixture_receipt_schema_only",
+    "standard_authority": "real_lean_std_symbol_boundary_receipt_not_theorem_authority",
     "formal_proof_authority": false,
     "theorem_correctness_authority": false,
     "lean_lake_authority": false,
     "provider_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs public redacted symbol-observation classification only; it does not prove theorem correctness, authorize Lean/Lake execution, expose proof bodies or private source refs, turn Lean/Std into a blanket allowlist, or authorize release/publication work.",
+  "anti_claim": "This standard governs copied non-secret Lean/Std symbol-boundary classification with Mathlib absence context; it does not prove theorem correctness, authorize Lean/Lake execution, expose proof bodies or private source refs, turn Lean/Std into a blanket allowlist, or authorize release/publication work.",
   "standard_payload": {
-    "ontology": "A public-safe symbol classifier: closed premise rows, redacted symbol observations, allowed-premise ids, cited-unallowed ids, failure classes, review outcomes, receipts, and leakage negative cases.",
-    "teleology": "Make Microcosm distinguish valuable out-of-recipe library priors from ordinary premise-budget violations without leaking proof bodies.",
+    "ontology": "A provenance-bearing symbol classifier: imported Lean/Std premise rows, real Ring2 problem ids and candidate digests, allowed-premise ids, cited-unallowed ids, failure classes, review outcomes, receipts, and leakage negative cases.",
+    "teleology": "Make Microcosm distinguish valuable out-of-recipe Lean/Std library priors from ordinary premise-budget violations using real symbol-boundary substrate instead of placeholder symbol observations.",
     "anti_purpose": "Treating Lean-accepted library citations as evaluation-contract success when the citation was not in the allowed premise set.",
     "compression_bands": [
       "protocol",
@@ -168,15 +207,22 @@
       "provider payload bodies",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public slice carries redacted symbol metadata and synthetic fixture evidence only",
+    "reason": "public slice carries copied non-secret Lean/Std premise rows, real Ring2 problem ids, candidate artifact digests, source refs, source digests, and secret-exclusion receipts; proof bodies, provider payloads, oracle IDs, private refs, and release claims remain excluded",
     "drilldown": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/projection_protocol.json"
   },
   "anti_claim_contract": {
     "required": true,
-    "rule": "symbol classifier material must state that redacted symbol classification is not theorem correctness"
+    "rule": "symbol classifier material must state that real symbol-boundary classification is not theorem correctness"
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "real source refs and source digests stay public-root relative where applicable; copied non-secret symbol-boundary rows retain provenance, while proof/provider/private bodies and oracle IDs remain excluded"
+  },
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json": "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json": "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb"
   }
 }

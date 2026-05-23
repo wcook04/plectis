@@ -3,6 +3,22 @@
   "bundle_id": "undeclared_library_prior_symbol_classifier_runtime_example",
   "input_mode": "exported_symbol_classifier_bundle",
   "organ_id": "undeclared_library_prior_symbol_classifier",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "symbol_boundary_status": "real_lean_std_symbol_boundary_and_mathlib_absence_context",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+    "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json": "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json": "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb"
+  },
   "required_files": [
     "projection_protocol.json",
     "premise_index.json",
@@ -10,5 +26,6 @@
     "classifier_policy.json"
   ],
   "proof_bodies_included": false,
-  "release_authorized": false
+  "release_authorized": false,
+  "anti_claim": "Runtime example carries copied non-secret Lean/Std symbol-boundary substrate, not proof authority."
 }

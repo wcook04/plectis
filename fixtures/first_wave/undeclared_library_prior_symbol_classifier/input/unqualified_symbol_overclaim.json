@@ -7,5 +7,6 @@
   "allowed_premise_ids": [],
   "cited_unallowed_premise_ids": [],
   "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
-  "review_outcome": "bridge_escalate"
+  "review_outcome": "bridge_escalate",
+  "anti_claim": "Regression-only negative case; unqualified tokens cannot establish library-prior class."
 }

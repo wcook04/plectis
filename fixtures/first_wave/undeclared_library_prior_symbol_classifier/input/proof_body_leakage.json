@@ -1,11 +1,12 @@
 {
   "receipt_id": "neg.proof_body_leakage",
   "expected_negative_case_id": "proof_body_leakage",
-  "proof_body": "synthetic forbidden proof body should never reach public receipts",
+  "proof_body": "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO",
   "proof_symbol_refs": [
     "Nat.add_comm"
   ],
   "allowed_premise_ids": [],
   "classified_failure_class": "UNDECLARED_LIBRARY_PRIOR",
-  "review_outcome": "bridge_escalate"
+  "review_outcome": "bridge_escalate",
+  "anti_claim": "Regression-only negative case; proof bodies must not become product evidence."
 }
