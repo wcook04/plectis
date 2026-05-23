@@ -642,6 +642,40 @@ def _safe_text(value: Any) -> str:
     return str(value)
 
 
+def _lens_payload_boundary(
+    *,
+    root: Path,
+    lens_path: Path,
+    boundary_id: str,
+    command: str,
+    legacy_schema_compat_present: bool = False,
+) -> dict[str, Any]:
+    return public_payload_boundary(
+        boundary_id=boundary_id,
+        command=command,
+        surface_ref=_public_relative(lens_path, root),
+        legacy_schema_compat_present=legacy_schema_compat_present,
+    )
+
+
+def _source_open_safe_to_show(**extra: bool) -> dict[str, Any]:
+    return {
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "secrets_and_live_access_payloads_omitted": True,
+        "public_refs_are_drilldowns_not_replacements": True,
+        **extra,
+    }
+
+
+def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
+    return {
+        "payload_boundary_ref": boundary_ref,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_exported": False,
+    }
+
+
 def _badge_list(values: list[str]) -> str:
     if not values:
         return "<span class=\"muted\">none</span>"
@@ -6104,14 +6138,21 @@ class RuntimeShell:
                 ),
             },
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "proof_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-                "omitted_content_has_named_drilldown": True,
-                "projection_is_read_model_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_projection_safety_audit_lens",
+                command="microcosm projection-safety",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                proof_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                omitted_content_has_named_drilldown=True,
+                projection_is_read_model_only=True,
+            ),
             "authority_ceiling": {
                 "release_authorized": False,
                 "hosted_public_authorized": False,
@@ -6124,9 +6165,8 @@ class RuntimeShell:
                 "trading_or_financial_advice_authorized": False,
             },
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The projection-safety audit is a public-safe read-model over omission "
+                "The projection-safety audit is a source-open public read-model over omission "
                 "receipts and authority ceilings. It does not prove every private "
                 "projection is lossless, export private bodies, expose proof bodies, "
                 "publish provider payloads, mutate source, authorize release, or claim "
@@ -6144,22 +6184,22 @@ class RuntimeShell:
                 "purpose": "select a macro pattern only after public projection posture is safe",
                 "required_evidence": [
                     "source authority ref",
-                    "public replacement target",
-                    "private-state risk classification",
+                    "public drilldown target",
+                    "payload-boundary risk classification",
                 ],
             },
             {
                 "stage_id": "strip_private_bodies",
-                "purpose": "remove raw private source bodies, proof bodies, provider payloads, and private paths",
+                "purpose": "exclude raw private source bodies, proof bodies, provider payloads, and private paths",
                 "required_evidence": [
                     "omission receipt",
-                    "body_redacted=true",
-                    "safe_to_show contract",
+                    "payload boundary",
+                    "source-open safe_to_show contract",
                 ],
             },
             {
-                "stage_id": "write_public_replacement",
-                "purpose": "land a public fixture, runtime lens, or receipt-backed synthetic replacement",
+                "stage_id": "write_public_projection",
+                "purpose": "land a public fixture, runtime lens, or receipt-backed drilldown",
                 "required_evidence": [
                     "public surface ref",
                     "command or endpoint",
@@ -6168,7 +6208,7 @@ class RuntimeShell:
             },
             {
                 "stage_id": "bind_authority_ceiling",
-                "purpose": "state what the public replacement cannot claim before it is surfaced",
+                "purpose": "state what the public projection cannot claim before it is surfaced",
                 "required_evidence": [
                     "release_authorized=false",
                     "source_mutation_authorized=false",
@@ -6318,7 +6358,7 @@ class RuntimeShell:
             "authority_ceiling_missing_rejected",
             "validation_ref_missing_rejected",
             "endpoint_without_command_rejected",
-            "public_replacement_claims_private_equivalence_rejected",
+            "public_drilldown_claims_private_equivalence_rejected",
             "automated_import_success_guarantee_rejected",
             "release_claim_from_projection_import_map_rejected",
         ]
@@ -6381,20 +6421,26 @@ class RuntimeShell:
             "import_rows": import_rows,
             "map_summary": map_summary,
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "private_source_bodies_omitted": True,
-                "proof_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-                "receipt_refs_only": True,
-                "projection_is_read_model_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_projection_import_map_lens",
+                command="microcosm projection-import-map",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                private_source_bodies_omitted=True,
+                proof_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                receipt_refs_only=True,
+                projection_is_read_model_only=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The projection import map is a public-safe read-model over projection "
+                "The projection import map is a source-open public read-model over projection "
                 "protocol rows. It does not automate imports, prove losslessness, export "
                 "private bodies, expose proof bodies or provider payloads, mutate source, "
                 "claim private-root equivalence, publish, host, or authorize release."
@@ -6408,11 +6454,11 @@ class RuntimeShell:
         contract_stages = [
             {
                 "stage_id": "candidate_selection",
-                "purpose": "choose a macro pattern only when it has a public-safe target shape",
+                "purpose": "choose a macro pattern only when it has a source-open public target shape",
                 "required_evidence": [
                     "source ref",
                     "public target surface",
-                    "private-state risk class",
+                    "payload-boundary risk class",
                 ],
             },
             {
@@ -6429,14 +6475,14 @@ class RuntimeShell:
                 "stage_id": "stripping_and_omission",
                 "purpose": "replace private bodies with public refs and reversible omission receipts",
                 "required_evidence": [
-                    "body_redacted=true",
+                    "payload boundary",
                     "drilldown ref",
                     "negative case ids",
                 ],
             },
             {
                 "stage_id": "fixture_projection",
-                "purpose": "bind the public replacement to synthetic fixtures or metadata-only rows",
+                "purpose": "bind the public projection to synthetic fixtures or metadata-only rows",
                 "required_evidence": [
                     "fixture ref",
                     "validator ref",
@@ -6492,7 +6538,7 @@ class RuntimeShell:
                 "owner_route": "runtime_shell.projection_import_map",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_import_map_lens_is_public_safe",
                 "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
-                "copied": ["stage vocabulary", "public replacement refs"],
+                "copied": ["stage vocabulary", "public drilldown refs"],
                 "cleaned": ["lossless-import language", "automatic success language"],
                 "omitted": ["private implementation bodies", "provider payload bodies"],
                 "source_mutation_authorized": False,
@@ -6510,7 +6556,7 @@ class RuntimeShell:
                 "owner_route": "runtime_shell.stripping_guard",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
                 "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
-                "copied": ["guard row id", "public replacement", "strip rule"],
+                "copied": ["guard row id", "public drilldown", "payload-boundary rule"],
                 "cleaned": ["private bodies", "proof bodies", "raw private paths"],
                 "omitted": ["secret-like material", "provider prompts and completions"],
                 "source_mutation_authorized": False,
@@ -6542,7 +6588,7 @@ class RuntimeShell:
                 "projector_row_id": "fixture_projection_contract",
                 "projector_stage": "fixture_projection",
                 "source_ref": "microcosm-substrate/examples",
-                "public_output": "synthetic fixture or metadata-only replacement",
+                "public_output": "synthetic fixture or metadata-only public drilldown",
                 "owner_route": "fixture-backed validator",
                 "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha",
                 "authority_ceiling_ref": "microcosm projection-safety::projection_rows",
@@ -6613,7 +6659,7 @@ class RuntimeShell:
             {
                 "projector_row_id": "seed_and_ledger_closeout_contract",
                 "projector_stage": "validation_and_closeout",
-                "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
+                "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
                 "public_output": "seed closeout, next reentry prompt, Work Ledger append, and scoped landing attempt",
                 "owner_route": "type_a_autonomous_seed_loop",
                 "validation_ref": "kernel.py --validate-seed-heartbeat",
@@ -6737,20 +6783,26 @@ class RuntimeShell:
             "projector_rows": projector_rows,
             "projector_summary": projector_summary,
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "private_source_bodies_omitted": True,
-                "proof_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-                "generated_regions_require_owner_builders": True,
-                "projector_is_read_model_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_import_projector_contract_lens",
+                command="microcosm import-projector",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                private_source_bodies_omitted=True,
+                proof_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                generated_regions_require_owner_builders=True,
+                projector_is_read_model_only=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The import-projector contract is a public-safe read-model and checklist. "
+                "The import-projector contract is a source-open public read-model and checklist. "
                 "It does not execute imports, copy private source bodies, expose proof "
                 "bodies or provider payloads, hand-edit generated regions, mutate source, "
                 "claim lossless private projection, publish, host, or authorize release."
@@ -6803,7 +6855,7 @@ class RuntimeShell:
                 "required_evidence": [
                     "sidecar ref",
                     "receipt ref",
-                    "body_redacted=true",
+                    "payload boundary",
                 ],
             },
             {
@@ -6846,7 +6898,7 @@ class RuntimeShell:
                 "omitted": ["raw macro context", "operator prompts", "private route payloads"],
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe",
                 "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -6863,7 +6915,7 @@ class RuntimeShell:
                 "omitted": ["full private context pack", "private operator history"],
                 "validation_ref": "tests/test_cli.py::test_cli_option_surface_lens_smoke",
                 "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -6880,7 +6932,7 @@ class RuntimeShell:
                 "omitted": ["raw sidecar payload bodies", "private generated-region diffs"],
                 "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha",
                 "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -6897,7 +6949,7 @@ class RuntimeShell:
                 "omitted": ["live operator browser state", "private screenshot paths"],
                 "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain",
                 "authority_ceiling_ref": "microcosm authority::local_observatory",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -6914,7 +6966,7 @@ class RuntimeShell:
                 "omitted": ["release-readiness claim", "automatic profile correctness guarantee"],
                 "validation_ref": "tests/test_observatory_legibility.py",
                 "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -6931,7 +6983,7 @@ class RuntimeShell:
                 "omitted": ["operator private prompt body", "publication authorization"],
                 "validation_ref": "kernel.py --validate-seed-heartbeat",
                 "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
-                "body_redacted": True,
+                **_source_open_row_boundary("microcosm option-surface-lens::payload_boundary"),
                 "private_body_exported": False,
                 "provider_payload_exported": False,
                 "source_mutation_authorized": False,
@@ -7004,7 +7056,10 @@ class RuntimeShell:
             and all(row.get("omitted") for row in option_rows)
             and all(row.get("validation_ref") for row in option_rows)
             and all(row.get("authority_ceiling_ref") for row in option_rows)
-            and all(row.get("body_redacted") is True for row in option_rows)
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False
+                for row in option_rows
+            )
             and all(row.get("private_body_exported") is False for row in option_rows)
             and all(row.get("provider_payload_exported") is False for row in option_rows)
             and all(row.get("source_mutation_authorized") is False for row in option_rows)
@@ -7051,27 +7106,37 @@ class RuntimeShell:
                 "target_refs": option_cell.get("target_refs", []),
                 "validation_refs": option_cell.get("validation_refs", []),
                 "authority_ceiling": option_cell.get("authority_ceiling"),
-                "body_copied": option_cell.get("body_copied") is True,
-                "body_redacted": option_cell.get("body_redacted") is True,
+                "legacy_import_plan_compat": {
+                    "classification": "legacy_import_plan_payload_flags_not_public_product_contract",
+                    "source_cell_body_copied_flag": option_cell.get("body_copied") is True,
+                    "source_cell_redacted_flag": option_cell.get("body_redacted") is True,
+                },
             },
             "import_plan_ref": import_plan_ref,
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_compression_profile_option_surface_lens",
+                command="microcosm option-surface-lens",
+                legacy_schema_compat_present=bool(option_cell),
+            ),
             "option_stages": option_stages,
             "option_rows": option_rows,
             "option_surface_summary": option_surface_summary,
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "private_source_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-                "sidecar_bodies_omitted": True,
-                "option_surface_is_read_model_only": True,
-            },
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                private_source_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                sidecar_bodies_omitted=True,
+                option_surface_is_read_model_only=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The option-surface lens is a public-safe read-model over compression "
+                "The option-surface lens is a source-open public read-model over compression "
                 "profile projection rules. It does not switch runtime profiles, select "
                 "options automatically, export private context or sidecar bodies, call "
                 "providers, hand-edit generated regions, mutate source, claim lossless "
@@ -7087,8 +7152,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "private_source_body_strip",
                 "source_risk": "private source bodies can orient implementation but cannot be copied out",
-                "public_replacement": "receipt ref, owner route, omission receipt, and redacted summary",
-                "strip_rule": "replace body with public ref and body_redacted=true",
+                "public_drilldown": "receipt ref, owner route, omission receipt, and payload boundary",
+                "strip_rule": "exclude unsafe payload bodies; carry public drilldown and payload boundary",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
                     "tests/test_launch_compression.py",
@@ -7103,8 +7169,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "proof_body_strip",
                 "source_risk": "formal proof attempts may contain private working state or unreviewed proof claims",
-                "public_replacement": "metadata-only failure class, evidence cell id, and anti-claim",
+                "public_drilldown": "metadata failure class, evidence cell id, and anti-claim",
                 "strip_rule": "export claim strength metadata, never proof body text",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_evidence_cell_lens_is_public_safe",
@@ -7119,8 +7186,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "provider_payload_strip",
                 "source_risk": "provider prompts, completions, and tool payloads are not public evidence",
-                "public_replacement": "synthetic case id, decision row, and validator receipt",
+                "public_drilldown": "synthetic case id, decision row, and validator receipt",
                 "strip_rule": "publish only public synthetic rows and provider_call_authorized=false",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_replay_gauntlet_lens_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_is_public_safe",
@@ -7135,8 +7203,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "raw_private_path_redaction",
                 "source_risk": "absolute private paths can leak operator identity and host layout",
-                "public_replacement": "root-relative public refs or stable command ids",
+                "public_drilldown": "root-relative public refs or stable command ids",
                 "strip_rule": "reject absolute private paths and private-root identifiers from public JSON",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py",
                     "tests/test_observatory_legibility.py",
@@ -7151,8 +7220,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "secret_token_strip",
                 "source_risk": "secret-like strings require fail-closed handling and cannot be evidence",
-                "public_replacement": "negative case id and no-completeness anti-claim",
+                "public_drilldown": "negative case id and no-completeness anti-claim",
                 "strip_rule": "strip example token material and deny complete secret-scanner claims",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe",
                     "tests/test_observatory_legibility.py",
@@ -7167,8 +7237,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "financial_advice_strip",
                 "source_risk": "prediction and finance reasoning can be shown as synthetic mechanics only",
-                "public_replacement": "no-advice fixture row and synthetic prediction lens",
+                "public_drilldown": "no-advice fixture row and synthetic prediction lens",
                 "strip_rule": "deny trading advice, live market claims, and private dossiers",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_prediction_lens_is_public_safe",
                     "tests/test_cli.py::test_cli_prediction_lens_smoke",
@@ -7183,8 +7254,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "source_mutation_denial",
                 "source_risk": "public runtime commands should inspect, compile, or write receipts only",
-                "public_replacement": "authority row and explicit source_mutation_authorized=false",
+                "public_drilldown": "authority row and explicit source_mutation_authorized=false",
                 "strip_rule": "route mutations through owner tests/commits, not runtime lens commands",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_landing_replay_lens_is_public_safe",
@@ -7199,8 +7271,9 @@ class RuntimeShell:
             {
                 "guard_row_id": "release_and_private_equivalence_denial",
                 "source_risk": "a public microcosm is a projection, not release approval or private-root equivalence",
-                "public_replacement": "anti-claim row, authority ceiling, and release_authorized=false",
+                "public_drilldown": "anti-claim row, authority ceiling, and release_authorized=false",
                 "strip_rule": "deny publication, hosted-public, benchmark, and secret-export claims",
+                **_source_open_row_boundary("microcosm stripping-guard::payload_boundary"),
                 "validation_refs": [
                     "tests/test_runtime_shell.py::test_runtime_shell_tour_is_public_safe",
                     "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
@@ -7269,6 +7342,10 @@ class RuntimeShell:
             and all(row.get("provider_payload_exported") is False for row in guard_rows)
             and all(row.get("raw_private_path_exported") is False for row in guard_rows)
             and all(row.get("secret_token_exported") is False for row in guard_rows)
+            and all(
+                row.get("unsafe_payload_bodies_exported") is False
+                for row in guard_rows
+            )
             and all(row.get("release_authorized") is False for row in guard_rows)
             and all(
                 value is False
@@ -7301,20 +7378,26 @@ class RuntimeShell:
             "guard_rows": guard_rows,
             "guard_summary": guard_summary,
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "private_source_bodies_omitted": True,
-                "proof_bodies_omitted": True,
-                "provider_payloads_omitted": True,
-                "secret_examples_omitted": True,
-                "projection_is_read_model_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_stripping_guard_lens",
+                command="microcosm stripping-guard",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                private_source_bodies_omitted=True,
+                proof_bodies_omitted=True,
+                provider_payloads_omitted=True,
+                secret_examples_omitted=True,
+                projection_is_read_model_only=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The stripping guard is a public-safe read-model over export-denial rules. "
+                "The stripping guard is a source-open public read-model over export-denial rules. "
                 "It is not a complete secret scanner, does not export private bodies, "
                 "proof bodies, provider payloads, raw private paths, or example secret "
                 "material, does not give financial advice, mutate source, prove "
@@ -12213,7 +12296,7 @@ class RuntimeShell:
                     "<tr>"
                     f"<td>{html.escape(_safe_text(item.get('guard_row_id')))}</td>"
                     f"<td>{html.escape(_safe_text(item.get('source_risk')))}</td>"
-                    f"<td>{html.escape(_safe_text(item.get('public_replacement')))}</td>"
+                    f"<td>{html.escape(_safe_text(item.get('public_drilldown')))}</td>"
                     f"<td>{html.escape(_safe_text(item.get('strip_rule')))}</td>"
                     f"<td>{html.escape(_safe_text(item.get('release_authorized')))}</td>"
                     "</tr>"

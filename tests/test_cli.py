@@ -606,6 +606,8 @@ def test_cli_projection_safety_smoke(capsys: pytest.CaptureFixture[str]) -> None
     assert payload["projection_summary"]["private_body_export_count"] == 0
     assert payload["projection_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["source_mutation_authorized"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_projection_safety_audit_lens"
+    assert payload["payload_boundary"]["source_open_default"] is True
 
 
 def test_cli_projection_drift_control_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -675,6 +677,8 @@ def test_cli_projection_import_map_smoke(capsys: pytest.CaptureFixture[str]) -> 
     assert payload["map_summary"]["stage_count"] == 6
     assert payload["map_summary"]["private_body_export_count"] == 0
     assert payload["authority_ceiling"]["automated_import_guarantee"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_projection_import_map_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
 
 
 def test_cli_import_projector_contract_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -691,6 +695,8 @@ def test_cli_import_projector_contract_smoke(capsys: pytest.CaptureFixture[str])
     assert payload["projector_summary"]["private_body_export_count"] == 0
     assert payload["authority_ceiling"]["automated_import_execution_authorized"] is False
     assert payload["authority_ceiling"]["lossless_projection_claim"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_import_projector_contract_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
 
 
 def test_cli_option_surface_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -708,6 +714,14 @@ def test_cli_option_surface_lens_smoke(capsys: pytest.CaptureFixture[str]) -> No
     assert payload["authority_ceiling"]["profile_switch_execution_authorized"] is False
     assert payload["authority_ceiling"]["automatic_profile_selection_authorized"] is False
     assert payload["authority_ceiling"]["lossless_projection_claim"] is False
+    assert (
+        payload["payload_boundary"]["boundary_id"]
+        == "public_compression_profile_option_surface_lens"
+    )
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in payload["option_rows"]
+    )
 
 
 def test_cli_stripping_guard_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -723,6 +737,11 @@ def test_cli_stripping_guard_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["guard_summary"]["private_body_export_count"] == 0
     assert payload["authority_ceiling"]["secret_detection_completeness_claim"] is False
     assert payload["authority_ceiling"]["financial_advice_authorized"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_stripping_guard_lens"
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in payload["guard_rows"]
+    )
 
 
 def test_cli_standards_control_smoke(capsys: pytest.CaptureFixture[str]) -> None:

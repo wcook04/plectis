@@ -1419,7 +1419,11 @@ def test_runtime_shell_projection_safety_lens_is_public_safe(tmp_path: Path) -> 
     assert lens["authority_ceiling"]["release_authorized"] is False
     assert lens["authority_ceiling"]["source_mutation_authorized"] is False
     assert lens["safe_to_show"]["omitted_content_has_named_drilldown"] is True
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_projection_safety_audit_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["projection_safety_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
@@ -1596,7 +1600,10 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     assert lens["authority_ceiling"]["provider_payload_export_authorized"] is False
     assert lens["authority_ceiling"]["automated_import_guarantee"] is False
     assert lens["safe_to_show"]["private_source_bodies_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_projection_import_map_lens"
+    assert lens["payload_boundary"]["public_refs_are_drilldowns_not_replacements"] is True
     assert (public_root / lens["projection_import_map_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
@@ -1651,7 +1658,10 @@ def test_runtime_shell_import_projector_contract_lens_is_public_safe(tmp_path: P
     assert all(row["validation_ref"] for row in lens["projector_rows"])
     assert all(row["authority_ceiling_ref"] for row in lens["projector_rows"])
     assert lens["release_authorized"] is False
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_import_projector_contract_lens"
+    assert lens["payload_boundary"]["metadata_only_standin_authorized"] is False
     assert (public_root / lens["import_projector_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
@@ -1702,8 +1712,20 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
     assert lens["safe_to_show"]["option_surface_is_read_model_only"] is True
     assert all(row["validation_ref"] for row in lens["option_rows"])
     assert all(row["authority_ceiling_ref"] for row in lens["option_rows"])
+    assert all(row["unsafe_payload_bodies_exported"] is False for row in lens["option_rows"])
+    assert (
+        lens["projection_cell"]["legacy_import_plan_compat"]["classification"]
+        == "legacy_import_plan_payload_flags_not_public_product_contract"
+    )
+    assert lens["projection_cell"]["legacy_import_plan_compat"]["source_cell_redacted_flag"] is False
     assert lens["release_authorized"] is False
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        lens["payload_boundary"]["boundary_id"]
+        == "public_compression_profile_option_surface_lens"
+    )
+    assert lens["payload_boundary"]["legacy_schema_compat_present"] is True
     assert (public_root / lens["option_surface_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
@@ -1761,7 +1783,11 @@ def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> No
     assert lens["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert lens["authority_ceiling"]["release_authorized"] is False
     assert lens["safe_to_show"]["secret_examples_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert all(row["unsafe_payload_bodies_exported"] is False for row in lens["guard_rows"])
+    assert all(row["public_drilldown"] for row in lens["guard_rows"])
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_stripping_guard_lens"
     assert (public_root / lens["stripping_guard_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
