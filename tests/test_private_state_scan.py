@@ -87,7 +87,7 @@ def test_public_safe_macro_import_allows_verified_tool_and_proof_bodies() -> Non
     tool = classify_public_safe_macro_import(
         {
             "material_class": "public_macro_tool_body",
-            "private_state_risk": "low",
+            "credential_exposure_risk": "low",
             "public_safe_mode": "verified_public_macro_body_light_edit",
             "source_refs": ["tools/meta/control/work_landing.py"],
             "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],
@@ -103,7 +103,7 @@ def test_public_safe_macro_import_allows_verified_tool_and_proof_bodies() -> Non
     proof = classify_public_safe_macro_import(
         {
             "material_class": "public_macro_proof_body",
-            "private_state_risk": "low",
+            "credential_exposure_risk": "low",
             "public_safe_mode": "verified_public_macro_proof_body_exact_copy",
             "source_refs": [
                 "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
@@ -131,7 +131,7 @@ def test_verified_macro_import_still_blocks_credential_bound_classes() -> None:
     result = classify_public_safe_macro_import(
         {
             "material_class": "raw_seed_body",
-            "private_state_risk": "none",
+            "credential_exposure_risk": "none",
             "public_safe_mode": "direct_verified_macro_body",
             "source_refs": ["raw_seed.md"],
             "provenance_refs": ["state/microcosm_portfolio/extracted_patterns_ledger.jsonl"],

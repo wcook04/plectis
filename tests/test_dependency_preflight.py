@@ -110,9 +110,9 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "runtime_step_count": 46,
         "acceptance_plan_organ_count": 46,
         "evidence_class_row_count": 46,
-        "public_authority_expected_organ_count": 44,
-        "demoted_drilldown_organ_count": 2,
-        "organ_authority_row_count": 44,
+        "public_authority_expected_organ_count": 42,
+        "demoted_drilldown_organ_count": 4,
+        "organ_authority_row_count": 42,
         "surface_authority_row_count": 45,
         "fixture_check_count": 46,
     }
@@ -122,6 +122,8 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
     assert convergence["demoted_drilldown_organ_ids"] == [
         "mathematical_strategy_atlas_hypothesis_scorer",
         "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_monitor_redteam_falsification_replay",
+        "agent_sabotage_scheming_monitor_replay",
     ]
     assert convergence["affected_consumer_surfaces"] == []
     assert convergence["changed_organ_ids"] == []
@@ -146,6 +148,8 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         not in {
             "mathematical_strategy_atlas_hypothesis_scorer",
             "agent_benchmark_integrity_anti_gaming_replay",
+            "agent_monitor_redteam_falsification_replay",
+            "agent_sabotage_scheming_monitor_replay",
         }
     ]
     assert "missing_public_lens" not in {

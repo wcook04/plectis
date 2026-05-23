@@ -25,6 +25,18 @@ def _first_lines(path: Path, count: int) -> str:
     return "\n".join(path.read_text(encoding="utf-8").splitlines()[:count])
 
 
+def _without_fenced_code_blocks(text: str) -> str:
+    kept: list[str] = []
+    in_fence = False
+    for line in text.splitlines():
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            kept.append(line)
+    return "\n".join(kept)
+
+
 def _private_hits(text: str) -> list[str]:
     return [
         needle
@@ -86,7 +98,7 @@ def validate_launch_compression(
     state_files = _walk_state_files(project_path)
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
     first_screen_lower = readme_first_screen.lower()
-    launch_intro_lower = readme_first_screen.lower()
+    launch_intro_lower = _without_fenced_code_blocks(readme_first_screen).lower()
     receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
 
     assertions = {

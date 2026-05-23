@@ -100,7 +100,7 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
         is True
     )
     assert receipt["tour_summary"]["time_budget_minutes"] == 10
-    assert receipt["tour_summary"]["route_card_count"] == 6
+    assert receipt["tour_summary"]["route_card_count"] == 7
     assert receipt["tour_summary"]["release_authorized"] is False
     assert receipt["trace_summary"]["trace_attempt_count"] == 4
     assert receipt["trace_summary"]["formal_proof_authority"] is False

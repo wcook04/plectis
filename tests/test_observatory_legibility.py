@@ -176,7 +176,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     )
     assert receipt["model_assertions"]["runtime_bridge_open_actionable_zero"] is True
     assert receipt["tour_proof"]["tour_id"] == "public_ten_minute_tour"
-    assert receipt["tour_proof"]["route_card_count"] == 6
+    assert receipt["tour_proof"]["route_card_count"] == 7
     assert receipt["verifier_trace_proof"]["lens_id"] == "public_verifier_trace_repair_lens"
     assert receipt["verifier_trace_proof"]["trace_attempt_count"] == 4
     assert receipt["verifier_trace_proof"]["formal_proof_authority"] is False
@@ -311,7 +311,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["runtime_bridge_proof"]["bridge_id"] == "intake_observatory_bridge"
     assert receipt["runtime_bridge_proof"]["open_actionable_cell_count"] == 0
     assert receipt["runtime_bridge_proof"]["projection_status_counts"] == {
-        "public_replacement_landed": 1,
+        "public_runtime_import_landed": 3,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
