@@ -35,7 +35,7 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     return public_root
 
 
-def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
+def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_public_entry_tree(tmp_path)
     out = public_root / "receipts/first_wave/public_entry_docs_validation.json"
 
@@ -105,8 +105,11 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "fail_closed_no_default": True,
     }
     assert receipt["deferred_organs"] == []
-    assert receipt["private_state_scan"]["body_redacted"] is True
-    assert receipt["private_state_scan"]["blocking_hit_count"] == 0
+    assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert receipt["payload_boundary"]["source_open_default"] is True
+    assert receipt["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
+    assert receipt["payload_boundary"]["metadata_only_standin_authorized"] is False
     assert receipt["authority_ceiling"]["entry_docs_authority"] == (
         "public_entry_navigation_and_real_substrate_posture"
     )

@@ -4,7 +4,8 @@ import argparse
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.public_payload_boundary import public_payload_boundary
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -481,12 +482,12 @@ def validate_public_entry_docs(
     if evidence_class_registry["status"] != PASS:
         blocking_codes.append("EVIDENCE_CLASS_REGISTRY_MISMATCH")
     if scan["blocking_hit_count"]:
-        blocking_codes.append("PRIVATE_STATE_SCAN_BLOCKED")
+        blocking_codes.append("SECRET_EXCLUSION_SCAN_BLOCKED")
 
     blocking_codes = sorted(set(blocking_codes))
     status = PASS if not blocking_codes else "blocked"
     receipt = {
-        "schema_version": "public_entry_docs_validation_receipt_v1",
+        "schema_version": "public_entry_docs_validation_receipt_v2",
         "checker_id": CHECKER_ID,
         "fixture_id": FIXTURE_ID,
         "status": status,
@@ -502,7 +503,12 @@ def validate_public_entry_docs(
         "unexpected_accepted_organs": unexpected_accepted_organs,
         "deferred_organs": [],
         "blocking_codes": blocking_codes,
-        "private_state_scan": scan,
+        "secret_exclusion_scan": scan,
+        "payload_boundary": public_payload_boundary(
+            boundary_id="public_entry_docs",
+            command=command,
+            surface_ref=_display(output_file, public_root=public_root),
+        ),
         "authority_ceiling": {
             "status": PASS,
             "entry_docs_authority": "public_entry_navigation_and_real_substrate_posture",

@@ -60,6 +60,10 @@ from microcosm_core.organs import verifier_lab_execution_spine
 from microcosm_core.organs import verifier_lab_kernel
 from microcosm_core.organs import voice_to_doctrine_self_improvement_loop
 from microcosm_core.organs import world_model_projection_drift_control_room
+from microcosm_core.public_payload_boundary import (
+    SOURCE_OPEN_BODY_POLICY,
+    public_payload_boundary,
+)
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 from microcosm_core.validators import acceptance
@@ -669,16 +673,28 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
     )
     status = payload.get("status")
     return {
-        "contract_version": "runtime_real_receipt_evidence_contract_v1",
+        "contract_version": "runtime_real_receipt_evidence_contract_v2",
         "real_runtime_receipt": status == PASS and not has_negative_cases,
         "copied_non_secret_macro_body_with_provenance": has_body_import_verification,
         "source_faithful_refactor": False,
         "regression_or_negative_fixture": has_negative_cases,
         "blocked_import_debt": blocked_import_debt,
         "synthetic_receipt_is_product_evidence": False,
-        "body_in_receipt": False,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "payload_boundary": public_payload_boundary(
+            boundary_id="runtime_receipt_contract",
+            command=str(payload.get("command") or "microcosm receipt"),
+            surface_ref=str(
+                payload.get("receipt_ref")
+                or payload.get("authority_map_ref")
+                or payload.get("map_ref")
+                or ""
+            ),
+            legacy_schema_compat_present=has_legacy_scan,
+        ),
         "secret_exclusion_scan_present": has_secret_scan,
-        "legacy_private_state_scan_compat_present": has_legacy_scan,
+        "legacy_schema_compat_present": has_legacy_scan,
     }
 
 
@@ -10408,7 +10424,7 @@ class RuntimeShell:
         )
         authority_path = self.runtime_receipt_dir / "public_authority_map.json"
         payload = {
-            "schema_version": "microcosm_public_authority_map_v1",
+            "schema_version": "microcosm_public_authority_map_v2",
             "status": PASS if authority_ok and status_ok else "blocked",
             "map_id": "public_authority_map",
             "public_claim": (
@@ -10420,7 +10436,13 @@ class RuntimeShell:
             "endpoint": "/authority",
             "authority_map_ref": _public_relative(authority_path, self.root),
             "projection_not_authority": True,
-            "body_redacted": True,
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_exported": False,
+            "payload_boundary": public_payload_boundary(
+                boundary_id="public_authority_map",
+                command="microcosm authority",
+                surface_ref=_public_relative(authority_path, self.root),
+            ),
             "release_authorized": False,
             "command_path": [
                 "microcosm compile <project>",
@@ -10541,7 +10563,7 @@ class RuntimeShell:
                 "microcosm legibility-scorecard",
             ],
             "anti_claim": (
-                "The authority map is a public-safe index over command outputs, receipt refs, "
+                "The authority map is a public source-open index over command outputs, receipt refs, "
                 "and accepted organ metadata. It does not authorize release, hosted public "
                 "deployment, publication, provider calls, source mutation, private-data "
                 "equivalence, general proof authority, trading advice, or whole-system "

@@ -643,12 +643,18 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     authority = shell.authority()
 
     assert authority["status"] == "pass"
-    assert authority["schema_version"] == "microcosm_public_authority_map_v1"
+    assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["command"] == "microcosm authority"
     assert authority["endpoint"] == "/authority"
     assert authority["release_authorized"] is False
     assert authority["projection_not_authority"] is True
-    assert authority["body_redacted"] is True
+    assert authority["source_open_body_policy"] == (
+        "source_open_except_secret_credential_provider_account_session_and_live_access_payloads"
+    )
+    assert authority["unsafe_payload_bodies_exported"] is False
+    assert authority["payload_boundary"]["source_open_default"] is True
+    assert authority["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
+    assert authority["payload_boundary"]["public_refs_are_drilldowns_not_replacements"] is True
     assert authority["authority_ceiling"] == {
         "release_authorized": False,
         "hosted_public_authorized": False,
@@ -2415,7 +2421,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
-    assert authority["schema_version"] == "microcosm_public_authority_map_v1"
+    assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["authority_ceiling"]["release_authorized"] is False
     assert authority["surface_counts"]["organ_authority_count"] == 42
     assert authority["surface_counts"]["surface_authority_count"] == 45
@@ -2511,7 +2517,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
     assert observatory["tour"]["schema_version"] == "microcosm_public_ten_minute_tour_v1"
-    assert observatory["authority_map"]["schema_version"] == "microcosm_public_authority_map_v1"
+    assert observatory["authority_map"]["schema_version"] == "microcosm_public_authority_map_v2"
     assert observatory["prediction_lens"]["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert observatory["corpus_lens"]["schema_version"] == "microcosm_public_corpus_readiness_lens_v1"
     assert observatory["trace_lens"]["schema_version"] == "microcosm_public_verifier_trace_repair_lens_v1"

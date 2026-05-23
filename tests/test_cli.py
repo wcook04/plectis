@@ -268,9 +268,11 @@ def test_cli_authority_smoke(
 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
-    assert payload["schema_version"] == "microcosm_public_authority_map_v1"
+    assert payload["schema_version"] == "microcosm_public_authority_map_v2"
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
+    assert payload["unsafe_payload_bodies_exported"] is False
+    assert payload["payload_boundary"]["source_open_default"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["surface_counts"]["organ_authority_count"] == 42
     assert payload["surface_counts"]["surface_authority_count"] == 45
@@ -892,7 +894,10 @@ def test_cli_public_entry_docs_smoke_uses_temp_output(
     assert status == 0
     assert receipt["status"] == "pass"
     assert receipt["blocking_codes"] == []
-    assert receipt["private_state_scan"]["body_redacted"] is True
+    assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert receipt["payload_boundary"]["source_open_default"] is True
+    assert receipt["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     text = out.read_text(encoding="utf-8")
     assert "/Users/" not in text
     assert "src/ai_workflow" not in text
