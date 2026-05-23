@@ -4,7 +4,7 @@
   "organ_id": "formal_math_verifier_trace_repair_loop",
   "fixture_id": "fixture::formal_math_verifier_trace_repair_loop::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
-  "purpose": "Validate a source-available formal-math verifier trace repair loop imported through the macro projection protocol: verifier feedback, trace grades, repair actions, failure-mode ledger updates, curriculum deltas, cold rerun promotion gates, and negative-case leakage controls.",
+  "purpose": "Validate copied non-secret Ring2 verifier failure, graph-update, and oracle-repair contrast substrate: verifier feedback, trace grades, repair actions, failure-mode ledger updates, curriculum deltas, cold rerun promotion gates, and negative-case leakage controls.",
   "inputs": [
     "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
     "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
@@ -55,28 +55,53 @@
     "missing_negative_cases",
     "error_codes",
     "anti_claim",
-    "private_state_scan",
     "authority_ceiling",
     "receipt_paths",
     "protocol_id",
     "source_pattern_ids",
     "source_refs",
     "projection_receipt_refs",
-    "public_replacement_refs",
     "attempt_count",
     "trace_event_count",
     "repair_action_count",
     "cold_rerun_promotion_count",
     "failure_mode_count",
-    "curriculum_edge_count"
+    "curriculum_edge_count",
+    "secret_exclusion_scan",
+    "target_refs",
+    "copied_material",
+    "body_material_status",
+    "body_copied_material_count"
   ],
   "private_state_exclusion_rules": {
-    "proof_bodies": "forbidden; verifier rows expose failure class and redacted event metadata only",
-    "oracle_needed_premise_ids": "forbidden in public trace inputs",
-    "provider_payload_bodies": "forbidden; provider or human advice is advisory metadata only",
+    "proof_bodies": "forbidden; verifier rows expose copied failure class and public trace event fields only",
+    "oracle_needed_premise_ids": "forbidden in public trace inputs and rankings",
+    "provider_payload_bodies": "forbidden; provider or human advice is public advisory fields only",
     "human_approval_as_proof": "forbidden; only checker receipts can support proof authority",
-    "lean_lake": "not executed; repair loop replay metadata only"
+    "lean_lake": "not executed by this organ; copied run rows cite source receipts only"
   },
-  "authority_ceiling": "public synthetic formal-math verifier trace repair fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, human approval authority, or release operations",
-  "anti_claim": "This fixture manifest accepts only public verifier trace repair metadata, trace-grade checks, cold-rerun promotion gates, curriculum deltas, and negative-case leakage coverage. It does not authorize Lean/Lake, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export."
+  "authority_ceiling": "copied non-secret Ring2 verifier trace repair substrate only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, human approval authority, benchmark authority, or release operations",
+  "anti_claim": "This fixture manifest accepts copied non-secret Ring2 verifier trace repair rows, trace-grade checks, cold-rerun contrast gates, curriculum deltas, and negative-case leakage coverage. It does not authorize Lean/Lake execution here, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export.",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "premise_retrieval_variant_id": "premise_retrieval_graph_v0",
+  "oracle_repair_variant_id": "oracle_repair_graph_v0",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
+  }
 }

@@ -3,20 +3,45 @@
   "standard_id": "std_microcosm_formal_math_verifier_trace_repair_loop",
   "kind_id": "formal_math_verifier_trace_repair_loop",
   "kind_name": "Formal math verifier trace repair loop",
-  "status": "draft",
+  "status": "accepted",
   "first_wave_required": true,
   "wave": "w1_formal_math_verifier_trace_repair",
-  "authority_boundary": "public_synthetic_verifier_trace_repair_not_proof_authority",
+  "authority_boundary": "copied_ring2_verifier_trace_repair_not_proof_authority",
   "source_refs": [
     {
-      "path": "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
-      "field": "projection_protocol",
-      "role": "public_fixture_source"
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "role": "real_ring2_run_source"
     },
     {
-      "path": "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle",
-      "field": "runtime_example",
-      "role": "runtime_example_source"
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "role": "real_ring2_run_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "role": "real_ring2_run_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "role": "real_ring2_run_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+      "digest": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+      "role": "real_ring2_run_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+      "digest": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+      "role": "real_ring2_run_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "digest": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
+      "role": "real_ring2_run_source"
     }
   ],
   "relationships": {
@@ -35,30 +60,34 @@
   "required_fields": [
     "protocol_id",
     "source_refs",
+    "source_digests",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "target_refs",
+    "copied_material",
     "verifier_attempts",
     "failure_mode_ledger",
     "curriculum_edges",
     "promotion_policy",
+    "body_material_status",
+    "secret_exclusion_scan",
     "authority_ceiling",
     "anti_claim"
   ],
   "validation_rules": [
-    "require macro projection protocol refs and public replacement refs",
+    "require real Ring2 source refs, source digests, copied-material target refs, and validation refs",
     "require verifier class before repair action promotion",
     "require trace events before trace grade emission",
     "require cold rerun receipt before promotion",
-    "emit failure-mode ledger and curriculum deltas as metadata only",
+    "emit failure-mode ledger and curriculum deltas from copied real failure taxonomy and graph-update rows",
     "reject proof bodies and provider payload bodies",
     "reject oracle-needed premise ids in public trace rows",
     "reject human approval as proof correctness",
-    "emit private-state scan and redacted receipts"
+    "emit secret_exclusion_scan and copied-material receipts"
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_math_verifier_trace_repair_loop",
-    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, trace counts, repair counts, cold rerun promotion count, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite source refs, source digests, target refs, copied material, trace counts, repair counts, cold rerun promotion count, negative-case coverage, secret_exclusion_scan, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -82,29 +111,34 @@
       "protocol_id",
       "source_pattern_ids",
       "source_refs",
+      "source_digests",
       "projection_receipt_refs",
-      "public_replacement_refs",
+      "target_refs",
+      "copied_material",
+      "body_material_status",
+      "body_copied_material_count",
       "attempt_count",
       "trace_event_count",
       "repair_action_count",
       "cold_rerun_promotion_count",
       "authority_ceiling",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
       "negative_case_coverage"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_metadata_fixture_receipt_only",
+    "default_posture": "copied_non_secret_macro_run_rows_with_secret_exclusion",
     "allowed_public_inputs": [
       "attempt ids",
-      "statement ids",
-      "redacted public input hashes",
-      "verifier classes",
+      "problem ids",
+      "source run refs",
+      "source digests",
+      "failure classes",
       "trace event metadata",
       "repair action ids",
       "failure mode ids",
-      "cold rerun receipt refs",
+      "cold rerun contrast refs",
       "projection receipt refs"
     ],
     "forbidden_public_inputs": [
@@ -118,14 +152,14 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "verifier_trace_repair_metadata_fixture_receipt_schema_only",
+    "standard_authority": "copied_ring2_verifier_trace_repair_receipt_schema_only",
     "formal_proof_authority": false,
     "lean_lake_authority": false,
     "provider_authority": false,
     "human_approval_as_proof_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs public synthetic formal-math verifier trace repair metadata only; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, human approval as proof authority, or release/publication work.",
+  "anti_claim": "This standard governs copied non-secret Ring2 verifier trace repair rows only; it does not authorize Lean/Lake execution here, provider calls, proof bodies, oracle leakage, theorem correctness claims, human approval as proof authority, or release/publication work.",
   "standard_payload": {
     "ontology": "A public-safe verifier trace repair loop: attempts, trace grades, repair actions, failure-mode ledger deltas, cold rerun gates, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm demonstrate proof-lab self-repair mechanics while preserving proof, provider, and oracle authority boundaries.",
@@ -167,7 +201,7 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public slice carries verifier trace repair metadata and synthetic fixture evidence only",
+    "reason": "public slice carries copied non-secret Ring2 failure and repair-loop rows while excluding proof, oracle, provider, and live-access material",
     "drilldown": "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json"
   },
   "anti_claim_contract": {
@@ -176,6 +210,10 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
-  }
+    "rule": "macro source refs and target refs must point to copied non-secret run rows with source digests and validation receipts"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "premise_retrieval_variant_id": "premise_retrieval_graph_v0",
+  "oracle_repair_variant_id": "oracle_repair_graph_v0"
 }

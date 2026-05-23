@@ -28,6 +28,83 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_verifier_trace_repair_bundle_validation_result.json"
 
+RUN_ID = "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+PREMISE_RETRIEVAL_VARIANT_ID = "premise_retrieval_graph_v0"
+ORACLE_REPAIR_VARIANT_ID = "oracle_repair_graph_v0"
+PREMISE_RUN_SUMMARY_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/run_summary.json"
+)
+PREMISE_FAILURE_TAXONOMY_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+)
+PREMISE_GRAPH_UPDATE_CANDIDATES_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/graph_update_candidates.json"
+)
+ORACLE_REPAIR_RUN_SUMMARY_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/run_summary.json"
+)
+ORACLE_REPAIR_FAILURE_TAXONOMY_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/failure_taxonomy_report.json"
+)
+ORACLE_REPAIR_GRAPH_UPDATE_CANDIDATES_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/graph_update_candidates.json"
+)
+GRAPH_VARIANT_COMPARISON_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "graph_variant_comparison.json"
+)
+SOURCE_REFS = [
+    PREMISE_RUN_SUMMARY_REF,
+    PREMISE_FAILURE_TAXONOMY_REF,
+    PREMISE_GRAPH_UPDATE_CANDIDATES_REF,
+    ORACLE_REPAIR_RUN_SUMMARY_REF,
+    ORACLE_REPAIR_FAILURE_TAXONOMY_REF,
+    ORACLE_REPAIR_GRAPH_UPDATE_CANDIDATES_REF,
+    GRAPH_VARIANT_COMPARISON_REF,
+]
+SOURCE_DIGESTS = {
+    PREMISE_RUN_SUMMARY_REF: (
+        "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+    ),
+    PREMISE_FAILURE_TAXONOMY_REF: (
+        "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+    ),
+    PREMISE_GRAPH_UPDATE_CANDIDATES_REF: (
+        "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+    ),
+    ORACLE_REPAIR_RUN_SUMMARY_REF: (
+        "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
+    ),
+    ORACLE_REPAIR_FAILURE_TAXONOMY_REF: (
+        "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8"
+    ),
+    ORACLE_REPAIR_GRAPH_UPDATE_CANDIDATES_REF: (
+        "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a"
+    ),
+    GRAPH_VARIANT_COMPARISON_REF: (
+        "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
+    ),
+}
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+BODY_MATERIAL_CONTRACT = {
+    "body_material_status": BODY_MATERIAL_STATUS,
+    "macro_run_id": RUN_ID,
+    "premise_retrieval_variant_id": PREMISE_RETRIEVAL_VARIANT_ID,
+    "oracle_repair_variant_id": ORACLE_REPAIR_VARIANT_ID,
+    "copied_failure_trace_rows": True,
+    "proof_bodies_excluded": True,
+    "oracle_premise_ids_excluded": True,
+    "provider_payloads_excluded": True,
+    "lean_lake_execution_authorized": False,
+    "formal_proof_authority": False,
+}
+
 INPUT_NAMES = (
     "projection_protocol.json",
     "verifier_attempts.json",
@@ -73,7 +150,7 @@ FORBIDDEN_PROVIDER_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "public_synthetic_verifier_trace_repair_metadata_only",
+    "authority_ceiling": "copied_ring2_verifier_trace_repair_metadata_not_proof_authority",
     "lean_lake_execution_authorized": False,
     "formal_proof_authority": False,
     "provider_calls_authorized": False,
@@ -83,12 +160,11 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Formal math verifier-trace repair loop validates a public synthetic replay "
-    "of verifier feedback, trace grading, repair actions, failure-mode ledger "
-    "updates, curriculum deltas, and cold rerun promotion gates. It does not run "
-    "Lean or Lake, call providers, expose proof bodies or oracle premise ids, "
-    "treat human or provider advice as proof correctness, prove theorem "
-    "correctness, or authorize release."
+    "Formal math verifier-trace repair loop validates copied non-secret Ring2 "
+    "failure taxonomy, graph-update, and oracle-repair contrast rows as public "
+    "repair-loop evidence. It does not run Lean or Lake here, call providers, "
+    "expose proof bodies or oracle premise ids, treat human or provider advice "
+    "as proof correctness, prove theorem correctness, or authorize release."
 )
 
 
@@ -150,7 +226,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_material_status": "excluded_forbidden_material",
     }
 
 
@@ -208,20 +284,54 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    target_refs = _strings(protocol.get("target_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
+    copied_material = _rows(protocol, "copied_material")
     omitted = _rows(protocol, "omitted_material")
     findings: list[dict[str, Any]] = []
-    if len(source_refs) < 4 or len(source_pattern_ids) < 3 or len(public_replacements) < 3:
+    if len(source_refs) < 4 or len(source_pattern_ids) < 3 or len(target_refs) < 3:
         findings.append(
             _finding(
                 "VERIFIER_TRACE_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Verifier trace repair projection must cite macro source refs, pattern ids, and public replacements.",
+                "Verifier trace repair projection must cite macro source refs, pattern ids, and copied-material target refs.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )
         )
+    if not copied_material:
+        findings.append(
+            _finding(
+                "VERIFIER_TRACE_COPIED_MATERIAL_REQUIRED",
+                "Verifier trace repair projection must carry copied non-secret macro material provenance.",
+                case_id="projection_protocol_floor",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="copied_material",
+            )
+        )
+    for material in copied_material:
+        missing = [
+            field
+            for field in (
+                "source_ref",
+                "source_sha256",
+                "target_refs",
+                "validation_refs",
+            )
+            if not material.get(field)
+        ]
+        if material.get("body_material_status") != BODY_MATERIAL_STATUS:
+            missing.append("body_material_status")
+        if missing:
+            findings.append(
+                _finding(
+                    "VERIFIER_TRACE_COPIED_MATERIAL_PROVENANCE_INCOMPLETE",
+                    "Copied verifier trace material must retain source digest, target refs, validation refs, and copied-material status.",
+                    case_id="projection_protocol_floor",
+                    subject_id=str(material.get("material_id") or "copied_material"),
+                    subject_kind="copied_material",
+                )
+            )
     for row in omitted:
         if not row.get("omission_receipt_ref"):
             findings.append(
@@ -238,14 +348,18 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         if source_refs
         and source_pattern_ids
         and projection_receipts
-        and public_replacements
+        and target_refs
+        and copied_material
         and not findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
+        "source_digests": protocol.get("source_digests") if isinstance(protocol.get("source_digests"), dict) else SOURCE_DIGESTS,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "target_refs": target_refs,
+        "copied_material": copied_material,
+        "body_copied_material_count": len(copied_material),
         "omitted_material_count": len(omitted),
         "findings": findings,
         "observed_negative_cases": {},
@@ -287,7 +401,7 @@ def _inspect_attempt_row(
             findings,
             observed,
             "VERIFIER_PROVIDER_PAYLOAD_FORBIDDEN",
-            "Verifier trace rows may cite provider advice as advisory metadata only, not provider payload bodies.",
+            "Verifier trace rows may cite provider advice as public advisory fields, not provider payload bodies.",
             case_id=case_id,
             subject_id=attempt_id,
             subject_kind=subject_kind,
@@ -359,6 +473,11 @@ def validate_verifier_attempts(
                 "attempt_id": str(row.get("attempt_id") or ""),
                 "statement_id": row.get("statement_id"),
                 "public_input_hash": row.get("public_input_hash"),
+                "source_problem_id": row.get("source_problem_id"),
+                "source_split": row.get("source_split"),
+                "source_domain": row.get("source_domain"),
+                "source_run_ref": row.get("source_run_ref"),
+                "oracle_repair_contrast_ref": row.get("oracle_repair_contrast_ref"),
                 "verifier_class": row.get("verifier_class"),
                 "trace_grade": row.get("trace_grade"),
                 "repair_action_id": row.get("repair_action_id"),
@@ -366,7 +485,7 @@ def validate_verifier_attempts(
                 "cold_rerun_receipt_ref": row.get("cold_rerun_receipt_ref"),
                 "promoted_after_cold_rerun": row.get("promoted_after_cold_rerun") is True,
                 "trace_event_count": len(trace_events),
-                "body_redacted": True,
+                "body_material_status": row.get("body_material_status") or "real_ring2_trace_row",
             }
         )
     for payload in negative_payloads.values():
@@ -417,7 +536,9 @@ def validate_repair_curriculum(payload: object) -> dict[str, Any]:
                 "repair_action_id": row.get("repair_action_id"),
                 "accepted_after_cold_rerun": row.get("accepted_after_cold_rerun") is True,
                 "cold_rerun_receipt_ref": row.get("cold_rerun_receipt_ref"),
-                "body_redacted": True,
+                "source_problem_ids": _strings(row.get("source_problem_ids")),
+                "source_candidate_id": row.get("source_candidate_id"),
+                "body_material_status": row.get("body_material_status") or "real_ring2_failure_mode_row",
             }
             for row in ledger_rows
         ],
@@ -426,7 +547,8 @@ def validate_repair_curriculum(payload: object) -> dict[str, Any]:
                 "from_failure_mode_id": row.get("from_failure_mode_id"),
                 "to_curriculum_node_id": row.get("to_curriculum_node_id"),
                 "delta_class": row.get("delta_class"),
-                "body_redacted": True,
+                "source_candidate_id": row.get("source_candidate_id"),
+                "body_material_status": row.get("body_material_status") or "real_ring2_curriculum_edge",
             }
             for row in curriculum_edges
         ],
@@ -469,13 +591,15 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan.pop("body_redacted", None)
+    secret_scan["forbidden_output_field_labels_omitted"] = True
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_bodies"
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     attempts = validate_verifier_attempts(
@@ -498,7 +622,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
         and attempts["status"] == PASS
         and curriculum["status"] == PASS
@@ -520,14 +644,22 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "macro_run_id": RUN_ID,
+        "premise_retrieval_variant_id": PREMISE_RETRIEVAL_VARIANT_ID,
+        "oracle_repair_variant_id": ORACLE_REPAIR_VARIANT_ID,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "body_material_contract": BODY_MATERIAL_CONTRACT,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
+        "source_digests": projection["source_digests"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "target_refs": projection["target_refs"],
+        "copied_material": projection["copied_material"],
+        "body_copied_material_count": projection["body_copied_material_count"],
         "attempt_count": attempts["attempt_count"],
         "trace_event_count": attempts["trace_event_count"],
         "repair_action_count": attempts["repair_action_count"],
@@ -555,6 +687,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "board_id": "formal_math_verifier_trace_repair_loop_public_board",
         "input_mode": result["input_mode"],
         "source_pattern_ids": result["source_pattern_ids"],
+        "body_material_status": result["body_material_status"],
+        "body_material_contract": result["body_material_contract"],
+        "copied_material": result["copied_material"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "mechanics": [
             {
                 "mechanic_id": "verifier_feedback_trace",
@@ -581,8 +717,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "failure_mode_ledger": result["failure_mode_ledger"],
         "curriculum_edges": result["curriculum_edges"],
         "formal_proof_authority": False,
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -625,6 +760,13 @@ def _write_receipts(
         "organ_id": ORGAN_ID,
         "fixture_id": FIXTURE_ID,
         "validator_id": VALIDATOR_ID,
+        "body_material_status": result["body_material_status"],
+        "body_material_contract": result["body_material_contract"],
+        "copied_material": result["copied_material"],
+        "body_copied_material_count": result["body_copied_material_count"],
+        "source_refs": result["source_refs"],
+        "source_digests": result["source_digests"],
+        "target_refs": result["target_refs"],
         "negative_case_coverage": {
             "expected": result["expected_negative_cases"],
             "observed": result["observed_negative_cases"],
@@ -634,7 +776,7 @@ def _write_receipts(
         "repair_action_count": result["repair_action_count"],
         "cold_rerun_promotion_count": result["cold_rerun_promotion_count"],
         "formal_proof_authority": False,
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -649,7 +791,10 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "body_material_status": result["body_material_status"],
+        "body_copied_material_count": result["body_copied_material_count"],
+        "source_refs": result["source_refs"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

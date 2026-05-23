@@ -4,7 +4,7 @@
     {
       "expected_negative_case_id": "promotion_without_cold_rerun",
       "attempt_id": "negative_promotion_without_cold_rerun",
-      "verifier_class": "invalid_proof_body_redacted",
+      "verifier_class": "invalid_proof_body_shape",
       "trace_grade": "promotion_claimed",
       "repair_action_id": "repair_requires_cold_rerun",
       "promoted_after_cold_rerun": true,
@@ -15,5 +15,7 @@
         }
       ]
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

@@ -1,44 +1,170 @@
 {
-  "schema_version": "formal_math_verifier_trace_repair_curriculum_fixture_v1",
+  "schema_version": "formal_math_verifier_trace_repair_curriculum_fixture_v2",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
+  },
   "failure_mode_ledger": [
     {
-      "failure_mode_id": "fm_missing_commutativity_prior",
-      "verifier_class": "missing_premise",
-      "repair_action_id": "repair_add_closed_std_premise_terms",
-      "accepted_after_cold_rerun": false,
-      "body_redacted": true
-    },
-    {
-      "failure_mode_id": "fm_mathlib_tactic_unavailable",
-      "verifier_class": "unavailable_tactic",
-      "repair_action_id": "repair_route_to_std_only_tactic",
-      "accepted_after_cold_rerun": false,
-      "body_redacted": true
-    },
-    {
-      "failure_mode_id": "fm_invalid_body_shape",
-      "verifier_class": "invalid_proof_body_redacted",
-      "repair_action_id": "repair_change_goal_shape_route",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "verifier_class": "PROOF_CORE_GAP",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
       "accepted_after_cold_rerun": true,
-      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
-      "body_redacted": true
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "source_problem_ids": [
+        "ring2_list_length_append",
+        "ring2_list_reverse_reverse",
+        "ring2_nat_add_assoc"
+      ],
+      "source_candidate_id": "oracle_repair_graph_v0",
+      "source_failure_count": 3,
+      "body_material_status": "real_ring2_failure_mode_row"
+    },
+    {
+      "failure_mode_id": "fm_ring2_tactic_search_fail",
+      "verifier_class": "TACTIC_SEARCH_FAIL",
+      "repair_action_id": "repair_record_tactic_search_failure_without_test_tuning",
+      "accepted_after_cold_rerun": false,
+      "cold_rerun_receipt_ref": null,
+      "source_problem_ids": [
+        "ring2_list_length_append_symmetry_hit_fail"
+      ],
+      "source_candidate_id": "mathlib_ring1_problem_set_v0",
+      "source_failure_count": 1,
+      "body_material_status": "real_ring2_failure_mode_row"
+    },
+    {
+      "failure_mode_id": "fm_ring2_premise_retrieval_miss",
+      "verifier_class": "PREMISE_RETRIEVAL_MISS",
+      "repair_action_id": "repair_retrieval_query_recipe_update",
+      "accepted_after_cold_rerun": false,
+      "cold_rerun_receipt_ref": null,
+      "source_problem_ids": [
+        "ring2_list_map_map_index_miss"
+      ],
+      "source_candidate_id": "retrieval_query_recipe_update",
+      "source_failure_count": 1,
+      "body_material_status": "real_ring2_failure_mode_row"
     }
   ],
   "curriculum_edges": [
     {
-      "from_failure_mode_id": "fm_missing_commutativity_prior",
-      "to_curriculum_node_id": "curriculum_closed_std_premise_terms",
-      "delta_class": "add_retrieval_terms"
+      "from_failure_mode_id": "fm_ring2_proof_core_gap",
+      "to_curriculum_node_id": "curriculum_oracle_repair_contrast_for_proof_core_gap",
+      "delta_class": "oracle_repair_graph_contrast",
+      "source_candidate_id": "oracle_repair_graph_v0",
+      "body_material_status": "real_ring2_curriculum_edge"
     },
     {
-      "from_failure_mode_id": "fm_mathlib_tactic_unavailable",
-      "to_curriculum_node_id": "curriculum_std_only_tactic_route",
-      "delta_class": "route_around_unavailable_dependency"
+      "from_failure_mode_id": "fm_ring2_tactic_search_fail",
+      "to_curriculum_node_id": "curriculum_tactic_search_failure_holdout",
+      "delta_class": "heldout_failure_record",
+      "source_candidate_id": "mathlib_ring1_problem_set_v0",
+      "body_material_status": "real_ring2_curriculum_edge"
     },
     {
-      "from_failure_mode_id": "fm_invalid_body_shape",
-      "to_curriculum_node_id": "curriculum_goal_shape_repair",
-      "delta_class": "repair_after_cold_rerun"
+      "from_failure_mode_id": "fm_ring2_premise_retrieval_miss",
+      "to_curriculum_node_id": "curriculum_retrieval_query_recipe_update",
+      "delta_class": "retrieval_query_recipe_update",
+      "source_candidate_id": "retrieval_query_recipe_update",
+      "body_material_status": "real_ring2_curriculum_edge"
     }
-  ]
+  ],
+  "graph_update_candidates": [
+    {
+      "applies_to_splits": [
+        "train",
+        "dev"
+      ],
+      "candidate_id": "oracle_repair_graph_v0",
+      "proposal": "Add one repair pass that reads Lean stderr plus ideal-proof skeleton only after the first oracle check.",
+      "source_problem_ids": [
+        "ring2_nat_add_assoc",
+        "ring2_list_reverse_reverse",
+        "ring2_list_length_append"
+      ],
+      "test_split_rule": "Evaluate only after selection; do not tune on held-out test failures.",
+      "trigger": "PROOF_CORE_GAP observed in baseline_graph_v0"
+    },
+    {
+      "applies_to_splits": [
+        "train",
+        "dev"
+      ],
+      "candidate_id": "retrieval_query_recipe_update",
+      "proposal": "Expand or retune the allowed premise index/query recipe before adding broader proof-search machinery.",
+      "source_problem_ids": [
+        "ring2_list_map_map_index_miss"
+      ],
+      "test_split_rule": "Report held-out retrieval misses without tuning on the specific test proof body.",
+      "trigger": "PREMISE_RETRIEVAL_MISS observed before the oracle revealed the needed premise."
+    },
+    {
+      "applies_to_splits": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "candidate_id": "mathlib_ring1_problem_set_v0",
+      "proposal": "Promote the next benchmark slice to Ring 1 with a local Lake/mathlib fixture or recovered UlamAI regression item.",
+      "source_problem_ids": [
+        "ring2_nat_succ_injective",
+        "ring2_nat_add_comm",
+        "ring2_nat_add_assoc",
+        "ring2_bool_not_not",
+        "ring2_list_reverse_reverse",
+        "ring2_list_length_append",
+        "ring2_iff_intro",
+        "ring2_list_mem_append",
+        "ring2_list_length_append_symmetry_hit_fail",
+        "ring2_list_map_map_index_miss"
+      ],
+      "test_split_rule": "Use source/family splits and keep proof bodies withheld from Prover-Lab.",
+      "trigger": "Lean-core environment is stable across at least five specimens."
+    }
+  ],
+  "oracle_repair_graph_update_candidates": [
+    {
+      "applies_to_splits": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "candidate_id": "mathlib_ring1_problem_set_v0",
+      "proposal": "Promote the next benchmark slice to Ring 1 with a local Lake/mathlib fixture or recovered UlamAI regression item.",
+      "source_problem_ids": [
+        "ring2_nat_succ_injective",
+        "ring2_nat_add_comm",
+        "ring2_nat_add_assoc",
+        "ring2_bool_not_not",
+        "ring2_list_reverse_reverse",
+        "ring2_list_length_append",
+        "ring2_iff_intro",
+        "ring2_list_mem_append",
+        "ring2_list_length_append_symmetry_hit_fail",
+        "ring2_list_map_map_index_miss"
+      ],
+      "test_split_rule": "Use source/family splits and keep proof bodies withheld from Prover-Lab.",
+      "trigger": "Lean-core environment is stable across at least five specimens."
+    }
+  ],
+  "variant_comparison_metrics": {
+    "baseline_pass_count": 0,
+    "oracle_repair_pass_count": 10,
+    "oracle_repair_success_count": 10,
+    "premise_precision": 0.36,
+    "premise_recall": 0.9,
+    "premise_retrieval_pass_count": 5,
+    "proof_failure_despite_hit": 4,
+    "retrieval_miss_count": 1
+  }
 }

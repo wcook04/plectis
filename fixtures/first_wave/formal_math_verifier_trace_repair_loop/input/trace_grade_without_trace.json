@@ -8,5 +8,7 @@
       "trace_grade": "claimed_trace_grade",
       "repair_action_id": "repair_require_trace"
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

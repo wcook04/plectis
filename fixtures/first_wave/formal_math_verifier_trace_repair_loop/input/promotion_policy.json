@@ -1,15 +1,17 @@
 {
-  "schema_version": "formal_math_verifier_trace_repair_promotion_policy_v1",
-  "policy_id": "public_verifier_trace_repair_promotion_policy",
+  "schema_version": "formal_math_verifier_trace_repair_promotion_policy_v2",
+  "policy_id": "ring2_real_verifier_trace_repair_promotion_policy",
   "promotion_requires": [
     "verifier_class",
     "trace_events",
     "repair_action_id",
     "failure_mode_ledger_append",
-    "cold_rerun_receipt_ref"
+    "cold_rerun_receipt_ref",
+    "copied_material_provenance"
   ],
-  "human_or_provider_advice_authority": "advisory_until_checker_receipt",
+  "human_or_provider_advice_authority": "not_authority_without_checker_receipt",
   "formal_proof_authority": false,
   "provider_calls_authorized": false,
-  "release_authorized": false
+  "release_authorized": false,
+  "test_split_tuning_authorized": false
 }

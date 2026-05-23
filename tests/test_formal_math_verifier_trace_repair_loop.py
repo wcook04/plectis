@@ -50,12 +50,38 @@ def test_formal_math_verifier_trace_repair_loop_observes_negative_cases(
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["attempt_count"] == 3
-    assert result["trace_event_count"] == 6
-    assert result["repair_action_count"] == 3
-    assert result["cold_rerun_promotion_count"] == 1
+    assert result["attempt_count"] == 5
+    assert result["trace_event_count"] == 15
+    assert result["repair_action_count"] == 5
+    assert result["cold_rerun_promotion_count"] == 3
     assert result["failure_mode_count"] == 3
     assert result["curriculum_edge_count"] == 3
+    assert (
+        result["macro_run_id"]
+        == "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    )
+    assert (
+        result["body_material_status"]
+        == "copied_non_secret_macro_body_with_provenance"
+    )
+    assert result["body_copied_material_count"] == 3
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result
+    source_digests = result["source_digests"]
+    assert (
+        source_digests[
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+            "premise_retrieval_graph_v0/run_summary.json"
+        ]
+        == "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+    )
+    copied_material_ids = {material["material_id"] for material in result["copied_material"]}
+    assert copied_material_ids == {
+        "ring2_premise_retrieval_failure_trace_rows",
+        "ring2_premise_retrieval_graph_update_candidates",
+        "ring2_oracle_repair_cold_rerun_contrast_rows",
+    }
     assert result["authority_ceiling"]["formal_proof_authority"] is False
     assert result["authority_ceiling"]["human_approval_as_proof_authority"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -63,7 +89,7 @@ def test_formal_math_verifier_trace_repair_loop_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_formal_math_verifier_trace_repair_receipts_are_public_relative_and_redacted(
+def test_formal_math_verifier_trace_repair_receipts_are_public_relative_and_provenanced(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -87,14 +113,22 @@ def test_formal_math_verifier_trace_repair_receipts_are_public_relative_and_reda
         assert str(public_root) not in text
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
-        assert "synthetic forbidden proof payload" not in text
-        assert "synthetic forbidden provider payload" not in text
+        assert "synthetic" not in text
+        assert "body_redacted" not in text
+        assert "private_state_scan" not in text
+        assert "public_replacement" not in text
         assert '"proof_body":' not in text
         assert '"provider_payload_body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert (
+            payload["body_material_status"]
+            == "copied_non_secret_macro_body_with_provenance"
+        )
+        assert payload["body_copied_material_count"] == 3
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert "private_state_scan" not in _walk_keys(payload)
+        assert "body_redacted" not in _walk_keys(payload)
         assert "proof_body" not in _walk_keys(payload)
         assert "provider_payload_body" not in _walk_keys(payload)
 
@@ -115,8 +149,13 @@ def test_formal_math_verifier_trace_repair_exported_bundle_validates_runtime_sha
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["attempt_count"] == 3
-    assert result["trace_event_count"] == 6
-    assert result["repair_action_count"] == 3
-    assert result["cold_rerun_promotion_count"] == 1
+    assert result["attempt_count"] == 5
+    assert result["trace_event_count"] == 15
+    assert result["repair_action_count"] == 5
+    assert result["cold_rerun_promotion_count"] == 3
+    assert (
+        result["body_material_status"]
+        == "copied_non_secret_macro_body_with_provenance"
+    )
+    assert result["body_copied_material_count"] == 3
     assert result["authority_ceiling"]["formal_proof_authority"] is False

@@ -1,76 +1,260 @@
 {
-  "schema_version": "formal_math_verifier_trace_attempts_fixture_v1",
+  "schema_version": "formal_math_verifier_trace_attempts_fixture_v2",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+  },
+  "attempt_count": 5,
+  "source_failure_taxonomy": {
+    "DECOMPOSITION_BAD": 0,
+    "ENVIRONMENT_FAIL": 0,
+    "FORMALIZATION_MISMATCH": 0,
+    "LIBRARY_GAP": 0,
+    "NONE": 5,
+    "ORACLE_TIMEOUT": 0,
+    "PREMISE_RETRIEVAL_MISS": 1,
+    "PROOF_CORE_GAP": 3,
+    "PROOF_SYNTHESIS_FAIL": 0,
+    "REGISTRY_STATUS_MISMATCH": 0,
+    "SOLUTION_LEAKAGE": 0,
+    "STRATEGY_SELECTION_MISS": 0,
+    "TACTIC_SEARCH_FAIL": 1
+  },
+  "oracle_repair_failure_taxonomy": {
+    "DECOMPOSITION_BAD": 0,
+    "ENVIRONMENT_FAIL": 0,
+    "FORMALIZATION_MISMATCH": 0,
+    "LIBRARY_GAP": 0,
+    "NONE": 10,
+    "ORACLE_TIMEOUT": 0,
+    "PREMISE_RETRIEVAL_MISS": 0,
+    "PROOF_CORE_GAP": 0,
+    "PROOF_SYNTHESIS_FAIL": 0,
+    "REGISTRY_STATUS_MISMATCH": 0,
+    "SOLUTION_LEAKAGE": 0,
+    "STRATEGY_SELECTION_MISS": 0,
+    "TACTIC_SEARCH_FAIL": 0
+  },
   "attempts": [
     {
-      "attempt_id": "attempt_a_missing_premise",
-      "statement_id": "toy_nat_add_comm_goal",
-      "public_input_hash": "sha256:toy-a-redacted",
-      "verifier_class": "missing_premise",
-      "trace_grade": "blocked_before_tactic",
-      "failure_mode_id": "fm_missing_commutativity_prior",
-      "repair_action_id": "repair_add_closed_std_premise_terms",
-      "promoted_after_cold_rerun": false,
-      "trace_events": [
-        {
-          "event_id": "trace_a_001",
-          "event_class": "premise_lookup_empty",
-          "public_detail": "query terms did not include Nat.add_comm",
-          "body_redacted": true
-        },
-        {
-          "event_id": "trace_a_002",
-          "event_class": "repair_selected",
-          "public_detail": "add closed Std premise terms before rerun",
-          "body_redacted": true
-        }
-      ]
-    },
-    {
-      "attempt_id": "attempt_b_unavailable_tactic",
-      "statement_id": "toy_list_append_assoc_goal",
-      "public_input_hash": "sha256:toy-b-redacted",
-      "verifier_class": "unavailable_tactic",
-      "trace_grade": "blocked_by_environment",
-      "failure_mode_id": "fm_mathlib_tactic_unavailable",
-      "repair_action_id": "repair_route_to_std_only_tactic",
-      "promoted_after_cold_rerun": false,
-      "trace_events": [
-        {
-          "event_id": "trace_b_001",
-          "event_class": "tactic_probe_failed",
-          "public_detail": "Mathlib tactic was not available in public fixture environment",
-          "body_redacted": true
-        },
-        {
-          "event_id": "trace_b_002",
-          "event_class": "routing_gate_selected",
-          "public_detail": "route to Std-only tactic class",
-          "body_redacted": true
-        }
-      ]
-    },
-    {
-      "attempt_id": "attempt_c_invalid_body_redacted",
-      "statement_id": "toy_bool_and_comm_goal",
-      "public_input_hash": "sha256:toy-c-redacted",
-      "verifier_class": "invalid_proof_body_redacted",
-      "trace_grade": "failed_checker_then_repaired",
-      "failure_mode_id": "fm_invalid_body_shape",
-      "repair_action_id": "repair_change_goal_shape_route",
+      "attempt_id": "ring2_list_length_append.proof_core_gap.verifier_trace",
+      "statement_id": "ring2_list_length_append",
+      "source_problem_id": "ring2_list_length_append",
+      "source_split": "dev",
+      "source_domain": "list",
+      "public_input_hash": "sha256:b5fec442a8b9166a77af3c4af6d64506f79cec43c957de8bfb6e30c3f2e57a17",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+      "verifier_class": "PROOF_CORE_GAP",
+      "trace_grade": "failed_checker_after_premise_hit",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
       "promoted_after_cold_rerun": true,
-      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+      "body_material_status": "real_ring2_verifier_trace_row",
       "trace_events": [
         {
-          "event_id": "trace_c_001",
-          "event_class": "checker_rejected_candidate",
-          "public_detail": "candidate body class rejected; body omitted",
-          "body_redacted": true
+          "event_id": "ring2_list_length_append.premise_retrieval_verifier_result",
+          "event_class": "premise_retrieval_graph_verifier_result",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+          "lean_compile_status": "FAIL",
+          "error_class": "PROOF_CORE_GAP",
+          "body_material_status": "real_ring2_trace_event_metadata"
         },
         {
-          "event_id": "trace_c_002",
-          "event_class": "cold_rerun_passed_synthetic_gate",
-          "public_detail": "same public metadata passed the cold rerun gate after repair",
-          "body_redacted": true
+          "event_id": "ring2_list_length_append.oracle_repair_contrast",
+          "event_class": "oracle_repair_graph_cold_rerun_contrast",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+          "lean_compile_status": "PASS",
+          "error_class": "NONE",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_length_append.graph_update_candidate",
+          "event_class": "graph_update_candidate_from_real_run",
+          "candidate_id": "oracle_repair_graph_v0",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json#candidates.oracle_repair_graph_v0",
+          "test_split_rule": "Evaluate only after selection; do not tune on held-out test failures.",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        }
+      ]
+    },
+    {
+      "attempt_id": "ring2_list_length_append_symmetry_hit_fail.tactic_search_fail.verifier_trace",
+      "statement_id": "ring2_list_length_append_symmetry_hit_fail",
+      "source_problem_id": "ring2_list_length_append_symmetry_hit_fail",
+      "source_split": "test",
+      "source_domain": "list",
+      "public_input_hash": "sha256:600854aa43d0db15c3b46450a9ec3592110a2056e0368664639d65be18bbce74",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_length_append_symmetry_hit_fail",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append_symmetry_hit_fail",
+      "verifier_class": "TACTIC_SEARCH_FAIL",
+      "trace_grade": "failed_tactic_search_after_premise_hit",
+      "failure_mode_id": "fm_ring2_tactic_search_fail",
+      "repair_action_id": "repair_record_tactic_search_failure_without_test_tuning",
+      "promoted_after_cold_rerun": false,
+      "cold_rerun_receipt_ref": null,
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "trace_events": [
+        {
+          "event_id": "ring2_list_length_append_symmetry_hit_fail.premise_retrieval_verifier_result",
+          "event_class": "premise_retrieval_graph_verifier_result",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_length_append_symmetry_hit_fail",
+          "lean_compile_status": "FAIL",
+          "error_class": "TACTIC_SEARCH_FAIL",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_length_append_symmetry_hit_fail.oracle_repair_contrast",
+          "event_class": "oracle_repair_graph_cold_rerun_contrast",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append_symmetry_hit_fail",
+          "lean_compile_status": "PASS",
+          "error_class": "NONE",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_length_append_symmetry_hit_fail.graph_update_candidate",
+          "event_class": "graph_update_candidate_from_real_run",
+          "candidate_id": "mathlib_ring1_problem_set_v0",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json#candidates.mathlib_ring1_problem_set_v0",
+          "test_split_rule": "Use source/family splits and keep proof bodies withheld from Prover-Lab.",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        }
+      ]
+    },
+    {
+      "attempt_id": "ring2_list_map_map_index_miss.premise_retrieval_miss.verifier_trace",
+      "statement_id": "ring2_list_map_map_index_miss",
+      "source_problem_id": "ring2_list_map_map_index_miss",
+      "source_split": "test",
+      "source_domain": "list",
+      "public_input_hash": "sha256:18cf4c9d8102131577f411f5f8187c3cc8b67d0e232f890e37837be793b4d2c7",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_map_map_index_miss",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_map_map_index_miss",
+      "verifier_class": "PREMISE_RETRIEVAL_MISS",
+      "trace_grade": "blocked_by_premise_retrieval_miss",
+      "failure_mode_id": "fm_ring2_premise_retrieval_miss",
+      "repair_action_id": "repair_retrieval_query_recipe_update",
+      "promoted_after_cold_rerun": false,
+      "cold_rerun_receipt_ref": null,
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "trace_events": [
+        {
+          "event_id": "ring2_list_map_map_index_miss.premise_retrieval_verifier_result",
+          "event_class": "premise_retrieval_graph_verifier_result",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_map_map_index_miss",
+          "lean_compile_status": "FAIL",
+          "error_class": "PREMISE_RETRIEVAL_MISS",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_map_map_index_miss.oracle_repair_contrast",
+          "event_class": "oracle_repair_graph_cold_rerun_contrast",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_map_map_index_miss",
+          "lean_compile_status": "PASS",
+          "error_class": "NONE",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_map_map_index_miss.graph_update_candidate",
+          "event_class": "graph_update_candidate_from_real_run",
+          "candidate_id": "retrieval_query_recipe_update",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json#candidates.retrieval_query_recipe_update",
+          "test_split_rule": "Report held-out retrieval misses without tuning on the specific test proof body.",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        }
+      ]
+    },
+    {
+      "attempt_id": "ring2_list_reverse_reverse.proof_core_gap.verifier_trace",
+      "statement_id": "ring2_list_reverse_reverse",
+      "source_problem_id": "ring2_list_reverse_reverse",
+      "source_split": "dev",
+      "source_domain": "list",
+      "public_input_hash": "sha256:301cb3d33f4f23b4d35306e3ecd37012e6b356ee53ebe2ea3fc982fbdf130490",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+      "verifier_class": "PROOF_CORE_GAP",
+      "trace_grade": "failed_checker_after_premise_hit",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
+      "promoted_after_cold_rerun": true,
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "trace_events": [
+        {
+          "event_id": "ring2_list_reverse_reverse.premise_retrieval_verifier_result",
+          "event_class": "premise_retrieval_graph_verifier_result",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+          "lean_compile_status": "FAIL",
+          "error_class": "PROOF_CORE_GAP",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_reverse_reverse.oracle_repair_contrast",
+          "event_class": "oracle_repair_graph_cold_rerun_contrast",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+          "lean_compile_status": "PASS",
+          "error_class": "NONE",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_list_reverse_reverse.graph_update_candidate",
+          "event_class": "graph_update_candidate_from_real_run",
+          "candidate_id": "oracle_repair_graph_v0",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json#candidates.oracle_repair_graph_v0",
+          "test_split_rule": "Evaluate only after selection; do not tune on held-out test failures.",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        }
+      ]
+    },
+    {
+      "attempt_id": "ring2_nat_add_assoc.proof_core_gap.verifier_trace",
+      "statement_id": "ring2_nat_add_assoc",
+      "source_problem_id": "ring2_nat_add_assoc",
+      "source_split": "train",
+      "source_domain": "nat",
+      "public_input_hash": "sha256:c794ad99a57862d3bbea33456e45f6661b11c0c6b7a281ba91ed23eed066be9f",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+      "verifier_class": "PROOF_CORE_GAP",
+      "trace_grade": "failed_checker_after_premise_hit",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
+      "promoted_after_cold_rerun": true,
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "trace_events": [
+        {
+          "event_id": "ring2_nat_add_assoc.premise_retrieval_verifier_result",
+          "event_class": "premise_retrieval_graph_verifier_result",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+          "lean_compile_status": "FAIL",
+          "error_class": "PROOF_CORE_GAP",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_nat_add_assoc.oracle_repair_contrast",
+          "event_class": "oracle_repair_graph_cold_rerun_contrast",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+          "lean_compile_status": "PASS",
+          "error_class": "NONE",
+          "body_material_status": "real_ring2_trace_event_metadata"
+        },
+        {
+          "event_id": "ring2_nat_add_assoc.graph_update_candidate",
+          "event_class": "graph_update_candidate_from_real_run",
+          "candidate_id": "oracle_repair_graph_v0",
+          "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json#candidates.oracle_repair_graph_v0",
+          "test_split_rule": "Evaluate only after selection; do not tune on held-out test failures.",
+          "body_material_status": "real_ring2_trace_event_metadata"
         }
       ]
     }

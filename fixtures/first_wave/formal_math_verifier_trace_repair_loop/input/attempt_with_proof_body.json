@@ -4,10 +4,10 @@
     {
       "expected_negative_case_id": "attempt_with_proof_body",
       "attempt_id": "negative_attempt_with_proof_body",
-      "verifier_class": "invalid_proof_body_redacted",
+      "verifier_class": "invalid_proof_body_shape",
       "trace_grade": "failed_checker",
       "repair_action_id": "repair_redact_body",
-      "proof_body": "synthetic forbidden proof payload",
+      "proof_body": "negative fixture forbidden proof payload",
       "trace_events": [
         {
           "event_id": "negative_trace_body",
@@ -15,5 +15,7 @@
         }
       ]
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

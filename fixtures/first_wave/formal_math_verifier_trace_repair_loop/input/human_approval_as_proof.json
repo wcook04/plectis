@@ -15,5 +15,7 @@
         }
       ]
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

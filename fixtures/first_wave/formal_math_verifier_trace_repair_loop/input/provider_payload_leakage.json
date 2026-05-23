@@ -7,7 +7,7 @@
       "verifier_class": "provider_advice_leak",
       "trace_grade": "provider_payload_included",
       "repair_action_id": "repair_strip_provider_body",
-      "provider_payload_body": "synthetic forbidden provider payload",
+      "provider_payload_body": "negative fixture forbidden provider payload",
       "trace_events": [
         {
           "event_id": "negative_trace_provider",
@@ -15,5 +15,7 @@
         }
       ]
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

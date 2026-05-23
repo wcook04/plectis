@@ -1,14 +1,15 @@
 # Formal Math Verifier Trace Repair Loop
 
 `formal_math_verifier_trace_repair_loop` is the source-available replay of a macro
-proof-lab pattern: verifier feedback becomes a teaching signal only after a
-trace grade, a repair action, a failure-mode ledger append, a curriculum delta,
-and a cold rerun receipt.
+proof-lab pattern over copied Ring2 run substrate: verifier feedback becomes a
+teaching signal only after a trace grade, a repair action, a failure-mode ledger
+append, a curriculum delta, and a cold rerun receipt.
 
 It is deliberately not a Lean/Lake proof organ. It sits between the existing
 readiness, premise retrieval, tactic routing, proof diagnostic, and Lean witness
-surfaces so a cold reader can inspect the repair loop without seeing proof
-bodies, oracle premise ids, provider payload bodies, or private run logs.
+surfaces so a cold reader can inspect real failure taxonomy, graph-update
+candidates, and oracle-repair contrast rows without seeing proof bodies, oracle
+premise ids, provider payload bodies, or private run logs.
 
 ## Runtime
 
@@ -21,6 +22,8 @@ bodies, oracle premise ids, provider payload bodies, or private run logs.
 ## What It Proves
 
 - A public verifier replay can require trace events before trace grades.
+- Copied Ring2 failure rows can feed a repair curriculum without becoming proof
+  authority.
 - A repair action must name the verifier failure class it responds to.
 - A failure-mode ledger update can be represented without proof bodies.
 - Promotion requires a cold rerun receipt reference.
@@ -41,5 +44,6 @@ bodies, oracle premise ids, provider payload bodies, or private run logs.
 - `receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json`
 - `receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json`
 
-The authority boundary is synthetic verifier-trace repair metadata only. The
-organ demonstrates control-loop mechanics, not theorem correctness.
+The authority boundary is copied non-secret Ring2 verifier trace repair
+public non-secret fields only. The organ demonstrates control-loop mechanics over real run
+rows, not theorem correctness.

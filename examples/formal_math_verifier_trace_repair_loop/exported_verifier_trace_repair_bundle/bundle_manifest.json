@@ -2,8 +2,153 @@
   "schema_version": "exported_verifier_trace_repair_bundle_manifest_v1",
   "bundle_id": "formal_math_verifier_trace_repair_loop_runtime_example",
   "organ_id": "formal_math_verifier_trace_repair_loop",
-  "authority_boundary": "public synthetic verifier trace repair replay only",
+  "authority_boundary": "copied non-secret Ring2 verifier trace repair substrate only",
   "includes_negative_cases": false,
   "entry_command": "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
-  "anti_claim": "This exported bundle demonstrates the public verifier trace repair loop without proof bodies, oracle ids, provider payloads, Lean/Lake execution, or proof correctness authority."
+  "anti_claim": "This exported bundle validates copied non-secret Ring2 failure and repair-loop rows; it is not Lean/Lake execution, provider output, theorem proof authority, benchmark authority, or release approval.",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "premise_retrieval_variant_id": "premise_retrieval_graph_v0",
+  "oracle_repair_variant_id": "oracle_repair_graph_v0",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
+  },
+  "copied_material": [
+    {
+      "material_id": "ring2_premise_retrieval_failure_trace_rows",
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "material_kind": "real_ring2_verifier_failure_trace_rows",
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "premise_retrieval_graph_v0",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "copied_record_count": 5,
+      "copied_fields": [
+        "problem_id",
+        "split",
+        "domain",
+        "lean_compile_status",
+        "error_class"
+      ],
+      "target_refs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_verifier_trace_repair_loop.py",
+        "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      ],
+      "secret_exclusion": {
+        "proof_bodies_excluded": true,
+        "oracle_premise_ids_excluded": true,
+        "provider_payloads_excluded": true,
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true
+      }
+    },
+    {
+      "material_id": "ring2_premise_retrieval_graph_update_candidates",
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "material_kind": "real_ring2_graph_update_candidate_rows",
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "premise_retrieval_graph_v0",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "copied_record_count": 3,
+      "copied_fields": [
+        "candidate_id",
+        "trigger",
+        "proposal",
+        "source_problem_ids",
+        "test_split_rule"
+      ],
+      "target_refs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_verifier_trace_repair_loop.py",
+        "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      ],
+      "secret_exclusion": {
+        "proof_bodies_excluded": true,
+        "oracle_premise_ids_excluded": true,
+        "provider_payloads_excluded": true,
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true
+      }
+    },
+    {
+      "material_id": "ring2_oracle_repair_cold_rerun_contrast_rows",
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "material_kind": "real_ring2_oracle_repair_contrast_rows",
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "oracle_repair_graph_v0",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "source_sha256": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "source_run_hash": "818fbc0567f2dd392ff2c8d1715d68207e9f53f9571fb06084d1201aaf41c61c",
+      "copied_record_count": 10,
+      "copied_fields": [
+        "problem_id",
+        "split",
+        "domain",
+        "lean_compile_status",
+        "error_class"
+      ],
+      "target_refs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_verifier_trace_repair_loop.py",
+        "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      ],
+      "secret_exclusion": {
+        "proof_bodies_excluded": true,
+        "oracle_premise_ids_excluded": true,
+        "provider_payloads_excluded": true,
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true
+      }
+    }
+  ],
+  "attempt_count": 5,
+  "failure_mode_count": 3
 }
