@@ -2,7 +2,7 @@
   "attribution_replays": [
     {
       "attribution_graph_ref": "graphs/circuit_attribution_graph_01.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "causal_inhibition_delta_ref": "interventions/inhibition_delta_01.json",
       "causal_injection_delta_ref": "interventions/injection_delta_01.json",
       "causal_intervention_receipt_ref": "interventions/causal_receipt_01.json",
@@ -40,7 +40,7 @@
         },
         {
           "node_id": "feat_public_003",
-          "node_kind": "synthetic_error_node"
+          "node_kind": "public_error_node"
         }
       ],
       "graph_screenshot_only": false,
@@ -57,6 +57,7 @@
         "feat_public_002"
       ],
       "sufficiency_label": "sufficient_for_fixture_replay",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json::circuit_attribution_replay_01",
       "toy_prompt_ref": "toy_prompts/circuit_prompt_01.json",
       "transparency_claim": true,
       "uninterpretable_error_node_budget": 2,
@@ -64,7 +65,7 @@
     },
     {
       "attribution_graph_ref": "graphs/circuit_attribution_graph_02.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "causal_inhibition_delta_ref": "interventions/inhibition_delta_02.json",
       "causal_injection_delta_ref": "interventions/injection_delta_02.json",
       "causal_intervention_receipt_ref": "interventions/causal_receipt_02.json",
@@ -102,7 +103,7 @@
         },
         {
           "node_id": "feat_public_004",
-          "node_kind": "synthetic_error_node"
+          "node_kind": "public_error_node"
         }
       ],
       "graph_screenshot_only": false,
@@ -119,6 +120,7 @@
         "feat_public_003"
       ],
       "sufficiency_label": "sufficient_for_fixture_replay",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json::circuit_attribution_replay_02",
       "toy_prompt_ref": "toy_prompts/circuit_prompt_02.json",
       "transparency_claim": true,
       "uninterpretable_error_node_budget": 2,
@@ -126,7 +128,7 @@
     },
     {
       "attribution_graph_ref": "graphs/circuit_attribution_graph_03.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "causal_inhibition_delta_ref": "interventions/inhibition_delta_03.json",
       "causal_injection_delta_ref": "interventions/injection_delta_03.json",
       "causal_intervention_receipt_ref": "interventions/causal_receipt_03.json",
@@ -164,7 +166,7 @@
         },
         {
           "node_id": "feat_public_005",
-          "node_kind": "synthetic_error_node"
+          "node_kind": "public_error_node"
         }
       ],
       "graph_screenshot_only": false,
@@ -181,6 +183,7 @@
         "feat_public_004"
       ],
       "sufficiency_label": "sufficient_for_fixture_replay",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json::circuit_attribution_replay_03",
       "toy_prompt_ref": "toy_prompts/circuit_prompt_03.json",
       "transparency_claim": true,
       "uninterpretable_error_node_budget": 2,
@@ -188,7 +191,7 @@
     },
     {
       "attribution_graph_ref": "graphs/circuit_attribution_graph_04.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "causal_inhibition_delta_ref": "interventions/inhibition_delta_04.json",
       "causal_injection_delta_ref": "interventions/injection_delta_04.json",
       "causal_intervention_receipt_ref": "interventions/causal_receipt_04.json",
@@ -226,7 +229,7 @@
         },
         {
           "node_id": "feat_public_006",
-          "node_kind": "synthetic_error_node"
+          "node_kind": "public_error_node"
         }
       ],
       "graph_screenshot_only": false,
@@ -243,6 +246,7 @@
         "feat_public_005"
       ],
       "sufficiency_label": "sufficient_for_fixture_replay",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json::circuit_attribution_replay_04",
       "toy_prompt_ref": "toy_prompts/circuit_prompt_04.json",
       "transparency_claim": true,
       "uninterpretable_error_node_budget": 2,
@@ -250,7 +254,7 @@
     },
     {
       "attribution_graph_ref": "graphs/circuit_attribution_graph_05.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "causal_inhibition_delta_ref": "interventions/inhibition_delta_05.json",
       "causal_injection_delta_ref": "interventions/injection_delta_05.json",
       "causal_intervention_receipt_ref": "interventions/causal_receipt_05.json",
@@ -288,7 +292,7 @@
         },
         {
           "node_id": "feat_public_001",
-          "node_kind": "synthetic_error_node"
+          "node_kind": "public_error_node"
         }
       ],
       "graph_screenshot_only": false,
@@ -305,6 +309,7 @@
         "feat_public_006"
       ],
       "sufficiency_label": "sufficient_for_fixture_replay",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json::circuit_attribution_replay_05",
       "toy_prompt_ref": "toy_prompts/circuit_prompt_05.json",
       "transparency_claim": true,
       "uninterpretable_error_node_budget": 2,
@@ -312,7 +317,7 @@
     },
     {
       "attribution_graph_ref": "graphs/circuit_attribution_graph_06.json",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "causal_inhibition_delta_ref": "interventions/inhibition_delta_06.json",
       "causal_injection_delta_ref": "interventions/injection_delta_06.json",
       "causal_intervention_receipt_ref": "interventions/causal_receipt_06.json",
@@ -350,7 +355,7 @@
         },
         {
           "node_id": "feat_public_002",
-          "node_kind": "synthetic_error_node"
+          "node_kind": "public_error_node"
         }
       ],
       "graph_screenshot_only": false,
@@ -367,6 +372,7 @@
         "feat_public_001"
       ],
       "sufficiency_label": "sufficient_for_fixture_replay",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json::circuit_attribution_replay_06",
       "toy_prompt_ref": "toy_prompts/circuit_prompt_06.json",
       "transparency_claim": true,
       "uninterpretable_error_node_budget": 2,

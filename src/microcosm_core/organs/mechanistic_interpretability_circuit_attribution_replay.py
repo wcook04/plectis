@@ -6,7 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -85,7 +85,6 @@ REQUIRED_REPLAY_FIELDS = (
     "uninterpretable_error_node_budget",
     "contradiction_case_ref",
     "cold_replay_ref",
-    "body_redacted",
     "private_model_weights_exported",
     "raw_activation_dump_exported",
     "proprietary_prompt_exported",
@@ -97,6 +96,8 @@ REQUIRED_REPLAY_FIELDS = (
     "causal_intervention_receipt_ref",
     "faithfulness_claim",
     "release_authorized",
+    "target_ref",
+    "body_in_receipt",
 )
 
 PRIVATE_NEEDLES = (
@@ -113,8 +114,8 @@ PRIVATE_NEEDLES = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_circuit_attribution_metadata_only",
-    "metadata_projection_only": True,
+    "authority_ceiling": "public_circuit_attribution_runtime_receipt_only",
+    "public_runtime_receipt_required": True,
     "private_model_weights_export_authorized": False,
     "raw_activation_dump_export_authorized": False,
     "proprietary_prompt_export_authorized": False,
@@ -130,15 +131,43 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Mechanistic interpretability circuit-attribution replay validates synthetic, "
-    "body-redacted attribution metadata: toy prompt refs, sparse feature ids, "
-    "machine-readable graph edges, replacement-model approximation scores, causal "
-    "inhibition and injection deltas, sufficiency and faithfulness limits, "
-    "contradiction cases, and cold replay refs. It does not export private model "
-    "weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-"
-    "thought, provider payloads, private model internals, benchmark scores, or "
-    "release authority."
+    "Mechanistic interpretability circuit-attribution replay validates public "
+    "body-free runtime receipt rows: toy prompt refs, sparse feature ids, "
+    "machine-readable graph edges, replacement-model approximation scores, "
+    "causal inhibition and injection deltas, sufficiency and faithfulness "
+    "limits, contradiction cases, target refs, and cold replay refs. It does "
+    "not export private model weights, raw activation dumps, proprietary prompt "
+    "bodies, hidden chain-of-thought, provider payloads, private model internals, "
+    "benchmark scores, or release authority."
 )
+BODY_IMPORT_STATUS = "real_runtime_receipt_landed"
+SOURCE_REFS = [
+    "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+]
+TARGET_REFS = [
+    "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+    "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
+    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
+]
+VALIDATION_REFS = [
+    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs",
+]
+BODY_IMPORT_VERIFICATION = {
+    "status": PASS,
+    "classification": "real_runtime_receipt",
+    "body_import_status": BODY_IMPORT_STATUS,
+    "source_refs": SOURCE_REFS,
+    "target_refs": TARGET_REFS,
+    "validation_refs": VALIDATION_REFS,
+    "body_in_receipt": False,
+    "secret_exclusion_policy": (
+        "exclude only credential/account/session/provider/live-access material, "
+        "private model weights, raw activations, proprietary prompt bodies, and "
+        "hidden chain-of-thought bodies"
+    ),
+}
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -197,7 +226,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -374,12 +403,22 @@ def _replay_policy_findings(
                 subject_id=subject_id,
                 subject_kind="circuit_attribution_replay",
             )
-    if row.get("body_redacted") is not True:
+    if not row.get("target_ref"):
         _record(
             findings,
             observed,
-            "INTERPRETABILITY_BODY_REDACTION_REQUIRED",
-            "circuit-attribution rows must be body-redacted metadata",
+            "INTERPRETABILITY_TARGET_REF_REQUIRED",
+            "circuit-attribution rows must cite a public runtime target ref",
+            case_id=case_id,
+            subject_id=subject_id,
+            subject_kind="circuit_attribution_replay",
+        )
+    if row.get("body_in_receipt") is not False:
+        _record(
+            findings,
+            observed,
+            "INTERPRETABILITY_BODY_RECEIPT_BOUNDARY_REQUIRED",
+            "private model, activation, prompt, hidden-reasoning, and provider bodies must stay out of public runtime receipts",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="circuit_attribution_replay",
@@ -402,11 +441,11 @@ def _required_policy_ok(policy: dict[str, Any]) -> bool:
     if not isinstance(ceiling, dict):
         return False
     return (
-        ceiling.get("metadata_projection_only") is True
+        ceiling.get("public_runtime_receipt_required") is True
         and all(
             value is False
             for key, value in ceiling.items()
-            if key != "metadata_projection_only"
+            if key != "public_runtime_receipt_required"
         )
     )
 
@@ -440,13 +479,49 @@ def _build_result(
                 subject_kind="protocol",
             )
         )
+    protocol_target_refs = _strings(attribution_protocol.get("target_refs"))
+    protocol_verification = attribution_protocol.get("body_import_verification")
+    if attribution_protocol.get("body_import_status") != BODY_IMPORT_STATUS:
+        positive_findings.append(
+            _finding(
+                "INTERPRETABILITY_BODY_IMPORT_STATUS_REQUIRED",
+                "attribution protocol must declare the public runtime receipt import status",
+                case_id="positive_fixture",
+                subject_id="attribution_protocol",
+                subject_kind="protocol",
+            )
+        )
+    if TARGET_REFS[0] not in protocol_target_refs:
+        positive_findings.append(
+            _finding(
+                "INTERPRETABILITY_TARGET_REF_REQUIRED",
+                "attribution protocol must cite the public circuit-attribution organ target ref",
+                case_id="positive_fixture",
+                subject_id="attribution_protocol",
+                subject_kind="protocol",
+            )
+        )
+    if (
+        not isinstance(protocol_verification, dict)
+        or protocol_verification.get("status") != PASS
+        or protocol_verification.get("body_in_receipt") is not False
+    ):
+        positive_findings.append(
+            _finding(
+                "INTERPRETABILITY_BODY_IMPORT_VERIFICATION_REQUIRED",
+                "attribution protocol must bind body-import verification for the runtime receipt",
+                case_id="positive_fixture",
+                subject_id="attribution_protocol",
+                subject_kind="protocol",
+            )
+        )
     if not _required_policy_ok(
         intervention_policy if isinstance(intervention_policy, dict) else {}
     ):
         positive_findings.append(
             _finding(
                 "INTERPRETABILITY_AUTHORITY_CEILING_REQUIRED",
-                "intervention policy must declare metadata-only authority ceiling",
+                "intervention policy must declare public runtime receipt authority ceiling",
                 case_id="positive_fixture",
                 subject_id="intervention_policy",
                 subject_kind="policy",
@@ -513,14 +588,14 @@ def _build_result(
         case_id: codes for case_id, codes in expected_missing.items() if codes
     }
     encoded_positive = json.dumps(replays, sort_keys=True)
-    body_redacted = not any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
+    body_free_public_rows = not any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
     policy_passed = (
         bool(features)
         and bool(replays)
         and not positive_findings
-        and body_redacted
+        and body_free_public_rows
         and not expected_missing
-        and all(row.get("body_redacted") is True for row in replays)
+        and all(row.get("body_in_receipt") is False for row in replays)
         and all(row.get("private_model_weights_exported") is False for row in replays)
         and all(row.get("raw_activation_dump_exported") is False for row in replays)
         and all(row.get("proprietary_prompt_exported") is False for row in replays)
@@ -551,9 +626,14 @@ def _build_result(
         "selected_pattern_ids": replay_ids,
         "features": features,
         "attribution_replays": replays,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "source_refs": SOURCE_REFS,
+        "target_refs": TARGET_REFS,
         "attribution_summary": {
             "feature_count": len(features),
             "replay_count": len(replays),
+            "target_ref_count": sum(1 for row in replays if row.get("target_ref")),
             "attribution_edge_count": sum(len(_rows(row, "graph_edges")) for row in replays),
             "causal_intervention_count": sum(
                 1
@@ -599,8 +679,8 @@ def _build_result(
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "safe_to_show": {
-            "body_redacted": body_redacted,
-            "metadata_only": True,
+            "body_in_receipt": False,
+            "real_runtime_receipt": True,
             "private_model_weights_omitted": True,
             "raw_activation_dumps_omitted": True,
             "proprietary_prompt_bodies_omitted": True,
@@ -608,8 +688,8 @@ def _build_result(
             "provider_payloads_omitted": True,
         },
         "release_authorized": False,
-        "body_redacted": True,
-        "private_state_scan": scan,
+        "body_in_receipt": False,
+        "secret_exclusion_scan": scan,
     }
 
 
@@ -640,6 +720,9 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         if isinstance(negatives, dict)
         else 0,
         "authority_ceiling": AUTHORITY_CEILING,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
     }
 
@@ -682,7 +765,12 @@ def _write_receipts(
             "observed_negative_case_count"
         ),
         "authority_ceiling": AUTHORITY_CEILING,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "body_in_receipt": False,
         "release_authorized": False,
     }
     write_json_atomic(result_path, result)
@@ -707,9 +795,13 @@ def _write_receipts(
         "board_ref": receipt_paths[1],
         "validation_ref": receipt_paths[2],
         "authority_ceiling": AUTHORITY_CEILING,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "release_authorized": False,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
     write_json_atomic(acceptance_path, acceptance)
     return {

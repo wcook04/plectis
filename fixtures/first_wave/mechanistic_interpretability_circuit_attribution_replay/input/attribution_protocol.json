@@ -5,8 +5,29 @@
     "not a raw prompt or hidden reasoning export",
     "not publication or release authority"
   ],
-  "body_redacted": true,
-  "projection_intent": "public_safe_synthetic_circuit_attribution_replay",
+  "body_import_status": "real_runtime_receipt_landed",
+  "body_import_verification": {
+    "body_import_status": "real_runtime_receipt_landed",
+    "body_in_receipt": false,
+    "classification": "real_runtime_receipt",
+    "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material, private model weights, raw activations, proprietary prompt bodies, and hidden chain-of-thought bodies",
+    "source_refs": [
+      "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+      "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs"
+    ]
+  },
+  "body_in_receipt": false,
+  "projection_intent": "public_safe_body_free_circuit_attribution_runtime_replay",
   "schema_version": "mechanistic_interpretability_circuit_attribution_protocol_v1",
   "selected_pattern_ids": [
     "circuit_attribution_replay_01",
@@ -17,5 +38,10 @@
     "circuit_attribution_replay_06"
   ],
   "selected_route_id": "mechanistic_interpretability_circuit_attribution_replay",
-  "source_pattern_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+  "source_pattern_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
+    "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
+    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+  ]
 }

@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This standard governs synthetic circuit-attribution metadata only. It does not authorize model-transparency product claims, private weight export, raw activation export, proprietary prompt export, hidden chain-of-thought export, provider calls, benchmark scores, publication, or release.",
-  "authority_boundary": "synthetic_circuit_attribution_metadata_not_model_transparency_or_private_internals_authority",
+  "anti_claim": "This standard governs public body-free circuit-attribution runtime receipts and target refs. It does not authorize model-transparency product claims, private weight export, raw activation export, proprietary prompt export, hidden chain-of-thought export, provider calls, benchmark scores, publication, or release.",
+  "authority_boundary": "public_circuit_attribution_runtime_receipt_not_model_transparency_or_private_internals_authority",
   "authority_ceiling": {
     "benchmark_score_claim_authorized": false,
     "hidden_chain_of_thought_export_authorized": false,
@@ -12,7 +12,7 @@
     "provider_calls_authorized": false,
     "raw_activation_dump_export_authorized": false,
     "release_authorized": false,
-    "standard_authority": "synthetic_circuit_attribution_schema_only",
+    "standard_authority": "public_circuit_attribution_runtime_receipt_only",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -29,9 +29,11 @@
       "sufficiency labels",
       "faithfulness limits",
       "contradiction-case refs",
-      "cold-replay refs"
+      "cold-replay refs",
+      "public runtime target refs",
+      "body-free runtime receipt metadata"
     ],
-    "default_posture": "public_safe_when_synthetic_metadata_only",
+    "default_posture": "public_safe_body_free_runtime_receipt",
     "forbidden_public_inputs": [
       "private model weights",
       "raw activation tensors or dumps",
@@ -50,7 +52,10 @@
       "selected_pattern_ids",
       "attribution_summary",
       "negative_case_summary",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "body_import_status",
+      "body_import_verification",
+      "target_refs",
       "authority_ceiling",
       "anti_claim"
     ],
@@ -59,7 +64,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
-    "receipt must cite feature counts, replay counts, attribution-edge counts, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite feature counts, replay counts, attribution-edge counts, selected pattern ids, negative-case coverage, secret-exclusion scan, body-import verification, target refs, authority ceiling, and anti-claim"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#mechanistic_interpretability_circuit_attribution_replay",
@@ -92,7 +97,11 @@
     "contradiction_case_ref",
     "cold_replay_ref",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "target_ref",
+    "body_in_receipt",
+    "body_import_status",
+    "body_import_verification"
   ],
   "schema_version": "public_microcosm_standard_v1",
   "source_refs": [
@@ -115,9 +124,9 @@
   "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
   "status": "draft",
   "validation_rules": [
-    "require every replay row to cite toy prompt refs, sparse feature ids, machine-readable graph nodes and edges, replacement-model approximation scores, feature visualization summary refs, causal inhibition and injection deltas, sufficiency labels, faithfulness limits, contradiction cases, and cold replay refs",
+    "require every replay row to cite toy prompt refs, sparse feature ids, machine-readable graph nodes and edges, replacement-model approximation scores, feature visualization summary refs, causal inhibition and injection deltas, sufficiency labels, faithfulness limits, contradiction cases, cold replay refs, and public runtime target refs",
     "reject private model weights, raw activation dumps, proprietary prompts, hidden chain-of-thought, screenshot-only graphs, unverifiable feature names, transparency claims without causal intervention receipts, faithfulness claims without limits, benchmark claims, and release authority",
-    "require metadata-only authority and body-redacted public fixture rows"
+    "require public runtime receipt authority, body-free public fixture rows, body-import verification, and secret-exclusion scan"
   ],
   "validator_contract": {
     "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",

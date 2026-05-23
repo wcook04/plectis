@@ -2,19 +2,21 @@
 
 `mechanistic_interpretability_circuit_attribution_replay` is the public
 mechanistic-interpretability organ. It turns the macro circuit-attribution
-pattern into a runnable Microcosm surface: six synthetic toy prompt refs, sparse
-feature ids, machine-readable graph nodes and edges, replacement-model
-approximation scores, causal inhibition and injection deltas, sufficiency
-labels, faithfulness limits, contradiction cases, and cold replay refs.
+pattern into a runnable Microcosm surface: six body-free public runtime receipt
+rows, toy prompt refs, sparse feature ids, machine-readable graph nodes and
+edges, replacement-model approximation scores, causal inhibition and injection
+deltas, sufficiency labels, faithfulness limits, contradiction cases, target
+refs, and cold replay refs.
 
 ## Public Claim
 
 Microcosm can expose circuit-attribution evidence as inspectable public
-metadata without pretending to ship a model-transparency product, export private
-model internals, disclose raw activations, publish proprietary prompts, or
-reveal hidden chain-of-thought. Each replay row binds feature ids to graph edges
-and causal intervention receipts before interpretability language is treated as
-public evidence.
+runtime receipt evidence without pretending to ship a model-transparency
+product, export private model internals, disclose raw activations, publish
+proprietary prompts, or reveal hidden chain-of-thought. Each replay row binds
+feature ids to graph edges, target refs, secret-exclusion evidence, and causal
+intervention receipts before interpretability language is treated as public
+evidence.
 
 ## Runtime Command
 
@@ -44,10 +46,11 @@ release authority.
 
 ## Authority Ceiling
 
-This organ is metadata-only. It does not export private weights, raw activation
-tensors or dumps, proprietary prompts, hidden chain-of-thought, provider
-payloads, private model internals, model-transparency product authority,
-benchmark scores, provider calls, publication, hosting, or release authority.
+This organ is body-free runtime-receipt evidence. It does not export private
+weights, raw activation tensors or dumps, proprietary prompts, hidden
+chain-of-thought, provider payloads, private model internals,
+model-transparency product authority, benchmark scores, provider calls,
+publication, hosting, or release authority.
 
 ## Evidence
 

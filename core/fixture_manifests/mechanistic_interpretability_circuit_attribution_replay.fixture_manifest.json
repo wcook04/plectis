@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This fixture validates synthetic public circuit-attribution metadata only; it does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, benchmark scores, or release authority.",
-  "authority_ceiling": "synthetic circuit attribution metadata only; no private weights, raw activations, proprietary prompts, hidden reasoning, provider payload, private internals, benchmark, product-transparency, publication, or release authority",
+  "anti_claim": "This fixture validates public body-free circuit-attribution runtime receipts; it does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, benchmark scores, or release authority.",
+  "authority_ceiling": "public circuit-attribution runtime receipt only; no private weights, raw activations, proprietary prompts, hidden reasoning, provider payload, private internals, benchmark, product-transparency, publication, or release authority",
   "expected_negative_cases": [
     "private_model_weights_export",
     "raw_activation_dump",
@@ -25,7 +25,7 @@
     },
     {
       "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/intervention_policy.json",
-      "role": "metadata-only intervention policy"
+      "role": "public runtime receipt intervention policy"
     },
     {
       "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/feature_catalog.json",
@@ -93,7 +93,11 @@
         "attribution_summary",
         "negative_case_summary",
         "authority_ceiling",
-        "private_state_scan",
+        "secret_exclusion_scan",
+        "body_import_status",
+        "body_import_verification",
+        "target_refs",
+        "body_in_receipt",
         "anti_claim"
       ],
       "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json": [
@@ -104,6 +108,11 @@
         "expected_negative_case_count",
         "observed_negative_case_count",
         "authority_ceiling",
+        "body_import_status",
+        "body_import_verification",
+        "target_refs",
+        "secret_exclusion_scan",
+        "body_in_receipt",
         "anti_claim"
       ]
     },

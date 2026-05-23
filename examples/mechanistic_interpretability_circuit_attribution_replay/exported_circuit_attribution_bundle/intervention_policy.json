@@ -8,21 +8,22 @@
     "sufficiency labels with faithfulness limits",
     "contradiction-case and cold-replay refs"
   ],
+  "authority_boundary": "public_circuit_attribution_runtime_receipt_only",
   "authority_ceiling": {
     "benchmark_score_claim_authorized": false,
     "hidden_chain_of_thought_export_authorized": false,
     "hosted_public_authorized": false,
     "live_model_access_authorized": false,
-    "metadata_projection_only": true,
     "model_transparency_product_claim_authorized": false,
     "private_model_internals_claim_authorized": false,
     "private_model_weights_export_authorized": false,
     "proprietary_prompt_export_authorized": false,
     "provider_calls_authorized": false,
+    "public_runtime_receipt_required": true,
     "publication_authorized": false,
     "raw_activation_dump_export_authorized": false,
     "release_authorized": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "schema_version": "mechanistic_interpretability_intervention_policy_v1"
 }

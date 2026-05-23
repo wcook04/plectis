@@ -1,7 +1,7 @@
 {
   "attribution_replay": {
     "attribution_graph_ref": "graphs/circuit_attribution_graph_01.json",
-    "body_redacted": true,
+    "body_in_receipt": false,
     "causal_inhibition_delta_ref": "interventions/inhibition_delta_01.json",
     "causal_injection_delta_ref": "interventions/injection_delta_01.json",
     "causal_intervention_receipt_ref": "",
@@ -39,7 +39,7 @@
       },
       {
         "node_id": "feat_public_003",
-        "node_kind": "synthetic_error_node"
+        "node_kind": "public_error_node"
       }
     ],
     "graph_screenshot_only": false,
@@ -56,12 +56,13 @@
       "feat_public_002"
     ],
     "sufficiency_label": "sufficient_for_fixture_replay",
+    "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/transparency_claim_without_intervention.json::transparency_claim_without_intervention",
     "toy_prompt_ref": "toy_prompts/circuit_prompt_01.json",
     "transparency_claim": true,
     "uninterpretable_error_node_budget": 2,
     "unverifiable_feature_name_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "negative_case_id": "transparency_claim_without_intervention",
   "schema_version": "mechanistic_interpretability_negative_case_v1"
 }

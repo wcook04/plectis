@@ -76,7 +76,7 @@ def test_mechanistic_interpretability_circuit_attribution_replay_observes_negati
         assert result["negative_case_summary"]["observed_codes"][case_id] == codes
 
 
-def test_mechanistic_interpretability_circuit_attribution_receipts_are_public_relative_and_redacted(
+def test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -97,6 +97,16 @@ def test_mechanistic_interpretability_circuit_attribution_receipts_are_public_re
     )
 
     assert result["status"] == "pass"
+    assert result["body_import_status"] == "real_runtime_receipt_landed"
+    assert result["body_in_receipt"] is False
+    assert result["body_import_verification"]["classification"] == "real_runtime_receipt"
+    assert result["body_import_verification"]["body_in_receipt"] is False
+    assert result["attribution_summary"]["target_ref_count"] == 6
+    assert result["secret_exclusion_scan"]["status"] == "pass"
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    result_keys = _walk_keys(result)
+    assert "private_state_scan" not in result_keys
+    assert "body_redacted" not in result_keys
     for receipt_ref in result["receipt_paths"]:
         receipt_file = public_root / receipt_ref
         assert receipt_file.is_file()
@@ -134,3 +144,7 @@ def test_mechanistic_interpretability_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["model_transparency_product_claim_authorized"] is False
     assert result["authority_ceiling"]["private_model_internals_claim_authorized"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
+    assert result["body_import_status"] == "real_runtime_receipt_landed"
+    assert result["body_import_verification"]["status"] == "pass"
+    assert result["body_in_receipt"] is False
+    assert result["secret_exclusion_scan"]["status"] == "pass"
