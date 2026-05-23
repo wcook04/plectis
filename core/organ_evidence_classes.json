@@ -233,8 +233,8 @@
     },
     {
       "organ_id": "agent_memory_temporal_conflict_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied memory decisions and conflict flags are checked for source-available shape"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out"
     },
     {
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",

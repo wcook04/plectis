@@ -2,8 +2,10 @@
   "authority_ceiling": "public agent-execution trace refactor over memory conflict replay metadata; no private transcript export, live memory product claim, active-injection authority, provider call, or release authority",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_in_receipt": false,
-  "bundle_id": "agent_memory_temporal_conflict_replay_runtime_example",
+  "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
+  "description": "Source-faithful public refactor bundle for memory temporal-conflict trace spans; declared fixture rows exercise the copied agent_execution_trace macro tool without private body export.",
   "input_mode": "exported_memory_temporal_conflict_bundle",
   "organ_id": "agent_memory_temporal_conflict_replay",
+  "product_path_role": "runtime_spine_source_faithful_refactor",
   "schema_version": "exported_memory_temporal_conflict_bundle_v1"
 }

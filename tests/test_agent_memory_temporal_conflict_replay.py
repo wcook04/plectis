@@ -126,7 +126,7 @@ def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_memory_temporal_conflict_bundle"
-    assert result["bundle_id"] == "agent_memory_temporal_conflict_replay_runtime_example"
+    assert result["bundle_id"] == "agent_memory_temporal_conflict_replay_trace_refactor"
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
     assert result["public_agent_execution_trace"]["status"] == "pass"
     assert result["public_agent_execution_trace"]["span_count"] == 7

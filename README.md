@@ -672,16 +672,17 @@ benchmark score claims without claiming live security authority, provider
 execution, source mutation, or release authority.
 
 `agent_memory_temporal_conflict_replay` is the agent-memory honesty boundary:
-it validates a synthetic three-episode replay where ADD, UPDATE, DELETE, and
-NOOP memory decisions, conflict-edge refs, stale-downgrade refs, metadata-only
-private refs, paired memory-on/off cold replay receipts, and an answer-delta
-receipt must align before memory-language is admitted. Run `microcosm
+it runs the public `agent_execution_trace` refactor over declared
+three-episode memory-conflict rows where ADD, UPDATE, DELETE, and NOOP memory
+decisions, conflict-edge refs, stale-downgrade refs, metadata-only private
+refs, paired memory-on/off cold replay receipts, and an answer-delta receipt
+must align before memory-language is admitted. Run `microcosm
 agent-memory-temporal-conflict-replay run-memory-bundle` to inspect the
-exported bundle. The organ rejects raw transcript export, private candidate
-auto-promotion, stale preference override, memory as source authority, vector
-recall without evidence, final-answer-only memory credit, and active injection
-as authoritative without claiming live memory product quality, provider
-execution, source mutation, or release authority.
+source-faithful trace bundle. The organ rejects raw transcript export, private
+candidate auto-promotion, stale preference override, memory as source
+authority, vector recall without evidence, final-answer-only memory credit,
+and active injection as authoritative without claiming live memory product
+quality, provider execution, source mutation, or release authority.
 
 `sleeper_memory_poisoning_quarantine_replay` is the persistent-memory security
 boundary: it validates a synthetic four-session replay where source capsule

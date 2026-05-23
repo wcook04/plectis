@@ -313,7 +313,7 @@ imported macro body.
    credentials, network exfiltration, actionable exploit steps, provider
    payloads, source mutation, benchmark claims, or release authority.
    The `agent_memory_temporal_conflict_replay` organ is the runnable public
-   memory temporal-conflict lane: use
+   `agent_execution_trace` refactor over memory temporal-conflict rows: use
    `agent-memory-temporal-conflict-replay` or `replay-gauntlet` to validate
    ADD, UPDATE, DELETE, and NOOP memory decisions, conflict-edge refs,
    stale-downgrade refs, metadata-only private refs, paired memory-on/off cold

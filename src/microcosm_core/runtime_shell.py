@@ -9840,7 +9840,7 @@ class RuntimeShell:
                     "run-memory-bundle"
                 ),
                 "endpoint": "/replay-gauntlet",
-                "authority_role": "synthetic agent memory temporal-conflict replay and source-authority boundary",
+                "authority_role": "agent-execution trace-backed memory temporal-conflict refactor and source-authority boundary",
                 "release_authorized": False,
                 "source_mutation_authorized": False,
                 "provider_calls_authorized": False,
