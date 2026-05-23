@@ -11,7 +11,7 @@
   "authority_ceiling": {
     "release_authorized": false,
     "private_data_equivalence_claim": false,
-    "private_source_bodies_exported": false
+    "credential_or_account_bound_bodies_exported": false
   },
-  "body_redacted": true
+  "body_in_receipt": false
 }

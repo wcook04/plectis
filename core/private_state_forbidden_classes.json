@@ -1,5 +1,5 @@
 {
-  "schema_version": "private_state_forbidden_classes_v1",
+  "schema_version": "secret_exclusion_classes_v1",
   "authority_boundary": "scanner_policy_for_verified_macro_substrate_import",
   "public_safe_macro_import": {
     "policy_id": "verified_macro_import_classification_v1",
@@ -34,7 +34,7 @@
       "provenance_refs",
       "validation_refs",
       "claim_ceiling",
-      "private_state_risk",
+      "credential_exposure_risk",
       "public_safe_mode",
       "body_import_verification"
     ],
@@ -94,11 +94,11 @@
       "remediation": "emit an omission receipt only for credential/account-bound material; route real non-secret macro bodies through verified macro import",
       "terms": [
         {
-          "term_id": "private_source_body_sentinel",
-          "token": "SYNTHETIC_PRIVATE_SOURCE_BODY_SENTINEL"
+          "term_id": "non_public_source_body_sentinel",
+          "token": "SYNTHETIC_NON_PUBLIC_SOURCE_BODY_SENTINEL"
         }
       ]
     }
   ],
-  "anti_claim": "Scanner terms are synthetic sentinels for tests; they are not real private material."
+  "anti_claim": "Scanner terms are regression sentinels for tests; they are not real credential or account-bound material."
 }

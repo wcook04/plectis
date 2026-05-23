@@ -14,7 +14,7 @@
     "fixture_shape",
     "standard_schema",
     "receipt_summary",
-    "public_replacement_ref",
+    "public_runtime_ref",
     "public_macro_pattern_body",
     "public_macro_tool_body",
     "public_macro_receipt_body",
@@ -29,7 +29,7 @@
       "body_copied": false,
       "public_safe_mode": "metadata_reference_not_body",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "material_id": "fixture_shape_projection",
@@ -39,7 +39,7 @@
       "body_copied": false,
       "public_safe_mode": "regression_fixture_shape_only",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "material_id": "work_landing_tool_body_import",
@@ -49,11 +49,11 @@
         "tools/meta/control/mission_transaction_preflight.py"
       ],
       "target_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
-      "material_class": "public_replacement_ref",
+      "material_class": "public_runtime_ref",
       "body_copied": false,
-      "public_safe_mode": "source_ref_and_public_replacement_pending_verified_real_tool_import",
+      "public_safe_mode": "source_ref_and_public_runtime_ref_pending_verified_real_tool_import",
       "import_disposition": "demoted_from_body_import_digest_theater",
-      "private_state_risk": "low",
+      "credential_exposure_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
         "codex/standards/std_microcosm.json#direct_import_with_verification"
@@ -62,8 +62,8 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_source_ref_is_not_counted_as_body_import"
       ],
-      "claim_ceiling": "source-ref and public replacement only; not a copied macro tool body until a verified source-to-target import record exists",
-      "body_redacted": true
+      "claim_ceiling": "source-ref and public runtime ref only; not a copied macro tool body until a verified source-to-target import record exists",
+      "body_in_receipt": false
     },
     {
       "material_id": "lean_certificate_kernel_body_import",
@@ -75,13 +75,13 @@
       "material_class": "public_macro_proof_body",
       "body_copied": true,
       "public_safe_mode": "verified_public_macro_proof_body_exact_copy",
-      "private_state_risk": "low",
+      "credential_exposure_risk": "low",
       "provenance_refs": [
         "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "applied_edits": [
-        "strip_private_absolute_paths",
+        "strip_host_absolute_paths",
         "preserve_theorem_body_and_certificate_kernel_structure",
         "bound_claim_to_imported_kernel_body_not_public_theorem_solution"
       ],
@@ -100,7 +100,7 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification"
         ]
       },
-      "body_redacted": false
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -108,23 +108,23 @@
       "material_id": "source_ref_path_projection",
       "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "cleaning_actions": [
-        "strip_private_absolute_paths",
-        "replace_private_bodies_with_public_refs",
+        "strip_host_absolute_paths",
+        "exclude_credential_or_account_bound_bodies",
         "preserve_source_ref_lineage",
         "attach_authority_ceiling"
       ],
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "material_id": "candidate_fixture_projection",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "cleaning_actions": [
-        "synthetic_fixture_only",
+        "regression_wrapper_only",
         "omit_operator_voice",
         "omit_provider_payload_body",
         "attach_negative_case"
       ],
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
   "omitted_material": [
@@ -132,18 +132,18 @@
       "material_id": "credential_or_account_bound_source_bodies",
       "omitted_class": "credential_or_account_bound_body",
       "reason": "Only credential-bearing or account-bound bodies use this omission lane; real non-secret macro bodies use the direct import classification lane.",
-      "public_replacement_ref": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
+      "public_runtime_ref": "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     },
     {
       "material_id": "operator_and_provider_bodies",
       "omitted_class": "operator_thread_body_or_provider_payload_body",
       "reason": "Operator conversation bodies and provider payload bodies stay out; non-secret macro code, proof, pattern, and receipt bodies do not use this omission lane.",
-      "public_replacement_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+      "public_runtime_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
       "omission_receipt_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     }
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle",
     "standards/std_microcosm_macro_projection_import_protocol.json",
@@ -161,18 +161,18 @@
       "validation_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     },
     {
-      "step_id": "clean_and_omit_private_material",
-      "action": "Strip private bodies, add omission receipt refs, and preserve only public replacement refs.",
+      "step_id": "classify_and_exclude_forbidden_material",
+      "action": "Exclude credential-bound, account-bound, operator conversation, and provider payload bodies; import verified non-secret bodies; use public runtime refs only when a body cannot stand alone.",
       "validation_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
     },
     {
-      "step_id": "land_public_replacement",
+      "step_id": "land_public_runtime_import",
       "action": "Land fixture, standard, paper module, runtime, tests, and receipts before marking accepted.",
       "validation_ref": "receipts/preflight/fixture_runner_freshness.json"
     }
   ],
   "authority_ceiling": {
-    "private_source_bodies_exported": false,
+    "credential_or_account_bound_bodies_exported": false,
     "raw_seed_body_read": false,
     "operator_thread_body_read": false,
     "provider_payload_body_read": false,
@@ -184,5 +184,5 @@
     "private_data_equivalence_claim": false,
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true
+  "body_in_receipt": false
 }

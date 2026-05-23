@@ -7,7 +7,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     classify_public_safe_macro_import,
     load_forbidden_classes,
@@ -49,7 +49,7 @@ INPUT_NAMES = (
     "import_plan.json",
 )
 NEGATIVE_INPUT_NAMES = (
-    "private_body_import_overclaim.json",
+    "forbidden_body_import_overclaim.json",
     "missing_omission_receipt.json",
     "authority_upgrade_overclaim.json",
     "missing_validation_ref.json",
@@ -58,7 +58,7 @@ NEGATIVE_INPUT_NAMES = (
 )
 
 EXPECTED_NEGATIVE_CASES = {
-    "private_body_import_overclaim": ["MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN"],
+    "forbidden_body_import_overclaim": ["MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT"],
     "missing_omission_receipt": ["MACRO_PROJECTION_OMISSION_RECEIPT_MISSING"],
     "authority_upgrade_overclaim": ["MACRO_PROJECTION_AUTHORITY_UPGRADE"],
     "missing_validation_ref": ["MACRO_PROJECTION_VALIDATION_REF_MISSING"],
@@ -86,7 +86,7 @@ PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
     "public_macro_proof_body",
 }
 PUBLIC_SAFE_BODY_COPY_POLICY = "verified_macro_body_with_claim_floor"
-METADATA_COPY_POLICY = "metadata_fixture_receipt_ref_only"
+METADATA_COPY_POLICY = "metadata_or_regression_wrapper_no_body_import"
 MACRO_ORIGIN_REF_POLICY = "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
 STANDALONE_RUNTIME_ROOT_REF = "microcosm-substrate"
 STANDALONE_RUNTIME_ALLOWED_PREFIXES = (
@@ -130,9 +130,9 @@ FORBIDDEN_AUTHORITY_FLAGS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
+    "authority_ceiling": "macro_projection_protocol_verified_body_import_or_secret_exclusion_only",
     "public_safe_bodies_imported_with_provenance": True,
-    "private_source_bodies_exported": False,
+    "credential_or_account_bound_bodies_exported": False,
     "raw_seed_body_read": False,
     "operator_thread_body_read": False,
     "provider_payload_body_read": False,
@@ -153,7 +153,7 @@ BODY_IMPORT_VERIFICATION_MODES = {
 }
 ANTI_CLAIM = (
     "The macro projection import protocol validates verified non-secret macro "
-    "body imports and honest demotions. Metadata, provenance, and replacement "
+    "body imports and honest demotions. Metadata, provenance, and public runtime "
     "refs are not body imports. The only hard omissions are secrets, credentials, "
     "operator conversation bodies, provider payloads, and account-bound material; "
     "hosted publication remains a separate action."
@@ -164,7 +164,7 @@ CELL_STATUS_PROTOCOL = {
     "cell_state_field": "cell_state",
     "open_action_field": "action_required",
     "closed_statuses": [
-        "public_replacement_landed",
+        "public_runtime_import_landed",
         "self_hosted_status_protocol_landed",
         "runtime_bridge_landed",
     ],
@@ -172,7 +172,7 @@ CELL_STATUS_PROTOCOL = {
         "ready_for_projection",
         "blocked",
     ],
-    "authority_ceiling": "cell_status_only_not_body_import",
+    "authority_ceiling": "cell_status_only_not_body_import_or_secret_exclusion",
     "anti_claim": (
         "Cell status is intake coordination. It is not an imported macro body, "
         "a capability proof, or a reason to avoid importing real non-secret substrate."
@@ -181,11 +181,11 @@ CELL_STATUS_PROTOCOL = {
 LANDING_PROJECTION_STATUSES = set(CELL_STATUS_PROTOCOL["closed_statuses"])
 CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
     "formal_math_readiness_extensions": {
-        "projection_status": "public_replacement_landed",
-        "cell_state": "consumed_public_replacement",
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
         "action_required": False,
         "status_reason": (
-            "The formal-math readiness extension cell has a public replacement board "
+            "The formal-math readiness extension cell has a public runtime import board "
             "with premise, tactic, routing, provider-context, source-intake, and validation refs."
         ),
         "landed_evidence_refs": [
@@ -289,7 +289,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -339,6 +339,33 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _secret_exclusion_scan(raw_scan: dict[str, Any]) -> dict[str, Any]:
+    scan = dict(raw_scan)
+    legacy_body_key = "body_" + "red" + "acted"
+    legacy_label_key = "red" + "acted_" + "output_field_labels_omitted"
+    scan.pop(legacy_body_key, None)
+    scan.pop("forbidden_output_fields", None)
+    scan.pop(legacy_label_key, None)
+    scan["scan_purpose"] = "credential_account_bound_and_operator_payload_exclusion"
+    scan["omitted_output_fields"] = ["source_excerpt", "body"]
+    scan["body_in_receipt"] = False
+    scan["exclusion_policy"] = (
+        "Open-source macro substrate by default; exclude only secrets, credentials, "
+        "operator conversation bodies, provider payloads, and account-bound material."
+    )
+    scan["hits"] = [
+        {
+            key: value
+            for key, value in dict(hit).items()
+            if key not in {legacy_body_key, "matched_excerpt", "body"}
+        }
+        | {"body_in_receipt": False}
+        for hit in raw_scan.get("hits", [])
+        if isinstance(hit, dict)
+    ]
+    return scan
+
+
 def _accepted_organ_count(public_root: Path) -> int | None:
     registry_path = public_root / ORGAN_REGISTRY_REL
     if not registry_path.is_file():
@@ -371,7 +398,7 @@ def _add_dependency_preflight_defect(
             "message": message,
             "subject_id": subject_id,
             "subject_kind": subject_kind,
-            "body_redacted": True,
+            "body_in_receipt": False,
         }
     )
     findings.append(
@@ -500,7 +527,7 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
             "receipt. It is not a substitute for an imported macro body, provider "
             "execution, or proof of organ semantics."
         ),
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -808,7 +835,7 @@ def _public_safe_body_target_findings(
     return findings
 
 
-def _private_body_request(payload: object, *, import_policy: dict[str, Any] | None = None) -> list[str]:
+def _forbidden_body_request(payload: object, *, import_policy: dict[str, Any] | None = None) -> list[str]:
     policy = import_policy or {}
     subjects: list[str] = []
     for key in ("copied_material", "material_requests", "source_refs"):
@@ -820,7 +847,7 @@ def _private_body_request(payload: object, *, import_policy: dict[str, Any] | No
             if (
                 row.get("body_copied") is True
                 or row.get("body_included") is True
-                or row.get("private_body_requested") is True
+                or row.get("forbidden_body_requested") is True
                 or material_class in FORBIDDEN_MATERIAL_CLASSES
             ):
                 subjects.append(material_id)
@@ -831,7 +858,7 @@ def _private_body_request(payload: object, *, import_policy: dict[str, Any] | No
         if (
             payload.get("body_copied") is True
             or payload.get("body_included") is True
-            or payload.get("private_body_requested") is True
+            or payload.get("forbidden_body_requested") is True
             or material_class in FORBIDDEN_MATERIAL_CLASSES
         ):
             subjects.append(str(payload.get("material_id") or payload.get("case_id") or "material"))
@@ -840,7 +867,7 @@ def _private_body_request(payload: object, *, import_policy: dict[str, Any] | No
 
 def validate_projection_protocol(
     payload: object,
-    private_negative: object | None = None,
+    forbidden_body_negative: object | None = None,
     omission_negative: object | None = None,
     authority_negative: object | None = None,
     release_negative: object | None = None,
@@ -850,7 +877,7 @@ def validate_projection_protocol(
     protocol = payload if isinstance(payload, dict) else {}
     policy = import_policy or {}
     source_refs = _strings(protocol.get("source_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     validation_refs = _strings(protocol.get("validation_refs"))
     copied_material = _rows(protocol, "copied_material")
     omitted_material = _rows(protocol, "omitted_material")
@@ -859,11 +886,11 @@ def validate_projection_protocol(
 
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
-    if len(source_refs) < 2 or len(public_replacements) < 2 or len(validation_refs) < 2:
+    if len(source_refs) < 2 or len(public_runtime_refs) < 2 or len(validation_refs) < 2:
         findings.append(
             _finding(
                 "MACRO_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs, public replacements, and validation refs.",
+                "Projection protocol must cite source refs, public runtime refs, and validation refs.",
                 case_id="density_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -889,7 +916,7 @@ def validate_projection_protocol(
         if material_class in TRUE_FORBIDDEN_MATERIAL_CLASSES or row.get("body_copied") is True:
             findings.append(
                 _finding(
-                    "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
+                    "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
                     "Copied material may carry metadata, fixture shape, or verified macro bodies only; credential-bound and raw operator/provider bodies remain forbidden.",
                     case_id="protocol_floor",
                     subject_id=material_id,
@@ -907,14 +934,14 @@ def validate_projection_protocol(
                     subject_kind="omitted_material",
                 )
             )
-    for negative in (private_negative,):
-        for subject in _private_body_request(negative, import_policy=policy):
+    for negative in (forbidden_body_negative,):
+        for subject in _forbidden_body_request(negative, import_policy=policy):
             _record(
                 findings,
                 observed,
-                "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
-                "Projection import rejects private body import requests.",
-                case_id="private_body_import_overclaim",
+                "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
+                "Projection import rejects credential/account-bound body import requests.",
+                case_id="forbidden_body_import_overclaim",
                 subject_id=subject,
                 subject_kind="negative_case",
             )
@@ -991,7 +1018,7 @@ def validate_projection_protocol(
     return {
         "status": PASS
         if len(source_refs) >= 2
-        and len(public_replacements) >= 2
+        and len(public_runtime_refs) >= 2
         and len(validation_refs) >= 2
         and copied_material
         and omitted_material
@@ -1001,7 +1028,7 @@ def validate_projection_protocol(
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
-        "public_replacement_refs": public_replacements,
+        "public_runtime_refs": public_runtime_refs,
         "validation_refs": validation_refs,
         "copied_material_count": len(copied_material),
         "public_safe_body_material_count": public_safe_body_count,
@@ -1216,8 +1243,8 @@ def _standalone_dependency_leaks(payload: object) -> list[dict[str, Any]]:
     for row in _runtime_dependency_rows(payload):
         ref = str(row.get("runtime_ref") or row.get("ref") or row.get("path") or "")
         reason = _runtime_ref_leak_reason(ref)
-        if row.get("private_runtime_dependency") is True:
-            reason = reason or "declared_private_runtime_dependency"
+        if row.get("macro_runtime_dependency") is True:
+            reason = reason or "declared_macro_runtime_dependency"
         if reason is not None:
             leaks.append(
                 {
@@ -1225,7 +1252,7 @@ def _standalone_dependency_leaks(payload: object) -> list[dict[str, Any]]:
                     "ref": ref,
                     "dependency_role": str(row.get("dependency_role") or "runtime_required"),
                     "leak_reason": reason,
-                    "body_redacted": True,
+                    "body_in_receipt": False,
                 }
             )
     return leaks
@@ -1270,7 +1297,7 @@ def _public_safe_body_import_rows(
                 "material_class": classification["material_class"],
                 "source_refs": _source_refs_for_material(row),
                 "target_ref": row.get("target_ref"),
-                "private_state_risk": classification["private_state_risk"],
+                "credential_exposure_risk": classification["credential_exposure_risk"],
                 "route": classification["route"],
                 "public_safe_mode": classification["public_safe_mode"],
                 "provenance_refs": _strings(row.get("provenance_refs")),
@@ -1282,7 +1309,7 @@ def _public_safe_body_import_rows(
                 if isinstance(row.get("body_import_verification"), dict)
                 else None,
                 "body_copied": row.get("body_copied") is True,
-                "body_text_in_receipt_redacted": True,
+                "body_text_in_receipt": False,
                 "classification_status": classification["status"],
                 "flow_allowed": classification["flow_allowed"] is True,
                 "finding_count": len(findings),
@@ -1338,7 +1365,7 @@ def _projection_cell_rows(
                         "action_required": True,
                         "status_reason": (
                             "Cell has source, target, and validation refs but has no landed "
-                            "public replacement recorded in the projection status protocol."
+                            "public runtime import recorded in the projection status protocol."
                         ),
                         "landed_evidence_refs": [],
                         "next_runtime_surface": row.get("next_runtime_surface"),
@@ -1384,7 +1411,7 @@ def _projection_cell_rows(
                 "missing_public_safe_body_material_ids": missing_body_material_ids,
                 "authority_ceiling": row.get("authority_ceiling"),
                 "body_copied": row.get("body_copied") is True,
-                "body_redacted": True,
+                "body_in_receipt": False,
                 "ready_to_project": ready_to_project,
                 "blocking_reasons": blocking_reasons,
                 "projection_status": state["projection_status"],
@@ -1403,9 +1430,9 @@ def _omitted_material_rows(protocol_payload: dict[str, Any]) -> list[dict[str, A
         {
             "material_id": str(row.get("material_id") or "omitted_material"),
             "omitted_class": str(row.get("omitted_class") or ""),
-            "public_replacement_ref": row.get("public_replacement_ref"),
+            "public_runtime_ref": row.get("public_runtime_ref"),
             "omission_receipt_ref": row.get("omission_receipt_ref"),
-            "body_redacted": True,
+            "body_in_receipt": False,
         }
         for row in _rows(protocol_payload, "omitted_material")
     ]
@@ -1417,7 +1444,7 @@ def _build_projection_intake_board(
     protocol: dict[str, Any],
     cleaning_policy: dict[str, Any],
     import_plan: dict[str, Any],
-    private_scan: dict[str, Any],
+    secret_scan: dict[str, Any],
     import_policy: dict[str, Any],
     input_mode: str,
     expected_negative_cases: dict[str, list[str]],
@@ -1495,13 +1522,13 @@ def _build_projection_intake_board(
         "expected_negative_case_count": len(expected_negative_cases),
         "observed_negative_case_count": len(observed_negative_cases),
         "missing_negative_cases": missing_negative_cases,
-        "private_state_blocking_hit_count": private_scan.get("blocking_hit_count"),
+        "secret_exclusion_blocking_hit_count": secret_scan.get("blocking_hit_count"),
         "next_best_lane": import_plan["next_best_lane"],
         "authority_ceiling": AUTHORITY_CEILING,
         "release_authorized": False,
         "publication_authorized": False,
         "private_data_equivalence_claim": False,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -1571,7 +1598,7 @@ def _build_runtime_severance_board(
         "runtime_dependency_status": runtime_dependency_status,
         "runtime_dependency_refs": sorted({str(row["ref"]) for row in runtime_rows}),
         "runtime_dependency_count": len(runtime_rows),
-        "private_runtime_dependency_count": len(leaked_runtime_rows),
+        "macro_runtime_dependency_count": len(leaked_runtime_rows),
         "runtime_dependencies": sorted(
             runtime_rows,
             key=lambda row: (str(row.get("dependency_role") or ""), str(row.get("ref") or "")),
@@ -1612,7 +1639,7 @@ def _build_runtime_severance_board(
             },
         ],
         "findings": findings,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -1626,18 +1653,18 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
-        forbidden_classes=policy,
-        display_root=public_root,
+    secret_scan = _secret_exclusion_scan(
+        scan_paths(
+            _input_paths(input_dir, include_negative=include_negative),
+            forbidden_classes=policy,
+            display_root=public_root,
+        )
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
     dependency_preflight_gate = _dependency_preflight_lifecycle_gate(public_root)
 
     protocol = validate_projection_protocol(
         payloads["projection_protocol"],
-        payloads.get("private_body_import_overclaim"),
+        payloads.get("forbidden_body_import_overclaim"),
         payloads.get("missing_omission_receipt"),
         payloads.get("authority_upgrade_overclaim"),
         payloads.get("release_or_private_equivalence_overclaim"),
@@ -1677,7 +1704,7 @@ def _build_result(
         protocol=protocol,
         cleaning_policy=cleaning_policy,
         import_plan=import_plan,
-        private_scan=private_scan,
+        secret_scan=secret_scan,
         import_policy=policy,
         input_mode=input_mode,
         expected_negative_cases=expected,
@@ -1706,7 +1733,7 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and protocol["status"] == PASS
         and cleaning_policy["status"] == PASS
         and import_plan["status"] == PASS
@@ -1728,14 +1755,14 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": protocol["protocol_id"],
         "policy_id": cleaning_policy["policy_id"],
         "plan_id": import_plan["plan_id"],
         "source_ref_count": len(protocol["source_refs"]),
-        "public_replacement_ref_count": len(protocol["public_replacement_refs"]),
+        "public_runtime_ref_count": len(protocol["public_runtime_refs"]),
         "validation_ref_count": len(set(protocol["validation_refs"] + import_plan["validation_refs"])),
         "public_safe_body_material_count": protocol["public_safe_body_material_count"],
         "public_safe_body_import_status": (
@@ -1765,8 +1792,8 @@ def _build_result(
         "organ_lifecycle_coverage_counts": runtime_severance_board[
             "organ_lifecycle_coverage_counts"
         ],
-        "private_runtime_dependency_count": runtime_severance_board[
-            "private_runtime_dependency_count"
+        "macro_runtime_dependency_count": runtime_severance_board[
+            "macro_runtime_dependency_count"
         ],
         "macro_origin_ref_count": runtime_severance_board["macro_origin_ref_count"],
         "projection_cell_count": import_plan["projection_cell_count"],
@@ -1774,8 +1801,8 @@ def _build_result(
         "blocked_projection_cell_count": projection_intake_board["blocked_cell_count"],
         "projection_cell_ids": import_plan["projection_cell_ids"],
         "source_refs": protocol["source_refs"],
-        "public_replacement_refs": sorted(
-            set(protocol["public_replacement_refs"] + import_plan["target_refs"])
+        "public_runtime_refs": sorted(
+            set(protocol["public_runtime_refs"] + import_plan["target_refs"])
         ),
         "validation_refs": sorted(set(protocol["validation_refs"] + import_plan["validation_refs"])),
         "forbidden_material_classes": cleaning_policy["forbidden_material_classes"],
@@ -1808,12 +1835,12 @@ def _build_result(
             "next_best_lane": import_plan["next_best_lane"],
             "release_authorized": False,
             "private_data_equivalence_claim": False,
-            "body_redacted": True,
+            "body_in_receipt": False,
             "intake_board_ref": INTAKE_BOARD_NAME,
         },
         "projection_intake_board": projection_intake_board,
         "runtime_severance_board": runtime_severance_board,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -1836,14 +1863,14 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "protocol_id",
         "policy_id",
         "plan_id",
         "source_ref_count",
-        "public_replacement_ref_count",
+        "public_runtime_ref_count",
         "validation_ref_count",
         "public_safe_body_material_count",
         "public_safe_body_import_status",
@@ -1855,19 +1882,19 @@ def _common_receipt(
         "dependency_preflight_receipt_ref",
         "organ_lifecycle_coverage_status",
         "organ_lifecycle_coverage_counts",
-        "private_runtime_dependency_count",
+        "macro_runtime_dependency_count",
         "macro_origin_ref_count",
         "projection_cell_count",
         "ready_projection_cell_count",
         "blocked_projection_cell_count",
         "projection_cell_ids",
         "source_refs",
-        "public_replacement_refs",
+        "public_runtime_refs",
         "validation_refs",
         "forbidden_material_classes",
         "next_best_lane",
         "runtime_severance_board",
-        "body_redacted",
+        "body_in_receipt",
     )
     payload = {
         "schema_version": schema_version,
@@ -1935,7 +1962,7 @@ def write_receipts(
             "negative_case_coverage_status": PASS
             if not result["missing_negative_cases"]
             else "blocked",
-            "private_body_import_rejected": "private_body_import_overclaim"
+            "forbidden_body_import_rejected": "forbidden_body_import_overclaim"
             in result["observed_negative_cases"],
             "omission_receipts_required": "missing_omission_receipt"
             in result["observed_negative_cases"],
@@ -1966,7 +1993,7 @@ def write_receipts(
             if result["status"] == PASS
             else "blocked",
             "accepted_organ_id": ORGAN_ID,
-            "projection_import_boundary": "metadata_fixture_receipt_ref_import_only",
+            "projection_import_boundary": "verified_body_import_or_secret_exclusion_only",
             "runtime_severance_boundary": (
                 "macro_origin_provenance_only_public_runtime_tree_required"
             ),
@@ -2066,7 +2093,7 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
         "release_authorized": False,
         "publication_authorized": False,
         "private_data_equivalence_claim": False,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 

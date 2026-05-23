@@ -103,7 +103,9 @@ def _terms(forbidden_classes: dict[str, Any]) -> list[dict[str, str]]:
         if not isinstance(cls, dict):
             continue
         class_id = str(cls.get("class_id") or "forbidden_content_body")
-        remediation = str(cls.get("remediation") or "replace with synthetic fixture")
+        remediation = str(
+            cls.get("remediation") or "exclude credential/account-bound material"
+        )
         for term in cls.get("terms", []):
             if not isinstance(term, dict):
                 continue
@@ -150,7 +152,11 @@ def classify_public_safe_macro_import(
 
     policy = _import_policy(forbidden_classes)
     material_class = str(row.get("material_class") or "").strip()
-    private_state_risk = str(row.get("private_state_risk") or "").strip().lower()
+    private_state_risk = str(
+        row.get("credential_exposure_risk")
+        or row.get("private_state_risk")
+        or ""
+    ).strip().lower()
     risk_routing = policy.get("risk_routing", {})
     if not isinstance(risk_routing, dict):
         risk_routing = {}
@@ -254,7 +260,7 @@ def classify_public_safe_macro_import(
         "status": status,
         "route": route,
         "material_class": material_class,
-        "private_state_risk": private_state_risk,
+        "credential_exposure_risk": private_state_risk,
         "public_safe_mode": public_safe_mode,
         "flow_allowed": status == PASS,
         "findings": findings,

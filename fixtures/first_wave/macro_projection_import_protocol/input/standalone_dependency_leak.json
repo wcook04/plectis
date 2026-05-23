@@ -6,9 +6,9 @@
       "dependency_id": "live_macro_prover_run_required_at_release_runtime",
       "ref": "state/runs/PROVER_PRIVATE/live_oracle_payload.json",
       "dependency_role": "runtime_required",
-      "private_runtime_dependency": true,
-      "body_redacted": true
+      "macro_runtime_dependency": true,
+      "body_in_receipt": false
     }
   ],
-  "body_redacted": true
+  "body_in_receipt": false
 }

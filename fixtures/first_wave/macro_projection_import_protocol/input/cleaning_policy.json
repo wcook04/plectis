@@ -20,19 +20,19 @@
     "public_macro_proof_body"
   ],
   "required_cleaning_actions": [
-    "classify_private_state_risk",
-    "strip_private_absolute_paths",
+    "classify_credential_exposure_risk",
+    "strip_host_absolute_paths",
     "preserve_verified_macro_bodies_with_source_to_target_evidence",
     "replace_only_credential_or_account_bound_bodies_with_public_refs",
     "preserve_source_ref_lineage",
     "attach_omission_receipt",
     "attach_authority_ceiling",
     "bound_public_claim_strength",
-    "validate_private_state_scan"
+    "validate_secret_exclusion_scan"
   ],
   "requires_omission_receipt": true,
   "requires_validation_ref": true,
   "hosted_publication_authorized": false,
   "private_data_equivalence_claim": false,
-  "body_redacted": true
+  "body_in_receipt": false
 }

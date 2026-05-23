@@ -3,11 +3,11 @@
   "expected_negative_case_id": "missing_omission_receipt",
   "omitted_material": [
     {
-      "material_id": "private_source_bodies",
+      "material_id": "credential_or_account_bound_bodies",
       "omitted_class": "non_public_evidence_body",
       "reason": "Private bodies were omitted but no receipt ref was attached.",
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
-  "body_redacted": true
+  "body_in_receipt": false
 }

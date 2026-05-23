@@ -9,5 +9,5 @@
     "private_data_equivalence_claim": true,
     "private_root_equivalence_authorized": true
   },
-  "body_redacted": true
+  "body_in_receipt": false
 }

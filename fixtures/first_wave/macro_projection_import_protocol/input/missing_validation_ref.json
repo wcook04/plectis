@@ -11,8 +11,8 @@
         "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json"
       ],
       "validation_refs": [],
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
-  "body_redacted": true
+  "body_in_receipt": false
 }

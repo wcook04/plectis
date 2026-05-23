@@ -7,5 +7,5 @@
     "live_macro_source_authority": true,
     "whole_system_correctness_claim": true
   },
-  "body_redacted": true
+  "body_in_receipt": false
 }

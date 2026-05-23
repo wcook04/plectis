@@ -23,9 +23,9 @@
       "public_safe_body_material_ids": [
         "lean_certificate_kernel_body_import"
       ],
-      "authority_ceiling": "fixture_and_receipt_refs_only",
+      "authority_ceiling": "fixture_receipt_and_import_refs_only",
       "body_copied": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "cell_id": "projection_protocol_self_host",
@@ -44,9 +44,9 @@
         "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
       ],
       "public_safe_body_material_ids": [],
-      "authority_ceiling": "protocol_metadata_only",
+      "authority_ceiling": "protocol_metadata_or_runtime_ref",
       "body_copied": false,
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "cell_id": "runtime_reveal_import_bridge",
@@ -66,8 +66,8 @@
       ],
       "authority_ceiling": "runtime_exported_bundle_validation_only",
       "body_copied": false,
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
-  "body_redacted": true
+  "body_in_receipt": false
 }
