@@ -64,12 +64,14 @@ def test_agent_benchmark_integrity_replay_observes_negative_cases(
     assert result["quarantine_count"] == 1
     assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False
     assert result["authority_ceiling"]["provider_calls_authorized"] is False
+    assert len(result["public_regression_fixture_refs"]) >= 3
+    assert "public_replacement_refs" not in result
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
 
 
-def test_agent_benchmark_integrity_receipts_are_public_relative_and_redacted(
+def test_agent_benchmark_integrity_receipts_are_public_relative_and_body_free(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -96,6 +98,7 @@ def test_agent_benchmark_integrity_receipts_are_public_relative_and_redacted(
         assert "src/ai_workflow" not in text
         assert "provider_payload" not in _walk_keys(json.loads(text))
         assert "private_issue_body" not in _walk_keys(json.loads(text))
+        assert "body_redacted" not in _walk_keys(json.loads(text))
 
 
 def test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape(

@@ -441,8 +441,8 @@
       "title": "Undeclared Library Priors Are Quarantined Separately From Premise Budgets"
     },
     {
-      "authority_boundary": "synthetic_benchmark_integrity_replay_not_score_authority",
-      "claim": "Benchmark-style agent capability claims must pass through locked evaluator, contamination, file-access, trusted-reference, and anti-gaming replay receipts before any score language is allowed.",
+      "authority_boundary": "body_free_regression_benchmark_integrity_replay_not_score_authority",
+      "claim": "Benchmark-style agent capability claims must pass through locked evaluator, contamination, file-access, trusted-reference, and anti-gaming body-free regression receipts before any score language is allowed; fixture verdict rows do not count as product progress.",
       "kernel_primitive_refs": [
         "pattern",
         "standard",

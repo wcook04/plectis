@@ -599,18 +599,20 @@ the local substrate loop:
 42. `agentic_vulnerability_discovery_patch_proof_replay`
 43. `materials_chemistry_closed_loop_lab_safety_replay`
 
-`agent_benchmark_integrity_anti_gaming_replay` is the benchmark claim
-integrity boundary: it validates locked evaluator ids, evaluator config hashes,
-file-access logs, contamination checks, trusted-reference score refs,
-output-replay refs, held-out guards, and anti-gaming negative cases before any
-benchmark-style language is admitted. Run `microcosm
+`agent_benchmark_integrity_anti_gaming_replay` is a body-free benchmark claim
+integrity regression drilldown, not product-spine substrate: it validates
+locked evaluator ids, evaluator config hashes, file-access logs, contamination
+checks, trusted-reference score refs, output-replay refs, held-out guards, and
+anti-gaming negative cases before any benchmark-style language is admitted. Run
+`microcosm
 agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle`
-to inspect the synthetic replay bundle. The organ rejects evaluator edits,
-train/test leakage, oracle patch bodies, hidden-gold access,
+to inspect the synthetic body-free replay bundle. The organ rejects evaluator
+edits, train/test leakage, oracle patch bodies, hidden-gold access,
 final-answer-only grading, provider payloads, score overclaims, pass-k
 cherry-picking, misleading tests, private issue bodies, and replay rows whose
 case id is outside the declared benchmark roster without claiming a SWE-bench
-score, live repo mutation, provider execution, or release authority.
+score, live repo mutation, provider execution, product progress, or release
+authority.
 
 `agent_monitor_redteam_falsification_replay` is a monitor/redteam regression
 drilldown, not product-spine substrate: it validates synthetic trajectories,

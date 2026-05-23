@@ -4,7 +4,7 @@
     "quarantine"
   ],
   "benchmark_score_claim_authorized": false,
-  "body_redacted": true,
+  "body_in_receipt": false,
   "locked_evaluator_ids": [
     "locked_repo_repair_scorer_v1",
     "locked_regression_guard_scorer_v1"

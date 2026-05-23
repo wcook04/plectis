@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Agent benchmark integrity anti-gaming replay validates synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
+  "anti_claim": "Agent benchmark integrity anti-gaming replay validates body-free regression fixture rows for synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_benchmark_integrity_replay_receipts_only",
+    "authority_ceiling": "body_free_regression_benchmark_integrity_replay_receipts_only",
     "benchmark_score_claim_authorized": false,
     "hidden_gold_access_authorized": false,
     "live_repo_mutation_authorized": false,
@@ -14,7 +14,7 @@
   },
   "benchmark_cases": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_001",
       "held_out_guard_ids": [
         "guard_fail_to_pass_001",
@@ -25,7 +25,7 @@
       "task_hash": "sha256:task001"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_002",
       "held_out_guard_ids": [
         "guard_file_access_002",
@@ -36,7 +36,7 @@
       "task_hash": "sha256:task002"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_003",
       "held_out_guard_ids": [
         "guard_misleading_test_003",
@@ -48,7 +48,7 @@
     }
   ],
   "board_id": "agent_benchmark_integrity_anti_gaming_public_board",
-  "body_redacted": true,
+  "body_in_receipt": false,
   "input_mode": "fixture",
   "known_benchmark_case_ids": [
     "repo_issue_public_001",
@@ -80,10 +80,10 @@
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
   "private_state_scan": {
     "blocking_hit_count": 0,
-    "body_redacted": true,
+    "body_in_receipt": false,
+    "body_storage_policy": "body_free_regression_fixture",
     "hit_count": 0,
     "hits": [],
-    "redacted_output_field_labels_omitted": true,
     "scanned_path_count": 15,
     "status": "pass"
   },
@@ -95,7 +95,7 @@
   ],
   "replay_rows": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_001",
       "computed_integrity_verdict": "integrity_pass",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
@@ -110,7 +110,7 @@
       "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_001.json"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_002",
       "computed_integrity_verdict": "integrity_pass",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
@@ -125,7 +125,7 @@
       "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_002.json"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_003",
       "computed_integrity_verdict": "quarantine",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",

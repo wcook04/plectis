@@ -1,16 +1,16 @@
 {
-  "anti_claim": "This standard governs synthetic benchmark-integrity replay receipts only; it does not claim a benchmark score, expose private issue or oracle patch bodies, call providers, mutate live repositories, or authorize release/publication work.",
+  "anti_claim": "This standard governs body-free synthetic benchmark-integrity regression receipts only; it does not claim a benchmark score, expose private issue or oracle patch bodies, call providers, mutate live repositories, or authorize release/publication work.",
   "anti_claim_contract": {
     "required": true,
     "rule": "benchmark integrity material must state that synthetic replay is not a benchmark score"
   },
-  "authority_boundary": "synthetic_benchmark_integrity_replay_not_benchmark_score_authority",
+  "authority_boundary": "body_free_regression_benchmark_integrity_replay_not_benchmark_score_authority",
   "authority_ceiling": {
     "benchmark_score_authority": false,
     "live_repo_mutation_authority": false,
     "provider_authority": false,
     "release_authority": false,
-    "standard_authority": "synthetic_benchmark_integrity_replay_schema_only",
+    "standard_authority": "body_free_regression_benchmark_integrity_replay_schema_only",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -25,7 +25,7 @@
       "provider payload bodies",
       "benchmark score claims"
     ],
-    "reason": "public slice carries synthetic replay metadata and redacted receipt evidence only"
+    "reason": "public slice carries body-free synthetic benchmark replay metadata and regression fixture refs only"
   },
   "paper_module_contract": {
     "module_slug": "agent_benchmark_integrity_anti_gaming_replay",
@@ -42,7 +42,7 @@
       "output replay refs",
       "negative case ids"
     ],
-    "default_posture": "public_safe_when_synthetic_replay_receipts_only",
+    "default_posture": "public_safe_when_body_free_regression_replay_receipts_only",
     "forbidden_public_inputs": [
       "private issue bodies",
       "oracle patch bodies",
@@ -66,6 +66,7 @@
       "authority_ceiling",
       "anti_claim",
       "private_state_scan",
+      "body_in_receipt",
       "negative_case_coverage"
     ],
     "receipt_id": "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
@@ -73,7 +74,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
-    "receipt must cite source refs, source pattern ids, locked evaluator ids, known benchmark case ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source refs, source pattern ids, locked evaluator ids, known benchmark case ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, body_in_receipt=false, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
@@ -94,7 +95,7 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_regression_fixture_refs",
     "locked_evaluator_ids",
     "benchmark_cases",
     "replay_observations",
@@ -104,7 +105,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata and public regression fixture refs stay public-root relative"
   },
   "source_refs": [
     {
@@ -143,9 +144,9 @@
       "private_issue_body_leakage",
       "unregistered_case_replay"
     ],
-    "ontology": "A public-safe benchmark integrity replay: locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, and negative cases.",
+    "ontology": "A body-free regression-negative benchmark integrity replay: locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, negative cases, fixture refs, and authority ceilings.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how agent benchmark claims are gated by anti-gaming receipts before any public score language."
+    "teleology": "Make Microcosm show how agent benchmark claims are gated by anti-gaming regression receipts before any public score language, without counting the fixture as product-progress substrate."
   },
   "status": "draft",
   "validation_rules": [
@@ -154,7 +155,7 @@
     "require file-access log, contamination check, trusted reference score, and output replay refs",
     "reject private issue bodies, oracle patch bodies, hidden-gold access, provider payloads, and score overclaims",
     "reject final-answer-only grading, pass-k cherry-picking, train/test leakage, and misleading-test admission",
-    "emit redacted receipts and private-state scan"
+    "emit body-free regression receipts and private-state scan"
   ],
   "validator_contract": {
     "minimum_checks": [

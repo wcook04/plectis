@@ -518,12 +518,14 @@ imported macro body.
    to compute synthetic Ring-2 precision/recall, require an adversarial decoy
    miss, and separate retrieval misses from proof failures despite premise hits
    without leaking labels into provider context.
-   The `agent_benchmark_integrity_anti_gaming_replay` organ is the benchmark
-   integrity boundary: use `agent-benchmark-integrity-anti-gaming-replay` to
-   validate locked evaluators, contamination checks, file-access logs,
-   trusted-reference scoring, held-out guards, benchmark-case roster binding,
-   and anti-gaming negative cases without claiming a benchmark score, exposing
-   private issue/oracle bodies, or authorizing provider execution.
+   The `agent_benchmark_integrity_anti_gaming_replay` organ is a body-free
+   benchmark integrity regression drilldown, not product-spine substrate: use
+   `agent-benchmark-integrity-anti-gaming-replay` to validate locked
+   evaluators, contamination checks, file-access logs, trusted-reference
+   scoring, held-out guards, benchmark-case roster binding, and anti-gaming
+   negative cases without claiming a benchmark score, exposing private
+   issue/oracle bodies, authorizing provider execution, or counting fixture
+   verdicts as product progress.
    The `provider_context_recipe_budget_policy` organ is the provider-context
    budget boundary: use `provider-context-recipe-budget-policy` to validate
    fixed recipe byte ceilings, ordered section fill, omitted-section manifests,

@@ -86,7 +86,7 @@ FORBIDDEN_BODY_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_benchmark_integrity_replay_receipts_only",
+    "authority_ceiling": "body_free_regression_benchmark_integrity_replay_receipts_only",
     "benchmark_score_claim_authorized": False,
     "swe_bench_performance_claim_authorized": False,
     "hidden_gold_access_authorized": False,
@@ -97,7 +97,8 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Agent benchmark integrity anti-gaming replay validates synthetic evaluator "
+    "Agent benchmark integrity anti-gaming replay validates body-free regression "
+    "fixture rows for synthetic evaluator "
     "locking, contamination, file-access, held-out guard, and scoring-boundary "
     "receipts. It does not claim a benchmark score, expose private issue or "
     "oracle patch bodies, run providers, mutate live repositories, or authorize release."
@@ -160,7 +161,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -215,19 +216,19 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    regression_fixture_refs = _strings(protocol.get("public_regression_fixture_refs"))
     findings: list[dict[str, Any]] = []
     if (
         len(source_refs) < 3
         or "agent_benchmark_integrity_anti_gaming_replay_compound"
         not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or len(regression_fixture_refs) < 3
     ):
         findings.append(
             _finding(
                 "BENCHMARK_INTEGRITY_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Benchmark integrity projection must cite macro patterns, receipts, and public replacements.",
+                "Benchmark integrity projection must cite macro patterns, receipts, and body-free regression fixture refs.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -239,7 +240,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "public_regression_fixture_refs": regression_fixture_refs,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -311,6 +312,16 @@ def validate_benchmark_cases(payload: object) -> dict[str, Any]:
                     subject_kind="benchmark_case",
                 )
             )
+        if row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "BENCHMARK_INTEGRITY_BODY_IN_RECEIPT_FORBIDDEN",
+                    "Benchmark cases must expose ids, hashes, and refs only, with body_in_receipt=false.",
+                    case_id="benchmark_case_floor",
+                    subject_id=case_id or "benchmark_case",
+                    subject_kind="benchmark_case",
+                )
+            )
         exported.append(
             {
                 "case_id": case_id,
@@ -318,7 +329,7 @@ def validate_benchmark_cases(payload: object) -> dict[str, Any]:
                 "task_hash": row.get("task_hash"),
                 "patch_hash": row.get("patch_hash"),
                 "held_out_guard_ids": _strings(row.get("held_out_guard_ids")),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -473,6 +484,17 @@ def _validate_replay_row(
         )
     if missing_fields:
         reasons.append("replay_field_missing")
+    if row.get("body_in_receipt") is not False:
+        reasons.append("body_in_receipt")
+        _record(
+            findings,
+            observed,
+            "BENCHMARK_INTEGRITY_BODY_IN_RECEIPT_FORBIDDEN",
+            "Replay observations must expose refs and labels only, with body_in_receipt=false.",
+            case_id=case_id,
+            subject_id=replay_id,
+            subject_kind=subject_kind,
+        )
     if row.get("quarantine_reason_ref"):
         reasons.append("quarantine_reason_ref")
 
@@ -492,7 +514,7 @@ def _validate_replay_row(
         "file_access_log_ref": row.get("file_access_log_ref"),
         "contamination_check_ref": row.get("contamination_check_ref"),
         "trusted_reference_score_ref": row.get("trusted_reference_score_ref"),
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -575,7 +597,9 @@ def _build_result(
         display_root=public_root,
     )
     private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    private_scan.pop("body_" + "redacted", None)
+    private_scan["body_in_receipt"] = False
+    private_scan["body_storage_policy"] = "body_free_regression_fixture"
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     evaluator_policy = validate_locked_evaluator_policy(payloads["locked_evaluator_policy"])
@@ -628,7 +652,7 @@ def _build_result(
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "public_regression_fixture_refs": projection["public_regression_fixture_refs"],
         "locked_evaluator_ids": evaluator_policy["locked_evaluator_ids"],
         "benchmark_case_count": benchmark_cases["benchmark_case_count"],
         "known_benchmark_case_ids": observations["known_benchmark_case_ids"],
@@ -674,7 +698,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "known_benchmark_case_ids": result["known_benchmark_case_ids"],
         "benchmark_cases": result["benchmark_cases"],
         "replay_rows": result["replay_rows"],
-        "body_redacted": True,
+        "body_in_receipt": False,
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],

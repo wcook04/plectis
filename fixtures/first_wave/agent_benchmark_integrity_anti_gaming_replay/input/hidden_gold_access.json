@@ -1,5 +1,5 @@
 {
-  "body_redacted": true,
+  "body_in_receipt": false,
   "case_id": "repo_issue_public_002",
   "contamination_check_ref": "receipts/benchmark_integrity/neg_contamination.json",
   "evaluator_config_hash": "sha256:evaluator",

@@ -1,6 +1,6 @@
 {
-  "authority_ceiling": "synthetic benchmark-integrity replay receipts only",
-  "body_redacted": true,
+  "authority_ceiling": "body-free regression benchmark-integrity replay receipts only",
+  "body_in_receipt": false,
   "omitted_material": [
     {
       "material_id": "private_issue_bodies",
@@ -24,7 +24,7 @@
     "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
   ],
   "protocol_id": "agent_benchmark_integrity_public_fixture",
-  "public_replacement_refs": [
+  "public_regression_fixture_refs": [
     "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
     "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json",
     "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",

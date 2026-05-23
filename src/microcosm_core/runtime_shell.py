@@ -713,8 +713,8 @@ PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
 
 PRODUCT_PATH_DEMOTION_REASONS = {
     "agent_benchmark_integrity_anti_gaming_replay": (
-        "benchmark-integrity replay remains runnable as a regression drilldown, "
-        "but fixture-supplied benchmark verdict rows are not product-spine substrate."
+        "benchmark-integrity replay remains runnable as a body-free regression drilldown, "
+        "but fixture-supplied benchmark verdict rows are not product-spine substrate or benchmark-performance evidence."
     ),
     "agent_monitor_redteam_falsification_replay": (
         "monitor-redteam replay remains runnable as a regression drilldown, "

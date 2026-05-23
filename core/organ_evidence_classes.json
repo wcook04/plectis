@@ -120,7 +120,7 @@
       "organ_id": "ring2_premise_retrieval_precision_recall_harness"
     },
     {
-      "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for source-available shape",
+      "classification_basis": "regression-negative synthetic benchmark integrity rows are checked for body-free fixture refs, locked evaluator refs, anti-gaming denials, and explicit no-benchmark-score/no-product-progress authority",
       "evidence_class": "fixture_echo_smoke",
       "organ_id": "agent_benchmark_integrity_anti_gaming_replay"
     },

@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Agent benchmark integrity anti-gaming replay validates synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
+  "anti_claim": "Agent benchmark integrity anti-gaming replay validates body-free regression fixture rows for synthetic evaluator locking, contamination, file-access, held-out guard, and scoring-boundary receipts. It does not claim a benchmark score, expose private issue or oracle patch bodies, run providers, mutate live repositories, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_benchmark_integrity_replay_receipts_only",
+    "authority_ceiling": "body_free_regression_benchmark_integrity_replay_receipts_only",
     "benchmark_score_claim_authorized": false,
     "hidden_gold_access_authorized": false,
     "live_repo_mutation_authorized": false,
@@ -15,7 +15,7 @@
   "benchmark_case_count": 3,
   "benchmark_cases": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_001",
       "held_out_guard_ids": [
         "guard_fail_to_pass_001",
@@ -26,7 +26,7 @@
       "task_hash": "sha256:task001"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_002",
       "held_out_guard_ids": [
         "guard_file_access_002",
@@ -37,7 +37,7 @@
       "task_hash": "sha256:task002"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_003",
       "held_out_guard_ids": [
         "guard_misleading_test_003",
@@ -50,7 +50,7 @@
   ],
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run",
-  "created_at": "2026-05-22T12:37:00+00:00",
+  "created_at": "2026-05-23T17:17:42+00:00",
   "error_codes": [
     "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
     "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
@@ -79,7 +79,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
       "message": "Evaluator ids and configs must be locked before replay.",
       "negative_case_id": "evaluator_edit_attempt",
@@ -87,7 +87,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",
       "message": "Repository repair benchmarks require replayable patch/test evidence, not final-answer-only grading.",
       "negative_case_id": "final_answer_only_grading",
@@ -95,7 +95,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_HIDDEN_GOLD_ACCESS",
       "message": "Hidden-gold access invalidates benchmark integrity replay.",
       "negative_case_id": "hidden_gold_access",
@@ -103,7 +103,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_MISLEADING_TEST_ADMITTED",
       "message": "Misleading tests must be denied or quarantined before benchmark scoring.",
       "negative_case_id": "misleading_test_admitted",
@@ -111,7 +111,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_ORACLE_PATCH_BODY_FORBIDDEN",
       "message": "Oracle patch bodies may not enter public benchmark replay inputs.",
       "negative_case_id": "oracle_patch_body_leakage",
@@ -119,7 +119,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_PASS_K_CHERRY_PICKING",
       "message": "Pass@k-style cherry-picking must be labeled and cannot promote a single best replay as the score.",
       "negative_case_id": "pass_k_cherry_picking",
@@ -127,7 +127,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_PRIVATE_ISSUE_BODY_FORBIDDEN",
       "message": "Private issue bodies may not enter public benchmark replay inputs.",
       "negative_case_id": "private_issue_body_leakage",
@@ -135,7 +135,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_PROVIDER_PAYLOAD_FORBIDDEN",
       "message": "Provider payload bodies are outside the public benchmark replay boundary.",
       "negative_case_id": "provider_payload_leakage",
@@ -143,7 +143,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_SCORE_OVERCLAIM",
       "message": "Synthetic replay receipts cannot claim a benchmark score or capability metric.",
       "negative_case_id": "score_overclaim",
@@ -151,7 +151,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_TRAIN_TEST_LEAKAGE",
       "message": "Benchmark replay must reject train/test contamination.",
       "negative_case_id": "train_test_leakage",
@@ -159,7 +159,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "BENCHMARK_INTEGRITY_UNREGISTERED_CASE_REPLAY",
       "message": "Replay observations must bind to a case id declared in benchmark_cases.json.",
       "negative_case_id": "unregistered_case_replay",
@@ -219,10 +219,10 @@
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
   "private_state_scan": {
     "blocking_hit_count": 0,
-    "body_redacted": true,
+    "body_in_receipt": false,
+    "body_storage_policy": "body_free_regression_fixture",
     "hit_count": 0,
     "hits": [],
-    "redacted_output_field_labels_omitted": true,
     "scanned_path_count": 15,
     "status": "pass"
   },
@@ -231,7 +231,7 @@
     "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
   ],
   "protocol_id": "agent_benchmark_integrity_public_fixture",
-  "public_replacement_refs": [
+  "public_regression_fixture_refs": [
     "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py",
     "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/replay_observations.json",
     "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
@@ -247,7 +247,7 @@
   "replay_count": 3,
   "replay_rows": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_001",
       "computed_integrity_verdict": "integrity_pass",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
@@ -262,7 +262,7 @@
       "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_001.json"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_002",
       "computed_integrity_verdict": "integrity_pass",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
@@ -277,7 +277,7 @@
       "trusted_reference_score_ref": "receipts/benchmark_integrity/trusted_reference_002.json"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_003",
       "computed_integrity_verdict": "quarantine",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",

@@ -218,7 +218,7 @@
       },
       {
         "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied benchmark verdict and score fields are checked for source-available shape",
+        "classification_basis": "regression-negative synthetic benchmark integrity rows are checked for body-free fixture refs, locked evaluator refs, anti-gaming denials, and explicit no-benchmark-score/no-product-progress authority",
         "counts_as_real_substrate_progress": false,
         "evidence_class": "fixture_echo_smoke",
         "evidence_strength_rank": 1,

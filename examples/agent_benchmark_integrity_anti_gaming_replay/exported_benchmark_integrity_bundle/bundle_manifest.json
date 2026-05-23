@@ -1,6 +1,6 @@
 {
-  "authority_ceiling": "synthetic replay receipts only; no benchmark score or release authority",
-  "body_redacted": true,
+  "authority_ceiling": "body-free regression replay receipts only; no benchmark score or release authority",
+  "body_in_receipt": false,
   "bundle_id": "agent_benchmark_integrity_anti_gaming_replay_runtime_example",
   "input_mode": "exported_benchmark_integrity_bundle",
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",

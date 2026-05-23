@@ -2,7 +2,7 @@
   "replay_observations": [
     {
       "benchmark_score_claimed": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_001",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_001.json",
       "evaluator_config_hash": "sha256:evaluator001",
@@ -16,7 +16,7 @@
     },
     {
       "benchmark_score_claimed": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_002",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_002.json",
       "evaluator_config_hash": "sha256:evaluator002",
@@ -30,7 +30,7 @@
     },
     {
       "benchmark_score_claimed": false,
-      "body_redacted": true,
+      "body_in_receipt": false,
       "case_id": "repo_issue_public_003",
       "contamination_check_ref": "receipts/benchmark_integrity/contamination_003.json",
       "evaluator_config_hash": "sha256:evaluator003",

@@ -388,8 +388,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             "runtime_mode": "drilldown_only",
             "product_path_role": "drilldown_regression_not_runtime_spine",
             "demotion_reason": (
-                "benchmark-integrity replay remains runnable as a regression drilldown, "
-                "but fixture-supplied benchmark verdict rows are not product-spine substrate."
+                "benchmark-integrity replay remains runnable as a body-free regression drilldown, "
+                "but fixture-supplied benchmark verdict rows are not product-spine substrate or benchmark-performance evidence."
             ),
             "input_mode": "exported_benchmark_integrity_bundle",
             "example_ref": (
