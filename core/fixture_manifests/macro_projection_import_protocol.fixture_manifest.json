@@ -9,7 +9,7 @@
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
-    "fixtures/first_wave/macro_projection_import_protocol/input/private_body_import_overclaim.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/forbidden_body_import_overclaim.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/missing_omission_receipt.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/authority_upgrade_overclaim.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/missing_validation_ref.json",
@@ -25,7 +25,7 @@
   ],
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
   "expected_negative_cases": [
-    "private_body_import_overclaim",
+    "forbidden_body_import_overclaim",
     "missing_omission_receipt",
     "authority_upgrade_overclaim",
     "missing_validation_ref",
@@ -33,7 +33,7 @@
     "standalone_dependency_leak"
   ],
   "stable_error_codes": [
-    "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
+    "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
     "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
     "MACRO_PROJECTION_VALIDATION_REF_MISSING",

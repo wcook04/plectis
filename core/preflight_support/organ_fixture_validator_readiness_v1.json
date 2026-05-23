@@ -654,7 +654,7 @@
         "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
         "fixtures/first_wave/macro_projection_import_protocol/input/cleaning_policy.json",
         "fixtures/first_wave/macro_projection_import_protocol/input/import_plan.json",
-        "fixtures/first_wave/macro_projection_import_protocol/input/private_body_import_overclaim.json",
+        "fixtures/first_wave/macro_projection_import_protocol/input/forbidden_body_import_overclaim.json",
         "fixtures/first_wave/macro_projection_import_protocol/input/missing_omission_receipt.json",
         "fixtures/first_wave/macro_projection_import_protocol/input/authority_upgrade_overclaim.json",
         "fixtures/first_wave/macro_projection_import_protocol/input/missing_validation_ref.json",
