@@ -9,7 +9,7 @@ from microcosm_core.organs import formal_math_lean_proof_witness
 from microcosm_core.organs import formal_math_verifier_trace_repair_loop
 from microcosm_core.organs import tactic_portfolio_availability_probe
 from microcosm_core.organs import target_shape_tactic_routing_gate
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -106,13 +106,15 @@ AUTHORITY_CEILING = {
     "proof_bodies_allowed_in_receipts": False,
     "provider_calls_authorized": False,
     "source_mutation_authorized": False,
-    "private_body_import_authorized": False,
+    "macro_private_body_import_authorized": False,
     "release_authorized": False,
 }
 RECEIPT_TRANSPARENCY_CONTRACT = {
     "schema_version": "verifier_lab_receipt_transparency_contract_v1",
     "receipt_body_is_public_evidence": True,
-    "redaction_scope": "dangerous_payload_fields_only",
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "body_in_receipt": False,
+    "real_substrate_default": True,
     "required_public_evidence_fields": [
         "theorem_or_declaration_names",
         "lean_lake_command_identity",
@@ -142,13 +144,13 @@ RECEIPT_TRANSPARENCY_CONTRACT = {
     "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted",
 }
 ANTI_CLAIM = (
-    "Verifier lab kernel composes public fixture receipts for bounded Lean/Lake "
-    "execution, tactic routing, verifier trace repair, provider-hypothesis "
-    "quarantine, CP2 action candidates, bounded Evolve candidates, and "
-    "structured public receipts that omit only dangerous payload fields. It "
-    "does not import private proof bodies, count oracle or provider output as "
-    "forward proof success, expose proof bodies, mutate source, claim benchmark "
-    "solve rate, or authorize release."
+    "Verifier lab kernel composes source-available public component receipts "
+    "for bounded Lean/Lake execution, tactic routing, verifier trace repair, "
+    "provider-hypothesis quarantine, CP2 action candidates, bounded Evolve "
+    "candidates, and structured public runtime receipts. It does not import "
+    "macro proof bodies, count oracle or provider output as forward proof "
+    "success, expose proof bodies, mutate source, claim benchmark solve rate, "
+    "or authorize release."
 )
 
 
@@ -335,7 +337,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -760,7 +762,7 @@ def _validate_packet(
         "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
         "source_refs": _strings(packet.get("source_refs")),
         "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
-        "public_replacement_refs": _strings(packet.get("public_replacement_refs")),
+        "public_runtime_refs": _strings(packet.get("public_runtime_refs")),
         "expected_negative_cases": sorted(expected_negative_cases),
         "observed_negative_cases": {
             case_id: sorted(codes) for case_id, codes in sorted(observed.items())
@@ -875,7 +877,7 @@ def _claim_separation(
                 "receipt_refs": component_result["component_receipt_refs"].get(
                     "formal_math_lean_proof_witness", []
                 ),
-                "body_redacted": True,
+                "body_in_receipt": False,
             },
             *[
                 row
@@ -922,13 +924,11 @@ def _build_result(
         if Path(name).stem in payloads
     }
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
 
     component = _run_component_stack(
         packet,
@@ -949,7 +949,7 @@ def _build_result(
     claim_separation = _claim_separation(packet_result, component)
     status = (
         PASS
-        if private_scan["blocking_hit_count"] == 0
+        if secret_scan["blocking_hit_count"] == 0
         and component["status"] == PASS
         and packet_result["status"] == PASS
         else "blocked"
@@ -975,13 +975,13 @@ def _build_result(
         "source_pattern_ids": packet_result["source_pattern_ids"],
         "source_refs": packet_result["source_refs"],
         "projection_receipt_refs": packet_result["projection_receipt_refs"],
-        "public_replacement_refs": packet_result["public_replacement_refs"],
+        "public_runtime_refs": packet_result["public_runtime_refs"],
         "expected_negative_cases": packet_result["expected_negative_cases"],
         "observed_negative_cases": packet_result["observed_negative_cases"],
         "missing_negative_cases": packet_result["missing_negative_cases"],
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "component_statuses": component["component_statuses"],
         "component_receipt_refs": component["component_receipt_refs"],
         "lean_lake_return_code": component["lean_lake_return_code"],
@@ -1027,7 +1027,9 @@ def _build_result(
         "authority_ceiling": AUTHORITY_CEILING,
         "receipt_transparency_contract": RECEIPT_TRANSPARENCY_CONTRACT,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -1056,11 +1058,13 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "claim_separation": result["claim_separation"],
         "authority_split": result["authority_split"],
         "authority_counters": result["authority_counters"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "receipt_transparency_contract": result["receipt_transparency_contract"],
         "anti_claim": result["anti_claim"],
-        "body_redacted": True,
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["real_runtime_receipt"],
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -1119,11 +1123,14 @@ def _write_receipts(
         "component_statuses": result["component_statuses"],
         "claim_separation_keys": sorted(result["claim_separation"]),
         "authority_counters": result["authority_counters"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "receipt_transparency_contract": result["receipt_transparency_contract"],
         "receipt_body_is_public_evidence": True,
-        "redaction_scope": "dangerous_payload_fields_only",
+        "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["real_runtime_receipt"],
+        "synthetic_receipt_standin_allowed": False,
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
     }
@@ -1138,11 +1145,14 @@ def _write_receipts(
         "missing_negative_cases": result["missing_negative_cases"],
         "component_statuses": result["component_statuses"],
         "authority_counters": result["authority_counters"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "receipt_transparency_contract": result["receipt_transparency_contract"],
         "receipt_body_is_public_evidence": True,
-        "redaction_scope": "dangerous_payload_fields_only",
+        "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+        "body_in_receipt": False,
+        "real_runtime_receipt": result["real_runtime_receipt"],
+        "synthetic_receipt_standin_allowed": False,
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
     }

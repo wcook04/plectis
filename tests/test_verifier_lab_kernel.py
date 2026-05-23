@@ -75,6 +75,12 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert result["authority_counters"]["provider_results_counted"] == 0
     assert result["authority_ceiling"]["provider_text_counts_as_proof"] is False
     assert result["authority_ceiling"]["oracle_success_counts_as_forward_success"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result
 
 
 def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_without_bodies(
@@ -103,11 +109,18 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_withou
         payload = json.loads(text)
         assert payload["status"] == "pass"
         assert payload["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
-        assert payload["receipt_transparency_contract"]["redaction_scope"] == (
-            "dangerous_payload_fields_only"
+        assert payload["receipt_transparency_contract"]["omitted_payload_scope"] == (
+            "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only"
         )
-        assert payload["private_state_scan"]["body_redacted"] is True
-        assert payload["private_state_scan"]["blocking_hit_count"] == 0
+        assert payload["receipt_transparency_contract"]["body_in_receipt"] is False
+        assert payload["receipt_transparency_contract"]["real_substrate_default"] is True
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["body_in_receipt"] is False
+        assert payload["real_runtime_receipt"] is True
+        assert payload["synthetic_receipt_standin_allowed"] is False
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in payload
+        assert "public_replacement_refs" not in payload
         assert "proof_body" not in _walk_keys(payload)
 
 
@@ -132,3 +145,9 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["lean_compiled_declaration_count"] == 8
     assert len(result["claim_separation"]["provider_suggested"]) == 1
     assert len(result["claim_separation"]["cp2_translated"]) == 2
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result

@@ -8,5 +8,7 @@
     "verifier_lab_packet.json"
   ],
   "authority_ceiling": "verifier_governed_public_kernel_receipt_only",
-  "body_redacted": true
+  "body_in_receipt": false,
+  "real_runtime_receipt": true,
+  "synthetic_receipt_standin_allowed": false
 }

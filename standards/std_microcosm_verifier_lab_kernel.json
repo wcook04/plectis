@@ -37,7 +37,7 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
     "component_inputs",
     "forward_problems",
     "oracle_sidecars",
@@ -57,11 +57,11 @@
     "reject CP2 candidates that carry proof bodies, raw tactic scripts, provider bodies, or oracle templates",
     "reject Evolve candidates outside bounded policy artifacts",
     "require separated claim buckets for verifier, oracle, provider, contract, retrieval, CP2, and Evolve outcomes",
-    "emit private-state scan and structured public receipts with only dangerous payload fields redacted or omitted"
+    "emit secret-exclusion scan and structured public runtime receipts with proof/provider/oracle/private-source/stdout/stderr bodies outside receipt bodies"
   ],
   "receipt_expectations": [
     "receipt.microcosm.verifier_lab_kernel",
-    "receipt must cite component statuses, Lean/Lake return code, target-shape route count, verifier trace attempt count, negative-case coverage, claim separation, authority counters, receipt transparency contract, private-state scan, and anti-claim"
+    "receipt must cite component statuses, Lean/Lake return code, target-shape route count, verifier trace attempt count, negative-case coverage, claim separation, authority counters, receipt transparency contract, secret-exclusion scan, public runtime refs, real-runtime receipt status, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -85,7 +85,7 @@
       "source_pattern_ids",
       "source_refs",
       "projection_receipt_refs",
-      "public_replacement_refs",
+      "public_runtime_refs",
       "component_statuses",
       "lean_lake_return_code",
       "lean_compiled_declaration_count",
@@ -96,15 +96,20 @@
       "authority_ceiling",
       "receipt_transparency_contract",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "real_runtime_receipt",
+      "synthetic_receipt_standin_allowed",
       "negative_case_coverage"
     ]
   },
   "receipt_transparency_contract": {
     "required": true,
-    "rule": "receipts are public evidence; only dangerous private/proof/provider/oracle/stdout payload fields are redacted or omitted",
+    "rule": "receipts are public runtime evidence; proof/provider/oracle/private-source/stdout/stderr payload bodies stay outside receipt bodies without replacing source-available substrate",
     "receipt_body_is_public_evidence": true,
-    "redaction_scope": "dangerous_payload_fields_only",
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "body_in_receipt": false,
+    "real_substrate_default": true,
     "must_expose": [
       "problem ids",
       "theorem or declaration names",
@@ -132,12 +137,12 @@
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_receipts_are_structured_and_only_dangerous_payload_fields_are_redacted_or_omitted",
+    "default_posture": "source_open_public_runtime_receipts_with_secret_exclusion_boundary",
     "allowed_public_inputs": [
       "problem ids",
       "statement summaries",
       "target-shape ids",
-      "redacted public input hashes",
+      "public input hashes",
       "allowed premise ids",
       "oracle comparator ids",
       "verifier result classes",
@@ -174,7 +179,7 @@
   },
   "anti_claim": "This standard governs public verifier-lab composition receipts only; it does not authorize private proof-body import, oracle success as forward proof, provider proof authority, CP2 proof bodies, arbitrary Evolve mutation, benchmark solve-rate claims, release, publication, or private-data equivalence.",
   "standard_payload": {
-    "ontology": "A public-safe verifier-governed lab kernel that composes forward problems, oracle sidecars, verifier attempts, provider hypotheses, residual diagnoses, CP2 typed action candidates, bounded Evolve candidates, and structured public receipts whose dangerous payload fields are omitted.",
+    "ontology": "A source-open verifier-governed lab kernel that composes forward problems, oracle sidecars, verifier attempts, provider hypotheses, residual diagnoses, CP2 typed action candidates, bounded Evolve candidates, and structured public runtime receipts whose proof/provider/oracle/private-source/stdout/stderr payload bodies stay outside receipt bodies.",
     "teleology": "Make Microcosm execute the macro formal-math epistemics pattern without importing private proof bodies or upgrading advisory outputs into proof authority.",
     "anti_purpose": "Moving private Lean proof bodies wholesale or treating provider/oracle output as theorem proof.",
     "compression_bands": [
@@ -216,7 +221,7 @@
       "private run logs",
       "source mutation"
     ],
-    "reason": "public slice carries full structured receipt metadata while omitting proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies",
+    "reason": "public runtime refs and receipts carry the verifier-lab substrate while proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies stay outside receipt bodies",
     "drilldown": "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json"
   },
   "anti_claim_contract": {
@@ -225,6 +230,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata and public runtime refs stay public-root relative"
   }
 }

@@ -1,13 +1,13 @@
 {
-  "anti_claim": "Verifier lab kernel composes public fixture receipts for bounded Lean/Lake execution, tactic routing, verifier trace repair, provider-hypothesis quarantine, CP2 action candidates, and bounded Evolve candidates. It does not import private proof bodies, count oracle or provider output as forward proof success, expose proof bodies, mutate source, claim benchmark solve rate, or authorize release.",
+  "anti_claim": "Verifier lab kernel composes source-available public component receipts for bounded Lean/Lake execution, tactic routing, verifier trace repair, provider-hypothesis quarantine, CP2 action candidates, bounded Evolve candidates, and structured public runtime receipts. It does not import macro proof bodies, count oracle or provider output as forward proof success, expose proof bodies, mutate source, claim benchmark solve rate, or authorize release.",
   "authority_ceiling": {
     "authority_ceiling": "verifier_governed_public_kernel_receipt_only",
     "cp2_outputs_are_proof_bodies": false,
     "evolve_mutates_arbitrary_code": false,
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": "bounded_public_component_witness_only",
+    "macro_private_body_import_authorized": false,
     "oracle_success_counts_as_forward_success": false,
-    "private_body_import_authorized": false,
     "proof_bodies_allowed_in_receipts": false,
     "provider_calls_authorized": false,
     "provider_text_counts_as_proof": false,
@@ -28,7 +28,7 @@
     "provider": "advisory hypothesis only"
   },
   "board_id": "verifier_lab_kernel_public_board",
-  "body_redacted": true,
+  "body_in_receipt": false,
   "claim_separation": {
     "contract_rejected": [
       {
@@ -91,7 +91,7 @@
     ],
     "lean_verified": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "compiled_declaration_count": 8,
         "component_status": "pass",
         "receipt_refs": [
@@ -161,26 +161,69 @@
     "lean_compiled_declaration_count": 8,
     "oracle_sidecar_count": 1,
     "provider_hypothesis_count": 1,
-    "target_shape_route_case_count": 4,
+    "target_shape_route_case_count": 5,
     "verifier_attempt_count": 3,
-    "verifier_trace_attempt_count": 3
+    "verifier_trace_attempt_count": 5
   },
   "organ_id": "verifier_lab_kernel",
-  "private_state_scan": {
+  "real_runtime_receipt": true,
+  "receipt_paths": [
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
+    "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+  ],
+  "receipt_transparency_contract": {
+    "body_in_receipt": false,
+    "forbidden_payload_fields": [
+      "proof_body",
+      "raw_tactic_script",
+      "provider_text",
+      "oracle_ideal_answer",
+      "oracle_needed_premise_ids",
+      "private_source_path",
+      "private_payload_body",
+      "stdout_body",
+      "stderr_body"
+    ],
+    "omitted_payload_scope": "proof_provider_oracle_private_source_and_stdout_stderr_bodies_only",
+    "real_substrate_default": true,
+    "receipt_body_is_public_evidence": true,
+    "required_public_evidence_fields": [
+      "theorem_or_declaration_names",
+      "lean_lake_command_identity",
+      "lean_return_code",
+      "source_hashes",
+      "declaration_counts",
+      "accepted_transition_count",
+      "residual_transition_count",
+      "negative_case_id",
+      "cp2_action_class",
+      "evolve_policy_artifact_id",
+      "oracle_provider_separation_counters",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "schema_version": "verifier_lab_receipt_transparency_contract_v1",
+    "stdout_stderr_policy": "counts_and_return_codes_public_bodies_omitted"
+  },
+  "schema_version": "verifier_lab_kernel_board_v1",
+  "secret_exclusion_scan": {
     "blocking_hit_count": 0,
-    "body_redacted": true,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
     "hit_count": 0,
     "hits": [],
-    "redacted_output_field_labels_omitted": true,
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
     "scanned_path_count": 6,
-    "status": "pass"
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
-  ],
-  "schema_version": "verifier_lab_kernel_board_v1",
-  "status": "pass"
+  "status": "pass",
+  "synthetic_receipt_standin_allowed": false
 }

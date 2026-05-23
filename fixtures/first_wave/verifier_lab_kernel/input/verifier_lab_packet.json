@@ -19,7 +19,7 @@
     "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json"
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json",
     "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
     "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json",
@@ -84,7 +84,7 @@
       "oracle_result_class": "oracle_can_identify_missing_premise",
       "oracle_compared": true,
       "counted_as_forward_success": false,
-      "oracle_receipt_ref": "oracle.synthetic.missing_commutativity_prior.redacted"
+      "oracle_receipt_ref": "oracle.public_comparison.missing_commutativity_prior.body_not_in_receipt"
     }
   ],
   "verifier_attempts": [
@@ -122,7 +122,7 @@
       "disconfirmation_test": "rerun without new premise term remains retrieval_miss",
       "provider_results_counted": false,
       "proof_authority": false,
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
   "residual_diagnoses": [
@@ -131,8 +131,8 @@
       "forward_problem_id": "fp_missing_commutativity_prior",
       "residual_class": "PREMISE_RETRIEVAL_MISS",
       "missing_primitive": "Nat.add_comm closed premise term",
-      "cp1_view_ref": "prover_residual_diagnosis_cp1_view_v0:public_redacted",
-      "body_redacted": true
+      "cp1_view_ref": "prover_residual_diagnosis_cp1_view_v0:public_runtime_metadata",
+      "body_in_receipt": false
     }
   ],
   "cp2_action_candidates": [
@@ -144,7 +144,7 @@
       "target_shape": "premise_exact",
       "verifier_rerun_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
       "disconfirmation_test": "remove premise term and verify retrieval_miss returns",
-      "body_redacted": true
+      "body_in_receipt": false
     },
     {
       "candidate_id": "cp2_retry_with_recipe_closed_std",
@@ -154,7 +154,7 @@
       "target_shape": "premise_exact",
       "verifier_rerun_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
       "disconfirmation_test": "rerun route without closed Std recipe must not promote",
-      "body_redacted": true
+      "body_in_receipt": false
     }
   ],
   "evolve_candidates": [
@@ -188,6 +188,8 @@
     "provider_authority": "scheduler hypothesis only",
     "evolve_authority": "bounded policy candidate only"
   },
-  "anti_claim": "This verifier-lab packet is a public synthetic control kernel fixture. It separates verifier success, oracle comparison, provider hypothesis, CP2 action candidates, and Evolve candidates without proof bodies or private source imports.",
-  "body_redacted": true
+  "anti_claim": "This verifier-lab packet is a source-available public verifier kernel fixture. It separates verifier success, oracle comparison, provider hypothesis, CP2 action candidates, and Evolve candidates without proof bodies, provider payload bodies, oracle answer bodies, stdout/stderr bodies, or macro proof-body imports.",
+  "body_in_receipt": false,
+  "real_runtime_receipt": true,
+  "synthetic_receipt_standin_allowed": false
 }
