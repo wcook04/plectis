@@ -275,15 +275,16 @@ imported macro body.
    traffic, provider payloads, monitor product performance claims,
    control-eval scores, source mutation, or release
    authority.
-   The `agent_sabotage_scheming_monitor_replay` organ is the runnable public
-   scheming-monitor replay lane: use
-   `agent-sabotage-scheming-monitor-replay` or `replay-gauntlet` to validate
-   synthetic episodes, action traces, per-step monitor scores, counterfactual
-   benign replays, cold replay receipts, and negative cases before
-   sabotage-monitor language is admitted. It must not export live sabotage
-   instructions, real credentials or account identifiers, exploit details,
-   private chain-of-thought, raw harmful payloads, deployment-risk claims,
-   provider payloads, source mutation, or release authority.
+   The `agent_sabotage_scheming_monitor_replay` organ is a drilldown-only
+   public scheming-monitor regression lane: use `replay-gauntlet` in the
+   product path, and use `agent-sabotage-scheming-monitor-replay` only when
+   inspecting the regression bundle. It validates synthetic episodes, action
+   traces, per-step monitor scores, counterfactual benign replays, cold replay
+   receipts, and negative cases before sabotage-monitor language is admitted.
+   It must not export live sabotage instructions, real credentials or account
+   identifiers, exploit details, private chain-of-thought, raw harmful
+   payloads, deployment-risk claims, provider payloads, source mutation, or
+   release authority.
    The `agent_sandbox_policy_escape_replay` organ is the runnable public
    sandbox/security policy lane: use `agent-sandbox-policy-escape-replay` or
    `replay-gauntlet` to validate action requests, pre-execution policy

@@ -158,8 +158,8 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
-    assert payload["surface_counts"]["product_path_demoted_organ_count"] == 3
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 42
+    assert payload["surface_counts"]["product_path_demoted_organ_count"] == 4
     assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
@@ -205,38 +205,35 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][31]["command"] == "microcosm hook-coverage"
     assert payload["first_run_path"][32]["command"] == "microcosm replay-gauntlet"
     assert payload["first_run_path"][33]["command"].startswith(
-        "microcosm agent-sabotage-scheming-monitor-replay"
-    )
-    assert payload["first_run_path"][34]["command"].startswith(
         "microcosm agent-memory-temporal-conflict-replay"
     )
-    assert payload["first_run_path"][35]["command"].startswith(
+    assert payload["first_run_path"][34]["command"].startswith(
         "microcosm sleeper-memory-poisoning-quarantine-replay"
     )
-    assert payload["first_run_path"][36]["command"].startswith(
+    assert payload["first_run_path"][35]["command"].startswith(
         "microcosm mcp-tool-authority-replay"
     )
-    assert payload["first_run_path"][37]["command"].startswith(
+    assert payload["first_run_path"][36]["command"].startswith(
         "microcosm proof-derived-governed-mutation-authorization"
     )
-    assert payload["first_run_path"][38]["command"].startswith(
+    assert payload["first_run_path"][37]["command"].startswith(
         "microcosm belief-state-process-reward-replay"
     )
-    assert payload["first_run_path"][39]["command"].startswith(
+    assert payload["first_run_path"][38]["command"].startswith(
         "microcosm agent-sandbox-policy-escape-replay"
     )
-    assert payload["first_run_path"][40]["command"].startswith(
+    assert payload["first_run_path"][39]["command"].startswith(
         "microcosm indirect-prompt-injection-information-flow-policy-replay"
     )
-    assert payload["first_run_path"][41]["command"].startswith(
+    assert payload["first_run_path"][40]["command"].startswith(
         "microcosm agentic-vulnerability-discovery-patch-proof-replay"
     )
-    assert payload["first_run_path"][42]["command"].startswith(
+    assert payload["first_run_path"][41]["command"].startswith(
         "microcosm certificate-kernel-execution-lab"
     )
-    assert payload["first_run_path"][43]["command"] == "microcosm benchmark-lab"
-    assert payload["first_run_path"][44]["command"] == "microcosm legibility-scorecard"
-    assert payload["first_run_path"][47]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
+    assert payload["first_run_path"][42]["command"] == "microcosm benchmark-lab"
+    assert payload["first_run_path"][43]["command"] == "microcosm legibility-scorecard"
+    assert payload["first_run_path"][46]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 
@@ -265,14 +262,14 @@ def test_cli_authority_smoke(
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm authority"
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 43
+    assert payload["surface_counts"]["organ_authority_count"] == 42
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
         "semantic_validator": 16,
         "algorithmic_projection": 16,
-        "fixture_echo_smoke": 8,
+        "fixture_echo_smoke": 7,
         "external_subprocess_witness": 3,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
@@ -348,6 +345,8 @@ def test_cli_authority_smoke(
     )
     assert any(
         row["surface_id"] == "public_agent_sabotage_scheming_monitor_replay_lens"
+        and row["runtime_mode"] == "drilldown_only"
+        and row["product_path_role"] == "drilldown_regression_not_runtime_spine"
         for row in payload["surface_authority"]
     )
     assert any(row["surface_id"] == "public_mcp_tool_authority_replay_lens" for row in payload["surface_authority"])
@@ -463,9 +462,11 @@ def test_cli_corpus_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["command"] == "microcosm corpus-lens"
     assert payload["endpoint"] == "/corpus"
     assert payload["organ_id"] == "corpus_readiness_mathlib_absence_gate"
-    assert payload["corpus_summary"]["corpus_count"] == 4
+    assert payload["corpus_summary"]["corpus_count"] == 7
     assert payload["corpus_summary"]["mathlib_lake_project_import_available"] is False
-    assert payload["consumer_gate"]["allowed_case_ids"] == ["std_core_boolean_simp_allowed"]
+    assert payload["consumer_gate"]["allowed_case_ids"] == [
+        "miniF2F_lean3_translation_smoke_allowed"
+    ]
     assert payload["authority_ceiling"]["mathlib_dependent_proof_authority"] is False
 
 
@@ -783,7 +784,7 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert payload["bridge_id"] == "runtime_reveal_import_bridge"
-    assert payload["projection_cell_count"] == 3
+    assert payload["projection_cell_count"] == 5
     assert payload["cell_status"][1]["projection_status"] == "self_hosted_status_protocol_landed"
     assert payload["cell_status"][2]["projection_status"] == "runtime_bridge_landed"
     assert payload["open_actionable_cell_count"] == 0
@@ -806,7 +807,7 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 3
+    assert payload["projection_intake_board"]["ready_cell_count"] == 5
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"

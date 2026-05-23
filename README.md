@@ -195,7 +195,6 @@ microcosm standards-control
 microcosm hook-coverage
 microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 microcosm replay-gauntlet
-microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
 microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay
 microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay
 microcosm agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle --input examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle --out receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay
@@ -625,16 +624,17 @@ traffic, monitor product-performance claims, and coverage labels without
 adversarial probes without claiming live monitoring performance, control-eval
 scores, provider execution, source mutation, or release authority.
 
-`agent_sabotage_scheming_monitor_replay` is the scheming-monitor falsification
-boundary: it validates synthetic task episodes, action traces, per-step monitor
-scores, counterfactual benign replays, and cold replay refs before
-sabotage-monitor language is admitted. Run `microcosm
-agent-sabotage-scheming-monitor-replay run-sabotage-bundle` to inspect the
-exported bundle. The organ rejects live sabotage instructions, real credentials
-or account identifiers, exploit details, private chain-of-thought export, raw
-harmful payloads, monitor-only final grading, and deployment scare-story claims
-without claiming live sabotage detection, monitor product performance, provider
-execution, source mutation, or release authority.
+`agent_sabotage_scheming_monitor_replay` is a scheming-monitor regression
+drilldown, not product-spine substrate: it validates synthetic task episodes,
+action traces, per-step monitor scores, counterfactual benign replays, and cold
+replay refs before sabotage-monitor language is admitted. Run `microcosm
+agent-sabotage-scheming-monitor-replay run-sabotage-bundle` only when
+inspecting that drilldown bundle; the product path goes through `microcosm
+replay-gauntlet`. The organ rejects live sabotage instructions, real
+credentials or account identifiers, exploit details, private chain-of-thought
+export, raw harmful payloads, monitor-only final grading, and deployment
+scare-story claims without claiming live sabotage detection, monitor product
+performance, provider execution, source mutation, or release authority.
 
 `agent_sandbox_policy_escape_replay` is the sandbox policy boundary: it
 validates synthetic action requests, pre-execution policy verdicts, side-effect

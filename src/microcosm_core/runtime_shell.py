@@ -706,6 +706,7 @@ PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
     {
         "agent_benchmark_integrity_anti_gaming_replay",
         "agent_monitor_redteam_falsification_replay",
+        "agent_sabotage_scheming_monitor_replay",
         "mathematical_strategy_atlas_hypothesis_scorer",
     }
 )
@@ -718,6 +719,11 @@ PRODUCT_PATH_DEMOTION_REASONS = {
     "agent_monitor_redteam_falsification_replay": (
         "monitor-redteam replay remains runnable as a regression drilldown, "
         "but synthetic monitor verdict rows and redaction refs are not product-spine substrate."
+    ),
+    "agent_sabotage_scheming_monitor_replay": (
+        "sabotage-monitor replay remains runnable as a regression drilldown, "
+        "but synthetic scheming episodes, monitor scores, and public replacement refs "
+        "are not product-spine substrate."
     ),
     "mathematical_strategy_atlas_hypothesis_scorer": (
         "strategy-atlas overlap projection remains runnable as a regression "
@@ -1182,6 +1188,10 @@ class RuntimeShell:
                     (
                         "microcosm agent-monitor-redteam-falsification-replay "
                         "run-monitor-bundle"
+                    ),
+                    (
+                        "microcosm agent-sabotage-scheming-monitor-replay "
+                        "run-sabotage-bundle"
                     ),
                     (
                         "microcosm mathematical-strategy-atlas-hypothesis-scorer "
@@ -1658,20 +1668,6 @@ class RuntimeShell:
                         "tool-authority and sandbox escape denials",
                         "prompt-injection and memory-write quarantine cases",
                         "no live agent, tool, secret, or benchmark authority",
-                    ],
-                },
-                {
-                    "step_id": "inspect_agent_sabotage_scheming_monitor_replay",
-                    "command": (
-                        "microcosm agent-sabotage-scheming-monitor-replay "
-                        "run-sabotage-bundle"
-                    ),
-                    "shows": [
-                        "synthetic task episodes joined to action traces and per-step monitor scores",
-                        "caught and missed scheming verdicts before claim admission",
-                        "counterfactual benign replay rows that remove side-task success while preserving main-task success",
-                        "live-sabotage, real-credential, exploit-detail, private-reasoning, harmful-payload, monitor-only, and deployment-claim denials",
-                        "no live sabotage, exploit, credential, provider, deployment-risk, source mutation, or release authority",
                     ],
                 },
                 {
@@ -9743,6 +9739,8 @@ class RuntimeShell:
                 "release_authorized": False,
                 "source_mutation_authorized": False,
                 "provider_calls_authorized": False,
+                "runtime_mode": "drilldown_only",
+                "product_path_role": "drilldown_regression_not_runtime_spine",
                 "live_agent_execution_authorized": False,
                 "live_sabotage_authorized": False,
                 "private_reasoning_export_authorized": False,

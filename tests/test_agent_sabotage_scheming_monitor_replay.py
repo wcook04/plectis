@@ -113,7 +113,7 @@ def test_agent_sabotage_scheming_monitor_exported_bundle_validates_runtime_shape
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_sabotage_monitor_bundle"
-    assert result["bundle_id"] == "agent_sabotage_scheming_monitor_replay_runtime_example"
+    assert result["bundle_id"] == "agent_sabotage_scheming_monitor_replay_regression_drilldown"
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
