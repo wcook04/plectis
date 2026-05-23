@@ -780,6 +780,10 @@ def test_cli_option_surface_lens_smoke(capsys: pytest.CaptureFixture[str]) -> No
         row["unsafe_payload_bodies_exported"] is False
         for row in payload["option_rows"]
     )
+    encoded = json.dumps(payload, sort_keys=True)
+    assert "source_cell_redacted_flag" not in encoded
+    assert "body_redacted" not in encoded
+    assert "body_copied" not in encoded
 
 
 def test_cli_stripping_guard_smoke(capsys: pytest.CaptureFixture[str]) -> None:

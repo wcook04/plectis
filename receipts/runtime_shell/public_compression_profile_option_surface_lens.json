@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The option-surface lens is a public-safe read-model over compression profile projection rules. It does not switch runtime profiles, select options automatically, export private context or sidecar bodies, call providers, hand-edit generated regions, mutate source, claim lossless private projection, publish, host, or authorize release.",
+  "anti_claim": "The option-surface lens is a source-open public read-model over compression profile projection rules. It does not switch runtime profiles, select options automatically, export private context or sidecar bodies, call providers, hand-edit generated regions, mutate source, claim lossless private projection, publish, host, or authorize release.",
   "authority_ceiling": {
     "automatic_profile_selection_authorized": false,
     "generated_region_hand_edit_authorized": false,
@@ -15,9 +15,8 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm option-surface-lens",
-  "created_at": "2026-05-23T07:48:21+00:00",
+  "created_at": "2026-05-23T22:49:46+00:00",
   "endpoint": "/option-surface-lens",
   "import_plan_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
@@ -35,7 +34,6 @@
   "option_rows": [
     {
       "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-      "body_redacted": true,
       "cleaned": [
         "private source path bodies",
         "volatile run counters"
@@ -52,18 +50,20 @@
       ],
       "option_row_id": "compression_profile_candidate_anchor",
       "option_stage": "candidate_pattern_anchor",
+      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
       "public_output": "selected pattern id plus projection cell ref",
       "release_authorized": false,
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::compression_profile_governed_option_surface",
+      "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe"
     },
     {
       "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-      "body_redacted": true,
       "cleaned": [
         "live route rankings",
         "private phase-specific counts"
@@ -79,18 +79,20 @@
       ],
       "option_row_id": "quick_profile_public_card",
       "option_stage": "public_profile_contract",
+      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
       "public_output": "quick profile as a bounded cold-reader card",
       "release_authorized": false,
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "microcosm import-projector::candidate_selection",
+      "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_cli.py::test_cli_option_surface_lens_smoke"
     },
     {
       "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-      "body_redacted": true,
       "cleaned": [
         "unbounded prompt stuffing",
         "private note bodies"
@@ -105,18 +107,20 @@
       ],
       "option_row_id": "full_profile_sidecar_boundary",
       "option_stage": "sidecar_projection",
+      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
       "public_output": "full profile points at sidecar/receipt refs instead of prompt-body expansion",
       "release_authorized": false,
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "microcosm route-cleanup::option_surface_hygiene",
+      "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha"
     },
     {
       "authority_ceiling_ref": "microcosm authority::local_observatory",
-      "body_redacted": true,
       "cleaned": [
         "raw JSON first-screen dependence",
         "private drilldown payloads"
@@ -132,18 +136,20 @@
       ],
       "option_row_id": "observatory_option_surface_card",
       "option_stage": "runtime_binding",
+      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
       "public_output": "first-screen option-surface card and JSON drilldown endpoint",
       "release_authorized": false,
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "microcosm project-observatory::json_drilldowns",
+      "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain"
     },
     {
       "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-      "body_redacted": true,
       "cleaned": [
         "green-check-only posture",
         "unbound profile claims"
@@ -159,18 +165,20 @@
       ],
       "option_row_id": "validator_option_profile_parity",
       "option_stage": "validation",
+      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
       "public_output": "validator checks command, endpoint, receipt, and observatory parity",
       "release_authorized": false,
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "microcosm launch-compression::assertions",
+      "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_observatory_legibility.py"
     },
     {
       "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
-      "body_redacted": true,
       "cleaned": [
         "raw seed voice",
         "unreviewed public release language"
@@ -186,13 +194,16 @@
       ],
       "option_row_id": "seed_reentry_option_profile_contract",
       "option_stage": "reentry_contract",
+      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
       "public_output": "seed closeout names option-surface consumption and next importable cell",
       "release_authorized": false,
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
+      "unsafe_payload_bodies_exported": false,
       "validation_ref": "kernel.py --validate-seed-heartbeat"
     }
   ],
@@ -220,7 +231,7 @@
       "required_evidence": [
         "sidecar ref",
         "receipt ref",
-        "body_redacted=true"
+        "payload boundary"
       ],
       "stage_id": "sidecar_projection"
     },
@@ -268,11 +279,51 @@
     "validation_ref_count": 6
   },
   "organ_family": "projection_import",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_compression_profile_option_surface_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm option-surface-lens",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": true,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_compression_profile_option_surface_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "projection_cell": {
     "authority_ceiling": "verified_public_pattern_ledger_body_and_protocol_metadata",
-    "body_copied": false,
-    "body_redacted": false,
     "cell_id": "projection_protocol_self_host",
+    "legacy_import_plan_compat": {
+      "classification": "legacy_import_plan_payload_flags_normalized_to_source_open_boundary",
+      "legacy_payload_flag_schema_present": true,
+      "legacy_payload_flags_exported": false,
+      "public_contract_fields": [
+        "source_open_body_policy",
+        "unsafe_payload_bodies_in_receipt",
+        "payload_boundary"
+      ],
+      "source_open_payload_boundary_ref": "microcosm option-surface-lens::payload_boundary"
+    },
     "source_refs": [
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
@@ -290,12 +341,15 @@
   "public_claim": "Microcosm exposes the compression-profile governed option surface as a public read-model: profile choice becomes command, endpoint, receipt, sidecar, validation, and authority-ceiling rows without importing private bodies.",
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
     "option_surface_is_read_model_only": true,
     "private_paths_omitted": true,
     "private_source_bodies_omitted": true,
     "provider_payloads_omitted": true,
-    "sidecar_bodies_omitted": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "sidecar_bodies_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_compression_profile_option_surface_lens_v1",
   "selected_pattern_ids": [
@@ -303,5 +357,7 @@
     "authority_boundary_anti_claim",
     "macro_projection_import_protocol"
   ],
-  "status": "pass"
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The projection import map is a public-safe read-model over projection protocol rows. It does not automate imports, prove losslessness, export private bodies, expose proof bodies or provider payloads, mutate source, claim private-root equivalence, publish, host, or authorize release.",
+  "anti_claim": "The projection import map is a source-open public read-model over projection protocol rows. It does not automate imports, prove losslessness, export private bodies, expose proof bodies or provider payloads, mutate source, claim private-root equivalence, publish, host, or authorize release.",
   "authority_ceiling": {
     "automated_import_guarantee": false,
     "hosted_public_authorized": false,
@@ -13,9 +13,8 @@
     "source_mutation_authorized": false,
     "synthetic_public_projection_read_model_only": true
   },
-  "body_redacted": true,
   "command": "microcosm projection-import-map",
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-23T22:49:46+00:00",
   "endpoint": "/projection-import-map",
   "import_rows": [
     {
@@ -120,7 +119,7 @@
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::repository_agent_benchmark_transaction_lab",
       "source_pattern_id": "repository_agent_benchmark_transaction_lab",
       "validation_refs": [
-        "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_benchmark_lab_lens_uses_payload_boundary",
         "tests/test_cli.py::test_cli_benchmark_lab_smoke"
       ]
     },
@@ -147,7 +146,7 @@
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_reliability_replay_gauntlet",
       "source_pattern_id": "agent_reliability_replay_gauntlet",
       "validation_refs": [
-        "tests/test_runtime_shell.py::test_runtime_shell_replay_gauntlet_lens_is_public_safe",
+        "tests/test_runtime_shell.py::test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary",
         "tests/test_cli.py::test_cli_replay_gauntlet_smoke"
       ]
     },
@@ -174,8 +173,8 @@
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_math_verifier_trace_repair_loop_compound",
       "source_pattern_id": "formal_math_verifier_trace_repair_loop_compound",
       "validation_refs": [
-        "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_is_public_safe",
-        "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_is_public_safe"
+        "tests/test_runtime_shell.py::test_runtime_shell_trace_lens_uses_payload_boundary",
+        "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_uses_payload_boundary"
       ]
     }
   ],
@@ -184,31 +183,31 @@
       "purpose": "select a macro pattern only after public projection posture is safe",
       "required_evidence": [
         "source authority ref",
-        "public replacement target",
-        "private-state risk classification"
+        "public drilldown target",
+        "payload-boundary risk classification"
       ],
       "stage_id": "select_source_pattern"
     },
     {
-      "purpose": "remove raw private source bodies, proof bodies, provider payloads, and private paths",
+      "purpose": "exclude raw private source bodies, proof bodies, provider payloads, and private paths",
       "required_evidence": [
         "omission receipt",
-        "body_redacted=true",
-        "safe_to_show contract"
+        "payload boundary",
+        "source-open safe_to_show contract"
       ],
       "stage_id": "strip_private_bodies"
     },
     {
-      "purpose": "land a public fixture, runtime lens, or receipt-backed synthetic replacement",
+      "purpose": "land a public fixture, runtime lens, or receipt-backed drilldown",
       "required_evidence": [
         "public surface ref",
         "command or endpoint",
         "fixture or receipt ref"
       ],
-      "stage_id": "write_public_replacement"
+      "stage_id": "write_public_projection"
     },
     {
-      "purpose": "state what the public replacement cannot claim before it is surfaced",
+      "purpose": "state what the public projection cannot claim before it is surfaced",
       "required_evidence": [
         "release_authorized=false",
         "source_mutation_authorized=false",
@@ -255,22 +254,56 @@
     "authority_ceiling_missing_rejected",
     "validation_ref_missing_rejected",
     "endpoint_without_command_rejected",
-    "public_replacement_claims_private_equivalence_rejected",
+    "public_drilldown_claims_private_equivalence_rejected",
     "automated_import_success_guarantee_rejected",
     "release_claim_from_projection_import_map_rejected"
   ],
   "organ_family": "projection_import",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_projection_import_map_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm projection-import-map",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_projection_import_map_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "projection_import_map_ref": "receipts/runtime_shell/public_projection_import_map_lens.json",
   "public_claim": "Microcosm exposes a projection import map: each public runtime lens names what was copied from the macro pattern, what was cleaned, what was omitted, what authority ceiling remains, and which validators prove the projection.",
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
     "private_paths_omitted": true,
     "private_source_bodies_omitted": true,
     "projection_is_read_model_only": true,
     "proof_bodies_omitted": true,
     "provider_payloads_omitted": true,
-    "receipt_refs_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_projection_import_map_lens_v1",
   "selected_pattern_ids": [
@@ -281,5 +314,7 @@
     "agent_reliability_replay_gauntlet",
     "formal_math_verifier_trace_repair_loop_compound"
   ],
-  "status": "pass"
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

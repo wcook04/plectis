@@ -7287,9 +7287,19 @@ class RuntimeShell:
                 "validation_refs": option_cell.get("validation_refs", []),
                 "authority_ceiling": option_cell.get("authority_ceiling"),
                 "legacy_import_plan_compat": {
-                    "classification": "legacy_import_plan_payload_flags_not_public_product_contract",
-                    "source_cell_body_copied_flag": option_cell.get("body_copied") is True,
-                    "source_cell_redacted_flag": option_cell.get("body_redacted") is True,
+                    "classification": "legacy_import_plan_payload_flags_normalized_to_source_open_boundary",
+                    "legacy_payload_flag_schema_present": any(
+                        key in option_cell for key in ("body_copied", "body_redacted")
+                    ),
+                    "legacy_payload_flags_exported": False,
+                    "source_open_payload_boundary_ref": (
+                        "microcosm option-surface-lens::payload_boundary"
+                    ),
+                    "public_contract_fields": [
+                        "source_open_body_policy",
+                        "unsafe_payload_bodies_in_receipt",
+                        "payload_boundary",
+                    ],
                 },
             },
             "import_plan_ref": import_plan_ref,

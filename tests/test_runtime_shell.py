@@ -1841,9 +1841,20 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
     assert all(row["unsafe_payload_bodies_exported"] is False for row in lens["option_rows"])
     assert (
         lens["projection_cell"]["legacy_import_plan_compat"]["classification"]
-        == "legacy_import_plan_payload_flags_not_public_product_contract"
+        == "legacy_import_plan_payload_flags_normalized_to_source_open_boundary"
     )
-    assert lens["projection_cell"]["legacy_import_plan_compat"]["source_cell_redacted_flag"] is False
+    legacy_compat = lens["projection_cell"]["legacy_import_plan_compat"]
+    assert legacy_compat["legacy_payload_flag_schema_present"] is True
+    assert legacy_compat["legacy_payload_flags_exported"] is False
+    assert (
+        legacy_compat["source_open_payload_boundary_ref"]
+        == "microcosm option-surface-lens::payload_boundary"
+    )
+    assert legacy_compat["public_contract_fields"] == [
+        "source_open_body_policy",
+        "unsafe_payload_bodies_in_receipt",
+        "payload_boundary",
+    ]
     assert lens["release_authorized"] is False
     assert lens["source_open_body_policy"]
     assert lens["unsafe_payload_bodies_in_receipt"] is False
@@ -1856,6 +1867,9 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
+    assert "source_cell_redacted_flag" not in encoded
+    assert "body_redacted" not in encoded
+    assert "body_copied" not in encoded
 
 
 def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> None:

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The import-projector contract is a public-safe read-model and checklist. It does not execute imports, copy private source bodies, expose proof bodies or provider payloads, hand-edit generated regions, mutate source, claim lossless private projection, publish, host, or authorize release.",
+  "anti_claim": "The import-projector contract is a source-open public read-model and checklist. It does not execute imports, copy private source bodies, expose proof bodies or provider payloads, hand-edit generated regions, mutate source, claim lossless private projection, publish, host, or authorize release.",
   "authority_ceiling": {
     "automated_import_execution_authorized": false,
     "generated_region_hand_edit_authorized": false,
@@ -15,15 +15,14 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm import-projector",
   "contract_stages": [
     {
-      "purpose": "choose a macro pattern only when it has a public-safe target shape",
+      "purpose": "choose a macro pattern only when it has a source-open public target shape",
       "required_evidence": [
         "source ref",
         "public target surface",
-        "private-state risk class"
+        "payload-boundary risk class"
       ],
       "stage_id": "candidate_selection"
     },
@@ -40,14 +39,14 @@
     {
       "purpose": "replace private bodies with public refs and reversible omission receipts",
       "required_evidence": [
-        "body_redacted=true",
+        "payload boundary",
         "drilldown ref",
         "negative case ids"
       ],
       "stage_id": "stripping_and_omission"
     },
     {
-      "purpose": "bind the public replacement to synthetic fixtures or metadata-only rows",
+      "purpose": "bind the public projection to synthetic fixtures or metadata-only rows",
       "required_evidence": [
         "fixture ref",
         "validator ref",
@@ -77,7 +76,7 @@
       "stage_id": "validation_and_closeout"
     }
   ],
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-23T22:49:46+00:00",
   "endpoint": "/import-projector",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
   "lens_id": "public_import_projector_contract_lens",
@@ -93,6 +92,37 @@
     "lossless_private_projection_claim_rejected"
   ],
   "organ_family": "projection_import",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_import_projector_contract_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm import-projector",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "projector_rows": [
     {
       "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
@@ -130,7 +160,7 @@
       ],
       "copied": [
         "stage vocabulary",
-        "public replacement refs"
+        "public drilldown refs"
       ],
       "generated_region_hand_edit_authorized": false,
       "omitted": [
@@ -158,8 +188,8 @@
       ],
       "copied": [
         "guard row id",
-        "public replacement",
-        "strip rule"
+        "public drilldown",
+        "payload-boundary rule"
       ],
       "generated_region_hand_edit_authorized": false,
       "omitted": [
@@ -226,7 +256,7 @@
       "projector_stage": "fixture_projection",
       "proof_body_exported": false,
       "provider_payload_exported": false,
-      "public_output": "synthetic fixture or metadata-only replacement",
+      "public_output": "synthetic fixture or metadata-only public drilldown",
       "release_authorized": false,
       "source_mutation_authorized": false,
       "source_ref": "microcosm-substrate/examples",
@@ -341,7 +371,7 @@
       "public_output": "seed closeout, next reentry prompt, Work Ledger append, and scoped landing attempt",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json",
+      "source_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
       "validation_ref": "kernel.py --validate-seed-heartbeat"
     }
   ],
@@ -363,13 +393,16 @@
   "public_claim": "Microcosm exposes a repeatable import-projector contract: future macro patterns must name what was copied, cleaned, omitted, bounded, validated, surfaced, and closed out before they become public runtime cells.",
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
     "generated_regions_require_owner_builders": true,
     "private_paths_omitted": true,
     "private_source_bodies_omitted": true,
     "projector_is_read_model_only": true,
     "proof_bodies_omitted": true,
-    "provider_payloads_omitted": true
+    "provider_payloads_omitted": true,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_import_projector_contract_lens_v1",
   "selected_pattern_ids": [
@@ -379,5 +412,7 @@
     "route_cleanup_contract_plane",
     "microcosm_substrate_import_seed"
   ],
-  "status": "pass"
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }
