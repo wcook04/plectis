@@ -5,7 +5,7 @@
     "claim_a": "aaa111",
     "claim_b": "bbb222"
   },
-  "synthetic_files": {
+  "fixture_files": {
     "fixtures/toy_repo/core/route_plane.json": {
       "exists": true,
       "sha256": "toy-route-plane-before"
@@ -13,7 +13,7 @@
   },
   "owned_path_patch": {
     "path": "fixtures/toy_repo/core/route_plane.json",
-    "operation": "replace_synthetic_value",
+    "operation": "replace_fixture_value",
     "before": "toy-route-plane-before",
     "after": "toy-route-plane-after"
   }

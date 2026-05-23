@@ -1,14 +1,22 @@
 {
   "schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
-  "bundle_id": "public_mission_transaction_work_spine_runtime_example",
+  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
   "input_mode": "exported_mission_transaction_bundle",
   "organ_id": "mission_transaction_work_spine",
   "fixture_regression_required_elsewhere": true,
-  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_status": "source_faithful_public_refactor_landed",
   "body_import_verification": {
-    "verification_mode": "extension_of_existing_public_refactor",
-    "source_ref": "tools/meta/control/work_landing.py",
-    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
+    "verification_mode": "source_faithful_public_refactor",
+    "source_refs": [
+      "tools/meta/control/work_landing.py",
+      "system/lib/work_landing_status.py",
+      "tools/meta/control/mission_transaction_preflight.py",
+      "system/lib/mission_transaction_landing_preflight.py"
+    ],
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
+      "microcosm-substrate/src/microcosm_core/macro_tools/mission_transaction_preflight.py"
+    ],
     "body_in_receipt": false
   },
   "release_authorized": false,

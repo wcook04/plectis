@@ -16,6 +16,14 @@ from microcosm_core.macro_tools.work_landing import (
     build_public_work_landing_reconcile_plan,
     build_public_work_landing_status,
 )
+from microcosm_core.macro_tools.mission_transaction_preflight import (
+    KERNEL_SOURCE_REF as MISSION_PREFLIGHT_KERNEL_SOURCE_REF,
+    SOURCE_REF as MISSION_PREFLIGHT_SOURCE_REF,
+    SOURCE_SYMBOL_REFS as MISSION_PREFLIGHT_SOURCE_SYMBOL_REFS,
+    TARGET_REF as MISSION_PREFLIGHT_TARGET_REF,
+    TARGET_SYMBOL_REFS as MISSION_PREFLIGHT_TARGET_SYMBOL_REFS,
+    build_public_mission_transaction_preflight,
+)
 from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
@@ -118,11 +126,12 @@ ORDERED_CONTROLLER_ACTION_IDS = [
     *WORK_LANDING_ORDERED_CONTROLLER_ACTION_IDS,
 ]
 
-BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
+BODY_IMPORT_STATUS = "source_faithful_public_refactor_landed"
 WORK_LANDING_TARGET_REF = "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py"
 WORK_LANDING_VALIDATION_REFS = [
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_receipts_consume_public_work_landing_refactor",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_consumes_public_mission_preflight_refactor",
 ]
 
 
@@ -235,11 +244,38 @@ def _stable_hash(payload: object) -> str:
 
 def _body_import_verification(input_refs: list[str]) -> dict[str, Any]:
     return {
-        "verification_mode": "extension_of_existing_public_refactor",
+        "verification_mode": "source_faithful_public_refactor",
         "source_ref": WORK_LANDING_SOURCE_REF,
-        "source_symbols": WORK_LANDING_SOURCE_SYMBOL_REFS,
+        "source_symbols": [
+            *WORK_LANDING_SOURCE_SYMBOL_REFS,
+            *MISSION_PREFLIGHT_SOURCE_SYMBOL_REFS,
+        ],
         "target_ref": WORK_LANDING_TARGET_REF,
-        "target_symbols": WORK_LANDING_TARGET_SYMBOL_REFS,
+        "target_symbols": [
+            *WORK_LANDING_TARGET_SYMBOL_REFS,
+            *MISSION_PREFLIGHT_TARGET_SYMBOL_REFS,
+        ],
+        "source_refs": [
+            WORK_LANDING_SOURCE_REF,
+            "system/lib/work_landing_status.py",
+            MISSION_PREFLIGHT_SOURCE_REF,
+            MISSION_PREFLIGHT_KERNEL_SOURCE_REF,
+        ],
+        "target_refs": [WORK_LANDING_TARGET_REF, MISSION_PREFLIGHT_TARGET_REF],
+        "source_faithful_components": {
+            "work_landing": {
+                "source_ref": WORK_LANDING_SOURCE_REF,
+                "source_symbols": WORK_LANDING_SOURCE_SYMBOL_REFS,
+                "target_ref": WORK_LANDING_TARGET_REF,
+                "target_symbols": WORK_LANDING_TARGET_SYMBOL_REFS,
+            },
+            "mission_transaction_preflight": {
+                "source_ref": MISSION_PREFLIGHT_SOURCE_REF,
+                "source_symbols": MISSION_PREFLIGHT_SOURCE_SYMBOL_REFS,
+                "target_ref": MISSION_PREFLIGHT_TARGET_REF,
+                "target_symbols": MISSION_PREFLIGHT_TARGET_SYMBOL_REFS,
+            },
+        },
         "source_order_ref": "system/lib/work_landing_status.py::ORDERED_CONTROLLER_ACTION_IDS",
         "target_order_ref": (
             "microcosm_core.macro_tools.work_landing::ORDERED_CONTROLLER_ACTION_IDS"
@@ -266,10 +302,18 @@ def _body_import_fields(input_refs: list[str]) -> dict[str, Any]:
         "source_refs": [
             WORK_LANDING_SOURCE_REF,
             "system/lib/work_landing_status.py",
+            MISSION_PREFLIGHT_SOURCE_REF,
+            MISSION_PREFLIGHT_KERNEL_SOURCE_REF,
         ],
-        "source_symbols": WORK_LANDING_SOURCE_SYMBOL_REFS,
-        "target_refs": [WORK_LANDING_TARGET_REF],
-        "target_symbols": WORK_LANDING_TARGET_SYMBOL_REFS,
+        "source_symbols": [
+            *WORK_LANDING_SOURCE_SYMBOL_REFS,
+            *MISSION_PREFLIGHT_SOURCE_SYMBOL_REFS,
+        ],
+        "target_refs": [WORK_LANDING_TARGET_REF, MISSION_PREFLIGHT_TARGET_REF],
+        "target_symbols": [
+            *WORK_LANDING_TARGET_SYMBOL_REFS,
+            *MISSION_PREFLIGHT_TARGET_SYMBOL_REFS,
+        ],
         "public_runtime_refs": input_refs,
         "body_in_receipt": False,
     }
@@ -942,7 +986,7 @@ def validate_dependency_unlock_scheduler(payload: object) -> dict[str, Any]:
                 findings,
                 observed,
                 "DANGLING_DEPENDENCY_REF",
-                "Dependency unlock attempted without explicit synthetic resolution evidence.",
+                "Dependency unlock attempted without explicit fixture resolution evidence.",
                 case_id="dependency_unlock_without_resolution_receipt",
                 subject_id=work_item_id,
                 subject_kind="work_item",
@@ -1006,8 +1050,8 @@ def validate_dependency_unlock_scheduler(payload: object) -> dict[str, Any]:
         "dangling_dependency_refs": dangling_refs,
         "schedulable_workitem_ids": schedulable_ids,
         "downstream_schedulable_before": False,
-        "schedulability_decision_source": "synthetic_dependency_status_by_workitem",
-        "dependency_unlock_resolution_basis": "explicit_synthetic_dependency_resolution_receipt_required",
+        "schedulability_decision_source": "regression_fixture_dependency_status_by_workitem",
+        "dependency_unlock_resolution_basis": "explicit_fixture_dependency_resolution_receipt_required",
         "anomaly_refs": anomaly_refs,
         "derived_not_authority": True,
         "schedulable": False,
@@ -1058,7 +1102,7 @@ def validate_claim_preflight(
                 findings,
                 observed,
                 "EXPECTED_PARENT_MISMATCH",
-                "Expected parent does not match the synthetic current parent.",
+                "Expected parent does not match the fixture current parent.",
                 case_id="competing_claim_and_stale_parent",
                 subject_id=claim_id,
                 subject_kind="work_ledger_claim",
@@ -1128,7 +1172,7 @@ def validate_private_marker(payload: object) -> dict[str, Any]:
                 "Fixture marked a live ledger payload value and was rejected.",
                 case_id="mission_fixture_private_task_ledger_body",
                 subject_id=marker_id,
-                subject_kind="synthetic_fixture",
+                subject_kind="regression_fixture",
             )
     return {
         "findings": findings,
@@ -1190,6 +1234,9 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "bundle_id": result.get("bundle_id"),
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_work_landing_status": result["public_work_landing_status"],
+        "public_mission_transaction_preflight": result[
+            "public_mission_transaction_preflight"
+        ],
         "body_import_status": result["body_import_status"],
         "body_import_verification": result["body_import_verification"],
         "source_refs": result["source_refs"],
@@ -1359,7 +1406,7 @@ def write_receipts(
                 action: "dry_run_not_mutated" for action in ORDERED_CONTROLLER_ACTION_IDS
             },
             "finalizer_classification_status": "pass",
-            "canonical_transaction_state": "synthetic_closeout_pending_exact_receipt_drain",
+            "canonical_transaction_state": "fixture_closeout_pending_exact_receipt_drain",
             "ambient_pressure_count": 0,
             "compatibility_finalizer_count": 0,
         }
@@ -1514,6 +1561,14 @@ def run_mission_transaction_bundle(
         session_id=first_claim,
         require_exclusive=True,
     )
+    public_mission_preflight = build_public_mission_transaction_preflight(
+        subject_ids=subject_ids,
+        owned_paths=scoped_owned_paths,
+        claims_payload=payloads["claim_table"],
+        repo_state={},
+        checkpoint_lane_policy=payloads["checkpoint_lane_policy"],
+        require_exclusive=True,
+    )
     public_reconcile_plan = _public_work_landing_reconcile_plan(
         subject_ids=subject_ids,
         owned_paths=scoped_owned_paths,
@@ -1532,6 +1587,7 @@ def run_mission_transaction_bundle(
         and workitem_result["workitem_ids"]
         and claim_result["accepted_claim_ids"]
         and transaction_result["ordered_controller_action_ids"] == ORDERED_CONTROLLER_ACTION_IDS
+        and public_mission_preflight["status"] == PASS
         else "blocked"
     )
     bundle_fingerprint = _stable_hash(
@@ -1585,6 +1641,7 @@ def run_mission_transaction_bundle(
             "findings": all_findings,
             "secret_exclusion_scan": scan_result,
             "public_work_landing_status": public_work_landing_status,
+            "public_mission_transaction_preflight": public_mission_preflight,
             **body_import_fields,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "workitem_ids": workitem_result["workitem_ids"],
@@ -1608,14 +1665,19 @@ def run_mission_transaction_bundle(
             ],
             "downstream_unlock_edges": dependency_result["downstream_unlock_edges"],
             "claim_preflight_result": {
-                "decision": "pass_metadata_claims_no_live_conflict",
+                "decision": public_mission_preflight["landing_decision"]["decision"],
                 "accepted_claim_ids": claim_result["accepted_claim_ids"],
                 "same_path_conflict_claim_ids": claim_result[
                     "same_path_conflict_claim_ids"
                 ],
-                "claim_conflict_recheck_status": "public_work_landing_projection_no_live_claim_recheck",
-                "expected_parent_status": "not_applicable_public_work_landing_projection",
-                "replan_required": False,
+                "claim_conflict_recheck_status": public_mission_preflight[
+                    "claim_conflict_recheck_status"
+                ],
+                "expected_parent_status": public_mission_preflight[
+                    "expected_parent_status"
+                ],
+                "public_mission_preflight_status": public_mission_preflight["status"],
+                "replan_required": public_mission_preflight["status"] != PASS,
             },
             "scoped_mutation_receipt": scoped_policy_result,
             "checkpoint_lane_decision": checkpoint_lane_result,
@@ -1711,6 +1773,22 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         session_id="session_a",
         require_exclusive=True,
     )
+    public_mission_preflight = build_public_mission_transaction_preflight(
+        subject_ids=["cap_toy_route_fixture"],
+        owned_paths=["fixtures/toy_repo/core/route_plane.json"],
+        claims_payload=payloads["claims"],
+        repo_state=payloads["repo_state"],
+        checkpoint_lane_policy=payloads["checkpoint_lane_policy"],
+        checkpoint_negative_cases=payloads["checkpoint_negative_cases"],
+        require_exclusive=True,
+    )
+    claim_result = {
+        **claim_result,
+        "public_mission_preflight_status": public_mission_preflight["status"],
+        "public_mission_preflight_landing_decision": public_mission_preflight[
+            "landing_decision"
+        ]["decision"],
+    }
     public_work_landing_attempt = _public_work_landing_attempt(
         subject_ids=["cap_toy_route_fixture"],
         owned_paths=["fixtures/toy_repo/core/route_plane.json"],
@@ -1745,6 +1823,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "findings": all_findings,
             "secret_exclusion_scan": secret_scan,
             "public_work_landing_status": public_work_landing_status,
+            "public_mission_transaction_preflight": public_mission_preflight,
             **body_import_fields,
             "blocked_workitem_ids": dependency_result["blocked_workitem_ids"],
             "ready_but_unsatisfied_workitem_ids": dependency_result[
@@ -1779,7 +1858,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             },
             "scoped_mutation_receipt": {
                 "owned_paths": ["fixtures/toy_repo/core/route_plane.json"],
-                "mutation_status": "synthetic_scoped_mutation_valid_for_claim_a",
+                "mutation_status": "regression_fixture_scoped_mutation_valid_for_claim_a",
                 "expected_parent_status": "pass_for_claim_a_stale_for_claim_b",
                 "broad_stage_used": False,
                 "authority_upgrade_rejected": scoped_result["scoped_receipt_authority_rejected"],
@@ -1788,7 +1867,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "closeout_status_projection": {
                 "work_item_id": "cap_toy_route_fixture",
                 "status_before": "ready",
-                "status_after": "closed_synthetic",
+                "status_after": "closed_regression_fixture",
                 "receipt_refs_drained": ["receipt_expected_001"],
                 "exact_receipt_drain_scope": ["receipt_expected_001"],
                 "receipt_drain_exclusivity_status": "only_declared_receipt_drained",

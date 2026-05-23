@@ -271,13 +271,13 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "validates declared public contract only",
-        "classification_basis": "derived WorkItem/transaction contract checks over public fixture rows",
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
         "counts_as_real_substrate_progress": true,
-        "evidence_class": "semantic_validator",
-        "evidence_strength_rank": 5,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "mission_transaction_work_spine",
-        "truth_accounting_bucket": "real_import_validation"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "validates declared public contract only",
@@ -510,10 +510,10 @@
     "copied_non_secret_macro_body_count": 0,
     "delete_or_demote_candidate_count": 0,
     "evidence_class_counts": {
-      "algorithmic_projection": 24,
+      "algorithmic_projection": 25,
       "external_subprocess_witness": 3,
       "fixture_echo_smoke": 3,
-      "semantic_validator": 16
+      "semantic_validator": 15
     },
     "legacy_adapter_or_synthetic_placeholder_count": 0,
     "non_progress_accepted_count": 3,
@@ -522,7 +522,7 @@
       "agent_monitor_redteam_falsification_replay",
       "agent_sabotage_scheming_monitor_replay"
     ],
-    "real_import_validation_count": 16,
+    "real_import_validation_count": 15,
     "real_runtime_receipt_count": 3,
     "real_substrate_progress_count": 43,
     "real_substrate_progress_organs": [
@@ -573,13 +573,13 @@
     "regression_negative_fixture_count": 3,
     "schema_version": "microcosm_acceptance_truth_accounting_v1",
     "secret_exclusion_count": 0,
-    "source_faithful_refactor_count": 24,
+    "source_faithful_refactor_count": 25,
     "source_ref": "core/organ_evidence_classes.json",
     "truth_accounting_bucket_counts": {
-      "real_import_validation": 16,
+      "real_import_validation": 15,
       "real_runtime_receipt": 3,
       "regression_negative_fixture": 3,
-      "source_faithful_refactor": 24
+      "source_faithful_refactor": 25
     }
   }
 }

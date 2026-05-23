@@ -10,5 +10,6 @@
   "suspected_secret": false,
   "selected_lane": "hard_stop",
   "dirty_tree_blocks_scoped_lane": true,
-  "body_redacted": true
+  "body_in_receipt": false,
+  "fixture_role": "regression_negative_case"
 }

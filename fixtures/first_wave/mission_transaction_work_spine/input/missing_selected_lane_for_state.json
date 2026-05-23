@@ -8,5 +8,6 @@
   "broad_checkpoint_requested": false,
   "operator_authorized_broad_checkpoint": false,
   "suspected_secret": false,
-  "body_redacted": true
+  "body_in_receipt": false,
+  "fixture_role": "regression_negative_case"
 }

@@ -578,8 +578,8 @@
       "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/unverifiable_feature_name.json": "251c611580ace00352be22403ceb41d5132e7c48e883482aad56cc4ad7fbc812"
     },
     "mission_transaction_work_spine": {
-      "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl": "c0ff9155472b1c16dde71b98cd3a60e083ac9b5da275a17768d26887a770a332",
-      "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json": "06f6dbcd52da12c52416a9681486ff1a5be7326c3cb9cb0c710c9845b22e81e3",
+      "fixtures/first_wave/mission_transaction_work_spine/input/task_ledger_events.jsonl": "5507e7aeba0028fe60cc03340c19fc524aea88da202b4e1aee86c8d5344210e1",
+      "fixtures/first_wave/mission_transaction_work_spine/input/toy_repo_state.json": "a9a5586c3c03a67d90904d0ea970927ba0025b7eb430f234925e9ea09425c477",
       "fixtures/first_wave/mission_transaction_work_spine/input/work_ledger_claims.json": "52248db1e7b545ee01c0d6ba88597ad700608bf0573517f5aecd50297a31e9aa"
     },
     "navigation_hologram_route_plane": {

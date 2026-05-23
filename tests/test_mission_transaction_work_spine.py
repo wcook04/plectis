@@ -35,6 +35,11 @@ SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS = [
     "release_claims",
     "recompute_convergence",
 ]
+SOURCE_FAITHFUL_PUBLIC_REFACTOR_STATUS = "source_faithful_public_refactor_landed"
+PUBLIC_MISSION_PREFLIGHT_TARGET_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/"
+    "mission_transaction_preflight.py"
+)
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",
@@ -54,6 +59,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "anti_claim",
         "secret_exclusion_scan",
         "public_work_landing_status",
+        "public_mission_transaction_preflight",
         "body_import_status",
         "body_import_verification",
         "body_in_receipt",
@@ -80,6 +86,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "anti_claim",
         "secret_exclusion_scan",
         "public_work_landing_status",
+        "public_mission_transaction_preflight",
         "body_import_status",
         "body_import_verification",
         "body_in_receipt",
@@ -106,6 +113,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "anti_claim",
         "secret_exclusion_scan",
         "public_work_landing_status",
+        "public_mission_transaction_preflight",
         "body_import_status",
         "body_import_verification",
         "body_in_receipt",
@@ -140,6 +148,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "anti_claim",
         "secret_exclusion_scan",
         "public_work_landing_status",
+        "public_mission_transaction_preflight",
         "body_import_status",
         "body_import_verification",
         "body_in_receipt",
@@ -169,6 +178,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "anti_claim",
         "secret_exclusion_scan",
         "public_work_landing_status",
+        "public_mission_transaction_preflight",
         "body_import_status",
         "body_import_verification",
         "body_in_receipt",
@@ -194,6 +204,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "anti_claim",
         "secret_exclusion_scan",
         "public_work_landing_status",
+        "public_mission_transaction_preflight",
         "body_import_status",
         "body_import_verification",
         "body_in_receipt",
@@ -238,6 +249,13 @@ def test_mission_transaction_work_spine_observes_required_negative_cases(
             assert code in result["error_codes"]
     assert result["claim_preflight_result"]["same_path_conflict_claim_ids"] == ["claim_a"]
     assert result["claim_preflight_result"]["expected_parent_status"] == "stale_parent_rejected"
+    assert result["public_mission_transaction_preflight"]["status"] == "blocked"
+    assert result["public_mission_transaction_preflight"]["landing_decision"]["decision"] == (
+        "blocked_replan_required"
+    )
+    assert result["public_mission_transaction_preflight"]["target_ref"] == (
+        PUBLIC_MISSION_PREFLIGHT_TARGET_REF
+    )
     assert result["dependency_unlock_scheduler"]["ready_but_unsatisfied_workitem_ids"] == [
         "cap_ready_with_unsatisfied"
     ]
@@ -293,8 +311,11 @@ def test_mission_transaction_work_spine_receipts_are_public_relative_and_secret_
         assert "private_state_scan" not in payload
         assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
         assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
-        assert payload["body_import_status"] == "extension_of_existing_public_refactor_landed"
+        assert payload["body_import_status"] == SOURCE_FAITHFUL_PUBLIC_REFACTOR_STATUS
         assert payload["public_work_landing_status"]["status"] == "pass"
+        assert payload["public_mission_transaction_preflight"]["target_ref"] == (
+            PUBLIC_MISSION_PREFLIGHT_TARGET_REF
+        )
         assert payload["missing_negative_cases"] == []
         assert set(payload["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
         assert "matched_excerpt" not in _walk_keys(payload)
@@ -346,7 +367,7 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_mission_transaction_bundle"
-    assert result["bundle_id"] == "public_mission_transaction_work_spine_runtime_example"
+    assert result["bundle_id"] == "public_mission_transaction_work_spine_runtime_bundle"
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
@@ -381,11 +402,18 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
         SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
     )
     assert result["work_landing_reconcile_plan"]["mutation_policy"]["live_state_mutation"] is False
-    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_status"] == SOURCE_FAITHFUL_PUBLIC_REFACTOR_STATUS
     assert result["body_import_verification"]["source_faithful_controller_action_ids"] == (
         SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS
     )
     assert result["public_work_landing_status"]["status"] == "pass"
+    assert result["public_mission_transaction_preflight"]["status"] == "pass"
+    assert result["public_mission_transaction_preflight"]["landing_decision"]["recommended_lane"] == (
+        "scoped_commit"
+    )
+    assert result["public_mission_transaction_preflight"]["target_ref"] == (
+        PUBLIC_MISSION_PREFLIGHT_TARGET_REF
+    )
     assert all(not Path(path).is_absolute() for path in result["public_runtime_refs"])
 
 
@@ -424,8 +452,11 @@ def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
     assert "private_state_scan" not in payload
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
-    assert payload["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert payload["body_import_status"] == SOURCE_FAITHFUL_PUBLIC_REFACTOR_STATUS
     assert payload["public_work_landing_status"]["status"] == "pass"
+    assert payload["public_mission_transaction_preflight"]["target_ref"] == (
+        PUBLIC_MISSION_PREFLIGHT_TARGET_REF
+    )
     assert payload["expected_negative_cases"] == {}
     assert payload["public_work_landing_not_live_ledger_authority"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
@@ -452,7 +483,18 @@ def test_mission_transaction_work_spine_receipts_consume_public_work_landing_ref
     assert result["body_import_verification"]["target_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py"
     )
+    assert PUBLIC_MISSION_PREFLIGHT_TARGET_REF in result["body_import_verification"][
+        "target_refs"
+    ]
     assert result["public_work_landing_status"]["landing_lane"] == "scoped_commit"
+    assert result["public_mission_transaction_preflight"]["source_ref"] == (
+        "tools/meta/control/mission_transaction_preflight.py"
+    )
+    assert result["public_mission_transaction_preflight"]["body_in_receipt"] is False
+    assert (
+        "same_path_claim_conflict_blocks_landing"
+        in result["public_mission_transaction_preflight"]["source_faithful_decision_rules"]
+    )
     assert result["work_landing_reconcile_plan"]["source_ref"] == (
         "tools/meta/control/work_landing.py"
     )

@@ -150,8 +150,8 @@
       "organ_id": "navigation_hologram_route_plane"
     },
     {
-      "classification_basis": "derived WorkItem/transaction contract checks over public fixture rows",
-      "evidence_class": "semantic_validator",
+      "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
+      "evidence_class": "algorithmic_projection",
       "organ_id": "mission_transaction_work_spine"
     },
     {
