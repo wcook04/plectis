@@ -1107,6 +1107,8 @@ def test_runtime_shell_trace_lens_uses_payload_boundary(tmp_path: Path) -> None:
     assert lens["payload_boundary"]["boundary_id"] == "public_verifier_trace_repair_lens"
     assert lens["payload_boundary"]["source_open_default"] is True
     assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert "source-open public payload-boundary read-model" in lens["anti_claim"]
+    assert "metadata-only public read-model" not in lens["anti_claim"]
     assert (public_root / lens["trace_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "body_redacted" not in lens
@@ -2770,7 +2772,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert python_lens["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
     assert python_lens["payload_boundary"]["legacy_schema_compat_present"] is True
     assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
+    assert python_lens["legacy_payload_schema_compat"]["legacy_payload_schema_present"] is True
+    assert python_lens["legacy_payload_schema_compat"]["legacy_payload_flags_exported"] is False
+    assert "legacy_body_redacted_compat_present" not in python_lens
     assert "body_redacted" not in python_lens
+    assert "body_redacted" not in json.dumps(python_lens, sort_keys=True)
     assert favicon_status == 204
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
@@ -2832,7 +2838,12 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["python_lens"]["payload_boundary"]["boundary_id"] == (
         "project_python_lens_read_model"
     )
+    assert observatory["python_lens"]["legacy_payload_schema_compat"][
+        "legacy_payload_flags_exported"
+    ] is False
+    assert "legacy_body_redacted_compat_present" not in observatory["python_lens"]
     assert "body_redacted" not in observatory["python_lens"]
+    assert "body_redacted" not in json.dumps(observatory["python_lens"], sort_keys=True)
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     assert observatory["runtime_bridge"]["projection_status_counts"] == {

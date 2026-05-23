@@ -533,6 +533,8 @@ def test_cli_trace_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert payload["payload_boundary"]["boundary_id"] == "public_verifier_trace_repair_lens"
     assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "source-open public payload-boundary read-model" in payload["anti_claim"]
+    assert "metadata-only public read-model" not in payload["anti_claim"]
     assert "body_redacted" not in payload
 
 

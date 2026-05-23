@@ -677,7 +677,7 @@ def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
 
 
 def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str, Any]:
-    legacy_body_redacted_present = python_lens.get("body_redacted") is True
+    legacy_payload_schema_present = python_lens.get("body_redacted") is True
     surface_ref = str(
         python_lens.get("state_file_ref")
         or python_lens.get("evidence_ref")
@@ -701,13 +701,27 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
             boundary_id="project_python_lens_read_model",
             command=str(python_lens.get("command") or "microcosm python-lens <project>"),
             surface_ref=surface_ref,
-            legacy_schema_compat_present=legacy_body_redacted_present,
+            legacy_schema_compat_present=legacy_payload_schema_present,
         ),
         "safe_to_show": _source_open_safe_to_show(
             project_source_bodies_omitted=True,
             python_lens_rows_are_public_payload_boundary_rows=True,
         ),
-        "legacy_body_redacted_compat_present": legacy_body_redacted_present,
+        "legacy_payload_schema_compat": {
+            "schema_version": "microcosm_legacy_payload_schema_compat_v1",
+            "status": "normalized_to_public_payload_boundary"
+            if legacy_payload_schema_present
+            else "not_present",
+            "legacy_payload_schema_present": legacy_payload_schema_present,
+            "legacy_payload_flags_exported": False,
+            "payload_boundary_ref": "project_python_lens_read_model",
+            "public_contract_fields": [
+                "source_open_body_policy",
+                "payload_boundary",
+                "safe_to_show",
+                "route_rows",
+            ],
+        },
     }
 
 
@@ -3055,11 +3069,12 @@ class RuntimeShell:
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
             "anti_claim": (
-                "The verifier trace-repair lens is a metadata-only public read-model. It "
-                "does not run Lean/Lake, prove theorem correctness, expose proof bodies "
-                "or oracle-needed premise identifiers, call providers, treat human "
-                "approval as proof authority, mutate source, claim secret export, "
-                "or authorize release."
+                "The verifier trace-repair lens is a source-open public "
+                "payload-boundary read-model. It exports trace classes, grades, "
+                "repair routes, receipt refs, and negative cases while omitting proof "
+                "bodies, oracle-needed premise identifiers, provider payloads, "
+                "credential-equivalent material, Lean/Lake execution, source mutation, "
+                "proof-authority claims, and release authority."
             ),
         }
         write_json_atomic(lens_path, payload)
