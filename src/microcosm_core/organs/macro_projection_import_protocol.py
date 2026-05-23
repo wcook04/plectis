@@ -232,6 +232,42 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
         ],
         "next_runtime_surface": "microcosm intake",
     },
+    "agent_execution_trace_refactor": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent execution trace refactor is landed as a public macro tool body "
+            "and consumed by the route observability runtime bundle."
+        ),
+        "landed_evidence_refs": [
+            "src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+            "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime validate-computer-use-bundle "
+            "--input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle"
+        ),
+    },
+    "navigation_route_plane_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The navigation route plane now carries copied non-secret macro route rows "
+            "inside Microcosm and validates them through the route-plane runtime consumer."
+        ),
+        "landed_evidence_refs": [
+            "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+            "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+            "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        ],
+        "next_runtime_surface": (
+            "microcosm navigation-hologram-route-plane validate-route-plane-bundle "
+            "--input examples/navigation_hologram_route_plane/exported_route_plane_bundle"
+        ),
+    },
 }
 
 

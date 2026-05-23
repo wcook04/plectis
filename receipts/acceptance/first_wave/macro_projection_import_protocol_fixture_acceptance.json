@@ -1,13 +1,13 @@
 {
   "acceptance_status": "accepted_current_authority",
   "accepted_organ_id": "macro_projection_import_protocol",
-  "anti_claim": "The macro projection import protocol validates public-safe projection metadata, omission receipts, replacement refs, authority ceilings, and validation refs. It does not copy private bodies, authorize release or publication, claim private-root equivalence, elevate Microcosm above its public receipts, run provider calls, or make macro source authority public.",
+  "anti_claim": "The macro projection import protocol validates verified non-secret macro body imports and honest demotions. Metadata, provenance, and public runtime refs are not body imports. The only hard omissions are secrets, credentials, operator conversation bodies, provider payloads, and account-bound material; hosted publication remains a separate action.",
   "authority_ceiling": {
-    "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
+    "authority_ceiling": "macro_projection_protocol_verified_body_import_or_secret_exclusion_only",
+    "credential_or_account_bound_bodies_exported": false,
     "live_macro_source_authority": false,
     "operator_thread_body_read": false,
     "private_data_equivalence_claim": false,
-    "private_source_bodies_exported": false,
     "provider_payload_body_read": false,
     "public_safe_bodies_imported_with_provenance": true,
     "publication_authorized": false,
@@ -19,31 +19,31 @@
     "whole_system_correctness_claim": false
   },
   "blocked_projection_cell_count": 0,
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-22T20:17:01+00:00",
+  "created_at": "2026-05-23T07:12:34+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
+    "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
     "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
-    "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
     "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
     "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
     "MACRO_PROJECTION_VALIDATION_REF_MISSING"
   ],
   "expected_negative_cases": [
     "authority_upgrade_overclaim",
+    "forbidden_body_import_overclaim",
     "missing_omission_receipt",
     "missing_validation_ref",
-    "private_body_import_overclaim",
     "release_or_private_equivalence_overclaim",
     "standalone_dependency_leak"
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MACRO_PROJECTION_AUTHORITY_UPGRADE",
       "message": "Projection import cannot upgrade public metadata into live macro source authority.",
       "negative_case_id": "authority_upgrade_overclaim",
@@ -51,15 +51,23 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
-      "message": "Projection import rejects omitted material without omission receipts.",
-      "negative_case_id": "missing_omission_receipt",
-      "subject_id": "private_source_bodies",
+      "body_in_receipt": false,
+      "error_code": "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
+      "message": "Projection import rejects credential/account-bound body import requests.",
+      "negative_case_id": "forbidden_body_import_overclaim",
+      "subject_id": "raw_seed_body_copy_request",
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
+      "error_code": "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
+      "message": "Projection import rejects omitted material without omission receipts.",
+      "negative_case_id": "missing_omission_receipt",
+      "subject_id": "credential_or_account_bound_bodies",
+      "subject_kind": "negative_case"
+    },
+    {
+      "body_in_receipt": false,
       "error_code": "MACRO_PROJECTION_VALIDATION_REF_MISSING",
       "message": "Projection import rejects cells without validation refs.",
       "negative_case_id": "missing_validation_ref",
@@ -67,15 +75,7 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
-      "error_code": "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN",
-      "message": "Projection import rejects private body import requests.",
-      "negative_case_id": "private_body_import_overclaim",
-      "subject_id": "raw_seed_body_copy_request",
-      "subject_kind": "negative_case"
-    },
-    {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
       "message": "Projection import rejects release, publication, recipient, and private-equivalence claims.",
       "negative_case_id": "release_or_private_equivalence_overclaim",
@@ -83,9 +83,9 @@
       "subject_kind": "negative_case"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
-      "message": "Runtime severance rejects runtime dependencies on macro/private roots.",
+      "message": "Runtime severance rejects runtime dependencies on the live macro root.",
       "negative_case_id": "standalone_dependency_leak",
       "subject_id": "live_macro_prover_run_required_at_release_runtime",
       "subject_kind": "negative_case"
@@ -94,31 +94,32 @@
   "fixture_id": "first_wave.macro_projection_import_protocol",
   "forbidden_material_classes": [
     "credential",
+    "credential_bearing_operator_source_body",
+    "credential_bearing_recipient_packet_body",
+    "hosted_release_packet_body",
     "non_public_evidence_body",
     "operator_thread_body",
-    "private_operator_source_body",
     "provider_payload_body",
     "raw_seed_body",
-    "recipient_packet_body",
-    "release_packet_body",
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 10,
+  "macro_origin_ref_count": 21,
+  "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
   "observed_negative_cases": {
     "authority_upgrade_overclaim": [
       "MACRO_PROJECTION_AUTHORITY_UPGRADE"
     ],
+    "forbidden_body_import_overclaim": [
+      "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT"
+    ],
     "missing_omission_receipt": [
       "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING"
     ],
     "missing_validation_ref": [
       "MACRO_PROJECTION_VALIDATION_REF_MISSING"
-    ],
-    "private_body_import_overclaim": [
-      "MACRO_PROJECTION_PRIVATE_BODY_FORBIDDEN"
     ],
     "release_or_private_equivalence_overclaim": [
       "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM"
@@ -139,42 +140,42 @@
   },
   "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
-  "policy_id": "public_safe_macro_projection_cleaning_policy_v1",
-  "private_runtime_dependency_count": 0,
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 9,
-    "status": "pass"
-  },
-  "projection_cell_count": 3,
+  "policy_id": "verified_macro_projection_cleaning_policy_v1",
+  "projection_cell_count": 5,
   "projection_cell_ids": [
+    "agent_execution_trace_refactor",
     "formal_math_readiness_extensions",
+    "navigation_route_plane_import",
     "projection_protocol_self_host",
     "runtime_reveal_import_bridge"
   ],
-  "projection_import_boundary": "metadata_fixture_receipt_ref_import_only",
+  "projection_import_boundary": "verified_body_import_or_secret_exclusion_only",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_replacement_ref_count": 4,
-  "public_replacement_refs": [
+  "public_runtime_ref_count": 8,
+  "public_runtime_refs": [
+    "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+    "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
     "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+    "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "paper_modules/macro_projection_import_protocol.md",
+    "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+    "src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_import_count": 2,
+  "public_safe_body_import_count": 5,
   "public_safe_body_import_routes": {
-    "public_safe_with_light_edits": 2
+    "verified_light_edit": 5
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 2,
-  "ready_projection_cell_count": 3,
+  "public_safe_body_material_count": 5,
+  "ready_projection_cell_count": 5,
   "receipt_id": "macro_projection_import_protocol_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
@@ -186,13 +187,13 @@
   "runtime_dependency_status": "pass",
   "runtime_severance_board": {
     "blocked_runtime_dependencies": [],
-    "body_redacted": true,
+    "body_in_receipt": false,
     "claim_ceiling": {
-      "authority_ceiling": "macro_projection_protocol_classified_public_bodies_metadata_fixture_and_receipt_refs_only",
+      "authority_ceiling": "macro_projection_protocol_verified_body_import_or_secret_exclusion_only",
+      "credential_or_account_bound_bodies_exported": false,
       "live_macro_source_authority": false,
       "operator_thread_body_read": false,
       "private_data_equivalence_claim": false,
-      "private_source_bodies_exported": false,
       "provider_payload_body_read": false,
       "public_safe_bodies_imported_with_provenance": true,
       "publication_authorized": false,
@@ -204,8 +205,8 @@
       "whole_system_correctness_claim": false
     },
     "dependency_preflight_gate": {
-      "anti_claim": "This check proves runtime severance consumed the public preflight lifecycle receipt. It does not authorize release, publication, provider calls, private-source equivalence, or proof of organ semantics.",
-      "body_redacted": true,
+      "anti_claim": "This check proves runtime severance consumed the preflight lifecycle receipt. It is not a substitute for an imported macro body, provider execution, or proof of organ semantics.",
+      "body_in_receipt": false,
       "coverage_counts": {
         "acceptance_plan_organ_count": 45,
         "accepted_organ_count": 45,
@@ -237,21 +238,33 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 10,
+    "macro_origin_ref_count": 21,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
-      "codex/standards/std_microcosm.json#public_safe_direct_import_with_provenance",
+      "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+      "codex/doctrine/paper_modules/agent_execution_trace.md",
+      "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+      "codex/doctrine/routing_hologram.json::situation_rows",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_microcosm.json#direct_import_with_verification",
       "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
       "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#navigation_hologram_unified_route_plane",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "system/lib/agent_execution_trace.py",
+      "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+      "system/lib/navigation_context_pack.py::build_navigation_context_pack",
+      "system/lib/work_landing_status.py",
       "tools/meta/control/mission_transaction_preflight.py",
       "tools/meta/control/work_landing.py"
     ],
     "macro_origin_refs_runtime_required": false,
+    "macro_runtime_dependency_count": 0,
     "organ_lifecycle_coverage_counts": {
       "acceptance_plan_organ_count": 45,
       "accepted_organ_count": 45,
@@ -263,25 +276,68 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "private_runtime_dependency_count": 0,
-    "projection_cell_count": 3,
+    "projection_cell_count": 5,
     "public_safe_body_import_classes": {
+      "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
-      "public_macro_tool_body": 1
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 2
     },
-    "public_safe_body_import_count": 2,
+    "public_safe_body_import_count": 5,
     "public_safe_body_import_routes": {
-      "public_safe_with_light_edits": 2
+      "verified_light_edit": 5
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 3,
+    "ready_projection_cell_count": 5,
     "release_authorized": false,
     "runtime_dependencies": [
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
-        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance",
-        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance",
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "ref": "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
         "status": "pass"
       },
       {
@@ -294,8 +350,43 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
-        "normalized_ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
-        "ref": "src/microcosm_core/organs/mission_transaction_work_spine.py",
+        "normalized_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+        "ref": "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/work_landing.py",
+        "ref": "src/microcosm_core/macro_tools/work_landing.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "status": "pass"
       },
       {
@@ -350,6 +441,20 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
         "ref": "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
         "status": "pass"
@@ -364,6 +469,20 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        "ref": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
         "ref": "standards/std_microcosm_macro_projection_import_protocol.json",
         "status": "pass"
@@ -371,8 +490,22 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "status": "pass"
       },
       {
@@ -392,8 +525,29 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+        "ref": "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "paper_modules/macro_projection_import_protocol.md",
         "ref": "paper_modules/macro_projection_import_protocol.md",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
         "status": "pass"
       },
       {
@@ -406,8 +560,50 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        "ref": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
         "ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "ref": "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
         "status": "pass"
       },
       {
@@ -432,13 +628,22 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 22,
+    "runtime_dependency_count": 48,
     "runtime_dependency_refs": [
+      "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
       "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+      "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
-      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_tool_and_proof_bodies_are_importable_with_provenance",
+      "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
+      "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
       "paper_modules/formal_math_readiness_gate.md",
       "paper_modules/macro_projection_import_protocol.md",
       "paper_modules/public_reveal_walkthrough.md",
@@ -446,11 +651,15 @@
       "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
       "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
       "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+      "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+      "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
       "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
       "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
       "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
-      "src/microcosm_core/organs/mission_transaction_work_spine.py",
+      "src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "src/microcosm_core/macro_tools/work_landing.py",
+      "src/microcosm_core/organs/navigation_hologram_route_plane.py",
       "standards/std_microcosm_macro_projection_import_protocol.json"
     ],
     "runtime_dependency_status": "pass",
@@ -482,17 +691,43 @@
   "runtime_severance_boundary": "macro_origin_provenance_only_public_runtime_tree_required",
   "runtime_severance_status": "pass",
   "schema_version": "macro_projection_import_protocol_fixture_acceptance_v1",
-  "source_ref_count": 5,
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 9,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_ref_count": 11,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
     "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
     "tools/meta/control/work_landing.py",
-    "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
+    "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+    "codex/doctrine/routing_hologram.json::situation_rows",
+    "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+    "system/lib/navigation_context_pack.py::build_navigation_context_pack"
   ],
   "status": "pass",
-  "validation_ref_count": 5,
+  "validation_ref_count": 9,
   "validation_refs": [
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/preflight/dependency_preflight.json",

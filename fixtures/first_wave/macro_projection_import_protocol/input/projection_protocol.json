@@ -1,13 +1,19 @@
 {
   "schema_version": "macro_projection_import_protocol_fixture_v1",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "purpose": "Import or refactor real non-secret macro substrate into Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
+  "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
     "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
     "tools/meta/control/work_landing.py",
-    "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean"
+    "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+    "codex/doctrine/routing_hologram.json::situation_rows",
+    "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+    "system/lib/navigation_context_pack.py::build_navigation_context_pack"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -94,12 +100,12 @@
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit"
       ],
       "claim_ceiling": "standalone public work-landing command shape only; not live Task Ledger, Work Ledger, Git mutation, or private macro closeout authority",
-      "body_digest": "sha256:7c3e6a6007dd536c98696f3c664610bcfb3e3fd2ccadfb86740f22abbbe8bdc9",
+      "body_digest": "sha256:d0f10c43b284fe5e45fddd7d93a1d6a3d3375f0ad10d1f524b214c8d1b2c95b2",
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "verified_light_edit_recipe",
         "source_body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
-        "target_body_digest": "sha256:7c3e6a6007dd536c98696f3c664610bcfb3e3fd2ccadfb86740f22abbbe8bdc9",
+        "target_body_digest": "sha256:d0f10c43b284fe5e45fddd7d93a1d6a3d3375f0ad10d1f524b214c8d1b2c95b2",
         "source_to_target_relation": "source_faithful_public_light_edit",
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py::AUTHORITY_CEILING",
         "source_symbol_refs": [
@@ -161,6 +167,116 @@
         ]
       },
       "body_in_receipt": false
+    },
+    {
+      "material_id": "agent_execution_trace_body_import",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_refs": [
+        "system/lib/agent_execution_trace.py",
+        "codex/standards/std_agent_execution_trace.json"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
+        "codex/doctrine/paper_modules/agent_execution_trace.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "replace live session log parsers with deterministic public bundle builders",
+        "preserve trace span schema, authority ceiling, and validation surface shape",
+        "bound claim to public trace construction not live browser, provider, or account access"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public agent-execution trace tool body import only; not live session-log parsing, browser control, provider payload access, account action, source mutation, or release authority",
+      "body_digest": "sha256:591c54882a515af22eccfdebb4233b6f2fedb135636f64c40e34392b7c404ab3",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "target_body_digest": "sha256:591c54882a515af22eccfdebb4233b6f2fedb135636f64c40e34392b7c404ab3",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "system/lib/agent_execution_trace.py::Span",
+          "system/lib/agent_execution_trace.py::build_agent_execution_trace",
+          "system/lib/agent_execution_trace.py::write_agent_execution_trace",
+          "codex/standards/std_agent_execution_trace.json::types.Span",
+          "codex/standards/std_agent_execution_trace.json::strict_boundary"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::main"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "navigation_route_plane_body_import",
+      "source_ref": "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+      "source_refs": [
+        "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+        "codex/doctrine/routing_hologram.json::situation_rows",
+        "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+        "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+      ],
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+      "material_class": "public_macro_receipt_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#navigation_hologram_unified_route_plane",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "copy macro situation route rows into public route-plane bundle rows",
+        "preserve route commands, fallback commands, freshness commands, read paths, and provenance fields",
+        "exclude live route freshness, source authority, private session access, and release claims"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public route-plane row body import only; not live route freshness, source authority, private session access, whole-system correctness, or release authority",
+      "body_digest": "sha256:f47bf61fe60122602a822214fa6f704317a90c3c4f42aa2968cb2d6f1311f7c0",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:fe7585aa0901c258b6abde1845433ead5d92538492f3e68d4b76cdab206bd73a",
+        "target_body_digest": "sha256:f47bf61fe60122602a822214fa6f704317a90c3c4f42aa2968cb2d6f1311f7c0",
+        "source_to_target_relation": "source_faithful_public_route_row_projection",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/organs/navigation_hologram_route_plane.py::REAL_ROUTE_BODY_MATERIAL_STATUS",
+        "source_symbol_refs": [
+          "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+          "codex/doctrine/routing_hologram.json::situation_rows",
+          "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+          "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+        ],
+        "target_symbol_refs": [
+          "microcosm-substrate/examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json::rows",
+          "microcosm_core.organs.navigation_hologram_route_plane::validate_route_plane_bundle",
+          "microcosm_core.organs.navigation_hologram_route_plane::REAL_ROUTE_BODY_MATERIAL_STATUS"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+          "python -m microcosm_core.organs.navigation_hologram_route_plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle"
+        ]
+      },
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -207,12 +323,20 @@
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle",
     "standards/std_microcosm_macro_projection_import_protocol.json",
-    "paper_modules/macro_projection_import_protocol.md"
+    "paper_modules/macro_projection_import_protocol.md",
+    "src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "src/microcosm_core/organs/navigation_hologram_route_plane.py"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/preflight/dependency_preflight.json",
-    "receipts/preflight/fixture_runner_freshness.json"
+    "receipts/preflight/fixture_runner_freshness.json",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+    "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
@@ -227,7 +351,7 @@
     },
     {
       "step_id": "land_public_runtime_import",
-      "action": "Land fixture, standard, paper module, runtime, tests, and receipts before marking accepted.",
+      "action": "Land fixture, standard, paper module, runtime, tests, receipts, and reusable body imports before marking accepted.",
       "validation_ref": "receipts/preflight/fixture_runner_freshness.json"
     }
   ],
