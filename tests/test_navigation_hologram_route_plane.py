@@ -291,16 +291,24 @@ def test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape
     assert result["authority_allowed"] is False
     assert result["authority_ceiling"]["atlas_projection_control_entry_rejected"] is True
     assert result["route_rows_projection_not_authority"] is True
-    assert result["route_row_count"] == 4
-    assert result["selected_row_ids"] == ["option_surface_cluster_public_runtime"]
+    assert result["body_material_status"] == (
+        "copied_non_secret_macro_route_substrate_with_provenance"
+    )
+    assert result["route_row_count"] == 41
+    assert result["selected_row_ids"] == ["entry_control_packet"]
     assert result["route_lease"]["selected_lane_id"] == "public_runtime_option_surface"
     assert result["route_lease"]["authority_allowed"] is False
     assert result["entry_payload_admission"]["dropped_control_fields"] == []
+    assert result["card"]["band_payload"]["route_command"].startswith(
+        "./repo-python kernel.py --entry"
+    )
     assert (
         result["affordance_passport_selection"]["selected_row_id"]
         == "route_card_candidate"
     )
-    assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in result
+    assert all(not Path(path).is_absolute() for path in result["real_substrate_refs"])
 
 
 def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
@@ -334,12 +342,18 @@ def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
     assert payload["status"] == "pass"
     assert payload["input_mode"] == "exported_route_plane_bundle"
     assert payload["fixture_regression_required_elsewhere"] is True
-    assert payload["private_state_scan"]["body_redacted"] is True
+    assert payload["body_material_status"] == (
+        "copied_non_secret_macro_route_substrate_with_provenance"
+    )
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in payload
+    assert "public_replacement_refs" not in payload
     assert payload["expected_negative_cases"] == {}
     assert payload["route_rows_projection_not_authority"] is True
     assert payload["authority_allowed"] is False
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
-    for hit in payload["private_state_scan"]["hits"]:
-        assert hit["body_redacted"] is True
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()

@@ -11,7 +11,10 @@ from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
-    scan_paths,
+    scan_paths as scan_private_paths,
+)
+from microcosm_core.secret_exclusion_scan import (
+    scan_paths as scan_secret_paths,
 )
 from microcosm_core.receipts import base_receipt, write_json_atomic
 from microcosm_core.schemas import read_json_strict
@@ -30,6 +33,7 @@ ENTRY_ADMISSION_NAME = "entry_payload_admission_receipt.json"
 AFFORDANCE_NAME = "affordance_passport_selection_receipt.json"
 CODE_ARCH_NAME = "code_architecture_projection_packet_receipt.json"
 ROUTE_PLANE_BUNDLE_RESULT_NAME = "exported_route_plane_bundle_validation_result.json"
+REAL_ROUTE_BODY_MATERIAL_STATUS = "copied_non_secret_macro_route_substrate_with_provenance"
 
 EXPECTED_RECEIPT_PATHS = [
     PREFLIGHT_REL,
@@ -148,12 +152,16 @@ def _route_plane_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
+    return scan_private_paths(
+        _input_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
 
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    return scan_paths(
+    return scan_secret_paths(
         _route_plane_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
@@ -286,8 +294,19 @@ def validate_exported_route_rows(
     findings: list[dict[str, Any]] = []
     rows = _rows(rows_payload, "rows")
     contract = contract_payload if isinstance(contract_payload, dict) else {}
+    allowed_roles = {
+        str(role)
+        for role in contract.get("allowed_surface_roles", [])
+        if str(role)
+    }
     required_role = str(contract.get("required_surface_role") or "ATLAS_PROJECTION")
+    if not allowed_roles:
+        allowed_roles = {required_role}
     card_row_id = str(contract.get("card_row_id") or "")
+    required_body_status = str(
+        contract.get("required_body_material_status") or REAL_ROUTE_BODY_MATERIAL_STATUS
+    )
+    route_card_requires_omission = bool(contract.get("route_card_requires_omission_receipt"))
     selected = next((row for row in rows if row.get("row_id") == card_row_id), None)
     clusters: dict[str, dict[str, Any]] = {}
 
@@ -343,17 +362,19 @@ def validate_exported_route_rows(
         )
         clusters[cluster_id]["row_count"] += 1
         clusters[cluster_id]["row_ids"].append(row_id)
-        if row.get("surface_role") != required_role:
+        body_material_status = row.get("body_material_status")
+        omission_receipt = row.get("omission_receipt")
+        if row.get("surface_role") not in allowed_roles:
             findings.append(
                 {
                     "error_code": "ROUTE_PLANE_BUNDLE_SURFACE_ROLE_MISMATCH",
-                    "message": "Exported route row does not carry the contracted projection role.",
+                    "message": "Exported route row does not carry an allowed route-plane surface role.",
                     "subject_id": row_id,
                     "subject_kind": "route_row",
                     "body_redacted": True,
                 }
             )
-        if row.get("claims_source_authority") or row.get("claims_control_entry"):
+        if row.get("claims_source_authority"):
             findings.append(
                 {
                     "error_code": "ROUTE_PLANE_BUNDLE_OVERCLAIMS_AUTHORITY",
@@ -363,11 +384,31 @@ def validate_exported_route_rows(
                     "body_redacted": True,
                 }
             )
-        if not isinstance(row.get("omission_receipt"), dict):
+        if row.get("claims_control_entry") and row.get("surface_role") != "CONTROL_ENTRY":
+            findings.append(
+                {
+                    "error_code": "ROUTE_PLANE_BUNDLE_CONTROL_ENTRY_ROLE_MISMATCH",
+                    "message": "Exported route row claims control-entry behavior without a control-entry role.",
+                    "subject_id": row_id,
+                    "subject_kind": "route_row",
+                    "body_redacted": True,
+                }
+            )
+        if body_material_status != required_body_status and not isinstance(omission_receipt, dict):
+            findings.append(
+                {
+                    "error_code": "ROUTE_PLANE_BUNDLE_BODY_MATERIAL_STATUS_MISSING",
+                    "message": "Exported route row lacks copied real-route substrate status or an explicit omission receipt.",
+                    "subject_id": row_id,
+                    "subject_kind": "route_row",
+                    "body_redacted": True,
+                }
+            )
+        if route_card_requires_omission and not isinstance(omission_receipt, dict):
             findings.append(
                 {
                     "error_code": "ROUTE_PLANE_BUNDLE_OMISSION_RECEIPT_MISSING",
-                    "message": "Exported route row lacks an omission receipt.",
+                    "message": "Exported route row lacks the contracted omission receipt.",
                     "subject_id": row_id,
                     "subject_kind": "route_row",
                     "body_redacted": True,
@@ -381,9 +422,13 @@ def validate_exported_route_rows(
         "title": selected.get("title"),
         "band_payload": (selected.get("band_payloads") or {}).get("card"),
         "source_refs": selected.get("source_refs", []),
-        "omission_receipt": selected.get("omission_receipt"),
+        "body_material_status": selected.get("body_material_status"),
+        "provenance": selected.get("provenance"),
+        "exclusion_check": selected.get("exclusion_check"),
         "anti_claim": NAV_ANTI_CLAIM,
     }
+    if isinstance(selected.get("omission_receipt"), dict):
+        card["omission_receipt"] = selected.get("omission_receipt")
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
@@ -404,6 +449,11 @@ def validate_exported_route_rows(
         "duplicate_route_ids": duplicate_ids,
         "route_rows": rows,
         "route_rows_projection_not_authority": True,
+        "body_material_status": (
+            REAL_ROUTE_BODY_MATERIAL_STATUS
+            if rows and all(row.get("body_material_status") == required_body_status for row in rows)
+            else "mixed_or_omission_bound_route_rows"
+        ),
     }
 
 
@@ -821,12 +871,12 @@ def validate_exported_affordance_passports(payload: object) -> dict[str, Any]:
         passport = row.get("affordance_passport")
         passport_coverage[row_id] = isinstance(passport, dict)
         if isinstance(passport, dict) and passport.get("anti_trigger_hit"):
-            anti_trigger_hits.append({"row_id": row_id, "body_redacted": True})
+            anti_trigger_hits.append({"row_id": row_id, "body_in_receipt": False})
             demoted_rows.append(
                 {
                     "row_id": row_id,
                     "reason_code": "AFFORDANCE_PASSPORT_ANTITRIGGER_DEMOTED",
-                    "body_redacted": True,
+                    "body_in_receipt": False,
                 }
             )
             continue
@@ -840,7 +890,7 @@ def validate_exported_affordance_passports(payload: object) -> dict[str, Any]:
             {
                 "row_id": row_id,
                 "reason_code": "AFFORDANCE_PASSPORT_NOT_SELECTED",
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
 
@@ -867,7 +917,7 @@ def validate_exported_affordance_passports(payload: object) -> dict[str, Any]:
         "demotion_receipt": {
             "status": PASS,
             "demoted_row_count": len(demoted_rows),
-            "body_redacted": True,
+            "body_in_receipt": False,
         },
         "selection_decision": "select_compatible_passport_after_demotion",
         "selected_row_id": selected_row_id,
@@ -942,16 +992,21 @@ def validate_exported_route_lease_policy(payload: object) -> dict[str, Any]:
 def validate_code_architecture_projection_packet(payload: object) -> dict[str, Any]:
     if not isinstance(payload, dict):
         payload = {}
-    return {
+    result = {
         "packet_producer_id": str(payload.get("packet_producer_id") or "toy_packet_producer"),
         "source_fingerprint": payload.get("source_fingerprint", {}),
-        "omission_receipt": payload.get("omission_receipt", {}),
         "known_limits": payload.get("known_limits", []),
         "renderer_schema_match_status": str(payload.get("renderer_schema_match_status") or PASS),
         "reverse_bfs_depth_buckets": payload.get("reverse_bfs_depth_buckets", {}),
         "suggested_verification": payload.get("suggested_verification", []),
-        "body_redacted": True,
     }
+    if "body_material_status" in payload:
+        result["body_material_status"] = payload.get("body_material_status")
+        result["provenance"] = payload.get("provenance", {})
+    else:
+        result["omission_receipt"] = payload.get("omission_receipt", {})
+        result["body_redacted"] = True
+    return result
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
@@ -988,6 +1043,7 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "error_codes",
         "findings",
         "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "source_pattern_ids",
@@ -1002,7 +1058,8 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "receipt_paths": receipt_paths,
     }
     for key in keys:
-        payload[key] = result.get(key)
+        if key in result:
+            payload[key] = result.get(key)
     return payload
 
 
@@ -1167,6 +1224,7 @@ def _write_route_plane_bundle_receipt(
             "route_rows_projection_not_authority": validation_result[
                 "route_rows_projection_not_authority"
             ],
+            "body_material_status": validation_result["body_material_status"],
             "expected_sha256": validation_result["expected_sha256"],
             "observed_sha256": validation_result["observed_sha256"],
             "source_coupling_status": validation_result["source_coupling_status"],
@@ -1179,7 +1237,7 @@ def _write_route_plane_bundle_receipt(
             "code_architecture_projection_packet": validation_result[
                 "code_architecture_projection_packet"
             ],
-            "public_replacement_refs": validation_result["public_replacement_refs"],
+            "real_substrate_refs": validation_result["real_substrate_refs"],
             "fixture_regression_required_elsewhere": True,
         }
     )
@@ -1198,9 +1256,8 @@ def run_route_plane_bundle(
     public_root = _public_root_for_path(input_path)
     payloads = _load_route_plane_bundle(input_path)
     scan_result = _scan_bundle_inputs(input_path, public_root)
-    private_scan = dict(scan_result)
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan = dict(scan_result)
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
 
     manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
     route_result = validate_exported_route_rows(
@@ -1263,14 +1320,15 @@ def run_route_plane_bundle(
             "bundle_manifest_schema_version": manifest.get("schema_version"),
             "validator_id": VALIDATOR_ID,
             "anti_claim": (
-                "The exported route-plane bundle validates public route projection metadata. "
-                "It does not grant source authority, publish live operator state, authorize "
-                "release, or complete later organs."
+                "The exported route-plane bundle validates copied non-secret route substrate "
+                "and public route projection behavior. It does not grant source authority, "
+                "prove live route freshness, publish live operator state, authorize release, "
+                "or complete later organs."
             ),
             "authority_ceiling": {
                 "status": PASS,
                 "authority_ceiling": (
-                    "navigation_route_plane_bundle_projection_metadata_not_source_authority"
+                    "copied_route_substrate_is_public_runtime_input_not_live_source_authority"
                 ),
                 "atlas_projection_control_entry_rejected": True,
                 "route_lease_source_authority_rejected": True,
@@ -1281,7 +1339,7 @@ def run_route_plane_bundle(
             "missing_negative_cases": [],
             "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
             "findings": all_findings,
-            "private_state_scan": private_scan,
+            "secret_exclusion_scan": secret_scan,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "validator_asserted_feeds_patterns": VALIDATOR_ASSERTED_FEEDS_PATTERNS,
             "cluster_flag": route_result["cluster_flag"],
@@ -1291,6 +1349,7 @@ def run_route_plane_bundle(
             "route_rows_projection_not_authority": route_result[
                 "route_rows_projection_not_authority"
             ],
+            "body_material_status": route_result["body_material_status"],
             "expected_sha256": source_result["expected_sha256"],
             "observed_sha256": source_result["observed_sha256"],
             "source_coupling_status": source_result["source_coupling_status"],
@@ -1299,7 +1358,7 @@ def run_route_plane_bundle(
             "entry_payload_admission": entry_result,
             "affordance_passport_selection": affordance_result,
             "code_architecture_projection_packet": code_arch_result,
-            "public_replacement_refs": [
+            "real_substrate_refs": [
                 public_relative_path(path, display_root=public_root)
                 for path in _route_plane_bundle_paths(input_path)
             ],

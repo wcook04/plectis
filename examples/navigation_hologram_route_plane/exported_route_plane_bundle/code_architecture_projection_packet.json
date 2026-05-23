@@ -1,22 +1,15 @@
 {
-  "schema_version": "navigation_hologram_route_plane_code_architecture_projection_packet_v1",
+  "schema_version": "navigation_hologram_route_plane_code_architecture_projection_packet_v2",
   "packet_producer_id": "public_runtime_route_plane_projection_packet",
   "source_fingerprint": {
-    "source_kind": "public_route_projection",
-    "source_coupling_status": "current"
-  },
-  "omission_receipt": {
-    "receipt_id": "code_architecture_projection_boundary",
-    "omitted_classes": [
-      "full_source_graph",
-      "live_runtime_state"
-    ],
-    "replacement": "public_projection_packet",
-    "body_redacted": true
+    "source_kind": "copied_non_secret_macro_route_substrate",
+    "source_coupling_status": "current",
+    "route_rows_sha256": "13144e92a27034937c575be56523b4e899426022e1f92e6d6202abf021b51a98"
   },
   "known_limits": [
-    "projection_packet_is_not_source_authority",
-    "route_rows_require_fresh_source_coupling_for_release"
+    "copied_route_rows_are_not_live_route_freshness",
+    "copied_route_rows_are_not_source_authority",
+    "provider_payloads_and_session_state_are_excluded"
   ],
   "renderer_schema_match_status": "pass",
   "reverse_bfs_depth_buckets": {
@@ -30,6 +23,23 @@
   },
   "suggested_verification": [
     "validate-route-plane-bundle",
+    "secret-exclusion-scan",
     "fixture-regression-negative-cases"
+  ],
+  "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
+  "provenance": {
+    "source_files": [
+      "codex/doctrine/agent_bootstrap_live.json",
+      "codex/doctrine/agent_bootstrap.json",
+      "codex/doctrine/routing_hologram.json"
+    ],
+    "runtime_source_refs": [
+      "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+      "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+    ]
+  },
+  "real_substrate_refs": [
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/entry_packet_floor.json"
   ]
 }

@@ -1,10 +1,16 @@
 {
-  "schema_version": "navigation_hologram_route_plane_option_surface_contract_v1",
+  "schema_version": "navigation_hologram_route_plane_option_surface_contract_v2",
   "contract_id": "public_runtime_option_surface_contract",
-  "card_row_id": "option_surface_cluster_public_runtime",
-  "required_surface_role": "ATLAS_PROJECTION",
+  "card_row_id": "entry_control_packet",
+  "allowed_surface_roles": [
+    "CONTROL_ENTRY",
+    "ATLAS_PROJECTION",
+    "RUNTIME_OPERATION"
+  ],
+  "required_body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
   "control_entry_replacement": "entry_packet_floor",
   "projection_authority_allowed": false,
   "source_authority_allowed": false,
-  "route_card_requires_omission_receipt": true
+  "control_entry_claim_allowed_when_surface_role_control_entry": true,
+  "route_card_requires_omission_receipt": false
 }

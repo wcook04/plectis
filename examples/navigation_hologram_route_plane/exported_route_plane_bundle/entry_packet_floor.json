@@ -1,5 +1,5 @@
 {
-  "schema_version": "navigation_hologram_route_plane_entry_packet_floor_v1",
+  "schema_version": "navigation_hologram_route_plane_entry_packet_floor_v2",
   "packet_id": "public_runtime_entry_packet_floor",
   "inline_target_bytes": 12000,
   "before_bytes": 14500,
@@ -37,14 +37,18 @@
       "omission_receipt": "projection_boundary_declared"
     }
   },
-  "omission_receipts": [
-    {
-      "receipt_id": "entry_packet_projection_boundary",
-      "omitted_classes": [
-        "full_live_entry_context"
-      ],
-      "replacement": "field_presence_floor",
-      "body_redacted": true
-    }
-  ]
+  "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
+  "source_refs": [
+    "codex/doctrine/agent_bootstrap_live.json::situation_routes[entry_control_packet]",
+    "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet"
+  ],
+  "excluded_material_contract": {
+    "status": "secret_or_live_access_exclusion_only",
+    "excluded_material": [
+      "live_runtime_state",
+      "operator_specific_entry_payload_bodies",
+      "provider_payload_bodies",
+      "account_or_session_state"
+    ]
+  }
 }

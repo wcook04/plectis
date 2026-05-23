@@ -1,5 +1,5 @@
 {
-  "schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v1",
+  "schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v2",
   "bundle_id": "public_navigation_hologram_route_plane_runtime_example",
   "input_mode": "exported_route_plane_bundle",
   "organ_id": "navigation_hologram_route_plane",
@@ -14,5 +14,8 @@
     "route_lease_policy.json",
     "affordance_passports.json",
     "code_architecture_projection_packet.json"
-  ]
+  ],
+  "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
+  "real_substrate_source": "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+  "synthetic_fixture_role": "regression_and_negative_harness_only"
 }

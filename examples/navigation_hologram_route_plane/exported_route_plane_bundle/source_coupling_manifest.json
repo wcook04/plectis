@@ -1,15 +1,17 @@
 {
-  "schema_version": "navigation_hologram_route_plane_source_coupling_manifest_v1",
+  "schema_version": "navigation_hologram_route_plane_source_coupling_manifest_v2",
   "manifest_id": "public_runtime_route_plane_source_coupling",
   "source_coupling_status": "current",
   "projection_not_authority": true,
-  "expected_route_row_count": 4,
-  "route_rows_sha256": "abb5b29858f6101dee09e337f4b350942ea82cd1fe5f7313ea8b9d538bf97b1c",
+  "expected_route_row_count": 41,
+  "route_rows_sha256": "13144e92a27034937c575be56523b4e899426022e1f92e6d6202abf021b51a98",
+  "source_snapshot_sha256": "2cc81c00b664988e09654a42719856884980ead67b147c35ed02b5d2380987c6",
+  "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
   "source_refs": [
-    "pattern:navigation_hologram_unified_route_plane",
-    "pattern:agent_entry_surfaces_canonical_first_move",
-    "pattern:omission_receipt_reversible_projection_boundary",
-    "pattern:entry_payload_admission_nonnegotiable_floor",
-    "pattern:affordance_passport_selection_gate"
+    "codex/doctrine/agent_bootstrap_live.json::situation_routes",
+    "codex/doctrine/agent_bootstrap.json::situation_routes",
+    "codex/doctrine/routing_hologram.json::situation_rows",
+    "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+    "system/lib/navigation_context_pack.py::build_navigation_context_pack"
   ]
 }
