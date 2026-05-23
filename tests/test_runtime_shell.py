@@ -1597,10 +1597,34 @@ def test_runtime_shell_spatial_simulation_lens_is_public_safe(tmp_path: Path) ->
     assert lens["authority_ceiling"]["live_robot_operation_authorized"] is False
     assert lens["authority_ceiling"]["live_av_operation_authorized"] is False
     assert lens["authority_ceiling"]["release_authorized"] is False
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        lens["payload_boundary"]["boundary_id"]
+        == "public_spatial_world_model_counterfactual_simulation_replay_lens"
+    )
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["safe_to_show"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["private_video_bodies_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert (
+        lens["safe_to_show"][
+            "counterfactual_replay_rows_are_public_payload_boundary_rows"
+        ]
+        is True
+    )
+    assert all(
+        row["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+        for row in lens["counterfactual_replays"]
+    )
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["counterfactual_replays"]
+    )
+    assert "body_redacted" not in lens
     assert (public_root / lens["spatial_simulation_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "private_state_scan" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 

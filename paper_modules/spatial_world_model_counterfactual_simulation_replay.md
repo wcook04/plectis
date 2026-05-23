@@ -8,12 +8,12 @@ negative-case receipts.
 
 ## Public Claim
 
-Microcosm can expose spatial world-model counterfactuals as inspectable public
-metadata without pretending to be a trained simulator, a generated-video proof
-system, a robot or AV command plane, or a geographic ground-truth source. Each
-replay row binds the scene state, counterfactual event, predicted state,
-transition diff, oracle check, rare-event coverage label, fidelity limit, and
-limitation labels.
+Microcosm can expose spatial world-model counterfactuals as source-open public
+payload-boundary rows without pretending to be a trained simulator, a
+generated-video proof system, a robot or AV command plane, or a geographic
+ground-truth source. Each replay row binds the scene state, counterfactual
+event, predicted state, transition diff, oracle check, rare-event coverage
+label, fidelity limit, limitation labels, and explicit unsafe-payload exclusion.
 
 ## Runtime Command
 
@@ -41,10 +41,13 @@ overclaims, and release authority.
 
 ## Authority Ceiling
 
-This organ is metadata-only. It does not export private video or raw sensors,
-operate robots or AVs, claim real-world geographic accuracy, sell or validate a
-simulator product, treat generated video as sole authority, report benchmark
-scores, call providers, publish, host, or authorize release.
+This organ is source-open by default under the Microcosm public payload boundary.
+It omits only unsafe payload bodies such as private video, raw sensor payloads,
+credential-equivalent material, provider payload bodies, account/session state,
+and live-access material. It does not operate robots or AVs, claim real-world
+geographic accuracy, sell or validate a simulator product, treat generated video
+as sole authority, report benchmark scores, call providers, publish, host, or
+authorize release.
 
 ## Evidence
 

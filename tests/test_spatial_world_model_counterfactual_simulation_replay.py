@@ -10,6 +10,7 @@ from microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay 
     run,
     run_simulation_bundle,
 )
+from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -70,11 +71,26 @@ def test_spatial_world_model_counterfactual_replay_observes_negative_cases(
     assert result["authority_ceiling"]["live_robot_operation_authorized"] is False
     assert result["authority_ceiling"]["live_av_operation_authorized"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
+    assert result["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert result["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        result["payload_boundary"]["boundary_id"]
+        == "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
+    )
+    assert result["safe_to_show"]["unsafe_payload_bodies_absent"] is True
+    assert all(
+        row["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+        for row in result["counterfactual_replays"]
+    )
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in result["counterfactual_replays"]
+    )
     for case_id, codes in EXPECTED_NEGATIVE_CASES.items():
         assert result["negative_case_summary"]["observed_codes"][case_id] == codes
 
 
-def test_spatial_world_model_counterfactual_replay_receipts_are_public_relative_and_redacted(
+def test_spatial_world_model_counterfactual_replay_receipts_are_public_relative_and_payload_bounded(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -106,6 +122,8 @@ def test_spatial_world_model_counterfactual_replay_receipts_are_public_relative_
         assert "private_video_body" not in keys
         assert "raw_sensor_payload" not in keys
         assert "gps_trace_body" not in keys
+        assert "body_redacted" not in keys
+        assert "private_state_scan" not in keys
 
 
 def test_spatial_world_model_counterfactual_exported_bundle_validates_runtime_shape(
@@ -129,3 +147,12 @@ def test_spatial_world_model_counterfactual_exported_bundle_validates_runtime_sh
     assert result["authority_ceiling"]["generated_video_authority_authorized"] is False
     assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
+    assert result["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert result["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        result["payload_boundary"]["boundary_id"]
+        == "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
+    )
+    encoded = json.dumps(result, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "private_state_scan" not in encoded

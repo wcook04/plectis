@@ -2,57 +2,69 @@
   "scene_states": [
     {
       "actor_count": 4,
-      "body_redacted": true,
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::scene_state_row",
       "private_video_exported": false,
       "public_scene_ref": "fixtures/public_spatial_scenes/warehouse_occlusion_left_forklift_stop.json",
       "raw_sensor_data_exported": false,
       "scene_state_id": "scene_state::warehouse_occlusion_left_forklift_stop",
-      "topology_ref": "topology::01"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "topology_ref": "topology::01",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "actor_count": 5,
-      "body_redacted": true,
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::scene_state_row",
       "private_video_exported": false,
       "public_scene_ref": "fixtures/public_spatial_scenes/crosswalk_child_emergence_slowdown.json",
       "raw_sensor_data_exported": false,
       "scene_state_id": "scene_state::crosswalk_child_emergence_slowdown",
-      "topology_ref": "topology::02"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "topology_ref": "topology::02",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "actor_count": 6,
-      "body_redacted": true,
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::scene_state_row",
       "private_video_exported": false,
       "public_scene_ref": "fixtures/public_spatial_scenes/drone_corridor_gust_recovery.json",
       "raw_sensor_data_exported": false,
       "scene_state_id": "scene_state::drone_corridor_gust_recovery",
-      "topology_ref": "topology::03"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "topology_ref": "topology::03",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "actor_count": 7,
-      "body_redacted": true,
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::scene_state_row",
       "private_video_exported": false,
       "public_scene_ref": "fixtures/public_spatial_scenes/mobile_robot_reflective_floor_detour.json",
       "raw_sensor_data_exported": false,
       "scene_state_id": "scene_state::mobile_robot_reflective_floor_detour",
-      "topology_ref": "topology::04"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "topology_ref": "topology::04",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "actor_count": 8,
-      "body_redacted": true,
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::scene_state_row",
       "private_video_exported": false,
       "public_scene_ref": "fixtures/public_spatial_scenes/loading_dock_pallet_shift_replan.json",
       "raw_sensor_data_exported": false,
       "scene_state_id": "scene_state::loading_dock_pallet_shift_replan",
-      "topology_ref": "topology::05"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "topology_ref": "topology::05",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "actor_count": 9,
-      "body_redacted": true,
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::scene_state_row",
       "private_video_exported": false,
       "public_scene_ref": "fixtures/public_spatial_scenes/intersection_unprotected_turn_yield.json",
       "raw_sensor_data_exported": false,
       "scene_state_id": "scene_state::intersection_unprotected_turn_yield",
-      "topology_ref": "topology::06"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "topology_ref": "topology::06",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "schema_version": "spatial_scene_states_v1"

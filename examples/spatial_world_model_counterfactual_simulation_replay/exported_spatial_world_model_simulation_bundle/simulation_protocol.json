@@ -15,7 +15,7 @@
     "release_authorized": false,
     "trained_simulator_claim_authorized": false
   },
-  "body_redacted": true,
+  "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::simulation_protocol",
   "schema_version": "spatial_world_model_counterfactual_simulation_protocol_v1",
   "selected_pattern_ids": [
     "warehouse_occlusion_left_forklift_stop",
@@ -26,10 +26,12 @@
     "intersection_unprotected_turn_yield"
   ],
   "selected_route_id": "spatial_world_model_counterfactual_simulation_replay",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_pattern_id": "spatial_world_model_counterfactual_simulation_replay_compound",
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::spatial_world_model_counterfactual_simulation_replay_compound",
     "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
     "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json"
-  ]
+  ],
+  "unsafe_payload_bodies_exported": false
 }

@@ -685,6 +685,15 @@ def test_cli_spatial_simulation_smoke(capsys: pytest.CaptureFixture[str]) -> Non
     assert payload["simulation_summary"]["live_operation_authorized_count"] == 0
     assert payload["authority_ceiling"]["private_video_exported"] is False
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert (
+        payload["payload_boundary"]["boundary_id"]
+        == "public_spatial_world_model_counterfactual_simulation_replay_lens"
+    )
+    encoded = json.dumps(payload, sort_keys=True)
+    assert "body_redacted" not in encoded
+    assert "private_state_scan" not in encoded
 
 
 def test_cli_route_cleanup_contract_smoke(capsys: pytest.CaptureFixture[str]) -> None:

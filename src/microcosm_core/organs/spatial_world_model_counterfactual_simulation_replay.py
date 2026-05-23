@@ -6,11 +6,15 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
     scan_paths,
+)
+from microcosm_core.public_payload_boundary import (
+    SOURCE_OPEN_BODY_POLICY,
+    public_payload_boundary,
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
@@ -33,6 +37,12 @@ ACCEPTANCE_RECEIPT_REL = (
     "spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_spatial_world_model_simulation_bundle_validation_result.json"
+PAYLOAD_BOUNDARY_ID = (
+    "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
+)
+ROW_PAYLOAD_BOUNDARY_REF = (
+    "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row"
+)
 
 INPUT_NAMES = (
     "simulation_protocol.json",
@@ -80,7 +90,9 @@ REQUIRED_REPLAY_FIELDS = (
     "consistency_budget",
     "limitation_labels",
     "cold_replay_ref",
-    "body_redacted",
+    "payload_boundary_ref",
+    "source_open_body_policy",
+    "unsafe_payload_bodies_exported",
     "private_video_exported",
     "raw_sensor_data_exported",
     "live_robot_operation_authorized",
@@ -186,7 +198,9 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "payload_boundary_ref": ROW_PAYLOAD_BOUNDARY_REF,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_exported": False,
     }
 
 
@@ -278,7 +292,7 @@ def _replay_policy_findings(
             findings,
             observed,
             "SPATIAL_SENSOR_PACKET_REFS_REQUIRED",
-            "counterfactual replay must cite public-safe sensor packet refs",
+            "counterfactual replay must cite source-open public sensor packet refs",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="counterfactual_replay",
@@ -328,12 +342,16 @@ def _replay_policy_findings(
             subject_id=subject_id,
             subject_kind="counterfactual_replay",
         )
-    if row.get("body_redacted") is not True:
+    if (
+        row.get("payload_boundary_ref") != ROW_PAYLOAD_BOUNDARY_REF
+        or row.get("source_open_body_policy") != SOURCE_OPEN_BODY_POLICY
+        or row.get("unsafe_payload_bodies_exported") is not False
+    ):
         _record(
             findings,
             observed,
-            "SPATIAL_BODY_REDACTION_REQUIRED",
-            "spatial replay rows must be body-redacted metadata",
+            "SPATIAL_PAYLOAD_BOUNDARY_REQUIRED",
+            "spatial replay rows must declare the source-open payload boundary",
             case_id=case_id,
             subject_id=subject_id,
             subject_kind="counterfactual_replay",
@@ -400,7 +418,7 @@ def _build_result(
         positive_findings.append(
             _finding(
                 "SPATIAL_AUTHORITY_CEILING_REQUIRED",
-                "replay policy must declare metadata-only authority ceiling",
+                "replay policy must declare the payload-boundary authority ceiling",
                 case_id="positive_fixture",
                 subject_id="replay_policy",
                 subject_kind="policy",
@@ -453,14 +471,24 @@ def _build_result(
     }
     expected_missing = {case_id: codes for case_id, codes in expected_missing.items() if codes}
     encoded_positive = json.dumps(replays, sort_keys=True)
-    body_redacted = not any(needle in encoded_positive for needle in PRIVATE_NEEDLES)
+    unsafe_payload_bodies_absent = not any(
+        needle in encoded_positive for needle in PRIVATE_NEEDLES
+    )
     policy_passed = (
         bool(scene_states)
         and bool(replays)
         and not positive_findings
-        and body_redacted
+        and unsafe_payload_bodies_absent
         and not expected_missing
-        and all(row.get("body_redacted") is True for row in replays)
+        and all(
+            row.get("payload_boundary_ref") == ROW_PAYLOAD_BOUNDARY_REF
+            for row in replays
+        )
+        and all(
+            row.get("source_open_body_policy") == SOURCE_OPEN_BODY_POLICY
+            for row in replays
+        )
+        and all(row.get("unsafe_payload_bodies_exported") is False for row in replays)
         and all(row.get("private_video_exported") is False for row in replays)
         and all(row.get("raw_sensor_data_exported") is False for row in replays)
         and all(row.get("live_robot_operation_authorized") is False for row in replays)
@@ -533,17 +561,23 @@ def _build_result(
         "negative_case_findings": negative_findings,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "payload_boundary": public_payload_boundary(
+            boundary_id=PAYLOAD_BOUNDARY_ID,
+            command=command,
+            surface_ref=_display(input_dir, public_root=public_root),
+        ),
         "safe_to_show": {
-            "body_redacted": body_redacted,
-            "metadata_only": True,
+            "unsafe_payload_bodies_absent": unsafe_payload_bodies_absent,
+            "counterfactual_replays_are_public_payload_boundary_rows": True,
             "private_video_bodies_omitted": True,
             "raw_sensor_payloads_omitted": True,
             "live_operation_omitted": True,
             "real_world_location_omitted": True,
         },
         "release_authorized": False,
-        "body_redacted": True,
-        "private_state_scan": scan,
+        "secret_exclusion_scan": scan,
     }
 
 
@@ -643,7 +677,13 @@ def _write_receipts(
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,
-        "body_redacted": True,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "payload_boundary": public_payload_boundary(
+            boundary_id=PAYLOAD_BOUNDARY_ID,
+            command="microcosm spatial-world-model-counterfactual-simulation-replay run",
+            surface_ref=receipt_paths[0],
+        ),
     }
     write_json_atomic(acceptance_path, acceptance)
     return {**result, "spatial_simulation_board": board, "receipt_paths": receipt_paths}

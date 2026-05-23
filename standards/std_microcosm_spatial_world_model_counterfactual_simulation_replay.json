@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This standard governs synthetic spatial counterfactual replay metadata only. It does not authorize simulator-product claims, private video export, raw sensor export, live robot or AV operation, real-world geography claims, benchmark scores, provider calls, publication, or release.",
-  "authority_boundary": "synthetic_spatial_counterfactual_replay_metadata_not_simulator_or_operation_authority",
+  "anti_claim": "This standard governs source-open synthetic spatial counterfactual replay rows under the Microcosm public payload boundary. It does not authorize simulator-product claims, private video export, raw sensor export, live robot or AV operation, real-world geography claims, benchmark scores, provider calls, publication, or release.",
+  "authority_boundary": "source_open_spatial_counterfactual_payload_boundary_not_simulator_or_operation_authority",
   "authority_ceiling": {
     "benchmark_score_claim_authorized": false,
     "generated_video_authority_authorized": false,
@@ -25,12 +25,12 @@
       "predicted state refs",
       "transition diff refs",
       "oracle check refs",
-      "public-safe sensor packet refs",
+      "source-open public sensor packet refs",
       "rare-event labels",
       "fidelity-limit labels",
       "limitation labels"
     ],
-    "default_posture": "public_safe_when_synthetic_metadata_only",
+    "default_posture": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "forbidden_public_inputs": [
       "private video bodies",
       "raw sensor payloads",
@@ -49,7 +49,10 @@
       "selected_pattern_ids",
       "simulation_summary",
       "negative_case_summary",
-      "private_state_scan",
+      "source_open_body_policy",
+      "unsafe_payload_bodies_in_receipt",
+      "payload_boundary",
+      "secret_exclusion_scan",
       "authority_ceiling",
       "anti_claim"
     ],
@@ -58,7 +61,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
-    "receipt must cite replay counts, scene-state counts, selected pattern ids, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite replay counts, scene-state counts, selected pattern ids, negative-case coverage, source-open payload boundary, secret-exclusion scan, authority ceiling, and anti-claim"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#spatial_world_model_counterfactual_simulation_replay",
@@ -85,6 +88,9 @@
     "rare_event_coverage_label",
     "fidelity_limit_label",
     "limitation_labels",
+    "payload_boundary_ref",
+    "source_open_body_policy",
+    "unsafe_payload_bodies_exported",
     "authority_ceiling",
     "anti_claim"
   ],
@@ -104,9 +110,9 @@
   "standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
   "status": "draft",
   "validation_rules": [
-    "require every replay row to cite scene-state, action-trace, predicted-state, transition-diff, oracle-check, and public-safe sensor-packet refs",
+    "require every replay row to cite scene-state, action-trace, predicted-state, transition-diff, oracle-check, and source-open public sensor-packet refs",
     "reject private video export, raw sensor export, live robot or AV operation, real-world location claims, simulator-product claims, generated-video-only authority, geographic accuracy claims, benchmark score overclaims, and release authority",
-    "require metadata-only authority and body-redacted public fixture rows"
+    "require metadata authority ceilings and source-open payload-boundary fixture rows"
   ],
   "validator_contract": {
     "command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",

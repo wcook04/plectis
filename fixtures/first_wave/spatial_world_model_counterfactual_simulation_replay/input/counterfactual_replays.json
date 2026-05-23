@@ -3,7 +3,6 @@
     {
       "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
       "benchmark_score_claim": false,
-      "body_redacted": true,
       "cold_replay_ref": "receipts/cold_replay/warehouse_occlusion_left_forklift_stop.json",
       "consistency_budget": {
         "max_heading_delta_deg": 3,
@@ -21,6 +20,7 @@
       "live_av_operation_authorized": false,
       "live_robot_operation_authorized": false,
       "oracle_state_check_ref": "oracle_check::warehouse_occlusion_left_forklift_stop",
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row",
       "predicted_state_ref": "predicted_state::warehouse_occlusion_left_forklift_stop",
       "private_video_exported": false,
       "rare_event_coverage_label": "occlusion",
@@ -34,12 +34,13 @@
         "public_sensor_packet::warehouse_occlusion_left_forklift_stop::occupancy"
       ],
       "simulator_product_claim": false,
-      "transition_diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "transition_diff_ref": "transition_diff::warehouse_occlusion_left_forklift_stop",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "action_trace_ref": "action_trace::crosswalk_child_emergence_slowdown",
       "benchmark_score_claim": false,
-      "body_redacted": true,
       "cold_replay_ref": "receipts/cold_replay/crosswalk_child_emergence_slowdown.json",
       "consistency_budget": {
         "max_heading_delta_deg": 4,
@@ -57,6 +58,7 @@
       "live_av_operation_authorized": false,
       "live_robot_operation_authorized": false,
       "oracle_state_check_ref": "oracle_check::crosswalk_child_emergence_slowdown",
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row",
       "predicted_state_ref": "predicted_state::crosswalk_child_emergence_slowdown",
       "private_video_exported": false,
       "rare_event_coverage_label": "vulnerable_road_user",
@@ -70,12 +72,13 @@
         "public_sensor_packet::crosswalk_child_emergence_slowdown::occupancy"
       ],
       "simulator_product_claim": false,
-      "transition_diff_ref": "transition_diff::crosswalk_child_emergence_slowdown"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "transition_diff_ref": "transition_diff::crosswalk_child_emergence_slowdown",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "action_trace_ref": "action_trace::drone_corridor_gust_recovery",
       "benchmark_score_claim": false,
-      "body_redacted": true,
       "cold_replay_ref": "receipts/cold_replay/drone_corridor_gust_recovery.json",
       "consistency_budget": {
         "max_heading_delta_deg": 5,
@@ -93,6 +96,7 @@
       "live_av_operation_authorized": false,
       "live_robot_operation_authorized": false,
       "oracle_state_check_ref": "oracle_check::drone_corridor_gust_recovery",
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row",
       "predicted_state_ref": "predicted_state::drone_corridor_gust_recovery",
       "private_video_exported": false,
       "rare_event_coverage_label": "wind_disturbance",
@@ -106,12 +110,13 @@
         "public_sensor_packet::drone_corridor_gust_recovery::occupancy"
       ],
       "simulator_product_claim": false,
-      "transition_diff_ref": "transition_diff::drone_corridor_gust_recovery"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "transition_diff_ref": "transition_diff::drone_corridor_gust_recovery",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "action_trace_ref": "action_trace::mobile_robot_reflective_floor_detour",
       "benchmark_score_claim": false,
-      "body_redacted": true,
       "cold_replay_ref": "receipts/cold_replay/mobile_robot_reflective_floor_detour.json",
       "consistency_budget": {
         "max_heading_delta_deg": 6,
@@ -129,6 +134,7 @@
       "live_av_operation_authorized": false,
       "live_robot_operation_authorized": false,
       "oracle_state_check_ref": "oracle_check::mobile_robot_reflective_floor_detour",
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row",
       "predicted_state_ref": "predicted_state::mobile_robot_reflective_floor_detour",
       "private_video_exported": false,
       "rare_event_coverage_label": "surface_reflection",
@@ -142,12 +148,13 @@
         "public_sensor_packet::mobile_robot_reflective_floor_detour::occupancy"
       ],
       "simulator_product_claim": false,
-      "transition_diff_ref": "transition_diff::mobile_robot_reflective_floor_detour"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "transition_diff_ref": "transition_diff::mobile_robot_reflective_floor_detour",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "action_trace_ref": "action_trace::loading_dock_pallet_shift_replan",
       "benchmark_score_claim": false,
-      "body_redacted": true,
       "cold_replay_ref": "receipts/cold_replay/loading_dock_pallet_shift_replan.json",
       "consistency_budget": {
         "max_heading_delta_deg": 7,
@@ -165,6 +172,7 @@
       "live_av_operation_authorized": false,
       "live_robot_operation_authorized": false,
       "oracle_state_check_ref": "oracle_check::loading_dock_pallet_shift_replan",
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row",
       "predicted_state_ref": "predicted_state::loading_dock_pallet_shift_replan",
       "private_video_exported": false,
       "rare_event_coverage_label": "load_shift",
@@ -178,12 +186,13 @@
         "public_sensor_packet::loading_dock_pallet_shift_replan::occupancy"
       ],
       "simulator_product_claim": false,
-      "transition_diff_ref": "transition_diff::loading_dock_pallet_shift_replan"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "transition_diff_ref": "transition_diff::loading_dock_pallet_shift_replan",
+      "unsafe_payload_bodies_exported": false
     },
     {
       "action_trace_ref": "action_trace::intersection_unprotected_turn_yield",
       "benchmark_score_claim": false,
-      "body_redacted": true,
       "cold_replay_ref": "receipts/cold_replay/intersection_unprotected_turn_yield.json",
       "consistency_budget": {
         "max_heading_delta_deg": 8,
@@ -201,6 +210,7 @@
       "live_av_operation_authorized": false,
       "live_robot_operation_authorized": false,
       "oracle_state_check_ref": "oracle_check::intersection_unprotected_turn_yield",
+      "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::counterfactual_replay_row",
       "predicted_state_ref": "predicted_state::intersection_unprotected_turn_yield",
       "private_video_exported": false,
       "rare_event_coverage_label": "late_yield",
@@ -214,7 +224,9 @@
         "public_sensor_packet::intersection_unprotected_turn_yield::occupancy"
       ],
       "simulator_product_claim": false,
-      "transition_diff_ref": "transition_diff::intersection_unprotected_turn_yield"
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "transition_diff_ref": "transition_diff::intersection_unprotected_turn_yield",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "schema_version": "counterfactual_replays_v1"

@@ -1,6 +1,6 @@
 {
-  "anti_claim": "This fixture validates synthetic public spatial replay metadata only; it does not export private video, raw sensors, live commands, real-world geography, benchmark claims, or release authority.",
-  "authority_ceiling": "synthetic spatial counterfactual replay metadata only; no simulator product, private video, raw sensor, live operation, real-world location, generated-video-only, geographic accuracy, benchmark, or release authority",
+  "anti_claim": "This fixture validates source-open synthetic public spatial replay rows under the Microcosm payload boundary; it does not export private video, raw sensors, live commands, real-world geography, benchmark claims, or release authority.",
+  "authority_ceiling": "source-open synthetic spatial counterfactual replay payload boundary; no simulator product, private video, raw sensor, live operation, real-world location, generated-video-only, geographic accuracy, benchmark, or release authority",
   "expected_negative_cases": [
     "private_video_export",
     "real_world_location_claim",
@@ -25,7 +25,7 @@
     },
     {
       "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/replay_policy.json",
-      "role": "metadata-only replay policy"
+      "role": "source-open payload-boundary replay policy"
     },
     {
       "path": "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input/scene_states.json",
@@ -93,7 +93,10 @@
         "simulation_summary",
         "negative_case_summary",
         "authority_ceiling",
-        "private_state_scan",
+        "source_open_body_policy",
+        "unsafe_payload_bodies_in_receipt",
+        "payload_boundary",
+        "secret_exclusion_scan",
         "anti_claim"
       ],
       "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_validation_receipt.json": [

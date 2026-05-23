@@ -4568,8 +4568,8 @@ class RuntimeShell:
             "spatial_simulation_lens_ref": _public_relative(lens_path, self.root),
             "public_claim": (
                 "Microcosm can replay synthetic spatial world-model counterfactuals "
-                "as public metadata: scene state, action trace, predicted state, "
-                "transition diff, oracle check, and limitation labels stay inspectable "
+                "as source-open payload-boundary rows: scene state, action trace, "
+                "predicted state, transition diff, oracle check, and limitation labels stay inspectable "
                 "without private video, raw sensor payloads, live operation, or "
                 "real-world geography claims."
             ),
@@ -4578,6 +4578,21 @@ class RuntimeShell:
                 "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
                 "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
             ],
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_spatial_world_model_counterfactual_simulation_replay_lens",
+                command="microcosm spatial-simulation",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                counterfactual_replay_rows_are_public_payload_boundary_rows=True,
+                private_video_bodies_omitted=True,
+                raw_sensor_payloads_omitted=True,
+                live_operation_omitted=True,
+                real_world_location_omitted=True,
+            ),
         }
         write_json_atomic(lens_path, lens)
         return lens

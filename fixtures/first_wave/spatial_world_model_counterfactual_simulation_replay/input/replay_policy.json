@@ -15,7 +15,6 @@
     "release_authorized": false,
     "trained_simulator_claim_authorized": false
   },
-  "body_redacted": true,
   "forbidden_claims": [
     "private_video_export",
     "raw_sensor_data_export",
@@ -27,6 +26,7 @@
     "benchmark_score_without_state_diff",
     "release_authority"
   ],
+  "payload_boundary_ref": "spatial_world_model_counterfactual_simulation_replay::replay_policy",
   "required_replay_fields": [
     "scene_state_ref",
     "action_trace_ref",
@@ -38,5 +38,7 @@
     "fidelity_limit_label",
     "limitation_labels"
   ],
-  "schema_version": "spatial_world_model_counterfactual_replay_policy_v1"
+  "schema_version": "spatial_world_model_counterfactual_replay_policy_v1",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+  "unsafe_payload_bodies_exported": false
 }
