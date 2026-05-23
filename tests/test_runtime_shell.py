@@ -48,7 +48,7 @@ EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "standards_meta_diagnostics": "semantic_validator",
     "cold_reader_route_map": "semantic_validator",
     "agent_memory_temporal_conflict_replay": "algorithmic_projection",
-    "sleeper_memory_poisoning_quarantine_replay": "fixture_echo_smoke",
+    "sleeper_memory_poisoning_quarantine_replay": "algorithmic_projection",
     "mcp_tool_authority_replay": "fixture_echo_smoke",
     "proof_derived_governed_mutation_authorization": "semantic_validator",
     "belief_state_process_reward_replay": "fixture_echo_smoke",
@@ -78,12 +78,12 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["status"] == "pass"
     assert status["adapter_backed_organ_count"] == 42
     assert status["adapter_backed_count_is_product_progress"] is False
-    assert status["real_substrate_progress_count"] == 36
-    assert status["non_progress_organ_count"] == 6
+    assert status["real_substrate_progress_count"] == 37
+    assert status["non_progress_organ_count"] == 5
     assert status["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert status["truth_accounting"]["source_faithful_refactor_count"] == 17
+    assert status["truth_accounting"]["source_faithful_refactor_count"] == 18
     assert status["truth_accounting"]["real_import_validation_count"] == 16
-    assert status["truth_accounting"]["regression_negative_fixture_count"] == 6
+    assert status["truth_accounting"]["regression_negative_fixture_count"] == 5
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
@@ -256,27 +256,27 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["cold_reader_goal"] == "legible_under_10_minutes_without_private_macro_context"
     assert spine["surface_counts"]["adapter_backed_organ_count"] == 42
     assert spine["surface_counts"]["adapter_backed_count_is_product_progress"] is False
-    assert spine["surface_counts"]["real_substrate_progress_count"] == 36
-    assert spine["surface_counts"]["non_progress_organ_count"] == 6
+    assert spine["surface_counts"]["real_substrate_progress_count"] == 37
+    assert spine["surface_counts"]["non_progress_organ_count"] == 5
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 0
-    assert spine["surface_counts"]["source_faithful_refactor_count"] == 17
+    assert spine["surface_counts"]["source_faithful_refactor_count"] == 18
     assert spine["surface_counts"]["real_import_validation_count"] == 16
-    assert spine["surface_counts"]["regression_negative_fixture_count"] == 6
+    assert spine["surface_counts"]["regression_negative_fixture_count"] == 5
     assert spine["surface_counts"]["blocked_import_debt_count"] == 0
     assert spine["surface_counts"]["secret_exclusion_count"] == 0
     assert spine["surface_counts"]["legacy_adapter_or_synthetic_placeholder_count"] == 0
     assert spine["surface_counts"]["delete_or_demote_candidate_count"] == 0
     assert spine["surface_counts"]["product_path_demoted_organ_count"] == 4
     assert len(spine["accepted_runtime_spine"]) == 42
-    assert len(spine["real_substrate_progress_spine"]) == 36
-    assert len(spine["non_progress_runtime_spine"]) == 6
+    assert len(spine["real_substrate_progress_spine"]) == 37
+    assert len(spine["non_progress_runtime_spine"]) == 5
     assert spine["surface_counts"]["evidence_class_count"] == 4
     assert spine["evidence_class_registry"]["fail_closed_no_default"] is True
     assert spine["evidence_class_registry"]["organ_evidence_class_count"] == 46
     assert spine["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert spine["truth_accounting"]["real_substrate_progress_count"] == 36
-    assert spine["truth_accounting"]["non_progress_organ_count"] == 6
+    assert spine["truth_accounting"]["real_substrate_progress_count"] == 37
+    assert spine["truth_accounting"]["non_progress_organ_count"] == 5
     assert spine["evidence_class_registry"]["unclassified_organs"] == []
     assert sum(spine["evidence_class_counts"].values()) == 42
     rows_by_id = {row["organ_id"]: row for row in spine["accepted_runtime_spine"]}
@@ -285,8 +285,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     )
     assert spine["evidence_class_counts"] == {
         "semantic_validator": 16,
-        "algorithmic_projection": 17,
-        "fixture_echo_smoke": 6,
+        "algorithmic_projection": 18,
+        "fixture_echo_smoke": 5,
         "external_subprocess_witness": 3,
     }
     assert rows_by_id["proof_diagnostic_evidence_spine"]["evidence_class"] == (
@@ -638,21 +638,21 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["surface_counts"]["surface_authority_count"] == 45
     assert authority["surface_counts"]["organ_evidence_class_count"] == 4
     assert authority["surface_counts"]["adapter_backed_count_is_product_progress"] is False
-    assert authority["surface_counts"]["real_substrate_progress_count"] == 36
-    assert authority["surface_counts"]["non_progress_organ_count"] == 6
-    assert authority["surface_counts"]["regression_negative_fixture_count"] == 6
+    assert authority["surface_counts"]["real_substrate_progress_count"] == 37
+    assert authority["surface_counts"]["non_progress_organ_count"] == 5
+    assert authority["surface_counts"]["regression_negative_fixture_count"] == 5
     assert authority["surface_counts"]["hard_boundary_count"] == 6
     assert authority["surface_counts"]["safe_local_exception_count"] == 3
-    assert authority["truth_accounting"]["real_substrate_progress_count"] == 36
-    assert authority["truth_accounting"]["regression_negative_fixture_count"] == 6
+    assert authority["truth_accounting"]["real_substrate_progress_count"] == 37
+    assert authority["truth_accounting"]["regression_negative_fixture_count"] == 5
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert authority["evidence_class_registry"]["fail_closed_no_default"] is True
     assert authority["evidence_class_registry"]["organ_evidence_class_count"] == 46
     assert authority["evidence_class_registry"]["unclassified_organs"] == []
     assert authority["evidence_class_counts"] == {
         "semantic_validator": 16,
-        "algorithmic_projection": 17,
-        "fixture_echo_smoke": 6,
+        "algorithmic_projection": 18,
+        "fixture_echo_smoke": 5,
         "external_subprocess_witness": 3,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in authority["organ_authority"]}
@@ -2557,8 +2557,8 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
     )
     assert reveal["evidence_strength_policy"]["evidence_class_counts"] == {
         "semantic_validator": 16,
-        "algorithmic_projection": 17,
-        "fixture_echo_smoke": 6,
+        "algorithmic_projection": 18,
+        "fixture_echo_smoke": 5,
         "external_subprocess_witness": 3,
     }
     assert reveal["public_claim"].startswith("Microcosm turns a repo")

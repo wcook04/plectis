@@ -238,8 +238,8 @@
     },
     {
       "organ_id": "sleeper_memory_poisoning_quarantine_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied poisoning and quarantine flags are checked for source-available shape"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "bounded public memory-security policy refactor derives quarantine, retrieval-gating, rollback, cold-rerun, and negative-case findings from body-free rows while keeping private memory bodies out"
     },
     {
       "organ_id": "mcp_tool_authority_replay",

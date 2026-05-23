@@ -124,7 +124,7 @@ FORBIDDEN_KEYS = (
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "synthetic_sleeper_memory_poisoning_quarantine_replay_receipts_only"
+        "public_body_free_sleeper_memory_quarantine_policy_projection_only"
     ),
     "live_memory_product_claim_authorized": False,
     "live_user_memory_claim_authorized": False,
@@ -137,13 +137,13 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Sleeper memory poisoning quarantine replay validates a synthetic four-session "
-    "memory security contract: poisoned source metadata, provenance-bound write "
-    "proposal, quarantine verdict, later retrieval influence gating, rollback, cold "
-    "rerun, negative cases, and receipts. It does not export private memory bodies "
-    "or raw transcripts, import live user memory, promote untrusted context to "
-    "trusted memory, call providers, mutate source, claim benchmark security, or "
-    "authorize release."
+    "Sleeper memory poisoning quarantine replay validates a body-free public "
+    "memory-security policy projection: poisoned source metadata, "
+    "provenance-bound write proposal, quarantine verdict, later retrieval "
+    "influence gating, rollback, cold rerun, negative cases, and receipts. It "
+    "does not export private memory bodies or raw transcripts, import live user "
+    "memory, promote untrusted context to trusted memory, call providers, mutate "
+    "source, claim benchmark security, or authorize release."
 )
 
 
@@ -912,6 +912,11 @@ def _build_result(
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_import_status": "public_body_free_policy_refactor_landed",
+        "body_import_classification": "algorithmic_projection_public_memory_security_policy_refactor",
+        "product_path_role": (
+            "algorithmic_projection_public_memory_security_policy_refactor"
+        ),
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],

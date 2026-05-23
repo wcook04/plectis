@@ -1,8 +1,11 @@
 {
   "body_redacted": true,
-  "bundle_id": "sleeper_memory_poisoning_quarantine_replay_runtime_example",
+  "body_redacted_reason": "private memory bodies, raw transcripts, live user-memory values, and hidden trigger text are excluded; policy rows and derived verdict logic are public",
+  "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
+  "description": "Public body-free memory-security policy refactor for sleeper-memory poisoning: validates provenance-bound write proposals, quarantine verdicts, retrieval influence gates, rollback audit refs, cold rerun receipts, and negative cases without exporting private memory bodies.",
   "expected_negative_cases": [],
   "input_mode": "exported_sleeper_memory_poisoning_bundle",
   "organ_id": "sleeper_memory_poisoning_quarantine_replay",
+  "product_path_role": "algorithmic_projection_public_memory_security_policy_refactor",
   "schema_version": "sleeper_memory_poisoning_runtime_bundle_manifest_v1"
 }

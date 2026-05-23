@@ -127,7 +127,12 @@ def test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_sleeper_memory_poisoning_bundle"
-    assert result["bundle_id"] == "sleeper_memory_poisoning_quarantine_replay_runtime_example"
+    assert result["bundle_id"] == "sleeper_memory_poisoning_quarantine_policy_refactor"
+    assert result["body_import_status"] == "public_body_free_policy_refactor_landed"
+    assert (
+        result["product_path_role"]
+        == "algorithmic_projection_public_memory_security_policy_refactor"
+    )
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []

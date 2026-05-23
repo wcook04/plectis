@@ -685,10 +685,10 @@ and active injection as authoritative without claiming live memory product
 quality, provider execution, source mutation, or release authority.
 
 `sleeper_memory_poisoning_quarantine_replay` is the persistent-memory security
-boundary: it validates a synthetic four-session replay where source capsule
-refs, provenance refs, quarantine verdicts, retrieval influence gates, rollback
-audit refs, and cold-rerun receipts must align before sleeper-memory poisoning
-language is admitted. Run `microcosm
+boundary: it validates a body-free public policy projection where source
+capsule refs, provenance refs, quarantine verdicts, retrieval influence gates,
+rollback audit refs, and cold-rerun receipts must align before sleeper-memory
+poisoning language is admitted. Run `microcosm
 sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle` to inspect
 the exported bundle. The organ rejects private memory bodies, live user memory
 claims, raw transcript export, provenance-less writes, trusted promotion from

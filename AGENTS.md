@@ -323,7 +323,7 @@ imported macro body.
    evidence handle, credit final-answer-only deltas, adopt active injection,
    call providers, mutate source, or authorize release.
    The `sleeper_memory_poisoning_quarantine_replay` organ is the runnable
-   public persistent-memory security lane: use
+   public body-free persistent-memory security policy refactor: use
    `sleeper-memory-poisoning-quarantine-replay` or `replay-gauntlet` to
    validate source capsule refs, provenance-bound write proposals, quarantine
    verdicts, later retrieval influence gates, rollback audit refs, cold rerun
