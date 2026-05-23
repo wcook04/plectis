@@ -10,7 +10,7 @@
   "source_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
-    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/run_prover_graph_benchmark.py::_premise_index",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
   ],
   "projection_receipt_refs": [
@@ -18,19 +18,30 @@
   ],
   "copied_material": [
     {
-      "material_id": "lean_std_premise_index_shape",
-      "material_class": "fixture_shape",
-      "body_copied": false
-    },
+      "material_id": "lean_std_toolchain_premise_index",
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "premise_index_metadata",
+      "body_copied": true,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_refs": [
+        "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+        "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/premise_index.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_imports_real_macro_premise_index",
+        "microcosm-substrate/tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape"
+      ],
+      "normalization": "host-local Lean toolchain absolute paths are normalized to lean-toolchain:// public refs"
+    }
+  ],
+  "source_faithful_refactors": [
     {
-      "material_id": "term_scoring_algorithm_shape",
-      "material_class": "metadata",
-      "body_copied": false
-    },
-    {
-      "material_id": "context_recipe_budget_shape",
-      "material_class": "metadata",
-      "body_copied": false
+      "material_id": "term_scoring_runtime",
+      "classification": "source_faithful_refactor",
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py::_retrieve_premises",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py::_score_query",
+      "validation_ref": "microcosm-substrate/tests/test_formal_math_premise_retrieval.py"
     }
   ],
   "omitted_material": [
@@ -50,7 +61,7 @@
       "omission_receipt_ref": "formal_math_premise_retrieval.omission.private_logs"
     }
   ],
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
     "fixtures/first_wave/formal_math_premise_retrieval/input/retrieval_queries.json",
     "fixtures/first_wave/formal_math_premise_retrieval/input/context_recipes.json",
@@ -64,5 +75,5 @@
     "oracle_premise_ids_allowed_in_public_inputs": false,
     "release_authorized": false
   },
-  "anti_claim": "This projection imports public-safe retrieval metadata and synthetic fixtures only. It does not copy private proof bodies, oracle-needed premise ids, provider payloads, or private run logs."
+  "anti_claim": "This projection copies the non-secret macro Lean/Std premise-index metadata with provenance and public path normalization. It does not copy proof bodies, oracle-needed premise ids, provider payloads, private run logs, or host-local absolute paths."
 }

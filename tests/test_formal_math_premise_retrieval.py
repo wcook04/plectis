@@ -48,11 +48,12 @@ def test_formal_math_premise_retrieval_observes_negative_cases(
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["premise_count"] == 8
+    assert result["premise_count"] == 11
     assert result["query_count"] == 4
     assert result["recipe_count"] == 3
     assert result["strategy_case_count"] == 4
-    assert result["mean_synthetic_recall"] == 1.0
+    assert result["mean_public_retrieval_recall"] == 1.0
+    assert result["body_copied_material_count"] == 1
     assert result["authority_ceiling"]["lean_lake_execution_authorized"] is False
     assert result["authority_ceiling"]["proof_bodies_allowed"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -108,7 +109,39 @@ def test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["premise_count"] == 8
+    assert result["premise_count"] == 11
     assert result["query_count"] == 4
-    assert result["mean_synthetic_recall"] == 1.0
+    assert result["mean_public_retrieval_recall"] == 1.0
+    assert result["body_copied_material_count"] == 1
     assert result["premise_retrieval_board"]["formal_proof_authority"] is False
+
+
+def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> None:
+    premise_index = json.loads(
+        (FIXTURE_INPUT / "premise_index.json").read_text(encoding="utf-8")
+    )
+    protocol = json.loads(
+        (FIXTURE_INPUT / "projection_protocol.json").read_text(encoding="utf-8")
+    )
+
+    assert premise_index["index_id"] == "lean_std_toolchain_premise_index_v0_public_import"
+    assert premise_index["source_ref"] == (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_index.json"
+    )
+    assert premise_index["source_sha256"] == (
+        "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
+    )
+    assert premise_index["premise_count"] == 11
+    assert all(row["body_copied"] is True for row in premise_index["premises"])
+    assert all("/Users/" not in row["source_ref"] for row in premise_index["premises"])
+    assert {row["premise_id"] for row in premise_index["premises"]} >= {
+        "premise_nat_add_comm",
+        "premise_bool_not_not",
+        "premise_list_length_append",
+        "premise_iff_intro",
+    }
+    copied = protocol["copied_material"][0]
+    assert copied["classification"] == "copied_non_secret_macro_body_with_provenance"
+    assert copied["body_copied"] is True
+    assert copied["source_sha256"] == premise_index["source_sha256"]

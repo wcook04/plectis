@@ -11,22 +11,22 @@
   ],
   "strategy_cases": [
     {
-      "query_id": "q_nat_add_comm",
+      "query_id": "q_ring2_nat_add_comm",
       "strategy_id": "commutativity_rewrite",
       "selected_pre_oracle": true
     },
     {
-      "query_id": "q_list_length_append",
+      "query_id": "q_ring2_list_length_append",
       "strategy_id": "structural_list",
       "selected_pre_oracle": true
     },
     {
-      "query_id": "q_bool_and_comm",
+      "query_id": "q_ring2_bool_not_not",
       "strategy_id": "boolean_normalization",
       "selected_pre_oracle": true
     },
     {
-      "query_id": "q_iff_forward",
+      "query_id": "q_ring2_iff_intro",
       "strategy_id": "iff_split",
       "selected_pre_oracle": true
     }

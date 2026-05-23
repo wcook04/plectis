@@ -4,7 +4,7 @@
     {
       "query_id": "q_test_tuning",
       "split": "test",
-      "query_terms": ["bool", "or"],
+      "query_terms": ["bool", "double", "negation"],
       "strategy_id": "boolean_normalization",
       "expected_negative_case_id": "test_split_tuning_attempt",
       "uses_test_oracle_for_tuning": true

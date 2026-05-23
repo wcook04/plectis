@@ -57,18 +57,20 @@
     "source_pattern_ids",
     "source_refs",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
+    "copied_material",
+    "body_copied_material_count",
     "premise_count",
     "query_count",
-    "mean_synthetic_recall"
+    "mean_public_retrieval_recall"
   ],
   "private_state_exclusion_rules": {
     "proof_bodies": "forbidden; premise rows expose retrieval metadata only",
     "oracle_needed_premise_ids": "forbidden in public query inputs",
-    "test_split_tuning": "forbidden; test split examples may be scored only by public synthetic expected ids",
+    "test_split_tuning": "forbidden; test split examples may be scored only by public expected premise ids",
     "provider_payload_bodies": "forbidden; context recipes are budgets and deliverable metadata only",
     "lean_lake": "not executed; retrieval metadata only"
   },
-  "authority_ceiling": "public synthetic formal-math retrieval fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, or release operations",
+  "authority_ceiling": "public macro-premise retrieval metadata fixture only; not Lean/Lake execution, theorem proof authority, provider authority, oracle authority, or release operations",
   "anti_claim": "This fixture manifest accepts only public Lean/Std premise retrieval metadata, term scoring, context-budget checks, and negative-case leakage coverage. It does not authorize formal_math_lean_proof_witness, Lean/Lake, provider calls, proof bodies, public release, hosted deployment, publication operations, recipient work, or secret export."
 }

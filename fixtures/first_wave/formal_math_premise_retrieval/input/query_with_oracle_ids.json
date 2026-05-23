@@ -7,7 +7,7 @@
       "query_terms": ["list", "map"],
       "strategy_id": "structural_list",
       "expected_negative_case_id": "query_oracle_ids_forbidden",
-      "oracle_needed_premise_ids": ["List.map_append"]
+      "oracle_needed_premise_ids": ["premise_list_map_map"]
     }
   ]
 }

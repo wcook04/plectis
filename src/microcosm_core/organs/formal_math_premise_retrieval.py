@@ -63,7 +63,7 @@ FORBIDDEN_BODY_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "formal_math_retrieval_metadata_and_synthetic_eval_only",
+    "authority_ceiling": "formal_math_retrieval_metadata_and_public_runtime_eval_only",
     "lean_lake_execution_authorized": False,
     "mathlib_presence_claim_authorized": False,
     "formal_proof_authority": False,
@@ -74,7 +74,7 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Formal math premise retrieval validates a public synthetic Lean/Std premise "
+    "Formal math premise retrieval validates a copied public macro Lean/Std premise "
     "index, term-scoring retrieval, context-budget recipes, and strategy gates. "
     "It does not run Lean or Lake, call providers, expose proof bodies or oracle "
     "premise ids, tune on test split truth, prove theorem correctness, authorize "
@@ -208,15 +208,36 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
+    copied_material = _rows(protocol, "copied_material")
     omitted = _rows(protocol, "omitted_material")
     findings: list[dict[str, Any]] = []
-    if len(source_refs) < 3 or len(public_replacements) < 3 or len(projection_receipts) < 1:
+    body_copied_material = [
+        row
+        for row in copied_material
+        if row.get("body_copied") is True
+        and row.get("source_ref")
+        and row.get("source_sha256")
+        and _strings(row.get("target_refs"))
+        and _strings(row.get("validation_refs"))
+    ]
+    stale_body_false = [row for row in copied_material if row.get("body_copied") is False]
+    if len(source_refs) < 3 or len(public_runtime_refs) < 3 or len(projection_receipts) < 1:
         findings.append(
             _finding(
                 "FORMAL_RETRIEVAL_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Formal retrieval import must cite macro source refs, public replacements, and projection receipts.",
+                "Formal retrieval import must cite macro source refs, public runtime refs, and projection receipts.",
+                case_id="projection_protocol_floor",
+                subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
+                subject_kind="projection_protocol",
+            )
+        )
+    if not body_copied_material or stale_body_false:
+        findings.append(
+            _finding(
+                "FORMAL_RETRIEVAL_REAL_SUBSTRATE_IMPORT_MISSING",
+                "Formal retrieval must copy at least one non-secret macro body with source, target, digest, and validation refs; stale body_copied=false rows are blocked.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -235,13 +256,16 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
             )
     return {
         "status": PASS
-        if source_refs and public_replacements and projection_receipts and not findings
+        if source_refs and public_runtime_refs and projection_receipts and not findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "public_runtime_refs": public_runtime_refs,
+        "copied_material": copied_material,
+        "copied_material_count": len(copied_material),
+        "body_copied_material_count": len(body_copied_material),
         "omitted_material_count": len(omitted),
         "findings": findings,
         "observed_negative_cases": {},
@@ -514,7 +538,7 @@ def validate_retrieval_queries(
                 "top_k": top_k,
                 "retrieved_premise_ids": [str(row["premise_id"]) for row in top],
                 "expected_public_premise_count": len(expected),
-                "synthetic_recall": recall,
+                "public_retrieval_recall": recall,
                 "body_redacted": True,
             }
         )
@@ -531,7 +555,7 @@ def validate_retrieval_queries(
         "status": PASS if retrievals else "blocked",
         "query_count": len(retrievals),
         "retrievals": sorted(retrievals, key=lambda row: row["query_id"]),
-        "mean_synthetic_recall": mean_recall,
+        "mean_public_retrieval_recall": mean_recall,
         "findings": findings,
         "observed_negative_cases": {key: sorted(value) for key, value in observed.items()},
     }
@@ -619,22 +643,25 @@ def _build_result(
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "public_runtime_refs": projection["public_runtime_refs"],
+        "copied_material": projection["copied_material"],
+        "copied_material_count": projection["copied_material_count"],
+        "body_copied_material_count": projection["body_copied_material_count"],
         "premise_count": premise_index["premise_count"],
         "query_count": retrieval["query_count"],
         "recipe_count": recipes["recipe_count"],
         "strategy_case_count": strategies["strategy_case_count"],
         "allowed_strategy_ids": strategies["allowed_strategy_ids"],
-        "mean_synthetic_recall": retrieval["mean_synthetic_recall"],
+        "mean_public_retrieval_recall": retrieval["mean_public_retrieval_recall"],
         "retrievals": retrieval["retrievals"],
         "premise_retrieval_board": {
-            "headline": "Lean/Std premise retrieval runs as public metadata and synthetic scores.",
+            "headline": "Lean/Std premise retrieval runs over copied public macro premise-index metadata.",
             "protocol_id": projection["protocol_id"],
             "premise_count": premise_index["premise_count"],
             "query_count": retrieval["query_count"],
             "recipe_count": recipes["recipe_count"],
             "strategy_case_count": strategies["strategy_case_count"],
-            "mean_synthetic_recall": retrieval["mean_synthetic_recall"],
+            "mean_public_retrieval_recall": retrieval["mean_public_retrieval_recall"],
             "retrieval_authority": "term_scoring_fixture_not_theorem_proving",
             "next_boundary": "formal_math_lean_proof_witness now carries the bounded public witness; retrieval still does not claim theorem proof authority",
             "lean_lake_execution_authorized": False,
@@ -673,13 +700,16 @@ def _common_receipt(
         "source_refs",
         "source_pattern_ids",
         "projection_receipt_refs",
-        "public_replacement_refs",
+        "public_runtime_refs",
+        "copied_material",
+        "copied_material_count",
+        "body_copied_material_count",
         "premise_count",
         "query_count",
         "recipe_count",
         "strategy_case_count",
         "allowed_strategy_ids",
-        "mean_synthetic_recall",
+        "mean_public_retrieval_recall",
         "body_redacted",
     )
     payload = {

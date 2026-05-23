@@ -6,7 +6,7 @@
   "status": "draft",
   "first_wave_required": true,
   "wave": "w1_formal_math_retrieval",
-  "authority_boundary": "public_synthetic_formal_math_retrieval_not_proof_authority",
+  "authority_boundary": "public_macro_premise_retrieval_metadata_not_proof_authority",
   "source_refs": [
     {
       "path": "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json",
@@ -34,7 +34,8 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_runtime_refs",
+    "copied_material",
     "premises",
     "queries",
     "recipes",
@@ -43,7 +44,7 @@
     "anti_claim"
   ],
   "validation_rules": [
-    "require macro projection protocol refs and public replacement refs",
+    "require macro projection protocol refs, public runtime refs, and at least one copied non-secret macro body with provenance",
     "score premise retrieval by public terms and split eligibility only",
     "reject proof bodies and provider payload bodies in premise rows",
     "reject oracle-needed premise ids in public query rows",
@@ -54,7 +55,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_math_premise_retrieval",
-    "receipt must cite source refs, source pattern ids, projection receipts, public replacements, synthetic retrieval metrics, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, copied-material provenance, public retrieval metrics, negative-case coverage, private-state scan, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -78,10 +79,12 @@
       "source_pattern_ids",
       "source_refs",
       "projection_receipt_refs",
-      "public_replacement_refs",
+      "public_runtime_refs",
+      "copied_material",
+      "body_copied_material_count",
       "premise_count",
       "query_count",
-      "mean_synthetic_recall",
+      "mean_public_retrieval_recall",
       "authority_ceiling",
       "anti_claim",
       "private_state_scan",
@@ -95,7 +98,7 @@
       "namespaces",
       "retrieval terms",
       "split eligibility",
-      "public synthetic expected premise ids",
+      "public expected premise ids",
       "context recipe byte budgets",
       "strategy ids",
       "projection receipt refs"
@@ -117,11 +120,11 @@
     "provider_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs public synthetic formal-math retrieval metadata only; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
+  "anti_claim": "This standard governs copied public macro formal-math retrieval metadata only; it does not authorize Lean/Lake execution, provider calls, proof bodies, oracle leakage, theorem correctness claims, or release/publication work.",
   "standard_payload": {
     "ontology": "A public-safe Lean/Std premise retrieval slice: premise metadata, term scoring, context budgets, strategy gates, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm capable of demonstrating a real formal-math retrieval mechanism while preserving the proof-witness boundary.",
-    "anti_purpose": "Turning synthetic retrieval scores into theorem-proof authority.",
+    "anti_purpose": "Turning public retrieval scores into theorem-proof authority.",
     "compression_bands": ["protocol", "index", "query", "board", "receipt"],
     "failure_modes": [
       "premise row leaks proof body",
@@ -150,7 +153,7 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public slice carries retrieval metadata and synthetic fixture evidence only",
+    "reason": "public slice carries copied macro premise metadata and negative-case fixture evidence only",
     "drilldown": "fixtures/first_wave/formal_math_premise_retrieval/input/projection_protocol.json"
   },
   "anti_claim_contract": {

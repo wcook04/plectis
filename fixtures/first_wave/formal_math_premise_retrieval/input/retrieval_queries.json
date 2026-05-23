@@ -1,42 +1,68 @@
 {
   "schema_version": "formal_math_retrieval_queries_fixture_v1",
-  "query_set_id": "lean_std_public_synthetic_queries_v1",
+  "query_set_id": "lean_std_macro_run_queries_v1",
+  "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
   "queries": [
     {
-      "query_id": "q_nat_add_comm",
+      "query_id": "q_ring2_nat_add_comm",
       "split": "train",
-      "query_terms": ["nat", "addition", "commutative", "rewrite"],
+      "query_terms": [
+        "nat",
+        "addition",
+        "commutative",
+        "rewrite"
+      ],
       "strategy_id": "commutativity_rewrite",
       "recipe_id": "strategy_classification_4kb",
       "top_k": 3,
-      "expected_public_premise_ids": ["Nat.add_comm"]
+      "expected_public_premise_ids": [
+        "premise_nat_add_comm"
+      ]
     },
     {
-      "query_id": "q_list_length_append",
+      "query_id": "q_ring2_list_length_append",
       "split": "dev",
-      "query_terms": ["list", "length", "append"],
+      "query_terms": [
+        "list",
+        "length",
+        "append"
+      ],
       "strategy_id": "structural_list",
       "recipe_id": "skill_32kb",
       "top_k": 3,
-      "expected_public_premise_ids": ["List.length_append"]
+      "expected_public_premise_ids": [
+        "premise_list_length_append"
+      ]
     },
     {
-      "query_id": "q_bool_and_comm",
+      "query_id": "q_ring2_bool_not_not",
       "split": "test",
-      "query_terms": ["bool", "and", "commutative"],
+      "query_terms": [
+        "bool",
+        "double",
+        "negation"
+      ],
       "strategy_id": "boolean_normalization",
       "recipe_id": "minimal_4kb",
       "top_k": 2,
-      "expected_public_premise_ids": ["Bool.and_comm"]
+      "expected_public_premise_ids": [
+        "premise_bool_not_not"
+      ]
     },
     {
-      "query_id": "q_iff_forward",
+      "query_id": "q_ring2_iff_intro",
       "split": "test",
-      "query_terms": ["iff", "forward", "implication"],
+      "query_terms": [
+        "iff",
+        "implication",
+        "intro"
+      ],
       "strategy_id": "iff_split",
       "recipe_id": "minimal_4kb",
       "top_k": 2,
-      "expected_public_premise_ids": ["Iff.mp"]
+      "expected_public_premise_ids": [
+        "premise_iff_intro"
+      ]
     }
   ]
 }
