@@ -10507,6 +10507,32 @@ class RuntimeShell:
                 "body_in_receipt": False,
             },
         ]
+        modeled_cell_ids = {str(row.get("cell_id") or "") for row in cell_status}
+        for cell in cells:
+            cell_id = str(cell.get("cell_id") or "")
+            if not cell_id or cell_id in modeled_cell_ids:
+                continue
+            projection_status = _normalize_runtime_projection_status(
+                cell.get("projection_status")
+            )
+            cell_status.append(
+                {
+                    "cell_id": cell_id,
+                    "intake_ready": cell.get("ready_to_project") is True,
+                    "projection_status": projection_status,
+                    "cell_state": cell.get("cell_state"),
+                    "action_required": cell.get("action_required") is True,
+                    "status_reason": cell.get("status_reason"),
+                    "landed_evidence_refs": cell.get("landed_evidence_refs", []),
+                    "next_runtime_surface": cell.get("next_runtime_surface"),
+                    "runtime_bridge_status": projection_status,
+                    "selected_pattern_ids": cell.get("selected_pattern_ids", []),
+                    "target_refs": cell.get("target_refs", []),
+                    "validation_refs": cell.get("validation_refs", []),
+                    "authority_ceiling": cell.get("authority_ceiling"),
+                    "body_in_receipt": False,
+                }
+            )
         payload = {
             "schema_version": "microcosm_runtime_reveal_import_bridge_v1",
             "created_at": utc_now(),

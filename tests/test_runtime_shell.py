@@ -1840,24 +1840,39 @@ def test_runtime_shell_corpus_lens_is_public_safe(tmp_path: Path) -> None:
     assert lens["endpoint"] == "/corpus"
     assert lens["organ_id"] == "corpus_readiness_mathlib_absence_gate"
     assert lens["source_pattern_count"] == 1
-    assert lens["corpus_summary"]["corpus_count"] == 4
+    assert lens["corpus_summary"]["corpus_count"] == 7
     assert lens["corpus_summary"]["mathlib_lake_project_import_available"] is False
-    assert set(lens["corpus_summary"]["absent_corpus_ids"]) == {"leandojo", "pantograph"}
-    assert lens["corpus_summary"]["translation_smoke_only_ids"] == [
-        "minif2f_lean4_mathlib_translation"
-    ]
-    assert len(lens["corpora"]) == 4
-    assert {row["corpus_id"] for row in lens["corpora"]} == {
-        "lean_std_core",
-        "leandojo",
-        "minif2f_lean4_mathlib_translation",
-        "pantograph",
+    assert set(lens["corpus_summary"]["absent_corpus_ids"]) == {
+        "LeanDojo",
+        "Pantograph",
+        "ProofNet",
+        "PutnamBench_lean4",
+        "mathlib",
+        "miniF2F_lean4_mathlib_package",
     }
-    assert lens["consumer_gate"]["allowed_case_ids"] == ["std_core_boolean_simp_allowed"]
+    assert lens["corpus_summary"]["translation_smoke_only_ids"] == [
+        "miniF2F_lean3_annex"
+    ]
+    assert len(lens["corpora"]) == 7
+    assert {row["corpus_id"] for row in lens["corpora"]} == {
+        "LeanDojo",
+        "Pantograph",
+        "ProofNet",
+        "PutnamBench_lean4",
+        "mathlib",
+        "miniF2F_lean3_annex",
+        "miniF2F_lean4_mathlib_package",
+    }
+    assert lens["consumer_gate"]["allowed_case_ids"] == [
+        "miniF2F_lean3_translation_smoke_allowed"
+    ]
     assert lens["consumer_gate"]["blocked_case_ids"] == [
         "leandojo_training_blocked_absent",
-        "mathlib_search_blocked_until_probe",
+        "mathlib_import_blocked_until_probe",
+        "miniF2F_lean4_mathlib_search_blocked_absent",
         "pantograph_state_search_blocked_absent",
+        "proofnet_blocked_absent",
+        "putnambench_lean4_blocked_absent",
     ]
     assert set(lens["negative_case_ids"]) == {
         "consumer_skips_readiness_gate",
@@ -2056,11 +2071,12 @@ def test_runtime_shell_route_and_evidence_drilldowns(tmp_path: Path) -> None:
     result = shell.run_demo()
     work_demo = shell.run_work_demo()
 
-    route = shell.inspect_route("public_runtime_option_surface")
+    route = shell.inspect_route("entry_control_packet")
     evidence = shell.inspect_evidence(result["evidence_refs"][0])
 
     assert route["status"] == "pass"
-    assert route["route"]["route_id"] == "public_runtime_option_surface"
+    assert route["route"]["route_id"] == "sit_entry_control_packet"
+    assert route["route"]["row_id"] == "entry_control_packet"
     assert evidence["status"] == "pass"
     assert evidence["receipt"]["status"] == "pass"
     assert evidence["body_in_receipt"] is False
@@ -2383,7 +2399,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     assert observatory["runtime_bridge"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 1,
+        "public_runtime_import_landed": 3,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
@@ -2432,7 +2448,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert intake["status"] == "pass"
     assert intake["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert intake["bridge_id"] == "runtime_reveal_import_bridge"
-    assert intake["projection_cell_count"] == 3
+    assert intake["projection_cell_count"] == 5
     assert [step["command"] for step in intake["first_run_bridge"]] == [
         "microcosm compile <project>",
         "microcosm spine",
@@ -2441,6 +2457,13 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         "microcosm evidence inspect <receipt>",
     ]
     by_cell = {row["cell_id"]: row for row in intake["cell_status"]}
+    assert set(by_cell) == {
+        "agent_execution_trace_refactor",
+        "formal_math_readiness_extensions",
+        "navigation_route_plane_import",
+        "projection_protocol_self_host",
+        "runtime_reveal_import_bridge",
+    }
     assert by_cell["formal_math_readiness_extensions"]["projection_status"] == (
         "public_runtime_import_landed"
     )
@@ -2450,8 +2473,22 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert by_cell["projection_protocol_self_host"]["action_required"] is False
     assert by_cell["runtime_reveal_import_bridge"]["projection_status"] == "runtime_bridge_landed"
     assert by_cell["runtime_reveal_import_bridge"]["runtime_bridge_status"] == "landed_as_microcosm_intake"
+    assert by_cell["agent_execution_trace_refactor"]["projection_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["agent_execution_trace_refactor"]["runtime_bridge_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["agent_execution_trace_refactor"]["action_required"] is False
+    assert by_cell["navigation_route_plane_import"]["projection_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["navigation_route_plane_import"]["runtime_bridge_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["navigation_route_plane_import"]["action_required"] is False
     assert intake["projection_status_counts"] == {
-        "public_runtime_import_landed": 1,
+        "public_runtime_import_landed": 3,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
