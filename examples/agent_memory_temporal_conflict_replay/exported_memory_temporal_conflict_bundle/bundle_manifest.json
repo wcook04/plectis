@@ -1,5 +1,7 @@
 {
-  "authority_ceiling": "synthetic memory conflict replay metadata only; no private transcript export, live memory product claim, active-injection authority, provider call, or release authority",
+  "authority_ceiling": "public agent-execution trace refactor over memory conflict replay metadata; no private transcript export, live memory product claim, active-injection authority, provider call, or release authority",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_in_receipt": false,
   "bundle_id": "agent_memory_temporal_conflict_replay_runtime_example",
   "input_mode": "exported_memory_temporal_conflict_bundle",
   "organ_id": "agent_memory_temporal_conflict_replay",

@@ -1,6 +1,14 @@
 {
-  "anti_claim": "This fixture validates public synthetic memory temporal-conflict replay boundaries only; it does not claim live memory product quality, expose private transcripts, auto-promote private candidates, treat memory as source authority, adopt active injection, call providers, mutate source, or authorize release.",
-  "authority_ceiling": "synthetic agent-memory temporal-conflict replay receipts only; no live memory product, private transcript, private auto-promotion, memory source-authority, active injection, provider, source-mutation, or release authority",
+  "anti_claim": "This fixture validates public memory temporal-conflict replay boundaries with public agent-execution trace spans; synthetic rows remain fixture inputs and negative cases. It does not claim live memory product quality, expose private transcripts, auto-promote private candidates, treat memory as source authority, adopt active injection, call providers, mutate source, or authorize release.",
+  "authority_ceiling": "public agent-execution trace refactor with memory temporal-conflict fixture regression inputs; no live memory product, private transcript, private auto-promotion, memory source-authority, active injection, provider, source-mutation, or release authority",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+    "verification_mode": "extension_of_existing_public_refactor"
+  },
+  "body_in_receipt": false,
   "expected_negative_cases": [
     "raw_transcript_export",
     "private_candidate_auto_promotion",
@@ -28,11 +36,11 @@
     },
     {
       "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_episodes.json",
-      "role": "positive three-episode memory events with ADD/UPDATE/DELETE/NOOP decisions"
+      "role": "public three-episode memory events with ADD/UPDATE/DELETE/NOOP decisions, metadata-only thread refs, and trace-span evidence handles"
     },
     {
       "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/replay_observations.json",
-      "role": "paired memory-enabled and memory-disabled cold replay observations"
+      "role": "paired memory-enabled and memory-disabled cold replay observations consumed by public trace spans"
     },
     {
       "path": "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/raw_transcript_export.json",
@@ -73,6 +81,12 @@
     "MEMORY_CONFLICT_VECTOR_RECALL_WITHOUT_EVIDENCE",
     "MEMORY_CONFLICT_FINAL_ANSWER_ONLY_CREDIT",
     "MEMORY_CONFLICT_ACTIVE_INJECTION_AUTHORITY_FORBIDDEN"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
+    "microcosm-substrate/fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_episodes.json",
+    "microcosm-substrate/fixtures/first_wave/agent_memory_temporal_conflict_replay/input/replay_observations.json"
   ],
   "title": "Agent memory temporal-conflict replay fixture",
   "validator": "microcosm_core.organs.agent_memory_temporal_conflict_replay",

@@ -5,6 +5,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_memory_conflict_trace,
+)
 from microcosm_core.organs.agent_memory_temporal_conflict_replay import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -75,7 +78,7 @@ def test_agent_memory_temporal_conflict_replay_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_agent_memory_temporal_conflict_receipts_are_public_relative_and_redacted(
+def test_agent_memory_temporal_conflict_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -106,6 +109,8 @@ def test_agent_memory_temporal_conflict_receipts_are_public_relative_and_redacte
         assert "provider_payload" not in keys
         assert "credential_value" not in keys
         assert "secret_value" not in keys
+        assert "private_state_scan" not in keys
+        assert "body_redacted" not in keys
 
 
 def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
@@ -122,6 +127,18 @@ def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_memory_temporal_conflict_bundle"
     assert result["bundle_id"] == "agent_memory_temporal_conflict_replay_runtime_example"
+    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["span_count"] == 7
+    assert result["public_agent_execution_trace"]["audit"]["coverage"][
+        "metadata_only_private_thread_ref_coverage"
+    ] is True
+    assert result["public_agent_execution_trace"]["audit"]["coverage"][
+        "cold_replay_receipt_coverage"
+    ] is True
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "public_replacement_refs" not in result
+    assert "private_state_scan" not in result
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
@@ -130,3 +147,19 @@ def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
     assert result["conflict_edge_count"] == 2
     assert result["stale_downgrade_count"] == 2
     assert result["authority_ceiling"]["live_memory_product_claim_authorized"] is False
+
+
+def test_public_agent_execution_trace_refactor_builds_memory_conflict_spans() -> None:
+    trace = build_public_memory_conflict_trace(BUNDLE_INPUT)
+
+    assert trace["status"] == "pass"
+    assert trace["span_count"] == 7
+    assert trace["source_faithful_refactor"]["verification_mode"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert trace["summary"]["action_kind_counts"] == {
+        "memory_temporal_conflict_cold_replay": 2,
+        "memory_temporal_conflict_event": 5,
+    }
+    assert trace["audit"]["coverage"]["no_private_memory_body_coverage"] is True
+    assert trace["audit"]["coverage"]["memory_enabled_evidence_coverage"] is True

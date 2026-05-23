@@ -9,7 +9,7 @@
   "replay_observations": [
     {
       "answer_hash": "sha256:memory_enabled_answer_hash_public_synthetic",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_enabled.json",
       "episode_id": "episode_c_cold_replay",
       "evidence_used_refs": [
@@ -22,7 +22,7 @@
     },
     {
       "answer_hash": "sha256:memory_disabled_answer_hash_public_synthetic",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "cold_replay_receipt_ref": "receipts/replay/memory_conflict/episode_c_memory_disabled.json",
       "episode_id": "episode_c_cold_replay",
       "evidence_used_refs": [],

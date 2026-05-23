@@ -30,6 +30,7 @@ TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
     "microcosm_core.macro_tools.agent_execution_trace::main",
 ]
 AUTHORITY_CEILING = {
@@ -186,6 +187,29 @@ def _load_research_replication_bundle(input_dir: Path) -> dict[str, dict[str, An
                 "bundle_id": "research_replication_rubric_artifact_replay_fixture_input",
                 "input_mode": "fixture",
                 "organ_id": "research_replication_rubric_artifact_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
+
+
+def _load_memory_conflict_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "memory_episodes",
+        "replay_observations",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": "agent_memory_temporal_conflict_replay_fixture_input",
+                "input_mode": "fixture",
+                "organ_id": "agent_memory_temporal_conflict_replay",
             }
         else:
             bundle[name] = {}
@@ -789,6 +813,303 @@ def build_public_research_replication_trace(input_dir: str | Path) -> dict[str, 
     }
 
 
+def build_public_memory_conflict_trace(input_dir: str | Path) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_memory_conflict_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(manifest.get("bundle_id") or "public_memory_conflict_trace")
+    required_event_fields = {
+        "event_id",
+        "episode_id",
+        "episode_order",
+        "memory_route_ref",
+        "decision",
+        "memory_subject_id",
+        "evidence_handle_ref",
+        "private_thread_ref",
+        "metadata_only_ref",
+        "body_exported",
+        "source_authority_claim",
+        "active_injection_adopted",
+    }
+    required_replay_fields = {
+        "observation_id",
+        "episode_id",
+        "replay_group_id",
+        "memory_enabled",
+        "answer_hash",
+        "cold_replay_receipt_ref",
+        "evidence_used_refs",
+        "body_in_receipt",
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    sorted_events = sorted(
+        _rows(bundle["memory_episodes"], "memory_events"),
+        key=lambda row: (
+            int(row.get("episode_order") or 0),
+            str(row.get("episode_id") or ""),
+            str(row.get("event_id") or ""),
+        ),
+    )
+    for sequence_index, row in enumerate(sorted_events):
+        event_id = str(row.get("event_id") or f"memory_event_{sequence_index}")
+        missing_fields = sorted(field for field in required_event_fields if field not in row)
+        if missing_fields:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_EVENT_FIELDS_MISSING",
+                    "Memory event span is missing public replay evidence refs.",
+                    subject_id=event_id,
+                )
+            )
+        if row.get("body_exported") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_PRIVATE_BODY_EXPORTED",
+                    "Memory event span must keep private thread bodies out of the public trace.",
+                    subject_id=event_id,
+                )
+            )
+        if row.get("metadata_only_ref") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_REF_NOT_METADATA_ONLY",
+                    "Memory event span must expose private thread material only as metadata refs.",
+                    subject_id=event_id,
+                )
+            )
+        if row.get("source_authority_claim") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_SOURCE_AUTHORITY_CLAIM",
+                    "Memory event span cannot treat memory recall as source authority.",
+                    subject_id=event_id,
+                )
+            )
+        if row.get("active_injection_adopted") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_ACTIVE_INJECTION_AUTHORITY",
+                    "Memory event span cannot adopt active injection as authority.",
+                    subject_id=event_id,
+                )
+            )
+
+        span = PublicTraceSpan(
+            span_id=f"span:{event_id}",
+            session_id=session_id,
+            action_kind="memory_temporal_conflict_event",
+            sequence_index=sequence_index,
+            episode_id=str(row.get("episode_id") or ""),
+            observation_ref=str(row.get("evidence_handle_ref") or ""),
+            authority_verdict_id=str(
+                row.get("conflict_edge_ref")
+                or row.get("stale_downgrade_ref")
+                or row.get("memory_route_ref")
+                or ""
+            ),
+            state_transition_ref=str(
+                row.get("stale_downgrade_ref")
+                or row.get("conflict_edge_ref")
+                or row.get("memory_route_ref")
+                or ""
+            ),
+            outcome=str(row.get("decision") or "unknown"),
+            target_ref=str(row.get("memory_route_ref") or ""),
+            input_digest=_stable_digest(
+                {
+                    "event_id": row.get("event_id"),
+                    "memory_route_ref": row.get("memory_route_ref"),
+                    "decision": row.get("decision"),
+                    "memory_subject_id": row.get("memory_subject_id"),
+                    "evidence_handle_ref": row.get("evidence_handle_ref"),
+                    "private_thread_ref": row.get("private_thread_ref"),
+                    "metadata_only_ref": row.get("metadata_only_ref"),
+                    "conflict_edge_ref": row.get("conflict_edge_ref"),
+                    "stale_downgrade_ref": row.get("stale_downgrade_ref"),
+                }
+            ),
+            tool_name="memory_temporal_conflict_replay",
+            source_ref="agent_memory_temporal_conflict_replay_bundle",
+        ).as_dict()
+        span["memory_subject_id"] = row.get("memory_subject_id")
+        span["private_thread_ref"] = row.get("private_thread_ref")
+        span["metadata_only_ref"] = row.get("metadata_only_ref") is True
+        span["body_in_receipt"] = False
+        span["body_exported"] = row.get("body_exported") is True
+        span["source_authority_claim"] = row.get("source_authority_claim") is True
+        span["active_injection_adopted"] = row.get("active_injection_adopted") is True
+        spans.append(span)
+
+    replay_offset = len(spans)
+    answer_delta = (
+        bundle["replay_observations"].get("answer_delta", {})
+        if isinstance(bundle["replay_observations"], dict)
+        else {}
+    )
+    sorted_replays = sorted(
+        _rows(bundle["replay_observations"], "replay_observations"),
+        key=lambda row: str(row.get("observation_id") or ""),
+    )
+    for replay_index, row in enumerate(sorted_replays):
+        sequence_index = replay_offset + replay_index
+        observation_id = str(
+            row.get("observation_id") or f"memory_replay_{replay_index}"
+        )
+        missing_fields = sorted(field for field in required_replay_fields if field not in row)
+        if missing_fields:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_REPLAY_FIELDS_MISSING",
+                    "Memory replay span is missing public replay evidence refs.",
+                    subject_id=observation_id,
+                )
+            )
+        if row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_REPLAY_BODY_IN_RECEIPT",
+                    "Memory replay span must keep answer bodies out of the public receipt.",
+                    subject_id=observation_id,
+                )
+            )
+        evidence_refs = [str(item) for item in row.get("evidence_used_refs", []) if str(item)]
+        if row.get("memory_enabled") is True and not evidence_refs:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_ENABLED_WITHOUT_EVIDENCE",
+                    "Memory-enabled replay span must cite public evidence handles.",
+                    subject_id=observation_id,
+                )
+            )
+        if not row.get("cold_replay_receipt_ref"):
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MEMORY_COLD_REPLAY_REF_MISSING",
+                    "Memory replay span has no cold-replay receipt ref.",
+                    subject_id=observation_id,
+                )
+            )
+
+        span = PublicTraceSpan(
+            span_id=f"span:{observation_id}",
+            session_id=session_id,
+            action_kind="memory_temporal_conflict_cold_replay",
+            sequence_index=sequence_index,
+            episode_id=str(row.get("episode_id") or ""),
+            observation_ref=str(answer_delta.get("delta_ref") or ""),
+            authority_verdict_id=";".join(evidence_refs),
+            state_transition_ref=str(row.get("cold_replay_receipt_ref") or ""),
+            outcome="memory_enabled" if row.get("memory_enabled") is True else "memory_disabled",
+            target_ref=str(row.get("replay_group_id") or ""),
+            input_digest=_stable_digest(
+                {
+                    "observation_id": row.get("observation_id"),
+                    "memory_enabled": row.get("memory_enabled"),
+                    "answer_hash": row.get("answer_hash"),
+                    "cold_replay_receipt_ref": row.get("cold_replay_receipt_ref"),
+                    "evidence_used_refs": row.get("evidence_used_refs"),
+                    "body_in_receipt": row.get("body_in_receipt"),
+                }
+            ),
+            tool_name="memory_temporal_conflict_replay",
+            source_ref="agent_memory_temporal_conflict_replay_bundle",
+        ).as_dict()
+        span["answer_hash"] = row.get("answer_hash")
+        span["answer_delta_ref"] = answer_delta.get("delta_ref")
+        span["evidence_used_refs"] = evidence_refs
+        span["cold_replay_receipt_ref"] = row.get("cold_replay_receipt_ref")
+        span["body_in_receipt"] = False
+        spans.append(span)
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    event_spans = [
+        span for span in spans if span["action_kind"] == "memory_temporal_conflict_event"
+    ]
+    replay_spans = [
+        span
+        for span in spans
+        if span["action_kind"] == "memory_temporal_conflict_cold_replay"
+    ]
+    coverage = {
+        "memory_event_evidence_handle_coverage": len(event_spans)
+        == sum(1 for span in event_spans if span["observation_ref"]),
+        "metadata_only_private_thread_ref_coverage": len(event_spans)
+        == sum(1 for span in event_spans if span.get("metadata_only_ref") is True),
+        "no_private_memory_body_coverage": all(
+            span.get("body_exported") is False for span in event_spans
+        ),
+        "cold_replay_receipt_coverage": len(replay_spans)
+        == sum(1 for span in replay_spans if span["state_transition_ref"]),
+        "answer_delta_coverage": len(replay_spans)
+        == sum(1 for span in replay_spans if span.get("answer_delta_ref")),
+        "memory_enabled_evidence_coverage": all(
+            span.get("evidence_used_refs")
+            for span in replay_spans
+            if span["outcome"] == "memory_enabled"
+        ),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "metadata_only_private_refs",
+                "cold_replay_receipt_refs",
+            ],
+            "omitted_live_material": [
+                "private thread bodies",
+                "private memory candidate bodies",
+                "raw answer bodies",
+                "active injection text",
+                "provider payload bodies",
+                "live user memory values",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -801,6 +1122,9 @@ def build_parser() -> argparse.ArgumentParser:
     research_replication = subparsers.add_parser("research-replication")
     research_replication.add_argument("--input", required=True)
     research_replication.add_argument("--pretty", action="store_true")
+    memory_conflict = subparsers.add_parser("memory-conflict")
+    memory_conflict.add_argument("--input", required=True)
+    memory_conflict.add_argument("--pretty", action="store_true")
     return parser
 
 
@@ -818,6 +1142,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if payload["status"] == PASS else 1
     if args.command == "research-replication":
         payload = build_public_research_replication_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "memory-conflict":
+        payload = build_public_memory_conflict_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1

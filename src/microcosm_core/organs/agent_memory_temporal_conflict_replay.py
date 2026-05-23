@@ -6,7 +6,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_memory_conflict_trace,
+)
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -83,7 +86,7 @@ REQUIRED_REPLAY_FIELDS = (
     "answer_hash",
     "cold_replay_receipt_ref",
     "evidence_used_refs",
-    "body_redacted",
+    "body_in_receipt",
 )
 FORBIDDEN_KEYS = (
     "raw_transcript",
@@ -98,7 +101,7 @@ FORBIDDEN_KEYS = (
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "synthetic_agent_memory_temporal_conflict_replay_receipts_only"
+        "public_agent_execution_trace_refactor_over_memory_temporal_conflict_replay_fixture"
     ),
     "live_memory_product_claim_authorized": False,
     "private_transcript_export_authorized": False,
@@ -111,10 +114,12 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Agent memory temporal-conflict replay validates a synthetic three-episode "
+    "Agent memory temporal-conflict replay validates a public three-episode "
     "memory update/replay contract with conflict edges, stale downgrades, "
-    "metadata-only private refs, paired memory-on/off replay, negative cases, "
-    "and receipts. It does not claim live memory product quality, export private "
+    "metadata-only private refs, paired memory-on/off replay, public execution "
+    "trace spans, negative cases, and receipts. Synthetic rows remain fixture "
+    "inputs around that real replay contract. It does not claim live memory "
+    "product quality, export private "
     "transcripts, promote private candidates, treat memory recall as source "
     "authority, adopt active injection, call providers, mutate source, or "
     "authorize release."
@@ -177,7 +182,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -236,7 +241,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    target_refs = _strings(protocol.get("target_refs"))
+    target_symbols = _strings(protocol.get("target_symbols"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    body_import_status = str(protocol.get("body_import_status") or "")
+    body_import_verification = protocol.get("body_import_verification", {})
     copied = _strings(protocol.get("copied"))
     reimplemented = _strings(protocol.get("reimplemented"))
     cleaned = _strings(protocol.get("cleaned"))
@@ -247,14 +256,20 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         or "agent_memory_temporal_conflict_replay_compound"
         not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or body_import_status != "extension_of_existing_public_refactor_landed"
+        or not isinstance(body_import_verification, dict)
+        or body_import_verification.get("verification_mode")
+        != "extension_of_existing_public_refactor"
+        or len(target_refs) < 2
+        or len(target_symbols) < 2
+        or len(public_runtime_refs) < 2
         or not reimplemented
         or not omitted
     ):
         findings.append(
             _finding(
                 "MEMORY_CONFLICT_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Memory conflict replay projection must cite source refs, projection receipts, public replacements, reimplemented pieces, and omissions.",
+                "Memory conflict replay projection must cite source refs, projection receipts, target refs, runtime refs, public trace import verification, reimplemented pieces, and omissions.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -276,7 +291,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "target_refs": target_refs,
+        "target_symbols": target_symbols,
+        "public_runtime_refs": public_runtime_refs,
+        "body_import_status": body_import_status,
+        "body_import_verification": body_import_verification,
         "copied": copied,
         "reimplemented": reimplemented,
         "cleaned": cleaned,
@@ -445,7 +464,7 @@ def _validate_event_row(
         "computed_verdict": "accepted_memory_metadata" if not reasons else "quarantine",
         "reason_codes": sorted(set(reasons)),
         "missing_required_fields": missing,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -539,8 +558,8 @@ def _validate_replay_row(
     missing = [field for field in REQUIRED_REPLAY_FIELDS if field not in row or row.get(field) in ("", None)]
     evidence_refs = _strings(row.get("evidence_used_refs"))
     reasons: list[str] = []
-    if row.get("body_redacted") is not True:
-        reasons.append("body_not_redacted")
+    if row.get("body_in_receipt") is not False:
+        reasons.append("body_in_receipt")
     if row.get("final_answer_only_memory_credit") is True:
         reasons.append("final_answer_only_credit")
         _record(
@@ -567,7 +586,7 @@ def _validate_replay_row(
         "computed_verdict": "accepted_replay_metadata" if not reasons else "quarantine",
         "reason_codes": sorted(set(reasons)),
         "missing_required_fields": missing,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -642,13 +661,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    public_agent_execution_trace = build_public_memory_conflict_trace(input_dir)
 
     negative_payloads = {
         name: payloads[name]
@@ -675,7 +693,8 @@ def _build_result(
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
+        and public_agent_execution_trace["status"] == PASS
         and projection["status"] == PASS
         and memory_policy["status"] == PASS
         and episodes["status"] == PASS
@@ -697,14 +716,19 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
+        "public_agent_execution_trace": public_agent_execution_trace,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "target_refs": projection["target_refs"],
+        "target_symbols": projection["target_symbols"],
+        "public_runtime_refs": projection["public_runtime_refs"],
+        "body_import_status": projection["body_import_status"],
+        "body_import_verification": projection["body_import_verification"],
         "memory_policy_id": memory_policy["policy_id"],
         "allowed_memory_decisions": memory_policy["allowed_memory_decisions"],
         "event_count": episodes["event_count"],
@@ -754,8 +778,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "decision_counts": result["decision_counts"],
         "memory_rows": result["memory_rows"],
         "replay_rows": result["replay_rows"],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_import_status": result["body_import_status"],
+        "body_import_verification": result["body_import_verification"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -810,7 +836,9 @@ def _write_receipts(
         "prompt_adoption_observation_count": result["prompt_adoption_observation_count"],
         "replay_observation_count": result["replay_observation_count"],
         "answer_delta_ref": result["answer_delta_ref"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -825,7 +853,9 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

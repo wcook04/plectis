@@ -1,5 +1,12 @@
 {
-  "authority_ceiling": "synthetic memory conflict replay metadata only; no private transcript export, live memory product claim, active-injection authority, provider call, or release authority",
+  "authority_ceiling": "public agent-execution trace refactor over memory conflict replay metadata; no private transcript export, live memory product claim, active-injection authority, provider call, or release authority",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+    "verification_mode": "extension_of_existing_public_refactor"
+  },
   "cleaned": [
     "private thread refs reduced to metadata ids",
     "answer text reduced to hashes and delta refs",
@@ -22,11 +29,10 @@
     "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json"
   ],
   "protocol_id": "agent_memory_temporal_conflict_public_projection_v1",
-  "public_projection_posture": "synthetic_memory_conflict_receipts_only",
-  "public_replacement_refs": [
-    "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/memory_episodes.json",
-    "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/replay_observations.json",
-    "receipts/first_wave/agent_memory_temporal_conflict_replay/agent_memory_temporal_conflict_replay_validation_receipt.json"
+  "public_projection_posture": "public_agent_execution_trace_refactor_with_negative_fixture_limits",
+  "public_runtime_refs": [
+    "python -m microcosm_core.macro_tools.agent_execution_trace memory-conflict",
+    "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle"
   ],
   "reimplemented": [
     "temporal conflict edge classification as synthetic JSON rows",
@@ -45,5 +51,15 @@
     "codex/doctrine/paper_modules/claude_memory_plane_contract.md",
     "codex/doctrine/paper_modules/memory_injection_tiers.md",
     "tools/meta/observability/operator_thread_memory.py::project_thread_records"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
+    "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/memory_episodes.json",
+    "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/replay_observations.json"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+    "microcosm_core.organs.agent_memory_temporal_conflict_replay::run_memory_bundle"
   ]
 }
