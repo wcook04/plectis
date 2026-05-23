@@ -114,6 +114,15 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert result["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["accepted_count_is_product_progress"] is False
+    assert result["counts_as_real_substrate_progress"] is False
+    assert result["substrate_import_status"] == "runtime_example_not_real_pattern_ledger_import"
+    assert result["real_substrate_progress_count"] == 0
+    assert result["runtime_metadata_only_row_count"] == 2
+    assert result["truth_accounting"]["pattern_row_count"] == 2
+    assert result["truth_accounting"]["runtime_example_bundle"] is True
+    assert result["truth_accounting"]["runtime_metadata_only_row_count"] == 2
+    assert result["truth_accounting"]["real_pattern_ledger_row_count"] == 0
     assert result["public_runtime_refs"] == [
         "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl::public_runtime_pattern_deliverables_registry",
         "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl::public_runtime_source_capsule_provenance",
@@ -124,6 +133,9 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
 
     receipt = json.loads((out_dir / "exported_substrate_bundle_validation_result.json").read_text(encoding="utf-8"))
     assert receipt["input_mode"] == "exported_substrate_bundle"
+    assert receipt["accepted_count_is_product_progress"] is False
+    assert receipt["counts_as_real_substrate_progress"] is False
+    assert receipt["truth_accounting"]["substrate_import_status"] == "runtime_example_not_real_pattern_ledger_import"
     assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
     assert "matched_excerpt" not in json.dumps(receipt, sort_keys=True)
     assert "body" not in _walk_keys(receipt)

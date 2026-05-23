@@ -20,6 +20,7 @@ OMISSION_NAME = "omission_receipt.json"
 REFERENCE_NAME = "reference_capsule_resolver_receipt.json"
 AUTHORITY_CHAIN_NAME = "authority_chain_handle_resolver_receipt.json"
 SUBSTRATE_BUNDLE_RESULT_NAME = "exported_substrate_bundle_validation_result.json"
+RUNTIME_METADATA_ONLY_ANTI_CLAIM_REF = "anti_claim.pattern_binding.runtime_metadata_only"
 
 EXPECTED_NEGATIVE_CASES = {
     "missing_binding_contract_fields": [
@@ -117,6 +118,50 @@ def _source_capsules_by_ref(source_capsules: dict[str, Any]) -> dict[str, dict[s
         if source_ref:
             capsules[source_ref] = row
     return capsules
+
+
+def _substrate_bundle_truth_accounting(
+    manifest: dict[str, Any],
+    accepted_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    bundle_id = str(manifest.get("bundle_id") or "")
+    authority_ceiling = str(manifest.get("authority_ceiling") or "")
+    runtime_example_bundle = (
+        "runtime_example" in bundle_id or "runtime example" in authority_ceiling
+    )
+    runtime_metadata_only_count = sum(
+        1
+        for row in accepted_rows
+        if str(row.get("anti_claim_ref") or "") == RUNTIME_METADATA_ONLY_ANTI_CLAIM_REF
+    )
+    all_rows_metadata_only = (
+        bool(accepted_rows) and runtime_metadata_only_count == len(accepted_rows)
+    )
+    real_pattern_ledger_row_count = (
+        0 if runtime_example_bundle else len(accepted_rows) - runtime_metadata_only_count
+    )
+    counts_as_real_substrate_progress = real_pattern_ledger_row_count > 0 and not all_rows_metadata_only
+    if not accepted_rows:
+        import_status = "no_accepted_pattern_rows"
+    elif not counts_as_real_substrate_progress:
+        import_status = "runtime_example_not_real_pattern_ledger_import"
+    elif runtime_metadata_only_count:
+        import_status = "mixed_runtime_metadata_and_real_pattern_ledger_import"
+    else:
+        import_status = "real_pattern_ledger_import"
+    return {
+        "schema_version": "pattern_binding_substrate_truth_accounting_v1",
+        "accepted_count_is_product_progress": False,
+        "counts_as_real_substrate_progress": counts_as_real_substrate_progress,
+        "substrate_import_status": import_status,
+        "runtime_example_bundle": runtime_example_bundle,
+        "pattern_row_count": len(accepted_rows),
+        "runtime_metadata_only_row_count": runtime_metadata_only_count,
+        "real_pattern_ledger_row_count": real_pattern_ledger_row_count,
+        "anti_claim_refs": sorted(
+            {str(row.get("anti_claim_ref")) for row in accepted_rows if row.get("anti_claim_ref")}
+        ),
+    }
 
 
 def _pattern_source_refs(row: dict[str, Any]) -> list[str]:
@@ -648,6 +693,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
     bundle_id = str(manifest.get("bundle_id") or "pattern_binding_exported_substrate_bundle")
     status = PASS if scan_result["status"] == PASS and not all_findings and accepted_rows else "blocked"
     source_capsule_receipt = _source_capsule_receipt(accepted_rows, bundle["source_capsules"])
+    truth_accounting = _substrate_bundle_truth_accounting(manifest, accepted_rows)
     result = base_receipt(ORGAN_ID, f"{FIXTURE_ID}.exported_substrate_bundle", command=command)
     result.update(
         {
@@ -669,6 +715,12 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "body_in_receipt": False,
             "real_runtime_receipt": status == PASS,
             "synthetic_receipt_standin_allowed": False,
+            "accepted_count_is_product_progress": truth_accounting["accepted_count_is_product_progress"],
+            "counts_as_real_substrate_progress": truth_accounting["counts_as_real_substrate_progress"],
+            "substrate_import_status": truth_accounting["substrate_import_status"],
+            "real_substrate_progress_count": truth_accounting["real_pattern_ledger_row_count"],
+            "runtime_metadata_only_row_count": truth_accounting["runtime_metadata_only_row_count"],
+            "truth_accounting": truth_accounting,
             "public_runtime_refs": _source_capsule_runtime_refs(
                 sorted({ref for row in accepted_rows for ref in _pattern_source_refs(row)}),
                 bundle["source_capsules"],
@@ -686,7 +738,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "reference_capsule_resolution_status": PASS if not reference_result["findings"] else "blocked",
             "anti_claim": (
                 "An exported substrate bundle validates public runtime-shaped metadata. "
-                "It does not expose source bodies or prove release readiness."
+                "It does not inline secret, provider, or operator bodies or prove release readiness."
             ),
         }
     )
