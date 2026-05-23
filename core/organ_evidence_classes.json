@@ -258,8 +258,8 @@
     },
     {
       "organ_id": "agent_sandbox_policy_escape_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied sandbox policy verdict flags are checked for source-available shape"
+      "evidence_class": "algorithmic_projection",
+      "classification_basis": "source-faithful public agent-execution trace refactor computes sandbox-policy spans, pre-execution verdict coverage, side-effect and rollback refs, cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows"
     },
     {
       "organ_id": "indirect_prompt_injection_information_flow_policy_replay",

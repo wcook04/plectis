@@ -108,6 +108,7 @@
   ],
   "organ_id": "agent_sandbox_policy_escape_replay",
   "positive_fixture_count": 7,
+  "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
   "source_refs": [
     "system/lib/agent_execution_trace.py",
     "codex/standards/std_agent_execution_trace.json",

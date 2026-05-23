@@ -100,6 +100,27 @@ def test_truth_floor_flags_fixture_echo_public_refactor_candidate(
     assert evidence["body_in_receipt"] is False
 
 
+def test_truth_floor_flags_sandbox_policy_trace_refactor_candidate(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_truth_floor_tree(tmp_path)
+    _set_evidence_class(
+        public_root,
+        "agent_sandbox_policy_escape_replay",
+        "fixture_echo_smoke",
+    )
+
+    receipt = audit_evidence_truth_floor(public_root)
+
+    candidate = _candidate_by_id(receipt, "agent_sandbox_policy_escape_replay")
+    assert candidate["candidate_classification"] == "source_faithful_refactor_candidate"
+    assert candidate["recommended_evidence_class"] == "algorithmic_projection"
+    evidence = candidate["evidence"]
+    assert evidence["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert evidence["body_import_classification"] == "extension_of_existing_public_refactor"
+    assert evidence["body_in_receipt"] is False
+
+
 def test_current_registry_no_longer_flags_landed_truth_floor_rows() -> None:
     receipt = audit_evidence_truth_floor(MICROCOSM_ROOT)
 
@@ -107,5 +128,6 @@ def test_current_registry_no_longer_flags_landed_truth_floor_rows() -> None:
     candidate_ids = {candidate["organ_id"] for candidate in receipt["candidates"]}
     assert "mechanistic_interpretability_circuit_attribution_replay" not in candidate_ids
     assert "agentic_vulnerability_discovery_patch_proof_replay" not in candidate_ids
+    assert "agent_sandbox_policy_escape_replay" not in candidate_ids
     assert receipt["candidate_count"] == 0
-    assert receipt["inspected_fixture_echo_row_count"] == 6
+    assert receipt["inspected_fixture_echo_row_count"] == 5

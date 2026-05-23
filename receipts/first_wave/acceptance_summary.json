@@ -406,31 +406,31 @@
         "truth_accounting_bucket": "regression_negative_fixture"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied memory decisions and conflict flags are checked for source-available shape",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "agent_memory_temporal_conflict_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied poisoning and quarantine flags are checked for source-available shape",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "bounded public memory-security policy refactor derives quarantine, retrieval-gating, rollback, cold-rerun, and negative-case findings from body-free rows while keeping private memory bodies out",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "sleeper_memory_poisoning_quarantine_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied tool-policy and side-effect flags are checked for source-available shape",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "public agent-execution trace refactor builds body-free MCP tool-authority spans, digests, capability-scope coverage, approval/side-effect ledger refs, rollback and cold-replay coverage, untrusted-output boundary checks, and negative-case denials without live MCP accounts or provider payload bodies",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "mcp_tool_authority_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "validates declared public contract only",
@@ -442,22 +442,22 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied belief-state rewards and verifier feedback labels are checked for source-available shape",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "source-faithful public agent-execution trace refactor checks belief summaries, verifier feedback, process rewards, outcome rewards, reward-hacking traps, and cold replay",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "belief_state_process_reward_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied sandbox policy verdict flags are checked for source-available shape",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "projection mechanics only, not domain correctness",
+        "classification_basis": "source-faithful public agent-execution trace refactor computes sandbox-policy spans, pre-execution verdict coverage, side-effect and rollback refs, cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "algorithmic_projection",
+        "evidence_strength_rank": 3,
         "organ_id": "agent_sandbox_policy_escape_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "source_faithful_refactor"
       },
       {
         "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
@@ -510,28 +510,23 @@
     "copied_non_secret_macro_body_count": 0,
     "delete_or_demote_candidate_count": 0,
     "evidence_class_counts": {
-      "algorithmic_projection": 17,
+      "algorithmic_projection": 22,
       "external_subprocess_witness": 3,
-      "fixture_echo_smoke": 10,
+      "fixture_echo_smoke": 5,
       "semantic_validator": 16
     },
     "legacy_adapter_or_synthetic_placeholder_count": 0,
-    "non_progress_accepted_count": 10,
+    "non_progress_accepted_count": 5,
     "non_progress_organs": [
       "agent_benchmark_integrity_anti_gaming_replay",
       "agent_monitor_redteam_falsification_replay",
       "agent_sabotage_scheming_monitor_replay",
-      "agent_memory_temporal_conflict_replay",
-      "sleeper_memory_poisoning_quarantine_replay",
-      "mcp_tool_authority_replay",
-      "belief_state_process_reward_replay",
-      "agent_sandbox_policy_escape_replay",
       "indirect_prompt_injection_information_flow_policy_replay",
       "materials_chemistry_closed_loop_lab_safety_replay"
     ],
     "real_import_validation_count": 16,
     "real_runtime_receipt_count": 3,
-    "real_substrate_progress_count": 36,
+    "real_substrate_progress_count": 41,
     "real_substrate_progress_organs": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
@@ -565,21 +560,26 @@
       "prediction_oracle_reconciliation",
       "standards_meta_diagnostics",
       "cold_reader_route_map",
+      "agent_memory_temporal_conflict_replay",
+      "sleeper_memory_poisoning_quarantine_replay",
+      "mcp_tool_authority_replay",
       "proof_derived_governed_mutation_authorization",
+      "belief_state_process_reward_replay",
+      "agent_sandbox_policy_escape_replay",
       "agentic_vulnerability_discovery_patch_proof_replay",
       "certificate_kernel_execution_lab",
       "voice_to_doctrine_self_improvement_loop"
     ],
-    "regression_negative_fixture_count": 10,
+    "regression_negative_fixture_count": 5,
     "schema_version": "microcosm_acceptance_truth_accounting_v1",
     "secret_exclusion_count": 0,
-    "source_faithful_refactor_count": 17,
+    "source_faithful_refactor_count": 22,
     "source_ref": "core/organ_evidence_classes.json",
     "truth_accounting_bucket_counts": {
       "real_import_validation": 16,
       "real_runtime_receipt": 3,
-      "regression_negative_fixture": 10,
-      "source_faithful_refactor": 17
+      "regression_negative_fixture": 5,
+      "source_faithful_refactor": 22
     }
   }
 }

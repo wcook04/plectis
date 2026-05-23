@@ -1,10 +1,10 @@
 {
-  "anti_claim": "This fixture validates public synthetic sandbox policy-escape replay metadata only; it does not authorize live sandbox escape, live secret handling, live network access, host filesystem mutation, executable payload export, raw environment export, provider calls, security benchmark claims, source mutation, or release.",
+  "anti_claim": "This organ validates a source-faithful public agent-execution trace refactor over sandbox policy replay rows plus synthetic regression inputs; it does not authorize live sandbox escape, live secret handling, live network access, host filesystem mutation, executable payload export, raw environment export, provider calls, security benchmark claims, source mutation, or release.",
   "anti_claim_contract": {
     "required": true,
     "rule": "Sandbox policy-escape material must state that synthetic replay receipts are not live security, exploit, network, provider, benchmark, source-mutation, or release authority"
   },
-  "authority_boundary": "synthetic_agent_sandbox_policy_escape_replay_not_live_escape_secret_network_or_benchmark_authority",
+  "authority_boundary": "public_agent_execution_trace_refactor_not_live_escape_secret_network_or_benchmark_authority",
   "authority_ceiling": {
     "executable_payload_export_authority": false,
     "host_filesystem_mutation_authority": false,
@@ -16,7 +16,7 @@
     "release_authority": false,
     "security_benchmark_claim_authority": false,
     "source_mutation_authority": false,
-    "standard_authority": "synthetic_sandbox_policy_escape_replay_schema_only",
+    "standard_authority": "source_faithful_public_agent_execution_trace_refactor_over_sandbox_policy_rows",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -33,7 +33,7 @@
       "provider payloads",
       "security benchmark score claims"
     ],
-    "reason": "public slice carries synthetic sandbox policy metadata and redacted receipt evidence only"
+    "reason": "public slice carries source-faithful trace-refactor mechanics over body-free sandbox policy rows and keeps secret/live-access material out"
   },
   "paper_module_contract": {
     "module_slug": "agent_sandbox_policy_escape_replay",
@@ -49,7 +49,7 @@
       "cold replay refs",
       "negative case ids"
     ],
-    "default_posture": "public_safe_when_synthetic_sandbox_policy_receipts_only",
+    "default_posture": "public_safe_when_source_faithful_trace_refactor_uses_body_free_sandbox_policy_rows",
     "forbidden_public_inputs": [
       "real secrets or credentials",
       "live network targets",
@@ -69,7 +69,9 @@
       "blocked_without_execution_count",
       "rollback_verified_count",
       "cold_replay_pass_count",
-      "private_state_scan",
+      "secret_exclusion_scan",
+      "public_agent_execution_trace",
+      "body_import_verification",
       "authority_ceiling",
       "anti_claim",
       "negative_case_coverage"
@@ -116,9 +118,9 @@
       "role": "public_fixture_source"
     },
     {
-      "field": "runtime_example",
+      "field": "public_trace_refactor_bundle",
       "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
-      "role": "runtime_example_source"
+      "role": "source_faithful_public_refactor_input"
     }
   ],
   "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
@@ -144,7 +146,7 @@
       "executable_escape_payload",
       "security_benchmark_claim"
     ],
-    "ontology": "A public-safe sandbox policy-escape replay: synthetic action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, and authority ceilings.",
+    "ontology": "A public-safe sandbox policy-escape replay: source-faithful public agent-execution trace spans over action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, and authority ceilings.",
     "rebuild_action": "draft",
     "teleology": "Make Microcosm show how agent sandbox/security claims are admitted only when containment policy, diffs, rollback, negative cases, receipts, and ceilings align."
   },

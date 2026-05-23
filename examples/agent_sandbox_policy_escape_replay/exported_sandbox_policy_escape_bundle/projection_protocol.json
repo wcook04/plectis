@@ -3,7 +3,11 @@
   "authorizes_sandbox_escape": false,
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
+    "body_import_classification": "extension_of_existing_public_refactor",
+    "body_in_receipt": false,
+    "classification": "extension_of_existing_public_refactor",
     "source_ref": "system/lib/agent_execution_trace.py",
+    "status": "pass",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "validation_refs": [
       "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py"

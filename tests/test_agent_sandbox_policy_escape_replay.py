@@ -74,6 +74,18 @@ def test_agent_sandbox_policy_escape_replay_observes_negative_cases(
     assert result["authority_ceiling"]["live_network_access_authorized"] is False
     assert result["authority_ceiling"]["host_filesystem_mutation_authorized"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"
+    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert (
+        result["body_import_classification"]
+        == "extension_of_existing_public_refactor"
+    )
+    assert result["product_path_role"] == (
+        "source_faithful_public_agent_execution_trace_refactor"
+    )
+    assert result["body_in_receipt"] is False
+    assert result["body_import_verification"]["classification"] == (
+        "extension_of_existing_public_refactor"
+    )
     assert result["public_agent_execution_trace"]["status"] == "pass"
     assert result["public_agent_execution_trace"]["span_count"] == 6
     assert result["public_agent_execution_trace"]["summary"]["outcome_counts"] == {
@@ -133,7 +145,10 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_sandbox_policy_escape_bundle"
-    assert result["bundle_id"] == "agent_sandbox_policy_escape_replay_runtime_example"
+    assert (
+        result["bundle_id"]
+        == "agent_sandbox_policy_escape_replay_public_trace_refactor_bundle"
+    )
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
@@ -147,6 +162,16 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
     assert result["body_import_verification"]["verification_mode"] == (
         "extension_of_existing_public_refactor"
     )
+    assert result["body_import_verification"]["classification"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert result["body_import_verification"]["status"] == "pass"
+    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert (
+        result["body_import_classification"]
+        == "extension_of_existing_public_refactor"
+    )
+    assert result["body_in_receipt"] is False
     assert (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
         in result["target_refs"]
@@ -164,7 +189,10 @@ def test_public_agent_execution_trace_refactor_builds_sandbox_policy_spans() -> 
     trace = build_public_sandbox_policy_trace(BUNDLE_INPUT)
 
     assert trace["status"] == "pass"
-    assert trace["bundle_id"] == "agent_sandbox_policy_escape_replay_runtime_example"
+    assert (
+        trace["bundle_id"]
+        == "agent_sandbox_policy_escape_replay_public_trace_refactor_bundle"
+    )
     assert trace["span_count"] == 6
     assert trace["summary"]["action_kind_counts"] == {
         "environment_secret_read": 1,
@@ -193,6 +221,10 @@ def test_agent_sandbox_policy_fixture_manifests_bind_public_trace_refactor() -> 
         assert (
             manifest["body_import_status"]
             == "extension_of_existing_public_refactor_landed"
+        )
+        assert (
+            manifest["product_path_role"]
+            == "source_faithful_public_agent_execution_trace_refactor"
         )
         assert manifest["body_in_receipt"] is False
         assert manifest["body_import_verification"] == {

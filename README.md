@@ -637,9 +637,9 @@ scare-story claims without claiming live sabotage detection, monitor product
 performance, provider execution, source mutation, or release authority.
 
 `agent_sandbox_policy_escape_replay` is the sandbox policy boundary: it
-validates synthetic action requests, pre-execution policy verdicts, side-effect
-diff receipts, rollback receipts, and cold replay refs before sandbox/security
-language is admitted. Run `microcosm
+computes public `agent_execution_trace` spans from body-free action requests,
+pre-execution policy verdicts, side-effect diff receipts, rollback receipts,
+and cold replay refs before sandbox/security language is admitted. Run `microcosm
 agent-sandbox-policy-escape-replay run-sandbox-bundle` to inspect the exported
 bundle. The organ rejects real secret material, live network access, raw
 environment export, policy after execution, unlogged side effects, tool-output

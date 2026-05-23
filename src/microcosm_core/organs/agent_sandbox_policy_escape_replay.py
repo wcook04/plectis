@@ -28,6 +28,9 @@ ACCEPTANCE_RECEIPT_REL = (
     "agent_sandbox_policy_escape_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_sandbox_policy_escape_bundle_validation_result.json"
+BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
+BODY_IMPORT_CLASSIFICATION = "extension_of_existing_public_refactor"
+PRODUCT_PATH_ROLE = "source_faithful_public_agent_execution_trace_refactor"
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -250,9 +253,12 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
     target_refs = _strings(protocol.get("target_refs"))
+    target_symbols = _strings(protocol.get("target_symbols"))
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     omitted = _strings(protocol.get("omitted_secret_or_live_access_material"))
     body_import = protocol.get("body_import_verification", {})
+    if not isinstance(body_import, dict):
+        body_import = {}
     findings: list[dict[str, Any]] = []
     if (
         len(source_refs) < 4
@@ -264,8 +270,12 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         not in target_refs
         or len(public_runtime_refs) < 1
         or len(omitted) < 6
-        or not isinstance(body_import, dict)
-        or body_import.get("verification_mode") != "extension_of_existing_public_refactor"
+        or not any(ref.endswith("build_public_sandbox_policy_trace") for ref in target_symbols)
+        or protocol.get("body_import_status") != BODY_IMPORT_STATUS
+        or body_import.get("verification_mode") != BODY_IMPORT_CLASSIFICATION
+        or body_import.get("verification_status") != "verified"
+        or body_import.get("body_import_classification") != BODY_IMPORT_CLASSIFICATION
+        or protocol.get("body_in_receipt") is not False
     ):
         findings.append(
             _finding(
@@ -300,7 +310,9 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
         "target_refs": target_refs,
+        "target_symbols": target_symbols,
         "public_runtime_refs": public_runtime_refs,
+        "body_import_status": protocol.get("body_import_status"),
         "body_import_verification": body_import if isinstance(body_import, dict) else {},
         "omitted_secret_or_live_access_material": omitted,
         "findings": findings,
@@ -817,6 +829,31 @@ def _build_result(
         and all(value == PASS for value in positive_statuses)
         else "blocked"
     )
+    body_import_verification = {
+        "status": PASS,
+        "classification": BODY_IMPORT_CLASSIFICATION,
+        "verification_status": "verified",
+        "verification_mode": BODY_IMPORT_CLASSIFICATION,
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "public_trace_status": public_trace["status"],
+        "public_trace_span_count": public_trace["span_count"],
+        "trace_digest": public_trace["summary"]["trace_digest"],
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": (
+            "microcosm-substrate/src/microcosm_core/macro_tools/"
+            "agent_execution_trace.py::build_public_sandbox_policy_trace"
+        ),
+        "source_symbols": public_trace["source_symbols"],
+        "target_symbols": public_trace["target_symbols"],
+        "validation_refs": [
+            "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py",
+            (
+                "python -m microcosm_core.macro_tools.agent_execution_trace "
+                "sandbox-policy --input <bundle>"
+            ),
+        ],
+        "body_in_receipt": False,
+    }
     return {
         "schema_version": "agent_sandbox_policy_escape_replay_result_v1",
         "created_at": utc_now(),
@@ -835,13 +872,18 @@ def _build_result(
         "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_import_status": BODY_IMPORT_STATUS,
+        "body_import_classification": BODY_IMPORT_CLASSIFICATION,
+        "product_path_role": PRODUCT_PATH_ROLE,
+        "body_import_verification": body_import_verification,
+        "body_in_receipt": False,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "target_refs": projection["target_refs"],
+        "target_symbols": projection["target_symbols"],
         "public_runtime_refs": projection["public_runtime_refs"],
-        "body_import_verification": projection["body_import_verification"],
         "omitted_secret_or_live_access_material": projection[
             "omitted_secret_or_live_access_material"
         ],
@@ -906,6 +948,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "cold_replay_rows": result["cold_replay_rows"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "product_path_role": result["product_path_role"],
+        "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -959,6 +1006,11 @@ def _write_receipts(
         "rollback_verified_count": result["rollback_verified_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -974,6 +1026,11 @@ def _write_receipts(
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "body_import_status": result["body_import_status"],
+        "body_import_classification": result["body_import_classification"],
+        "body_import_verification": result["body_import_verification"],
+        "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

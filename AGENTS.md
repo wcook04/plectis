@@ -287,9 +287,10 @@ imported macro body.
    release authority.
    The `agent_sandbox_policy_escape_replay` organ is the runnable public
    sandbox/security policy lane: use `agent-sandbox-policy-escape-replay` or
-   `replay-gauntlet` to validate action requests, pre-execution policy
-   verdicts, side-effect diffs, rollback receipts, cold replay receipts, and
-   negative cases before sandbox-security language is admitted. It must not
+   `replay-gauntlet` to compute public `agent_execution_trace` spans from
+   action requests, pre-execution policy verdicts, side-effect diffs, rollback
+   receipts, cold replay receipts, and negative cases before sandbox-security
+   language is admitted. It must not
    export real secrets, live network targets, raw environments, host filesystem
    paths, executable escape payloads, provider payloads, security benchmark
    claims, source mutation, or release authority.

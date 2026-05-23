@@ -1,8 +1,10 @@
 {
-  "authority_ceiling": "public_agent_execution_trace_refactor_over_synthetic_sandbox_policy_fixture",
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_sandbox_policy_fixture_regression_inputs",
+  "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_in_receipt": false,
-  "bundle_id": "agent_sandbox_policy_escape_replay_runtime_example",
+  "bundle_id": "agent_sandbox_policy_escape_replay_public_trace_refactor_bundle",
   "input_mode": "exported_sandbox_policy_escape_bundle",
-  "organ_id": "agent_sandbox_policy_escape_replay"
+  "organ_id": "agent_sandbox_policy_escape_replay",
+  "product_path_role": "source_faithful_public_agent_execution_trace_refactor"
 }
