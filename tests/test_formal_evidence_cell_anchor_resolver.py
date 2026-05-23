@@ -54,8 +54,36 @@ def test_formal_evidence_cell_anchor_resolver_observes_negative_cases(
     assert result["resolved_cell_count"] == 3
     assert result["unresolved_cell_count"] == 0
     assert result["evidence_cell_count"] == 3
-    assert result["source_anchor_count"] == 6
+    assert result["source_anchor_count"] == 8
     assert result["machine_anchor_count"] == 3
+    assert result["evidence_anchor_status"] == (
+        "real_ring2_verifier_trace_repair_receipt_refs"
+    )
+    assert (
+        result["source_digests"][
+            "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+            "premise_retrieval_graph_v0/failure_taxonomy_report.json"
+        ]
+        == "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af"
+    )
+    assert any(
+        "formal_math_verifier_trace_repair_loop_result.json" in ref
+        for ref in result["projection_receipt_refs"]
+    )
+    verifier_row = next(
+        row
+        for row in result["claim_resolution_rows"]
+        if row["claim_id"] == "claim.verifier_trace_has_runtime_receipt_anchor"
+    )
+    assert verifier_row["claim_strength"] == "ring2_failure_taxonomy_anchor_present"
+    assert verifier_row["machine_anchor_class"] == (
+        "real_ring2_verifier_trace_repair_receipt"
+    )
+    assert any(
+        "formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+        in ref
+        for ref in verifier_row["source_anchor_refs"]
+    )
     assert result["authority_ceiling"]["theorem_correctness_authority"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -126,6 +154,16 @@ def test_formal_evidence_cell_anchor_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["claim_count"] == 2
-    assert result["resolved_cell_count"] == 2
+    assert result["claim_count"] == 3
+    assert result["resolved_cell_count"] == 3
+    assert result["evidence_cell_count"] == 3
+    assert result["source_anchor_count"] == 5
+    assert result["evidence_anchor_status"] == (
+        "real_ring2_verifier_trace_repair_receipt_refs"
+    )
+    assert any(
+        "formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+        in ref
+        for ref in result["projection_receipt_refs"]
+    )
     assert result["authority_ceiling"]["theorem_correctness_authority"] is False

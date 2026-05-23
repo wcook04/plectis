@@ -10,6 +10,13 @@
       "uses_proof_language": true
     },
     {
+      "claim_id": "claim.public_runtime_verifier_trace_has_ring2_receipt_anchor",
+      "paper_module_slug": "formal_evidence_cell_anchor_resolver",
+      "evidence_cell_id": "cell.verifier_trace.runtime_receipt",
+      "claim_strength": "ring2_failure_taxonomy_anchor_present",
+      "uses_proof_language": false
+    },
+    {
       "claim_id": "claim.public_runtime_boundary_policy_blocks_theorem_correctness",
       "paper_module_slug": "formal_evidence_cell_anchor_resolver",
       "evidence_cell_id": "cell.claim_boundary.policy",

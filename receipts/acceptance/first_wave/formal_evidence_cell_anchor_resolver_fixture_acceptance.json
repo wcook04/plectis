@@ -22,7 +22,7 @@
     "theorem_correctness_authority": false
   },
   "body_in_receipt": false,
-  "created_at": "2026-05-23T05:17:16+00:00",
+  "created_at": "2026-05-23T05:35:42+00:00",
   "error_codes": [
     "EVIDENCE_CELL_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY",
     "EVIDENCE_CELL_MISSING_SOURCE_ANCHOR",
@@ -40,7 +40,7 @@
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
   ],
   "schema_version": "formal_evidence_cell_anchor_resolver_fixture_acceptance_v1",
   "secret_exclusion_scan": {

@@ -13,7 +13,7 @@
     "theorem_correctness_authority": false
   },
   "body_in_receipt": false,
-  "boundary_rule_count": 4,
+  "boundary_rule_count": 5,
   "bundle_id": null,
   "claim_count": 3,
   "claim_resolution_rows": [
@@ -48,14 +48,16 @@
     {
       "body_in_receipt": false,
       "claim_id": "claim.verifier_trace_has_runtime_receipt_anchor",
-      "claim_strength": "repair_trace_metadata_present",
+      "claim_strength": "ring2_failure_taxonomy_anchor_present",
       "evidence_cell_id": "cell.verifier_trace.runtime_receipt",
-      "machine_anchor_class": "runtime_verifier_trace_receipt",
+      "machine_anchor_class": "real_ring2_verifier_trace_repair_receipt",
       "paper_module_slug": "formal_evidence_cell_anchor_resolver",
       "resolution_status": "resolved",
       "source_anchor_refs": [
         "paper_modules/formal_math_verifier_trace_repair_loop.md::trace_grade_boundary",
-        "receipts/runtime_shell/public_verifier_trace_repair_lens.json::runtime_trace"
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json::copied_material",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json::failure_classes"
       ],
       "uses_proof_language": false
     }
@@ -84,10 +86,16 @@
       "claim_authority": "trace_metadata_not_proof_correctness",
       "requires_evidence_cell": true,
       "strength_id": "repair_trace_metadata_present"
+    },
+    {
+      "body_in_receipt": false,
+      "claim_authority": "real_ring2_failure_taxonomy_metadata_not_proof_correctness",
+      "requires_evidence_cell": true,
+      "strength_id": "ring2_failure_taxonomy_anchor_present"
     }
   ],
   "command": "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input microcosm-substrate/fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver",
-  "created_at": "2026-05-23T05:17:16+00:00",
+  "created_at": "2026-05-23T05:35:42+00:00",
   "error_codes": [
     "EVIDENCE_CELL_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY",
     "EVIDENCE_CELL_MISSING_SOURCE_ANCHOR",
@@ -97,6 +105,7 @@
     "EVIDENCE_CELL_THEOREM_CORRECTNESS_OVERCLAIM",
     "EVIDENCE_CELL_UNKNOWN_OVERCLAIM"
   ],
+  "evidence_anchor_status": "real_ring2_verifier_trace_repair_receipt_refs",
   "evidence_cell_count": 3,
   "evidence_cells": [
     {
@@ -130,15 +139,18 @@
     {
       "allowed_claim_strengths": [
         "formal_evidence_cell_present",
-        "repair_trace_metadata_present"
+        "repair_trace_metadata_present",
+        "ring2_failure_taxonomy_anchor_present"
       ],
       "body_in_receipt": false,
       "cell_id": "cell.verifier_trace.runtime_receipt",
-      "machine_anchor_class": "runtime_verifier_trace_receipt",
-      "public_status": "public_fixture_anchor_only",
+      "machine_anchor_class": "real_ring2_verifier_trace_repair_receipt",
+      "public_status": "real_ring2_runtime_receipt_anchor",
       "source_anchor_refs": [
         "paper_modules/formal_math_verifier_trace_repair_loop.md::trace_grade_boundary",
-        "receipts/runtime_shell/public_verifier_trace_repair_lens.json::runtime_trace"
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json::copied_material",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json::failure_classes"
       ]
     }
   ],
@@ -238,14 +250,19 @@
   },
   "organ_id": "formal_evidence_cell_anchor_resolver",
   "projection_receipt_refs": [
-    "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
-    "receipts/runtime_shell/public_proof_loop_depth_lens.json"
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+    "receipts/runtime_shell/public_formal_evidence_cell_lens.json"
   ],
   "proof_language_requires_machine_anchor": true,
   "protocol_id": "formal_evidence_cell_anchor_projection_public_fixture",
   "public_runtime_refs": [
     "src/microcosm_core/organs/formal_evidence_cell_anchor_resolver.py",
     "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/paper_claims.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
     "paper_modules/formal_evidence_cell_anchor_resolver.md",
     "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json"
   ],
@@ -254,7 +271,7 @@
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_result.json",
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
     "microcosm-substrate/receipts/first_wave/formal_evidence_cell_anchor_resolver/formal_evidence_cell_anchor_resolver_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
+    "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
   ],
   "resolved_cell_count": 3,
   "schema_version": "formal_evidence_cell_anchor_resolver_result_receipt_v1",
@@ -274,7 +291,15 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_anchor_count": 6,
+  "source_anchor_count": 8,
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+  },
   "source_pattern_ids": [
     "formal_evidence_cell_anchor_resolver",
     "formal_math_verifier_trace_repair_loop_compound",
@@ -284,7 +309,16 @@
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_evidence_cell_anchor_resolver",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::formal_math",
     "codex/doctrine/paper_modules/navigation_rosetta_math.md::formal_evidence_cells",
-    "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_MICROCOSM_PATTERN_KERNEL_STABILITY_SEED.md::proof_boundary"
+    "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_MICROCOSM_PATTERN_KERNEL_STABILITY_SEED.md::proof_boundary",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json"
   ],
   "status": "pass",
   "synthetic_receipt_standin_allowed": false,

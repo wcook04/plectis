@@ -17,6 +17,16 @@
       "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+      "field": "ring2_verifier_trace_repair_result",
+      "role": "real_ring2_receipt_anchor_source"
+    },
+    {
+      "path": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "field": "ring2_failure_taxonomy",
+      "role": "real_ring2_macro_source"
     }
   ],
   "relationships": {
@@ -32,7 +42,9 @@
   },
   "required_fields": [
     "protocol_id",
+    "evidence_anchor_status",
     "source_refs",
+    "source_digests",
     "source_pattern_ids",
     "projection_receipt_refs",
     "public_runtime_refs",
@@ -56,7 +68,7 @@
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_evidence_cell_anchor_resolver",
-    "receipt must cite source refs, source pattern ids, projection receipts, public runtime refs, claim counts, resolved cell counts, source-anchor counts, negative-case coverage, secret-exclusion scan, body-in-receipt policy, real-runtime receipt status, synthetic standin refusal, and anti-claim"
+    "receipt must cite evidence-anchor status, source refs, source digests, source pattern ids, projection receipts, public runtime refs, claim counts, resolved cell counts, source-anchor counts, negative-case coverage, secret-exclusion scan, body-in-receipt policy, real-runtime receipt status, standin refusal, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -78,8 +90,10 @@
     "receipt_id": "receipt.microcosm.formal_evidence_cell_anchor_resolver",
     "must_record": [
       "protocol_id",
+      "evidence_anchor_status",
       "source_pattern_ids",
       "source_refs",
+      "source_digests",
       "projection_receipt_refs",
       "public_runtime_refs",
       "claim_count",
@@ -102,6 +116,7 @@
       "paper module slugs",
       "evidence cell ids",
       "source-anchor refs",
+      "source digest refs",
       "machine-anchor classes",
       "claim-strength ids",
       "projection receipt refs"
@@ -118,7 +133,7 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "evidence_cell_anchor_metadata_fixture_receipt_schema_only",
+    "standard_authority": "evidence_cell_anchor_metadata_real_ring2_receipt_schema",
     "formal_proof_authority": false,
     "theorem_correctness_authority": false,
     "lean_lake_authority": false,
@@ -128,7 +143,7 @@
   },
   "anti_claim": "This standard governs real runtime evidence-cell anchor receipts; it does not prove theorem correctness, authorize Lean/Lake execution, expose non-receipt proof bodies or credential-equivalent private source refs, treat human approval as proof authority, or authorize release/publication work.",
   "standard_payload": {
-    "ontology": "A public-safe evidence-cell anchor resolver: paper claims, evidence cells, source anchors, machine-anchor classes, claim-strength boundaries, receipts, and leakage negative cases.",
+    "ontology": "A public-safe evidence-cell anchor resolver: paper claims, evidence cells, real Ring2 source anchors, machine-anchor classes, claim-strength boundaries, receipts, and leakage negative cases.",
     "teleology": "Make Microcosm demonstrate proof-evidence legibility while preserving the boundary between evidence metadata and theorem correctness.",
     "anti_purpose": "Turning evidence-cell metadata into proof authority.",
     "compression_bands": [
@@ -168,7 +183,7 @@
       "provider payload bodies",
       "Lean/Lake execution receipts"
     ],
-    "reason": "this organ carries real evidence-cell anchor receipts; excluded material is limited to non-receipt proof bodies, credential-equivalent private refs, provider payloads, and execution receipts owned by other organs",
+    "reason": "this organ carries real evidence-cell anchor receipts backed by Ring2 verifier-trace repair receipts; excluded material is limited to non-receipt proof bodies, credential-equivalent private refs, provider payloads, and execution receipts owned by other organs",
     "drilldown": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json"
   },
   "anti_claim_contract": {
@@ -177,6 +192,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs and public runtime refs stay public-root relative; synthetic standins are not acceptable positive evidence"
+    "rule": "macro source refs and public runtime refs stay public-root relative; positive evidence must use real non-secret macro or receipt refs, while standins are regression-only"
   }
 }

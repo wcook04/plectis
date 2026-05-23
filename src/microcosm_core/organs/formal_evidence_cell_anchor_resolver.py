@@ -212,7 +212,18 @@ def _private_ref_present(row: dict[str, Any]) -> bool:
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     protocol = payload if isinstance(payload, dict) else {}
+    evidence_anchor_status = str(protocol.get("evidence_anchor_status") or "")
     source_refs = _strings(protocol.get("source_refs"))
+    source_digests_payload = protocol.get("source_digests", {})
+    source_digests = (
+        {
+            str(key): str(value)
+            for key, value in sorted(source_digests_payload.items())
+            if key and isinstance(value, str) and value
+        }
+        if isinstance(source_digests_payload, dict)
+        else {}
+    )
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
@@ -248,7 +259,9 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         and not findings
         else "blocked",
         "protocol_id": protocol.get("protocol_id"),
+        "evidence_anchor_status": evidence_anchor_status,
         "source_refs": source_refs,
+        "source_digests": source_digests,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
         "public_runtime_refs": public_runtime_refs,
@@ -596,7 +609,9 @@ def _build_result(
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
+        "evidence_anchor_status": projection["evidence_anchor_status"],
         "source_refs": projection["source_refs"],
+        "source_digests": projection["source_digests"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "public_runtime_refs": projection["public_runtime_refs"],
@@ -623,7 +638,12 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "organ_id": ORGAN_ID,
         "board_id": "formal_evidence_cell_anchor_resolver_public_board",
         "input_mode": result["input_mode"],
+        "evidence_anchor_status": result["evidence_anchor_status"],
+        "source_refs": result["source_refs"],
+        "source_digests": result["source_digests"],
         "source_pattern_ids": result["source_pattern_ids"],
+        "projection_receipt_refs": result["projection_receipt_refs"],
+        "public_runtime_refs": result["public_runtime_refs"],
         "mechanics": [
             {
                 "mechanic_id": "claim_to_cell_resolution",
@@ -699,6 +719,11 @@ def _write_receipts(
             "observed": result["observed_negative_cases"],
             "missing": result["missing_negative_cases"],
         },
+        "evidence_anchor_status": result["evidence_anchor_status"],
+        "source_refs": result["source_refs"],
+        "source_digests": result["source_digests"],
+        "projection_receipt_refs": result["projection_receipt_refs"],
+        "public_runtime_refs": result["public_runtime_refs"],
         "claim_count": result["claim_count"],
         "resolved_cell_count": result["resolved_cell_count"],
         "source_anchor_count": result["source_anchor_count"],

@@ -15,6 +15,21 @@
       "public_status": "public_runtime_example_anchor_only"
     },
     {
+      "cell_id": "cell.verifier_trace.runtime_receipt",
+      "source_anchor_refs": [
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json::copied_material",
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json::failure_mode_ledger",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json::failure_classes"
+      ],
+      "machine_anchor_class": "real_ring2_verifier_trace_repair_receipt",
+      "allowed_claim_strengths": [
+        "formal_evidence_cell_present",
+        "repair_trace_metadata_present",
+        "ring2_failure_taxonomy_anchor_present"
+      ],
+      "public_status": "real_ring2_runtime_receipt_anchor"
+    },
+    {
       "cell_id": "cell.claim_boundary.policy",
       "source_anchor_refs": [
         "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json::claim_boundary_policy"

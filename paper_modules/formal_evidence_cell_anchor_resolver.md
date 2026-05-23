@@ -2,15 +2,17 @@
 
 `formal_evidence_cell_anchor_resolver` makes Microcosm's formal-math evidence
 claims inspectable without turning receipt summaries into proof authority. It
-resolves fixture-backed paper-module claims to evidence-cell ids,
-checks source-anchor refs, records machine-anchor classes, and enforces a claim
-strength boundary before any proof-language claim can pass.
+resolves paper-module claims to evidence-cell ids, checks source-anchor refs,
+records machine-anchor classes, and enforces a claim-strength boundary before
+any proof-language claim can pass. Its formal-math trace cell now anchors the
+real Ring2 verifier-trace repair receipts rather than a generic public lens.
 
 It is not a theorem prover. It does not execute Lean or Lake, expose proof
 bodies, expose private source refs, call providers, or claim theorem
 correctness. It emits real runtime receipts over the imported evidence-cell
-substrate and uses secret-exclusion scanning only for credential-equivalent or
-non-receipt body payloads.
+substrate, carries digest-bearing Ring2 failure-taxonomy and graph-update
+source refs, and uses secret-exclusion scanning only for credential-equivalent
+or non-receipt body payloads.
 
 ## Runtime
 
@@ -28,6 +30,9 @@ non-receipt body payloads.
 - Claim strength is bounded by the resolved cell.
 - Secret, credential-equivalent, or non-receipt body payloads must have explicit
   exclusion receipts.
+- The verifier-trace cell is anchored to the first-wave
+  `formal_math_verifier_trace_repair_loop` result, board, validation receipt,
+  and Ring2 failure-taxonomy source digest.
 
 ## What It Refuses
 

@@ -13,7 +13,7 @@
       "claim_id": "claim.verifier_trace_has_runtime_receipt_anchor",
       "paper_module_slug": "formal_evidence_cell_anchor_resolver",
       "evidence_cell_id": "cell.verifier_trace.runtime_receipt",
-      "claim_strength": "repair_trace_metadata_present",
+      "claim_strength": "ring2_failure_taxonomy_anchor_present",
       "uses_proof_language": false
     },
     {

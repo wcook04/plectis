@@ -18,6 +18,11 @@
       "strength_id": "claim_boundary_policy_present",
       "requires_evidence_cell": true,
       "claim_authority": "policy_shape_not_formal_truth"
+    },
+    {
+      "strength_id": "ring2_failure_taxonomy_anchor_present",
+      "requires_evidence_cell": true,
+      "claim_authority": "real_ring2_failure_taxonomy_metadata_not_proof_correctness"
     }
   ]
 }

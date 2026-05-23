@@ -23,6 +23,11 @@
       "strength_id": "repair_trace_metadata_present",
       "requires_evidence_cell": true,
       "claim_authority": "trace_metadata_not_proof_correctness"
+    },
+    {
+      "strength_id": "ring2_failure_taxonomy_anchor_present",
+      "requires_evidence_cell": true,
+      "claim_authority": "real_ring2_failure_taxonomy_metadata_not_proof_correctness"
     }
   ]
 }

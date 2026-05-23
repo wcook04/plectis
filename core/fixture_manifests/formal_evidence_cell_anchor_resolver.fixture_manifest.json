@@ -6,15 +6,15 @@
   "inputs": [
     {
       "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/projection_protocol.json",
-      "role": "macro-to-public projection protocol with omission receipts"
+      "role": "macro-to-public projection protocol with real Ring2 verifier-trace repair receipt anchors and secret-exclusion receipts"
     },
     {
       "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/paper_claims.json",
-      "role": "positive toy paper claims with resolved evidence cell ids"
+      "role": "positive paper claims with resolved evidence cell ids anchored to real Ring2 verifier-trace repair receipts"
     },
     {
       "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/evidence_cell_registry.json",
-      "role": "public evidence cell registry with machine-anchor metadata"
+      "role": "public evidence cell registry with machine-anchor metadata and real Ring2 receipt refs"
     },
     {
       "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/claim_boundary_policy.json",
@@ -75,6 +75,6 @@
     "EVIDENCE_CELL_THEOREM_CORRECTNESS_OVERCLAIM",
     "EVIDENCE_CELL_HUMAN_APPROVAL_NOT_PROOF_AUTHORITY"
   ],
-  "authority_ceiling": "public evidence-cell anchor metadata only; not theorem correctness, Lean/Lake execution, proof bodies, private source refs, human proof authority, provider authority, or release readiness",
-  "anti_claim": "This fixture validates public evidence-cell claim-boundary metadata, source-anchor refs, and leakage negative cases only; it does not prove theorem correctness, expose proof bodies, authorize Lean/Lake execution, or authorize release."
+  "authority_ceiling": "public evidence-cell anchor metadata over real Ring2 verifier-trace repair receipts; not theorem correctness, Lean/Lake execution, proof bodies, private source refs, human proof authority, provider authority, or release readiness",
+  "anti_claim": "This fixture validates public evidence-cell claim-boundary metadata, real Ring2 source-anchor refs, and leakage negative cases only; it does not prove theorem correctness, expose proof bodies, authorize Lean/Lake execution, or authorize release."
 }
