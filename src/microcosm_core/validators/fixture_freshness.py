@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +19,28 @@ from microcosm_core.schemas import read_json_strict
 
 CHECKER_ID = "checker.microcosm.validators.fixture_freshness"
 ACCEPTANCE_SUMMARY_REL = "receipts/first_wave/acceptance_summary.json"
+EVIDENCE_CLASS_REGISTRY_REL = "core/organ_evidence_classes.json"
+TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS = {
+    "real_runtime_receipt": "real_runtime_receipt_count",
+    "copied_non_secret_macro_body": "copied_non_secret_macro_body_count",
+    "source_faithful_refactor": "source_faithful_refactor_count",
+    "real_import_validation": "real_import_validation_count",
+    "regression_negative_fixture": "regression_negative_fixture_count",
+    "blocked_import_debt": "blocked_import_debt_count",
+    "secret_exclusion": "secret_exclusion_count",
+    "legacy_adapter_or_synthetic_placeholder": (
+        "legacy_adapter_or_synthetic_placeholder_count"
+    ),
+    "delete_or_demote_candidate": "delete_or_demote_candidate_count",
+}
+REAL_SUBSTRATE_PROGRESS_BUCKETS = frozenset(
+    {
+        "real_runtime_receipt",
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_import_validation",
+    }
+)
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -76,6 +99,108 @@ def _accepted_organs(registry: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
+def _evidence_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
+    registry = read_json_strict(public_root / EVIDENCE_CLASS_REGISTRY_REL)
+    if not isinstance(registry, dict):
+        raise ValueError(f"{EVIDENCE_CLASS_REGISTRY_REL} must be a JSON object")
+    if registry.get("fail_closed_no_default") is not True:
+        raise ValueError("organ evidence-class registry must fail closed")
+
+    class_profiles = registry.get("class_profiles")
+    rows = registry.get("organ_evidence_classes")
+    if not isinstance(class_profiles, dict) or not isinstance(rows, list):
+        raise ValueError("organ evidence-class registry is missing profiles or rows")
+
+    profiles: dict[str, dict[str, Any]] = {}
+    duplicate_organs: set[str] = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("organ evidence-class row must be a JSON object")
+        organ_id = str(row.get("organ_id") or "")
+        evidence_class = str(row.get("evidence_class") or "")
+        class_profile = class_profiles.get(evidence_class)
+        if not organ_id or not isinstance(class_profile, dict):
+            raise ValueError(f"invalid evidence-class row for organ {organ_id!r}")
+        if organ_id in profiles:
+            duplicate_organs.add(organ_id)
+        truth_bucket = str(class_profile.get("truth_accounting_bucket") or "")
+        if truth_bucket not in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS:
+            raise ValueError(
+                f"evidence_class {evidence_class!r} uses unknown truth bucket "
+                f"{truth_bucket!r}"
+            )
+        counts_as_progress = truth_bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
+        if class_profile.get("counts_as_real_substrate_progress") is not counts_as_progress:
+            raise ValueError(
+                f"evidence_class {evidence_class!r} has inconsistent progress flag"
+            )
+        profiles[organ_id] = {
+            "organ_id": organ_id,
+            "evidence_class": evidence_class,
+            "truth_accounting_bucket": truth_bucket,
+            "counts_as_real_substrate_progress": counts_as_progress,
+            "evidence_strength_rank": class_profile.get("evidence_strength_rank"),
+            "claim_ceiling": class_profile.get("claim_ceiling"),
+            "classification_basis": row.get("classification_basis"),
+        }
+    if duplicate_organs:
+        raise ValueError(
+            "duplicate organ evidence-class rows: " + ", ".join(sorted(duplicate_organs))
+        )
+    return profiles
+
+
+def _acceptance_truth_accounting(
+    accepted: list[dict[str, Any]],
+    evidence_profiles: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    accepted_ids = [str(row.get("organ_id") or "") for row in accepted]
+    missing = sorted(organ_id for organ_id in accepted_ids if organ_id not in evidence_profiles)
+    if missing:
+        raise ValueError(
+            "accepted organs missing evidence classes: " + ", ".join(missing)
+        )
+
+    counts = Counter()
+    class_counts = Counter()
+    real_organs: list[str] = []
+    non_progress_organs: list[str] = []
+    evidence_rows: list[dict[str, Any]] = []
+    for organ_id in accepted_ids:
+        profile = evidence_profiles[organ_id]
+        truth_bucket = str(profile["truth_accounting_bucket"])
+        counts[truth_bucket] += 1
+        class_counts[str(profile["evidence_class"])] += 1
+        if profile["counts_as_real_substrate_progress"] is True:
+            real_organs.append(organ_id)
+        else:
+            non_progress_organs.append(organ_id)
+        evidence_rows.append(profile)
+
+    count_fields = {
+        count_key: counts[bucket]
+        for bucket, count_key in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS.items()
+    }
+    real_substrate_progress_count = sum(
+        counts[bucket] for bucket in REAL_SUBSTRATE_PROGRESS_BUCKETS
+    )
+    non_progress_count = len(accepted_ids) - real_substrate_progress_count
+    return {
+        "schema_version": "microcosm_acceptance_truth_accounting_v1",
+        "source_ref": EVIDENCE_CLASS_REGISTRY_REL,
+        "accepted_current_authority_is_evidence_strength": False,
+        "accepted_count_is_product_progress": False,
+        "real_substrate_progress_count": real_substrate_progress_count,
+        "non_progress_accepted_count": non_progress_count,
+        "truth_accounting_bucket_counts": dict(sorted(counts.items())),
+        "evidence_class_counts": dict(sorted(class_counts.items())),
+        "real_substrate_progress_organs": real_organs,
+        "non_progress_organs": non_progress_organs,
+        "accepted_current_authority_evidence": evidence_rows,
+        **count_fields,
+    }
+
+
 def _manifest_public_path(public_root: Path, readiness_row: dict[str, Any]) -> Path:
     macro_path = Path(str(readiness_row.get("fixture_manifest") or ""))
     return public_root / "core/fixture_manifests" / macro_path.name
@@ -107,12 +232,19 @@ def _write_acceptance_summary(
     fixture_freshness_ref: str,
     private_state_scan: dict[str, Any],
 ) -> dict[str, Any]:
+    truth_accounting = _acceptance_truth_accounting(
+        accepted,
+        _evidence_profiles_by_organ(public_root),
+    )
     payload = {
         "schema_version": "first_wave_acceptance_summary_receipt_v1",
         "checker_id": CHECKER_ID,
         "status": PASS,
         "accepted_current_authority_organs": [row.get("organ_id") for row in accepted],
         "accepted_count": len(accepted),
+        "accepted_current_authority_count": len(accepted),
+        "accepted_count_is_product_progress": False,
+        "truth_accounting": truth_accounting,
         "deferred_organs": [],
         "dependency_preflight_receipt": dependency_preflight_ref,
         "fixture_freshness_receipt": fixture_freshness_ref,
@@ -130,11 +262,13 @@ def _write_acceptance_summary(
         "authority_ceiling": {
             "status": PASS,
             "acceptance_summary_authority": "public_runtime_spine_receipt_summary_only",
+            "accepted_count_is_product_progress": False,
+            "accepted_current_authority_is_evidence_strength": False,
             "whole_system_correctness": False,
             "release_authorized": False,
             "trading_or_financial_advice_authorized": False,
         },
-        "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only; it does not authorize Lean/Lake beyond the bounded public witness fixture, hosted release operations, credentialed provider calls, secret export, or whole-system correctness.",
+        "anti_claim": "This acceptance summary records current public runtime-spine receipt presence only. Its accepted count is not product progress or evidence strength; the truth_accounting section separates real substrate progress from fixture, synthetic, adapter, and debt evidence classes.",
         "receipt_paths": [_display(path, public_root=public_root)],
     }
     write_json_atomic(path, payload)
