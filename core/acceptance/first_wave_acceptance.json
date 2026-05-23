@@ -670,7 +670,7 @@
   "recipient_work_authorized": false,
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
-  "standard_count": 89,
+  "standard_count": 90,
   "standards_registry_ref": "core/standards_registry.json",
   "status": "accepted_runtime_spine_verifier_lab_kernel_bound",
   "trading_or_financial_advice_authorized": false

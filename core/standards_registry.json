@@ -12,7 +12,7 @@
   "first_wave_required_standard_count": 79,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 89,
+  "standard_count": 90,
   "standards": [
     {
       "first_wave_required": true,
@@ -1347,10 +1347,13 @@
       "wave": "w1_materials_chemistry_lab_safety_replay"
     },
     {
+      "first_wave_required": true,
       "standard_id": "std_microcosm_certificate_kernel_execution_lab",
       "kind_id": "certificate_kernel_execution_lab",
+      "kind_name": "Certificate kernel execution lab",
       "path": "standards/std_microcosm_certificate_kernel_execution_lab.json",
       "receipt_id": "receipt.microcosm.certificate_kernel_execution_lab",
+      "status": "draft",
       "used_by_organs": [
         "certificate_kernel_execution_lab"
       ],

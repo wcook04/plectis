@@ -32,9 +32,11 @@ def _copy_public_standards_tree(tmp_path: Path) -> Path:
     return public_root
 
 
-def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) -> None:
+def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Path) -> None:
     public_root = _copy_public_standards_tree(tmp_path)
     out = public_root / "receipts/first_wave/standards_registry_validation.json"
+    registry = json.loads((public_root / "core/standards_registry.json").read_text(encoding="utf-8"))
+    expected_count = len(registry["standards"])
 
     receipt = validate_standards_registry(
         public_root / "core/standards_registry.json",
@@ -45,14 +47,16 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     )
 
     assert receipt["status"] == "pass"
-    assert receipt["standard_count"] == 88
-    assert receipt["checked_standard_count"] == 88
+    assert receipt["standard_count"] == expected_count
+    assert receipt["checked_standard_count"] == expected_count
     assert "std_microcosm_corpus_readiness_mathlib_absence_gate" in receipt["checked_standard_ids"]
     assert "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer" in receipt["checked_standard_ids"]
     assert "std_microcosm_target_shape_tactic_routing_gate" in receipt["checked_standard_ids"]
     assert "std_microcosm_lean_std_premise_index" in receipt["checked_standard_ids"]
     assert "std_microcosm_formal_math_verifier_trace_repair_loop" in receipt["checked_standard_ids"]
     assert "std_microcosm_verifier_lab_kernel" in receipt["checked_standard_ids"]
+    assert "std_microcosm_verifier_lab_execution_spine" in receipt["checked_standard_ids"]
+    assert "std_microcosm_certificate_kernel_execution_lab" in receipt["checked_standard_ids"]
     assert "std_microcosm_formal_evidence_cell_anchor_resolver" in receipt["checked_standard_ids"]
     assert (
         "std_microcosm_undeclared_library_prior_symbol_classifier"
@@ -107,8 +111,9 @@ def test_standards_registry_validation_passes_and_is_redacted(tmp_path: Path) ->
     assert receipt["missing_required_fields_by_standard"] == {}
     assert receipt["acceptance_status"]["lean_lake_authorized"] == "bounded_public_witness_only"
     assert receipt["acceptance_status"]["release_authorized"] is False
-    assert receipt["private_state_scan"]["blocking_hit_count"] == 0
-    assert receipt["private_state_scan"]["body_redacted"] is True
+    assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert "private_state_scan" not in receipt
     text = out.read_text(encoding="utf-8")
     assert str(public_root) not in text
     assert "/Users/" not in text

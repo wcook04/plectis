@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -53,6 +53,8 @@ ACCEPTED_PUBLIC_ORGANS = [
     "provider_context_recipe_budget_policy",
     "formal_math_lean_proof_witness",
     "verifier_lab_kernel",
+    "verifier_lab_execution_spine",
+    "certificate_kernel_execution_lab",
     "navigation_hologram_route_plane",
     "mission_transaction_work_spine",
     "durable_agent_work_landing_replay",
@@ -238,7 +240,7 @@ def validate_standards_registry(
         "missing_standard_files": missing_standard_files,
         "missing_required_fields_by_standard": missing_required_fields,
         "acceptance_status": acceptance,
-        "private_state_scan": scan,
+        "secret_exclusion_scan": scan,
         "authority_ceiling": {
             "status": PASS,
             "registry_authority": "public_standards_index_and_acceptance_plan_only",
