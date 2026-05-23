@@ -21,6 +21,9 @@ REFERENCE_NAME = "reference_capsule_resolver_receipt.json"
 AUTHORITY_CHAIN_NAME = "authority_chain_handle_resolver_receipt.json"
 SUBSTRATE_BUNDLE_RESULT_NAME = "exported_substrate_bundle_validation_result.json"
 RUNTIME_METADATA_ONLY_ANTI_CLAIM_REF = "anti_claim.pattern_binding.runtime_metadata_only"
+REAL_PATTERN_LEDGER_ANTI_CLAIM_REF = "anti_claim.pattern_binding.real_pattern_ledger_source_faithful"
+REAL_PATTERN_LEDGER_GOVERNING_STANDARD = "std_microcosm_pattern_binding_contract"
+REAL_PATTERN_LEDGER_SOURCE_KEY = "real_pattern_ledger_source"
 
 EXPECTED_NEGATIVE_CASES = {
     "missing_binding_contract_fields": [
@@ -44,6 +47,10 @@ VALID_POSTURES = {"direct_public", "synthetic_only", "schema_only", "forbidden"}
 def _canonical_sha256(value: object) -> str:
     encoded = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
+
+
+def _file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _finding(code: str, message: str, *, case_id: str | None = None, pattern_id: str | None = None) -> dict[str, Any]:
@@ -161,6 +168,121 @@ def _substrate_bundle_truth_accounting(
         "anti_claim_refs": sorted(
             {str(row.get("anti_claim_ref")) for row in accepted_rows if row.get("anti_claim_ref")}
         ),
+    }
+
+
+def _public_root_for_bundle(input_dir: str | Path) -> Path:
+    input_path = Path(input_dir).resolve(strict=False)
+    for candidate in (input_path, *input_path.parents):
+        if (candidate / "examples").is_dir() and (candidate / "src/microcosm_core").is_dir():
+            return candidate
+    return input_path.parent
+
+
+def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        if not isinstance(row, dict):
+            raise ValueError(f"{path.as_posix()}:{line_number} is not a JSON object")
+        rows.append(row)
+    return rows
+
+
+def _real_pattern_ledger_projection(input_dir: str | Path, manifest: dict[str, Any]) -> dict[str, Any] | None:
+    spec = manifest.get(REAL_PATTERN_LEDGER_SOURCE_KEY)
+    if not isinstance(spec, dict):
+        return None
+
+    source_ref = str(spec.get("path") or spec.get("source_ref") or "").strip()
+    public_root = _public_root_for_bundle(input_dir)
+    ledger_path = public_root / source_ref if source_ref else public_root
+    findings: list[dict[str, Any]] = []
+    if not source_ref:
+        findings.append(_finding("MISSING_REAL_PATTERN_LEDGER_REF", "Real pattern ledger source path is missing."))
+        rows: list[dict[str, Any]] = []
+        digest = ""
+    elif not ledger_path.is_file():
+        findings.append(
+            _finding(
+                "REAL_PATTERN_LEDGER_NOT_FOUND",
+                "Real pattern ledger source path does not resolve inside the public root.",
+            )
+        )
+        rows = []
+        digest = ""
+    else:
+        rows = _read_jsonl_rows(ledger_path)
+        digest = _file_sha256(ledger_path)
+
+    expected_digest = str(spec.get("sha256") or "").strip()
+    expected_count = spec.get("row_count")
+    if expected_digest and digest and digest != expected_digest:
+        findings.append(_finding("REAL_PATTERN_LEDGER_DIGEST_MISMATCH", "Real pattern ledger digest mismatch."))
+    if isinstance(expected_count, int) and rows and len(rows) != expected_count:
+        findings.append(_finding("REAL_PATTERN_LEDGER_ROW_COUNT_MISMATCH", "Real pattern ledger row count mismatch."))
+
+    pattern_rows: list[dict[str, Any]] = []
+    source_capsules: list[dict[str, Any]] = []
+    seen_pattern_ids: set[str] = set()
+    for row in rows:
+        pattern_id = str(row.get("pattern_id") or "").strip()
+        if not pattern_id:
+            findings.append(_finding("REAL_PATTERN_LEDGER_ROW_MISSING_PATTERN_ID", "Real pattern ledger row lacks pattern_id."))
+            continue
+        if pattern_id in seen_pattern_ids:
+            findings.append(
+                _finding(
+                    "REAL_PATTERN_LEDGER_DUPLICATE_PATTERN_ID",
+                    "Real pattern ledger row duplicates a pattern_id.",
+                    pattern_id=pattern_id,
+                )
+            )
+            continue
+        seen_pattern_ids.add(pattern_id)
+        capsule_ref = f"capsule.real_pattern_ledger.{pattern_id}"
+        runtime_ref = f"{source_ref}::{pattern_id}"
+        pattern_rows.append(
+            {
+                "pattern_id": pattern_id,
+                "organ_id": ORGAN_ID,
+                "title": str(row.get("title") or pattern_id),
+                "governing_standard": REAL_PATTERN_LEDGER_GOVERNING_STANDARD,
+                "source_refs": [capsule_ref],
+                "public_projection_posture": "direct_public",
+                "anti_claim_ref": REAL_PATTERN_LEDGER_ANTI_CLAIM_REF,
+            }
+        )
+        source_capsules.append(
+            {
+                "source_ref": capsule_ref,
+                "authority_class": "public_real_pattern_ledger_row",
+                "body_in_receipt": False,
+                "public_runtime_ref": runtime_ref,
+                "source_sha256": _canonical_sha256(row),
+            }
+        )
+
+    return {
+        "status": PASS if not findings and pattern_rows else "blocked",
+        "source_ref": source_ref,
+        "path": ledger_path,
+        "row_count": len(rows),
+        "sha256": digest,
+        "expected_sha256": expected_digest,
+        "expected_row_count": expected_count,
+        "pattern_rows": pattern_rows,
+        "source_capsules": {
+            "schema_version": "source_capsules_bundle_v1",
+            "source_capsules": source_capsules,
+            "anti_claim": (
+                "Source capsules point at public real pattern-ledger rows by ref "
+                "and digest; receipts do not inline ledger row bodies."
+            ),
+        },
+        "findings": findings,
     }
 
 
@@ -674,11 +796,18 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
 
 def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     bundle = load_pattern_binding_substrate_bundle(input_dir)
+    manifest = bundle["bundle_manifest"]
+    real_ledger_projection = _real_pattern_ledger_projection(input_dir, manifest)
+    uses_real_ledger = real_ledger_projection is not None and real_ledger_projection["status"] == PASS
+    patterns = real_ledger_projection["pattern_rows"] if uses_real_ledger else bundle["patterns"]
+    source_capsules = real_ledger_projection["source_capsules"] if uses_real_ledger else bundle["source_capsules"]
     input_paths = [Path(path) for path in bundle["input_paths"].values()]
+    if real_ledger_projection is not None and real_ledger_projection["path"].is_file():
+        input_paths.append(real_ledger_projection["path"])
     forbidden_terms = bundle["forbidden_terms"]
     scan_result = _receipt_safe_scan_result(scan_paths(input_paths, forbidden_classes=forbidden_terms))
-    binding_result = validate_pattern_bindings(bundle["patterns"], bundle["source_capsules"], scan_result)
-    capsule_result = validate_source_capsules(bundle["source_capsules"], forbidden_terms)
+    binding_result = validate_pattern_bindings(patterns, source_capsules, scan_result)
+    capsule_result = validate_source_capsules(source_capsules, forbidden_terms)
     reference_result = validate_reference_capsules(bundle["reference_capsules"], forbidden_terms)
     authority_result = validate_authority_chain_handle_resolver(bundle["authority_chain_handles"])
 
@@ -686,14 +815,20 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
     all_findings: list[dict[str, Any]] = []
     for result in (binding_result, capsule_result, reference_result, authority_result):
         all_findings.extend(result.get("findings", []))
+    if real_ledger_projection is not None:
+        all_findings.extend(real_ledger_projection["findings"])
 
     error_codes = sorted({finding["error_code"] for finding in all_findings})
     accepted_rows = binding_result["accepted_rows"]
-    manifest = bundle["bundle_manifest"]
     bundle_id = str(manifest.get("bundle_id") or "pattern_binding_exported_substrate_bundle")
     status = PASS if scan_result["status"] == PASS and not all_findings and accepted_rows else "blocked"
-    source_capsule_receipt = _source_capsule_receipt(accepted_rows, bundle["source_capsules"])
+    source_capsule_receipt = _source_capsule_receipt(accepted_rows, source_capsules)
     truth_accounting = _substrate_bundle_truth_accounting(manifest, accepted_rows)
+    legacy_runtime_metadata_only_count = sum(
+        1
+        for row in bundle["patterns"]
+        if str(row.get("anti_claim_ref") or "") == RUNTIME_METADATA_ONLY_ANTI_CLAIM_REF
+    )
     result = base_receipt(ORGAN_ID, f"{FIXTURE_ID}.exported_substrate_bundle", command=command)
     result.update(
         {
@@ -721,14 +856,34 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "real_substrate_progress_count": truth_accounting["real_pattern_ledger_row_count"],
             "runtime_metadata_only_row_count": truth_accounting["runtime_metadata_only_row_count"],
             "truth_accounting": truth_accounting,
+            "real_pattern_ledger_consumed": uses_real_ledger,
+            "real_pattern_ledger_source": (
+                {
+                    "status": real_ledger_projection["status"],
+                    "source_ref": real_ledger_projection["source_ref"],
+                    "row_count": real_ledger_projection["row_count"],
+                    "sha256": real_ledger_projection["sha256"],
+                    "expected_sha256": real_ledger_projection["expected_sha256"],
+                    "expected_row_count": real_ledger_projection["expected_row_count"],
+                    "normalized_pattern_row_count": len(real_ledger_projection["pattern_rows"]),
+                }
+                if real_ledger_projection is not None
+                else None
+            ),
+            "legacy_runtime_metadata_row_count": len(bundle["patterns"]),
+            "legacy_runtime_metadata_only_row_count": legacy_runtime_metadata_only_count,
             "public_runtime_refs": _source_capsule_runtime_refs(
                 sorted({ref for row in accepted_rows for ref in _pattern_source_refs(row)}),
-                bundle["source_capsules"],
+                source_capsules,
             ),
             "authority_ceiling": {
                 "status": PASS,
                 "authority_ceiling": AUTHORITY_CEILING,
-                "runtime_claim": "exported substrate bundle validation only",
+                "runtime_claim": (
+                    "real pattern-ledger binding validation"
+                    if uses_real_ledger
+                    else "exported substrate bundle validation only"
+                ),
             },
             "source_capsule_count": source_capsule_receipt["source_capsule_count"],
             "omission_receipt_count": len(bundle["omission_receipts"].get("omission_receipts", []))
@@ -737,8 +892,8 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "authority_chain_resolution_status": authority_result["authority_chain_resolution_status"],
             "reference_capsule_resolution_status": PASS if not reference_result["findings"] else "blocked",
             "anti_claim": (
-                "An exported substrate bundle validates public runtime-shaped metadata. "
-                "It does not inline secret, provider, or operator bodies or prove release readiness."
+                "An exported substrate bundle validates public pattern-ledger bindings. "
+                "It does not inline secret, provider, operator, or source bodies or prove release readiness."
             ),
         }
     )
