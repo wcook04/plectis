@@ -28,6 +28,7 @@ TARGET_REFS = [
 TARGET_SYMBOL_REFS = [
     "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
     "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
     "microcosm_core.macro_tools.agent_execution_trace::main",
 ]
 AUTHORITY_CEILING = {
@@ -58,6 +59,8 @@ class PublicTraceSpan:
     target_ref: str
     input_digest: str
     recovery_ref: str | None = None
+    tool_name: str = "computer_use_action"
+    source_ref: str = "computer_use_action_trace_bundle"
 
     def as_dict(self) -> dict[str, Any]:
         payload: dict[str, Any] = {
@@ -67,7 +70,7 @@ class PublicTraceSpan:
             "action_kind": self.action_kind,
             "sequence_index": self.sequence_index,
             "turn_index": self.sequence_index,
-            "tool_name": "computer_use_action",
+            "tool_name": self.tool_name,
             "duration_ms": 0,
             "outcome": self.outcome,
             "episode_id": self.episode_id,
@@ -76,7 +79,7 @@ class PublicTraceSpan:
             "state_transition_ref": self.state_transition_ref,
             "target_refs": [self.target_ref] if self.target_ref else [],
             "input_digest": self.input_digest,
-            "source_ref": "computer_use_action_trace_bundle",
+            "source_ref": self.source_ref,
         }
         if self.recovery_ref:
             payload["recovery_ref"] = self.recovery_ref
@@ -137,6 +140,32 @@ def _load_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
         "cold_replay",
     )
     return {name: _read_json(input_dir / f"{name}.json") for name in names}
+
+
+def _load_sandbox_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
+    names = (
+        "bundle_manifest",
+        "projection_protocol",
+        "action_requests",
+        "policy_verdicts",
+        "side_effect_receipts",
+        "rollback_receipts",
+        "cold_replay",
+    )
+    bundle: dict[str, dict[str, Any]] = {}
+    for name in names:
+        path = input_dir / f"{name}.json"
+        if path.is_file():
+            bundle[name] = _read_json(path)
+        elif name == "bundle_manifest":
+            bundle[name] = {
+                "bundle_id": "agent_sandbox_policy_escape_replay_fixture_input",
+                "input_mode": "fixture",
+                "organ_id": "agent_sandbox_policy_escape_replay",
+            }
+        else:
+            bundle[name] = {}
+    return bundle
 
 
 def build_public_computer_use_trace(input_dir: str | Path) -> dict[str, Any]:
@@ -331,12 +360,226 @@ def build_public_computer_use_trace(input_dir: str | Path) -> dict[str, Any]:
     }
 
 
+def build_public_sandbox_policy_trace(input_dir: str | Path) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+
+    bundle = _load_sandbox_bundle(input_path)
+    manifest = bundle["bundle_manifest"]
+    protocol = bundle["projection_protocol"]
+    session_id = str(manifest.get("bundle_id") or "public_sandbox_policy_trace")
+    verdicts = {
+        str(row.get("request_id")): row
+        for row in _rows(bundle["policy_verdicts"], "policy_verdicts")
+        if row.get("request_id")
+    }
+    effects = {
+        str(row.get("request_id")): row
+        for row in _rows(bundle["side_effect_receipts"], "side_effect_receipts")
+        if row.get("request_id")
+    }
+    rollback_requests = {
+        str(row.get("request_id"))
+        for row in _rows(bundle["rollback_receipts"], "rollback_receipts")
+        if row.get("request_id")
+    }
+    replayed_requests = {
+        str(row.get("request_id"))
+        for row in _rows(bundle["cold_replay"], "cold_replay")
+        if row.get("request_id")
+    }
+
+    findings: list[dict[str, Any]] = []
+    spans: list[dict[str, Any]] = []
+    sorted_actions = sorted(
+        _rows(bundle["action_requests"], "action_requests"),
+        key=lambda row: (
+            str(row.get("episode_id") or ""),
+            str(row.get("request_id") or ""),
+        ),
+    )
+    for sequence_index, row in enumerate(sorted_actions):
+        request_id = str(row.get("request_id") or f"request_{sequence_index}")
+        verdict = verdicts.get(request_id, {})
+        effect = effects.get(request_id, {})
+        verdict_label = str(verdict.get("verdict") or "missing_verdict")
+        execution_attempted = effect.get("execution_attempted")
+        if verdict_label == "block":
+            outcome = "blocked"
+        elif execution_attempted is True:
+            outcome = "executed"
+        else:
+            outcome = verdict_label
+
+        if request_id not in verdicts:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_POLICY_VERDICT_REF_MISSING",
+                    "Sandbox action request has no matching pre-execution policy verdict.",
+                    subject_id=request_id,
+                )
+            )
+        elif verdict.get("pre_execution") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_POLICY_VERDICT_NOT_PRE_EXECUTION",
+                    "Sandbox policy verdict must precede execution.",
+                    subject_id=request_id,
+                )
+            )
+        if request_id not in effects:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_SIDE_EFFECT_REF_MISSING",
+                    "Sandbox action request has no matching side-effect receipt.",
+                    subject_id=request_id,
+                )
+            )
+        if verdict_label == "block" and execution_attempted is not False:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_BLOCKED_ACTION_EXECUTED",
+                    "Blocked sandbox action must not execute.",
+                    subject_id=request_id,
+                )
+            )
+        if verdict_label in {"allow", "review"} and execution_attempted is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_ALLOWED_ACTION_NOT_EXECUTED",
+                    "Allowed or reviewed sandbox action must carry an executed side-effect receipt.",
+                    subject_id=request_id,
+                )
+            )
+        if verdict_label in {"allow", "review"} and request_id not in rollback_requests:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_ROLLBACK_REF_MISSING",
+                    "Side-effecting sandbox action has no rollback receipt.",
+                    subject_id=request_id,
+                )
+            )
+        if request_id not in replayed_requests:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SANDBOX_COLD_REPLAY_REF_MISSING",
+                    "Sandbox action request is not covered by a cold-replay receipt.",
+                    subject_id=request_id,
+                )
+            )
+
+        spans.append(
+            PublicTraceSpan(
+                span_id=f"span:{request_id}",
+                session_id=session_id,
+                action_kind=str(row.get("action_kind") or "unknown_action"),
+                sequence_index=sequence_index,
+                episode_id=str(row.get("episode_id") or ""),
+                observation_ref=str(row.get("untrusted_tool_output_ref") or ""),
+                authority_verdict_id=f"{request_id}:{verdict.get('policy_version', '')}",
+                state_transition_ref=str(effect.get("rollback_receipt_ref") or ""),
+                outcome=outcome,
+                target_ref=str(row.get("requested_capability") or ""),
+                input_digest=_stable_digest(
+                    {
+                        "normalized_action_ref": row.get("normalized_action_ref"),
+                        "requested_capability": row.get("requested_capability"),
+                        "risk_class": row.get("risk_class"),
+                    }
+                ),
+                recovery_ref=(
+                    str(effect.get("rollback_receipt_ref"))
+                    if verdict_label in {"allow", "review"}
+                    else None
+                ),
+                tool_name="sandbox_policy_action",
+                source_ref="agent_sandbox_policy_escape_replay_bundle",
+            ).as_dict()
+        )
+
+    status = PASS if not findings else BLOCKED
+    action_kind_counts = Counter(span["action_kind"] for span in spans)
+    outcome_counts = Counter(span["outcome"] for span in spans)
+    coverage = {
+        "policy_verdict_coverage": len(spans)
+        == sum(1 for span in spans if span["span_id"].replace("span:", "") in verdicts),
+        "side_effect_receipt_coverage": len(spans)
+        == sum(1 for span in spans if span["span_id"].replace("span:", "") in effects),
+        "rollback_receipt_coverage": all(
+            span["span_id"].replace("span:", "") in rollback_requests
+            for span in spans
+            if span["outcome"] == "executed"
+        ),
+        "cold_replay_coverage": len(spans)
+        == sum(
+            1
+            for span in spans
+            if span["span_id"].replace("span:", "") in replayed_requests
+        ),
+        "body_in_receipt": False,
+    }
+    return {
+        "schema_version": "public_agent_execution_trace_refactor_v0",
+        "status": status,
+        "source_refs": list(SOURCE_REFS),
+        "source_symbols": list(SOURCE_SYMBOL_REFS),
+        "target_refs": list(TARGET_REFS),
+        "target_symbols": list(TARGET_SYMBOL_REFS),
+        "source_faithful_refactor": {
+            "source_ref": "system/lib/agent_execution_trace.py",
+            "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+            "verification_mode": "extension_of_existing_public_refactor",
+            "preserved_semantics": [
+                "observable_action_span_rows",
+                "authority_boundary_metadata",
+                "sequence_ordered_trace",
+                "audit_findings",
+                "public_summary_counts",
+                "pre_execution_policy_verdict_refs",
+                "side_effect_and_rollback_refs",
+            ],
+            "omitted_live_material": [
+                "real secrets and credentials",
+                "raw environment values",
+                "executable payload bodies",
+                "host filesystem paths",
+                "live network targets",
+                "provider payload bodies",
+            ],
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "input_ref": _display_path(input_path),
+        "bundle_id": session_id,
+        "protocol_id": protocol.get("protocol_id"),
+        "span_count": len(spans),
+        "spans": spans,
+        "summary": {
+            "session_count": 1,
+            "total_span_count": len(spans),
+            "action_kind_counts": dict(sorted(action_kind_counts.items())),
+            "outcome_counts": dict(sorted(outcome_counts.items())),
+            "finding_count": len(findings),
+            "trace_digest": _stable_digest(spans),
+        },
+        "audit": {
+            "findings": findings,
+            "coverage": coverage,
+            "finding_count": len(findings),
+        },
+        "body_in_receipt": False,
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
     computer_use = subparsers.add_parser("computer-use")
     computer_use.add_argument("--input", required=True)
     computer_use.add_argument("--pretty", action="store_true")
+    sandbox_policy = subparsers.add_parser("sandbox-policy")
+    sandbox_policy.add_argument("--input", required=True)
+    sandbox_policy.add_argument("--pretty", action="store_true")
     return parser
 
 
@@ -344,6 +587,11 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "computer-use":
         payload = build_public_computer_use_trace(args.input)
+        indent = 2 if args.pretty else None
+        print(json.dumps(payload, indent=indent, sort_keys=True))
+        return 0 if payload["status"] == PASS else 1
+    if args.command == "sandbox-policy":
+        payload = build_public_sandbox_policy_trace(args.input)
         indent = 2 if args.pretty else None
         print(json.dumps(payload, indent=indent, sort_keys=True))
         return 0 if payload["status"] == PASS else 1

@@ -1,11 +1,21 @@
 {
   "authorizes_live_network": false,
   "authorizes_sandbox_escape": false,
-  "body_redacted": true,
-  "copied_private_source": false,
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "copied_credential_or_account_bound_source": false,
   "exports_executable_payloads": false,
-  "exports_private_state": false,
-  "omitted_private_material": [
+  "exports_secret_or_live_access_material": false,
+  "omitted_secret_or_live_access_material": [
     "real secrets and credentials",
     "host filesystem paths",
     "raw environment variables",
@@ -19,11 +29,9 @@
     "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json"
   ],
   "protocol_id": "agent_sandbox_policy_escape_replay_public_projection_v1",
-  "public_replacement_refs": [
-    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/action_requests.json",
-    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_verdicts.json",
-    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/side_effect_receipts.json",
-    "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/cold_replay.json"
+  "public_runtime_refs": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+    "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
   ],
   "source_pattern_ids": [
     "agent_sandbox_policy_escape_replay_compound"
@@ -32,6 +40,21 @@
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sandbox_policy_escape_replay_compound",
     "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_sandbox_policy_escape_replay_growth_v1",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
-    "system/lib/agent_execution_trace.py"
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json"
+  ],
+  "source_symbols": [
+    "system/lib/agent_execution_trace.py::Span",
+    "system/lib/agent_execution_trace.py::build_agent_execution_trace",
+    "codex/standards/std_agent_execution_trace.json::types.Span"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+    "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
   ]
 }

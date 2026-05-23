@@ -5,7 +5,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from microcosm_core.private_state_scan import (
+from microcosm_core.macro_tools.agent_execution_trace import build_public_sandbox_policy_trace
+from microcosm_core.secret_exclusion_scan import (
     PASS,
     load_forbidden_classes,
     public_relative_path,
@@ -104,7 +105,7 @@ FORBIDDEN_KEYS = (
 
 AUTHORITY_CEILING = {
     "status": PASS,
-    "authority_ceiling": "synthetic_agent_sandbox_policy_escape_replay_receipts_only",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_synthetic_sandbox_policy_fixture",
     "live_agent_execution_authorized": False,
     "live_sandbox_escape_authorized": False,
     "live_secret_or_credential_handling_authorized": False,
@@ -121,7 +122,8 @@ AUTHORITY_CEILING = {
 ANTI_CLAIM = (
     "Agent sandbox policy-escape replay validates synthetic action, policy "
     "verdict, side-effect diff, rollback, cold-replay, negative-case, and "
-    "authority-ceiling receipts. It does not authorize live sandbox escape, "
+    "authority-ceiling receipts, and now emits public agent-execution trace "
+    "spans over those public refs. It does not authorize live sandbox escape, "
     "live secret handling, live network access, host filesystem mutation, "
     "executable payload export, raw environment export, provider calls, "
     "security benchmark claims, source mutation, or release."
@@ -247,28 +249,36 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
-    omitted = _strings(protocol.get("omitted_private_material"))
+    target_refs = _strings(protocol.get("target_refs"))
+    public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    omitted = _strings(protocol.get("omitted_secret_or_live_access_material"))
+    body_import = protocol.get("body_import_verification", {})
     findings: list[dict[str, Any]] = []
     if (
-        len(source_refs) < 3
+        len(source_refs) < 4
         or "agent_sandbox_policy_escape_replay_compound" not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or "system/lib/agent_execution_trace.py" not in source_refs
+        or "codex/standards/std_agent_execution_trace.json" not in source_refs
+        or "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+        not in target_refs
+        or len(public_runtime_refs) < 1
         or len(omitted) < 6
+        or not isinstance(body_import, dict)
+        or body_import.get("verification_mode") != "extension_of_existing_public_refactor"
     ):
         findings.append(
             _finding(
                 "SANDBOX_POLICY_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Projection protocol must cite source refs, receipts, replacements, and omitted private material.",
+                "Projection protocol must cite trace source refs, target refs, runtime refs, body-import verification, and omitted secret/live-access material.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
             )
         )
     for flag in (
-        "copied_private_source",
-        "exports_private_state",
+        "copied_credential_or_account_bound_source",
+        "exports_secret_or_live_access_material",
         "exports_executable_payloads",
         "authorizes_live_network",
         "authorizes_sandbox_escape",
@@ -277,7 +287,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
             findings.append(
                 _finding(
                     "SANDBOX_POLICY_PROJECTION_PROTOCOL_AUTHORITY_OVERCLAIM",
-                    "Projection protocol must explicitly deny private copy, private export, executable payloads, live network, and sandbox escape authority.",
+                    "Projection protocol must explicitly deny credential/account-bound copy, secret/live-access export, executable payloads, live network, and sandbox escape authority.",
                     case_id="projection_protocol_floor",
                     subject_id=flag,
                     subject_kind="projection_protocol",
@@ -289,8 +299,10 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
-        "omitted_private_material": omitted,
+        "target_refs": target_refs,
+        "public_runtime_refs": public_runtime_refs,
+        "body_import_verification": body_import if isinstance(body_import, dict) else {},
+        "omitted_secret_or_live_access_material": omitted,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -390,7 +402,7 @@ def validate_action_requests(payload: object) -> dict[str, Any]:
                 "requested_capability": row.get("requested_capability"),
                 "risk_class": row.get("risk_class"),
                 "intended_side_effect_ref": row.get("intended_side_effect_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     risk_classes = sorted({str(row.get("risk_class")) for row in exported if row.get("risk_class")})
@@ -444,7 +456,7 @@ def validate_policy_verdicts(
                 "pre_execution": row.get("pre_execution"),
                 "approval_ref": row.get("approval_ref"),
                 "decision_reason_ref": row.get("decision_reason_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     verdicts = {row["verdict"] for row in exported}
@@ -519,7 +531,7 @@ def validate_side_effect_receipts(
                 "database_diff_ref": row.get("database_diff_ref"),
                 "side_effect_diff_count": diff_count,
                 "rollback_receipt_ref": row.get("rollback_receipt_ref"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -567,7 +579,7 @@ def validate_rollback_receipts(payload: object, request_ids: set[str]) -> dict[s
                 "rollback_required": row.get("rollback_required"),
                 "rollback_command_ref": row.get("rollback_command_ref"),
                 "rollback_verified": row.get("rollback_verified"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -616,7 +628,7 @@ def validate_cold_replay(payload: object, request_ids: set[str]) -> dict[str, An
                 "verdict_reproduced": row.get("verdict_reproduced"),
                 "side_effect_state_reproduced": row.get("side_effect_state_reproduced"),
                 "pass_label": row.get("pass_label"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -733,13 +745,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    public_trace = build_public_sandbox_policy_trace(input_dir)
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     sandbox_policy = validate_sandbox_policy(payloads["sandbox_policy"])
@@ -795,13 +806,14 @@ def _build_result(
         effects["status"],
         rollbacks["status"],
         cold_replay["status"],
+        public_trace["status"],
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
         PASS
         if not missing
-        and private_scan["blocking_hit_count"] == 0
+        and secret_scan["blocking_hit_count"] == 0
         and all(value == PASS for value in positive_statuses)
         else "blocked"
     )
@@ -820,15 +832,20 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
-        "omitted_private_material": projection["omitted_private_material"],
+        "target_refs": projection["target_refs"],
+        "public_runtime_refs": projection["public_runtime_refs"],
+        "body_import_verification": projection["body_import_verification"],
+        "omitted_secret_or_live_access_material": projection[
+            "omitted_secret_or_live_access_material"
+        ],
+        "public_agent_execution_trace": public_trace,
         "sandbox_policy_id": sandbox_policy["policy_id"],
         "allowed_verdicts": sandbox_policy["allowed_verdicts"],
         "action_request_count": actions["action_request_count"],
@@ -887,8 +904,8 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "side_effect_rows": result["side_effect_rows"],
         "rollback_rows": result["rollback_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
-        "body_redacted": True,
-        "private_state_scan": result["private_state_scan"],
+        "body_in_receipt": False,
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -941,7 +958,7 @@ def _write_receipts(
         "blocked_without_execution_count": result["blocked_without_execution_count"],
         "rollback_verified_count": result["rollback_verified_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -956,7 +973,7 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
-        "private_state_scan": result["private_state_scan"],
+        "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

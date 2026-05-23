@@ -5,6 +5,9 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_sandbox_policy_trace,
+)
 from microcosm_core.organs.agent_sandbox_policy_escape_replay import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -64,12 +67,19 @@ def test_agent_sandbox_policy_escape_replay_observes_negative_cases(
     assert result["authority_ceiling"]["live_sandbox_escape_authorized"] is False
     assert result["authority_ceiling"]["live_network_access_authorized"] is False
     assert result["authority_ceiling"]["host_filesystem_mutation_authorized"] is False
+    assert result["secret_exclusion_scan"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["span_count"] == 6
+    assert result["public_agent_execution_trace"]["summary"]["outcome_counts"] == {
+        "blocked": 4,
+        "executed": 2,
+    }
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
 
 
-def test_agent_sandbox_policy_escape_receipts_are_public_relative_and_redacted(
+def test_agent_sandbox_policy_escape_receipts_are_public_relative_and_secret_excluded(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -101,6 +111,7 @@ def test_agent_sandbox_policy_escape_receipts_are_public_relative_and_redacted(
         assert "executable_payload" not in keys
         assert "provider_payload" not in keys
         assert "host_absolute_path" not in keys
+        assert "private_state_scan" not in keys
 
 
 def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
@@ -125,3 +136,39 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
     assert result["blocked_without_execution_count"] == 4
     assert result["cold_replay_pass_count"] == 6
     assert result["authority_ceiling"]["live_sandbox_escape_authorized"] is False
+    assert "public_replacement_refs" not in result
+    assert "omitted_private_material" not in result
+    assert result["body_import_verification"]["verification_mode"] == (
+        "extension_of_existing_public_refactor"
+    )
+    assert (
+        "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+        in result["target_refs"]
+    )
+    assert result["public_agent_execution_trace"]["status"] == "pass"
+    assert result["public_agent_execution_trace"]["source_faithful_refactor"][
+        "verification_mode"
+    ] == "extension_of_existing_public_refactor"
+    assert {
+        span["tool_name"] for span in result["public_agent_execution_trace"]["spans"]
+    } == {"sandbox_policy_action"}
+
+
+def test_public_agent_execution_trace_refactor_builds_sandbox_policy_spans() -> None:
+    trace = build_public_sandbox_policy_trace(BUNDLE_INPUT)
+
+    assert trace["status"] == "pass"
+    assert trace["bundle_id"] == "agent_sandbox_policy_escape_replay_runtime_example"
+    assert trace["span_count"] == 6
+    assert trace["summary"]["action_kind_counts"] == {
+        "environment_secret_read": 1,
+        "filesystem_delete": 1,
+        "filesystem_write": 1,
+        "mock_database_update": 1,
+        "network_request": 1,
+        "shell_command": 1,
+    }
+    assert trace["audit"]["coverage"]["policy_verdict_coverage"] is True
+    assert trace["audit"]["coverage"]["side_effect_receipt_coverage"] is True
+    assert trace["audit"]["coverage"]["cold_replay_coverage"] is True
+    assert "system/lib/agent_execution_trace.py" in trace["source_refs"]

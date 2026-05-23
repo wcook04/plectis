@@ -1,5 +1,7 @@
 {
-  "body_redacted": true,
+  "authority_ceiling": "public_agent_execution_trace_refactor_over_synthetic_sandbox_policy_fixture",
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_in_receipt": false,
   "bundle_id": "agent_sandbox_policy_escape_replay_runtime_example",
   "input_mode": "exported_sandbox_policy_escape_bundle",
   "organ_id": "agent_sandbox_policy_escape_replay"
