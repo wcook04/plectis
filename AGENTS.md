@@ -265,14 +265,15 @@ imported macro body.
    hidden chain-of-thought, provider payloads, private model internals,
    benchmark scores, model-transparency product authority, or imply
    publication/release authority.
-   The `agent_monitor_redteam_falsification_replay` organ is the runnable
-   public monitor/redteam honesty lane: use
-   `agent-monitor-redteam-falsification-replay` or `replay-gauntlet` to
-   validate synthetic trajectories, monitor verdicts, adversarial probe refs,
-   escalation refs, redaction refs, mitigation refs, and cold replay refs. It
-   must not export private chain-of-thought, internal code, exploit details,
-   credentials, live agent traffic, provider payloads, monitor product
-   performance claims, control-eval scores, source mutation, or release
+   The `agent_monitor_redteam_falsification_replay` organ is a drilldown-only
+   public monitor/redteam regression lane: use `replay-gauntlet` in the
+   product path, and use `agent-monitor-redteam-falsification-replay` only when
+   inspecting the regression bundle. It validates synthetic trajectories,
+   monitor verdicts, adversarial probe refs, escalation refs, redaction refs,
+   mitigation refs, and cold replay refs. It must not export private
+   chain-of-thought, internal code, exploit details, credentials, live agent
+   traffic, provider payloads, monitor product performance claims,
+   control-eval scores, source mutation, or release
    authority.
    The `agent_sabotage_scheming_monitor_replay` organ is the runnable public
    scheming-monitor replay lane: use

@@ -195,7 +195,6 @@ microcosm standards-control
 microcosm hook-coverage
 microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 microcosm replay-gauntlet
-microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay
 microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay
 microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay
@@ -257,7 +256,6 @@ PYTHONPATH=src python3 -m microcosm_core.cli standards-control
 PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
 PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
-PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
 PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
 PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
@@ -615,16 +613,17 @@ cherry-picking, misleading tests, private issue bodies, and replay rows whose
 case id is outside the declared benchmark roster without claiming a SWE-bench
 score, live repo mutation, provider execution, or release authority.
 
-`agent_monitor_redteam_falsification_replay` is the monitor/redteam honesty
-boundary: it validates synthetic trajectories, monitor verdicts, adversarial
-probe refs, escalation refs, redaction refs, mitigation refs, and cold replay
-refs before monitor-language is admitted. Run `microcosm
-agent-monitor-redteam-falsification-replay run-monitor-bundle` to inspect the
-exported bundle. The organ rejects private chain-of-thought, internal code,
-exploit instruction detail, credential material, live agent traffic, monitor
-product-performance claims, and coverage labels without adversarial probes
-without claiming live monitoring performance, control-eval scores, provider
-execution, source mutation, or release authority.
+`agent_monitor_redteam_falsification_replay` is a monitor/redteam regression
+drilldown, not product-spine substrate: it validates synthetic trajectories,
+monitor verdicts, adversarial probe refs, escalation refs, redaction refs,
+mitigation refs, and cold replay refs before monitor-language is admitted.
+Run `microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle`
+only when inspecting that drilldown bundle; the product path goes through
+`microcosm replay-gauntlet`. The organ rejects private chain-of-thought,
+internal code, exploit instruction detail, credential material, live agent
+traffic, monitor product-performance claims, and coverage labels without
+adversarial probes without claiming live monitoring performance, control-eval
+scores, provider execution, source mutation, or release authority.
 
 `agent_sabotage_scheming_monitor_replay` is the scheming-monitor falsification
 boundary: it validates synthetic task episodes, action traces, per-step monitor

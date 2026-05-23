@@ -705,6 +705,7 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
 PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
     {
         "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_monitor_redteam_falsification_replay",
         "mathematical_strategy_atlas_hypothesis_scorer",
     }
 )
@@ -713,6 +714,10 @@ PRODUCT_PATH_DEMOTION_REASONS = {
     "agent_benchmark_integrity_anti_gaming_replay": (
         "benchmark-integrity replay remains runnable as a regression drilldown, "
         "but fixture-supplied benchmark verdict rows are not product-spine substrate."
+    ),
+    "agent_monitor_redteam_falsification_replay": (
+        "monitor-redteam replay remains runnable as a regression drilldown, "
+        "but synthetic monitor verdict rows and redaction refs are not product-spine substrate."
     ),
     "mathematical_strategy_atlas_hypothesis_scorer": (
         "strategy-atlas overlap projection remains runnable as a regression "
@@ -1119,10 +1124,6 @@ class RuntimeShell:
                         "run-attribution-bundle"
                     ),
                     (
-                        "microcosm agent-monitor-redteam-falsification-replay "
-                        "run-monitor-bundle"
-                    ),
-                    (
                         "microcosm agent-memory-temporal-conflict-replay "
                         "run-memory-bundle"
                     ),
@@ -1177,6 +1178,10 @@ class RuntimeShell:
                     (
                         "microcosm agent-benchmark-integrity-anti-gaming-replay "
                         "run-benchmark-integrity-bundle"
+                    ),
+                    (
+                        "microcosm agent-monitor-redteam-falsification-replay "
+                        "run-monitor-bundle"
                     ),
                     (
                         "microcosm mathematical-strategy-atlas-hypothesis-scorer "
@@ -1244,7 +1249,6 @@ class RuntimeShell:
                 "run microcosm standards-control",
                 "run microcosm hook-coverage",
                 "run microcosm replay-gauntlet",
-                "run microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle",
                 "run microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
                 "run microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
                 "run microcosm mcp-tool-authority-replay run-tool-authority-bundle",
@@ -1654,20 +1658,6 @@ class RuntimeShell:
                         "tool-authority and sandbox escape denials",
                         "prompt-injection and memory-write quarantine cases",
                         "no live agent, tool, secret, or benchmark authority",
-                    ],
-                },
-                {
-                    "step_id": "inspect_agent_monitor_redteam_falsification_replay",
-                    "command": (
-                        "microcosm agent-monitor-redteam-falsification-replay "
-                        "run-monitor-bundle"
-                    ),
-                    "shows": [
-                        "synthetic trajectories with monitor verdicts and probe refs",
-                        "pass, escalate, and block counts before claim admission",
-                        "private-reasoning, internal-code, exploit, credential, live-traffic, product-claim, and coverage-without-probe denials",
-                        "redaction, escalation, mitigation, and cold replay refs",
-                        "no monitor product performance, live traffic, provider, source mutation, or release authority",
                     ],
                 },
                 {
@@ -9725,6 +9715,8 @@ class RuntimeShell:
                 ),
                 "endpoint": "/replay-gauntlet",
                 "authority_role": "synthetic monitor redteam falsification replay and product-claim boundary",
+                "runtime_mode": "drilldown_only",
+                "product_path_role": "drilldown_regression_not_runtime_spine",
                 "release_authorized": False,
                 "source_mutation_authorized": False,
                 "provider_calls_authorized": False,
@@ -10282,10 +10274,6 @@ class RuntimeShell:
                 "microcosm standards-control",
                 "microcosm hook-coverage",
                 "microcosm replay-gauntlet",
-                (
-                    "microcosm agent-monitor-redteam-falsification-replay "
-                    "run-monitor-bundle"
-                ),
                 (
                     "microcosm agent-memory-temporal-conflict-replay "
                     "run-memory-bundle"

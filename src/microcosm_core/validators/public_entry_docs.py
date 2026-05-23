@@ -58,6 +58,7 @@ REQUIRED_DOCS = [
     "paper_modules/agent_sandbox_policy_escape_replay.md",
     "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md",
     "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md",
+    "paper_modules/voice_to_doctrine_self_improvement_loop.md",
     "paper_modules/cold_clone_probe.md",
     "skills/cold_start_navigation.md",
 ]
@@ -107,6 +108,7 @@ ACCEPTED_ORGAN_IDS = [
     "indirect_prompt_injection_information_flow_policy_replay",
     "agentic_vulnerability_discovery_patch_proof_replay",
     "certificate_kernel_execution_lab",
+    "voice_to_doctrine_self_improvement_loop",
 ]
 REQUIRED_PHRASES_BY_DOC = {
     "README.md": [

@@ -92,12 +92,13 @@ def test_public_entry_docs_validate_and_stay_redacted(tmp_path: Path) -> None:
         "agentic_vulnerability_discovery_patch_proof_replay",
         "materials_chemistry_closed_loop_lab_safety_replay",
         "certificate_kernel_execution_lab",
+        "voice_to_doctrine_self_improvement_loop",
     ]
     assert receipt["evidence_class_registry"] == {
-            "status": "pass",
-            "source_ref": "core/organ_evidence_classes.json",
-            "class_count": 5,
-            "organ_count": 45,
+        "status": "pass",
+        "source_ref": "core/organ_evidence_classes.json",
+        "class_count": 4,
+        "organ_count": 46,
         "missing_organs": [],
         "unexpected_organs": [],
         "duplicate_organs": [],
