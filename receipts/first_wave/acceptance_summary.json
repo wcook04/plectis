@@ -316,13 +316,13 @@
         "truth_accounting_bucket": "real_import_validation"
       },
       {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied attribution scores and graph rows are shape checked",
-        "counts_as_real_substrate_progress": false,
-        "evidence_class": "fixture_echo_smoke",
-        "evidence_strength_rank": 1,
+        "claim_ceiling": "validates declared public contract only",
+        "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials",
+        "counts_as_real_substrate_progress": true,
+        "evidence_class": "semantic_validator",
+        "evidence_strength_rank": 5,
         "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
-        "truth_accounting_bucket": "regression_negative_fixture"
+        "truth_accounting_bucket": "real_import_validation"
       },
       {
         "claim_ceiling": "validates declared public contract only",
@@ -512,14 +512,13 @@
     "evidence_class_counts": {
       "algorithmic_projection": 16,
       "external_subprocess_witness": 3,
-      "fixture_echo_smoke": 12,
-      "semantic_validator": 15
+      "fixture_echo_smoke": 11,
+      "semantic_validator": 16
     },
     "legacy_adapter_or_synthetic_placeholder_count": 0,
-    "non_progress_accepted_count": 12,
+    "non_progress_accepted_count": 11,
     "non_progress_organs": [
       "agent_benchmark_integrity_anti_gaming_replay",
-      "mechanistic_interpretability_circuit_attribution_replay",
       "agent_monitor_redteam_falsification_replay",
       "agent_sabotage_scheming_monitor_replay",
       "agent_memory_temporal_conflict_replay",
@@ -531,9 +530,9 @@
       "agentic_vulnerability_discovery_patch_proof_replay",
       "materials_chemistry_closed_loop_lab_safety_replay"
     ],
-    "real_import_validation_count": 15,
+    "real_import_validation_count": 16,
     "real_runtime_receipt_count": 3,
-    "real_substrate_progress_count": 34,
+    "real_substrate_progress_count": 35,
     "real_substrate_progress_organs": [
       "pattern_binding_contract",
       "executable_doctrine_grammar",
@@ -559,6 +558,7 @@
       "research_replication_rubric_artifact_replay",
       "world_model_projection_drift_control_room",
       "spatial_world_model_counterfactual_simulation_replay",
+      "mechanistic_interpretability_circuit_attribution_replay",
       "agent_route_observability_runtime",
       "pattern_assimilation_step",
       "public_reveal_walkthrough",
@@ -570,15 +570,15 @@
       "certificate_kernel_execution_lab",
       "voice_to_doctrine_self_improvement_loop"
     ],
-    "regression_negative_fixture_count": 12,
+    "regression_negative_fixture_count": 11,
     "schema_version": "microcosm_acceptance_truth_accounting_v1",
     "secret_exclusion_count": 0,
     "source_faithful_refactor_count": 16,
     "source_ref": "core/organ_evidence_classes.json",
     "truth_accounting_bucket_counts": {
-      "real_import_validation": 15,
+      "real_import_validation": 16,
       "real_runtime_receipt": 3,
-      "regression_negative_fixture": 12,
+      "regression_negative_fixture": 11,
       "source_faithful_refactor": 16
     }
   }

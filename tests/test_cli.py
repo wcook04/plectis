@@ -269,9 +269,9 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
-        "semantic_validator": 15,
+        "semantic_validator": 16,
         "algorithmic_projection": 15,
-        "fixture_echo_smoke": 11,
+        "fixture_echo_smoke": 10,
         "external_subprocess_witness": 3,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
@@ -311,6 +311,12 @@ def test_cli_authority_smoke(
         organ_authority_by_id["spatial_world_model_counterfactual_simulation_replay"][
             "evidence_class"
         ]
+        == "semantic_validator"
+    )
+    assert (
+        organ_authority_by_id[
+            "mechanistic_interpretability_circuit_attribution_replay"
+        ]["evidence_class"]
         == "semantic_validator"
     )
     assert (

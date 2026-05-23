@@ -183,8 +183,8 @@
     },
     {
       "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
-      "evidence_class": "fixture_echo_smoke",
-      "classification_basis": "fixture-supplied attribution scores and graph rows are shape checked"
+      "evidence_class": "semantic_validator",
+      "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials"
     },
     {
       "organ_id": "agent_route_observability_runtime",
