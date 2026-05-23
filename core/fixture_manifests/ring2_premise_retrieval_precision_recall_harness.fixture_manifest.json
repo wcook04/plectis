@@ -2,17 +2,44 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "fixture_id": "fixture::ring2_premise_retrieval_precision_recall_harness::first_wave_contract_v1",
   "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-  "purpose": "Validate source-available Ring-2 premise retrieval precision/recall metrics without exposing proof bodies, leaking oracle labels into rankings, or claiming benchmark/proof authority.",
+  "purpose": "Validate copied non-secret Ring-2 premise-retrieval run precision/recall metrics without exposing proof bodies, leaking oracle labels into rankings, or claiming benchmark/proof authority.",
   "inputs": [
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json", "role": "synthetic public Ring-2 retrieval run metadata"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json", "role": "after-the-fact metric labels barred from provider context"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_rankings.json", "role": "synthetic retrieved premise rankings"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json", "role": "precision/recall policy and adversarial decoy requirement"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/oracle_labels_in_ranking.json", "role": "negative case: ranking carries oracle-needed premise ids"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/proof_body_leakage.json", "role": "negative case: proof body leakage"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/test_split_tuning_attempt.json", "role": "negative case: test labels tune retrieval"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/metric_overclaim.json", "role": "negative case: precision/recall claims benchmark, proof, or release authority"},
-    {"path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/missing_adversarial_decoy.json", "role": "negative case: no adversarial decoy/miss case"}
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json",
+      "role": "copied non-secret Ring2 run metadata with source digest and target provenance"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json",
+      "role": "after-the-fact metric labels copied from the real run and barred from provider context"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_rankings.json",
+      "role": "retrieved premise rankings copied from the real run"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json",
+      "role": "precision/recall policy and real-run adversarial decoy requirement"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/oracle_labels_in_ranking.json",
+      "role": "regression fixture: negative case: ranking carries oracle-needed premise ids"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/proof_body_leakage.json",
+      "role": "regression fixture: negative case: proof body leakage"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/test_split_tuning_attempt.json",
+      "role": "regression fixture: negative case: test labels tune retrieval"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/metric_overclaim.json",
+      "role": "regression fixture: negative case: precision/recall claims benchmark, proof, or release authority"
+    },
+    {
+      "path": "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/missing_adversarial_decoy.json",
+      "role": "regression fixture: negative case: no adversarial decoy/miss case"
+    }
   ],
   "validator": "microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness",
   "validator_command": "python -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness",
@@ -38,5 +65,20 @@
     "benchmark_performance_authority": false,
     "release_authorized": false
   },
-  "anti_claim": "Ring-2 precision/recall fixtures validate retrieval-quality metadata only; they do not prove goals, run Lean/Lake, expose proof bodies, leak oracle labels into provider context, authorize release, or claim benchmark performance."
+  "anti_claim": "Ring-2 precision/recall fixtures validate copied non-secret retrieval-quality run rows only; they do not prove goals, run Lean/Lake, expose proof bodies, leak oracle labels into provider context, authorize release, or claim benchmark performance.",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "macro_run_variant_id": "premise_retrieval_graph_v0"
 }

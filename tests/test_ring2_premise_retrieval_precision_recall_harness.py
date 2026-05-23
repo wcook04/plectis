@@ -48,19 +48,33 @@ def test_ring2_precision_recall_observes_required_negative_cases(
     )
 
     assert result["status"] == "pass"
-    assert result["problem_count"] == 5
-    assert result["mean_precision_at_k"] == 0.3167
-    assert result["mean_recall_at_k"] == 0.7
+    assert result["problem_count"] == 10
+    assert result["macro_run_id"] == "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+    assert result["macro_run_variant_id"] == "premise_retrieval_graph_v0"
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["body_copied_material_count"] == 1
+    assert result["mean_precision_at_k"] == 0.36
+    assert result["mean_recall_at_k"] == 0.9
+    assert result["metric_aggregation"]["total_hit_count"] == 9
+    assert result["metric_aggregation"]["total_retrieval_candidate_count"] == 25
     assert result["failure_mode_counts"] == {
-        "partial_retrieval_miss": 1,
-        "proof_failure_despite_hit": 1,
-        "retrieval_hit": 2,
+        "proof_failure_despite_hit": 4,
+        "retrieval_hit": 5,
         "retrieval_miss": 1,
     }
     assert result["adversarial_decoy_observed"] is True
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["private_state_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "private_state_scan" not in result
+    assert "body_redacted" not in result
+    copied_material = result["copied_material"][0]
+    assert copied_material["source_ref"].endswith(
+        "premise_retrieval_graph_v0/run_summary.json"
+    )
+    assert copied_material["source_sha256"] == (
+        "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+    )
     assert result["authority_ceiling"]["labels_allowed_in_provider_context"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
     assert result["authority_ceiling"]["benchmark_performance_authority"] is False
@@ -69,7 +83,7 @@ def test_ring2_precision_recall_observes_required_negative_cases(
             assert code in result["observed_negative_cases"][case_id]
 
 
-def test_ring2_precision_recall_receipts_are_public_relative_and_redacted(
+def test_ring2_precision_recall_receipts_are_public_relative_and_provenanced(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -99,7 +113,16 @@ def test_ring2_precision_recall_receipts_are_public_relative_and_redacted(
         assert '"body":' not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
+        assert payload["body_material_status"] == (
+            "copied_non_secret_macro_body_with_provenance"
+        )
+        assert payload["body_copied_material_count"] == 1
+        assert "secret_exclusion_scan" in payload
+        assert "private_state_scan" not in payload
+        assert "body_redacted" not in payload
         assert "matched_excerpt" not in _walk_keys(payload)
+        assert "private_state_scan" not in _walk_keys(payload)
+        assert "body_redacted" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
 
 
@@ -130,8 +153,16 @@ def test_ring2_precision_recall_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["problem_count"] == 5
-    assert result["mean_recall_at_k"] == 0.7
+    assert result["problem_count"] == 10
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["body_copied_material_count"] == 1
+    assert result["mean_precision_at_k"] == 0.36
+    assert result["mean_recall_at_k"] == 0.9
+    assert result["failure_mode_counts"] == {
+        "proof_failure_despite_hit": 4,
+        "retrieval_hit": 5,
+        "retrieval_miss": 1,
+    }
     assert result["authority_ceiling"]["provider_calls_authorized"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
     assert result["receipt_paths"] == [

@@ -4,8 +4,16 @@
   "rankings": [
     {
       "problem_id": "ring2_iff_direction",
-      "retrieved_premise_ids": ["Iff.mp", "Bool.and_comm"],
-      "oracle_needed_premise_ids": ["Iff.mp", "Iff.mpr"]
+      "retrieved_premise_ids": [
+        "Iff.mp",
+        "Bool.and_comm"
+      ],
+      "oracle_needed_premise_ids": [
+        "Iff.mp",
+        "Iff.mpr"
+      ]
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

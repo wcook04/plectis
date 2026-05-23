@@ -8,5 +8,7 @@
       "benchmark_performance_claimed": true,
       "release_authorized": true
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

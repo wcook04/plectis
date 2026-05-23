@@ -6,5 +6,7 @@
       "problem_id": "ring2_nat_add_comm_assoc",
       "proof_body": "by simpa [Nat.add_comm, Nat.add_assoc]"
     }
-  ]
+  ],
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }

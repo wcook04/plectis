@@ -1,7 +1,7 @@
 {
   "adversarial_decoy_case_id": "ring2_list_map_map_index_miss",
   "adversarial_decoy_observed": true,
-  "anti_claim": "Ring-2 premise retrieval precision/recall evaluates synthetic public retrieval rankings against after-the-fact labels. It separates retrieval misses from proof failures despite premise hits, but it does not run Lean or Lake, call providers, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release.",
+  "anti_claim": "Ring-2 premise retrieval precision/recall evaluates copied non-secret macro run rankings against after-the-fact metric labels. It separates retrieval misses from proof failures despite premise hits, but it does not run Lean or Lake, call providers, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release.",
   "authority_ceiling": {
     "after_the_fact_labels_allowed_for_metrics": true,
     "authority_ceiling": "ring2_retrieval_metrics_metadata_not_proof_or_benchmark_authority",
@@ -15,10 +15,69 @@
     "status": "pass",
     "test_split_tuning_authorized": false
   },
-  "body_redacted": true,
+  "body_copied_material_count": 1,
+  "body_material_contract": {
+    "after_the_fact_metric_labels_only": true,
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_macro_run_rows": true,
+    "lean_lake_execution_authorized": false,
+    "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+    "macro_run_variant_id": "premise_retrieval_graph_v0",
+    "oracle_labels_excluded_from_rankings": true,
+    "proof_bodies_excluded": true,
+    "provider_calls_authorized": false,
+    "provider_payloads_excluded": true
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": null,
   "command": "run",
-  "created_at": "2026-05-21T16:54:03+00:00",
+  "copied_material": [
+    {
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "copied_fields": [
+        "problem_id",
+        "split",
+        "domain",
+        "lean_compile_status",
+        "error_class",
+        "premise_retrieval.retrieved_premise_ids",
+        "premise_retrieval.oracle_needed_premise_ids",
+        "premise_retrieval.needed_premises_all_retrieved",
+        "premise_retrieval.missing_needed_premise_ids"
+      ],
+      "copied_record_count": 10,
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "premise_retrieval_graph_v0",
+      "material_id": "ring2_premise_retrieval_graph_v0_run_summary_rows",
+      "material_kind": "real_ring2_premise_retrieval_run_rows",
+      "secret_exclusion": {
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true,
+        "oracle_labels_excluded_from_rankings": true,
+        "proof_bodies_excluded": true,
+        "provider_payloads_excluded": true
+      },
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "source_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "target_refs": [
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_rankings.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_runs.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/problem_labels.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_rankings.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/evaluation_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py",
+        "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
+      ]
+    }
+  ],
+  "created_at": "2026-05-23T05:00:08+00:00",
   "error_codes": [
     "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
     "RING2_RETRIEVAL_METRIC_OVERCLAIM",
@@ -29,125 +88,235 @@
   "evaluations": [
     {
       "adversarial_decoy_expected": false,
-      "body_redacted": true,
-      "failure_mode": "partial_retrieval_miss",
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "retrieval_hit",
       "hit_count": 1,
       "hit_premise_ids": [
-        "Iff.mp"
+        "premise_bool_not_not"
       ],
-      "needed_premise_count": 2,
-      "needed_premise_ids_redacted": true,
-      "precision_at_k": 0.25,
-      "problem_id": "ring2_iff_direction",
-      "recall_at_k": 0.5,
-      "retrieved_premise_count": 4,
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 1.0,
+      "problem_id": "ring2_bool_not_not",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 1,
       "retrieved_premise_ids": [
-        "Iff.mp",
-        "Bool.and_comm",
-        "Bool.or_comm",
-        "Nat.add_comm"
+        "premise_bool_not_not"
       ],
       "ring": "ring2",
-      "split": "dev",
-      "target_shape": "iff_directional_rewrite",
-      "top_k": 4
+      "split": "train",
+      "target_shape": "bool_not_not",
+      "top_k": 1
     },
     {
       "adversarial_decoy_expected": false,
-      "body_redacted": true,
+      "body_material_status": "real_run_metric_row",
       "failure_mode": "retrieval_hit",
-      "hit_count": 2,
+      "hit_count": 1,
       "hit_premise_ids": [
-        "List.length_append",
-        "List.map_append"
+        "premise_iff_intro"
       ],
-      "needed_premise_count": 2,
-      "needed_premise_ids_redacted": true,
-      "precision_at_k": 0.5,
-      "problem_id": "ring2_list_append_length",
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 1.0,
+      "problem_id": "ring2_iff_intro",
       "recall_at_k": 1.0,
-      "retrieved_premise_count": 4,
+      "retrieved_premise_count": 1,
       "retrieved_premise_ids": [
-        "List.map_append",
-        "List.append_assoc",
-        "Bool.or_comm",
-        "List.length_append"
+        "premise_iff_intro"
       ],
       "ring": "ring2",
       "split": "dev",
-      "target_shape": "list_append_length",
-      "top_k": 4
+      "target_shape": "iff_intro",
+      "top_k": 1
     },
     {
-      "adversarial_decoy_expected": true,
-      "body_redacted": true,
-      "failure_mode": "retrieval_miss",
-      "hit_count": 0,
-      "hit_premise_ids": [],
+      "adversarial_decoy_expected": false,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "proof_failure_despite_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "premise_list_length_append"
+      ],
       "needed_premise_count": 1,
-      "needed_premise_ids_redacted": true,
-      "precision_at_k": 0.0,
-      "problem_id": "ring2_list_map_map_index_miss",
-      "recall_at_k": 0.0,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_list_length_append",
+      "recall_at_k": 1.0,
       "retrieved_premise_count": 3,
       "retrieved_premise_ids": [
-        "List.map_append",
-        "List.length_append",
-        "List.append_assoc"
+        "premise_list_length_append",
+        "premise_list_length_cons",
+        "premise_list_mem_append"
       ],
       "ring": "ring2",
-      "split": "test",
-      "target_shape": "list_map_composition",
+      "split": "dev",
+      "target_shape": "list_length_append",
       "top_k": 3
     },
     {
       "adversarial_decoy_expected": false,
-      "body_redacted": true,
-      "failure_mode": "retrieval_hit",
-      "hit_count": 2,
-      "hit_premise_ids": [
-        "Nat.add_assoc",
-        "Nat.add_comm"
-      ],
-      "needed_premise_count": 2,
-      "needed_premise_ids_redacted": true,
-      "precision_at_k": 0.5,
-      "problem_id": "ring2_nat_add_comm_assoc",
-      "recall_at_k": 1.0,
-      "retrieved_premise_count": 4,
-      "retrieved_premise_ids": [
-        "Nat.add_comm",
-        "Nat.add_assoc",
-        "Bool.and_comm",
-        "List.append_assoc"
-      ],
-      "ring": "ring2",
-      "split": "train",
-      "target_shape": "nat_comm_assoc",
-      "top_k": 4
-    },
-    {
-      "adversarial_decoy_expected": false,
-      "body_redacted": true,
+      "body_material_status": "real_run_metric_row",
       "failure_mode": "proof_failure_despite_hit",
       "hit_count": 1,
       "hit_premise_ids": [
-        "Nat.mul_comm"
+        "premise_list_length_append"
       ],
       "needed_premise_count": 1,
-      "needed_premise_ids_redacted": true,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
       "precision_at_k": 0.3333,
-      "problem_id": "ring2_nat_mul_comm_failure_after_hit",
+      "problem_id": "ring2_list_length_append_symmetry_hit_fail",
       "recall_at_k": 1.0,
       "retrieved_premise_count": 3,
       "retrieved_premise_ids": [
-        "Bool.and_comm",
-        "Nat.mul_comm",
-        "Nat.add_comm"
+        "premise_list_length_append",
+        "premise_list_length_cons",
+        "premise_list_mem_append"
       ],
       "ring": "ring2",
       "split": "test",
-      "target_shape": "nat_mul_comm",
+      "target_shape": "list_length_append_symmetry",
+      "top_k": 3
+    },
+    {
+      "adversarial_decoy_expected": true,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "retrieval_miss",
+      "hit_count": 0,
+      "hit_premise_ids": [],
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.0,
+      "problem_id": "ring2_list_map_map_index_miss",
+      "recall_at_k": 0.0,
+      "retrieved_premise_count": 2,
+      "retrieved_premise_ids": [
+        "premise_list_length_append",
+        "premise_list_reverse_reverse"
+      ],
+      "ring": "ring2",
+      "split": "test",
+      "target_shape": "list_map_map_index_miss",
+      "top_k": 2
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "retrieval_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "premise_list_mem_append"
+      ],
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_list_mem_append",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "premise_list_mem_append",
+        "premise_list_length_append",
+        "premise_list_length_cons"
+      ],
+      "ring": "ring2",
+      "split": "test",
+      "target_shape": "list_mem_append",
+      "top_k": 3
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "proof_failure_despite_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "premise_list_reverse_reverse"
+      ],
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_list_reverse_reverse",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "premise_list_reverse_reverse",
+        "premise_list_map_map",
+        "premise_list_length_append"
+      ],
+      "ring": "ring2",
+      "split": "dev",
+      "target_shape": "list_reverse_reverse",
+      "top_k": 3
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "proof_failure_despite_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "premise_nat_add_assoc"
+      ],
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_nat_add_assoc",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "premise_nat_add_assoc",
+        "premise_nat_add_comm",
+        "premise_nat_add_zero"
+      ],
+      "ring": "ring2",
+      "split": "train",
+      "target_shape": "nat_add_assoc",
+      "top_k": 3
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "retrieval_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "premise_nat_add_comm"
+      ],
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_nat_add_comm",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "premise_nat_add_comm",
+        "premise_nat_add_assoc",
+        "premise_nat_add_zero"
+      ],
+      "ring": "ring2",
+      "split": "train",
+      "target_shape": "nat_add_comm",
+      "top_k": 3
+    },
+    {
+      "adversarial_decoy_expected": false,
+      "body_material_status": "real_run_metric_row",
+      "failure_mode": "retrieval_hit",
+      "hit_count": 1,
+      "hit_premise_ids": [
+        "premise_nat_succ_inj"
+      ],
+      "needed_premise_count": 1,
+      "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
+      "precision_at_k": 0.3333,
+      "problem_id": "ring2_nat_succ_injective",
+      "recall_at_k": 1.0,
+      "retrieved_premise_count": 3,
+      "retrieved_premise_ids": [
+        "premise_nat_succ_inj",
+        "premise_nat_add_assoc",
+        "premise_nat_add_comm"
+      ],
+      "ring": "ring2",
+      "split": "train",
+      "target_shape": "nat_succ_injective",
       "top_k": 3
     }
   ],
@@ -169,30 +338,29 @@
     ]
   },
   "failure_mode_counts": {
-    "partial_retrieval_miss": 1,
-    "proof_failure_despite_hit": 1,
-    "retrieval_hit": 2,
+    "proof_failure_despite_hit": 4,
+    "retrieval_hit": 5,
     "retrieval_miss": 1
   },
   "findings": [
     {
-      "body_redacted": true,
+      "body_material_status": "excluded_forbidden_material",
       "error_code": "RING2_RETRIEVAL_ORACLE_LABELS_IN_RANKING",
-      "message": "Ring-2 public retrieval fixtures may carry redacted labels and rankings, not proof bodies or oracle labels inside rankings.",
+      "message": "Ring-2 public retrieval fixtures may carry after-the-fact metric labels and rankings, not proof bodies or oracle labels inside rankings.",
       "negative_case_id": "oracle_labels_in_ranking",
       "subject_id": "ring2_iff_direction",
       "subject_kind": "retrieval_ranking"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "excluded_forbidden_material",
       "error_code": "RING2_RETRIEVAL_PROOF_BODY_FORBIDDEN",
-      "message": "Ring-2 public retrieval fixtures may carry redacted labels and rankings, not proof bodies or oracle labels inside rankings.",
+      "message": "Ring-2 public retrieval fixtures may carry after-the-fact metric labels and rankings, not proof bodies or oracle labels inside rankings.",
       "negative_case_id": "proof_body_leakage",
       "subject_id": "ring2_nat_add_comm_assoc",
       "subject_kind": "proof_body_leakage"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "excluded_forbidden_material",
       "error_code": "RING2_RETRIEVAL_TEST_SPLIT_TUNING_FORBIDDEN",
       "message": "Ring-2 labels may be used for after-the-fact metrics, not retrieval tuning.",
       "negative_case_id": "test_split_tuning_attempt",
@@ -200,7 +368,7 @@
       "subject_kind": "test_split_tuning"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "excluded_forbidden_material",
       "error_code": "RING2_RETRIEVAL_METRIC_OVERCLAIM",
       "message": "Ring-2 metrics cannot claim proof authority, benchmark performance, provider authority, or release readiness.",
       "negative_case_id": "metric_overclaim",
@@ -208,7 +376,7 @@
       "subject_kind": "metric_claim"
     },
     {
-      "body_redacted": true,
+      "body_material_status": "excluded_forbidden_material",
       "error_code": "RING2_RETRIEVAL_ADVERSARIAL_DECOY_REQUIRED",
       "message": "Ring-2 retrieval quality fixtures must include an adversarial decoy/miss case.",
       "negative_case_id": "missing_adversarial_decoy",
@@ -218,8 +386,19 @@
   ],
   "fixture_id": "first_wave.ring2_premise_retrieval_precision_recall_harness",
   "input_mode": "fixture_input",
-  "mean_precision_at_k": 0.3167,
-  "mean_recall_at_k": 0.7,
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "macro_run_variant_id": "premise_retrieval_graph_v0",
+  "mean_precision_at_k": 0.36,
+  "mean_recall_at_k": 0.9,
+  "metric_aggregation": {
+    "legacy_row_mean_precision_at_k": 0.4333,
+    "legacy_row_mean_recall_at_k": 0.9,
+    "precision": "total_hit_count_over_total_retrieval_candidate_count",
+    "recall": "total_hit_count_over_total_needed_premise_count",
+    "total_hit_count": 9,
+    "total_needed_premise_count": 10,
+    "total_retrieval_candidate_count": 25
+  },
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "metric_overclaim": [
@@ -239,30 +418,37 @@
     ]
   },
   "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-  "private_state_scan": {
+  "problem_count": 10,
+  "receipt_id": "ring2_precision_recall_validation_receipt_v1",
+  "receipt_paths": [
+    "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+    "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
+    "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json"
+  ],
+  "schema_version": "ring2_precision_recall_validation_receipt_v1",
+  "secret_exclusion_scan": {
     "blocking_hit_count": 0,
-    "body_redacted": true,
+    "body_material_status": "secret_exclusion_scan_no_payload_bodies",
+    "forbidden_output_field_labels_omitted": true,
     "hit_count": 0,
     "hits": [],
-    "redacted_output_field_labels_omitted": true,
     "scanned_path_count": 9,
     "status": "pass"
   },
-  "problem_count": 5,
-  "receipt_id": "ring2_precision_recall_validation_receipt_v1",
-  "receipt_paths": [
-    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
-    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
-    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json"
-  ],
-  "schema_version": "ring2_precision_recall_validation_receipt_v1",
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
+  },
   "source_pattern_ids": [
     "ring2_premise_retrieval_precision_recall_harness"
   ],
   "source_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
   ],
   "status": "pass",
   "validator_id": "validator.microcosm.organs.ring2_premise_retrieval_precision_recall_harness"

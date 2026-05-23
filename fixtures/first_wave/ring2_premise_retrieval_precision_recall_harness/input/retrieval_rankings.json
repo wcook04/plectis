@@ -1,40 +1,179 @@
 {
   "schema_version": "ring2_retrieval_rankings_v1",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "ranking_scope": "real_ring2_premise_retrieval_run_public_import",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+  },
+  "ranking_count": 10,
   "rankings": [
     {
-      "run_id": "ring2_public_fixture_v1",
-      "problem_id": "ring2_nat_add_comm_assoc",
-      "top_k": 4,
-      "retrieved_premise_ids": ["Nat.add_comm", "Nat.add_assoc", "Bool.and_comm", "List.append_assoc"],
-      "proof_outcome": "pass"
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_bool_not_not",
+      "top_k": 1,
+      "retrieved_premise_ids": [
+        "premise_bool_not_not"
+      ],
+      "proof_outcome": "pass",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
     },
     {
-      "run_id": "ring2_public_fixture_v1",
-      "problem_id": "ring2_list_append_length",
-      "top_k": 4,
-      "retrieved_premise_ids": ["List.map_append", "List.append_assoc", "Bool.or_comm", "List.length_append"],
-      "proof_outcome": "pass"
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_iff_intro",
+      "top_k": 1,
+      "retrieved_premise_ids": [
+        "premise_iff_intro"
+      ],
+      "proof_outcome": "pass",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
     },
     {
-      "run_id": "ring2_public_fixture_v1",
-      "problem_id": "ring2_iff_direction",
-      "top_k": 4,
-      "retrieved_premise_ids": ["Iff.mp", "Bool.and_comm", "Bool.or_comm", "Nat.add_comm"],
-      "proof_outcome": "fail"
-    },
-    {
-      "run_id": "ring2_public_fixture_v1",
-      "problem_id": "ring2_nat_mul_comm_failure_after_hit",
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_list_length_append",
       "top_k": 3,
-      "retrieved_premise_ids": ["Bool.and_comm", "Nat.mul_comm", "Nat.add_comm"],
-      "proof_outcome": "fail"
+      "retrieved_premise_ids": [
+        "premise_list_length_append",
+        "premise_list_length_cons",
+        "premise_list_mem_append"
+      ],
+      "proof_outcome": "fail",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
     },
     {
-      "run_id": "ring2_public_fixture_v1",
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_list_length_append_symmetry_hit_fail",
+      "top_k": 3,
+      "retrieved_premise_ids": [
+        "premise_list_length_append",
+        "premise_list_length_cons",
+        "premise_list_mem_append"
+      ],
+      "proof_outcome": "fail",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
+    },
+    {
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
       "problem_id": "ring2_list_map_map_index_miss",
+      "top_k": 2,
+      "retrieved_premise_ids": [
+        "premise_list_length_append",
+        "premise_list_reverse_reverse"
+      ],
+      "proof_outcome": "fail",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
+    },
+    {
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_list_mem_append",
       "top_k": 3,
-      "retrieved_premise_ids": ["List.map_append", "List.length_append", "List.append_assoc"],
-      "proof_outcome": "not_run"
+      "retrieved_premise_ids": [
+        "premise_list_mem_append",
+        "premise_list_length_append",
+        "premise_list_length_cons"
+      ],
+      "proof_outcome": "pass",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
+    },
+    {
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_list_reverse_reverse",
+      "top_k": 3,
+      "retrieved_premise_ids": [
+        "premise_list_reverse_reverse",
+        "premise_list_map_map",
+        "premise_list_length_append"
+      ],
+      "proof_outcome": "fail",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
+    },
+    {
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_nat_add_assoc",
+      "top_k": 3,
+      "retrieved_premise_ids": [
+        "premise_nat_add_assoc",
+        "premise_nat_add_comm",
+        "premise_nat_add_zero"
+      ],
+      "proof_outcome": "fail",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
+    },
+    {
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_nat_add_comm",
+      "top_k": 3,
+      "retrieved_premise_ids": [
+        "premise_nat_add_comm",
+        "premise_nat_add_assoc",
+        "premise_nat_add_zero"
+      ],
+      "proof_outcome": "pass",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
+    },
+    {
+      "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0_public_import",
+      "problem_id": "ring2_nat_succ_injective",
+      "top_k": 3,
+      "retrieved_premise_ids": [
+        "premise_nat_succ_inj",
+        "premise_nat_add_assoc",
+        "premise_nat_add_comm"
+      ],
+      "proof_outcome": "pass",
+      "ranking_material_status": "retrieved_premise_ids_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "needed_premise_ids_in_ranking": false,
+      "provider_payload_included": false,
+      "proof_body_included": false
     }
   ]
 }

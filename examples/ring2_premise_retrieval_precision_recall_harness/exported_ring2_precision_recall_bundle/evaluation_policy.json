@@ -1,18 +1,26 @@
 {
   "schema_version": "ring2_retrieval_evaluation_policy_v1",
-  "policy_id": "ring2_public_precision_recall_policy_v1",
-  "minimum_problem_count": 5,
-  "default_top_k": 4,
+  "policy_id": "ring2_real_run_precision_recall_policy_v1",
+  "minimum_problem_count": 10,
+  "default_top_k": 3,
   "expected_failure_modes": [
     "retrieval_hit",
-    "partial_retrieval_miss",
     "retrieval_miss",
     "proof_failure_despite_hit"
   ],
   "adversarial_decoy_case_id": "ring2_list_map_map_index_miss",
+  "expected_aggregate_metrics": {
+    "problem_count": 10,
+    "mean_precision_at_k": 0.36,
+    "mean_recall_at_k": 0.9,
+    "premise_retrieval_pass_count": 5,
+    "proof_failure_despite_hit": 4,
+    "retrieval_miss_count": 1
+  },
   "labels_allowed_in_provider_context": false,
   "test_split_tuning_authorized": false,
   "proof_bodies_allowed": false,
+  "provider_calls_authorized": false,
   "benchmark_performance_claimed": false,
   "release_authorized": false
 }

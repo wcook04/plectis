@@ -1,48 +1,194 @@
 {
   "schema_version": "ring2_problem_labels_v1",
   "label_role": "after_the_fact_metric_labels_not_provider_context",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "source_refs": [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+  ],
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+  },
+  "problem_count": 10,
   "problems": [
     {
-      "problem_id": "ring2_nat_add_comm_assoc",
+      "problem_id": "ring2_bool_not_not",
       "split": "train",
       "ring": "ring2",
-      "target_shape": "nat_comm_assoc",
-      "needed_premise_ids": ["Nat.add_comm", "Nat.add_assoc"],
-      "proof_body_redacted": true
+      "domain": "bool",
+      "target_shape": "bool_not_not",
+      "needed_premise_ids": [
+        "premise_bool_not_not"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "pass",
+      "error_class_from_run": "NONE",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
     },
     {
-      "problem_id": "ring2_list_append_length",
+      "problem_id": "ring2_iff_intro",
       "split": "dev",
       "ring": "ring2",
-      "target_shape": "list_append_length",
-      "needed_premise_ids": ["List.map_append", "List.length_append"],
-      "proof_body_redacted": true
+      "domain": "propositional",
+      "target_shape": "iff_intro",
+      "needed_premise_ids": [
+        "premise_iff_intro"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "pass",
+      "error_class_from_run": "NONE",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
     },
     {
-      "problem_id": "ring2_iff_direction",
+      "problem_id": "ring2_list_length_append",
       "split": "dev",
       "ring": "ring2",
-      "target_shape": "iff_directional_rewrite",
-      "needed_premise_ids": ["Iff.mp", "Iff.mpr"],
-      "proof_body_redacted": true
+      "domain": "list",
+      "target_shape": "list_length_append",
+      "needed_premise_ids": [
+        "premise_list_length_append"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "fail",
+      "error_class_from_run": "PROOF_CORE_GAP",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
     },
     {
-      "problem_id": "ring2_nat_mul_comm_failure_after_hit",
+      "problem_id": "ring2_list_length_append_symmetry_hit_fail",
       "split": "test",
       "ring": "ring2",
-      "target_shape": "nat_mul_comm",
-      "needed_premise_ids": ["Nat.mul_comm"],
-      "proof_body_redacted": true
+      "domain": "list",
+      "target_shape": "list_length_append_symmetry",
+      "needed_premise_ids": [
+        "premise_list_length_append"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "fail",
+      "error_class_from_run": "TACTIC_SEARCH_FAIL",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
     },
     {
       "problem_id": "ring2_list_map_map_index_miss",
       "split": "test",
       "ring": "ring2",
-      "target_shape": "list_map_composition",
-      "needed_premise_ids": ["List.map_map"],
-      "public_index_status": "absent_by_design",
-      "adversarial_decoy_expected": true,
-      "proof_body_redacted": true
+      "domain": "list",
+      "target_shape": "list_map_map_index_miss",
+      "needed_premise_ids": [
+        "premise_list_map_map"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "fail",
+      "error_class_from_run": "PREMISE_RETRIEVAL_MISS",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": true
+    },
+    {
+      "problem_id": "ring2_list_mem_append",
+      "split": "test",
+      "ring": "ring2",
+      "domain": "list",
+      "target_shape": "list_mem_append",
+      "needed_premise_ids": [
+        "premise_list_mem_append"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "pass",
+      "error_class_from_run": "NONE",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
+    },
+    {
+      "problem_id": "ring2_list_reverse_reverse",
+      "split": "dev",
+      "ring": "ring2",
+      "domain": "list",
+      "target_shape": "list_reverse_reverse",
+      "needed_premise_ids": [
+        "premise_list_reverse_reverse"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "fail",
+      "error_class_from_run": "PROOF_CORE_GAP",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
+    },
+    {
+      "problem_id": "ring2_nat_add_assoc",
+      "split": "train",
+      "ring": "ring2",
+      "domain": "nat",
+      "target_shape": "nat_add_assoc",
+      "needed_premise_ids": [
+        "premise_nat_add_assoc"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "fail",
+      "error_class_from_run": "PROOF_CORE_GAP",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
+    },
+    {
+      "problem_id": "ring2_nat_add_comm",
+      "split": "train",
+      "ring": "ring2",
+      "domain": "nat",
+      "target_shape": "nat_add_comm",
+      "needed_premise_ids": [
+        "premise_nat_add_comm"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "pass",
+      "error_class_from_run": "NONE",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
+    },
+    {
+      "problem_id": "ring2_nat_succ_injective",
+      "split": "train",
+      "ring": "ring2",
+      "domain": "nat",
+      "target_shape": "nat_succ_injective",
+      "needed_premise_ids": [
+        "premise_nat_succ_inj"
+      ],
+      "label_material_status": "after_the_fact_metric_label_from_real_run",
+      "source_run_summary_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "proof_outcome_from_run": "pass",
+      "error_class_from_run": "NONE",
+      "proof_body_excluded": true,
+      "provider_payload_excluded": true,
+      "adversarial_decoy_expected": false
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Ring-2 premise retrieval precision/recall evaluates synthetic public retrieval rankings against after-the-fact labels. It separates retrieval misses from proof failures despite premise hits, but it does not run Lean or Lake, call providers, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release.",
+  "anti_claim": "Ring-2 premise retrieval precision/recall evaluates copied non-secret macro run rankings against after-the-fact metric labels. It separates retrieval misses from proof failures despite premise hits, but it does not run Lean or Lake, call providers, expose proof bodies, tune on test answers, claim benchmark performance, prove theorem correctness, or authorize release.",
   "authority_ceiling": {
     "after_the_fact_labels_allowed_for_metrics": true,
     "authority_ceiling": "ring2_retrieval_metrics_metadata_not_proof_or_benchmark_authority",
@@ -13,47 +13,115 @@
     "status": "pass",
     "test_split_tuning_authorized": false
   },
-  "body_redacted": true,
+  "body_copied_material_count": 1,
+  "body_material_contract": {
+    "after_the_fact_metric_labels_only": true,
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_macro_run_rows": true,
+    "lean_lake_execution_authorized": false,
+    "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+    "macro_run_variant_id": "premise_retrieval_graph_v0",
+    "oracle_labels_excluded_from_rankings": true,
+    "proof_bodies_excluded": true,
+    "provider_calls_authorized": false,
+    "provider_payloads_excluded": true
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": null,
+  "copied_material": [
+    {
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "copied_fields": [
+        "problem_id",
+        "split",
+        "domain",
+        "lean_compile_status",
+        "error_class",
+        "premise_retrieval.retrieved_premise_ids",
+        "premise_retrieval.oracle_needed_premise_ids",
+        "premise_retrieval.needed_premises_all_retrieved",
+        "premise_retrieval.missing_needed_premise_ids"
+      ],
+      "copied_record_count": 10,
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "premise_retrieval_graph_v0",
+      "material_id": "ring2_premise_retrieval_graph_v0_run_summary_rows",
+      "material_kind": "real_ring2_premise_retrieval_run_rows",
+      "secret_exclusion": {
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true,
+        "oracle_labels_excluded_from_rankings": true,
+        "proof_bodies_excluded": true,
+        "provider_payloads_excluded": true
+      },
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "source_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "target_refs": [
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_runs.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/problem_labels.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/retrieval_rankings.json",
+        "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/evaluation_policy.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_runs.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/problem_labels.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_rankings.json",
+        "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/evaluation_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py",
+        "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
+      ]
+    }
+  ],
   "input_mode": "fixture_input",
   "metrics": {
     "adversarial_decoy_case_id": "ring2_list_map_map_index_miss",
     "adversarial_decoy_observed": true,
     "failure_mode_counts": {
-      "partial_retrieval_miss": 1,
-      "proof_failure_despite_hit": 1,
-      "retrieval_hit": 2,
+      "proof_failure_despite_hit": 4,
+      "retrieval_hit": 5,
       "retrieval_miss": 1
     },
-    "mean_precision_at_k": 0.3167,
-    "mean_recall_at_k": 0.7,
-    "problem_count": 5
+    "mean_precision_at_k": 0.36,
+    "mean_recall_at_k": 0.9,
+    "metric_aggregation": {
+      "legacy_row_mean_precision_at_k": 0.4333,
+      "legacy_row_mean_recall_at_k": 0.9,
+      "precision": "total_hit_count_over_total_retrieval_candidate_count",
+      "recall": "total_hit_count_over_total_needed_premise_count",
+      "total_hit_count": 9,
+      "total_needed_premise_count": 10,
+      "total_retrieval_candidate_count": 25
+    },
+    "problem_count": 10
   },
   "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 9,
-    "status": "pass"
-  },
   "public_contract": {
     "adversarial_decoy_required": true,
     "after_the_fact_metric_labels_only": true,
-    "body_redacted": true,
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_material_provenance_required": true,
     "precision_and_recall_metered": true,
     "proof_bodies_forbidden": true,
     "provider_context_label_leakage_forbidden": true,
     "retrieval_vs_proof_failure_attribution": true
   },
   "receipt_paths": [
-    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
-    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
-    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json"
+    "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+    "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_board.json",
+    "microcosm-substrate/receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_validation_receipt.json"
   ],
   "schema_version": "ring2_precision_recall_board_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_material_status": "secret_exclusion_scan_no_payload_bodies",
+    "forbidden_output_field_labels_omitted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 9,
+    "status": "pass"
+  },
   "selected_pattern_ids": [
     "ring2_premise_retrieval_precision_recall_harness"
   ],

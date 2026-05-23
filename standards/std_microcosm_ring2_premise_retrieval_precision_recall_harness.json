@@ -5,7 +5,7 @@
   "status": "accepted",
   "authority_boundary": {
     "owner": "ring2_premise_retrieval_precision_recall_harness",
-    "allowed_claim": "Public Ring-2 retrieval rankings can be scored against after-the-fact labels to report precision, recall, adversarial misses, and retrieval-versus-proof failure attribution.",
+    "allowed_claim": "Copied non-secret Ring-2 premise-retrieval run rankings can be scored against after-the-fact labels to report precision, recall, adversarial misses, and retrieval-versus-proof failure attribution.",
     "forbidden_claims": [
       "precision/recall metrics prove theorem correctness",
       "labels may enter provider context",
@@ -16,8 +16,9 @@
   },
   "source_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
   ],
   "relationships": {
     "organ_id": "ring2_premise_retrieval_precision_recall_harness",
@@ -33,6 +34,10 @@
     ]
   },
   "required_fields": [
+    "retrieval_runs.body_material_status",
+    "retrieval_runs.copied_material[].source_ref",
+    "retrieval_runs.copied_material[].source_sha256",
+    "retrieval_runs.copied_material[].target_refs",
     "retrieval_runs.runs[].run_id",
     "problem_labels.problems[].problem_id",
     "problem_labels.problems[].needed_premise_ids",
@@ -41,21 +46,25 @@
     "evaluation_policy.adversarial_decoy_case_id"
   ],
   "validation_rules": [
-    "Precision and recall must be computed after ranking from metric labels, not used to tune retrieval.",
+    "Precision and recall must be computed from copied non-secret macro run rankings and after-the-fact metric labels, not stand-in product evidence.",
+    "The fixture must retain source refs, source digests, target refs, and validation refs for copied macro material.",
     "The fixture must include an adversarial decoy/miss case.",
-    "Failure attribution must distinguish retrieval_hit, partial_retrieval_miss, retrieval_miss, and proof_failure_despite_hit.",
+    "Failure attribution must distinguish retrieval_hit, retrieval_miss, and proof_failure_despite_hit; partial_retrieval_miss remains allowed when observed.",
     "Proof bodies, provider bodies, private source bodies, and oracle-needed ids inside rankings are forbidden.",
     "Metrics cannot claim proof, benchmark, provider, release, publication, or recipient-work authority."
   ],
   "receipt_expectations": [
-    "result receipt with precision/recall metrics and failure attribution",
-    "board receipt with public contract and authority ceiling",
+    "result receipt with precision/recall metrics, copied-material provenance, secret_exclusion_scan, and failure attribution",
+    "board receipt with public contract, copied-material status, and authority ceiling",
     "validation receipt with negative-case coverage",
     "fixture acceptance receipt"
   ],
   "validator_contract": {
     "module": "microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness",
-    "actions": ["run", "run-precision-recall-bundle"],
+    "actions": [
+      "run",
+      "run-precision-recall-bundle"
+    ],
     "negative_case_count": 5
   },
   "receipt_contract": {
@@ -69,7 +78,7 @@
     "proof_bodies_included": false,
     "provider_payloads_included": false,
     "labels_allowed_in_provider_context": false,
-    "fixture_kind": "synthetic_public_metric_metadata"
+    "fixture_kind": "copied_non_secret_macro_run_metric_rows"
   },
   "authority_ceiling": {
     "labels_allowed_in_provider_context": false,
@@ -80,5 +89,14 @@
     "benchmark_performance_authority": false,
     "release_authorized": false
   },
-  "anti_claim": "This standard governs public Ring-2 retrieval precision/recall metadata only; it does not expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence."
+  "anti_claim": "This standard governs copied non-secret Ring-2 premise-retrieval run metrics only; it does not expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence.",
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "macro_run_variant_id": "premise_retrieval_graph_v0"
 }

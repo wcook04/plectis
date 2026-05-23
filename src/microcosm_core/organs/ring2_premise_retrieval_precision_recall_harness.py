@@ -29,11 +29,57 @@ ACCEPTANCE_RECEIPT_REL = (
 BUNDLE_RESULT_NAME = "exported_ring2_precision_recall_bundle_validation_result.json"
 
 SOURCE_PATTERN_IDS = ["ring2_premise_retrieval_precision_recall_harness"]
+RUN_ID = "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
+RUN_VARIANT_ID = "premise_retrieval_graph_v0"
+RUN_SUMMARY_SOURCE_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/run_summary.json"
+)
+AGGREGATE_REPORT_SOURCE_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "aggregate_report.json"
+)
+GRAPH_COMPARISON_SOURCE_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "graph_variant_comparison.json"
+)
+PROBLEM_SOURCE_MANIFEST_REF = (
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "problem_source_manifest.json"
+)
 SOURCE_REFS = [
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/run_summary.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    AGGREGATE_REPORT_SOURCE_REF,
+    RUN_SUMMARY_SOURCE_REF,
+    GRAPH_COMPARISON_SOURCE_REF,
+    PROBLEM_SOURCE_MANIFEST_REF,
 ]
+SOURCE_DIGESTS = {
+    AGGREGATE_REPORT_SOURCE_REF: (
+        "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0"
+    ),
+    RUN_SUMMARY_SOURCE_REF: (
+        "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+    ),
+    GRAPH_COMPARISON_SOURCE_REF: (
+        "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
+    ),
+    PROBLEM_SOURCE_MANIFEST_REF: (
+        "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
+    ),
+}
+BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+BODY_MATERIAL_CONTRACT = {
+    "body_material_status": BODY_MATERIAL_STATUS,
+    "macro_run_id": RUN_ID,
+    "macro_run_variant_id": RUN_VARIANT_ID,
+    "copied_macro_run_rows": True,
+    "after_the_fact_metric_labels_only": True,
+    "proof_bodies_excluded": True,
+    "provider_payloads_excluded": True,
+    "oracle_labels_excluded_from_rankings": True,
+    "provider_calls_authorized": False,
+    "lean_lake_execution_authorized": False,
+}
 
 INPUT_NAMES = (
     "retrieval_runs.json",
@@ -91,11 +137,12 @@ AUTHORITY_CEILING = {
 }
 
 ANTI_CLAIM = (
-    "Ring-2 premise retrieval precision/recall evaluates synthetic public "
-    "retrieval rankings against after-the-fact labels. It separates retrieval "
-    "misses from proof failures despite premise hits, but it does not run Lean "
-    "or Lake, call providers, expose proof bodies, tune on test answers, claim "
-    "benchmark performance, prove theorem correctness, or authorize release."
+    "Ring-2 premise retrieval precision/recall evaluates copied non-secret "
+    "macro run rankings against after-the-fact metric labels. It separates "
+    "retrieval misses from proof failures despite premise hits, but it does "
+    "not run Lean or Lake, call providers, expose proof bodies, tune on test "
+    "answers, claim benchmark performance, prove theorem correctness, or "
+    "authorize release."
 )
 
 
@@ -167,7 +214,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_material_status": "excluded_forbidden_material",
     }
 
 
@@ -214,7 +261,7 @@ def _inspect_forbidden_bodies(
             findings,
             observed,
             code,
-            "Ring-2 public retrieval fixtures may carry redacted labels and rankings, not proof bodies or oracle labels inside rankings.",
+            "Ring-2 public retrieval fixtures may carry after-the-fact metric labels and rankings, not proof bodies or oracle labels inside rankings.",
             case_id=case_id,
             subject_id=str(row.get("problem_id") or row.get("ranking_id") or "payload"),
             subject_kind=subject_kind,
@@ -307,6 +354,78 @@ def _rankings(payload: object) -> list[dict[str, Any]]:
     return _rows(payload, "rankings")
 
 
+def _copied_material(payloads: dict[str, Any]) -> list[dict[str, Any]]:
+    runs_payload = payloads.get("retrieval_runs")
+    copied: list[dict[str, Any]] = []
+    if isinstance(runs_payload, dict):
+        copied.extend(_rows(runs_payload, "copied_material"))
+        for run_row in _rows(runs_payload, "runs"):
+            copied.extend(_rows(run_row, "copied_material"))
+    return copied
+
+
+def _source_refs_from_payload(payloads: dict[str, Any]) -> list[str]:
+    runs_payload = payloads.get("retrieval_runs")
+    refs: set[str] = set(SOURCE_REFS)
+    if isinstance(runs_payload, dict):
+        refs.update(_strings(runs_payload.get("source_refs")))
+        for row in _rows(runs_payload, "runs"):
+            refs.update(_strings(row.get("source_refs")))
+            for material in _rows(row, "copied_material"):
+                source_ref = material.get("source_ref")
+                if isinstance(source_ref, str) and source_ref:
+                    refs.add(source_ref)
+        for material in _rows(runs_payload, "copied_material"):
+            source_ref = material.get("source_ref")
+            if isinstance(source_ref, str) and source_ref:
+                refs.add(source_ref)
+    return sorted(refs)
+
+
+def _validate_run_material(payloads: dict[str, Any]) -> dict[str, Any]:
+    copied = _copied_material(payloads)
+    findings: list[dict[str, Any]] = []
+    if not copied:
+        findings.append(
+            _finding(
+                "RING2_RETRIEVAL_COPIED_MATERIAL_REQUIRED",
+                "Ring-2 precision/recall fixtures must cite copied non-secret macro run material with source and target provenance.",
+                case_id="input_floor",
+                subject_id="retrieval_runs",
+                subject_kind="copied_material",
+            )
+        )
+    for material in copied:
+        missing = [
+            field
+            for field in (
+                "source_ref",
+                "source_sha256",
+                "target_refs",
+                "validation_refs",
+            )
+            if not material.get(field)
+        ]
+        if material.get("body_material_status") != BODY_MATERIAL_STATUS:
+            missing.append("body_material_status")
+        if missing:
+            findings.append(
+                _finding(
+                    "RING2_RETRIEVAL_COPIED_MATERIAL_PROVENANCE_INCOMPLETE",
+                    "Copied Ring-2 run material must retain source digest, target refs, validation refs, and copied-material status.",
+                    case_id="input_floor",
+                    subject_id=str(material.get("material_id") or "copied_material"),
+                    subject_kind="copied_material",
+                )
+            )
+    return {
+        "copied_material": copied,
+        "body_copied_material_count": len(copied),
+        "source_refs": _source_refs_from_payload(payloads),
+        "findings": findings,
+    }
+
+
 def _evaluate(
     *,
     labels_payload: object,
@@ -318,6 +437,9 @@ def _evaluate(
     rows: list[dict[str, Any]] = []
     precision_scores: list[float] = []
     recall_scores: list[float] = []
+    total_hit_count = 0
+    total_retrieval_candidate_count = 0
+    total_needed_premise_count = 0
     failure_modes: Counter[str] = Counter()
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -326,13 +448,17 @@ def _evaluate(
     for ranking in _rankings(rankings_payload):
         problem_id = str(ranking.get("problem_id") or "")
         label = labels.get(problem_id, {})
-        retrieved = _strings(ranking.get("retrieved_premise_ids"))[: int(ranking.get("top_k") or default_top_k)]
+        declared_top_k = int(ranking.get("top_k") or default_top_k)
+        retrieved = _strings(ranking.get("retrieved_premise_ids"))[:declared_top_k]
         needed = _strings(label.get("needed_premise_ids"))
         hits = sorted(set(retrieved) & set(needed))
-        precision = len(hits) / len(retrieved) if retrieved else 0.0
+        precision = len(hits) / declared_top_k if declared_top_k else 0.0
         recall = len(hits) / len(needed) if needed else 0.0
         precision_scores.append(precision)
         recall_scores.append(recall)
+        total_hit_count += len(hits)
+        total_retrieval_candidate_count += declared_top_k
+        total_needed_premise_count += len(needed)
         proof_outcome = str(ranking.get("proof_outcome") or "not_run")
         if recall >= 1.0 and proof_outcome == "pass":
             failure_mode = "retrieval_hit"
@@ -349,7 +475,7 @@ def _evaluate(
                 "split": label.get("split"),
                 "ring": label.get("ring"),
                 "target_shape": label.get("target_shape"),
-                "top_k": len(retrieved),
+                "top_k": declared_top_k,
                 "retrieved_premise_count": len(retrieved),
                 "needed_premise_count": len(needed),
                 "hit_count": len(hits),
@@ -357,10 +483,10 @@ def _evaluate(
                 "recall_at_k": round(recall, 4),
                 "failure_mode": failure_mode,
                 "adversarial_decoy_expected": label.get("adversarial_decoy_expected") is True,
-                "needed_premise_ids_redacted": True,
+                "needed_premise_ids_material_status": "after_the_fact_metric_label_only",
                 "retrieved_premise_ids": retrieved,
                 "hit_premise_ids": hits,
-                "body_redacted": True,
+                "body_material_status": "real_run_metric_row",
             }
         )
 
@@ -410,12 +536,25 @@ def _evaluate(
     return {
         "status": PASS if rows and not findings else "blocked",
         "problem_count": len(rows),
-        "mean_precision_at_k": round(sum(precision_scores) / len(precision_scores), 4)
-        if precision_scores
+        "mean_precision_at_k": round(total_hit_count / total_retrieval_candidate_count, 4)
+        if total_retrieval_candidate_count
         else 0.0,
-        "mean_recall_at_k": round(sum(recall_scores) / len(recall_scores), 4)
-        if recall_scores
+        "mean_recall_at_k": round(total_hit_count / total_needed_premise_count, 4)
+        if total_needed_premise_count
         else 0.0,
+        "metric_aggregation": {
+            "precision": "total_hit_count_over_total_retrieval_candidate_count",
+            "recall": "total_hit_count_over_total_needed_premise_count",
+            "legacy_row_mean_precision_at_k": round(sum(precision_scores) / len(precision_scores), 4)
+            if precision_scores
+            else 0.0,
+            "legacy_row_mean_recall_at_k": round(sum(recall_scores) / len(recall_scores), 4)
+            if recall_scores
+            else 0.0,
+            "total_hit_count": total_hit_count,
+            "total_retrieval_candidate_count": total_retrieval_candidate_count,
+            "total_needed_premise_count": total_needed_premise_count,
+        },
         "failure_mode_counts": dict(sorted(failure_modes.items())),
         "missing_expected_failure_modes": missing_modes,
         "adversarial_decoy_case_id": adversarial_id,
@@ -428,7 +567,7 @@ def _evaluate(
     }
 
 
-def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
+def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "ring2_precision_recall_board_v1",
         "status": result["status"],
@@ -443,20 +582,25 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "retrieval_vs_proof_failure_attribution": True,
             "adversarial_decoy_required": True,
             "proof_bodies_forbidden": True,
-            "body_redacted": True,
+            "copied_material_provenance_required": True,
+            "body_material_status": BODY_MATERIAL_STATUS,
         },
+        "body_material_contract": BODY_MATERIAL_CONTRACT,
+        "copied_material": result["copied_material"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "metrics": {
             "problem_count": result["problem_count"],
             "mean_precision_at_k": result["mean_precision_at_k"],
             "mean_recall_at_k": result["mean_recall_at_k"],
+            "metric_aggregation": result["metric_aggregation"],
             "failure_mode_counts": result["failure_mode_counts"],
             "adversarial_decoy_case_id": result["adversarial_decoy_case_id"],
             "adversarial_decoy_observed": result["adversarial_decoy_observed"],
         },
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
-        "body_redacted": True,
+        "body_material_status": BODY_MATERIAL_STATUS,
     }
 
 
@@ -476,22 +620,29 @@ def _common_receipt(
         "bundle_id",
         "source_pattern_ids",
         "source_refs",
+        "source_digests",
+        "macro_run_id",
+        "macro_run_variant_id",
+        "body_material_status",
+        "body_material_contract",
+        "copied_material",
+        "body_copied_material_count",
         "expected_negative_cases",
         "observed_negative_cases",
         "missing_negative_cases",
         "error_codes",
         "findings",
-        "private_state_scan",
+        "secret_exclusion_scan",
         "authority_ceiling",
         "anti_claim",
         "problem_count",
         "mean_precision_at_k",
         "mean_recall_at_k",
+        "metric_aggregation",
         "failure_mode_counts",
         "adversarial_decoy_case_id",
         "adversarial_decoy_observed",
         "evaluations",
-        "body_redacted",
     )
     payload = {
         "schema_version": schema_version,
@@ -518,13 +669,15 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    private_scan = scan_paths(
+    secret_scan = scan_paths(
         _input_paths(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
-    private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan.pop("body_redacted", None)
+    secret_scan["forbidden_output_field_labels_omitted"] = True
+    secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_bodies"
 
     floor_findings: list[dict[str, Any]] = []
     floor_observed: dict[str, set[str]] = defaultdict(set)
@@ -542,6 +695,7 @@ def _build_result(
         rankings_payload=payloads["retrieval_rankings"],
         policy_payload=payloads["evaluation_policy"],
     )
+    run_material = _validate_run_material(payloads)
     negative = (
         _negative_findings(payloads)
         if include_negative
@@ -550,7 +704,12 @@ def _build_result(
     observed = negative["observed_negative_cases"]
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*floor_findings, *evaluation["findings"], *negative["findings"]]
+    findings = [
+        *floor_findings,
+        *run_material["findings"],
+        *evaluation["findings"],
+        *negative["findings"],
+    ]
     error_codes = sorted({str(finding["error_code"]) for finding in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
@@ -563,8 +722,9 @@ def _build_result(
         PASS
         if not missing
         and not floor_findings
+        and not run_material["findings"]
         and evaluation["status"] == PASS
-        and not private_scan["blocking_hit_count"]
+        and not secret_scan["blocking_hit_count"]
         else "blocked"
     )
     result = {
@@ -578,27 +738,34 @@ def _build_result(
         "input_mode": input_mode,
         "bundle_id": bundle_manifest.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
-        "source_refs": SOURCE_REFS,
+        "source_refs": run_material["source_refs"],
+        "source_digests": SOURCE_DIGESTS,
+        "macro_run_id": RUN_ID,
+        "macro_run_variant_id": RUN_VARIANT_ID,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "body_material_contract": BODY_MATERIAL_CONTRACT,
+        "copied_material": run_material["copied_material"],
+        "body_copied_material_count": run_material["body_copied_material_count"],
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
-        "private_state_scan": private_scan,
+        "secret_exclusion_scan": secret_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "problem_count": evaluation["problem_count"],
         "mean_precision_at_k": evaluation["mean_precision_at_k"],
         "mean_recall_at_k": evaluation["mean_recall_at_k"],
+        "metric_aggregation": evaluation["metric_aggregation"],
         "failure_mode_counts": evaluation["failure_mode_counts"],
         "adversarial_decoy_case_id": evaluation["adversarial_decoy_case_id"],
         "adversarial_decoy_observed": evaluation["adversarial_decoy_observed"],
         "evaluations": evaluation["evaluations"],
-        "body_redacted": True,
     }
     result["ring2_precision_recall_board"] = _build_board(
         result=result,
-        private_scan=private_scan,
+        secret_scan=secret_scan,
     )
     return result
 

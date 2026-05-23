@@ -4,5 +4,7 @@
   "evaluation_policy": {
     "policy_id": "ring2_no_decoy_policy",
     "minimum_problem_count": 5
-  }
+  },
+  "fixture_material_status": "regression_negative_fixture",
+  "negative_fixture_role": "forbidden_contract_guard"
 }
