@@ -220,7 +220,7 @@
       "organ_id": "cold_reader_route_map"
     },
     {
-      "classification_basis": "fixture-supplied monitor verdict rows are checked for source-available shape",
+      "classification_basis": "regression-negative synthetic monitor verdict rows are checked for body-free fixture refs, adversarial probes, escalation/mitigation refs, and explicit no-product-performance authority",
       "evidence_class": "fixture_echo_smoke",
       "organ_id": "agent_monitor_redteam_falsification_replay"
     },

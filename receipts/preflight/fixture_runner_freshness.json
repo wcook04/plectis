@@ -284,16 +284,16 @@
       "fixtures/first_wave/agent_memory_temporal_conflict_replay/input/vector_recall_without_evidence_handle.json": "041cb15f3afb9031664fb627a9531be4d662e208df9c71ec7f4647d9dd676e59"
     },
     "agent_monitor_redteam_falsification_replay": {
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/coverage_without_adversarial_probe.json": "930cb037e89e86d21849927bfb30a4c3f7c0d34ce9edbde4ddbc345e95889dd2",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/credential_material.json": "4c50d541e3d788581f804810c1a8b9e73f6a8365a5d64756eccd14fa58fee1e9",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/exploit_instruction_material.json": "4483f2dd6e23883f9771e5487cc83d1967f507290bb1eda5299362f2b4e3b376",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/internal_code_export.json": "adb1496f71b297c643f971e1ea9d73942ae25026b368536759605fa2b523ecc9",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/live_agent_traffic.json": "cfee9ee1e72e7d0885630f4b09b5531ace718261c7aab720efa3c203bb6c9958",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json": "0ff66545ef8f608ab0fb45382f9787d857407e41957f338ec952e200bb86deb3",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_policy.json": "b9830561991a8a987d2be25f70918012e35fe461bbd1a3a7e3d04f010653989f",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_product_performance_claim.json": "5756a3737b7876e9bed9743b582ad2474dbf0830f820bcf309c81a0f53383cd3",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/private_chain_of_thought_leakage.json": "764b355437963fabe2159dbba98a2bc8b95fd0ce29d3d4a2152baff0e00ac991",
-      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json": "422d7473bc376d7a3145ea68e107f2312a2183736af311144f3a50f392500775",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/coverage_without_adversarial_probe.json": "1f324ae819afb583024ba30357d26ecfb24d6f883f00b8e4cf271f7715f9d235",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/credential_material.json": "a90eded4ebaee1b1604dc9e2bdb61f6801304d41dc97584db653fc986b9b08ad",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/exploit_instruction_material.json": "dba3da43bd636700abed1d57ed0d473cd9907a831aa879a85c7f50c1c8a5bde3",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/internal_code_export.json": "c3f7d1a72f080584e589e6fedc9ab77a2b11557cc7c4e97c2d0ac881b4d7b039",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/live_agent_traffic.json": "baecffac7ea0ed6064dfe2ad81fbeb9211617e49411228f73b7c283fadf94a9a",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json": "68f8a7c8fdd65b7477b3b486fa5f4e09d1648e6b98641c84ede4dd98784a436e",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_policy.json": "9e80849a3735d3023d2e4da0fed075c4f7617e0e576c490566dfa1ae6616cef2",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_product_performance_claim.json": "44cd7055092b45ba4980a22af8172a1983ecd5e7094ba6a6b0bea58220c9928f",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/private_chain_of_thought_leakage.json": "ea97e136b63fe5425ceb1594aeb59d3a70bd150a30579b6e03f4378bccd34a4f",
+      "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/projection_protocol.json": "c308ecd6bdcaa7116df1d394a9e1e601eb15afd4ecbd933788a9a7d9710b1211",
       "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/trajectory_cases.json": "d4b559fb906ec9aceb9e6bfd562760222a9246db4a3bd3baab4764b70e6ce8dd"
     },
     "agent_route_observability_runtime": {

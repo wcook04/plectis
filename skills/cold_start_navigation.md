@@ -156,7 +156,7 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
    agent-monitor-redteam-falsification-replay run-monitor-bundle` path to
    inspect synthetic trajectories, monitor verdicts, adversarial probes,
-   escalation refs, redaction refs, mitigation refs, and cold replay refs
+   escalation refs, body-omission refs, mitigation refs, and cold replay refs
    before trusting monitor/redteam honesty claims.
 28. Run `microcosm agent-sabotage-scheming-monitor-replay
    run-sabotage-bundle --input

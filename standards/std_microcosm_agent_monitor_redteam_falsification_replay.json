@@ -4,7 +4,7 @@
     "required": true,
     "rule": "monitor redteam material must state that synthetic replay is not product monitor performance or complete-control-eval authority"
   },
-  "authority_boundary": "synthetic_agent_monitor_redteam_replay_not_monitor_product_performance_authority",
+  "authority_boundary": "regression_negative_agent_monitor_redteam_replay_not_monitor_product_performance_authority",
   "authority_ceiling": {
     "control_eval_score_authority": false,
     "credential_material_authority": false,
@@ -14,7 +14,7 @@
     "private_reasoning_authority": false,
     "provider_authority": false,
     "release_authority": false,
-    "standard_authority": "synthetic_monitor_redteam_replay_schema_only",
+    "standard_authority": "regression_negative_monitor_redteam_replay_schema_only",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -31,7 +31,7 @@
       "provider payloads",
       "monitor product performance claims"
     ],
-    "reason": "public slice carries synthetic monitor metadata and redacted receipt evidence only"
+    "reason": "public slice carries synthetic monitor metadata and body-free receipt evidence only"
   },
   "paper_module_contract": {
     "module_slug": "agent_monitor_redteam_falsification_replay",
@@ -47,12 +47,12 @@
       "monitor verdicts",
       "severity tiers",
       "escalation refs",
-      "redaction refs",
+      "body-omission refs",
       "mitigation refs",
       "cold replay refs",
       "negative case ids"
     ],
-    "default_posture": "public_safe_when_synthetic_monitor_replay_receipts_only",
+    "default_posture": "public_safe_when_body_free_regression_fixture_only",
     "forbidden_public_inputs": [
       "private chain-of-thought",
       "hidden reasoning",
@@ -75,6 +75,7 @@
       "pass_count",
       "escalate_count",
       "block_count",
+      "body_in_receipt",
       "private_state_scan",
       "authority_ceiling",
       "anti_claim",
@@ -106,7 +107,7 @@
     "source_refs",
     "source_pattern_ids",
     "projection_receipt_refs",
-    "public_replacement_refs",
+    "public_regression_fixture_refs",
     "monitor_policy",
     "trajectory_cases",
     "monitor_observations",
@@ -116,7 +117,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata and public regression fixture refs stay public-root relative"
   },
   "source_refs": [
     {
@@ -152,18 +153,18 @@
       "monitor_product_performance_claim",
       "coverage_without_adversarial_probe"
     ],
-    "ontology": "A public-safe monitor redteam replay: synthetic trajectories, adversarial probe refs, monitor verdicts, escalation refs, mitigation refs, redaction refs, cold replay refs, and falsification fixtures.",
+    "ontology": "A regression-negative monitor redteam replay: synthetic trajectories, adversarial probe refs, monitor verdicts, escalation refs, mitigation refs, body-omission refs, cold replay refs, and falsification fixtures.",
     "rebuild_action": "draft",
-    "teleology": "Make Microcosm show how agent-monitor honesty claims are gated by adversarial probes, redacted evidence, negative cases, and authority ceilings before any public claim is admitted."
+    "teleology": "Make Microcosm show how agent-monitor honesty claims are gated by adversarial probes, body-free evidence, negative cases, and authority ceilings before any public claim is admitted."
   },
   "status": "draft",
   "validation_rules": [
     "require monitor verdicts to be one of pass, escalate, or block",
-    "require suspicious span, adversarial probe, escalation, redaction, mitigation, and cold replay refs",
+    "require suspicious span, adversarial probe, escalation, body omission, mitigation, and cold replay refs",
     "reject private reasoning, internal code, exploit instruction detail, credential material, and live traffic exports",
     "reject monitor product performance and control-eval score overclaims",
     "reject coverage labels that lack adversarial probe refs",
-    "emit redacted receipts and private-state scan"
+    "emit body-free regression receipts and private-state scan"
   ],
   "validator_contract": {
     "minimum_checks": [

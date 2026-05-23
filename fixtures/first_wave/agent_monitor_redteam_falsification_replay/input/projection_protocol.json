@@ -14,7 +14,7 @@
     "receipts/first_wave/agent_monitor_redteam_falsification_replay/agent_monitor_redteam_falsification_replay_validation_receipt.json",
     "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json"
   ],
-  "public_replacement_refs": [
+  "public_regression_fixture_refs": [
     "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/trajectory_cases.json",
     "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input/monitor_observations.json",
     "examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle"
@@ -31,7 +31,7 @@
   ],
   "cleaned": [
     "all public refs are local Microcosm paths or synthetic ids",
-    "all sensitive bodies are represented by redacted refs"
+    "all sensitive bodies are represented by body-free omission refs"
   ],
   "omitted": [
     "real red-team transcripts",

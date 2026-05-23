@@ -2,6 +2,6 @@
   "bundle_id": "agent_monitor_redteam_falsification_replay_regression_drilldown",
   "organ_id": "agent_monitor_redteam_falsification_replay",
   "input_mode": "exported_monitor_redteam_bundle",
-  "description": "Regression-only synthetic monitor redteam replay bundle with trajectory, verdict, probe, escalation, mitigation, redaction, and replay refs only.",
+  "description": "Regression-only synthetic monitor redteam replay bundle with trajectory, verdict, probe, escalation, mitigation, body omission, and replay refs only.",
   "authority_ceiling": "synthetic monitor-redteam receipt validation only; no product performance, live traffic, exploit-detail, credential, provider, source mutation, release, or benchmark claims"
 }

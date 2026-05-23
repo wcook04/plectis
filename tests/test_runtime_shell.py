@@ -407,7 +407,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             "product_path_role": "drilldown_regression_not_runtime_spine",
             "demotion_reason": (
                 "monitor-redteam replay remains runnable as a regression drilldown, "
-                "but synthetic monitor verdict rows and redaction refs are not product-spine substrate."
+                "but synthetic monitor verdict rows and body-omission refs are not product-spine substrate."
             ),
             "input_mode": "exported_monitor_redteam_bundle",
             "example_ref": (

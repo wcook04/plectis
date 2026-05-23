@@ -14,7 +14,7 @@
     "monitor_verdict",
     "severity_tier",
     "human_escalation_ref",
-    "privacy_redaction_ref",
+    "body_omission_ref",
     "mitigation_diff_ref",
     "cold_replay_ref"
   ],

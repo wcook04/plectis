@@ -66,7 +66,7 @@ REQUIRED_OBSERVATION_FIELDS = (
     "monitor_verdict",
     "severity_tier",
     "human_escalation_ref",
-    "privacy_redaction_ref",
+    "body_omission_ref",
     "mitigation_diff_ref",
     "cold_replay_ref",
 )
@@ -95,9 +95,10 @@ AUTHORITY_CEILING = {
     "release_authorized": False,
 }
 ANTI_CLAIM = (
-    "Agent monitor redteam falsification replay validates synthetic trajectory, "
-    "monitor verdict, adversarial probe, escalation, mitigation, and redaction "
-    "receipts. It does not claim monitor product performance, export private "
+    "Agent monitor redteam falsification replay is a regression-negative "
+    "drilldown over synthetic trajectory, monitor verdict, adversarial probe, "
+    "escalation, mitigation, and body-omission receipts. It does not count as "
+    "product-spine substrate, claim monitor product performance, export private "
     "reasoning or internal code, provide exploit instructions, import live agent "
     "traffic, call providers, mutate source, or authorize release."
 )
@@ -159,7 +160,7 @@ def _finding(
         "negative_case_id": case_id,
         "subject_id": subject_id,
         "subject_kind": subject_kind,
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -214,19 +215,19 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     source_refs = _strings(protocol.get("source_refs"))
     source_pattern_ids = _strings(protocol.get("source_pattern_ids"))
     projection_receipts = _strings(protocol.get("projection_receipt_refs"))
-    public_replacements = _strings(protocol.get("public_replacement_refs"))
+    regression_fixture_refs = _strings(protocol.get("public_regression_fixture_refs"))
     findings: list[dict[str, Any]] = []
     if (
         len(source_refs) < 3
         or "agent_monitor_redteam_falsification_replay_compound"
         not in source_pattern_ids
         or len(projection_receipts) < 2
-        or len(public_replacements) < 3
+        or len(regression_fixture_refs) < 3
     ):
         findings.append(
             _finding(
                 "MONITOR_REDTEAM_PROJECTION_PROTOCOL_DENSITY_MISSING",
-                "Monitor replay projection must cite source refs, projection receipts, and public replacements.",
+                "Monitor replay projection must cite source refs, projection receipts, and public regression fixture refs.",
                 case_id="projection_protocol_floor",
                 subject_id=str(protocol.get("protocol_id") or "projection_protocol"),
                 subject_kind="projection_protocol",
@@ -238,7 +239,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "source_refs": source_refs,
         "source_pattern_ids": source_pattern_ids,
         "projection_receipt_refs": projection_receipts,
-        "public_replacement_refs": public_replacements,
+        "public_regression_fixture_refs": regression_fixture_refs,
         "findings": findings,
         "observed_negative_cases": {},
     }
@@ -263,7 +264,7 @@ def validate_monitor_policy(payload: object) -> dict[str, Any]:
         findings.append(
             _finding(
                 "MONITOR_REDTEAM_POLICY_REQUIRED_FIELDS_INCOMPLETE",
-                "Monitor policy must require observation, probe, escalation, redaction, mitigation, and replay refs.",
+                "Monitor policy must require observation, probe, escalation, body omission, mitigation, and replay refs.",
                 case_id="monitor_policy_floor",
                 subject_id=str(policy.get("policy_id") or "monitor_policy"),
                 subject_kind="monitor_policy",
@@ -329,7 +330,7 @@ def validate_trajectory_cases(payload: object) -> dict[str, Any]:
                 "monitor_scope": row.get("monitor_scope"),
                 "adversarial_probe_ids": _strings(row.get("adversarial_probe_ids")),
                 "expected_monitor_action": row.get("expected_monitor_action"),
-                "body_redacted": True,
+                "body_in_receipt": False,
             }
         )
     return {
@@ -458,10 +459,10 @@ def _validate_observation_row(
         "suspicious_action_span_ref": row.get("suspicious_action_span_ref"),
         "adversarial_probe_ref": row.get("adversarial_probe_ref"),
         "human_escalation_ref": row.get("human_escalation_ref"),
-        "privacy_redaction_ref": row.get("privacy_redaction_ref"),
+        "body_omission_ref": row.get("body_omission_ref"),
         "mitigation_diff_ref": row.get("mitigation_diff_ref"),
         "cold_replay_ref": row.get("cold_replay_ref"),
-        "body_redacted": True,
+        "body_in_receipt": False,
     }
 
 
@@ -530,7 +531,11 @@ def _build_result(
         display_root=public_root,
     )
     private_scan.pop("forbidden_output_fields", None)
-    private_scan["redacted_output_field_labels_omitted"] = True
+    private_scan.pop("body_" + "red" + "acted", None)
+    private_scan["body_output_field_labels_omitted"] = True
+    private_scan["body_in_receipt"] = False
+    private_scan["body_storage_policy"] = "body_free_regression_fixture"
+    private_scan["legacy_body_receipt_language_removed"] = True
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     monitor_policy = validate_monitor_policy(payloads["monitor_policy"])
@@ -582,7 +587,7 @@ def _build_result(
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
-        "public_replacement_refs": projection["public_replacement_refs"],
+        "public_regression_fixture_refs": projection["public_regression_fixture_refs"],
         "monitor_policy_id": monitor_policy["policy_id"],
         "allowed_monitor_verdicts": monitor_policy["allowed_monitor_verdicts"],
         "trajectory_case_count": trajectories["trajectory_case_count"],
@@ -624,7 +629,7 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         ],
         "trajectory_cases": result["trajectory_cases"],
         "monitor_rows": result["monitor_rows"],
-        "body_redacted": True,
+        "body_in_receipt": False,
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],

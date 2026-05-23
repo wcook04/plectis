@@ -389,7 +389,7 @@
       },
       {
         "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
-        "classification_basis": "fixture-supplied monitor verdict rows are checked for source-available shape",
+        "classification_basis": "regression-negative synthetic monitor verdict rows are checked for body-free fixture refs, adversarial probes, escalation/mitigation refs, and explicit no-product-performance authority",
         "counts_as_real_substrate_progress": false,
         "evidence_class": "fixture_echo_smoke",
         "evidence_strength_rank": 1,

@@ -718,7 +718,7 @@ PRODUCT_PATH_DEMOTION_REASONS = {
     ),
     "agent_monitor_redteam_falsification_replay": (
         "monitor-redteam replay remains runnable as a regression drilldown, "
-        "but synthetic monitor verdict rows and redaction refs are not product-spine substrate."
+        "but synthetic monitor verdict rows and body-omission refs are not product-spine substrate."
     ),
     "agent_sabotage_scheming_monitor_replay": (
         "sabotage-monitor replay remains runnable as a regression drilldown, "

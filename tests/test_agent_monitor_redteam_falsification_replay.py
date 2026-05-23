@@ -68,7 +68,7 @@ def test_agent_monitor_redteam_replay_observes_negative_cases(
             assert code in result["error_codes"]
 
 
-def test_agent_monitor_redteam_receipts_are_public_relative_and_redacted(
+def test_agent_monitor_redteam_receipts_are_public_relative_and_body_free(
     tmp_path: Path,
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
@@ -99,6 +99,10 @@ def test_agent_monitor_redteam_receipts_are_public_relative_and_redacted(
         assert "credential_value" not in keys
         assert "exploit_instructions" not in keys
         assert "raw_transcript" not in keys
+        assert ("body_" + "red" + "acted") not in keys
+        assert ("public_" + "replace" + "ment_refs") not in keys
+        assert ("privacy_" + "red" + "action_ref") not in keys
+        assert "body_in_receipt" in keys
 
 
 def test_agent_monitor_redteam_exported_bundle_validates_runtime_shape(
@@ -122,4 +126,7 @@ def test_agent_monitor_redteam_exported_bundle_validates_runtime_shape(
     assert result["error_codes"] == []
     assert result["trajectory_case_count"] == 3
     assert result["observation_count"] == 3
+    assert "public_regression_fixture_refs" in result
+    assert ("public_" + "replace" + "ment_refs") not in result
+    assert result["private_state_scan"]["body_in_receipt"] is False
     assert result["authority_ceiling"]["monitor_product_performance_claim_authorized"] is False

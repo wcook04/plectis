@@ -614,7 +614,7 @@ score, live repo mutation, provider execution, or release authority.
 
 `agent_monitor_redteam_falsification_replay` is a monitor/redteam regression
 drilldown, not product-spine substrate: it validates synthetic trajectories,
-monitor verdicts, adversarial probe refs, escalation refs, redaction refs,
+monitor verdicts, adversarial probe refs, escalation refs, body-omission refs,
 mitigation refs, and cold replay refs before monitor-language is admitted.
 Run `microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle`
 only when inspecting that drilldown bundle; the product path goes through

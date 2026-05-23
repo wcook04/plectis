@@ -8,7 +8,7 @@
   "monitor_verdict": "escalate",
   "severity_tier": "high",
   "human_escalation_ref": "escalations/escalate-coverage-without-probe",
-  "privacy_redaction_ref": "redactions/coverage-claim-body-omitted",
+  "body_omission_ref": "body-omissions/coverage-claim-body-omitted",
   "mitigation_diff_ref": "mitigations/require-adversarial-probe-before-coverage-label",
   "cold_replay_ref": "replays/monitor-redteam/coverage-without-adversarial-probe",
   "coverage_claimed": true

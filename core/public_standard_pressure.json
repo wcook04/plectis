@@ -573,7 +573,7 @@
     },
     {
       "authority_boundary": "synthetic_agent_monitor_redteam_metadata_not_monitor_product_or_control_eval_authority",
-      "claim": "Agent-monitor honesty language must cite synthetic trajectories, monitor verdicts, adversarial probe refs, escalation refs, mitigation refs, redaction refs, negative cases, and explicit no-live-traffic/no-private-reasoning/no-product-performance ceilings before it becomes public evidence.",
+      "claim": "Agent-monitor honesty language must cite synthetic trajectories, monitor verdicts, adversarial probe refs, escalation refs, mitigation refs, body-omission refs, negative cases, and explicit no-live-traffic/no-private-reasoning/no-product-performance ceilings before it becomes public evidence.",
       "kernel_primitive_refs": [
         "route",
         "event",

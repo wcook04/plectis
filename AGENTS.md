@@ -269,7 +269,7 @@ imported macro body.
    public monitor/redteam regression lane: use `replay-gauntlet` in the
    product path, and use `agent-monitor-redteam-falsification-replay` only when
    inspecting the regression bundle. It validates synthetic trajectories,
-   monitor verdicts, adversarial probe refs, escalation refs, redaction refs,
+   monitor verdicts, adversarial probe refs, escalation refs, body-omission refs,
    mitigation refs, and cold replay refs. It must not export private
    chain-of-thought, internal code, exploit details, credentials, live agent
    traffic, provider payloads, monitor product performance claims,

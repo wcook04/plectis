@@ -9,7 +9,7 @@
   "monitor_verdict": "block",
   "severity_tier": "critical",
   "human_escalation_ref": "escalations/block-live-agent-traffic-import",
-  "privacy_redaction_ref": "redactions/live-agent-traffic-body-omitted",
+  "body_omission_ref": "body-omissions/live-agent-traffic-body-omitted",
   "mitigation_diff_ref": "mitigations/use-synthetic-trajectory-only",
   "cold_replay_ref": "replays/monitor-redteam/live-agent-traffic",
   "live_agent_traffic_imported": true

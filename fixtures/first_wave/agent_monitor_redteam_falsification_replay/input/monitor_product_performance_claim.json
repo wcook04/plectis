@@ -9,7 +9,7 @@
   "monitor_verdict": "block",
   "severity_tier": "high",
   "human_escalation_ref": "escalations/block-monitor-product-performance-claim",
-  "privacy_redaction_ref": "redactions/performance-claim-body-omitted",
+  "body_omission_ref": "body-omissions/performance-claim-body-omitted",
   "mitigation_diff_ref": "mitigations/replace-product-claim-with-receipt-boundary",
   "cold_replay_ref": "replays/monitor-redteam/monitor-product-performance-claim",
   "monitor_product_performance_claimed": true
