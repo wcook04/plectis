@@ -24,6 +24,7 @@ MACRO_PATTERN_LEDGER = (
     MICROCOSM_ROOT
     / "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl"
 )
+MACRO_PATTERN_BINDINGS = PATTERN_EXPORTED_BUNDLE_INPUT / "extracted_pattern_substrate_bindings.json"
 
 
 def _walk_keys(payload: object) -> list[str]:
@@ -112,6 +113,8 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
         if line.strip()
     ]
     macro_sha256 = hashlib.sha256(MACRO_PATTERN_LEDGER.read_bytes()).hexdigest()
+    bindings = json.loads(MACRO_PATTERN_BINDINGS.read_text(encoding="utf-8"))
+    bindings_sha256 = hashlib.sha256(MACRO_PATTERN_BINDINGS.read_bytes()).hexdigest()
 
     result = validate_substrate_bundle(PATTERN_EXPORTED_BUNDLE_INPUT, out_dir, command="pytest")
 
@@ -143,13 +146,33 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
         "expected_row_count": 373,
         "normalized_pattern_row_count": 373,
     }
+    assert result["real_pattern_substrate_bindings_consumed"] is True
+    assert result["real_pattern_substrate_bindings_source"]["source_ref"] == (
+        "examples/pattern_binding_contract/exported_substrate_bundle/extracted_pattern_substrate_bindings.json"
+    )
+    assert result["real_pattern_substrate_bindings_source"]["source_row_count"] == 373
+    assert result["real_pattern_substrate_bindings_source"]["sha256"] == bindings_sha256
+    assert result["real_pattern_substrate_bindings_source"]["expected_sha256"] == bindings_sha256
+    assert result["real_pattern_substrate_bindings_source"]["detailed_binding_count"] == len(
+        bindings["pattern_bindings"]
+    )
+    assert result["real_pattern_substrate_bindings_source"]["detailed_binding_count"] == 90
+    assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["standards"] >= 1
+    assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["paper_modules"] >= 1
+    assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["tests_validators_proofs"] >= 1
     assert result["truth_accounting"]["pattern_row_count"] == 373
     assert result["truth_accounting"]["runtime_example_bundle"] is False
     assert result["truth_accounting"]["runtime_metadata_only_row_count"] == 0
     assert result["truth_accounting"]["real_pattern_ledger_row_count"] == 373
-    assert len(result["public_runtime_refs"]) == 373
+    assert len(result["public_runtime_refs"]) == 373 + len(bindings["pattern_bindings"])
     assert result["public_runtime_refs"][0].startswith(
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl::"
+    )
+    assert any(
+        ref.startswith(
+            "examples/pattern_binding_contract/exported_substrate_bundle/extracted_pattern_substrate_bindings.json::"
+        )
+        for ref in result["public_runtime_refs"]
     )
     assert result["receipt_paths"] == [
         "receipts/exported_substrate_bundle_validation_result.json"
@@ -161,6 +184,7 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert receipt["counts_as_real_substrate_progress"] is True
     assert receipt["truth_accounting"]["substrate_import_status"] == "real_pattern_ledger_import"
     assert receipt["real_pattern_ledger_source"]["sha256"] == macro_sha256
+    assert receipt["real_pattern_substrate_bindings_source"]["sha256"] == bindings_sha256
     assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
     assert "matched_excerpt" not in json.dumps(receipt, sort_keys=True)
     assert "body" not in _walk_keys(receipt)

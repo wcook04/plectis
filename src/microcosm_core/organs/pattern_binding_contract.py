@@ -24,6 +24,8 @@ RUNTIME_METADATA_ONLY_ANTI_CLAIM_REF = "anti_claim.pattern_binding.runtime_metad
 REAL_PATTERN_LEDGER_ANTI_CLAIM_REF = "anti_claim.pattern_binding.real_pattern_ledger_source_faithful"
 REAL_PATTERN_LEDGER_GOVERNING_STANDARD = "std_microcosm_pattern_binding_contract"
 REAL_PATTERN_LEDGER_SOURCE_KEY = "real_pattern_ledger_source"
+REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_KEY = "real_pattern_substrate_bindings_source"
+REAL_PATTERN_SUBSTRATE_BINDINGS_SCHEMA = "extracted_pattern_substrate_bindings_v1"
 
 EXPECTED_NEGATIVE_CASES = {
     "missing_binding_contract_fields": [
@@ -191,7 +193,11 @@ def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def _real_pattern_ledger_projection(input_dir: str | Path, manifest: dict[str, Any]) -> dict[str, Any] | None:
+def _real_pattern_ledger_projection(
+    input_dir: str | Path,
+    manifest: dict[str, Any],
+    substrate_runtime_refs_by_pattern_id: dict[str, str] | None = None,
+) -> dict[str, Any] | None:
     spec = manifest.get(REAL_PATTERN_LEDGER_SOURCE_KEY)
     if not isinstance(spec, dict):
         return None
@@ -244,6 +250,11 @@ def _real_pattern_ledger_projection(input_dir: str | Path, manifest: dict[str, A
         seen_pattern_ids.add(pattern_id)
         capsule_ref = f"capsule.real_pattern_ledger.{pattern_id}"
         runtime_ref = f"{source_ref}::{pattern_id}"
+        runtime_refs = [runtime_ref]
+        if substrate_runtime_refs_by_pattern_id:
+            substrate_runtime_ref = substrate_runtime_refs_by_pattern_id.get(pattern_id)
+            if substrate_runtime_ref:
+                runtime_refs.append(substrate_runtime_ref)
         pattern_rows.append(
             {
                 "pattern_id": pattern_id,
@@ -260,7 +271,7 @@ def _real_pattern_ledger_projection(input_dir: str | Path, manifest: dict[str, A
                 "source_ref": capsule_ref,
                 "authority_class": "public_real_pattern_ledger_row",
                 "body_in_receipt": False,
-                "public_runtime_ref": runtime_ref,
+                "public_runtime_refs": runtime_refs,
                 "source_sha256": _canonical_sha256(row),
             }
         )
@@ -282,6 +293,192 @@ def _real_pattern_ledger_projection(input_dir: str | Path, manifest: dict[str, A
                 "and digest; receipts do not inline ledger row bodies."
             ),
         },
+        "findings": findings,
+    }
+
+
+def _real_pattern_substrate_bindings_projection(
+    input_dir: str | Path,
+    manifest: dict[str, Any],
+    ledger_pattern_ids: set[str],
+) -> dict[str, Any] | None:
+    spec = manifest.get(REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_KEY)
+    if not isinstance(spec, dict):
+        return None
+
+    source_ref = str(spec.get("path") or spec.get("source_ref") or "").strip()
+    public_root = _public_root_for_bundle(input_dir)
+    binding_path = public_root / source_ref if source_ref else public_root
+    findings: list[dict[str, Any]] = []
+    payload: dict[str, Any] = {}
+    digest = ""
+    if not source_ref:
+        findings.append(
+            _finding(
+                "MISSING_REAL_PATTERN_SUBSTRATE_BINDINGS_REF",
+                "Real pattern substrate-bindings source path is missing.",
+            )
+        )
+    elif not binding_path.is_file():
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_NOT_FOUND",
+                "Real pattern substrate-bindings source path does not resolve inside the public root.",
+            )
+        )
+    else:
+        payload = json.loads(binding_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            findings.append(
+                _finding(
+                    "REAL_PATTERN_SUBSTRATE_BINDINGS_NOT_OBJECT",
+                    "Real pattern substrate-bindings source is not a JSON object.",
+                )
+            )
+            payload = {}
+        digest = _file_sha256(binding_path)
+
+    expected_digest = str(spec.get("sha256") or "").strip()
+    if expected_digest and digest and digest != expected_digest:
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_DIGEST_MISMATCH",
+                "Real pattern substrate-bindings digest mismatch.",
+            )
+        )
+
+    schema_version = str(payload.get("schema_version") or "")
+    if payload and schema_version != REAL_PATTERN_SUBSTRATE_BINDINGS_SCHEMA:
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_SCHEMA_MISMATCH",
+                "Real pattern substrate-bindings schema mismatch.",
+            )
+        )
+
+    source_row_count = payload.get("source_row_count")
+    expected_source_row_count = spec.get("source_row_count")
+    if isinstance(expected_source_row_count, int) and source_row_count != expected_source_row_count:
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_ROW_COUNT_MISMATCH",
+                "Real pattern substrate-bindings declared source row count mismatch.",
+            )
+        )
+    if ledger_pattern_ids and isinstance(source_row_count, int) and source_row_count != len(ledger_pattern_ids):
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_LEDGER_COUNT_MISMATCH",
+                "Real pattern substrate-bindings source row count does not match the consumed ledger.",
+            )
+        )
+
+    pattern_bindings = payload.get("pattern_bindings", [])
+    if not isinstance(pattern_bindings, list):
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_ROWS_NOT_LIST",
+                "Real pattern substrate-bindings pattern_bindings is not a list.",
+            )
+        )
+        pattern_bindings = []
+
+    expected_detailed_binding_count = spec.get("detailed_binding_count")
+    if isinstance(expected_detailed_binding_count, int) and len(pattern_bindings) != expected_detailed_binding_count:
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_DETAILED_COUNT_MISMATCH",
+                "Real pattern substrate-bindings detailed binding count mismatch.",
+            )
+        )
+
+    binding_category_counts: Counter[str] = Counter()
+    runtime_refs_by_pattern_id: dict[str, str] = {}
+    detailed_pattern_ids: list[str] = []
+    for row in pattern_bindings:
+        if not isinstance(row, dict):
+            findings.append(
+                _finding(
+                    "REAL_PATTERN_SUBSTRATE_BINDINGS_ROW_NOT_OBJECT",
+                    "Real pattern substrate-bindings row is not a JSON object.",
+                )
+            )
+            continue
+        pattern_id = str(row.get("pattern_id") or "").strip()
+        if not pattern_id:
+            findings.append(
+                _finding(
+                    "REAL_PATTERN_SUBSTRATE_BINDINGS_ROW_MISSING_PATTERN_ID",
+                    "Real pattern substrate-bindings row lacks pattern_id.",
+                )
+            )
+            continue
+        detailed_pattern_ids.append(pattern_id)
+        if ledger_pattern_ids and pattern_id not in ledger_pattern_ids:
+            findings.append(
+                _finding(
+                    "REAL_PATTERN_SUBSTRATE_BINDINGS_PATTERN_NOT_IN_LEDGER",
+                    "Real pattern substrate-bindings row is not present in the consumed ledger.",
+                    pattern_id=pattern_id,
+                )
+            )
+        substrate_bindings = row.get("substrate_bindings")
+        if not isinstance(substrate_bindings, dict) or not substrate_bindings:
+            findings.append(
+                _finding(
+                    "REAL_PATTERN_SUBSTRATE_BINDINGS_ROW_EMPTY_BINDINGS",
+                    "Real pattern substrate-bindings row lacks concrete substrate_bindings.",
+                    pattern_id=pattern_id,
+                )
+            )
+            continue
+        for category, refs in substrate_bindings.items():
+            if isinstance(refs, list) and refs:
+                binding_category_counts[str(category)] += len(refs)
+        runtime_refs_by_pattern_id[pattern_id] = f"{source_ref}::pattern_bindings[{pattern_id}]"
+
+    duplicate_detailed_ids = sorted(
+        pattern_id for pattern_id, count in Counter(detailed_pattern_ids).items() if count > 1
+    )
+    for pattern_id in duplicate_detailed_ids:
+        findings.append(
+            _finding(
+                "REAL_PATTERN_SUBSTRATE_BINDINGS_DUPLICATE_PATTERN_ID",
+                "Real pattern substrate-bindings duplicates a pattern_id.",
+                pattern_id=pattern_id,
+            )
+        )
+
+    coverage_summary = payload.get("coverage_summary") if isinstance(payload.get("coverage_summary"), dict) else {}
+    return {
+        "status": PASS if not findings and pattern_bindings else "blocked",
+        "source_ref": source_ref,
+        "path": binding_path,
+        "source_row_count": source_row_count,
+        "sha256": digest,
+        "expected_sha256": expected_digest,
+        "expected_source_row_count": expected_source_row_count,
+        "detailed_binding_count": len(pattern_bindings),
+        "expected_detailed_binding_count": expected_detailed_binding_count,
+        "runtime_refs_by_pattern_id": runtime_refs_by_pattern_id,
+        "binding_category_counts": dict(sorted(binding_category_counts.items())),
+        "strong_high_authority_count": len(payload.get("strong_high_authority_pattern_ids", []))
+        if isinstance(payload.get("strong_high_authority_pattern_ids"), list)
+        else 0,
+        "load_bearing_cluster_root_count": len(payload.get("load_bearing_cluster_roots", []))
+        if isinstance(payload.get("load_bearing_cluster_roots"), list)
+        else 0,
+        "foundation_combination_route_count": len(payload.get("foundation_combination_routes", []))
+        if isinstance(payload.get("foundation_combination_routes"), list)
+        else 0,
+        "frontier_combination_route_count": len(payload.get("frontier_combination_routes", []))
+        if isinstance(payload.get("frontier_combination_routes"), list)
+        else 0,
+        "coverage_summary": {
+            "rows": coverage_summary.get("rows"),
+            "grounding_class_counts": coverage_summary.get("grounding_class_counts", {}),
+        },
+        "detailed_binding_pattern_ids_sample": sorted(detailed_pattern_ids)[:25],
         "findings": findings,
     }
 
@@ -799,11 +996,33 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
     manifest = bundle["bundle_manifest"]
     real_ledger_projection = _real_pattern_ledger_projection(input_dir, manifest)
     uses_real_ledger = real_ledger_projection is not None and real_ledger_projection["status"] == PASS
+    ledger_pattern_ids = (
+        {str(row["pattern_id"]) for row in real_ledger_projection["pattern_rows"]}
+        if real_ledger_projection is not None
+        else set()
+    )
+    substrate_binding_projection = _real_pattern_substrate_bindings_projection(
+        input_dir,
+        manifest,
+        ledger_pattern_ids,
+    )
+    uses_substrate_bindings = (
+        substrate_binding_projection is not None
+        and substrate_binding_projection["status"] == PASS
+    )
+    if uses_real_ledger and uses_substrate_bindings:
+        real_ledger_projection = _real_pattern_ledger_projection(
+            input_dir,
+            manifest,
+            substrate_binding_projection["runtime_refs_by_pattern_id"],
+        )
     patterns = real_ledger_projection["pattern_rows"] if uses_real_ledger else bundle["patterns"]
     source_capsules = real_ledger_projection["source_capsules"] if uses_real_ledger else bundle["source_capsules"]
     input_paths = [Path(path) for path in bundle["input_paths"].values()]
     if real_ledger_projection is not None and real_ledger_projection["path"].is_file():
         input_paths.append(real_ledger_projection["path"])
+    if substrate_binding_projection is not None and substrate_binding_projection["path"].is_file():
+        input_paths.append(substrate_binding_projection["path"])
     forbidden_terms = bundle["forbidden_terms"]
     scan_result = _receipt_safe_scan_result(scan_paths(input_paths, forbidden_classes=forbidden_terms))
     binding_result = validate_pattern_bindings(patterns, source_capsules, scan_result)
@@ -817,6 +1036,8 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
         all_findings.extend(result.get("findings", []))
     if real_ledger_projection is not None:
         all_findings.extend(real_ledger_projection["findings"])
+    if substrate_binding_projection is not None:
+        all_findings.extend(substrate_binding_projection["findings"])
 
     error_codes = sorted({finding["error_code"] for finding in all_findings})
     accepted_rows = binding_result["accepted_rows"]
@@ -870,6 +1091,40 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
                 if real_ledger_projection is not None
                 else None
             ),
+            "real_pattern_substrate_bindings_consumed": uses_substrate_bindings,
+            "real_pattern_substrate_bindings_source": (
+                {
+                    "status": substrate_binding_projection["status"],
+                    "source_ref": substrate_binding_projection["source_ref"],
+                    "source_row_count": substrate_binding_projection["source_row_count"],
+                    "sha256": substrate_binding_projection["sha256"],
+                    "expected_sha256": substrate_binding_projection["expected_sha256"],
+                    "expected_source_row_count": substrate_binding_projection["expected_source_row_count"],
+                    "detailed_binding_count": substrate_binding_projection["detailed_binding_count"],
+                    "expected_detailed_binding_count": substrate_binding_projection[
+                        "expected_detailed_binding_count"
+                    ],
+                    "binding_category_counts": substrate_binding_projection["binding_category_counts"],
+                    "strong_high_authority_count": substrate_binding_projection[
+                        "strong_high_authority_count"
+                    ],
+                    "load_bearing_cluster_root_count": substrate_binding_projection[
+                        "load_bearing_cluster_root_count"
+                    ],
+                    "foundation_combination_route_count": substrate_binding_projection[
+                        "foundation_combination_route_count"
+                    ],
+                    "frontier_combination_route_count": substrate_binding_projection[
+                        "frontier_combination_route_count"
+                    ],
+                    "coverage_summary": substrate_binding_projection["coverage_summary"],
+                    "detailed_binding_pattern_ids_sample": substrate_binding_projection[
+                        "detailed_binding_pattern_ids_sample"
+                    ],
+                }
+                if substrate_binding_projection is not None
+                else None
+            ),
             "legacy_runtime_metadata_row_count": len(bundle["patterns"]),
             "legacy_runtime_metadata_only_row_count": legacy_runtime_metadata_only_count,
             "public_runtime_refs": _source_capsule_runtime_refs(
@@ -880,7 +1135,9 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
                 "status": PASS,
                 "authority_ceiling": AUTHORITY_CEILING,
                 "runtime_claim": (
-                    "real pattern-ledger binding validation"
+                    "real pattern-ledger and substrate-binding validation"
+                    if uses_substrate_bindings
+                    else "real pattern-ledger binding validation"
                     if uses_real_ledger
                     else "exported substrate bundle validation only"
                 ),

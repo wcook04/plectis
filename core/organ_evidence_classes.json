@@ -50,7 +50,7 @@
   "fail_closed_no_default": true,
   "organ_evidence_classes": [
     {
-      "classification_basis": "derived public contract checks over substrate bundle structure, authority handles, and negative cases",
+      "classification_basis": "derived public contract checks over substrate bundle structure, real pattern-ledger rows, generated substrate-binding sidecar refs, authority handles, and negative cases",
       "evidence_class": "semantic_validator",
       "organ_id": "pattern_binding_contract"
     },

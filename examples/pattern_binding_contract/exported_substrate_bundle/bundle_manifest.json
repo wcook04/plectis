@@ -5,6 +5,7 @@
   "organ_id": "pattern_binding_contract",
   "runtime_surfaces": [
     "real_pattern_ledger_source",
+    "real_pattern_substrate_bindings_source",
     "legacy_runtime_metadata_rows",
     "source_capsules",
     "authority_chain_handles",
@@ -17,11 +18,18 @@
     "sha256": "414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
     "normalization": "pattern_binding_contract.real_pattern_ledger_binding_v1"
   },
+  "real_pattern_substrate_bindings_source": {
+    "path": "examples/pattern_binding_contract/exported_substrate_bundle/extracted_pattern_substrate_bindings.json",
+    "source_row_count": 373,
+    "detailed_binding_count": 90,
+    "sha256": "4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "normalization": "pattern_binding_contract.real_pattern_substrate_bindings_v1"
+  },
   "legacy_runtime_metadata_rows": {
     "path": "examples/pattern_binding_contract/exported_substrate_bundle/pattern_rows.jsonl",
     "row_count": 2,
     "authority": "negative_regression_metadata_only_not_product_progress"
   },
-  "authority_ceiling": "public real pattern ledger binding with source-faithful runtime refs and secret-class body exclusion",
-  "anti_claim": "This bundle binds the existing public macro pattern ledger into pattern-binding validation. It does not inline secret/provider/operator/source bodies, duplicate macro-projection authority, or claim release readiness."
+  "authority_ceiling": "public real pattern ledger plus substrate-binding sidecar with source-faithful runtime refs and secret-class body exclusion",
+  "anti_claim": "This bundle binds the existing public macro pattern ledger and generated substrate-binding sidecar into pattern-binding validation. It does not inline secret/provider/operator/source bodies, duplicate macro-projection authority, or claim release readiness."
 }
