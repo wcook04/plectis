@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The repository benchmark transaction lab is a public-safe synthetic fixture. It does not claim SWE-bench performance, mutate live repos, call providers, import private issues, export private repositories, authorize broad checkpointing, prove production delivery rate, publish, host, or authorize release.",
+  "anti_claim": "The repository benchmark transaction lab is a source-open synthetic fixture. It does not claim SWE-bench performance, mutate live repos, call providers, import private issues, export private repositories, authorize broad checkpointing, prove production delivery rate, publish, host, or authorize release.",
   "authority_ceiling": {
     "benchmark_score_claim": false,
     "broad_checkpoint_authorized": false,
@@ -14,9 +14,8 @@
     "synthetic_fixture_only": true
   },
   "benchmark_lab_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
-  "body_redacted": true,
   "command": "microcosm benchmark-lab",
-  "created_at": "2026-05-23T07:48:21+00:00",
+  "created_at": "2026-05-23T20:07:21+00:00",
   "endpoint": "/benchmark-lab",
   "fixture_protocol": {
     "fail_to_pass_required": true,
@@ -64,15 +63,49 @@
     }
   ],
   "organ_family": "repository_benchmark_transaction_lab",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_repository_benchmark_transaction_lab_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm benchmark-lab",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes a synthetic repository benchmark transaction lab: two issue/patch fixtures are graded by oracle diffs, FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped diff receipts, workitem admission, and provider-slot cooldown metadata.",
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
     "oracle_patch_bodies_omitted": true,
     "private_repo_paths_omitted": true,
     "provider_payloads_omitted": true,
+    "public_refs_are_drilldowns_not_replacements": true,
     "receipt_refs_only_for_projection": true,
-    "synthetic_issue_bodies_only": true
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "synthetic_issue_bodies_only": true,
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_repository_benchmark_transaction_lab_lens_v1",
   "scorecard": {
@@ -98,10 +131,10 @@
     "workitem_contract_gap_triage_views",
     "provider_slot_claim_cooldown_backpressure"
   ],
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "task_rows": [
     {
-      "body_redacted": true,
       "fail_to_pass": [
         "tests/test_invoice_tax_rounding.py::test_invoice_total_matches_line_items"
       ],
@@ -114,16 +147,18 @@
       "pass_to_pass": [
         "tests/test_inventory_snapshot.py::test_existing_stock_totals_stay_stable"
       ],
+      "payload_boundary_ref": "public_repository_benchmark_transaction_lab_lens::task_rows",
       "provider_slot_decision": "cooldown_applied_no_provider_call",
       "repo_fixture_id": "synthetic_retail_inventory_service",
       "request_kind": "bugfix",
       "scoped_diff_receipt_id": "scoped_diff_inventory_rounding_public",
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "task_id": "inventory_tax_rounding_bugfix",
+      "unsafe_payload_bodies_exported": false,
       "workitem_admission": "admitted_with_scoped_paths"
     },
     {
-      "body_redacted": true,
       "fail_to_pass": [
         "tests/test_permission_audit.py::test_role_change_emits_audit_receipt"
       ],
@@ -134,12 +169,15 @@
       "pass_to_pass": [
         "tests/test_permissions.py::test_existing_role_matrix_is_unchanged"
       ],
+      "payload_boundary_ref": "public_repository_benchmark_transaction_lab_lens::task_rows",
       "provider_slot_decision": "local_fixture_only",
       "repo_fixture_id": "synthetic_admin_permissions_app",
       "request_kind": "feature",
       "scoped_diff_receipt_id": "scoped_diff_permissions_audit_public",
       "source_mutation_authorized": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "task_id": "permissions_audit_trail_feature",
+      "unsafe_payload_bodies_exported": false,
       "workitem_admission": "admitted_with_contract_gap_check"
     }
   ],
@@ -162,5 +200,6 @@
       "gate_id": "misleading_test_denial",
       "task_count": 1
     }
-  ]
+  ],
+  "unsafe_payload_bodies_in_receipt": false
 }

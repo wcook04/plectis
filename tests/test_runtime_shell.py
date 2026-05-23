@@ -1931,7 +1931,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_replay_gauntlet_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1964,16 +1964,23 @@ def test_runtime_shell_replay_gauntlet_lens_is_public_safe(tmp_path: Path) -> No
     assert lens["authority_ceiling"]["real_secret_material_exported"] is False
     assert lens["authority_ceiling"]["complete_security_claim"] is False
     assert lens["safe_to_show"]["fake_secrets_only"] is True
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_agent_reliability_replay_gauntlet_lens"
+    assert "body_redacted" not in lens
     assert all(row["real_secret_material_exported"] is False for row in lens["episode_rows"])
     assert all(row["live_tool_call_authorized"] is False for row in lens["episode_rows"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["episode_rows"]
+    )
     assert (public_root / lens["replay_gauntlet_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_benchmark_lab_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_benchmark_lab_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -2008,7 +2015,14 @@ def test_runtime_shell_benchmark_lab_lens_is_public_safe(tmp_path: Path) -> None
     assert lens["authority_ceiling"]["swe_bench_performance_claim"] is False
     assert lens["authority_ceiling"]["production_delivery_rate_claim"] is False
     assert lens["safe_to_show"]["oracle_patch_bodies_omitted"] is True
-    assert lens["body_redacted"] is True
+    assert lens["source_open_body_policy"]
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["payload_boundary"]["boundary_id"] == "public_repository_benchmark_transaction_lab_lens"
+    assert "body_redacted" not in lens
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["task_rows"]
+    )
     assert (public_root / lens["benchmark_lab_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded

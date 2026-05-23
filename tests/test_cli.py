@@ -806,6 +806,9 @@ def test_cli_replay_gauntlet_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["coverage_summary"]["blocked_episode_count"] == 9
     assert payload["authority_ceiling"]["live_agent_execution_authorized"] is False
     assert payload["authority_ceiling"]["complete_security_claim"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_agent_reliability_replay_gauntlet_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
 
 
 def test_cli_benchmark_lab_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -823,6 +826,9 @@ def test_cli_benchmark_lab_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["scorecard"]["pass_to_pass_count"] == 2
     assert payload["authority_ceiling"]["live_repo_mutation_authorized"] is False
     assert payload["authority_ceiling"]["swe_bench_performance_claim"] is False
+    assert payload["payload_boundary"]["boundary_id"] == "public_repository_benchmark_transaction_lab_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
 
 
 def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> None:
