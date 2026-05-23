@@ -4162,10 +4162,10 @@ class RuntimeShell:
                 "repair_route": "microcosm projection-safety",
                 "validation_ref": (
                     "tests/test_runtime_shell.py::"
-                    "test_runtime_shell_projection_drift_control_lens_is_public_safe"
+                    "test_runtime_shell_projection_drift_control_lens_uses_payload_boundary"
                 ),
-                "public_replacement_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
-                "body_redacted": True,
+                "public_drilldown_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4180,8 +4180,8 @@ class RuntimeShell:
                     "tests/test_observatory_legibility.py::"
                     "test_observatory_legibility_validator_exposes_causal_chain"
                 ),
-                "public_replacement_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
-                "body_redacted": True,
+                "public_drilldown_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4193,8 +4193,8 @@ class RuntimeShell:
                 "source_ref": "codex/standards/std_command_output_projection.json",
                 "repair_route": "microcosm spine",
                 "validation_ref": "tests/test_launch_compression.py",
-                "public_replacement_ref": "receipts/runtime_shell/wave044_launch_compression.json",
-                "body_redacted": True,
+                "public_drilldown_ref": "receipts/runtime_shell/wave044_launch_compression.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4206,8 +4206,8 @@ class RuntimeShell:
                 "source_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_plane.json",
                 "repair_route": "microcosm route list",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_status_surface_lists_commands",
-                "public_replacement_ref": "receipts/first_wave/navigation_hologram_route_plane/route_plane_result.json",
-                "body_redacted": True,
+                "public_drilldown_ref": "receipts/first_wave/navigation_hologram_route_plane/route_plane_result.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4215,12 +4215,12 @@ class RuntimeShell:
             },
             {
                 "drift_row_id": "agent_principle_failure_cap_assimilation_loop",
-                "source_signal": "CAP capture remains private-root authority; Microcosm shows metadata-only closure shape",
+                "source_signal": "CAP capture remains private-root authority; Microcosm shows source-open closure boundary shape",
                 "source_ref": "codex/standards/std_task_ledger.json::quick_capture_contract",
                 "repair_route": "Task Ledger quick-capture in private root",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
-                "public_replacement_ref": "receipts/runtime_shell/public_authority_map.json",
-                "body_redacted": True,
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_uses_payload_boundary",
+                "public_drilldown_ref": "receipts/runtime_shell/public_authority_map.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4235,8 +4235,8 @@ class RuntimeShell:
                 ),
                 "repair_route": "seed reentry prompt rewrite",
                 "validation_ref": "tools/meta/factory/validate_type_a_autonomous_seed_bundle.py",
-                "public_replacement_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.md",
-                "body_redacted": True,
+                "public_drilldown_ref": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.md",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4247,9 +4247,9 @@ class RuntimeShell:
                 "source_signal": "public projection rows carry owner route and omission receipt before reveal",
                 "source_ref": "microcosm projection-safety::projection_rows",
                 "repair_route": "microcosm projection-safety",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
-                "public_replacement_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
-                "body_redacted": True,
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
+                "public_drilldown_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4261,8 +4261,8 @@ class RuntimeShell:
                 "source_ref": "kernel.py --entry::task_conditioned_context_pack_entry",
                 "repair_route": "microcosm drift-control",
                 "validation_ref": "tests/test_cli.py::test_cli_projection_drift_control_smoke",
-                "public_replacement_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
-                "body_redacted": True,
+                "public_drilldown_ref": "receipts/runtime_shell/public_projection_drift_control_lens.json",
+                **_source_open_row_boundary("public_projection_drift_control_lens::drift_rows"),
                 "source_authority_claim": False,
                 "live_repair_authorized": False,
                 "source_mutation_authorized": False,
@@ -4280,7 +4280,7 @@ class RuntimeShell:
             "release_from_drift_projection_rejected",
         ]
         authority_ceiling = {
-            "metadata_projection_only": True,
+            "source_open_drilldown_contract": True,
             "release_authorized": False,
             "hosted_public_authorized": False,
             "publication_authorized": False,
@@ -4302,7 +4302,8 @@ class RuntimeShell:
             and all(row.get("source_ref") for row in drift_rows)
             and all(row.get("repair_route") for row in drift_rows)
             and all(row.get("validation_ref") for row in drift_rows)
-            and all(row.get("body_redacted") is True for row in drift_rows)
+            and all(row.get("unsafe_payload_bodies_exported") is False for row in drift_rows)
+            and all(row.get("public_drilldown_ref") for row in drift_rows)
             and all(row.get("source_authority_claim") is False for row in drift_rows)
             and all(row.get("live_repair_authorized") is False for row in drift_rows)
             and all(row.get("source_mutation_authorized") is False for row in drift_rows)
@@ -4310,8 +4311,8 @@ class RuntimeShell:
                 row.get("automatic_doctrine_promotion_authorized") is False
                 for row in drift_rows
             )
-            and all(value is False for key, value in authority_ceiling.items() if key != "metadata_projection_only")
-            and authority_ceiling.get("metadata_projection_only") is True
+            and all(value is False for key, value in authority_ceiling.items() if key != "source_open_drilldown_contract")
+            and authority_ceiling.get("source_open_drilldown_contract") is True
             and not any(needle in encoded_rows for needle in private_needles)
             else "blocked"
         )
@@ -4346,6 +4347,14 @@ class RuntimeShell:
                 "source_ref_count": sum(1 for row in drift_rows if row.get("source_ref")),
                 "repair_route_count": sum(1 for row in drift_rows if row.get("repair_route")),
                 "validation_ref_count": sum(1 for row in drift_rows if row.get("validation_ref")),
+                "public_drilldown_ref_count": sum(
+                    1 for row in drift_rows if row.get("public_drilldown_ref")
+                ),
+                "unsafe_payload_body_export_count": sum(
+                    1
+                    for row in drift_rows
+                    if row.get("unsafe_payload_bodies_exported") is True
+                ),
                 "source_authority_claim_count": sum(
                     1 for row in drift_rows if row.get("source_authority_claim") is True
                 ),
@@ -4364,19 +4373,25 @@ class RuntimeShell:
                 "provider_payload_export_count": 0,
             },
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "private_paths_omitted": True,
-                "provider_payloads_omitted": True,
-                "proof_bodies_omitted": True,
-                "repair_is_route_metadata_only": True,
-                "projection_is_read_model_only": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_projection_drift_control_lens",
+                command="microcosm drift-control",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                private_paths_omitted=True,
+                provider_payloads_omitted=True,
+                proof_bodies_omitted=True,
+                repair_is_route_drilldown_only=True,
+                projection_is_read_model_only=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The projection-drift control lens is a public-safe metadata read-model. "
+                "The projection-drift control lens is a source-open public drilldown map. "
                 "It does not inspect private runtime bodies, perform live repair, mutate "
                 "source, promote doctrine, export provider payloads, authorize release, "
                 "or claim source authority over the private root."
@@ -4496,11 +4511,11 @@ class RuntimeShell:
                 "source_signal": "cold entry must start at compact seed and kernel routing surfaces",
                 "source_ref": "AGENTS.override.md::First Moves",
                 "owner_route": "microcosm spine",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_route_cleanup_contract_lens_is_public_safe",
-                "public_replacement_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_route_cleanup_contract_lens_uses_payload_boundary",
+                "public_drilldown_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
                 "cleanup_action_class": "route_entry_order",
                 "public_boundary": "first_contact_uses_runtime_spine_or_context_pack_before_wide_repo_search",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4514,10 +4529,10 @@ class RuntimeShell:
                 "source_ref": "system/lib/navigation_context_pack.py",
                 "owner_route": "kernel.py --context-pack",
                 "validation_ref": "tests/test_cli.py::test_cli_route_cleanup_contract_smoke",
-                "public_replacement_ref": "microcosm route-cleanup",
+                "public_drilldown_ref": "microcosm route-cleanup",
                 "cleanup_action_class": "navigation_context_admission",
                 "public_boundary": "grep_is_drilldown_after_named_target_or_exact_error_string",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4531,10 +4546,10 @@ class RuntimeShell:
                 "source_ref": "AGENTS.override.md::Mutation Rules",
                 "owner_route": "owner builder for generated projection",
                 "validation_ref": "tools/meta/factory/check_agent_bootstrap_projection.py",
-                "public_replacement_ref": "microcosm projection-safety",
+                "public_drilldown_ref": "microcosm projection-safety",
                 "cleanup_action_class": "generated_projection_refresh",
                 "public_boundary": "generated_region_hand_edit_is_rejected_until_owner_builder_runs",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4548,10 +4563,10 @@ class RuntimeShell:
                 "source_ref": "AGENTS.override.md::Theory Pointers",
                 "owner_route": "kernel.py --option-surface",
                 "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_spine_is_cold_reader_xray",
-                "public_replacement_ref": "microcosm spine",
+                "public_drilldown_ref": "microcosm spine",
                 "cleanup_action_class": "drilldown_boundary",
                 "public_boundary": "option_surface_rows_are_not_first_contact_control_edges",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4564,11 +4579,11 @@ class RuntimeShell:
                 "source_signal": "claimed work paths and active collisions are checked before durable edits",
                 "source_ref": "tools/meta/factory/work_ledger.py::session-preflight",
                 "owner_route": "Work Ledger session-preflight",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe",
-                "public_replacement_ref": "microcosm authority",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_uses_payload_boundary",
+                "public_drilldown_ref": "microcosm authority",
                 "cleanup_action_class": "transaction_claim_gate",
                 "public_boundary": "collision_signal_blocks_or_replans_mutation_before_landing",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4581,11 +4596,11 @@ class RuntimeShell:
                 "source_signal": "dirty trees land through scoped owned paths or captured blockers",
                 "source_ref": "tools/meta/control/scoped_commit.py",
                 "owner_route": "mission_transaction_preflight + scoped_commit",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_work_landing_replay_lens_is_public_safe",
-                "public_replacement_ref": "receipts/runtime_shell/public_work_landing_replay_lens.json",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_work_landing_replay_lens_uses_payload_boundary",
+                "public_drilldown_ref": "receipts/runtime_shell/public_work_landing_replay_lens.json",
                 "cleanup_action_class": "landing_claim_boundary",
                 "public_boundary": "commit_claim_requires_head_advance_or_captured_blocker",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4602,13 +4617,13 @@ class RuntimeShell:
                 ),
                 "owner_route": "kernel.py --validate-seed-heartbeat",
                 "validation_ref": "tools/meta/factory/validate_type_a_autonomous_seed_bundle.py",
-                "public_replacement_ref": (
+                "public_drilldown_ref": (
                     "state/meta_missions/type_a_autonomous_seed_loop/seeds/"
                     "microcosm_substrate_import_autonomous_seed.md"
                 ),
                 "cleanup_action_class": "reentry_focus_cleanup",
                 "public_boundary": "seed_reentry_is_agent_synthesis_not_raw_seed_overwrite",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4621,11 +4636,11 @@ class RuntimeShell:
                 "source_signal": "route cleanup must preserve public/private stripping and projection safety",
                 "source_ref": "microcosm stripping-guard::guard_rows",
                 "owner_route": "microcosm stripping-guard + microcosm projection-safety",
-                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe",
-                "public_replacement_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
+                "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary",
+                "public_drilldown_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
                 "cleanup_action_class": "public_private_projection_guard",
                 "public_boundary": "cleanup_metadata_can_name_refs_but_not_private_bodies",
-                "body_redacted": True,
+                **_source_open_row_boundary("public_route_cleanup_contract_lens::cleanup_rows"),
                 "route_deletion_authorized": False,
                 "source_mutation_authorized": False,
                 "generated_region_hand_edit_authorized": False,
@@ -4645,7 +4660,7 @@ class RuntimeShell:
             "release_from_route_cleanup_rejected",
         ]
         authority_ceiling = {
-            "metadata_projection_only": True,
+            "source_open_drilldown_contract": True,
             "release_authorized": False,
             "hosted_public_authorized": False,
             "publication_authorized": False,
@@ -4668,15 +4683,16 @@ class RuntimeShell:
             and all(row.get("owner_route") for row in cleanup_rows)
             and all(row.get("validation_ref") for row in cleanup_rows)
             and all(row.get("public_boundary") for row in cleanup_rows)
-            and all(row.get("body_redacted") is True for row in cleanup_rows)
+            and all(row.get("public_drilldown_ref") for row in cleanup_rows)
+            and all(row.get("unsafe_payload_bodies_exported") is False for row in cleanup_rows)
             and all(row.get("route_deletion_authorized") is False for row in cleanup_rows)
             and all(row.get("source_mutation_authorized") is False for row in cleanup_rows)
             and all(row.get("generated_region_hand_edit_authorized") is False for row in cleanup_rows)
             and all(row.get("private_body_exported") is False for row in cleanup_rows)
             and all(row.get("provider_payload_exported") is False for row in cleanup_rows)
             and all(row.get("release_authorized") is False for row in cleanup_rows)
-            and all(value is False for key, value in authority_ceiling.items() if key != "metadata_projection_only")
-            and authority_ceiling.get("metadata_projection_only") is True
+            and all(value is False for key, value in authority_ceiling.items() if key != "source_open_drilldown_contract")
+            and authority_ceiling.get("source_open_drilldown_contract") is True
             and not any(needle in encoded_rows for needle in private_needles)
             else "blocked"
         )
@@ -4712,6 +4728,14 @@ class RuntimeShell:
                 "source_ref_count": sum(1 for row in cleanup_rows if row.get("source_ref")),
                 "owner_route_count": sum(1 for row in cleanup_rows if row.get("owner_route")),
                 "validation_ref_count": sum(1 for row in cleanup_rows if row.get("validation_ref")),
+                "public_drilldown_ref_count": sum(
+                    1 for row in cleanup_rows if row.get("public_drilldown_ref")
+                ),
+                "unsafe_payload_body_export_count": sum(
+                    1
+                    for row in cleanup_rows
+                    if row.get("unsafe_payload_bodies_exported") is True
+                ),
                 "negative_case_count": len(negative_case_ids),
                 "route_deletion_authorized_count": sum(
                     1 for row in cleanup_rows if row.get("route_deletion_authorized") is True
@@ -4735,18 +4759,24 @@ class RuntimeShell:
                 ),
             },
             "negative_case_ids": negative_case_ids,
-            "safe_to_show": {
-                "body_redacted": True,
-                "route_cleanup_is_metadata_only": True,
-                "owner_routes_named_without_private_bodies": True,
-                "generated_regions_require_owner_builders": True,
-                "scoped_landing_requires_owned_paths": True,
-            },
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_route_cleanup_contract_lens",
+                command="microcosm route-cleanup",
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                route_cleanup_is_source_open_drilldown_contract=True,
+                owner_routes_named_without_private_bodies=True,
+                generated_regions_require_owner_builders=True,
+                scoped_landing_requires_owned_paths=True,
+            ),
             "authority_ceiling": authority_ceiling,
             "release_authorized": False,
-            "body_redacted": True,
             "anti_claim": (
-                "The route-cleanup contract lens is a public-safe read-model. It does "
+                "The route-cleanup contract lens is a source-open public drilldown map. It does "
                 "not delete routes, hand-edit generated regions, mutate source, export "
                 "private bodies or provider payloads, promote doctrine, publish, host, "
                 "or authorize release."

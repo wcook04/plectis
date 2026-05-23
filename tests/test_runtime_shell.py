@@ -1296,6 +1296,10 @@ def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> Non
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_work_landing_replay_lens_uses_payload_boundary(tmp_path: Path) -> None:
+    test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path)
+
+
 def test_runtime_shell_view_quality_lens_is_public_safe(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
@@ -1439,7 +1443,7 @@ def test_runtime_shell_projection_safety_lens_uses_payload_boundary(tmp_path: Pa
     test_runtime_shell_projection_safety_lens_is_public_safe(tmp_path)
 
 
-def test_runtime_shell_projection_drift_control_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_projection_drift_control_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1468,7 +1472,7 @@ def test_runtime_shell_projection_drift_control_lens_is_public_safe(tmp_path: Pa
         "automatic_doctrine_promotion_rejected",
         "release_from_drift_projection_rejected",
     }
-    assert lens["authority_ceiling"]["metadata_projection_only"] is True
+    assert lens["authority_ceiling"]["source_open_drilldown_contract"] is True
     assert lens["authority_ceiling"]["source_authority_claim"] is False
     assert lens["authority_ceiling"]["live_route_repair_authorized"] is False
     assert lens["authority_ceiling"]["live_task_ledger_mutation_authorized"] is False
@@ -1477,12 +1481,23 @@ def test_runtime_shell_projection_drift_control_lens_is_public_safe(tmp_path: Pa
     assert all(row["source_ref"] for row in lens["drift_rows"])
     assert all(row["repair_route"] for row in lens["drift_rows"])
     assert all(row["validation_ref"] for row in lens["drift_rows"])
-    assert all(row["body_redacted"] is True for row in lens["drift_rows"])
-    assert lens["safe_to_show"]["repair_is_route_metadata_only"] is True
+    assert all(row["public_drilldown_ref"] for row in lens["drift_rows"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["drift_rows"]
+    )
+    assert lens["drift_summary"]["public_drilldown_ref_count"] == 8
+    assert lens["drift_summary"]["unsafe_payload_body_export_count"] == 0
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["payload_boundary"]["boundary_id"] == "public_projection_drift_control_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert lens["safe_to_show"]["repair_is_route_drilldown_only"] is True
     assert lens["release_authorized"] is False
-    assert lens["body_redacted"] is True
+    assert "body_redacted" not in lens
     assert (public_root / lens["projection_drift_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1523,7 +1538,7 @@ def test_runtime_shell_spatial_simulation_lens_is_public_safe(tmp_path: Path) ->
     assert "src/ai_workflow" not in encoded
 
 
-def test_runtime_shell_route_cleanup_contract_lens_is_public_safe(tmp_path: Path) -> None:
+def test_runtime_shell_route_cleanup_contract_lens_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
 
@@ -1553,21 +1568,32 @@ def test_runtime_shell_route_cleanup_contract_lens_is_public_safe(tmp_path: Path
         "option_surface_as_control_entry_rejected",
         "release_from_route_cleanup_rejected",
     }
-    assert lens["authority_ceiling"]["metadata_projection_only"] is True
+    assert lens["authority_ceiling"]["source_open_drilldown_contract"] is True
     assert lens["authority_ceiling"]["route_deletion_authorized"] is False
     assert lens["authority_ceiling"]["source_mutation_authorized"] is False
     assert lens["authority_ceiling"]["generated_region_hand_edit_authorized"] is False
     assert lens["authority_ceiling"]["private_body_exported"] is False
     assert lens["authority_ceiling"]["provider_payload_exported"] is False
-    assert lens["safe_to_show"]["route_cleanup_is_metadata_only"] is True
+    assert lens["safe_to_show"]["route_cleanup_is_source_open_drilldown_contract"] is True
     assert all(row["source_ref"] for row in lens["cleanup_rows"])
     assert all(row["owner_route"] for row in lens["cleanup_rows"])
     assert all(row["validation_ref"] for row in lens["cleanup_rows"])
-    assert all(row["body_redacted"] is True for row in lens["cleanup_rows"])
+    assert all(row["public_drilldown_ref"] for row in lens["cleanup_rows"])
+    assert all(
+        row["unsafe_payload_bodies_exported"] is False
+        for row in lens["cleanup_rows"]
+    )
+    assert lens["cleanup_summary"]["public_drilldown_ref_count"] == 8
+    assert lens["cleanup_summary"]["unsafe_payload_body_export_count"] == 0
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert lens["payload_boundary"]["boundary_id"] == "public_route_cleanup_contract_lens"
+    assert lens["payload_boundary"]["source_open_default"] is True
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["release_authorized"] is False
-    assert lens["body_redacted"] is True
     assert (public_root / lens["route_cleanup_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in lens
+    assert "public_replacement_ref" not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 

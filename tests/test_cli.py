@@ -639,9 +639,17 @@ def test_cli_projection_drift_control_smoke(capsys: pytest.CaptureFixture[str]) 
     assert payload["drift_summary"]["row_count"] == 8
     assert payload["drift_summary"]["source_authority_claim_count"] == 0
     assert payload["drift_summary"]["live_repair_authorized_count"] == 0
-    assert payload["authority_ceiling"]["metadata_projection_only"] is True
+    assert payload["drift_summary"]["public_drilldown_ref_count"] == 8
+    assert payload["drift_summary"]["unsafe_payload_body_export_count"] == 0
+    assert payload["authority_ceiling"]["source_open_drilldown_contract"] is True
     assert payload["authority_ceiling"]["live_route_repair_authorized"] is False
-    assert payload["safe_to_show"]["repair_is_route_metadata_only"] is True
+    assert payload["safe_to_show"]["repair_is_route_drilldown_only"] is True
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_projection_drift_control_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
+    encoded = json.dumps(payload, sort_keys=True)
+    assert "public_replacement_ref" not in encoded
 
 
 def test_cli_spatial_simulation_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -676,9 +684,17 @@ def test_cli_route_cleanup_contract_smoke(capsys: pytest.CaptureFixture[str]) ->
     assert payload["cleanup_summary"]["owner_route_count"] == 8
     assert payload["cleanup_summary"]["route_deletion_authorized_count"] == 0
     assert payload["cleanup_summary"]["generated_region_hand_edit_authorized_count"] == 0
-    assert payload["authority_ceiling"]["metadata_projection_only"] is True
+    assert payload["cleanup_summary"]["public_drilldown_ref_count"] == 8
+    assert payload["cleanup_summary"]["unsafe_payload_body_export_count"] == 0
+    assert payload["authority_ceiling"]["source_open_drilldown_contract"] is True
     assert payload["authority_ceiling"]["route_deletion_authorized"] is False
-    assert payload["safe_to_show"]["route_cleanup_is_metadata_only"] is True
+    assert payload["safe_to_show"]["route_cleanup_is_source_open_drilldown_contract"] is True
+    assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert payload["payload_boundary"]["boundary_id"] == "public_route_cleanup_contract_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
+    encoded = json.dumps(payload, sort_keys=True)
+    assert "public_replacement_ref" not in encoded
 
 
 def test_cli_projection_import_map_smoke(capsys: pytest.CaptureFixture[str]) -> None:
