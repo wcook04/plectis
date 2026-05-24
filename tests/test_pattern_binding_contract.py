@@ -13,6 +13,7 @@ from microcosm_core.organs.pattern_binding_contract import (
     validate,
     validate_substrate_bundle,
 )
+from microcosm_core.macro_tools.pattern_route_readiness import validate_route_readiness_bundle
 from microcosm_core.receipts import write_receipt
 from microcosm_core.schemas import DuplicateJsonKeyError, loads_json_strict
 
@@ -20,6 +21,7 @@ from microcosm_core.schemas import DuplicateJsonKeyError, loads_json_strict
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 PATTERN_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/pattern_binding_contract/input"
 PATTERN_EXPORTED_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/pattern_binding_contract/exported_substrate_bundle"
+ROUTE_READINESS_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/pattern_binding_contract/exported_route_readiness_bundle"
 MACRO_PATTERN_LEDGER = (
     MICROCOSM_ROOT
     / "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl"
@@ -160,13 +162,24 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["standards"] >= 1
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["paper_modules"] >= 1
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["tests_validators_proofs"] >= 1
+    assert result["real_pattern_route_readiness_consumed"] is True
+    assert result["route_readiness_error_rules"] == []
+    route_readiness = result["real_pattern_route_readiness_source"]
+    assert route_readiness["status"] == "pass"
+    assert route_readiness["source_import_class"] == "source_faithful_refactor"
+    assert route_readiness["route_readiness_summary"]["ledger_pattern_count"] == 373
+    assert route_readiness["route_readiness_summary"]["route_card_count"] == 9
+    assert route_readiness["route_readiness_summary"]["fixture_spec_count"] == 18
+    assert route_readiness["route_readiness_summary"]["standalone_pattern_leaf_candidate_count"] == 0
+    assert route_readiness["selection_contract"]["hard_no_standalone_pattern_id_count"] == 118
+    assert "row_to_organ_router" in route_readiness["selection_contract"]["selector_must_open"]
     assert result["truth_accounting"]["pattern_row_count"] == 373
     assert result["truth_accounting"]["runtime_example_bundle"] is False
     assert result["truth_accounting"]["runtime_metadata_only_row_count"] == 0
     assert result["truth_accounting"]["real_pattern_ledger_row_count"] == 373
-    assert len(result["public_runtime_refs"]) == 373 + len(bindings["pattern_bindings"])
+    assert len(result["public_runtime_refs"]) == 373 + len(bindings["pattern_bindings"]) + 13
     assert result["public_runtime_refs"][0].startswith(
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl::"
+        "examples/"
     )
     assert any(
         ref.startswith(
@@ -174,8 +187,10 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
         )
         for ref in result["public_runtime_refs"]
     )
+    assert "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_route_readiness_audit.json" in result["public_runtime_refs"]
     assert result["receipt_paths"] == [
-        "receipts/exported_substrate_bundle_validation_result.json"
+        "receipts/exported_substrate_bundle_validation_result.json",
+        "receipts/route_readiness/exported_route_readiness_bundle_validation_result.json",
     ]
 
     receipt = json.loads((out_dir / "exported_substrate_bundle_validation_result.json").read_text(encoding="utf-8"))
@@ -185,11 +200,46 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert receipt["truth_accounting"]["substrate_import_status"] == "real_pattern_ledger_import"
     assert receipt["real_pattern_ledger_source"]["sha256"] == macro_sha256
     assert receipt["real_pattern_substrate_bindings_source"]["sha256"] == bindings_sha256
+    assert receipt["real_pattern_route_readiness_consumed"] is True
+    assert receipt["real_pattern_route_readiness_source"]["route_readiness_summary"]["ledger_pattern_count"] == 373
     assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
     assert "matched_excerpt" not in json.dumps(receipt, sort_keys=True)
     assert "body" not in _walk_keys(receipt)
     assert "private_state_scan" not in receipt
     assert "body_redacted" not in receipt
+
+
+def test_route_readiness_bundle_validator_rejects_row_level_leaf_authority(tmp_path: Path) -> None:
+    out_dir = tmp_path / "receipts"
+
+    result = validate_route_readiness_bundle(ROUTE_READINESS_BUNDLE_INPUT, out_dir, command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_route_readiness_bundle"
+    assert result["source_import_class"] == "source_faithful_refactor"
+    assert result["route_readiness_summary"]["ledger_pattern_count"] == 373
+    assert result["route_readiness_summary"]["standalone_pattern_leaf_candidate_count"] == 0
+    assert result["selection_contract"]["hard_no_standalone_pattern_id_count"] == 118
+    assert result["selection_contract"]["root_substrate_sequence"] == [
+        "root_binding_and_executable_grammar",
+        "proof_diagnostic_evidence_spine",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+    ]
+    assert set(result["selection_contract"]["selector_must_open"]) >= {
+        "row_to_organ_router",
+        "organ_route_cards",
+        "organ_fixture_specs",
+        "route_readiness_audit",
+    }
+    assert result["route_readiness_report"]["findings"] == []
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["body_in_receipt"] is False
+    assert result["real_runtime_receipt"] is True
+    assert result["synthetic_receipt_standin_allowed"] is False
+    assert "matched_excerpt" not in json.dumps(result, sort_keys=True)
+    assert "body" not in _walk_keys(result)
+    assert "private_state_scan" not in result
 
 
 def test_cold_clone_receipts_use_public_relative_paths(tmp_path: Path) -> None:

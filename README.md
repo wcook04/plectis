@@ -617,6 +617,16 @@ the local substrate loop:
 42. `agentic_vulnerability_discovery_patch_proof_replay`
 43. `materials_chemistry_closed_loop_lab_safety_replay`
 
+`pattern_binding_contract` is the real pattern-ledger root: it validates the
+373-row public macro pattern ledger, the substrate-binding sidecar, and now the
+copied route-readiness selector overlays. Run `microcosm pattern-binding
+validate-route-readiness-bundle --input
+examples/pattern_binding_contract/exported_route_readiness_bundle --out
+receipts/first_wave/pattern_binding_contract/route_readiness` to inspect the
+selector gate directly. It proves that mined pattern ids route through organ
+bundles, fixture specs, dependency edges, and hard no-standalone rules; it does
+not make individual rows public leaves or authorize release.
+
 `agent_benchmark_integrity_anti_gaming_replay` is a body-free benchmark claim
 integrity regression drilldown, not product-spine substrate: it validates
 locked evaluator ids, evaluator config hashes, file-access logs, contamination

@@ -1,0 +1,80 @@
+{
+  "kind": "standard",
+  "artifact": "extracted_pattern_route_readiness",
+  "schema_version": "extracted_pattern_route_readiness_standard_v1",
+  "purpose": "Govern macro-side pattern routing readiness so future microcosm reconstruction selects coherent organs instead of isolated mined pattern rows.",
+  "authority_boundary": {
+    "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "routing_overlays": [
+      "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json",
+      "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+      "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+      "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json"
+    ],
+    "validator": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+    "validation_report": "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+    "public_microcosm_authority": false
+  },
+  "governing_principles": [
+    "pri_001",
+    "pri_121",
+    "pri_128",
+    "pri_139",
+    "pri_142"
+  ],
+  "sibling_standards": [
+    "codex/standards/std_extracted_pattern_substrate_bindings.json",
+    "codex/standards/std_pattern_deliverables.json",
+    "codex/standards/std_agent_entry_surface.json"
+  ],
+  "route_readiness_contract": {
+    "unit_of_selection": "organ_bundle_not_pattern_row",
+    "hard_floor": "No mined pattern row is a standalone future leaf until a selector proves organ membership, prerequisites, direct import or regression-wrapper contract, proof or validator boundary, and anti-claim.",
+    "root_substrate_required_before_leaf_selection": [
+      "root_binding_and_executable_grammar",
+      "proof_diagnostic_evidence_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine"
+    ],
+    "selector_must_open": [
+      "row_to_organ_router",
+      "organ_route_cards",
+      "organ_fixture_specs",
+      "route_readiness_audit"
+    ],
+    "selector_must_reject": [
+      "hard_no_standalone pattern ids",
+      "macro_only rows without direct import target, deletion disposition, or exact secret/credential exclusion",
+      "fixture_only rows that substitute for non-secret macro substrate",
+      "publication wrappers without proof and authority gates",
+      "formal lab rows without split policy and repair receipts",
+      "cockpit rows without imported source-backed typed views and render checks"
+    ]
+  },
+  "validation_rules": {
+    "hard_errors": [
+      "route readiness audit source ledger count or hash does not match extracted_patterns_ledger.jsonl",
+      "audit_summary counts drift from companion overlays",
+      "router duplicate pattern refs are not listed in intentional_router_overlaps",
+      "routing overlays reference pattern ids absent from the extracted ledger",
+      "selector contract allows pattern row selection or omits required companion overlays",
+      "organ readiness rows allow individual_row_selection",
+      "readiness route_to_organ_ids lack fixture specs",
+      "fixture specs lack imported substrate target, regression-wrapper inputs, negative cases, validator/check, or anti-claim",
+      "dependency DAG edge references an undefined organ node",
+      "dependency DAG contains a cycle",
+      "hard_no_standalone pattern ids are marked selectable"
+    ],
+    "warnings": [
+      "future extensions should keep weak or macro-only families folded unless direct import targets, exact secret/credential exclusions, and anti-claim gates are added"
+    ]
+  },
+  "owner_tool_contract": {
+    "check": "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --check",
+    "refresh": "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --write-report",
+    "tests": "./repo-pytest system/server/tests/test_extracted_pattern_route_readiness.py"
+  }
+}

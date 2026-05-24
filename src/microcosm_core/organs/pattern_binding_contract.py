@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.fixture_registry import load_pattern_binding_fixture, load_pattern_binding_substrate_bundle
+from microcosm_core.macro_tools import pattern_route_readiness
 from microcosm_core.secret_exclusion_scan import PASS, public_relative_path, scan_json_payload, scan_paths
 from microcosm_core.receipts import AUTHORITY_CEILING, base_receipt, write_json_atomic
 
@@ -25,6 +26,7 @@ REAL_PATTERN_LEDGER_ANTI_CLAIM_REF = "anti_claim.pattern_binding.real_pattern_le
 REAL_PATTERN_LEDGER_GOVERNING_STANDARD = "std_microcosm_pattern_binding_contract"
 REAL_PATTERN_LEDGER_SOURCE_KEY = "real_pattern_ledger_source"
 REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_KEY = "real_pattern_substrate_bindings_source"
+REAL_PATTERN_ROUTE_READINESS_BUNDLE_KEY = "real_pattern_route_readiness_bundle"
 REAL_PATTERN_SUBSTRATE_BINDINGS_SCHEMA = "extracted_pattern_substrate_bindings_v1"
 
 EXPECTED_NEGATIVE_CASES = {
@@ -483,6 +485,55 @@ def _real_pattern_substrate_bindings_projection(
     }
 
 
+def _real_pattern_route_readiness_projection(
+    input_dir: str | Path,
+    manifest: dict[str, Any],
+    out_dir: str | Path,
+    command: str | None,
+) -> dict[str, Any] | None:
+    spec = manifest.get(REAL_PATTERN_ROUTE_READINESS_BUNDLE_KEY)
+    if not isinstance(spec, dict):
+        return None
+
+    source_ref = str(spec.get("path") or spec.get("source_ref") or "").strip()
+    public_root = _public_root_for_bundle(input_dir)
+    route_bundle_path = public_root / source_ref if source_ref else public_root
+    if not source_ref or not route_bundle_path.is_dir():
+        return {
+            "status": "blocked",
+            "source_ref": source_ref,
+            "path": route_bundle_path,
+            "findings": [
+                _finding(
+                    "REAL_PATTERN_ROUTE_READINESS_BUNDLE_NOT_FOUND",
+                    "Real pattern route-readiness bundle path does not resolve inside the public root.",
+                )
+            ],
+            "public_runtime_refs": [],
+            "receipt_paths": [],
+        }
+
+    result = pattern_route_readiness.validate_route_readiness_bundle(
+        route_bundle_path,
+        Path(out_dir) / "route_readiness",
+        command=command,
+    )
+    return {
+        "status": result["status"],
+        "source_ref": source_ref,
+        "path": route_bundle_path,
+        "bundle_id": result.get("bundle_id"),
+        "source_import_class": result.get("source_import_class"),
+        "route_readiness_summary": result.get("route_readiness_summary", {}),
+        "selection_contract": result.get("selection_contract", {}),
+        "source_validation_report_summary": result.get("source_validation_report_summary", {}),
+        "source_manifest": result.get("source_manifest", {}),
+        "public_runtime_refs": result.get("public_runtime_refs", []),
+        "receipt_paths": result.get("receipt_paths", []),
+        "findings": result.get("route_readiness_report", {}).get("findings", []),
+    }
+
+
 def _pattern_source_refs(row: dict[str, Any]) -> list[str]:
     refs = row.get("source_refs")
     if refs is None:
@@ -814,7 +865,12 @@ def _write_substrate_bundle_receipt(out_dir: str | Path, validation_result: dict
     if Path(receipt_path).is_absolute() and "receipts" in path.parts:
         receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
         receipt_path = Path(*path.parts[receipts_index:]).as_posix()
-    payload["receipt_paths"] = [receipt_path]
+    extra_paths = [
+        str(path)
+        for path in validation_result.get("receipt_paths", [])
+        if str(path) and str(path) != receipt_path
+    ]
+    payload["receipt_paths"] = [receipt_path, *extra_paths]
     write_json_atomic(path, payload)
     return receipt_path
 
@@ -1016,6 +1072,16 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             manifest,
             substrate_binding_projection["runtime_refs_by_pattern_id"],
         )
+    route_readiness_projection = _real_pattern_route_readiness_projection(
+        input_dir,
+        manifest,
+        out_dir,
+        command,
+    )
+    uses_route_readiness = (
+        route_readiness_projection is not None
+        and route_readiness_projection["status"] == PASS
+    )
     patterns = real_ledger_projection["pattern_rows"] if uses_real_ledger else bundle["patterns"]
     source_capsules = real_ledger_projection["source_capsules"] if uses_real_ledger else bundle["source_capsules"]
     input_paths = [Path(path) for path in bundle["input_paths"].values()]
@@ -1038,11 +1104,36 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
         all_findings.extend(real_ledger_projection["findings"])
     if substrate_binding_projection is not None:
         all_findings.extend(substrate_binding_projection["findings"])
+    route_readiness_findings = (
+        route_readiness_projection.get("findings", [])
+        if route_readiness_projection is not None
+        else []
+    )
+    route_readiness_error_rules = sorted(
+        {
+            str(finding.get("rule") or finding.get("error_code") or "")
+            for finding in route_readiness_findings
+            if isinstance(finding, dict)
+            and (
+                finding.get("severity") == "error"
+                or finding.get("error_code")
+            )
+        }
+        - {""}
+    )
 
     error_codes = sorted({finding["error_code"] for finding in all_findings})
     accepted_rows = binding_result["accepted_rows"]
     bundle_id = str(manifest.get("bundle_id") or "pattern_binding_exported_substrate_bundle")
-    status = PASS if scan_result["status"] == PASS and not all_findings and accepted_rows else "blocked"
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and not route_readiness_error_rules
+        and accepted_rows
+        and (route_readiness_projection is None or uses_route_readiness)
+        else "blocked"
+    )
     source_capsule_receipt = _source_capsule_receipt(accepted_rows, source_capsules)
     truth_accounting = _substrate_bundle_truth_accounting(manifest, accepted_rows)
     legacy_runtime_metadata_only_count = sum(
@@ -1067,6 +1158,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "observed_negative_cases": observed,
             "missing_negative_cases": [],
             "findings": all_findings,
+            "route_readiness_error_rules": route_readiness_error_rules,
             "secret_exclusion_scan": scan_result,
             "body_in_receipt": False,
             "real_runtime_receipt": status == PASS,
@@ -1125,17 +1217,48 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
                 if substrate_binding_projection is not None
                 else None
             ),
+            "real_pattern_route_readiness_consumed": uses_route_readiness,
+            "real_pattern_route_readiness_source": (
+                {
+                    "status": route_readiness_projection["status"],
+                    "source_ref": route_readiness_projection["source_ref"],
+                    "bundle_id": route_readiness_projection.get("bundle_id"),
+                    "source_import_class": route_readiness_projection.get("source_import_class"),
+                    "route_readiness_summary": route_readiness_projection.get(
+                        "route_readiness_summary", {}
+                    ),
+                    "source_validation_report_summary": route_readiness_projection.get(
+                        "source_validation_report_summary", {}
+                    ),
+                    "selection_contract": route_readiness_projection.get("selection_contract", {}),
+                    "source_manifest": route_readiness_projection.get("source_manifest", {}),
+                    "receipt_paths": route_readiness_projection.get("receipt_paths", []),
+                }
+                if route_readiness_projection is not None
+                else None
+            ),
             "legacy_runtime_metadata_row_count": len(bundle["patterns"]),
             "legacy_runtime_metadata_only_row_count": legacy_runtime_metadata_only_count,
-            "public_runtime_refs": _source_capsule_runtime_refs(
-                sorted({ref for row in accepted_rows for ref in _pattern_source_refs(row)}),
-                source_capsules,
+            "public_runtime_refs": sorted(
+                set(
+                    _source_capsule_runtime_refs(
+                        sorted({ref for row in accepted_rows for ref in _pattern_source_refs(row)}),
+                        source_capsules,
+                    )
+                    + (
+                        route_readiness_projection.get("public_runtime_refs", [])
+                        if route_readiness_projection is not None
+                        else []
+                    )
+                )
             ),
             "authority_ceiling": {
                 "status": PASS,
                 "authority_ceiling": AUTHORITY_CEILING,
                 "runtime_claim": (
-                    "real pattern-ledger and substrate-binding validation"
+                    "real pattern-ledger, substrate-binding, and route-readiness validation"
+                    if uses_substrate_bindings and uses_route_readiness
+                    else "real pattern-ledger and substrate-binding validation"
                     if uses_substrate_bindings
                     else "real pattern-ledger binding validation"
                     if uses_real_ledger
@@ -1149,13 +1272,24 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "authority_chain_resolution_status": authority_result["authority_chain_resolution_status"],
             "reference_capsule_resolution_status": PASS if not reference_result["findings"] else "blocked",
             "anti_claim": (
-                "An exported substrate bundle validates public pattern-ledger bindings. "
-                "It does not inline secret, provider, operator, or source bodies or prove release readiness."
+                "An exported substrate bundle validates public pattern-ledger bindings "
+                "and route-readiness overlays. It does not inline secret, provider, "
+                "operator, or credential-equivalent bodies, make mined rows standalone "
+                "leaves, or prove release readiness."
+            ),
+            "receipt_paths": (
+                route_readiness_projection.get("receipt_paths", [])
+                if route_readiness_projection is not None
+                else []
             ),
         }
     )
     receipt_path = _write_substrate_bundle_receipt(out_dir, result)
-    result["receipt_paths"] = [receipt_path]
+    result["receipt_paths"] = [receipt_path] + (
+        route_readiness_projection.get("receipt_paths", [])
+        if route_readiness_projection is not None
+        else []
+    )
     return result
 
 
@@ -1168,6 +1302,9 @@ def main(argv: list[str] | None = None) -> int:
     bundle_parser = subparsers.add_parser("validate-substrate-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    route_readiness_parser = subparsers.add_parser("validate-route-readiness-bundle")
+    route_readiness_parser.add_argument("--input", required=True)
+    route_readiness_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.command_name == "validate":
         command = (
@@ -1181,8 +1318,18 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-substrate-bundle --input {args.input} --out {args.out}"
         )
         result = validate_substrate_bundle(args.input, args.out, command=command)
+    elif args.command_name == "validate-route-readiness-bundle":
+        command = (
+            "python -m microcosm_core.organs.pattern_binding_contract "
+            f"validate-route-readiness-bundle --input {args.input} --out {args.out}"
+        )
+        result = pattern_route_readiness.validate_route_readiness_bundle(
+            args.input,
+            args.out,
+            command=command,
+        )
     else:
-        parser.error("expected subcommand: validate or validate-substrate-bundle")
+        parser.error("expected subcommand: validate, validate-substrate-bundle, or validate-route-readiness-bundle")
     return 0 if result["status"] == PASS else 1
 
 

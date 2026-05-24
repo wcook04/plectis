@@ -1,0 +1,99 @@
+{
+  "schema_version": "pattern_route_readiness_exported_bundle_v1",
+  "bundle_id": "public_pattern_route_readiness_selector_bundle",
+  "bundle_kind": "exported_route_readiness_bundle",
+  "organ_id": "pattern_binding_contract",
+  "runtime_surfaces": [
+    "pattern_ledger_rows",
+    "route_readiness_standard",
+    "route_readiness_audit",
+    "row_to_organ_router",
+    "organ_route_cards",
+    "organ_fixture_specs",
+    "route_decision_matrix",
+    "organ_dependency_dag",
+    "internal_routing_graph",
+    "source_route_readiness_validation_report",
+    "supersession_report",
+    "organ_clusters_report"
+  ],
+  "source_import_class": "source_faithful_refactor",
+  "copied_macro_source_refs": [
+    "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+    "codex/standards/std_extracted_pattern_route_readiness.json",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json",
+    "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+    "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+    "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+    "state/microcosm_portfolio/extracted_pattern_supersession_report.md",
+    "state/microcosm_portfolio/extracted_pattern_organ_clusters.md"
+  ],
+  "files": [
+    {
+      "path": "pattern_ledger_rows.jsonl",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "sha256": "414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3"
+    },
+    {
+      "path": "std_extracted_pattern_route_readiness.json",
+      "source_ref": "codex/standards/std_extracted_pattern_route_readiness.json",
+      "sha256": "d33b27f649233b97ee49d2b3c75497994daaa42c02242e4c7785802302ad6025"
+    },
+    {
+      "path": "extracted_pattern_route_readiness_audit.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json",
+      "sha256": "5f04fe97e785985753c490d09cf75ba7a1c1f11ba5971d1ec4d24b6895ef82d4"
+    },
+    {
+      "path": "extracted_pattern_row_to_organ_router.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+      "sha256": "4bfdf8ff4c8ceb445448f394ca041d821c0ed885faf6c614f51e582d1eee4fa6"
+    },
+    {
+      "path": "extracted_pattern_organ_route_cards.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+      "sha256": "7122c1cf6f2ca46f867a5c5229fa6f2ef53da5499bc8d14cce7ad8c19ce623b2"
+    },
+    {
+      "path": "extracted_pattern_organ_fixture_specs.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+      "sha256": "65a7938dbaa177f5a9aae0565f7d188f7f5cfe7ddd803c109f8cefe33aebc82e"
+    },
+    {
+      "path": "extracted_pattern_route_decision_matrix.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+      "sha256": "268e453a8cf4d266300904e752f718b1b997f5a2c49b2348df00f9197c5454d8"
+    },
+    {
+      "path": "extracted_pattern_organ_dependency_dag.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+      "sha256": "b40bf930bf257c8c8e75ff647b2318594814cec35b58fb84535619a7ea7c5fa5"
+    },
+    {
+      "path": "extracted_pattern_internal_routing_graph.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json",
+      "sha256": "19d7a001839a1dce56b6c1ee4c787657a734617e57d3415fc682abf505dce231"
+    },
+    {
+      "path": "source_route_readiness_validation_report.json",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+      "sha256": "23e779cad0eefa528ccae2b379f8e7de07a9f734c1fd808f1d0455167fb5f366"
+    },
+    {
+      "path": "extracted_pattern_supersession_report.md",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_supersession_report.md",
+      "sha256": "d3f4d53689de147730dd9b134b5930b8f35fc6d9f93a45e50de44a4812a6bc37"
+    },
+    {
+      "path": "extracted_pattern_organ_clusters.md",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_organ_clusters.md",
+      "sha256": "c70e8c8f79a227f824767017f527ced5fb7d88e211ea2112b1c4a139fdb8ec50"
+    }
+  ],
+  "authority_ceiling": "route-readiness selector validation over public copied macro overlays; not public leaf authority, release authority, or source authority above the imported refs",
+  "anti_claim": "This bundle imports the macro pattern route-readiness selector, overlay bodies, and source validation report into the public pattern-binding runtime. It proves selector consistency and no-row-alone routing; it does not make any mined pattern row a standalone public leaf or authorize publication."
+}

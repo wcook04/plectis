@@ -1,0 +1,1011 @@
+{
+  "schema_version": "extracted_pattern_organ_dependency_dag_v1",
+  "created_at": "2026-05-17T20:24:00Z",
+  "created_by": "codex",
+  "deliverable_type": "macro_pattern_internal_routing_pass",
+  "artifact_role": "macro_side_dependency_order_overlay_not_public_microcosm_rebuild",
+  "authority_boundary": {
+    "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "historical_rows_rewritten": false,
+    "new_ledger_rows_added": false,
+    "public_microcosm_projection": false,
+    "public_microcosm_leaf_set_authoritative": false,
+    "purpose": "Make organ prerequisites, child organs, macro-only boundaries, and reconstruction order explicit so future reconstruction selects coherent organs instead of isolated pattern rows."
+  },
+  "source_ledger": {
+    "path": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "row_count": 309,
+    "sha256": "2f526cb50aeee4d017f37ff11880432c8daaf4bb25095c9ccf4599c2f0be5f64"
+  },
+  "input_overlays": [
+    "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json",
+    "state/microcosm_portfolio/extracted_pattern_shared_substrate_clusters.json",
+    "state/microcosm_portfolio/extracted_pattern_reconstruction_shortlist.json",
+    "state/microcosm_portfolio/extracted_pattern_fixture_feasibility_matrix.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+    "state/microcosm_portfolio/extracted_pattern_weak_bindings.json",
+    "state/microcosm_portfolio/macro_pattern_expansion_pass_2026-05-17c.md",
+    "state/microcosm_portfolio/macro_pattern_expansion_pass_2026-05-17e.md",
+    "state/microcosm_portfolio/macro_pattern_expansion_pass_2026-05-17_scout_wave2.md"
+  ],
+  "companion_overlays": [
+    "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+    "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json"
+  ],
+  "ledger_delta_after_dependency_dag": {
+    "delta_id": "live_ledger_rows_184_292",
+    "detected_pattern_row_count": 109,
+    "routing_decision": "Treat the 184-292 tail as child-suborgan and boundary material. Mission-landing/concurrency rows fold under mission_transaction_work_spine; cognitive-operator rows fold under grammar/route/agent behavior; annex and memory rows remain private-fixture or external-boundary material; compute-worker rows fold under bridge/external runtime; formal-proof, formal-oracle, and formal-prover lab evaluation rows fold under proof_diagnostic_evidence_spine; publication/ref/readiness rows fold as a publication authority guard; raw-seed alchemy and source-index/recovery fencing stay private-fixture-only; autonomy/reaction dispatch folds under bridge and mission continuity; prediction/oracle and market-reasoning rows fold under proof and external-boundary organs; entry/agent-behavior governance, affordance passports, and egress compliance mirrors fold under navigation, observability, and self-improvement; formal evidence cells, one-row proof-repair reducers, provider context recipes, premise retrieval, strategy scoring, benchmark ladders, split leakage firewalls, corpus readiness gates, and decisive-experiment queues fold under proof, external-boundary, bridge, and mission gates.",
+    "route_decision_matrix": "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+    "route_to_existing_organ_ids": [
+      "executable_doctrine_grammar",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine",
+      "proof_diagnostic_evidence_spine",
+      "agent_route_observability_runtime",
+      "external_boundary_anti_corruption_runtime",
+      "bridge_phase_continuity_runtime",
+      "voice_to_doctrine_self_improvement_loop"
+    ],
+    "latent_child_suborgan_ids": [
+      "work_landing_concurrency_guard_suborgan",
+      "compute_worker_control_suborgan",
+      "formal_math_proof_receipt_membrane_suborgan",
+      "publication_authority_guard_suborgan",
+      "formal_oracle_policy_learning_suborgan",
+      "prediction_oracle_reconciliation_suborgan",
+      "raw_seed_alchemy_review_suborgan",
+      "autonomy_reaction_dispatch_suborgan",
+      "market_reasoning_evidence_suborgan",
+      "entry_agent_behavior_governance_suborgan",
+      "formal_prover_lab_evaluation_suborgan",
+      "operator_response_attention_suborgan"
+    ],
+    "latest_delta_rows_306_309": {
+      "pattern_ids": [
+        "operator_response_flight_attempt_ledger",
+        "operator_response_attention_obligation_lease",
+        "operator_hud_action_receipt_proof_metadata_lane",
+        "sidecar_continuation_candidate_lifecycle_gate"
+      ],
+      "routing_decision": "Fold as operator_response_attention_suborgan under agent_route_observability_runtime, external_boundary_anti_corruption_runtime, and bridge_phase_continuity_runtime.",
+      "why": "The rows describe one private operator bridge response-attention metabolism: response-flight evidence, durable attention lease, HUD proof receipt, and sidecar lifecycle gate."
+    }
+  },
+  "routing_semantics": {
+    "organ_node": "A selectable reconstruction unit composed of parent rows, child rows, fixture gates, and hidden substrate.",
+    "root_substrate": "A prerequisite node that should usually exist before any future leaf makes sense.",
+    "child_suborgan": "A coherent row family that is real, but should fold into a larger organ until it has an independent fixture and cold-start story.",
+    "macro_only_boundary": "A row family that can remain useful internally but must not become a standalone public or portable leaf without synthetic state.",
+    "edge_rule": "Edges are dependency and selection-order edges, not proof that the downstream organ is already implemented."
+  },
+  "layers": [
+    {
+      "layer_id": "l0_binding_and_grammar",
+      "role": "selection_contract_root",
+      "organ_ids": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar"
+      ],
+      "routing_rule": "No leaf selection before row contracts, grammar, source boundaries, and validation vocabulary are named."
+    },
+    {
+      "layer_id": "l1_projection_route_work_roots",
+      "role": "root_runtime_substrate",
+      "organ_ids": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "routing_rule": "First reconstruct the route plane, work-survival spine, and proof spine as mutually reinforcing roots."
+    },
+    {
+      "layer_id": "l2_behavior_boundary_continuity",
+      "role": "runtime_organs",
+      "organ_ids": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime"
+      ],
+      "routing_rule": "Runtime and evaluator organs depend on root route/work/proof substrate and should not be selected first."
+    },
+    {
+      "layer_id": "l3_private_or_derivative_organs",
+      "role": "conditional_or_macro_only",
+      "organ_ids": [
+        "voice_to_doctrine_self_improvement_loop",
+        "typed_view_contract_specimen",
+        "workitem_cartography_scheduler_suborgan"
+      ],
+      "routing_rule": "These are important but derivative or private-fixture-only; fold them into root/runtime organs unless an exact synthetic fixture is available."
+    }
+  ],
+  "organ_nodes": [
+    {
+      "organ_id": "pattern_binding_contract",
+      "node_type": "root_substrate",
+      "selection_posture": "required_before_leaf_selection",
+      "classification": [
+        "foundation",
+        "proof",
+        "projection"
+      ],
+      "depends_on_organ_ids": [],
+      "provides_to_organ_ids": [
+        "executable_doctrine_grammar",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "parent_pattern_ids": [
+        "pattern_deliverables_registry",
+        "strict_json_artifact",
+        "source_capsule_provenance",
+        "hidden_substrate_integration_manifest"
+      ],
+      "fold_in_pattern_ids": [
+        "transform_job_provenance",
+        "launchable_operation_contract",
+        "rename_migration_receipt_atomic"
+      ],
+      "hidden_infrastructure_warning": "Rows that lack a binding contract can look like ideas instead of executable substrate. This node should govern row readiness and anti-claims before public or portable fixture selection.",
+      "fixture_gate": "Toy extracted-pattern binding standard with valid row, missing standard row, private-fixture row, and validator report."
+    },
+    {
+      "organ_id": "executable_doctrine_grammar",
+      "node_type": "root_substrate",
+      "selection_posture": "recommended_root",
+      "classification": [
+        "foundation",
+        "proof",
+        "projection"
+      ],
+      "depends_on_organ_ids": [
+        "pattern_binding_contract"
+      ],
+      "provides_to_organ_ids": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "parent_pattern_ids": [
+        "executable_grammar_metabolism",
+        "principle_scope_axiom_candidate_lattice",
+        "cognitive_operator_registry",
+        "standards_registry_executable_grammar_index",
+        "paper_module_authoring_runtime_self_describing"
+      ],
+      "fold_in_pattern_ids": [
+        "std_paper_module_v8_self_governing",
+        "std_microcosm_meta_standard",
+        "std_skill_typed_skills",
+        "std_skill_types_versioned_skills",
+        "config_authority_registry",
+        "mechanism_facet_manifest",
+        "system_lib_pipeline_stages",
+        "negative_space_anti_profile_failure_mirror",
+        "patcher_typed_repair",
+        "population_lane_generic",
+        "reconciliation_typed_drift_repair"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "cp_artifact_schema_validation_result",
+        "test_as_machine_checkable_substrate_contract",
+        "distillation_bundle_validator_advisory_strict_modes",
+        "test_mark_tier_routing_slow_control_plane",
+        "root_handle_binding_protocol",
+        "branch_coverage_grade_ceiling",
+        "self_comprehensibility_facet_registry",
+        "paper_module_convergent_pressure_metabolism",
+        "surface_authority_collision_detection"
+      ],
+      "hidden_infrastructure_warning": "Formal proof or standard rows are weak alone when they do not carry validator, source lineage, and negative-case behavior.",
+      "fixture_gate": "Tiny standards registry with one valid standard row, one invalid row, generated index, validation result, and explicit source lineage."
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "node_type": "top_level_organ",
+      "selection_posture": "recommended_after_grammar",
+      "classification": [
+        "foundation",
+        "runtime",
+        "projection",
+        "observability"
+      ],
+      "depends_on_organ_ids": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "provides_to_organ_ids": [
+        "agent_route_observability_runtime",
+        "typed_view_contract_specimen",
+        "voice_to_doctrine_self_improvement_loop",
+        "workitem_cartography_scheduler_suborgan"
+      ],
+      "parent_pattern_ids": [
+        "navigation_hologram_unified_route_plane",
+        "compression_profile_governed_option_surface",
+        "omission_receipt_reversible_projection_boundary",
+        "semantic_routing_plane",
+        "navigation_rosetta_grammar",
+        "kernel_cli_typed_router",
+        "agent_entry_surfaces_canonical_first_move"
+      ],
+      "fold_in_pattern_ids": [
+        "self_comprehension_navigator",
+        "atlas_navigation_bands",
+        "concept_graph_first_contact_atlas",
+        "summary_ladders_compression",
+        "json_facets_projection",
+        "command_output_projection",
+        "marked_region_projection",
+        "system_facts_glance",
+        "system_self_comprehension_render_profile",
+        "compound_microcosm_cell_decision_projection",
+        "system_atlas_source_coupling_gate"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "frontend_wayfinding_proof_lane",
+        "frontend_nav_graph_three_source_consistency",
+        "renderer_passport_type_plane_projection",
+        "root_handle_binding_protocol",
+        "branch_coverage_grade_ceiling",
+        "self_comprehensibility_facet_registry",
+        "surface_authority_collision_detection",
+        "task_ledger_organizer_routing_surface",
+        "mission_operating_picture_currentness_overlay",
+        "cap_cartography_readiness_map"
+      ],
+      "hidden_infrastructure_warning": "Navigation leaves are projections of a route plane. A route card without omission/source receipts and route-failure feedback hides the hard part.",
+      "fixture_gate": "Toy kind with cluster_flag, card drilldown, route lease, stale source-coupling rejection, and banned first-contact replacement."
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "node_type": "top_level_organ",
+      "selection_posture": "recommended_root_runtime",
+      "classification": [
+        "foundation",
+        "runtime",
+        "continuity"
+      ],
+      "depends_on_organ_ids": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "provides_to_organ_ids": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime",
+        "voice_to_doctrine_self_improvement_loop",
+        "workitem_cartography_scheduler_suborgan"
+      ],
+      "parent_pattern_ids": [
+        "status_preserving_control_plane",
+        "task_ledger_workitem_spine",
+        "mission_transaction_landing",
+        "actionability_driven_alerting_d4"
+      ],
+      "fold_in_pattern_ids": [
+        "concurrency_mission_control",
+        "work_ledger_runtime_claims",
+        "checkpoint_solo_dev_three_lanes",
+        "cap_reflex_capture_before_prose",
+        "cap_quick_capture_lane",
+        "operator_action_receipt",
+        "task_sign_off",
+        "task_ledger_exact_receipt_drain"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "provider_plane_finite_pull_row_job",
+        "task_ledger_organizer_routing_surface",
+        "workitem_dependency_unlock_scheduler",
+        "workitem_contract_gap_triage_views",
+        "cap_cartography_readiness_map",
+        "mission_operating_picture_currentness_overlay",
+        "mechanism_affinity_workitem_clusters"
+      ],
+      "hidden_infrastructure_warning": "A Task Ledger card, CAP count, or status view is not the organ. The organ is claim, dependency, transaction, validation, exact receipt drain, and currentness projection together.",
+      "fixture_gate": "Synthetic task ledger with claim conflict, dependency blocker, contract gap, scoped mutation, exact receipt drain, and currentness overlay."
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "node_type": "top_level_organ",
+      "selection_posture": "recommended_root_proof",
+      "classification": [
+        "proof",
+        "observability",
+        "validation"
+      ],
+      "depends_on_organ_ids": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar"
+      ],
+      "provides_to_organ_ids": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "typed_view_contract_specimen"
+      ],
+      "parent_pattern_ids": [
+        "formal_math_lean_self_contained_proof_organ",
+        "workingness_instrument",
+        "source_capsule_provenance",
+        "hidden_substrate_integration_manifest"
+      ],
+      "fold_in_pattern_ids": [
+        "autonomous_proof_gate_three_color_default",
+        "meta_diagnostics_workbench",
+        "verisoftbench_diagnostic_specimen",
+        "test_impact_map_change_to_test_routing",
+        "system_lib_compliance_adapters",
+        "lab_oracle_evolve_restartable_failure"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "formal_prover_payload_policy_boundary",
+        "runtime_hook_shadow_intervention_coverage",
+        "observed_anti_pattern_debt_retirement",
+        "cp_artifact_schema_validation_result",
+        "test_as_machine_checkable_substrate_contract",
+        "distillation_bundle_validator_advisory_strict_modes",
+        "station_render_pixel_diff_compare",
+        "frontend_wayfinding_proof_lane",
+        "feed_quality_tone_grade_override",
+        "feed_envelope_diagnostics_contract",
+        "workitem_contract_gap_triage_views"
+      ],
+      "hidden_infrastructure_warning": "A proof/result row is weak if it only displays success. The durable pattern includes negative fixtures, policy boundaries, and evidence classes.",
+      "fixture_gate": "One accepted check/proof, one rejected provider proof-body payload, one negative fixture, and a diagnostic result board."
+    },
+    {
+      "organ_id": "agent_route_observability_runtime",
+      "node_type": "runtime_organ",
+      "selection_posture": "recommended_after_route_work_proof",
+      "classification": [
+        "agent_runtime",
+        "observability",
+        "self_improvement"
+      ],
+      "depends_on_organ_ids": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "provides_to_organ_ids": [
+        "voice_to_doctrine_self_improvement_loop",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "parent_pattern_ids": [
+        "agent_self_observability_plane",
+        "agent_route_compliance_audit",
+        "agent_session_attribution",
+        "type_a_type_b_actor_axes",
+        "runtime_hook_ladder"
+      ],
+      "fold_in_pattern_ids": [
+        "agent_harness_configuration_audit",
+        "lifecycle_surface_resource_membrane",
+        "actor_context_injection_subagentstart",
+        "claude_subagent_cohort_delegation",
+        "agent_principle_lens"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "runtime_hook_shadow_intervention_coverage",
+        "observed_anti_pattern_debt_retirement",
+        "cockpit_edit_verification_override",
+        "prompt_trace_adoption_state_machine",
+        "type_a_reducer_row_patch_review_gate"
+      ],
+      "hidden_infrastructure_warning": "Telemetry without behavior-changing repair is observability theater. It must route observations into later navigation, repair, or capture changes.",
+      "fixture_gate": "Toy agent trace with route compliance, hook shadow coverage, anti-pattern retirement, and preserved regression evidence."
+    },
+    {
+      "organ_id": "external_boundary_anti_corruption_runtime",
+      "node_type": "runtime_organ",
+      "selection_posture": "conditional_after_work_and_proof",
+      "classification": [
+        "runtime",
+        "observability",
+        "private_fixture_only"
+      ],
+      "depends_on_organ_ids": [
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine",
+        "agent_route_observability_runtime"
+      ],
+      "provides_to_organ_ids": [
+        "bridge_phase_continuity_runtime",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "parent_pattern_ids": [
+        "annex_distillation_anti_corruption_boundary",
+        "provider_metabolism_ledger",
+        "approval_inbox_human_in_loop"
+      ],
+      "fold_in_pattern_ids": [
+        "prompt_shelf_durable_packets",
+        "prompt_ledger",
+        "claude_memory_plane_three_tier",
+        "bridge_response_salvage_quarantine",
+        "data_feed_market_evidence_fusion"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "prompt_shelf_metadata_privacy_index",
+        "provider_plane_finite_pull_row_job",
+        "formal_prover_payload_policy_boundary",
+        "provider_slot_claim_cooldown_backpressure",
+        "provider_candidate_selector_snapshot",
+        "provider_plane_finite_pull_liveness",
+        "type_a_reducer_row_patch_review_gate",
+        "feed_quality_tone_grade_override",
+        "feed_envelope_diagnostics_contract"
+      ],
+      "hidden_infrastructure_warning": "Provider, prompt, memory, and feed rows can leak external-service assumptions or private state. The standalone organ is the evaluator boundary, not adoption.",
+      "fixture_gate": "Synthetic external batch with finite pull, cooldown, reducer review, quarantine, metadata-only prompt index, and bounded feed diagnostics."
+    },
+    {
+      "organ_id": "bridge_phase_continuity_runtime",
+      "node_type": "runtime_organ",
+      "selection_posture": "conditional_after_mission_transaction",
+      "classification": [
+        "runtime",
+        "continuity"
+      ],
+      "depends_on_organ_ids": [
+        "mission_transaction_work_spine",
+        "external_boundary_anti_corruption_runtime",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "provides_to_organ_ids": [],
+      "parent_pattern_ids": [
+        "bridge_runtime_dispatch_yield_resume",
+        "controller_continuity_heartbeat",
+        "continuation_packet_resume",
+        "phase_dock_harbor_deposit_full",
+        "continuous_runtime_layer",
+        "system_control_orchestration_composition_root"
+      ],
+      "fold_in_pattern_ids": [
+        "bridge_window_identity",
+        "phase_runtime_library",
+        "phase_orchestration_dock_harbor_deposit",
+        "orchestration_state_events",
+        "meta_mission_queue_runtime",
+        "plan_substrate",
+        "preview_campaign_lifecycle",
+        "observe_runtime_apply_session",
+        "resource_typed_capacity",
+        "reactions_typed_events"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "preflight_cache_skip_window_organ",
+        "provider_slot_claim_cooldown_backpressure",
+        "provider_candidate_selector_snapshot",
+        "provider_plane_finite_pull_liveness",
+        "mission_operating_picture_currentness_overlay"
+      ],
+      "hidden_infrastructure_warning": "Bridge and phase rows are not strong if they only name a handoff. They need disk packet, heartbeat, resume, and closeout evidence.",
+      "fixture_gate": "Fake detached job writes continuation packet, heartbeat row, resume receipt, and final closeout transition."
+    },
+    {
+      "organ_id": "operator_response_attention_suborgan",
+      "node_type": "child_suborgan",
+      "selection_posture": "fold_under_agent_observability_external_boundary_and_bridge_continuity",
+      "classification": [
+        "observability",
+        "runtime",
+        "continuity",
+        "private_fixture_only"
+      ],
+      "depends_on_organ_ids": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "provides_to_organ_ids": [],
+      "parent_pattern_ids": [
+        "operator_response_flight_attempt_ledger",
+        "operator_response_attention_obligation_lease",
+        "operator_hud_action_receipt_proof_metadata_lane",
+        "sidecar_continuation_candidate_lifecycle_gate"
+      ],
+      "fold_in_pattern_ids": [
+        "operator_thread_memory_private_event_projection",
+        "operator_bridge_tail_projector_privacy_cursor",
+        "operator_thread_continuation_type_b_handoff_shuttle"
+      ],
+      "hidden_infrastructure_warning": "Response attention rows can masquerade as standalone browser features. They are coherent only as a private operator bridge attention stack with network evidence, lease truth, metadata receipts, and sidecar lifecycle gates.",
+      "fixture_gate": "Synthetic CDP/HUD/sidecar sequence proving pending/completed/seen obligations, metadata-only receipts, stale-copy rejection, and copy-is-not-application lifecycle."
+    },
+    {
+      "organ_id": "voice_to_doctrine_self_improvement_loop",
+      "node_type": "private_fixture_only_organ",
+      "selection_posture": "conditional_after_roots",
+      "classification": [
+        "self_improvement",
+        "foundation",
+        "private_fixture_only"
+      ],
+      "depends_on_organ_ids": [
+        "executable_doctrine_grammar",
+        "mission_transaction_work_spine",
+        "proof_diagnostic_evidence_spine",
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "provides_to_organ_ids": [],
+      "parent_pattern_ids": [
+        "raw_seed_metabolism_voice_to_doctrine",
+        "doctrine_population_loop",
+        "recursive_self_improvement_operating_loop",
+        "idea_microcosm_metabolism_meta_loop"
+      ],
+      "fold_in_pattern_ids": [
+        "raw_seed_atomization_to_shards",
+        "raw_seed_shard_neighborhood_routing",
+        "raw_seed_type_discovery_campaign",
+        "std_idea_packet",
+        "concept_mechanism_curation",
+        "doctrine_compiler_ir",
+        "doctrine_approved_overlay_additive_review",
+        "correction_survival_loop",
+        "voice_archaeology_coverage_aware_third_substrate",
+        "obsidian_vault_doctrine_lattice"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "distillation_bundle_validator_advisory_strict_modes",
+        "prompt_trace_adoption_state_machine",
+        "prompt_family_behavioral_quality_gate",
+        "aiw_movement_typed_cross_plane_proposal",
+        "prompt_exemplar_evidence_cache",
+        "paper_module_convergent_pressure_metabolism",
+        "mechanism_affinity_workitem_clusters"
+      ],
+      "hidden_infrastructure_warning": "The real raw seed and vault evidence are private-root. The transferable organ is a synthetic voice-to-doctrine fixture with promotion gates.",
+      "fixture_gate": "Synthetic operator-style paragraph becomes shards, tags, doctrine candidate, review overlay, and validation receipt."
+    },
+    {
+      "organ_id": "typed_view_contract_specimen",
+      "node_type": "deferred_child_suborgan",
+      "selection_posture": "defer_until_synthetic_fixture",
+      "classification": [
+        "control_surface",
+        "private_fixture_only",
+        "macro_only"
+      ],
+      "depends_on_organ_ids": [
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine",
+        "mission_transaction_work_spine"
+      ],
+      "provides_to_organ_ids": [],
+      "parent_pattern_ids": [
+        "frontend_station_cockpit",
+        "frontend_capture_runtime_contract"
+      ],
+      "fold_in_pattern_ids": [
+        "operator_action_receipt",
+        "operator_trace_structurer_manual_intake",
+        "prompt_shelf_durable_packets",
+        "frontend_component_index_confidence_membrane"
+      ],
+      "delta_strengthener_pattern_ids": [
+        "station_render_pixel_diff_compare",
+        "station_render_load_index_timing_ledger",
+        "frontend_wayfinding_proof_lane",
+        "cockpit_edit_verification_override",
+        "frontend_nav_graph_three_source_consistency",
+        "renderer_passport_type_plane_projection"
+      ],
+      "hidden_infrastructure_warning": "The live cockpit is a private macro control surface. It should not become a standalone leaf; use it only as a synthetic typed-view specimen over fake state.",
+      "fixture_gate": "Synthetic renderer passport plus pixel/load/wayfinding receipts over fake artifacts."
+    },
+    {
+      "organ_id": "workitem_cartography_scheduler_suborgan",
+      "node_type": "child_suborgan",
+      "selection_posture": "fold_into_mission_transaction_work_spine",
+      "classification": [
+        "runtime",
+        "observability",
+        "continuity"
+      ],
+      "depends_on_organ_ids": [
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "provides_to_organ_ids": [
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "parent_pattern_ids": [
+        "task_ledger_organizer_routing_surface",
+        "workitem_dependency_unlock_scheduler",
+        "workitem_contract_gap_triage_views",
+        "cap_cartography_readiness_map",
+        "mission_operating_picture_currentness_overlay",
+        "mechanism_affinity_workitem_clusters"
+      ],
+      "fold_in_pattern_ids": [],
+      "delta_strengthener_pattern_ids": [],
+      "hidden_infrastructure_warning": "CAP cartography and mission currentness look like strong standalone maps, but they depend on Task Ledger authority, route-plane projections, dependency validity, and contract-gap views.",
+      "fixture_gate": "Synthetic WorkItem corpus with organizer roles, dependency unlocks, missing contracts, CAP readiness clusters, mission currentness overlay, and mechanism-affinity drilldown."
+    }
+  ],
+  "dependency_edges": [
+    {
+      "from": "pattern_binding_contract",
+      "to": "executable_doctrine_grammar",
+      "relation": "governs_row_contracts_and_validation_vocabulary",
+      "why": "Grammar rows need typed binding, anti-claims, and validator readiness before becoming leaf substrate."
+    },
+    {
+      "from": "executable_doctrine_grammar",
+      "to": "proof_diagnostic_evidence_spine",
+      "relation": "defines_claim_classes_and_negative_case_contracts",
+      "why": "Proof and diagnostic results must be governed by standards and result vocabularies."
+    },
+    {
+      "from": "proof_diagnostic_evidence_spine",
+      "to": "navigation_hologram_route_plane",
+      "relation": "validates_route_source_coupling_and_banned_route_behavior",
+      "why": "A route plane needs evidence gates for stale projection and forbidden first-contact replacement."
+    },
+    {
+      "from": "proof_diagnostic_evidence_spine",
+      "to": "mission_transaction_work_spine",
+      "relation": "validates_claim_conflict_contract_gaps_and_receipt_drain",
+      "why": "Work-survival claims are not closed until validators or receipts consume them."
+    },
+    {
+      "from": "navigation_hologram_route_plane",
+      "to": "agent_route_observability_runtime",
+      "relation": "defines_expected_routes_for_agent_behavior",
+      "why": "Agent observations are meaningful only relative to route expectations and banned paths."
+    },
+    {
+      "from": "mission_transaction_work_spine",
+      "to": "agent_route_observability_runtime",
+      "relation": "turns_agent_observations_into_captured_repairs",
+      "why": "Behavior telemetry must route to durable work, debt retirement, or regression evidence."
+    },
+    {
+      "from": "mission_transaction_work_spine",
+      "to": "workitem_cartography_scheduler_suborgan",
+      "relation": "provides_task_ledger_authority_and_status_events",
+      "why": "The 178-183 delta is a WorkItem organizer suborgan, not an independent root."
+    },
+    {
+      "from": "navigation_hologram_route_plane",
+      "to": "workitem_cartography_scheduler_suborgan",
+      "relation": "provides_browsable_cluster_routes_and_stable_ids",
+      "why": "Cartography and organizer views need route-plane bands to avoid row-pile browsing."
+    },
+    {
+      "from": "proof_diagnostic_evidence_spine",
+      "to": "external_boundary_anti_corruption_runtime",
+      "relation": "enforces_accept_reject_quarantine_and_authority_boundaries",
+      "why": "External outputs need rejection receipts as much as adoption receipts."
+    },
+    {
+      "from": "mission_transaction_work_spine",
+      "to": "external_boundary_anti_corruption_runtime",
+      "relation": "provides_reducer_review_and_landing_authority",
+      "why": "Provider and prompt suggestions should not mutate source authority without transaction review."
+    },
+    {
+      "from": "external_boundary_anti_corruption_runtime",
+      "to": "bridge_phase_continuity_runtime",
+      "relation": "provides_bounded_provider_and_prompt_inputs_for_detached_runtime",
+      "why": "Continuity can consume external work only through finite-pull and quarantine boundaries."
+    },
+    {
+      "from": "agent_route_observability_runtime",
+      "to": "voice_to_doctrine_self_improvement_loop",
+      "relation": "supplies_observed_failures_for_doctrine_promotion",
+      "why": "Self-improvement should start from observed failures and gated evidence, not from broad aspiration."
+    },
+    {
+      "from": "external_boundary_anti_corruption_runtime",
+      "to": "voice_to_doctrine_self_improvement_loop",
+      "relation": "routes_prompt_provider_and_type_b_pressure_through_anti_corruption_boundary",
+      "why": "Cross-plane proposals and prompt lessons need typed adoption states before doctrine mutation."
+    },
+    {
+      "from": "navigation_hologram_route_plane",
+      "to": "typed_view_contract_specimen",
+      "relation": "provides_browsable_fake_state_contracts",
+      "why": "The cockpit family can travel only as a synthetic view over routed fake state."
+    },
+    {
+      "from": "proof_diagnostic_evidence_spine",
+      "to": "typed_view_contract_specimen",
+      "relation": "provides_pixel_load_wayfinding_and_contract_receipts",
+      "why": "Visual proof lanes should be evidence surfaces, not screenshots as authority."
+    },
+    {
+      "from": "agent_route_observability_runtime",
+      "to": "operator_response_attention_suborgan",
+      "relation": "supplies_trace_and_attention_truth_projection",
+      "why": "The response-attention stack changes operator-visible agent behavior only through observability and trace projection."
+    },
+    {
+      "from": "external_boundary_anti_corruption_runtime",
+      "to": "operator_response_attention_suborgan",
+      "relation": "enforces_metadata_only_hud_receipt_boundary",
+      "why": "HUD and response-copy receipts must strip private bodies and carry proof metadata before downstream use."
+    },
+    {
+      "from": "bridge_phase_continuity_runtime",
+      "to": "operator_response_attention_suborgan",
+      "relation": "governs_sidecar_candidate_lifecycle",
+      "why": "Sidecar continuation candidates are continuity artifacts; copied text is not application without lifecycle receipt."
+    },
+    {
+      "from": "proof_diagnostic_evidence_spine",
+      "to": "operator_response_attention_suborgan",
+      "relation": "checks_lease_receipt_and_lineage_negative_cases",
+      "why": "The stack needs negative cases for stale copy receipts, candidate network starts, and proof-missing actions."
+    }
+  ],
+  "delta_routing": [
+    {
+      "delta_id": "macro_pattern_expansion_pass_2026_05_17c",
+      "row_range": "178-183",
+      "appended_pattern_ids": [
+        "task_ledger_organizer_routing_surface",
+        "workitem_dependency_unlock_scheduler",
+        "workitem_contract_gap_triage_views",
+        "cap_cartography_readiness_map",
+        "mission_operating_picture_currentness_overlay",
+        "mechanism_affinity_workitem_clusters"
+      ],
+      "routing_decision": "Route all six rows as a child suborgan under mission_transaction_work_spine. cap_cartography_readiness_map and mission_operating_picture_currentness_overlay are strong, but structurally dependent on Task Ledger authority, route-plane projection, dependency validity, and contract-gap triage.",
+      "new_child_suborgan_id": "workitem_cartography_scheduler_suborgan",
+      "not_standalone_until": [
+        "synthetic WorkItem corpus exists",
+        "dependency unlock scheduler has a negative case",
+        "contract-gap triage changes readiness class",
+        "currentness overlay carries authority boundary",
+        "mechanism-affinity drilldown stays a pressure lens instead of a second backlog"
+      ]
+    }
+  ],
+  "selection_paths": [
+    {
+      "path_id": "minimum_root_substrate_before_any_leaf",
+      "sequence": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "why": "Without binding, grammar, and proof gates, rows remain claims rather than reconstructable organs."
+    },
+    {
+      "path_id": "first_coherent_reconstruction_path",
+      "sequence": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar",
+        "proof_diagnostic_evidence_spine",
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine"
+      ],
+      "why": "This gives future reconstruction source-coupled navigation plus durable work/status metabolism."
+    },
+    {
+      "path_id": "runtime_behavior_path",
+      "sequence": [
+        "navigation_hologram_route_plane",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime"
+      ],
+      "why": "Runtime organs depend on route, work, and proof roots; bridge/provider rows should not be first leaves."
+    },
+    {
+      "path_id": "private_fixture_only_path",
+      "sequence": [
+        "voice_to_doctrine_self_improvement_loop",
+        "typed_view_contract_specimen",
+        "workitem_cartography_scheduler_suborgan"
+      ],
+      "why": "These are strong macro organs, but need synthetic private-state replacement before public or portable projection."
+    }
+  ],
+  "macro_only_or_fold_posture": [
+    {
+      "pattern_ids": [
+        "frontend_station_cockpit",
+        "frontend_capture_runtime_contract",
+        "operator_trace_structurer_manual_intake",
+        "obsidian_vault_doctrine_lattice",
+        "voice_archaeology_coverage_aware_third_substrate"
+      ],
+      "route_to_organ_id": "typed_view_contract_specimen",
+      "posture": "macro_only_until_synthetic_fixture"
+    },
+    {
+      "pattern_ids": [
+        "prompt_shelf_durable_packets",
+        "prompt_ledger",
+        "prompt_shelf_metadata_privacy_index",
+        "claude_memory_plane_three_tier",
+        "data_feed_market_evidence_fusion"
+      ],
+      "route_to_organ_id": "external_boundary_anti_corruption_runtime",
+      "posture": "private_fixture_only"
+    },
+    {
+      "pattern_ids": [
+        "go_no_go_publication_readiness",
+        "diffusion_thesis_method",
+        "release_standards_axiom_gate"
+      ],
+      "route_to_organ_id": "pattern_binding_contract",
+      "posture": "reframe_or_fold_as_gate_evidence"
+    },
+    {
+      "pattern_ids": [
+        "publication_ref_boundary_guarded_push_receipt",
+        "portability_revision_freshness_scope_gate",
+        "public_toggle_release_action_membrane",
+        "proof_handle_weakest_gate_resolver",
+        "recipient_packet_closed_loop_proof_branch_compiler",
+        "exact_candidate_identity_escrow_switch_plan"
+      ],
+      "route_to_organ_id": "publication_authority_guard_suborgan",
+      "posture": "child_suborgan_under_proof_mission_external_boundary"
+    },
+    {
+      "pattern_ids": [
+        "blind_policy_problem_id_ablation_gate",
+        "adversarial_identifier_rename_evolver",
+        "oracle_sidecar_forward_firewall",
+        "goal_feature_action_value_posterior_table",
+        "canonical_goal_state_hash_loop_pruning",
+        "provider_receipt_truth_side_leakage_detector",
+        "induction_scheduler_visible_head_gate"
+      ],
+      "route_to_organ_id": "formal_oracle_policy_learning_suborgan",
+      "posture": "child_suborgan_under_proof_external_boundary"
+    },
+    {
+      "pattern_ids": [
+        "cp1_bifurcation_reconciliation_spine",
+        "epistemic_hierarchy_lane_resolution_order",
+        "cp2_universe_constraint_valid_prediction_targets_gate",
+        "oracle_deterministic_equity_diff_grading_surface",
+        "oracle_hindsight_brief_realized_driver_classification",
+        "oracle_cp2_grounding_firewall",
+        "evolve_oracle_to_dossier_mutation_loop"
+      ],
+      "route_to_organ_id": "prediction_oracle_reconciliation_suborgan",
+      "posture": "private_fixture_only_until_synthetic_evidence_graph"
+    },
+    {
+      "pattern_ids": [
+        "shard_orphan_cluster_doctrine_emergence",
+        "raw_seed_alchemy_doctrine_triple_synthesis",
+        "distiller_voice_pattern_empirical_catalog",
+        "shard_review_plane_routing_gate",
+        "corpus_keyphrase_navigation_prelude",
+        "reversal_drift_detection_audit_sweep",
+        "archaeological_voice_coverage_gate"
+      ],
+      "route_to_organ_id": "raw_seed_alchemy_review_suborgan",
+      "posture": "private_fixture_only_until_synthetic_voice_corpus"
+    },
+    {
+      "pattern_ids": [
+        "governor_mode_dispatch_state_machine",
+        "reaction_evaluation_dual_fingerprint_dedupe",
+        "reaction_wake_barrier_suspend_resume",
+        "lifecycle_boundary_to_reaction_signal",
+        "autonomy_plan_baton_closeout_contract",
+        "provider_row_job_score_vector_selector"
+      ],
+      "route_to_organ_id": "autonomy_reaction_dispatch_suborgan",
+      "posture": "child_suborgan_under_bridge_mission_agent_runtime"
+    },
+    {
+      "pattern_ids": [
+        "market_situation_evidence_graph",
+        "cross_feed_refusal_first_readiness_gate",
+        "polymarket_lifecycle_typed_classifier",
+        "cross_lane_lab_two_phase_pattern_mapper",
+        "calculator_cross_lane_group_intelligence",
+        "polymarket_four_lens_scoring",
+        "market_clock_time_anchor_fire_point"
+      ],
+      "route_to_organ_id": "market_reasoning_evidence_suborgan",
+      "posture": "private_fixture_only_until_synthetic_market_feed"
+    },
+    {
+      "pattern_ids": [
+        "candidate_axiom_runtime_pressure_non_law_gate",
+        "entry_payload_admission_nonnegotiable_floor",
+        "route_lease_mode_control_trace_feedback",
+        "agent_principle_failure_cap_assimilation_loop",
+        "operator_autonomy_phrase_active_standard_bridge"
+      ],
+      "route_to_organ_id": "entry_agent_behavior_governance_suborgan",
+      "posture": "child_suborgan_under_navigation_observability_self_improvement"
+    },
+    {
+      "pattern_ids": [
+        "raw_seed_source_index_packet_scope_membrane",
+        "raw_seed_attempt_recovery_fencing_token_lane"
+      ],
+      "route_to_organ_id": "raw_seed_alchemy_review_suborgan",
+      "posture": "private_fixture_only_until_synthetic_voice_source_index"
+    },
+    {
+      "pattern_ids": [
+        "affordance_passport_selection_gate",
+        "egress_compliance_stop_hook_mirror"
+      ],
+      "route_to_organ_id": "entry_agent_behavior_governance_suborgan",
+      "posture": "child_suborgan_under_navigation_observability_self_improvement"
+    },
+    {
+      "pattern_ids": [
+        "formal_evidence_cell_anchor_resolver",
+        "formal_proof_repair_one_row_reducer_gate"
+      ],
+      "route_to_organ_id": "formal_oracle_policy_learning_suborgan",
+      "posture": "child_suborgan_under_proof_external_boundary"
+    },
+    {
+      "pattern_ids": [
+        "provider_context_recipe_budget_policy",
+        "prover_premise_retrieval_term_scoring",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "undeclared_library_prior_symbol_classifier",
+        "support_affordance_finder_local_before_provider_gate",
+        "provider_strategy_match_comparator",
+        "formal_problem_ladder_difficulty_ring_curriculum",
+        "statement_only_hammer_bandit_action_value_policy",
+        "graph_variant_multi_arm_benchmark_comparison",
+        "external_corpus_readiness_gate_annex_ladder",
+        "benchmark_split_leakage_firewall_manifest_strip",
+        "continuous_loop_three_lane_parallel_oracle_comparator",
+        "provider_trickle_queue_rate_limit_not_math_failure",
+        "oracle_ingress_adapter_two_format_resolution_leakage_gate",
+        "skill_update_candidate_promotion_advisory_quarantine_lane",
+        "autonomous_proof_gate_promotion_rule_amber_bounded_retry",
+        "lab_oracle_evolve_overnight_ledger_plan_surface_without_executor",
+        "proof_repair_strategy_novelty_budget_gate",
+        "proof_repair_vs_synthesis_boundary_lean_rejection_level",
+        "prior_failure_class_triage_three_lanes_from_one_lean_signal",
+        "decisive_experiment_obligation_join_quality_ladder",
+        "decisive_experiment_hinge_node_priority_not_score_based",
+        "lean_std_toolchain_premise_index",
+        "lexical_dependency_premise_selector",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "support_affordance_mathlib_declaration_match_terms"
+      ],
+      "route_to_organ_id": "formal_prover_lab_evaluation_suborgan",
+      "posture": "child_suborgan_under_proof_external_boundary_bridge_and_mission"
+    }
+  ],
+  "next_type_a_pass": {
+    "recommended_move": "Use this DAG to author exact fixture specs for the first coherent reconstruction path, starting with pattern_binding_contract, proof_diagnostic_evidence_spine, navigation_hologram_route_plane, and mission_transaction_work_spine.",
+    "reuse_capture_id": "cap_quick_turn_macro_pattern_organ_selector_into_f_6259a830d191",
+    "do_not_do": [
+      "Do not append mined rows first.",
+      "Do not promote workitem_cartography_scheduler_suborgan as a standalone leaf before synthetic WorkItem fixtures exist.",
+      "Do not use live raw seed, prompt shelf, Task Ledger, provider, or cockpit state as fixture content."
+    ]
+  }
+}

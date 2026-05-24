@@ -42,6 +42,7 @@
       "schema_only_rows",
       "source_capsules_with_body_in_receipt_false",
       "public_runtime_refs",
+      "copied_route_readiness_overlay_bodies",
       "public_safe_macro_code_when_refactored"
     ],
     "default_posture": "source_open_real_substrate_with_secret_exclusion",
@@ -66,6 +67,13 @@
       "real_runtime_receipt",
       "synthetic_receipt_standin_allowed",
       "authority_ceiling"
+    ],
+    "route_readiness_must_record": [
+      "real_pattern_route_readiness_consumed",
+      "route_readiness_summary",
+      "selection_contract",
+      "source_manifest",
+      "route_readiness_error_rules"
     ],
     "receipt_id": "receipt.microcosm.pattern_binding_contract",
     "required": true
@@ -132,6 +140,16 @@
       "role": "macro_manifest_source"
     },
     {
+      "field": "route_readiness_validator",
+      "path": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "role": "source_faithful_public_refactor_source"
+    },
+    {
+      "field": "route_readiness_bundle",
+      "path": "microcosm-substrate/examples/pattern_binding_contract/exported_route_readiness_bundle",
+      "role": "copied_non_secret_macro_overlay_bodies"
+    },
+    {
       "role": "id_refs_only_no_source_bodies",
       "source_pattern_id_count": 48,
       "source_pattern_id_sample": [
@@ -167,7 +185,8 @@
       "current public microcosm surface treated as sufficient without coverage check",
       "secret/provider/operator body material exposed instead of excluded",
       "synthetic regression fixture counted as product evidence",
-      "projection claims source authority without coupling receipt"
+      "projection claims source authority without coupling receipt",
+      "single mined pattern row selected as a public leaf without opening route-readiness overlays"
     ],
     "ontology": "The row-to-source-to-organ contract that makes a pattern portable and auditable.",
     "rebuild_action": "draft",
@@ -178,7 +197,8 @@
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares explicit regression-harness or negative-case role",
     "reject authority upgrades not backed by receipt_refs",
-    "require public_private_boundary and secret_exclusion_scan before public projection"
+    "require public_private_boundary and secret_exclusion_scan before public projection",
+    "reject route-readiness selector drift, unknown pattern refs, missing fixture contracts, dependency cycles, hard no-standalone selectable rows, and missing companion overlays"
   ],
   "validator_contract": {
     "minimum_checks": [

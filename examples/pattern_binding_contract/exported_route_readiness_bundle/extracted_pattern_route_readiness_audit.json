@@ -1,0 +1,515 @@
+{
+  "artifact_role": "macro_side_leaf_preselector_audit",
+  "audit_summary": {
+    "child_or_private_or_reframe_spec_count": 11,
+    "explicit_family_router_pattern_ref_count": 161,
+    "family_router_count": 14,
+    "fixture_unique_pattern_ref_count": 271,
+    "hard_no_standalone_pattern_id_count": 118,
+    "known_intentional_router_overlap_count": 2,
+    "organ_fixture_spec_count": 18,
+    "organ_route_card_count": 9,
+    "pattern_id_hot_route_count": 5,
+    "standalone_leaf_organ_spec_count": 7,
+    "standalone_pattern_leaf_candidate_count": 0,
+    "unique_explicit_family_router_pattern_ref_count": 159
+  },
+  "authority_boundary": "overlay_over_mined_pattern_ledger_not_historical_row_rewrite",
+  "child_or_private_fold_queue": [
+    {
+      "fold_into": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine"
+      ],
+      "route_posture": "reframe_or_child_fold",
+      "spec_id": "publication_authority_guard_suborgan",
+      "why_not_standalone": "Publication wrappers are authority/status checks, not reconstruction roots."
+    },
+    {
+      "fold_into": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "agent_route_observability_runtime"
+      ],
+      "route_posture": "child_suborgan_fold",
+      "spec_id": "formal_oracle_policy_learning_suborgan",
+      "why_not_standalone": "Oracle policy rows need proof policy, anti-corruption boundary, and behavior-learning loop."
+    },
+    {
+      "fold_into": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "route_posture": "child_suborgan_fold",
+      "spec_id": "formal_prover_lab_evaluation_suborgan",
+      "why_not_standalone": "The formal-prover tail is strong only as a lab evaluation organ with receipts, split policy, premise boundary, and repair loop."
+    },
+    {
+      "fold_into": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "route_posture": "private_fixture_only",
+      "spec_id": "prediction_oracle_reconciliation_suborgan",
+      "why_not_standalone": "Prediction/oracle rows need synthetic domain fixtures and should not become signal products."
+    },
+    {
+      "fold_into": [
+        "voice_to_doctrine_self_improvement_loop",
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "route_posture": "private_fixture_only",
+      "spec_id": "raw_seed_alchemy_review_suborgan",
+      "why_not_standalone": "Raw-seed alchemy rows depend on private voice and source-index membranes."
+    },
+    {
+      "fold_into": [
+        "bridge_phase_continuity_runtime",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "route_posture": "child_suborgan_fold",
+      "spec_id": "autonomy_reaction_dispatch_suborgan",
+      "why_not_standalone": "Reaction rows need governor mode, barrier, claim, finalizer, and external-boundary policy."
+    },
+    {
+      "fold_into": [
+        "external_boundary_anti_corruption_runtime",
+        "proof_diagnostic_evidence_spine",
+        "navigation_hologram_route_plane"
+      ],
+      "route_posture": "private_fixture_only",
+      "spec_id": "market_reasoning_evidence_suborgan",
+      "why_not_standalone": "Market rows are evidence-fixture material, not domain prediction products."
+    },
+    {
+      "fold_into": [
+        "navigation_hologram_route_plane",
+        "agent_route_observability_runtime",
+        "voice_to_doctrine_self_improvement_loop",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "route_posture": "child_suborgan_fold",
+      "spec_id": "entry_agent_behavior_governance_suborgan",
+      "why_not_standalone": "Entry and egress behavior rows are governance gates inside navigation and agent-observability organs."
+    },
+    {
+      "fold_into": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime"
+      ],
+      "route_posture": "child_suborgan_fold",
+      "spec_id": "operator_response_attention_suborgan",
+      "why_not_standalone": "The response-attention rows borrow private operator bridge memory, sanitized HUD action receipts, attention leases, and sidecar lifecycle gates."
+    }
+  ],
+  "created_at": "2026-05-21T13:24:20Z",
+  "created_by": "codex_gpt5_operator_attention_growth_pass",
+  "deliverable_type": "macro_pattern_internal_routing_pass",
+  "input_overlays": [
+    "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+    "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+    "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json",
+    "state/microcosm_portfolio/extracted_pattern_supersession_report.md",
+    "state/microcosm_portfolio/extracted_pattern_organ_clusters.md"
+  ],
+  "intentional_router_overlaps": [
+    {
+      "pattern_id": "affordance_passport_selection_gate",
+      "resolution": "primary route is navigation_hologram_route_plane; carry entry_agent_behavior_governance_suborgan when the task is about agent behavior or compliance.",
+      "routes_through": [
+        "navigation_route_projection_rows",
+        "entry_agent_behavior_governance_rows"
+      ]
+    },
+    {
+      "pattern_id": "route_lease_mode_control_trace_feedback",
+      "resolution": "primary route is navigation_hologram_route_plane; carry entry_agent_behavior_governance_suborgan when the task is about route compliance, lease mode, or behavioral feedback.",
+      "routes_through": [
+        "navigation_route_projection_rows",
+        "entry_agent_behavior_governance_rows"
+      ]
+    }
+  ],
+  "last_refined_at": "2026-05-21T17:39:20Z",
+  "last_refinement": "source_ledger_refreshed_after_interpretability_eval_memory_spatial_growth",
+  "next_type_a_pass": {
+    "do_not_do": [
+      "do not append mined rows to fix routing gaps",
+      "do not use current public microcosm leaves as authority",
+      "do not let a routed pattern id bypass organ readiness gates"
+    ],
+    "preferred_artifact_or_tool": "kernel/context-pack or selector admission hook that opens tools/meta/factory/check_extracted_pattern_route_readiness.py and state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+    "recommended_task": "Wire the readiness checker into the future reconstruction selector or route admission surface so organ selection cannot proceed on stale route overlays."
+  },
+  "organ_readiness": [
+    {
+      "fixture_status": "synthetic_fixture_defined",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "source capsule",
+        "strict schema validation",
+        "standards index",
+        "negative row",
+        "anti-claim"
+      ],
+      "natural_leaf_composition": "Pattern binding contract plus executable doctrine grammar.",
+      "prerequisite_status": "none",
+      "readiness_class": "ready_root_substrate",
+      "readiness_id": "root_binding_and_executable_grammar",
+      "route_to_organ_ids": [
+        "pattern_binding_contract",
+        "executable_doctrine_grammar"
+      ],
+      "selection_allowed": "select_as_root_organ",
+      "weak_if_misread": "Standard-shaped rows become paperwork when validator, source lineage, and negative cases are omitted."
+    },
+    {
+      "fixture_status": "synthetic_fixture_defined",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "negative case",
+        "diagnostic board",
+        "authority ceiling",
+        "source-hidden proof boundary",
+        "result vocabulary"
+      ],
+      "natural_leaf_composition": "Proof rows, diagnostics, validators, and formal-evidence witnesses as one evidence spine.",
+      "prerequisite_status": "requires_root_binding_and_executable_grammar",
+      "readiness_class": "ready_root_after_grammar",
+      "readiness_id": "proof_diagnostic_evidence_spine",
+      "route_to_organ_ids": [
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_allowed": "select_as_root_organ_after_binding",
+      "weak_if_misread": "Proof witnesses alone look strong but cannot police claims without rejection behavior and source boundaries."
+    },
+    {
+      "fixture_status": "synthetic_fixture_defined",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "route cards",
+        "omission receipts",
+        "affordance passport",
+        "cluster-before-row browse",
+        "source-coupled projection check"
+      ],
+      "natural_leaf_composition": "Navigation route plane plus projection/omission/affordance mechanics.",
+      "prerequisite_status": "requires_binding_and_proof",
+      "readiness_class": "ready_core_runtime_after_roots",
+      "readiness_id": "navigation_hologram_route_plane",
+      "route_to_organ_ids": [
+        "navigation_hologram_route_plane"
+      ],
+      "selection_allowed": "select_as_top_level_organ_after_roots",
+      "weak_if_misread": "A navigation projection without source-coupled builder and omission receipts becomes a static contents page."
+    },
+    {
+      "fixture_status": "synthetic_fixture_defined",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "work item event",
+        "claim or lease",
+        "scoped mutation",
+        "validation receipt",
+        "closeout finalizer"
+      ],
+      "natural_leaf_composition": "Task Ledger, Work Ledger, claim, commit, status, and closeout metabolism.",
+      "prerequisite_status": "requires_binding_and_proof",
+      "readiness_class": "ready_core_runtime_after_roots",
+      "readiness_id": "mission_transaction_work_spine",
+      "route_to_organ_ids": [
+        "mission_transaction_work_spine"
+      ],
+      "selection_allowed": "select_as_top_level_organ_after_roots",
+      "weak_if_misread": "Boards, commit lanes, or status rows alone do not prove work survival under concurrency."
+    },
+    {
+      "fixture_status": "synthetic_fixture_defined",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "agent trace",
+        "route expectation",
+        "observed failure type",
+        "repair owner",
+        "behavior change receipt"
+      ],
+      "natural_leaf_composition": "Agent route compliance, session attribution, principle lens, and behavior-changing observability.",
+      "prerequisite_status": "requires_navigation_mission_and_proof",
+      "readiness_class": "conditional_runtime_after_route_and_work",
+      "readiness_id": "agent_route_observability_runtime",
+      "route_to_organ_ids": [
+        "agent_route_observability_runtime"
+      ],
+      "selection_allowed": "select_after_navigation_mission_and_proof",
+      "weak_if_misread": "Telemetry without a route repair path is observation, not self-improvement."
+    },
+    {
+      "fixture_status": "conditional_synthetic_external_inputs_required",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "provider or feed packet",
+        "quarantine lane",
+        "evaluator receipt",
+        "anti-corruption adapter",
+        "authority ceiling"
+      ],
+      "natural_leaf_composition": "Provider, prompt, feed, memory, and annex inputs crossing explicit boundaries.",
+      "prerequisite_status": "requires_mission_proof_and_agent_observability",
+      "readiness_class": "conditional_runtime_with_private_fixture_boundary",
+      "readiness_id": "external_boundary_anti_corruption_runtime",
+      "route_to_organ_ids": [
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "selection_allowed": "select_after_roots_when_synthetic_external_packets_exist",
+      "weak_if_misread": "External rows become adoption or signal products when the anti-corruption boundary is omitted."
+    },
+    {
+      "fixture_status": "synthetic_fixture_defined",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "yield",
+        "resume packet",
+        "heartbeat",
+        "claim finalizer",
+        "reaction barrier"
+      ],
+      "natural_leaf_composition": "Bridge runtime, phase continuity, autonomous reaction, and continuation receipts.",
+      "prerequisite_status": "requires_mission_external_boundary_and_proof",
+      "readiness_class": "conditional_runtime_after_mission_and_external_boundary",
+      "readiness_id": "bridge_phase_continuity_runtime",
+      "route_to_organ_ids": [
+        "bridge_phase_continuity_runtime"
+      ],
+      "selection_allowed": "select_after_transaction_and_boundary_organs",
+      "weak_if_misread": "Automation rows without governor and closeout barriers hide the runtime risk."
+    },
+    {
+      "fixture_status": "blocked_until_synthetic_voice_corpus",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "synthetic operator voice",
+        "distillation rubric",
+        "doctrine population route",
+        "correction survival",
+        "up-propagation receipt"
+      ],
+      "natural_leaf_composition": "Raw-seed-to-doctrine metabolism as a synthetic self-improvement fixture.",
+      "prerequisite_status": "requires_grammar_mission_proof_observability_and_external_boundary",
+      "readiness_class": "private_fixture_only",
+      "readiness_id": "voice_to_doctrine_self_improvement_loop",
+      "route_to_organ_ids": [
+        "voice_to_doctrine_self_improvement_loop"
+      ],
+      "selection_allowed": "macro_only_until_synthetic_voice_corpus",
+      "weak_if_misread": "Real raw seed, memory, and voice archaeology are private macro substrate, not portable leaves."
+    },
+    {
+      "fixture_status": "conditional_synthetic_state_fixture_required",
+      "individual_row_selection": "forbidden",
+      "must_carry": [
+        "typed state fixture",
+        "component contract",
+        "capture observation",
+        "pixel or render check",
+        "macro-only boundary"
+      ],
+      "natural_leaf_composition": "A typed cockpit/view specimen, not the live cockpit.",
+      "prerequisite_status": "requires_navigation_proof_and_mission",
+      "readiness_class": "deferred_child_suborgan",
+      "readiness_id": "typed_view_contract_specimen",
+      "route_to_organ_ids": [
+        "typed_view_contract_specimen"
+      ],
+      "selection_allowed": "fold_under_navigation_mission_and_proof",
+      "weak_if_misread": "Live UI state exposes private control-plane context and lacks portability."
+    }
+  ],
+  "readiness_gate_order": [
+    {
+      "current_status": "pass",
+      "evidence": "373 parsed pattern rows, sha256 414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+      "gate_id": "source_ledger_freshness",
+      "question": "Does the selector cite the current extracted ledger count and hash?",
+      "required_for": "all downstream route decisions"
+    },
+    {
+      "current_status": "pass_with_hard_floor",
+      "evidence": "118 hard no-standalone ids and zero standalone pattern leaf candidates",
+      "gate_id": "organ_not_row_selection",
+      "question": "Is the selected unit an organ bundle rather than an isolated pattern row?",
+      "required_for": "future microcosm reconstruction"
+    },
+    {
+      "current_status": "pass_as_policy",
+      "evidence": "root_binding_and_executable_grammar, proof_diagnostic_evidence_spine, navigation_hologram_route_plane, and mission_transaction_work_spine are first-class readiness gates",
+      "gate_id": "root_substrate_presence",
+      "question": "Does the organ carry grammar, proof, route, and work substrate before dependent runtime claims?",
+      "required_for": "all non-root organs"
+    },
+    {
+      "current_status": "pass_for_18_specs",
+      "evidence": "extracted_pattern_organ_fixture_specs.json carries fixture contracts for every readiness row",
+      "gate_id": "fixture_contract_present",
+      "question": "Does the organ have synthetic inputs, expected artifacts, negative cases, anti-claims, and validator or check routes?",
+      "required_for": "selectable organs"
+    },
+    {
+      "current_status": "conditional",
+      "evidence": "private_fixture_only specs are explicitly blocked from standalone selection until synthetic corpus, synthetic provider packets, or typed-state fixtures exist",
+      "gate_id": "private_state_replacement",
+      "question": "Can live/private/raw/provider/cockpit state be replaced by synthetic fixtures?",
+      "required_for": "private_fixture_only, external_boundary, voice, market, cockpit, and provider-adjacent organs"
+    },
+    {
+      "current_status": "required",
+      "evidence": "proof_diagnostic_evidence_spine is a prerequisite for every selectable runtime organ",
+      "gate_id": "proof_and_negative_case",
+      "question": "Does the organ prove both acceptance and rejection behavior?",
+      "required_for": "all claims with proof, validation, routing, or agent behavior semantics"
+    },
+    {
+      "current_status": "enforced_by_child_or_private_classes",
+      "evidence": "child_suborgan_fold, private_fixture_only, reframe_or_child_fold, and deferred_child_suborgan classes",
+      "gate_id": "macro_only_boundary",
+      "question": "Is the row really a live control surface, release wrapper, private fixture, or local status projection?",
+      "required_for": "publication, cockpit, raw-seed, provider, market, and formal-lab child material"
+    }
+  ],
+  "root_substrate_lock": {
+    "blocked_if_missing": [
+      "formal prover evaluation rows become benchmark fragments without proof policy and transaction receipts",
+      "publication wrappers become release framing without authority gates",
+      "provider/feed rows become external signal products without anti-corruption boundaries",
+      "cockpit rows become screenshots of private live state",
+      "raw-seed rows expose private voice instead of synthetic voice-to-doctrine metabolism"
+    ],
+    "minimum_sequence": [
+      "root_binding_and_executable_grammar",
+      "proof_diagnostic_evidence_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine"
+    ],
+    "why": "Rows below this substrate can look impressive because they borrow hidden infrastructure. The sequence forces source lineage, executable grammar, proof boundaries, route discoverability, and work/status continuity to become explicit before leaf selection."
+  },
+  "routing_improvement": {
+    "operational_rule": "No pattern row becomes a future microcosm leaf by itself. A row can only open an organ route; the organ must pass prerequisite, fixture, proof, private-boundary, and anti-claim gates before selection.",
+    "previous_layer": "organ-first route cards plus row-first reverse router",
+    "problem_closed": "A future agent could still start from a routed row and mistake route existence for leaf eligibility. This audit separates routable, selectable-as-organ, child-fold, private-fixture-only, and macro-only states.",
+    "this_layer": "readiness gate over route decisions"
+  },
+  "schema_version": "extracted_pattern_route_readiness_audit_v1",
+  "selector_contract": {
+    "pattern_id_route_exists_does_not_mean_leaf_ready": true,
+    "selector_may_select": [
+      "root_binding_and_executable_grammar",
+      "proof_diagnostic_evidence_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine"
+    ],
+    "selector_may_select_after_roots": [
+      "agent_route_observability_runtime",
+      "external_boundary_anti_corruption_runtime",
+      "bridge_phase_continuity_runtime"
+    ],
+    "selector_must_fold_or_defer": [
+      "voice_to_doctrine_self_improvement_loop",
+      "typed_view_contract_specimen",
+      "publication_authority_guard_suborgan",
+      "formal_oracle_policy_learning_suborgan",
+      "formal_prover_lab_evaluation_suborgan",
+      "prediction_oracle_reconciliation_suborgan",
+      "raw_seed_alchemy_review_suborgan",
+      "autonomy_reaction_dispatch_suborgan",
+      "market_reasoning_evidence_suborgan",
+      "entry_agent_behavior_governance_suborgan",
+      "operator_response_attention_suborgan"
+    ],
+    "selector_must_open": [
+      "row_to_organ_router",
+      "organ_route_cards",
+      "organ_fixture_specs",
+      "route_readiness_audit"
+    ],
+    "selector_must_reject": [
+      "hard_no_standalone pattern ids",
+      "macro_only rows without synthetic fixture",
+      "private_fixture_only rows using live/private state",
+      "publication wrappers without proof and authority gates",
+      "formal lab rows without split policy and repair receipts",
+      "cockpit rows without typed synthetic state and render checks"
+    ]
+  },
+  "source_ledger": {
+    "parsed_pattern_row_count": 373,
+    "path": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "sha256": "414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3"
+  },
+  "structurally_weak_family_readiness": [
+    {
+      "family": "publication_authority_wrapper_rows",
+      "readiness": "reframe_or_child_fold",
+      "safe_route": "publication_authority_guard_suborgan under proof_diagnostic_evidence_spine plus external_boundary_anti_corruption_runtime",
+      "weakness": "Release and go/no-go wrappers look decisive but borrow proof, external-boundary, and mission-transaction authority."
+    },
+    {
+      "family": "raw_seed_voice_memory_alchemy_rows",
+      "readiness": "private_fixture_only",
+      "safe_route": "voice_to_doctrine_self_improvement_loop with raw_seed_alchemy_review_suborgan as private fixture",
+      "weakness": "High-signal private voice and memory mechanics cannot travel without a synthetic voice corpus and source-index membrane."
+    },
+    {
+      "family": "external_boundary_provider_prompt_feed_rows",
+      "readiness": "conditional_runtime_with_private_fixture_boundary",
+      "safe_route": "external_boundary_anti_corruption_runtime",
+      "weakness": "Provider, prompt, feed, and memory rows are strong only with reducer, quarantine, evaluator, and authority ceiling."
+    },
+    {
+      "family": "formal_prover_lab_evaluation_rows",
+      "readiness": "child_suborgan_fold",
+      "safe_route": "formal_prover_lab_evaluation_suborgan",
+      "weakness": "The lab rows are over-atomized around benchmark apparatus unless folded into proof, external boundary, bridge, mission, and observability organs."
+    },
+    {
+      "family": "market_prediction_oracle_rows",
+      "readiness": "private_fixture_only",
+      "safe_route": "market_reasoning_evidence_suborgan plus prediction_oracle_reconciliation_suborgan",
+      "weakness": "Domain rows can masquerade as prediction products; they should be evidence-policy fixtures."
+    },
+    {
+      "family": "typed_view_cockpit_rows",
+      "readiness": "deferred_child_suborgan",
+      "safe_route": "typed_view_contract_specimen",
+      "weakness": "Live cockpit rows are private macro control surfaces until converted to typed synthetic state and render/capture checks."
+    },
+    {
+      "family": "mission_transaction_and_landing_rows",
+      "readiness": "selectable_top_level_organ",
+      "safe_route": "mission_transaction_work_spine",
+      "weakness": "Individual landing/status rows are over-atomized; select the mission transaction organ, not a single finalizer or board."
+    },
+    {
+      "family": "actual_substrate_tail_rows_after_initial_readiness_audit",
+      "readiness": "fold_into_existing_organs_not_standalone",
+      "safe_route": "standard_type and reference-capsule rows fold into root_binding_and_executable_grammar; raw-seed assimilation and maintenance rows fold into voice_to_doctrine_self_improvement_loop/raw_seed_alchemy_review_suborgan; provider worker capsules fold into external_boundary_anti_corruption_runtime; operator bridge, thread memory, mission-status, and handoff linkage rows fold into agent_route_observability_runtime/external_boundary; Type B handoff shuttles fold into bridge continuity; world-model drift and authority-chain handles fold into typed_view_contract_specimen; lesson candidates remain advisory under voice/self-improvement.",
+      "weakness": "Newly mined concrete substrate rows look leaf-ready because they cite code, tests, or paper modules, but each borrows an existing root, raw-seed, external-boundary, observability, typed-view, or bridge-continuity organ."
+    },
+    {
+      "family": "operator_response_attention_rows",
+      "readiness": "child_suborgan_fold_private_fixture_only",
+      "safe_route": "operator_response_attention_human_loop_compound and its component rows fold into operator_response_attention_suborgan under agent_route_observability_runtime, external_boundary_anti_corruption_runtime, and bridge_phase_continuity_runtime",
+      "weakness": "The rows cite strong code/test evidence but share hidden private operator bridge runtime and should not split into browser-response, HUD-action, sidecar, or approval-inbox standalone leaves."
+    }
+  ]
+}

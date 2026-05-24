@@ -1,0 +1,740 @@
+{
+  "schema_version": "extracted_pattern_row_to_organ_router_v1",
+  "created_at": "2026-05-17T21:16:00Z",
+  "created_by": "codex",
+  "deliverable_type": "macro_pattern_internal_routing_pass",
+  "artifact_role": "macro_side_reverse_route_overlay_not_public_microcosm_rebuild",
+  "authority_boundary": {
+    "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "historical_rows_rewritten": false,
+    "new_ledger_rows_added": false,
+    "public_microcosm_projection": false,
+    "public_microcosm_leaf_set_authoritative": false,
+    "purpose": "Given a mined pattern id, family, or title shape, route upward to the owning organ, prerequisite organs, child folds, and no-standalone posture before future reconstruction selects a leaf."
+  },
+  "source_ledger": {
+    "path": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "parsed_pattern_row_count": 309,
+    "sha256": "2f526cb50aeee4d017f37ff11880432c8daaf4bb25095c9ccf4599c2f0be5f64"
+  },
+  "input_overlays": [
+    "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+    "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+    "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+    "state/microcosm_portfolio/extracted_pattern_shared_substrate_clusters.json",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json"
+  ],
+  "routing_upgrade": {
+    "previous_layer": "Route cards are organ-first: they answer which organ to open for a task shape.",
+    "this_layer": "This reverse router is row-first: it answers where a tempting pattern row or family should route before selection.",
+    "selection_rule": "If a pattern id appears here, do not select it alone. Route to the declared organ bundle, carry prerequisites, then open the route card and fixture spec."
+  },
+  "router_policy": {
+    "priority_order": [
+      "explicit_family_router_match",
+      "explicit_pattern_id_hot_route",
+      "title_token_fallback_router",
+      "ledger_organ_family_fallback",
+      "unknown_requires_manual_organ_route_before_leaf_selection"
+    ],
+    "primary_route_semantics": "The primary organ is the smallest coherent organ that can own a fixture for the row without hiding prerequisites.",
+    "carry_with_semantics": "Carry-with organs are prerequisites or siblings needed to make the row metabolically meaningful.",
+    "no_standalone_semantics": "No-standalone means the row may be strong evidence or a fixture stage, but should not become a future microcosm leaf root.",
+    "macro_only_semantics": "Macro-only rows remain useful internally until replaced by synthetic state, private-free fixtures, or explicit external-boundary contracts."
+  },
+  "root_substrate_before_row_selection": [
+    {
+      "organ_id": "root_binding_and_executable_grammar",
+      "why": "Supplies row identity, source lineage, validation vocabulary, anti-claims, and source-bound grammar."
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_spine",
+      "why": "Supplies result classes, negative cases, proof boundaries, receipts, and diagnostic evidence."
+    },
+    {
+      "organ_id": "navigation_hologram_route_plane",
+      "why": "Supplies route surfaces, omission receipts, affordance passports, and cluster-before-row navigation."
+    },
+    {
+      "organ_id": "mission_transaction_work_spine",
+      "why": "Supplies durable work/status/claim/landing/currentness metabolism for any row that mutates substrate."
+    }
+  ],
+  "family_routers": [
+    {
+      "router_id": "foundation_binding_and_grammar_rows",
+      "match_pattern_ids": [
+        "pattern_deliverables_registry",
+        "strict_json_artifact",
+        "source_capsule_provenance",
+        "hidden_substrate_integration_manifest",
+        "executable_grammar_metabolism",
+        "standards_registry_executable_grammar_index",
+        "principle_scope_axiom_candidate_lattice",
+        "cognitive_operator_registry",
+        "paper_module_authoring_runtime_self_describing",
+        "standard_type_plane_single_drop_artifact_contract",
+        "doctrine_reference_point_of_use_capsule_resolver"
+      ],
+      "title_token_hints": [
+        "grammar",
+        "standard",
+        "source capsule",
+        "pattern deliverable",
+        "registry"
+      ],
+      "primary_route_to_organ_id": "root_binding_and_executable_grammar",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_posture": "root_substrate",
+      "standalone_posture": "select_organ_not_individual_row",
+      "why": "These rows are the contract roots. They become useful as a grammar organ, not as disconnected standard-shaped rows."
+    },
+    {
+      "router_id": "proof_diagnostic_and_formal_body_rows",
+      "match_pattern_ids": [
+        "formal_math_lean_self_contained_proof_organ",
+        "workingness_instrument",
+        "test_as_machine_checkable_substrate_contract",
+        "cp_artifact_schema_validation_result",
+        "formal_prover_payload_policy_boundary",
+        "formal_math_proofline_spine_body_safe_lineage",
+        "formal_evidence_cell_anchor_resolver",
+        "formal_proof_repair_one_row_reducer_gate"
+      ],
+      "title_token_hints": [
+        "proof",
+        "diagnostic",
+        "validator",
+        "formal evidence",
+        "Lean",
+        "receipt"
+      ],
+      "primary_route_to_organ_id": "proof_diagnostic_evidence_spine",
+      "carry_with_organ_ids": [
+        "root_binding_and_executable_grammar",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "selection_posture": "selectable_root_after_grammar",
+      "standalone_posture": "proof_rows_need_body_boundary_and_negative_cases",
+      "why": "Formal and diagnostic rows look authoritative alone but require proof-body authority, result taxonomy, validator receipts, and negative cases."
+    },
+    {
+      "router_id": "formal_prover_lab_evaluation_rows",
+      "match_pattern_ids": [
+        "provider_context_recipe_budget_policy",
+        "prover_premise_retrieval_term_scoring",
+        "mathematical_strategy_atlas_hypothesis_scorer",
+        "undeclared_library_prior_symbol_classifier",
+        "support_affordance_finder_local_before_provider_gate",
+        "provider_strategy_match_comparator",
+        "formal_problem_ladder_difficulty_ring_curriculum",
+        "statement_only_hammer_bandit_action_value_policy",
+        "graph_variant_multi_arm_benchmark_comparison",
+        "external_corpus_readiness_gate_annex_ladder",
+        "benchmark_split_leakage_firewall_manifest_strip",
+        "continuous_loop_three_lane_parallel_oracle_comparator",
+        "provider_trickle_queue_rate_limit_not_math_failure",
+        "oracle_ingress_adapter_two_format_resolution_leakage_gate",
+        "skill_update_candidate_promotion_advisory_quarantine_lane",
+        "autonomous_proof_gate_promotion_rule_amber_bounded_retry",
+        "lab_oracle_evolve_overnight_ledger_plan_surface_without_executor",
+        "proof_repair_strategy_novelty_budget_gate",
+        "proof_repair_vs_synthesis_boundary_lean_rejection_level",
+        "prior_failure_class_triage_three_lanes_from_one_lean_signal",
+        "decisive_experiment_obligation_join_quality_ladder",
+        "decisive_experiment_hinge_node_priority_not_score_based",
+        "lean_std_toolchain_premise_index",
+        "lexical_dependency_premise_selector",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "corpus_readiness_mathlib_absence_gate",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "support_affordance_mathlib_declaration_match_terms"
+      ],
+      "title_token_hints": [
+        "provider context",
+        "premise retrieval",
+        "strategy",
+        "tactic",
+        "benchmark",
+        "corpus readiness",
+        "repair lane",
+        "proof lab"
+      ],
+      "primary_route_to_organ_id": "formal_prover_lab_evaluation_suborgan",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine",
+        "bridge_phase_continuity_runtime"
+      ],
+      "selection_posture": "child_suborgan_fold",
+      "standalone_posture": "do_not_select_individual_prover_lab_rows",
+      "why": "Rows 264-292 are one proof-lab evaluation metabolism. Their shared fixture is context budgeting, premise/strategy/tactic selection, benchmark hygiene, provider/oracle quarantine, repair gating, and attribution."
+    },
+    {
+      "router_id": "navigation_route_projection_rows",
+      "match_pattern_ids": [
+        "navigation_hologram_unified_route_plane",
+        "compression_profile_governed_option_surface",
+        "omission_receipt_reversible_projection_boundary",
+        "semantic_routing_plane",
+        "navigation_rosetta_grammar",
+        "kernel_cli_typed_router",
+        "agent_entry_surfaces_canonical_first_move",
+        "affordance_passport_selection_gate",
+        "route_lease_mode_control_trace_feedback"
+      ],
+      "title_token_hints": [
+        "route",
+        "navigation",
+        "context pack",
+        "affordance",
+        "omission",
+        "projection",
+        "hologram"
+      ],
+      "primary_route_to_organ_id": "navigation_hologram_route_plane",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "root_binding_and_executable_grammar"
+      ],
+      "selection_posture": "selectable_top_level_organ",
+      "standalone_posture": "navigation_face_needs_source_coupled_builder",
+      "why": "A single route card or projection face hides builder/source coupling; route selection belongs to the route-plane organ."
+    },
+    {
+      "router_id": "mission_transaction_and_landing_rows",
+      "match_pattern_ids": [
+        "status_preserving_control_plane",
+        "task_ledger_workitem_spine",
+        "mission_transaction_landing",
+        "work_ledger_runtime_claims",
+        "actionability_driven_alerting_d4",
+        "task_ledger_exact_receipt_drain",
+        "work_landing_attempt_binding",
+        "workitem_write_admission_gate",
+        "scoped_commit_private_index_cas",
+        "work_landing_reconcile_finalizer_plan",
+        "blocked_patch_capsule_claim_handoff",
+        "landing_handoff_compiler_operator",
+        "claim_lease_expired_at_audit_trail",
+        "same_path_blocker_live_recheck",
+        "dirty_tree_rescue_ref",
+        "orphaned_session_auto_sweep"
+      ],
+      "title_token_hints": [
+        "Task Ledger",
+        "WorkItem",
+        "claim",
+        "commit",
+        "landing",
+        "receipt",
+        "currentness"
+      ],
+      "primary_route_to_organ_id": "mission_transaction_work_spine",
+      "carry_with_organ_ids": [
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_posture": "selectable_top_level_organ",
+      "standalone_posture": "over_atomized_landing_children_fold_into_transaction",
+      "why": "Landing rows are strong but too granular. The fixture has to prove capture, claim, edit, commit, receipt, finalizer, and recovery as one transaction."
+    },
+    {
+      "router_id": "entry_agent_behavior_governance_rows",
+      "match_pattern_ids": [
+        "candidate_axiom_runtime_pressure_non_law_gate",
+        "entry_payload_admission_nonnegotiable_floor",
+        "route_lease_mode_control_trace_feedback",
+        "agent_principle_failure_cap_assimilation_loop",
+        "operator_autonomy_phrase_active_standard_bridge",
+        "affordance_passport_selection_gate",
+        "egress_compliance_stop_hook_mirror"
+      ],
+      "title_token_hints": [
+        "entry payload",
+        "candidate axiom",
+        "route lease",
+        "agent principle",
+        "egress",
+        "affordance passport",
+        "operator autonomy"
+      ],
+      "primary_route_to_organ_id": "entry_agent_behavior_governance_suborgan",
+      "carry_with_organ_ids": [
+        "navigation_hologram_route_plane",
+        "agent_route_observability_runtime",
+        "voice_to_doctrine_self_improvement_loop",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_posture": "child_suborgan_fold",
+      "standalone_posture": "behavior_gate_not_new_doctrine_leaf",
+      "why": "These rows regulate agent behavior before it hardens into doctrine. They need route trace, CAP assimilation, protected entry floors, and final-response compliance as one governance fixture."
+    },
+    {
+      "router_id": "agent_observability_runtime_rows",
+      "match_pattern_ids": [
+        "operator_bridge_tail_projector_privacy_cursor",
+        "agent_mission_status_noise_demotion_reducer",
+        "operator_thread_memory_private_event_projection",
+        "operator_handoff_linkage_confidence_edge_projector"
+      ],
+      "title_token_hints": [
+        "operator bridge",
+        "operator thread",
+        "handoff linkage",
+        "agent trace",
+        "mission status",
+        "telemetry quality",
+        "noise demotion",
+        "AgentTraceStore"
+      ],
+      "primary_route_to_organ_id": "agent_route_observability_runtime",
+      "carry_with_organ_ids": [
+        "mission_transaction_work_spine",
+        "external_boundary_anti_corruption_runtime",
+        "typed_view_contract_specimen"
+      ],
+      "selection_posture": "selectable_after_route_and_work",
+      "standalone_posture": "observability_reducer_not_standalone_leaf",
+      "why": "Operator bridge projection and mission-status demotion are runtime observability organs. They need canonical trace authority, privacy cursors, Work Ledger attribution, and raw drilldown refs before they change agent behavior."
+    },
+    {
+      "router_id": "operator_response_attention_rows",
+      "match_pattern_ids": [
+        "operator_response_flight_attempt_ledger",
+        "operator_response_attention_obligation_lease",
+        "operator_hud_action_receipt_proof_metadata_lane",
+        "sidecar_continuation_candidate_lifecycle_gate"
+      ],
+      "title_token_hints": [
+        "response flight",
+        "response attention",
+        "HUD action receipt",
+        "sidecar continuation",
+        "pending gold",
+        "completed unseen",
+        "copy ack"
+      ],
+      "primary_route_to_organ_id": "operator_response_attention_suborgan",
+      "carry_with_organ_ids": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_posture": "child_suborgan_fold",
+      "standalone_posture": "operator_attention_stack_not_standalone_leaf",
+      "why": "The four response-attention rows are one private operator-bridge runtime stack: network flight evidence, durable attention lease, sanitized HUD action proof, and sidecar lifecycle receipts must travel together under observability, anti-corruption, and continuity organs."
+    },
+    {
+      "router_id": "raw_seed_voice_memory_alchemy_rows",
+      "match_pattern_ids": [
+        "raw_seed_metabolism_voice_to_doctrine",
+        "doctrine_population_loop",
+        "recursive_self_improvement_operating_loop",
+        "idea_microcosm_metabolism_meta_loop",
+        "voice_archaeology_coverage_aware_third_substrate",
+        "memory_plane_shadow_doctrine_gate",
+        "writer_conditional_voice_discipline",
+        "raw_seed_alchemy_doctrine_triple_synthesis",
+        "distiller_voice_pattern_empirical_catalog",
+        "archaeological_voice_coverage_gate",
+        "raw_seed_source_index_packet_scope_membrane",
+        "raw_seed_attempt_recovery_fencing_token_lane",
+        "raw_seed_shard_assimilation_controller_walk",
+        "raw_seed_maintenance_deterministic_self_pruning_campaign",
+        "operator_thread_lesson_candidate_advisory_gate"
+      ],
+      "title_token_hints": [
+        "raw seed",
+        "voice",
+        "memory",
+        "shard",
+        "archaeology",
+        "doctrine population",
+        "source index"
+      ],
+      "primary_route_to_organ_id": "voice_to_doctrine_self_improvement_loop",
+      "carry_with_organ_ids": [
+        "raw_seed_alchemy_review_suborgan",
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "selection_posture": "private_fixture_only_selectable_later",
+      "standalone_posture": "private_fixture_only_until_synthetic_voice_corpus",
+      "why": "The portable value is governed transformation and promotion gating over synthetic voice, not private raw seed, memory, or operator voice content."
+    },
+    {
+      "router_id": "external_boundary_provider_prompt_feed_rows",
+      "match_pattern_ids": [
+        "annex_distillation_anti_corruption_boundary",
+        "provider_metabolism_ledger",
+        "provider_plane_finite_pull_row_job",
+        "approval_inbox_human_in_loop",
+        "prompt_shelf_metadata_privacy_index",
+        "data_feed_market_evidence_fusion",
+        "prompt_ledger",
+        "prompt_trace_adoption_state_machine",
+        "prompt_family_behavioral_quality_gate",
+        "prompt_exemplar_evidence_cache",
+        "provider_row_job_score_vector_selector",
+        "population_worker_context_standard_skill_capsules"
+      ],
+      "title_token_hints": [
+        "provider",
+        "prompt",
+        "feed",
+        "annex",
+        "external",
+        "quarantine",
+        "reducer"
+      ],
+      "primary_route_to_organ_id": "external_boundary_anti_corruption_runtime",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "agent_route_observability_runtime",
+        "mission_transaction_work_spine"
+      ],
+      "selection_posture": "selectable_after_roots_with_private_fixtures",
+      "standalone_posture": "external_rows_need_reducer_and_quarantine",
+      "why": "External rows look like intelligence improvements but are unsafe without finite pull, reducer authority, accept/reject receipts, quarantine, and private-state replacement."
+    },
+    {
+      "router_id": "bridge_autonomy_reaction_rows",
+      "match_pattern_ids": [
+        "bridge_runtime_dispatch_yield_resume",
+        "controller_continuity_heartbeat",
+        "continuation_packet_resume",
+        "phase_dock_harbor_deposit_full",
+        "continuous_runtime_layer",
+        "system_control_orchestration_composition_root",
+        "governor_mode_dispatch_state_machine",
+        "reaction_evaluation_dual_fingerprint_dedupe",
+        "reaction_wake_barrier_suspend_resume",
+        "lifecycle_boundary_to_reaction_signal",
+        "autonomy_plan_baton_closeout_contract",
+        "worker_run_fingerprint_dedup_cache_gate",
+        "operator_thread_continuation_type_b_handoff_shuttle"
+      ],
+      "title_token_hints": [
+        "bridge",
+        "continuation",
+        "heartbeat",
+        "reaction",
+        "wake barrier",
+        "autonomy",
+        "worker"
+      ],
+      "primary_route_to_organ_id": "bridge_phase_continuity_runtime",
+      "carry_with_organ_ids": [
+        "mission_transaction_work_spine",
+        "external_boundary_anti_corruption_runtime",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_posture": "selectable_after_mission_and_external_boundary",
+      "standalone_posture": "automation_rows_need_governor_barrier_claim_finalizer",
+      "why": "Automation rows become coherent only when governor mode, dedupe, wake barrier, claims, continuation packet, and baton closeout travel together."
+    },
+    {
+      "router_id": "publication_authority_wrapper_rows",
+      "match_pattern_ids": [
+        "go_no_go_publication_readiness",
+        "release_standards_axiom_gate",
+        "diffusion_thesis_method",
+        "publication_ref_boundary_guarded_push_receipt",
+        "portability_revision_freshness_scope_gate",
+        "public_toggle_release_action_membrane",
+        "proof_handle_weakest_gate_resolver",
+        "recipient_packet_closed_loop_proof_branch_compiler",
+        "exact_candidate_identity_escrow_switch_plan"
+      ],
+      "title_token_hints": [
+        "publication",
+        "release",
+        "recipient",
+        "go no go",
+        "public toggle",
+        "portability",
+        "escrow"
+      ],
+      "primary_route_to_organ_id": "publication_authority_guard_suborgan",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine"
+      ],
+      "selection_posture": "reframe_or_child_fold",
+      "standalone_posture": "publication_wrappers_are_not_reconstruction_roots",
+      "why": "Publication rows are authority-gradient wrappers over proof freshness, no-send boundaries, candidate identity, and local-vs-remote receipt separation."
+    },
+    {
+      "router_id": "market_prediction_oracle_rows",
+      "match_pattern_ids": [
+        "market_situation_evidence_graph",
+        "cross_feed_refusal_first_readiness_gate",
+        "polymarket_lifecycle_typed_classifier",
+        "cross_lane_lab_two_phase_pattern_mapper",
+        "calculator_cross_lane_group_intelligence",
+        "polymarket_four_lens_scoring",
+        "market_clock_time_anchor_fire_point",
+        "cp1_bifurcation_reconciliation_spine",
+        "epistemic_hierarchy_lane_resolution_order",
+        "cp2_universe_constraint_valid_prediction_targets_gate",
+        "oracle_deterministic_equity_diff_grading_surface",
+        "oracle_hindsight_brief_realized_driver_classification",
+        "oracle_cp2_grounding_firewall",
+        "evolve_oracle_to_dossier_mutation_loop"
+      ],
+      "title_token_hints": [
+        "market",
+        "prediction",
+        "oracle",
+        "polymarket",
+        "evidence graph",
+        "hindsight",
+        "dossier"
+      ],
+      "primary_route_to_organ_id": "market_reasoning_evidence_suborgan",
+      "carry_with_organ_ids": [
+        "prediction_oracle_reconciliation_suborgan",
+        "external_boundary_anti_corruption_runtime",
+        "proof_diagnostic_evidence_spine"
+      ],
+      "selection_posture": "private_fixture_only",
+      "standalone_posture": "domain_rows_are_synthetic_evidence_fixtures_not_signal_products",
+      "why": "Market and oracle rows are concrete, but their portable organ is evidence routing, refusal-first gates, truth-side firewalls, target universes, and deterministic grading over synthetic data."
+    },
+    {
+      "router_id": "typed_view_cockpit_rows",
+      "match_pattern_ids": [
+        "frontend_station_cockpit",
+        "frontend_capture_runtime_contract",
+        "frontend_component_index_confidence_membrane",
+        "frontend_wayfinding_proof_lane",
+        "renderer_passport_type_plane_projection",
+        "station_render_pixel_diff_compare",
+        "station_render_load_index_timing_ledger",
+        "cockpit_edit_verification_override",
+        "world_model_cross_plane_drift_aggregate",
+        "authority_chain_handle_resolver"
+      ],
+      "title_token_hints": [
+        "Station",
+        "cockpit",
+        "frontend",
+        "renderer",
+        "pixel diff",
+        "component index",
+        "operator UI",
+        "world model",
+        "authority chain",
+        "drift aggregate"
+      ],
+      "primary_route_to_organ_id": "typed_view_contract_specimen",
+      "carry_with_organ_ids": [
+        "navigation_hologram_route_plane",
+        "proof_diagnostic_evidence_spine",
+        "mission_transaction_work_spine",
+        "root_binding_and_executable_grammar"
+      ],
+      "selection_posture": "deferred_child_suborgan",
+      "standalone_posture": "live_ui_surface_is_macro_only_until_synthetic_state",
+      "why": "The portable value is a typed-view contract with fake state, component index, route graph, renderer passport, authority-chain drilldowns, drift aggregation, and render receipts."
+    }
+  ],
+  "pattern_id_hot_routes": [
+    {
+      "pattern_id": "formal_proof_repair_one_row_reducer_gate",
+      "route_to_organ_id": "formal_oracle_policy_learning_suborgan",
+      "carry_with_organ_ids": [
+        "formal_prover_lab_evaluation_suborgan",
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine"
+      ],
+      "why_hot": "Looks like a standalone repair product but depends on model inventory, provider canary, owner WorkItem readiness, reducer authority, and Lean rejection classification."
+    },
+    {
+      "pattern_id": "egress_compliance_stop_hook_mirror",
+      "route_to_organ_id": "entry_agent_behavior_governance_suborgan",
+      "carry_with_organ_ids": [
+        "agent_route_observability_runtime",
+        "navigation_hologram_route_plane"
+      ],
+      "why_hot": "Runs at final-response boundary, but it is behavior governance, not a release or publication gate."
+    },
+    {
+      "pattern_id": "provider_context_recipe_budget_policy",
+      "route_to_organ_id": "formal_prover_lab_evaluation_suborgan",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime"
+      ],
+      "why_hot": "Recipe byte ceilings are the proof-body leakage boundary for provider calls; select the prover lab organ, not the recipe row."
+    },
+    {
+      "pattern_id": "raw_seed_source_index_packet_scope_membrane",
+      "route_to_organ_id": "raw_seed_alchemy_review_suborgan",
+      "carry_with_organ_ids": [
+        "voice_to_doctrine_self_improvement_loop",
+        "navigation_hologram_route_plane"
+      ],
+      "why_hot": "A source-index packet is a private-boundary membrane; portable projection requires synthetic voice/source rows."
+    },
+    {
+      "pattern_id": "go_no_go_publication_readiness",
+      "route_to_organ_id": "publication_authority_guard_suborgan",
+      "carry_with_organ_ids": [
+        "proof_diagnostic_evidence_spine",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine"
+      ],
+      "why_hot": "Go/no-go reads like an independent release leaf, but it is a packaging decision over proof freshness and authority boundaries."
+    }
+  ],
+  "title_token_fallback_router": [
+    {
+      "token_hint": "provider|premise|strategy|tactic|corpus|ring2|benchmark|proof_repair",
+      "route_to_organ_id": "formal_prover_lab_evaluation_suborgan",
+      "fallback_posture": "child_suborgan_fold_under_proof_external_boundary_bridge_and_mission"
+    },
+    {
+      "token_hint": "raw_seed|voice|memory|shard|archaeology|source_index",
+      "route_to_organ_id": "voice_to_doctrine_self_improvement_loop",
+      "fallback_posture": "private_fixture_only_until_synthetic_voice_corpus"
+    },
+    {
+      "token_hint": "entry|affordance|egress|route_lease|candidate_axiom|operator_autonomy",
+      "route_to_organ_id": "entry_agent_behavior_governance_suborgan",
+      "fallback_posture": "child_suborgan_under_navigation_observability_self_improvement"
+    },
+    {
+      "token_hint": "market|polymarket|prediction|oracle|hindsight|dossier",
+      "route_to_organ_id": "market_reasoning_evidence_suborgan",
+      "fallback_posture": "private_fixture_only_under_external_boundary_and_proof"
+    },
+    {
+      "token_hint": "publication|release|recipient|go_no_go|public_toggle|escrow",
+      "route_to_organ_id": "publication_authority_guard_suborgan",
+      "fallback_posture": "reframe_or_child_fold_under_proof_and_authority_guard"
+    },
+    {
+      "token_hint": "cockpit|frontend|renderer|pixel|component_index|operator_ui",
+      "route_to_organ_id": "typed_view_contract_specimen",
+      "fallback_posture": "macro_only_until_synthetic_typed_view_fixture"
+    },
+    {
+      "token_hint": "operator_bridge|mission_status|telemetry_quality|agent_trace|AgentTraceStore|response_attention|hud_action",
+      "route_to_organ_id": "agent_route_observability_runtime",
+      "fallback_posture": "observability_projection_requires_trace_authority_privacy_cursor_and_repair_lane"
+    },
+    {
+      "token_hint": "response_flight|response_attention|completed_unseen|hud_action_receipt|sidecar_continuation",
+      "route_to_organ_id": "operator_response_attention_suborgan",
+      "fallback_posture": "child_suborgan_under_agent_observability_external_boundary_and_bridge_continuity"
+    },
+    {
+      "token_hint": "type_b_handoff|handoff_linkage|operator_thread|thread_memory|lesson_candidate",
+      "route_to_organ_id": "agent_route_observability_runtime",
+      "fallback_posture": "private_operator_bridge_memory_routes_through_observability_external_boundary_or_self_improvement_before_any_leaf"
+    },
+    {
+      "token_hint": "world_model|authority_chain|drift_aggregate|ui_handle",
+      "route_to_organ_id": "typed_view_contract_specimen",
+      "fallback_posture": "macro_only_until_synthetic_world_model_and_authority_chain_fixture"
+    },
+    {
+      "token_hint": "claim|commit|landing|WorkItem|Task Ledger|receipt|currentness",
+      "route_to_organ_id": "mission_transaction_work_spine",
+      "fallback_posture": "select_transaction_organ_not_landing_child"
+    },
+    {
+      "token_hint": "bridge|heartbeat|continuation|reaction|wake_barrier|autonomy",
+      "route_to_organ_id": "bridge_phase_continuity_runtime",
+      "fallback_posture": "select_continuity_organ_after_mission_and_external_boundary"
+    }
+  ],
+  "ledger_organ_family_fallback": [
+    {
+      "ledger_organ_family": "formal_math",
+      "default_route_to_organ_id": "proof_diagnostic_evidence_spine",
+      "specialize_if_title_matches": "provider|premise|strategy|tactic|corpus|benchmark|repair|ladder",
+      "specialized_route_to_organ_id": "formal_prover_lab_evaluation_suborgan"
+    },
+    {
+      "ledger_organ_family": "raw_seed_metabolism",
+      "default_route_to_organ_id": "voice_to_doctrine_self_improvement_loop",
+      "specialize_if_title_matches": "source_index|attempt_recovery|alchemy|shard_review",
+      "specialized_route_to_organ_id": "raw_seed_alchemy_review_suborgan"
+    },
+    {
+      "ledger_organ_family": "navigation_and_routing",
+      "default_route_to_organ_id": "navigation_hologram_route_plane",
+      "specialize_if_title_matches": "entry|affordance|egress|agent",
+      "specialized_route_to_organ_id": "entry_agent_behavior_governance_suborgan"
+    },
+    {
+      "ledger_organ_family": "agent_behavior_management",
+      "default_route_to_organ_id": "agent_route_observability_runtime",
+      "specialize_if_title_matches": "entry|egress|principle|operator_autonomy|response_attention|obligation",
+      "specialized_route_to_organ_id": "entry_agent_behavior_governance_suborgan"
+    },
+    {
+      "ledger_organ_family": "runtime_observability",
+      "default_route_to_organ_id": "agent_route_observability_runtime",
+      "specialize_if_title_matches": "operator_bridge|tail|privacy|mission|telemetry|noise|response|flight|hud",
+      "specialized_route_to_organ_id": "agent_route_observability_runtime"
+    },
+    {
+      "ledger_organ_family": "operator_bridge_response_attention",
+      "default_route_to_organ_id": "operator_response_attention_suborgan",
+      "specialize_if_title_matches": "flight|attention|hud|copy|seen|sidecar",
+      "specialized_route_to_organ_id": "operator_response_attention_suborgan"
+    },
+    {
+      "ledger_organ_family": "validation_receipts",
+      "default_route_to_organ_id": "proof_diagnostic_evidence_spine",
+      "specialize_if_title_matches": "HUD|action|receipt|proof|metadata",
+      "specialized_route_to_organ_id": "operator_response_attention_suborgan"
+    },
+    {
+      "ledger_organ_family": "continuity_resume",
+      "default_route_to_organ_id": "bridge_phase_continuity_runtime",
+      "specialize_if_title_matches": "sidecar|continuation|candidate|lifecycle",
+      "specialized_route_to_organ_id": "operator_response_attention_suborgan"
+    },
+    {
+      "ledger_organ_family": "frontend_observability",
+      "default_route_to_organ_id": "typed_view_contract_specimen",
+      "specialize_if_title_matches": "world_model|drift|authority|handle|Station",
+      "specialized_route_to_organ_id": "typed_view_contract_specimen"
+    },
+    {
+      "ledger_organ_family": "source_provenance",
+      "default_route_to_organ_id": "root_binding_and_executable_grammar",
+      "specialize_if_title_matches": "world-model|UI handle|authority-chain|Station",
+      "specialized_route_to_organ_id": "typed_view_contract_specimen"
+    }
+  ],
+  "open_next_by_route": {
+    "organ_first": "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+    "fixture_detail": "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+    "dependency_order": "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+    "selection_decisions": "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json"
+  },
+  "next_type_a_pass": {
+    "recommended_task": "Make the reverse router and route readiness audit machine-checkable: pattern_id -> organ_id -> readiness class -> fixture spec -> no-standalone reason.",
+    "acceptance": "The check should fail on missing pattern ids, missing organ ids, stale source ledger hash, duplicate router refs without an intentional-overlap record, and patterns listed as standalone exclusions or hard-no-standalone while also marked selectable.",
+    "do_not_do": [
+      "do not append mined rows just to improve routing",
+      "do not select an unindexed row as a leaf before resolving its organ",
+      "do not expose private raw seed, live Task Ledger, provider payloads, or cockpit state"
+    ]
+  }
+}

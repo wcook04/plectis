@@ -1,0 +1,786 @@
+{
+  "schema_version": "extracted_pattern_internal_routing_graph_v1",
+  "created_at": "2026-05-17T19:55:30Z",
+  "created_by": "codex",
+  "deliverable_type": "macro_pattern_internal_routing_pass",
+  "authority_boundary": {
+    "artifact_role": "macro_side_overlay_not_historical_ledger",
+    "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "historical_rows_rewritten": false,
+    "public_microcosm_projection": false,
+    "public_microcosm_leaf_set_authoritative": false,
+    "selection_rule": "Future reconstruction should select coherent organs, not isolated mined rows."
+  },
+  "source_ledger": {
+    "path": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "row_count": 309,
+    "sha256": "2f526cb50aeee4d017f37ff11880432c8daaf4bb25095c9ccf4599c2f0be5f64"
+  },
+  "companion_overlays": {
+    "shared_substrate_clusters": {
+      "path": "state/microcosm_portfolio/extracted_pattern_shared_substrate_clusters.json",
+      "schema_version": "extracted_pattern_shared_substrate_clusters_v1",
+      "purpose": "Substrate-centric routing overlay that exposes hidden prerequisites, cluster bundles, macro-only boundaries, and merge pressure across the mined pattern layer."
+    },
+    "supersession_report": {
+      "path": "state/microcosm_portfolio/extracted_pattern_supersession_report.md",
+      "purpose": "Human-readable fold, supersession, reframe, sibling-prerequisite, and macro-only posture report for future organ selection."
+    },
+    "reconstruction_shortlist": {
+      "path": "state/microcosm_portfolio/extracted_pattern_reconstruction_shortlist.json",
+      "schema_version": "extracted_pattern_reconstruction_shortlist_v1",
+      "purpose": "Current organ-selection overlay that ranks coherent reconstruction organs by fixture feasibility, validator availability, private-state replacement cost, and routing value, with later ledger deltas routed as strengtheners."
+    },
+    "fixture_feasibility_matrix": {
+      "path": "state/microcosm_portfolio/extracted_pattern_fixture_feasibility_matrix.md",
+      "purpose": "Human-readable fixture feasibility matrix for choosing coherent organs before any public-facing reconstruction."
+    },
+    "organ_dependency_dag": {
+      "path": "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+      "schema_version": "extracted_pattern_organ_dependency_dag_v1",
+      "purpose": "Dependency-order overlay that makes prerequisite organs, child suborgans, macro-only boundaries, and reconstruction paths explicit against the current ledger snapshot."
+    },
+    "route_decision_matrix": {
+      "path": "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+      "schema_version": "extracted_pattern_route_decision_matrix_v1",
+      "purpose": "Current route-selection overlay that decides which pattern families select as roots, fold into parent organs, remain evidence-only, require private fixtures, or should never become standalone leaves."
+    },
+    "organ_fixture_specs": {
+      "path": "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+      "schema_version": "extracted_pattern_organ_fixture_specs_v1",
+      "purpose": "Fixture-contract overlay that turns route decisions into coherent organ bundles with synthetic inputs, expected receipts, negative cases, anti-claims, hidden infrastructure, and standalone exclusions."
+    },
+    "organ_route_cards": {
+      "path": "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+      "schema_version": "extracted_pattern_organ_route_cards_v1",
+      "purpose": "Compact task-shape route-card overlay that tells future agents which organ owns a family, which prerequisites and child folds travel with it, and which rows must not become standalone leaves."
+    },
+    "row_to_organ_router": {
+      "path": "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+      "schema_version": "extracted_pattern_row_to_organ_router_v1",
+      "purpose": "Reverse route overlay that starts from a pattern id, title shape, or ledger family and routes upward to the owning organ, prerequisites, and no-standalone posture."
+    },
+    "route_readiness_audit": {
+      "path": "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json",
+      "schema_version": "extracted_pattern_route_readiness_audit_v1",
+      "purpose": "Leaf-preselector overlay that separates routable rows from organ-level readiness and blocks isolated pattern rows, private fixtures, macro-only wrappers, and child suborgans from becoming standalone leaves."
+    }
+  },
+  "routing_semantics": {
+    "pattern": "A mined row that names a metabolism-changing behavior, surface, proof, or gate.",
+    "organ": "A coherent leaf-scale subsystem composed of multiple patterns that share fixture, validator, source boundary, and cold-start story.",
+    "foundation": "A prerequisite pattern family needed before downstream leaves make sense.",
+    "runtime": "A pattern family that moves work, status, agents, leases, or continuation state.",
+    "projection": "A pattern family that compiles source substrate into navigable or compressed views.",
+    "proof": "A pattern family that makes claims checkable through type checking, validators, fixtures, receipts, or diagnostic result boards.",
+    "observability": "A pattern family that records, attributes, compares, or audits behavior.",
+    "self_improvement": "A pattern family that lets local failures or operator pressure change doctrine under gates.",
+    "continuity": "A pattern family that survives context loss, phase shifts, or detached runtime handoff.",
+    "private_fixture_only": "A pattern that can be projected only through synthetic fixtures because the macro source is private-root evidence.",
+    "macro_only": "A pattern that should remain internal unless reframed into a non-private, non-packaging organ.",
+    "control_surface": "A pattern that composes runtime state across lanes into a bounded operator or agent control plane."
+  },
+  "root_substrate_before_leaf_selection": [
+    "executable_grammar_metabolism",
+    "status_preserving_control_plane",
+    "source_capsule_provenance",
+    "hidden_substrate_integration_manifest",
+    "principle_scope_axiom_candidate_lattice",
+    "cognitive_operator_registry",
+    "compression_profile_governed_option_surface",
+    "omission_receipt_reversible_projection_boundary",
+    "builder_factory_source_coupled_projection_lane",
+    "navigation_hologram_unified_route_plane",
+    "task_ledger_workitem_spine",
+    "actionability_driven_alerting_d4",
+    "mission_transaction_landing",
+    "system_control_orchestration_composition_root",
+    "agent_entry_surfaces_canonical_first_move"
+  ],
+  "organ_clusters": [
+    {
+      "organ_id": "root_substrate_grammar_organ",
+      "classification": [
+        "foundation",
+        "proof"
+      ],
+      "thesis": "Standards, principles, operators, strict JSON, and self-governing paper modules are one grammar organ; many executable-grammar rows are instances of this deeper parent.",
+      "future_leaf_candidate": "executable_doctrine_grammar",
+      "root_pattern_ids": [
+        "executable_grammar_metabolism",
+        "principle_scope_axiom_candidate_lattice",
+        "cognitive_operator_registry",
+        "strict_json_artifact",
+        "standards_registry_executable_grammar_index",
+        "paper_module_authoring_runtime_self_describing"
+      ],
+      "supporting_pattern_ids": [
+        "std_paper_module_v8_self_governing",
+        "std_microcosm_meta_standard",
+        "release_standards_axiom_gate",
+        "std_skill_typed_skills",
+        "std_skill_types_versioned_skills",
+        "config_authority_registry",
+        "mechanism_facet_manifest",
+        "system_lib_pipeline_stages",
+        "negative_space_anti_profile_failure_mirror",
+        "formal_math_lean_self_contained_proof_organ"
+      ],
+      "fold_in_pattern_ids": [
+        "transform_job_provenance",
+        "rename_migration_receipt_atomic",
+        "patcher_typed_repair",
+        "population_lane_generic",
+        "reconciliation_typed_drift_repair",
+        "launchable_operation_contract",
+        "specimen_suite_branch_graph"
+      ],
+      "selection_guidance": "Select this as a root organ early. Treat Lean proof as the strongest proof witness, but not as a substitute for the grammar organ."
+    },
+    {
+      "organ_id": "navigation_projection_organ",
+      "classification": [
+        "foundation",
+        "projection",
+        "runtime"
+      ],
+      "thesis": "Navigation hologram, option-surface bands, semantic routing, entry leases, and projection receipts are one route-plane organ.",
+      "future_leaf_candidate": "navigation_hologram_route_plane",
+      "root_pattern_ids": [
+        "navigation_hologram_unified_route_plane",
+        "compression_profile_governed_option_surface",
+        "omission_receipt_reversible_projection_boundary",
+        "semantic_routing_plane",
+        "navigation_rosetta_grammar",
+        "kernel_cli_typed_router",
+        "agent_entry_surfaces_canonical_first_move"
+      ],
+      "supporting_pattern_ids": [
+        "system_atlas_kind_atlas_living_map",
+        "system_atlas_owner_check",
+        "navigation_population_acceptance",
+        "routing_anti_patterns",
+        "navigation_trace_event",
+        "compression_profiles_registry",
+        "live_projection_salience_gate",
+        "builder_factory_source_coupled_projection_lane"
+      ],
+      "fold_in_pattern_ids": [
+        "self_comprehension_navigator",
+        "atlas_navigation_bands",
+        "concept_graph_first_contact_atlas",
+        "summary_ladders_compression",
+        "json_facets_projection",
+        "command_output_projection",
+        "marked_region_projection",
+        "system_facts_glance"
+      ],
+      "selection_guidance": "Do not pick the present public navigation leaves as roots. They are projections and fixtures of the larger route plane."
+    },
+    {
+      "organ_id": "status_work_transaction_organ",
+      "classification": [
+        "foundation",
+        "runtime",
+        "continuity"
+      ],
+      "thesis": "Status authority, Task Ledger, mission transactions, work claims, scoped commits, and cap capture are one work-survival organ.",
+      "future_leaf_candidate": "mission_transaction_work_spine",
+      "root_pattern_ids": [
+        "status_preserving_control_plane",
+        "task_ledger_workitem_spine",
+        "mission_transaction_landing",
+        "actionability_driven_alerting_d4"
+      ],
+      "supporting_pattern_ids": [
+        "truth_maintenance_typed_authority_classes",
+        "derived_fact_layer",
+        "concurrency_mission_control",
+        "work_ledger_runtime_claims",
+        "checkpoint_solo_dev_three_lanes",
+        "cap_reflex_capture_before_prose",
+        "cap_quick_capture_lane",
+        "operator_action_receipt",
+        "task_sign_off"
+      ],
+      "fold_in_pattern_ids": [],
+      "selection_guidance": "This is root substrate, not a nice-to-have backlog feature. Reconstruction should show status changing through events, not only static cards."
+    },
+    {
+      "organ_id": "continuity_runtime_orchestration_organ",
+      "classification": [
+        "runtime",
+        "continuity"
+      ],
+      "thesis": "Bridge resume, controller heartbeat, continuation packet, phase slots, runtime events, and long-running queues form one continuity organ.",
+      "future_leaf_candidate": "bridge_phase_continuity_runtime",
+      "root_pattern_ids": [
+        "bridge_runtime_dispatch_yield_resume",
+        "controller_continuity_heartbeat",
+        "continuation_packet_resume",
+        "phase_dock_harbor_deposit_full",
+        "continuous_runtime_layer",
+        "system_control_orchestration_composition_root"
+      ],
+      "supporting_pattern_ids": [
+        "bridge_window_identity",
+        "phase_runtime_library",
+        "orchestration_state_events",
+        "meta_mission_queue_runtime",
+        "plan_substrate",
+        "preview_campaign_lifecycle",
+        "observe_runtime_apply_session",
+        "autonomy_runtime_metabolism_loop",
+        "bridge_response_salvage_quarantine",
+        "compute_worker_receipts_provider_provenance",
+        "resource_typed_capacity",
+        "reactions_typed_events",
+        "sidecar_continuation_candidate_lifecycle_gate"
+      ],
+      "fold_in_pattern_ids": [
+        "phase_orchestration_dock_harbor_deposit"
+      ],
+      "selection_guidance": "Select as one organ if the leaf can show yield-to-disk, heartbeat, wake, and phase transition in one small fixture."
+    },
+    {
+      "organ_id": "agent_behavior_observability_organ",
+      "classification": [
+        "agent_runtime",
+        "observability",
+        "runtime"
+      ],
+      "thesis": "Agent entry rules, self-observation, route compliance, session attribution, hooks, actor axes, and context injection are one behavior-governance organ.",
+      "future_leaf_candidate": "agent_route_observability_runtime",
+      "root_pattern_ids": [
+        "agent_self_observability_plane",
+        "agent_route_compliance_audit",
+        "agent_session_attribution",
+        "type_a_type_b_actor_axes",
+        "runtime_hook_ladder"
+      ],
+      "supporting_pattern_ids": [
+        "agent_harness_configuration_audit",
+        "lifecycle_surface_resource_membrane",
+        "operator_trace_structurer_manual_intake",
+        "actor_context_injection_subagentstart",
+        "claude_subagent_cohort_delegation",
+        "cold_start_agent_skills_pack",
+        "published_skills_materialization",
+        "std_skill_typed_skills",
+        "std_skill_types_versioned_skills",
+        "self_model_standard",
+        "agent_principle_lens",
+        "operator_response_flight_attempt_ledger",
+        "operator_response_attention_obligation_lease",
+        "operator_hud_action_receipt_proof_metadata_lane"
+      ],
+      "fold_in_pattern_ids": [
+        "sidecar_continuation_candidate_lifecycle_gate"
+      ],
+      "selection_guidance": "This should not become a generic agent-observability demo. It should prove that route expectations and operator attention leases can steer later agent or operator behavior without exposing private thread bodies."
+    },
+    {
+      "organ_id": "operator_response_attention_child_organ",
+      "classification": [
+        "observability",
+        "runtime",
+        "continuity",
+        "private_fixture_only"
+      ],
+      "thesis": "Response-flight attempts, durable response-attention leases, HUD action proof receipts, and sidecar continuation lifecycle gates are one operator bridge child organ.",
+      "future_leaf_candidate": "operator_response_attention_suborgan",
+      "root_pattern_ids": [
+        "operator_response_flight_attempt_ledger",
+        "operator_response_attention_obligation_lease",
+        "operator_hud_action_receipt_proof_metadata_lane",
+        "sidecar_continuation_candidate_lifecycle_gate"
+      ],
+      "supporting_pattern_ids": [
+        "operator_thread_memory_private_event_projection",
+        "operator_bridge_tail_projector_privacy_cursor",
+        "operator_thread_continuation_type_b_handoff_shuttle"
+      ],
+      "fold_in_pattern_ids": [],
+      "selection_guidance": "Do not select these rows as standalone browser/HUD leaves. Fold them into agent observability, external-boundary privacy, and bridge continuity until the synthetic response-attention fixture exists."
+    },
+    {
+      "organ_id": "voice_doctrine_self_improvement_organ",
+      "classification": [
+        "self_improvement",
+        "private_fixture_only",
+        "foundation"
+      ],
+      "thesis": "Raw seed metabolism, doctrine population, concept/mechanism curation, correction survival, and recursive failure learning are one self-improvement organ.",
+      "future_leaf_candidate": "voice_to_doctrine_self_improvement_loop",
+      "root_pattern_ids": [
+        "raw_seed_metabolism_voice_to_doctrine",
+        "doctrine_population_loop",
+        "recursive_self_improvement_operating_loop",
+        "idea_microcosm_metabolism_meta_loop"
+      ],
+      "supporting_pattern_ids": [
+        "raw_seed_atomization_to_shards",
+        "raw_seed_shard_neighborhood_routing",
+        "raw_seed_type_discovery_campaign",
+        "std_idea_packet",
+        "concept_mechanism_curation",
+        "doctrine_compiler_ir",
+        "doctrine_approved_overlay_additive_review",
+        "imagination_typed_speculation",
+        "correction_survival_loop",
+        "cross_actor_notice_capture",
+        "up_propagation_intake",
+        "peer_propagation_record",
+        "forward_integration_policy",
+        "lab_oracle_evolve_restartable_failure",
+        "diffusion_thesis_method",
+        "voice_archaeology_coverage_aware_third_substrate"
+      ],
+      "fold_in_pattern_ids": [
+        "obsidian_vault_doctrine_lattice"
+      ],
+      "private_fixture_only_pattern_ids": [
+        "raw_seed_metabolism_voice_to_doctrine",
+        "raw_seed_atomization_to_shards",
+        "prompt_ledger",
+        "obsidian_vault_doctrine_lattice"
+      ],
+      "selection_guidance": "Future public projection must use synthetic operator voice and synthetic vault material. Do not ship real raw seed or prompt content."
+    },
+    {
+      "organ_id": "external_boundary_provider_annex_organ",
+      "classification": [
+        "runtime",
+        "observability",
+        "macro_only"
+      ],
+      "thesis": "Annex transfer, provider evaluator boundaries, human approval, market/data evidence, prompt shelf, and memory tiers are all boundary-management patterns.",
+      "future_leaf_candidate": "external_input_anti_corruption_boundary",
+      "root_pattern_ids": [
+        "annex_distillation_anti_corruption_boundary",
+        "provider_metabolism_ledger",
+        "approval_inbox_human_in_loop"
+      ],
+      "supporting_pattern_ids": [
+        "data_feed_market_evidence_fusion",
+        "prompt_shelf_durable_packets",
+        "prompt_ledger",
+        "claude_memory_plane_three_tier",
+        "bridge_response_salvage_quarantine",
+        "operator_hud_action_receipt_proof_metadata_lane",
+        "operator_response_flight_attempt_ledger"
+      ],
+      "fold_in_pattern_ids": [],
+      "selection_guidance": "Keep the organ internal unless it can be reframed around synthetic inputs and explicit anti-corruption adapters."
+    },
+    {
+      "organ_id": "proof_diagnostic_evidence_organ",
+      "classification": [
+        "proof",
+        "observability",
+        "self_improvement"
+      ],
+      "thesis": "Formal proof, source capsules, workingness, diagnostic specimens, test routing, compliance adapters, and metabolism status are one evidence organ.",
+      "future_leaf_candidate": "proof_diagnostic_evidence_spine",
+      "root_pattern_ids": [
+        "formal_math_lean_self_contained_proof_organ",
+        "workingness_instrument",
+        "source_capsule_provenance",
+        "hidden_substrate_integration_manifest"
+      ],
+      "supporting_pattern_ids": [
+        "builder_factory_source_coupled_projection_lane",
+        "autonomous_proof_gate_three_color_default",
+        "source_shuttle_bounded_carryforward",
+        "meta_diagnostics_workbench",
+        "verisoftbench_diagnostic_specimen",
+        "test_impact_map_change_to_test_routing",
+        "system_lib_compliance_adapters",
+        "metabolism_status_typed",
+        "runtime_maintenance_finding",
+        "lab_oracle_evolve_restartable_failure"
+      ],
+      "fold_in_pattern_ids": [],
+      "selection_guidance": "This is the strongest proof bundle only if it shows checks rejecting bad claims, not just successful examples."
+    },
+    {
+      "organ_id": "frontend_cockpit_macro_only_organ",
+      "classification": [
+        "observability",
+        "private_fixture_only",
+        "macro_only"
+      ],
+      "thesis": "The cockpit and frontend capture contract are macro control surfaces; a public projection should be a synthetic typed-view specimen, not a copy of the live cockpit.",
+      "future_leaf_candidate": "typed_view_contract_specimen",
+      "root_pattern_ids": [
+        "frontend_station_cockpit",
+        "frontend_capture_runtime_contract"
+      ],
+      "supporting_pattern_ids": [],
+      "fold_in_pattern_ids": [],
+      "private_fixture_only_pattern_ids": [
+        "frontend_station_cockpit",
+        "frontend_capture_runtime_contract"
+      ],
+      "selection_guidance": "Keep macro-only until a tiny synthetic component index and capture fixture exists."
+    }
+  ],
+  "dependency_edges": [
+    {
+      "from": "navigation_hologram_unified_route_plane",
+      "to": "executable_grammar_metabolism",
+      "relation": "depends_on",
+      "why": "Route packets and banned-route catalogs need standard-owned schemas."
+    },
+    {
+      "from": "compression_profile_governed_option_surface",
+      "to": "navigation_hologram_unified_route_plane",
+      "relation": "depends_on",
+      "why": "Bands are useful only inside a first-contact route plane."
+    },
+    {
+      "from": "omission_receipt_reversible_projection_boundary",
+      "to": "compression_profile_governed_option_surface",
+      "relation": "depends_on",
+      "why": "Omission receipts make lower-band projections reversible instead of lossy."
+    },
+    {
+      "from": "builder_factory_source_coupled_projection_lane",
+      "to": "executable_grammar_metabolism",
+      "relation": "depends_on",
+      "why": "Generated projections need standards and validators to bind source-coupling receipts."
+    },
+    {
+      "from": "semantic_routing_plane",
+      "to": "navigation_hologram_unified_route_plane",
+      "relation": "depends_on",
+      "why": "Semantic rank is a drilldown signal, not control authority."
+    },
+    {
+      "from": "agent_entry_surfaces_canonical_first_move",
+      "to": "navigation_hologram_unified_route_plane",
+      "relation": "instance_of",
+      "why": "Entry packets are the cold-start instance of the route plane."
+    },
+    {
+      "from": "task_ledger_workitem_spine",
+      "to": "status_preserving_control_plane",
+      "relation": "depends_on",
+      "why": "Durable backlog state needs typed lifecycle authority."
+    },
+    {
+      "from": "actionability_driven_alerting_d4",
+      "to": "status_preserving_control_plane",
+      "relation": "child_of",
+      "why": "Actionability discipline is the alerting rule inside status authority."
+    },
+    {
+      "from": "mission_transaction_landing",
+      "to": "task_ledger_workitem_spine",
+      "relation": "depends_on",
+      "why": "Transactions claim and land scoped work against durable subjects."
+    },
+    {
+      "from": "concurrency_mission_control",
+      "to": "mission_transaction_landing",
+      "relation": "overlaps_with",
+      "why": "The board shape and transaction finalizer are the same organ from UI/runtime angles."
+    },
+    {
+      "from": "bridge_runtime_dispatch_yield_resume",
+      "to": "mission_transaction_landing",
+      "relation": "depends_on",
+      "why": "Detached continuation needs claim, lease, validation, and finalizer semantics."
+    },
+    {
+      "from": "controller_continuity_heartbeat",
+      "to": "bridge_runtime_dispatch_yield_resume",
+      "relation": "child_of",
+      "why": "Heartbeat is the liveness proof inside the continuity organ."
+    },
+    {
+      "from": "continuation_packet_resume",
+      "to": "bridge_runtime_dispatch_yield_resume",
+      "relation": "child_of",
+      "why": "Continuation packet is the durable wake artifact."
+    },
+    {
+      "from": "bridge_response_salvage_quarantine",
+      "to": "bridge_runtime_dispatch_yield_resume",
+      "relation": "child_of",
+      "why": "Salvage/quarantine is the provider-output membrane inside bridge continuity."
+    },
+    {
+      "from": "phase_dock_harbor_deposit_full",
+      "to": "bridge_runtime_dispatch_yield_resume",
+      "relation": "sibling_of",
+      "why": "Phase slots and bridge resume both preserve work across time boundaries."
+    },
+    {
+      "from": "system_control_orchestration_composition_root",
+      "to": "phase_dock_harbor_deposit_full",
+      "relation": "depends_on",
+      "why": "The composition root consumes typed phase and orchestration state rather than reconstructing it ad hoc."
+    },
+    {
+      "from": "agent_self_observability_plane",
+      "to": "navigation_hologram_unified_route_plane",
+      "relation": "depends_on",
+      "why": "Observed behavior is meaningful only against expected route contracts."
+    },
+    {
+      "from": "agent_route_compliance_audit",
+      "to": "agent_self_observability_plane",
+      "relation": "child_of",
+      "why": "Compliance audit is the checker over session trace events."
+    },
+    {
+      "from": "agent_session_attribution",
+      "to": "agent_self_observability_plane",
+      "relation": "child_of",
+      "why": "Attribution says which actor produced the observed behavior."
+    },
+    {
+      "from": "lifecycle_surface_resource_membrane",
+      "to": "runtime_hook_ladder",
+      "relation": "child_of",
+      "why": "Hook ladders need hard resource membranes to avoid observer-plane recursion."
+    },
+    {
+      "from": "operator_trace_structurer_manual_intake",
+      "to": "agent_self_observability_plane",
+      "relation": "child_of",
+      "why": "Manual trace structuring is an intake path into the observability plane."
+    },
+    {
+      "from": "raw_seed_metabolism_voice_to_doctrine",
+      "to": "source_capsule_provenance",
+      "relation": "depends_on",
+      "why": "Voice-derived claims need provenance without leaking raw source."
+    },
+    {
+      "from": "voice_archaeology_coverage_aware_third_substrate",
+      "to": "raw_seed_metabolism_voice_to_doctrine",
+      "relation": "child_of",
+      "why": "Voice archaeology is a third-substrate variant of voice-to-doctrine metabolism."
+    },
+    {
+      "from": "doctrine_population_loop",
+      "to": "raw_seed_metabolism_voice_to_doctrine",
+      "relation": "depends_on",
+      "why": "Population consumes routed pressure from the voice-to-shard lane."
+    },
+    {
+      "from": "doctrine_approved_overlay_additive_review",
+      "to": "doctrine_population_loop",
+      "relation": "child_of",
+      "why": "The approved overlay is the reviewed membrane between proposal IR and authored doctrine."
+    },
+    {
+      "from": "recursive_self_improvement_operating_loop",
+      "to": "doctrine_population_loop",
+      "relation": "depends_on",
+      "why": "Self-improvement needs a governed adoption lane."
+    },
+    {
+      "from": "workingness_instrument",
+      "to": "recursive_self_improvement_operating_loop",
+      "relation": "depends_on",
+      "why": "Failure learning needs a test of whether behavior improved."
+    },
+    {
+      "from": "autonomous_proof_gate_three_color_default",
+      "to": "workingness_instrument",
+      "relation": "depends_on",
+      "why": "Green/amber/red mutation policy requires machine-verifiable workingness evidence."
+    },
+    {
+      "from": "formal_math_lean_self_contained_proof_organ",
+      "to": "executable_grammar_metabolism",
+      "relation": "proof_witness_for",
+      "why": "Lean is the strongest instance of executable claim checking."
+    },
+    {
+      "from": "annex_distillation_anti_corruption_boundary",
+      "to": "doctrine_population_loop",
+      "relation": "depends_on",
+      "why": "External patterns need a lane decision before becoming substrate."
+    },
+    {
+      "from": "provider_metabolism_ledger",
+      "to": "external_boundary_provider_annex_organ",
+      "relation": "instance_of",
+      "why": "Provider outputs are another external-input boundary with evaluator receipts."
+    },
+    {
+      "from": "prompt_shelf_durable_packets",
+      "to": "prompt_ledger",
+      "relation": "overlaps_with",
+      "why": "Shelf and ledger are the artifact and evidence sides of one prompt organ."
+    },
+    {
+      "from": "frontend_capture_runtime_contract",
+      "to": "frontend_station_cockpit",
+      "relation": "child_of",
+      "why": "Typed component capture is the fixtureable subset of the live cockpit."
+    }
+  ],
+  "supersession_recommendations": [
+    {
+      "recommendation_id": "merge_paper_module_authoring_rows",
+      "target_parent": "paper_module_authoring_runtime_self_describing",
+      "fold_or_supersede": [
+        "std_paper_module_v8_self_governing"
+      ],
+      "rationale": "The self-governing standard is a proof witness inside the paper-module authoring runtime, not a separate leaf unless the fixture is specifically about recursive standard conformance."
+    },
+    {
+      "recommendation_id": "merge_phase_dock_rows",
+      "target_parent": "phase_dock_harbor_deposit_full",
+      "fold_or_supersede": [
+        "phase_orchestration_dock_harbor_deposit"
+      ],
+      "rationale": "The full row already names the deeper invariant and should supersede the earlier medium-novelty row."
+    },
+    {
+      "recommendation_id": "merge_skill_type_rows",
+      "target_parent": "std_skill_typed_skills",
+      "fold_or_supersede": [
+        "std_skill_types_versioned_skills",
+        "published_skills_materialization",
+        "cold_start_agent_skills_pack"
+      ],
+      "rationale": "Skill type plane, materialization, and cold-start pack are child proofs of typed skills."
+    },
+    {
+      "recommendation_id": "fold_raw_seed_subpatterns",
+      "target_parent": "raw_seed_metabolism_voice_to_doctrine",
+      "fold_or_supersede": [
+        "raw_seed_atomization_to_shards",
+        "raw_seed_shard_neighborhood_routing",
+        "raw_seed_type_discovery_campaign",
+        "std_idea_packet"
+      ],
+      "rationale": "The public-safe unit is the whole synthetic voice-to-doctrine chain; atomic raw-seed rows are not strong standalone leaves."
+    },
+    {
+      "recommendation_id": "fold_projection_children",
+      "target_parent": "compression_profile_governed_option_surface",
+      "fold_or_supersede": [
+        "compression_profiles_registry",
+        "json_facets_projection",
+        "command_output_projection",
+        "marked_region_projection",
+        "system_facts_glance",
+        "summary_ladders_compression"
+      ],
+      "rationale": "These are projection surfaces and receipts, not independent organs."
+    },
+    {
+      "recommendation_id": "promote_omission_receipt_as_projection_parent",
+      "target_parent": "omission_receipt_reversible_projection_boundary",
+      "fold_or_supersede": [
+        "command_output_projection",
+        "summary_ladders_compression",
+        "marked_region_projection"
+      ],
+      "rationale": "Omission receipt is the reversible-boundary rule that makes compact projections safe; it should be a parent edge inside the projection organ."
+    },
+    {
+      "recommendation_id": "reframe_publication_gate",
+      "target_parent": "status_preserving_control_plane",
+      "fold_or_supersede": [
+        "go_no_go_publication_readiness",
+        "release_standards_axiom_gate"
+      ],
+      "rationale": "Release packaging should not drive the macro pattern layer. The stronger parent is a generic claim-strengthening/status gate."
+    },
+    {
+      "recommendation_id": "merge_prompt_rows",
+      "target_parent": "prompt_shelf_durable_packets",
+      "fold_or_supersede": [
+        "prompt_ledger"
+      ],
+      "rationale": "Prompt shelf is the operator-facing artifact layer; prompt ledger is the evidence plane. They should become one synthetic prompt organ if selected."
+    },
+    {
+      "recommendation_id": "merge_transaction_and_board",
+      "target_parent": "mission_transaction_landing",
+      "fold_or_supersede": [
+        "concurrency_mission_control",
+        "work_ledger_runtime_claims",
+        "checkpoint_solo_dev_three_lanes"
+      ],
+      "rationale": "Mission transaction is the deeper runtime invariant; boards and scoped commits are views/lanes over it."
+    }
+  ],
+  "structurally_weak_or_macro_only": [
+    {
+      "pattern_id": "go_no_go_publication_readiness",
+      "issue": "retired_release_packaging_frame",
+      "recommendation": "Do not select as a leaf unless reframed as generic claim-strengthening authority."
+    },
+    {
+      "pattern_id": "data_feed_market_evidence_fusion",
+      "issue": "low_novelty_singleton_with_operator_specific_sources",
+      "recommendation": "Keep as external-boundary support, not standalone."
+    },
+    {
+      "pattern_id": "obsidian_vault_doctrine_lattice",
+      "issue": "high_private_state_risk_low_novelty",
+      "recommendation": "Fold into voice/doctrine substrate with scrubbed fixtures only."
+    },
+    {
+      "pattern_id": "frontend_station_cockpit",
+      "issue": "high_private_state_risk_hidden_live_infrastructure",
+      "recommendation": "Macro-only until converted into a tiny synthetic typed-view specimen."
+    },
+    {
+      "pattern_id": "frontend_capture_runtime_contract",
+      "issue": "high_private_state_risk_hidden_live_infrastructure",
+      "recommendation": "Use as fixture contract under the cockpit organ, not standalone."
+    },
+    {
+      "pattern_id": "transform_job_provenance",
+      "issue": "low_novelty_implementation_receipt",
+      "recommendation": "Fold into executable grammar or provenance organ."
+    },
+    {
+      "pattern_id": "strict_json_artifact",
+      "issue": "low_novelty_but_foundational",
+      "recommendation": "Use as root substrate support, not a leaf headline."
+    },
+    {
+      "pattern_id": "verisoftbench_diagnostic_specimen",
+      "issue": "low_novelty_benchmark_specimen",
+      "recommendation": "Use as proof fixture inside diagnostic evidence organ."
+    },
+    {
+      "pattern_id": "operator_trace_structurer_manual_intake",
+      "issue": "operator_facing_manual_intake_surface",
+      "recommendation": "Keep as observability intake support unless a synthetic trace-structuring fixture is selected."
+    },
+    {
+      "pattern_id": "system_control_orchestration_composition_root",
+      "issue": "macro_runtime_control_root_with_private_state_inputs",
+      "recommendation": "Keep macro-only unless lane snapshots are synthesized."
+    },
+    {
+      "pattern_id": "voice_archaeology_coverage_aware_third_substrate",
+      "issue": "high_private_state_risk_despite_high_signal",
+      "recommendation": "Project only through synthetic archaeology fixtures and coverage-check receipts."
+    }
+  ],
+  "next_type_a_pass": {
+    "recommended_scope": "Implement a small organ selector over this routing graph that proposes 6 to 8 reconstruction organs, then audits each organ for fixture feasibility, private-state replacement, root-substrate dependencies, and validator availability.",
+    "do_not_do": [
+      "Do not append many new mined rows.",
+      "Do not rebuild public microcosm leaves.",
+      "Do not treat present/partial current_microcosm_status as authority."
+    ],
+    "preferred_outputs": [
+      "extracted_pattern_reconstruction_shortlist.json",
+      "extracted_pattern_fixture_feasibility_matrix.md"
+    ]
+  }
+}

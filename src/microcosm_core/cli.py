@@ -200,7 +200,14 @@ def main(argv: list[str] | None = None) -> int:
     freshness_parser.add_argument("--receipt-coverage", required=True)
 
     organ_parser = subparsers.add_parser("pattern-binding")
-    organ_parser.add_argument("action", choices=["validate", "validate-substrate-bundle"])
+    organ_parser.add_argument(
+        "action",
+        choices=[
+            "validate",
+            "validate-substrate-bundle",
+            "validate-route-readiness-bundle",
+        ],
+    )
     _add_input_out(organ_parser)
 
     grammar_parser = subparsers.add_parser("executable-doctrine-grammar")
