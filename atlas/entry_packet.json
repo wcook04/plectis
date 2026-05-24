@@ -100,6 +100,7 @@
     ],
     "macro_doctrine_refs": [
       "codex/doctrine/paper_modules/microcosm_substrate.md",
+      "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
       "codex/standards/std_microcosm.json",
       "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
     ],
@@ -152,6 +153,7 @@
     ],
     "paper_module_refs": [
       "codex/doctrine/paper_modules/microcosm_substrate.md",
+      "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
       "codex/doctrine/paper_modules/prime_directives.md",
       "codex/doctrine/paper_modules/local_to_general_propagation.md",
       "codex/doctrine/paper_modules/navigation_hologram_theory.md",

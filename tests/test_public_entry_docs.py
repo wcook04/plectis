@@ -485,6 +485,7 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
 
     for paper_module_ref in [
         "codex/doctrine/paper_modules/microcosm_substrate.md",
+        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
         "codex/doctrine/paper_modules/prime_directives.md",
         "codex/doctrine/paper_modules/local_to_general_propagation.md",
         "codex/doctrine/paper_modules/navigation_hologram_theory.md",
