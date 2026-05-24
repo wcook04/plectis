@@ -1,0 +1,345 @@
+{
+  "account_session_state_exported": false,
+  "agent_trace_route_repair_schema": "public_agent_trace_route_repair_v1",
+  "anti_claim": "Agent trace route-repair replay validates public process-audit pattern metadata, route-repair suggestions, hook-shadow coverage rows, and metadata-only trace digests. It does not read live session logs, export transcript bodies, provider payloads, hidden reasoning, browser/HUD state, account/session state, credentials, cookies, recipient-send material, or install live route hooks.",
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_trace_route_repair_metadata_not_live_hook_authority",
+    "browser_hud_live_access": false,
+    "credential_or_cookie_exported": false,
+    "hidden_reasoning_exported": false,
+    "live_home_session_logs_read": false,
+    "live_hook_install_authorized": false,
+    "live_route_repair_authorized": false,
+    "private_root_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_transcript_body_exported": false,
+    "recipient_send_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_import_verification": {
+    "rewrite_recipe_ref": "copy RouteRepairSuggestion, route_repair_for, build_hook_shadow_coverage, and suggestion_message; add public bundle loader and metadata-only view builder",
+    "runtime_consumed_by": [
+      "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle",
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py"
+    ],
+    "source_ref": "system/lib/navigation_route_intervention.py",
+    "source_symbol_refs": [
+      "system/lib/navigation_route_intervention.py::RouteRepairSuggestion",
+      "system/lib/navigation_route_intervention.py::route_repair_for",
+      "system/lib/navigation_route_intervention.py::build_hook_shadow_coverage",
+      "system/lib/navigation_route_intervention.py::suggestion_message",
+      "system/lib/agent_execution_trace.py::build_agent_execution_trace"
+    ],
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+    "target_symbol_refs": [
+      "microcosm_core.macro_tools.agent_trace_route_repair::RouteRepairSuggestion",
+      "microcosm_core.macro_tools.agent_trace_route_repair::route_repair_for",
+      "microcosm_core.macro_tools.agent_trace_route_repair::build_hook_shadow_coverage",
+      "microcosm_core.macro_tools.agent_trace_route_repair::build_public_agent_trace_route_repair_view"
+    ],
+    "verification_mode": "verified_light_edit_recipe",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "browser_hud_cockpit_state_exported": false,
+  "bundle_fingerprint": "dd5d617cf91716c010faa8ce3c8c81f76e8cd9a035039bd8c36e1842acb26bb2",
+  "bundle_id": "public_agent_trace_route_repair_runtime_example",
+  "bundle_manifest_schema_version": "public_agent_trace_route_repair_bundle_manifest_v1",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-agent-trace-route-repair-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "covered_top_pattern_count": 4,
+  "created_at": "2026-05-24T05:42:50+00:00",
+  "credential_or_cookie_exported": false,
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "expected_summary_validation": {
+    "actual_summary": {
+      "covered_top_pattern_count": 4,
+      "suggested_route_count": 4,
+      "top_pattern_count": 4,
+      "would_intervene_on_recent_route_failures": 4
+    },
+    "mismatch_count": 0,
+    "mismatches": [],
+    "status": "pass"
+  },
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "hidden_reasoning_exported": false,
+  "hook_shadow_coverage": {
+    "authority": "anti_pattern_id_then_repair_class",
+    "covered_top_pattern_count": 4,
+    "hook_shadow_coverage_top_patterns": "4/4",
+    "rows": [
+      {
+        "anti_pattern_id": "anti_pattern_grep_before_kernel",
+        "bad_first_contact_shape": "grep/rg/find shell discovery before the kernel ladder",
+        "confidence": 0.85,
+        "evidence_command": "./repo-python kernel.py --process-audit",
+        "expected_artifacts": [
+          "skills:navigation_metabolism",
+          "skills:agent_session_diagnostics"
+        ],
+        "fallback_surface": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+        "instances": 9,
+        "missing_authority_if_any": null,
+        "reason": "The observed failure is route discovery by shell search before typed navigation; the repair class routes to the canonical entry control packet first; --context-pack is the downstream cross-kind packet route after entry selects it (per std_agent_entry_surface.json::canonical_option_surface_routes.first_move_contract).",
+        "repair_class": "hook_steering_plus_context_pack_first_contact",
+        "sessions_hit": 3,
+        "suggested_route": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "suggested_sequence": [
+          "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+        ],
+        "would_intervene": true
+      },
+      {
+        "anti_pattern_id": "anti_pattern_cold_boot_missing_info",
+        "bad_first_contact_shape": "session starts without the bootstrap info/preflight/pulse ladder",
+        "confidence": 0.85,
+        "evidence_command": "./repo-python kernel.py --process-audit",
+        "expected_artifacts": [
+          "phase:*",
+          "skills:navigation_metabolism"
+        ],
+        "fallback_surface": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "instances": 7,
+        "missing_authority_if_any": null,
+        "reason": "Cold boot failures are entrypoint failures; the repair class routes to the cheap static/router HUD first, then the preflight card, then live pulse, then the canonical entry control packet before deeper drilldowns (per std_agent_entry_surface.json::canonical_option_surface_routes.first_move_contract).",
+        "repair_class": "entrypoint_first_contact_repair",
+        "sessions_hit": 2,
+        "suggested_route": "./repo-python kernel.py --info",
+        "suggested_sequence": [
+          "./repo-python kernel.py --info",
+          "./repo-python kernel.py --preflight",
+          "./repo-python kernel.py --pulse",
+          "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+        ],
+        "would_intervene": true
+      },
+      {
+        "anti_pattern_id": "anti_pattern_deep_without_ladder",
+        "bad_first_contact_shape": "deep traversal proceeds without kernel navigation ladder usage",
+        "confidence": 0.85,
+        "evidence_command": "./repo-python kernel.py --process-audit",
+        "expected_artifacts": [
+          "skills:navigation_seed",
+          "skills:agent_session_diagnostics",
+          "skills:navigation_metabolism",
+          "option_surface:skills.card"
+        ],
+        "fallback_surface": "./repo-python kernel.py --kind-atlas",
+        "instances": 6,
+        "missing_authority_if_any": null,
+        "reason": "Deep traversal without ladder is a route-selection failure; the repair class routes to the canonical entry control packet, then the coverage owner route and navigation seed/diagnostics owner card before raw exploration continues.",
+        "repair_class": "navigation_seed_skill_or_kind_atlas_router_repair",
+        "sessions_hit": 2,
+        "suggested_route": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "suggested_sequence": [
+          "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+          "./repo-python kernel.py --coverage-enforcement-matrix \"anti_pattern_deep_without_ladder\" --context-budget 12000",
+          "./repo-python kernel.py --option-surface skills --band card --ids navigation_seed,agent_session_diagnostics"
+        ],
+        "would_intervene": true
+      },
+      {
+        "anti_pattern_id": "phase_residual_exception_narration",
+        "bad_first_contact_shape": "agent says the active phase is one wave but the request is another, then treats the task as an exception",
+        "confidence": 0.85,
+        "evidence_command": "./repo-python kernel.py --phase <phase> --task \"<task>\"",
+        "expected_artifacts": [
+          "route_lifecycle:phase_task_alignment",
+          "route_lifecycle:coverage_enforcement_matrix",
+          "skills:navigation_seed"
+        ],
+        "fallback_surface": "./repo-python kernel.py --coverage-enforcement-matrix \"<task>\" --context-budget 12000",
+        "instances": 4,
+        "missing_authority_if_any": null,
+        "reason": "Phase mismatch is not agent discretion. The repair class routes the query through --phase <phase> --task so the kernel selects primary_wave, residual_lane, mixed_lane, or ambiguous_lane with owner surfaces and write guards.",
+        "repair_class": "phase_task_alignment_residual_lane",
+        "sessions_hit": 1,
+        "suggested_route": "./repo-python kernel.py --phase <phase> --task \"<task>\"",
+        "suggested_sequence": [
+          "./repo-python kernel.py --phase <phase> --task \"<task>\""
+        ],
+        "would_intervene": true
+      }
+    ],
+    "status": "available",
+    "top_pattern_count": 4,
+    "would_intervene_on_recent_route_failures": 4
+  },
+  "input_mode": "exported_agent_trace_route_repair_bundle",
+  "live_hook_install_authorized": false,
+  "live_route_repair_authorized": false,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "provider_payload_exported": false,
+  "public_trace_ref_count": 7,
+  "raw_transcript_body_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_agent_trace_route_repair_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json"
+  ],
+  "recipient_send_authorized": false,
+  "route_repair_policy": {
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "metadata_envelope_only": true,
+    "policy_id": "agent_trace_route_repair_public_metadata_boundary",
+    "status": "pass"
+  },
+  "route_repair_rows": [
+    {
+      "anti_pattern_id": "anti_pattern_grep_before_kernel",
+      "confidence": 0.85,
+      "expected_artifacts": [
+        "skills:navigation_metabolism",
+        "skills:agent_session_diagnostics"
+      ],
+      "fallback_surface": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+      "repair_class": "hook_steering_plus_context_pack_first_contact",
+      "suggested_route": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "suggested_sequence": [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "would_intervene": true
+    },
+    {
+      "anti_pattern_id": "anti_pattern_cold_boot_missing_info",
+      "confidence": 0.85,
+      "expected_artifacts": [
+        "phase:*",
+        "skills:navigation_metabolism"
+      ],
+      "fallback_surface": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "repair_class": "entrypoint_first_contact_repair",
+      "suggested_route": "./repo-python kernel.py --info",
+      "suggested_sequence": [
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "would_intervene": true
+    },
+    {
+      "anti_pattern_id": "anti_pattern_deep_without_ladder",
+      "confidence": 0.85,
+      "expected_artifacts": [
+        "skills:navigation_seed",
+        "skills:agent_session_diagnostics",
+        "skills:navigation_metabolism",
+        "option_surface:skills.card"
+      ],
+      "fallback_surface": "./repo-python kernel.py --kind-atlas",
+      "repair_class": "navigation_seed_skill_or_kind_atlas_router_repair",
+      "suggested_route": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "suggested_sequence": [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --coverage-enforcement-matrix \"anti_pattern_deep_without_ladder\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface skills --band card --ids navigation_seed,agent_session_diagnostics"
+      ],
+      "would_intervene": true
+    },
+    {
+      "anti_pattern_id": "phase_residual_exception_narration",
+      "confidence": 0.85,
+      "expected_artifacts": [
+        "route_lifecycle:phase_task_alignment",
+        "route_lifecycle:coverage_enforcement_matrix",
+        "skills:navigation_seed"
+      ],
+      "fallback_surface": "./repo-python kernel.py --coverage-enforcement-matrix \"<task>\" --context-budget 12000",
+      "repair_class": "phase_task_alignment_residual_lane",
+      "suggested_route": "./repo-python kernel.py --phase <phase> --task \"<task>\"",
+      "suggested_sequence": [
+        "./repo-python kernel.py --phase <phase> --task \"<task>\""
+      ],
+      "would_intervene": true
+    }
+  ],
+  "route_repair_summary": {
+    "covered_top_pattern_count": 4,
+    "suggested_route_count": 4,
+    "top_pattern_count": 4,
+    "would_intervene_on_recent_route_failures": 4
+  },
+  "schema_version": "agent_route_observability_runtime_exported_agent_trace_route_repair_bundle_validation_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body",
+      "raw_transcript_body",
+      "provider_payload",
+      "hidden_reasoning",
+      "browser_hud_state",
+      "account_session_state",
+      "credential_value",
+      "cookie",
+      "recipient_send_payload",
+      "live_hook_state"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_provider_payload_hidden_reasoning_transcript_body_live_hook_exclusion",
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "system/lib/navigation_route_intervention.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_navigation_contract.json",
+    "codex/doctrine/paper_modules/agent_self_observability_plane.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound"
+  ],
+  "status": "pass",
+  "suggested_route_count": 4,
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py"
+  ],
+  "top_pattern_count": 4,
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
+  "would_intervene_on_recent_route_failures": 4
+}

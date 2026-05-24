@@ -24,7 +24,11 @@
     "codex/standards/std_controller_heartbeat.json",
     "codex/doctrine/paper_modules/controller_heartbeat.md",
     "docs/controller_continuity.md",
-    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat"
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat",
+    "system/lib/navigation_route_intervention.py",
+    "codex/standards/std_navigation_contract.json",
+    "codex/doctrine/paper_modules/agent_self_observability_plane.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -238,6 +242,70 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
           "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans",
           "python -m microcosm_core.macro_tools.agent_execution_trace prompt-injection --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "agent_trace_route_repair_body_import",
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "source_refs": [
+        "system/lib/navigation_route_intervention.py",
+        "system/lib/agent_execution_trace.py",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/doctrine/paper_modules/agent_self_observability_plane.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/doctrine/paper_modules/agent_self_observability_plane.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "preserve RouteRepairSuggestion route_repair_for build_hook_shadow_coverage and suggestion_message semantics",
+        "add public metadata-only bundle loader and view builder around process-audit pattern rows",
+        "consume it through agent_route_observability_runtime exported_agent_trace_route_repair_bundle"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public trace-to-route-repair macro tool body import only; not live hook install, live route repair, transcript body export, provider payload read, hidden reasoning export, browser HUD access, account/session export, credential export, recipient send, source mutation, private-root equivalence, or release authority",
+      "body_digest": "sha256:ef3078f0b26faebe65d2e92cd39064eeebd7aa0a9abc9827438098df3ed08c89",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "target_body_digest": "sha256:ef3078f0b26faebe65d2e92cd39064eeebd7aa0a9abc9827438098df3ed08c89",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_trace_route_repair.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "system/lib/navigation_route_intervention.py::RouteRepairSuggestion",
+          "system/lib/navigation_route_intervention.py::route_repair_for",
+          "system/lib/navigation_route_intervention.py::build_hook_shadow_coverage",
+          "system/lib/navigation_route_intervention.py::suggestion_message"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.agent_trace_route_repair::RouteRepairSuggestion",
+          "microcosm_core.macro_tools.agent_trace_route_repair::route_repair_for",
+          "microcosm_core.macro_tools.agent_trace_route_repair::build_hook_shadow_coverage",
+          "microcosm_core.macro_tools.agent_trace_route_repair::build_public_agent_trace_route_repair_view"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine",
+          "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle --input examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle"
         ]
       },
       "body_in_receipt": false
@@ -590,7 +658,9 @@
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "src/microcosm_core/macro_tools/bridge_resume.py",
-    "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle"
+    "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+    "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+    "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -610,7 +680,11 @@
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

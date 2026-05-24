@@ -256,6 +256,26 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle"
         ),
     },
+    "agent_trace_route_repair_observability_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent trace-to-route-repair observability lane is landed as a "
+            "source-faithful public route-repair macro tool and consumed by the "
+            "route observability runtime bundle."
+        ),
+        "landed_evidence_refs": [
+            "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+            "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+            "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime "
+            "validate-agent-trace-route-repair-bundle --input "
+            "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle"
+        ),
+    },
     "agent_session_attribution_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

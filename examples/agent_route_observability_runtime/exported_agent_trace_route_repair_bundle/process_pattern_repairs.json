@@ -1,0 +1,17 @@
+{
+  "schema_version": "public_process_pattern_repair_map_v1",
+  "repairs": {
+    "anti_pattern_grep_before_kernel": {
+      "repair_class": "hook_steering_plus_context_pack_first_contact"
+    },
+    "anti_pattern_cold_boot_missing_info": {
+      "repair_class": "entrypoint_first_contact_repair"
+    },
+    "anti_pattern_deep_without_ladder": {
+      "repair_class": "navigation_seed_skill_or_kind_atlas_router_repair"
+    },
+    "phase_residual_exception_narration": {
+      "repair_class": "phase_task_alignment_residual_lane"
+    }
+  }
+}

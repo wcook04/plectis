@@ -9,6 +9,12 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
+from microcosm_core.macro_tools.agent_trace_route_repair import (
+    SCHEMA_VERSION as AGENT_TRACE_ROUTE_REPAIR_SCHEMA_VERSION,
+    build_public_agent_trace_route_repair_view,
+    load_public_agent_trace_route_repair_bundle,
+    route_repair_for,
+)
 from microcosm_core.macro_tools.agent_session_attribution import (
     SCHEMA_VERSION as SESSION_ATTRIBUTION_SCHEMA_VERSION,
     attribute_sessions,
@@ -34,6 +40,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
     EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH,
     EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH,
+    EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH,
     EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
@@ -43,6 +50,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     run_bridge_dispatch_yield_resume_bundle,
     run_computer_use_action_trace_bundle,
     run_controller_heartbeat_bundle,
+    run_agent_trace_route_repair_bundle,
     run_multi_agent_fanin_bundle,
     run_observability_bundle,
     run_session_attribution_bundle,
@@ -84,6 +92,11 @@ CONTROLLER_HEARTBEAT_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_controller_heartbeat_bundle"
+)
+AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_agent_trace_route_repair_bundle"
 )
 
 
@@ -695,6 +708,139 @@ def test_controller_heartbeat_imports_public_macro_body_refactor() -> None:
             count_sentences(heartbeat[field]) == 5
             for field in CONTROLLER_HEARTBEAT_FIELDS
         )
+    assert material["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert material["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
+    )
+    assert material["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+
+
+def test_agent_trace_route_repair_bundle_validates_runtime_shape(tmp_path: Path) -> None:
+    result = run_agent_trace_route_repair_bundle(
+        AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_agent_trace_route_repair_bundle"
+    assert result["bundle_id"] == "public_agent_trace_route_repair_runtime_example"
+    assert result["agent_trace_route_repair_schema"] == (
+        AGENT_TRACE_ROUTE_REPAIR_SCHEMA_VERSION
+    )
+    assert result["top_pattern_count"] == 4
+    assert result["covered_top_pattern_count"] == 4
+    assert result["would_intervene_on_recent_route_failures"] == 4
+    assert result["suggested_route_count"] == 4
+    assert result["public_trace_ref_count"] == 7
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["authority_ceiling"]["live_hook_install_authorized"] is False
+    assert result["authority_ceiling"]["provider_payload_read"] is False
+    assert result["authority_ceiling"]["hidden_reasoning_exported"] is False
+    assert result["route_repair_policy"]["forbidden_authority_rejected"] is True
+    assert result["expected_summary_validation"]["status"] == "pass"
+    assert result["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+    assert {
+        row["anti_pattern_id"] for row in result["route_repair_rows"]
+    } == {
+        "anti_pattern_grep_before_kernel",
+        "anti_pattern_cold_boot_missing_info",
+        "anti_pattern_deep_without_ladder",
+        "phase_residual_exception_narration",
+    }
+    cold_boot = next(
+        row
+        for row in result["route_repair_rows"]
+        if row["anti_pattern_id"] == "anti_pattern_cold_boot_missing_info"
+    )
+    assert cold_boot["suggested_sequence"] == [
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --pulse",
+        './repo-python kernel.py --entry "<task>" --context-budget 12000',
+    ]
+
+
+def test_agent_trace_route_repair_receipt_is_public_safe(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_agent_trace_route_repair_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_agent_trace_route_repair_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [
+        EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH
+    ]
+    receipt_file = public_root / EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "raw_transcript_body" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "hidden_reasoning" not in _walk_keys(payload)
+    assert "browser_hud_state" not in _walk_keys(payload)
+    assert "account_session_state" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_agent_trace_route_repair_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["body_in_receipt"] is False
+    assert payload["live_hook_install_authorized"] is False
+    assert payload["live_route_repair_authorized"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_agent_trace_route_repair_imports_public_macro_body_refactor() -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/navigation_route_intervention.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_trace_route_repair.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    view = build_public_agent_trace_route_repair_view(
+        load_public_agent_trace_route_repair_bundle(AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT)
+    )
+    protocol = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
+        ).read_text(encoding="utf-8")
+    )
+    by_material = {row["material_id"]: row for row in protocol["copied_material"]}
+    material = by_material["agent_trace_route_repair_body_import"]
+    suggestion = route_repair_for(anti_pattern_id="grep_before_kernel")
+
+    assert target.is_file()
+    assert source_digest != target_digest
+    assert view["status"] == "pass"
+    assert view["schema_version"] == AGENT_TRACE_ROUTE_REPAIR_SCHEMA_VERSION
+    assert view["route_repair_summary"]["suggested_route_count"] == 4
+    assert suggestion is not None
+    assert suggestion.anti_pattern_id == "anti_pattern_grep_before_kernel"
     assert material["body_import_verification"]["source_body_digest"] == (
         f"sha256:{source_digest}"
     )

@@ -1,0 +1,25 @@
+{
+  "schema_version": "public_agent_trace_route_repair_bundle_manifest_v1",
+  "bundle_id": "public_agent_trace_route_repair_runtime_example",
+  "input_mode": "exported_agent_trace_route_repair_bundle",
+  "organ_id": "agent_route_observability_runtime",
+  "source_pattern_ids": [
+    "agent_trace_to_route_repair_observability_compound",
+    "runtime_hook_shadow_intervention_coverage",
+    "trace_feedback_behavior_change_gate",
+    "agent_route_observability_runtime"
+  ],
+  "source_refs": [
+    "system/lib/navigation_route_intervention.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_navigation_contract.json",
+    "codex/doctrine/paper_modules/agent_self_observability_plane.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py"
+  ],
+  "claim_boundary": "public_metadata_envelope_trace_to_route_repair_replay_not_live_hook_authority"
+}

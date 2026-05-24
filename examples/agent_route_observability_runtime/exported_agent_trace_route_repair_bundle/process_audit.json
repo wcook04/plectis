@@ -1,0 +1,82 @@
+{
+  "schema_version": "public_process_audit_projection_v1",
+  "session_count": 18,
+  "metadata_envelope_only": true,
+  "trace_observation_fields": [
+    "timestamp",
+    "tool_name",
+    "command_shape",
+    "target_path",
+    "duration_ms",
+    "outcome",
+    "output_byte_count"
+  ],
+  "omitted_live_material": [
+    "raw transcript bodies",
+    "provider payload bodies",
+    "hidden reasoning",
+    "browser HUD state",
+    "account session state",
+    "credentials and cookies",
+    "recipient-send material",
+    "live hook state"
+  ],
+  "patterns": [
+    {
+      "pattern_id": "anti_pattern_grep_before_kernel",
+      "instances": 9,
+      "session_id_hits": [
+        "trace_session_public_a",
+        "trace_session_public_b",
+        "trace_session_public_c"
+      ],
+      "public_trace_refs": [
+        "trace_digest:grep_before_kernel:a",
+        "trace_digest:grep_before_kernel:b"
+      ]
+    },
+    {
+      "pattern_id": "anti_pattern_cold_boot_missing_info",
+      "instances": 7,
+      "session_id_hits": [
+        "trace_session_public_d",
+        "trace_session_public_e"
+      ],
+      "public_trace_refs": [
+        "trace_digest:cold_boot_missing_info:a",
+        "trace_digest:cold_boot_missing_info:b"
+      ]
+    },
+    {
+      "pattern_id": "anti_pattern_deep_without_ladder",
+      "instances": 6,
+      "session_id_hits": [
+        "trace_session_public_f",
+        "trace_session_public_g"
+      ],
+      "public_trace_refs": [
+        "trace_digest:deep_without_ladder:a"
+      ]
+    },
+    {
+      "pattern_id": "phase_residual_exception_narration",
+      "instances": 4,
+      "session_id_hits": [
+        "trace_session_public_h"
+      ],
+      "public_trace_refs": [
+        "trace_digest:phase_residual_exception:a"
+      ]
+    },
+    {
+      "pattern_id": "positive_context_pack_first_contact",
+      "instances": 5,
+      "session_id_hits": [
+        "trace_session_public_positive"
+      ],
+      "public_trace_refs": [
+        "trace_digest:positive_context_pack:a"
+      ]
+    }
+  ]
+}

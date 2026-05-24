@@ -1,0 +1,14 @@
+{
+  "schema_version": "public_agent_trace_route_repair_expected_summary_v1",
+  "top_n": 4,
+  "top_pattern_count": 4,
+  "covered_top_pattern_count": 4,
+  "would_intervene_on_recent_route_failures": 4,
+  "suggested_route_count": 4,
+  "expected_suggested_routes": [
+    "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+    "./repo-python kernel.py --info",
+    "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+    "./repo-python kernel.py --phase <phase> --task \"<task>\""
+  ]
+}

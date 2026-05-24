@@ -12,6 +12,44 @@
       "reject Type B advisory trace as mutation authority"
     ]
   },
+  "agent_trace_route_repair_contract_v1": {
+    "anti_claim": "This contract validates public process-audit metadata, route-repair suggestions, and hook-shadow coverage only; it does not install live hooks, read live sessions, export transcript bodies, expose provider payloads, surface hidden reasoning, read browser HUD state, control accounts, send recipients, mutate source, or authorize release.",
+    "authority_ceiling": "public_trace_route_repair_metadata_not_live_hook_authority",
+    "candidate_id": "agent_trace_to_route_repair_observability_compound",
+    "expected_output_paths": [
+      "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json"
+    ],
+    "positive_inputs": [
+      "bundle_manifest.json",
+      "process_audit.json",
+      "process_pattern_repairs.json",
+      "route_repair_policy.json",
+      "expected_route_repair_summary.json"
+    ],
+    "runtime_example_command_shape": "python -m microcosm_core.cli agent-route-observability-runtime validate-agent-trace-route-repair-bundle --input examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle --out receipts/first_wave/agent_route_observability_runtime",
+    "runtime_example_dir": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+    "schema_version": "agent_trace_route_repair_contract_v1",
+    "source_pattern_ids": [
+      "agent_trace_to_route_repair_observability_compound",
+      "runtime_hook_shadow_intervention_coverage",
+      "trace_feedback_behavior_change_gate",
+      "agent_route_observability_runtime"
+    ],
+    "source_refs": [
+      "system/lib/navigation_route_intervention.py",
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_navigation_contract.json",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound"
+    ],
+    "status": "materialized_under_agent_route_observability_runtime",
+    "validator_rules": [
+      "process-audit anti-pattern rows must resolve through anti_pattern_id before repair_class fallback",
+      "hook-shadow coverage must cover the declared top process patterns",
+      "route-repair rows must expose suggested_route, suggested_sequence, expected_artifacts, and confidence only as public metadata",
+      "policy and secret-exclusion scans must keep transcript bodies, provider payloads, hidden reasoning, browser HUD state, account/session state, credentials, cookies, recipient-send payloads, and live hook state out of receipts"
+    ]
+  },
   "computer_use_action_trace_replay_contract_v1": {
     "anti_claim": "This contract validates synthetic computer-use action trace replay metadata only; it does not authorize live browser control, real accounts, credentials, external network mutation, destructive host action, raw screenshot export, benchmark claims, source mutation, provider calls, or release.",
     "authority_ceiling": "synthetic_computer_use_action_trace_replay_receipts_only",
@@ -411,6 +449,7 @@
     "runtime_hook_shadow_intervention_coverage",
     "observed_anti_pattern_debt_retirement",
     "agent_principle_lens",
+    "agent_trace_to_route_repair_observability_compound",
     "route_lease_mode_control_trace_feedback"
   ],
   "source_portfolio_refs": [
@@ -483,6 +522,7 @@
       "route_lease_broad_kernel_bloat_before_direct_action must increment kernel_bloat_before_direct_action_count and emit KERNEL_BLOAT_BEFORE_DIRECT_ACTION",
       "route_lease_static_metadata_without_trace_feedback must increment static_metadata_without_trace_feedback_count, keep lease_consumed=false, and emit ROUTE_LEASE_NOT_CONSUMED",
       "hook_shadow_cases must record mapped repair classes, expected interventions, missing-authority denials, banned-route interventions, command-displacement denials, live-state-read denials, and over-budget denials before hook-shadow coverage can pass",
+      "exported_agent_trace_route_repair_bundle must preserve the macro route_repair_for/build_hook_shadow_coverage semantics while proving top-pattern coverage, suggested-route metadata, and secret-only exclusion",
       "observed_negative_cases must include each emitted agent_route_observability_runtime negative_case_id",
       "error_codes must be a subset of normalized agent_route_observability_runtime taxonomy rows",
       "private_state_scan must prove no forbidden content bodies or forbidden live evidence are embedded"
