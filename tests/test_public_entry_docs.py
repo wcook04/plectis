@@ -9,6 +9,7 @@ from microcosm_core.validators.public_entry_docs import validate_public_entry_do
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = MICROCOSM_ROOT.parent
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -434,12 +435,17 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
     )
+    standard = json.loads(
+        (REPO_ROOT / "codex/standards/std_microcosm.json").read_text(encoding="utf-8")
+    )
 
     lattice = entry_packet["doctrine_lattice_route"]
+    standard_lattice = standard["doctrine_lattice"]
     assert lattice["surface_id"] == "microcosm_doctrine_lattice"
-    assert lattice["candidate_axiom_policy"] == (
-        "candidate_pressure_only_not_active_law"
+    assert standard_lattice["entry_surface"] == (
+        "microcosm-substrate/atlas/entry_packet.json::doctrine_lattice_route"
     )
+    assert standard_lattice["agent_entry_route"] == "sit_microcosm_public_substrate"
     assert lattice["band_ladder"] == [
         "cluster_flag",
         "flag",
@@ -447,60 +453,34 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
         "source_receipt",
     ]
 
-    for principle_ref in [
-        "pri_049",
-        "pri_080",
-        "pri_088",
-        "pri_111",
-        "pri_121",
-        "pri_128",
-        "pri_134",
-        "pri_139",
-        "pri_144",
+    for field in [
+        "principle_refs",
+        "candidate_axiom_pressure_refs",
+        "candidate_axiom_policy",
+        "concept_refs",
+        "mechanism_refs",
+        "standard_refs",
+        "paper_module_refs",
     ]:
-        assert principle_ref in lattice["principle_refs"]
+        assert lattice[field] == standard_lattice[field]
 
-    for axiom_candidate_ref in [
-        "axiom_candidate_evolution_proves_in_microcosm",
-        "axiom_candidate_availability_before_invention",
-        "axiom_candidate_common_sense_up_propagates",
-        "axiom_candidate_cybernetic_projection_feedback",
-    ]:
-        assert axiom_candidate_ref in lattice["candidate_axiom_pressure_refs"]
-
-    for concept_ref in ["con_022", "con_024", "con_028", "con_031", "con_041"]:
-        assert concept_ref in lattice["concept_refs"]
-
-    for mechanism_ref in ["mech_019", "mech_034"]:
-        assert mechanism_ref in lattice["mechanism_refs"]
-
-    for standard_ref in [
-        "codex/standards/std_microcosm.json",
-        "codex/standards/std_standard_type_plane.json",
-        "codex/standards/std_kind_atlas.json",
-        "codex/standards/std_uppropagation_intake.json",
-        "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json",
-    ]:
-        assert standard_ref in lattice["standard_refs"]
-
-    for paper_module_ref in [
-        "codex/doctrine/paper_modules/microcosm_substrate.md",
-        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
-        "codex/doctrine/paper_modules/prime_directives.md",
-        "codex/doctrine/paper_modules/local_to_general_propagation.md",
-        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
-        "codex/doctrine/paper_modules/public_constellation_strategy.md",
-        "codex/doctrine/paper_modules/dissemination_strategy.md",
-        "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
-    ]:
-        assert paper_module_ref in lattice["paper_module_refs"]
-
-    atlas_kinds = {row["kind"] for row in lattice["atlas_option_surfaces"]}
-    assert {
-        "standards",
-        "paper_modules",
-        "system_microcosm",
-        "microcosm_extracted_patterns",
-        "axiom_candidates",
-    } <= atlas_kinds
+    assert [row["kind"] for row in lattice["atlas_option_surfaces"]] == (
+        standard_lattice["atlas_option_surfaces"]
+    )
+    validation_rule = standard["validation_rules"][0]
+    assert validation_rule["id"] == "microcosm_doctrine_lattice_entry_packet_parity"
+    assert validation_rule["fields"] == [
+        "principle_refs",
+        "candidate_axiom_pressure_refs",
+        "candidate_axiom_policy",
+        "concept_refs",
+        "mechanism_refs",
+        "standard_refs",
+        "paper_module_refs",
+        "atlas_option_surfaces",
+    ]
+    assert standard["validation_probe"] == [
+        "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_public_entry_docs.py::test_public_entry_packet_routes_doctrine_lattice -q"
+    ]
     assert "candidate-axiom promotion authority" in lattice["authority"]
+    assert "candidate_axiom_promotion_authority" in standard_lattice["authority_ceiling"]
