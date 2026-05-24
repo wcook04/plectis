@@ -350,7 +350,10 @@ def test_public_entry_packet_routes_python_navigation_assay() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
     )
-    assert "body_redacted" not in json.dumps(entry_packet, sort_keys=True)
+    encoded_entry_packet = json.dumps(entry_packet, sort_keys=True)
+    assert "body_redacted" not in encoded_entry_packet
+    assert "public_first_slice" not in encoded_entry_packet
+    assert "public first slice" not in encoded_entry_packet
 
     route = entry_packet["python_navigation_route"]
     assert route["surface_id"] == "project_python_lens"

@@ -1,6 +1,6 @@
 {
   "schema_version": "entry_packet_v1",
-  "surface_role": "public_first_slice_entry",
+  "surface_role": "source_open_public_entry",
   "first_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
   "allowed_drilldowns": [
     "core/pattern_binding_contract.json",
@@ -121,6 +121,6 @@
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/cold_clone_probe.json"
   ],
-  "authority_ceiling": "entry packet routes only the public first slice",
+  "authority_ceiling": "entry packet routes public Microcosm navigation; it is not source, release, provider, proof, or mutation authority",
   "anti_claim": "This packet is a route pointer, not a source authority or public release surface."
 }
