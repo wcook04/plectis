@@ -882,7 +882,7 @@
       "why_impressive": "The existing Lean/proof diagnostic engine can be framed as a benchmark-integrity lab: readiness proof spine, verifier-trace repair loop, evidence-cell anchors, library-prior classifiers, and anti-gaming replay all gate any proof metric."
     }
   ],
-  "last_refreshed_at": "2026-05-23T05:29:06.342990+00:00",
+  "last_refreshed_at": "2026-05-24T03:05:16.685732+00:00",
   "load_bearing_cluster_roots": [
     {
       "cluster_id": "pattern_deliverables_registry",
@@ -1318,7 +1318,7 @@
     "source_coupled_refresh": {
       "coverage_owner": "tools/meta/factory/build_extracted_pattern_substrate_bindings.py --write-sidecars",
       "current_ledger_row_count": 373,
-      "detailed_binding_count": 90,
+      "detailed_binding_count": 94,
       "foundation_combination_route_count": 5,
       "frontier_combination_route_count": 4
     },
@@ -4875,6 +4875,197 @@
           "system/server/tests/test_extracted_pattern_substrate_bindings.py",
           "system/server/tests/test_extracted_pattern_route_readiness.py",
           "system/server/tests/test_paper_module_formal_evidence_cells.py"
+        ]
+      }
+    },
+    {
+      "anti_claim": "This binding proves route-repair observability and public trace mechanics for the cited fixtures and receipts; it does not publish live provider transcripts, hidden reasoning, operator-private session bodies, or authorize automatic live route repair.",
+      "binding_ratchet_classification": "wave116_detailed_binding_added",
+      "fixture_strategy": "Use the existing public agent_route_observability_runtime fixture bundle: synthetic route events, process-audit rows, hook-shadow coverage, debt-retirement receipts, and route-lease mode-control receipts around the real agent execution trace refactor.",
+      "grounding_status": "standard_paper_module_code_test_public_microcosm_receipt_strong",
+      "next_binding_action": "Use this as the import-ready route-repair packet for any next Microcosm observability tranche; require a fresh public receipt before crediting additional trace mechanisms.",
+      "pattern_id": "agent_trace_to_route_repair_observability_compound",
+      "public_projection_posture": "direct_import_plus_regression_wrapper_around_public_trace_receipts",
+      "substrate_bindings": {
+        "code_owners": [
+          "system/lib/agent_execution_trace.py",
+          "system/lib/agent_session_attribution.py",
+          "system/lib/agent_observability.py",
+          "system/lib/navigation_metabolism_ledger.py",
+          "system/lib/navigation_route_intervention.py",
+          "tools/meta/observability/cli_prompt_trace.py",
+          "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+          "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+        ],
+        "command_surfaces": [
+          "./repo-pytest system/server/tests/test_agent_execution_trace.py system/server/tests/test_agent_observability.py system/server/tests/test_navigation_route_intervention.py",
+          "./repo-pytest microcosm-substrate/tests/test_agent_route_observability_runtime.py"
+        ],
+        "generated_artifacts_receipts": [
+          "microcosm-substrate/core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+          "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/bundle_manifest.json",
+          "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_observability_bundle_validation_result.json",
+          "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+          "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+        ],
+        "paper_modules": [
+          "codex/doctrine/paper_modules/agent_self_observability_plane.md",
+          "codex/doctrine/paper_modules/agent_session_attribution.md",
+          "codex/doctrine/paper_modules/agent_route_compliance.md"
+        ],
+        "source_function_anchors": [
+          "system/lib/agent_session_attribution.py::attribute_sessions",
+          "system/lib/agent_session_attribution.py::identify_self_session",
+          "system/lib/navigation_route_intervention.py::route_repair_for",
+          "system/lib/navigation_route_intervention.py::build_hook_shadow_coverage",
+          "system/lib/navigation_metabolism_ledger.py::normalize_agent_route_events",
+          "system/lib/navigation_metabolism_ledger.py::build_route_lifecycle_summary",
+          "tools/meta/observability/cli_prompt_trace.py::select_trace_window",
+          "tools/meta/observability/cli_prompt_trace.py::render_trace_paste"
+        ],
+        "standards": [
+          "codex/standards/std_agent_execution_trace.json",
+          "codex/standards/std_navigation_contract.json"
+        ],
+        "tests_validators_proofs": [
+          "system/server/tests/test_agent_execution_trace.py",
+          "system/server/tests/test_agent_observability.py",
+          "system/server/tests/test_agent_session_attribution.py",
+          "system/server/tests/test_navigation_route_intervention.py",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py"
+        ]
+      }
+    },
+    {
+      "anti_claim": "This binding proves handoff fan-in accounting and replay-envelope mechanics for controlled fixtures; it does not prove live subagent quality, expose worker private state, or authorize bridge send/recipient action.",
+      "binding_ratchet_classification": "wave116_detailed_binding_added",
+      "fixture_strategy": "Use a synthetic fan-in replay with two worker traces, one continuation packet, Work Ledger claim metadata, and public Microcosm mission/observability organs; keep raw worker transcripts and browser/operator bodies out of scope.",
+      "grounding_status": "standard_paper_module_code_test_public_microcosm_receipt_strong",
+      "next_binding_action": "Route future fan-in imports through the mission transaction spine plus public trace organ instead of treating individual worker notes as product evidence.",
+      "pattern_id": "multi_agent_handoff_fanin_replay_compound",
+      "public_projection_posture": "regression_wrapper_around_import_with_synthetic_fanin_fixture",
+      "substrate_bindings": {
+        "code_owners": [
+          "tools/meta/control/mission_transaction_preflight.py",
+          "tools/meta/factory/work_ledger.py",
+          "system/lib/agent_execution_trace.py",
+          "system/lib/continuation_packet.py",
+          "tools/meta/bridge/bridge_resume.py",
+          "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+          "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py"
+        ],
+        "command_surfaces": [
+          "./repo-pytest system/server/tests/test_bridge_resume.py system/server/tests/test_continuation_packet.py",
+          "./repo-pytest microcosm-substrate/tests/test_agent_route_observability_runtime.py"
+        ],
+        "generated_artifacts_receipts": [
+          "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+          "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/bundle_manifest.json",
+          "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_observability_bundle_validation_result.json"
+        ],
+        "paper_modules": [
+          "codex/doctrine/paper_modules/bridge_runtime.md",
+          "codex/doctrine/paper_modules/claude_subagent_delegation.md"
+        ],
+        "source_function_anchors": [
+          "tools/meta/control/mission_transaction_preflight.py::main",
+          "system/lib/continuation_packet.py::build_continuation_packet",
+          "system/lib/continuation_packet.py::write_continuation_packet",
+          "tools/meta/bridge/bridge_resume.py::bridge_dispatch_and_yield"
+        ],
+        "standards": [
+          "codex/standards/std_continuation_packet.json",
+          "codex/standards/std_agent_execution_trace.json"
+        ],
+        "tests_validators_proofs": [
+          "system/server/tests/test_agent_execution_trace.py",
+          "system/server/tests/test_bridge_resume.py",
+          "system/server/tests/test_continuation_packet.py",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py"
+        ]
+      }
+    },
+    {
+      "anti_claim": "This binding proves the dispatch/yield/resume contract and once-only transport behavior over synthetic bridge state; it does not publish live bridge payload bodies or authorize account/session control.",
+      "binding_ratchet_classification": "wave116_detailed_binding_added",
+      "fixture_strategy": "Use synthetic bridge jobs, inbox files, session snapshots, controller heartbeat refs, and continuation packets to exercise dispatch-yield-resume without using live browser/HUD access, real recipient sends, or operator account state.",
+      "grounding_status": "standard_paper_module_code_test_strong_private_bridge_fixture_required",
+      "next_binding_action": "Keep bridge runtime as a metadata membrane in Microcosm until a public bridge fixture bundle is imported with explicit no-send authority ceilings.",
+      "pattern_id": "bridge_runtime_dispatch_yield_resume",
+      "public_projection_posture": "public_with_synthetic_bridge_fixture_only",
+      "substrate_bindings": {
+        "code_owners": [
+          "tools/meta/bridge/bridge_resume.py",
+          "system/lib/controller_heartbeat.py",
+          "system/lib/continuation_packet.py"
+        ],
+        "command_surfaces": [
+          "./repo-pytest system/server/tests/test_bridge_resume.py system/server/tests/test_controller_heartbeat.py system/server/tests/test_continuation_packet.py"
+        ],
+        "docs": [
+          "docs/controller_continuity.md",
+          "docs/bridge_resume_protocol.md"
+        ],
+        "paper_modules": [
+          "codex/doctrine/paper_modules/bridge_operating_system.md",
+          "codex/doctrine/paper_modules/bridge_runtime.md",
+          "codex/doctrine/paper_modules/controller_heartbeat.md"
+        ],
+        "source_function_anchors": [
+          "tools/meta/bridge/bridge_resume.py::BridgeResumeManager",
+          "tools/meta/bridge/bridge_resume.py::bridge_dispatch_and_yield",
+          "system/lib/controller_heartbeat.py::build_controller_heartbeat",
+          "system/lib/controller_heartbeat.py::validate_controller_heartbeat",
+          "system/lib/continuation_packet.py::build_continuation_packet"
+        ],
+        "standards": [
+          "codex/standards/std_continuation_packet.json",
+          "codex/standards/std_controller_heartbeat.json",
+          "codex/standards/std_continuity_protocol.json"
+        ],
+        "tests_validators_proofs": [
+          "system/server/tests/test_bridge_resume.py",
+          "system/server/tests/test_controller_heartbeat.py",
+          "system/server/tests/test_continuation_packet.py"
+        ]
+      }
+    },
+    {
+      "anti_claim": "This binding proves session attribution over synthetic/session-metadata fixtures; it does not identify private users, publish session bodies, or replace Work Ledger event authority.",
+      "binding_ratchet_classification": "wave116_detailed_binding_added",
+      "fixture_strategy": "Use synthetic Codex and Work Ledger session records with controlled titles, cwd prefixes, liveness timestamps, and no raw transcript bodies to test attribution, live/mid-turn classification, and self-session fallback.",
+      "grounding_status": "standard_paper_module_code_test_strong_private_session_fixture_required",
+      "next_binding_action": "When importing attribution into Microcosm, project only metadata envelopes, liveness classes, and source refs; keep raw transcripts and provider payload bodies excluded.",
+      "pattern_id": "agent_session_attribution",
+      "public_projection_posture": "public_with_synthetic_session_fixture_only",
+      "substrate_bindings": {
+        "code_owners": [
+          "system/lib/agent_session_attribution.py",
+          "system/lib/agent_observability.py",
+          "tools/meta/factory/work_ledger.py"
+        ],
+        "command_surfaces": [
+          "./repo-pytest system/server/tests/test_agent_session_attribution.py system/server/tests/test_agent_observability.py"
+        ],
+        "paper_modules": [
+          "codex/doctrine/paper_modules/agent_session_attribution.md",
+          "codex/doctrine/paper_modules/subagentstart_actor_context_injection.md"
+        ],
+        "source_function_anchors": [
+          "system/lib/agent_session_attribution.py::attribute_sessions",
+          "system/lib/agent_session_attribution.py::find_session_by_title",
+          "system/lib/agent_session_attribution.py::find_session_by_cwd",
+          "system/lib/agent_session_attribution.py::identify_self_session",
+          "system/lib/agent_observability.py::ingest_recent_codex_rollouts",
+          "system/lib/agent_observability.py::ingest_recent_claude_transcripts"
+        ],
+        "standards": [
+          "codex/standards/std_session_digest.json",
+          "codex/standards/std_agent_execution_trace.json"
+        ],
+        "tests_validators_proofs": [
+          "system/server/tests/test_agent_session_attribution.py",
+          "system/server/tests/test_agent_observability.py"
         ]
       }
     }

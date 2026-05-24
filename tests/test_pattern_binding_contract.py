@@ -158,7 +158,7 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert result["real_pattern_substrate_bindings_source"]["detailed_binding_count"] == len(
         bindings["pattern_bindings"]
     )
-    assert result["real_pattern_substrate_bindings_source"]["detailed_binding_count"] == 90
+    assert result["real_pattern_substrate_bindings_source"]["detailed_binding_count"] == 94
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["standards"] >= 1
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["paper_modules"] >= 1
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["tests_validators_proofs"] >= 1

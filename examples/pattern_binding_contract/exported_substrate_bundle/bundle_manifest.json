@@ -22,8 +22,8 @@
   "real_pattern_substrate_bindings_source": {
     "path": "examples/pattern_binding_contract/exported_substrate_bundle/extracted_pattern_substrate_bindings.json",
     "source_row_count": 373,
-    "detailed_binding_count": 90,
-    "sha256": "4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "detailed_binding_count": 94,
+    "sha256": "0c522c112831f7bac34ad0ca09e7230182727132aa386071b7e8a40f8895039e",
     "normalization": "pattern_binding_contract.real_pattern_substrate_bindings_v1"
   },
   "real_pattern_route_readiness_bundle": {
