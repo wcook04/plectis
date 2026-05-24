@@ -100,7 +100,7 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
         is True
     )
     assert receipt["tour_summary"]["time_budget_minutes"] == 10
-    assert receipt["tour_summary"]["route_card_count"] == 7
+    assert receipt["tour_summary"]["route_card_count"] == 8
     assert receipt["tour_summary"]["release_authorized"] is False
     assert receipt["trace_summary"]["trace_attempt_count"] == 4
     assert receipt["trace_summary"]["formal_proof_authority"] is False
@@ -109,8 +109,8 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["repair_loop_summary"]["formal_proof_authority"] is False
     assert receipt["formal_evidence_cell_summary"]["cell_count"] == 4
     assert receipt["formal_evidence_cell_summary"]["formal_proof_authority"] is False
-    assert receipt["proof_loop_depth_summary"]["gate_count"] == 11
-    assert receipt["proof_loop_depth_summary"]["negative_case_count"] == 9
+    assert receipt["proof_loop_depth_summary"]["gate_count"] == 12
+    assert receipt["proof_loop_depth_summary"]["negative_case_count"] == 10
     assert receipt["proof_loop_depth_summary"]["formal_proof_authority"] is False
     assert receipt["proof_loop_depth_summary"]["proof_bodies_exported"] is False
     assert receipt["proof_loop_depth_summary"]["benchmark_score_claim"] is False

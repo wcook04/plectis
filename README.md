@@ -17,6 +17,7 @@ microcosm spine
 microcosm authority
 microcosm workingness
 microcosm proof-loop-depth
+microcosm verifier-lab-execution-spine-lens
 microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
 microcosm reveal
 microcosm legibility-scorecard
@@ -196,6 +197,7 @@ microcosm trace-lens
 microcosm repair-loop
 microcosm evidence-cells
 microcosm proof-loop-depth
+microcosm verifier-lab-execution-spine-lens
 microcosm landing-replay
 microcosm durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
 microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine
@@ -368,10 +370,17 @@ claims, and release overclaims.
 `microcosm proof-loop-depth` is the public formal proof-loop depth lens. It
 shows the public evidence route from corpus boundary through premise retrieval,
 tactic availability, target-shape routing, verifier trace repair, cold rerun,
-and evidence-cell resolution. It is a projection protocol, not a proof engine:
-it exports no proof bodies, oracle premise ids, provider payloads, benchmark
-scores, source mutation authority, release authority, or theorem-solution
-claims.
+evidence-cell resolution, and bounded verifier-lab execution. It is a
+projection protocol, not a proof engine: it exports no proof bodies, oracle
+premise ids, provider payloads, benchmark scores, source mutation authority,
+release authority, or theorem-solution claims.
+
+`microcosm verifier-lab-execution-spine-lens` is the public runtime lens over
+the verifier-lab execution-spine receipt. It exposes bounded Lean/Lake
+transition rows, CP2 downstream rerun effect, Evolve rerun acceptance, tool
+return-code evidence, and secret-exclusion status without proof bodies, raw
+tactics, oracle answers, provider payloads, stdout/stderr bodies, source
+mutation, benchmark solve-rate claims, or release authority.
 
 `microcosm landing-replay` is the public work-landing replay lens. It turns the
 dirty-tree landing rules into a compact decision table: scoped commit for
@@ -571,6 +580,7 @@ corpus readiness lens with its no-proof/no-Mathlib boundary, `/trace` and
 `/repair-loop` expose proof-adjacent repair metadata boundaries,
 `/evidence-cells` exposes evidence-cell boundaries, `/proof-loop-depth` shows
 the public proof-loop gate chain and no-proof/no-benchmark authority ceiling,
+`/verifier-lab-execution-spine` exposes bounded external tool-witness rows,
 `/landing-replay` shows dirty-tree landing lanes and commit-claim limits, `/view-quality` shows
 all-view action rows and hot-action projection limits, `/projection-safety`
 shows omission receipts and reversible projection drilldowns,

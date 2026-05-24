@@ -15,6 +15,8 @@ from microcosm_core.runtime_shell import (
     PROOF_LAB_ROUTE_REF,
     RuntimeShell,
     SOURCE_OPEN_BODY_POLICY,
+    VERIFIER_EXECUTION_LENS_COMMAND,
+    VERIFIER_EXECUTION_RECEIPT_REF,
 )
 
 
@@ -1020,6 +1022,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "standards_control": "pass",
         "stripping_guard": "pass",
         "trace": "pass",
+        "verifier_lab_execution_spine": "pass",
         "view_quality": "pass",
     }
     assert [row["card_id"] for row in tour["route_cards"]] == [
@@ -1028,6 +1031,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "authority",
         "prediction_and_corpus",
         "verifier_lab_kernel",
+        "verifier_lab_execution_spine",
         "intake_and_reveal",
         "evidence_drilldown",
     ]
@@ -1036,6 +1040,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "/repair-loop" in tour["endpoint_path"]
     assert "/evidence-cells" in tour["endpoint_path"]
     assert "/proof-loop-depth" in tour["endpoint_path"]
+    assert "/verifier-lab-execution-spine" in tour["endpoint_path"]
     assert "/verifier-lab-kernel" in tour["endpoint_path"]
     assert "/landing-replay" in tour["endpoint_path"]
     assert "/view-quality" in tour["endpoint_path"]
@@ -1057,6 +1062,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "microcosm repair-loop" in tour["command_path"]
     assert "microcosm evidence-cells" in tour["command_path"]
     assert "microcosm proof-loop-depth" in tour["command_path"]
+    assert VERIFIER_EXECUTION_LENS_COMMAND in tour["command_path"]
     assert "microcosm landing-replay" in tour["command_path"]
     assert "microcosm view-quality" in tour["command_path"]
     assert "microcosm projection-safety" in tour["command_path"]
@@ -1085,8 +1091,13 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["runtime_summary"]["import_projector_stage_count"] == 6
     assert tour["runtime_summary"]["option_surface_row_count"] == 6
     assert tour["runtime_summary"]["option_surface_stage_count"] == 6
-    assert tour["runtime_summary"]["proof_loop_gate_count"] == 11
-    assert tour["runtime_summary"]["proof_loop_negative_case_count"] == 9
+    assert tour["runtime_summary"]["proof_loop_gate_count"] == 12
+    assert tour["runtime_summary"]["proof_loop_negative_case_count"] == 10
+    assert tour["runtime_summary"]["verifier_lab_execution_transition_count"] == 6
+    assert (
+        tour["runtime_summary"]["verifier_lab_execution_cp2_downstream_effect_count"]
+        == 1
+    )
     assert tour["runtime_summary"]["stripping_guard_row_count"] == 8
     assert tour["runtime_summary"]["stripping_guard_negative_case_count"] == 8
     assert tour["runtime_summary"]["standards_control_row_count"] == 8
@@ -1309,6 +1320,7 @@ def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Pat
         "repair_loop_cold_rerun",
         "formal_evidence_cell_resolver",
         "lean_witness_boundary",
+        "verifier_lab_execution_spine",
     ]
     assert all(row["proof_body_exported"] is False for row in lens["gate_rows"])
     assert all(
@@ -1321,17 +1333,33 @@ def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Pat
         "provider_payload_used_as_verifier_evidence",
         "ring2_fixture_metric_reported_as_benchmark_score",
         "evidence_cell_claims_general_theorem_solution",
+        "external_tool_return_code_claimed_as_general_proof",
         "release_or_publication_claim_from_proof_loop_depth",
     }
-    assert lens["proof_loop_summary"]["gate_count"] == 11
-    assert lens["proof_loop_summary"]["evidence_ref_count"] == 12
+    assert lens["proof_loop_summary"]["gate_count"] == 12
+    assert lens["proof_loop_summary"]["evidence_ref_count"] == 13
     assert lens["proof_loop_summary"]["proof_body_export_count"] == 0
     assert lens["proof_loop_summary"]["benchmark_score_claim_count"] == 0
-    assert lens["proof_loop_summary"]["public_drilldown_ref_count"] == 11
+    assert lens["proof_loop_summary"]["public_drilldown_ref_count"] == 12
     assert lens["proof_loop_summary"]["unsafe_payload_body_export_count"] == 0
     assert lens["proof_loop_summary"]["proof_lab_route_component_count"] == 9
     assert lens["proof_loop_summary"]["proof_lab_lean_lake_return_code"] == 0
+    assert lens["proof_loop_summary"]["proof_lab_execution_transition_count"] == 6
+    assert lens["proof_loop_summary"]["proof_lab_execution_accepted_transition_count"] == 4
+    assert (
+        lens["proof_loop_summary"]["proof_lab_execution_cp2_downstream_effect_count"]
+        == 1
+    )
+    assert lens["proof_loop_summary"]["proof_lab_execution_evolve_accepted_count"] == 1
     assert lens["first_screen_proof_lab"]["route_ref"] == PROOF_LAB_ROUTE_REF
+    assert (
+        lens["first_screen_verifier_lab_execution_spine"]["receipt_ref"]
+        == VERIFIER_EXECUTION_RECEIPT_REF
+    )
+    assert (
+        lens["first_screen_verifier_lab_execution_spine"]["command"]
+        == VERIFIER_EXECUTION_LENS_COMMAND
+    )
     assert lens["authority_ceiling"]["formal_proof_authority"] is False
     assert lens["authority_ceiling"]["proof_bodies_exported"] is False
     assert lens["authority_ceiling"]["oracle_needed_premise_ids_exported"] is False
@@ -1354,6 +1382,59 @@ def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Pat
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_verifier_lab_execution_spine_lens_uses_real_receipt(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+
+    lens = shell.verifier_lab_execution_spine_lens()
+
+    assert lens["status"] == "pass"
+    assert (
+        lens["schema_version"]
+        == "microcosm_public_verifier_lab_execution_spine_lens_v1"
+    )
+    assert lens["command"] == VERIFIER_EXECUTION_LENS_COMMAND
+    assert lens["endpoint"] == "/verifier-lab-execution-spine"
+    assert lens["source_receipt_ref"] == VERIFIER_EXECUTION_RECEIPT_REF
+    assert lens["execution_spine_id"] == "std_public_lean_transition_lab_v1"
+    assert lens["execution_summary"]["transition_count"] == 6
+    assert lens["execution_summary"]["accepted_transition_count"] == 4
+    assert lens["execution_summary"]["residual_transition_count"] == 2
+    assert lens["execution_summary"]["cp2_downstream_effect_count"] == 1
+    assert lens["execution_summary"]["evolve_accepted_count"] == 1
+    assert lens["execution_summary"]["provider_results_counted"] == 0
+    assert lens["execution_summary"]["proof_body_export_count"] == 0
+    assert lens["execution_summary"]["source_mutation_count"] == 0
+    assert lens["tool_witness"]["lean_available"] is True
+    assert lens["tool_witness"]["lake_available"] is True
+    assert lens["tool_witness"]["lake_project_build_return_code"] == 0
+    assert lens["secret_exclusion"]["blocking_hit_count"] == 0
+    assert lens["claim_separation_counts"]["lean_verified"] == 4
+    assert lens["claim_separation_counts"]["provider_suggested"] == 1
+    assert lens["authority_ceiling"]["external_tool_witness_only"] is True
+    assert lens["authority_ceiling"]["formal_proof_authority"] is False
+    assert lens["authority_ceiling"]["provider_results_counted"] is False
+    assert lens["safe_to_show"]["proof_bodies_omitted"] is True
+    assert all(row["public_drilldown_ref"] for row in lens["transition_rows"])
+    assert all(row["proof_body_exported"] is False for row in lens["transition_rows"])
+    assert all(row["provider_visible"] is False for row in lens["transition_rows"])
+    assert all(row["source_mutation_authorized"] is False for row in lens["evolve_rows"])
+    assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert (
+        lens["payload_boundary"]["boundary_id"]
+        == "public_verifier_lab_execution_spine_lens"
+    )
+    assert lens["unsafe_payload_bodies_in_receipt"] is False
+    assert (public_root / lens["verifier_lab_execution_spine_lens_ref"]).is_file()
+    encoded = json.dumps(lens, sort_keys=True)
+    assert "body_redacted" not in lens
+    assert "public_replacement_ref" not in encoded
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+
+
 def test_runtime_shell_public_proof_lenses_preserve_stable_created_at(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -1366,6 +1447,8 @@ def test_runtime_shell_public_proof_lenses_preserve_stable_created_at(
         public_root / "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
         public_root / "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
         public_root / "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+        public_root
+        / "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
     ]
     before = {
         path: json.loads(path.read_text(encoding="utf-8")) for path in lens_paths
@@ -2795,7 +2878,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert proof_loop_depth["schema_version"] == "microcosm_public_proof_loop_depth_lens_v1"
     assert proof_loop_depth["authority_ceiling"]["formal_proof_authority"] is False
     assert proof_loop_depth["authority_ceiling"]["benchmark_score_claim"] is False
-    assert proof_loop_depth["proof_loop_summary"]["gate_count"] == 11
+    assert proof_loop_depth["proof_loop_summary"]["gate_count"] == 12
     assert landing_replay["schema_version"] == "microcosm_public_work_landing_replay_lens_v1"
     assert landing_replay["authority_ceiling"]["live_git_mutation_authorized"] is False
     assert landing_replay["authority_ceiling"]["broad_checkpoint_authorized"] is False

@@ -14,10 +14,11 @@
     "proof_correctness_claim": false,
     "provider_calls_authorized": false,
     "release_authorized": false,
-    "source_mutation_authorized": false
+    "source_mutation_authorized": false,
+    "tool_return_code_as_general_proof_claim": false
   },
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-05-24T01:37:14+00:00",
+  "created_at": "2026-05-24T01:54:34+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -31,6 +32,7 @@
     "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
     "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
     "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
+    "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
   ],
   "first_screen_proof_lab": {
@@ -98,6 +100,51 @@
       "status": "pass"
     },
     "status": "pass"
+  },
+  "first_screen_verifier_lab_execution_spine": {
+    "accepted_transition_count": 4,
+    "authority_ceiling": {
+      "bounded_public_transition_row_authority": true,
+      "external_tool_witness_only": true,
+      "formal_proof_authority": false,
+      "proof_bodies_allowed_in_receipts": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "bundle_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle",
+    "card_id": "first_screen_verifier_lab_execution_spine",
+    "classification": "real_runtime_receipt",
+    "command": "microcosm verifier-lab-execution-spine-lens",
+    "cp2_downstream_effect_count": 1,
+    "evidence_class": "external_subprocess_witness",
+    "evolve_accepted_count": 1,
+    "execution_spine_id": "std_public_lean_transition_lab_v1",
+    "lake_available": true,
+    "lake_project_build_return_code": 0,
+    "lean_available": true,
+    "organ_id": "verifier_lab_execution_spine",
+    "receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle_validation_result.json",
+    "residual_transition_count": 2,
+    "safe_to_show": {
+      "body_in_receipt": false,
+      "oracle_payloads_omitted": true,
+      "proof_bodies_omitted": true,
+      "provider_payloads_omitted": true,
+      "receipt_refs_visible": true,
+      "stdout_stderr_bodies_omitted": true,
+      "tool_return_codes_visible": true
+    },
+    "schema_version": "microcosm_first_screen_verifier_lab_execution_spine_card_v1",
+    "secret_exclusion": {
+      "blocking_hit_count": 0,
+      "scanned_path_count": 2,
+      "status": "pass"
+    },
+    "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+    "status": "pass",
+    "transition_count": 6
   },
   "gate_rows": [
     {
@@ -264,6 +311,21 @@
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_status": "pass",
       "unsafe_payload_bodies_exported": false
+    },
+    {
+      "evidence_ref": "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
+      "gate_id": "verifier_lab_execution_spine",
+      "loop_depth": 12,
+      "oracle_needed_premise_ids_exported": false,
+      "payload_boundary_ref": "public_proof_loop_depth_lens::gate_rows",
+      "promotion_scope": "bounded_transition_runtime_metadata_only",
+      "proof_body_exported": false,
+      "public_drilldown_ref": "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
+      "public_signal": "transition rows, CP2 rerun effects, and Evolve rerun effects are public runtime metadata",
+      "role": "separate external Lean/Lake transition execution from proof correctness or benchmark authority",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "source_status": "pass",
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "lens_id": "public_proof_loop_depth_lens",
@@ -286,6 +348,7 @@
     "ring2_fixture_metric_reported_as_benchmark_score",
     "evidence_cell_claims_general_theorem_solution",
     "cold_rerun_missing_before_curriculum_promotion",
+    "external_tool_return_code_claimed_as_general_proof",
     "release_or_publication_claim_from_proof_loop_depth"
   ],
   "organ_family": "formal_math",
@@ -323,17 +386,21 @@
   "proof_loop_depth_ref": "receipts/runtime_shell/public_proof_loop_depth_lens.json",
   "proof_loop_summary": {
     "benchmark_score_claim_count": 0,
-    "evidence_ref_count": 12,
-    "formal_math_gate_count": 11,
-    "gate_count": 11,
+    "evidence_ref_count": 13,
+    "formal_math_gate_count": 12,
+    "gate_count": 12,
     "general_theorem_solution_claim_count": 0,
-    "negative_case_count": 9,
+    "negative_case_count": 10,
     "oracle_needed_premise_export_count": 0,
     "proof_body_export_count": 0,
+    "proof_lab_execution_accepted_transition_count": 4,
+    "proof_lab_execution_cp2_downstream_effect_count": 1,
+    "proof_lab_execution_evolve_accepted_count": 1,
+    "proof_lab_execution_transition_count": 6,
     "proof_lab_lean_lake_return_code": 0,
     "proof_lab_route_component_count": 9,
     "provider_payload_export_count": 0,
-    "public_drilldown_ref_count": 11,
+    "public_drilldown_ref_count": 12,
     "unsafe_payload_body_export_count": 0
   },
   "public_claim": "Microcosm exposes a proof-loop depth map: environment readiness, premise indexing, retrieval, tactic availability, target-shape routing, verifier trace, cold-rerun repair promotion, evidence-cell resolution, and tiny Lean witness boundaries are one inspectable metadata loop instead of a proof or benchmark claim.",
@@ -370,6 +437,7 @@
     "ring2_precision_recall_harness": "pass",
     "tactic_availability_probe": "pass",
     "target_shape_routing": "pass",
+    "verifier_lab_execution_spine": "pass",
     "verifier_trace_repair_lens": "pass"
   },
   "status": "pass",

@@ -1444,20 +1444,28 @@
       "surface_id": "public_verifier_lab_kernel_lens"
     },
     {
+      "accepted_transition_count": 4,
       "arbitrary_evolve_execution_authorized": false,
       "authority_role": "bounded verifier-lab execution spine and external tool-witness boundary",
       "bounded_public_external_witness_only": true,
-      "command": "microcosm verifier-lab-execution-spine run-execution-bundle",
-      "endpoint": "/proof-loop-depth",
+      "command": "microcosm verifier-lab-execution-spine-lens",
+      "cp2_downstream_effect_count": 1,
+      "endpoint": "/verifier-lab-execution-spine",
+      "evolve_accepted_count": 1,
+      "execution_spine_id": "std_public_lean_transition_lab_v1",
       "formal_proof_authority": false,
       "oracle_forward_contamination_authorized": false,
       "private_proof_body_exported": false,
       "proof_correctness_claim": false,
       "provider_calls_authorized": false,
       "provider_hypothesis_proof_authority": false,
+      "receipt_ref": "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
       "release_authorized": false,
+      "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
       "source_mutation_authorized": false,
-      "surface_id": "public_verifier_lab_execution_spine_lens"
+      "source_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle_validation_result.json",
+      "surface_id": "public_verifier_lab_execution_spine_lens",
+      "transition_count": 6
     },
     {
       "authority_role": "dirty-tree work landing replay and commit-claim boundary",

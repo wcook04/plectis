@@ -84,6 +84,20 @@ PROOF_LAB_FIRST_SCREEN_COMMAND = (
     "microcosm verifier-lab-kernel run-kernel-bundle "
     f"--input {PROOF_LAB_BUNDLE_REF} --out /tmp/microcosm-proof-lab"
 )
+VERIFIER_EXECUTION_BUNDLE_REF = (
+    "examples/verifier_lab_execution_spine/"
+    "exported_verifier_lab_execution_spine_bundle"
+)
+VERIFIER_EXECUTION_RECEIPT_REF = (
+    "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/"
+    "exported_verifier_lab_execution_spine_bundle_validation_result.json"
+)
+VERIFIER_EXECUTION_LENS_COMMAND = "microcosm verifier-lab-execution-spine-lens"
+VERIFIER_EXECUTION_SOURCE_COMMAND = (
+    "microcosm verifier-lab-execution-spine run-execution-bundle "
+    f"--input {VERIFIER_EXECUTION_BUNDLE_REF} "
+    "--out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine"
+)
 WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
 
 
@@ -945,6 +959,79 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
     }
 
 
+def _verifier_lab_execution_spine_card(root: Path) -> dict[str, Any]:
+    receipt = _read_json_if_exists(root / VERIFIER_EXECUTION_RECEIPT_REF)
+    counters = receipt.get("authority_counters")
+    if not isinstance(counters, dict):
+        counters = {}
+    authority_ceiling = receipt.get("authority_ceiling")
+    if not isinstance(authority_ceiling, dict):
+        authority_ceiling = {}
+    secret_scan = receipt.get("secret_exclusion_scan")
+    if not isinstance(secret_scan, dict):
+        secret_scan = {}
+    tool_versions = receipt.get("tool_versions")
+    if not isinstance(tool_versions, dict):
+        tool_versions = {}
+    lake_build = receipt.get("lake_project_build")
+    if not isinstance(lake_build, dict):
+        lake_build = {}
+    return {
+        "schema_version": "microcosm_first_screen_verifier_lab_execution_spine_card_v1",
+        "card_id": "first_screen_verifier_lab_execution_spine",
+        "status": receipt.get("status", "missing"),
+        "organ_id": "verifier_lab_execution_spine",
+        "evidence_class": "external_subprocess_witness",
+        "classification": "real_runtime_receipt",
+        "command": VERIFIER_EXECUTION_LENS_COMMAND,
+        "source_command": VERIFIER_EXECUTION_SOURCE_COMMAND,
+        "bundle_ref": VERIFIER_EXECUTION_BUNDLE_REF,
+        "receipt_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+        "execution_spine_id": receipt.get("execution_spine_id"),
+        "transition_count": counters.get("transition_count"),
+        "accepted_transition_count": counters.get("accepted_transition_count"),
+        "residual_transition_count": counters.get("residual_transition_count"),
+        "cp2_downstream_effect_count": counters.get("cp2_downstream_effect_count"),
+        "evolve_accepted_count": counters.get("evolve_accepted_count"),
+        "lean_available": tool_versions.get("lean_available"),
+        "lake_available": tool_versions.get("lake_available"),
+        "lake_project_build_return_code": lake_build.get("return_code"),
+        "safe_to_show": {
+            "body_in_receipt": False,
+            "proof_bodies_omitted": True,
+            "provider_payloads_omitted": True,
+            "oracle_payloads_omitted": True,
+            "stdout_stderr_bodies_omitted": True,
+            "tool_return_codes_visible": True,
+            "receipt_refs_visible": True,
+        },
+        "authority_ceiling": {
+            "external_tool_witness_only": True,
+            "bounded_public_transition_row_authority": (
+                authority_ceiling.get("formal_proof_authority")
+                == "bounded_public_transition_rows_only"
+            ),
+            "formal_proof_authority": False,
+            "proof_correctness_claim": False,
+            "provider_calls_authorized": authority_ceiling.get(
+                "provider_calls_authorized"
+            ),
+            "source_mutation_authorized": authority_ceiling.get(
+                "source_mutation_authorized"
+            ),
+            "proof_bodies_allowed_in_receipts": authority_ceiling.get(
+                "proof_bodies_allowed_in_receipts"
+            ),
+            "release_authorized": authority_ceiling.get("release_authorized"),
+        },
+        "secret_exclusion": {
+            "status": secret_scan.get("status"),
+            "blocking_hit_count": secret_scan.get("blocking_hit_count"),
+            "scanned_path_count": secret_scan.get("scanned_path_count"),
+        },
+    }
+
+
 PRODUCT_PATH_DEMOTED_ORGAN_IDS = frozenset(
     {
         "agent_benchmark_integrity_anti_gaming_replay",
@@ -1673,6 +1760,7 @@ class RuntimeShell:
                     "microcosm repair-loop",
                     "microcosm evidence-cells",
                     "microcosm proof-loop-depth",
+                    VERIFIER_EXECUTION_LENS_COMMAND,
                     "microcosm landing-replay",
                     "microcosm view-quality",
                     "microcosm projection-safety",
@@ -1849,6 +1937,7 @@ class RuntimeShell:
                 "run microcosm evidence-cells",
                 "run microcosm proof-loop-depth",
                 f"run {PROOF_LAB_FIRST_SCREEN_COMMAND}",
+                f"run {VERIFIER_EXECUTION_LENS_COMMAND}",
                 "run microcosm landing-replay",
                 "run microcosm work-landing-control-spine validate-control-bundle",
                 "run microcosm view-quality",
@@ -2074,10 +2163,9 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_verifier_lab_execution_spine",
-                    "command": (
-                        "microcosm verifier-lab-execution-spine "
-                        "run-execution-bundle"
-                    ),
+                    "command": VERIFIER_EXECUTION_LENS_COMMAND,
+                    "source_command": VERIFIER_EXECUTION_SOURCE_COMMAND,
+                    "receipt_ref": VERIFIER_EXECUTION_RECEIPT_REF,
                     "shows": [
                         "bounded Lean transition candidates executed through lake env",
                         "CP2 rerun effect and Evolve policy rerun receipts",
@@ -2624,6 +2712,7 @@ class RuntimeShell:
         trace_lens = self.trace_lens()
         repair_loop = self.repair_loop()
         evidence_cells = self.evidence_cells()
+        execution_spine = self.verifier_lab_execution_spine_lens()
         proof_loop_depth = self.proof_loop_depth()
         proof_lab = _proof_lab_first_screen_card(self.root)
         landing_replay = self.landing_replay()
@@ -2663,6 +2752,9 @@ class RuntimeShell:
                         repair_loop.get("repair_loop_ref"),
                         evidence_cells.get("evidence_cell_lens_ref"),
                         proof_loop_depth.get("proof_loop_depth_ref"),
+                        execution_spine.get(
+                            "verifier_lab_execution_spine_lens_ref"
+                        ),
                         proof_lab.get("receipt_ref"),
                         landing_replay.get("landing_replay_ref"),
                         view_quality.get("view_quality_lens_ref"),
@@ -2701,6 +2793,7 @@ class RuntimeShell:
             "repair_loop": repair_loop.get("status"),
             "evidence_cells": evidence_cells.get("status"),
             "proof_loop_depth": proof_loop_depth.get("status"),
+            "verifier_lab_execution_spine": execution_spine.get("status"),
             "proof_lab": proof_lab.get("status"),
             "landing_replay": landing_replay.get("status"),
             "view_quality": view_quality.get("status"),
@@ -2733,6 +2826,7 @@ class RuntimeShell:
             "microcosm repair-loop",
             "microcosm evidence-cells",
             "microcosm proof-loop-depth",
+            VERIFIER_EXECUTION_LENS_COMMAND,
             PROOF_LAB_FIRST_SCREEN_COMMAND,
             "microcosm landing-replay",
             "microcosm view-quality",
@@ -2891,6 +2985,30 @@ class RuntimeShell:
                 "status": proof_lab.get("status"),
             },
             {
+                "card_id": "verifier_lab_execution_spine",
+                "minute_budget": 1,
+                "command": VERIFIER_EXECUTION_LENS_COMMAND,
+                "source_command": VERIFIER_EXECUTION_SOURCE_COMMAND,
+                "endpoint": "/verifier-lab-execution-spine",
+                "shows": [
+                    "bounded Lean transition rows and return codes",
+                    "CP2 downstream rerun effect count",
+                    "Evolve rerun acceptance count",
+                    "proof-body/provider/oracle/stdout payload exclusions",
+                ],
+                "receipt_ref": execution_spine.get(
+                    "verifier_lab_execution_spine_lens_ref"
+                ),
+                "source_receipt_ref": execution_spine.get("source_receipt_ref"),
+                "transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("transition_count"),
+                "accepted_transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("accepted_transition_count"),
+                "status": execution_spine.get("status"),
+            },
+            {
                 "card_id": "intake_and_reveal",
                 "minute_budget": 3,
                 "command": "microcosm intake && microcosm reveal",
@@ -2966,6 +3084,7 @@ class RuntimeShell:
                 "/repair-loop",
                 "/evidence-cells",
                 "/proof-loop-depth",
+                "/verifier-lab-execution-spine",
                 "/verifier-lab-kernel",
                 "/landing-replay",
                 "/view-quality",
@@ -3071,6 +3190,21 @@ class RuntimeShell:
                 "proof_lab_lean_lake_return_code": proof_lab.get(
                     "lean_lake_return_code"
                 ),
+                "verifier_lab_execution_transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("transition_count")
+                if isinstance(execution_spine.get("execution_summary"), dict)
+                else 0,
+                "verifier_lab_execution_cp2_downstream_effect_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("cp2_downstream_effect_count")
+                if isinstance(execution_spine.get("execution_summary"), dict)
+                else 0,
+                "verifier_lab_execution_evolve_accepted_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("evolve_accepted_count")
+                if isinstance(execution_spine.get("execution_summary"), dict)
+                else 0,
                 "proof_lab_retrieval_mean_public_recall": (
                     (proof_lab.get("component_metrics") or {}).get(
                         "retrieval_mean_public_recall"
@@ -3907,11 +4041,334 @@ class RuntimeShell:
         write_json_atomic(lens_path, payload)
         return payload
 
+    def verifier_lab_execution_spine_lens(self) -> dict[str, Any]:
+        source_receipt_path = self.root / VERIFIER_EXECUTION_RECEIPT_REF
+        if not source_receipt_path.is_file():
+            verifier_lab_execution_spine.run_execution_bundle(
+                self.root / VERIFIER_EXECUTION_BUNDLE_REF,
+                source_receipt_path.parent,
+                VERIFIER_EXECUTION_SOURCE_COMMAND,
+            )
+        source_receipt = _read_json_if_exists(source_receipt_path)
+        lens_path = (
+            self.runtime_receipt_dir
+            / "public_verifier_lab_execution_spine_lens.json"
+        )
+        counters = source_receipt.get("authority_counters")
+        if not isinstance(counters, dict):
+            counters = {}
+        claim_separation = source_receipt.get("claim_separation")
+        if not isinstance(claim_separation, dict):
+            claim_separation = {}
+        authority_source = source_receipt.get("authority_ceiling")
+        if not isinstance(authority_source, dict):
+            authority_source = {}
+        secret_scan = source_receipt.get("secret_exclusion_scan")
+        if not isinstance(secret_scan, dict):
+            secret_scan = {}
+        tool_versions = source_receipt.get("tool_versions")
+        if not isinstance(tool_versions, dict):
+            tool_versions = {}
+        lake_build = source_receipt.get("lake_project_build")
+        if not isinstance(lake_build, dict):
+            lake_build = {}
+        transparency = source_receipt.get("receipt_transparency_contract")
+        if not isinstance(transparency, dict):
+            transparency = {}
+
+        transition_rows: list[dict[str, Any]] = []
+        for row in _rows(source_receipt, "transition_trace"):
+            transition_rows.append(
+                {
+                    "transition_id": row.get("transition_id"),
+                    "problem_id": row.get("problem_id"),
+                    "target_shape": row.get("target_shape"),
+                    "action_class": row.get("action_class"),
+                    "candidate_kind": row.get("candidate_kind"),
+                    "allowed_premise_refs": _strings(
+                        row.get("allowed_premise_refs")
+                    ),
+                    "lean_return_code": row.get("lean_return_code"),
+                    "accepted": row.get("accepted") is True,
+                    "verifier_failure_class": row.get("verifier_failure_class"),
+                    "contract_rejected": row.get("contract_rejected") is True,
+                    "timed_out": row.get("timed_out") is True,
+                    "stdout_stderr_in_receipt": (
+                        row.get("stdout_stderr_in_receipt") is True
+                    ),
+                    "oracle_visible": row.get("oracle_visible") is True,
+                    "provider_visible": row.get("provider_visible") is True,
+                    "proof_body_exported": row.get("proof_body_exported") is True,
+                    "public_drilldown_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+                    **_source_open_row_boundary(
+                        "public_verifier_lab_execution_spine_lens::transition_rows"
+                    ),
+                }
+            )
+
+        cp2_rows: list[dict[str, Any]] = []
+        for row in _rows(source_receipt, "cp2_translation_trace"):
+            downstream = row.get("downstream_verifier_rerun")
+            if not isinstance(downstream, dict):
+                downstream = {}
+            cp2_rows.append(
+                {
+                    "request_id": row.get("request_id"),
+                    "residual_id": row.get("residual_id"),
+                    "provider_hypothesis_id": row.get("provider_hypothesis_id"),
+                    "candidate_action_class": row.get("candidate_action_class"),
+                    "candidate_kind": row.get("candidate_kind"),
+                    "downstream_transition_id": row.get(
+                        "downstream_transition_id"
+                    ),
+                    "downstream_effect": row.get("downstream_effect") is True,
+                    "downstream_lean_return_code": downstream.get(
+                        "lean_return_code"
+                    ),
+                    "downstream_verifier_failure_class": downstream.get(
+                        "verifier_failure_class"
+                    ),
+                    "contract_rejected": row.get("contract_rejected") is True,
+                    "proof_body_exported": row.get("proof_body_exported") is True,
+                    "raw_tactic_script_exported": (
+                        row.get("raw_tactic_script_exported") is True
+                    ),
+                    "oracle_template_exported": (
+                        row.get("oracle_template_exported") is True
+                    ),
+                    "provider_output_body_exported": (
+                        row.get("provider_output_body_exported") is True
+                    ),
+                    "public_drilldown_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+                    **_source_open_row_boundary(
+                        "public_verifier_lab_execution_spine_lens::cp2_rows"
+                    ),
+                }
+            )
+
+        evolve_rows: list[dict[str, Any]] = []
+        for row in _rows(source_receipt, "evolve_mutation_trace"):
+            evolve_rows.append(
+                {
+                    "mutation_id": row.get("mutation_id"),
+                    "mutated_artifact": row.get("mutated_artifact"),
+                    "baseline_transition_ids": _strings(
+                        row.get("baseline_transition_ids")
+                    ),
+                    "rerun_transition_ids": _strings(row.get("rerun_transition_ids")),
+                    "baseline_accept_count": row.get("baseline_accept_count"),
+                    "rerun_accept_count": row.get("rerun_accept_count"),
+                    "decision": row.get("decision"),
+                    "accepted": row.get("accepted") is True,
+                    "leakage_regression": row.get("leakage_regression") is True,
+                    "oracle_to_forward_contamination": (
+                        row.get("oracle_to_forward_contamination") is True
+                    ),
+                    "source_mutation_authorized": (
+                        row.get("source_mutation_authorized") is True
+                    ),
+                    "contract_rejected": row.get("contract_rejected") is True,
+                    "public_drilldown_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+                    **_source_open_row_boundary(
+                        "public_verifier_lab_execution_spine_lens::evolve_rows"
+                    ),
+                }
+            )
+
+        claim_separation_counts = {
+            key: len(value) if isinstance(value, list) else 0
+            for key, value in claim_separation.items()
+        }
+        negative_case_ids = [
+            "proof_body_exported_in_transition_receipt",
+            "stdout_stderr_body_exported_as_tool_witness",
+            "oracle_sidecar_counted_as_forward_success",
+            "provider_hypothesis_counted_as_proof",
+            "cp2_translation_exports_tactic_or_proof_body",
+            "evolve_mutates_unbounded_source",
+            "lean_return_code_reported_as_general_proof",
+            "release_claim_from_execution_spine_receipt",
+        ]
+        authority_ceiling = {
+            "external_tool_witness_only": True,
+            "bounded_public_transition_execution": True,
+            "bounded_public_transition_row_authority": (
+                authority_source.get("formal_proof_authority")
+                == "bounded_public_transition_rows_only"
+            ),
+            "formal_proof_authority": False,
+            "proof_correctness_claim": False,
+            "benchmark_solve_rate_claim": False,
+            "provider_calls_authorized": False,
+            "provider_results_counted": False,
+            "oracle_forward_success_increment_authorized": False,
+            "proof_bodies_exported": False,
+            "stdout_stderr_bodies_exported": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+        }
+        status = (
+            PASS
+            if source_receipt.get("status") == PASS
+            and source_receipt.get("real_runtime_receipt") is True
+            and secret_scan.get("blocking_hit_count") == 0
+            and tool_versions.get("lean_available") is True
+            and tool_versions.get("lake_available") is True
+            and lake_build.get("return_code") == 0
+            and len(transition_rows) == counters.get("transition_count")
+            and int(counters.get("accepted_transition_count") or 0) >= 2
+            and int(counters.get("residual_transition_count") or 0) >= 1
+            and int(counters.get("cp2_downstream_effect_count") or 0) >= 1
+            and int(counters.get("evolve_accepted_count") or 0) >= 1
+            and int(counters.get("proof_body_export_count") or 0) == 0
+            and int(counters.get("provider_results_counted") or 0) == 0
+            and int(counters.get("oracle_forward_success_increment_count") or 0)
+            == 0
+            and int(counters.get("source_mutation_count") or 0) == 0
+            and all(row.get("proof_body_exported") is False for row in transition_rows)
+            and all(row.get("stdout_stderr_in_receipt") is False for row in transition_rows)
+            and all(row.get("oracle_visible") is False for row in transition_rows)
+            and all(row.get("provider_visible") is False for row in transition_rows)
+            and all(row.get("proof_body_exported") is False for row in cp2_rows)
+            and all(row.get("raw_tactic_script_exported") is False for row in cp2_rows)
+            and all(row.get("provider_output_body_exported") is False for row in cp2_rows)
+            and all(row.get("source_mutation_authorized") is False for row in evolve_rows)
+            and all(authority_ceiling[key] is False for key in (
+                "formal_proof_authority",
+                "proof_correctness_claim",
+                "benchmark_solve_rate_claim",
+                "provider_calls_authorized",
+                "provider_results_counted",
+                "oracle_forward_success_increment_authorized",
+                "proof_bodies_exported",
+                "stdout_stderr_bodies_exported",
+                "source_mutation_authorized",
+                "release_authorized",
+            ))
+            else "blocked"
+        )
+        payload = {
+            "schema_version": "microcosm_public_verifier_lab_execution_spine_lens_v1",
+            "created_at": utc_now(),
+            "status": status,
+            "lens_id": "public_verifier_lab_execution_spine_lens",
+            "organ_family": "formal_math",
+            "command": VERIFIER_EXECUTION_LENS_COMMAND,
+            "source_command": VERIFIER_EXECUTION_SOURCE_COMMAND,
+            "endpoint": "/verifier-lab-execution-spine",
+            "verifier_lab_execution_spine_lens_ref": _public_relative(
+                lens_path, self.root
+            ),
+            "source_receipt_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+            "bundle_ref": VERIFIER_EXECUTION_BUNDLE_REF,
+            "execution_spine_id": source_receipt.get("execution_spine_id"),
+            "public_claim": (
+                "Microcosm exposes the verifier-lab execution spine as a public "
+                "runtime lens: bounded Lean transition candidates are checked through "
+                "Lake, CP2 and Evolve reruns are counted only as typed public "
+                "transition effects, and proof bodies, oracle answers, provider "
+                "payloads, stdout/stderr bodies, source mutation, and release claims "
+                "stay outside the public authority boundary."
+            ),
+            "source_statuses": {
+                "source_receipt": source_receipt.get("status"),
+                "secret_exclusion": secret_scan.get("status"),
+                "lean_available": tool_versions.get("lean_available"),
+                "lake_available": tool_versions.get("lake_available"),
+                "lake_project_build_return_code": lake_build.get("return_code"),
+            },
+            "source_pattern_ids": _strings(source_receipt.get("source_pattern_ids")),
+            "public_runtime_refs": _strings(source_receipt.get("public_runtime_refs")),
+            "transition_rows": transition_rows,
+            "cp2_rows": cp2_rows,
+            "evolve_rows": evolve_rows,
+            "claim_separation_counts": claim_separation_counts,
+            "execution_summary": {
+                "transition_count": counters.get("transition_count"),
+                "accepted_transition_count": counters.get(
+                    "accepted_transition_count"
+                ),
+                "residual_transition_count": counters.get(
+                    "residual_transition_count"
+                ),
+                "cp2_translation_count": counters.get("cp2_translation_count"),
+                "cp2_downstream_effect_count": counters.get(
+                    "cp2_downstream_effect_count"
+                ),
+                "evolve_candidate_count": counters.get("evolve_candidate_count"),
+                "evolve_accepted_count": counters.get("evolve_accepted_count"),
+                "oracle_forward_success_increment_count": counters.get(
+                    "oracle_forward_success_increment_count"
+                ),
+                "provider_results_counted": counters.get(
+                    "provider_results_counted"
+                ),
+                "proof_body_export_count": counters.get("proof_body_export_count"),
+                "source_mutation_count": counters.get("source_mutation_count"),
+                "transition_row_count": len(transition_rows),
+                "cp2_row_count": len(cp2_rows),
+                "evolve_row_count": len(evolve_rows),
+                "negative_case_count": len(negative_case_ids),
+            },
+            "tool_witness": {
+                "lean_available": tool_versions.get("lean_available"),
+                "lake_available": tool_versions.get("lake_available"),
+                "lake_project_build_return_code": lake_build.get("return_code"),
+                "lake_project_build_stdout_line_count": lake_build.get(
+                    "stdout_line_count"
+                ),
+                "lake_project_build_stderr_line_count": lake_build.get(
+                    "stderr_line_count"
+                ),
+                "stdout_stderr_bodies_exported": False,
+            },
+            "receipt_transparency_contract": transparency,
+            "secret_exclusion": {
+                "status": secret_scan.get("status"),
+                "blocking_hit_count": secret_scan.get("blocking_hit_count"),
+                "scanned_path_count": secret_scan.get("scanned_path_count"),
+                "real_substrate_default": secret_scan.get("real_substrate_default"),
+            },
+            "negative_case_ids": negative_case_ids,
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_in_receipt": False,
+            "payload_boundary": _lens_payload_boundary(
+                root=self.root,
+                lens_path=lens_path,
+                boundary_id="public_verifier_lab_execution_spine_lens",
+                command=VERIFIER_EXECUTION_LENS_COMMAND,
+            ),
+            "safe_to_show": _source_open_safe_to_show(
+                proof_bodies_omitted=True,
+                oracle_payloads_omitted=True,
+                provider_payloads_omitted=True,
+                stdout_stderr_bodies_omitted=True,
+                receipt_refs_only=True,
+                transition_rows_are_public_payload_boundary_rows=True,
+                cp2_rows_are_public_payload_boundary_rows=True,
+                evolve_rows_are_public_payload_boundary_rows=True,
+            ),
+            "authority_ceiling": authority_ceiling,
+            "release_authorized": False,
+            "anti_claim": (
+                "The verifier-lab execution-spine lens is a public runtime receipt "
+                "projection over bounded Lean transition checks. It does not export "
+                "proof bodies, raw tactics, oracle answers, provider payloads, "
+                "stdout/stderr bodies, private source, credential-equivalent material, "
+                "unbounded source mutation, benchmark solve-rate claims, general proof "
+                "authority, publication, hosting, or release authority."
+            ),
+        }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
+        write_json_atomic(lens_path, payload)
+        return payload
+
     def proof_loop_depth(self) -> dict[str, Any]:
         corpus_lens = self.corpus_lens()
         trace_lens = self.trace_lens()
         repair_loop = self.repair_loop()
         evidence_cells = self.evidence_cells()
+        execution_spine = self.verifier_lab_execution_spine_lens()
         readiness_ref = (
             "receipts/first_wave/formal_math_readiness_gate/"
             "formal_math_readiness_extension_board.json"
@@ -4072,6 +4529,25 @@ class RuntimeShell:
                 "proof_body_exported": False,
                 "oracle_needed_premise_ids_exported": False,
             },
+            {
+                "gate_id": "verifier_lab_execution_spine",
+                "loop_depth": 12,
+                "role": (
+                    "separate external Lean/Lake transition execution from proof "
+                    "correctness or benchmark authority"
+                ),
+                "evidence_ref": execution_spine.get(
+                    "verifier_lab_execution_spine_lens_ref"
+                ),
+                "source_status": execution_spine.get("status"),
+                "public_signal": (
+                    "transition rows, CP2 rerun effects, and Evolve rerun effects "
+                    "are public runtime metadata"
+                ),
+                "promotion_scope": "bounded_transition_runtime_metadata_only",
+                "proof_body_exported": False,
+                "oracle_needed_premise_ids_exported": False,
+            },
         ]
         proof_loop_gate_boundary_ref = "public_proof_loop_depth_lens::gate_rows"
         for row in gate_rows:
@@ -4086,6 +4562,7 @@ class RuntimeShell:
             "ring2_fixture_metric_reported_as_benchmark_score",
             "evidence_cell_claims_general_theorem_solution",
             "cold_rerun_missing_before_curriculum_promotion",
+            "external_tool_return_code_claimed_as_general_proof",
             "release_or_publication_claim_from_proof_loop_depth",
         ]
         authority_ceiling = {
@@ -4100,6 +4577,7 @@ class RuntimeShell:
             "oracle_needed_premise_ids_exported": False,
             "provider_calls_authorized": False,
             "human_approval_is_proof_authority": False,
+            "tool_return_code_as_general_proof_claim": False,
             "source_mutation_authorized": False,
             "private_data_equivalence_claim": False,
             "release_authorized": False,
@@ -4124,8 +4602,8 @@ class RuntimeShell:
         ]
         status = (
             PASS
-            if len(gate_rows) == 11
-            and len(negative_case_ids) == 9
+            if len(gate_rows) == 12
+            and len(negative_case_ids) == 10
             and all(row.get("source_status") == PASS for row in gate_rows)
             and proof_lab.get("status") == PASS
             and all(row.get("proof_body_exported") is False for row in gate_rows)
@@ -4199,8 +4677,23 @@ class RuntimeShell:
                 "proof_lab_lean_lake_return_code": proof_lab.get(
                     "lean_lake_return_code"
                 ),
+                "proof_lab_execution_transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("transition_count"),
+                "proof_lab_execution_accepted_transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("accepted_transition_count"),
+                "proof_lab_execution_cp2_downstream_effect_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("cp2_downstream_effect_count"),
+                "proof_lab_execution_evolve_accepted_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("evolve_accepted_count"),
             },
             "first_screen_proof_lab": proof_lab,
+            "first_screen_verifier_lab_execution_spine": (
+                _verifier_lab_execution_spine_card(self.root)
+            ),
             "negative_case_ids": negative_case_ids,
             "evidence_refs": evidence_refs,
             "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -10246,6 +10739,7 @@ class RuntimeShell:
         repair_loop = self.repair_loop()
         evidence_cells = self.evidence_cells()
         proof_loop_depth = self.proof_loop_depth()
+        execution_spine = self.verifier_lab_execution_spine_lens()
         proof_lab = _proof_lab_first_screen_card(self.root)
         landing_replay = self.landing_replay()
         view_quality = self.view_quality()
@@ -10452,15 +10946,30 @@ class RuntimeShell:
             },
             {
                 "surface_id": "public_verifier_lab_execution_spine_lens",
-                "command": (
-                    "microcosm verifier-lab-execution-spine "
-                    "run-execution-bundle"
-                ),
-                "endpoint": "/proof-loop-depth",
+                "command": VERIFIER_EXECUTION_LENS_COMMAND,
+                "source_command": VERIFIER_EXECUTION_SOURCE_COMMAND,
+                "endpoint": "/verifier-lab-execution-spine",
                 "authority_role": (
                     "bounded verifier-lab execution spine and external "
                     "tool-witness boundary"
                 ),
+                "receipt_ref": execution_spine.get(
+                    "verifier_lab_execution_spine_lens_ref"
+                ),
+                "source_receipt_ref": execution_spine.get("source_receipt_ref"),
+                "execution_spine_id": execution_spine.get("execution_spine_id"),
+                "transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("transition_count"),
+                "accepted_transition_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("accepted_transition_count"),
+                "cp2_downstream_effect_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("cp2_downstream_effect_count"),
+                "evolve_accepted_count": (
+                    execution_spine.get("execution_summary") or {}
+                ).get("evolve_accepted_count"),
                 "release_authorized": False,
                 "source_mutation_authorized": False,
                 "provider_calls_authorized": False,
@@ -14059,6 +14568,8 @@ class RuntimeShell:
                     self._send(200, shell.evidence_cells())
                 elif path == "/proof-loop-depth":
                     self._send(200, shell.proof_loop_depth())
+                elif path == "/verifier-lab-execution-spine":
+                    self._send(200, shell.verifier_lab_execution_spine_lens())
                 elif path == "/landing-replay":
                     self._send(200, shell.landing_replay())
                 elif path == "/view-quality":
@@ -14186,6 +14697,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("repair-loop")
     subparsers.add_parser("evidence-cells")
     subparsers.add_parser("proof-loop-depth")
+    subparsers.add_parser("verifier-lab-execution-spine-lens")
     subparsers.add_parser("landing-replay")
     subparsers.add_parser("view-quality")
     subparsers.add_parser("projection-safety")
@@ -14257,6 +14769,8 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(shell.evidence_cells())
     if args.command == "proof-loop-depth":
         return _print_json(shell.proof_loop_depth())
+    if args.command == "verifier-lab-execution-spine-lens":
+        return _print_json(shell.verifier_lab_execution_spine_lens())
     if args.command == "landing-replay":
         return _print_json(shell.landing_replay())
     if args.command == "view-quality":

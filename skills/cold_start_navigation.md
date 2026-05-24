@@ -13,7 +13,7 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to inspect
    the ten-minute public-safe route from compile through spine, authority,
    prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
-   cells, proof-loop depth, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
+   cells, proof-loop depth, verifier-lab execution spine, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
    drift control, route cleanup, hook intervention coverage, projection import map, import-projector contract, compression-profile option surface, stripping guard, standards
    control, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal, observatory, and evidence
    drilldowns.
@@ -64,14 +64,19 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
 13. Run `microcosm proof-loop-depth` or
    `PYTHONPATH=src python3 -m microcosm_core.cli proof-loop-depth` to inspect
    corpus, premise-retrieval, tactic-availability, target-shape, verifier
-   repair, cold-rerun, and evidence-cell gates without proof bodies, oracle
-   premise ids, provider payloads, benchmark scores, theorem-solution claims,
-   or release authority.
-14. Run `microcosm landing-replay` or
+   repair, cold-rerun, evidence-cell, and bounded execution-spine gates without
+   proof bodies, oracle premise ids, provider payloads, benchmark scores,
+   theorem-solution claims, or release authority.
+14. Run `microcosm verifier-lab-execution-spine-lens` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-execution-spine-lens`
+   to inspect bounded Lean/Lake transition rows, CP2 downstream rerun effects,
+   Evolve rerun acceptance, tool return-code evidence, and secret-exclusion
+   status without treating external tool execution as general proof authority.
+15. Run `microcosm landing-replay` or
    `PYTHONPATH=src python3 -m microcosm_core.cli landing-replay` to inspect
    scoped commit, broad checkpoint, metadata-blocked recovery, and hard-stop
    lanes before trusting a work-landing claim.
-15. Run `microcosm durable-agent-work-landing-replay
+16. Run `microcosm durable-agent-work-landing-replay
    run-work-landing-bundle --input
    examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle
    --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay`
@@ -292,6 +297,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli trace-lens
 PYTHONPATH=src python3 -m microcosm_core.cli repair-loop
 PYTHONPATH=src python3 -m microcosm_core.cli evidence-cells
 PYTHONPATH=src python3 -m microcosm_core.cli proof-loop-depth
+PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-execution-spine-lens
 PYTHONPATH=src python3 -m microcosm_core.cli landing-replay
 PYTHONPATH=src python3 -m microcosm_core.cli durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
 PYTHONPATH=src python3 -m microcosm_core.cli view-quality

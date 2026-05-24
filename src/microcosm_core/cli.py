@@ -117,6 +117,7 @@ def main(argv: list[str] | None = None) -> int:
     subparsers.add_parser("repair-loop")
     subparsers.add_parser("evidence-cells")
     subparsers.add_parser("proof-loop-depth")
+    subparsers.add_parser("verifier-lab-execution-spine-lens")
     subparsers.add_parser("landing-replay")
     subparsers.add_parser("view-quality")
     subparsers.add_parser("projection-safety")
@@ -544,6 +545,8 @@ def main(argv: list[str] | None = None) -> int:
         return runtime_shell.main(["evidence-cells"])
     if args.command == "proof-loop-depth":
         return runtime_shell.main(["proof-loop-depth"])
+    if args.command == "verifier-lab-execution-spine-lens":
+        return runtime_shell.main(["verifier-lab-execution-spine-lens"])
     if args.command == "landing-replay":
         return runtime_shell.main(["landing-replay"])
     if args.command == "view-quality":

@@ -13,6 +13,8 @@ from microcosm_core.runtime_shell import (
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
     SOURCE_OPEN_BODY_POLICY,
+    VERIFIER_EXECUTION_LENS_COMMAND,
+    VERIFIER_EXECUTION_RECEIPT_REF,
 )
 
 
@@ -97,6 +99,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "repair-loop",
         "evidence-cells",
         "proof-loop-depth",
+        "verifier-lab-execution-spine-lens",
         "landing-replay",
         "durable-agent-work-landing-replay",
         "view-quality",
@@ -193,10 +196,9 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["first_run_path"][14]["command"] == PROOF_LAB_FIRST_SCREEN_COMMAND
     assert payload["first_run_path"][14]["route_ref"] == PROOF_LAB_ROUTE_REF
     assert payload["first_run_path"][14]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+    assert payload["first_run_path"][15]["command"] == VERIFIER_EXECUTION_LENS_COMMAND
+    assert payload["first_run_path"][15]["receipt_ref"] == VERIFIER_EXECUTION_RECEIPT_REF
     assert payload["first_run_path"][14]["route_component_count"] == 9
-    assert payload["first_run_path"][15]["command"] == (
-        "microcosm verifier-lab-execution-spine run-execution-bundle"
-    )
     assert payload["first_run_path"][16]["command"] == "microcosm landing-replay"
     assert payload["first_run_path"][17]["command"] == (
         "microcosm durable-agent-work-landing-replay run-work-landing-bundle"
@@ -404,6 +406,10 @@ def test_cli_authority_smoke(
     assert any(row["endpoint"] == "/repair-loop" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/evidence-cells" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/proof-loop-depth" for row in payload["surface_authority"])
+    assert any(
+        row["endpoint"] == "/verifier-lab-execution-spine"
+        for row in payload["surface_authority"]
+    )
     assert any(row["endpoint"] == "/landing-replay" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/view-quality" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/projection-safety" for row in payload["surface_authority"])
@@ -624,14 +630,43 @@ def test_cli_proof_loop_depth_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm proof-loop-depth"
     assert payload["endpoint"] == "/proof-loop-depth"
-    assert payload["proof_loop_summary"]["gate_count"] == 11
+    assert payload["proof_loop_summary"]["gate_count"] == 12
     assert payload["proof_loop_summary"]["proof_lab_route_component_count"] == 9
+    assert payload["proof_loop_summary"]["proof_lab_execution_transition_count"] == 6
     assert payload["first_screen_proof_lab"]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
     assert payload["proof_loop_summary"]["proof_body_export_count"] == 0
     assert payload["authority_ceiling"]["formal_proof_authority"] is False
     assert payload["authority_ceiling"]["benchmark_score_claim"] is False
     assert payload["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert payload["payload_boundary"]["boundary_id"] == "public_proof_loop_depth_lens"
+    assert payload["unsafe_payload_bodies_in_receipt"] is False
+    assert "body_redacted" not in payload
+
+
+def test_cli_verifier_lab_execution_spine_lens_smoke(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main(["verifier-lab-execution-spine-lens"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert (
+        payload["schema_version"]
+        == "microcosm_public_verifier_lab_execution_spine_lens_v1"
+    )
+    assert payload["status"] == "pass"
+    assert payload["command"] == VERIFIER_EXECUTION_LENS_COMMAND
+    assert payload["endpoint"] == "/verifier-lab-execution-spine"
+    assert payload["source_receipt_ref"] == VERIFIER_EXECUTION_RECEIPT_REF
+    assert payload["execution_summary"]["transition_count"] == 6
+    assert payload["execution_summary"]["accepted_transition_count"] == 4
+    assert payload["execution_summary"]["cp2_downstream_effect_count"] == 1
+    assert payload["execution_summary"]["evolve_accepted_count"] == 1
+    assert payload["authority_ceiling"]["external_tool_witness_only"] is True
+    assert payload["authority_ceiling"]["formal_proof_authority"] is False
+    assert payload["payload_boundary"]["boundary_id"] == (
+        "public_verifier_lab_execution_spine_lens"
+    )
     assert payload["unsafe_payload_bodies_in_receipt"] is False
     assert "body_redacted" not in payload
 

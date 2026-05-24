@@ -176,7 +176,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     )
     assert receipt["model_assertions"]["runtime_bridge_open_actionable_zero"] is True
     assert receipt["tour_proof"]["tour_id"] == "public_ten_minute_tour"
-    assert receipt["tour_proof"]["route_card_count"] == 7
+    assert receipt["tour_proof"]["route_card_count"] == 8
     assert receipt["verifier_trace_proof"]["lens_id"] == "public_verifier_trace_repair_lens"
     assert receipt["verifier_trace_proof"]["trace_attempt_count"] == 4
     assert receipt["verifier_trace_proof"]["formal_proof_authority"] is False
@@ -188,8 +188,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["formal_evidence_cell_proof"]["cell_count"] == 4
     assert receipt["formal_evidence_cell_proof"]["formal_proof_authority"] is False
     assert receipt["proof_loop_depth_proof"]["lens_id"] == "public_proof_loop_depth_lens"
-    assert receipt["proof_loop_depth_proof"]["gate_count"] == 11
-    assert receipt["proof_loop_depth_proof"]["negative_case_count"] == 9
+    assert receipt["proof_loop_depth_proof"]["gate_count"] == 12
+    assert receipt["proof_loop_depth_proof"]["negative_case_count"] == 10
     assert receipt["proof_loop_depth_proof"]["formal_proof_authority"] is False
     assert receipt["proof_loop_depth_proof"]["proof_bodies_exported"] is False
     assert receipt["proof_loop_depth_proof"]["oracle_needed_premise_ids_exported"] is False

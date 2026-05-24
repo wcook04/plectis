@@ -89,8 +89,8 @@ imported macro body.
 2. The compressed product loop is `microcosm compile <project>`: repo -> `.microcosm`.
    The ten-minute tour loop is `microcosm tour <project>`; it should compress
    compile, Python lens, spine, authority, workingness, prediction, market boundary, corpus, trace repair,
-   repair-loop curriculum, formal evidence cells, work landing replay, durable
-   agent work landing replay, view quality, projection safety, drift control,
+   repair-loop curriculum, formal evidence cells, proof-loop depth, verifier-lab
+   execution spine, work landing replay, durable agent work landing replay, view quality, projection safety, drift control,
    circuit attribution, route cleanup, projection import map, import projector, stripping guard,
    standards control, hook intervention coverage, replay gauntlet,
    MCP tool-authority replay,
@@ -210,10 +210,15 @@ imported macro body.
    The proof-loop depth lens is `microcosm proof-loop-depth`; it should show
    the public metadata-only chain from corpus boundary through premise
    retrieval, tactic availability, target-shape routing, verifier trace repair,
-   cold rerun, and evidence-cell resolution. It must not export proof bodies,
-   oracle-needed premise ids, provider payloads, benchmark scores, Lean/Lake
-   proof execution, theorem-solution claims, source mutation, private
-   equivalence, or release authority.
+   cold rerun, evidence-cell resolution, and verifier-lab execution-spine
+   routing. It must not export proof bodies, oracle-needed premise ids,
+   provider payloads, benchmark scores, Lean/Lake proof execution,
+   theorem-solution claims, source mutation, private equivalence, or release
+   authority. The verifier-lab execution-spine lens is
+   `microcosm verifier-lab-execution-spine-lens`; it should expose bounded
+   Lean/Lake transition rows, CP2 downstream rerun effects, Evolve rerun
+   acceptance, tool return-code evidence, and secret-exclusion status without
+   turning tool execution into general proof authority.
    The work landing replay loop is `microcosm landing-replay`; it should
    expose dirty-tree landing lanes, scoped commit versus broad checkpoint
    boundaries, metadata-blocked recovery, blocker refs, ledger finalizer refs,
@@ -562,7 +567,7 @@ imported macro body.
    keep causal-chain sections legible before raw JSON drilldowns. It must also
    surface the Python lens and spine/intake/reveal bridge in browser form,
    including `/project/python-lens`, `/tour`, `/spine`, `/authority`, `/prediction`,
-   `/market-boundary`, `/corpus`, `/trace`, `/repair-loop`, `/evidence-cells`, `/proof-loop-depth`, `/landing-replay`,
+   `/market-boundary`, `/corpus`, `/trace`, `/repair-loop`, `/evidence-cells`, `/proof-loop-depth`, `/verifier-lab-execution-spine`, `/landing-replay`,
    `/view-quality`, `/projection-safety`, `/drift-control`, `/route-cleanup`, `/projection-import-map`,
    `/import-projector`, `/option-surface-lens`, `/stripping-guard`, `/standards-control`, `/hook-coverage`,
    `/replay-gauntlet`, `/benchmark-lab`, `/legibility-scorecard`, `/intake`, `/reveal`,

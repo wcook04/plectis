@@ -26,6 +26,7 @@
     "microcosm repair-loop",
     "microcosm evidence-cells",
     "microcosm proof-loop-depth",
+    "microcosm verifier-lab-execution-spine-lens",
     "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
     "microcosm landing-replay",
     "microcosm view-quality",
@@ -60,7 +61,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-23T22:49:45+00:00",
+  "created_at": "2026-05-24T02:11:16+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -73,6 +74,7 @@
     "/repair-loop",
     "/evidence-cells",
     "/proof-loop-depth",
+    "/verifier-lab-execution-spine",
     "/verifier-lab-kernel",
     "/landing-replay",
     "/view-quality",
@@ -103,6 +105,7 @@
     "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
     "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
     "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+    "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/runtime_shell/public_work_landing_replay_lens.json",
     "receipts/runtime_shell/public_view_quality_action_map_lens.json",
@@ -284,6 +287,24 @@
       "status": "pass"
     },
     {
+      "accepted_transition_count": 4,
+      "card_id": "verifier_lab_execution_spine",
+      "command": "microcosm verifier-lab-execution-spine-lens",
+      "endpoint": "/verifier-lab-execution-spine",
+      "minute_budget": 1,
+      "receipt_ref": "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
+      "shows": [
+        "bounded Lean transition rows and return codes",
+        "CP2 downstream rerun effect count",
+        "Evolve rerun acceptance count",
+        "proof-body/provider/oracle/stdout payload exclusions"
+      ],
+      "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+      "source_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle_validation_result.json",
+      "status": "pass",
+      "transition_count": 6
+    },
+    {
       "card_id": "intake_and_reveal",
       "command": "microcosm intake && microcosm reveal",
       "endpoint": "/intake + /reveal",
@@ -338,8 +359,8 @@
     "proof_lab_lean_lake_return_code": 0,
     "proof_lab_retrieval_mean_public_recall": 1.0,
     "proof_lab_route_component_count": 9,
-    "proof_loop_gate_count": 11,
-    "proof_loop_negative_case_count": 9,
+    "proof_loop_gate_count": 12,
+    "proof_loop_negative_case_count": 10,
     "repair_loop_negative_case_count": 8,
     "repair_loop_stage_count": 5,
     "repair_loop_transition_count": 4,
@@ -355,6 +376,9 @@
     "surface_authority_count": 45,
     "trace_negative_case_count": 7,
     "trace_repair_attempt_count": 4,
+    "verifier_lab_execution_cp2_downstream_effect_count": 1,
+    "verifier_lab_execution_evolve_accepted_count": 1,
+    "verifier_lab_execution_transition_count": 6,
     "view_quality_action_count": 5,
     "view_quality_hot_action_count": 4
   },
@@ -416,6 +440,7 @@
     "standards_control": "pass",
     "stripping_guard": "pass",
     "trace": "pass",
+    "verifier_lab_execution_spine": "pass",
     "view_quality": "pass"
   },
   "time_budget_minutes": 10,
