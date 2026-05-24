@@ -1354,6 +1354,36 @@ def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Pat
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_public_proof_lenses_preserve_stable_created_at(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+    shell.proof_loop_depth()
+    lens_paths = [
+        public_root / "receipts/runtime_shell/public_corpus_readiness_lens.json",
+        public_root / "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
+        public_root / "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
+        public_root / "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
+        public_root / "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+    ]
+    before = {
+        path: json.loads(path.read_text(encoding="utf-8")) for path in lens_paths
+    }
+
+    monkeypatch.setattr(
+        "microcosm_core.runtime_shell.utc_now",
+        lambda: "2099-01-01T00:00:00+00:00",
+    )
+
+    shell.proof_loop_depth()
+
+    after = {
+        path: json.loads(path.read_text(encoding="utf-8")) for path in lens_paths
+    }
+    assert after == before
+
+
 def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)

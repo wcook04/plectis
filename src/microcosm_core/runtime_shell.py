@@ -834,6 +834,23 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
+def _stable_created_at(path: Path, payload: dict[str, Any]) -> str:
+    created_at = payload.get("created_at")
+    if not isinstance(created_at, str):
+        created_at = utc_now()
+    previous = _read_json_if_exists(path)
+    previous_created_at = previous.get("created_at")
+    if not isinstance(previous_created_at, str):
+        return created_at
+    previous_without_created_at = dict(previous)
+    previous_without_created_at.pop("created_at", None)
+    payload_without_created_at = dict(payload)
+    payload_without_created_at.pop("created_at", None)
+    if previous_without_created_at == payload_without_created_at:
+        return previous_created_at
+    return created_at
+
+
 def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
     receipt = _read_json_if_exists(root / PROOF_LAB_RECEIPT_REF)
     metrics = receipt.get("proof_lab_component_metrics")
@@ -3459,6 +3476,7 @@ class RuntimeShell:
                 "proof-authority claims, and release authority."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -3682,6 +3700,7 @@ class RuntimeShell:
                 "or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -3884,6 +3903,7 @@ class RuntimeShell:
                 "claim a general mathematical solution, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -4210,6 +4230,7 @@ class RuntimeShell:
                 "source, claim secret export, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -9725,6 +9746,7 @@ class RuntimeShell:
                 "providers, mutate source, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
