@@ -394,6 +394,26 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
         ),
     },
+    "work_landing_control_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The work-landing control spine carries exact copied control-plane "
+            "source modules inside Microcosm and validates them through the "
+            "work-landing control bundle without live Task Ledger, Work Ledger, "
+            "Git, private-index execution, provider, publication, or release authority."
+        ),
+        "landed_evidence_refs": [
+            "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+            "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
+            "src/microcosm_core/macro_tools/work_landing_control_spine.py",
+        ],
+        "next_runtime_surface": (
+            "microcosm work-landing-control-spine validate-control-bundle "
+            "--input examples/work_landing_control_spine/exported_work_landing_control_bundle"
+        ),
+    },
 }
 
 

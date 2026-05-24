@@ -39,9 +39,9 @@
   "blocked_projection_cell_count": 0,
   "body_in_receipt": false,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
-  "consumed_cell_count": 11,
-  "created_at": "2026-05-24T11:28:49+00:00",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
+  "consumed_cell_count": 12,
+  "created_at": "2026-05-24T11:53:57+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -125,8 +125,8 @@
   ],
   "headline": "Macro source refs become import candidates; verified non-secret macro bodies flow only with source-to-target evidence and claim floors.",
   "input_mode": "first_wave_fixture",
-  "landed_cell_count": 11,
-  "macro_origin_ref_count": 55,
+  "landed_cell_count": 12,
+  "macro_origin_ref_count": 60,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "negative_case_coverage_status": "pass",
@@ -186,7 +186,7 @@
   "plan_id": "public_macro_projection_import_plan_v1",
   "policy_id": "verified_macro_projection_cleaning_policy_v1",
   "private_data_equivalence_claim": false,
-  "projection_cell_count": 11,
+  "projection_cell_count": 12,
   "projection_cell_ids": [
     "agent_execution_trace_refactor",
     "agent_observability_store_import",
@@ -198,7 +198,8 @@
     "multi_agent_fanin_replay_import",
     "navigation_route_plane_import",
     "projection_protocol_self_host",
-    "runtime_reveal_import_bridge"
+    "runtime_reveal_import_bridge",
+    "work_landing_control_source_modules_import"
   ],
   "projection_cells": [
     {
@@ -809,10 +810,75 @@
         "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_work_landing_control_source_bodies_not_live_task_ledger_work_ledger_git_private_index_provider_credential_release_publication_or_send_authority",
+      "blocking_reasons": [],
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "work_landing_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "copy_policy": "verified_macro_body_with_claim_floor",
+      "landed_evidence_refs": [
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+        "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/work_landing_control_spine.py"
+      ],
+      "missing_public_safe_body_material_ids": [],
+      "next_runtime_surface": "microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "public_safe_body_import_routes": [
+        "verified_light_edit"
+      ],
+      "public_safe_body_material_classes": [
+        "public_macro_tool_body"
+      ],
+      "public_safe_body_material_count": 5,
+      "public_safe_body_material_ids": [
+        "work_landing_status_body_import",
+        "mission_transaction_landing_preflight_body_import",
+        "work_landing_control_tool_body_import",
+        "mission_transaction_preflight_tool_body_import",
+        "scoped_commit_tool_body_import"
+      ],
+      "ready_to_project": true,
+      "selected_pattern_ids": [
+        "durable_agent_work_landing_replay_compound",
+        "mission_transaction_preflight_control_plane",
+        "scoped_commit_private_index_transaction"
+      ],
+      "source_ref_count": 7,
+      "source_refs": [
+        "system/lib/work_landing_status.py",
+        "system/lib/mission_transaction_landing_preflight.py",
+        "tools/meta/control/work_landing.py",
+        "tools/meta/control/mission_transaction_preflight.py",
+        "tools/meta/control/scoped_commit.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "status_reason": "The work-landing control spine carries exact copied control-plane source modules inside Microcosm and validates them through the work-landing control bundle without live Task Ledger, Work Ledger, Git, private-index execution, provider, publication, or release authority.",
+      "target_ref_count": 8,
+      "target_refs": [
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json"
+      ],
+      "validation_ref_count": 2,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "projection_status_counts": {
-    "public_runtime_import_landed": 9,
+    "public_runtime_import_landed": 10,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },
@@ -834,7 +900,7 @@
     "status_field": "projection_status"
   },
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 19,
+  "public_runtime_ref_count": 22,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -858,6 +924,14 @@
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
     "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
     "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
     "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
@@ -867,6 +941,7 @@
     "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
     "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
     "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+    "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_controller_heartbeat_bundle_validation_result.json",
@@ -887,11 +962,11 @@
     "public_macro_pattern_body": 1,
     "public_macro_proof_body": 1,
     "public_macro_receipt_body": 1,
-    "public_macro_tool_body": 17
+    "public_macro_tool_body": 22
   },
-  "public_safe_body_import_count": 20,
+  "public_safe_body_import_count": 25,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 20
+    "verified_light_edit": 25
   },
   "public_safe_body_import_status": "pass",
   "public_safe_body_imports": [
@@ -1970,12 +2045,257 @@
         "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_system_lib_work_landing_status_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "source_line_count": 3553,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "target_line_count": 3553,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification_status": "pass",
+      "credential_exposure_risk": "low",
+      "error_codes": [],
+      "finding_count": 0,
+      "flow_allowed": true,
+      "material_class": "public_macro_tool_body",
+      "material_id": "work_landing_status_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "route": "verified_light_edit",
+      "source_refs": [
+        "system/lib/work_landing_status.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_system_lib_mission_transaction_landing_preflight_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+        "source_line_count": 8680,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+        "target_line_count": 8680,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification_status": "pass",
+      "credential_exposure_risk": "low",
+      "error_codes": [],
+      "finding_count": 0,
+      "flow_allowed": true,
+      "material_class": "public_macro_tool_body",
+      "material_id": "mission_transaction_landing_preflight_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "route": "verified_light_edit",
+      "source_refs": [
+        "system/lib/mission_transaction_landing_preflight.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_tools_meta_control_work_landing_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "source_line_count": 187,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "target_line_count": 187,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification_status": "pass",
+      "credential_exposure_risk": "low",
+      "error_codes": [],
+      "finding_count": 0,
+      "flow_allowed": true,
+      "material_class": "public_macro_tool_body",
+      "material_id": "work_landing_control_tool_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "route": "verified_light_edit",
+      "source_refs": [
+        "tools/meta/control/work_landing.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_tools_meta_control_mission_transaction_preflight_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+        "source_line_count": 496,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+        "target_line_count": 496,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification_status": "pass",
+      "credential_exposure_risk": "low",
+      "error_codes": [],
+      "finding_count": 0,
+      "flow_allowed": true,
+      "material_class": "public_macro_tool_body",
+      "material_id": "mission_transaction_preflight_tool_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "route": "verified_light_edit",
+      "source_refs": [
+        "tools/meta/control/mission_transaction_preflight.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_tools_meta_control_scoped_commit_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "source_line_count": 1422,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "target_line_count": 1422,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification_status": "pass",
+      "credential_exposure_risk": "low",
+      "error_codes": [],
+      "finding_count": 0,
+      "flow_allowed": true,
+      "material_class": "public_macro_tool_body",
+      "material_id": "scoped_commit_tool_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "route": "verified_light_edit",
+      "source_refs": [
+        "tools/meta/control/scoped_commit.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
-  "public_safe_body_material_count": 20,
+  "public_safe_body_material_count": 25,
   "publication_authorized": false,
-  "ready_cell_count": 11,
-  "ready_projection_cell_count": 11,
+  "ready_cell_count": 12,
+  "ready_projection_cell_count": 12,
   "receipt_id": "macro_projection_import_protocol_intake_board_v1",
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
@@ -2041,7 +2361,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 55,
+    "macro_origin_ref_count": 60,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json::situation_routes",
@@ -2065,6 +2385,9 @@
       "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
       "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
       "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+      "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+      "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+      "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
       "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
@@ -2084,6 +2407,7 @@
       "system/lib/continuation_packet.py",
       "system/lib/controller_heartbeat.py",
       "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+      "system/lib/mission_transaction_landing_preflight.py",
       "system/lib/navigation_context_pack.py::build_navigation_context_pack",
       "system/lib/navigation_route_intervention.py",
       "system/lib/work_landing_status.py",
@@ -2098,6 +2422,7 @@
       "tools/finance/variant_registry.py",
       "tools/meta/bridge/bridge_resume.py",
       "tools/meta/control/mission_transaction_preflight.py",
+      "tools/meta/control/scoped_commit.py",
       "tools/meta/control/work_landing.py"
     ],
     "macro_origin_refs_runtime_required": false,
@@ -2115,19 +2440,19 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 11,
+    "projection_cell_count": 12,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 1,
-      "public_macro_tool_body": 17
+      "public_macro_tool_body": 22
     },
-    "public_safe_body_import_count": 20,
+    "public_safe_body_import_count": 25,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 20
+      "verified_light_edit": 25
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 11,
+    "ready_projection_cell_count": 12,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -2329,6 +2654,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
         "status": "pass"
@@ -2338,6 +2670,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
         "ref": "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "ref": "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
         "status": "pass"
       },
       {
@@ -2415,6 +2754,41 @@
         "leak_reason": null,
         "normalized_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
         "status": "pass"
       },
       {
@@ -2546,6 +2920,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "paper_modules/formal_math_readiness_gate.md",
         "ref": "paper_modules/formal_math_readiness_gate.md",
         "status": "pass"
@@ -2618,6 +2999,13 @@
         "leak_reason": null,
         "normalized_ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
         "ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
+        "ref": "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
         "status": "pass"
       },
       {
@@ -2723,6 +3111,13 @@
         "leak_reason": null,
         "normalized_ref": "src/microcosm_core/macro_tools/finance_eval_spine.py",
         "ref": "src/microcosm_core/macro_tools/finance_eval_spine.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/work_landing_control_spine.py",
+        "ref": "src/microcosm_core/macro_tools/work_landing_control_spine.py",
         "status": "pass"
       },
       {
@@ -2882,6 +3277,55 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
         "ref": "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
         "status": "pass"
@@ -2933,6 +3377,13 @@
         "leak_reason": null,
         "normalized_ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
         "ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
+        "ref": "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
         "status": "pass"
       },
       {
@@ -3225,8 +3676,22 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
         "ref": "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "ref": "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
         "status": "pass"
       },
       {
@@ -3251,7 +3716,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 160,
+    "runtime_dependency_count": 180,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -3275,6 +3740,14 @@
       "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle",
       "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+      "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
       "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
@@ -3307,8 +3780,10 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
       "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+      "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
       "paper_modules/formal_math_readiness_gate.md",
       "paper_modules/macro_projection_import_protocol.md",
       "paper_modules/public_reveal_walkthrough.md",
@@ -3320,6 +3795,7 @@
       "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
       "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
       "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+      "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_controller_heartbeat_bundle_validation_result.json",
@@ -3338,6 +3814,7 @@
       "src/microcosm_core/macro_tools/controller_heartbeat.py",
       "src/microcosm_core/macro_tools/finance_eval_spine.py",
       "src/microcosm_core/macro_tools/work_landing.py",
+      "src/microcosm_core/macro_tools/work_landing_control_spine.py",
       "src/microcosm_core/organs/navigation_hologram_route_plane.py",
       "standards/std_microcosm_macro_projection_import_protocol.json"
     ],
@@ -3386,7 +3863,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 40,
+  "source_ref_count": 46,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -3427,10 +3904,16 @@
     "tools/finance/compare_variants.py",
     "tools/finance/build_eval_operating_picture.py",
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
-    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+    "system/lib/work_landing_status.py",
+    "system/lib/mission_transaction_landing_preflight.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/control/scoped_commit.py",
+    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
   ],
   "status": "pass",
-  "validation_ref_count": 34,
+  "validation_ref_count": 36,
   "validation_refs": [
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
@@ -3460,7 +3943,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+    "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/preflight/dependency_preflight.json",

@@ -42,7 +42,13 @@
     "tools/finance/compare_variants.py",
     "tools/finance/build_eval_operating_picture.py",
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
-    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+    "system/lib/work_landing_status.py",
+    "system/lib/mission_transaction_landing_preflight.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/control/scoped_commit.py",
+    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -1061,6 +1067,316 @@
         ]
       },
       "body_in_receipt": false
+    },
+    {
+      "material_id": "work_landing_status_body_import",
+      "source_ref": "system/lib/work_landing_status.py",
+      "source_refs": [
+        "system/lib/work_landing_status.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_system_lib_work_landing_status_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "body_line_count": 3553,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "target_body_digest": "sha256:ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 3553,
+        "target_line_count": 3553,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "mission_transaction_landing_preflight_body_import",
+      "source_ref": "system/lib/mission_transaction_landing_preflight.py",
+      "source_refs": [
+        "system/lib/mission_transaction_landing_preflight.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_system_lib_mission_transaction_landing_preflight_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+      "body_line_count": 8680,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+        "target_body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 8680,
+        "target_line_count": 8680,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "work_landing_control_tool_body_import",
+      "source_ref": "tools/meta/control/work_landing.py",
+      "source_refs": [
+        "tools/meta/control/work_landing.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_meta_control_work_landing_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "body_line_count": 187,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "target_body_digest": "sha256:cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 187,
+        "target_line_count": 187,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "mission_transaction_preflight_tool_body_import",
+      "source_ref": "tools/meta/control/mission_transaction_preflight.py",
+      "source_refs": [
+        "tools/meta/control/mission_transaction_preflight.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_meta_control_mission_transaction_preflight_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+      "body_line_count": 496,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+        "target_body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 496,
+        "target_line_count": 496,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "scoped_commit_tool_body_import",
+      "source_ref": "tools/meta/control/scoped_commit.py",
+      "source_refs": [
+        "tools/meta/control/scoped_commit.py",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_meta_control_scoped_commit_into_public_work_landing_control_bundle",
+        "bind_work_landing_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public work-landing control source-module body import only; not live Task Ledger, Work Ledger, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+      "body_line_count": 1422,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "target_body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 1422,
+        "target_line_count": 1422,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -1122,7 +1438,10 @@
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
-    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -1148,7 +1467,9 @@
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

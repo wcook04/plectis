@@ -151,6 +151,175 @@
     },
     {
       "action_required": false,
+      "authority_ceiling": "verified_public_route_repair_trace_body_not_live_hook_provider_browser_or_account_authority",
+      "body_in_receipt": false,
+      "cell_id": "agent_trace_route_repair_observability_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+        "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle --input examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "agent_trace_to_route_repair_observability_compound",
+        "runtime_hook_shadow_intervention_coverage"
+      ],
+      "status_reason": "The agent trace-to-route-repair observability lane is landed as a source-faithful public route-repair macro tool and consumed by the route observability runtime bundle.",
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+        "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_agent_observability_store_body_not_live_session_provider_browser_account_credential_or_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "agent_observability_store_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_observability_store.py",
+        "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "agent_self_observability_plane",
+        "agent_trace_to_route_repair_observability_compound"
+      ],
+      "status_reason": "The agent observability store is landed as a source-faithful public AgentTraceStore macro tool and consumed by the route observability runtime bundle.",
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_observability_store.py",
+        "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_session_attribution_body_not_live_session_or_provider_or_account_authority",
+      "body_in_receipt": false,
+      "cell_id": "agent_session_attribution_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_session_attribution.py",
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "agent_session_attribution",
+        "agent_trace_to_route_repair_observability_compound"
+      ],
+      "status_reason": "The agent session-attribution join is landed as an exact public macro tool body and consumed by the route observability runtime session-attribution bundle.",
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_session_attribution.py",
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_continuation_packet_and_bridge_resume_bodies_not_live_bridge_host_app_provider_browser_account_worker_transcript_or_recipient_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "multi_agent_fanin_replay_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/continuation_packet.py",
+        "src/microcosm_core/macro_tools/bridge_resume.py",
+        "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+        "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-bridge-dispatch-yield-resume-bundle --input examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "multi_agent_handoff_fanin_replay_compound",
+        "bridge_runtime_dispatch_yield_resume",
+        "agent_trace_to_route_repair_observability_compound"
+      ],
+      "status_reason": "The multi-agent fan-in replay lane is landed as source-faithful public continuation-packet and bridge-resume macro tools plus exported fan-in and dispatch/yield/resume metadata bundles.",
+      "target_refs": [
+        "src/microcosm_core/macro_tools/continuation_packet.py",
+        "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/bridge_resume.py",
+        "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_continuation_packet_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_controller_heartbeat_body_not_live_seed_blackboard_work_ledger_provider_browser_account_credential_or_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "controller_continuity_heartbeat_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/controller_heartbeat.py",
+        "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_controller_heartbeat_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-controller-heartbeat-bundle --input examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "controller_continuity_heartbeat",
+        "bridge_runtime_dispatch_yield_resume",
+        "agent_trace_to_route_repair_observability_compound"
+      ],
+      "status_reason": "The controller-continuity heartbeat is landed as a source-faithful public macro tool body plus an exported runtime replay bundle covering 5x5 heartbeat validation, event identity, response-schema wrapping, dedupe, and stale generic problem regeneration.",
+      "target_refs": [
+        "src/microcosm_core/macro_tools/controller_heartbeat.py",
+        "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_controller_heartbeat_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
       "authority_ceiling": "copied_public_route_rows_not_live_route_freshness_or_source_authority",
       "body_in_receipt": false,
       "cell_id": "navigation_route_plane_import",
@@ -178,12 +347,89 @@
         "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_finance_forecast_evaluation_source_bodies_not_trading_financial_advice_live_provider_account_private_portfolio_optimizer_calculator_release_publication_or_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "finance_eval_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+        "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/finance_eval_spine.py"
+      ],
+      "next_runtime_surface": "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "data_feed_market_evidence_fusion",
+        "cp2_universe_constraint_valid_prediction_targets_gate",
+        "oracle_deterministic_equity_diff_grading_surface",
+        "market_situation_evidence_graph"
+      ],
+      "status_reason": "The finance forecast evaluation spine carries exact copied tools/finance source modules inside Microcosm and validates them through the finance eval bundle without trading, advice, provider-call, account, optimizer, calculator-mutation, publication, or release authority.",
+      "target_refs": [
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_work_landing_control_source_bodies_not_live_task_ledger_work_ledger_git_private_index_provider_credential_release_publication_or_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "work_landing_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+        "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/work_landing_control_spine.py"
+      ],
+      "next_runtime_surface": "microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "durable_agent_work_landing_replay_compound",
+        "mission_transaction_preflight_control_plane",
+        "scoped_commit_private_index_transaction"
+      ],
+      "status_reason": "The work-landing control spine carries exact copied control-plane source modules inside Microcosm and validates them through the work-landing control bundle without live Task Ledger, Work Ledger, Git, private-index execution, provider, publication, or release authority.",
+      "target_refs": [
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
-  "consumed_cell_count": 5,
-  "created_at": "2026-05-24T01:17:56+00:00",
+  "consumed_cell_count": 12,
+  "created_at": "2026-05-24T11:54:47+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",
@@ -211,13 +457,13 @@
       "why": "open receipts only after the causal path is visible"
     }
   ],
-  "landed_cell_count": 5,
+  "landed_cell_count": 12,
   "open_actionable_cell_count": 0,
-  "projection_cell_count": 5,
+  "projection_cell_count": 12,
   "projection_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
   "projection_plan_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
   "projection_status_counts": {
-    "public_runtime_import_landed": 3,
+    "public_runtime_import_landed": 10,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },
@@ -239,7 +485,7 @@
     "status_field": "projection_status"
   },
   "public_claim": "Microcosm turns macro-pattern intake into a runnable source-open path: compile, spine, intake, reveal, and evidence drilldown over real substrate receipts.",
-  "ready_cell_count": 5,
+  "ready_cell_count": 12,
   "reveal_command": "microcosm reveal",
   "runtime_bridge_evidence_refs": [
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
