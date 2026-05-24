@@ -31,7 +31,18 @@
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound",
     "system/lib/agent_observability.py",
     "codex/doctrine/paper_modules/agent_observability.md",
-    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
+    "tools/finance/event_keys.py",
+    "tools/finance/admit_forecasts.py",
+    "tools/finance/resolve_forecasts.py",
+    "tools/finance/eval_replay.py",
+    "tools/finance/historical_replay.py",
+    "tools/finance/calibrate_forecast_probabilities.py",
+    "tools/finance/variant_registry.py",
+    "tools/finance/compare_variants.py",
+    "tools/finance/build_eval_operating_picture.py",
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -663,6 +674,393 @@
         ]
       },
       "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_event_keys_body_import",
+      "source_ref": "tools/finance/event_keys.py",
+      "source_refs": [
+        "tools/finance/event_keys.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_event_keys_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608",
+        "target_body_digest": "sha256:d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_admit_forecasts_body_import",
+      "source_ref": "tools/finance/admit_forecasts.py",
+      "source_refs": [
+        "tools/finance/admit_forecasts.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_admit_forecasts_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d",
+        "target_body_digest": "sha256:eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_resolve_forecasts_body_import",
+      "source_ref": "tools/finance/resolve_forecasts.py",
+      "source_refs": [
+        "tools/finance/resolve_forecasts.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_resolve_forecasts_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba",
+        "target_body_digest": "sha256:e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_eval_replay_body_import",
+      "source_ref": "tools/finance/eval_replay.py",
+      "source_refs": [
+        "tools/finance/eval_replay.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_eval_replay_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915",
+        "target_body_digest": "sha256:380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_historical_replay_body_import",
+      "source_ref": "tools/finance/historical_replay.py",
+      "source_refs": [
+        "tools/finance/historical_replay.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_historical_replay_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805",
+        "target_body_digest": "sha256:b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_calibrate_forecast_probabilities_body_import",
+      "source_ref": "tools/finance/calibrate_forecast_probabilities.py",
+      "source_refs": [
+        "tools/finance/calibrate_forecast_probabilities.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_calibrate_forecast_probabilities_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c",
+        "target_body_digest": "sha256:834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_variant_registry_body_import",
+      "source_ref": "tools/finance/variant_registry.py",
+      "source_refs": [
+        "tools/finance/variant_registry.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_variant_registry_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288",
+        "target_body_digest": "sha256:ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_compare_variants_body_import",
+      "source_ref": "tools/finance/compare_variants.py",
+      "source_refs": [
+        "tools/finance/compare_variants.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_compare_variants_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24",
+        "target_body_digest": "sha256:c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "finance_build_eval_operating_picture_body_import",
+      "source_ref": "tools/finance/build_eval_operating_picture.py",
+      "source_refs": [
+        "tools/finance/build_eval_operating_picture.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_finance_build_eval_operating_picture_module_into_public_finance_eval_bundle",
+        "bind_finance_forecast_evaluation_source_module_to_macro_projection_body_floor",
+        "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
+      "body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
+        "target_body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+          "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ]
+      },
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -712,7 +1110,10 @@
     "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
     "src/microcosm_core/macro_tools/agent_observability_store.py",
-    "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle"
+    "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -739,7 +1140,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

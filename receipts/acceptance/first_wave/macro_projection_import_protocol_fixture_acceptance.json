@@ -22,7 +22,7 @@
   "body_in_receipt": false,
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-24T11:04:01+00:00",
+  "created_at": "2026-05-24T11:28:49+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -104,7 +104,7 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 43,
+  "macro_origin_ref_count": 55,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -143,13 +143,14 @@
   "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
   "policy_id": "verified_macro_projection_cleaning_policy_v1",
-  "projection_cell_count": 10,
+  "projection_cell_count": 11,
   "projection_cell_ids": [
     "agent_execution_trace_refactor",
     "agent_observability_store_import",
     "agent_session_attribution_import",
     "agent_trace_route_repair_observability_import",
     "controller_continuity_heartbeat_import",
+    "finance_eval_source_modules_import",
     "formal_math_readiness_extensions",
     "multi_agent_fanin_replay_import",
     "navigation_route_plane_import",
@@ -158,7 +159,7 @@
   ],
   "projection_import_boundary": "verified_body_import_or_secret_exclusion_only",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 16,
+  "public_runtime_ref_count": 19,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -168,6 +169,18 @@
     "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
     "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
     "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+    "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
@@ -177,6 +190,7 @@
     "paper_modules/macro_projection_import_protocol.md",
     "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json",
     "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
+    "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
     "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
@@ -194,13 +208,13 @@
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_import_count": 11,
+  "public_safe_body_import_count": 20,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 11
+    "verified_light_edit": 20
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 11,
-  "ready_projection_cell_count": 10,
+  "public_safe_body_material_count": 20,
+  "ready_projection_cell_count": 11,
   "receipt_id": "macro_projection_import_protocol_fixture_acceptance_v1",
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
@@ -265,7 +279,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 43,
+    "macro_origin_ref_count": 55,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json::situation_routes",
@@ -286,6 +300,9 @@
       "codex/standards/std_navigation_contract.json",
       "docs/controller_continuity.md",
       "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+      "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/bundle_manifest.json",
+      "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+      "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
       "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
@@ -308,6 +325,15 @@
       "system/lib/navigation_context_pack.py::build_navigation_context_pack",
       "system/lib/navigation_route_intervention.py",
       "system/lib/work_landing_status.py",
+      "tools/finance/admit_forecasts.py",
+      "tools/finance/build_eval_operating_picture.py",
+      "tools/finance/calibrate_forecast_probabilities.py",
+      "tools/finance/compare_variants.py",
+      "tools/finance/eval_replay.py",
+      "tools/finance/event_keys.py",
+      "tools/finance/historical_replay.py",
+      "tools/finance/resolve_forecasts.py",
+      "tools/finance/variant_registry.py",
       "tools/meta/bridge/bridge_resume.py",
       "tools/meta/control/mission_transaction_preflight.py",
       "tools/meta/control/work_landing.py"
@@ -327,19 +353,19 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 10,
+    "projection_cell_count": 11,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 1,
-      "public_macro_tool_body": 8
+      "public_macro_tool_body": 17
     },
-    "public_safe_body_import_count": 11,
+    "public_safe_body_import_count": 20,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 11
+      "verified_light_edit": 20
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 10,
+    "ready_projection_cell_count": 11,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -457,6 +483,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "ref": "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -506,6 +539,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -536,6 +576,69 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
         "ref": "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
         "status": "pass"
       },
       {
@@ -667,6 +770,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "status": "pass"
@@ -704,6 +814,13 @@
         "leak_reason": null,
         "normalized_ref": "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
         "ref": "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+        "ref": "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
         "status": "pass"
       },
       {
@@ -842,6 +959,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/finance_eval_spine.py",
+        "ref": "src/microcosm_core/macro_tools/finance_eval_spine.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
         "ref": "src/microcosm_core/organs/navigation_hologram_route_plane.py",
         "status": "pass"
@@ -905,6 +1029,83 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+        "ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "status": "pass"
@@ -956,6 +1157,13 @@
         "leak_reason": null,
         "normalized_ref": "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
         "ref": "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+        "ref": "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
         "status": "pass"
       },
       {
@@ -1192,6 +1400,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "ref": "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -1234,6 +1449,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -1267,7 +1489,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 132,
+    "runtime_dependency_count": 160,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -1276,6 +1498,18 @@
       "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
       "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
       "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+      "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
       "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle",
       "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
@@ -1299,6 +1533,7 @@
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+      "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
@@ -1306,6 +1541,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification",
@@ -1316,6 +1552,7 @@
       "paper_modules/public_reveal_walkthrough.md",
       "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json",
       "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json",
+      "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
       "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
       "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
       "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
@@ -1337,6 +1574,7 @@
       "src/microcosm_core/macro_tools/bridge_resume.py",
       "src/microcosm_core/macro_tools/continuation_packet.py",
       "src/microcosm_core/macro_tools/controller_heartbeat.py",
+      "src/microcosm_core/macro_tools/finance_eval_spine.py",
       "src/microcosm_core/macro_tools/work_landing.py",
       "src/microcosm_core/organs/navigation_hologram_route_plane.py",
       "standards/std_microcosm_macro_projection_import_protocol.json"
@@ -1386,7 +1624,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 29,
+  "source_ref_count": 40,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -1416,10 +1654,21 @@
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound",
     "system/lib/agent_observability.py",
     "codex/doctrine/paper_modules/agent_observability.md",
-    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
+    "tools/finance/event_keys.py",
+    "tools/finance/admit_forecasts.py",
+    "tools/finance/resolve_forecasts.py",
+    "tools/finance/eval_replay.py",
+    "tools/finance/historical_replay.py",
+    "tools/finance/calibrate_forecast_probabilities.py",
+    "tools/finance/variant_registry.py",
+    "tools/finance/compare_variants.py",
+    "tools/finance/build_eval_operating_picture.py",
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
   ],
   "status": "pass",
-  "validation_ref_count": 32,
+  "validation_ref_count": 34,
   "validation_refs": [
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
@@ -1438,6 +1687,7 @@
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+    "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
     "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine",
@@ -1446,6 +1696,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",

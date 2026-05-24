@@ -374,6 +374,26 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/navigation_hologram_route_plane/exported_route_plane_bundle"
         ),
     },
+    "finance_eval_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The finance forecast evaluation spine carries exact copied tools/finance "
+            "source modules inside Microcosm and validates them through the finance "
+            "eval bundle without trading, advice, provider-call, account, optimizer, "
+            "calculator-mutation, publication, or release authority."
+        ),
+        "landed_evidence_refs": [
+            "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+            "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+            "src/microcosm_core/macro_tools/finance_eval_spine.py",
+        ],
+        "next_runtime_surface": (
+            "microcosm finance-eval-spine validate-finance-eval-bundle "
+            "--input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
+        ),
+    },
 }
 
 

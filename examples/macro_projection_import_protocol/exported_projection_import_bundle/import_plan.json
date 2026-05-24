@@ -290,6 +290,61 @@
       "authority_ceiling": "copied_public_route_rows_not_live_route_freshness_or_source_authority",
       "body_copied": false,
       "body_in_receipt": false
+    },
+    {
+      "cell_id": "finance_eval_source_modules_import",
+      "selected_pattern_ids": [
+        "data_feed_market_evidence_fusion",
+        "cp2_universe_constraint_valid_prediction_targets_gate",
+        "oracle_deterministic_equity_diff_grading_surface",
+        "market_situation_evidence_graph"
+      ],
+      "source_refs": [
+        "tools/finance/event_keys.py",
+        "tools/finance/admit_forecasts.py",
+        "tools/finance/resolve_forecasts.py",
+        "tools/finance/eval_replay.py",
+        "tools/finance/historical_replay.py",
+        "tools/finance/calibrate_forecast_probabilities.py",
+        "tools/finance/variant_registry.py",
+        "tools/finance/compare_variants.py",
+        "tools/finance/build_eval_operating_picture.py",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+      ],
+      "target_refs": [
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json",
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
+        "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "finance_event_keys_body_import",
+        "finance_admit_forecasts_body_import",
+        "finance_resolve_forecasts_body_import",
+        "finance_eval_replay_body_import",
+        "finance_historical_replay_body_import",
+        "finance_calibrate_forecast_probabilities_body_import",
+        "finance_variant_registry_body_import",
+        "finance_compare_variants_body_import",
+        "finance_build_eval_operating_picture_body_import"
+      ],
+      "authority_ceiling": "verified_public_finance_forecast_evaluation_source_bodies_not_trading_financial_advice_live_provider_account_private_portfolio_optimizer_calculator_release_publication_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
     }
   ],
   "body_in_receipt": false
