@@ -428,3 +428,78 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         "macro_doctrine_refs"
     ]
     assert "private_state_scan" not in entry_packet["receipt_dependencies"]
+
+
+def test_public_entry_packet_routes_doctrine_lattice() -> None:
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+
+    lattice = entry_packet["doctrine_lattice_route"]
+    assert lattice["surface_id"] == "microcosm_doctrine_lattice"
+    assert lattice["candidate_axiom_policy"] == (
+        "candidate_pressure_only_not_active_law"
+    )
+    assert lattice["band_ladder"] == [
+        "cluster_flag",
+        "flag",
+        "card",
+        "source_receipt",
+    ]
+
+    for principle_ref in [
+        "pri_049",
+        "pri_080",
+        "pri_088",
+        "pri_111",
+        "pri_121",
+        "pri_128",
+        "pri_134",
+        "pri_139",
+        "pri_144",
+    ]:
+        assert principle_ref in lattice["principle_refs"]
+
+    for axiom_candidate_ref in [
+        "axiom_candidate_evolution_proves_in_microcosm",
+        "axiom_candidate_availability_before_invention",
+        "axiom_candidate_common_sense_up_propagates",
+        "axiom_candidate_cybernetic_projection_feedback",
+    ]:
+        assert axiom_candidate_ref in lattice["candidate_axiom_pressure_refs"]
+
+    for concept_ref in ["con_022", "con_024", "con_028", "con_031", "con_041"]:
+        assert concept_ref in lattice["concept_refs"]
+
+    for mechanism_ref in ["mech_019", "mech_034"]:
+        assert mechanism_ref in lattice["mechanism_refs"]
+
+    for standard_ref in [
+        "codex/standards/std_microcosm.json",
+        "codex/standards/std_standard_type_plane.json",
+        "codex/standards/std_kind_atlas.json",
+        "codex/standards/std_uppropagation_intake.json",
+        "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json",
+    ]:
+        assert standard_ref in lattice["standard_refs"]
+
+    for paper_module_ref in [
+        "codex/doctrine/paper_modules/microcosm_substrate.md",
+        "codex/doctrine/paper_modules/prime_directives.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/paper_modules/public_constellation_strategy.md",
+        "codex/doctrine/paper_modules/dissemination_strategy.md",
+        "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
+    ]:
+        assert paper_module_ref in lattice["paper_module_refs"]
+
+    atlas_kinds = {row["kind"] for row in lattice["atlas_option_surfaces"]}
+    assert {
+        "standards",
+        "paper_modules",
+        "system_microcosm",
+        "microcosm_extracted_patterns",
+        "axiom_candidates",
+    } <= atlas_kinds
+    assert "candidate-axiom promotion authority" in lattice["authority"]

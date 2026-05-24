@@ -105,6 +105,85 @@
     ],
     "selection_rule": "Use the proof_lab_route when the reader asks what is runnable or impressive; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use standards and paper modules as drilldowns after the behavior is visible."
   },
+  "doctrine_lattice_route": {
+    "surface_id": "microcosm_doctrine_lattice",
+    "entry_role": "source-open cold-reader doctrine lattice after behavior is visible",
+    "band_ladder": [
+      "cluster_flag",
+      "flag",
+      "card",
+      "source_receipt"
+    ],
+    "principle_refs": [
+      "pri_049",
+      "pri_080",
+      "pri_088",
+      "pri_111",
+      "pri_121",
+      "pri_128",
+      "pri_134",
+      "pri_139",
+      "pri_144"
+    ],
+    "candidate_axiom_pressure_refs": [
+      "axiom_candidate_evolution_proves_in_microcosm",
+      "axiom_candidate_availability_before_invention",
+      "axiom_candidate_common_sense_up_propagates",
+      "axiom_candidate_cybernetic_projection_feedback"
+    ],
+    "candidate_axiom_policy": "candidate_pressure_only_not_active_law",
+    "concept_refs": [
+      "con_022",
+      "con_024",
+      "con_028",
+      "con_031",
+      "con_041"
+    ],
+    "mechanism_refs": [
+      "mech_019",
+      "mech_034"
+    ],
+    "standard_refs": [
+      "codex/standards/std_microcosm.json",
+      "codex/standards/std_standard_type_plane.json",
+      "codex/standards/std_kind_atlas.json",
+      "codex/standards/std_uppropagation_intake.json",
+      "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json"
+    ],
+    "paper_module_refs": [
+      "codex/doctrine/paper_modules/microcosm_substrate.md",
+      "codex/doctrine/paper_modules/prime_directives.md",
+      "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+      "codex/doctrine/paper_modules/public_constellation_strategy.md",
+      "codex/doctrine/paper_modules/dissemination_strategy.md",
+      "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+    ],
+    "atlas_option_surfaces": [
+      {
+        "kind": "standards",
+        "command": "./repo-python kernel.py --option-surface standards --band cluster_flag"
+      },
+      {
+        "kind": "paper_modules",
+        "command": "./repo-python kernel.py --option-surface paper_modules --band cluster_flag"
+      },
+      {
+        "kind": "system_microcosm",
+        "command": "./repo-python kernel.py --option-surface system_microcosm --band flag"
+      },
+      {
+        "kind": "microcosm_extracted_patterns",
+        "command": "./repo-python kernel.py --option-surface microcosm_extracted_patterns --band cluster_flag"
+      },
+      {
+        "kind": "axiom_candidates",
+        "command": "./repo-python kernel.py --option-surface axiom_candidates --band flag"
+      }
+    ],
+    "selection_rule": "Start from proof_lab_route for visible behavior, then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns; do not treat candidate axioms as active law.",
+    "authority": "navigation lattice only, not source authority, release authority, proof authority, doctrine-promotion authority, or candidate-axiom promotion authority"
+  },
   "banned_routes": [
     "self-indexing-cognitive-substrate/**",
     "raw_seed.md",
