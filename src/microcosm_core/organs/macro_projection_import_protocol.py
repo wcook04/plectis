@@ -414,6 +414,26 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/work_landing_control_spine/exported_work_landing_control_bundle"
         ),
     },
+    "task_ledger_control_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The Task Ledger control-plane source modules are landed as exact copied "
+            "non-secret macro bodies inside the mission transaction bundle and "
+            "consumed by the mission transaction work spine runtime."
+        ),
+        "landed_evidence_refs": [
+            "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+            "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+            "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+            "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm mission-transaction-work-spine validate-mission-bundle "
+            "--input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+        ),
+    },
 }
 
 
@@ -967,7 +987,7 @@ def _public_safe_body_target_findings(
             )
         ]
 
-    target_path = Path(target_ref.split("::", 1)[0])
+    target_path = Path(_normalize_runtime_root_ref(target_ref.split("::", 1)[0]))
     if target_path.is_absolute() or ".." in target_path.parts:
         findings.append(
             _finding(
@@ -1379,6 +1399,12 @@ def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
     return source_refs
 
 
+def _classification_values(value: object) -> list[str]:
+    if isinstance(value, str) and value:
+        return [value]
+    return _strings(value)
+
+
 def _normalize_runtime_root_ref(ref: str) -> str:
     if ref.startswith(f"{STANDALONE_RUNTIME_ROOT_REF}/"):
         return ref[len(STANDALONE_RUNTIME_ROOT_REF) + 1 :]
@@ -1496,6 +1522,7 @@ def _public_safe_body_import_rows(
                 "body_import_verification": row.get("body_import_verification")
                 if isinstance(row.get("body_import_verification"), dict)
                 else None,
+                "classification": _classification_values(row.get("classification")),
                 "body_copied": row.get("body_copied") is True,
                 "body_text_in_receipt": False,
                 "classification_status": classification["status"],
@@ -1596,6 +1623,7 @@ def _projection_cell_rows(
                         if material.get("route")
                     }
                 ),
+                "classification": _classification_values(row.get("classification")),
                 "missing_public_safe_body_material_ids": missing_body_material_ids,
                 "authority_ceiling": row.get("authority_ceiling"),
                 "body_copied": row.get("body_copied") is True,

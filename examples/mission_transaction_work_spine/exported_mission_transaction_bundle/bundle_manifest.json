@@ -5,17 +5,26 @@
   "organ_id": "mission_transaction_work_spine",
   "fixture_regression_required_elsewhere": true,
   "body_import_status": "source_faithful_public_refactor_landed",
+  "task_ledger_control_source_import_status": "public_runtime_import_landed",
   "body_import_verification": {
     "verification_mode": "source_faithful_public_refactor",
     "source_refs": [
       "tools/meta/control/work_landing.py",
       "system/lib/work_landing_status.py",
       "tools/meta/control/mission_transaction_preflight.py",
-      "system/lib/mission_transaction_landing_preflight.py"
+      "system/lib/mission_transaction_landing_preflight.py",
+      "system/lib/task_ledger_events.py",
+      "tools/meta/factory/task_ledger_apply.py",
+      "system/lib/task_ledger_priority.py",
+      "tools/meta/factory/task_ledger_project.py"
     ],
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
-      "microcosm-substrate/src/microcosm_core/macro_tools/mission_transaction_preflight.py"
+      "microcosm-substrate/src/microcosm_core/macro_tools/mission_transaction_preflight.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
     ],
     "body_in_receipt": false
   },
@@ -30,6 +39,12 @@
     "receipt_drain_plan.json",
     "closeout_projection_packet.json",
     "scoped_mutation_policy.json",
-    "checkpoint_lane_policy.json"
+    "checkpoint_lane_policy.json",
+    "source_module_manifest.json",
+    "task_ledger_control_runtime_contract.json",
+    "source_modules/system/lib/task_ledger_events.py",
+    "source_modules/tools/meta/factory/task_ledger_apply.py",
+    "source_modules/system/lib/task_ledger_priority.py",
+    "source_modules/tools/meta/factory/task_ledger_project.py"
   ]
 }

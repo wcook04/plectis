@@ -48,7 +48,13 @@
     "tools/meta/control/mission_transaction_preflight.py",
     "tools/meta/control/scoped_commit.py",
     "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+    "system/lib/task_ledger_events.py",
+    "tools/meta/factory/task_ledger_apply.py",
+    "system/lib/task_ledger_priority.py",
+    "tools/meta/factory/task_ledger_project.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -1377,6 +1383,258 @@
         ]
       },
       "body_in_receipt": false
+    },
+    {
+      "material_id": "task_ledger_events_body_import",
+      "source_ref": "system/lib/task_ledger_events.py",
+      "source_refs": [
+        "system/lib/task_ledger_events.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_system_lib_task_ledger_events_into_public_mission_transaction_bundle",
+        "bind_task_ledger_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:169fc098154ebd1c58a39713ac502897e66290a10e1cbeee4c1b11c6fc0294a7",
+      "body_line_count": 11768,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:169fc098154ebd1c58a39713ac502897e66290a10e1cbeee4c1b11c6fc0294a7",
+        "target_body_digest": "sha256:169fc098154ebd1c58a39713ac502897e66290a10e1cbeee4c1b11c6fc0294a7",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 11768,
+        "target_line_count": 11768,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "task_ledger_apply_tool_body_import",
+      "source_ref": "tools/meta/factory/task_ledger_apply.py",
+      "source_refs": [
+        "tools/meta/factory/task_ledger_apply.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_meta_factory_task_ledger_apply_into_public_mission_transaction_bundle",
+        "bind_task_ledger_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:5d9de8f00c8fd0f8b9f7d2decbf4636fd63c9b809543329b9b27657ec197ae18",
+      "body_line_count": 2379,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:5d9de8f00c8fd0f8b9f7d2decbf4636fd63c9b809543329b9b27657ec197ae18",
+        "target_body_digest": "sha256:5d9de8f00c8fd0f8b9f7d2decbf4636fd63c9b809543329b9b27657ec197ae18",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 2379,
+        "target_line_count": 2379,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "task_ledger_priority_body_import",
+      "source_ref": "system/lib/task_ledger_priority.py",
+      "source_refs": [
+        "system/lib/task_ledger_priority.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_system_lib_task_ledger_priority_into_public_mission_transaction_bundle",
+        "bind_task_ledger_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+      "body_line_count": 596,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+        "target_body_digest": "sha256:0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 596,
+        "target_line_count": 596,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "task_ledger_project_tool_body_import",
+      "source_ref": "tools/meta/factory/task_ledger_project.py",
+      "source_refs": [
+        "tools/meta/factory/task_ledger_project.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
+      ],
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_tools_meta_factory_task_ledger_project_into_public_mission_transaction_bundle",
+        "bind_task_ledger_control_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "authority_ceiling": {
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_git_mutation_authorized": false,
+        "private_index_commit_execution_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
+      "body_line_count": 77,
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
+        "target_body_digest": "sha256:05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 77,
+        "target_line_count": 77,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -1441,7 +1699,10 @@
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
     "examples/work_landing_control_spine/exported_work_landing_control_bundle",
     "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
-    "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json"
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -1469,7 +1730,9 @@
     "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

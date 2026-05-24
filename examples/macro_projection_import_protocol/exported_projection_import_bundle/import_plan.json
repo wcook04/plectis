@@ -387,6 +387,50 @@
       "body_copied": false,
       "body_in_receipt": false,
       "next_runtime_surface": "microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle"
+    },
+    {
+      "cell_id": "task_ledger_control_source_modules_import",
+      "selected_pattern_ids": [
+        "task_ledger_workitem_spine",
+        "mission_transaction_landing",
+        "work_ledger_runtime_claims"
+      ],
+      "source_refs": [
+        "system/lib/task_ledger_events.py",
+        "tools/meta/factory/task_ledger_apply.py",
+        "system/lib/task_ledger_priority.py",
+        "tools/meta/factory/task_ledger_project.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json"
+      ],
+      "target_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "task_ledger_events_body_import",
+        "task_ledger_apply_tool_body_import",
+        "task_ledger_priority_body_import",
+        "task_ledger_project_tool_body_import"
+      ],
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "authority_ceiling": "verified_public_task_ledger_control_source_bodies_not_live_task_ledger_work_ledger_git_private_index_provider_credential_release_publication_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-transaction-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
     }
   ],
   "body_in_receipt": false

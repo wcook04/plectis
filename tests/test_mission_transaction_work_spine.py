@@ -40,6 +40,26 @@ PUBLIC_MISSION_PREFLIGHT_TARGET_REF = (
     "microcosm-substrate/src/microcosm_core/macro_tools/"
     "mission_transaction_preflight.py"
 )
+TASK_LEDGER_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
+TASK_LEDGER_SOURCE_MODULE_IDS = [
+    "task_ledger_events_body_import",
+    "task_ledger_apply_tool_body_import",
+    "task_ledger_priority_body_import",
+    "task_ledger_project_tool_body_import",
+]
+TASK_LEDGER_SOURCE_REFS = [
+    "system/lib/task_ledger_events.py",
+    "tools/meta/factory/task_ledger_apply.py",
+    "system/lib/task_ledger_priority.py",
+    "tools/meta/factory/task_ledger_project.py",
+]
+TASK_LEDGER_SOURCE_TARGET_REFS = [
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+]
+TASK_LEDGER_SOURCE_LINE_COUNT = 14820
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",
@@ -414,7 +434,60 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
     assert result["public_mission_transaction_preflight"]["target_ref"] == (
         PUBLIC_MISSION_PREFLIGHT_TARGET_REF
     )
+    assert result["task_ledger_control_source_import_status"] == (
+        TASK_LEDGER_SOURCE_IMPORT_STATUS
+    )
+    assert result["copied_task_ledger_source_count"] == len(TASK_LEDGER_SOURCE_MODULE_IDS)
+    assert result["copied_task_ledger_source_line_count"] == (
+        TASK_LEDGER_SOURCE_LINE_COUNT
+    )
+    assert result["task_ledger_control_source_import"]["status"] == "pass"
+    assert result["task_ledger_control_source_import"]["module_ids"] == (
+        TASK_LEDGER_SOURCE_MODULE_IDS
+    )
     assert all(not Path(path).is_absolute() for path in result["public_runtime_refs"])
+
+
+def test_mission_transaction_work_spine_imports_task_ledger_control_source_modules(
+    tmp_path: Path,
+) -> None:
+    result = run_mission_transaction_bundle(
+        MISSION_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/mission_transaction_work_spine",
+        command="pytest",
+    )
+
+    source_import = result["task_ledger_control_source_import"]
+    assert result["status"] == "pass"
+    assert source_import["classification"] == "copied_non_secret_macro_body"
+    assert source_import["module_count"] == len(TASK_LEDGER_SOURCE_MODULE_IDS)
+    assert source_import["module_ids"] == TASK_LEDGER_SOURCE_MODULE_IDS
+    assert source_import["source_refs"] == TASK_LEDGER_SOURCE_REFS
+    assert source_import["target_refs"] == TASK_LEDGER_SOURCE_TARGET_REFS
+    assert source_import["total_line_count"] == TASK_LEDGER_SOURCE_LINE_COUNT
+    assert source_import["manifest_summary"]["body_storage_policy"] == (
+        "exact_non_secret_macro_bodies_copied_into_bundle_source_modules"
+    )
+    assert source_import["manifest_summary"]["receipt_body_policy"] == (
+        "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies"
+    )
+    assert source_import["contract_summary"]["status"] == TASK_LEDGER_SOURCE_IMPORT_STATUS
+    assert all(
+        not Path(path).is_absolute()
+        for path in result["task_ledger_source_public_runtime_refs"]
+    )
+
+    modules_by_id = {
+        module["module_id"]: module for module in source_import["source_modules"]
+    }
+    for module_id in TASK_LEDGER_SOURCE_MODULE_IDS:
+        module = modules_by_id[module_id]
+        assert module["body_copied"] is True
+        assert module["body_in_receipt"] is False
+        assert module["missing_anchors"] == []
+        assert len(module["sha256"]) == 64
+        assert module["line_count"] > 0
+        assert module["anchor_count"] >= 5
 
 
 def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
@@ -462,6 +535,17 @@ def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["authority_ceiling"]["broad_checkpoint_requires_operator_authorization"] is True
     assert payload["checkpoint_lane_decision"]["dirty_tree_blocks_scoped_commit"] is False
+    assert payload["task_ledger_control_source_import_status"] == (
+        TASK_LEDGER_SOURCE_IMPORT_STATUS
+    )
+    assert payload["copied_task_ledger_source_count"] == len(TASK_LEDGER_SOURCE_MODULE_IDS)
+    assert payload["copied_task_ledger_source_line_count"] == (
+        TASK_LEDGER_SOURCE_LINE_COUNT
+    )
+    assert payload["task_ledger_control_source_import"]["status"] == "pass"
+    assert payload["task_ledger_source_contract"]["required_module_ids"] == (
+        TASK_LEDGER_SOURCE_MODULE_IDS
+    )
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
     for hit in payload["secret_exclusion_scan"]["hits"]:

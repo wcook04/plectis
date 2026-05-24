@@ -2,7 +2,7 @@
   "accepted_claim_ids": [
     "claim_public_mission_adapter_runtime"
   ],
-  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does not mutate live Task Ledger or Work Ledger state, authorize broad staging without operator intent, authorize release, or complete later organs.",
+  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does also imports exact non-secret Task Ledger control-plane source bodies into the public bundle. It does not mutate live Task Ledger or Work Ledger state, authorize broad staging without operator intent, authorize release, or complete later organs.",
   "authority_ceiling": {
     "authority_ceiling": "public_work_landing_refactor_over_mission_transaction_bundle",
     "broad_checkpoint_requires_operator_authorization": true,
@@ -28,6 +28,12 @@
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/dependency_graph.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/receipt_drain_plan.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/scoped_mutation_policy.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/transaction_plan.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/workitems.json"
     ],
@@ -143,7 +149,7 @@
     "verification_mode": "source_faithful_public_refactor"
   },
   "body_in_receipt": false,
-  "bundle_fingerprint": "b16b9f508e57a6d212459961cfc166d66a3c98d5113292fceb8ebd2326dfb082",
+  "bundle_fingerprint": "89dc39f5e5324ef437e9b22d226ce4a13aec0dea174c5ab948c615b93db7a4f2",
   "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
   "bundle_manifest_schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
   "cannot_fake_predicate_status": "pass",
@@ -230,8 +236,16 @@
     "status_before": "ready",
     "work_item_id": "cap_public_mission_adapter_runtime"
   },
-  "command": "python -m microcosm_core.organs.mission_transaction_work_spine validate-mission-transaction-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle --out receipts/first_wave/mission_transaction_work_spine",
-  "created_at": "2026-05-23T17:45:01+00:00",
+  "command": "python -m microcosm_core.organs.mission_transaction_work_spine validate-mission-transaction-bundle --input microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle --out microcosm-substrate/receipts/first_wave/mission_transaction_work_spine",
+  "copied_task_ledger_source_count": 4,
+  "copied_task_ledger_source_line_count": 14820,
+  "copied_task_ledger_source_module_ids": [
+    "task_ledger_events_body_import",
+    "task_ledger_apply_tool_body_import",
+    "task_ledger_priority_body_import",
+    "task_ledger_project_tool_body_import"
+  ],
+  "created_at": "2026-05-24T12:22:21+00:00",
   "dependency_refs": [
     "cap_navigation_adapter_accepted"
   ],
@@ -419,7 +433,13 @@
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/receipt_drain_plan.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/closeout_projection_packet.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/scoped_mutation_policy.json",
-    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_policy.json"
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_policy.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
   ],
   "public_work_landing_not_live_ledger_authority": true,
   "public_work_landing_status": {
@@ -538,7 +558,7 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 9,
+    "scanned_path_count": 15,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -547,6 +567,7 @@
     "mission_transaction_landing",
     "work_ledger_runtime_claims",
     "task_ledger_exact_receipt_drain",
+    "task_ledger_control_source_body_import",
     "work_landing_reconcile_finalizer_plan",
     "workitem_dependency_unlock_scheduler",
     "checkpoint_solo_dev_three_lanes"
@@ -588,6 +609,149 @@
     "microcosm_core.macro_tools.mission_transaction_preflight::build_public_mission_transaction_preflight",
     "microcosm_core.macro_tools.mission_transaction_preflight::classify_checkpoint_lane_cases",
     "microcosm_core.macro_tools.mission_transaction_preflight::main"
+  ],
+  "task_ledger_control_source_import": {
+    "body_in_receipt": false,
+    "classification": "copied_non_secret_macro_body",
+    "contract_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+    "contract_summary": {
+      "body_in_receipt": false,
+      "contract_id": "task_ledger_control_source_modules_import",
+      "required_module_ids": [
+        "task_ledger_events_body_import",
+        "task_ledger_apply_tool_body_import",
+        "task_ledger_priority_body_import",
+        "task_ledger_project_tool_body_import"
+      ],
+      "schema_version": "mission_transaction_work_spine_task_ledger_control_runtime_contract_v1",
+      "status": "public_runtime_import_landed"
+    },
+    "findings": [],
+    "manifest_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+    "manifest_summary": {
+      "body_in_receipt": false,
+      "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+      "module_count": 4,
+      "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+      "schema_version": "mission_transaction_work_spine_task_ledger_source_module_manifest_v1",
+      "validation_contract_ref": "task_ledger_control_runtime_contract.json"
+    },
+    "module_count": 4,
+    "module_ids": [
+      "task_ledger_events_body_import",
+      "task_ledger_apply_tool_body_import",
+      "task_ledger_priority_body_import",
+      "task_ledger_project_tool_body_import"
+    ],
+    "public_runtime_refs": [
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
+    ],
+    "source_modules": [
+      {
+        "anchor_count": 6,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "byte_count": 503553,
+        "line_count": 11768,
+        "missing_anchors": [],
+        "module_id": "task_ledger_events_body_import",
+        "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+        "sha256": "169fc098154ebd1c58a39713ac502897e66290a10e1cbeee4c1b11c6fc0294a7",
+        "source_ref": "system/lib/task_ledger_events.py",
+        "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py"
+      },
+      {
+        "anchor_count": 6,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "byte_count": 97686,
+        "line_count": 2379,
+        "missing_anchors": [],
+        "module_id": "task_ledger_apply_tool_body_import",
+        "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+        "sha256": "5d9de8f00c8fd0f8b9f7d2decbf4636fd63c9b809543329b9b27657ec197ae18",
+        "source_ref": "tools/meta/factory/task_ledger_apply.py",
+        "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "byte_count": 22688,
+        "line_count": 596,
+        "missing_anchors": [],
+        "module_id": "task_ledger_priority_body_import",
+        "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+        "source_ref": "system/lib/task_ledger_priority.py",
+        "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "byte_count": 2484,
+        "line_count": 77,
+        "missing_anchors": [],
+        "module_id": "task_ledger_project_tool_body_import",
+        "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+        "sha256": "05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
+        "source_ref": "tools/meta/factory/task_ledger_project.py",
+        "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
+      }
+    ],
+    "source_refs": [
+      "system/lib/task_ledger_events.py",
+      "tools/meta/factory/task_ledger_apply.py",
+      "system/lib/task_ledger_priority.py",
+      "tools/meta/factory/task_ledger_project.py"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
+    ],
+    "total_line_count": 14820
+  },
+  "task_ledger_control_source_import_status": "public_runtime_import_landed",
+  "task_ledger_source_contract": {
+    "body_in_receipt": false,
+    "contract_id": "task_ledger_control_source_modules_import",
+    "required_module_ids": [
+      "task_ledger_events_body_import",
+      "task_ledger_apply_tool_body_import",
+      "task_ledger_priority_body_import",
+      "task_ledger_project_tool_body_import"
+    ],
+    "schema_version": "mission_transaction_work_spine_task_ledger_control_runtime_contract_v1",
+    "status": "public_runtime_import_landed"
+  },
+  "task_ledger_source_manifest": {
+    "body_in_receipt": false,
+    "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+    "module_count": 4,
+    "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+    "schema_version": "mission_transaction_work_spine_task_ledger_source_module_manifest_v1",
+    "validation_contract_ref": "task_ledger_control_runtime_contract.json"
+  },
+  "task_ledger_source_public_runtime_refs": [
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
+  ],
+  "task_ledger_source_validation_refs": [
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe"
   ],
   "transaction_id": "mtx_public_mission_adapter_runtime",
   "validator_contract_ratchet_refs": [
