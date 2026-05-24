@@ -15,6 +15,12 @@ from microcosm_core.macro_tools.agent_trace_route_repair import (
     load_public_agent_trace_route_repair_bundle,
     route_repair_for,
 )
+from microcosm_core.macro_tools.agent_observability_store import (
+    SCHEMA_VERSION as AGENT_OBSERVABILITY_STORE_SCHEMA_VERSION,
+    AgentTraceStore,
+    build_public_agent_observability_store_view,
+    load_public_agent_observability_store_bundle,
+)
 from microcosm_core.macro_tools.agent_session_attribution import (
     SCHEMA_VERSION as SESSION_ATTRIBUTION_SCHEMA_VERSION,
     attribute_sessions,
@@ -41,6 +47,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH,
     EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH,
     EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH,
+    EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH,
     EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
@@ -51,6 +58,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     run_computer_use_action_trace_bundle,
     run_controller_heartbeat_bundle,
     run_agent_trace_route_repair_bundle,
+    run_agent_observability_store_bundle,
     run_multi_agent_fanin_bundle,
     run_observability_bundle,
     run_session_attribution_bundle,
@@ -97,6 +105,11 @@ AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_agent_trace_route_repair_bundle"
+)
+AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_agent_observability_store_bundle"
 )
 
 
@@ -841,6 +854,135 @@ def test_agent_trace_route_repair_imports_public_macro_body_refactor() -> None:
     assert view["route_repair_summary"]["suggested_route_count"] == 4
     assert suggestion is not None
     assert suggestion.anti_pattern_id == "anti_pattern_grep_before_kernel"
+    assert material["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert material["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
+    )
+    assert material["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+
+
+def test_agent_observability_store_bundle_validates_runtime_shape(tmp_path: Path) -> None:
+    result = run_agent_observability_store_bundle(
+        AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_agent_observability_store_bundle"
+    assert result["bundle_id"] == "public_agent_observability_store_runtime_example"
+    assert result["agent_observability_store_schema"] == (
+        AGENT_OBSERVABILITY_STORE_SCHEMA_VERSION
+    )
+    assert result["public_event_count"] == 6
+    assert result["accepted_event_count"] == 6
+    assert result["active_session_count"] == 3
+    assert result["source_runtime_count"] == 3
+    assert result["route_decision_event_count"] == 3
+    assert result["tool_event_count"] == 2
+    assert result["metadata_digest_count"] == 6
+    assert result["redacted_payload_count"] == 3
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["authority_ceiling"]["live_home_session_logs_read"] is False
+    assert result["authority_ceiling"]["provider_payload_read"] is False
+    assert result["authority_ceiling"]["browser_hud_cockpit_state_exported"] is False
+    assert result["observability_policy"]["forbidden_authority_rejected"] is True
+    assert result["expected_summary_validation"]["status"] == "pass"
+    assert result["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+    assert all(row["decision"] == "accepted" for row in result["event_decisions"])
+
+
+def test_agent_observability_store_receipt_is_public_safe(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_agent_observability_store_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_agent_observability_store_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [
+        EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH
+    ]
+    receipt_file = public_root / EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "raw_transcript_body" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "hidden_reasoning" not in _walk_keys(payload)
+    assert "browser_hud_state" not in _walk_keys(payload)
+    assert "account_session_state" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_agent_observability_store_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["body_in_receipt"] is False
+    assert payload["live_home_session_logs_read"] is False
+    assert payload["live_transcript_tail_authorized"] is False
+    assert payload["operator_bridge_poll_authorized"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_agent_observability_store_imports_public_macro_body_refactor() -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/agent_observability.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_observability_store.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    view = build_public_agent_observability_store_view(
+        load_public_agent_observability_store_bundle(AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT)
+    )
+    protocol = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
+        ).read_text(encoding="utf-8")
+    )
+    by_material = {row["material_id"]: row for row in protocol["copied_material"]}
+    material = by_material["agent_observability_store_body_import"]
+    store = AgentTraceStore()
+    event = store.emit(
+        source_runtime="public_test",
+        source_event_name="unit_test",
+        canonical_type="route.decision",
+        session_id="s1",
+        payload={"metadata_digest": "sha256:test", "target_ref": "tests"},
+        observed_at="2026-05-24T10:42:00+00:00",
+        summary="unit test route decision",
+    )
+
+    assert target.is_file()
+    assert source_digest != target_digest
+    assert event["seq"] == 1
+    assert store.status()["canonical_counts"]["route.decision"] == 1
+    assert view["status"] == "pass"
+    assert view["schema_version"] == AGENT_OBSERVABILITY_STORE_SCHEMA_VERSION
+    assert view["store_summary"]["event_count"] == 6
+    assert view["authority_ceiling"]["live_home_session_logs_read"] is False
     assert material["body_import_verification"]["source_body_digest"] == (
         f"sha256:{source_digest}"
     )

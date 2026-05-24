@@ -131,6 +131,37 @@
       "body_in_receipt": false
     },
     {
+      "cell_id": "agent_observability_store_import",
+      "selected_pattern_ids": [
+        "agent_self_observability_plane",
+        "agent_trace_to_route_repair_observability_compound"
+      ],
+      "source_refs": [
+        "system/lib/agent_observability.py",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/doctrine/paper_modules/agent_observability.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_observability_store.py",
+        "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "agent_observability_store_body_import"
+      ],
+      "authority_ceiling": "verified_public_agent_observability_store_body_not_live_session_provider_browser_account_credential_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle"
+    },
+    {
       "cell_id": "agent_session_attribution_import",
       "selected_pattern_ids": [
         "agent_session_attribution",

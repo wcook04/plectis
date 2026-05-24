@@ -36,6 +36,17 @@ from microcosm_core.macro_tools.agent_trace_route_repair import (
     build_public_agent_trace_route_repair_view,
     load_public_agent_trace_route_repair_bundle,
 )
+from microcosm_core.macro_tools.agent_observability_store import (
+    ANTI_CLAIM as AGENT_OBSERVABILITY_STORE_ANTI_CLAIM,
+    AUTHORITY_CEILING as AGENT_OBSERVABILITY_STORE_AUTHORITY_CEILING,
+    FORBIDDEN_PAYLOAD_KEYS as AGENT_OBSERVABILITY_STORE_FORBIDDEN_KEYS,
+    INPUT_NAMES as AGENT_OBSERVABILITY_STORE_INPUT_NAMES,
+    SCHEMA_VERSION as AGENT_OBSERVABILITY_STORE_SCHEMA_VERSION,
+    SOURCE_REFS as AGENT_OBSERVABILITY_STORE_SOURCE_REFS,
+    TARGET_REFS as AGENT_OBSERVABILITY_STORE_TARGET_REFS,
+    build_public_agent_observability_store_view,
+    load_public_agent_observability_store_bundle,
+)
 from microcosm_core.macro_tools.bridge_resume import (
     ANTI_CLAIM as BRIDGE_DISPATCH_YIELD_RESUME_ANTI_CLAIM,
     AUTHORITY_CEILING as BRIDGE_DISPATCH_YIELD_RESUME_AUTHORITY_CEILING,
@@ -93,6 +104,9 @@ CONTROLLER_HEARTBEAT_BUNDLE_RESULT_NAME = (
 AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RESULT_NAME = (
     "exported_agent_trace_route_repair_bundle_validation_result.json"
 )
+AGENT_OBSERVABILITY_STORE_BUNDLE_RESULT_NAME = (
+    "exported_agent_observability_store_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -131,6 +145,10 @@ EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH = (
 EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_agent_trace_route_repair_bundle_validation_result.json"
+)
+EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_agent_observability_store_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -478,6 +496,10 @@ def _agent_trace_route_repair_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in AGENT_TRACE_ROUTE_REPAIR_INPUT_NAMES]
 
 
+def _agent_observability_store_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in AGENT_OBSERVABILITY_STORE_INPUT_NAMES]
+
+
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
@@ -558,6 +580,13 @@ def _load_agent_trace_route_repair_bundle(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_agent_observability_store_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _agent_observability_store_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -635,6 +664,18 @@ def _scan_agent_trace_route_repair_inputs(
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _agent_trace_route_repair_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_agent_observability_store_inputs(
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _agent_observability_store_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -2677,6 +2718,81 @@ def _write_agent_trace_route_repair_bundle_receipt(
     return receipt_path
 
 
+def _write_agent_observability_store_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / AGENT_OBSERVABILITY_STORE_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_agent_"
+            "observability_store_bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "agent_observability_store_schema": validation_result[
+                "agent_observability_store_schema"
+            ],
+            "public_event_count": validation_result["public_event_count"],
+            "accepted_event_count": validation_result["accepted_event_count"],
+            "active_session_count": validation_result["active_session_count"],
+            "source_runtime_count": validation_result["source_runtime_count"],
+            "canonical_type_count": validation_result["canonical_type_count"],
+            "route_decision_event_count": validation_result[
+                "route_decision_event_count"
+            ],
+            "tool_event_count": validation_result["tool_event_count"],
+            "metadata_digest_count": validation_result["metadata_digest_count"],
+            "redacted_payload_count": validation_result["redacted_payload_count"],
+            "store_summary": validation_result["store_summary"],
+            "event_decisions": validation_result["event_decisions"],
+            "observability_policy": validation_result["observability_policy"],
+            "expected_summary_validation": validation_result[
+                "expected_summary_validation"
+            ],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "live_home_session_logs_read": False,
+            "live_transcript_tail_authorized": False,
+            "live_process_probe_authorized": False,
+            "operator_bridge_poll_authorized": False,
+            "raw_transcript_body_exported": False,
+            "provider_payload_exported": False,
+            "hidden_reasoning_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "recipient_send_authorized": False,
+            "fixture_regression_required_elsewhere": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
 def run_observability_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -3646,6 +3762,165 @@ def run_agent_trace_route_repair_bundle(
         }
     )
     receipt_path = _write_agent_trace_route_repair_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
+def run_agent_observability_store_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = load_public_agent_observability_store_bundle(input_path)
+    scan_result = _scan_agent_observability_store_inputs(input_path, public_root)
+    secret_scan = dict(scan_result)
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan.pop("body_redacted", None)
+    secret_scan.pop("redacted_output_field_labels_omitted", None)
+    secret_scan["omitted_output_fields"] = [
+        "source_excerpt",
+        "body",
+        "raw_transcript_body",
+        "provider_payload",
+        "hidden_reasoning",
+        "browser_hud_state",
+        "account_session_state",
+        "credential_value",
+        "cookie",
+        "recipient_send_payload",
+        "live_session_state",
+    ]
+    secret_scan["body_in_receipt"] = False
+    secret_scan["real_substrate_default"] = True
+    secret_scan["scan_purpose"] = (
+        "credential_account_bound_provider_payload_hidden_reasoning_transcript_body_live_session_exclusion"
+    )
+    secret_scan["hits"] = [
+        {
+            **{
+                key: value
+                for key, value in hit.items()
+                if key != "body_redacted"
+            },
+            "body_in_receipt": False,
+        }
+        for hit in _rows(secret_scan, "hits")
+    ]
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    view = build_public_agent_observability_store_view(payloads)
+    leaked_keys = sorted(AGENT_OBSERVABILITY_STORE_FORBIDDEN_KEYS & _walk_payload_keys(payloads))
+    extra_findings = [
+        _bundle_finding(
+            "AGENT_OBSERVABILITY_STORE_FORBIDDEN_PAYLOAD_KEY",
+            "Agent observability store replay inputs cannot include transcript bodies, provider payloads, hidden reasoning, browser/HUD state, account/session state, credentials, cookies, recipient-send payloads, or live session state.",
+            subject_id=key,
+            subject_kind="agent_observability_store_input",
+        )
+        for key in leaked_keys
+    ]
+    all_findings = sorted(
+        [*view.get("findings", []), *extra_findings],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    summary = view.get("store_summary") if isinstance(view.get("store_summary"), dict) else {}
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_agent_observability_store_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and view.get("status") == PASS
+        and not all_findings
+        and summary.get("event_count", 0) >= 5
+        and summary.get("active_session_count", 0) >= 2
+        and summary.get("metadata_digest_count", 0) >= 3
+        and summary.get("route_decision_event_count", 0) >= 3
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "view_fingerprint": view.get("view_fingerprint"),
+            "summary": summary,
+            "policy_id": view.get("policy_validation", {}).get("policy_id"),
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or AGENT_OBSERVABILITY_STORE_SOURCE_REFS
+    target_refs = _strings(manifest.get("target_refs")) or AGENT_OBSERVABILITY_STORE_TARGET_REFS
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_agent_observability_store_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": AGENT_OBSERVABILITY_STORE_ANTI_CLAIM,
+            "authority_ceiling": AGENT_OBSERVABILITY_STORE_AUTHORITY_CEILING,
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(
+                {str(item.get("error_code") or "") for item in all_findings if item.get("error_code")}
+            ),
+            "findings": all_findings,
+            "secret_exclusion_scan": secret_scan,
+            "agent_observability_store_schema": AGENT_OBSERVABILITY_STORE_SCHEMA_VERSION,
+            "public_event_count": view.get("public_event_count", 0),
+            "accepted_event_count": view.get("accepted_event_count", 0),
+            "active_session_count": view.get("active_session_count", 0),
+            "source_runtime_count": view.get("source_runtime_count", 0),
+            "canonical_type_count": view.get("canonical_type_count", 0),
+            "route_decision_event_count": summary.get("route_decision_event_count", 0),
+            "tool_event_count": summary.get("tool_event_count", 0),
+            "metadata_digest_count": view.get("metadata_digest_count", 0),
+            "redacted_payload_count": view.get("redacted_payload_count", 0),
+            "store_summary": summary,
+            "event_decisions": view.get("event_decisions", []),
+            "observability_policy": view.get("policy_validation", {}),
+            "expected_summary_validation": view.get("expected_summary_validation", {}),
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "source_symbols": view.get("source_symbols", []),
+            "target_symbols": view.get("target_symbols", []),
+            "body_import_verification": view.get("body_import_verification", {}),
+            "forbidden_payload_keys": sorted(
+                set(leaked_keys) | set(view.get("forbidden_payload_keys", []))
+            ),
+            "view_fingerprint": view.get("view_fingerprint"),
+            "bundle_fingerprint": bundle_fingerprint,
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "live_home_session_logs_read": False,
+            "live_transcript_tail_authorized": False,
+            "live_process_probe_authorized": False,
+            "operator_bridge_poll_authorized": False,
+            "raw_transcript_body_exported": False,
+            "provider_payload_exported": False,
+            "hidden_reasoning_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "recipient_send_authorized": False,
+            "receipt_paths": [EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_agent_observability_store_bundle_receipt(
         out_dir,
         result,
         public_root=public_root,
@@ -4704,6 +4979,9 @@ def main(argv: list[str] | None = None) -> int:
     route_repair_parser = subparsers.add_parser("validate-agent-trace-route-repair-bundle")
     route_repair_parser.add_argument("--input", required=True)
     route_repair_parser.add_argument("--out", required=True)
+    agent_store_parser = subparsers.add_parser("validate-agent-observability-store-bundle")
+    agent_store_parser.add_argument("--input", required=True)
+    agent_store_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
@@ -4756,6 +5034,13 @@ def main(argv: list[str] | None = None) -> int:
             f"--input {args.input} --out {args.out}"
         )
         result = run_agent_trace_route_repair_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-agent-observability-store-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            "validate-agent-observability-store-bundle "
+            f"--input {args.input} --out {args.out}"
+        )
+        result = run_agent_observability_store_bundle(args.input, args.out, command=command)
     else:
         parser.error(
             "expected subcommand: run, validate-observability-bundle, or "
@@ -4763,7 +5048,8 @@ def main(argv: list[str] | None = None) -> int:
             "validate-multi-agent-fanin-bundle, or "
             "validate-bridge-dispatch-yield-resume-bundle, or "
             "validate-controller-heartbeat-bundle, or "
-            "validate-agent-trace-route-repair-bundle"
+            "validate-agent-trace-route-repair-bundle, or "
+            "validate-agent-observability-store-bundle"
         )
     return 0 if result["status"] == PASS else 1
 

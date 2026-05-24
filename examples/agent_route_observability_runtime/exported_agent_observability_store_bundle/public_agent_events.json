@@ -1,0 +1,168 @@
+{
+  "schema_version": "public_agent_observability_store_events_v1",
+  "events": [
+    {
+      "event_id": "paos_route_decision_entry",
+      "source_runtime": "codex_app",
+      "source_event_name": "entry_control_packet_selected",
+      "canonical_type": "route.decision",
+      "session_id": "wave122-agent-observability",
+      "trace_id": "trace-wave122-agent-observability",
+      "turn_id": "turn-observe-classify-route",
+      "observed_at": "2026-05-24T10:40:01+00:00",
+      "occurred_at": "2026-05-24T10:39:59+00:00",
+      "summary": "Entry packet selected agent observability store import after status baseline.",
+      "payload": {
+        "route_id": "agent_self_observability_plane",
+        "decision": "select_agent_observability_store_import",
+        "metadata_digest": "sha256:92fc2801302ce5805314de99a3f0c091b7b5c0a631258b44702f5c2b0ce3c50d",
+        "target_refs": [
+          "src/microcosm_core/macro_tools/agent_observability_store.py"
+        ]
+      },
+      "cwd_ref": "microcosm-substrate",
+      "artifact_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+      ],
+      "metadata_envelope_only": true,
+      "payload_redacted": false,
+      "raw_transcript_body_exported": false,
+      "provider_payload_exported": false,
+      "browser_hud_cockpit_state_exported": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false
+    },
+    {
+      "event_id": "paos_tool_proposed_context_pack",
+      "source_runtime": "codex_app",
+      "source_event_name": "function_call",
+      "canonical_type": "tool.proposed",
+      "session_id": "wave122-agent-observability",
+      "trace_id": "trace-wave122-agent-observability",
+      "turn_id": "turn-observe-classify-route",
+      "tool_use_id": "tool-context-pack",
+      "observed_at": "2026-05-24T10:40:02+00:00",
+      "summary": "Context-pack and pattern binding reads scoped the agent observability import.",
+      "payload": {
+        "tool_name": "repo-python",
+        "tool_input": {
+          "command_digest": "sha256:8b2eef3d355423cf4653e8b74d8a8e1a6ea8615f0c5d93ee6988ca6f51f5b4ed",
+          "description": "entry and context-pack routing",
+          "target_ref": "system/lib/agent_observability.py"
+        },
+        "metadata_digest": "sha256:1cb6c89016a8c93b2440e0b492bb935f1f9df7e1c61d79585f7a1f7eaf449b94"
+      },
+      "cwd_ref": "microcosm-substrate",
+      "metadata_envelope_only": true,
+      "payload_redacted": true,
+      "raw_transcript_body_exported": false,
+      "provider_payload_exported": false,
+      "browser_hud_cockpit_state_exported": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false
+    },
+    {
+      "event_id": "paos_tool_completed_source_read",
+      "source_runtime": "codex_app",
+      "source_event_name": "function_call_output",
+      "canonical_type": "tool.completed",
+      "session_id": "wave122-agent-observability",
+      "trace_id": "trace-wave122-agent-observability",
+      "turn_id": "turn-observe-classify-route",
+      "tool_use_id": "tool-context-pack",
+      "observed_at": "2026-05-24T10:40:03+00:00",
+      "summary": "Macro AgentTraceStore source and tests read as bounded public import evidence.",
+      "payload": {
+        "tool_name": "sed",
+        "tool_input": {
+          "target_ref": "system/lib/agent_observability.py",
+          "command_digest": "sha256:1367bb74fc42877d4e9d0606c59ab3177011e8292b3c4d308ed3d87f5d682d6a"
+        },
+        "metadata_digest": "sha256:3eaad5c81a3f3d792185ffce20a24e8c2182ee93f7bd550c3f314ff9cc4cb279"
+      },
+      "cwd_ref": "microcosm-substrate",
+      "artifact_refs": [
+        "system/server/tests/test_agent_observability.py"
+      ],
+      "metadata_envelope_only": true,
+      "payload_redacted": true,
+      "raw_transcript_body_exported": false,
+      "provider_payload_exported": false,
+      "browser_hud_cockpit_state_exported": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false
+    },
+    {
+      "event_id": "paos_plan_public_boundary",
+      "source_runtime": "codex_app",
+      "source_event_name": "agent_reasoning",
+      "canonical_type": "plan.observed",
+      "session_id": "wave122-agent-observability",
+      "trace_id": "trace-wave122-agent-observability",
+      "turn_id": "turn-public-boundary",
+      "observed_at": "2026-05-24T10:40:04+00:00",
+      "summary": "Public refactor keeps event counters and session summaries while excluding live tails and payload bodies.",
+      "payload": {
+        "plan_digest": "sha256:90712ac0962d4a4ad18135f1c44edbd1fda14e18cf13f49c79e8279c3a559ded",
+        "metadata_digest": "sha256:90712ac0962d4a4ad18135f1c44edbd1fda14e18cf13f49c79e8279c3a559ded",
+        "title": "Agent observability store import"
+      },
+      "cwd_ref": "microcosm-substrate",
+      "metadata_envelope_only": true,
+      "payload_redacted": false,
+      "raw_transcript_body_exported": false,
+      "provider_payload_exported": false,
+      "browser_hud_cockpit_state_exported": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false
+    },
+    {
+      "event_id": "paos_backend_heartbeat",
+      "source_runtime": "backend",
+      "source_event_name": "sampler_heartbeat",
+      "canonical_type": "runtime.heartbeat",
+      "session_id": "agent_observability",
+      "trace_id": "agent_observability",
+      "observed_at": "2026-05-24T10:40:05+00:00",
+      "summary": "Public sampler heartbeat proves the store accepts runtime liveness metadata.",
+      "payload": {
+        "api_revision": "agent_observability_backend_v2",
+        "source_counts": {
+          "codex_app": 4
+        },
+        "metadata_digest": "sha256:5db4a769a343b3f736217c0f7bb1e5138e26ba5cf97b296f330a9f6b519dfd73"
+      },
+      "cwd_ref": "microcosm-substrate",
+      "metadata_envelope_only": true,
+      "payload_redacted": false,
+      "raw_transcript_body_exported": false,
+      "provider_payload_exported": false,
+      "browser_hud_cockpit_state_exported": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false
+    },
+    {
+      "event_id": "paos_operator_bridge_gap",
+      "source_runtime": "operator_bridge",
+      "source_event_name": "stream_gap",
+      "canonical_type": "stream.gap",
+      "session_id": "operator_bridge_public_projection",
+      "trace_id": "operator_bridge_public_projection",
+      "observed_at": "2026-05-24T10:40:06+00:00",
+      "summary": "Operator bridge body-bearing history remains excluded and represented only as a gap.",
+      "payload": {
+        "reason": "body_bearing_history_not_backfilled",
+        "metadata_digest": "sha256:9129552028e274b2aa9e0d7b3fd1c9955b498415e4ce4cf8170218e946bf4488"
+      },
+      "cwd_ref": "microcosm-substrate",
+      "metadata_envelope_only": true,
+      "payload_redacted": true,
+      "raw_transcript_body_exported": false,
+      "provider_payload_exported": false,
+      "browser_hud_cockpit_state_exported": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false
+    }
+  ],
+  "body_in_receipt": false
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "public_agent_observability_store_expected_summary_v1",
+  "event_count": 6,
+  "active_session_count": 3,
+  "source_runtime_count": 3,
+  "route_decision_event_count": 3,
+  "tool_event_count": 2,
+  "metadata_digest_count": 6,
+  "redacted_payload_count": 3,
+  "body_in_receipt": false
+}

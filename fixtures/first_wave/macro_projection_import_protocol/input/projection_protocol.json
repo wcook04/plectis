@@ -28,7 +28,10 @@
     "system/lib/navigation_route_intervention.py",
     "codex/standards/std_navigation_contract.json",
     "codex/doctrine/paper_modules/agent_self_observability_plane.md",
-    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound"
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound",
+    "system/lib/agent_observability.py",
+    "codex/doctrine/paper_modules/agent_observability.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -306,6 +309,64 @@
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine",
           "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle --input examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "agent_observability_store_body_import",
+      "source_ref": "system/lib/agent_observability.py",
+      "source_refs": [
+        "system/lib/agent_observability.py",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/doctrine/paper_modules/agent_observability.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/agent_observability_store.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane",
+        "codex/doctrine/paper_modules/agent_observability.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "replace live host session and transcript tail samplers with explicit public metadata bundle ingestion",
+        "preserve AgentEvent and AgentTraceStore counters, queue behavior, payload compaction, and active-session summaries",
+        "bound claim to public trace-store replay not live provider, browser, account, credential, or recipient-send authority"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_store_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public agent-observability trace-store body import only; not live session-log parsing, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, source mutation, or release authority",
+      "body_digest": "sha256:b8e4818e762cf6aed2485d171e51a8fa9c601c389f7b116e40f2b2783acb6312",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+        "target_body_digest": "sha256:b8e4818e762cf6aed2485d171e51a8fa9c601c389f7b116e40f2b2783acb6312",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_observability_store.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "system/lib/agent_observability.py::AgentEvent",
+          "system/lib/agent_observability.py::AgentTraceStore",
+          "system/lib/agent_observability.py::AgentObservabilitySampler",
+          "system/lib/agent_observability.py::_compact_event_if_oversized"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.agent_observability_store::AgentEvent",
+          "microcosm_core.macro_tools.agent_observability_store::AgentTraceStore",
+          "microcosm_core.macro_tools.agent_observability_store::PublicAgentObservabilitySampler",
+          "microcosm_core.macro_tools.agent_observability_store::build_public_agent_observability_store_view"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor",
+          "microcosm agent-route-observability-runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle"
         ]
       },
       "body_in_receipt": false

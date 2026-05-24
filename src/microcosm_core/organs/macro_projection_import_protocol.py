@@ -276,6 +276,26 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle"
         ),
     },
+    "agent_observability_store_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent observability store is landed as a source-faithful public "
+            "AgentTraceStore macro tool and consumed by the route observability "
+            "runtime bundle."
+        ),
+        "landed_evidence_refs": [
+            "src/microcosm_core/macro_tools/agent_observability_store.py",
+            "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+            "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime "
+            "validate-agent-observability-store-bundle --input "
+            "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle"
+        ),
+    },
     "agent_session_attribution_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

@@ -50,6 +50,41 @@
       "policy and secret-exclusion scans must keep transcript bodies, provider payloads, hidden reasoning, browser HUD state, account/session state, credentials, cookies, recipient-send payloads, and live hook state out of receipts"
     ]
   },
+  "agent_observability_store_contract_v1": {
+    "anti_claim": "This contract validates a public metadata event store and deterministic replay view only; it does not read live sessions, export transcript bodies, expose provider payloads, surface hidden reasoning, read browser HUD state, control accounts, send recipients, mutate source, or authorize release.",
+    "authority_ceiling": "public_agent_observability_store_metadata_not_live_trace_authority",
+    "candidate_id": "agent_self_observability_plane",
+    "expected_output_paths": [
+      "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+    ],
+    "positive_inputs": [
+      "bundle_manifest.json",
+      "public_agent_events.json",
+      "observability_policy.json",
+      "expected_store_summary.json"
+    ],
+    "runtime_example_command_shape": "python -m microcosm_core.cli agent-route-observability-runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle --out receipts/first_wave/agent_route_observability_runtime",
+    "runtime_example_dir": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+    "schema_version": "agent_observability_store_contract_v1",
+    "source_pattern_ids": [
+      "agent_self_observability_plane",
+      "agent_route_observability_runtime",
+      "agent_execution_trace",
+      "trace_feedback_behavior_change_gate"
+    ],
+    "source_refs": [
+      "system/lib/agent_observability.py",
+      "system/server/tests/test_agent_observability.py",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+    ],
+    "status": "materialized_under_agent_route_observability_runtime",
+    "validator_rules": [
+      "public event rows must carry metadata digests, not transcript or provider payload bodies",
+      "canonical event classes must count route decisions, tool activity, stream gaps, and active sessions without claiming live introspection authority",
+      "store replay must be deterministic from exported public bundle files",
+      "policy and secret-exclusion scans must keep transcript bodies, provider payloads, hidden reasoning, browser HUD state, account/session state, credentials, cookies, recipient-send payloads, and live hook state out of receipts"
+    ]
+  },
   "computer_use_action_trace_replay_contract_v1": {
     "anti_claim": "This contract validates synthetic computer-use action trace replay metadata only; it does not authorize live browser control, real accounts, credentials, external network mutation, destructive host action, raw screenshot export, benchmark claims, source mutation, provider calls, or release.",
     "authority_ceiling": "synthetic_computer_use_action_trace_replay_receipts_only",
@@ -523,6 +558,7 @@
       "route_lease_static_metadata_without_trace_feedback must increment static_metadata_without_trace_feedback_count, keep lease_consumed=false, and emit ROUTE_LEASE_NOT_CONSUMED",
       "hook_shadow_cases must record mapped repair classes, expected interventions, missing-authority denials, banned-route interventions, command-displacement denials, live-state-read denials, and over-budget denials before hook-shadow coverage can pass",
       "exported_agent_trace_route_repair_bundle must preserve the macro route_repair_for/build_hook_shadow_coverage semantics while proving top-pattern coverage, suggested-route metadata, and secret-only exclusion",
+      "exported_agent_observability_store_bundle must preserve the macro AgentTraceStore append, replay, bounded-tail, active-session, and payload-compaction semantics while proving only public metadata digests leave the boundary",
       "observed_negative_cases must include each emitted agent_route_observability_runtime negative_case_id",
       "error_codes must be a subset of normalized agent_route_observability_runtime taxonomy rows",
       "private_state_scan must prove no forbidden content bodies or forbidden live evidence are embedded"

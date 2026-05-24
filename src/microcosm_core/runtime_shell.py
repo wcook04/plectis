@@ -2029,6 +2029,10 @@ class RuntimeShell:
                         "microcosm agent-route-observability-runtime "
                         "validate-agent-trace-route-repair-bundle"
                     ),
+                    (
+                        "microcosm agent-route-observability-runtime "
+                        "validate-agent-observability-store-bundle"
+                    ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
                     "microcosm tactic-portfolio-availability-probe run-availability-bundle",
