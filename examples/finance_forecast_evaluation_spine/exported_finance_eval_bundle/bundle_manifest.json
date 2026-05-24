@@ -1,0 +1,160 @@
+{
+  "authority_ceiling": {
+    "calculator_weight_mutation_authorized": false,
+    "financial_advice_authorized": false,
+    "forecast_performance_claim": false,
+    "hosted_public_authorized": false,
+    "investment_recommendation_authorized": false,
+    "live_market_data_authorized": false,
+    "optimizer_mutation_authorized": false,
+    "performance_guarantee_claim": false,
+    "portfolio_action_authorized": false,
+    "private_account_state_exported": false,
+    "private_portfolio_exported": false,
+    "provider_calls_authorized": false,
+    "provider_payload_exported": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "trading_advice_authorized": false
+  },
+  "body_in_receipt": false,
+  "bundle_id": "public_finance_forecast_evaluation_spine_bundle",
+  "classification": [
+    "copied_non_secret_macro_body",
+    "source_faithful_refactor",
+    "real_macro_receipt",
+    "diagnostic_or_routing_refactor",
+    "secret_exclusion"
+  ],
+  "description": "Copied non-secret macro tools/finance evaluator bodies plus the generated finance_eval operating picture, imported for source-open Microcosm validation.",
+  "expected_macro_receipt_count": 1,
+  "expected_source_module_count": 9,
+  "files": [
+    {
+      "body_in_receipt": false,
+      "line_count": 164,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/event_keys.py",
+      "sha256": "d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/event_keys.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 471,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/admit_forecasts.py",
+      "sha256": "eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/admit_forecasts.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 779,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/resolve_forecasts.py",
+      "sha256": "e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/resolve_forecasts.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 1351,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/eval_replay.py",
+      "sha256": "380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/eval_replay.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 699,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/historical_replay.py",
+      "sha256": "b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/historical_replay.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 340,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/calibrate_forecast_probabilities.py",
+      "sha256": "834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/calibrate_forecast_probabilities.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 170,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/variant_registry.py",
+      "sha256": "ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/variant_registry.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 567,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/compare_variants.py",
+      "sha256": "c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/compare_variants.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 589,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/finance/build_eval_operating_picture.py",
+      "sha256": "544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/finance/build_eval_operating_picture.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 134,
+      "material_class": "public_macro_receipt_body",
+      "path": "finance_eval_operating_picture.json",
+      "sha256": "d189dc2eddb1beabced68f03a7c7dd5f1d5e9eb1cd4c42d1348ff4cc665ea31f",
+      "source_import_class": "real_generated_macro_receipt",
+      "source_ref": "state/finance_eval/views/finance_eval_operating_picture.json"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 61,
+      "material_class": "public_microcosm_runtime_contract",
+      "path": "finance_eval_runtime_contract.json",
+      "sha256": "0f2449b7fc577646af87e126a9b5464c76f5c3c6b3503bb32ad515f111a22d0c",
+      "source_import_class": "source_faithful_refactor",
+      "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 90,
+      "material_class": "public_microcosm_bundle_manifest",
+      "path": "source_module_manifest.json",
+      "sha256": "08f6683e55fd7b7e402c0fc52f3845154a8c3ecaf3a127e43d23aedec232cf0d",
+      "source_import_class": "source_faithful_refactor",
+      "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
+    }
+  ],
+  "real_substrate_used": true,
+  "required_files": [
+    "source_modules/tools/finance/event_keys.py",
+    "source_modules/tools/finance/admit_forecasts.py",
+    "source_modules/tools/finance/resolve_forecasts.py",
+    "source_modules/tools/finance/eval_replay.py",
+    "source_modules/tools/finance/historical_replay.py",
+    "source_modules/tools/finance/calibrate_forecast_probabilities.py",
+    "source_modules/tools/finance/variant_registry.py",
+    "source_modules/tools/finance/compare_variants.py",
+    "source_modules/tools/finance/build_eval_operating_picture.py",
+    "finance_eval_operating_picture.json",
+    "finance_eval_runtime_contract.json",
+    "source_module_manifest.json"
+  ],
+  "schema_version": "microcosm_finance_eval_exported_bundle_manifest_v1",
+  "source_open_body_policy": "source_bodies_copied_into_bundle_not_receipt",
+  "synthetic_fixture_standin_allowed": false
+}

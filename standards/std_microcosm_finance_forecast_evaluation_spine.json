@@ -1,0 +1,118 @@
+{
+  "anti_claims": [
+    "The finance forecast evaluation spine is an evaluator and replay import, not trading, financial, or investment advice.",
+    "The public bundle does not authorize live market data calls, provider payload export, account or portfolio state export, optimizer mutation, calculator-weight mutation, publication, hosting, or release."
+  ],
+  "authority_boundary": "public_copied_macro_finance_evaluator_body_with_no_advice_no_mutation_ceiling",
+  "authority_ceiling": {
+    "calculator_weight_mutation_authorized": false,
+    "financial_advice_authorized": false,
+    "forecast_performance_claim": false,
+    "hosted_public_authorized": false,
+    "investment_recommendation_authorized": false,
+    "live_market_data_authorized": false,
+    "optimizer_mutation_authorized": false,
+    "portfolio_action_authorized": false,
+    "private_account_state_exported": false,
+    "private_portfolio_exported": false,
+    "provider_calls_authorized": false,
+    "provider_payload_exported": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "trading_advice_authorized": false
+  },
+  "governed_artifacts": [
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+    "microcosm-substrate/src/microcosm_core/macro_tools/finance_eval_spine.py",
+    "microcosm-substrate/receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json"
+  ],
+  "kind_id": "finance_forecast_evaluation_spine",
+  "kind_name": "Finance forecast evaluation spine",
+  "paper_module_contract": {
+    "module_slug": "finance_forecast_evaluation_spine",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "copied_non_secret_tools_finance_python_modules",
+      "finance_eval_operating_picture_without_account_or_provider_payload_state",
+      "bundle_manifest_digests",
+      "secret_exclusion_scan_summary",
+      "no_advice_no_mutation_authority_ceiling"
+    ],
+    "default_posture": "source_open_real_substrate_with_secret_exclusion",
+    "forbidden_public_inputs": [
+      "api_keys",
+      "brokerage_or_account_state",
+      "cookies_or_sessions",
+      "credential_equivalent_live_access_material",
+      "private_portfolio_state",
+      "provider_payload_bodies",
+      "recipient_send_state"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "copied_macro_source_count",
+      "real_macro_receipt_count",
+      "source_manifest",
+      "anchor_summary",
+      "operating_picture_gate_summary",
+      "authority_ceiling",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "synthetic_receipt_standin_allowed",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.finance_forecast_evaluation_spine",
+    "required": true
+  },
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "path": "tools/finance/event_keys.py",
+      "role": "comparison_event_key_authority"
+    },
+    {
+      "path": "tools/finance/admit_forecasts.py",
+      "role": "cp1_finance_claim_admission"
+    },
+    {
+      "path": "tools/finance/resolve_forecasts.py",
+      "role": "cp2_truth_resolution"
+    },
+    {
+      "path": "tools/finance/eval_replay.py",
+      "role": "cp1_admitted_replay_and_scorecard"
+    },
+    {
+      "path": "tools/finance/historical_replay.py",
+      "role": "historical_replay_shadow_gate"
+    },
+    {
+      "path": "tools/finance/calibrate_forecast_probabilities.py",
+      "role": "shadow_only_probability_calibration"
+    },
+    {
+      "path": "tools/finance/variant_registry.py",
+      "role": "variant_name_and_mutation_permission_registry"
+    },
+    {
+      "path": "tools/finance/compare_variants.py",
+      "role": "paired_variant_comparison_gate"
+    },
+    {
+      "path": "tools/finance/build_eval_operating_picture.py",
+      "role": "finance_eval_operating_picture_builder"
+    },
+    {
+      "path": "state/finance_eval/views/finance_eval_operating_picture.json",
+      "role": "real_generated_macro_receipt"
+    }
+  ],
+  "standard_id": "std_microcosm_finance_forecast_evaluation_spine",
+  "validator_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/finance_eval_spine.py::validate_finance_eval_bundle",
+    "microcosm-substrate/tests/test_finance_eval_spine.py"
+  ]
+}

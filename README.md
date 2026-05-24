@@ -20,6 +20,7 @@ microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_ke
 microcosm reveal
 microcosm legibility-scorecard
 microcosm market-boundary
+microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/first_wave/finance_forecast_evaluation_spine
 microcosm drift-control
 microcosm circuit-attribution
 microcosm route-cleanup
@@ -247,6 +248,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli spine
 PYTHONPATH=src python3 -m microcosm_core.cli authority
 PYTHONPATH=src python3 -m microcosm_core.cli prediction-lens
 PYTHONPATH=src python3 -m microcosm_core.cli market-boundary
+PYTHONPATH=src python3 -m microcosm_core.cli finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/first_wave/finance_forecast_evaluation_spine
 PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens
 PYTHONPATH=src python3 -m microcosm_core.cli trace-lens
 PYTHONPATH=src python3 -m microcosm_core.cli repair-loop
@@ -393,6 +395,16 @@ hooks before narrative pressure, names scenario-tree and confidence-band gates,
 and keeps decision policy distinct from trading or investment advice. It is
 local evidence only: no live market data, private portfolio/account export,
 provider payloads, performance guarantees, publication, or release authority.
+
+`microcosm finance-eval-spine validate-finance-eval-bundle` validates the
+copied non-secret macro finance evaluator bundle. It checks the `tools/finance`
+comparison-key, CP1 admission, CP2 resolution, replay, historical replay,
+shadow calibration, variant, comparison, and operating-picture modules against
+their manifest hashes, then checks the real finance operating picture's
+no-advice/no-mutation gates. It exports source bodies in the bundle, not in the
+receipt, and authorizes no trading advice, live provider calls, private account
+state, forecast-performance claim, optimizer mutation, publication, hosting, or
+release.
 
 `microcosm drift-control` is the public projection-drift control lens. It
 turns world-model, route, view-quality, CAP-assimilation, and entry-payload

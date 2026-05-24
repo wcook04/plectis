@@ -4,6 +4,7 @@ import argparse
 
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
+from microcosm_core.macro_tools import finance_eval_spine
 from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
 from microcosm_core.organs import agent_memory_temporal_conflict_replay
 from microcosm_core.organs import agent_monitor_redteam_falsification_replay
@@ -209,6 +210,10 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     _add_input_out(organ_parser)
+
+    finance_eval_parser = subparsers.add_parser("finance-eval-spine")
+    finance_eval_parser.add_argument("action", choices=["validate-finance-eval-bundle"])
+    _add_input_out(finance_eval_parser)
 
     grammar_parser = subparsers.add_parser("executable-doctrine-grammar")
     grammar_parser.add_argument("action", choices=["validate", "validate-standards-bundle"])
@@ -676,6 +681,10 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "pattern-binding":
         return pattern_binding_contract.main([args.action, "--input", args.input, "--out", args.out])
+    if args.command == "finance-eval-spine":
+        return finance_eval_spine.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
     if args.command == "executable-doctrine-grammar":
         return executable_doctrine_grammar.main(
             [args.action, "--input", args.input, "--out", args.out]
