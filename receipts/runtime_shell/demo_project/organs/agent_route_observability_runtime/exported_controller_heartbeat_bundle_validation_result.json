@@ -1,0 +1,252 @@
+{
+  "account_session_state_exported": false,
+  "anti_claim": "This public controller heartbeat tool validates the real macro 5x5 continuity projection over public metadata and bundle inputs. It does not read live seeds, mission blackboards, Work Ledger runtime, provider payloads, browser/HUD state, account/session state, credentials, cookies, or recipient-send material, and it does not mutate source or authorize release.",
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_controller_heartbeat_projection_not_live_controller_authority",
+    "browser_hud_live_access": false,
+    "credential_or_cookie_exported": false,
+    "live_controller_authority_authorized": false,
+    "private_root_equivalence_claim": false,
+    "provider_payload_read": false,
+    "recipient_send_authorized": false,
+    "release_authorized": false,
+    "seed_or_blackboard_read_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass",
+    "work_ledger_mutation_authorized": false,
+    "work_ledger_runtime_read_authorized": false
+  },
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "source_body_digest": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
+    "source_ref": "system/lib/controller_heartbeat.py",
+    "source_to_target_relation": "source_faithful_public_light_edit",
+    "target_body_digest": "sha256:e16c410e372aab197dc9b1b19d886b404003f23da646057f959b801144816e63",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py",
+    "verification_mode": "verified_light_edit_recipe",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "browser_hud_cockpit_state_exported": false,
+  "bundle_fingerprint": "65eceb50c7d1bc13358c35d9794c992373c0b3706608704b6389ae048b562767",
+  "bundle_id": "public_controller_heartbeat_runtime_example",
+  "bundle_manifest_schema_version": "public_controller_heartbeat_bundle_manifest_v1",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-controller-heartbeat-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+  "controller_heartbeat_policy": {
+    "body_in_receipt": false,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "policy_id": "public_controller_heartbeat_projection_policy",
+    "source_open_payload_boundary": true,
+    "status": "pass"
+  },
+  "controller_heartbeat_public_schema": "public_controller_continuity_heartbeat_v1",
+  "controller_heartbeat_refs": [
+    {
+      "event_id": "chb_e2458f166d995b9af02a17eb",
+      "execution_mode": "direct_local",
+      "family_id": "microcosm_substrate_flagship_population",
+      "phase_id": "09_54_1",
+      "schema_version": "controller_heartbeat_ref_v1",
+      "source_path": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/heartbeat_inputs.json",
+      "updated_at": "2026-05-24T05:05:00+00:00",
+      "wave_id": "microcosm_substrate_flagship_population_wave_120"
+    },
+    {
+      "event_id": "chb_c24100a4f297d911b91b24ef",
+      "execution_mode": "direct_local",
+      "family_id": "microcosm_substrate_flagship_population",
+      "phase_id": "09_54_1",
+      "schema_version": "controller_heartbeat_ref_v1",
+      "source_path": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/heartbeat_inputs.json",
+      "updated_at": "2026-05-24T05:06:00+00:00",
+      "wave_id": "microcosm_substrate_flagship_population_wave_120_legacy_regeneration"
+    }
+  ],
+  "controller_heartbeat_schema": "controller_heartbeat_v1",
+  "created_at": "2026-05-24T05:07:12+00:00",
+  "credential_or_cookie_exported": false,
+  "dedupe_duplicate_count": 1,
+  "dedupe_reports": [
+    {
+      "duplicate": false,
+      "event_id": "chb_e2458f166d995b9af02a17eb",
+      "max_entries": 10,
+      "seen_count": 1,
+      "sequence_id": "first_wave120_event",
+      "ttl_seconds": 60
+    },
+    {
+      "duplicate": true,
+      "event_id": "chb_e2458f166d995b9af02a17eb",
+      "max_entries": 10,
+      "seen_count": 1,
+      "sequence_id": "duplicate_wave120_event",
+      "ttl_seconds": 60
+    },
+    {
+      "duplicate": false,
+      "event_id": "chb_c24100a4f297d911b91b24ef",
+      "max_entries": 10,
+      "seen_count": 2,
+      "sequence_id": "second_distinct_event",
+      "ttl_seconds": 60
+    }
+  ],
+  "error_codes": [],
+  "event_stability_rows": [
+    {
+      "event_id": "chb_e2458f166d995b9af02a17eb",
+      "semantic_wave_change_changes_event_id": true,
+      "updated_at_change_keeps_event_id": true
+    },
+    {
+      "event_id": "chb_c24100a4f297d911b91b24ef",
+      "semantic_wave_change_changes_event_id": true,
+      "updated_at_change_keeps_event_id": true
+    }
+  ],
+  "exact_5x5_count": 2,
+  "expected_negative_cases": {},
+  "expected_summary_validation": {
+    "expected_keys": [
+      "dedupe_duplicate_count",
+      "dedupe_register_count",
+      "exact_5x5_count",
+      "heartbeat_count",
+      "heartbeat_input_count",
+      "heartbeat_ref_count",
+      "idempotent_wrap_count",
+      "legacy_problem_regenerated_count",
+      "semantic_event_changed_count",
+      "semantic_event_stable_count",
+      "source_ref_count",
+      "target_ref_count",
+      "valid_heartbeat_count",
+      "wrapped_schema_count"
+    ],
+    "findings": [],
+    "status": "pass"
+  },
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "heartbeat_count": 2,
+  "heartbeat_ref_count": 2,
+  "heartbeat_validation": [
+    {
+      "errors": [],
+      "heartbeat_id": "wave120_public_controller_heartbeat_import"
+    },
+    {
+      "errors": [],
+      "heartbeat_id": "legacy_problem_regeneration_case"
+    }
+  ],
+  "idempotent_wrap_count": 2,
+  "input_mode": "exported_controller_heartbeat_bundle",
+  "legacy_problem_regenerated_count": 1,
+  "live_controller_authority_authorized": false,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "provider_payload_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_controller_heartbeat_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_controller_heartbeat_bundle_validation_result.json"
+  ],
+  "recipient_send_authorized": false,
+  "schema_version": "agent_route_observability_runtime_exported_controller_heartbeat_bundle_validation_v1",
+  "schema_wrap_rows": [
+    {
+      "heartbeat_ref_event_id": "chb_e2458f166d995b9af02a17eb",
+      "idempotent": true,
+      "required": [
+        "heartbeat_ref",
+        "payload"
+      ],
+      "schema_id": "bare_worker_summary_schema",
+      "wrapped": true
+    },
+    {
+      "heartbeat_ref_event_id": "chb_e2458f166d995b9af02a17eb",
+      "idempotent": true,
+      "required": [
+        "heartbeat_ref",
+        "payload"
+      ],
+      "schema_id": "already_wrapped_schema",
+      "wrapped": true
+    }
+  ],
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body",
+      "seed_body",
+      "mission_blackboard_body",
+      "work_ledger_runtime_body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_provider_payload_live_access_seed_blackboard_and_ledger_body_exclusion",
+    "scanned_path_count": 6,
+    "status": "pass"
+  },
+  "seed_or_blackboard_read_authorized": false,
+  "semantic_event_changed_count": 2,
+  "semantic_event_stable_count": 2,
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "system/lib/controller_heartbeat.py",
+    "codex/standards/std_controller_heartbeat.json",
+    "codex/doctrine/paper_modules/controller_heartbeat.md",
+    "docs/controller_continuity.md",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat"
+  ],
+  "status": "pass",
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle"
+  ],
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
+  "work_ledger_mutation_authorized": false,
+  "work_ledger_runtime_read_authorized": false,
+  "wrapped_schema_count": 2
+}

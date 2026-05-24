@@ -5,6 +5,7 @@ __all__ = [
     "agent_session_attribution",
     "bridge_resume",
     "continuation_packet",
+    "controller_heartbeat",
     "finance_eval_spine",
     "lab_evolve_replay",
     "mission_transaction_preflight",

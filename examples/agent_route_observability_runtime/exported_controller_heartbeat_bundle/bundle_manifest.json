@@ -1,0 +1,18 @@
+{
+  "schema_version": "public_controller_heartbeat_bundle_manifest_v1",
+  "bundle_id": "public_controller_heartbeat_runtime_example",
+  "generated_at": "2026-05-24T05:05:00+00:00",
+  "source_refs": [
+    "system/lib/controller_heartbeat.py",
+    "codex/standards/std_controller_heartbeat.json",
+    "codex/doctrine/paper_modules/controller_heartbeat.md",
+    "docs/controller_continuity.md",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle"
+  ],
+  "body_in_receipt": false,
+  "metadata_envelope_only": true
+}

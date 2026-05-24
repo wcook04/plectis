@@ -1,0 +1,52 @@
+{
+  "schema_version": "public_controller_heartbeat_inputs_v1",
+  "heartbeat_inputs": [
+    {
+      "heartbeat_id": "wave120_public_controller_heartbeat_import",
+      "family_id": "microcosm_substrate_flagship_population",
+      "family_dir": "state/meta_missions/type_a_autonomous_seed_loop",
+      "phase_id": "09_54_1",
+      "phase_title": "Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import",
+      "phase_dir": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine",
+      "wave_id": "microcosm_substrate_flagship_population_wave_120",
+      "execution_mode": "direct_local",
+      "objective": "Import controller heartbeat into Microcosm as source open public macro substrate",
+      "bounded_question": "How should later agents resume from disk without live thread memory or private payload bodies",
+      "next_step_posture": "the next macro body import that improves first screen proof or doctrine routability",
+      "updated_at": "2026-05-24T05:05:00+00:00",
+      "autonomous_seed_path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+      "source_path": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/heartbeat_inputs.json",
+      "source_refs": [
+        {
+          "kind": "public_bundle",
+          "path": "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+          "summary": "Public replay bundle for controller heartbeat continuity."
+        }
+      ],
+      "wake_conditions": [
+        {
+          "kind": "seed_rewrite",
+          "path": "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json",
+          "summary": "Wake when the autonomous seed changes the next controller import target."
+        }
+      ]
+    },
+    {
+      "heartbeat_id": "legacy_problem_regeneration_case",
+      "family_id": "microcosm_substrate_flagship_population",
+      "family_dir": "state/meta_missions/type_a_autonomous_seed_loop",
+      "phase_id": "09_54_1",
+      "phase_title": "Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import",
+      "phase_dir": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine",
+      "wave_id": "microcosm_substrate_flagship_population_wave_120_legacy_regeneration",
+      "execution_mode": "direct_local",
+      "objective": "Prove stale generic problem text is regenerated from active public context",
+      "bounded_question": "Can the heartbeat reject old generic continuity compression and preserve a current public proof lane",
+      "next_step_posture": "the next bounded runtime replay that proves continuity from disk",
+      "updated_at": "2026-05-24T05:06:00+00:00",
+      "existing": {
+        "problem": "The system still compresses truth differently across bridge packets, family continuity, phase continuity, and runtime boards. This stale problem used to survive across unrelated waves. It points at generic bridge drift instead of the current source open import lane. It can misroute the next worker toward old cleanup instead of live public substrate. It must be replaced when a current bounded question is available."
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "public_controller_heartbeat_policy_v1",
+  "policy_id": "public_controller_heartbeat_projection_policy",
+  "source_open_payload_boundary": true,
+  "body_in_receipt": false,
+  "live_controller_authority_authorized": false,
+  "seed_or_blackboard_read_authorized": false,
+  "work_ledger_runtime_read_authorized": false,
+  "work_ledger_mutation_authorized": false,
+  "provider_payload_read": false,
+  "browser_hud_live_access": false,
+  "account_session_state_exported": false,
+  "credential_or_cookie_exported": false,
+  "recipient_send_authorized": false,
+  "source_mutation_authorized": false,
+  "release_authorized": false
+}

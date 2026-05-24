@@ -22,10 +22,18 @@ from microcosm_core.macro_tools.continuation_packet import (
     SCHEMA_VERSION as CONTINUATION_PACKET_SCHEMA_VERSION,
     build_public_continuation_packet,
 )
+from microcosm_core.macro_tools.controller_heartbeat import (
+    CONTROLLER_HEARTBEAT_FIELDS,
+    CONTROLLER_HEARTBEAT_SCHEMA_VERSION,
+    build_public_controller_heartbeat_view,
+    count_sentences,
+    load_public_controller_heartbeat_bundle,
+)
 from microcosm_core.organs.agent_route_observability_runtime import (
     COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
     EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH,
+    EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH,
     EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
@@ -34,6 +42,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     run,
     run_bridge_dispatch_yield_resume_bundle,
     run_computer_use_action_trace_bundle,
+    run_controller_heartbeat_bundle,
     run_multi_agent_fanin_bundle,
     run_observability_bundle,
     run_session_attribution_bundle,
@@ -70,6 +79,11 @@ BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_bridge_dispatch_yield_resume_bundle"
+)
+CONTROLLER_HEARTBEAT_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_controller_heartbeat_bundle"
 )
 
 
@@ -559,6 +573,128 @@ def test_bridge_resume_imports_public_macro_body_refactor() -> None:
     assert view["schema_version"] == BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION
     assert view["summary"]["trigger_written_count"] == 2
     assert view["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
+    assert material["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert material["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
+    )
+    assert material["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+
+
+def test_controller_heartbeat_bundle_validates_runtime_shape(tmp_path: Path) -> None:
+    result = run_controller_heartbeat_bundle(
+        CONTROLLER_HEARTBEAT_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_controller_heartbeat_bundle"
+    assert result["bundle_id"] == "public_controller_heartbeat_runtime_example"
+    assert result["controller_heartbeat_schema"] == CONTROLLER_HEARTBEAT_SCHEMA_VERSION
+    assert result["heartbeat_count"] == 2
+    assert result["valid_heartbeat_count"] == 2
+    assert result["exact_5x5_count"] == 2
+    assert result["heartbeat_ref_count"] == 2
+    assert result["semantic_event_stable_count"] == 2
+    assert result["semantic_event_changed_count"] == 2
+    assert result["legacy_problem_regenerated_count"] == 1
+    assert result["wrapped_schema_count"] == 2
+    assert result["idempotent_wrap_count"] == 2
+    assert result["dedupe_duplicate_count"] == 1
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["controller_heartbeat_policy"]["forbidden_authority_rejected"] is True
+    assert result["authority_ceiling"]["seed_or_blackboard_read_authorized"] is False
+    assert result["authority_ceiling"]["work_ledger_runtime_read_authorized"] is False
+    assert result["authority_ceiling"]["provider_payload_read"] is False
+    assert result["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
+    assert result["body_import_verification"]["target_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py"
+    )
+
+
+def test_controller_heartbeat_receipt_is_public_safe(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_controller_heartbeat_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_controller_heartbeat_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH]
+    receipt_file = public_root / EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "seed_body" not in _walk_keys(payload)
+    assert "mission_blackboard_body" not in _walk_keys(payload)
+    assert "work_ledger_runtime_body" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "account_session_state" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_controller_heartbeat_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["body_in_receipt"] is False
+    assert payload["seed_or_blackboard_read_authorized"] is False
+    assert payload["work_ledger_runtime_read_authorized"] is False
+    assert payload["recipient_send_authorized"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_controller_heartbeat_imports_public_macro_body_refactor() -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/controller_heartbeat.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/controller_heartbeat.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    view = build_public_controller_heartbeat_view(
+        load_public_controller_heartbeat_bundle(CONTROLLER_HEARTBEAT_BUNDLE_INPUT)
+    )
+    protocol = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
+        ).read_text(encoding="utf-8")
+    )
+    by_material = {row["material_id"]: row for row in protocol["copied_material"]}
+    material = by_material["controller_heartbeat_body_import"]
+
+    assert target.is_file()
+    assert source_digest != target_digest
+    assert view["status"] == "pass"
+    assert view["controller_heartbeat_schema"] == CONTROLLER_HEARTBEAT_SCHEMA_VERSION
+    assert view["summary"]["exact_5x5_count"] == 2
+    assert view["summary"]["dedupe_duplicate_count"] == 1
+    assert view["authority_ceiling"]["seed_or_blackboard_read_authorized"] is False
+    for heartbeat in view["controller_heartbeats"]:
+        assert all(
+            count_sentences(heartbeat[field]) == 5
+            for field in CONTROLLER_HEARTBEAT_FIELDS
+        )
     assert material["body_import_verification"]["source_body_digest"] == (
         f"sha256:{source_digest}"
     )

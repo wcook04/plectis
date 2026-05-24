@@ -20,7 +20,11 @@
     "tools/meta/bridge/bridge_resume.py",
     "system/lib/controller_heartbeat.py",
     "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
-    "codex/doctrine/skills/bridge_runtime/resume_contract.md"
+    "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+    "codex/standards/std_controller_heartbeat.json",
+    "codex/doctrine/paper_modules/controller_heartbeat.md",
+    "docs/controller_continuity.md",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -460,6 +464,73 @@
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
           "microcosm agent-route-observability-runtime validate-bridge-dispatch-yield-resume-bundle --input examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
+      "material_id": "controller_heartbeat_body_import",
+      "source_ref": "system/lib/controller_heartbeat.py",
+      "source_refs": [
+        "system/lib/controller_heartbeat.py",
+        "codex/standards/std_controller_heartbeat.json",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/controller_continuity.md",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/controller_heartbeat.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#controller_continuity_heartbeat",
+        "codex/standards/std_controller_heartbeat.json",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "preserve the macro 5x5 heartbeat builder validator event identity ref schema response-schema wrapper and deduper",
+        "add a deterministic public bundle validator with metadata-only authority ceiling and secret-exclusion checks",
+        "consume it through agent_route_observability_runtime exported_controller_heartbeat_bundle"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public controller-heartbeat macro tool body import only; not live seed or mission-board read, Work Ledger runtime read or mutation, provider/browser/account access, credential export, transcript export, recipient send, source mutation, private-root equivalence, or release authority",
+      "body_digest": "sha256:e16c410e372aab197dc9b1b19d886b404003f23da646057f959b801144816e63",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
+        "target_body_digest": "sha256:e16c410e372aab197dc9b1b19d886b404003f23da646057f959b801144816e63",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "system/lib/controller_heartbeat.py::build_controller_heartbeat",
+          "system/lib/controller_heartbeat.py::validate_controller_heartbeat",
+          "system/lib/controller_heartbeat.py::controller_heartbeat_event_id",
+          "system/lib/controller_heartbeat.py::controller_heartbeat_ref",
+          "system/lib/controller_heartbeat.py::wrap_response_schema_with_heartbeat_ref",
+          "system/lib/controller_heartbeat.py::ControllerHeartbeatDeduper"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.controller_heartbeat::build_controller_heartbeat",
+          "microcosm_core.macro_tools.controller_heartbeat::validate_controller_heartbeat",
+          "microcosm_core.macro_tools.controller_heartbeat::controller_heartbeat_event_id",
+          "microcosm_core.macro_tools.controller_heartbeat::controller_heartbeat_ref",
+          "microcosm_core.macro_tools.controller_heartbeat::wrap_response_schema_with_heartbeat_ref",
+          "microcosm_core.macro_tools.controller_heartbeat::ControllerHeartbeatDeduper",
+          "microcosm_core.macro_tools.controller_heartbeat::build_public_controller_heartbeat_view"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_imports_public_macro_body_refactor",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine",
+          "microcosm agent-route-observability-runtime validate-controller-heartbeat-bundle --input examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle"
         ]
       },
       "body_in_receipt": false

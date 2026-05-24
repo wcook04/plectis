@@ -1,0 +1,24 @@
+{
+  "schema_version": "public_controller_heartbeat_dedupe_sequence_v1",
+  "dedupe_settings": {
+    "ttl_seconds": 60,
+    "max_entries": 10
+  },
+  "dedupe_sequence": [
+    {
+      "sequence_id": "first_wave120_event",
+      "heartbeat_index": 0,
+      "now": 100
+    },
+    {
+      "sequence_id": "duplicate_wave120_event",
+      "heartbeat_index": 0,
+      "now": 101
+    },
+    {
+      "sequence_id": "second_distinct_event",
+      "heartbeat_index": 1,
+      "now": 102
+    }
+  ]
+}

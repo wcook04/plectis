@@ -1,0 +1,49 @@
+{
+  "schema_version": "public_controller_heartbeat_response_schemas_v1",
+  "response_schemas": [
+    {
+      "schema_id": "bare_worker_summary_schema",
+      "schema": {
+        "type": "object",
+        "required": [
+          "status",
+          "summary"
+        ],
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "schema_id": "already_wrapped_schema",
+      "schema": {
+        "type": "object",
+        "required": [
+          "heartbeat_ref",
+          "payload"
+        ],
+        "properties": {
+          "heartbeat_ref": {
+            "type": "object"
+          },
+          "payload": {
+            "type": "object",
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

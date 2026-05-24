@@ -1,0 +1,16 @@
+{
+  "heartbeat_input_count": 2,
+  "heartbeat_count": 2,
+  "valid_heartbeat_count": 2,
+  "exact_5x5_count": 2,
+  "heartbeat_ref_count": 2,
+  "semantic_event_stable_count": 2,
+  "semantic_event_changed_count": 2,
+  "legacy_problem_regenerated_count": 1,
+  "wrapped_schema_count": 2,
+  "idempotent_wrap_count": 2,
+  "dedupe_register_count": 3,
+  "dedupe_duplicate_count": 1,
+  "source_ref_count": 5,
+  "target_ref_count": 1
+}

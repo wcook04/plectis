@@ -34,6 +34,16 @@ from microcosm_core.macro_tools.bridge_resume import (
     TARGET_REFS as BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REFS,
     build_public_bridge_dispatch_yield_resume_view,
 )
+from microcosm_core.macro_tools.controller_heartbeat import (
+    ANTI_CLAIM as CONTROLLER_HEARTBEAT_ANTI_CLAIM,
+    AUTHORITY_CEILING as CONTROLLER_HEARTBEAT_AUTHORITY_CEILING,
+    FORBIDDEN_PAYLOAD_KEYS as CONTROLLER_HEARTBEAT_FORBIDDEN_KEYS,
+    INPUT_NAMES as CONTROLLER_HEARTBEAT_INPUT_NAMES,
+    SCHEMA_VERSION as CONTROLLER_HEARTBEAT_PUBLIC_SCHEMA_VERSION,
+    SOURCE_REFS as CONTROLLER_HEARTBEAT_SOURCE_REFS,
+    TARGET_REFS as CONTROLLER_HEARTBEAT_TARGET_REFS,
+    build_public_controller_heartbeat_view,
+)
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -66,6 +76,9 @@ MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME = (
 BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RESULT_NAME = (
     "exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
 )
+CONTROLLER_HEARTBEAT_BUNDLE_RESULT_NAME = (
+    "exported_controller_heartbeat_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -96,6 +109,10 @@ EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH = (
 EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+)
+EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_controller_heartbeat_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -435,6 +452,10 @@ def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in BRIDGE_DISPATCH_YIELD_RESUME_INPUT_NAMES]
 
 
+def _controller_heartbeat_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in CONTROLLER_HEARTBEAT_INPUT_NAMES]
+
+
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
@@ -501,6 +522,13 @@ def _load_bridge_dispatch_yield_resume_bundle(input_dir: Path) -> dict[str, Any]
     }
 
 
+def _load_controller_heartbeat_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _controller_heartbeat_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -554,6 +582,18 @@ def _scan_bridge_dispatch_yield_resume_inputs(
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _bridge_dispatch_yield_resume_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_controller_heartbeat_inputs(
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _controller_heartbeat_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -2437,6 +2477,93 @@ def _write_bridge_dispatch_yield_resume_bundle_receipt(
     return receipt_path
 
 
+def _write_controller_heartbeat_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / CONTROLLER_HEARTBEAT_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_controller_heartbeat_"
+            "bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "controller_heartbeat_public_schema": validation_result[
+                "controller_heartbeat_public_schema"
+            ],
+            "controller_heartbeat_schema": validation_result[
+                "controller_heartbeat_schema"
+            ],
+            "heartbeat_count": validation_result["heartbeat_count"],
+            "exact_5x5_count": validation_result["exact_5x5_count"],
+            "heartbeat_ref_count": validation_result["heartbeat_ref_count"],
+            "semantic_event_stable_count": validation_result[
+                "semantic_event_stable_count"
+            ],
+            "semantic_event_changed_count": validation_result[
+                "semantic_event_changed_count"
+            ],
+            "legacy_problem_regenerated_count": validation_result[
+                "legacy_problem_regenerated_count"
+            ],
+            "wrapped_schema_count": validation_result["wrapped_schema_count"],
+            "idempotent_wrap_count": validation_result["idempotent_wrap_count"],
+            "dedupe_duplicate_count": validation_result["dedupe_duplicate_count"],
+            "controller_heartbeat_refs": validation_result[
+                "controller_heartbeat_refs"
+            ],
+            "heartbeat_validation": validation_result["heartbeat_validation"],
+            "event_stability_rows": validation_result["event_stability_rows"],
+            "schema_wrap_rows": validation_result["schema_wrap_rows"],
+            "dedupe_reports": validation_result["dedupe_reports"],
+            "controller_heartbeat_policy": validation_result[
+                "controller_heartbeat_policy"
+            ],
+            "expected_summary_validation": validation_result[
+                "expected_summary_validation"
+            ],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "live_controller_authority_authorized": False,
+            "seed_or_blackboard_read_authorized": False,
+            "work_ledger_runtime_read_authorized": False,
+            "work_ledger_mutation_authorized": False,
+            "provider_payload_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "recipient_send_authorized": False,
+            "fixture_regression_required_elsewhere": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
 def run_observability_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -3091,6 +3218,165 @@ def run_bridge_dispatch_yield_resume_bundle(
         }
     )
     receipt_path = _write_bridge_dispatch_yield_resume_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
+def run_controller_heartbeat_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_controller_heartbeat_bundle(input_path)
+    scan_result = _scan_controller_heartbeat_inputs(input_path, public_root)
+    secret_scan = dict(scan_result)
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan.pop("body_redacted", None)
+    secret_scan.pop("redacted_output_field_labels_omitted", None)
+    secret_scan["omitted_output_fields"] = [
+        "source_excerpt",
+        "body",
+        "seed_body",
+        "mission_blackboard_body",
+        "work_ledger_runtime_body",
+    ]
+    secret_scan["body_in_receipt"] = False
+    secret_scan["real_substrate_default"] = True
+    secret_scan["scan_purpose"] = (
+        "credential_account_bound_provider_payload_live_access_seed_blackboard_and_ledger_body_exclusion"
+    )
+    secret_scan["hits"] = [
+        {
+            **{
+                key: value
+                for key, value in hit.items()
+                if key != "body_redacted"
+            },
+            "body_in_receipt": False,
+        }
+        for hit in _rows(secret_scan, "hits")
+    ]
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    view = build_public_controller_heartbeat_view(payloads)
+    leaked_keys = sorted(CONTROLLER_HEARTBEAT_FORBIDDEN_KEYS & _walk_payload_keys(payloads))
+    extra_findings = [
+        _bundle_finding(
+            "CONTROLLER_HEARTBEAT_FORBIDDEN_PAYLOAD_KEY",
+            "Controller heartbeat replay inputs cannot include seed bodies, mission-board bodies, Work Ledger runtime bodies, provider/browser/account state, credentials, cookies, transcript bodies, or recipient-send payloads.",
+            subject_id=key,
+            subject_kind="controller_heartbeat_input",
+        )
+        for key in leaked_keys
+    ]
+    all_findings = sorted(
+        [*view.get("findings", []), *extra_findings],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    summary = view.get("summary") if isinstance(view.get("summary"), dict) else {}
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_controller_heartbeat_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and view.get("status") == PASS
+        and not all_findings
+        and summary.get("heartbeat_count", 0) >= 2
+        and summary.get("valid_heartbeat_count") == summary.get("heartbeat_count")
+        and summary.get("exact_5x5_count") == summary.get("heartbeat_count")
+        and summary.get("dedupe_duplicate_count", 0) >= 1
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "view_fingerprint": view.get("view_fingerprint"),
+            "summary": summary,
+            "policy_id": view.get("policy_validation", {}).get("policy_id"),
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or CONTROLLER_HEARTBEAT_SOURCE_REFS
+    target_refs = _strings(manifest.get("target_refs")) or CONTROLLER_HEARTBEAT_TARGET_REFS
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_controller_heartbeat_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": CONTROLLER_HEARTBEAT_ANTI_CLAIM,
+            "authority_ceiling": CONTROLLER_HEARTBEAT_AUTHORITY_CEILING,
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(
+                {str(item.get("error_code") or "") for item in all_findings}
+            ),
+            "findings": all_findings,
+            "secret_exclusion_scan": secret_scan,
+            "controller_heartbeat_public_schema": CONTROLLER_HEARTBEAT_PUBLIC_SCHEMA_VERSION,
+            "controller_heartbeat_schema": view.get("controller_heartbeat_schema"),
+            "heartbeat_count": summary.get("heartbeat_count", 0),
+            "valid_heartbeat_count": summary.get("valid_heartbeat_count", 0),
+            "exact_5x5_count": summary.get("exact_5x5_count", 0),
+            "heartbeat_ref_count": summary.get("heartbeat_ref_count", 0),
+            "semantic_event_stable_count": summary.get("semantic_event_stable_count", 0),
+            "semantic_event_changed_count": summary.get("semantic_event_changed_count", 0),
+            "legacy_problem_regenerated_count": summary.get(
+                "legacy_problem_regenerated_count",
+                0,
+            ),
+            "wrapped_schema_count": summary.get("wrapped_schema_count", 0),
+            "idempotent_wrap_count": summary.get("idempotent_wrap_count", 0),
+            "dedupe_duplicate_count": summary.get("dedupe_duplicate_count", 0),
+            "controller_heartbeat_refs": view.get("controller_heartbeat_refs", []),
+            "heartbeat_validation": view.get("heartbeat_validation", []),
+            "event_stability_rows": view.get("event_stability_rows", []),
+            "schema_wrap_rows": view.get("schema_wrap_rows", []),
+            "dedupe_reports": view.get("dedupe_reports", []),
+            "controller_heartbeat_policy": view.get("policy_validation", {}),
+            "expected_summary_validation": view.get("expected_summary_validation", {}),
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "source_symbols": view.get("source_symbols", []),
+            "target_symbols": view.get("target_symbols", []),
+            "body_import_verification": view.get("body_import_verification", {}),
+            "forbidden_payload_keys": sorted(
+                set(leaked_keys) | set(view.get("forbidden_payload_keys", []))
+            ),
+            "view_fingerprint": view.get("view_fingerprint"),
+            "bundle_fingerprint": bundle_fingerprint,
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "live_controller_authority_authorized": False,
+            "seed_or_blackboard_read_authorized": False,
+            "work_ledger_runtime_read_authorized": False,
+            "work_ledger_mutation_authorized": False,
+            "provider_payload_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "recipient_send_authorized": False,
+            "receipt_paths": [EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_controller_heartbeat_bundle_receipt(
         out_dir,
         result,
         public_root=public_root,
@@ -4143,6 +4429,9 @@ def main(argv: list[str] | None = None) -> int:
     bridge_parser = subparsers.add_parser("validate-bridge-dispatch-yield-resume-bundle")
     bridge_parser.add_argument("--input", required=True)
     bridge_parser.add_argument("--out", required=True)
+    controller_parser = subparsers.add_parser("validate-controller-heartbeat-bundle")
+    controller_parser.add_argument("--input", required=True)
+    controller_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
@@ -4181,12 +4470,20 @@ def main(argv: list[str] | None = None) -> int:
             f"--input {args.input} --out {args.out}"
         )
         result = run_bridge_dispatch_yield_resume_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-controller-heartbeat-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            "validate-controller-heartbeat-bundle "
+            f"--input {args.input} --out {args.out}"
+        )
+        result = run_controller_heartbeat_bundle(args.input, args.out, command=command)
     else:
         parser.error(
             "expected subcommand: run, validate-observability-bundle, or "
             "validate-computer-use-bundle, validate-session-attribution-bundle, "
             "validate-multi-agent-fanin-bundle, or "
-            "validate-bridge-dispatch-yield-resume-bundle"
+            "validate-bridge-dispatch-yield-resume-bundle, or "
+            "validate-controller-heartbeat-bundle"
         )
     return 0 if result["status"] == PASS else 1
 
