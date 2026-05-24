@@ -290,7 +290,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 7
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 8
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
@@ -995,7 +995,7 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert payload["bridge_id"] == "runtime_reveal_import_bridge"
-    assert payload["projection_cell_count"] == 5
+    assert payload["projection_cell_count"] == 7
     assert payload["cell_status"][1]["projection_status"] == "self_hosted_status_protocol_landed"
     assert payload["cell_status"][2]["projection_status"] == "runtime_bridge_landed"
     assert payload["open_actionable_cell_count"] == 0
@@ -1018,7 +1018,7 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 5
+    assert payload["projection_intake_board"]["ready_cell_count"] == 7
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"

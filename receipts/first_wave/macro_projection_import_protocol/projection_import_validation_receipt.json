@@ -21,7 +21,7 @@
   "body_in_receipt": false,
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-24T04:11:38+00:00",
+  "created_at": "2026-05-24T04:41:31+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -104,7 +104,7 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 29,
+  "macro_origin_ref_count": 33,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "negative_case_coverage_status": "pass",
@@ -157,8 +157,9 @@
   ],
   "projection_intake_board_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 12,
+  "public_runtime_ref_count": 14,
   "public_runtime_refs": [
+    "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
     "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
     "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
     "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
@@ -171,22 +172,24 @@
     "fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json",
     "paper_modules/macro_projection_import_protocol.md",
     "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
     "src/microcosm_core/macro_tools/agent_execution_trace.py",
     "src/microcosm_core/macro_tools/agent_session_attribution.py",
+    "src/microcosm_core/macro_tools/bridge_resume.py",
     "src/microcosm_core/macro_tools/continuation_packet.py",
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_import_count": 7,
+  "public_safe_body_import_count": 8,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 7
+    "verified_light_edit": 8
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 7,
+  "public_safe_body_material_count": 8,
   "ready_projection_cell_count": 7,
   "receipt_id": "macro_projection_import_protocol_validation_receipt_v1",
   "receipt_paths": [
@@ -254,7 +257,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 29,
+    "macro_origin_ref_count": 33,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json::situation_routes",
@@ -263,6 +266,8 @@
       "codex/doctrine/paper_modules/bridge_runtime.md",
       "codex/doctrine/paper_modules/navigation_hologram_theory.md",
       "codex/doctrine/routing_hologram.json::situation_rows",
+      "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+      "codex/doctrine/skills/bridge_runtime/resume_contract.md",
       "codex/standards/std_agent_execution_trace.json",
       "codex/standards/std_continuation_packet.json",
       "codex/standards/std_microcosm.json#direct_import_with_verification",
@@ -281,9 +286,11 @@
       "system/lib/agent_execution_trace.py",
       "system/lib/agent_session_attribution.py",
       "system/lib/continuation_packet.py",
+      "system/lib/controller_heartbeat.py",
       "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
       "system/lib/navigation_context_pack.py::build_navigation_context_pack",
       "system/lib/work_landing_status.py",
+      "tools/meta/bridge/bridge_resume.py",
       "tools/meta/control/mission_transaction_preflight.py",
       "tools/meta/control/work_landing.py"
     ],
@@ -307,16 +314,37 @@
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 1,
-      "public_macro_tool_body": 4
+      "public_macro_tool_body": 5
     },
-    "public_safe_body_import_count": 7,
+    "public_safe_body_import_count": 8,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 7
+      "verified_light_edit": 8
     },
     "publication_authorized": false,
     "ready_projection_cell_count": 7,
     "release_authorized": false,
     "runtime_dependencies": [
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+        "status": "pass"
+      },
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
@@ -364,6 +392,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
       },
       {
@@ -446,6 +481,13 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+        "ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "status": "pass"
@@ -455,6 +497,13 @@
         "leak_reason": null,
         "normalized_ref": "src/microcosm_core/macro_tools/work_landing.py",
         "ref": "src/microcosm_core/macro_tools/work_landing.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+        "ref": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
         "status": "pass"
       },
       {
@@ -544,6 +593,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
         "ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
         "status": "pass"
@@ -593,6 +649,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+        "ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "status": "pass"
@@ -609,6 +672,13 @@
         "leak_reason": null,
         "normalized_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
         "ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+        "ref": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
         "status": "pass"
       },
       {
@@ -684,6 +754,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
         "ref": "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
         "status": "pass"
@@ -726,6 +803,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+        "ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "status": "pass"
@@ -742,6 +826,27 @@
         "leak_reason": null,
         "normalized_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
         "ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+        "ref": "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
         "status": "pass"
       },
       {
@@ -796,6 +901,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -836,8 +948,9 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 74,
+    "runtime_dependency_count": 89,
     "runtime_dependency_refs": [
+      "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
       "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
       "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
       "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
@@ -847,6 +960,9 @@
       "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
       "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
       "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_continuation_packet_imports_public_macro_body_refactor",
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
@@ -854,6 +970,7 @@
       "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
@@ -868,6 +985,7 @@
       "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
       "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
       "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+      "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json",
@@ -877,6 +995,7 @@
       "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
       "src/microcosm_core/macro_tools/agent_execution_trace.py",
       "src/microcosm_core/macro_tools/agent_session_attribution.py",
+      "src/microcosm_core/macro_tools/bridge_resume.py",
       "src/microcosm_core/macro_tools/continuation_packet.py",
       "src/microcosm_core/macro_tools/work_landing.py",
       "src/microcosm_core/organs/navigation_hologram_route_plane.py",
@@ -926,7 +1045,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 14,
+  "source_ref_count": 18,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -941,12 +1060,19 @@
     "codex/doctrine/agent_bootstrap_live.json::situation_routes",
     "codex/doctrine/routing_hologram.json::situation_rows",
     "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
-    "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+    "system/lib/navigation_context_pack.py::build_navigation_context_pack",
+    "tools/meta/bridge/bridge_resume.py",
+    "system/lib/controller_heartbeat.py",
+    "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+    "codex/doctrine/skills/bridge_runtime/resume_contract.md"
   ],
   "standalone_dependency_leaks_rejected": true,
   "status": "pass",
-  "validation_ref_count": 16,
+  "validation_ref_count": 20,
   "validation_refs": [
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_continuation_packet_imports_public_macro_body_refactor",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
@@ -955,6 +1081,7 @@
     "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",

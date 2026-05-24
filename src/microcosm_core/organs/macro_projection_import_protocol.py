@@ -279,17 +279,21 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
         "cell_state": "consumed_verified_import",
         "action_required": False,
         "status_reason": (
-            "The multi-agent fan-in replay lane is landed as a source-faithful public "
-            "continuation-packet macro tool plus an exported fan-in metadata bundle."
+            "The multi-agent fan-in replay lane is landed as source-faithful public "
+            "continuation-packet and bridge-resume macro tools plus exported fan-in "
+            "and dispatch/yield/resume metadata bundles."
         ),
         "landed_evidence_refs": [
             "src/microcosm_core/macro_tools/continuation_packet.py",
+            "src/microcosm_core/macro_tools/bridge_resume.py",
             "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+            "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
             "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
+            "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json",
         ],
         "next_runtime_surface": (
-            "microcosm agent-route-observability-runtime validate-multi-agent-fanin-bundle "
-            "--input examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle"
+            "microcosm agent-route-observability-runtime validate-bridge-dispatch-yield-resume-bundle "
+            "--input examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle"
         ),
     },
     "navigation_route_plane_import": {

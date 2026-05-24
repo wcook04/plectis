@@ -1,0 +1,277 @@
+{
+  "account_session_state_exported": false,
+  "activity_reports": [
+    {
+      "body_in_receipt": false,
+      "delta_bytes": 0,
+      "delta_contains_foreign_user": false,
+      "delta_contains_sentinel": false,
+      "has_delta": false,
+      "job_id": "public_bridge_resume_idle_once",
+      "reason": "no_delta",
+      "safe_to_inject": true
+    },
+    {
+      "body_in_receipt": false,
+      "delta_bytes": 92,
+      "delta_contains_foreign_user": false,
+      "delta_contains_sentinel": true,
+      "has_delta": true,
+      "job_id": "public_bridge_resume_already_seen",
+      "reason": "already_injected",
+      "safe_to_inject": false
+    }
+  ],
+  "anti_claim": "This public bridge dispatch/yield/resume tool validates the macro resume protocol over public metadata envelopes: target shape, resume job shape, short resume message rendering, once-only trigger accounting, session-delta idle safety, controller-heartbeat refs, and continuation-packet refs. It does not dispatch live bridge work, paste into host apps, read provider or browser/HUD state, export transcript bodies, control accounts, send recipient material, mutate Work Ledger or source, or authorize release.",
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_bridge_dispatch_yield_resume_metadata_not_live_bridge_authority",
+    "credential_or_cookie_exported": false,
+    "host_app_auto_inject_authorized": false,
+    "live_bridge_dispatch_authorized": false,
+    "live_browser_hud_access_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_worker_transcript_exported": false,
+    "recipient_send_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "blocked_activity_count": 1,
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "source_ref": "tools/meta/bridge/bridge_resume.py",
+    "source_to_target_relation": "source_faithful_public_light_edit",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py",
+    "verification_mode": "source_faithful_public_refactor",
+    "verification_status": "verified"
+  },
+  "bridge_policy_validation": {
+    "body_in_receipt": false,
+    "forbidden_authority_rejected": true,
+    "metadata_envelope_only": true,
+    "policy_id": "public_bridge_dispatch_yield_resume_no_send_policy",
+    "status": "pass"
+  },
+  "bridge_resume_schema": "public_bridge_dispatch_yield_resume_v1",
+  "browser_hud_cockpit_state_exported": false,
+  "bundle_fingerprint": "48cc29c4d6f5456bde3229422c0e7087e9f75f6f7e90f17c81d86a146d94b171",
+  "bundle_id": "public_bridge_dispatch_yield_resume_runtime_example",
+  "bundle_manifest_schema_version": "public_bridge_dispatch_yield_resume_bundle_v1",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-bridge-dispatch-yield-resume-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+  "controller_heartbeat_ref_count": 2,
+  "created_at": "2026-05-24T04:41:12+00:00",
+  "credential_or_cookie_exported": false,
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "host_app_auto_inject_authorized": false,
+  "input_mode": "exported_bridge_dispatch_yield_resume_bundle",
+  "live_bridge_dispatch_authorized": false,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "no_send_trigger_count": 2,
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "provider_payload_exported": false,
+  "public_ledger_rows": [
+    {
+      "body_in_receipt": false,
+      "details": {
+        "dispatch_snapshot": {
+          "body_in_receipt": false,
+          "captured_at": "2026-05-24T04:25:10+00:00",
+          "jsonl_byte_size": 1200,
+          "jsonl_mtime_ns": 1716534310000000000,
+          "jsonl_path_ref": "public_fixture_sessions/public_session_idle.jsonl",
+          "session_id": "public_session_idle"
+        },
+        "schema_version": "public_bridge_dispatch_yield_resume_v1",
+        "sentinel": "[public bridge resume] job=public_bridge_resume_idle_once",
+        "status": "ok",
+        "submit": false,
+        "target_id": "public_bridge_target_idle"
+      },
+      "event": "trigger_written",
+      "job_id": "public_bridge_resume_idle_once",
+      "ts": "2026-05-24T04:41:12.764115+00:00"
+    },
+    {
+      "body_in_receipt": false,
+      "details": {
+        "reason": "already_in_ledger"
+      },
+      "event": "skipped_dup",
+      "job_id": "public_bridge_resume_idle_once",
+      "ts": "2026-05-24T04:41:12.764125+00:00"
+    },
+    {
+      "body_in_receipt": false,
+      "details": {
+        "dispatch_snapshot": {
+          "body_in_receipt": false,
+          "captured_at": "2026-05-24T04:25:12+00:00",
+          "jsonl_byte_size": 2400,
+          "jsonl_mtime_ns": 1716534312000000000,
+          "jsonl_path_ref": "public_fixture_sessions/public_session_already_injected.jsonl",
+          "session_id": "public_session_already_injected"
+        },
+        "schema_version": "public_bridge_dispatch_yield_resume_v1",
+        "sentinel": "[public bridge resume] job=public_bridge_resume_already_seen",
+        "status": "ok",
+        "submit": false,
+        "target_id": "public_bridge_target_already_injected"
+      },
+      "event": "trigger_written",
+      "job_id": "public_bridge_resume_already_seen",
+      "ts": "2026-05-24T04:41:12.764147+00:00"
+    }
+  ],
+  "public_trigger_rows": [
+    {
+      "_resume": {
+        "dispatch_snapshot": {
+          "body_in_receipt": false,
+          "captured_at": "2026-05-24T04:25:10+00:00",
+          "jsonl_byte_size": 1200,
+          "jsonl_mtime_ns": 1716534310000000000,
+          "jsonl_path_ref": "public_fixture_sessions/public_session_idle.jsonl",
+          "session_id": "public_session_idle"
+        },
+        "group_label": "public_bridge_runtime_import",
+        "job_id": "public_bridge_resume_idle_once",
+        "no_send_fixture": true,
+        "plan_id": "bridge_runtime_dispatch_yield_resume",
+        "schema_version": "public_bridge_dispatch_yield_resume_v1",
+        "status": "ok"
+      },
+      "body_in_receipt": false,
+      "sentinel": "[public bridge resume] job=public_bridge_resume_idle_once",
+      "submit": false,
+      "target": {
+        "body_in_receipt": false,
+        "live_target": false,
+        "resume_mode": "public_no_send",
+        "sentinel_prefix": "[public bridge resume]",
+        "session_id": "public_session_idle",
+        "session_url": null,
+        "switch_tab": null,
+        "target_app": "artifact_only_public_fixture",
+        "target_id": "public_bridge_target_idle"
+      },
+      "text": "BRIDGE RESUME job=public_bridge_resume_idle_once status=ok\nplan: bridge_runtime_dispatch_yield_resume\ngroup: public_bridge_runtime_import\n\nsummary:\n- Dispatch yielded after artifact write.\n- Continuation packet exists as a public metadata envelope.\n- No host app paste or submit authority is present.\n\nartifacts:\n- microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/controller_heartbeat_refs.json\n- microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/continuation_contexts.json\n\ncontinue: Consume the public continuation artifact and resume only from durable no-send state.",
+      "trigger_id": "public_trigger_5e5f2f8cafd5"
+    },
+    {
+      "_resume": {
+        "dispatch_snapshot": {
+          "body_in_receipt": false,
+          "captured_at": "2026-05-24T04:25:12+00:00",
+          "jsonl_byte_size": 2400,
+          "jsonl_mtime_ns": 1716534312000000000,
+          "jsonl_path_ref": "public_fixture_sessions/public_session_already_injected.jsonl",
+          "session_id": "public_session_already_injected"
+        },
+        "group_label": "public_bridge_runtime_import",
+        "job_id": "public_bridge_resume_already_seen",
+        "no_send_fixture": true,
+        "plan_id": "bridge_runtime_dispatch_yield_resume",
+        "schema_version": "public_bridge_dispatch_yield_resume_v1",
+        "status": "ok"
+      },
+      "body_in_receipt": false,
+      "sentinel": "[public bridge resume] job=public_bridge_resume_already_seen",
+      "submit": false,
+      "target": {
+        "body_in_receipt": false,
+        "live_target": false,
+        "resume_mode": "public_no_send",
+        "sentinel_prefix": "[public bridge resume]",
+        "session_id": "public_session_already_injected",
+        "session_url": null,
+        "switch_tab": null,
+        "target_app": "artifact_only_public_fixture",
+        "target_id": "public_bridge_target_already_injected"
+      },
+      "text": "BRIDGE RESUME job=public_bridge_resume_already_seen status=ok\nplan: bridge_runtime_dispatch_yield_resume\ngroup: public_bridge_runtime_import\n\nsummary:\n- A prior public resume sentinel is visible in the synthetic delta.\n- The replay records a blocked idle-safety verdict instead of authorizing another paste.\n\nartifacts:\n- microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/session_activity.json\n\ncontinue: Do not inject again when the sentinel is already present in the public session delta.",
+      "trigger_id": "public_trigger_400d4c2d5a6f"
+    }
+  ],
+  "raw_worker_transcript_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_bridge_dispatch_yield_resume_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+  ],
+  "recipient_send_authorized": false,
+  "resume_job_count": 2,
+  "safe_to_inject_count": 1,
+  "schema_version": "agent_route_observability_runtime_exported_bridge_dispatch_yield_resume_bundle_validation_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_provider_payload_and_live_access_exclusion",
+    "scanned_path_count": 7,
+    "status": "pass"
+  },
+  "skipped_dup_count": 1,
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "tools/meta/bridge/bridge_resume.py",
+    "system/lib/controller_heartbeat.py",
+    "system/lib/continuation_packet.py",
+    "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+    "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume"
+  ],
+  "status": "pass",
+  "target_count": 2,
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+  ],
+  "trigger_written_count": 2,
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime"
+}

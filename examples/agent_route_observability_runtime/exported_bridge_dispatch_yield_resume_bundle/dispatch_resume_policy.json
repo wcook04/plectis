@@ -1,0 +1,17 @@
+{
+  "account_session_state_exported": false,
+  "body_in_receipt": false,
+  "browser_hud_cockpit_state_read": false,
+  "credential_or_cookie_exported": false,
+  "host_app_auto_inject_authorized": false,
+  "live_bridge_dispatch_authorized": false,
+  "live_work_ledger_mutation_authorized": false,
+  "metadata_envelope_only": true,
+  "policy_id": "public_bridge_dispatch_yield_resume_no_send_policy",
+  "private_data_equivalence_claim": false,
+  "provider_payload_read": false,
+  "raw_worker_transcript_exported": false,
+  "recipient_send_authorized": false,
+  "release_authorized": false,
+  "source_mutation_authorized": false
+}

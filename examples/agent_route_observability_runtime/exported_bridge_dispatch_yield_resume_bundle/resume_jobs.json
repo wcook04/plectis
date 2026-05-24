@@ -1,0 +1,38 @@
+{
+  "resume_jobs": [
+    {
+      "artifact_paths": [
+        "microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/controller_heartbeat_refs.json",
+        "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/continuation_contexts.json"
+      ],
+      "continue_instruction": "Consume the public continuation artifact and resume only from durable no-send state.",
+      "duplicate_emit_attempt": true,
+      "group_label": "public_bridge_runtime_import",
+      "job_id": "public_bridge_resume_idle_once",
+      "plan_id": "bridge_runtime_dispatch_yield_resume",
+      "status": "ok",
+      "summary_lines": [
+        "Dispatch yielded after artifact write.",
+        "Continuation packet exists as a public metadata envelope.",
+        "No host app paste or submit authority is present."
+      ],
+      "target_id": "public_bridge_target_idle"
+    },
+    {
+      "artifact_paths": [
+        "microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/session_activity.json"
+      ],
+      "continue_instruction": "Do not inject again when the sentinel is already present in the public session delta.",
+      "duplicate_emit_attempt": false,
+      "group_label": "public_bridge_runtime_import",
+      "job_id": "public_bridge_resume_already_seen",
+      "plan_id": "bridge_runtime_dispatch_yield_resume",
+      "status": "ok",
+      "summary_lines": [
+        "A prior public resume sentinel is visible in the synthetic delta.",
+        "The replay records a blocked idle-safety verdict instead of authorizing another paste."
+      ],
+      "target_id": "public_bridge_target_already_injected"
+    }
+  ]
+}

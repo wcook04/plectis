@@ -25,6 +25,15 @@ from microcosm_core.macro_tools.continuation_packet import (
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
+from microcosm_core.macro_tools.bridge_resume import (
+    ANTI_CLAIM as BRIDGE_DISPATCH_YIELD_RESUME_ANTI_CLAIM,
+    AUTHORITY_CEILING as BRIDGE_DISPATCH_YIELD_RESUME_AUTHORITY_CEILING,
+    INPUT_NAMES as BRIDGE_DISPATCH_YIELD_RESUME_INPUT_NAMES,
+    SCHEMA_VERSION as BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION,
+    SOURCE_REFS as BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REFS,
+    TARGET_REFS as BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REFS,
+    build_public_bridge_dispatch_yield_resume_view,
+)
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -54,6 +63,9 @@ SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME = (
 MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME = (
     "exported_multi_agent_fanin_replay_bundle_validation_result.json"
 )
+BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RESULT_NAME = (
+    "exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -80,6 +92,10 @@ EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH = (
 EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_multi_agent_fanin_replay_bundle_validation_result.json"
+)
+EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -250,6 +266,22 @@ MULTI_AGENT_FANIN_INPUT_NAMES = (
     "fanin_policy.json",
     "expected_fanin_summary.json",
 )
+BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS = {
+    "raw_worker_transcript_body",
+    "raw_bridge_transcript",
+    "provider_payload",
+    "browser_hud_state",
+    "browser_hud_cockpit_state",
+    "account_session_state",
+    "credential_value",
+    "cookie",
+    "password",
+    "secret_value",
+    "api_key",
+    "access_token",
+    "refresh_token",
+    "recipient_send_payload",
+}
 SESSION_ATTRIBUTION_FORBIDDEN_KEYS = {
     "raw_transcript_body",
     "transcript_body",
@@ -399,6 +431,10 @@ def _multi_agent_fanin_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in MULTI_AGENT_FANIN_INPUT_NAMES]
 
 
+def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in BRIDGE_DISPATCH_YIELD_RESUME_INPUT_NAMES]
+
+
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
@@ -458,6 +494,13 @@ def _load_multi_agent_fanin_bundle(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_bridge_dispatch_yield_resume_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _bridge_dispatch_yield_resume_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -499,6 +542,18 @@ def _scan_multi_agent_fanin_inputs(input_dir: Path, public_root: Path) -> dict[s
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _multi_agent_fanin_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_bridge_dispatch_yield_resume_inputs(
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _bridge_dispatch_yield_resume_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -2316,6 +2371,72 @@ def _write_multi_agent_fanin_bundle_receipt(
     return receipt_path
 
 
+def _write_bridge_dispatch_yield_resume_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_bridge_dispatch_"
+            "yield_resume_bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "bridge_resume_schema": validation_result["bridge_resume_schema"],
+            "target_count": validation_result["target_count"],
+            "resume_job_count": validation_result["resume_job_count"],
+            "trigger_written_count": validation_result["trigger_written_count"],
+            "no_send_trigger_count": validation_result["no_send_trigger_count"],
+            "skipped_dup_count": validation_result["skipped_dup_count"],
+            "safe_to_inject_count": validation_result["safe_to_inject_count"],
+            "blocked_activity_count": validation_result["blocked_activity_count"],
+            "controller_heartbeat_ref_count": validation_result[
+                "controller_heartbeat_ref_count"
+            ],
+            "activity_reports": validation_result["activity_reports"],
+            "public_trigger_rows": validation_result["public_trigger_rows"],
+            "public_ledger_rows": validation_result["public_ledger_rows"],
+            "bridge_policy_validation": validation_result["bridge_policy_validation"],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "metadata_envelope_only": True,
+            "live_bridge_dispatch_authorized": False,
+            "host_app_auto_inject_authorized": False,
+            "recipient_send_authorized": False,
+            "provider_payload_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "raw_worker_transcript_exported": False,
+            "fixture_regression_required_elsewhere": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
 def run_observability_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -2820,6 +2941,156 @@ def run_multi_agent_fanin_bundle(
         }
     )
     receipt_path = _write_multi_agent_fanin_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
+def run_bridge_dispatch_yield_resume_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_bridge_dispatch_yield_resume_bundle(input_path)
+    scan_result = _scan_bridge_dispatch_yield_resume_inputs(input_path, public_root)
+    secret_scan = dict(scan_result)
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan.pop("body_redacted", None)
+    secret_scan.pop("redacted_output_field_labels_omitted", None)
+    secret_scan["omitted_output_fields"] = ["source_excerpt", "body"]
+    secret_scan["body_in_receipt"] = False
+    secret_scan["real_substrate_default"] = True
+    secret_scan["scan_purpose"] = (
+        "credential_account_bound_provider_payload_and_live_access_exclusion"
+    )
+    secret_scan["hits"] = [
+        {
+            **{
+                key: value
+                for key, value in hit.items()
+                if key != "body_redacted"
+            },
+            "body_in_receipt": False,
+        }
+        for hit in _rows(secret_scan, "hits")
+    ]
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    view = build_public_bridge_dispatch_yield_resume_view(payloads)
+    leaked_keys = sorted(
+        BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS & _walk_payload_keys(payloads)
+    )
+    extra_findings = [
+        _bundle_finding(
+            "BRIDGE_RESUME_FORBIDDEN_PAYLOAD_KEY",
+            "Bridge dispatch/yield/resume replay inputs cannot include transcript bodies, provider/browser/account state, credentials, cookies, secrets, or recipient-send payloads.",
+            subject_id=key,
+            subject_kind="bridge_dispatch_yield_resume_input",
+        )
+        for key in leaked_keys
+    ]
+    all_findings = sorted(
+        [*view.get("findings", []), *extra_findings],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    summary = view.get("summary") if isinstance(view.get("summary"), dict) else {}
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_bridge_dispatch_yield_resume_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and view.get("status") == PASS
+        and not all_findings
+        and summary.get("resume_job_count", 0) >= 2
+        and summary.get("trigger_written_count", 0) >= 2
+        and summary.get("no_send_trigger_count") == summary.get("trigger_written_count")
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "view_fingerprint": view.get("view_fingerprint"),
+            "summary": summary,
+            "policy_id": view.get("policy_validation", {}).get("policy_id"),
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REFS
+    target_refs = _strings(manifest.get("target_refs")) or BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REFS
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_bridge_dispatch_yield_resume_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": BRIDGE_DISPATCH_YIELD_RESUME_ANTI_CLAIM,
+            "authority_ceiling": BRIDGE_DISPATCH_YIELD_RESUME_AUTHORITY_CEILING,
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(
+                {str(item.get("error_code") or "") for item in all_findings}
+            ),
+            "findings": all_findings,
+            "secret_exclusion_scan": secret_scan,
+            "bridge_resume_schema": BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION,
+            "target_count": summary.get("target_count", 0),
+            "resume_job_count": summary.get("resume_job_count", 0),
+            "trigger_written_count": summary.get("trigger_written_count", 0),
+            "no_send_trigger_count": summary.get("no_send_trigger_count", 0),
+            "skipped_dup_count": summary.get("skipped_dup_count", 0),
+            "safe_to_inject_count": summary.get("safe_to_inject_count", 0),
+            "blocked_activity_count": summary.get("blocked_activity_count", 0),
+            "controller_heartbeat_ref_count": summary.get(
+                "controller_heartbeat_ref_count",
+                0,
+            ),
+            "activity_reports": view.get("activity_reports", []),
+            "public_trigger_rows": view.get("public_trigger_rows", []),
+            "public_ledger_rows": view.get("public_ledger_rows", []),
+            "bridge_policy_validation": view.get("policy_validation", {}),
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "source_symbols": view.get("source_symbols", []),
+            "target_symbols": view.get("target_symbols", []),
+            "body_import_verification": view.get("body_import_verification", {}),
+            "public_resume_targets": view.get("resume_targets", []),
+            "public_resume_jobs": view.get("resume_jobs", []),
+            "controller_heartbeat_refs": view.get("controller_heartbeat_refs", []),
+            "expected_summary": view.get("expected_summary", {}),
+            "forbidden_payload_keys": sorted(
+                set(leaked_keys) | set(view.get("forbidden_payload_keys", []))
+            ),
+            "view_fingerprint": view.get("view_fingerprint"),
+            "bundle_fingerprint": bundle_fingerprint,
+            "metadata_envelope_only": True,
+            "live_bridge_dispatch_authorized": False,
+            "host_app_auto_inject_authorized": False,
+            "provider_payload_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "raw_worker_transcript_exported": False,
+            "recipient_send_authorized": False,
+            "receipt_paths": [EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_bridge_dispatch_yield_resume_bundle_receipt(
         out_dir,
         result,
         public_root=public_root,
@@ -3869,6 +4140,9 @@ def main(argv: list[str] | None = None) -> int:
     fanin_parser = subparsers.add_parser("validate-multi-agent-fanin-bundle")
     fanin_parser.add_argument("--input", required=True)
     fanin_parser.add_argument("--out", required=True)
+    bridge_parser = subparsers.add_parser("validate-bridge-dispatch-yield-resume-bundle")
+    bridge_parser.add_argument("--input", required=True)
+    bridge_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
@@ -3900,11 +4174,19 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-multi-agent-fanin-bundle --input {args.input} --out {args.out}"
         )
         result = run_multi_agent_fanin_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-bridge-dispatch-yield-resume-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            "validate-bridge-dispatch-yield-resume-bundle "
+            f"--input {args.input} --out {args.out}"
+        )
+        result = run_bridge_dispatch_yield_resume_bundle(args.input, args.out, command=command)
     else:
         parser.error(
             "expected subcommand: run, validate-observability-bundle, or "
             "validate-computer-use-bundle, validate-session-attribution-bundle, "
-            "or validate-multi-agent-fanin-bundle"
+            "validate-multi-agent-fanin-bundle, or "
+            "validate-bridge-dispatch-yield-resume-bundle"
         )
     return 0 if result["status"] == PASS else 1
 

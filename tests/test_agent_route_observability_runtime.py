@@ -13,6 +13,11 @@ from microcosm_core.macro_tools.agent_session_attribution import (
     SCHEMA_VERSION as SESSION_ATTRIBUTION_SCHEMA_VERSION,
     attribute_sessions,
 )
+from microcosm_core.macro_tools.bridge_resume import (
+    SCHEMA_VERSION as BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION,
+    build_public_bridge_dispatch_yield_resume_view,
+    load_public_bridge_dispatch_yield_resume_bundle,
+)
 from microcosm_core.macro_tools.continuation_packet import (
     SCHEMA_VERSION as CONTINUATION_PACKET_SCHEMA_VERSION,
     build_public_continuation_packet,
@@ -20,12 +25,14 @@ from microcosm_core.macro_tools.continuation_packet import (
 from microcosm_core.organs.agent_route_observability_runtime import (
     COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
+    EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH,
     EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
+    run_bridge_dispatch_yield_resume_bundle,
     run_computer_use_action_trace_bundle,
     run_multi_agent_fanin_bundle,
     run_observability_bundle,
@@ -58,6 +65,11 @@ MULTI_AGENT_FANIN_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_multi_agent_fanin_replay_bundle"
+)
+BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_bridge_dispatch_yield_resume_bundle"
 )
 
 
@@ -434,6 +446,128 @@ def test_multi_agent_fanin_replay_receipt_is_public_safe(tmp_path: Path) -> None
     for hit in payload["secret_exclusion_scan"]["hits"]:
         assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_bridge_dispatch_yield_resume_bundle(
+        BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_bridge_dispatch_yield_resume_bundle"
+    assert result["bundle_id"] == "public_bridge_dispatch_yield_resume_runtime_example"
+    assert result["bridge_resume_schema"] == BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION
+    assert result["target_count"] == 2
+    assert result["resume_job_count"] == 2
+    assert result["trigger_written_count"] == 2
+    assert result["no_send_trigger_count"] == 2
+    assert result["skipped_dup_count"] == 1
+    assert result["safe_to_inject_count"] == 1
+    assert result["blocked_activity_count"] == 1
+    assert result["controller_heartbeat_ref_count"] == 2
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["bridge_policy_validation"]["forbidden_authority_rejected"] is True
+    assert result["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
+    assert result["authority_ceiling"]["host_app_auto_inject_authorized"] is False
+    assert result["authority_ceiling"]["recipient_send_authorized"] is False
+    assert all(row["submit"] is False for row in result["public_trigger_rows"])
+    assert {
+        row["reason"] for row in result["activity_reports"]
+    } == {"already_injected", "no_delta"}
+    assert result["body_import_verification"]["verification_mode"] == (
+        "source_faithful_public_refactor"
+    )
+    assert result["body_import_verification"]["target_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py"
+    )
+
+
+def test_bridge_dispatch_yield_resume_receipt_is_public_safe(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_bridge_dispatch_yield_resume_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_bridge_dispatch_yield_resume_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [
+        EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH
+    ]
+    receipt_file = public_root / EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "raw_worker_transcript_body" not in _walk_keys(payload)
+    assert "raw_bridge_transcript" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "account_session_state" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_bridge_dispatch_yield_resume_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["live_bridge_dispatch_authorized"] is False
+    assert payload["host_app_auto_inject_authorized"] is False
+    assert payload["recipient_send_authorized"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_bridge_resume_imports_public_macro_body_refactor() -> None:
+    source = MICROCOSM_ROOT.parent / "tools/meta/bridge/bridge_resume.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/bridge_resume.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    view = build_public_bridge_dispatch_yield_resume_view(
+        load_public_bridge_dispatch_yield_resume_bundle(
+            BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT
+        )
+    )
+    protocol = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
+        ).read_text(encoding="utf-8")
+    )
+    by_material = {row["material_id"]: row for row in protocol["copied_material"]}
+    material = by_material["bridge_resume_body_import"]
+
+    assert target.is_file()
+    assert source_digest != target_digest
+    assert view["status"] == "pass"
+    assert view["schema_version"] == BRIDGE_DISPATCH_YIELD_RESUME_SCHEMA_VERSION
+    assert view["summary"]["trigger_written_count"] == 2
+    assert view["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
+    assert material["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert material["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
+    )
+    assert material["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
 
 
 def test_continuation_packet_imports_public_macro_body_refactor() -> None:

@@ -1,0 +1,13 @@
+{
+  "summary": {
+    "blocked_activity_count": 1,
+    "controller_heartbeat_ref_count": 2,
+    "message_under_2kb_count": 2,
+    "no_send_trigger_count": 2,
+    "resume_job_count": 2,
+    "safe_to_inject_count": 1,
+    "skipped_dup_count": 1,
+    "target_count": 2,
+    "trigger_written_count": 2
+  }
+}

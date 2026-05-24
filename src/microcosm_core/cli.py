@@ -488,6 +488,7 @@ def main(argv: list[str] | None = None) -> int:
             "validate-computer-use-bundle",
             "validate-session-attribution-bundle",
             "validate-multi-agent-fanin-bundle",
+            "validate-bridge-dispatch-yield-resume-bundle",
         ],
     )
     _add_input_out(observability_parser)

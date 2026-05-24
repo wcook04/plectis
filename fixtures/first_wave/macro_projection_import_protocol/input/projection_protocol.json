@@ -16,7 +16,11 @@
     "codex/doctrine/agent_bootstrap_live.json::situation_routes",
     "codex/doctrine/routing_hologram.json::situation_rows",
     "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
-    "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+    "system/lib/navigation_context_pack.py::build_navigation_context_pack",
+    "tools/meta/bridge/bridge_resume.py",
+    "system/lib/controller_heartbeat.py",
+    "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+    "codex/doctrine/skills/bridge_runtime/resume_contract.md"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -390,6 +394,75 @@
         ]
       },
       "body_in_receipt": false
+    },
+    {
+      "material_id": "bridge_resume_body_import",
+      "source_ref": "tools/meta/bridge/bridge_resume.py",
+      "source_refs": [
+        "tools/meta/bridge/bridge_resume.py",
+        "system/lib/controller_heartbeat.py",
+        "system/lib/continuation_packet.py",
+        "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+        "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/bridge_resume.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume",
+        "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+        "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "replace live bridge dispatch and host app paste with deterministic public no-send replay",
+        "preserve ResumeTarget ResumeJob SessionSnapshot format_resume_message assess_session_activity and once-only trigger accounting",
+        "bound claim to public metadata envelopes without provider payload browser HUD account credential transcript recipient-send or Work Ledger mutation authority"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public bridge dispatch-yield-resume macro tool body import only; not live bridge dispatch, host-app paste, provider/browser/account access, recipient send, Work Ledger mutation, source mutation, private-root equivalence, or release authority",
+      "body_digest": "sha256:50f97b839d19c500a606129271b991cef7e1afeb23392088deb109829a4a78b9",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+        "target_body_digest": "sha256:50f97b839d19c500a606129271b991cef7e1afeb23392088deb109829a4a78b9",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "tools/meta/bridge/bridge_resume.py::ResumeTarget",
+          "tools/meta/bridge/bridge_resume.py::ResumeJob",
+          "tools/meta/bridge/bridge_resume.py::SessionSnapshot",
+          "tools/meta/bridge/bridge_resume.py::BridgeResumeManager",
+          "tools/meta/bridge/bridge_resume.py::format_resume_message",
+          "tools/meta/bridge/bridge_resume.py::assess_session_activity",
+          "tools/meta/bridge/bridge_resume.py::bridge_dispatch_and_yield"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.bridge_resume::ResumeTarget",
+          "microcosm_core.macro_tools.bridge_resume::ResumeJob",
+          "microcosm_core.macro_tools.bridge_resume::SessionSnapshot",
+          "microcosm_core.macro_tools.bridge_resume::PublicBridgeResumeManager",
+          "microcosm_core.macro_tools.bridge_resume::format_resume_message",
+          "microcosm_core.macro_tools.bridge_resume::assess_session_activity",
+          "microcosm_core.macro_tools.bridge_resume::build_public_bridge_dispatch_yield_resume_view"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine",
+          "microcosm agent-route-observability-runtime validate-bridge-dispatch-yield-resume-bundle --input examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle"
+        ]
+      },
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -444,7 +517,9 @@
     "src/microcosm_core/macro_tools/continuation_packet.py",
     "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
-    "src/microcosm_core/organs/navigation_hologram_route_plane.py"
+    "src/microcosm_core/organs/navigation_hologram_route_plane.py",
+    "src/microcosm_core/macro_tools/bridge_resume.py",
+    "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -460,7 +535,11 @@
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
-    "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans"
+    "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

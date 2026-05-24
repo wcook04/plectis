@@ -140,22 +140,35 @@
       "source_refs": [
         "system/lib/continuation_packet.py",
         "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound",
-        "codex/standards/std_continuation_packet.json"
+        "codex/standards/std_continuation_packet.json",
+        "tools/meta/bridge/bridge_resume.py",
+        "system/lib/controller_heartbeat.py",
+        "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
+        "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume"
       ],
       "target_refs": [
         "src/microcosm_core/macro_tools/continuation_packet.py",
         "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
-        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json"
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/bridge_resume.py",
+        "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
       ],
       "validation_refs": [
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_continuation_packet_imports_public_macro_body_refactor",
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
-        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine"
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_resume_body_import_is_unified_under_macro_projection_spine"
       ],
       "public_safe_body_material_ids": [
-        "continuation_packet_body_import"
+        "continuation_packet_body_import",
+        "bridge_resume_body_import"
       ],
-      "authority_ceiling": "verified_public_continuation_packet_body_not_live_bridge_or_worker_transcript_authority",
+      "authority_ceiling": "verified_public_continuation_packet_and_bridge_resume_bodies_not_live_bridge_host_app_provider_browser_account_worker_transcript_or_recipient_send_authority",
       "body_copied": false,
       "body_in_receipt": false
     },

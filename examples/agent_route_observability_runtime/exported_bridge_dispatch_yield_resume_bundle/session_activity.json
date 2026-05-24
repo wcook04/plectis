@@ -1,0 +1,27 @@
+{
+  "session_activity": [
+    {
+      "captured_at": "2026-05-24T04:25:10+00:00",
+      "delta_bytes": 0,
+      "delta_rows": [],
+      "jsonl_byte_size": 1200,
+      "jsonl_mtime_ns": 1716534310000000000,
+      "jsonl_path_ref": "public_fixture_sessions/public_session_idle.jsonl",
+      "session_id": "public_session_idle"
+    },
+    {
+      "captured_at": "2026-05-24T04:25:12+00:00",
+      "delta_bytes": 92,
+      "delta_rows": [
+        {
+          "content": "[public bridge resume] job=public_bridge_resume_already_seen",
+          "type": "user"
+        }
+      ],
+      "jsonl_byte_size": 2400,
+      "jsonl_mtime_ns": 1716534312000000000,
+      "jsonl_path_ref": "public_fixture_sessions/public_session_already_injected.jsonl",
+      "session_id": "public_session_already_injected"
+    }
+  ]
+}

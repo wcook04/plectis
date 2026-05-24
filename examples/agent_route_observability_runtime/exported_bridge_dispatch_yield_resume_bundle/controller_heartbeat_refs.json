@@ -1,0 +1,16 @@
+{
+  "controller_heartbeat_refs": [
+    {
+      "heartbeat_ref": "system/lib/controller_heartbeat.py::build_controller_heartbeat",
+      "ref_id": "controller_heartbeat_public_ref_001",
+      "role": "resume_window_liveness_gate",
+      "status": "public_ref_only_no_live_controller_state"
+    },
+    {
+      "heartbeat_ref": "system/lib/controller_heartbeat.py::validate_controller_heartbeat",
+      "ref_id": "controller_heartbeat_public_ref_002",
+      "role": "no_send_resume_ack_shape",
+      "status": "public_ref_only_no_live_controller_state"
+    }
+  ]
+}

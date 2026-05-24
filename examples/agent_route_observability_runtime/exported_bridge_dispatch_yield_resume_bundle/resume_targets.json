@@ -1,0 +1,22 @@
+{
+  "resume_targets": [
+    {
+      "resume_mode": "public_no_send",
+      "sentinel_prefix": "[public bridge resume]",
+      "session_id": "public_session_idle",
+      "session_url": null,
+      "switch_tab": null,
+      "target_app": "artifact_only_public_fixture",
+      "target_id": "public_bridge_target_idle"
+    },
+    {
+      "resume_mode": "public_no_send",
+      "sentinel_prefix": "[public bridge resume]",
+      "session_id": "public_session_already_injected",
+      "session_url": null,
+      "switch_tab": null,
+      "target_app": "artifact_only_public_fixture",
+      "target_id": "public_bridge_target_already_injected"
+    }
+  ]
+}
