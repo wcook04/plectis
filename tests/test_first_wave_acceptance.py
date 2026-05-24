@@ -71,14 +71,16 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
     assert summary["truth_accounting"]["real_substrate_progress_count"] == 43
     assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
     assert summary["truth_accounting"]["real_runtime_receipt_count"] == 3
+    assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
     assert summary["truth_accounting"]["source_faithful_refactor_count"] == 24
-    assert summary["truth_accounting"]["real_import_validation_count"] == 16
+    assert summary["truth_accounting"]["real_import_validation_count"] == 15
     assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
     assert summary["truth_accounting"]["evidence_class_counts"] == {
         "algorithmic_projection": 24,
         "external_subprocess_witness": 3,
         "fixture_echo_smoke": 3,
-        "semantic_validator": 16,
+        "semantic_validator": 15,
+        "verified_macro_body_import": 1,
     }
     evidence_by_organ = {
         row["organ_id"]: row["truth_accounting_bucket"]
@@ -111,6 +113,9 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         == "source_faithful_refactor"
     )
     assert evidence_by_organ["mission_transaction_work_spine"] == "source_faithful_refactor"
+    assert evidence_by_organ["macro_projection_import_protocol"] == (
+        "copied_non_secret_macro_body"
+    )
     assert evidence_by_organ["formal_math_lean_proof_witness"] == "real_runtime_receipt"
     assert summary["accepted_current_authority_organs"] == [
         "pattern_binding_contract",

@@ -13,7 +13,7 @@
     "private_data_equivalence_authority": false,
     "release_authority": false,
     "source_body_authority": false,
-    "standard_authority": "projection_metadata_fixture_receipt_schema_only",
+    "standard_authority": "verified_body_import_and_secret_exclusion_contract_only",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -28,7 +28,7 @@
       "provider payload bodies",
       "release or recipient material"
     ],
-    "reason": "public projection carries source refs, replacement refs, authority ceilings, validation refs, and omission receipts only"
+    "reason": "public projection carries source refs, verified public body targets, public runtime refs, authority ceilings, validation refs, and secret-exclusion receipts"
   },
   "omission_receipt_contract": {
     "required": true,
@@ -49,11 +49,11 @@
       "fixture shape",
       "standard schema",
       "receipt summaries",
-      "public replacement refs",
-      "redacted authority ceilings",
+      "public runtime refs",
+      "payload-boundary authority ceilings",
       "synthetic negative cases"
     ],
-    "default_posture": "public_safe_when_classified_with_provenance_or_metadata_fixture_receipt_only",
+    "default_posture": "source_open_when_classified_with_provenance_body_verification_or_secret_only_exclusion",
     "forbidden_public_inputs": [
       "live_raw_seed_body",
       "operator_thread_content",
@@ -70,7 +70,9 @@
     "must_record": [
       "protocol_id",
       "source_refs",
-      "public_replacement_refs",
+      "public_runtime_refs",
+      "public_safe_body_imports",
+      "body_import_verification",
       "validation_refs",
       "authority_ceiling",
       "projection_intake_board",
@@ -78,7 +80,7 @@
       "projection_status_counts",
       "open_actionable_cell_count",
       "anti_claim",
-      "private_state_scan",
+      "secret_exclusion_scan",
       "negative_case_coverage"
     ],
     "receipt_id": "receipt.microcosm.macro_projection_import_protocol",
@@ -86,7 +88,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.macro_projection_import_protocol",
-    "receipt must cite source refs, replacement refs, validation refs, omission coverage, negative-case coverage, private-state scan, and anti-claim"
+    "receipt must cite source refs, verified body targets, public runtime refs, validation refs, secret-exclusion coverage, negative-case coverage, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
@@ -111,7 +113,9 @@
     "copied_material",
     "cleaned_material",
     "omitted_material",
-    "public_replacement_refs",
+    "public_runtime_refs",
+    "public_safe_body_imports",
+    "body_import_verification",
     "validation_refs",
     "authority_ceiling",
     "anti_claim"

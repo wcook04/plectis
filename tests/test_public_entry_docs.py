@@ -97,7 +97,7 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert receipt["evidence_class_registry"] == {
         "status": "pass",
         "source_ref": "core/organ_evidence_classes.json",
-        "class_count": 4,
+        "class_count": 5,
         "organ_count": 46,
         "missing_organs": [],
         "unexpected_organs": [],

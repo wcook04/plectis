@@ -288,12 +288,16 @@ def test_cli_authority_smoke(
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["surface_counts"]["organ_authority_count"] == 42
     assert payload["surface_counts"]["surface_authority_count"] == 45
-    assert payload["surface_counts"]["organ_evidence_class_count"] == 3
+    assert payload["surface_counts"]["organ_evidence_class_count"] == 4
+    assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 5
+    assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
-        "semantic_validator": 16,
+        "semantic_validator": 15,
         "algorithmic_projection": 23,
         "external_subprocess_witness": 3,
+        "verified_macro_body_import": 1,
     }
     organ_authority_by_id = {row["organ_id"]: row for row in payload["organ_authority"]}
     assert (

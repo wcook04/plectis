@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 from dataclasses import dataclass
@@ -72,6 +73,18 @@ from microcosm_core.validators import acceptance
 PASS = "pass"
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 EVIDENCE_CLASS_REGISTRY_REL = Path("core/organ_evidence_classes.json")
+MACRO_PROJECTION_PROTOCOL_REF = Path(
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+    "projection_protocol.json"
+)
+PUBLIC_SAFE_MACRO_BODY_CLASSES = frozenset(
+    {
+        "public_macro_pattern_body",
+        "public_macro_tool_body",
+        "public_macro_receipt_body",
+        "public_macro_proof_body",
+    }
+)
 PROOF_LAB_BUNDLE_REF = (
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 )
@@ -1252,6 +1265,143 @@ def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _sha256_file_digest(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
+    protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
+    protocol = _read_json_if_exists(protocol_path)
+    rows = _rows(protocol, "copied_material")
+    body_rows = [
+        row
+        for row in rows
+        if str(row.get("material_class") or "") in PUBLIC_SAFE_MACRO_BODY_CLASSES
+    ]
+    imports: list[dict[str, Any]] = []
+    defects: list[dict[str, Any]] = []
+    class_counts: dict[str, int] = {}
+
+    for row in body_rows:
+        material_id = str(row.get("material_id") or "")
+        material_class = str(row.get("material_class") or "")
+        target_ref = str(row.get("target_ref") or "")
+        target_path = root / target_ref if target_ref else root
+        verification = row.get("body_import_verification")
+        verification = verification if isinstance(verification, dict) else {}
+        target_exists = bool(target_ref) and target_path.is_file()
+        actual_digest = _sha256_file_digest(target_path) if target_exists else ""
+        expected_digest = str(row.get("body_digest") or "")
+        target_digest = str(verification.get("target_body_digest") or "")
+        verification_mode = str(verification.get("verification_mode") or "")
+        row_defects: list[str] = []
+
+        if row.get("body_copied") is not True:
+            row_defects.append("body_copied_not_true")
+        if row.get("body_in_receipt") is not False:
+            row_defects.append("body_text_receipt_risk")
+        if verification.get("verification_status") != "verified":
+            row_defects.append("verification_status_not_verified")
+        if verification_mode not in {
+            "exact_source_digest_match",
+            "verified_light_edit_recipe",
+        }:
+            row_defects.append("unsupported_verification_mode")
+        if not target_exists:
+            row_defects.append("target_missing")
+        if target_exists and expected_digest != actual_digest:
+            row_defects.append("body_digest_mismatch")
+        if target_exists and target_digest != actual_digest:
+            row_defects.append("target_digest_mismatch")
+
+        status = PASS if not row_defects else "blocked"
+        if status == PASS:
+            class_counts[material_class] = class_counts.get(material_class, 0) + 1
+        else:
+            defects.append(
+                {
+                    "material_id": material_id,
+                    "material_class": material_class,
+                    "target_ref": target_ref,
+                    "defect_codes": row_defects,
+                    "body_in_receipt": False,
+                }
+            )
+        imports.append(
+            {
+                "material_id": material_id,
+                "material_class": material_class,
+                "source_refs": _strings(row.get("source_refs")),
+                "target_ref": target_ref,
+                "validation_refs": _strings(row.get("validation_refs")),
+                "verification_mode": verification_mode,
+                "source_to_target_relation": verification.get(
+                    "source_to_target_relation"
+                ),
+                "body_digest": expected_digest,
+                "target_digest_matches": bool(target_exists)
+                and expected_digest == actual_digest
+                and target_digest == actual_digest,
+                "body_text_in_receipt": row.get("body_in_receipt") is True,
+                "status": status,
+            }
+        )
+
+    tool_ids = [
+        row["material_id"]
+        for row in imports
+        if row["status"] == PASS and row["material_class"] == "public_macro_tool_body"
+    ]
+    proof_ids = [
+        row["material_id"]
+        for row in imports
+        if row["status"] == PASS and row["material_class"] == "public_macro_proof_body"
+    ]
+    material_count = sum(class_counts.values())
+    mixed_assay_status = PASS if tool_ids and proof_ids and not defects else "blocked"
+    status = PASS if material_count and mixed_assay_status == PASS else "blocked"
+    return {
+        "schema_version": "microcosm_macro_body_import_floor_v1",
+        "status": status,
+        "source_ref": MACRO_PROJECTION_PROTOCOL_REF.as_posix(),
+        "classification": "copied_non_secret_macro_body_material_floor",
+        "copied_non_secret_macro_body_material_count": material_count,
+        "public_safe_body_material_count": material_count,
+        "public_safe_body_material_counts_by_class": dict(sorted(class_counts.items())),
+        "non_lean_tool_body_material_count": len(tool_ids),
+        "proof_body_material_count": len(proof_ids),
+        "mixed_public_safe_macro_import_assay": {
+            "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
+            "status": mixed_assay_status,
+            "non_lean_tool_body_present": bool(tool_ids),
+            "lean_or_proof_body_present": bool(proof_ids),
+            "non_lean_tool_body_material_ids": tool_ids,
+            "proof_body_material_ids": proof_ids,
+            "body_text_in_receipts": False,
+            "release_authorized": False,
+        },
+        "body_imports": imports,
+        "defect_count": len(defects),
+        "defects": defects,
+        "authority_ceiling": {
+            "release_authorized": False,
+            "publication_authorized": False,
+            "recipient_work_authorized": False,
+            "live_macro_source_authority": False,
+            "source_mutation_authorized": False,
+            "private_data_equivalence_claim": False,
+            "provider_payload_exported": False,
+            "credential_or_account_bound_bodies_exported": False,
+        },
+        "anti_claim": (
+            "This floor counts verified non-secret macro body material already "
+            "copied or source-faithfully refactored into Microcosm. It does not "
+            "turn provenance refs into runtime dependencies, export body text in "
+            "receipts, authorize release, or claim private-root equivalence."
+        ),
+    }
+
+
 def _standard_ref_for_organ(organ_id: str) -> str:
     return f"standards/std_microcosm_{organ_id}.json"
 
@@ -1727,9 +1877,13 @@ class RuntimeShell:
         pattern_surface = architecture_kernel.pattern_surface_contract(self.root)
         standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
         proof_lab = _proof_lab_first_screen_card(self.root)
+        body_import_floor = _macro_projection_body_import_floor(self.root)
         return {
             "schema_version": "microcosm_runtime_status_v1",
-            "status": PASS if len(adapter_backed) == len(product_steps) else "blocked",
+            "status": PASS
+            if len(adapter_backed) == len(product_steps)
+            and body_import_floor["status"] == PASS
+            else "blocked",
             "posture": "executable_research_prototype",
             "public_root": _public_relative(self.root, self.root),
             "runtime_surface": {
@@ -1892,6 +2046,7 @@ class RuntimeShell:
                 "fixtures_are_tests": True,
             },
             "first_screen_proof_lab": proof_lab,
+            "macro_body_import_floor": body_import_floor,
             "organ_count": len(organs),
             "adapter_backed_organ_count": len(adapter_backed),
             "adapter_backed_count_is_product_progress": False,
@@ -1900,6 +2055,12 @@ class RuntimeShell:
             ],
             "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
             "truth_accounting": truth_accounting,
+            "copied_non_secret_macro_body_material_count": body_import_floor[
+                "copied_non_secret_macro_body_material_count"
+            ],
+            "mixed_public_safe_macro_import_assay_status": body_import_floor[
+                "mixed_public_safe_macro_import_assay"
+            ]["status"],
             "product_path_demoted_organ_count": len(demoted_drilldowns),
             "product_path_demoted_organs": [
                 {
@@ -1983,9 +2144,13 @@ class RuntimeShell:
         workitems = self.workitems()
         evidence = self.evidence()
         proof_lab = _proof_lab_first_screen_card(self.root)
+        body_import_floor = _macro_projection_body_import_floor(self.root)
         return {
             "schema_version": "microcosm_public_runtime_spine_v1",
-            "status": PASS if len(adapter_backed) == len(product_steps) else "blocked",
+            "status": PASS
+            if len(adapter_backed) == len(product_steps)
+            and body_import_floor["status"] == PASS
+            else "blocked",
             "posture": "executable_research_prototype",
             "public_claim": (
                 "Microcosm turns a repo into local substrate state: catalog, "
@@ -1993,6 +2158,7 @@ class RuntimeShell:
             ),
             "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
             "first_screen_proof_lab": proof_lab,
+            "macro_body_import_floor": body_import_floor,
             "first_run_path": [
                 {
                     "step_id": "run_ten_minute_tour",
@@ -2565,6 +2731,15 @@ class RuntimeShell:
                 "copied_non_secret_macro_body_count": truth_accounting[
                     "copied_non_secret_macro_body_count"
                 ],
+                "copied_non_secret_macro_body_material_count": body_import_floor[
+                    "copied_non_secret_macro_body_material_count"
+                ],
+                "public_safe_body_material_count": body_import_floor[
+                    "public_safe_body_material_count"
+                ],
+                "mixed_public_safe_macro_import_assay_status": body_import_floor[
+                    "mixed_public_safe_macro_import_assay"
+                ]["status"],
                 "source_faithful_refactor_count": truth_accounting[
                     "source_faithful_refactor_count"
                 ],
@@ -10741,6 +10916,7 @@ class RuntimeShell:
         proof_loop_depth = self.proof_loop_depth()
         execution_spine = self.verifier_lab_execution_spine_lens()
         proof_lab = _proof_lab_first_screen_card(self.root)
+        body_import_floor = spine.get("macro_body_import_floor", {})
         landing_replay = self.landing_replay()
         view_quality = self.view_quality()
         projection_safety = self.projection_safety()
@@ -11835,6 +12011,7 @@ class RuntimeShell:
             ],
             "authority_ceiling": authority_ceiling,
             "first_screen_proof_lab": proof_lab,
+            "macro_body_import_floor": body_import_floor,
             "surface_authority": surfaces,
             "organ_authority": organ_authority,
             "projection_cells": bridge_cells,
@@ -11847,6 +12024,15 @@ class RuntimeShell:
                     "real_substrate_progress_count"
                 ],
                 "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+                "copied_non_secret_macro_body_count": truth_accounting[
+                    "copied_non_secret_macro_body_count"
+                ],
+                "copied_non_secret_macro_body_material_count": body_import_floor.get(
+                    "copied_non_secret_macro_body_material_count", 0
+                ),
+                "mixed_public_safe_macro_import_assay_status": body_import_floor.get(
+                    "mixed_public_safe_macro_import_assay", {}
+                ).get("status"),
                 "regression_negative_fixture_count": truth_accounting[
                     "regression_negative_fixture_count"
                 ],

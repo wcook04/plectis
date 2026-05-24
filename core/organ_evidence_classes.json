@@ -19,6 +19,15 @@
       "truth_accounting_bucket": "real_runtime_receipt",
       "verdict_source": "subprocess_or_tool_witness"
     },
+    "verified_macro_body_import": {
+      "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
+      "counts_as_real_substrate_progress": true,
+      "evaluator_basis": "target-file existence, digest verification, body-import provenance, validation refs, and secret-only authority ceilings over public macro body material",
+      "evidence_strength_rank": 5,
+      "negative_case_independence": "validator can fail on missing targets, placeholder digests, unverified body imports, forbidden body classes, or release/private-equivalence overclaims",
+      "truth_accounting_bucket": "copied_non_secret_macro_body",
+      "verdict_source": "verified_public_body_import_contract"
+    },
     "fixture_echo_smoke": {
       "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
       "counts_as_real_substrate_progress": false,
@@ -200,8 +209,8 @@
       "organ_id": "public_reveal_walkthrough"
     },
     {
-      "classification_basis": "derived import membrane checks for copy/omit/validate/authority-ceiling rows",
-      "evidence_class": "semantic_validator",
+      "classification_basis": "verified mixed public-safe macro body import floor: public pattern, non-Lean tool, route receipt, and Lean/proof body rows have target refs, digest verification, validation refs, body-free receipts, and secret-only omission ceilings",
+      "evidence_class": "verified_macro_body_import",
       "organ_id": "macro_projection_import_protocol"
     },
     {
