@@ -2,6 +2,20 @@
 
 Use this skill when entering `microcosm-substrate/` from a fresh public clone.
 
+## Fast Proof-Lab Route
+
+After install, the shortest proof-lab behavior check is:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+```
+
+This validates route `formal_prover_context_strategy_gate` through the
+`verifier_lab_kernel` receipt before a cold reader has to browse raw receipt
+trees. Use `microcosm proof-loop-depth` and
+`microcosm verifier-lab-execution-spine-lens` as the supporting lenses, and use
+`atlas/entry_packet.json::proof_lab_route` as the public entry card.
+
 ## Steps
 
 1. Read `README.md`.
@@ -67,7 +81,13 @@ Use this skill when entering `microcosm-substrate/` from a fresh public clone.
    repair, cold-rerun, evidence-cell, and bounded execution-spine gates without
    proof bodies, oracle premise ids, provider payloads, benchmark scores,
    theorem-solution claims, or release authority.
-14. Run `microcosm verifier-lab-execution-spine-lens` or
+14. Run `microcosm verifier-lab-kernel run-kernel-bundle --input
+   examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out
+   /tmp/microcosm-proof-lab` or the equivalent `PYTHONPATH=src python3 -m
+   microcosm_core.cli verifier-lab-kernel run-kernel-bundle` path to validate
+   the first-screen proof-lab route card from
+   `atlas/entry_packet.json::proof_lab_route`.
+15. Run `microcosm verifier-lab-execution-spine-lens` or
    `PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-execution-spine-lens`
    to inspect bounded Lean/Lake transition rows, CP2 downstream rerun effects,
    Evolve rerun acceptance, tool return-code evidence, and secret-exclusion

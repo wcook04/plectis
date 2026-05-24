@@ -6,6 +6,11 @@
     "core/pattern_binding_contract.json",
     "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+    "microcosm proof-loop-depth",
+    "microcosm verifier-lab-execution-spine-lens",
     "microcosm python-lens <project>",
     ".microcosm/python_lens.json",
     ".microcosm/python_lens.json::navigation_assay",
@@ -30,9 +35,75 @@
       "source_span"
     ],
     "selection_rule": "Start at file_card for Python orientation, then drill to symbol_capsule, graph_context, or source_span only when the task requires exact proof.",
-    "body_redacted": true,
+    "payload_boundary_ref": "project_python_lens_read_model",
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "source_bodies_exported": false,
     "authority": "project-local route pointer, not source authority, release authority, or static-analysis authority"
+  },
+  "proof_lab_route": {
+    "surface_id": "first_screen_verifier_lab_kernel",
+    "organ_id": "verifier_lab_kernel",
+    "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "supporting_lens_commands": [
+      "microcosm proof-loop-depth",
+      "microcosm verifier-lab-execution-spine-lens"
+    ],
+    "route_id": "formal_prover_context_strategy_gate",
+    "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+    "standard_ref": "standards/std_microcosm_verifier_lab_kernel.json",
+    "paper_module_ref": "paper_modules/verifier_lab_kernel.md",
+    "entry_role": "cold-reader proof-lab behavior before raw receipt browsing",
+    "route_component_count": 9,
+    "expected_receipt_fields": [
+      "proof_lab_route_id",
+      "proof_lab_route_component_count",
+      "lean_lake_return_code",
+      "lean_compiled_declaration_count",
+      "proof_lab_component_metrics",
+      "authority_ceiling",
+      "secret_exclusion_scan"
+    ],
+    "safe_to_show": {
+      "route_metadata_visible": true,
+      "receipt_refs_visible": true,
+      "proof_bodies_exported": false,
+      "provider_payload_bodies_exported": false,
+      "credential_equivalent_payloads_exported": false,
+      "release_authorized": false
+    },
+    "authority": "receipt-backed verifier-lab route projection, not theorem proof authority, provider authority, release authority, or source mutation authority"
+  },
+  "doctrine_navigation_route": {
+    "surface_id": "microcosm_doctrine_navigation",
+    "entry_order": [
+      "README.md",
+      "AGENTS.md",
+      "skills/cold_start_navigation.md",
+      "atlas/entry_packet.json",
+      "standards/std_microcosm_*.json",
+      "paper_modules/*.md"
+    ],
+    "band_ladder": [
+      "cluster_flag",
+      "flag",
+      "card",
+      "source_receipt"
+    ],
+    "artifact_kinds": [
+      "standard",
+      "paper_module",
+      "skill",
+      "runtime_organ",
+      "fixture",
+      "receipt"
+    ],
+    "macro_doctrine_refs": [
+      "codex/doctrine/paper_modules/microcosm_substrate.md",
+      "codex/standards/std_microcosm.json",
+      "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
+    ],
+    "selection_rule": "Use the proof_lab_route when the reader asks what is runnable or impressive; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use standards and paper modules as drilldowns after the behavior is visible."
   },
   "banned_routes": [
     "self-indexing-cognitive-substrate/**",
@@ -45,8 +116,9 @@
     "release/dissemination/publication/recipient/hosted-public/website surfaces"
   ],
   "receipt_dependencies": [
-    "receipts/first_wave/private_state_scan.json",
+    "receipts/first_wave/public_entry_docs_validation.json",
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/cold_clone_probe.json"
   ],
   "authority_ceiling": "entry packet routes only the public first slice",
