@@ -85,8 +85,8 @@
       "strength_id": "ring2_failure_taxonomy_anchor_present"
     }
   ],
-  "command": "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run-anchor-bundle --input microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver",
-  "created_at": "2026-05-23T05:35:24+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "error_codes": [],
   "evidence_anchor_status": "real_ring2_verifier_trace_repair_receipt_refs",
   "evidence_cell_count": 3,
@@ -159,7 +159,7 @@
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle_validation_result.json"
   ],
   "resolved_cell_count": 3,
   "schema_version": "exported_evidence_cell_anchor_bundle_validation_result_v1",

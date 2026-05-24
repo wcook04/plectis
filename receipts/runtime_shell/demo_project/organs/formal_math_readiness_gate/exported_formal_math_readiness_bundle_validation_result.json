@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
+  "anti_claim": "Formal math readiness gate emits a real runtime receipt over imported readiness fixtures and source refs. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
   "authority_ceiling": {
-    "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+    "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
     "mathlib_presence_claim_authorized": false,
@@ -20,12 +20,12 @@
   "blocked_capabilities": [
     "lean_std_synthetic_core:mathlib"
   ],
-  "body_redacted": true,
+  "body_in_receipt": false,
   "bundle_id": "public_formal_math_readiness_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "corpus_readiness": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "consumer_rule": "Consumers query readiness before attempting Mathlib-dependent proof work.",
       "corpus_id": "lean_std_synthetic_core",
       "lean_available": true,
@@ -34,7 +34,7 @@
       "translation_smoke_only": true
     }
   ],
-  "created_at": "2026-05-22T08:48:43+00:00",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -44,15 +44,6 @@
   "observed_negative_cases": {},
   "organ_id": "formal_math_readiness_gate",
   "premise_count": 11,
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 5,
-    "status": "pass"
-  },
   "projection_cell_id": "formal_math_readiness_extensions",
   "readiness_board": {
     "available_tactic_ids": [
@@ -66,7 +57,7 @@
     "blocked_capabilities": [
       "lean_std_synthetic_core:mathlib"
     ],
-    "body_redacted": true,
+    "body_in_receipt": false,
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
     "mathlib_available": false,
@@ -79,9 +70,9 @@
     ]
   },
   "readiness_extension_board": {
-    "anti_claim": "Formal math readiness gate validates public synthetic readiness metadata only. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
+    "anti_claim": "Formal math readiness gate emits a real runtime receipt over imported readiness fixtures and source refs. It does not run Lean or Lake, call providers, expose proof bodies, prove theorem correctness, authorize Mathlib-dependent proofs, or widen the bounded formal_math_lean_proof_witness boundary.",
     "authority_ceiling": {
-      "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+      "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
       "formal_proof_authority": false,
       "lean_lake_execution_authorized": false,
       "mathlib_presence_claim_authorized": false,
@@ -89,7 +80,7 @@
       "provider_calls_authorized": false,
       "status": "pass"
     },
-    "body_redacted": true,
+    "body_in_receipt": false,
     "bundle_id": "public_formal_math_readiness_runtime_example",
     "cell_id": "formal_math_readiness_extensions",
     "corpus_projection": {
@@ -123,23 +114,16 @@
         "train": 11
       }
     },
-    "private_state_scan": {
-      "blocking_hit_count": 0,
-      "body_redacted": true,
-      "hit_count": 0,
-      "hits": [],
-      "redacted_output_field_labels_omitted": true,
-      "scanned_path_count": 5,
-      "status": "pass"
-    },
     "projection_contract": {
-      "authority_ceiling": "formal_math_readiness_metadata_only_not_lean_or_formal_proof_authority",
+      "authority_ceiling": "formal_math_readiness_real_runtime_receipt_not_lean_or_formal_proof_authority",
       "body_copied": false,
-      "body_redacted": true,
-      "copy_policy": "metadata_fixture_receipt_ref_only",
-      "private_source_bodies_allowed": false
+      "body_in_receipt": false,
+      "copy_policy": "real_runtime_receipt_with_secret_exclusion",
+      "credential_or_account_bound_bodies_allowed": false,
+      "real_substrate_receipt": true,
+      "synthetic_receipt_standin_allowed": false
     },
-    "projection_status": "public_replacement_landed",
+    "projection_status": "public_runtime_import_landed",
     "provider_context_projection": {
       "byte_budgets": {
         "minimal_4kb": 4096,
@@ -156,6 +140,22 @@
       "recipe_count": 3
     },
     "schema_version": "formal_math_readiness_extension_board_v1",
+    "secret_exclusion_scan": {
+      "blocking_hit_count": 0,
+      "body_in_receipt": false,
+      "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+      "hit_count": 0,
+      "hits": [],
+      "omitted_output_fields": [
+        "source_excerpt",
+        "body"
+      ],
+      "real_substrate_default": true,
+      "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+      "scanned_path_count": 5,
+      "status": "pass",
+      "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+    },
     "selected_pattern_ids": [
       "lean_std_toolchain_premise_index",
       "tactic_portfolio_availability_probe",
@@ -206,7 +206,7 @@
             "decide"
           ],
           "blocked_unavailable_tactic_ids": [],
-          "body_redacted": true,
+          "body_in_receipt": false,
           "route_case_id": "closed_nat_mod_decision",
           "target_shape": "closed_nat_mod_decision"
         },
@@ -215,7 +215,7 @@
             "simp_all"
           ],
           "blocked_unavailable_tactic_ids": [],
-          "body_redacted": true,
+          "body_in_receipt": false,
           "route_case_id": "conjunction_goal",
           "target_shape": "conjunction"
         },
@@ -224,7 +224,7 @@
             "omega"
           ],
           "blocked_unavailable_tactic_ids": [],
-          "body_redacted": true,
+          "body_in_receipt": false,
           "route_case_id": "int_linear_arithmetic",
           "target_shape": "int_linear_arithmetic"
         },
@@ -233,7 +233,7 @@
             "rfl"
           ],
           "blocked_unavailable_tactic_ids": [],
-          "body_redacted": true,
+          "body_in_receipt": false,
           "route_case_id": "true_intro",
           "target_shape": "true_intro"
         }
@@ -245,7 +245,7 @@
       "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
     ]
   },
-  "readiness_extension_status": "public_replacement_landed",
+  "readiness_extension_status": "public_runtime_import_landed",
   "receipt_id": "formal_math_readiness_gate_exported_bundle_receipt_v1",
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/formal_math_readiness_gate/exported_formal_math_readiness_bundle_validation_result.json"
@@ -253,6 +253,22 @@
   "recipe_count": 3,
   "route_case_count": 4,
   "schema_version": "formal_math_readiness_gate_exported_bundle_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 5,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "selected_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "tactic_portfolio_availability_probe",

@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Durable agent work-landing replay validates synthetic transaction evidence for owned-path claims, validation receipts, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed, export private source bodies, run providers, publish, host, or authorize release.",
+  "anti_claim": "Durable agent work-landing replay emits real runtime receipts over imported work-landing rows, macro tool refs, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed without HEAD advance evidence, export credential/account-bound bodies, run providers, publish, host, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_work_landing_replay_receipts_only",
+    "authority_ceiling": "durable_work_landing_real_runtime_replay_receipts_only",
     "broad_checkpoint_authorized": false,
     "commit_landed_claim_authorized_without_head_advance": false,
     "live_git_mutation_authorized": false,
@@ -12,8 +12,8 @@
     "unrelated_dirty_paths_authorized": false
   },
   "bundle_id": "durable_agent_work_landing_replay_runtime_example",
-  "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run-work-landing-bundle",
-  "created_at": "2026-05-22T20:17:18+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -79,22 +79,13 @@
   "observed_negative_cases": {},
   "organ_id": "durable_agent_work_landing_replay",
   "policy_id": "durable_agent_work_landing_policy_v1",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 4,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/runtime_shell/public_work_landing_replay_lens.json",
     "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
     "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
   ],
   "protocol_id": "durable_agent_work_landing_replay_public_projection_v1",
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
     "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
     "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle"
@@ -104,6 +95,22 @@
   ],
   "run_count": 3,
   "schema_version": "exported_work_landing_replay_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_pattern_ids": [
     "durable_agent_work_landing_replay_compound",
     "mission_transaction_landing",
@@ -123,7 +130,7 @@
   "work_landing_runs": [
     {
       "blocker_capture_ref": "",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/src/microcosm_core/runtime_shell.py",
         "microcosm-substrate/tests/test_runtime_shell.py"
@@ -144,7 +151,7 @@
     },
     {
       "blocker_capture_ref": "wie_fixture_git_metadata_blocker",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/AGENTS.md",
         "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
@@ -166,7 +173,7 @@
     },
     {
       "blocker_capture_ref": "wie_fixture_secret_hard_stop",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/standards/std_microcosm_durable_agent_work_landing_replay.json"
       ],
@@ -180,7 +187,7 @@
       "unrelated_dirty_paths_staged": false,
       "validation_precedes_commit_attempt": true,
       "validation_refs": [
-        "microcosm_core.private_state_scan"
+        "microcosm_core.secret_exclusion_scan"
       ],
       "work_ledger_closeout_ref": "wlr_fixture_hard_stop_closeout"
     }

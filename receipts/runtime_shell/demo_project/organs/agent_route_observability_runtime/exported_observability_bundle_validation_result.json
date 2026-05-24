@@ -54,12 +54,12 @@
   "bundle_fingerprint": "55ccf6c3fb024949f9fe9faa3d53c88c77a0cbd7a96928bcde3ce2a1488f92e0",
   "bundle_id": "public_agent_route_observability_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-observability-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "consumed_route_lease_ids": [
     "lease_public_advisory_boundary",
     "lease_public_observability_runtime"
   ],
-  "created_at": "2026-05-22T11:57:55+00:00",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "debt_retirement": {
     "anti_pattern_debt_decisions": [
       {

@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The ten-minute tour is a local public-safe read-model and receipt index. It does not authorize release, hosted publication, provider calls, source mutation, private-data equivalence, proof correctness, trading or financial advice, or whole-system correctness claims.",
+  "anti_claim": "The ten-minute tour is a local source-open runtime route and receipt index. It treats synthetic receipts as scaffolding only and does not authorize release, hosted publication, provider calls, source mutation, credential/session export, proof correctness, trading or financial advice, or whole-system correctness claims.",
   "authority_ceiling": {
     "formal_math_general_proof_authority": false,
     "hosted_public_authorized": false,
@@ -11,7 +11,7 @@
     "trading_or_financial_advice_authorized": false,
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
+  "body_in_receipt": false,
   "command": "microcosm tour <project>",
   "command_path": [
     "microcosm tour <project>",
@@ -26,6 +26,7 @@
     "microcosm repair-loop",
     "microcosm evidence-cells",
     "microcosm proof-loop-depth",
+    "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
     "microcosm landing-replay",
     "microcosm view-quality",
     "microcosm projection-safety",
@@ -59,7 +60,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-22T20:45:01+00:00",
+  "created_at": "2026-05-23T22:49:45+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -72,6 +73,7 @@
     "/repair-loop",
     "/evidence-cells",
     "/proof-loop-depth",
+    "/verifier-lab-kernel",
     "/landing-replay",
     "/view-quality",
     "/projection-safety",
@@ -101,6 +103,7 @@
     "receipts/runtime_shell/public_verifier_repair_loop_lens.json",
     "receipts/runtime_shell/public_formal_evidence_cell_lens.json",
     "receipts/runtime_shell/public_proof_loop_depth_lens.json",
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/runtime_shell/public_work_landing_replay_lens.json",
     "receipts/runtime_shell/public_view_quality_action_map_lens.json",
     "receipts/runtime_shell/public_projection_safety_audit_lens.json",
@@ -122,8 +125,74 @@
     "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
   ],
+  "first_screen_proof_lab": {
+    "anti_claim": {},
+    "authority_ceiling": {
+      "formal_proof_authority": false,
+      "proof_bodies_allowed_in_receipts": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+    "card_id": "first_screen_verifier_lab_kernel",
+    "classification": "real_runtime_receipt",
+    "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "component_metrics": {
+      "corpus_count": 7,
+      "lean_std_premise_count": 11,
+      "mathlib_lake_project_import_available": false,
+      "proof_diagnostic_accepted_count": 1,
+      "proof_diagnostic_rejected_count": 0,
+      "retrieval_mean_public_recall": 1.0,
+      "retrieval_query_count": 4,
+      "ring2_mean_precision_at_k": 0.36,
+      "ring2_mean_recall_at_k": 0.9,
+      "ring2_problem_count": 10,
+      "target_shape_route_case_count": 5,
+      "verifier_trace_attempt_count": 5
+    },
+    "evidence_class": "semantic_validator",
+    "lean_compiled_declaration_count": 8,
+    "lean_lake_return_code": 0,
+    "organ_id": "verifier_lab_kernel",
+    "public_runtime_refs": [
+      "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+      "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+      "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+      "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json",
+      "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/tactic_portfolio_probe.json",
+      "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/target_shape_routes.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_runs.json",
+      "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+      "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+      "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+    ],
+    "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+    "route_component_count": 9,
+    "route_id": "formal_prover_context_strategy_gate",
+    "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "safe_to_show": {
+      "body_in_receipt": false,
+      "credential_equivalent_payloads_omitted": true,
+      "proof_bodies_omitted": true,
+      "provider_payloads_omitted": true,
+      "receipt_refs_visible": true,
+      "route_metadata_visible": true
+    },
+    "schema_version": "microcosm_first_screen_proof_lab_route_card_v1",
+    "secret_exclusion": {
+      "blocking_hit_count": 0,
+      "scanned_ref_count": null,
+      "status": "pass"
+    },
+    "status": "pass"
+  },
   "project_ref": "scratch_project",
-  "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute public-safe tour: compile, inspect, bound authority, inspect prediction/corpus/formal repair lenses, intake/reveal, then drill receipts.",
+  "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: compile, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
     {
@@ -198,13 +267,30 @@
       "status": "pass"
     },
     {
+      "card_id": "verifier_lab_kernel",
+      "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+      "endpoint": "/proof-loop-depth",
+      "minute_budget": 1,
+      "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+      "route_component_count": 9,
+      "route_id": "formal_prover_context_strategy_gate",
+      "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+      "shows": [
+        "route id and nine-component proof-lab composition",
+        "Lean return code and compiled declaration count",
+        "retrieval, Ring2, target-shape, and verifier trace metrics",
+        "receipt-backed authority ceiling before proof language"
+      ],
+      "status": "pass"
+    },
+    {
       "card_id": "intake_and_reveal",
       "command": "microcosm intake && microcosm reveal",
       "endpoint": "/intake + /reveal",
       "minute_budget": 3,
       "shows": [
         "macro projection cells",
-        "public replacement refs",
+        "public runtime refs and real-substrate receipt states",
         "ten-minute reveal board",
         "negative cases"
       ],
@@ -226,8 +312,8 @@
   "runtime_summary": {
     "benchmark_oracle_patch_count": 2,
     "benchmark_task_count": 2,
-    "blocked_corpus_consumer_count": 3,
-    "corpus_count": 4,
+    "blocked_corpus_consumer_count": 6,
+    "corpus_count": 7,
     "formal_evidence_cell_count": 4,
     "formal_evidence_negative_case_count": 7,
     "hook_intervention_row_count": 5,
@@ -242,13 +328,16 @@
     "market_boundary_row_count": 8,
     "option_surface_row_count": 6,
     "option_surface_stage_count": 6,
-    "organ_count": 45,
+    "organ_count": 46,
     "prediction_mechanic_count": 5,
-    "projection_cell_count": 3,
+    "projection_cell_count": 5,
     "projection_drift_repair_route_count": 8,
     "projection_drift_row_count": 8,
     "projection_import_map_row_count": 6,
     "projection_import_stage_count": 6,
+    "proof_lab_lean_lake_return_code": 0,
+    "proof_lab_retrieval_mean_public_recall": 1.0,
+    "proof_lab_route_component_count": 9,
     "proof_loop_gate_count": 11,
     "proof_loop_negative_case_count": 9,
     "repair_loop_negative_case_count": 8,
@@ -270,11 +359,12 @@
     "view_quality_hot_action_count": 4
   },
   "safe_to_show": {
-    "body_redacted": true,
-    "private_paths_omitted": true,
+    "body_in_receipt": false,
     "proof_bodies_omitted": true,
-    "receipt_refs_only": true,
-    "source_bodies_omitted": true
+    "real_substrate_receipts_required": true,
+    "receipt_refs_only_until_drilldown": true,
+    "secret_or_account_bound_material_excluded": true,
+    "synthetic_receipts_are_not_product_evidence": true
   },
   "schema_version": "microcosm_public_ten_minute_tour_v1",
   "snapshot_policy": {
@@ -316,6 +406,7 @@
     "projection_drift": "pass",
     "projection_import_map": "pass",
     "projection_safety": "pass",
+    "proof_lab": "pass",
     "proof_loop_depth": "pass",
     "repair_loop": "pass",
     "replay_gauntlet": "pass",

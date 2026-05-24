@@ -24,8 +24,8 @@
     "status": "pass"
   },
   "bundle_id": "ring2_proof_diagnostic_evidence_runtime_example",
-  "command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
-  "created_at": "2026-05-23T05:50:01+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "diagnostic_board_source_authority_rejected": true,
   "diagnostic_row_count": 1,
   "error_codes": [],

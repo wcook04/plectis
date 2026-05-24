@@ -11,9 +11,9 @@
     "whole_system_correctness_claim": false
   },
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "command_count": 7,
-  "created_at": "2026-05-23T07:00:28+00:00",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "finding_count": 0,

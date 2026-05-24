@@ -30,7 +30,7 @@
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "ring2_precision_recall_runtime_example",
-  "command": "run-precision-recall-bundle",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "copied_material": [
     {
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
@@ -77,7 +77,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-23T05:00:08+00:00",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "error_codes": [],
   "evaluations": [
     {
@@ -342,7 +342,7 @@
   "problem_count": 10,
   "receipt_id": "exported_ring2_precision_recall_bundle_validation_result_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
   ],
   "schema_version": "exported_ring2_precision_recall_bundle_validation_result_v1",
   "secret_exclusion_scan": {

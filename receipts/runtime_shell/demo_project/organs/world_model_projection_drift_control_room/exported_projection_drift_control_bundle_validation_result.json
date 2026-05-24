@@ -40,8 +40,8 @@
     ]
   },
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run-drift-control-bundle",
-  "created_at": "2026-05-23T07:02:08+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -164,7 +164,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "input_mode": "exported_projection_drift_control_bundle",
-  "input_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+  "input_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
   "negative_case_findings": [],
   "negative_case_summary": {
     "expected_missing": {},
@@ -175,7 +175,7 @@
   "organ_id": "world_model_projection_drift_control_room",
   "positive_findings": [],
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
   ],
   "release_authorized": false,
   "safe_to_show": {

@@ -36,7 +36,7 @@
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "formal_math_premise_retrieval_runtime_example",
-  "command": "python -m microcosm_core.organs.formal_math_premise_retrieval run-retrieval-bundle --input examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "copied_material": [
     {
       "body_copied": true,
@@ -57,7 +57,7 @@
     }
   ],
   "copied_material_count": 1,
-  "created_at": "2026-05-23T04:30:21+00:00",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],

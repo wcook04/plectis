@@ -46,6 +46,12 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     return public_root
 
 
+def _copy_workingness_root(tmp_path: Path) -> Path:
+    public_root = _copy_runtime_root(tmp_path)
+    shutil.copytree(MICROCOSM_ROOT / "standards", public_root / "standards")
+    return public_root
+
+
 def test_package_metadata_describes_runtime_spine() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     project = payload["project"]
@@ -83,6 +89,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "spine",
         "tour",
         "authority",
+        "workingness",
         "prediction-lens",
         "market-boundary",
         "corpus-lens",
@@ -411,6 +418,35 @@ def test_cli_authority_smoke(
     assert any(row["endpoint"] == "/standards-control" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/benchmark-lab" for row in payload["surface_authority"])
     assert any(row["endpoint"] == "/legibility-scorecard" for row in payload["surface_authority"])
+
+
+def test_cli_workingness_smoke(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = _copy_workingness_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+
+    status = cli.main(["workingness"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_workingness_failure_map_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm workingness"
+    assert payload["endpoint"] == "/workingness"
+    assert payload["completeness_status"] == "partial_failure_modes"
+    assert payload["surface_counts"]["mapped_organ_count"] == 46
+    assert payload["surface_counts"]["missing_failure_modes_count"] >= 1
+    rows_by_id = {row["thing_id"]: row for row in payload["thing_failure_map"]}
+    assert rows_by_id["verifier_lab_kernel"]["workingness_state"] == (
+        "evidence_backed_runtime_spine"
+    )
+    assert rows_by_id["agent_monitor_redteam_falsification_replay"][
+        "workingness_state"
+    ] == "demoted_regression_drilldown"
+    assert (public_root / payload["workingness_map_ref"]).is_file()
 
 
 def test_cli_tour_smoke(

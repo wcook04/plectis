@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The standards-control lens is a public-safe read-model over existing standard, validator, fixture, acceptance, docs, and authority surfaces. It does not make the standards registry source authority, prove complete coverage, export private bodies, expose proof bodies or provider payloads, call providers, mutate source, claim secret export, publish, host, or authorize release.",
+  "anti_claim": "The standards-control lens is a source-open payload-boundary read-model over existing standard, validator, fixture, acceptance, docs, and authority surfaces. It does not make the standards registry source authority, prove complete coverage, export private bodies, expose proof bodies or provider payloads, call providers, mutate source, claim secret export, publish, host, or authorize release.",
   "authority_ceiling": {
     "private_body_export_authorized": false,
     "private_data_equivalence_claim": false,
@@ -12,9 +12,8 @@
     "standards_completeness_claim": false,
     "standards_registry_source_authority": false
   },
-  "body_redacted": true,
   "command": "microcosm standards-control",
-  "created_at": "2026-05-23T07:48:21+00:00",
+  "created_at": "2026-05-24T01:17:56+00:00",
   "endpoint": "/standards-control",
   "input_refs": {
     "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
@@ -35,16 +34,50 @@
     "release_or_publication_claim_from_standards_pass_rejected"
   ],
   "organ_family": "standards_control",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_standards_control_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm standards-control",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_standards_control_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes a public standards-control lens: standards registry, standard pressure, validator receipt coverage, fixture manifests, acceptance commands, docs, authority ceilings, and projection safety are checked as one read-model before public claims can strengthen.",
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
     "private_paths_omitted": true,
     "private_source_bodies_omitted": true,
     "projection_is_read_model_only": true,
     "proof_bodies_omitted": true,
     "provider_payloads_omitted": true,
-    "receipt_refs_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_standards_control_lens_v1",
   "selected_pattern_ids": [
@@ -53,6 +86,7 @@
     "validator_receipt_coverage_map",
     "omission_receipt_reversible_projection_boundary"
   ],
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_statuses": {
     "acceptance_command_count": 43,
     "fixture_manifest_schema": "microcosm_fixture_manifest_v1",
@@ -65,6 +99,7 @@
     {
       "control_row_id": "standards_registry_contract",
       "observed_count": 91,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -72,7 +107,9 @@
       "release_authorized": false,
       "required_signal": "standard_count and authority_ceiling present",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "core/standards_registry.json",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "tests/test_runtime_shell.py::test_runtime_shell_standards_control_lens_is_public_safe",
         "tests/test_cli.py::test_cli_standards_control_smoke"
@@ -81,6 +118,7 @@
     {
       "control_row_id": "public_standard_pressure_contract",
       "observed_count": 41,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -88,7 +126,9 @@
       "release_authorized": false,
       "required_signal": "rows carry authority_boundary and source refs",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "core/public_standard_pressure.json",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "tests/test_launch_compression.py",
         "tests/test_observatory_legibility.py"
@@ -97,6 +137,7 @@
     {
       "control_row_id": "validator_receipt_coverage_contract",
       "observed_count": 246,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -104,7 +145,9 @@
       "release_authorized": false,
       "required_signal": "receipt_coverage entries are refs, not source bodies",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "core/preflight_support/validator_receipt_coverage_map_v1.json",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "core/preflight_support/validator_receipt_coverage_map_v1.json",
         "tests/test_runtime_shell.py::test_runtime_shell_standards_control_lens_is_public_safe"
@@ -113,6 +156,7 @@
     {
       "control_row_id": "acceptance_gate_contract",
       "observed_count": 43,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -120,7 +164,9 @@
       "release_authorized": false,
       "required_signal": "acceptance commands remain validation commands, not release approval",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "core/acceptance/first_wave_acceptance.json",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "core/acceptance/first_wave_acceptance.json",
         "microcosm standards-registry --registry core/standards_registry.json"
@@ -129,6 +175,7 @@
     {
       "control_row_id": "fixture_manifest_contract",
       "observed_count": 46,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -136,7 +183,9 @@
       "release_authorized": false,
       "required_signal": "fixture inputs include explicit negative cases and anti-claim",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
         "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
@@ -145,6 +194,7 @@
     {
       "control_row_id": "docs_entry_contract",
       "observed_count": 3,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -152,7 +202,9 @@
       "release_authorized": false,
       "required_signal": "docs point to runtime commands and public JSON refs",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "README.md + AGENTS.md + skills/cold_start_navigation.md",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "tests/test_launch_compression.py",
         "tests/test_observatory_legibility.py"
@@ -161,6 +213,7 @@
     {
       "control_row_id": "authority_ceiling_contract",
       "observed_count": 1,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -168,7 +221,9 @@
       "release_authorized": false,
       "required_signal": "release, provider, source mutation, and secret export are false",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "microcosm authority::public_standards_control_lens",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "microcosm authority",
         "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe"
@@ -177,6 +232,7 @@
     {
       "control_row_id": "projection_safety_contract",
       "observed_count": 1,
+      "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -184,7 +240,9 @@
       "release_authorized": false,
       "required_signal": "projection row is reversible and carries authority ceiling",
       "source_authority_claim": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_ref": "microcosm projection-safety::public_standards_control_lens",
+      "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "microcosm projection-safety",
         "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe"
@@ -206,5 +264,6 @@
     "validation_ref_count": 16,
     "validator_receipt_ref_count": 246
   },
-  "status": "pass"
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

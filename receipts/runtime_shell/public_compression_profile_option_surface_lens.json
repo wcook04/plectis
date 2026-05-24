@@ -16,7 +16,7 @@
     "source_mutation_authorized": false
   },
   "command": "microcosm option-surface-lens",
-  "created_at": "2026-05-23T22:49:46+00:00",
+  "created_at": "2026-05-24T01:17:56+00:00",
   "endpoint": "/option-surface-lens",
   "import_plan_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",

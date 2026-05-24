@@ -433,8 +433,8 @@
     ]
   },
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run-attribution-bundle",
-  "created_at": "2026-05-23T07:22:53+00:00",
+  "command": "microcosm circuit-attribution",
+  "created_at": "2026-05-23T22:49:45+00:00",
   "features": [
     {
       "body_in_receipt": false,
@@ -494,7 +494,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
   "input_mode": "exported_circuit_attribution_bundle",
-  "input_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
+  "input_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
   "negative_case_findings": [],
   "negative_case_summary": {
     "expected_missing": {},
@@ -505,7 +505,7 @@
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "positive_findings": [],
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
   ],
   "release_authorized": false,
   "safe_to_show": {

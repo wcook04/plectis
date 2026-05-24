@@ -26,8 +26,8 @@
     "verification_mode": "source_faithful_public_refactor"
   },
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run-bundle",
-  "created_at": "2026-05-23T07:47:52+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:57:05+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],

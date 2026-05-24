@@ -637,6 +637,54 @@ def test_runtime_shell_blocks_unclassified_organs(tmp_path: Path) -> None:
         shell.spine()
 
 
+def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+
+    workingness = shell.workingness_map()
+
+    assert workingness["schema_version"] == "microcosm_workingness_failure_map_v1"
+    assert workingness["status"] == "pass"
+    assert workingness["completeness_status"] == "partial_failure_modes"
+    assert workingness["command"] == "microcosm workingness"
+    assert workingness["endpoint"] == "/workingness"
+    assert workingness["map_policy"]["not_a_scorecard"] is True
+    assert workingness["map_policy"]["failure_modes_come_from_owning_standards"] is True
+    assert workingness["authority_ceiling"]["score_based_progress_authority"] is False
+    assert workingness["surface_counts"]["mapped_organ_count"] == 46
+    assert workingness["surface_counts"]["adapter_backed_organ_count"] == 42
+    assert workingness["surface_counts"]["demoted_drilldown_count"] == 4
+    assert workingness["surface_counts"]["missing_standard_count"] >= 1
+    assert workingness["surface_counts"]["missing_failure_modes_count"] >= 1
+    assert workingness["surface_counts"]["rows_with_failure_modes"] >= 30
+
+    rows_by_id = {
+        row["thing_id"]: row for row in workingness["thing_failure_map"]
+    }
+    verifier = rows_by_id["verifier_lab_kernel"]
+    assert verifier["workingness_state"] == "evidence_backed_runtime_spine"
+    assert verifier["needs_to_work"]["standard_ref"] == (
+        "standards/std_microcosm_verifier_lab_kernel.json"
+    )
+    assert "provider hypothesis claims proof authority" in verifier["known_failure_modes"]
+    assert verifier["evaluation_comparison"]["accepted_status_is_not_evidence_strength"] is True
+    assert verifier["observed_workingness"]["evidence_class"] == "semantic_validator"
+
+    monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
+    assert monitor["workingness_state"] == "demoted_regression_drilldown"
+    assert monitor["observed_workingness"]["evidence_class"] == "fixture_echo_smoke"
+    assert monitor["evaluation_comparison"]["gap_class"] == (
+        "kept_out_of_product_path_until_evidence_strengthens"
+    )
+    assert any(
+        target["target_id"] == "upgrade_or_keep_demoted"
+        for target in monitor["future_work_targets"]
+    )
+
+    encoded = json.dumps(workingness, sort_keys=True)
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+
+
 def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)

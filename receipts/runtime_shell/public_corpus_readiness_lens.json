@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The public corpus-readiness lens is environment and corpus metadata only. It does not run Lean/Lake, authorize Mathlib imports, prove theorems, claim benchmark or corpus completeness, import proof bodies, call providers, mutate source, or authorize release.",
+  "anti_claim": "The public corpus-readiness lens is a source-open read-model over non-secret environment and corpus metadata. It does not run Lean/Lake, authorize Mathlib imports, prove theorems, claim benchmark or corpus completeness, import proof bodies, call providers, mutate source, or authorize release.",
   "authority_ceiling": {
     "benchmark_or_corpus_completeness_authority": false,
     "environment_metadata_only": true,
@@ -13,7 +13,6 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "body_redacted": true,
   "command": "microcosm corpus-lens",
   "consumer_gate": {
     "allowed_case_ids": [
@@ -27,7 +26,6 @@
       "proofnet_blocked_absent",
       "putnambench_lean4_blocked_absent"
     ],
-    "body_redacted": true,
     "case_count": 7,
     "decision_rows": [
       {
@@ -35,161 +33,189 @@
           "mathlib_lake_project_import_unavailable",
           "corpus_absent"
         ],
-        "body_redacted": true,
         "case_id": "leandojo_training_blocked_absent",
         "decision": "blocked",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "lean_dojo_training_replay",
         "requires_mathlib_lake_project_import": true,
-        "target_corpus_id": "LeanDojo"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "LeanDojo",
+        "unsafe_payload_bodies_exported": false
       },
       {
         "blocked_reasons": [
           "mathlib_lake_project_import_unavailable",
           "corpus_absent"
         ],
-        "body_redacted": true,
         "case_id": "mathlib_import_blocked_until_probe",
         "decision": "blocked",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "mathlib_dependent_proof_work",
         "requires_mathlib_lake_project_import": true,
-        "target_corpus_id": "mathlib"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "mathlib",
+        "unsafe_payload_bodies_exported": false
       },
       {
         "blocked_reasons": [],
-        "body_redacted": true,
         "case_id": "miniF2F_lean3_translation_smoke_allowed",
         "decision": "allowed",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "lean_std_translation_smoke_regression",
         "requires_mathlib_lake_project_import": false,
-        "target_corpus_id": "miniF2F_lean3_annex"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "miniF2F_lean3_annex",
+        "unsafe_payload_bodies_exported": false
       },
       {
         "blocked_reasons": [
           "mathlib_lake_project_import_unavailable",
           "corpus_absent"
         ],
-        "body_redacted": true,
         "case_id": "miniF2F_lean4_mathlib_search_blocked_absent",
         "decision": "blocked",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "mathlib_search",
         "requires_mathlib_lake_project_import": true,
-        "target_corpus_id": "miniF2F_lean4_mathlib_package"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "miniF2F_lean4_mathlib_package",
+        "unsafe_payload_bodies_exported": false
       },
       {
         "blocked_reasons": [
           "mathlib_lake_project_import_unavailable",
           "corpus_absent"
         ],
-        "body_redacted": true,
         "case_id": "pantograph_state_search_blocked_absent",
         "decision": "blocked",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "pantograph_state_search",
         "requires_mathlib_lake_project_import": true,
-        "target_corpus_id": "Pantograph"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "Pantograph",
+        "unsafe_payload_bodies_exported": false
       },
       {
         "blocked_reasons": [
           "mathlib_lake_project_import_unavailable",
           "corpus_absent"
         ],
-        "body_redacted": true,
         "case_id": "proofnet_blocked_absent",
         "decision": "blocked",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "proofnet_eval",
         "requires_mathlib_lake_project_import": true,
-        "target_corpus_id": "ProofNet"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "ProofNet",
+        "unsafe_payload_bodies_exported": false
       },
       {
         "blocked_reasons": [
           "mathlib_lake_project_import_unavailable",
           "corpus_absent"
         ],
-        "body_redacted": true,
         "case_id": "putnambench_lean4_blocked_absent",
         "decision": "blocked",
+        "payload_boundary_ref": "public_corpus_readiness_lens::consumer_gate",
         "readiness_gate_checked": true,
         "requested_capability": "putnambench_lean4_eval",
         "requires_mathlib_lake_project_import": true,
-        "target_corpus_id": "PutnamBench_lean4"
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "target_corpus_id": "PutnamBench_lean4",
+        "unsafe_payload_bodies_exported": false
       }
     ]
   },
   "corpora": [
     {
-      "body_redacted": true,
       "consumer_rule": "Block LeanDojo consumers until the corpus exists in the public-safe substrate.",
       "corpus_id": "LeanDojo",
       "corpus_status": "absent",
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
-      "translation_smoke_only": false
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": false,
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "consumer_rule": "Block Pantograph consumers until the corpus exists in the public-safe substrate.",
       "corpus_id": "Pantograph",
       "corpus_status": "absent",
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
-      "translation_smoke_only": false
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": false,
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "consumer_rule": "Block ProofNet consumers until the corpus exists in the public-safe substrate.",
       "corpus_id": "ProofNet",
       "corpus_status": "absent",
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
-      "translation_smoke_only": false
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": false,
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "consumer_rule": "Block PutnamBench Lean4 consumers until the corpus exists in the public-safe substrate.",
       "corpus_id": "PutnamBench_lean4",
       "corpus_status": "absent",
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
-      "translation_smoke_only": false
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": false,
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "consumer_rule": "Block Mathlib-dependent proof work until the Mathlib import probe passes in a public-safe environment.",
       "corpus_id": "mathlib",
       "corpus_status": "absent",
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "ENVIRONMENT_FAIL",
-      "translation_smoke_only": false
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": false,
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "consumer_rule": "Allow only Lean/Std translation-smoke regression consumers; block Mathlib-dependent proof claims until a Mathlib import probe passes.",
       "corpus_id": "miniF2F_lean3_annex",
       "corpus_status": "available",
       "lean_available": true,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "ENVIRONMENT_FAIL",
-      "translation_smoke_only": true
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": true,
+      "unsafe_payload_bodies_exported": false
     },
     {
-      "body_redacted": true,
       "consumer_rule": "Block direct Lean4/mathlib MiniF2F consumers until a public-safe corpus fixture exists.",
       "corpus_id": "miniF2F_lean4_mathlib_package",
       "corpus_status": "absent",
       "lean_available": false,
       "mathlib_lake_project_import_available": false,
       "mathlib_probe_status": "NOT_PROBED_ABSENT_CORPUS",
-      "translation_smoke_only": false
+      "payload_boundary_ref": "public_corpus_readiness_lens::corpora",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "translation_smoke_only": false,
+      "unsafe_payload_bodies_exported": false
     }
   ],
   "corpus_lens_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -217,14 +243,13 @@
       "miniF2F_lean4_mathlib_package:corpus_absent",
       "miniF2F_lean4_mathlib_package:mathlib_lake_project_import"
     ],
-    "body_redacted": true,
     "corpus_count": 7,
     "mathlib_lake_project_import_available": false,
     "translation_smoke_only_ids": [
       "miniF2F_lean3_annex"
     ]
   },
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-24T01:17:56+00:00",
   "endpoint": "/corpus",
   "error_codes": [
     "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
@@ -251,9 +276,39 @@
   ],
   "organ_command": "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
   "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_corpus_readiness_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm corpus-lens",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_corpus_readiness_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes formal-math corpus/toolchain readiness as a public metadata lens: Mathlib import absence, absent LeanDojo/Pantograph corpora, translation-smoke-only rows, consumer gating, and anti-claim coverage before retrieval or proof-witness work.",
   "public_contract": {
-    "body_redacted": true,
     "consumer_gate_required": true,
     "mathlib_lake_project_import_available": false,
     "mathlib_probe_required_before_mathlib_proof_work": true,
@@ -261,13 +316,18 @@
   },
   "release_authorized": false,
   "safe_to_show": {
-    "body_redacted": true,
+    "corpus_rows_are_public_payload_boundary_rows": true,
     "fixture_metadata_only": true,
     "no_private_source_bodies": true,
     "no_proof_bodies": true,
-    "receipt_refs_only_for_projection": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only_for_projection": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_corpus_readiness_lens_v1",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_pattern_count": 1,
   "source_pattern_ids": [
     "corpus_readiness_mathlib_absence_gate"
@@ -278,5 +338,6 @@
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
   ],
-  "status": "pass"
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

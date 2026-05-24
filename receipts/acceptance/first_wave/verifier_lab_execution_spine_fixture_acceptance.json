@@ -297,7 +297,7 @@
       "residual_id": "residual_add_comm_missing_premise"
     }
   ],
-  "created_at": "2026-05-23T05:58:52+00:00",
+  "created_at": "2026-05-23T21:33:30+00:00",
   "error_codes": [
     "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
     "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
@@ -404,9 +404,9 @@
   "real_runtime_receipt": true,
   "receipt_id": "verifier_lab_execution_spine_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3566/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3566/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3566/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
     "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
   ],
   "receipt_transparency_contract": {

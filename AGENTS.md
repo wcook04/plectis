@@ -88,7 +88,7 @@ imported macro body.
    need the shortest validation route.
 2. The compressed product loop is `microcosm compile <project>`: repo -> `.microcosm`.
    The ten-minute tour loop is `microcosm tour <project>`; it should compress
-   compile, Python lens, spine, authority, prediction, market boundary, corpus, trace repair,
+   compile, Python lens, spine, authority, workingness, prediction, market boundary, corpus, trace repair,
    repair-loop curriculum, formal evidence cells, work landing replay, durable
    agent work landing replay, view quality, projection safety, drift control,
    circuit attribution, route cleanup, projection import map, import projector, stripping guard,
@@ -108,6 +108,9 @@ imported macro body.
    runtime organs, first-run command path, counts, evidence policy, explicit
    `evidence_class` rows, and
    secret-only boundary without forcing a cold reader into raw receipts first.
+   The workingness map is `microcosm workingness`; it should compare each
+   organ's required substrate against observed evidence and owning-standard
+   failure modes.
    The runtime intake loop is `microcosm intake`; it should connect the macro
    projection intake board, formal-math readiness extension board, reveal
    bundle, body-import verification rows, and runtime evidence refs so ready,
@@ -162,6 +165,11 @@ imported macro body.
    export secrets or credential-equivalent payloads, make general proof claims,
    or offer financial advice. It must not treat private-state language as a
    generic reason to replace real non-secret bodies with placeholders.
+   The workingness loop is `microcosm workingness`; it should expose one
+   failure envelope per organ: required substrate, observed evidence class,
+   known failure modes from the owning standard, and concrete future-work
+   targets. It is not a maturity board, activation label, release signal, or
+   score-based progress surface.
    The prediction lens loop is `microcosm prediction-lens`; it should project
    `prediction_oracle_reconciliation` as a public synthetic reasoning surface
    with target-universe gating, CP1 bifurcation resolution, CP2 prediction

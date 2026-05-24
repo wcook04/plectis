@@ -15,6 +15,7 @@ microcosm tour .
 microcosm python-lens .
 microcosm spine
 microcosm authority
+microcosm workingness
 microcosm proof-loop-depth
 microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
 microcosm reveal
@@ -187,6 +188,7 @@ microcosm tour /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm spine
 microcosm authority
+microcosm workingness
 microcosm prediction-lens
 microcosm market-boundary
 microcosm corpus-lens
@@ -248,6 +250,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli spine
 PYTHONPATH=src python3 -m microcosm_core.cli authority
+PYTHONPATH=src python3 -m microcosm_core.cli workingness
 PYTHONPATH=src python3 -m microcosm_core.cli prediction-lens
 PYTHONPATH=src python3 -m microcosm_core.cli market-boundary
 PYTHONPATH=src python3 -m microcosm_core.cli finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/first_wave/finance_forecast_evaluation_spine
@@ -498,6 +501,13 @@ every reader will understand the system, claim private-root equivalence,
 publish, call providers, mutate source, export benchmark scores, prove
 mathematical correctness, or authorize release.
 
+`microcosm workingness` is the per-organ failure envelope map. It compares
+what each organ needs to work against the evidence Microcosm currently has:
+owning standard, typed failure modes, validator command, authority receipt,
+generated receipts, evidence class, claim ceiling, and public/private
+boundary. It emits concrete future-work targets without becoming a maturity
+board, activation label, release signal, or score-based progress surface.
+
 `microcosm prediction-lens` is the public read-model for the
 `prediction_oracle_reconciliation` organ. It shows synthetic target-universe
 gating, CP1 bifurcation resolution, CP2 prediction rows, oracle diff grading,
@@ -553,7 +563,8 @@ runtime spine/intake/reveal bridge in the browser: `/spine`, `/intake`, and
 open-actionable intake count, reveal board, and evidence refs that the CLI
 commands print. `/tour` adds the same ten-minute route compression that
 `microcosm tour <project>` emits. `/authority` adds the same authority-ceiling
-map in browser form, `/prediction` adds the synthetic prediction-mechanics
+map in browser form, `/workingness` adds the per-organ failure envelope map,
+`/prediction` adds the synthetic prediction-mechanics
 lens with its no-advice/no-live-data boundary, `/market-boundary` adds the
 market/prediction evidence contract, `/corpus` adds the formal-math
 corpus readiness lens with its no-proof/no-Mathlib boundary, `/trace` and

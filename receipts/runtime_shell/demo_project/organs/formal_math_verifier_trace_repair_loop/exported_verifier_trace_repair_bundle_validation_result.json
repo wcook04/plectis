@@ -28,7 +28,7 @@
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "formal_math_verifier_trace_repair_loop_runtime_example",
   "cold_rerun_promotion_count": 3,
-  "command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run-loop-bundle --input microcosm-substrate/examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "copied_material": [
     {
       "body_material_status": "copied_non_secret_macro_body_with_provenance",
@@ -150,7 +150,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-23T05:18:59+00:00",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "curriculum_edge_count": 3,
   "curriculum_edges": [
     {
@@ -246,7 +246,7 @@
   },
   "protocol_id": "formal_math_verifier_trace_repair_loop_ring2_real_import_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
   ],
   "repair_action_count": 5,
   "schema_version": "exported_verifier_trace_repair_bundle_validation_result_v1",

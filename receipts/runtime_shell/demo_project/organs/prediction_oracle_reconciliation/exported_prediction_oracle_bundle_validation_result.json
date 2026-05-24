@@ -16,14 +16,14 @@
   },
   "body_in_receipt": false,
   "bundle_id": "public_prediction_oracle_reconciliation_runtime_example",
-  "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run-prediction-bundle --input examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle --out receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "cp1_branch_count": 2,
   "cp1_selected_branch_ids": [
     "cp1_alpha_up_over_flat",
     "cp1_beta_down_over_up"
   ],
   "cp2_prediction_count": 2,
-  "created_at": "2026-05-23T06:44:10+00:00",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"

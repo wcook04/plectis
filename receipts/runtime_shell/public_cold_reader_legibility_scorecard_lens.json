@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The cold-reader legibility scorecard is a public-safe read-model. It does not prove every reader will understand the system, authorize release or publication, claim private-root equivalence, call providers, mutate source, prove mathematical correctness, export benchmark scores, or certify production readiness.",
+  "anti_claim": "The cold-reader legibility scorecard is a source-open public read-model. It does not prove every reader will understand the system, authorize release or publication, claim private-root equivalence, call providers, mutate source, prove mathematical correctness, export benchmark scores, or certify production readiness.",
   "authority_ceiling": {
     "benchmark_score_claim": false,
     "hosted_public_authorized": false,
@@ -12,7 +12,6 @@
     "source_mutation_authorized": false,
     "synthetic_public_read_model_only": true
   },
-  "body_redacted": true,
   "checkpoint_rows": [
     {
       "checkpoint_id": "repo_to_local_substrate",
@@ -49,7 +48,7 @@
       "command": "microcosm trace-lens && microcosm replay-gauntlet && microcosm benchmark-lab",
       "endpoint": "/trace + /replay-gauntlet + /benchmark-lab",
       "evidence_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
-      "expected_signal": "formal repair, agent reliability replay, and repository benchmark fixtures are public-safe metadata",
+      "expected_signal": "formal repair, agent reliability replay, and repository benchmark fixtures expose source-open boundary metadata",
       "minute_budget": 2,
       "pass_condition": "formal_agent_and_benchmark_lenses_pass",
       "reader_question": "Where is the unusual intelligence compression?"
@@ -76,7 +75,7 @@
     }
   ],
   "command": "microcosm legibility-scorecard",
-  "created_at": "2026-05-23T07:48:21+00:00",
+  "created_at": "2026-05-24T01:17:56+00:00",
   "endpoint": "/legibility-scorecard",
   "evidence_refs": [
     "receipts/runtime_shell/public_ten_minute_tour.json",
@@ -109,6 +108,37 @@
     "cold_reader_success_guarantee_rejected"
   ],
   "organ_family": "cold_reader_legibility",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_cold_reader_legibility_scorecard_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm legibility-scorecard",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes a cold-reader legibility scorecard: the public reveal must answer what it is, what to run, what evidence exists, what is not claimed, and how to extend it inside a 10-minute local path.",
   "reader_question_rows": [
     {
@@ -164,12 +194,16 @@
     "/evidence"
   ],
   "safe_to_show": {
-    "body_redacted": true,
     "private_macro_context_omitted": true,
     "private_paths_omitted": true,
     "proof_bodies_omitted": true,
     "provider_payloads_omitted": true,
-    "receipt_refs_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "receipt_refs_only": true,
+    "scorecard_rows_are_public_payload_boundary_rows": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
   },
   "schema_version": "microcosm_public_cold_reader_legibility_scorecard_lens_v1",
   "scorecard": {
@@ -192,5 +226,7 @@
     "public_agent_reliability_replay_gauntlet_lens",
     "public_view_quality_action_map_lens"
   ],
-  "status": "pass"
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

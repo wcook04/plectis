@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The observatory intake bridge is a public-safe browser/read-model over runtime command outputs and receipt refs. It does not host, publish, authorize release, import private bodies, call providers, or prove private-root equivalence.",
+  "anti_claim": "The observatory intake bridge is a source-open browser/read-model over runtime command outputs and receipt refs. It omits only unsafe payload bodies and credential-equivalent live access; it does not host, publish, authorize release, call providers, or prove private-root equivalence.",
   "authority_ceiling": {
     "hosted_public_authorized": false,
     "private_data_equivalence_claim": false,
@@ -9,20 +9,19 @@
     "source_mutation_authorized": false,
     "whole_system_correctness_claim": false
   },
-  "body_redacted": true,
   "bridge_id": "intake_observatory_bridge",
   "cell_status": [
     {
       "action_required": false,
       "cell_id": "formal_math_readiness_extensions",
-      "cell_state": "consumed_public_replacement",
+      "cell_state": "consumed_verified_import",
       "landed_evidence_refs": [
         "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json",
         "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
         "paper_modules/formal_math_readiness_gate.md"
       ],
       "next_runtime_surface": "microcosm formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input",
-      "projection_status": "public_replacement_landed"
+      "projection_status": "public_runtime_import_landed"
     },
     {
       "action_required": false,
@@ -48,9 +47,33 @@
       ],
       "next_runtime_surface": "microcosm intake",
       "projection_status": "runtime_bridge_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "agent_execution_trace_refactor",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_execution_trace.py",
+        "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/projection_protocol.json",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "navigation_route_plane_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "src/microcosm_core/organs/navigation_hologram_route_plane.py"
+      ],
+      "next_runtime_surface": "microcosm navigation-hologram-route-plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+      "projection_status": "public_runtime_import_landed"
     }
   ],
-  "closed_cell_count": 3,
+  "closed_cell_count": 5,
   "commands": [
     "microcosm tour <project>",
     "microcosm spine",
@@ -80,7 +103,7 @@
     "microcosm reveal",
     "microcosm evidence inspect <receipt>"
   ],
-  "consumed_cell_count": 3,
+  "consumed_cell_count": 5,
   "endpoints": {
     "authority": "/authority",
     "benchmark_lab": "/benchmark-lab",
@@ -136,19 +159,50 @@
     "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
     "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json"
   ],
-  "landed_cell_count": 3,
+  "landed_cell_count": 5,
   "open_actionable_cell_count": 0,
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_observatory_intake_bridge",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm serve <project> /project/observatory",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/intake_bridge/observatory_intake_bridge.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "projection_status_counts": {
-    "public_replacement_landed": 1,
+    "public_runtime_import_landed": 3,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },
   "projection_status_protocol": {
     "anti_claim": "Cell status is intake coordination. It is not an imported macro body, a capability proof, or a reason to avoid importing real non-secret substrate.",
-    "authority_ceiling": "cell_status_only_not_body_import",
+    "authority_ceiling": "cell_status_only_not_body_import_or_secret_exclusion",
     "cell_state_field": "cell_state",
     "closed_statuses": [
-      "public_replacement_landed",
+      "public_runtime_import_landed",
       "self_hosted_status_protocol_landed",
       "runtime_bridge_landed"
     ],
@@ -168,6 +222,16 @@
     "step_count": 5,
     "time_budget_minutes": 10
   },
+  "safe_to_show": {
+    "observatory_bridge_rows_are_public_payload_boundary_rows": true,
+    "private_browser_or_live_access_payloads_omitted": true,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "schema_version": "microcosm_observatory_intake_bridge_v1",
-  "status": "pass"
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+  "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false
 }

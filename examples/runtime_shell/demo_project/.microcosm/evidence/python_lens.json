@@ -11,13 +11,13 @@
   },
   "body_redacted": true,
   "command": "microcosm python-lens <project>",
-  "created_at": "2026-05-23T04:21:57+00:00",
-  "event_id": "evt_1813",
+  "created_at": "2026-05-23T21:09:33+00:00",
+  "event_id": "evt_1862",
   "evidence_ref": ".microcosm/evidence/python_lens.json",
   "evidence_replacement": {
     "append_only_event_history_ref": ".microcosm/events.jsonl",
     "policy": "stable_ref_latest_body",
-    "previous_sha256": "3271d15354e7de0914416e5fa6c8ab94863fd21a657543183ae5e9197814f314",
+    "previous_sha256": "6f54a68e19c1af1c4d3c12ee9e44047413d02a1755ef73495be7052440ead435",
     "replacement_recorded": true,
     "stable_ref": ".microcosm/evidence/python_lens.json"
   },

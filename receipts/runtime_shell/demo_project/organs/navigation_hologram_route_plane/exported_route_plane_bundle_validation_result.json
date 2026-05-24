@@ -6,19 +6,19 @@
     },
     "anti_trigger_hits": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "row_id": "atlas_projection_antitrigger"
       }
     ],
     "demoted_rows": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "reason_code": "AFFORDANCE_PASSPORT_ANTITRIGGER_DEMOTED",
         "row_id": "atlas_projection_antitrigger"
       }
     ],
     "demotion_receipt": {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "demoted_row_count": 1,
       "status": "pass"
     },
@@ -33,95 +33,180 @@
     "selection_decision": "select_compatible_passport_after_demotion",
     "status": "pass"
   },
-  "anti_claim": "The exported route-plane bundle validates public route projection metadata. It does not grant source authority, publish live operator state, authorize release, or complete later organs.",
+  "anti_claim": "The exported route-plane bundle validates copied non-secret route substrate and public route projection behavior. It does not grant source authority, prove live route freshness, publish live operator state, authorize release, or complete later organs.",
   "authority_allowed": false,
   "authority_ceiling": {
     "atlas_projection_control_entry_rejected": true,
-    "authority_ceiling": "navigation_route_plane_bundle_projection_metadata_not_source_authority",
+    "authority_ceiling": "copied_route_substrate_is_public_runtime_input_not_live_source_authority",
     "release_authorized": false,
     "route_lease_source_authority_rejected": true,
     "status": "pass"
   },
+  "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
   "bundle_id": "public_navigation_hologram_route_plane_runtime_example",
-  "bundle_manifest_schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v1",
+  "bundle_manifest_schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v2",
   "card": {
     "anti_claim": "Navigation route-plane receipts validate public route projections and regression fixtures; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
     "band_payload": {
-      "route_hint": "Use the entry packet floor before route-card drilldown.",
-      "route_lease_ref": "route_lease_policy.public_runtime_option_surface"
+      "canonical_next_read": "system/lib/kernel/commands/comprehension_snapshot.py",
+      "fallback_command": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+      "freshness_command": "./repo-python kernel.py --navigation-metabolism \"<task>\" --context-budget 12000",
+      "route_command": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "route_hint": "Canonical cold-agent first move for any task: compile one selected lane, next legal action, banned routes, proof, and drilldown/debug policy before opening context-pack, kind-atlas, option-surface rows, docs-route, skill-find, paper-module, or source evidence."
     },
-    "omission_receipt": {
-      "body_redacted": true,
-      "omitted_classes": [
-        "full_source_files",
-        "live_runtime_state"
+    "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
+    "exclusion_check": {
+      "excluded_material": [
+        "live_runtime_state",
+        "operator_specific_entry_payload_bodies",
+        "provider_payload_bodies",
+        "account_or_session_state"
       ],
-      "replacement": "public_projection_metadata"
+      "included_material": [
+        "route_command",
+        "fallback_command",
+        "freshness_command",
+        "minimum_read_paths",
+        "route_targets"
+      ],
+      "status": "pass"
     },
-    "row_id": "option_surface_cluster_public_runtime",
+    "provenance": {
+      "import_policy": "copy_non_secret_route_command_and_route_metadata",
+      "source_file": "codex/doctrine/agent_bootstrap_live.json",
+      "source_selector": ".situation_routes[] | select(.situation_id == \"entry_control_packet\")"
+    },
+    "row_id": "entry_control_packet",
     "source_refs": [
-      "pattern:navigation_hologram_unified_route_plane",
-      "pattern:agent_entry_surfaces_canonical_first_move"
+      "codex/doctrine/agent_bootstrap_live.json::situation_routes[entry_control_packet]",
+      "codex/doctrine/agent_bootstrap.json::situation_routes"
     ],
-    "stable_handle": "route-plane:public_runtime_option_surface:option_surface_cluster_public_runtime",
-    "title": "Public runtime option surface"
+    "stable_handle": "route-plane:sit_entry_control_packet:entry_control_packet",
+    "title": "Entry control packet"
   },
   "cluster_flag": {
     "clusters": [
       {
-        "cluster_id": "entry_surface",
-        "drilldown_command": "microcosm option-surface route-plane --cluster entry_surface",
-        "row_count": 2,
+        "cluster_id": "context_pack",
+        "drilldown_command": "microcosm option-surface route-plane --cluster context_pack",
+        "row_count": 3,
         "row_ids": [
-          "option_surface_cluster_public_runtime",
-          "entry_packet_floor_public_runtime"
+          "task_conditioned_context_pack_entry",
+          "mechanism_workitem_affinity",
+          "doctrine_population"
         ]
       },
       {
-        "cluster_id": "projection_boundary",
-        "drilldown_command": "microcosm option-surface route-plane --cluster projection_boundary",
-        "row_count": 1,
+        "cluster_id": "control_entry",
+        "drilldown_command": "microcosm option-surface route-plane --cluster control_entry",
+        "row_count": 4,
         "row_ids": [
-          "route_card_boundary_public_runtime"
+          "entry_control_packet",
+          "active_execution_constellation",
+          "type_b_to_type_a_continuation_handoff",
+          "dissemination_agent_entry"
         ]
       },
       {
-        "cluster_id": "route_selection",
-        "drilldown_command": "microcosm option-surface route-plane --cluster route_selection",
+        "cluster_id": "docs_route",
+        "drilldown_command": "microcosm option-surface route-plane --cluster docs_route",
+        "row_count": 27,
+        "row_ids": [
+          "config_authority_plane",
+          "documentation_plane",
+          "agent_telemetry_navigation_diagnostics",
+          "agent_session_diagnostics_training_loop",
+          "runtime_control",
+          "always_on_metabolism_governor",
+          "self_description_campaign",
+          "external_reference_prior_art",
+          "annex_bridge_navigation",
+          "private_system_crystal",
+          "bridge_session_continuity",
+          "controller_continuity",
+          "codex_control_surface",
+          "type_a_convergence",
+          "type_a_entry_experience",
+          "type_a_operating_register",
+          "type_a_judgment_metabolism",
+          "system_axiom_candidates",
+          "semantic_naming",
+          "local_to_general_propagation",
+          "durable_closeout_propagation",
+          "peer_propagation",
+          "raw_seed_substrate",
+          "doctrine_and_standards",
+          "doctrine_lattice_context",
+          "python_runtime_surface",
+          "python_runtime_architecture"
+        ]
+      },
+      {
+        "cluster_id": "kernel_route",
+        "drilldown_command": "microcosm option-surface route-plane --cluster kernel_route",
         "row_count": 1,
         "row_ids": [
-          "affordance_passport_public_runtime"
+          "navigation_enforcement"
+        ]
+      },
+      {
+        "cluster_id": "option_surface",
+        "drilldown_command": "microcosm option-surface route-plane --cluster option_surface",
+        "row_count": 5,
+        "row_ids": [
+          "frontend_capability_discovery",
+          "task_ledger_dependency_unlocks",
+          "system_state_axis_overview",
+          "russian_doll_option_surface_entry",
+          "paper_modules_surface"
+        ]
+      },
+      {
+        "cluster_id": "runtime_tool",
+        "drilldown_command": "microcosm option-surface route-plane --cluster runtime_tool",
+        "row_count": 1,
+        "row_ids": [
+          "publication_lane_push_recovery"
         ]
       }
     ],
     "drilldown_commands": [
-      "microcosm option-surface route-plane --cluster entry_surface",
-      "microcosm option-surface route-plane --cluster projection_boundary",
-      "microcosm option-surface route-plane --cluster route_selection"
+      "microcosm option-surface route-plane --cluster context_pack",
+      "microcosm option-surface route-plane --cluster control_entry",
+      "microcosm option-surface route-plane --cluster docs_route",
+      "microcosm option-surface route-plane --cluster kernel_route",
+      "microcosm option-surface route-plane --cluster option_surface",
+      "microcosm option-surface route-plane --cluster runtime_tool"
     ],
     "row_counts": {
-      "entry_surface": 2,
-      "projection_boundary": 1,
-      "route_selection": 1
+      "context_pack": 3,
+      "control_entry": 4,
+      "docs_route": 27,
+      "kernel_route": 1,
+      "option_surface": 5,
+      "runtime_tool": 1
     },
     "source_coupling_status": "exported_route_plane_bundle_current"
   },
   "code_architecture_projection_packet": {
-    "body_redacted": true,
+    "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
     "known_limits": [
-      "projection_packet_is_not_source_authority",
-      "route_rows_require_fresh_source_coupling_for_release"
+      "copied_route_rows_are_not_live_route_freshness",
+      "copied_route_rows_are_not_source_authority",
+      "provider_payloads_and_session_state_are_excluded"
     ],
-    "omission_receipt": {
-      "body_redacted": true,
-      "omitted_classes": [
-        "full_source_graph",
-        "live_runtime_state"
-      ],
-      "receipt_id": "code_architecture_projection_boundary",
-      "replacement": "public_projection_packet"
-    },
     "packet_producer_id": "public_runtime_route_plane_projection_packet",
+    "provenance": {
+      "runtime_source_refs": [
+        "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+        "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+      ],
+      "source_files": [
+        "codex/doctrine/agent_bootstrap_live.json",
+        "codex/doctrine/agent_bootstrap.json",
+        "codex/doctrine/routing_hologram.json"
+      ]
+    },
     "renderer_schema_match_status": "pass",
     "reverse_bfs_depth_buckets": {
       "0": [
@@ -133,16 +218,18 @@
       ]
     },
     "source_fingerprint": {
+      "route_rows_sha256": "13144e92a27034937c575be56523b4e899426022e1f92e6d6202abf021b51a98",
       "source_coupling_status": "current",
-      "source_kind": "public_route_projection"
+      "source_kind": "copied_non_secret_macro_route_substrate"
     },
     "suggested_verification": [
       "validate-route-plane-bundle",
+      "secret-exclusion-scan",
       "fixture-regression-negative-cases"
     ]
   },
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-22T08:48:45+00:00",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "entry_payload_admission": {
     "after_bytes": 11200,
     "before_bytes": 14500,
@@ -150,16 +237,7 @@
     "entry_payload_admission_status": "pass",
     "findings": [],
     "inline_target_bytes": 12000,
-    "omission_receipts": [
-      {
-        "body_redacted": true,
-        "omitted_classes": [
-          "full_live_entry_context"
-        ],
-        "receipt_id": "entry_packet_projection_boundary",
-        "replacement": "field_presence_floor"
-      }
-    ],
+    "omission_receipts": [],
     "preserved_non_negotiable_fields": [
       "banned_routes",
       "route_lease.permitted_direct_actions",
@@ -174,25 +252,16 @@
   },
   "error_codes": [],
   "expected_negative_cases": {},
-  "expected_sha256": "abb5b29858f6101dee09e337f4b350942ea82cd1fe5f7313ea8b9d538bf97b1c",
+  "expected_sha256": "13144e92a27034937c575be56523b4e899426022e1f92e6d6202abf021b51a98",
   "findings": [],
   "fixture_id": "first_wave.navigation_hologram_route_plane.exported_route_plane_bundle",
   "fixture_regression_required_elsewhere": true,
   "input_mode": "exported_route_plane_bundle",
   "missing_negative_cases": [],
   "observed_negative_cases": {},
-  "observed_sha256": "abb5b29858f6101dee09e337f4b350942ea82cd1fe5f7313ea8b9d538bf97b1c",
+  "observed_sha256": "13144e92a27034937c575be56523b4e899426022e1f92e6d6202abf021b51a98",
   "organ_id": "navigation_hologram_route_plane",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 8,
-    "status": "pass"
-  },
-  "public_replacement_refs": [
+  "real_substrate_refs": [
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/bundle_manifest.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/option_surface_contract.json",
@@ -210,7 +279,7 @@
     "authority_allowed": false,
     "banned_route_replacements": [
       {
-        "body_redacted": true,
+        "body_in_receipt": false,
         "reason_code": "PROJECTION_NOT_CONTROL_ENTRY",
         "replacement_route": "entry_packet_floor",
         "route_id": "atlas_projection_as_first_contact"
@@ -219,7 +288,7 @@
     "findings": [],
     "invalidation_inputs": {
       "navigation_index_currentness": "source_coupled",
-      "projection_boundary": "omission_receipt_required",
+      "projection_boundary": "real_route_substrate_contract_required",
       "source_coupling_status": "current"
     },
     "lease_id": "public_runtime_navigation_route_lease",
@@ -232,11 +301,28 @@
     "selected_lane_id": "public_runtime_option_surface",
     "status": "pass"
   },
-  "route_row_count": 4,
+  "route_row_count": 41,
   "route_rows_projection_not_authority": true,
   "schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_validation_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "body_material_status": "secret_exclusion_scan_no_payload_body_export",
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 8,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "selected_row_ids": [
-    "option_surface_cluster_public_runtime"
+    "entry_control_packet"
   ],
   "source_coupling_status": "pass",
   "source_pattern_ids": [

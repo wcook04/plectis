@@ -21,8 +21,8 @@
     "required_macro_pattern_refs_present": true,
     "secret_exclusion_scan_passed": true
   },
-  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run-bundle",
-  "created_at": "2026-05-23T07:47:52+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:57:05+00:00",
   "fixture_id": "first_wave.voice_to_doctrine_self_improvement_loop",
   "organ_id": "voice_to_doctrine_self_improvement_loop",
   "schema_version": "voice_to_doctrine_self_improvement_validation_v1",

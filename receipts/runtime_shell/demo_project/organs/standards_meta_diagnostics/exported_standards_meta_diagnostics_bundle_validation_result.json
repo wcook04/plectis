@@ -13,7 +13,7 @@
   },
   "body_in_receipt": false,
   "bundle_id": "public_standards_meta_diagnostics_runtime_example",
-  "command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "covered_organ_ids": [
     "agent_benchmark_integrity_anti_gaming_replay",
     "agent_memory_temporal_conflict_replay",
@@ -60,7 +60,7 @@
     "verifier_lab_execution_spine",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-23T07:19:57+00:00",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],

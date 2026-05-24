@@ -11,7 +11,7 @@
     "event stream",
     "evidence membrane"
   ],
-  "created_at": "2026-05-23T04:21:57+00:00",
+  "created_at": "2026-05-23T21:09:33+00:00",
   "kernel": {
     "anti_claim": "This kernel describes the public research-prototype substrate. It does not authorize hosted deployment, release operations, publication, credentialed provider calls, unsafe source mutation, secret export, or whole-system correctness.",
     "job_sentence": "Microcosm is an executable research prototype of a local project substrate: bring a folder, build project-local state, inspect the architecture behind routes, work, events, and evidence.",
@@ -730,8 +730,8 @@
         "title": "Undeclared Library Priors Are Quarantined Separately From Premise Budgets"
       },
       {
-        "authority_boundary": "synthetic_benchmark_integrity_replay_not_score_authority",
-        "claim": "Benchmark-style agent capability claims must pass through locked evaluator, contamination, file-access, trusted-reference, and anti-gaming replay receipts before any score language is allowed.",
+        "authority_boundary": "body_free_regression_benchmark_integrity_replay_not_score_authority",
+        "claim": "Benchmark-style agent capability claims must pass through locked evaluator, contamination, file-access, trusted-reference, and anti-gaming body-free regression receipts before any score language is allowed; fixture verdict rows do not count as product progress.",
         "kernel_primitive_refs": [
           "pattern",
           "standard",
@@ -862,7 +862,7 @@
       },
       {
         "authority_boundary": "synthetic_agent_monitor_redteam_metadata_not_monitor_product_or_control_eval_authority",
-        "claim": "Agent-monitor honesty language must cite synthetic trajectories, monitor verdicts, adversarial probe refs, escalation refs, mitigation refs, redaction refs, negative cases, and explicit no-live-traffic/no-private-reasoning/no-product-performance ceilings before it becomes public evidence.",
+        "claim": "Agent-monitor honesty language must cite synthetic trajectories, monitor verdicts, adversarial probe refs, escalation refs, mitigation refs, body-omission refs, negative cases, and explicit no-live-traffic/no-private-reasoning/no-product-performance ceilings before it becomes public evidence.",
         "kernel_primitive_refs": [
           "route",
           "event",
@@ -884,8 +884,8 @@
         "title": "Monitor Redteam Replay Requires Falsification Receipts"
       },
       {
-        "authority_boundary": "synthetic_agent_sabotage_scheming_monitor_metadata_not_live_sabotage_deployment_or_product_authority",
-        "claim": "Agent-sabotage and scheming-monitor language must cite synthetic episodes, action traces, per-step monitor scores, counterfactual benign replays, cold replay refs, negative cases, and explicit no-live-sabotage/no-sensitive-export/no-deployment-claim ceilings before it becomes public evidence.",
+        "authority_boundary": "regression_negative_agent_sabotage_scheming_monitor_metadata_not_live_sabotage_deployment_or_product_authority",
+        "claim": "Agent-sabotage and scheming-monitor language must cite synthetic episodes, action traces, per-step monitor scores, counterfactual benign replays, cold replay refs, body-free fixture refs, negative cases, and explicit no-live-sabotage/no-sensitive-export/no-deployment-claim ceilings before it becomes public drilldown evidence.",
         "domain": "agent_sabotage_eval",
         "kernel_primitive_refs": [
           "event",
@@ -907,7 +907,7 @@
           "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
           "paper_modules/agent_sabotage_scheming_monitor_replay.md"
         ],
-        "pressure": "typed sabotage-monitor claims require episode/action/score joins, counterfactual replays, falsification fixtures, and authority ceilings",
+        "pressure": "typed sabotage-monitor claims require episode/action/score joins, counterfactual replays, body-free regression fixtures, falsification cases, and authority ceilings",
         "release_authorized": false,
         "route_refs": [
           "replay-gauntlet",

@@ -450,7 +450,7 @@
       }
     ]
   },
-  "command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run-certificate-bundle --input microcosm-substrate/examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "cp2_translation_trace": [
     {
       "candidate_action_class": "add_certificate_row",
@@ -531,7 +531,7 @@
       ]
     }
   ],
-  "created_at": "2026-05-23T05:47:00+00:00",
+  "created_at": "2026-05-23T12:57:05+00:00",
   "error_codes": [],
   "evolve_mutation_trace": [
     {
@@ -758,7 +758,7 @@
         "lake",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
@@ -771,7 +771,7 @@
         "lean",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,

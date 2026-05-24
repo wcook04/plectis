@@ -53,7 +53,7 @@
       "census_status": "missing_requested_view",
       "included_in_hot_action_rollup": true,
       "live_browser_control_authorized": false,
-      "next_action": "create_public_safe_census_row_or_drop_unowned_requested_view",
+      "next_action": "create_source_open_census_row_or_drop_unowned_requested_view",
       "priority_weight": 95,
       "private_screenshot_path_exported": false,
       "quality_posture": "census_binding_gap",
@@ -81,9 +81,8 @@
     "source_mutation_authorized": false,
     "synthetic_fixture_only": true
   },
-  "body_redacted": true,
   "command": "microcosm view-quality",
-  "created_at": "2026-05-23T07:48:33+00:00",
+  "created_at": "2026-05-24T01:17:56+00:00",
   "endpoint": "/view-quality",
   "fixture_protocol": {
     "fixture_scope": "synthetic public rows only",
@@ -96,7 +95,7 @@
   "hot_action_rollup": [
     {
       "action_class": "add_to_census_or_bind_capture",
-      "next_action": "create_public_safe_census_row_or_drop_unowned_requested_view",
+      "next_action": "create_source_open_census_row_or_drop_unowned_requested_view",
       "priority_weight": 95,
       "rank": 1,
       "view_id": "missing_operator_bridge_console"
@@ -134,6 +133,37 @@
     "release_claim_from_view_quality_lens"
   ],
   "organ_family": "frontend_observability",
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "public_view_quality_action_map_lens",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm view-quality",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "legacy_schema_compat_present": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "public_claim": "Microcosm exposes a public view-quality action map: every requested view gets one typed action row, missing and partial views stay visible, and the hot-action rollup is explicitly a projection rather than the complete view universe.",
   "release_authorized": false,
   "requested_views": [
@@ -164,19 +194,25 @@
     }
   ],
   "safe_to_show": {
-    "body_redacted": true,
-    "fixture_metadata_only": true,
+    "fixture_rows_are_negative_case_or_regression_harness": true,
     "live_browser_control_omitted": true,
     "private_screenshot_paths_omitted": true,
-    "synthetic_view_rows_only": true
+    "public_refs_are_drilldowns_not_replacements": true,
+    "secrets_and_live_access_payloads_omitted": true,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "synthetic_view_rows_only": true,
+    "unsafe_payload_bodies_in_receipt": false,
+    "view_quality_actions_are_public_payload_boundary_rows": true
   },
   "schema_version": "microcosm_public_view_quality_action_map_lens_v1",
   "selected_pattern_id": "view_quality_all_view_action_map",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_projection_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::view_quality_all_view_action_map",
     "codex/standards/std_station_aesthetic.json::view_quality_action_map_v1",
     "tools/meta/observability/view_quality_census.py::*"
   ],
   "status": "pass",
+  "unsafe_payload_bodies_in_receipt": false,
   "view_quality_lens_ref": "receipts/runtime_shell/public_view_quality_action_map_lens.json"
 }

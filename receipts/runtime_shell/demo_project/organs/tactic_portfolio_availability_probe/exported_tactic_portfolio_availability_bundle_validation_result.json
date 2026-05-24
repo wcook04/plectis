@@ -23,12 +23,12 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "tactic_portfolio_availability_runtime_example",
-  "command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run-availability-bundle --input microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "compile_status_counts": {
     "compile_pass": 7,
     "environment_fail": 1
   },
-  "created_at": "2026-05-23T06:25:11+00:00",
+  "created_at": "2026-05-23T12:56:41+00:00",
   "environment_id": "lean_std_toolchain_20260511_mathlib_absent_probe_v0",
   "error_codes": [],
   "expected_negative_cases": {},
@@ -57,7 +57,7 @@
   ],
   "receipt_id": "exported_tactic_portfolio_availability_bundle_validation_result_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
   ],
   "schema_version": "exported_tactic_portfolio_availability_bundle_validation_result_v1",
   "secret_exclusion_scan": {

@@ -13,7 +13,7 @@
   },
   "body_in_receipt": false,
   "bundle_id": "public_reveal_walkthrough_runtime_example",
-  "command": "microcosm reveal",
+  "command": "microcosm intake",
   "command_count": 8,
   "commands": [
     "microcosm compile /tmp/microcosm-scratch",
@@ -25,7 +25,7 @@
     "microcosm status",
     "python -m pip install -e '.[test]'"
   ],
-  "created_at": "2026-05-23T23:54:32+00:00",
+  "created_at": "2026-05-23T15:24:39+00:00",
   "error_codes": [],
   "evidence_ref_count": 11,
   "evidence_refs": [
@@ -80,7 +80,7 @@
   "real_runtime_receipt": true,
   "receipt_id": "public_reveal_walkthrough_exported_bundle_receipt_v1",
   "receipt_paths": [
-    "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json"
+    "receipts/runtime_shell/tmp_reveal_debug/exported_public_reveal_bundle_validation_result.json"
   ],
   "reveal_board": {
     "body_in_receipt": false,

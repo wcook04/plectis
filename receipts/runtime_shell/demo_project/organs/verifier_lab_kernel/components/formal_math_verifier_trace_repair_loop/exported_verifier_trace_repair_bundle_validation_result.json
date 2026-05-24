@@ -1,8 +1,8 @@
 {
-  "anti_claim": "Formal math verifier-trace repair loop validates a public synthetic replay of verifier feedback, trace grading, repair actions, failure-mode ledger updates, curriculum deltas, and cold rerun promotion gates. It does not run Lean or Lake, call providers, expose proof bodies or oracle premise ids, treat human or provider advice as proof correctness, prove theorem correctness, or authorize release.",
-  "attempt_count": 3,
+  "anti_claim": "Formal math verifier-trace repair loop validates copied non-secret Ring2 failure taxonomy, graph-update, and oracle-repair contrast rows as public repair-loop evidence. It does not run Lean or Lake here, call providers, expose proof bodies or oracle premise ids, treat human or provider advice as proof correctness, prove theorem correctness, or authorize release.",
+  "attempt_count": 5,
   "authority_ceiling": {
-    "authority_ceiling": "public_synthetic_verifier_trace_repair_metadata_only",
+    "authority_ceiling": "copied_ring2_verifier_trace_repair_metadata_not_proof_authority",
     "formal_proof_authority": false,
     "human_approval_as_proof_authority": false,
     "lean_lake_execution_authorized": false,
@@ -12,29 +12,167 @@
     "release_authorized": false,
     "status": "pass"
   },
+  "body_copied_material_count": 3,
+  "body_material_contract": {
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "copied_failure_trace_rows": true,
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+    "oracle_premise_ids_excluded": true,
+    "oracle_repair_variant_id": "oracle_repair_graph_v0",
+    "premise_retrieval_variant_id": "premise_retrieval_graph_v0",
+    "proof_bodies_excluded": true,
+    "provider_payloads_excluded": true
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "formal_math_verifier_trace_repair_loop_runtime_example",
-  "cold_rerun_promotion_count": 1,
-  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component formal_math_verifier_trace_repair_loop",
-  "created_at": "2026-05-22T15:02:24+00:00",
+  "cold_rerun_promotion_count": 3,
+  "command": "microcosm run examples/runtime_shell/demo_project :: component formal_math_verifier_trace_repair_loop",
+  "copied_material": [
+    {
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "copied_fields": [
+        "problem_id",
+        "split",
+        "domain",
+        "lean_compile_status",
+        "error_class"
+      ],
+      "copied_record_count": 5,
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "premise_retrieval_graph_v0",
+      "material_id": "ring2_premise_retrieval_failure_trace_rows",
+      "material_kind": "real_ring2_verifier_failure_trace_rows",
+      "secret_exclusion": {
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true,
+        "oracle_premise_ids_excluded": true,
+        "proof_bodies_excluded": true,
+        "provider_payloads_excluded": true
+      },
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+      "source_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "target_refs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_verifier_trace_repair_loop.py",
+        "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      ]
+    },
+    {
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "copied_fields": [
+        "candidate_id",
+        "trigger",
+        "proposal",
+        "source_problem_ids",
+        "test_split_rule"
+      ],
+      "copied_record_count": 3,
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "premise_retrieval_graph_v0",
+      "material_id": "ring2_premise_retrieval_graph_update_candidates",
+      "material_kind": "real_ring2_graph_update_candidate_rows",
+      "secret_exclusion": {
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true,
+        "oracle_premise_ids_excluded": true,
+        "proof_bodies_excluded": true,
+        "provider_payloads_excluded": true
+      },
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "target_refs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_verifier_trace_repair_loop.py",
+        "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      ]
+    },
+    {
+      "body_material_status": "copied_non_secret_macro_body_with_provenance",
+      "copied_fields": [
+        "problem_id",
+        "split",
+        "domain",
+        "lean_compile_status",
+        "error_class"
+      ],
+      "copied_record_count": 10,
+      "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+      "macro_run_variant_id": "oracle_repair_graph_v0",
+      "material_id": "ring2_oracle_repair_cold_rerun_contrast_rows",
+      "material_kind": "real_ring2_oracle_repair_contrast_rows",
+      "secret_exclusion": {
+        "account_session_material_excluded": true,
+        "live_access_state_excluded": true,
+        "oracle_premise_ids_excluded": true,
+        "proof_bodies_excluded": true,
+        "provider_payloads_excluded": true
+      },
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "source_run_hash": "818fbc0567f2dd392ff2c8d1715d68207e9f53f9571fb06084d1201aaf41c61c",
+      "source_sha256": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "target_refs": [
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+        "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+        "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_formal_math_verifier_trace_repair_loop.py",
+        "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
+        "microcosm-substrate/receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+      ]
+    }
+  ],
+  "created_at": "2026-05-23T12:56:43+00:00",
   "curriculum_edge_count": 3,
   "curriculum_edges": [
     {
-      "body_redacted": true,
-      "delta_class": "add_retrieval_terms",
-      "from_failure_mode_id": "fm_missing_commutativity_prior",
-      "to_curriculum_node_id": "curriculum_closed_std_premise_terms"
+      "body_material_status": "real_ring2_curriculum_edge",
+      "delta_class": "oracle_repair_graph_contrast",
+      "from_failure_mode_id": "fm_ring2_proof_core_gap",
+      "source_candidate_id": "oracle_repair_graph_v0",
+      "to_curriculum_node_id": "curriculum_oracle_repair_contrast_for_proof_core_gap"
     },
     {
-      "body_redacted": true,
-      "delta_class": "route_around_unavailable_dependency",
-      "from_failure_mode_id": "fm_mathlib_tactic_unavailable",
-      "to_curriculum_node_id": "curriculum_std_only_tactic_route"
+      "body_material_status": "real_ring2_curriculum_edge",
+      "delta_class": "heldout_failure_record",
+      "from_failure_mode_id": "fm_ring2_tactic_search_fail",
+      "source_candidate_id": "mathlib_ring1_problem_set_v0",
+      "to_curriculum_node_id": "curriculum_tactic_search_failure_holdout"
     },
     {
-      "body_redacted": true,
-      "delta_class": "repair_after_cold_rerun",
-      "from_failure_mode_id": "fm_invalid_body_shape",
-      "to_curriculum_node_id": "curriculum_goal_shape_repair"
+      "body_material_status": "real_ring2_curriculum_edge",
+      "delta_class": "retrieval_query_recipe_update",
+      "from_failure_mode_id": "fm_ring2_premise_retrieval_miss",
+      "source_candidate_id": "retrieval_query_recipe_update",
+      "to_curriculum_node_id": "curriculum_retrieval_query_recipe_update"
     }
   ],
   "error_codes": [],
@@ -42,132 +180,213 @@
   "failure_mode_count": 3,
   "failure_mode_ledger": [
     {
-      "accepted_after_cold_rerun": false,
-      "body_redacted": true,
-      "cold_rerun_receipt_ref": null,
-      "failure_mode_id": "fm_missing_commutativity_prior",
-      "repair_action_id": "repair_add_closed_std_premise_terms",
-      "verifier_class": "missing_premise"
-    },
-    {
-      "accepted_after_cold_rerun": false,
-      "body_redacted": true,
-      "cold_rerun_receipt_ref": null,
-      "failure_mode_id": "fm_mathlib_tactic_unavailable",
-      "repair_action_id": "repair_route_to_std_only_tactic",
-      "verifier_class": "unavailable_tactic"
-    },
-    {
       "accepted_after_cold_rerun": true,
-      "body_redacted": true,
-      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
-      "failure_mode_id": "fm_invalid_body_shape",
-      "repair_action_id": "repair_change_goal_shape_route",
-      "verifier_class": "invalid_proof_body_redacted"
+      "body_material_status": "real_ring2_failure_mode_row",
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
+      "source_candidate_id": "oracle_repair_graph_v0",
+      "source_problem_ids": [
+        "ring2_list_length_append",
+        "ring2_list_reverse_reverse",
+        "ring2_nat_add_assoc"
+      ],
+      "verifier_class": "PROOF_CORE_GAP"
+    },
+    {
+      "accepted_after_cold_rerun": false,
+      "body_material_status": "real_ring2_failure_mode_row",
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_ring2_tactic_search_fail",
+      "repair_action_id": "repair_record_tactic_search_failure_without_test_tuning",
+      "source_candidate_id": "mathlib_ring1_problem_set_v0",
+      "source_problem_ids": [
+        "ring2_list_length_append_symmetry_hit_fail"
+      ],
+      "verifier_class": "TACTIC_SEARCH_FAIL"
+    },
+    {
+      "accepted_after_cold_rerun": false,
+      "body_material_status": "real_ring2_failure_mode_row",
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_ring2_premise_retrieval_miss",
+      "repair_action_id": "repair_retrieval_query_recipe_update",
+      "source_candidate_id": "retrieval_query_recipe_update",
+      "source_problem_ids": [
+        "ring2_list_map_map_index_miss"
+      ],
+      "verifier_class": "PREMISE_RETRIEVAL_MISS"
     }
   ],
   "findings": [],
   "fixture_id": "first_wave.formal_math_verifier_trace_repair_loop",
   "input_mode": "exported_verifier_trace_repair_bundle",
+  "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
   "missing_negative_cases": [],
   "observed_negative_cases": {},
+  "oracle_repair_variant_id": "oracle_repair_graph_v0",
   "organ_id": "formal_math_verifier_trace_repair_loop",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 5,
-    "status": "pass"
-  },
+  "premise_retrieval_variant_id": "premise_retrieval_graph_v0",
   "projection_receipt_refs": [
-    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
-    "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
-    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json"
+    "receipts/first_wave/ring2_premise_retrieval_precision_recall_harness/ring2_precision_recall_result.json",
+    "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
+    "receipts/first_wave/lean_std_premise_index/lean_std_premise_index_validation_receipt.json"
   ],
   "promotion_policy": {
-    "human_or_provider_advice_authority": "advisory_until_checker_receipt",
-    "policy_id": "public_verifier_trace_repair_promotion_policy",
+    "human_or_provider_advice_authority": "not_authority_without_checker_receipt",
+    "policy_id": "ring2_real_verifier_trace_repair_promotion_policy",
     "promotion_requires": [
       "verifier_class",
       "trace_events",
       "repair_action_id",
       "failure_mode_ledger_append",
-      "cold_rerun_receipt_ref"
+      "cold_rerun_receipt_ref",
+      "copied_material_provenance"
     ]
   },
-  "protocol_id": "formal_math_verifier_trace_repair_loop_runtime_projection_v1",
-  "public_replacement_refs": [
-    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
-    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
-    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json",
-    "paper_modules/formal_math_verifier_trace_repair_loop.md"
-  ],
+  "protocol_id": "formal_math_verifier_trace_repair_loop_ring2_real_import_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
   ],
-  "repair_action_count": 3,
+  "repair_action_count": 5,
   "schema_version": "exported_verifier_trace_repair_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_material_status": "secret_exclusion_scan_no_payload_bodies",
+    "forbidden_output_field_labels_omitted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "source_digests": {
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json": "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+  },
   "source_pattern_ids": [
-    "formal_math_verifier_trace_repair_loop_compound",
-    "lean_std_toolchain_premise_index",
-    "tactic_portfolio_availability_probe",
-    "target_shape_tactic_routing_gate",
+    "formal_math_verifier_trace_repair_loop",
     "formal_math_premise_retrieval",
-    "proof_diagnostic_evidence_spine"
+    "ring2_premise_retrieval_precision_recall_harness",
+    "proof_diagnostic_evidence_spine",
+    "target_shape_tactic_routing_gate"
   ],
   "source_refs": [
-    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-    "codex/doctrine/paper_modules/formal_maths_direction_atlas.md",
-    "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
-    "tools/meta/factory/reduce_prover_provider_receipts.py",
-    "microcosm-substrate/src/microcosm_core/organs/formal_math_readiness_gate.py",
-    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
-    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
   ],
   "status": "pass",
-  "trace_event_count": 6,
+  "target_refs": [
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/projection_protocol.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/verifier_attempts.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/repair_curriculum.json",
+    "fixtures/first_wave/formal_math_verifier_trace_repair_loop/input/promotion_policy.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+  ],
+  "trace_event_count": 15,
   "validator_id": "validator.microcosm.organs.formal_math_verifier_trace_repair_loop",
   "verifier_attempts": [
     {
-      "attempt_id": "attempt_a_missing_premise",
-      "body_redacted": true,
-      "cold_rerun_receipt_ref": null,
-      "failure_mode_id": "fm_missing_commutativity_prior",
-      "promoted_after_cold_rerun": false,
-      "public_input_hash": "sha256:toy-a-redacted",
-      "repair_action_id": "repair_add_closed_std_premise_terms",
-      "statement_id": "toy_nat_add_comm_goal",
-      "trace_event_count": 2,
-      "trace_grade": "blocked_before_tactic",
-      "verifier_class": "missing_premise"
-    },
-    {
-      "attempt_id": "attempt_b_unavailable_tactic",
-      "body_redacted": true,
-      "cold_rerun_receipt_ref": null,
-      "failure_mode_id": "fm_mathlib_tactic_unavailable",
-      "promoted_after_cold_rerun": false,
-      "public_input_hash": "sha256:toy-b-redacted",
-      "repair_action_id": "repair_route_to_std_only_tactic",
-      "statement_id": "toy_list_append_assoc_goal",
-      "trace_event_count": 2,
-      "trace_grade": "blocked_by_environment",
-      "verifier_class": "unavailable_tactic"
-    },
-    {
-      "attempt_id": "attempt_c_invalid_body_redacted",
-      "body_redacted": true,
-      "cold_rerun_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json",
-      "failure_mode_id": "fm_invalid_body_shape",
+      "attempt_id": "ring2_list_length_append.proof_core_gap.verifier_trace",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
       "promoted_after_cold_rerun": true,
-      "public_input_hash": "sha256:toy-c-redacted",
-      "repair_action_id": "repair_change_goal_shape_route",
-      "statement_id": "toy_bool_and_comm_goal",
-      "trace_event_count": 2,
-      "trace_grade": "failed_checker_then_repaired",
-      "verifier_class": "invalid_proof_body_redacted"
+      "public_input_hash": "sha256:b5fec442a8b9166a77af3c4af6d64506f79cec43c957de8bfb6e30c3f2e57a17",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
+      "source_domain": "list",
+      "source_problem_id": "ring2_list_length_append",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_length_append",
+      "source_split": "dev",
+      "statement_id": "ring2_list_length_append",
+      "trace_event_count": 3,
+      "trace_grade": "failed_checker_after_premise_hit",
+      "verifier_class": "PROOF_CORE_GAP"
+    },
+    {
+      "attempt_id": "ring2_list_length_append_symmetry_hit_fail.tactic_search_fail.verifier_trace",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_ring2_tactic_search_fail",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_length_append_symmetry_hit_fail",
+      "promoted_after_cold_rerun": false,
+      "public_input_hash": "sha256:600854aa43d0db15c3b46450a9ec3592110a2056e0368664639d65be18bbce74",
+      "repair_action_id": "repair_record_tactic_search_failure_without_test_tuning",
+      "source_domain": "list",
+      "source_problem_id": "ring2_list_length_append_symmetry_hit_fail",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_length_append_symmetry_hit_fail",
+      "source_split": "test",
+      "statement_id": "ring2_list_length_append_symmetry_hit_fail",
+      "trace_event_count": 3,
+      "trace_grade": "failed_tactic_search_after_premise_hit",
+      "verifier_class": "TACTIC_SEARCH_FAIL"
+    },
+    {
+      "attempt_id": "ring2_list_map_map_index_miss.premise_retrieval_miss.verifier_trace",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "cold_rerun_receipt_ref": null,
+      "failure_mode_id": "fm_ring2_premise_retrieval_miss",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_map_map_index_miss",
+      "promoted_after_cold_rerun": false,
+      "public_input_hash": "sha256:18cf4c9d8102131577f411f5f8187c3cc8b67d0e232f890e37837be793b4d2c7",
+      "repair_action_id": "repair_retrieval_query_recipe_update",
+      "source_domain": "list",
+      "source_problem_id": "ring2_list_map_map_index_miss",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_map_map_index_miss",
+      "source_split": "test",
+      "statement_id": "ring2_list_map_map_index_miss",
+      "trace_event_count": 3,
+      "trace_grade": "blocked_by_premise_retrieval_miss",
+      "verifier_class": "PREMISE_RETRIEVAL_MISS"
+    },
+    {
+      "attempt_id": "ring2_list_reverse_reverse.proof_core_gap.verifier_trace",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+      "promoted_after_cold_rerun": true,
+      "public_input_hash": "sha256:301cb3d33f4f23b4d35306e3ecd37012e6b356ee53ebe2ea3fc982fbdf130490",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
+      "source_domain": "list",
+      "source_problem_id": "ring2_list_reverse_reverse",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_list_reverse_reverse",
+      "source_split": "dev",
+      "statement_id": "ring2_list_reverse_reverse",
+      "trace_event_count": 3,
+      "trace_grade": "failed_checker_after_premise_hit",
+      "verifier_class": "PROOF_CORE_GAP"
+    },
+    {
+      "attempt_id": "ring2_nat_add_assoc.proof_core_gap.verifier_trace",
+      "body_material_status": "real_ring2_verifier_trace_row",
+      "cold_rerun_receipt_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+      "failure_mode_id": "fm_ring2_proof_core_gap",
+      "oracle_repair_contrast_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+      "promoted_after_cold_rerun": true,
+      "public_input_hash": "sha256:c794ad99a57862d3bbea33456e45f6661b11c0c6b7a281ba91ed23eed066be9f",
+      "repair_action_id": "repair_oracle_repair_graph_v0_cold_rerun_contrast",
+      "source_domain": "nat",
+      "source_problem_id": "ring2_nat_add_assoc",
+      "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json#problem_results.ring2_nat_add_assoc",
+      "source_split": "train",
+      "statement_id": "ring2_nat_add_assoc",
+      "trace_event_count": 3,
+      "trace_grade": "failed_checker_after_premise_hit",
+      "verifier_class": "PROOF_CORE_GAP"
     }
   ]
 }

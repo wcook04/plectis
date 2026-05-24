@@ -109,6 +109,7 @@ def main(argv: list[str] | None = None) -> int:
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument("project", nargs="?")
     subparsers.add_parser("authority")
+    subparsers.add_parser("workingness")
     subparsers.add_parser("prediction-lens")
     subparsers.add_parser("market-boundary")
     subparsers.add_parser("corpus-lens")
@@ -527,6 +528,8 @@ def main(argv: list[str] | None = None) -> int:
         return runtime_shell.main(command_args)
     if args.command == "authority":
         return runtime_shell.main(["authority"])
+    if args.command == "workingness":
+        return runtime_shell.main(["workingness"])
     if args.command == "prediction-lens":
         return runtime_shell.main(["prediction-lens"])
     if args.command == "market-boundary":

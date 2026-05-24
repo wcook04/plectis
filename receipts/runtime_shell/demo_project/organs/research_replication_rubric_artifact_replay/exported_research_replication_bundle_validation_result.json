@@ -1,9 +1,9 @@
 {
   "ablation_count": 2,
-  "anti_claim": "Research replication rubric-artifact replay validates synthetic contribution, rubric, experiment-DAG, metric-script, declared artifact-hash roster, grader, budget, ablation, failure-taxonomy, and cold-rerun receipts. It does not claim benchmark performance, use undeclared artifact hashes, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
+  "anti_claim": "Research replication rubric-artifact replay validates public contribution, rubric, experiment-DAG, metric-script, declared artifact-hash roster, grader, budget, ablation, failure-taxonomy, cold-rerun receipts, and public execution-trace spans. Synthetic rows remain fixture inputs around that real replay contract. It does not claim benchmark performance, use undeclared artifact hashes, reuse forbidden original-author code, expose private paper or data bodies, run providers, perform unbounded compute search, grade final answers alone, or authorize publication.",
   "artifact_replay_count": 2,
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_research_replication_replay_receipts_only",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_research_replication_replay_fixture",
     "benchmark_performance_claim_authorized": false,
     "final_answer_only_grading_authorized": false,
     "hidden_rubric_export_authorized": false,
@@ -16,10 +16,20 @@
     "unbounded_compute_search_authorized": false,
     "undeclared_artifact_hash_ref_authorized": false
   },
+  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_import_verification": {
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_research_replication_rubric_artifact_replay.py"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
   "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
   "cold_rerun_count": 2,
-  "command": "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run-replication-bundle",
-  "created_at": "2026-05-22T12:56:12+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-23T12:56:53+00:00",
   "declared_artifact_hash_ref_count": 2,
   "declared_artifact_hash_refs": [
     "artifacts/model_trace.sha256",
@@ -37,24 +47,184 @@
   "organ_id": "research_replication_rubric_artifact_replay",
   "paper_count": 2,
   "policy_id": "research_replication_rubric_artifact_replay_policy_v1",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 4,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/first_wave/research_replication_rubric_artifact_replay/research_replication_rubric_artifact_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
   ],
   "protocol_id": "research_replication_public_projection_v1",
-  "public_replacement_refs": [
-    "fixtures/first_wave/research_replication_rubric_artifact_replay/input/research_replays.json",
-    "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
-    "paper_modules/research_replication_rubric_artifact_replay.md"
+  "public_agent_execution_trace": {
+    "audit": {
+      "coverage": {
+        "ablation_diff_coverage": true,
+        "body_in_receipt": false,
+        "budget_receipt_coverage": true,
+        "cold_rerun_coverage": true,
+        "contribution_decomposition_coverage": true,
+        "declared_artifact_hash_roster_coverage": true,
+        "failure_taxonomy_coverage": true,
+        "grader_report_coverage": true,
+        "metric_script_coverage": true,
+        "rubric_tree_coverage": true
+      },
+      "finding_count": 0,
+      "findings": []
+    },
+    "authority_ceiling": {
+      "credential_entry_authorized": false,
+      "external_network_mutation_authorized": false,
+      "hidden_reasoning_exported": false,
+      "live_account_action_authorized": false,
+      "live_browser_control_authorized": false,
+      "live_home_session_logs_read": false,
+      "provider_payload_read": false,
+      "raw_screenshot_body_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
+    "input_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle",
+    "protocol_id": "research_replication_public_projection_v1",
+    "schema_version": "public_agent_execution_trace_refactor_v0",
+    "source_faithful_refactor": {
+      "omitted_live_material": [
+        "private paper bodies",
+        "private data bodies",
+        "hidden rubric bodies",
+        "provider payload bodies",
+        "original-author code bodies"
+      ],
+      "preserved_semantics": [
+        "observable_action_span_rows",
+        "authority_boundary_metadata",
+        "sequence_ordered_trace",
+        "audit_findings",
+        "public_summary_counts",
+        "artifact_hash_roster_refs",
+        "cold_rerun_receipt_refs"
+      ],
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "verification_mode": "extension_of_existing_public_refactor"
+    },
+    "source_refs": [
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json"
+    ],
+    "source_symbols": [
+      "system/lib/agent_execution_trace.py::Span",
+      "system/lib/agent_execution_trace.py::build_agent_execution_trace",
+      "system/lib/agent_execution_trace.py::write_agent_execution_trace",
+      "codex/standards/std_agent_execution_trace.json::types.Span",
+      "codex/standards/std_agent_execution_trace.json::strict_boundary"
+    ],
+    "span_count": 2,
+    "spans": [
+      {
+        "ablation_diff_ref": "ablations/ablation_diff_public.json",
+        "action_kind": "research_replication_artifact_replay",
+        "agent": "microcosm_public_fixture",
+        "artifact_hash_refs": [
+          "artifacts/model_trace.sha256",
+          "artifacts/result_table.sha256"
+        ],
+        "authority_verdict_id": "rubrics/replication_rubric_tree_public.json",
+        "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
+        "declared_artifact_hash_refs": [
+          "artifacts/model_trace.sha256",
+          "artifacts/result_table.sha256"
+        ],
+        "duration_ms": 0,
+        "episode_id": "paper_computational_science_capsule",
+        "failure_taxonomy_ref": "failures/failure_taxonomy_public.json",
+        "grader_report_ref": "grader/grader_report_public.json",
+        "input_digest": "sha256:a3d6e7e28e611ff716f9b6caf4295a990ca06dbbedb9b4d451d423f77784a3d1",
+        "metric_script_refs": [
+          "metrics/error_norm.py",
+          "metrics/ablation_sensitivity.py"
+        ],
+        "observation_ref": "capsules/contribution_decomposition_public.json",
+        "outcome": "success",
+        "paper_kind": "computational_science",
+        "sequence_index": 0,
+        "session_id": "research_replication_rubric_artifact_replay_runtime_example",
+        "source_ref": "research_replication_rubric_artifact_replay_bundle",
+        "span_id": "span:paper_computational_science_capsule",
+        "state_transition_ref": "rerun/cold_rerun_receipt.json",
+        "target_refs": [
+          "scratch/scaffold_manifest_public.json"
+        ],
+        "tool_name": "research_replication_replay",
+        "turn_index": 0
+      },
+      {
+        "ablation_diff_ref": "ablations/ablation_diff_public.json",
+        "action_kind": "research_replication_artifact_replay",
+        "agent": "microcosm_public_fixture",
+        "artifact_hash_refs": [
+          "artifacts/model_trace.sha256",
+          "artifacts/result_table.sha256"
+        ],
+        "authority_verdict_id": "rubrics/replication_rubric_tree_public.json",
+        "cost_runtime_budget_ref": "budget/runtime_budget_receipt.json",
+        "declared_artifact_hash_refs": [
+          "artifacts/model_trace.sha256",
+          "artifacts/result_table.sha256"
+        ],
+        "duration_ms": 0,
+        "episode_id": "paper_ml_method_capsule",
+        "failure_taxonomy_ref": "failures/failure_taxonomy_public.json",
+        "grader_report_ref": "grader/grader_report_public.json",
+        "input_digest": "sha256:4dadf516d0f371623fe756d52dbaebbf15c829ff856773e1e6a59f443fdd36b2",
+        "metric_script_refs": [
+          "metrics/auc_delta.py",
+          "metrics/seed_variance.py"
+        ],
+        "observation_ref": "capsules/contribution_decomposition_public.json",
+        "outcome": "success",
+        "paper_kind": "ml_method",
+        "sequence_index": 1,
+        "session_id": "research_replication_rubric_artifact_replay_runtime_example",
+        "source_ref": "research_replication_rubric_artifact_replay_bundle",
+        "span_id": "span:paper_ml_method_capsule",
+        "state_transition_ref": "rerun/cold_rerun_receipt.json",
+        "target_refs": [
+          "scratch/scaffold_manifest_public.json"
+        ],
+        "tool_name": "research_replication_replay",
+        "turn_index": 1
+      }
+    ],
+    "status": "pass",
+    "summary": {
+      "action_kind_counts": {
+        "research_replication_artifact_replay": 2
+      },
+      "finding_count": 0,
+      "outcome_counts": {
+        "success": 2
+      },
+      "session_count": 1,
+      "total_span_count": 2,
+      "trace_digest": "sha256:c0270839d57396d4a5f7cb7f59f6d113e1499ac5a22e993dfd1247b33f6400f6"
+    },
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::main"
+    ]
+  },
+  "public_runtime_refs": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+    "microcosm_core.organs.research_replication_rubric_artifact_replay::run_replication_bundle"
   ],
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay/exported_research_replication_bundle_validation_result.json"
@@ -167,6 +337,22 @@
     "metric_script"
   ],
   "schema_version": "exported_research_replication_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scanned_path_count": 4,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "source_pattern_ids": [
     "research_replication_rubric_artifact_replay_compound"
   ],
@@ -177,5 +363,13 @@
     "system/lib/agent_execution_trace.py"
   ],
   "status": "pass",
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "microcosm-substrate/src/microcosm_core/organs/research_replication_rubric_artifact_replay.py"
+  ],
+  "target_symbols": [
+    "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+    "microcosm_core.organs.research_replication_rubric_artifact_replay::run_replication_bundle"
+  ],
   "validator_id": "validator.microcosm.organs.research_replication_rubric_artifact_replay"
 }

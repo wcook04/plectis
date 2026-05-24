@@ -1,7 +1,7 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-23T04:21:57+00:00",
+  "created_at": "2026-05-23T21:09:32+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,65 +21,65 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_1817",
+  "event_id": "evt_1861",
   "event_refs": [
     {
-      "event_id": "evt_1781",
+      "event_id": "evt_1823",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1786",
+      "event_id": "evt_1828",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1787",
+      "event_id": "evt_1829",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1792",
+      "event_id": "evt_1834",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1793",
+      "event_id": "evt_1835",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1798",
+      "event_id": "evt_1840",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1799",
+      "event_id": "evt_1841",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1804",
+      "event_id": "evt_1845",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1805",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1810",
+      "event_id": "evt_1850",
       "span": "project.route",
       "status": "pass"
     },
     {
-      "event_id": "evt_1811",
+      "event_id": "evt_1851",
       "span": "project.explain",
       "status": "pass"
     },
     {
-      "event_id": "evt_1816",
+      "event_id": "evt_1855",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1860",
       "span": "project.route",
       "status": "pass"
     }

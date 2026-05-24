@@ -84,6 +84,7 @@ PROOF_LAB_FIRST_SCREEN_COMMAND = (
     "microcosm verifier-lab-kernel run-kernel-bundle "
     f"--input {PROOF_LAB_BUNDLE_REF} --out /tmp/microcosm-proof-lab"
 )
+WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
 
 
 Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
@@ -1147,6 +1148,181 @@ def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _standard_ref_for_organ(organ_id: str) -> str:
+    return f"standards/std_microcosm_{organ_id}.json"
+
+
+def _standard_contract_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
+    standard_ref = _standard_ref_for_organ(organ_id)
+    standard = _read_json_if_exists(root / standard_ref)
+    standard_payload = standard.get("standard_payload")
+    if not isinstance(standard_payload, dict):
+        standard_payload = {}
+    public_private_boundary = standard.get("public_private_boundary")
+    if not isinstance(public_private_boundary, dict):
+        public_private_boundary = {}
+    authority_ceiling = standard.get("authority_ceiling")
+    if not isinstance(authority_ceiling, dict):
+        authority_ceiling = {}
+    failure_modes = _strings(standard_payload.get("failure_modes")) or _strings(
+        standard.get("failure_modes")
+    )
+    return {
+        "standard_ref": standard_ref,
+        "standard_present": bool(standard),
+        "standard_id": standard.get("standard_id"),
+        "standard_status": standard.get("status"),
+        "authority_boundary": standard.get("authority_boundary"),
+        "authority_ceiling": authority_ceiling,
+        "public_private_boundary_present": bool(public_private_boundary),
+        "ontology": standard_payload.get("ontology"),
+        "teleology": standard_payload.get("teleology"),
+        "anti_purpose": standard_payload.get("anti_purpose"),
+        "known_failure_modes": failure_modes,
+        "validation_rules": _strings(standard.get("validation_rules")),
+        "receipt_expectations": _strings(standard.get("receipt_expectations")),
+        "required_fields": _strings(standard.get("required_fields")),
+    }
+
+
+def _workingness_state(row: dict[str, Any]) -> str:
+    runtime_mode = row.get("runtime_mode")
+    if runtime_mode == "drilldown_only":
+        return "demoted_regression_drilldown"
+    if runtime_mode != "adapter_backed":
+        return "not_runtime_backed"
+    if row.get("counts_as_real_substrate_progress") is True:
+        return "evidence_backed_runtime_spine"
+    return "runtime_spine_non_progress"
+
+
+def _evidence_gap_class(row: dict[str, Any]) -> str:
+    if row.get("runtime_mode") == "drilldown_only":
+        return "kept_out_of_product_path_until_evidence_strengthens"
+    evidence_class = row.get("evidence_class")
+    if evidence_class == "semantic_validator":
+        return "contract_validated_but_scope_bound"
+    if evidence_class == "external_subprocess_witness":
+        return "tool_witness_present_but_not_general_authority"
+    if evidence_class == "algorithmic_projection":
+        return "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims"
+    if evidence_class in {"fixture_echo_smoke", "fixture_schema_replay"}:
+        return "fixture_regression_only_not_product_progress"
+    return "unclassified_or_missing_evidence"
+
+
+def _future_work_targets(
+    row: dict[str, Any],
+    standard_contract: dict[str, Any],
+) -> list[dict[str, Any]]:
+    targets: list[dict[str, Any]] = []
+    organ_id = str(row.get("organ_id") or "")
+    standard_ref = str(standard_contract.get("standard_ref") or "")
+    if not standard_contract.get("standard_present"):
+        targets.append(
+            {
+                "target_id": "add_standard_contract",
+                "target_ref": standard_ref,
+                "why": "workingness cannot be bounded without an owning standard",
+            }
+        )
+    if not standard_contract.get("known_failure_modes"):
+        targets.append(
+            {
+                "target_id": "add_standard_failure_modes",
+                "target_ref": standard_ref,
+                "why": "future work needs typed failure modes before upgrade claims",
+            }
+        )
+    if not row.get("validator_command"):
+        targets.append(
+            {
+                "target_id": "add_validator_command",
+                "target_ref": organ_id,
+                "why": "workingness needs a runnable command or validator",
+            }
+        )
+    generated = row.get("generated_receipts")
+    if not isinstance(generated, list) or not generated:
+        targets.append(
+            {
+                "target_id": "add_generated_receipt",
+                "target_ref": organ_id,
+                "why": "workingness needs at least one receipt ref",
+            }
+        )
+    evidence_class = row.get("evidence_class")
+    if row.get("runtime_mode") == "drilldown_only":
+        targets.append(
+            {
+                "target_id": "upgrade_or_keep_demoted",
+                "target_ref": row.get("example_ref") or organ_id,
+                "why": (
+                    "demoted drilldowns stay out of the product path until they "
+                    "stop depending on fixture-supplied verdict rows"
+                ),
+            }
+        )
+    elif evidence_class == "algorithmic_projection":
+        targets.append(
+            {
+                "target_id": "strengthen_projection_evidence",
+                "target_ref": row.get("example_ref") or organ_id,
+                "why": (
+                    "algorithmic projections work as public mechanics, but future "
+                    "claims need independent validators, copied macro bodies with "
+                    "provenance, or bounded tool witnesses"
+                ),
+            }
+        )
+    elif evidence_class == "external_subprocess_witness":
+        targets.append(
+            {
+                "target_id": "pin_and_rerun_tool_witness",
+                "target_ref": row.get("current_authority_receipt") or organ_id,
+                "why": (
+                    "external witness rows must stay tied to tool versions and cold "
+                    "rerun receipts before any broader claim"
+                ),
+            }
+        )
+    return targets
+
+
+def _workingness_requirement_status(
+    row: dict[str, Any],
+    standard_contract: dict[str, Any],
+) -> dict[str, Any]:
+    generated = row.get("generated_receipts")
+    generated_receipt_count = len(generated) if isinstance(generated, list) else 0
+    required = {
+        "runtime_or_drilldown_mode_declared": row.get("runtime_mode")
+        in {"adapter_backed", "drilldown_only"},
+        "owning_standard_present": standard_contract.get("standard_present") is True,
+        "known_failure_modes_present": bool(
+            standard_contract.get("known_failure_modes")
+        ),
+        "validator_command_present": bool(row.get("validator_command")),
+        "current_authority_receipt_present": bool(
+            row.get("current_authority_receipt")
+        ),
+        "generated_receipts_present": generated_receipt_count > 0,
+        "evidence_class_declared": bool(row.get("evidence_class")),
+        "claim_ceiling_declared": bool(row.get("claim_ceiling")),
+        "public_private_boundary_declared": standard_contract.get(
+            "public_private_boundary_present"
+        )
+        is True,
+    }
+    return {
+        "required_substrate": required,
+        "missing_requirement_ids": [
+            key for key, present in required.items() if present is not True
+        ],
+        "generated_receipt_count": generated_receipt_count,
+    }
+
+
 class RuntimeShell:
     def __init__(self, root: str | Path | None = None) -> None:
         self.root = Path(root).resolve(strict=False) if root is not None else public_root()
@@ -1256,6 +1432,180 @@ class RuntimeShell:
         receipts = sorted((self.root / "receipts").rglob("*.json"))
         return [_safe_receipt_summary(path, self.root) for path in receipts]
 
+    def workingness_map(self, *, persist_receipt: bool = False) -> dict[str, Any]:
+        organs = self.organs()
+        rows: list[dict[str, Any]] = []
+        for index, row in enumerate(organs, start=1):
+            organ_id = str(row.get("organ_id") or "")
+            standard_contract = _standard_contract_for_organ(self.root, organ_id)
+            requirement_status = _workingness_requirement_status(
+                row, standard_contract
+            )
+            future_work_targets = _future_work_targets(row, standard_contract)
+            rows.append(
+                {
+                    "ordinal": index,
+                    "thing_id": organ_id,
+                    "thing_kind": "organ",
+                    "runtime_mode": row.get("runtime_mode"),
+                    "product_path_role": row.get("product_path_role"),
+                    "status": row.get("status"),
+                    "workingness_state": _workingness_state(row),
+                    "evidence_gap_class": _evidence_gap_class(row),
+                    "observed_workingness": {
+                        "validator_command": row.get("validator_command"),
+                        "current_authority_receipt": row.get(
+                            "current_authority_receipt"
+                        ),
+                        "generated_receipts": row.get("generated_receipts", []),
+                        "evidence_class": row.get("evidence_class"),
+                        "evidence_strength_rank": row.get(
+                            "evidence_strength_rank"
+                        ),
+                        "truth_accounting_bucket": row.get(
+                            "truth_accounting_bucket"
+                        ),
+                        "counts_as_real_substrate_progress": row.get(
+                            "counts_as_real_substrate_progress"
+                        )
+                        is True,
+                        "evaluator_basis": row.get("evaluator_basis"),
+                        "verdict_source": row.get("verdict_source"),
+                        "negative_case_independence": row.get(
+                            "negative_case_independence"
+                        ),
+                        "claim_ceiling": row.get("claim_ceiling"),
+                        "classification_basis": row.get("classification_basis"),
+                    },
+                    "needs_to_work": {
+                        **requirement_status,
+                        "standard_ref": standard_contract.get("standard_ref"),
+                        "standard_status": standard_contract.get("standard_status"),
+                        "authority_boundary": standard_contract.get(
+                            "authority_boundary"
+                        ),
+                        "authority_ceiling": standard_contract.get(
+                            "authority_ceiling"
+                        ),
+                        "ontology": standard_contract.get("ontology"),
+                        "teleology": standard_contract.get("teleology"),
+                        "anti_purpose": standard_contract.get("anti_purpose"),
+                        "validation_rule_count": len(
+                            standard_contract.get("validation_rules", [])
+                        ),
+                        "receipt_expectation_count": len(
+                            standard_contract.get("receipt_expectations", [])
+                        ),
+                        "required_field_count": len(
+                            standard_contract.get("required_fields", [])
+                        ),
+                    },
+                    "known_failure_modes": standard_contract.get(
+                        "known_failure_modes", []
+                    ),
+                    "failure_mode_count": len(
+                        standard_contract.get("known_failure_modes", [])
+                    ),
+                    "evaluation_comparison": {
+                        "accepted_status_is_not_evidence_strength": True,
+                        "status_claim": row.get("status"),
+                        "evidence_strength_claim": row.get("evidence_class"),
+                        "evidence_truth_bucket": row.get(
+                            "truth_accounting_bucket"
+                        ),
+                        "claim_ceiling": row.get("claim_ceiling"),
+                        "gap_class": _evidence_gap_class(row),
+                    },
+                    "future_work_targets": future_work_targets,
+                    "future_work_target_count": len(future_work_targets),
+                    "source_refs": [
+                        ref
+                        for ref in [
+                            standard_contract.get("standard_ref"),
+                            row.get("current_authority_receipt"),
+                            row.get("example_ref"),
+                        ]
+                        if isinstance(ref, str) and ref
+                    ],
+                }
+            )
+
+        mapped_count = len(rows)
+        rows_with_failure_modes = sum(
+            1 for row in rows if row.get("failure_mode_count", 0) > 0
+        )
+        rows_with_open_targets = sum(
+            1 for row in rows if row.get("future_work_target_count", 0) > 0
+        )
+        missing_standard_count = sum(
+            1
+            for row in rows
+            if "owning_standard_present"
+            in row["needs_to_work"]["missing_requirement_ids"]
+        )
+        missing_failure_modes_count = sum(
+            1
+            for row in rows
+            if "known_failure_modes_present"
+            in row["needs_to_work"]["missing_requirement_ids"]
+        )
+        payload = {
+            "schema_version": "microcosm_workingness_failure_map_v1",
+            "status": PASS if mapped_count == len(organs) else "blocked",
+            "completeness_status": "complete_failure_modes"
+            if missing_standard_count == 0 and missing_failure_modes_count == 0
+            else "partial_failure_modes",
+            "map_id": "runtime_organ_workingness_failure_map",
+            "command": "microcosm workingness",
+            "endpoint": "/workingness",
+            "workingness_map_ref": WORKINGNESS_MAP_REF.as_posix(),
+            "projection_not_authority": True,
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_exported": False,
+            "map_policy": {
+                "not_a_scorecard": True,
+                "accepted_status_is_not_evidence_strength": True,
+                "evidence_class_is_claim_ceiling": True,
+                "future_work_targets_are_concrete_substrate_targets": True,
+                "failure_modes_come_from_owning_standards": True,
+                "demoted_drilldowns_remain_visible_without_counting_as_product_path": True,
+            },
+            "surface_counts": {
+                "thing_count": mapped_count,
+                "mapped_organ_count": mapped_count,
+                "rows_with_failure_modes": rows_with_failure_modes,
+                "missing_standard_count": missing_standard_count,
+                "missing_failure_modes_count": missing_failure_modes_count,
+                "rows_with_future_work_targets": rows_with_open_targets,
+                "adapter_backed_organ_count": sum(
+                    1 for row in rows if row.get("runtime_mode") == "adapter_backed"
+                ),
+                "demoted_drilldown_count": sum(
+                    1 for row in rows if row.get("runtime_mode") == "drilldown_only"
+                ),
+            },
+            "thing_failure_map": rows,
+            "authority_ceiling": {
+                "release_authorized": False,
+                "hosted_public_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "private_data_equivalence_claim": False,
+                "whole_system_correctness_claim": False,
+                "maturity_or_activation_label_authority": False,
+                "score_based_progress_authority": False,
+            },
+            "anti_claim": (
+                "The workingness map is an organ-by-organ failure envelope over "
+                "public standards, commands, evidence classes, and receipt refs. "
+                "It is not a maturity board, activation score, release signal, "
+                "provider evaluation, or whole-system correctness claim."
+            ),
+        }
+        if persist_receipt:
+            write_json_atomic(self.root / WORKINGNESS_MAP_REF, payload)
+        return payload
+
     def status(self) -> dict[str, Any]:
         organs = self.organs()
         adapter_backed_rows = [
@@ -1298,6 +1648,7 @@ class RuntimeShell:
                     "microcosm status",
                     "microcosm spine",
                     "microcosm authority",
+                    "microcosm workingness",
                     "microcosm prediction-lens",
                     "microcosm market-boundary",
                     "microcosm corpus-lens",
@@ -1338,8 +1689,14 @@ class RuntimeShell:
                         "run-precision-recall-bundle"
                     ),
                     "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
-                    "microcosm work-landing-control-spine validate-control-bundle",
-                    "microcosm finance-eval-spine validate-finance-eval-bundle",
+                    (
+                        "microcosm work-landing-control-spine "
+                        "validate-control-bundle"
+                    ),
+                    (
+                        "microcosm finance-eval-spine "
+                        "validate-finance-eval-bundle"
+                    ),
                     "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
                     (
                         "microcosm world-model-projection-drift-control-room "
@@ -1466,6 +1823,7 @@ class RuntimeShell:
                 "run microcosm explain <project> <route_id>",
                 "run microcosm spine",
                 "run microcosm authority",
+                "run microcosm workingness",
                 "run microcosm prediction-lens",
                 "run microcosm market-boundary",
                 "run microcosm corpus-lens",
@@ -13663,6 +14021,8 @@ class RuntimeShell:
                     self._send(200, shell.tour(project_path if project_path is not None else DEFAULT_PROJECT_REL))
                 elif path == "/authority":
                     self._send(200, shell.authority())
+                elif path == "/workingness":
+                    self._send(200, shell.workingness_map())
                 elif path == "/prediction":
                     self._send(200, shell.prediction_lens())
                 elif path == "/market-boundary":
@@ -13796,6 +14156,7 @@ def build_parser() -> argparse.ArgumentParser:
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
     subparsers.add_parser("authority")
+    subparsers.add_parser("workingness")
     subparsers.add_parser("prediction-lens")
     subparsers.add_parser("market-boundary")
     subparsers.add_parser("corpus-lens")
@@ -13858,6 +14219,8 @@ def main(argv: list[str] | None = None) -> int:
         return _print_json(shell.tour(args.project))
     if args.command == "authority":
         return _print_json(shell.authority())
+    if args.command == "workingness":
+        return _print_json(shell.workingness_map(persist_receipt=True))
     if args.command == "prediction-lens":
         return _print_json(shell.prediction_lens())
     if args.command == "market-boundary":
