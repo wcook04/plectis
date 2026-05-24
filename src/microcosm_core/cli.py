@@ -486,6 +486,7 @@ def main(argv: list[str] | None = None) -> int:
             "run",
             "validate-observability-bundle",
             "validate-computer-use-bundle",
+            "validate-session-attribution-bundle",
         ],
     )
     _add_input_out(observability_parser)

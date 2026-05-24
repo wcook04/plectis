@@ -94,7 +94,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["real_import_validation_count"] == 15
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert status["copied_non_secret_macro_body_material_count"] == 5
+    assert status["copied_non_secret_macro_body_material_count"] == 6
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
     assert status["macro_body_import_floor"][
@@ -103,7 +103,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 1,
-        "public_macro_tool_body": 2,
+        "public_macro_tool_body": 3,
     }
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
@@ -258,6 +258,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
         in status["runtime_surface"]["commands"]
     )
     assert (
+        "microcosm agent-route-observability-runtime "
+        "validate-session-attribution-bundle"
+        in status["runtime_surface"]["commands"]
+    )
+    assert (
         "microcosm research-replication-rubric-artifact-replay run-replication-bundle"
         in status["runtime_surface"]["commands"]
     )
@@ -294,8 +299,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["surface_counts"]["non_progress_organ_count"] == 0
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 5
-    assert spine["surface_counts"]["public_safe_body_material_count"] == 5
+    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 6
+    assert spine["surface_counts"]["public_safe_body_material_count"] == 6
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 23
     assert spine["surface_counts"]["real_import_validation_count"] == 15
@@ -317,12 +322,13 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["macro_body_import_floor"]["status"] == "pass"
     assert spine["macro_body_import_floor"][
         "copied_non_secret_macro_body_material_count"
-    ] == 5
+    ] == 6
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "non_lean_tool_body_material_ids"
     ] == [
         "work_landing_tool_body_import",
         "agent_execution_trace_body_import",
+        "agent_session_attribution_body_import",
     ]
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "proof_body_material_ids"
@@ -765,7 +771,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert (
-        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 5
+        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 6
     )
     assert (
         authority["surface_counts"]["mixed_public_safe_macro_import_assay_status"]
@@ -3107,7 +3113,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert intake["status"] == "pass"
     assert intake["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert intake["bridge_id"] == "runtime_reveal_import_bridge"
-    assert intake["projection_cell_count"] == 5
+    assert intake["projection_cell_count"] == 6
     assert [step["command"] for step in intake["first_run_bridge"]] == [
         "microcosm compile <project>",
         "microcosm spine",
@@ -3118,6 +3124,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     by_cell = {row["cell_id"]: row for row in intake["cell_status"]}
     assert set(by_cell) == {
         "agent_execution_trace_refactor",
+        "agent_session_attribution_import",
         "formal_math_readiness_extensions",
         "navigation_route_plane_import",
         "projection_protocol_self_host",
@@ -3139,6 +3146,13 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         "public_runtime_import_landed"
     )
     assert by_cell["agent_execution_trace_refactor"]["action_required"] is False
+    assert by_cell["agent_session_attribution_import"]["projection_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["agent_session_attribution_import"]["runtime_bridge_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["agent_session_attribution_import"]["action_required"] is False
     assert by_cell["navigation_route_plane_import"]["projection_status"] == (
         "public_runtime_import_landed"
     )
@@ -3147,7 +3161,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     )
     assert by_cell["navigation_route_plane_import"]["action_required"] is False
     assert intake["projection_status_counts"] == {
-        "public_runtime_import_landed": 3,
+        "public_runtime_import_landed": 4,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }

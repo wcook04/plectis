@@ -4,9 +4,16 @@ import argparse
 import hashlib
 import json
 from collections import Counter, defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_session_attribution import (
+    ATTRIBUTION_STATUS_MATCHED,
+    SCHEMA_VERSION as SESSION_ATTRIBUTION_VIEW_SCHEMA_VERSION,
+    attribute_sessions,
+    identify_self_session,
+)
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
@@ -33,6 +40,9 @@ COMPUTER_USE_FIXTURE_RESULT_NAME = "computer_use_action_trace_replay_result.json
 COMPUTER_USE_BUNDLE_RESULT_NAME = (
     "exported_computer_use_action_trace_bundle_validation_result.json"
 )
+SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME = (
+    "exported_session_attribution_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -51,6 +61,10 @@ COMPUTER_USE_ACTION_TRACE_RECEIPT_PATH = (
 EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_computer_use_action_trace_bundle_validation_result.json"
+)
+EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_session_attribution_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -119,6 +133,20 @@ COMPUTER_USE_AUTHORITY_CEILING = {
     "source_mutation_authorized": False,
     "release_authorized": False,
 }
+SESSION_ATTRIBUTION_AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "public_session_attribution_metadata_not_live_session_authority",
+    "live_home_session_logs_read": False,
+    "raw_transcript_body_exported": False,
+    "provider_payload_read": False,
+    "browser_hud_cockpit_state_read": False,
+    "account_session_state_exported": False,
+    "credential_or_cookie_exported": False,
+    "live_work_ledger_mutation_authorized": False,
+    "source_mutation_authorized": False,
+    "release_authorized": False,
+    "private_data_equivalence_claim": False,
+}
 COMPUTER_USE_ANTI_CLAIM = (
     "Computer-use action trace replay validates synthetic observation, "
     "affordance, action, pre-action authority verdict, state-transition, "
@@ -130,9 +158,19 @@ COMPUTER_USE_ANTI_CLAIM = (
     "state, report benchmark scores, call providers, mutate source, or "
     "authorize release."
 )
+SESSION_ATTRIBUTION_ANTI_CLAIM = (
+    "Session-attribution replay validates the public source-faithful "
+    "agent_session_attribution import over synthetic AgentTraceStore and Work "
+    "Ledger metadata envelopes. It does not read live home session logs, export "
+    "raw transcript bodies, expose provider payloads, browser/HUD/cockpit state, "
+    "account/session control state, credentials, or cookies, mutate Work Ledger "
+    "or source, claim private-root equivalence, or authorize release."
+)
 
 SOURCE_PATTERN_IDS = [
     "agent_route_observability_runtime",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
@@ -158,6 +196,29 @@ COMPUTER_USE_INPUT_NAMES = (
     "recovery_receipts.json",
     "cold_replay.json",
 )
+SESSION_ATTRIBUTION_INPUT_NAMES = (
+    "bundle_manifest.json",
+    "ats_active_sessions.json",
+    "work_ledger_status.json",
+    "attribution_policy.json",
+    "self_identification_request.json",
+    "expected_attribution_summary.json",
+)
+SESSION_ATTRIBUTION_FORBIDDEN_KEYS = {
+    "raw_transcript_body",
+    "transcript_body",
+    "provider_payload",
+    "browser_hud_state",
+    "browser_hud_cockpit_state",
+    "account_session_state",
+    "credential_value",
+    "cookie",
+    "password",
+    "secret_value",
+    "api_key",
+    "access_token",
+    "refresh_token",
+}
 COMPUTER_USE_NEGATIVE_INPUT_NAMES = (
     "live_account_action.json",
     "credential_entry.json",
@@ -267,6 +328,10 @@ def _computer_use_action_trace_paths(
     return [input_dir / name for name in names if (input_dir / name).is_file()]
 
 
+def _session_attribution_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in SESSION_ATTRIBUTION_INPUT_NAMES]
+
+
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
@@ -312,6 +377,13 @@ def _load_computer_use_action_trace_bundle(
     }
 
 
+def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _session_attribution_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -335,6 +407,15 @@ def _scan_computer_use_action_trace_inputs(
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _computer_use_action_trace_paths(input_dir, include_negative=include_negative),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _session_attribution_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -972,6 +1053,240 @@ def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
     }
 
 
+def _parse_bundle_time(value: object) -> datetime:
+    text = str(value or "").strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return datetime.now(timezone.utc)
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
+def _walk_payload_keys(payload: object) -> set[str]:
+    if isinstance(payload, dict):
+        keys = {str(key) for key in payload}
+        for value in payload.values():
+            keys.update(_walk_payload_keys(value))
+        return keys
+    if isinstance(payload, list):
+        keys: set[str] = set()
+        for item in payload:
+            keys.update(_walk_payload_keys(item))
+        return keys
+    return set()
+
+
+def validate_exported_session_attribution_policy(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    policy = payload if isinstance(payload, dict) else {}
+    for field in (
+        "live_home_session_logs_read",
+        "raw_transcript_body_exported",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "account_session_state_exported",
+        "credential_or_cookie_exported",
+        "live_work_ledger_mutation_authorized",
+        "source_mutation_authorized",
+        "release_authorized",
+        "private_data_equivalence_claim",
+    ):
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_POLICY_FORBIDDEN_AUTHORITY",
+                    "Session-attribution policy must deny live logs, raw transcript bodies, provider/browser/account state, credentials, mutation, release, and private equivalence.",
+                    subject_id=field,
+                    subject_kind="session_attribution_policy",
+                )
+            )
+    allowed_sources = set(_strings(policy.get("allowed_source_runtimes")))
+    if not {"claude_code", "codex_app", "metabolism"}.issubset(allowed_sources):
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_POLICY_SOURCE_RUNTIME_COVERAGE_MISSING",
+                "Session-attribution policy must name the synthetic source runtimes covered by the replay.",
+                subject_id=str(policy.get("policy_id") or "attribution_policy"),
+                subject_kind="session_attribution_policy",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "allowed_source_runtimes": sorted(allowed_sources),
+        "forbidden_authority_rejected": True,
+        "metadata_envelope_only": True,
+        "body_in_receipt": False,
+    }
+
+
+def validate_exported_session_attribution_inputs(
+    ats_payload: object,
+    work_ledger_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    active_sessions = _rows(ats_payload, "active_sessions")
+    work_ledger = work_ledger_payload if isinstance(work_ledger_payload, dict) else {}
+    work_sessions = work_ledger.get("sessions")
+    work_sessions = work_sessions if isinstance(work_sessions, dict) else {}
+
+    if not active_sessions:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_ACTIVE_SESSIONS_MISSING",
+                "Session-attribution bundle must include synthetic AgentTraceStore session metadata rows.",
+                subject_id="ats_active_sessions",
+                subject_kind="session_attribution_input",
+            )
+        )
+    if not work_sessions:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_WORKLEDGER_SESSIONS_MISSING",
+                "Session-attribution bundle must include synthetic Work Ledger session metadata rows.",
+                subject_id="work_ledger_status",
+                subject_kind="session_attribution_input",
+            )
+        )
+
+    forbidden_keys = _walk_payload_keys(ats_payload) | _walk_payload_keys(work_ledger_payload)
+    leaked_keys = sorted(SESSION_ATTRIBUTION_FORBIDDEN_KEYS & forbidden_keys)
+    for key in leaked_keys:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_FORBIDDEN_PAYLOAD_KEY",
+                "Session-attribution replay inputs cannot include transcript bodies, provider payloads, browser/HUD state, credentials, cookies, or account/session control state.",
+                subject_id=key,
+                subject_kind="session_attribution_input",
+            )
+        )
+
+    unsafe_refs: list[str] = []
+    for row in active_sessions:
+        for field in ("transcript_path", "cwd"):
+            value = str(row.get(field) or "")
+            if value.startswith("/Users/") or value.startswith("/private/var/"):
+                unsafe_refs.append(value)
+        if row.get("raw_transcript_body_exported") is not False:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_RAW_TRANSCRIPT_BOUNDARY_MISSING",
+                    "Each active-session metadata row must explicitly deny raw transcript body export.",
+                    subject_id=str(row.get("session_id") or "active_session"),
+                    subject_kind="session_attribution_input",
+                )
+            )
+    for ref in sorted(set(unsafe_refs)):
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_PRIVATE_PATH_REF",
+                "Session-attribution replay inputs cannot carry private absolute path refs.",
+                subject_id=ref,
+                subject_kind="session_attribution_input",
+            )
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "active_session_count": len(active_sessions),
+        "workledger_session_count": len(work_sessions),
+        "forbidden_payload_keys": leaked_keys,
+        "metadata_envelope_only": True,
+        "body_in_receipt": False,
+    }
+
+
+def _public_attribution_session_rows(view: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for session in _rows(view, "sessions"):
+        rows.append(
+            {
+                "session_id": session.get("session_id"),
+                "source_runtime": session.get("source_runtime"),
+                "actor": session.get("actor"),
+                "phase_id": session.get("phase_id"),
+                "family_id": session.get("family_id"),
+                "attribution_status": session.get("attribution_status"),
+                "liveness": session.get("liveness"),
+                "currently_live": session.get("currently_live"),
+                "mid_turn": session.get("mid_turn"),
+                "title": session.get("title"),
+                "current_activity": session.get("current_activity"),
+                "last_canonical_type": session.get("last_canonical_type"),
+                "match_strategy": session.get("match_strategy"),
+                "touched_file_count": len(_strings(session.get("touched_files"))),
+                "touched_td_id_count": len(_strings(session.get("touched_td_ids"))),
+                "active_claim_count": len(_rows(session, "active_claims")),
+                "workledger_stale": session.get("workledger_stale") is True,
+                "workledger_stale_reason": session.get("workledger_stale_reason"),
+                "raw_transcript_body_exported": False,
+                "transcript_path_exported": False,
+                "body_in_receipt": False,
+            }
+        )
+    return rows
+
+
+def validate_exported_session_attribution_expected_summary(
+    payload: object,
+    *,
+    view: dict[str, Any],
+    self_session: dict[str, Any] | None,
+) -> dict[str, Any]:
+    expected = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    actual_summary = view.get("summary") if isinstance(view.get("summary"), dict) else {}
+    expected_summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
+    if expected_summary and expected_summary != actual_summary:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_SUMMARY_MISMATCH",
+                "Expected attribution summary must match the computed public attribution view.",
+                subject_id="expected_attribution_summary",
+                subject_kind="session_attribution_expected_summary",
+            )
+        )
+    expected_self_id = str(expected.get("self_session_id") or "")
+    actual_self_id = str((self_session or {}).get("session_id") or "")
+    if expected_self_id and expected_self_id != actual_self_id:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_SELF_SESSION_MISMATCH",
+                "Expected self-session id must match title/cwd attribution over the computed view.",
+                subject_id=expected_self_id,
+                subject_kind="session_attribution_expected_summary",
+            )
+        )
+    expected_matched = set(_strings(expected.get("matched_session_ids")))
+    actual_matched = {
+        str(row.get("session_id"))
+        for row in _rows(view, "sessions")
+        if row.get("attribution_status") == ATTRIBUTION_STATUS_MATCHED
+    }
+    if expected_matched and expected_matched != actual_matched:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_MATCHED_SESSION_SET_MISMATCH",
+                "Expected matched session ids must match the computed joined session set.",
+                subject_id="matched_session_ids",
+                subject_kind="session_attribution_expected_summary",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "expected_summary": expected_summary,
+        "actual_summary": actual_summary,
+        "self_session_id": actual_self_id or None,
+        "matched_session_ids": sorted(actual_matched),
+        "body_in_receipt": False,
+    }
+
+
 def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1601,6 +1916,68 @@ def _write_observability_bundle_receipt(
     return receipt_path
 
 
+def _write_session_attribution_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_session_attribution_"
+            "bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "session_attribution_view_schema": validation_result[
+                "session_attribution_view_schema"
+            ],
+            "active_session_count": validation_result["active_session_count"],
+            "workledger_session_count": validation_result["workledger_session_count"],
+            "attributed_session_count": validation_result["attributed_session_count"],
+            "matched_session_count": validation_result["matched_session_count"],
+            "self_session_id": validation_result["self_session_id"],
+            "summary": validation_result["summary"],
+            "session_rows": validation_result["session_rows"],
+            "session_input_validation": validation_result["session_input_validation"],
+            "attribution_policy": validation_result["attribution_policy"],
+            "expected_summary_validation": validation_result[
+                "expected_summary_validation"
+            ],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "metadata_envelope_only": True,
+            "raw_transcript_body_exported": False,
+            "provider_payload_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "fixture_regression_required_elsewhere": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
 def run_observability_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -1750,6 +2127,157 @@ def run_observability_bundle(
         }
     )
     receipt_path = _write_observability_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
+def run_session_attribution_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_session_attribution_bundle(input_path)
+    scan_result = _scan_session_attribution_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    now = _parse_bundle_time(manifest.get("generated_at"))
+    input_result = validate_exported_session_attribution_inputs(
+        payloads["ats_active_sessions"],
+        payloads["work_ledger_status"],
+    )
+    policy_result = validate_exported_session_attribution_policy(
+        payloads["attribution_policy"]
+    )
+    request = (
+        payloads["self_identification_request"]
+        if isinstance(payloads["self_identification_request"], dict)
+        else {}
+    )
+    active_sessions = _rows(payloads["ats_active_sessions"], "active_sessions")
+    work_ledger_status = (
+        payloads["work_ledger_status"]
+        if isinstance(payloads["work_ledger_status"], dict)
+        else {}
+    )
+    view = attribute_sessions(
+        ats_active_sessions=active_sessions,
+        work_ledger_status=work_ledger_status,
+        now=now,
+    )
+    self_session = identify_self_session(
+        view["sessions"],
+        title_fragment=str(request.get("title_fragment") or "") or None,
+        cwd=str(request.get("cwd") or "") or None,
+        source_runtime=str(request.get("source_runtime") or "codex_app"),
+    )
+    expected_result = validate_exported_session_attribution_expected_summary(
+        payloads["expected_attribution_summary"],
+        view=view,
+        self_session=self_session,
+    )
+    all_findings = sorted(
+        [
+            *input_result["findings"],
+            *policy_result["findings"],
+            *expected_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_session_attribution_bundle"
+    )
+    session_rows = _public_attribution_session_rows(view)
+    matched_count = sum(
+        1 for row in session_rows if row.get("attribution_status") == ATTRIBUTION_STATUS_MATCHED
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and input_result["active_session_count"]
+        and input_result["workledger_session_count"]
+        and session_rows
+        and matched_count
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "session_rows": session_rows,
+            "summary": view.get("summary", {}),
+            "policy_id": policy_result.get("policy_id"),
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or [
+        "system/lib/agent_session_attribution.py"
+    ]
+    target_refs = _strings(manifest.get("target_refs")) or [
+        "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py"
+    ]
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_session_attribution_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": SESSION_ATTRIBUTION_ANTI_CLAIM,
+            "authority_ceiling": SESSION_ATTRIBUTION_AUTHORITY_CEILING,
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(
+                {str(item.get("error_code") or "") for item in all_findings}
+            ),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "session_attribution_view_schema": SESSION_ATTRIBUTION_VIEW_SCHEMA_VERSION,
+            "active_session_count": input_result["active_session_count"],
+            "workledger_session_count": input_result["workledger_session_count"],
+            "attributed_session_count": len(session_rows),
+            "matched_session_count": matched_count,
+            "self_session_id": (self_session or {}).get("session_id"),
+            "summary": view.get("summary", {}),
+            "session_rows": session_rows,
+            "session_input_validation": input_result,
+            "attribution_policy": policy_result,
+            "expected_summary_validation": expected_result,
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_ref": "system/lib/agent_session_attribution.py",
+                "target_ref": (
+                    "microcosm-substrate/src/microcosm_core/macro_tools/"
+                    "agent_session_attribution.py"
+                ),
+                "body_in_receipt": False,
+            },
+            "bundle_fingerprint": bundle_fingerprint,
+            "receipt_paths": [EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_session_attribution_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
     result["receipt_paths"] = [receipt_path]
     return result
 
@@ -2789,6 +3317,9 @@ def main(argv: list[str] | None = None) -> int:
     computer_use_parser = subparsers.add_parser("validate-computer-use-bundle")
     computer_use_parser.add_argument("--input", required=True)
     computer_use_parser.add_argument("--out", required=True)
+    session_attribution_parser = subparsers.add_parser("validate-session-attribution-bundle")
+    session_attribution_parser.add_argument("--input", required=True)
+    session_attribution_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
@@ -2808,10 +3339,16 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-computer-use-bundle --input {args.input} --out {args.out}"
         )
         result = run_computer_use_action_trace_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-session-attribution-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"validate-session-attribution-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_session_attribution_bundle(args.input, args.out, command=command)
     else:
         parser.error(
             "expected subcommand: run, validate-observability-bundle, or "
-            "validate-computer-use-bundle"
+            "validate-computer-use-bundle, or validate-session-attribution-bundle"
         )
     return 0 if result["status"] == PASS else 1
 

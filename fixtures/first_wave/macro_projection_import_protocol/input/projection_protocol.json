@@ -9,6 +9,8 @@
     "tools/meta/control/work_landing.py",
     "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
     "system/lib/agent_execution_trace.py",
+    "system/lib/agent_session_attribution.py",
+    "codex/doctrine/paper_modules/agent_session_attribution.md",
     "codex/standards/std_agent_execution_trace.json",
     "codex/doctrine/agent_bootstrap_live.json::situation_routes",
     "codex/doctrine/routing_hologram.json::situation_rows",
@@ -232,6 +234,49 @@
       "body_in_receipt": false
     },
     {
+      "material_id": "agent_session_attribution_body_import",
+      "source_ref": "system/lib/agent_session_attribution.py",
+      "source_refs": [
+        "system/lib/agent_session_attribution.py",
+        "codex/doctrine/paper_modules/agent_session_attribution.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_session_attribution"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/agent_session_attribution.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_session_attribution",
+        "codex/doctrine/paper_modules/agent_session_attribution.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "copy pure read-only session attribution join into public macro_tools",
+        "consume it through agent_route_observability_runtime exported_session_attribution_bundle",
+        "bound claim to metadata envelopes without raw transcript provider account credential or browser HUD state"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public session-attribution tool body import only; not live home session-log reading, raw transcript export, provider payload access, browser/HUD/cockpit state, account/session control state, Work Ledger mutation, source mutation, private-root equivalence, or release authority",
+      "body_digest": "sha256:2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": "sha256:2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
+        "target_body_digest": "sha256:2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+          "python -m microcosm_core.organs.agent_route_observability_runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle"
+        ]
+      },
+      "body_in_receipt": false
+    },
+    {
       "material_id": "navigation_route_plane_body_import",
       "source_ref": "codex/doctrine/agent_bootstrap_live.json::situation_routes",
       "source_refs": [
@@ -334,6 +379,8 @@
     "paper_modules/macro_projection_import_protocol.md",
     "src/microcosm_core/macro_tools/agent_execution_trace.py",
     "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
+    "src/microcosm_core/macro_tools/agent_session_attribution.py",
+    "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "src/microcosm_core/organs/navigation_hologram_route_plane.py"
   ],
@@ -342,6 +389,9 @@
     "receipts/preflight/dependency_preflight.json",
     "receipts/preflight/fixture_runner_freshness.json",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",

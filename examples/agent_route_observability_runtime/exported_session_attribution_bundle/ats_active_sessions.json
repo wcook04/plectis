@@ -1,0 +1,76 @@
+{
+  "schema_version": "public_agent_trace_store_active_sessions_fixture_v1",
+  "active_sessions": [
+    {
+      "session_id": "019dc1ab-cdef-7000-aaaa-000000000000",
+      "source_runtime": "codex_app",
+      "last_observed_at": "2026-04-25T06:29:50+00:00",
+      "last_activity_at": "2026-04-25T06:29:50+00:00",
+      "last_canonical_type": "tool.proposed",
+      "title": "Microcosm session attribution import",
+      "current_activity": "wire public session attribution bundle",
+      "cwd": "microcosm-substrate",
+      "transcript_path": null,
+      "touched_files": [
+        "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py"
+      ],
+      "raw_transcript_body_exported": false
+    },
+    {
+      "session_id": "claude-session-alpha",
+      "source_runtime": "claude_code",
+      "last_observed_at": "2026-04-25T06:29:00+00:00",
+      "last_activity_at": "2026-04-25T06:29:00+00:00",
+      "last_canonical_type": "turn.completed",
+      "title": "route repair observability pass",
+      "current_activity": "waiting between turns",
+      "cwd": "microcosm-substrate",
+      "transcript_path": null,
+      "touched_files": [
+        "system/lib/agent_session_attribution.py"
+      ],
+      "raw_transcript_body_exported": false
+    },
+    {
+      "session_id": "codex_app",
+      "source_runtime": "codex_app",
+      "last_observed_at": "2026-04-25T06:28:00+00:00",
+      "last_activity_at": "2026-04-25T06:28:00+00:00",
+      "last_canonical_type": "session.snapshot",
+      "title": "codex snapshot stream",
+      "current_activity": "stream bucket without per-session id",
+      "cwd": "microcosm-substrate",
+      "transcript_path": null,
+      "touched_files": [],
+      "raw_transcript_body_exported": false
+    },
+    {
+      "session_id": "metabolism",
+      "source_runtime": "metabolism",
+      "last_observed_at": "2026-04-25T06:15:00+00:00",
+      "last_activity_at": "2026-04-25T06:15:00+00:00",
+      "last_canonical_type": "runtime.event",
+      "title": "navigation metabolism sidecar",
+      "current_activity": "infrastructure status refresh",
+      "cwd": "microcosm-substrate",
+      "transcript_path": null,
+      "touched_files": [],
+      "raw_transcript_body_exported": false
+    },
+    {
+      "session_id": "ats-orphan",
+      "source_runtime": "claude_code",
+      "last_observed_at": "2026-04-25T06:29:30+00:00",
+      "last_activity_at": "2026-04-25T06:29:30+00:00",
+      "last_canonical_type": "tool.completed",
+      "title": "unclaimed local scratch read",
+      "current_activity": "no work ledger row",
+      "cwd": "microcosm-substrate",
+      "transcript_path": null,
+      "touched_files": [
+        "microcosm-substrate/README.md"
+      ],
+      "raw_transcript_body_exported": false
+    }
+  ]
+}

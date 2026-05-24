@@ -256,6 +256,24 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle"
         ),
     },
+    "agent_session_attribution_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent session-attribution join is landed as an exact public macro tool "
+            "body and consumed by the route observability runtime session-attribution bundle."
+        ),
+        "landed_evidence_refs": [
+            "src/microcosm_core/macro_tools/agent_session_attribution.py",
+            "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+            "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime validate-session-attribution-bundle "
+            "--input examples/agent_route_observability_runtime/exported_session_attribution_bundle"
+        ),
+    },
     "navigation_route_plane_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

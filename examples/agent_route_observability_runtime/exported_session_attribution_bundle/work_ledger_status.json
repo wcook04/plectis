@@ -1,0 +1,59 @@
+{
+  "schema_version": "public_work_ledger_runtime_status_fixture_v1",
+  "sessions": {
+    "codex:019dc1ab-cdef-7000-aaaa-000000000000": {
+      "session_id": "codex:019dc1ab-cdef-7000-aaaa-000000000000",
+      "actor": "codex",
+      "phase_id": "09_54_1",
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_activity_at": "2026-04-25T06:29:40+00:00",
+      "stale": false,
+      "stale_reason": null,
+      "claims": [
+        {
+          "claim_id": "claim-public-session-attribution",
+          "scope_kind": "path",
+          "path": "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py"
+        }
+      ],
+      "touched_td_ids": [
+        "pattern_ledger_microcosm_agent_trace_to_route_repair_observability_route_promotion"
+      ]
+    },
+    "claude-session-alpha": {
+      "session_id": "claude-session-alpha",
+      "actor": "claude_code",
+      "phase_id": "09_54_1",
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_activity_at": "2026-04-25T06:29:00+00:00",
+      "stale": false,
+      "stale_reason": null,
+      "claims": [],
+      "touched_td_ids": [
+        "pattern_ledger_microcosm_agent_trace_to_route_repair_observability_route_promotion"
+      ]
+    },
+    "wl-recent": {
+      "session_id": "wl-recent",
+      "actor": "codex",
+      "phase_id": "09_54_1",
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_activity_at": "2026-04-25T06:18:00+00:00",
+      "stale": false,
+      "stale_reason": null,
+      "claims": [],
+      "touched_td_ids": []
+    },
+    "wl-stale": {
+      "session_id": "wl-stale",
+      "actor": "codex",
+      "phase_id": "09_44",
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_activity_at": "2026-04-24T06:30:00+00:00",
+      "stale": true,
+      "stale_reason": "fixture_old_session",
+      "claims": [],
+      "touched_td_ids": []
+    }
+  }
+}

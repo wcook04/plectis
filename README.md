@@ -281,6 +281,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli stripping-guard
 PYTHONPATH=src python3 -m microcosm_core.cli standards-control
 PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
 PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
+PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
 PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
 PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
 PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
@@ -484,6 +485,15 @@ validates synthetic observations, affordances, actions, pre-action authority
 verdicts, state transitions, recovery receipts, cold replay, and falsification
 fixtures without live browser control, accounts, credentials, external network
 mutation, raw screenshots, benchmark scores, source mutation, or release
+authority.
+
+`agent-route-observability-runtime validate-session-attribution-bundle` is the
+public session-attribution showcase. It runs the copied
+`agent_session_attribution` macro body over synthetic AgentTraceStore and Work
+Ledger metadata envelopes, then exposes matched, unattributable, infrastructure,
+ATS-only, and WorkLedger-only session classes without raw transcript bodies,
+provider payloads, browser/HUD/cockpit state, account/session control state,
+credentials, cookies, Work Ledger mutation, source mutation, or release
 authority.
 
 `microcosm replay-gauntlet` is the public synthetic agent-reliability replay

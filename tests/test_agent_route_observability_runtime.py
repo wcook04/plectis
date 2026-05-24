@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -8,15 +9,21 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
+from microcosm_core.macro_tools.agent_session_attribution import (
+    SCHEMA_VERSION as SESSION_ATTRIBUTION_SCHEMA_VERSION,
+    attribute_sessions,
+)
 from microcosm_core.organs.agent_route_observability_runtime import (
     COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
+    EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
     run_computer_use_action_trace_bundle,
     run_observability_bundle,
+    run_session_attribution_bundle,
 )
 
 
@@ -35,6 +42,11 @@ COMPUTER_USE_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_computer_use_action_trace_bundle"
+)
+SESSION_ATTRIBUTION_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_session_attribution_bundle"
 )
 
 
@@ -246,6 +258,90 @@ def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
         assert not Path(hit["path"]).is_absolute()
 
 
+def test_session_attribution_exported_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_session_attribution_bundle(
+        SESSION_ATTRIBUTION_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_session_attribution_bundle"
+    assert result["bundle_id"] == "public_agent_session_attribution_runtime_example"
+    assert result["session_attribution_view_schema"] == SESSION_ATTRIBUTION_SCHEMA_VERSION
+    assert result["active_session_count"] == 5
+    assert result["workledger_session_count"] == 4
+    assert result["attributed_session_count"] == 6
+    assert result["matched_session_count"] == 2
+    assert result["self_session_id"] == "019dc1ab-cdef-7000-aaaa-000000000000"
+    assert result["summary"]["by_attribution_status"] == {
+        "matched": 2,
+        "ats_only": 1,
+        "workledger_only": 1,
+        "unattributable": 1,
+        "infrastructure": 1,
+    }
+    assert result["summary"]["by_liveness"] == {"live": 4, "recent": 2}
+    assert result["authority_ceiling"]["live_home_session_logs_read"] is False
+    assert result["authority_ceiling"]["raw_transcript_body_exported"] is False
+    assert result["authority_ceiling"]["provider_payload_read"] is False
+    assert result["authority_ceiling"]["account_session_state_exported"] is False
+    assert result["private_state_scan"]["blocking_hit_count"] == 0
+    assert result["session_input_validation"]["metadata_envelope_only"] is True
+    assert result["attribution_policy"]["forbidden_authority_rejected"] is True
+    assert result["expected_summary_validation"]["self_session_id"] == (
+        "019dc1ab-cdef-7000-aaaa-000000000000"
+    )
+    assert all(row["raw_transcript_body_exported"] is False for row in result["session_rows"])
+    assert all(row["transcript_path_exported"] is False for row in result["session_rows"])
+
+
+def test_session_attribution_exported_bundle_receipt_is_public_safe(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_session_attribution_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH]
+    receipt_file = public_root / EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "raw_transcript_body" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "account_session_state" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_session_attribution_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["raw_transcript_body_exported"] is False
+    assert payload["provider_payload_exported"] is False
+    assert payload["account_session_state_exported"] is False
+    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    for hit in payload["private_state_scan"]["hits"]:
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()
+
+
 def test_computer_use_action_trace_replay_observes_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -413,3 +509,24 @@ def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor
         span["source_ref"] == "computer_use_action_trace_bundle"
         for span in trace["spans"]
     )
+
+
+def test_session_attribution_imports_exact_public_macro_body() -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/agent_session_attribution.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_session_attribution.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    ats = json.loads((SESSION_ATTRIBUTION_BUNDLE_INPUT / "ats_active_sessions.json").read_text())
+    work_ledger = json.loads(
+        (SESSION_ATTRIBUTION_BUNDLE_INPUT / "work_ledger_status.json").read_text()
+    )
+
+    view = attribute_sessions(
+        ats_active_sessions=ats["active_sessions"],
+        work_ledger_status=work_ledger,
+    )
+
+    assert target.is_file()
+    assert source_digest == target_digest
+    assert view["schema_version"] == SESSION_ATTRIBUTION_SCHEMA_VERSION
+    assert view["summary"]["total"] >= 5

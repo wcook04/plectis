@@ -1,0 +1,30 @@
+{
+  "schema_version": "agent_route_observability_runtime_exported_session_attribution_bundle_v1",
+  "bundle_id": "public_agent_session_attribution_runtime_example",
+  "generated_at": "2026-04-25T06:30:00+00:00",
+  "input_mode": "exported_session_attribution_bundle",
+  "organ_id": "agent_route_observability_runtime",
+  "source_refs": [
+    "system/lib/agent_session_attribution.py",
+    "codex/doctrine/paper_modules/agent_session_attribution.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_session_attribution"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::run_session_attribution_bundle"
+  ],
+  "required_files": [
+    "bundle_manifest.json",
+    "ats_active_sessions.json",
+    "work_ledger_status.json",
+    "attribution_policy.json",
+    "self_identification_request.json",
+    "expected_attribution_summary.json"
+  ],
+  "fixture_regression_required_elsewhere": false,
+  "release_authorized": false,
+  "live_home_session_logs_read": false,
+  "raw_transcript_body_exported": false,
+  "provider_payload_read": false,
+  "account_session_state_exported": false
+}

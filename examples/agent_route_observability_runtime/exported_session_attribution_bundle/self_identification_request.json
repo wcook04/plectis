@@ -1,0 +1,8 @@
+{
+  "schema_version": "public_session_attribution_self_identification_request_v1",
+  "source_runtime": "codex_app",
+  "title_fragment": "session attribution import",
+  "cwd": "microcosm-substrate",
+  "raw_transcript_body_exported": false,
+  "body_in_receipt": false
+}

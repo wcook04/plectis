@@ -103,6 +103,34 @@
       "body_in_receipt": false
     },
     {
+      "cell_id": "agent_session_attribution_import",
+      "selected_pattern_ids": [
+        "agent_session_attribution",
+        "agent_trace_to_route_repair_observability_compound"
+      ],
+      "source_refs": [
+        "system/lib/agent_session_attribution.py",
+        "codex/doctrine/paper_modules/agent_session_attribution.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_session_attribution"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_session_attribution.py",
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "agent_session_attribution_body_import"
+      ],
+      "authority_ceiling": "verified_public_session_attribution_body_not_live_session_or_provider_or_account_authority",
+      "body_copied": false,
+      "body_in_receipt": false
+    },
+    {
       "cell_id": "navigation_route_plane_import",
       "selected_pattern_ids": [
         "navigation_hologram_unified_route_plane",

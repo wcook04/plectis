@@ -1,0 +1,321 @@
+{
+  "account_session_state_exported": false,
+  "active_session_count": 5,
+  "anti_claim": "Session-attribution replay validates the public source-faithful agent_session_attribution import over synthetic AgentTraceStore and Work Ledger metadata envelopes. It does not read live home session logs, export raw transcript bodies, expose provider payloads, browser/HUD/cockpit state, account/session control state, credentials, or cookies, mutate Work Ledger or source, claim private-root equivalence, or authorize release.",
+  "attributed_session_count": 6,
+  "attribution_policy": {
+    "allowed_source_runtimes": [
+      "claude_code",
+      "codex_app",
+      "metabolism"
+    ],
+    "body_in_receipt": false,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "metadata_envelope_only": true,
+    "policy_id": "public_session_attribution_metadata_policy",
+    "status": "pass"
+  },
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_session_attribution_metadata_not_live_session_authority",
+    "browser_hud_cockpit_state_read": false,
+    "credential_or_cookie_exported": false,
+    "live_home_session_logs_read": false,
+    "live_work_ledger_mutation_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_transcript_body_exported": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "source_ref": "system/lib/agent_session_attribution.py",
+    "source_to_target_relation": "exact_copy",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py",
+    "verification_mode": "exact_source_digest_match",
+    "verification_status": "verified"
+  },
+  "bundle_fingerprint": "b84f975e05399b2989faba230073f854046504749e22e2a120a90e7bb0624130",
+  "bundle_id": "public_agent_session_attribution_runtime_example",
+  "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_session_attribution_bundle_v1",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-session-attribution-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_session_attribution_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+  "created_at": "2026-05-24T03:35:41+00:00",
+  "credential_or_cookie_exported": false,
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "expected_summary_validation": {
+    "actual_summary": {
+      "by_attribution_status": {
+        "ats_only": 1,
+        "infrastructure": 1,
+        "matched": 2,
+        "unattributable": 1,
+        "workledger_only": 1
+      },
+      "by_liveness": {
+        "live": 4,
+        "recent": 2
+      },
+      "total": 6
+    },
+    "body_in_receipt": false,
+    "expected_summary": {
+      "by_attribution_status": {
+        "ats_only": 1,
+        "infrastructure": 1,
+        "matched": 2,
+        "unattributable": 1,
+        "workledger_only": 1
+      },
+      "by_liveness": {
+        "live": 4,
+        "recent": 2
+      },
+      "total": 6
+    },
+    "findings": [],
+    "matched_session_ids": [
+      "019dc1ab-cdef-7000-aaaa-000000000000",
+      "claude-session-alpha"
+    ],
+    "self_session_id": "019dc1ab-cdef-7000-aaaa-000000000000",
+    "status": "pass"
+  },
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "input_mode": "exported_session_attribution_bundle",
+  "matched_session_count": 2,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 6,
+    "status": "pass"
+  },
+  "provider_payload_exported": false,
+  "raw_transcript_body_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_session_attribution_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json"
+  ],
+  "schema_version": "agent_route_observability_runtime_exported_session_attribution_bundle_validation_v1",
+  "self_session_id": "019dc1ab-cdef-7000-aaaa-000000000000",
+  "session_attribution_view_schema": "agent_session_attribution_v0",
+  "session_input_validation": {
+    "active_session_count": 5,
+    "body_in_receipt": false,
+    "findings": [],
+    "forbidden_payload_keys": [],
+    "metadata_envelope_only": true,
+    "status": "pass",
+    "workledger_session_count": 4
+  },
+  "session_rows": [
+    {
+      "active_claim_count": 1,
+      "actor": "codex",
+      "attribution_status": "matched",
+      "body_in_receipt": false,
+      "current_activity": "wire public session attribution bundle",
+      "currently_live": true,
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_canonical_type": "tool.proposed",
+      "liveness": "live",
+      "match_strategy": "codex_prefix_added",
+      "mid_turn": true,
+      "phase_id": "09_54_1",
+      "raw_transcript_body_exported": false,
+      "session_id": "019dc1ab-cdef-7000-aaaa-000000000000",
+      "source_runtime": "codex_app",
+      "title": "Microcosm session attribution import",
+      "touched_file_count": 1,
+      "touched_td_id_count": 1,
+      "transcript_path_exported": false,
+      "workledger_stale": false,
+      "workledger_stale_reason": null
+    },
+    {
+      "active_claim_count": 0,
+      "actor": null,
+      "attribution_status": "ats_only",
+      "body_in_receipt": false,
+      "current_activity": "no work ledger row",
+      "currently_live": true,
+      "family_id": null,
+      "last_canonical_type": "tool.completed",
+      "liveness": "live",
+      "match_strategy": "no_workledger_row",
+      "mid_turn": true,
+      "phase_id": null,
+      "raw_transcript_body_exported": false,
+      "session_id": "ats-orphan",
+      "source_runtime": "claude_code",
+      "title": "unclaimed local scratch read",
+      "touched_file_count": 1,
+      "touched_td_id_count": 0,
+      "transcript_path_exported": false,
+      "workledger_stale": false,
+      "workledger_stale_reason": null
+    },
+    {
+      "active_claim_count": 0,
+      "actor": "claude_code",
+      "attribution_status": "matched",
+      "body_in_receipt": false,
+      "current_activity": "waiting between turns",
+      "currently_live": true,
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_canonical_type": "turn.completed",
+      "liveness": "live",
+      "match_strategy": "direct_session_id",
+      "mid_turn": false,
+      "phase_id": "09_54_1",
+      "raw_transcript_body_exported": false,
+      "session_id": "claude-session-alpha",
+      "source_runtime": "claude_code",
+      "title": "route repair observability pass",
+      "touched_file_count": 1,
+      "touched_td_id_count": 1,
+      "transcript_path_exported": false,
+      "workledger_stale": false,
+      "workledger_stale_reason": null
+    },
+    {
+      "active_claim_count": 0,
+      "actor": null,
+      "attribution_status": "unattributable",
+      "body_in_receipt": false,
+      "current_activity": "stream bucket without per-session id",
+      "currently_live": true,
+      "family_id": null,
+      "last_canonical_type": "session.snapshot",
+      "liveness": "live",
+      "match_strategy": "codex_stream_bucket",
+      "mid_turn": false,
+      "phase_id": null,
+      "raw_transcript_body_exported": false,
+      "session_id": "codex_app",
+      "source_runtime": "codex_app",
+      "title": "codex snapshot stream",
+      "touched_file_count": 0,
+      "touched_td_id_count": 0,
+      "transcript_path_exported": false,
+      "workledger_stale": false,
+      "workledger_stale_reason": null
+    },
+    {
+      "active_claim_count": 0,
+      "actor": "codex",
+      "attribution_status": "workledger_only",
+      "body_in_receipt": false,
+      "current_activity": null,
+      "currently_live": true,
+      "family_id": "microcosm_substrate_flagship_population",
+      "last_canonical_type": null,
+      "liveness": "recent",
+      "match_strategy": "workledger_only",
+      "mid_turn": false,
+      "phase_id": "09_54_1",
+      "raw_transcript_body_exported": false,
+      "session_id": "wl-recent",
+      "source_runtime": null,
+      "title": null,
+      "touched_file_count": 0,
+      "touched_td_id_count": 0,
+      "transcript_path_exported": false,
+      "workledger_stale": false,
+      "workledger_stale_reason": null
+    },
+    {
+      "active_claim_count": 0,
+      "actor": null,
+      "attribution_status": "infrastructure",
+      "body_in_receipt": false,
+      "current_activity": "infrastructure status refresh",
+      "currently_live": true,
+      "family_id": null,
+      "last_canonical_type": "runtime.event",
+      "liveness": "recent",
+      "match_strategy": "infrastructure_skip",
+      "mid_turn": false,
+      "phase_id": null,
+      "raw_transcript_body_exported": false,
+      "session_id": "metabolism",
+      "source_runtime": "metabolism",
+      "title": "navigation metabolism sidecar",
+      "touched_file_count": 0,
+      "touched_td_id_count": 0,
+      "transcript_path_exported": false,
+      "workledger_stale": false,
+      "workledger_stale_reason": null
+    }
+  ],
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "system/lib/agent_session_attribution.py",
+    "codex/doctrine/paper_modules/agent_session_attribution.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_session_attribution"
+  ],
+  "status": "pass",
+  "summary": {
+    "by_attribution_status": {
+      "ats_only": 1,
+      "infrastructure": 1,
+      "matched": 2,
+      "unattributable": 1,
+      "workledger_only": 1
+    },
+    "by_liveness": {
+      "live": 4,
+      "recent": 2
+    },
+    "total": 6
+  },
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::run_session_attribution_bundle"
+  ],
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
+  "workledger_session_count": 4
+}

@@ -2,6 +2,7 @@
 
 __all__ = [
     "agent_execution_trace",
+    "agent_session_attribution",
     "finance_eval_spine",
     "lab_evolve_replay",
     "mission_transaction_preflight",

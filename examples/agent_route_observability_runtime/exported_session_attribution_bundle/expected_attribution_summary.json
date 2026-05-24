@@ -1,0 +1,24 @@
+{
+  "schema_version": "public_session_attribution_expected_summary_v1",
+  "summary": {
+    "total": 6,
+    "by_attribution_status": {
+      "matched": 2,
+      "ats_only": 1,
+      "workledger_only": 1,
+      "unattributable": 1,
+      "infrastructure": 1
+    },
+    "by_liveness": {
+      "live": 4,
+      "recent": 2
+    }
+  },
+  "self_session_id": "019dc1ab-cdef-7000-aaaa-000000000000",
+  "matched_session_ids": [
+    "019dc1ab-cdef-7000-aaaa-000000000000",
+    "claude-session-alpha"
+  ],
+  "raw_transcript_body_exported": false,
+  "body_in_receipt": false
+}
