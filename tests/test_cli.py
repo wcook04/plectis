@@ -116,6 +116,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "fixture-freshness",
         "pattern-binding",
         "finance-eval-spine",
+        "work-landing-control-spine",
         "executable-doctrine-grammar",
         "proof-diagnostic-evidence-spine",
         "formal-math-readiness-gate",

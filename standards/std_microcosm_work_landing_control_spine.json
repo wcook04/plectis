@@ -1,0 +1,101 @@
+{
+  "anti_claims": [
+    "The work-landing control spine is copied control-plane source for inspection and validation, not live Git, Task Ledger, or Work Ledger mutation authority.",
+    "The public bundle does not authorize claim release, broad staging, private-index commit execution, provider calls, credential export, publication, hosting, or release."
+  ],
+  "authority_boundary": "public_copied_macro_work_landing_control_body_with_no_live_mutation_ceiling",
+  "authority_ceiling": {
+    "broad_checkpoint_authorized": false,
+    "broad_stage_authorized": false,
+    "credential_export_authorized": false,
+    "live_claim_release_authorized": false,
+    "live_git_mutation_authorized": false,
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "private_index_commit_execution_authorized": false,
+    "private_root_required": false,
+    "provider_calls_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "shared_index_mutation_authorized": false
+  },
+  "governed_artifacts": [
+    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle",
+    "microcosm-substrate/src/microcosm_core/macro_tools/work_landing_control_spine.py",
+    "microcosm-substrate/receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json"
+  ],
+  "kind_id": "work_landing_control_spine",
+  "kind_name": "Work landing control spine",
+  "paper_module_contract": {
+    "module_slug": "work_landing_control_spine",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "copied_non_secret_work_landing_command_source",
+      "copied_non_secret_work_landing_status_and_reconcile_model",
+      "copied_non_secret_mission_transaction_preflight_source",
+      "copied_non_secret_private_index_scoped_commit_source",
+      "bundle_manifest_digests",
+      "secret_exclusion_scan_summary",
+      "no_live_mutation_authority_ceiling"
+    ],
+    "default_posture": "source_open_real_substrate_with_secret_exclusion",
+    "forbidden_public_inputs": [
+      "api_keys",
+      "cookies_or_sessions",
+      "credential_equivalent_live_access_material",
+      "live_browser_or_hud_state",
+      "private_account_state",
+      "provider_payload_bodies",
+      "recipient_send_state"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "copied_macro_source_count",
+      "source_manifest",
+      "anchor_summary",
+      "contract_summary",
+      "authority_ceiling",
+      "secret_exclusion_scan",
+      "blocked_overclaim_workitem_ref",
+      "body_in_receipt",
+      "synthetic_receipt_standin_allowed",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.work_landing_control_spine",
+    "required": true
+  },
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "path": "tools/meta/control/work_landing.py",
+      "role": "work_landing_command_surface"
+    },
+    {
+      "path": "system/lib/work_landing_status.py",
+      "role": "work_landing_status_reconcile_and_finalizer_model"
+    },
+    {
+      "path": "tools/meta/control/mission_transaction_preflight.py",
+      "role": "mission_transaction_preflight_cli_surface"
+    },
+    {
+      "path": "system/lib/mission_transaction_landing_preflight.py",
+      "role": "mission_transaction_preflight_kernel"
+    },
+    {
+      "path": "tools/meta/control/scoped_commit.py",
+      "role": "private_index_scoped_commit_actuator_source"
+    }
+  ],
+  "standard_id": "std_microcosm_work_landing_control_spine",
+  "task_ledger_refs": [
+    "cap_quick_microcosm_work_landing_body_import_overc_eba9812296f8"
+  ],
+  "validator_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/work_landing_control_spine.py::validate_work_landing_control_bundle",
+    "microcosm-substrate/tests/test_work_landing_control_spine.py"
+  ]
+}

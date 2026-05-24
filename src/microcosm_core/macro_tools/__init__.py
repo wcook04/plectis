@@ -7,4 +7,5 @@ __all__ = [
     "mission_transaction_preflight",
     "pattern_route_readiness",
     "work_landing",
+    "work_landing_control_spine",
 ]

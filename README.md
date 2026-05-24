@@ -21,6 +21,7 @@ microcosm reveal
 microcosm legibility-scorecard
 microcosm market-boundary
 microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/first_wave/finance_forecast_evaluation_spine
+microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine
 microcosm drift-control
 microcosm circuit-attribution
 microcosm route-cleanup
@@ -195,6 +196,7 @@ microcosm evidence-cells
 microcosm proof-loop-depth
 microcosm landing-replay
 microcosm durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
+microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine
 microcosm research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
 microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
 microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay

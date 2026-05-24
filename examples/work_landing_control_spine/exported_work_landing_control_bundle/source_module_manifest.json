@@ -1,0 +1,55 @@
+{
+  "body_in_receipt": false,
+  "bundle_id": "public_work_landing_control_spine_bundle",
+  "module_count": 5,
+  "modules": [
+    {
+      "body_in_receipt": false,
+      "line_count": 187,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/meta/control/work_landing.py",
+      "sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/control/work_landing.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 3553,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/system/lib/work_landing_status.py",
+      "sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/work_landing_status.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 496,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "sha256": "1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/control/mission_transaction_preflight.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 8680,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
+      "sha256": "561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/mission_transaction_landing_preflight.py"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 1422,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/tools/meta/control/scoped_commit.py",
+      "sha256": "8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/control/scoped_commit.py"
+    }
+  ],
+  "schema_version": "microcosm_work_landing_control_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_body_policy": "source_bodies_copied_into_bundle_not_receipt"
+}

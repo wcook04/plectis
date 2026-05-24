@@ -1338,6 +1338,8 @@ class RuntimeShell:
                         "run-precision-recall-bundle"
                     ),
                     "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+                    "microcosm work-landing-control-spine validate-control-bundle",
+                    "microcosm finance-eval-spine validate-finance-eval-bundle",
                     "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
                     (
                         "microcosm world-model-projection-drift-control-room "
@@ -1473,6 +1475,7 @@ class RuntimeShell:
                 "run microcosm proof-loop-depth",
                 f"run {PROOF_LAB_FIRST_SCREEN_COMMAND}",
                 "run microcosm landing-replay",
+                "run microcosm work-landing-control-spine validate-control-bundle",
                 "run microcosm view-quality",
                 "run microcosm projection-safety",
                 "run microcosm drift-control",
@@ -1493,6 +1496,7 @@ class RuntimeShell:
                 "run microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
                 "run microcosm belief-state-process-reward-replay run-reward-bundle",
                 "run microcosm certificate-kernel-execution-lab run-certificate-bundle",
+                "run microcosm finance-eval-spine validate-finance-eval-bundle",
                 "run microcosm benchmark-lab",
                 "run microcosm legibility-scorecard",
                 "run microcosm intake",
