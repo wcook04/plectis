@@ -13,15 +13,21 @@ from microcosm_core.macro_tools.agent_session_attribution import (
     SCHEMA_VERSION as SESSION_ATTRIBUTION_SCHEMA_VERSION,
     attribute_sessions,
 )
+from microcosm_core.macro_tools.continuation_packet import (
+    SCHEMA_VERSION as CONTINUATION_PACKET_SCHEMA_VERSION,
+    build_public_continuation_packet,
+)
 from microcosm_core.organs.agent_route_observability_runtime import (
     COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
+    EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     run,
     run_computer_use_action_trace_bundle,
+    run_multi_agent_fanin_bundle,
     run_observability_bundle,
     run_session_attribution_bundle,
 )
@@ -47,6 +53,11 @@ SESSION_ATTRIBUTION_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
     "exported_session_attribution_bundle"
+)
+MULTI_AGENT_FANIN_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_multi_agent_fanin_replay_bundle"
 )
 
 
@@ -340,6 +351,134 @@ def test_session_attribution_exported_bundle_receipt_is_public_safe(
     for hit in payload["private_state_scan"]["hits"]:
         assert hit["body_redacted"] is True
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_multi_agent_fanin_replay_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_multi_agent_fanin_bundle(
+        MULTI_AGENT_FANIN_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_multi_agent_fanin_replay_bundle"
+    assert result["bundle_id"] == "public_multi_agent_fanin_replay_runtime_example"
+    assert result["continuation_packet_schema"] == CONTINUATION_PACKET_SCHEMA_VERSION
+    assert result["continuation_packet_count"] == 2
+    assert result["worker_trace_count"] == 2
+    assert result["fanin_join_count"] == 1
+    assert result["wait_kinds"] == ["pipeline_signal", "resume_contract"]
+    assert len(result["continuation_packet_fingerprints"]) == 2
+    assert result["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
+    assert result["authority_ceiling"]["raw_worker_transcript_exported"] is False
+    assert result["authority_ceiling"]["recipient_send_authorized"] is False
+    assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["fanin_input_validation"]["metadata_envelope_only"] is True
+    assert result["fanin_policy"]["forbidden_authority_rejected"] is True
+    assert result["expected_summary_validation"]["actual_summary"][
+        "continuation_packet_count"
+    ] == 2
+    assert result["body_import_verification"]["verification_mode"] == (
+        "source_faithful_public_refactor"
+    )
+    assert result["body_import_verification"]["target_ref"] == (
+        "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py"
+    )
+    assert all(
+        row["decision"] == "accepted" for row in result["worker_trace_decisions"]
+    )
+
+
+def test_multi_agent_fanin_replay_receipt_is_public_safe(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_multi_agent_fanin_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH]
+    receipt_file = public_root / EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "raw_worker_transcript_body" not in _walk_keys(payload)
+    assert "provider_payload" not in _walk_keys(payload)
+    assert "account_session_state" not in _walk_keys(payload)
+    assert "credential_value" not in _walk_keys(payload)
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_multi_agent_fanin_replay_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["raw_worker_transcript_exported"] is False
+    assert payload["provider_payload_exported"] is False
+    assert payload["browser_hud_cockpit_state_exported"] is False
+    assert payload["account_session_state_exported"] is False
+    assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["authority_ceiling"]["release_authorized"] is False
+    for hit in payload["secret_exclusion_scan"]["hits"]:
+        assert hit["body_in_receipt"] is False
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_continuation_packet_imports_public_macro_body_refactor() -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/continuation_packet.py"
+    target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/continuation_packet.py"
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+
+    packet = build_public_continuation_packet(
+        wait_kind="resume_contract",
+        artifact_dir=(
+            "examples/agent_route_observability_runtime/"
+            "exported_multi_agent_fanin_replay_bundle/demo"
+        ),
+        source_context={
+            "current_task_id": "multi_agent_handoff_fanin_replay_compound",
+            "context_refs": [
+                "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound"
+            ],
+        },
+        generated_at="2026-05-24T03:55:00+00:00",
+    )
+    protocol = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
+        ).read_text(encoding="utf-8")
+    )
+    by_material = {row["material_id"]: row for row in protocol["copied_material"]}
+    material = by_material["continuation_packet_body_import"]
+
+    assert target.is_file()
+    assert source_digest != target_digest
+    assert packet["schema_version"] == CONTINUATION_PACKET_SCHEMA_VERSION
+    assert packet["wait_kind"] == "resume_contract"
+    assert packet["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
+    assert material["body_import_verification"]["source_body_digest"] == (
+        f"sha256:{source_digest}"
+    )
+    assert material["body_import_verification"]["target_body_digest"] == (
+        f"sha256:{target_digest}"
+    )
+    assert material["body_import_verification"]["verification_mode"] == (
+        "verified_light_edit_recipe"
+    )
 
 
 def test_computer_use_action_trace_replay_observes_negative_cases(

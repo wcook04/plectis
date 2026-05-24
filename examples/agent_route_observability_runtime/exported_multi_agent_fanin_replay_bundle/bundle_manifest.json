@@ -1,0 +1,32 @@
+{
+  "schema_version": "multi_agent_fanin_replay_bundle_v1",
+  "bundle_id": "public_multi_agent_fanin_replay_runtime_example",
+  "generated_at": "2026-05-24T03:55:00+00:00",
+  "organ_id": "agent_route_observability_runtime",
+  "source_pattern_ids": [
+    "multi_agent_handoff_fanin_replay_compound",
+    "bridge_runtime_dispatch_yield_resume",
+    "agent_trace_to_route_repair_observability_compound"
+  ],
+  "source_refs": [
+    "system/lib/continuation_packet.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/factory/work_ledger.py",
+    "system/lib/agent_execution_trace.py",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound"
+  ],
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle"
+  ],
+  "body_import_status": "source_faithful_public_refactor_landed",
+  "body_import_verification": {
+    "verification_status": "verified",
+    "verification_mode": "source_faithful_public_refactor",
+    "source_to_target_relation": "source_faithful_public_light_edit",
+    "source_ref": "system/lib/continuation_packet.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py",
+    "body_in_receipt": false
+  }
+}

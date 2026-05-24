@@ -10,6 +10,7 @@
     "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
     "system/lib/agent_execution_trace.py",
     "system/lib/agent_session_attribution.py",
+    "system/lib/continuation_packet.py",
     "codex/doctrine/paper_modules/agent_session_attribution.md",
     "codex/standards/std_agent_execution_trace.json",
     "codex/doctrine/agent_bootstrap_live.json::situation_routes",
@@ -330,6 +331,65 @@
         ]
       },
       "body_in_receipt": false
+    },
+    {
+      "material_id": "continuation_packet_body_import",
+      "source_ref": "system/lib/continuation_packet.py",
+      "source_refs": [
+        "system/lib/continuation_packet.py",
+        "codex/standards/std_continuation_packet.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound"
+      ],
+      "target_ref": "src/microcosm_core/macro_tools/continuation_packet.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "credential_exposure_risk": "low",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound",
+        "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "replace macro-root family and mutation-governance imports with deterministic public metadata packet builders",
+        "preserve wait kinds, continuation packet path contract, prompt rendering, fingerprinting, and authority ceiling shape",
+        "consume it through agent_route_observability_runtime exported_multi_agent_fanin_replay_bundle"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_continuation_packet_imports_public_macro_body_refactor",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public continuation-packet tool body import only; not live bridge dispatch, browser/HUD/cockpit state, provider payload access, account/session control state, worker transcript export, Work Ledger mutation, source mutation, private-root equivalence, recipient send, or release authority",
+      "body_digest": "sha256:720742ae8fea6913d271b4fde08f4924f2cf558f7d621c25ed68da6bce65554d",
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "verified_light_edit_recipe",
+        "source_body_digest": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+        "target_body_digest": "sha256:720742ae8fea6913d271b4fde08f4924f2cf558f7d621c25ed68da6bce65554d",
+        "source_to_target_relation": "source_faithful_public_light_edit",
+        "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py::AUTHORITY_CEILING",
+        "source_symbol_refs": [
+          "system/lib/continuation_packet.py::build_continuation_packet",
+          "system/lib/continuation_packet.py::write_continuation_packet",
+          "system/lib/continuation_packet.py::render_codex_resume_prompt",
+          "system/lib/continuation_packet.py::render_codex_wake_prompt",
+          "system/lib/continuation_packet.py::default_continuation_packet_path"
+        ],
+        "target_symbol_refs": [
+          "microcosm_core.macro_tools.continuation_packet::build_public_continuation_packet",
+          "microcosm_core.macro_tools.continuation_packet::write_public_continuation_packet",
+          "microcosm_core.macro_tools.continuation_packet::render_public_resume_prompt",
+          "microcosm_core.macro_tools.continuation_packet::render_public_wake_prompt",
+          "microcosm_core.macro_tools.continuation_packet::canonical_continuation_packet_path"
+        ],
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
+          "python -m microcosm_core.organs.agent_route_observability_runtime validate-multi-agent-fanin-bundle --input examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle"
+        ]
+      },
+      "body_in_receipt": false
     }
   ],
   "cleaned_material": [
@@ -370,6 +430,8 @@
     "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle",
     "src/microcosm_core/macro_tools/agent_session_attribution.py",
     "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+    "src/microcosm_core/macro_tools/continuation_packet.py",
+    "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "src/microcosm_core/organs/navigation_hologram_route_plane.py"
   ],
@@ -380,7 +442,10 @@
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_continuation_packet_imports_public_macro_body_refactor",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_session_attribution_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",

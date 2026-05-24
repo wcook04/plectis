@@ -1,0 +1,23 @@
+{
+  "schema_version": "multi_agent_fanin_policy_v1",
+  "policy_id": "public_multi_agent_fanin_metadata_boundary",
+  "allowed_wait_kinds": [
+    "pipeline_signal",
+    "resume_contract",
+    "mission_controller"
+  ],
+  "live_subagent_spawn_authorized": false,
+  "live_bridge_dispatch_authorized": false,
+  "browser_hud_cockpit_state_read": false,
+  "provider_payload_read": false,
+  "account_session_state_exported": false,
+  "credential_or_cookie_exported": false,
+  "raw_worker_transcript_exported": false,
+  "recipient_send_authorized": false,
+  "live_work_ledger_mutation_authorized": false,
+  "source_mutation_authorized": false,
+  "release_authorized": false,
+  "private_data_equivalence_claim": false,
+  "metadata_envelope_only": true,
+  "body_in_receipt": false
+}

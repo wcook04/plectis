@@ -94,7 +94,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["real_import_validation_count"] == 15
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert status["copied_non_secret_macro_body_material_count"] == 6
+    assert status["copied_non_secret_macro_body_material_count"] == 7
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
     assert status["macro_body_import_floor"][
@@ -103,7 +103,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 1,
-        "public_macro_tool_body": 3,
+        "public_macro_tool_body": 4,
     }
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
@@ -263,6 +263,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
         in status["runtime_surface"]["commands"]
     )
     assert (
+        "microcosm agent-route-observability-runtime "
+        "validate-multi-agent-fanin-bundle"
+        in status["runtime_surface"]["commands"]
+    )
+    assert (
         "microcosm research-replication-rubric-artifact-replay run-replication-bundle"
         in status["runtime_surface"]["commands"]
     )
@@ -299,8 +304,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["surface_counts"]["non_progress_organ_count"] == 0
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 6
-    assert spine["surface_counts"]["public_safe_body_material_count"] == 6
+    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 7
+    assert spine["surface_counts"]["public_safe_body_material_count"] == 7
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 23
     assert spine["surface_counts"]["real_import_validation_count"] == 15
@@ -322,13 +327,14 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["macro_body_import_floor"]["status"] == "pass"
     assert spine["macro_body_import_floor"][
         "copied_non_secret_macro_body_material_count"
-    ] == 6
+    ] == 7
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "non_lean_tool_body_material_ids"
     ] == [
         "work_landing_tool_body_import",
         "agent_execution_trace_body_import",
         "agent_session_attribution_body_import",
+        "continuation_packet_body_import",
     ]
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "proof_body_material_ids"
@@ -771,7 +777,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert (
-        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 6
+        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 7
     )
     assert (
         authority["surface_counts"]["mixed_public_safe_macro_import_assay_status"]

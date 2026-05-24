@@ -1,0 +1,85 @@
+{
+  "schema_version": "multi_agent_fanin_continuation_contexts_v1",
+  "continuation_contexts": [
+    {
+      "context_id": "ctx_worker_bridge_runtime",
+      "wait_kind": "resume_contract",
+      "artifact_dir": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/worker_bridge_runtime",
+      "source_context": {
+        "worker_id": "worker_bridge_runtime",
+        "handoff_id": "handoff_public_fanin_demo",
+        "current_task_id": "bridge_runtime_dispatch_yield_resume",
+        "resume_contract_path": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/worker_bridge_runtime/resume_contract.json",
+        "context_refs": [
+          "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume",
+          "codex/doctrine/paper_modules/bridge_runtime.md"
+        ],
+        "worker_refs": [
+          "worker_bridge_runtime.trace_metadata.json"
+        ],
+        "family_continuity": {
+          "family_id": "09",
+          "family_title": "Microcosm Total Correction and Real Substrate Import",
+          "family_dir": "public_microcosm/family_09",
+          "active_phase": {
+            "phase_id": "09_54_1",
+            "phase_title": "Microcosm Total Correction and Real Substrate Import"
+          },
+          "continuity_refs": [
+            "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
+          ]
+        },
+        "compaction_resume_capsule": {
+          "latest_user_intent": "import_public_multi_agent_fanin_replay",
+          "safe_next_action": "validate metadata-envelope fan-in replay",
+          "prohibited_next_actions": [
+            "dispatch_live_bridge",
+            "read_provider_payloads",
+            "export_worker_transcripts"
+          ]
+        }
+      }
+    },
+    {
+      "context_id": "ctx_worker_trace_repair",
+      "wait_kind": "pipeline_signal",
+      "artifact_dir": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/worker_trace_repair",
+      "source_context": {
+        "worker_id": "worker_trace_repair",
+        "handoff_id": "handoff_public_fanin_demo",
+        "current_task_id": "agent_trace_to_route_repair_observability_compound",
+        "state_path": "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/worker_trace_repair/pipeline_state.json",
+        "stage": "results_processed",
+        "cycle": 2,
+        "context_refs": [
+          "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_trace_to_route_repair_observability_compound",
+          "codex/doctrine/paper_modules/agent_route_compliance.md"
+        ],
+        "worker_refs": [
+          "worker_trace_repair.trace_metadata.json"
+        ],
+        "family_continuity": {
+          "family_id": "09",
+          "family_title": "Microcosm Total Correction and Real Substrate Import",
+          "family_dir": "public_microcosm/family_09",
+          "active_phase": {
+            "phase_id": "09_54_1",
+            "phase_title": "Microcosm Total Correction and Real Substrate Import"
+          },
+          "continuity_refs": [
+            "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_flagship_population_autonomous_seed.json"
+          ]
+        },
+        "compaction_resume_capsule": {
+          "latest_user_intent": "import_public_multi_agent_fanin_replay",
+          "safe_next_action": "join worker trace metadata into fan-in replay",
+          "prohibited_next_actions": [
+            "spawn_live_subagent",
+            "mutate_work_ledger",
+            "claim_private_root_equivalence"
+          ]
+        }
+      }
+    }
+  ]
+}

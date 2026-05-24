@@ -274,6 +274,24 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/agent_route_observability_runtime/exported_session_attribution_bundle"
         ),
     },
+    "multi_agent_fanin_replay_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The multi-agent fan-in replay lane is landed as a source-faithful public "
+            "continuation-packet macro tool plus an exported fan-in metadata bundle."
+        ),
+        "landed_evidence_refs": [
+            "src/microcosm_core/macro_tools/continuation_packet.py",
+            "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+            "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime validate-multi-agent-fanin-bundle "
+            "--input examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle"
+        ),
+    },
     "navigation_route_plane_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

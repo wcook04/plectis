@@ -1,0 +1,194 @@
+{
+  "account_session_state_exported": false,
+  "anti_claim": "Multi-agent fan-in replay validates public continuation-packet, worker-trace, route-decision, and fan-in accounting metadata over a source-faithful continuation-packet macro-tool import. It does not spawn live subagents, dispatch bridge work, expose worker transcript bodies, read provider/browser/account state, send recipient material, mutate Work Ledger or source, claim private-root equivalence, or authorize release.",
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_multi_agent_fanin_metadata_not_live_bridge_authority",
+    "browser_hud_cockpit_state_read": false,
+    "credential_or_cookie_exported": false,
+    "live_bridge_dispatch_authorized": false,
+    "live_subagent_spawn_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_worker_transcript_exported": false,
+    "recipient_send_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "source_ref": "system/lib/continuation_packet.py",
+    "source_to_target_relation": "source_faithful_public_light_edit",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py",
+    "verification_mode": "source_faithful_public_refactor",
+    "verification_status": "verified"
+  },
+  "browser_hud_cockpit_state_exported": false,
+  "bundle_fingerprint": "f028a84e094ca5c7a41b1a39ffda2bed76c528a2edcf90f3eb263fa86798a58b",
+  "bundle_id": "public_multi_agent_fanin_replay_runtime_example",
+  "bundle_manifest_schema_version": "multi_agent_fanin_replay_bundle_v1",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-multi-agent-fanin-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+  "continuation_packet_count": 2,
+  "continuation_packet_fingerprints": [
+    "92210dcee59d9c61",
+    "9fa13cf1d28e3931"
+  ],
+  "continuation_packet_schema": "public_continuation_packet_v1",
+  "created_at": "2026-05-24T04:11:38+00:00",
+  "credential_or_cookie_exported": false,
+  "error_codes": [],
+  "expected_negative_cases": {},
+  "expected_summary_validation": {
+    "actual_summary": {
+      "continuation_packet_count": 2,
+      "fanin_join_count": 1,
+      "fingerprints": [
+        "92210dcee59d9c61",
+        "9fa13cf1d28e3931"
+      ],
+      "wait_kinds": [
+        "pipeline_signal",
+        "resume_contract"
+      ],
+      "worker_trace_count": 2
+    },
+    "body_in_receipt": false,
+    "expected_summary": {
+      "continuation_packet_count": 2,
+      "fanin_join_count": 1,
+      "wait_kinds": [
+        "pipeline_signal",
+        "resume_contract"
+      ],
+      "worker_trace_count": 2
+    },
+    "findings": [],
+    "status": "pass"
+  },
+  "fanin_input_validation": {
+    "body_in_receipt": false,
+    "continuation_context_count": 2,
+    "findings": [],
+    "forbidden_payload_keys": [],
+    "metadata_envelope_only": true,
+    "status": "pass",
+    "worker_trace_count": 2
+  },
+  "fanin_join_count": 1,
+  "fanin_policy": {
+    "allowed_wait_kinds": [
+      "mission_controller",
+      "pipeline_signal",
+      "resume_contract"
+    ],
+    "body_in_receipt": false,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "metadata_envelope_only": true,
+    "policy_id": "public_multi_agent_fanin_metadata_boundary",
+    "status": "pass"
+  },
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "input_mode": "exported_multi_agent_fanin_replay_bundle",
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {},
+  "organ_id": "agent_route_observability_runtime",
+  "provider_payload_exported": false,
+  "raw_worker_transcript_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_multi_agent_fanin_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json"
+  ],
+  "recipient_send_authorized": false,
+  "schema_version": "agent_route_observability_runtime_exported_multi_agent_fanin_bundle_validation_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_provider_payload_exclusion",
+    "scanned_path_count": 5,
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "system/lib/continuation_packet.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "tools/meta/factory/work_ledger.py",
+    "system/lib/agent_execution_trace.py",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound"
+  ],
+  "status": "pass",
+  "target_refs": [
+    "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle"
+  ],
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
+  "wait_kinds": [
+    "pipeline_signal",
+    "resume_contract"
+  ],
+  "worker_trace_count": 2,
+  "worker_trace_decisions": [
+    {
+      "body_in_receipt": false,
+      "continuation_context_id": "ctx_worker_bridge_runtime",
+      "continuation_packet_fingerprint": "92210dcee59d9c61",
+      "decision": "accepted",
+      "fanin_join_id": "fanin_public_wave118",
+      "route_decision_count": 1,
+      "worker_id": "worker_bridge_runtime"
+    },
+    {
+      "body_in_receipt": false,
+      "continuation_context_id": "ctx_worker_trace_repair",
+      "continuation_packet_fingerprint": "9fa13cf1d28e3931",
+      "decision": "accepted",
+      "fanin_join_id": "fanin_public_wave118",
+      "route_decision_count": 1,
+      "worker_id": "worker_trace_repair"
+    }
+  ]
+}

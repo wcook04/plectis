@@ -1,0 +1,51 @@
+{
+  "schema_version": "multi_agent_fanin_worker_traces_v1",
+  "worker_traces": [
+    {
+      "worker_id": "worker_bridge_runtime",
+      "actor_axis": "type_a_substrate_worker",
+      "fanin_join_id": "fanin_public_wave118",
+      "continuation_context_id": "ctx_worker_bridge_runtime",
+      "projection_not_authority": true,
+      "raw_worker_transcript_exported": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "claims_live_mutation_authority": false,
+      "recipient_send_authorized": false,
+      "route_decisions": [
+        {
+          "decision_id": "bridge_runtime_metadata_membrane",
+          "route_id": "bridge_runtime_dispatch_yield_resume",
+          "decision": "metadata_membrane_only",
+          "evidence_refs": [
+            "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#bridge_runtime_dispatch_yield_resume"
+          ],
+          "body_in_receipt": false
+        }
+      ]
+    },
+    {
+      "worker_id": "worker_trace_repair",
+      "actor_axis": "type_a_substrate_worker",
+      "fanin_join_id": "fanin_public_wave118",
+      "continuation_context_id": "ctx_worker_trace_repair",
+      "projection_not_authority": true,
+      "raw_worker_transcript_exported": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "claims_live_mutation_authority": false,
+      "recipient_send_authorized": false,
+      "route_decisions": [
+        {
+          "decision_id": "route_repair_observability_trace",
+          "route_id": "agent_trace_to_route_repair_observability_compound",
+          "decision": "accepted_public_trace_metadata",
+          "evidence_refs": [
+            "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/route_events.json"
+          ],
+          "body_in_receipt": false
+        }
+      ]
+    }
+  ]
+}

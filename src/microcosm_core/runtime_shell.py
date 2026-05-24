@@ -2013,6 +2013,10 @@ class RuntimeShell:
                         "microcosm agent-route-observability-runtime "
                         "validate-session-attribution-bundle"
                     ),
+                    (
+                        "microcosm agent-route-observability-runtime "
+                        "validate-multi-agent-fanin-bundle"
+                    ),
                     "microcosm provider-context-recipe-budget-policy run-budget-bundle",
                     "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
                     "microcosm tactic-portfolio-availability-probe run-availability-bundle",

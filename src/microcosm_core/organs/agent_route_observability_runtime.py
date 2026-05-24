@@ -14,6 +14,14 @@ from microcosm_core.macro_tools.agent_session_attribution import (
     attribute_sessions,
     identify_self_session,
 )
+from microcosm_core.macro_tools.continuation_packet import (
+    AUTHORITY_CEILING as CONTINUATION_PACKET_AUTHORITY_CEILING,
+    SCHEMA_VERSION as CONTINUATION_PACKET_SCHEMA_VERSION,
+    SOURCE_REFS as CONTINUATION_PACKET_SOURCE_REFS,
+    TARGET_REFS as CONTINUATION_PACKET_TARGET_REFS,
+    WAIT_KINDS as CONTINUATION_PACKET_WAIT_KINDS,
+    build_public_continuation_packet,
+)
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_computer_use_trace,
 )
@@ -43,6 +51,9 @@ COMPUTER_USE_BUNDLE_RESULT_NAME = (
 SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME = (
     "exported_session_attribution_bundle_validation_result.json"
 )
+MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME = (
+    "exported_multi_agent_fanin_replay_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -65,6 +76,10 @@ EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH = (
 EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_session_attribution_bundle_validation_result.json"
+)
+EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_multi_agent_fanin_replay_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -147,6 +162,22 @@ SESSION_ATTRIBUTION_AUTHORITY_CEILING = {
     "release_authorized": False,
     "private_data_equivalence_claim": False,
 }
+MULTI_AGENT_FANIN_AUTHORITY_CEILING = {
+    "status": PASS,
+    "authority_ceiling": "public_multi_agent_fanin_metadata_not_live_bridge_authority",
+    "live_subagent_spawn_authorized": False,
+    "live_bridge_dispatch_authorized": False,
+    "browser_hud_cockpit_state_read": False,
+    "provider_payload_read": False,
+    "account_session_state_exported": False,
+    "credential_or_cookie_exported": False,
+    "raw_worker_transcript_exported": False,
+    "recipient_send_authorized": False,
+    "live_work_ledger_mutation_authorized": False,
+    "source_mutation_authorized": False,
+    "release_authorized": False,
+    "private_data_equivalence_claim": False,
+}
 COMPUTER_USE_ANTI_CLAIM = (
     "Computer-use action trace replay validates synthetic observation, "
     "affordance, action, pre-action authority verdict, state-transition, "
@@ -165,6 +196,14 @@ SESSION_ATTRIBUTION_ANTI_CLAIM = (
     "raw transcript bodies, expose provider payloads, browser/HUD/cockpit state, "
     "account/session control state, credentials, or cookies, mutate Work Ledger "
     "or source, claim private-root equivalence, or authorize release."
+)
+MULTI_AGENT_FANIN_ANTI_CLAIM = (
+    "Multi-agent fan-in replay validates public continuation-packet, worker-trace, "
+    "route-decision, and fan-in accounting metadata over a source-faithful "
+    "continuation-packet macro-tool import. It does not spawn live subagents, "
+    "dispatch bridge work, expose worker transcript bodies, read provider/browser/"
+    "account state, send recipient material, mutate Work Ledger or source, claim "
+    "private-root equivalence, or authorize release."
 )
 
 SOURCE_PATTERN_IDS = [
@@ -204,6 +243,13 @@ SESSION_ATTRIBUTION_INPUT_NAMES = (
     "self_identification_request.json",
     "expected_attribution_summary.json",
 )
+MULTI_AGENT_FANIN_INPUT_NAMES = (
+    "bundle_manifest.json",
+    "continuation_contexts.json",
+    "worker_traces.json",
+    "fanin_policy.json",
+    "expected_fanin_summary.json",
+)
 SESSION_ATTRIBUTION_FORBIDDEN_KEYS = {
     "raw_transcript_body",
     "transcript_body",
@@ -218,6 +264,23 @@ SESSION_ATTRIBUTION_FORBIDDEN_KEYS = {
     "api_key",
     "access_token",
     "refresh_token",
+}
+MULTI_AGENT_FANIN_FORBIDDEN_KEYS = {
+    "raw_worker_transcript_body",
+    "worker_transcript_body",
+    "raw_transcript_body",
+    "provider_payload",
+    "browser_hud_state",
+    "browser_hud_cockpit_state",
+    "account_session_state",
+    "credential_value",
+    "cookie",
+    "password",
+    "secret_value",
+    "api_key",
+    "access_token",
+    "refresh_token",
+    "recipient_send_payload",
 }
 COMPUTER_USE_NEGATIVE_INPUT_NAMES = (
     "live_account_action.json",
@@ -332,6 +395,10 @@ def _session_attribution_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in SESSION_ATTRIBUTION_INPUT_NAMES]
 
 
+def _multi_agent_fanin_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in MULTI_AGENT_FANIN_INPUT_NAMES]
+
+
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
@@ -384,6 +451,13 @@ def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_multi_agent_fanin_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _multi_agent_fanin_bundle_paths(input_dir)
+    }
+
+
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -416,6 +490,15 @@ def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _session_attribution_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_multi_agent_fanin_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _multi_agent_fanin_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -1287,6 +1370,193 @@ def validate_exported_session_attribution_expected_summary(
     }
 
 
+def validate_exported_multi_agent_fanin_policy(payload: object) -> dict[str, Any]:
+    policy = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    for field in (
+        "live_subagent_spawn_authorized",
+        "live_bridge_dispatch_authorized",
+        "browser_hud_cockpit_state_read",
+        "provider_payload_read",
+        "account_session_state_exported",
+        "credential_or_cookie_exported",
+        "raw_worker_transcript_exported",
+        "recipient_send_authorized",
+        "live_work_ledger_mutation_authorized",
+        "source_mutation_authorized",
+        "release_authorized",
+        "private_data_equivalence_claim",
+    ):
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_POLICY_FORBIDDEN_AUTHORITY",
+                    "Multi-agent fan-in policy must deny live workers, bridge dispatch, browser/HUD, provider, account, credential, transcript, recipient-send, mutation, release, and private-equivalence authority.",
+                    subject_id=field,
+                    subject_kind="multi_agent_fanin_policy",
+                )
+            )
+    allowed_wait_kinds = set(_strings(policy.get("allowed_wait_kinds")))
+    if not set(CONTINUATION_PACKET_WAIT_KINDS).issubset(allowed_wait_kinds):
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_WAIT_KIND_COVERAGE_MISSING",
+                "Fan-in policy must cover every public continuation-packet wait kind.",
+                subject_id=str(policy.get("policy_id") or "fanin_policy"),
+                subject_kind="multi_agent_fanin_policy",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "allowed_wait_kinds": sorted(allowed_wait_kinds),
+        "forbidden_authority_rejected": True,
+        "metadata_envelope_only": True,
+        "body_in_receipt": False,
+    }
+
+
+def validate_exported_multi_agent_fanin_inputs(
+    continuation_payload: object,
+    worker_payload: object,
+) -> dict[str, Any]:
+    contexts = _rows(continuation_payload, "continuation_contexts")
+    workers = _rows(worker_payload, "worker_traces")
+    findings: list[dict[str, Any]] = []
+    forbidden_keys = _walk_payload_keys(continuation_payload) | _walk_payload_keys(worker_payload)
+    leaked_keys = sorted(MULTI_AGENT_FANIN_FORBIDDEN_KEYS & forbidden_keys)
+    for key in leaked_keys:
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_FORBIDDEN_PAYLOAD_KEY",
+                "Fan-in replay inputs cannot include worker transcript bodies, provider/browser/account state, credentials, cookies, secrets, or recipient-send payloads.",
+                subject_id=key,
+                subject_kind="multi_agent_fanin_input",
+            )
+        )
+    if len(contexts) < 2:
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_CONTINUATION_CONTEXTS_MISSING",
+                "Fan-in replay must include at least two continuation contexts.",
+                subject_id="continuation_contexts",
+                subject_kind="multi_agent_fanin_input",
+            )
+        )
+    if len(workers) < 2:
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_WORKER_TRACES_MISSING",
+                "Fan-in replay must include at least two worker trace envelopes.",
+                subject_id="worker_traces",
+                subject_kind="multi_agent_fanin_input",
+            )
+        )
+    context_ids = {str(row.get("context_id") or "") for row in contexts}
+    for worker in workers:
+        worker_id = str(worker.get("worker_id") or "")
+        context_id = str(worker.get("continuation_context_id") or "")
+        if context_id not in context_ids:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_CONTEXT_REF_MISSING",
+                    "Worker trace must reference a continuation context row.",
+                    subject_id=worker_id or context_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
+        if worker.get("projection_not_authority") is not True:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_WORKER_PROJECTION_FLAG_MISSING",
+                    "Worker trace rows must declare projection_not_authority.",
+                    subject_id=worker_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
+        for field in (
+            "raw_worker_transcript_exported",
+            "provider_payload_read",
+            "browser_hud_cockpit_state_read",
+            "claims_live_mutation_authority",
+            "recipient_send_authorized",
+        ):
+            if worker.get(field) is not False:
+                findings.append(
+                    _bundle_finding(
+                        "MULTI_AGENT_FANIN_WORKER_AUTHORITY_OVERCLAIM",
+                        "Worker trace metadata must deny transcript export, provider/browser access, live mutation, and recipient-send authority.",
+                        subject_id=worker_id or field,
+                        subject_kind="multi_agent_fanin_worker_trace",
+                    )
+                )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "continuation_context_count": len(contexts),
+        "worker_trace_count": len(workers),
+        "forbidden_payload_keys": leaked_keys,
+        "metadata_envelope_only": True,
+        "body_in_receipt": False,
+    }
+
+
+def validate_exported_multi_agent_fanin_expected_summary(
+    payload: object,
+    *,
+    packets: list[dict[str, Any]],
+    workers: list[dict[str, Any]],
+) -> dict[str, Any]:
+    expected = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    actual_summary = {
+        "continuation_packet_count": len(packets),
+        "worker_trace_count": len(workers),
+        "fanin_join_count": len(
+            {
+                str(worker.get("fanin_join_id") or "")
+                for worker in workers
+                if str(worker.get("fanin_join_id") or "")
+            }
+        ),
+        "wait_kinds": sorted({str(packet.get("wait_kind") or "") for packet in packets}),
+        "fingerprints": sorted(
+            str(packet.get("fingerprint") or "")
+            for packet in packets
+            if str(packet.get("fingerprint") or "")
+        ),
+    }
+    expected_summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
+    for field in ("continuation_packet_count", "worker_trace_count", "fanin_join_count"):
+        if field in expected_summary and expected_summary[field] != actual_summary[field]:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SUMMARY_MISMATCH",
+                    "Expected fan-in summary must match computed continuation-packet and worker-trace counts.",
+                    subject_id=field,
+                    subject_kind="multi_agent_fanin_expected_summary",
+                )
+            )
+    expected_wait_kinds = expected_summary.get("wait_kinds")
+    if isinstance(expected_wait_kinds, list) and sorted(expected_wait_kinds) != actual_summary["wait_kinds"]:
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_WAIT_KIND_MISMATCH",
+                "Expected wait kinds must match computed public continuation packets.",
+                subject_id="wait_kinds",
+                subject_kind="multi_agent_fanin_expected_summary",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "expected_summary": expected_summary,
+        "actual_summary": actual_summary,
+        "body_in_receipt": False,
+    }
+
+
 def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1764,6 +2034,7 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
+    scan_key = "private_state_scan" if "private_state_scan" in result else "secret_exclusion_scan"
     return {
         "schema_version": schema_version,
         "receipt_id": schema_version,
@@ -1779,7 +2050,7 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "error_codes": result["error_codes"],
         "findings": result["findings"],
         "anti_claim": result["anti_claim"],
-        "private_state_scan": result["private_state_scan"],
+        scan_key: result[scan_key],
         "authority_ceiling": result["authority_ceiling"],
         "receipt_paths": receipt_paths,
         "source_pattern_ids": SOURCE_PATTERN_IDS,
@@ -1971,6 +2242,73 @@ def _write_session_attribution_bundle_receipt(
             "provider_payload_exported": False,
             "account_session_state_exported": False,
             "credential_or_cookie_exported": False,
+            "fixture_regression_required_elsewhere": False,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def _write_multi_agent_fanin_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_multi_agent_fanin_"
+            "bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "continuation_packet_schema": validation_result[
+                "continuation_packet_schema"
+            ],
+            "continuation_packet_count": validation_result[
+                "continuation_packet_count"
+            ],
+            "worker_trace_count": validation_result["worker_trace_count"],
+            "fanin_join_count": validation_result["fanin_join_count"],
+            "wait_kinds": validation_result["wait_kinds"],
+            "continuation_packet_fingerprints": validation_result[
+                "continuation_packet_fingerprints"
+            ],
+            "worker_trace_decisions": validation_result["worker_trace_decisions"],
+            "fanin_input_validation": validation_result["fanin_input_validation"],
+            "fanin_policy": validation_result["fanin_policy"],
+            "expected_summary_validation": validation_result[
+                "expected_summary_validation"
+            ],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "metadata_envelope_only": True,
+            "raw_worker_transcript_exported": False,
+            "provider_payload_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "account_session_state_exported": False,
+            "credential_or_cookie_exported": False,
+            "recipient_send_authorized": False,
             "fixture_regression_required_elsewhere": False,
         }
     )
@@ -2274,6 +2612,214 @@ def run_session_attribution_bundle(
         }
     )
     receipt_path = _write_session_attribution_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
+def run_multi_agent_fanin_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_multi_agent_fanin_bundle(input_path)
+    scan_result = _scan_multi_agent_fanin_inputs(input_path, public_root)
+    secret_scan = dict(scan_result)
+    secret_scan.pop("forbidden_output_fields", None)
+    secret_scan.pop("body_redacted", None)
+    secret_scan.pop("redacted_output_field_labels_omitted", None)
+    secret_scan["omitted_output_fields"] = ["source_excerpt", "body"]
+    secret_scan["body_in_receipt"] = False
+    secret_scan["real_substrate_default"] = True
+    secret_scan["scan_purpose"] = (
+        "credential_account_bound_and_provider_payload_exclusion"
+    )
+    secret_scan["hits"] = [
+        {
+            **{
+                key: value
+                for key, value in hit.items()
+                if key != "body_redacted"
+            },
+            "body_in_receipt": False,
+        }
+        for hit in _rows(secret_scan, "hits")
+    ]
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    generated_at = str(manifest.get("generated_at") or "")
+    continuation_payload = payloads["continuation_contexts"]
+    worker_payload = payloads["worker_traces"]
+    contexts = _rows(continuation_payload, "continuation_contexts")
+    workers = _rows(worker_payload, "worker_traces")
+    input_result = validate_exported_multi_agent_fanin_inputs(
+        continuation_payload,
+        worker_payload,
+    )
+    policy_result = validate_exported_multi_agent_fanin_policy(payloads["fanin_policy"])
+
+    packets: list[dict[str, Any]] = []
+    packet_findings: list[dict[str, Any]] = []
+    for context in contexts:
+        context_id = str(context.get("context_id") or "continuation_context")
+        try:
+            packet = build_public_continuation_packet(
+                wait_kind=str(context.get("wait_kind") or ""),
+                artifact_dir=str(context.get("artifact_dir") or ""),
+                source_context=context.get("source_context")
+                if isinstance(context.get("source_context"), dict)
+                else {},
+                generated_at=generated_at or None,
+            )
+        except ValueError as exc:
+            packet_findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_CONTINUATION_PACKET_BLOCKED",
+                    str(exc),
+                    subject_id=context_id,
+                    subject_kind="multi_agent_fanin_continuation_context",
+                )
+            )
+            continue
+        packet["context_id"] = context_id
+        packets.append(packet)
+
+    expected_result = validate_exported_multi_agent_fanin_expected_summary(
+        payloads["expected_fanin_summary"],
+        packets=packets,
+        workers=workers,
+    )
+    all_findings = sorted(
+        [
+            *input_result["findings"],
+            *policy_result["findings"],
+            *packet_findings,
+            *expected_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    context_by_id = {str(packet.get("context_id") or ""): packet for packet in packets}
+    worker_trace_decisions = [
+        {
+            "worker_id": worker.get("worker_id"),
+            "fanin_join_id": worker.get("fanin_join_id"),
+            "continuation_context_id": worker.get("continuation_context_id"),
+            "continuation_packet_fingerprint": (
+                context_by_id.get(str(worker.get("continuation_context_id") or ""), {})
+                .get("fingerprint")
+            ),
+            "route_decision_count": len(_rows(worker, "route_decisions")),
+            "decision": (
+                "accepted"
+                if str(worker.get("continuation_context_id") or "") in context_by_id
+                else "blocked"
+            ),
+            "body_in_receipt": False,
+        }
+        for worker in workers
+    ]
+    fanin_join_count = len(
+        {
+            str(worker.get("fanin_join_id") or "")
+            for worker in workers
+            if str(worker.get("fanin_join_id") or "")
+        }
+    )
+    continuation_fingerprints = sorted(
+        str(packet.get("fingerprint") or "")
+        for packet in packets
+        if str(packet.get("fingerprint") or "")
+    )
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_multi_agent_fanin_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not all_findings
+        and len(packets) >= 2
+        and len(workers) >= 2
+        and fanin_join_count >= 1
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "continuation_packet_fingerprints": continuation_fingerprints,
+            "workers": [
+                {
+                    "worker_id": worker.get("worker_id"),
+                    "fanin_join_id": worker.get("fanin_join_id"),
+                    "continuation_context_id": worker.get("continuation_context_id"),
+                }
+                for worker in workers
+            ],
+            "policy_id": policy_result.get("policy_id"),
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or CONTINUATION_PACKET_SOURCE_REFS
+    target_refs = _strings(manifest.get("target_refs")) or CONTINUATION_PACKET_TARGET_REFS
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_multi_agent_fanin_replay_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": MULTI_AGENT_FANIN_ANTI_CLAIM,
+            "authority_ceiling": MULTI_AGENT_FANIN_AUTHORITY_CEILING,
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(
+                {str(item.get("error_code") or "") for item in all_findings}
+            ),
+            "findings": all_findings,
+            "secret_exclusion_scan": secret_scan,
+            "continuation_packet_schema": CONTINUATION_PACKET_SCHEMA_VERSION,
+            "continuation_packet_count": len(packets),
+            "worker_trace_count": len(workers),
+            "fanin_join_count": fanin_join_count,
+            "wait_kinds": sorted({str(packet.get("wait_kind") or "") for packet in packets}),
+            "continuation_packet_fingerprints": continuation_fingerprints,
+            "worker_trace_decisions": worker_trace_decisions,
+            "fanin_input_validation": input_result,
+            "fanin_policy": policy_result,
+            "expected_summary_validation": expected_result,
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "body_import_verification": {
+                "verification_status": "verified",
+                "verification_mode": "source_faithful_public_refactor",
+                "source_to_target_relation": "source_faithful_public_light_edit",
+                "source_ref": "system/lib/continuation_packet.py",
+                "target_ref": (
+                    "microcosm-substrate/src/microcosm_core/macro_tools/"
+                    "continuation_packet.py"
+                ),
+                "body_in_receipt": False,
+            },
+            "public_continuation_packets": packets,
+            "continuation_packet_authority_ceiling": CONTINUATION_PACKET_AUTHORITY_CEILING,
+            "bundle_fingerprint": bundle_fingerprint,
+            "receipt_paths": [EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_multi_agent_fanin_bundle_receipt(
         out_dir,
         result,
         public_root=public_root,
@@ -3320,6 +3866,9 @@ def main(argv: list[str] | None = None) -> int:
     session_attribution_parser = subparsers.add_parser("validate-session-attribution-bundle")
     session_attribution_parser.add_argument("--input", required=True)
     session_attribution_parser.add_argument("--out", required=True)
+    fanin_parser = subparsers.add_parser("validate-multi-agent-fanin-bundle")
+    fanin_parser.add_argument("--input", required=True)
+    fanin_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
@@ -3345,10 +3894,17 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-session-attribution-bundle --input {args.input} --out {args.out}"
         )
         result = run_session_attribution_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-multi-agent-fanin-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"validate-multi-agent-fanin-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_multi_agent_fanin_bundle(args.input, args.out, command=command)
     else:
         parser.error(
             "expected subcommand: run, validate-observability-bundle, or "
-            "validate-computer-use-bundle, or validate-session-attribution-bundle"
+            "validate-computer-use-bundle, validate-session-attribution-bundle, "
+            "or validate-multi-agent-fanin-bundle"
         )
     return 0 if result["status"] == PASS else 1
 

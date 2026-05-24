@@ -290,7 +290,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 5
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 7
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
