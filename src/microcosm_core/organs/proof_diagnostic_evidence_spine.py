@@ -73,12 +73,28 @@ RECEIPT_ANCHOR_REFS = [
     "receipts/first_wave/formal_evidence_cell_anchor_resolver/"
     "formal_evidence_cell_anchor_resolver_validation_receipt.json",
 ]
+REFERENCE_CAPSULE_RECEIPT_REFS = [
+    "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/source_capsules.json",
+    "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
+]
+AUTHORITY_CHAIN_RECEIPT_REFS = [
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
+]
 SOURCE_DIGESTS = {
     REAL_SUBSTRATE_REFS[0]: "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
     REAL_SUBSTRATE_REFS[1]: "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
     REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
     REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
 }
+PUBLIC_REPLACEMENT_REFS = [
+    *REAL_SUBSTRATE_REFS,
+    *RECEIPT_ANCHOR_REFS,
+    *REFERENCE_CAPSULE_RECEIPT_REFS,
+    *AUTHORITY_CHAIN_RECEIPT_REFS,
+]
 SOURCE_TARGET_REFS = [
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/checks.json",
     "fixtures/first_wave/proof_diagnostic_evidence_spine/input/diagnostic_rows.json",
@@ -567,6 +583,26 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [public_relative_path(path, display_root=public_root) for path in paths.values()]
 
 
+def _authority_rejection_count(result: dict[str, Any]) -> int:
+    return (
+        len(result["provider_policy_rejection_ids"])
+        + int(bool(result["diagnostic_board_source_authority_rejected"]))
+        + int(bool(result["runtime_correctness_claim_rejected"]))
+    )
+
+
+def _omission_reversal_inputs(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "status": PASS,
+        "public_replacement_refs": result["public_replacement_refs"],
+        "source_digest_sha256_by_ref": result["source_digest_sha256_by_ref"],
+        "source_fingerprint_status": result["source_fingerprint_status"],
+        "proof_or_provider_bodies_recovered": False,
+        "credential_equivalent_material_recovered": False,
+        "body_in_receipt": False,
+    }
+
+
 def build_diagnostic_board(result: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "proof_diagnostic_evidence_spine_diagnostic_board_v1",
@@ -618,9 +654,20 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "real_substrate_refs",
         "receipt_anchor_refs",
         "source_digests",
+        "source_digest_sha256_by_ref",
         "source_target_refs",
+        "private_state_scan",
         "input_mode",
         "bundle_id",
+        "body_redacted",
+        "public_replacement_refs",
+        "upstream_reference_capsule_receipt_refs",
+        "upstream_authority_chain_receipt_refs",
+        "omission_reversal_inputs",
+        "proof_evidence_authority_ceilings_compatible",
+        "claim_ceiling",
+        "diagnostic_board_path",
+        "evidence_cell_ids",
     )
     payload = {
         "schema_version": schema_version,
@@ -656,6 +703,9 @@ def write_receipts(
         "fixture_acceptance": acceptance_path,
     }
     receipt_paths = _relative_receipt_paths(paths, public_root)
+    validation_result["diagnostic_board_path"] = receipt_paths[2]
+    validation_result["omission_reversal_inputs"] = _omission_reversal_inputs(validation_result)
+    authority_rejection_count = _authority_rejection_count(validation_result)
 
     proof_receipts = _common_receipt(
         validation_result,
@@ -705,7 +755,7 @@ def write_receipts(
             "advisory_metadata_preserved": validation_result["advisory_payload_ids"],
             "proof_body_forbidden_key_hits": validation_result["proof_body_forbidden_key_hits"],
             "provider_policy_rejection_count": len(validation_result["provider_policy_rejection_ids"]),
-            "authority_rejection_count": len(validation_result["provider_policy_rejection_ids"]),
+            "authority_rejection_count": authority_rejection_count,
             "provider_payload_authority_rejected": PROOF_AUTHORITY_CEILING[
                 "provider_payload_authority_rejected"
             ],
@@ -727,6 +777,13 @@ def write_receipts(
     diagnostic_board["diagnostic_board_source_authority_rejected"] = validation_result[
         "diagnostic_board_source_authority_rejected"
     ]
+    diagnostic_board.update(
+        {
+            "accepted_count": len(validation_result["accepted_check_ids"]),
+            "rejected_count": len(validation_result["rejected_check_ids"]),
+            "authority_rejection_count": authority_rejection_count,
+        }
+    )
 
     validation_receipt = _common_receipt(
         validation_result,
@@ -739,11 +796,7 @@ def write_receipts(
             "accepted_count": len(validation_result["accepted_check_ids"]),
             "rejected_count": len(validation_result["rejected_check_ids"]),
             "provider_policy_rejection_count": len(validation_result["provider_policy_rejection_ids"]),
-            "authority_rejection_count": (
-                len(validation_result["provider_policy_rejection_ids"])
-                + int(bool(validation_result["diagnostic_board_source_authority_rejected"]))
-                + int(bool(validation_result["runtime_correctness_claim_rejected"]))
-            ),
+            "authority_rejection_count": authority_rejection_count,
             "receipt_field_gaps": validation_result["receipt_field_gaps"],
             "source_fingerprint_status": validation_result["source_fingerprint_status"],
             "source_fingerprints": validation_result["source_fingerprints"],
@@ -760,6 +813,7 @@ def write_receipts(
             "receipt_anchor_refs": validation_result["receipt_anchor_refs"],
             "source_digests": validation_result["source_digests"],
             "source_target_refs": validation_result["source_target_refs"],
+            "claim_ceiling": PROOF_AUTHORITY_CEILING["authority_ceiling"],
             "provider_payload_authority_rejected": PROOF_AUTHORITY_CEILING[
                 "provider_payload_authority_rejected"
             ],
@@ -789,6 +843,7 @@ def write_receipts(
             "real_substrate_refs": validation_result["real_substrate_refs"],
             "receipt_anchor_refs": validation_result["receipt_anchor_refs"],
             "source_digests": validation_result["source_digests"],
+            "public_replacement_refs": validation_result["public_replacement_refs"],
         }
     )
 
@@ -919,6 +974,10 @@ def run(
             "error_codes": error_codes,
             "findings": all_findings,
             "secret_exclusion_scan": secret_scan,
+            "private_state_scan": {
+                **secret_scan,
+                "compatibility_alias_for": "secret_exclusion_scan",
+            },
             "proof_receipts": proof_result["proof_receipts"],
             "accepted_check_ids": proof_result["accepted_check_ids"],
             "rejected_check_ids": proof_result["rejected_check_ids"],
@@ -938,6 +997,7 @@ def run(
             "body_material_status": BODY_MATERIAL_STATUS,
             "evidence_anchor_status": EVIDENCE_ANCHOR_STATUS,
             "body_in_receipt": False,
+            "body_redacted": True,
             "body_safe_lineage_status": {
                 "status": PASS,
                 "forbidden_body_key_values_omitted": True,
@@ -947,6 +1007,15 @@ def run(
             "real_substrate_refs": REAL_SUBSTRATE_REFS,
             "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
             "source_digests": SOURCE_DIGESTS,
+            "source_digest_sha256_by_ref": SOURCE_DIGESTS,
+            "upstream_reference_capsule_receipt_refs": REFERENCE_CAPSULE_RECEIPT_REFS,
+            "upstream_authority_chain_receipt_refs": AUTHORITY_CHAIN_RECEIPT_REFS,
+            "public_replacement_refs": PUBLIC_REPLACEMENT_REFS,
+            "proof_evidence_authority_ceilings_compatible": True,
+            "claim_ceiling": PROOF_AUTHORITY_CEILING["authority_ceiling"],
+            "evidence_cell_ids": sorted(
+                [*proof_result["accepted_check_ids"], *proof_result["rejected_check_ids"]]
+            ),
             "source_target_refs": SOURCE_TARGET_REFS,
             "fixture_inputs": [
                 public_relative_path(path, display_root=public_root)
@@ -1037,6 +1106,10 @@ def run_evidence_bundle(
             "error_codes": sorted({str(finding["error_code"]) for finding in all_findings}),
             "findings": all_findings,
             "secret_exclusion_scan": secret_scan,
+            "private_state_scan": {
+                **secret_scan,
+                "compatibility_alias_for": "secret_exclusion_scan",
+            },
             "proof_receipts": proof_result["proof_receipts"],
             "accepted_check_ids": proof_result["accepted_check_ids"],
             "rejected_check_ids": proof_result["rejected_check_ids"],
@@ -1049,6 +1122,7 @@ def run_evidence_bundle(
             "body_material_status": BODY_MATERIAL_STATUS,
             "evidence_anchor_status": EVIDENCE_ANCHOR_STATUS,
             "body_in_receipt": False,
+            "body_redacted": True,
             "body_safe_lineage_status": {
                 "status": PASS,
                 "forbidden_body_key_values_omitted": True,
@@ -1058,6 +1132,15 @@ def run_evidence_bundle(
             "real_substrate_refs": REAL_SUBSTRATE_REFS,
             "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
             "source_digests": SOURCE_DIGESTS,
+            "source_digest_sha256_by_ref": SOURCE_DIGESTS,
+            "upstream_reference_capsule_receipt_refs": REFERENCE_CAPSULE_RECEIPT_REFS,
+            "upstream_authority_chain_receipt_refs": AUTHORITY_CHAIN_RECEIPT_REFS,
+            "public_replacement_refs": PUBLIC_REPLACEMENT_REFS,
+            "proof_evidence_authority_ceilings_compatible": True,
+            "claim_ceiling": PROOF_AUTHORITY_CEILING["authority_ceiling"],
+            "evidence_cell_ids": sorted(
+                [*proof_result["accepted_check_ids"], *proof_result["rejected_check_ids"]]
+            ),
             "source_target_refs": SOURCE_TARGET_REFS,
             "formal_policy_packet_status": (
                 "ring2_diagnostic_policy_packet_consumed_without_provider_call"

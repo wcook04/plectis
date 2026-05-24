@@ -18,21 +18,43 @@ PROOF_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evi
 PROOF_EXPORTED_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json": [
+        "private_state_scan",
+        "body_redacted",
+        "public_replacement_refs",
+        "upstream_reference_capsule_receipt_refs",
+        "upstream_authority_chain_receipt_refs",
         "source_fingerprints",
         "source_fingerprint_status",
+        "source_digest_sha256_by_ref",
         "claim_ceiling",
     ],
     "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json": [
+        "private_state_scan",
         "provider_payload_authority_rejected",
+        "body_redacted",
+        "public_replacement_refs",
         "body_in_receipt",
         "real_substrate_refs",
         "receipt_anchor_refs",
         "source_digests",
     ],
     "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json": [
+        "private_state_scan",
+        "upstream_reference_capsule_receipt_refs",
+        "upstream_authority_chain_receipt_refs",
+        "accepted_count",
+        "rejected_count",
+        "authority_rejection_count",
         "diagnostic_board_source_authority_rejected",
+        "claim_ceiling",
     ],
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json": [
+        "private_state_scan",
+        "upstream_reference_capsule_receipt_refs",
+        "upstream_authority_chain_receipt_refs",
+        "omission_reversal_inputs",
+        "proof_evidence_authority_ceilings_compatible",
+        "source_digest_sha256_by_ref",
         "accepted_count",
         "rejected_count",
         "authority_rejection_count",
@@ -40,6 +62,7 @@ PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
         "provider_payload_authority_rejected",
         "runtime_correctness_claim_rejected",
         "diagnostic_board_source_authority_rejected",
+        "claim_ceiling",
         "body_material_status",
         "evidence_anchor_status",
     ],
@@ -290,3 +313,16 @@ def test_proof_diagnostic_evidence_spine_receipts_satisfy_macro_field_floor(
     assert validation_receipt["runtime_correctness_claim_rejected"] is True
     assert validation_receipt["diagnostic_board_source_authority_rejected"] is True
     assert validation_receipt["body_material_status"] == "real_ring2_diagnostic_receipt_refs"
+    assert validation_receipt["private_state_scan"]["status"] == "pass"
+    assert validation_receipt["private_state_scan"]["compatibility_alias_for"] == (
+        "secret_exclusion_scan"
+    )
+    assert validation_receipt["proof_evidence_authority_ceilings_compatible"] is True
+    assert validation_receipt["omission_reversal_inputs"]["body_in_receipt"] is False
+    assert validation_receipt["omission_reversal_inputs"][
+        "proof_or_provider_bodies_recovered"
+    ] is False
+    assert (
+        "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json"
+        in validation_receipt["upstream_reference_capsule_receipt_refs"]
+    )
