@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from microcosm_core import cli
+from microcosm_core import project_substrate
 from microcosm_core.runtime_shell import (
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
@@ -91,7 +92,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert output.index("microcosm tour <project>") < output.index(
         "microcosm compile <project>"
     )
-    assert "microcosm status --card         read the compressed runtime status lens" in output
+    assert (
+        "microcosm status --card <project> read the compressed "
+        "project/runtime status lens"
+    ) in output
     assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
     assert "microcosm serve <project>       open the local observatory" in output
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
@@ -154,6 +158,40 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_status_card_can_overlay_project_route_state(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = tmp_path / "scratch"
+    (project / "src/app").mkdir(parents=True)
+    (project / "tests").mkdir()
+    (project / "README.md").write_text("# Scratch\n", encoding="utf-8")
+    (project / "pyproject.toml").write_text(
+        '[project]\nname = "scratch"\nversion = "0.1.0"\n',
+        encoding="utf-8",
+    )
+    (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (project / "tests/test_app.py").write_text(
+        "from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n",
+        encoding="utf-8",
+    )
+    project_substrate.compile_project(project)
+
+    assert cli.main(["status", "--card", str(project)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["card_command"] == "microcosm status --card <project>"
+    assert payload["front_door"]["project_state_status"] == "pass"
+    assert payload["front_door"]["selected_route_id"] == "readme_onboarding_route"
+    assert payload["front_door"]["route_explanation_command"] == (
+        "microcosm explain <project> readme_onboarding_route"
+    )
+    assert "readme_onboarding_route" in payload["front_door"][
+        "available_project_route_ids"
+    ]
+    assert payload["front_door"]["project_state"]["state_dir_exists"] is True
 
 
 def test_cli_proof_lab_alias_prints_first_screen_card(

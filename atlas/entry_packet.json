@@ -34,6 +34,7 @@
     "microcosm tour <project>::front_door_status",
     "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
     "microcosm status --card",
+    "microcosm status --card <project>",
     "microcosm workingness",
     "microcosm tour <project>::status_and_workingness",
     "/workingness",
@@ -201,8 +202,8 @@
   },
   "status_and_workingness_route": {
     "surface_id": "microcosm_status_and_workingness",
-    "command": "microcosm status --card && microcosm workingness",
-    "status_card_command": "microcosm status --card",
+    "command": "microcosm status --card <project> && microcosm workingness",
+    "status_card_command": "microcosm status --card <project>",
     "workingness_command": "microcosm workingness",
     "endpoint": "/workingness",
     "tour_route_card_ref": "microcosm tour <project>::status_and_workingness",

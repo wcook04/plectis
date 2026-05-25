@@ -30,7 +30,7 @@ microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
 microcosm evidence list .
-microcosm status --card
+microcosm status --card .
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
@@ -47,11 +47,12 @@ when the project has a README. Open
 `http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
 
-Use `microcosm status --card` for the compressed first-screen lens over the
-full runtime status. It includes the `microcosm workingness` counts plus a
-small `gap_preview` of the first missing-standard or failure-mode rows and
-their target refs before opening the full organ-by-organ map; `microcosm
-status` remains the full JSON drilldown.
+Use `microcosm status --card <project>` after `tour` or `compile` for the
+compressed first-screen lens over local `.microcosm/` route state plus the full
+runtime status. It includes the selected project route id, the `microcosm
+workingness` counts, and a small `gap_preview` of the first missing-standard or
+failure-mode rows and their target refs before opening the full organ-by-organ
+map; `microcosm status` remains the full JSON drilldown.
 
 Read `front_door_status` before treating the tour's `status` as a blanket
 health claim. `blocking_surface_ids=[]` means the required first-screen path is
@@ -216,7 +217,7 @@ microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm evidence list /tmp/microcosm-scratch
-microcosm status
+microcosm status --card /tmp/microcosm-scratch
 microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
@@ -230,7 +231,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli status
+PYTHONPATH=src python3 -m microcosm_core.cli status --card /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 ```
 

@@ -1127,15 +1127,17 @@ def _cold_reader_first_screen_card(
             },
             {
                 "step_id": "inspect_status_and_workingness",
-                "command": "microcosm status --card && microcosm workingness",
+                "command": (
+                    "microcosm status --card <project> && microcosm workingness"
+                ),
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
-                    "compressed first-screen status",
+                    "compressed project/runtime first-screen status",
                     "workingness failure-envelope counts",
                     "missing standards and failure-mode gaps",
                     "not a score, maturity board, release gate, or proof authority",
                 ],
-                "status_card_command": "microcosm status --card",
+                "status_card_command": "microcosm status --card <project>",
                 "workingness_command": "microcosm workingness",
                 "workingness_endpoint": "/workingness",
             },
@@ -1836,7 +1838,101 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     }
 
 
-def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
+def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
+    path = project / project_substrate.STATE_DIR / filename
+    try:
+        payload = read_json_strict(path)
+    except (OSError, ValueError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
+    project = Path(project_path).expanduser().resolve(strict=False)
+    state_dir = project / project_substrate.STATE_DIR
+    manifest = _read_project_state_payload(project, "project_manifest.json")
+    routes = _read_project_state_payload(project, "routes.json")
+    state_index = _read_project_state_payload(project, "state_index.json")
+    route_rows = [
+        row for row in routes.get("routes", []) if isinstance(row, dict)
+    ]
+    selected_route = next(
+        (
+            row
+            for row in route_rows
+            if row.get("route_id") == "readme_onboarding_route"
+        ),
+        route_rows[0] if route_rows else {},
+    )
+    selected_route_id = str(selected_route.get("route_id") or "")
+    state_refs = [
+        f"{project_substrate.STATE_DIR}/catalog.json",
+        f"{project_substrate.STATE_DIR}/routes.json",
+        f"{project_substrate.STATE_DIR}/work_items.json",
+        f"{project_substrate.STATE_DIR}/events.jsonl",
+        f"{project_substrate.STATE_DIR}/evidence/",
+        f"{project_substrate.STATE_DIR}/graph.json",
+        f"{project_substrate.STATE_DIR}/python_lens.json",
+        f"{project_substrate.STATE_DIR}/explanations/",
+    ]
+    existing_state_refs = []
+    for ref in state_refs:
+        candidate = project / ref.rstrip("/")
+        if candidate.exists():
+            existing_state_refs.append(ref)
+    state_exists = state_dir.is_dir()
+    status = "pass" if state_exists and selected_route_id else "missing_state"
+    if state_exists and not selected_route_id:
+        status = "missing_routes"
+    project_id = (
+        manifest.get("project_id")
+        or state_index.get("project_id")
+        or routes.get("project_id")
+        or project.name
+    )
+    return {
+        "schema_version": "microcosm_project_status_overlay_v1",
+        "status": status,
+        "project_id": project_id,
+        "project_ref": project.name,
+        "state_dir": project_substrate.STATE_DIR,
+        "state_dir_exists": state_exists,
+        "state_refs": state_refs,
+        "existing_state_refs": existing_state_refs,
+        "route_count": len(route_rows),
+        "available_project_route_ids": [
+            str(row.get("route_id"))
+            for row in route_rows
+            if row.get("route_id")
+        ],
+        "selected_route_id": selected_route_id or None,
+        "selected_route_ref": (
+            f"{project_substrate.STATE_DIR}/routes.json::{selected_route_id}"
+            if selected_route_id
+            else None
+        ),
+        "route_explanation_command": (
+            f"microcosm explain <project> {selected_route_id}"
+            if selected_route_id
+            else "microcosm explain <project> <selected_route_id>"
+        ),
+        "route_selection_rule": (
+            "derived from compiled .microcosm/routes.json; run microcosm "
+            "tour <project> or microcosm compile <project> first if empty"
+        ),
+        "reader_action": (
+            "Use selected_route_id here for explain/observatory drilldowns."
+            if selected_route_id
+            else "Run microcosm tour <project> before expecting project route fields."
+        ),
+        "source_files_mutated": False,
+    }
+
+
+def _runtime_status_card(
+    status: dict[str, Any],
+    project_path: str | Path | None = None,
+) -> dict[str, Any]:
     front_door = (
         status.get("front_door", {})
         if isinstance(status.get("front_door"), dict)
@@ -2126,6 +2222,27 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             "mutation, proof correctness, or credential-equivalent live access."
         ),
     }
+    if project_path is not None:
+        project_overlay = _project_status_overlay(project_path)
+        selected_route_id = project_overlay.get("selected_route_id")
+        card["card_command"] = "microcosm status --card <project>"
+        card["front_door"]["project_state"] = project_overlay
+        card["front_door"]["project_ref"] = project_overlay.get("project_ref")
+        card["front_door"]["project_state_status"] = project_overlay.get("status")
+        card["front_door"]["state_dir_exists"] = project_overlay.get(
+            "state_dir_exists"
+        )
+        card["front_door"]["available_project_route_ids"] = project_overlay.get(
+            "available_project_route_ids"
+        )
+        if selected_route_id:
+            card["front_door"]["selected_route_id"] = selected_route_id
+            card["front_door"]["route_explanation_command"] = (
+                project_overlay.get("route_explanation_command")
+            )
+        card["front_door"]["route_selection_rule"] = project_overlay.get(
+            "route_selection_rule"
+        )
     boundary_hits = omitted_payload_schema_term_hits(card)
     boundary_hit_count = sum(boundary_hits.values())
     boundary_status = PASS if boundary_hit_count == 0 else "blocked"
@@ -3077,8 +3194,8 @@ class RuntimeShell:
         payload["status_card"] = _runtime_status_card(payload)
         return payload
 
-    def status_card(self) -> dict[str, Any]:
-        return _runtime_status_card(self.status())
+    def status_card(self, project_path: str | Path | None = None) -> dict[str, Any]:
+        return _runtime_status_card(self.status(), project_path=project_path)
 
     def spine(self) -> dict[str, Any]:
         organs = self.organs()
@@ -4022,6 +4139,7 @@ class RuntimeShell:
             "microcosm replay-gauntlet",
             "microcosm benchmark-lab",
             "microcosm legibility-scorecard",
+            "microcosm status --card <project>",
             "microcosm status --card",
             "microcosm workingness",
             "microcosm intake",
@@ -4068,10 +4186,12 @@ class RuntimeShell:
             {
                 "card_id": "status_and_workingness",
                 "minute_budget": 0.5,
-                "command": "microcosm status --card && microcosm workingness",
+                "command": (
+                    "microcosm status --card <project> && microcosm workingness"
+                ),
                 "endpoint": "/workingness",
                 "shows": [
-                    "compressed runtime status card",
+                    "compressed project/runtime status card",
                     "workingness failure-envelope summary",
                     "missing standards and failure-mode gaps before receipts",
                     "not a score, maturity board, release signal, or release gate",
@@ -4087,6 +4207,7 @@ class RuntimeShell:
                     "top_level_status_rule"
                 ),
                 "status_card_command": "microcosm status --card",
+                "project_status_card_command": "microcosm status --card <project>",
                 "workingness_command": "microcosm workingness",
                 "workingness_map_ref": workingness.get("workingness_map_ref"),
                 "workingness_summary": workingness_summary,
@@ -16001,6 +16122,7 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="emit the compact first-screen status lens",
     )
+    status_parser.add_argument("project", nargs="?")
     subparsers.add_parser("spine")
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
@@ -16062,7 +16184,14 @@ def main(argv: list[str] | None = None) -> int:
     shell = RuntimeShell()
 
     if args.command == "status":
-        return _print_json(shell.status_card() if args.card else shell.status())
+        if args.card:
+            return _print_json(shell.status_card(args.project))
+        payload = shell.status()
+        if args.project:
+            payload["project_front_door_status"] = _project_status_overlay(
+                args.project
+            )
+        return _print_json(payload)
     if args.command == "spine":
         return _print_json(shell.spine())
     if args.command == "tour":

@@ -81,7 +81,7 @@ DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
   microcosm compile <project>     rebuild local .microcosm state
-  microcosm status --card         read the compressed runtime status lens
+  microcosm status --card <project> read the compressed project/runtime status lens
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm serve <project>       open the local observatory
   microcosm proof-lab --out /tmp/microcosm-proof-lab
@@ -284,6 +284,7 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="emit the compact first-screen status lens",
     )
+    status_parser.add_argument("project", nargs="?")
     proof_lab_parser = subparsers.add_parser(
         "proof-lab",
         help="run the first-screen verifier proof lab",
@@ -718,6 +719,8 @@ def main(argv: list[str] | None = None) -> int:
         command_args = ["status"]
         if args.card:
             command_args.append("--card")
+        if args.project:
+            command_args.append(args.project)
         return runtime_shell.main(command_args)
     if args.command == "proof-lab":
         command = _proof_lab_command(args.input, args.out)
