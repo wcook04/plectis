@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import shutil
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,22 @@ FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input"
 )
+EXPORTED_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / (
+        "examples/ring2_premise_retrieval_precision_recall_harness/"
+        "exported_ring2_precision_recall_bundle"
+    )
+)
+SOURCE_ARTIFACT_REFS = [
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    (
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0/run_summary.json"
+    ),
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+]
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -53,6 +70,10 @@ def test_ring2_precision_recall_observes_required_negative_cases(
     assert result["macro_run_variant_id"] == "premise_retrieval_graph_v0"
     assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
     assert result["body_copied_material_count"] == 1
+    assert result["source_artifact_status"] == "copied_ring2_source_artifacts_verified"
+    assert result["source_artifact_count"] == 4
+    assert result["copied_source_artifact_count"] == 4
+    assert result["source_artifacts_pass"] is True
     assert result["mean_precision_at_k"] == 0.36
     assert result["mean_recall_at_k"] == 0.9
     assert result["metric_aggregation"]["total_hit_count"] == 9
@@ -81,6 +102,11 @@ def test_ring2_precision_recall_observes_required_negative_cases(
     for case_id, codes in EXPECTED_NEGATIVE_CASES.items():
         for code in codes:
             assert code in result["observed_negative_cases"][case_id]
+    for row in result["source_artifact_imports"]:
+        assert row["exists"] is True
+        assert row["digest_match"] is True
+        assert row["source_to_target_relation"] == "exact_copy"
+        assert row["source_sha256"] == row["target_sha256"]
 
 
 def test_ring2_precision_recall_receipts_are_public_relative_and_provenanced(
@@ -117,6 +143,8 @@ def test_ring2_precision_recall_receipts_are_public_relative_and_provenanced(
             "copied_non_secret_macro_body_with_provenance"
         )
         assert payload["body_copied_material_count"] == 1
+        assert payload["copied_source_artifact_count"] == 4
+        assert payload["source_artifacts_pass"] is True
         assert "secret_exclusion_scan" in payload
         assert "private_state_scan" not in payload
         assert "body_redacted" not in payload
@@ -156,6 +184,9 @@ def test_ring2_precision_recall_exported_bundle_validates_runtime_shape(
     assert result["problem_count"] == 10
     assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
     assert result["body_copied_material_count"] == 1
+    assert result["source_artifact_count"] == 4
+    assert result["copied_source_artifact_count"] == 4
+    assert result["source_artifacts_pass"] is True
     assert result["mean_precision_at_k"] == 0.36
     assert result["mean_recall_at_k"] == 0.9
     assert result["failure_mode_counts"] == {
@@ -172,3 +203,15 @@ def test_ring2_precision_recall_exported_bundle_validates_runtime_shape(
             "exported_ring2_precision_recall_bundle_validation_result.json"
         )
     ]
+
+
+def test_ring2_precision_recall_source_artifacts_are_exact_copies() -> None:
+    for input_root in (FIXTURE_INPUT, EXPORTED_BUNDLE_INPUT):
+        for source_ref in SOURCE_ARTIFACT_REFS:
+            source = MICROCOSM_ROOT.parent / source_ref
+            target = input_root / "source_artifacts" / source_ref
+            assert target.is_file()
+            source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+            target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+            assert source_digest == target_digest
+            assert source.read_bytes() == target.read_bytes()

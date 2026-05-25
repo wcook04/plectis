@@ -20,7 +20,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-25T14:52:54+00:00",
+  "created_at": "2026-05-25T15:16:42+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -102,7 +102,7 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 215,
+  "macro_origin_ref_count": 220,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -195,7 +195,7 @@
     "work_ledger_control_source_modules_import"
   ],
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 127,
+  "public_runtime_ref_count": 131,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -370,6 +370,11 @@
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
     "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
     "examples/work_landing_control_spine/exported_work_landing_control_bundle",
     "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
@@ -409,13 +414,13 @@
     "standards/std_microcosm_executable_doctrine_grammar.json",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_import_count": 138,
+  "public_safe_body_import_count": 142,
   "public_safe_body_import_routes": {
     "direct_verified_public": 3,
-    "verified_light_edit": 135
+    "verified_light_edit": 139
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 138,
+  "public_safe_body_material_count": 142,
   "ready_projection_cell_count": 50,
   "receipt_id": "macro_projection_import_protocol_result_receipt_v1",
   "receipt_paths": [
@@ -481,7 +486,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 215,
+    "macro_origin_ref_count": 220,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json",
@@ -558,6 +563,7 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+      "microcosm-substrate/examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json",
       "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json",
       "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/bundle_manifest.json",
       "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
@@ -566,6 +572,7 @@
       "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
       "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
       "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
       "standards/std_microcosm_target_shape_tactic_routing_gate.json",
       "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
       "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -581,10 +588,13 @@
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
       "system/lib/active_execution_constellation.py",
       "system/lib/agent_bootstrap_projection.py",
       "system/lib/agent_entrypoint_audit.py",
@@ -719,13 +729,13 @@
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
-      "public_macro_receipt_body": 9,
+      "public_macro_receipt_body": 13,
       "public_macro_tool_body": 127
     },
-    "public_safe_body_import_count": 138,
+    "public_safe_body_import_count": 142,
     "public_safe_body_import_routes": {
       "direct_verified_public": 3,
-      "verified_light_edit": 135
+      "verified_light_edit": 139
     },
     "publication_authorized": false,
     "ready_projection_cell_count": 50,
@@ -1742,6 +1752,20 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
+        "ref": "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_source_artifacts_are_exact_copies",
+        "ref": "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_source_artifacts_are_exact_copies",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
         "ref": "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
         "status": "pass"
@@ -1758,6 +1782,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
         "ref": "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
         "status": "pass"
       },
       {
@@ -2598,6 +2629,34 @@
         "leak_reason": null,
         "normalized_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
         "status": "pass"
       },
       {
@@ -5095,6 +5154,41 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+        "ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
         "ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
         "status": "pass"
@@ -6327,6 +6421,20 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
+        "ref": "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_source_artifacts_are_exact_copies",
+        "ref": "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_source_artifacts_are_exact_copies",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
         "ref": "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
         "status": "pass"
@@ -6369,12 +6477,19 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+        "ref": "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
         "ref": "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 806,
+    "runtime_dependency_count": 821,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -6549,6 +6664,11 @@
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
       "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
       "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
       "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
       "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
@@ -6708,6 +6828,8 @@
       "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
       "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
       "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+      "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
+      "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_source_artifacts_are_exact_copies",
       "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
       "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
       "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
@@ -6732,6 +6854,7 @@
       "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
       "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+      "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
       "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
       "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
       "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
@@ -6796,7 +6919,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 194,
+  "source_ref_count": 197,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -6991,10 +7114,13 @@
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
   ],
   "status": "pass",
-  "validation_ref_count": 153,
+  "validation_ref_count": 156,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -7139,6 +7265,8 @@
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
+    "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_source_artifacts_are_exact_copies",
     "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
     "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
     "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
@@ -7148,6 +7276,7 @@
     "receipts/preflight/dependency_preflight.json",
     "receipts/preflight/fixture_runner_freshness.json",
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
   ],
   "validator_id": "validator.microcosm.organs.macro_projection_import_protocol"

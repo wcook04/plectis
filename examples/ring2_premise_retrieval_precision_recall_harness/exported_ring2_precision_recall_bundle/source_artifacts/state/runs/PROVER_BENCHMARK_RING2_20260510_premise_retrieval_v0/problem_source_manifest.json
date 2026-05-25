@@ -1,0 +1,537 @@
+{
+  "availability": {
+    "formal_conjectures_local": false,
+    "lean_std_toolchain_local": true,
+    "leandojo_local": false,
+    "mathlib_checkout_local": false,
+    "minif2f_local": false,
+    "putnambench_local": false
+  },
+  "leakage_policy": {
+    "proof_body_withheld_until_oracle": true,
+    "required_imports_visible_to_lab": true,
+    "statement_visible_to_lab": true,
+    "test_split_tuning": "forbidden"
+  },
+  "local_or_annex_path": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean",
+  "problem_count": 10,
+  "problem_ids": [
+    "ring2_nat_succ_injective",
+    "ring2_nat_add_comm",
+    "ring2_nat_add_assoc",
+    "ring2_bool_not_not",
+    "ring2_list_reverse_reverse",
+    "ring2_list_length_append",
+    "ring2_iff_intro",
+    "ring2_list_mem_append",
+    "ring2_list_length_append_symmetry_hit_fail",
+    "ring2_list_map_map_index_miss"
+  ],
+  "problems": [
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "nat",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_nat_succ_injective",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "successor",
+        "injective",
+        "nat"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "train",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_nat_succ_injective",
+      "theorem_signature": "theorem ring2_nat_succ_injective (m n : Nat) : Nat.succ m = Nat.succ n -> m = n := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "nat",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_nat_add_comm",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "nat",
+        "addition",
+        "commutative"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "train",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_nat_add_comm",
+      "theorem_signature": "theorem ring2_nat_add_comm (m n : Nat) : m + n = n + m := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "nat",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_nat_add_assoc",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "nat",
+        "addition",
+        "associative"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "train",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_nat_add_assoc",
+      "theorem_signature": "theorem ring2_nat_add_assoc (a b c : Nat) : a + b + c = a + (b + c) := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "bool",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_bool_not_not",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "bool",
+        "double",
+        "negation"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "train",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_bool_not_not",
+      "theorem_signature": "theorem ring2_bool_not_not (b : Bool) : (!(!b)) = b := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "list",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_list_reverse_reverse",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "list",
+        "reverse",
+        "twice"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "dev",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_list_reverse_reverse",
+      "theorem_signature": "theorem ring2_list_reverse_reverse (Alpha : Type) (xs : List Alpha) : xs.reverse.reverse = xs := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "list",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_list_length_append",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "list",
+        "length",
+        "append"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "dev",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_list_length_append",
+      "theorem_signature": "theorem ring2_list_length_append (Alpha : Type) (xs ys : List Alpha) : (xs ++ ys).length = xs.length + ys.length := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "propositional",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_iff_intro",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "iff",
+        "implication",
+        "intro"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "dev",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_iff_intro",
+      "theorem_signature": "theorem ring2_iff_intro (p q : Prop) : (p -> q) -> (q -> p) -> (p <-> q) := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_premise_retrieval",
+      "domain": "list",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_list_mem_append",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "list",
+        "membership",
+        "append"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "test",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_list_mem_append",
+      "theorem_signature": "theorem ring2_list_mem_append (Alpha : Type) (a : Alpha) (xs ys : List Alpha) : List.Mem a (xs ++ ys) <-> List.Mem a xs \\/ List.Mem a ys := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [],
+      "difficulty_tag": "ring2_retrieval_hit_proof_failure",
+      "domain": "list",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_list_length_append_symmetry_hit_fail",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "list",
+        "length",
+        "append",
+        "orientation"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "test",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_list_length_append_symmetry_hit_fail",
+      "theorem_signature": "theorem ring2_list_length_append_symmetry_hit_fail (Alpha : Type) (xs ys : List Alpha) : xs.length + ys.length = (xs ++ ys).length := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    },
+    {
+      "allowed_premise_ids": [
+        "premise_list_reverse_reverse",
+        "premise_list_length_append"
+      ],
+      "difficulty_tag": "ring2_retrieval_miss_oracle_repair_probe",
+      "domain": "list",
+      "expected_checker": "Lean 4 CLI",
+      "expected_strategy_ids_visible_to_lab": false,
+      "mode": "solved_training",
+      "oracle_only": {
+        "expected_strategy_ids_available_after_oracle": false,
+        "ideal_body_available_after_oracle": true,
+        "needed_premise_ids_available_after_oracle": true,
+        "repair_body_available_after_oracle": true,
+        "withheld_fields": [
+          "ideal_body",
+          "repair_body",
+          "needed_premise_ids",
+          "expected_strategy_ids"
+        ]
+      },
+      "problem_id": "ring2_list_map_map_index_miss",
+      "proof_body_withheld_until_oracle": true,
+      "required_imports": [
+        "Std"
+      ],
+      "retrieval_query_terms": [
+        "list",
+        "map",
+        "composition"
+      ],
+      "source": "lean_std_toolchain_premise_index_v0",
+      "source_family": "lean_std_toolchain",
+      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init",
+      "split": "test",
+      "statement_visible_to_lab": true,
+      "theorem_name": "ring2_list_map_map_index_miss",
+      "theorem_signature": "theorem ring2_list_map_map_index_miss (Alpha Beta Gamma : Type) (f : Alpha -> Beta) (g : Beta -> Gamma) (xs : List Alpha) : List.map g (List.map f xs) = List.map (g \u2218 f) xs := by",
+      "visible_to_lab": [
+        "statement",
+        "required imports",
+        "allowed premise index slice",
+        "Lean/Std theorem names"
+      ],
+      "withheld_until_oracle": [
+        "ideal proof body",
+        "repair proof body",
+        "oracle needed premise ids",
+        "oracle critique"
+      ]
+    }
+  ],
+  "schema_version": "prover_problem_source_manifest_v0",
+  "source_id": "lean_std_toolchain_ring2_premise_retrieval_v0",
+  "source_ids": [
+    "lean_std_toolchain_premise_index_v0"
+  ],
+  "source_kind": "installed_lean_toolchain_source",
+  "split_policy": {
+    "dev": "Allowed for graph variant selection.",
+    "test": "Held out from tuning; report only.",
+    "train": "Allowed for graph/process tuning."
+  }
+}

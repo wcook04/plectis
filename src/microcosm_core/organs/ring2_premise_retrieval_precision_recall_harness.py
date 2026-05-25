@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -68,6 +69,7 @@ SOURCE_DIGESTS = {
     ),
 }
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+SOURCE_ARTIFACT_STATUS = "copied_ring2_source_artifacts_verified"
 BODY_MATERIAL_CONTRACT = {
     "body_material_status": BODY_MATERIAL_STATUS,
     "macro_run_id": RUN_ID,
@@ -174,9 +176,29 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _source_artifact_rel_path(source_ref: str) -> Path:
+    return Path("source_artifacts") / source_ref
+
+
+def _source_artifact_paths(input_dir: Path) -> list[Path]:
+    return [
+        input_dir / _source_artifact_rel_path(source_ref)
+        for source_ref in SOURCE_REFS
+    ]
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    return [input_dir / name for name in names] + _source_artifact_paths(input_dir)
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    return f"sha256:{digest}"
+
+
+def _line_count(path: Path) -> int:
+    return len(path.read_text(encoding="utf-8").splitlines())
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -426,6 +448,61 @@ def _validate_run_material(payloads: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _validate_source_artifacts(input_dir: Path, *, public_root: Path) -> dict[str, Any]:
+    imports: list[dict[str, Any]] = []
+    findings: list[dict[str, Any]] = []
+    for source_ref in SOURCE_REFS:
+        target = input_dir / _source_artifact_rel_path(source_ref)
+        expected_digest = SOURCE_DIGESTS[source_ref]
+        exists = target.is_file()
+        actual_digest = _sha256(target) if exists else None
+        digest_match = actual_digest == expected_digest
+        row = {
+            "source_ref": source_ref,
+            "target_ref": _display(target, public_root=public_root),
+            "source_sha256": expected_digest,
+            "target_sha256": actual_digest,
+            "source_to_target_relation": "exact_copy",
+            "exists": exists,
+            "digest_match": digest_match,
+            "source_line_count": _line_count(target) if exists else None,
+            "target_line_count": _line_count(target) if exists else None,
+            "body_material_status": SOURCE_ARTIFACT_STATUS,
+        }
+        imports.append(row)
+        if not exists:
+            findings.append(
+                _finding(
+                    "RING2_RETRIEVAL_SOURCE_ARTIFACT_MISSING",
+                    "Copied Ring-2 source artifact must be physically present under "
+                    "source_artifacts, not only named as a source ref.",
+                    case_id="source_artifact_floor",
+                    subject_id=source_ref,
+                    subject_kind="source_artifact",
+                )
+            )
+        elif not digest_match:
+            findings.append(
+                _finding(
+                    "RING2_RETRIEVAL_SOURCE_ARTIFACT_DIGEST_MISMATCH",
+                    "Copied Ring-2 source artifact digest must match the macro source digest.",
+                    case_id="source_artifact_floor",
+                    subject_id=source_ref,
+                    subject_kind="source_artifact",
+                )
+            )
+    return {
+        "source_artifact_status": SOURCE_ARTIFACT_STATUS,
+        "source_artifact_imports": imports,
+        "source_artifact_count": len(SOURCE_REFS),
+        "copied_source_artifact_count": sum(
+            1 for row in imports if row["exists"] and row["digest_match"]
+        ),
+        "source_artifacts_pass": not findings,
+        "findings": findings,
+    }
+
+
 def _evaluate(
     *,
     labels_payload: object,
@@ -583,11 +660,16 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "adversarial_decoy_required": True,
             "proof_bodies_forbidden": True,
             "copied_material_provenance_required": True,
+            "copied_source_artifact_digest_match_required": True,
             "body_material_status": BODY_MATERIAL_STATUS,
+            "source_artifact_status": SOURCE_ARTIFACT_STATUS,
         },
         "body_material_contract": BODY_MATERIAL_CONTRACT,
         "copied_material": result["copied_material"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "source_artifact_imports": result["source_artifact_imports"],
+        "copied_source_artifact_count": result["copied_source_artifact_count"],
+        "source_artifacts_pass": result["source_artifacts_pass"],
         "metrics": {
             "problem_count": result["problem_count"],
             "mean_precision_at_k": result["mean_precision_at_k"],
@@ -601,6 +683,7 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_material_status": BODY_MATERIAL_STATUS,
+        "source_artifact_status": SOURCE_ARTIFACT_STATUS,
     }
 
 
@@ -627,6 +710,11 @@ def _common_receipt(
         "body_material_contract",
         "copied_material",
         "body_copied_material_count",
+        "source_artifact_status",
+        "source_artifact_imports",
+        "source_artifact_count",
+        "copied_source_artifact_count",
+        "source_artifacts_pass",
         "expected_negative_cases",
         "observed_negative_cases",
         "missing_negative_cases",
@@ -696,6 +784,7 @@ def _build_result(
         policy_payload=payloads["evaluation_policy"],
     )
     run_material = _validate_run_material(payloads)
+    source_artifacts = _validate_source_artifacts(input_dir, public_root=public_root)
     negative = (
         _negative_findings(payloads)
         if include_negative
@@ -707,6 +796,7 @@ def _build_result(
     findings = [
         *floor_findings,
         *run_material["findings"],
+        *source_artifacts["findings"],
         *evaluation["findings"],
         *negative["findings"],
     ]
@@ -723,6 +813,7 @@ def _build_result(
         if not missing
         and not floor_findings
         and not run_material["findings"]
+        and source_artifacts["source_artifacts_pass"]
         and evaluation["status"] == PASS
         and not secret_scan["blocking_hit_count"]
         else "blocked"
@@ -746,6 +837,13 @@ def _build_result(
         "body_material_contract": BODY_MATERIAL_CONTRACT,
         "copied_material": run_material["copied_material"],
         "body_copied_material_count": run_material["body_copied_material_count"],
+        "source_artifact_status": source_artifacts["source_artifact_status"],
+        "source_artifact_imports": source_artifacts["source_artifact_imports"],
+        "source_artifact_count": source_artifacts["source_artifact_count"],
+        "copied_source_artifact_count": source_artifacts[
+            "copied_source_artifact_count"
+        ],
+        "source_artifacts_pass": source_artifacts["source_artifacts_pass"],
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
@@ -870,9 +968,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("action", choices=["run", "run-precision-recall-bundle"])
     parser.add_argument("--input", required=True)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--acceptance-out")
     args = parser.parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out, command=args.action)
+        result = run(
+            args.input,
+            args.out,
+            acceptance_out=args.acceptance_out,
+            command=args.action,
+        )
     else:
         result = run_precision_recall_bundle(args.input, args.out, command=args.action)
     print(f"{ORGAN_ID}: {result['status']} -> {args.out}")
