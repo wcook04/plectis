@@ -24,7 +24,8 @@
     "agent_entrypoint_audit_source_module_manifest.json",
     "navigation_fitness_source_module_manifest.json",
     "dynamic_paper_lattice_source_module_manifest.json",
-    "kernel_state_registry_source_module_manifest.json"
+    "kernel_state_registry_source_module_manifest.json",
+    "agent_execution_trace_source_module_manifest.json"
   ],
   "authority_ceiling": {
     "release_authorized": false,

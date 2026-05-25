@@ -1042,6 +1042,33 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "agent_execution_trace_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent-execution trace boundary now carries exact copied "
+            "non-secret process-trace runtime, focused synthetic-fixture "
+            "regression test, and trace standard bodies inside the projection "
+            "bundle, validated by digest/anchor checks, syntax compilation, "
+            "and synthetic privacy-boundary trace-shape assertions without "
+            "scanning live ~/.claude or ~/.codex sessions, calling providers, "
+            "executing local CLIs, exporting prompt/provider/tool-output "
+            "bodies, account/session state, hidden reasoning, browser/HUD "
+            "live access, recipient-send state, generated state, or "
+            "credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 

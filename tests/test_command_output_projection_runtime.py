@@ -102,6 +102,9 @@ OBSERVE_RUNTIME_MANIFEST = (
 KERNEL_STATE_REGISTRY_MANIFEST = (
     BUNDLE_INPUT / "kernel_state_registry_source_module_manifest.json"
 )
+AGENT_EXECUTION_TRACE_MANIFEST = (
+    BUNDLE_INPUT / "agent_execution_trace_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1564,6 +1567,87 @@ with tempfile.TemporaryDirectory() as tmp:
         "supporting_asset_count": 1,
         "tree_manifest": "codex/derived/observe/tree_manifest.json",
     }
+
+
+def test_agent_execution_trace_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_EXECUTION_TRACE_MANIFEST,
+        manifest_id="agent_execution_trace_source_modules_import",
+        module_count=3,
+    )
+
+
+def test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract() -> None:
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    source_paths = [
+        source_modules_root / "system/lib/agent_execution_trace.py",
+        source_modules_root / "system/server/tests/test_agent_execution_trace.py",
+        source_modules_root / "codex/standards/std_agent_execution_trace.json",
+    ]
+    for source_path in source_paths:
+        source_text = source_path.read_text(encoding="utf-8")
+        if source_path.suffix == ".py":
+            compile(source_text, str(source_path), "exec")
+        else:
+            json.loads(source_text)
+
+    trace_text = source_paths[0].read_text(encoding="utf-8")
+    test_text = source_paths[1].read_text(encoding="utf-8")
+    standard = json.loads(source_paths[2].read_text(encoding="utf-8"))
+    assert "def build_agent_execution_trace(" in trace_text
+    assert "def build_process_trace_route_packet(" in trace_text
+    assert "TRACE_OUTPUT_PRIVACY_BOUNDARY" in trace_text
+    assert "PROCESS_METADATA_PRIVACY_BOUNDARY" in trace_text
+    assert "without depending on live `~/.claude` or `~/.codex` state" in test_text
+    assert standard["schema_version"] == "std_agent_execution_trace_v2"
+    assert "hidden chain-of-thought" in standard["purpose"]
+    assert (
+        standard["trace_ontology_contract"]["authority_posture"][
+            "hidden_reasoning_excluded"
+        ]
+        is True
+    )
+
+    code = f"""
+import json
+import sys
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib import agent_execution_trace as trace
+
+levels = trace.build_trace_compactness_levels(
+    [],
+    session_id="public-fixture",
+    selected_level="outline",
+)
+payload = {{
+    "action_kind": trace._bash_action_kind("./repo-python kernel.py --entry demo --pulse"),
+    "flags": trace._extract_kernel_flags("./repo-python kernel.py --entry demo --pulse"),
+    "levels": levels,
+    "metadata_boundary": trace.PROCESS_METADATA_PRIVACY_BOUNDARY,
+    "trace_boundary": trace.TRACE_OUTPUT_PRIVACY_BOUNDARY,
+}}
+print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            code,
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload["action_kind"] == "kernel_command"
+    assert set(payload["flags"]) == {"--entry", "--pulse"}
+    assert "not raw task-output bodies" in payload["metadata_boundary"]
+    assert "prompt bodies, and hidden reasoning remain omitted" in payload["trace_boundary"]
+    assert payload["levels"]["selected_level"] == "outline"
+    assert payload["levels"]["levels"]["outline"]["row_count"] == 0
+    assert payload["levels"]["levels"]["outline"]["span_count"] == 0
 
 
 def _load_trace_capsule_source_module():

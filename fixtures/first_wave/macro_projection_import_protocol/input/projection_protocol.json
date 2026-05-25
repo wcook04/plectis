@@ -153,7 +153,9 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
     "system/lib/observe_assets.py",
     "system/lib/standards_registry.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json",
+    "system/server/tests/test_agent_execution_trace.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -5562,6 +5564,153 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "agent_execution_trace_source_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_refs": [
+        "system/lib/agent_execution_trace.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "claim_ceiling": "public agent-execution trace source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_agent_execution_trace_sources_into_public_projection_bundle",
+        "bind_agent_execution_trace_source_test_and_standard_to_macro_projection_body_floor",
+        "preserve_trace_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+        "source_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "target_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "source_line_count": 5158,
+        "target_line_count": 5158,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "agent_execution_trace_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/server/tests/test_agent_execution_trace.py",
+      "source_refs": [
+        "system/server/tests/test_agent_execution_trace.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+      "body_digest": "sha256:24ea1b7e430301df24e0d793a7bdd410ca82954e6dfee10fe6ff8763375c133d",
+      "claim_ceiling": "public agent-execution trace source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_agent_execution_trace_sources_into_public_projection_bundle",
+        "bind_agent_execution_trace_source_test_and_standard_to_macro_projection_body_floor",
+        "preserve_trace_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/server/tests/test_agent_execution_trace.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+        "source_body_digest": "sha256:24ea1b7e430301df24e0d793a7bdd410ca82954e6dfee10fe6ff8763375c133d",
+        "target_body_digest": "sha256:24ea1b7e430301df24e0d793a7bdd410ca82954e6dfee10fe6ff8763375c133d",
+        "source_line_count": 2286,
+        "target_line_count": 2286,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "agent_execution_trace_standard_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "source_refs": [
+        "codex/standards/std_agent_execution_trace.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "claim_ceiling": "public agent-execution trace source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_agent_execution_trace_sources_into_public_projection_bundle",
+        "bind_agent_execution_trace_source_test_and_standard_to_macro_projection_body_floor",
+        "preserve_trace_observability_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+        "codex/standards/std_agent_execution_trace.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+        "source_body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "target_body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "source_line_count": 623,
+        "target_line_count": 623,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -5699,7 +5848,11 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_assets.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -5807,7 +5960,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_state_registry_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_state_registry_sources_compile_and_preserve_path_and_registry_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
