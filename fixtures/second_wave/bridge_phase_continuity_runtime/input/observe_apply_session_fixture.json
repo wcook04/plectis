@@ -1,0 +1,152 @@
+{
+  "schema_version": "microcosm_observe_runtime_apply_session_bridge_fixture_v0",
+  "fixture_id": "observe_runtime_apply_session_bridge_continuity_v0",
+  "fixture_scope": "synthetic_second_wave_bridge_continuity_validation",
+  "pattern_id": "observe_runtime_apply_session",
+  "organ_id": "bridge_phase_continuity_runtime",
+  "router_id": "bridge_autonomy_reaction_rows",
+  "route_readiness_ref": "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::bridge_phase_continuity_runtime",
+  "fixture_manifest_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+  "binding_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::observe_runtime_apply_session",
+  "source_module_manifest_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+  "landed_source_body_import_commit": "32251c17c248604ef6b64838432f0ce3dc013c2d",
+  "binding_route_commit": "90bf4256ee24b011f70a31c4908a7627a4e5137d",
+  "source_module_refs": [
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/codex_paths.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_memory.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_surfaces.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_runtime.py"
+  ],
+  "synthetic_observe_apply_session": {
+    "observe_session_manifest": {
+      "observe_id": "OBS_SYNTHETIC_BRIDGE_CONTINUITY_001",
+      "state": "dispatching",
+      "launch_profile": "safe",
+      "requested_workers": "auto",
+      "effective_workers": 2,
+      "wave_index": 0,
+      "wave_total": 1,
+      "groups": [
+        {
+          "label": "source_manifest_verified",
+          "runtime_state": "success",
+          "response_status": "success",
+          "response_ref": "responses/source_manifest_verified.md"
+        },
+        {
+          "label": "apply_target_review",
+          "runtime_state": "running",
+          "response_status": "pending",
+          "response_ref": "responses/apply_target_review.md"
+        }
+      ],
+      "artifacts": {
+        "history_entry": "tools/meta/apply/observe_history/entries/OBS_SYNTHETIC_BRIDGE_CONTINUITY_001.json",
+        "latest_stable_artifact": "obsidian/results/observe_apply_bridge_continuity.md"
+      }
+    },
+    "grouped_runtime_status_packet": {
+      "state": "dispatching",
+      "can_continue": true,
+      "continue_mode": "resume_pending",
+      "pending_group_labels": [
+        "apply_target_review"
+      ],
+      "progress": {
+        "completed_groups": 1,
+        "total_groups": 2,
+        "percent_complete": 50
+      },
+      "authority_ceiling": "synthetic_status_packet_only_not_live_runtime_health"
+    },
+    "apply_session_finalizer": {
+      "apply_session_id": "APPLY_SYNTHETIC_BRIDGE_CONTINUITY_001",
+      "input_observe_id": "OBS_SYNTHETIC_BRIDGE_CONTINUITY_001",
+      "finalizer_status": "closed_with_receipts",
+      "closeout_transition_path": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+      "required_receipts": [
+        "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+      ],
+      "must_not_claim": [
+        "work_landed_without_closeout_transition",
+        "provider_or_ui_uptime",
+        "live_bridge_health"
+      ]
+    },
+    "rollback_on_validation_failure": {
+      "case_id": "apply_validation_failure_rolls_back_observe_promotion",
+      "validation_status": "fail",
+      "rollback_required": true,
+      "writes_allowed_after_failure": false,
+      "expected_error_code": "OBSERVE_APPLY_VALIDATION_FAILED"
+    },
+    "projection_import_boundary": {
+      "digest_mode": "exact_source_and_target_sha256_from_manifest",
+      "omission_receipts_required": true,
+      "validation_receipts_only": true,
+      "source_body_copies_allowed_in_bundle": true,
+      "receipt_copies_allowed": false
+    }
+  },
+  "validation_hooks": [
+    {
+      "hook_id": "fixture_contract_pytest",
+      "command": "./repo-pytest microcosm-substrate/tests/test_observe_runtime_apply_session_bridge_continuity.py -q",
+      "proves": "synthetic fixture, binding row, bridge manifest, route readiness, and imported source-module digests agree"
+    },
+    {
+      "hook_id": "source_manifest_pytest",
+      "command": "./repo-pytest microcosm-substrate/tests/test_command_output_projection_runtime.py -q",
+      "proves": "observe-runtime imported source modules compile and preserve grouped runtime contract"
+    },
+    {
+      "hook_id": "pattern_binding_checker",
+      "command": "./repo-python tools/meta/factory/build_extracted_pattern_substrate_bindings.py --check --json",
+      "proves": "pattern binding projection remains builder-owned and fresh"
+    },
+    {
+      "hook_id": "route_readiness_checker",
+      "command": "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --check --json",
+      "proves": "pattern route readiness projection still rejects standalone row selection"
+    }
+  ],
+  "expected_negative_cases": [
+    "missing_packet_duplicate_resume_and_resource_block",
+    "continuation_packet_missing_required_fields",
+    "heartbeat_claims_resume_authority",
+    "bridge_packet_private_hud_body",
+    "stale_heartbeat_overclaims_liveness",
+    "resume_success_overclaims_work_landed",
+    "apply_validation_failure_rolls_back_observe_promotion"
+  ],
+  "public_boundary": {
+    "payload_text_included": false,
+    "private_live_state_included": false,
+    "provider_call_authorized": false,
+    "bridge_dispatch_authorized": false,
+    "public_write_authorized": false,
+    "allowed_evidence": [
+      "source refs",
+      "sha256 digests",
+      "fixture ids",
+      "synthetic observe/apply ids",
+      "receipt paths",
+      "validator commands",
+      "forbidden class ids"
+    ],
+    "forbidden_payload_classes": [
+      "real_bridge_payload",
+      "provider_payload_body",
+      "operator_thread_content",
+      "browser_hud_state",
+      "live_phase_runtime_state",
+      "prompt_shelf_body",
+      "private_memory_body",
+      "website_surface"
+    ]
+  },
+  "anti_claim": "This fixture makes observe_runtime_apply_session executable as a routed synthetic bridge-continuity validation hook. It proves route, manifest, digest, receipt, rollback, and public-boundary alignment only; it does not prove live session portability, provider or UI uptime, raw transcript publication, live bridge health, work landing, or public release readiness."
+}
