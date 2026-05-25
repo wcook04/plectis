@@ -76,6 +76,7 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         "spatial_world_model_counterfactual_simulation_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
         "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
         "pattern_assimilation_step",
         "public_reveal_walkthrough",
         "macro_projection_import_protocol",
@@ -100,20 +101,20 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         "status": "pass",
         "source_ref": "core/organ_evidence_classes.json",
         "class_count": 5,
-        "organ_count": 46,
+        "organ_count": 47,
         "missing_organs": [],
         "unexpected_organs": [],
         "duplicate_organs": [],
         "fail_closed_no_default": True,
     }
     assert receipt["entry_spine_claims"]["status"] == "pass"
-    assert receipt["entry_spine_claims"]["expected_organ_count"] == 46
+    assert receipt["entry_spine_claims"]["expected_organ_count"] == 47
     assert receipt["entry_spine_claims"]["blocked_docs"] == []
     for rel in ("README.md", "AGENTS.md"):
         doc_claim = receipt["entry_spine_claims"]["docs"][rel]
         assert doc_claim["status"] == "pass"
-        assert doc_claim["claimed_count"] == 46
-        assert doc_claim["expected_count"] == 46
+        assert doc_claim["claimed_count"] == 47
+        assert doc_claim["expected_count"] == 47
         assert doc_claim["missing_organs"] == []
         assert doc_claim["unexpected_organs"] == []
         assert doc_claim["duplicate_organs"] == []
@@ -261,8 +262,12 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Accepted Public Runtime Spine" in agents
     assert "Real Substrate Posture" in text
     assert "Real Substrate Posture" in agents
-    assert "46 accepted public runtime organs" in text
-    assert "46 accepted public runtime organ records" in agents
+    assert "47 accepted public runtime organs" in text
+    assert "47 accepted public runtime organ records" in agents
+    assert "bridge_phase_continuity_runtime" in text
+    assert "bridge_phase_continuity_runtime" in agents
+    assert "bridge-phase-continuity-runtime" in text
+    assert "bridge-phase-continuity-runtime" in agents
     assert "Microcosm is the public repo form of the macro system" in text
     assert "Microcosm is the public repo form of the macro system" in agents
     assert "not a synthetic safety proxy" in text

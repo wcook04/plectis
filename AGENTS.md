@@ -39,8 +39,8 @@ imported macro body.
 ## Accepted Public Runtime Spine
 
 This list is the public entry claim over `core/organ_registry.json` and
-`core/organ_evidence_classes.json`: 46 accepted public runtime organ records.
-The runtime status card is the count lens for the 42 product-spine
+`core/organ_evidence_classes.json`: 47 accepted public runtime organ records.
+The runtime status card is the count lens for the 43 product-spine
 adapter-backed organs and 4 drilldown-only regression surfaces.
 
 - `pattern_binding_contract`
@@ -71,6 +71,7 @@ adapter-backed organs and 4 drilldown-only regression surfaces.
 - `materials_chemistry_closed_loop_lab_safety_replay`
 - `mechanistic_interpretability_circuit_attribution_replay`
 - `agent_route_observability_runtime`
+- `bridge_phase_continuity_runtime`
 - `pattern_assimilation_step`
 - `public_reveal_walkthrough`
 - `macro_projection_import_protocol`
@@ -459,6 +460,13 @@ adapter-backed organs and 4 drilldown-only regression surfaces.
    state transitions, recovery receipts, cold replay, and negative cases without
    live browser control, accounts, credentials, external network mutation, raw
    screenshots, benchmark claims, source mutation, or release authority.
+   The bridge-continuity loop is `microcosm bridge-phase-continuity-runtime`;
+   it should validate fake-transport continuation packets, heartbeat boundaries,
+   resource-pressure blocking, resume-once semantics, duplicate-resume rejection,
+   worker-skip dedupe, closeout transition receipts, and private-state scans.
+   It must not claim live bridge transport health, provider or UI uptime,
+   operator HUD/browser state, phase runtime state, work landing, source
+   mutation, or release authority.
    The replay-gauntlet loop is `microcosm replay-gauntlet`; it should expose
    synthetic agent-reliability replay episodes across benchmark integrity,
    monitor falsification, sabotage/scheming, sandbox escape, MCP/tool authority,

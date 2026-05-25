@@ -423,6 +423,15 @@ budget negative-case metadata without reading live operator state, provider
 payloads, browser/HUD/cockpit state, mutating Task Ledger, authorizing pattern
 assimilation, certifying runtime behavior, or claiming release.
 
+`bridge_phase_continuity_runtime` is the fake-transport bridge-continuity
+membrane. Run `microcosm bridge-phase-continuity-runtime run --input
+fixtures/second_wave/bridge_phase_continuity_runtime/input --out
+/tmp/microcosm-bridge-continuity` to validate continuation packets, heartbeat
+boundaries, resource-pressure blocking, resume-once semantics, duplicate-resume
+rejection, worker-skip dedupe, closeout transition receipts, and private-state
+scan ceilings without live bridge transport, providers, HUD/browser state,
+phase runtime state, work-landing authority, or release authority.
+
 `agent-route-observability-runtime validate-computer-use-bundle` is the
 computer-use action-trace showcase under the same observability organ. It
 validates synthetic observations, affordances, actions, pre-action authority
@@ -559,8 +568,8 @@ available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package now carries 46 accepted public runtime organs behind the
-local substrate loop. The first-screen status card separates the 42
+The public package now carries 47 accepted public runtime organs behind the
+local substrate loop. The first-screen status card separates the 43
 product-spine adapter-backed organs from 4 runnable drilldown-only regression
 surfaces; this list is the public entry claim that must stay aligned with
 `core/organ_registry.json` and `core/organ_evidence_classes.json`.
@@ -593,24 +602,25 @@ surfaces; this list is the public entry claim that must stay aligned with
 26. `materials_chemistry_closed_loop_lab_safety_replay`
 27. `mechanistic_interpretability_circuit_attribution_replay`
 28. `agent_route_observability_runtime`
-29. `pattern_assimilation_step`
-30. `public_reveal_walkthrough`
-31. `macro_projection_import_protocol`
-32. `prediction_oracle_reconciliation`
-33. `standards_meta_diagnostics`
-34. `cold_reader_route_map`
-35. `agent_monitor_redteam_falsification_replay`
-36. `agent_sabotage_scheming_monitor_replay`
-37. `agent_memory_temporal_conflict_replay`
-38. `sleeper_memory_poisoning_quarantine_replay`
-39. `mcp_tool_authority_replay`
-40. `proof_derived_governed_mutation_authorization`
-41. `belief_state_process_reward_replay`
-42. `agent_sandbox_policy_escape_replay`
-43. `indirect_prompt_injection_information_flow_policy_replay`
-44. `agentic_vulnerability_discovery_patch_proof_replay`
-45. `certificate_kernel_execution_lab`
-46. `voice_to_doctrine_self_improvement_loop`
+29. `bridge_phase_continuity_runtime`
+30. `pattern_assimilation_step`
+31. `public_reveal_walkthrough`
+32. `macro_projection_import_protocol`
+33. `prediction_oracle_reconciliation`
+34. `standards_meta_diagnostics`
+35. `cold_reader_route_map`
+36. `agent_monitor_redteam_falsification_replay`
+37. `agent_sabotage_scheming_monitor_replay`
+38. `agent_memory_temporal_conflict_replay`
+39. `sleeper_memory_poisoning_quarantine_replay`
+40. `mcp_tool_authority_replay`
+41. `proof_derived_governed_mutation_authorization`
+42. `belief_state_process_reward_replay`
+43. `agent_sandbox_policy_escape_replay`
+44. `indirect_prompt_injection_information_flow_policy_replay`
+45. `agentic_vulnerability_discovery_patch_proof_replay`
+46. `certificate_kernel_execution_lab`
+47. `voice_to_doctrine_self_improvement_loop`
 
 `pattern_binding_contract` is the real pattern-ledger root: it validates the
 373-row public macro pattern ledger, the substrate-binding sidecar, and now the
@@ -1040,6 +1050,7 @@ PYTHONPATH=src python3 -m microcosm_core.organs.materials_chemistry_closed_loop_
 PYTHONPATH=src python3 -m microcosm_core.cli materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay --acceptance-out receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
+PYTHONPATH=src python3 -m microcosm_core.cli bridge-phase-continuity-runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime
 PYTHONPATH=src python3 -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay --acceptance-out receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json
 PYTHONPATH=src python3 -m microcosm_core.cli agent-monitor-redteam-falsification-replay run-monitor-bundle --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay
 PYTHONPATH=src python3 -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json
@@ -1111,6 +1122,8 @@ should not be edited by hand.
   proof-symbol classifier and premise-budget precedence boundary.
 - `paper_modules/lean_std_premise_index.md` explains the closed Lean/Std
   premise metadata index and its proof/Mathlib authority ceiling.
+- `paper_modules/bridge_phase_continuity_runtime.md` explains the fake-transport
+  bridge-continuity runtime and its live-authority ceiling.
 - `paper_modules/provider_context_recipe_budget.md` explains the provider
   context recipe budget boundary.
 - `skills/cold_start_navigation.md` gives the shortest safe path for a fresh

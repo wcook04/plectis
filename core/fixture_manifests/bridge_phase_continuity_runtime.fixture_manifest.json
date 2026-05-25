@@ -1,0 +1,502 @@
+{
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "manifest_type": "post_wave_top_level_fixture_validator_manifest",
+  "organ_id": "bridge_phase_continuity_runtime",
+  "fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
+  "purpose": "Prove disk-first continuity for detached work: a synthetic job yields a continuation packet, emits heartbeat/resource-pressure evidence, resumes exactly once, rejects duplicate resume, and lands closeout transition receipts without depending on live bridge, provider, HUD, or phase runtime state.",
+  "public_runtime_spine_admission": {
+    "status": "accepted_current_authority",
+    "organ_id": "bridge_phase_continuity_runtime",
+    "scope": "fake_transport_continuity_fixture_only",
+    "standard_ref": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
+    "paper_module_ref": "paper_modules/bridge_phase_continuity_runtime.md",
+    "anti_claim": "Public admission keeps the fake-transport fixture executable; it does not promote live bridge transport, provider/UI uptime, work landing, source mutation, or release authority."
+  },
+  "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+  "source_ledger_row_count_verified": 309,
+  "source_pattern_ids": [
+    "bridge_runtime_dispatch_yield_resume",
+    "controller_continuity_heartbeat",
+    "continuation_packet_resume",
+    "phase_dock_harbor_deposit_full",
+    "continuous_runtime_layer",
+    "system_control_orchestration_composition_root",
+    "bridge_window_identity",
+    "phase_runtime_library",
+    "phase_orchestration_dock_harbor_deposit",
+    "orchestration_state_events",
+    "meta_mission_queue_runtime",
+    "plan_substrate",
+    "preview_campaign_lifecycle",
+    "observe_runtime_apply_session",
+    "resource_typed_capacity",
+    "reactions_typed_events",
+    "compute_resource_pressure_command_budget_guidance",
+    "worker_run_fingerprint_dedup_cache_gate",
+    "worker_skip_veto_deduped_receipt",
+    "preflight_cache_skip_window_organ",
+    "sidecar_continuation_candidate_lifecycle_gate"
+  ],
+  "source_refs": [
+    "codex/doctrine/paper_modules/bridge_operating_system.md",
+    "codex/doctrine/paper_modules/bridge_runtime.md",
+    "codex/doctrine/paper_modules/controller_heartbeat.md",
+    "docs/controller_continuity.md",
+    "docs/bridge_resume_protocol.md",
+    "tools/meta/bridge/bridge_resume.py",
+    "codex/standards/std_continuation_packet.json",
+    "codex/standards/std_controller_heartbeat.json",
+    "codex/standards/std_continuity_protocol.json",
+    "codex/doctrine/paper_modules/continuous_runtime_layer.md",
+    "codex/doctrine/paper_modules/phase_runtime_library.md",
+    "codex/doctrine/paper_modules/pipeline_runtime_library.md",
+    "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json::bridge_phase_continuity_runtime",
+    "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
+    "state/microcosm_portfolio/reconstruction/standard_aliases_v1.json"
+  ],
+  "source_portfolio_refs": [
+    "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json::bridge_phase_continuity_runtime",
+    "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json::bridge_phase_continuity_runtime",
+    "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::missing_packet_duplicate_resume_and_resource_block",
+    "state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json"
+  ],
+  "wave_status": {
+    "first_wave": "not_in_first_wave; command shape is specified for projection planning only",
+    "second_wave": "build_ready_after_external_boundary_manifest_and_wave_1_acceptance",
+    "deferred": "live bridge transport, provider sessions, operator HUD state, browser state, live phase runtime state, prompt shelf bodies, private memory bodies"
+  },
+  "synthetic_input_files": [
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
+      "kind": "json",
+      "records": [
+        "job_good: job_id=synthetic_detached_job_001, state=yielded_to_disk, claim_ref=claim_synthetic_001",
+        "job_without_packet: job_id=synthetic_detached_job_missing_packet, state=claimed_resumable, expected=MISSING_CONTINUATION_PACKET"
+      ]
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json",
+      "kind": "json",
+      "records": [
+        "packet_good: packet_id=synthetic_packet_001, consumed=false, target_job_id=synthetic_detached_job_001",
+        "packet_already_consumed: packet_id=synthetic_packet_002, consumed=true, expected=CONTINUATION_PACKET_ALREADY_CONSUMED"
+      ]
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_rows.jsonl",
+      "kind": "jsonl",
+      "records": [
+        "heartbeat_fresh: job_id=synthetic_detached_job_001, age_seconds=15, status=alive",
+        "heartbeat_stale: job_id=synthetic_detached_job_002, age_seconds=9999, status=stale"
+      ]
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/resource_pressure.json",
+      "kind": "json",
+      "records": [
+        "pressure_clear: dispatch_allowed=true",
+        "pressure_blocked: dispatch_allowed=false, reason=capacity_budget_exceeded, expected=RESOURCE_PRESSURE_DISPATCH_BLOCKED"
+      ]
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
+      "kind": "json",
+      "records": [
+        "skip_receipt with worker_fingerprint, veto_reason, and dedup_status",
+        "skip receipt cannot silently close the claim without closeout_transition"
+      ]
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json",
+      "kind": "json",
+      "records": [
+        "denylist class ids only: real_bridge_payload, provider_payload_body, operator_thread_body, browser_hud_state, live_phase_runtime_state, prompt_shelf_body, private_memory_body"
+      ]
+    }
+  ],
+  "command_or_transformation": {
+    "entrypoint_to_implement": "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime",
+    "steps": [
+      "scan synthetic transport fixtures for forbidden content and live-state classes",
+      "validate each resumable job has exactly one continuation packet",
+      "record heartbeat freshness and stale heartbeat failures",
+      "apply resource pressure gate before dispatch",
+      "resume each valid packet once and mark it consumed",
+      "reject duplicate resume attempts for consumed packets",
+      "write closeout transition receipts for yielded, resumed, blocked, and skipped paths"
+    ]
+  },
+  "expected_outputs": [
+    {
+      "path": "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+      "must_include": [
+        "packet_id",
+        "target_job_id",
+        "packet_status",
+        "consumed",
+        "authority_ceiling"
+      ]
+    },
+    {
+      "path": "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+      "must_include": [
+        "heartbeat_status",
+        "fresh_count",
+        "stale_count",
+        "error_codes"
+      ]
+    },
+    {
+      "path": "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+      "must_include": [
+        "resource_pressure_decision",
+        "dispatch_allowed",
+        "blocked_reason",
+        "error_codes"
+      ]
+    },
+    {
+      "path": "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+      "must_include": [
+        "resume_once_status",
+        "duplicate_resume_rejection",
+        "observed_negative_cases",
+        "private_state_scan"
+      ]
+    },
+    {
+      "path": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+      "must_include": [
+        "claim_ref",
+        "transition_status",
+        "worker_skip_receipt_ref",
+        "receipt_paths",
+        "anti_claim"
+      ]
+    }
+  ],
+  "validator_rules": [
+    "A job that claims resumability without a continuation packet fails.",
+    "A valid continuation packet can be consumed exactly once.",
+    "A consumed continuation packet cannot resume again.",
+    "Resource pressure can block dispatch and must be recorded as a blocked decision, not a pass.",
+    "Worker skip receipts require explicit veto/dedup evidence and cannot close claims silently.",
+    "Live bridge payloads, provider payloads, operator threads, browser/HUD state, prompt shelf bodies, private memory bodies, and live phase runtime state fail private_state_scan.",
+    "every modal_contract_bindings_v1 row named for this manifest emits a receipt row or explicit skip with negative_case_id and private_state_scan"
+  ],
+  "receipt_schema": {
+    "receipt_id": "bridge_phase_continuity_runtime_receipt_v1",
+    "required_fields": [
+      "organ_id",
+      "fixture_id",
+      "status",
+      "source_pattern_ids",
+      "validator_id",
+      "command",
+      "continuation_packet_status",
+      "heartbeat_status",
+      "resource_pressure_decision",
+      "resume_once_status",
+      "duplicate_resume_rejection",
+      "closeout_transition_path",
+      "expected_negative_cases",
+      "observed_negative_cases",
+      "anti_claim",
+      "private_state_scan",
+      "authority_ceiling",
+      "receipt_paths",
+      "schema_version"
+    ],
+    "status_values": [
+      "pass",
+      "fail",
+      "blocked"
+    ]
+  },
+  "validator_contract_ratchet_v1": {
+    "contract_id": "bridge_phase_continuity_runtime_receipt_field_floor_v1",
+    "status": "public_runtime_spine_admitted_with_fake_transport_only",
+    "validator_id": "validator.microcosm.organs.bridge_phase_continuity_runtime",
+    "stable_fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
+    "expected_receipt_paths": [
+      "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+    ],
+    "per_output_receipt_field_floor": [
+      "schema_version",
+      "organ_id",
+      "fixture_id",
+      "validator_id",
+      "command",
+      "status",
+      "expected_negative_cases",
+      "observed_negative_cases",
+      "error_codes",
+      "anti_claim",
+      "private_state_scan",
+      "authority_ceiling",
+      "receipt_paths"
+    ],
+    "required_error_code_source": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json::error_codes[organ_id=bridge_phase_continuity_runtime]",
+    "required_negative_case_source": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::negative_cases[organ_id=bridge_phase_continuity_runtime]",
+    "anti_claim_assertions": [
+      "resume_success_must_not_claim_work_landed_without_closeout_transition_path",
+      "heartbeat_freshness_must_not_claim_provider_or_ui_uptime",
+      "resource_pressure_block_must_record_blocked_status_not_pass"
+    ],
+    "private_state_boundary_assertions": [
+      "scan_is_path_and_class_refs_only",
+      "live_bridge_payloads_are_forbidden",
+      "provider_payloads_operator_threads_browser_hud_prompt_shelf_and_private_memory_bodies_are_forbidden"
+    ],
+    "authority_ceiling": "synthetic_continuity_fixture_only_not_live_bridge_runtime_health",
+    "anti_claim": "This ratchet requires replayable receipt fields for every synthetic bridge-continuity output; it does not run live bridge transport, prove provider/UI uptime, land work, or authorize public-root writes."
+  },
+  "negative_case": {
+    "id": "missing_packet_duplicate_resume_and_resource_block",
+    "input_refs": [
+      "detached_job.json::job_without_packet",
+      "resource_pressure.json::pressure_blocked",
+      "continuation_packet.json::packet_already_consumed"
+    ],
+    "expected_result": "Missing packet cannot claim resumability, blocked resource pressure suppresses dispatch, and a consumed packet cannot resume twice.",
+    "required_error_codes": [
+      "MISSING_CONTINUATION_PACKET",
+      "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+      "CONTINUATION_PACKET_ALREADY_CONSUMED"
+    ]
+  },
+  "negative_case_coverage_contract_v1": {
+    "status": "bound_to_expanded_negative_case_matrix",
+    "organ_id": "bridge_phase_continuity_runtime",
+    "manifest_organ_id": "bridge_phase_continuity_runtime",
+    "fixture_manifest_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+    "matrix_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::negative_cases[organ_id=bridge_phase_continuity_runtime]",
+    "taxonomy_ref": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json",
+    "coverage_report_ref": "state/microcosm_portfolio/reconstruction/negative_case_coverage_report_v1.md",
+    "checker_invariant": "fixture_manifest_negative_case_attachment_ready",
+    "observed_case_count": 6,
+    "minimum_case_target": 3,
+    "minimum_target_met": true,
+    "negative_case_ids": [
+      "missing_packet_duplicate_resume_and_resource_block",
+      "continuation_packet_missing_required_fields",
+      "heartbeat_claims_resume_authority",
+      "bridge_packet_private_hud_body",
+      "stale_heartbeat_overclaims_liveness",
+      "resume_success_overclaims_work_landed"
+    ],
+    "failure_classes": [
+      "authority_upgrade",
+      "duplicate_conflict_concurrency",
+      "happy_path_overclaim",
+      "missing_required_field",
+      "private_boundary",
+      "stale_source_coupling"
+    ],
+    "required_failure_classes": [
+      "missing_required_field",
+      "authority_upgrade",
+      "private_boundary",
+      "stale_source_coupling",
+      "happy_path_overclaim",
+      "duplicate_conflict_concurrency"
+    ],
+    "missing_required_failure_classes": [],
+    "expected_error_codes": [
+      "BRIDGE_PACKET_PRIVATE_HUD_BODY",
+      "CONTINUATION_PACKET_ALREADY_CONSUMED",
+      "HEARTBEAT_NOT_RESUME_AUTHORITY",
+      "MISSING_CONTINUATION_PACKET",
+      "MISSING_CONTINUATION_PACKET_FIELDS",
+      "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+      "RESUME_PASS_OVERCLAIMS_WORK_LANDED",
+      "STALE_HEARTBEAT_LIVENESS_CLAIM"
+    ],
+    "validators_that_catch_cases": [
+      "validate_continuation_packet",
+      "validate_heartbeat_liveness",
+      "validate_reaction_barrier",
+      "validate_resume_once"
+    ],
+    "receipt_fields_proving_observed": [
+      "authority_ceiling",
+      "continuation_packet_status",
+      "duplicate_resume_rejection",
+      "heartbeat_status",
+      "private_state_scan"
+    ],
+    "anti_principle_ids": [
+      "anti_authority_upgrade_by_local_pass",
+      "anti_heartbeat_alone_proves_resumability",
+      "anti_late_redaction_boundary",
+      "anti_narrative_claim_without_receipt",
+      "anti_subphase_label_closes_work"
+    ],
+    "fixture_input_refs": [
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json plus resource_pressure.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet_missing_fields.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_claims_resume_authority.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet_hud_body.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/stale_heartbeat_claims_live.json",
+      "fixtures/second_wave/bridge_phase_continuity_runtime/input/resume_success_claims_landing.json"
+    ],
+    "public_private_boundary_note": "Public fixtures may use synthetic rows, metadata-only handles, schema-only examples, and path/class refs; non-public content bodies, live operator state, private source bodies, and forbidden live evidence remain excluded.",
+    "anti_claim": "This fixture manifest attachment enumerates macro-side negative-case coverage only. It does not execute validators, build public code, authorize public-root writes, or certify public runtime behavior.",
+    "synthetic_fixture_payload_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::coverage_contract_v1.synthetic_fixture_payload_contract_v1",
+    "synthetic_fixture_payload_ids": [
+      "negative_fixture_payload::missing_packet_duplicate_resume_and_resource_block",
+      "negative_fixture_payload::continuation_packet_missing_required_fields",
+      "negative_fixture_payload::heartbeat_claims_resume_authority",
+      "negative_fixture_payload::bridge_packet_private_hud_body",
+      "negative_fixture_payload::stale_heartbeat_overclaims_liveness",
+      "negative_fixture_payload::resume_success_overclaims_work_landed"
+    ],
+    "synthetic_fixture_payload_count": 6,
+    "synthetic_fixture_payload_checker_invariant": "synthetic_fixture_payload_contract_ready"
+  },
+  "anti_claim": "This fixture proves disk-first continuity mechanics over fake transport; it does not prove real provider uptime, UI uptime, live bridge correctness, operator availability, or phase runtime health.",
+  "private_state_exclusion_rules": [
+    "Use synthetic detached jobs, packets, heartbeats, resource-pressure rows, and worker skip receipts only.",
+    "Do not include real bridge transport payloads, provider payload bodies, operator thread bodies, browser/HUD/cockpit state, live phase runtime state, prompt shelf bodies, or private memory bodies.",
+    "Allowed references are synthetic packet ids, class ids, receipt ids, and macro-side reconstruction artifact paths.",
+    "A private-state scan hit makes the fixture fail even if the continuity transitions are otherwise complete."
+  ],
+  "minimum_public_safe_proof": [
+    "synthetic job yields to disk with continuation packet",
+    "heartbeat receipt distinguishes fresh and stale rows",
+    "resource pressure blocks dispatch as a blocked decision",
+    "valid packet resumes once",
+    "consumed packet duplicate resume fails",
+    "worker skip receipt is deduped and cannot silently close work",
+    "all receipts carry anti_claim, authority_ceiling, and private_state_scan"
+  ],
+  "implementation_notes": [
+    "Implement only after Wave 1 acceptance and external-boundary fixture readiness, because bridge continuity depends on work claims and external transport boundaries.",
+    "This organ is public-safe only with fake transport packets and synthetic runtime state.",
+    "Do not import live orchestration, HUD, browser, provider, prompt shelf, or operator-thread state."
+  ],
+  "modal_contract_bindings_v1": {
+    "binding_status": "bound_from_pattern_status_overlay_v1_6",
+    "source_overlay": "state/microcosm_portfolio/reconstruction/pattern_status_correction_overlay_v1.json",
+    "acceptance_test_id": "accept_modal_contract_manifest_bindings",
+    "bound_pattern_ids": [
+      "controller_continuity_heartbeat",
+      "preview_campaign_lifecycle",
+      "reaction_wake_barrier_suspend_resume"
+    ],
+    "contract_kind_counts": {
+      "child_fixture_contract": 1,
+      "direct_leaf_fixture_contract_specified": 2
+    },
+    "required_receipt_fields": [
+      "pattern_id",
+      "contract_kind",
+      "fixture_manifest_ref",
+      "negative_case_id",
+      "private_state_scan",
+      "anti_claim",
+      "authority_ceiling"
+    ],
+    "negative_case_matrix_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::modal_contract_kind_negative_cases_v1",
+    "anti_claim": "Modal pattern bindings prove only macro-side routing of row contracts into existing fixture manifests; they do not authorize public writes or promote non-leaf rows."
+  },
+  "future_organ_synthetic_fixture_acceptance_gate_v1": {
+    "status": "macro_side_required_before_public_implementation",
+    "checker_invariant": "future_organ_synthetic_fixture_acceptance_gate_ready",
+    "organ_id": "bridge_phase_continuity_runtime",
+    "fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
+    "manifest_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+    "readiness_contract_ref": "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json::future_organ_readiness_gate_contract_v1.future_organ_gates[organ_id=bridge_phase_continuity_runtime]",
+    "future_readiness_gate_ref": "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json::future_organ_readiness_gate_contract_v1",
+    "negative_case_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::future_organ_wave_1_intrusion_negative_case_contract_v1.negative_cases[organ_id=bridge_phase_continuity_runtime]",
+    "error_taxonomy_ref": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json::future_organ_wave_1_intrusion_error_code_contract_v1",
+    "deterministic_order_ref": "state/microcosm_portfolio/reconstruction/deterministic_organ_build_order_v1.json::future_organ_readiness_ratchet_v1",
+    "acceptance_scope": "fake_transport_continuation_fixture_acceptance_only",
+    "public_build_scope": "wave_2_public_runtime_spine_only_not_live_bridge_transport",
+    "requires_synthetic_inputs_only": true,
+    "required_manifest_sections": [
+      "synthetic_input_files",
+      "receipt_schema",
+      "validator_contract_ratchet_v1",
+      "negative_case_coverage_contract_v1",
+      "private_state_exclusion_rules",
+      "minimum_public_safe_proof"
+    ],
+    "required_receipt_fields": [
+      "schema_version",
+      "checker_id",
+      "organ_id",
+      "fixture_id",
+      "status",
+      "acceptance_scope",
+      "manifest_ref",
+      "readiness_contract_ref",
+      "negative_case_contract_ref",
+      "required_parent_acceptance_refs",
+      "dependency_preflight_receipt_ref",
+      "synthetic_input_refs",
+      "synthetic_fixture_gate_status",
+      "private_state_scan",
+      "anti_claim",
+      "authority_ceiling",
+      "receipt_paths"
+    ],
+    "acceptance_receipt_schema": {
+      "receipt_id": "bridge_phase_continuity_runtime_synthetic_fixture_acceptance_receipt_v1",
+      "extends_manifest_receipt_id": "bridge_phase_continuity_runtime_receipt_v1",
+      "required_fields": [
+        "schema_version",
+        "checker_id",
+        "organ_id",
+        "fixture_id",
+        "status",
+        "acceptance_scope",
+        "manifest_ref",
+        "readiness_contract_ref",
+        "negative_case_contract_ref",
+        "required_parent_acceptance_refs",
+        "dependency_preflight_receipt_ref",
+        "synthetic_input_refs",
+        "synthetic_fixture_gate_status",
+        "private_state_scan",
+        "anti_claim",
+        "authority_ceiling",
+        "receipt_paths"
+      ],
+      "status_values": [
+        "pass",
+        "fail",
+        "blocked"
+      ]
+    },
+    "required_parent_acceptance_refs": [
+      "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+      "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+    ],
+    "must_fail_closed_if": [
+      "real_bridge_transport_or_provider_session_payload_appears_in_fixture_input",
+      "operator_hud_browser_or_live_phase_runtime_state_is_referenced_as_leaf",
+      "resume_once_or_closeout_transition_receipt_missing",
+      "external_boundary_acceptance_or_dependency_preflight_receipt_missing"
+    ],
+    "forbidden_private_state_classes": [
+      "real_bridge_payload",
+      "provider_payload_body",
+      "operator_thread_content",
+      "browser_hud_state",
+      "live_phase_runtime_state",
+      "prompt_shelf_body",
+      "private_memory_body",
+      "website_surface"
+    ],
+    "authority_ceiling": "synthetic_bridge_continuity_fixture_acceptance_not_live_bridge_runtime_health",
+    "anti_claim": "Synthetic bridge-continuity fixture acceptance blocks public build candidacy unless fake transport, resume-once, closeout-transition, external-boundary, and dependency receipts pass; it proves no provider uptime, UI uptime, HUD state, live bridge health, or work landing."
+  }
+}

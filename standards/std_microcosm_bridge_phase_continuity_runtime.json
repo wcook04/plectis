@@ -1,0 +1,222 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_bridge_phase_continuity_runtime",
+  "kind_id": "bridge_phase_continuity_runtime",
+  "kind_name": "Bridge phase continuity runtime",
+  "status": "draft",
+  "first_wave_required": false,
+  "authority_boundary": "public_fake_transport_bridge_continuity_fixture_not_live_bridge_provider_hud_browser_or_phase_runtime_authority",
+  "body_import_status": "public_runtime_fixture_and_receipts_landed",
+  "body_in_receipt": false,
+  "source_refs": [
+    {
+      "field": "fixture_manifest",
+      "path": "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+      "role": "public_fixture_manifest"
+    },
+    {
+      "field": "fixture_input",
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
+      "role": "public_fake_transport_fixture"
+    },
+    {
+      "field": "organ_runtime",
+      "path": "src/microcosm_core/organs/bridge_phase_continuity_runtime.py",
+      "role": "public_runtime_source"
+    },
+    {
+      "field": "paper_module",
+      "path": "paper_modules/bridge_phase_continuity_runtime.md",
+      "role": "public_explanation_surface"
+    },
+    {
+      "field": "imported_observe_runtime_manifest",
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+      "role": "exact_non_secret_macro_body_manifest"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#bridge_phase_continuity_runtime",
+    "source_pattern_id_sample": [
+      "bridge_runtime_dispatch_yield_resume",
+      "controller_continuity_heartbeat",
+      "continuation_packet_resume",
+      "bridge_window_identity",
+      "observe_runtime_apply_session",
+      "resource_typed_capacity",
+      "worker_skip_veto_deduped_receipt",
+      "claude_subagent_cohort_delegation"
+    ],
+    "used_by_organs": [
+      "bridge_phase_continuity_runtime"
+    ]
+  },
+  "required_fields": [
+    "continuation_packet_status",
+    "heartbeat_status",
+    "resource_pressure_decision",
+    "resume_once_status",
+    "duplicate_resume_rejection",
+    "worker_skip_receipt_status",
+    "closeout_transition_path",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "private_state_scan",
+    "authority_ceiling",
+    "anti_claim",
+    "receipt_paths"
+  ],
+  "validation_rules": [
+    "require every resumable synthetic detached job to resolve through exactly one continuation packet before resume",
+    "reject missing continuation packets, packets missing required fields, and already consumed continuation packets",
+    "require heartbeat rows to stay liveness evidence only, never resume authority or provider/UI uptime evidence",
+    "require resource pressure to block dispatch as a recorded blocked decision rather than a silent pass",
+    "require resume success to stay resume-only and never claim work landed without closeout transition receipts",
+    "require worker skip receipts to dedupe without silently closing a claim",
+    "reject live bridge payloads, provider payload bodies, operator thread bodies, HUD/browser state, live phase runtime state, prompt shelf bodies, private memory bodies, website surface bodies, credentials, cookies, and release payloads"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.bridge_phase_continuity_runtime",
+    "receipt must cite continuation packet, heartbeat, resource pressure, resume-once, duplicate-resume, closeout-transition, private-state scan, authority ceiling, anti-claim, and receipt path evidence"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.bridge_phase_continuity_runtime",
+    "command": "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime",
+    "minimum_checks": [
+      "continuation_packet_contract",
+      "heartbeat_liveness_boundary",
+      "resource_pressure_gate",
+      "resume_once_semantics",
+      "duplicate_resume_rejection",
+      "worker_skip_dedup_boundary",
+      "private_state_scan",
+      "source_manifest_digest_check"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.bridge_phase_continuity_runtime",
+    "must_record": [
+      "continuation_packet_status",
+      "heartbeat_status",
+      "resource_pressure_decision",
+      "resume_once_status",
+      "duplicate_resume_rejection",
+      "worker_skip_receipt_status",
+      "closeout_transition_path",
+      "expected_negative_cases",
+      "observed_negative_cases",
+      "private_state_scan",
+      "authority_ceiling",
+      "anti_claim",
+      "receipt_paths"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_fake_transport_continuity_metadata_only",
+    "allowed_public_inputs": [
+      "synthetic detached job ids",
+      "synthetic continuation packet ids",
+      "synthetic heartbeat rows",
+      "synthetic resource-pressure rows",
+      "worker skip receipt metadata",
+      "source refs and SHA-256 digests",
+      "fixture ids",
+      "receipt paths",
+      "forbidden class ids",
+      "negative case ids"
+    ],
+    "forbidden_public_inputs": [
+      "real bridge transport payloads",
+      "provider payload bodies",
+      "operator thread content",
+      "browser or HUD state",
+      "live phase runtime state",
+      "prompt shelf bodies",
+      "private memory bodies",
+      "website surface bodies",
+      "credentials",
+      "cookies",
+      "release packet bodies",
+      "recipient packet bodies"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "public_fake_transport_bridge_continuity_runtime_schema_and_failure_envelope",
+    "live_bridge_transport_authority": false,
+    "provider_authority": false,
+    "browser_hud_authority": false,
+    "live_phase_runtime_authority": false,
+    "prompt_shelf_authority": false,
+    "private_memory_authority": false,
+    "source_mutation_authority": false,
+    "work_landing_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs public fake-transport bridge-continuity fixtures and receipts only; it does not run live bridge transport, call providers, read operator HUD/browser/phase runtime state, prove provider or UI uptime, land work, mutate source, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Bridge-continuity language must state that synthetic heartbeat, resume, and closeout receipts are not live bridge health, provider/UI uptime, work-landing, source-mutation, or release authority."
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "Fixture refs, public source-module manifests, target refs, digests, validation refs, and body-in-receipt false receipts must stay coupled before the organ is widened."
+  },
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "bridge_phase_continuity_runtime"
+  },
+  "receipt_refs": [
+    "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+  ],
+  "omission_receipt": {
+    "drilldown": "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+    "omitted": [
+      "real bridge payloads",
+      "provider payload bodies",
+      "operator thread bodies",
+      "browser HUD state",
+      "live phase runtime state",
+      "prompt shelf bodies",
+      "private memory bodies",
+      "website surface bodies",
+      "release packet bodies"
+    ],
+    "reason": "public slice carries synthetic fake-transport continuity rows, source refs, digests, body-free receipts, authority ceilings, and negative-case evidence only"
+  },
+  "standard_payload": {
+    "ontology": "A public fake-transport continuity runtime that validates disk-first continuation packets, heartbeat/resource-pressure gating, resume-once semantics, worker-skip dedupe, closeout transition receipts, and private-state boundaries.",
+    "teleology": "Make bridge and subagent continuity reusable by future agents without requiring them to rediscover the observe/apply fixture, continuation packet contract, receipt boundary, or live-authority ceiling.",
+    "anti_purpose": "A bridge-runtime health claim, provider/UI uptime claim, or work-landing story inferred from synthetic heartbeat or continuation metadata.",
+    "compression_bands": [
+      "continuation_packet",
+      "heartbeat",
+      "resource_pressure",
+      "resume_once",
+      "worker_skip",
+      "closeout_transition",
+      "private_state_scan",
+      "receipt"
+    ],
+    "failure_modes": [
+      "resumable job accepted without a continuation packet",
+      "continuation packet missing required fields accepted",
+      "already consumed packet resumes twice",
+      "heartbeat freshness treated as resume authority",
+      "stale heartbeat treated as live runtime evidence",
+      "resource pressure block recorded as pass or omitted",
+      "resume receipt claims work landed without closeout transition receipt",
+      "worker skip receipt silently closes a claim",
+      "live bridge, provider, HUD/browser, live phase, prompt shelf, private memory, or website surface body exported",
+      "synthetic fixture receipt treated as provider/UI uptime, source-mutation, work-landing, or release authority"
+    ],
+    "rebuild_action": "draft"
+  },
+  "wave": "w2_bridge_phase_continuity_runtime_standard_floor"
+}

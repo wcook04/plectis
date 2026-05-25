@@ -6,7 +6,7 @@
   "organ_id": "bridge_phase_continuity_runtime",
   "router_id": "bridge_autonomy_reaction_rows",
   "route_readiness_ref": "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json::bridge_phase_continuity_runtime",
-  "fixture_manifest_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+  "fixture_manifest_ref": "microcosm-substrate/core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
   "binding_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::observe_runtime_apply_session",
   "source_module_manifest_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
   "landed_source_body_import_commit": "32251c17c248604ef6b64838432f0ce3dc013c2d",

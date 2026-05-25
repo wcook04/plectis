@@ -22,6 +22,7 @@ from microcosm_core.organs import (
     agentic_vulnerability_discovery_patch_proof_replay,
 )
 from microcosm_core.organs import belief_state_process_reward_replay
+from microcosm_core.organs import bridge_phase_continuity_runtime
 from microcosm_core.organs import certificate_kernel_execution_lab
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -456,6 +457,14 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
         example_rel="examples/agent_route_observability_runtime/exported_observability_bundle",
         runner=agent_route_observability_runtime.run_observability_bundle,
         receipt_name="exported_observability_bundle_validation_result.json",
+    ),
+    RuntimeStep(
+        organ_id="bridge_phase_continuity_runtime",
+        span="bridge_phase_continuity.validate",
+        input_mode="synthetic_bridge_continuity_fixture",
+        example_rel="fixtures/second_wave/bridge_phase_continuity_runtime/input",
+        runner=bridge_phase_continuity_runtime.run,
+        receipt_name="closeout_transition.json",
     ),
     RuntimeStep(
         organ_id="pattern_assimilation_step",
