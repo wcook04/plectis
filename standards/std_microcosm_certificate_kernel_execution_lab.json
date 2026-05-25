@@ -213,6 +213,32 @@
   },
   "receipt_id": "receipt.microcosm.certificate_kernel_execution_lab",
   "anti_claim": "This standard governs a source-available public certificate-kernel fixture and verifier-lab execution receipt. It does not import macro proof bodies, certify general theorem correctness, call providers, authorize release, or claim benchmark solve-rate.",
+  "standard_payload": {
+    "ontology": "A public certificate-kernel execution lab that carries Lean/Lake tool-witness metadata, analyzer receipts, typed CP2 action translation, bounded Evolve policy reruns, negative cases, and authority ceilings without exporting proof, provider, oracle, private-source, stdout, stderr, credential, or account-bound payload bodies.",
+    "teleology": "Let a cold reader rerun proof-adjacent Microcosm substrate locally while seeing exactly where execution evidence stops and proof correctness, provider authority, and release authority do not begin.",
+    "anti_purpose": "Treating the public certificate fixture, Lean/Lake return code, analyzer metadata, provider rows, oracle sidecars, or Evolve reruns as general theorem proof authority or benchmark solve-rate authority.",
+    "compression_bands": [
+      "lake_project_build",
+      "lean_analyzer_metadata",
+      "transition_contract",
+      "cp2_typed_action",
+      "bounded_evolve_policy",
+      "negative_cases",
+      "authority_ceiling",
+      "receipt_transparency"
+    ],
+    "failure_modes": [
+      "Lean/Lake return code is treated as general proof correctness instead of bounded fixture witness",
+      "compiled declaration count is reported without source hash, import, and manifest coupling",
+      "proof body or raw tactic script is exported in a public packet or receipt",
+      "provider text, oracle ideal answer, or oracle-needed premise id is counted as forward success",
+      "CP2 residual request is emitted as an untyped provider instruction instead of a typed action candidate",
+      "Evolve mutation changes arbitrary source or omits rerun evidence",
+      "private source path, stdout/stderr body, credential, or account-bound payload leaks into public receipt",
+      "certificate fixture is promoted to benchmark solve-rate, release, or general theorem authority"
+    ],
+    "rebuild_action": "rerun certificate kernel execution lab, proof-lab, status card, and workingness map before widening any proof-adjacent claim"
+  },
   "omission_receipt": {
     "omitted": [
       "macro Erdos257 proof body",

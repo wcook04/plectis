@@ -1106,7 +1106,7 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["surface_counts"]["mapped_organ_count"] == 46
     assert workingness["surface_counts"]["adapter_backed_organ_count"] == 42
     assert workingness["surface_counts"]["demoted_drilldown_count"] == 4
-    assert workingness["surface_counts"]["missing_standard_count"] >= 1
+    assert workingness["surface_counts"]["missing_standard_count"] == 0
     assert workingness["surface_counts"]["missing_failure_modes_count"] >= 1
     assert workingness["surface_counts"]["rows_with_failure_modes"] >= 30
 
@@ -1140,6 +1140,27 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert all(
         target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
         for target in proof_diagnostic["future_work_targets"]
+    )
+
+    certificate = rows_by_id["certificate_kernel_execution_lab"]
+    assert certificate["workingness_state"] == "evidence_backed_runtime_spine"
+    assert certificate["needs_to_work"]["standard_ref"] == (
+        "standards/std_microcosm_certificate_kernel_execution_lab.json"
+    )
+    assert certificate["needs_to_work"]["standard_status"] == "draft"
+    assert {
+        "owning_standard_present",
+        "known_failure_modes_present",
+        "public_private_boundary_declared",
+    }.isdisjoint(certificate["needs_to_work"]["missing_requirement_ids"])
+    assert (
+        "Lean/Lake return code is treated as general proof correctness instead of "
+        "bounded fixture witness"
+    ) in certificate["known_failure_modes"]
+    assert certificate["failure_mode_count"] >= 8
+    assert all(
+        target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
+        for target in certificate["future_work_targets"]
     )
 
     monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
