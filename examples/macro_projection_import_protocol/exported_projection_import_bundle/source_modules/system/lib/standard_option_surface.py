@@ -7549,6 +7549,10 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
         audit = _load_json(repo_root / MICROCOSM_EXTRACTED_PATTERN_READINESS_AUDIT)
     except (FileNotFoundError, json.JSONDecodeError):
         return {"by_pattern_id": {}}
+    try:
+        bindings = _load_json(repo_root / MICROCOSM_EXTRACTED_PATTERN_BINDINGS)
+    except (FileNotFoundError, json.JSONDecodeError):
+        bindings = {}
 
     by_pattern_id: dict[str, dict[str, Any]] = {}
     organ_to_cards: dict[str, list[dict[str, Any]]] = {}
@@ -7586,6 +7590,41 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
             return "selector_must_fold_or_defer"
         return "selector_not_declared"
 
+    def membership_for(pattern_id: str) -> dict[str, Any]:
+        return by_pattern_id.setdefault(
+            pattern_id,
+            {
+                "router_ids": [],
+                "combination_route_ids": [],
+                "route_collections": [],
+                "route_to_organ_ids": [],
+                "carry_with_organ_ids": [],
+                "route_card_ids": [],
+                "readiness_ids": [],
+                "selector_postures": [],
+                "selection_postures": [],
+                "individual_row_selection": [],
+                "standalone_postures": [],
+            },
+        )
+
+    def attach_organ_context(membership: dict[str, Any], *, pattern_id: str, organ_id: str) -> None:
+        cards_for_route = [*organ_to_cards.get(organ_id, []), *pattern_to_cards.get(pattern_id, [])]
+        for card in cards_for_route:
+            if str(card.get("card_id") or "").strip():
+                membership["route_card_ids"].append(str(card.get("card_id") or "").strip())
+            if str(card.get("selection_posture") or "").strip():
+                membership["selection_postures"].append(str(card.get("selection_posture") or "").strip())
+        for readiness in organ_to_readiness.get(organ_id, []):
+            readiness_id = str(readiness.get("readiness_id") or "").strip()
+            if readiness_id:
+                membership["readiness_ids"].append(readiness_id)
+                membership["selector_postures"].append(selector_posture(readiness_id))
+            if str(readiness.get("individual_row_selection") or "").strip():
+                membership["individual_row_selection"].append(
+                    str(readiness.get("individual_row_selection") or "").strip()
+                )
+
     for router_row in _microcosm_list(router.get("family_routers")):
         if not isinstance(router_row, Mapping):
             continue
@@ -7593,20 +7632,7 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
         if not route_to:
             continue
         for pattern_id in _string_list(router_row.get("match_pattern_ids")):
-            membership = by_pattern_id.setdefault(
-                pattern_id,
-                {
-                    "router_ids": [],
-                    "route_to_organ_ids": [],
-                    "carry_with_organ_ids": [],
-                    "route_card_ids": [],
-                    "readiness_ids": [],
-                    "selector_postures": [],
-                    "selection_postures": [],
-                    "individual_row_selection": [],
-                    "standalone_postures": [],
-                },
-            )
+            membership = membership_for(pattern_id)
             membership["router_ids"].append(str(router_row.get("router_id") or ""))
             membership["route_to_organ_ids"].append(route_to)
             membership["carry_with_organ_ids"].extend(_string_list(router_row.get("carry_with_organ_ids")))
@@ -7614,25 +7640,33 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
                 membership["selection_postures"].append(str(router_row.get("selection_posture") or "").strip())
             if str(router_row.get("standalone_posture") or "").strip():
                 membership["standalone_postures"].append(str(router_row.get("standalone_posture") or "").strip())
-            cards_for_route = [*organ_to_cards.get(route_to, []), *pattern_to_cards.get(pattern_id, [])]
-            for card in cards_for_route:
-                if str(card.get("card_id") or "").strip():
-                    membership["route_card_ids"].append(str(card.get("card_id") or "").strip())
-                if str(card.get("selection_posture") or "").strip():
-                    membership["selection_postures"].append(str(card.get("selection_posture") or "").strip())
-            for readiness in organ_to_readiness.get(route_to, []):
-                readiness_id = str(readiness.get("readiness_id") or "").strip()
-                if readiness_id:
-                    membership["readiness_ids"].append(readiness_id)
-                    membership["selector_postures"].append(selector_posture(readiness_id))
-                if str(readiness.get("individual_row_selection") or "").strip():
-                    membership["individual_row_selection"].append(
-                        str(readiness.get("individual_row_selection") or "").strip()
-                    )
+            attach_organ_context(membership, pattern_id=pattern_id, organ_id=route_to)
+
+    for collection_name in ("foundation_combination_routes", "frontier_combination_routes"):
+        for route in _microcosm_list(bindings.get(collection_name) if isinstance(bindings, Mapping) else None):
+            if not isinstance(route, Mapping):
+                continue
+            route_id = str(route.get("route_id") or "").strip()
+            target_organs = _string_list(route.get("target_existing_organs"))
+            route_pattern_ids = _string_list(route.get("available_pattern_ids"))
+            if not route_id or not target_organs or not route_pattern_ids:
+                continue
+            for pattern_id in route_pattern_ids:
+                membership = membership_for(pattern_id)
+                membership["combination_route_ids"].append(route_id)
+                membership["route_collections"].append(collection_name)
+                membership["route_to_organ_ids"].extend(target_organs)
+                selection_boundary = str(route.get("selection_boundary") or "").strip()
+                if selection_boundary:
+                    membership["selection_postures"].append(selection_boundary)
+                for organ_id in target_organs:
+                    attach_organ_context(membership, pattern_id=pattern_id, organ_id=organ_id)
 
     for membership in by_pattern_id.values():
         for key in (
             "router_ids",
+            "combination_route_ids",
+            "route_collections",
             "route_to_organ_ids",
             "carry_with_organ_ids",
             "route_card_ids",

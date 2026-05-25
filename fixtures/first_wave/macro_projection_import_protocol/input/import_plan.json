@@ -2155,6 +2155,43 @@
         "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "cell_id": "prompt_shelf_movement_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "source_refs": [
+        "tools/meta/observability/prompt_shelf_movement_index.py",
+        "system/server/tests/test_prompt_shelf_movement_index.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json",
+        "codex/doctrine/paper_modules/prompt_shelf.md",
+        "codex/standards/std_prompt_ledger.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_movement_index.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_movement_index.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_movement_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_sources_compile_and_preserve_terminal_cluster_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "selected_pattern_ids": [
+        "prompt_shelf_movement_terminal_cluster_parser",
+        "prompt_shelf_raw_event_projection_boundary"
+      ],
+      "public_safe_body_material_ids": [
+        "prompt_shelf_movement_index_body_import",
+        "prompt_shelf_movement_index_test_body_import"
+      ],
+      "body_copied": false,
+      "body_in_receipt": false,
+      "authority_ceiling": "verified_public_prompt_shelf_movement_source_bodies_not_prompt_bodies_raw_prompt_shelf_events_browser_hud_live_access_provider_payloads_account_sessions_or_movement_promotion_authority",
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine"
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"
