@@ -3,6 +3,19 @@
   "surface_role": "source_open_public_entry",
   "first_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
   "allowed_drilldowns": [
+    "atlas/entry_packet.json::local_first_screen_route",
+    "atlas/entry_packet.json::cold_clone_probe_route",
+    "receipts/cold_clone_probe.json",
+    "microcosm compile <project>",
+    "microcosm tour <project>",
+    "microcosm evidence list <project>",
+    "microcosm serve <project> --host 127.0.0.1 --port 8765",
+    ".microcosm/catalog.json",
+    ".microcosm/routes.json",
+    ".microcosm/work_items.json",
+    ".microcosm/events.jsonl",
+    ".microcosm/evidence/",
+    ".microcosm/graph.json",
     "core/pattern_binding_contract.json",
     "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
@@ -36,6 +49,59 @@
     ".microcosm/work_items.json",
     ".microcosm/events.jsonl"
   ],
+  "local_first_screen_route": {
+    "surface_id": "microcosm_local_first_screen",
+    "entry_role": "bring-a-folder behavioral first contact before validation-suite drilldowns",
+    "command_path": [
+      "microcosm compile <project>",
+      "microcosm tour <project>",
+      "microcosm python-lens <project>",
+      "microcosm explain <project> readme_onboarding_route",
+      "microcosm evidence list <project>",
+      "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    ],
+    "primary_first_screen_command": "microcosm tour <project>",
+    "state_dir": ".microcosm",
+    "state_refs": [
+      ".microcosm/catalog.json",
+      ".microcosm/routes.json",
+      ".microcosm/work_items.json",
+      ".microcosm/events.jsonl",
+      ".microcosm/evidence/",
+      ".microcosm/graph.json",
+      ".microcosm/python_lens.json",
+      ".microcosm/explanations/readme_onboarding_route.json"
+    ],
+    "observatory_endpoints": [
+      "/tour",
+      "/workingness",
+      "/project/python-lens",
+      "/project/explain/readme_onboarding_route"
+    ],
+    "drilldown_routes": [
+      "tour_front_door_status_route",
+      "status_and_workingness_route",
+      "python_navigation_route",
+      "route_explanation_chain_route",
+      "proof_lab_route"
+    ],
+    "cold_clone_validation_suite": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+    "authority": "project-local behavioral route only, not release, provider, source mutation, production, or proof-correctness authority",
+    "safe_to_show": {
+      "project_local_state_refs_visible": true,
+      "source_files_mutated": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "proof_correctness_claim": false
+    }
+  },
+  "cold_clone_probe_route": {
+    "surface_id": "microcosm_cold_clone_probe",
+    "command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+    "entry_role": "validation suite after local first-screen behavior is visible",
+    "receipt_ref": "receipts/cold_clone_probe.json",
+    "authority": "validator suite receipt, not the first project-local route"
+  },
   "python_navigation_route": {
     "surface_id": "project_python_lens",
     "command": "microcosm python-lens <project>",
@@ -272,7 +338,7 @@
       "codex/standards/std_microcosm.json",
       "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
     ],
-    "selection_rule": "Use the proof_lab_route when the reader asks what is runnable or impressive; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route when the reader asks why a selected route exists or how route, work, events, and evidence connect; use standards and paper modules as drilldowns after the behavior is visible."
+    "selection_rule": "Use local_first_screen_route when the reader asks what to run first with a brought folder; use proof_lab_route when the reader asks what proof-lab behavior is runnable; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route when the reader asks why a selected route exists or how route, work, events, and evidence connect; use standards and paper modules as drilldowns after the behavior is visible."
   },
   "doctrine_lattice_route": {
     "surface_id": "microcosm_doctrine_lattice",

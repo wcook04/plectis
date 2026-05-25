@@ -390,8 +390,60 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "proof-lab --out /tmp/microcosm-proof-lab" in cold_start
     assert "verifier-lab-kernel run-kernel-bundle" in cold_start
     assert "formal_prover_context_strategy_gate" in cold_start
+    assert "atlas/entry_packet.json::local_first_screen_route" in cold_start
+    assert "atlas/entry_packet.json::cold_clone_probe_route" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start
     assert "atlas/entry_packet.json::status_and_workingness_route" in cold_start
+
+
+def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+
+    route = entry_packet["local_first_screen_route"]
+    assert route["surface_id"] == "microcosm_local_first_screen"
+    assert route["primary_first_screen_command"] == "microcosm tour <project>"
+    assert route["command_path"][:2] == [
+        "microcosm compile <project>",
+        "microcosm tour <project>",
+    ]
+    assert "microcosm python-lens <project>" in route["command_path"]
+    assert (
+        "microcosm explain <project> readme_onboarding_route"
+        in route["command_path"]
+    )
+    assert "microcosm evidence list <project>" in route["command_path"]
+    assert ".microcosm/events.jsonl" in route["state_refs"]
+    assert ".microcosm/evidence/" in route["state_refs"]
+    assert ".microcosm/graph.json" in route["state_refs"]
+    assert "/tour" in route["observatory_endpoints"]
+    assert "/workingness" in route["observatory_endpoints"]
+    assert "/project/explain/readme_onboarding_route" in route["observatory_endpoints"]
+    assert "tour_front_door_status_route" in route["drilldown_routes"]
+    assert "status_and_workingness_route" in route["drilldown_routes"]
+    assert "proof_lab_route" in route["drilldown_routes"]
+    assert route["cold_clone_validation_suite"] == entry_packet["first_command"]
+    assert route["safe_to_show"]["source_files_mutated"] is False
+    assert route["safe_to_show"]["provider_calls_authorized"] is False
+    assert route["safe_to_show"]["release_authorized"] is False
+    assert route["safe_to_show"]["proof_correctness_claim"] is False
+
+    probe = entry_packet["cold_clone_probe_route"]
+    assert probe["command"] == entry_packet["first_command"]
+    assert probe["receipt_ref"] in entry_packet["allowed_drilldowns"]
+    assert probe["receipt_ref"] in entry_packet["receipt_dependencies"]
+    assert (
+        probe["entry_role"]
+        == "validation suite after local first-screen behavior is visible"
+    )
+    for command in route["command_path"]:
+        assert command in entry_packet["allowed_drilldowns"]
+    for ref in route["state_refs"]:
+        assert ref in entry_packet["allowed_drilldowns"]
+    assert "atlas/entry_packet.json::local_first_screen_route" in entry_packet[
+        "allowed_drilldowns"
+    ]
 
 
 def test_public_entry_packet_routes_python_navigation_assay() -> None:

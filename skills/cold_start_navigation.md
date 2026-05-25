@@ -22,6 +22,10 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
 
 1. Read `README.md`.
 2. Read `AGENTS.md`.
+   Use `atlas/entry_packet.json::local_first_screen_route` as the
+   machine-readable card for the bring-a-folder path; `first_command` and
+   `atlas/entry_packet.json::cold_clone_probe_route` are the validation suite
+   after first-screen behavior is visible.
 3. Run `microcosm compile <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` to create
    `.microcosm/` over a folder you bring.
