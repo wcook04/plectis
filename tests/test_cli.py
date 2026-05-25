@@ -322,7 +322,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 25
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 33
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
@@ -513,6 +513,17 @@ def test_cli_tour_smoke(
     assert payload["compile_summary"]["headline"] == "repo -> .microcosm"
     assert payload["snapshot_policy"]["test_runs_should_use_temp_public_root"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["first_screen"]["schema_version"] == (
+        "microcosm_cold_reader_first_screen_v1"
+    )
+    assert payload["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert payload["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
+    assert payload["first_screen"]["proof_surface"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert payload["first_screen"]["behavior_surfaces"]["observatory_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
     assert payload["first_screen_proof_lab"]["status"] == "pass"
     assert payload["first_screen_proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
@@ -1027,7 +1038,7 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert payload["bridge_id"] == "runtime_reveal_import_bridge"
-    assert payload["projection_cell_count"] == 12
+    assert payload["projection_cell_count"] == 14
     by_cell = {row["cell_id"]: row for row in payload["cell_status"]}
     assert by_cell["agent_observability_store_import"]["projection_status"] == (
         "public_runtime_import_landed"
@@ -1042,6 +1053,12 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
         "public_runtime_import_landed"
     )
     assert by_cell["work_landing_control_source_modules_import"]["projection_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["task_ledger_control_source_modules_import"]["projection_status"] == (
+        "public_runtime_import_landed"
+    )
+    assert by_cell["work_ledger_control_source_modules_import"]["projection_status"] == (
         "public_runtime_import_landed"
     )
     assert payload["open_actionable_cell_count"] == 0
@@ -1064,7 +1081,7 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 12
+    assert payload["projection_intake_board"]["ready_cell_count"] == 14
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"

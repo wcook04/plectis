@@ -311,7 +311,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["runtime_bridge_proof"]["bridge_id"] == "intake_observatory_bridge"
     assert receipt["runtime_bridge_proof"]["open_actionable_cell_count"] == 0
     assert receipt["runtime_bridge_proof"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 3,
+        "public_runtime_import_landed": 12,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }

@@ -13,31 +13,18 @@ python -m pip install -e '.[test]'
 microcosm compile .
 microcosm tour .
 microcosm python-lens .
-microcosm spine
-microcosm authority
-microcosm workingness
-microcosm proof-loop-depth
-microcosm verifier-lab-execution-spine-lens
+microcosm explain . readme_onboarding_route
+microcosm evidence list .
+microcosm status
 microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
-microcosm reveal
-microcosm legibility-scorecard
-microcosm market-boundary
-microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/first_wave/finance_forecast_evaluation_spine
-microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine
-microcosm drift-control
-microcosm circuit-attribution
-microcosm route-cleanup
-microcosm projection-import-map
-microcosm import-projector
-microcosm option-surface-lens
-microcosm stripping-guard
-microcosm standards-control
-microcosm voice-to-doctrine-self-improvement-loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json
 microcosm serve . --host 127.0.0.1 --port 8765
 ```
 
-Open `http://127.0.0.1:8765` to see the causal chain. The output folder is
+The first screen is the `microcosm tour .` JSON. Its `first_screen` card names
+the local `.microcosm/` state files, the route/work/event/evidence chain, the
+observatory command, the proof-lab command, and the authority ceiling. Open
+`http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
 
 Use `microcosm authority` before trusting any organ label. It shows each
@@ -193,61 +180,11 @@ printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' >
 microcosm compile /tmp/microcosm-scratch
 microcosm tour /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
-microcosm spine
-microcosm authority
-microcosm workingness
-microcosm prediction-lens
-microcosm market-boundary
-microcosm corpus-lens
-microcosm trace-lens
-microcosm repair-loop
-microcosm evidence-cells
-microcosm proof-loop-depth
-microcosm verifier-lab-execution-spine-lens
-microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
-microcosm landing-replay
-microcosm durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
-microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine
-microcosm research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
-microcosm world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
-microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
-microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay
-microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
-microcosm view-quality
-microcosm projection-safety
-microcosm drift-control
-microcosm spatial-simulation
-microcosm circuit-attribution
-microcosm route-cleanup
-microcosm projection-import-map
-microcosm import-projector
-microcosm option-surface-lens
-microcosm stripping-guard
-microcosm standards-control
-microcosm hook-coverage
-microcosm agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
-microcosm replay-gauntlet
-microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle --input examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay
-microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay
-microcosm agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle --input examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle --out receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay
-microcosm agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
-microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
-microcosm mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
-microcosm proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
-microcosm belief-state-process-reward-replay run-reward-bundle --input examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay
-microcosm benchmark-lab
-microcosm legibility-scorecard
-microcosm intake
-microcosm reveal
-microcosm lean-std-premise-index run-index-bundle --input examples/lean_std_premise_index/exported_lean_std_premise_index_bundle --out receipts/runtime_shell/demo_project/organs/lean_std_premise_index
-microcosm formal-math-verifier-trace-repair-loop run-loop-bundle --input examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop
-microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle --input examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle --out receipts/runtime_shell/demo_project/organs/formal_evidence_cell_anchor_resolver
-microcosm undeclared-library-prior-symbol-classifier run-symbol-bundle --input examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle --out receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier
-microcosm cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map
-microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
-microcosm observe /tmp/microcosm-scratch
 microcosm evidence list /tmp/microcosm-scratch
+microcosm status
+microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 ```
 
@@ -257,51 +194,9 @@ The same commands work without installing the console script:
 PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli spine
-PYTHONPATH=src python3 -m microcosm_core.cli authority
-PYTHONPATH=src python3 -m microcosm_core.cli workingness
-PYTHONPATH=src python3 -m microcosm_core.cli prediction-lens
-PYTHONPATH=src python3 -m microcosm_core.cli market-boundary
-PYTHONPATH=src python3 -m microcosm_core.cli finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle --out receipts/first_wave/finance_forecast_evaluation_spine
-PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens
-PYTHONPATH=src python3 -m microcosm_core.cli trace-lens
-PYTHONPATH=src python3 -m microcosm_core.cli repair-loop
-PYTHONPATH=src python3 -m microcosm_core.cli evidence-cells
-PYTHONPATH=src python3 -m microcosm_core.cli proof-loop-depth
-PYTHONPATH=src python3 -m microcosm_core.cli landing-replay
-PYTHONPATH=src python3 -m microcosm_core.cli durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
-PYTHONPATH=src python3 -m microcosm_core.cli research-replication-rubric-artifact-replay run-replication-bundle --input examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle --out receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay
-PYTHONPATH=src python3 -m microcosm_core.cli world-model-projection-drift-control-room run-drift-control-bundle --input examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle --out receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room
-PYTHONPATH=src python3 -m microcosm_core.cli spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay
-PYTHONPATH=src python3 -m microcosm_core.cli materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay
-PYTHONPATH=src python3 -m microcosm_core.cli mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay
-PYTHONPATH=src python3 -m microcosm_core.cli view-quality
-PYTHONPATH=src python3 -m microcosm_core.cli projection-safety
-PYTHONPATH=src python3 -m microcosm_core.cli drift-control
-PYTHONPATH=src python3 -m microcosm_core.cli spatial-simulation
-PYTHONPATH=src python3 -m microcosm_core.cli circuit-attribution
-PYTHONPATH=src python3 -m microcosm_core.cli route-cleanup
-PYTHONPATH=src python3 -m microcosm_core.cli projection-import-map
-PYTHONPATH=src python3 -m microcosm_core.cli import-projector
-PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens
-PYTHONPATH=src python3 -m microcosm_core.cli stripping-guard
-PYTHONPATH=src python3 -m microcosm_core.cli standards-control
-PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage
-PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-computer-use-bundle --input examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
-PYTHONPATH=src python3 -m microcosm_core.cli agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime
-PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet
-PYTHONPATH=src python3 -m microcosm_core.cli agent-memory-temporal-conflict-replay run-memory-bundle --input examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay
-PYTHONPATH=src python3 -m microcosm_core.cli sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay
-PYTHONPATH=src python3 -m microcosm_core.cli mcp-tool-authority-replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay
-PYTHONPATH=src python3 -m microcosm_core.cli proof-derived-governed-mutation-authorization run-authorization-bundle --input examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization
-PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab
-PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard
-PYTHONPATH=src python3 -m microcosm_core.cli intake
-PYTHONPATH=src python3 -m microcosm_core.cli reveal
-PYTHONPATH=src python3 -m microcosm_core.cli lean-std-premise-index run-index-bundle --input examples/lean_std_premise_index/exported_lean_std_premise_index_bundle --out receipts/runtime_shell/demo_project/organs/lean_std_premise_index
-PYTHONPATH=src python3 -m microcosm_core.cli cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out receipts/runtime_shell/demo_project/organs/cold_reader_route_map
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
-PYTHONPATH=src python3 -m microcosm_core.cli observe /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli status
 ```
 
 The older organ-adapter demo still exists for internal evidence and regression:

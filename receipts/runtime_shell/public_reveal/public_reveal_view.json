@@ -12,7 +12,7 @@
     "whole_system_correctness_claim": false
   },
   "command_count": 8,
-  "created_at": "2026-05-23T23:54:32+00:00",
+  "created_at": "2026-05-25T00:50:25+00:00",
   "evidence_ref": "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
   "evidence_ref_count": 11,
   "evidence_strength_policy": {
@@ -20,7 +20,8 @@
     "evidence_class_counts": {
       "algorithmic_projection": 23,
       "external_subprocess_witness": 3,
-      "semantic_validator": 16
+      "semantic_validator": 15,
+      "verified_macro_body_import": 1
     },
     "next_command": "microcosm authority",
     "source_ref": "core/organ_evidence_classes.json",

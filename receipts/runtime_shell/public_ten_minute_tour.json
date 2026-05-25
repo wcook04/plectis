@@ -50,7 +50,7 @@
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 15,
+    "event_count": 17,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -61,7 +61,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-24T02:11:16+00:00",
+  "created_at": "2026-05-25T00:50:25+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -128,6 +128,137 @@
     "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
   ],
+  "first_screen": {
+    "anti_claim": "The first-screen card is a local route map over runnable Microcosm behavior. It does not authorize release, hosting, provider calls, source mutation, proof correctness, private-data equivalence, or whole-system correctness claims.",
+    "authority_ceiling": {
+      "credential_equivalent_payloads_exported": false,
+      "hosted_public_authorized": false,
+      "private_data_equivalence_claim": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "behavior_surfaces": {
+      "event_log_ref": ".microcosm/events.jsonl",
+      "evidence_dir_ref": ".microcosm/evidence/",
+      "graph_ref": ".microcosm/graph.json",
+      "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+      "route_state_ref": ".microcosm/routes.json",
+      "work_state_ref": ".microcosm/work_items.json"
+    },
+    "card_id": "cold_reader_first_screen",
+    "generated_state": {
+      "graph_ref": ".microcosm/graph.json",
+      "python_lens_ref": ".microcosm/python_lens.json",
+      "refs": [
+        ".microcosm/project_manifest.json",
+        ".microcosm/architecture.json",
+        ".microcosm/state_index.json",
+        ".microcosm/graph.json",
+        ".microcosm/catalog.json",
+        ".microcosm/python_lens.json",
+        ".microcosm/patterns.json",
+        ".microcosm/routes.json",
+        ".microcosm/work_items.json",
+        ".microcosm/events.jsonl",
+        ".microcosm/explanations/",
+        ".microcosm/evidence/"
+      ],
+      "source_files_mutated": false,
+      "state_dir": ".microcosm"
+    },
+    "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
+    "minimal_command_path": [
+      {
+        "command": "microcosm compile <project>",
+        "shows": [
+          "repo -> .microcosm",
+          "project-local catalog",
+          "routes",
+          "work items",
+          "events",
+          "evidence",
+          "graph"
+        ],
+        "status": "pass",
+        "step_id": "compile_project"
+      },
+      {
+        "command": "microcosm tour <project>",
+        "shows": [
+          "this first-screen card",
+          "route cards",
+          "authority ceiling",
+          "proof-lab route",
+          "evidence refs as drilldowns"
+        ],
+        "step_id": "inspect_first_screen"
+      },
+      {
+        "command": "microcosm python-lens <project>",
+        "state_ref": ".microcosm/python_lens.json",
+        "step_id": "inspect_python_routes"
+      },
+      {
+        "command": "microcosm explain <project> readme_onboarding_route",
+        "state_refs": [
+          ".microcosm/routes.json",
+          ".microcosm/work_items.json",
+          ".microcosm/events.jsonl",
+          ".microcosm/evidence/"
+        ],
+        "step_id": "inspect_route_causal_chain"
+      },
+      {
+        "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "endpoint": "/",
+        "shows": [
+          "causal chain before raw receipts",
+          "route -> work -> event -> evidence",
+          "authority ceiling"
+        ],
+        "step_id": "open_observatory"
+      },
+      {
+        "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+        "lean_lake_return_code": 0,
+        "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+        "route_component_count": 9,
+        "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+        "status": "pass",
+        "step_id": "run_first_screen_proof_lab"
+      },
+      {
+        "command": "microcosm evidence inspect <receipt>",
+        "evidence_ref_count": 30,
+        "step_id": "drill_receipts_only_after_behavior"
+      }
+    ],
+    "primary_command": "microcosm tour <project>",
+    "project_ref": "reader_repo",
+    "proof_surface": {
+      "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+      "compiled_declaration_count": 8,
+      "lean_lake_return_code": 0,
+      "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+      "route_component_count": 9,
+      "route_id": "formal_prover_context_strategy_gate",
+      "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+      "status": "pass"
+    },
+    "safe_to_show": {
+      "credential_equivalent_payloads_exported": false,
+      "project_local_state_refs_visible": true,
+      "proof_bodies_exported": false,
+      "provider_payload_bodies_exported": false,
+      "receipt_refs_visible_after_behavior": true,
+      "source_files_mutated": false
+    },
+    "schema_version": "microcosm_cold_reader_first_screen_v1",
+    "status": "pass"
+  },
   "first_screen_proof_lab": {
     "anti_claim": {},
     "authority_ceiling": {
@@ -194,7 +325,7 @@
     },
     "status": "pass"
   },
-  "project_ref": "scratch_project",
+  "project_ref": "reader_repo",
   "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: compile, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
@@ -351,7 +482,7 @@
     "option_surface_stage_count": 6,
     "organ_count": 46,
     "prediction_mechanic_count": 5,
-    "projection_cell_count": 5,
+    "projection_cell_count": 14,
     "projection_drift_repair_route_count": 8,
     "projection_drift_row_count": 8,
     "projection_import_map_row_count": 6,
@@ -396,6 +527,7 @@
     "lifecycle": "tracked_public_snapshot_refreshed_intentionally",
     "runtime_invocation_can_write_receipt": true,
     "stable_truth_fields": [
+      "first_screen",
       "runtime_summary.organ_count",
       "runtime_summary.surface_authority_count",
       "authority_ceiling",

@@ -112,6 +112,20 @@ VERIFIER_EXECUTION_SOURCE_COMMAND = (
     "--out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine"
 )
 WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
+FIRST_SCREEN_STATE_REFS = (
+    "project_manifest.json",
+    "architecture.json",
+    "state_index.json",
+    "graph.json",
+    "catalog.json",
+    "python_lens.json",
+    "patterns.json",
+    "routes.json",
+    "work_items.json",
+    "events.jsonl",
+    "explanations/",
+    "evidence/",
+)
 
 
 Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
@@ -969,6 +983,154 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
             "scanned_ref_count": secret_scan.get("scanned_ref_count"),
         },
         "anti_claim": anti_claim if isinstance(anti_claim, dict) else {},
+    }
+
+
+def _cold_reader_first_screen_card(
+    *,
+    project_ref: str,
+    proof_lab: dict[str, Any],
+    compiled: dict[str, Any] | None = None,
+    evidence_refs: list[str] | None = None,
+) -> dict[str, Any]:
+    compiled = compiled if isinstance(compiled, dict) else {}
+    graph_summary = compiled.get("graph_summary")
+    graph_summary = graph_summary if isinstance(graph_summary, dict) else {}
+    selected_route_id = str(compiled.get("selected_route_id") or "readme_onboarding_route")
+    compile_status = compiled.get("status")
+    state_refs = [
+        f"{project_substrate.STATE_DIR}/{state_ref}"
+        for state_ref in FIRST_SCREEN_STATE_REFS
+    ]
+    return {
+        "schema_version": "microcosm_cold_reader_first_screen_v1",
+        "status": PASS
+        if proof_lab.get("status") == PASS and compile_status in {None, PASS}
+        else "blocked",
+        "card_id": "cold_reader_first_screen",
+        "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
+        "project_ref": project_ref,
+        "primary_command": "microcosm tour <project>",
+        "minimal_command_path": [
+            {
+                "step_id": "compile_project",
+                "command": "microcosm compile <project>",
+                "shows": [
+                    "repo -> .microcosm",
+                    "project-local catalog",
+                    "routes",
+                    "work items",
+                    "events",
+                    "evidence",
+                    "graph",
+                ],
+                "status": compile_status,
+            },
+            {
+                "step_id": "inspect_first_screen",
+                "command": "microcosm tour <project>",
+                "shows": [
+                    "this first-screen card",
+                    "route cards",
+                    "authority ceiling",
+                    "proof-lab route",
+                    "evidence refs as drilldowns",
+                ],
+            },
+            {
+                "step_id": "inspect_python_routes",
+                "command": "microcosm python-lens <project>",
+                "state_ref": f"{project_substrate.STATE_DIR}/python_lens.json",
+            },
+            {
+                "step_id": "inspect_route_causal_chain",
+                "command": f"microcosm explain <project> {selected_route_id}",
+                "state_refs": [
+                    f"{project_substrate.STATE_DIR}/routes.json",
+                    f"{project_substrate.STATE_DIR}/work_items.json",
+                    f"{project_substrate.STATE_DIR}/events.jsonl",
+                    f"{project_substrate.STATE_DIR}/evidence/",
+                ],
+            },
+            {
+                "step_id": "open_observatory",
+                "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+                "endpoint": "/",
+                "shows": [
+                    "causal chain before raw receipts",
+                    "route -> work -> event -> evidence",
+                    "authority ceiling",
+                ],
+            },
+            {
+                "step_id": "run_first_screen_proof_lab",
+                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+                "route_ref": proof_lab.get("route_ref"),
+                "receipt_ref": proof_lab.get("receipt_ref"),
+                "route_component_count": proof_lab.get("route_component_count"),
+                "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
+                "status": proof_lab.get("status"),
+            },
+            {
+                "step_id": "drill_receipts_only_after_behavior",
+                "command": "microcosm evidence inspect <receipt>",
+                "evidence_ref_count": len(evidence_refs or []),
+            },
+        ],
+        "generated_state": {
+            "state_dir": project_substrate.STATE_DIR,
+            "refs": state_refs,
+            "graph_ref": graph_summary.get("graph_ref")
+            or f"{project_substrate.STATE_DIR}/graph.json",
+            "python_lens_ref": compiled.get("python_lens_ref")
+            or f"{project_substrate.STATE_DIR}/python_lens.json",
+            "source_files_mutated": compiled.get("source_files_mutated") is True,
+        },
+        "behavior_surfaces": {
+            "route_state_ref": f"{project_substrate.STATE_DIR}/routes.json",
+            "work_state_ref": f"{project_substrate.STATE_DIR}/work_items.json",
+            "event_log_ref": f"{project_substrate.STATE_DIR}/events.jsonl",
+            "evidence_dir_ref": f"{project_substrate.STATE_DIR}/evidence/",
+            "graph_ref": graph_summary.get("graph_ref")
+            or f"{project_substrate.STATE_DIR}/graph.json",
+            "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        },
+        "proof_surface": {
+            "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+            "route_id": proof_lab.get("route_id"),
+            "route_ref": proof_lab.get("route_ref"),
+            "receipt_ref": proof_lab.get("receipt_ref"),
+            "route_component_count": proof_lab.get("route_component_count"),
+            "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
+            "compiled_declaration_count": proof_lab.get(
+                "lean_compiled_declaration_count"
+            ),
+            "status": proof_lab.get("status"),
+        },
+        "authority_ceiling": {
+            "release_authorized": False,
+            "hosted_public_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "credential_equivalent_payloads_exported": False,
+            "proof_correctness_claim": False,
+            "private_data_equivalence_claim": False,
+            "whole_system_correctness_claim": False,
+        },
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "receipt_refs_visible_after_behavior": True,
+            "proof_bodies_exported": False,
+            "provider_payload_bodies_exported": False,
+            "credential_equivalent_payloads_exported": False,
+            "source_files_mutated": compiled.get("source_files_mutated") is True,
+        },
+        "anti_claim": (
+            "The first-screen card is a local route map over runnable Microcosm "
+            "behavior. It does not authorize release, hosting, provider calls, "
+            "source mutation, proof correctness, private-data equivalence, or "
+            "whole-system correctness claims."
+        ),
     }
 
 
@@ -1878,6 +2040,10 @@ class RuntimeShell:
         standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
         proof_lab = _proof_lab_first_screen_card(self.root)
         body_import_floor = _macro_projection_body_import_floor(self.root)
+        front_door = _cold_reader_first_screen_card(
+            project_ref="<project>",
+            proof_lab=proof_lab,
+        )
         return {
             "schema_version": "microcosm_runtime_status_v1",
             "status": PASS
@@ -2069,6 +2235,7 @@ class RuntimeShell:
                 "receipts_are_drilldown_evidence": True,
                 "fixtures_are_tests": True,
             },
+            "front_door": front_door,
             "first_screen_proof_lab": proof_lab,
             "macro_body_import_floor": body_import_floor,
             "organ_count": len(organs),
@@ -2981,6 +3148,12 @@ class RuntimeShell:
                 ]
             )
         )
+        first_screen = _cold_reader_first_screen_card(
+            project_ref=project_ref,
+            compiled=compiled,
+            proof_lab=proof_lab,
+            evidence_refs=evidence_refs,
+        )
         surface_statuses = {
             "compile": compiled.get("status"),
             "spine": spine.get("status"),
@@ -3257,6 +3430,7 @@ class RuntimeShell:
                     "compile_summary.file_count",
                 ],
                 "stable_truth_fields": [
+                    "first_screen",
                     "runtime_summary.organ_count",
                     "runtime_summary.surface_authority_count",
                     "authority_ceiling",
@@ -3271,6 +3445,7 @@ class RuntimeShell:
                 "the proof-lab route, reveal real-substrate receipt states, then drill receipts."
             ),
             "time_budget_minutes": 10,
+            "first_screen": first_screen,
             "command_path": commands,
             "endpoint_path": [
                 "/tour",

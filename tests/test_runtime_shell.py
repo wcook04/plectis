@@ -73,6 +73,18 @@ WORK_LANDING_CONTROL_BODY_MATERIAL_IDS = [
     "mission_transaction_preflight_tool_body_import",
     "scoped_commit_tool_body_import",
 ]
+TASK_LEDGER_CONTROL_BODY_MATERIAL_IDS = [
+    "task_ledger_events_body_import",
+    "task_ledger_apply_tool_body_import",
+    "task_ledger_priority_body_import",
+    "task_ledger_project_tool_body_import",
+]
+WORK_LEDGER_CONTROL_BODY_MATERIAL_IDS = [
+    "work_ledger_tool_body_import",
+    "work_ledger_event_body_import",
+    "work_ledger_runtime_body_import",
+    "work_ledger_standard_body_import",
+]
 
 
 def _copy_runtime_root(tmp_path: Path) -> Path:
@@ -101,7 +113,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["real_import_validation_count"] == 15
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert status["copied_non_secret_macro_body_material_count"] == 25
+    assert status["copied_non_secret_macro_body_material_count"] == 33
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
     assert status["macro_body_import_floor"][
@@ -110,11 +122,29 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 1,
-        "public_macro_tool_body": 22,
+        "public_macro_tool_body": 30,
     }
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
+    assert status["front_door"]["schema_version"] == (
+        "microcosm_cold_reader_first_screen_v1"
+    )
+    assert status["front_door"]["primary_command"] == "microcosm tour <project>"
+    assert status["front_door"]["generated_state"]["state_dir"] == ".microcosm"
+    assert ".microcosm/graph.json" in status["front_door"]["generated_state"]["refs"]
+    assert status["front_door"]["behavior_surfaces"] == {
+        "route_state_ref": ".microcosm/routes.json",
+        "work_state_ref": ".microcosm/work_items.json",
+        "event_log_ref": ".microcosm/events.jsonl",
+        "evidence_dir_ref": ".microcosm/evidence/",
+        "graph_ref": ".microcosm/graph.json",
+        "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+    }
+    assert status["front_door"]["proof_surface"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert status["front_door"]["authority_ceiling"]["release_authorized"] is False
     assert status["first_screen_proof_lab"]["status"] == "pass"
     assert status["first_screen_proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
@@ -316,8 +346,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["surface_counts"]["non_progress_organ_count"] == 0
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 25
-    assert spine["surface_counts"]["public_safe_body_material_count"] == 25
+    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 33
+    assert spine["surface_counts"]["public_safe_body_material_count"] == 33
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 23
     assert spine["surface_counts"]["real_import_validation_count"] == 15
@@ -339,7 +369,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["macro_body_import_floor"]["status"] == "pass"
     assert spine["macro_body_import_floor"][
         "copied_non_secret_macro_body_material_count"
-    ] == 25
+    ] == 33
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "non_lean_tool_body_material_ids"
     ] == [
@@ -361,6 +391,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "finance_compare_variants_body_import",
         "finance_build_eval_operating_picture_body_import",
         *WORK_LANDING_CONTROL_BODY_MATERIAL_IDS,
+        *TASK_LEDGER_CONTROL_BODY_MATERIAL_IDS,
+        *WORK_LEDGER_CONTROL_BODY_MATERIAL_IDS,
     ]
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "proof_body_material_ids"
@@ -803,7 +835,7 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert (
-        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 25
+        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 33
     )
     assert (
         authority["surface_counts"]["mixed_public_safe_macro_import_assay_status"]
@@ -1061,6 +1093,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
             "compile_summary.file_count",
         ],
         "stable_truth_fields": [
+            "first_screen",
             "runtime_summary.organ_count",
             "runtime_summary.surface_authority_count",
             "authority_ceiling",
@@ -1099,6 +1132,34 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "verifier_lab_execution_spine": "pass",
         "view_quality": "pass",
     }
+    assert tour["first_screen"]["schema_version"] == (
+        "microcosm_cold_reader_first_screen_v1"
+    )
+    assert tour["first_screen"]["status"] == "pass"
+    assert tour["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
+        "compile_project",
+        "inspect_first_screen",
+        "inspect_python_routes",
+        "inspect_route_causal_chain",
+        "open_observatory",
+        "run_first_screen_proof_lab",
+        "drill_receipts_only_after_behavior",
+    ]
+    assert tour["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
+    assert ".microcosm/catalog.json" in tour["first_screen"]["generated_state"]["refs"]
+    assert ".microcosm/evidence/" in tour["first_screen"]["generated_state"]["refs"]
+    assert tour["first_screen"]["behavior_surfaces"]["route_state_ref"] == (
+        ".microcosm/routes.json"
+    )
+    assert tour["first_screen"]["behavior_surfaces"]["observatory_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
+    assert tour["first_screen"]["proof_surface"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert tour["first_screen"]["safe_to_show"]["receipt_refs_visible_after_behavior"] is True
+    assert tour["first_screen"]["authority_ceiling"]["release_authorized"] is False
     assert [row["card_id"] for row in tour["route_cards"]] == [
         "compile",
         "runtime_spine",
@@ -3097,7 +3158,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     assert observatory["runtime_bridge"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 10,
+        "public_runtime_import_landed": 12,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
@@ -3145,7 +3206,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert intake["status"] == "pass"
     assert intake["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert intake["bridge_id"] == "runtime_reveal_import_bridge"
-    assert intake["projection_cell_count"] == 12
+    assert intake["projection_cell_count"] == 14
     assert [step["command"] for step in intake["first_run_bridge"]] == [
         "microcosm compile <project>",
         "microcosm spine",
@@ -3166,7 +3227,9 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         "navigation_route_plane_import",
         "projection_protocol_self_host",
         "runtime_reveal_import_bridge",
+        "task_ledger_control_source_modules_import",
         "work_landing_control_source_modules_import",
+        "work_ledger_control_source_modules_import",
     }
     assert by_cell["formal_math_readiness_extensions"]["projection_status"] == (
         "public_runtime_import_landed"
@@ -3229,7 +3292,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     )
     assert by_cell["work_landing_control_source_modules_import"]["action_required"] is False
     assert intake["projection_status_counts"] == {
-        "public_runtime_import_landed": 10,
+        "public_runtime_import_landed": 12,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }

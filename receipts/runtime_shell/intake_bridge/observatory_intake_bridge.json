@@ -62,6 +62,69 @@
     },
     {
       "action_required": false,
+      "cell_id": "agent_trace_route_repair_observability_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
+        "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle --input examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "agent_observability_store_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_observability_store.py",
+        "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+        "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "agent_session_attribution_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/agent_session_attribution.py",
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_session_attribution_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "multi_agent_fanin_replay_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/continuation_packet.py",
+        "src/microcosm_core/macro_tools/bridge_resume.py",
+        "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+        "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle_validation_result.json",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-bridge-dispatch-yield-resume-bundle --input examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "controller_continuity_heartbeat_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "src/microcosm_core/macro_tools/controller_heartbeat.py",
+        "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+        "receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_controller_heartbeat_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-controller-heartbeat-bundle --input examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
       "cell_id": "navigation_route_plane_import",
       "cell_state": "consumed_verified_import",
       "landed_evidence_refs": [
@@ -71,9 +134,59 @@
       ],
       "next_runtime_surface": "microcosm navigation-hologram-route-plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle",
       "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "finance_eval_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+        "receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/finance_eval_spine.py"
+      ],
+      "next_runtime_surface": "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "work_landing_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/work_landing_control_spine/exported_work_landing_control_bundle",
+        "receipts/first_wave/work_landing_control_spine/exported_work_landing_control_bundle_validation_result.json",
+        "src/microcosm_core/macro_tools/work_landing_control_spine.py"
+      ],
+      "next_runtime_surface": "microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "task_ledger_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "work_ledger_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "projection_status": "public_runtime_import_landed"
     }
   ],
-  "closed_cell_count": 5,
+  "closed_cell_count": 14,
   "commands": [
     "microcosm tour <project>",
     "microcosm spine",
@@ -103,7 +216,7 @@
     "microcosm reveal",
     "microcosm evidence inspect <receipt>"
   ],
-  "consumed_cell_count": 5,
+  "consumed_cell_count": 14,
   "endpoints": {
     "authority": "/authority",
     "benchmark_lab": "/benchmark-lab",
@@ -159,7 +272,7 @@
     "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
     "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json"
   ],
-  "landed_cell_count": 5,
+  "landed_cell_count": 14,
   "open_actionable_cell_count": 0,
   "payload_boundary": {
     "account_session_state_exported": false,
@@ -193,7 +306,7 @@
     "unsafe_payload_bodies_in_receipt": false
   },
   "projection_status_counts": {
-    "public_runtime_import_landed": 3,
+    "public_runtime_import_landed": 12,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },

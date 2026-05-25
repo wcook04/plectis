@@ -424,12 +424,84 @@
         "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_task_ledger_control_source_bodies_not_live_task_ledger_work_ledger_git_private_index_provider_credential_release_publication_or_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "task_ledger_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "task_ledger_workitem_spine",
+        "mission_transaction_landing",
+        "work_ledger_runtime_claims"
+      ],
+      "status_reason": "The Task Ledger control-plane source modules are landed as exact copied non-secret macro bodies inside the mission transaction bundle and consumed by the mission transaction work spine runtime.",
+      "target_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/task_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "action_required": false,
+      "authority_ceiling": "verified_public_work_ledger_control_source_bodies_not_live_work_ledger_task_ledger_git_private_index_provider_credential_release_publication_or_send_authority",
+      "body_in_receipt": false,
+      "cell_id": "work_ledger_control_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "intake_ready": true,
+      "landed_evidence_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "projection_status": "public_runtime_import_landed",
+      "runtime_bridge_status": "public_runtime_import_landed",
+      "selected_pattern_ids": [
+        "work_ledger_runtime_claims",
+        "claim_lease_expired_at_audit_trail",
+        "controller_continuity_heartbeat"
+      ],
+      "status_reason": "The Work Ledger control-plane source modules are landed as exact copied non-secret macro bodies inside the mission transaction bundle and consumed by the mission transaction work spine runtime.",
+      "target_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
-  "consumed_cell_count": 12,
-  "created_at": "2026-05-24T11:54:47+00:00",
+  "consumed_cell_count": 14,
+  "created_at": "2026-05-25T00:50:25+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",
@@ -457,13 +529,13 @@
       "why": "open receipts only after the causal path is visible"
     }
   ],
-  "landed_cell_count": 12,
+  "landed_cell_count": 14,
   "open_actionable_cell_count": 0,
-  "projection_cell_count": 12,
+  "projection_cell_count": 14,
   "projection_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
   "projection_plan_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
   "projection_status_counts": {
-    "public_runtime_import_landed": 10,
+    "public_runtime_import_landed": 12,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },
@@ -485,7 +557,7 @@
     "status_field": "projection_status"
   },
   "public_claim": "Microcosm turns macro-pattern intake into a runnable source-open path: compile, spine, intake, reveal, and evidence drilldown over real substrate receipts.",
-  "ready_cell_count": 12,
+  "ready_cell_count": 14,
   "reveal_command": "microcosm reveal",
   "runtime_bridge_evidence_refs": [
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
