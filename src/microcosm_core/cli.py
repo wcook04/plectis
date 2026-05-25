@@ -196,14 +196,23 @@ def _proof_lab_first_screen_card(
         evidence_drilldown = "microcosm evidence inspect <proof-lab-receipt>"
     return {
         "schema_version": "microcosm_proof_lab_first_screen_card_v1",
+        "card_id": "first_screen_verifier_lab_kernel",
         "status": result.get("status"),
         "command": command,
         "expanded_command": (
             "microcosm verifier-lab-kernel run-kernel-bundle "
             f"--input {_public_ref(input_path)} --out {out_dir}"
         ),
+        "endpoint": "/proof-lab",
+        "alias_endpoints": ["/verifier-lab-kernel"],
+        "source_lens_endpoint": "/proof-loop-depth",
         "input_ref": _public_ref(input_path),
         "out_ref": out_dir,
+        "bundle_ref": runtime_shell.PROOF_LAB_BUNDLE_REF,
+        "route_id": result.get("proof_lab_route_id"),
+        "route_ref": runtime_shell.PROOF_LAB_ROUTE_REF,
+        "receipt_ref": receipt_refs[0] if receipt_refs else None,
+        "canonical_receipt_ref": runtime_shell.PROOF_LAB_RECEIPT_REF,
         "receipt_refs": receipt_refs,
         "proof_lab_route_id": result.get("proof_lab_route_id"),
         "proof_lab_route_component_count": result.get(
@@ -226,10 +235,16 @@ def _proof_lab_first_screen_card(
             "proof_bodies_exported": False,
             "provider_payloads_exported": False,
             "credential_equivalent_payloads_exported": False,
+            "route_metadata_visible": True,
             "receipt_refs_visible": True,
         },
         "authority_ceiling": result.get("authority_ceiling"),
         "anti_claim": result.get("anti_claim"),
+        "reader_action": (
+            "Use route_id, route_ref, and receipt_ref to verify the bounded "
+            "proof-lab route, then drill into the receipt only after the "
+            "first-screen card is visible."
+        ),
         "next_commands": [
             "microcosm status --card",
             "microcosm proof-loop-depth",

@@ -418,6 +418,7 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     receipt = out_dir / "exported_verifier_lab_kernel_bundle_validation_result.json"
     assert status == 0
     assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
+    assert payload["card_id"] == "first_screen_verifier_lab_kernel"
     assert payload["status"] == "pass"
     assert payload["command"] == f"microcosm proof-lab --out {out_dir}"
     public_input_ref = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
@@ -425,7 +426,13 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
         "microcosm verifier-lab-kernel run-kernel-bundle "
         f"--input {public_input_ref} --out {out_dir}"
     )
+    assert payload["endpoint"] == "/proof-lab"
+    assert payload["alias_endpoints"] == ["/verifier-lab-kernel"]
+    assert payload["source_lens_endpoint"] == "/proof-loop-depth"
     assert payload["input_ref"] == public_input_ref
+    assert payload["bundle_ref"] == public_input_ref
+    assert payload["route_id"] == "formal_prover_context_strategy_gate"
+    assert payload["route_ref"] == PROOF_LAB_ROUTE_REF
     assert payload["proof_lab_route_id"] == "formal_prover_context_strategy_gate"
     assert payload["proof_lab_route_component_count"] == 9
     assert payload["lean_lake_return_code"] == 0
@@ -433,8 +440,14 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["safe_to_show"]["body_in_receipt"] is False
     assert payload["safe_to_show"]["proof_bodies_exported"] is False
     assert payload["safe_to_show"]["provider_payloads_exported"] is False
+    assert payload["safe_to_show"]["route_metadata_visible"] is True
     assert receipt.is_file()
+    assert payload["receipt_ref"] == str(receipt)
+    assert payload["canonical_receipt_ref"] == PROOF_LAB_RECEIPT_REF
     assert payload["receipt_refs"] == [str(receipt)]
+    assert "receipt only after the first-screen card is visible" in payload[
+        "reader_action"
+    ]
     assert payload["next_commands"] == [
         "microcosm status --card",
         "microcosm proof-loop-depth",
