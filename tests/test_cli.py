@@ -744,6 +744,7 @@ def test_cli_tour_smoke(
     assert payload["first_screen"]["selected_route_id"] == (
         payload["compile_summary"]["selected_route_id"]
     )
+    assert payload["selected_route_id"] == payload["first_screen"]["selected_route_id"]
     assert payload["first_screen"]["route_explanation"]["command"] == (
         f"microcosm explain <project> {payload['first_screen']['selected_route_id']}"
     )

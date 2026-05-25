@@ -4322,6 +4322,9 @@ class RuntimeShell:
             proof_lab=proof_lab,
             evidence_refs=evidence_refs,
         )
+        selected_route_id = first_screen.get("selected_route_id") or compiled.get(
+            "selected_route_id"
+        )
         surface_statuses = {
             "compile": compiled.get("status"),
             "spine": spine.get("status"),
@@ -4689,6 +4692,7 @@ class RuntimeShell:
             "endpoint": "/tour",
             "tour_ref": _public_relative(tour_path, self.root),
             "project_ref": project_ref,
+            "selected_route_id": selected_route_id,
             "snapshot_policy": {
                 "lifecycle": "tracked_public_snapshot_refreshed_intentionally",
                 "runtime_invocation_can_write_receipt": persist_receipt,

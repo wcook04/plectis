@@ -1628,6 +1628,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["first_screen"]["selected_route_id"] == (
         tour["compile_summary"]["selected_route_id"]
     )
+    assert tour["selected_route_id"] == tour["first_screen"]["selected_route_id"]
     assert tour["first_screen"]["selected_route_id"] in tour["first_screen"][
         "available_project_route_ids"
     ]
