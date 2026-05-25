@@ -32,9 +32,9 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 9,
-    "missing_standard_count": 2,
-    "rows_with_failure_modes": 37,
+    "missing_failure_modes_count": 8,
+    "missing_standard_count": 1,
+    "rows_with_failure_modes": 38,
     "rows_with_future_work_targets": 36,
     "thing_count": 46
   },
@@ -1929,54 +1929,75 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 0,
-      "future_work_target_count": 3,
+      "failure_mode_count": 17,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_contract",
-          "target_ref": "standards/std_microcosm_mission_transaction_work_spine.json",
-          "why": "workingness cannot be bounded without an owning standard"
-        },
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_mission_transaction_work_spine.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "strengthen_projection_evidence",
           "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
           "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "WorkItem or claim projection treated as live Task Ledger or Work Ledger authority",
+        "dirty tree treated as a blocker for scoped commits instead of a scoped-path discipline condition",
+        "broad checkpoint allowed without explicit operator authorization",
+        "suspected secret or credential-equivalent material enters a checkpoint lane instead of hard-stopping",
+        "claim preflight ignores same-path conflicts or stale expected parents",
+        "dependency unlock accepted without a resolution receipt",
+        "ready WorkItem scheduled despite unsatisfied hard dependencies",
+        "scoped commit receipt claims global authority",
+        "closeout projection drains unrelated receipts or omits exact drain scope",
+        "Task Ledger source module missing from the public bundle",
+        "Work Ledger source module missing from the public bundle",
+        "checkpoint lane source module missing from the public bundle",
+        "copied source module digest does not match macro source digest",
+        "copied source module lacks required ledger, transaction, checkpoint, rescue-ref, private-backup, or force-with-lease anchors",
+        "receipt duplicates full source body instead of refs, hashes, and verdicts",
+        "provider payload, browser/HUD live-access, account/session, credential, recipient-send, live ledger, or live Git state exported",
+        "public mission transaction pass claimed as release, private backup execution, source mutation, whole-system correctness, or live macro authority"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
-        "authority_boundary": null,
-        "authority_ceiling": {},
+        "anti_purpose": "A transaction receipt archive that describes Task Ledger, Work Ledger, or checkpoint behavior while omitting the public-safe source bodies and their digest, anchor, and secret-exclusion checks.",
+        "authority_boundary": "public_mission_transaction_runtime_and_copied_control_source_body_validator_not_live_work_or_git_authority",
+        "authority_ceiling": {
+          "account_session_state_exported": false,
+          "browser_hud_live_access_authorized": false,
+          "credential_exported": false,
+          "live_git_mutation_authorized": false,
+          "live_task_ledger_mutation_authorized": false,
+          "live_work_ledger_mutation_authorized": false,
+          "private_backup_push_authorized": false,
+          "private_index_mutation_authorized": false,
+          "provider_calls_authorized": false,
+          "publication_authorized": false,
+          "recipient_work_authorized": false,
+          "release_authorized": false,
+          "source_authority_claim": false,
+          "standard_authority": "public_mission_transaction_runtime_and_source_body_digest_contract_only",
+          "status": "pass",
+          "whole_system_correctness_claim": false
+        },
         "generated_receipt_count": 8,
-        "missing_requirement_ids": [
-          "owning_standard_present",
-          "known_failure_modes_present",
-          "public_private_boundary_declared"
-        ],
-        "ontology": null,
-        "receipt_expectation_count": 0,
-        "required_field_count": 0,
+        "missing_requirement_ids": [],
+        "ontology": "A public-safe mission transaction organ that validates work, claim, dependency, scoped commit, checkpoint lane, receipt-drain, and closeout projections while carrying exact copied non-secret Task Ledger, Work Ledger, and checkpoint lane source modules.",
+        "receipt_expectation_count": 2,
+        "required_field_count": 15,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
-          "owning_standard_present": false,
-          "public_private_boundary_declared": false,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
           "validator_command_present": true
         },
         "standard_ref": "standards/std_microcosm_mission_transaction_work_spine.json",
-        "standard_status": null,
-        "teleology": null,
-        "validation_rule_count": 0
+        "standard_status": "draft",
+        "teleology": "Give a cold reader the real control-plane body needed to inspect how Microcosm closes mission work without replacing live ledgers, live Git state, or private backup execution with receipt theater.",
+        "validation_rule_count": 6
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",

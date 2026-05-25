@@ -1,0 +1,191 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_mission_transaction_work_spine",
+  "kind_id": "mission_transaction_work_spine",
+  "kind_name": "Mission transaction work spine",
+  "status": "draft",
+  "first_wave_required": true,
+  "authority_boundary": "public_mission_transaction_runtime_and_copied_control_source_body_validator_not_live_work_or_git_authority",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/mission_transaction_work_spine/input",
+      "role": "public_negative_case_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+      "role": "runtime_example_source"
+    },
+    {
+      "field": "task_ledger_source_manifest",
+      "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+      "role": "copied_task_ledger_control_source_body_manifest"
+    },
+    {
+      "field": "work_ledger_source_manifest",
+      "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+      "role": "copied_work_ledger_control_source_body_manifest"
+    },
+    {
+      "field": "checkpoint_source_manifest",
+      "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+      "role": "copied_checkpoint_lane_source_body_manifest"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#mission_transaction_work_spine",
+    "used_by_organs": [
+      "mission_transaction_work_spine"
+    ],
+    "source_pattern_id_sample": [
+      "task_ledger_workitem_spine",
+      "mission_transaction_landing",
+      "work_ledger_runtime_claims",
+      "task_ledger_exact_receipt_drain",
+      "task_ledger_control_source_body_import",
+      "work_landing_reconcile_finalizer_plan",
+      "workitem_dependency_unlock_scheduler",
+      "checkpoint_solo_dev_three_lanes"
+    ]
+  },
+  "required_fields": [
+    "bundle_id",
+    "workitems",
+    "claim_table",
+    "dependency_graph",
+    "transaction_plan",
+    "receipt_drain_plan",
+    "closeout_projection_packet",
+    "scoped_mutation_policy",
+    "checkpoint_lane_policy",
+    "task_ledger_control_source_import",
+    "work_ledger_control_source_import",
+    "checkpoint_lane_source_import",
+    "body_import_verification",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require exported WorkItem, claim, dependency, transaction, receipt-drain, and closeout rows to remain projections and not live ledger authority",
+    "require scoped commit to remain the normal lane while broad checkpoint requires explicit operator authorization",
+    "require suspected secret or credential-equivalent material to hard-stop instead of entering a checkpoint lane",
+    "require copied Task Ledger, Work Ledger, and checkpoint lane source modules to match source-to-target digests and anchor checks",
+    "reject live Task Ledger mutation, live Work Ledger mutation, live Git mutation, private backup push execution, private-index mutation, provider calls, browser/HUD live access, account/session export, recipient work, publication, release, and whole-system correctness claims",
+    "require secret-exclusion scanning over mission bundle files and copied source modules with body text omitted from receipts"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.mission_transaction_work_spine",
+    "receipt must cite schedulability, claim preflight, scoped mutation, checkpoint lane decision, closeout projection, receipt drain, copied source manifests, source-module digest and anchor status, secret-exclusion scan, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "validator_id": "validator.microcosm.organs.mission_transaction_work_spine",
+    "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
+    "runtime_bundle_command": "python -m microcosm_core.organs.mission_transaction_work_spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+    "expected_negative_cases": [
+      "competing_claim_and_stale_parent",
+      "mission_claim_missing_owned_path",
+      "scoped_commit_receipt_claims_global_authority",
+      "mission_fixture_private_task_ledger_body",
+      "clean_preflight_overclaims_landing_complete",
+      "dependency_unlock_without_resolution_receipt",
+      "ready_workitem_with_unsatisfied_hard_dep",
+      "broad_checkpoint_without_operator_authorization",
+      "suspected_secret_without_hard_stop",
+      "dirty_tree_blocks_scoped_lane",
+      "missing_selected_lane_for_state"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.mission_transaction_work_spine",
+    "must_record": [
+      "workitem_ids",
+      "accepted_claim_ids",
+      "dependency_refs",
+      "claim_preflight_result",
+      "scoped_mutation_receipt",
+      "checkpoint_lane_decision",
+      "closeout_status_projection",
+      "receipt_drain_plan",
+      "task_ledger_control_source_import",
+      "work_ledger_control_source_import",
+      "checkpoint_lane_source_import",
+      "secret_exclusion_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_mission_transaction_runtime_with_exact_copied_non_secret_control_source_modules",
+    "allowed_public_inputs": [
+      "public WorkItem and claim projection rows",
+      "public dependency and receipt-drain metadata",
+      "public scoped mutation and checkpoint lane policy rows",
+      "public closeout projection packets",
+      "exact copied non-secret Task Ledger control modules",
+      "exact copied non-secret Work Ledger control modules",
+      "exact copied non-secret checkpoint lane modules",
+      "source refs, hashes, and anchor checks",
+      "synthetic negative cases around public mission transaction behavior"
+    ],
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "operator thread bodies",
+      "recipient-send state",
+      "private backup execution state",
+      "live Task Ledger state",
+      "live Work Ledger state",
+      "live Git index state",
+      "private-root equivalence claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "public_mission_transaction_runtime_and_source_body_digest_contract_only",
+    "source_authority_claim": false,
+    "live_task_ledger_mutation_authorized": false,
+    "live_work_ledger_mutation_authorized": false,
+    "live_git_mutation_authorized": false,
+    "private_backup_push_authorized": false,
+    "private_index_mutation_authorized": false,
+    "provider_calls_authorized": false,
+    "browser_hud_live_access_authorized": false,
+    "account_session_state_exported": false,
+    "credential_exported": false,
+    "recipient_work_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "whole_system_correctness_claim": false
+  },
+  "standard_payload": {
+    "ontology": "A public-safe mission transaction organ that validates work, claim, dependency, scoped commit, checkpoint lane, receipt-drain, and closeout projections while carrying exact copied non-secret Task Ledger, Work Ledger, and checkpoint lane source modules.",
+    "teleology": "Give a cold reader the real control-plane body needed to inspect how Microcosm closes mission work without replacing live ledgers, live Git state, or private backup execution with receipt theater.",
+    "anti_purpose": "A transaction receipt archive that describes Task Ledger, Work Ledger, or checkpoint behavior while omitting the public-safe source bodies and their digest, anchor, and secret-exclusion checks.",
+    "failure_modes": [
+      "WorkItem or claim projection treated as live Task Ledger or Work Ledger authority",
+      "dirty tree treated as a blocker for scoped commits instead of a scoped-path discipline condition",
+      "broad checkpoint allowed without explicit operator authorization",
+      "suspected secret or credential-equivalent material enters a checkpoint lane instead of hard-stopping",
+      "claim preflight ignores same-path conflicts or stale expected parents",
+      "dependency unlock accepted without a resolution receipt",
+      "ready WorkItem scheduled despite unsatisfied hard dependencies",
+      "scoped commit receipt claims global authority",
+      "closeout projection drains unrelated receipts or omits exact drain scope",
+      "Task Ledger source module missing from the public bundle",
+      "Work Ledger source module missing from the public bundle",
+      "checkpoint lane source module missing from the public bundle",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required ledger, transaction, checkpoint, rescue-ref, private-backup, or force-with-lease anchors",
+      "receipt duplicates full source body instead of refs, hashes, and verdicts",
+      "provider payload, browser/HUD live-access, account/session, credential, recipient-send, live ledger, or live Git state exported",
+      "public mission transaction pass claimed as release, private backup execution, source mutation, whole-system correctness, or live macro authority"
+    ]
+  },
+  "anti_claim": "This standard governs a public mission transaction runtime and exact copied non-secret control-plane source bodies. It does not authorize live Task Ledger mutation, live Work Ledger mutation, live Git mutation, private backup push execution, provider calls, browser/HUD access, account/session export, recipient work, publication, release, private-root equivalence, or whole-system correctness."
+}

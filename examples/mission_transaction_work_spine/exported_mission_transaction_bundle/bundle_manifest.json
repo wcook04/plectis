@@ -1,13 +1,7 @@
 {
-  "schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
-  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
-  "input_mode": "exported_mission_transaction_bundle",
-  "organ_id": "mission_transaction_work_spine",
-  "fixture_regression_required_elsewhere": true,
   "body_import_status": "source_faithful_public_refactor_landed",
-  "task_ledger_control_source_import_status": "public_runtime_import_landed",
   "body_import_verification": {
-    "verification_mode": "source_faithful_public_refactor",
+    "body_in_receipt": false,
     "source_refs": [
       "tools/meta/control/work_landing.py",
       "system/lib/work_landing_status.py",
@@ -34,10 +28,14 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
     ],
-    "body_in_receipt": false
+    "verification_mode": "source_faithful_public_refactor"
   },
-  "release_authorized": false,
+  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
+  "fixture_regression_required_elsewhere": true,
+  "input_mode": "exported_mission_transaction_bundle",
   "live_ledger_authority": false,
+  "organ_id": "mission_transaction_work_spine",
+  "release_authorized": false,
   "required_files": [
     "bundle_manifest.json",
     "workitems.json",
@@ -59,7 +57,13 @@
     "source_modules/tools/meta/factory/work_ledger.py",
     "source_modules/system/lib/work_ledger.py",
     "source_modules/system/lib/work_ledger_runtime.py",
-    "source_modules/codex/standards/std_work_ledger.json"
+    "source_modules/codex/standards/std_work_ledger.json",
+    "checkpoint_source_module_manifest.json",
+    "checkpoint_lane_runtime_contract.json",
+    "source_modules/checkpoint",
+    "source_modules/tools/meta/control/checkpoint_private_backup.py"
   ],
+  "schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
+  "task_ledger_control_source_import_status": "public_runtime_import_landed",
   "work_ledger_control_source_import_status": "public_runtime_import_landed"
 }

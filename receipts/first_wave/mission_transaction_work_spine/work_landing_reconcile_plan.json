@@ -198,7 +198,7 @@
   "command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
   "commit_hash": null,
   "controller_action_count": 12,
-  "created_at": "2026-05-23T17:43:05+00:00",
+  "created_at": "2026-05-25T16:44:29+00:00",
   "error_codes": [
     "CHECKPOINT_BROAD_AUTH_REQUIRED",
     "CHECKPOINT_DIRTY_TREE_NOT_SCOPED_BLOCKER",
@@ -789,6 +789,7 @@
     "mission_transaction_landing",
     "work_ledger_runtime_claims",
     "task_ledger_exact_receipt_drain",
+    "task_ledger_control_source_body_import",
     "work_landing_reconcile_finalizer_plan",
     "workitem_dependency_unlock_scheduler",
     "checkpoint_solo_dev_three_lanes"

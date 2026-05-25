@@ -7918,6 +7918,134 @@
         "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_checkpoint_script_into_public_mission_transaction_bundle",
+        "bind_checkpoint_lane_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_backup_push_task_ledger_work_ledger_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_backup_push_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:29cdb8c45bcfd5c32ac691cd0f6a792241d8110bb5be9270bb372076f4a5276d",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:29cdb8c45bcfd5c32ac691cd0f6a792241d8110bb5be9270bb372076f4a5276d",
+        "source_line_count": 416,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:29cdb8c45bcfd5c32ac691cd0f6a792241d8110bb5be9270bb372076f4a5276d",
+        "target_line_count": 416,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 416,
+      "claim_ceiling": "public checkpoint lane source-module body import only; not live Git mutation, private backup push execution, Task Ledger mutation, Work Ledger mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "checkpoint_script_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "checkpoint",
+      "source_refs": [
+        "checkpoint",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json"
+      ],
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_tools_meta_control_checkpoint_private_backup_into_public_mission_transaction_bundle",
+        "bind_checkpoint_lane_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_backup_push_task_ledger_work_ledger_private_index_release_publication_or_provider_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_backup_push_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:748533a4b1bb555209114284f61067bb0caac71593794cfeaf310101fd2448a8",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:748533a4b1bb555209114284f61067bb0caac71593794cfeaf310101fd2448a8",
+        "source_line_count": 750,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:748533a4b1bb555209114284f61067bb0caac71593794cfeaf310101fd2448a8",
+        "target_line_count": 750,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 750,
+      "claim_ceiling": "public checkpoint lane source-module body import only; not live Git mutation, private backup push execution, Task Ledger mutation, Work Ledger mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "checkpoint_private_backup_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/control/checkpoint_private_backup.py",
+      "source_refs": [
+        "tools/meta/control/checkpoint_private_backup.py",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json"
+      ],
+      "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -8089,7 +8217,11 @@
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
-    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -8295,7 +8427,11 @@
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
     "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
-    "standards/std_microcosm_navigation_hologram_route_plane.json"
+    "standards/std_microcosm_navigation_hologram_route_plane.json",
+    "checkpoint",
+    "tools/meta/control/checkpoint_private_backup.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json"
   ],
   "steps": [
     {
@@ -8469,6 +8605,8 @@
     "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
-    "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape"
+    "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

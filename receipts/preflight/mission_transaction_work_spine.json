@@ -167,7 +167,7 @@
     "verify_scoped_commit_landed": "dry_run_not_mutated"
   },
   "controller_action_order_status": "pass",
-  "created_at": "2026-05-23T17:43:05+00:00",
+  "created_at": "2026-05-25T16:44:29+00:00",
   "dirty_tree_blocks_scoped_commit": false,
   "error_codes": [
     "CHECKPOINT_BROAD_AUTH_REQUIRED",
@@ -729,6 +729,7 @@
     "mission_transaction_landing",
     "work_ledger_runtime_claims",
     "task_ledger_exact_receipt_drain",
+    "task_ledger_control_source_body_import",
     "work_landing_reconcile_finalizer_plan",
     "workitem_dependency_unlock_scheduler",
     "checkpoint_solo_dev_three_lanes"

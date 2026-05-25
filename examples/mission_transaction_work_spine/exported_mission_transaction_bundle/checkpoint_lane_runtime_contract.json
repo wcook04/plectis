@@ -1,0 +1,41 @@
+{
+  "body_in_receipt": false,
+  "classification": [
+    "copied_non_secret_macro_body",
+    "source_faithful_refactor",
+    "real_runtime_receipt",
+    "secret_exclusion"
+  ],
+  "contract_id": "checkpoint_lane_source_modules_import",
+  "not_authorized": [
+    "live Git mutation",
+    "private backup push execution",
+    "shared or private index mutation",
+    "broad staging without operator authorization",
+    "release/publication",
+    "credentials or account/session state disclosure"
+  ],
+  "organ_id": "mission_transaction_work_spine",
+  "required_module_ids": [
+    "checkpoint_script_body_import",
+    "checkpoint_private_backup_body_import"
+  ],
+  "required_public_evidence": [
+    "exact source body target exists under exported_mission_transaction_bundle/source_modules",
+    "source and target sha256 values match",
+    "anchor strings proving checkpoint, rescue-ref, private-backup, privacy verification, and force-with-lease behavior are present",
+    "secret-exclusion scan passes over manifest, contract, and copied source modules",
+    "runtime receipt includes no source body text"
+  ],
+  "required_source_refs": [
+    "checkpoint",
+    "tools/meta/control/checkpoint_private_backup.py"
+  ],
+  "required_target_refs": [
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py"
+  ],
+  "schema_version": "mission_transaction_work_spine_checkpoint_lane_runtime_contract_v1",
+  "source_open_contract": "Checkpoint lane control-plane source bodies are in scope for Microcosm public runtime import; only credential-equivalent material and account/session state are excluded.",
+  "status": "public_runtime_import_landed"
+}

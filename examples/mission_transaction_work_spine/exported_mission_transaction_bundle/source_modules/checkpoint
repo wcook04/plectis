@@ -1,0 +1,416 @@
+#!/usr/bin/env bash
+# checkpoint — save-button Git for ai_workflow
+#
+# Usage:
+#   ./checkpoint              auto-timestamp message
+#   ./checkpoint "my note"    custom message
+#   ./checkpoint --dry-run    preview what would be saved
+#   ./checkpoint --status     compact pending summary
+#   ./checkpoint --force      skip safety warnings
+#   ./checkpoint --rescue-ref --message "rescue: dirty-tree bankruptcy snapshot"
+#                              preserve dirt to refs/aiw/rescue/dirty-tree/<run_id>
+#   ./checkpoint --backup-status
+#                              show private GitHub backup health and uncovered local state
+#   ./checkpoint --private-backup --dry-run
+#                              plan emergency private preservation
+#   ./checkpoint --private-backup --message "backup: private emergency preserve"
+#                              checkpoint, preserve old remote tip, and push with lease
+#   ./checkpoint --help       show this help
+#
+# The .gitignore defines what to exclude. This script stages everything
+# else, commits, and pushes — one command, no ceremony. Rescue-ref mode is
+# the non-pushing internal preservation lane and never updates refs/heads/*.
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$REPO_ROOT"
+
+# ── Colors (if terminal) ──
+if [[ -t 1 ]]; then
+    RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
+    CYAN='\033[0;36m'; DIM='\033[2m'; RESET='\033[0m'
+else
+    RED=''; GREEN=''; YELLOW=''; CYAN=''; DIM=''; RESET=''
+fi
+
+# ── Parse args ──
+DRY_RUN=false
+FORCE=false
+RESCUE_REF=false
+RESCUE_BRANCH_ALIAS=false
+ARBITER=false
+BACKUP_STATUS=false
+PRIVATE_BACKUP=false
+BACKUP_JSON=false
+BACKUP_REMOTE="origin"
+BACKUP_BRANCH=""
+BACKUP_REF_PREFIX="aiw-backup-origin-main"
+MAX_TAIL_DRAINS=2
+MSG=""
+
+detect_phase_prefix() {
+    local payload
+    if [[ ! -x "./repo-python" ]]; then
+        return 0
+    fi
+    payload="$(./repo-python kernel.py --phase 2>/dev/null || true)"
+    [[ -z "$payload" ]] && return 0
+    python3 -c '
+import json, sys
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    raise SystemExit(0)
+payload = data.get("payload") if isinstance(data, dict) else {}
+if not isinstance(payload, dict):
+    raise SystemExit(0)
+phase = payload.get("phase") if isinstance(payload.get("phase"), dict) else {}
+phase_card = payload.get("phase_card") if isinstance(payload.get("phase_card"), dict) else {}
+wave = phase_card.get("active_wave") if isinstance(phase_card.get("active_wave"), dict) else {}
+phase_number = str(phase.get("phase_number") or phase.get("phase_id") or "").strip()
+wave_id = str(wave.get("wave_id") or "").strip()
+if phase_number and wave_id:
+    print(f"{phase_number}/{wave_id}", end="")
+elif phase_number:
+    print(phase_number, end="")
+' <<< "$payload" 2>/dev/null || true
+}
+
+while [[ $# -gt 0 ]]; do
+    arg="$1"
+    case "$arg" in
+        --dry-run)  DRY_RUN=true ;;
+        --force)    FORCE=true ;;
+        --arbiter)  ARBITER=true ;;
+        --rescue-ref) RESCUE_REF=true ;;
+        --backup-status) BACKUP_STATUS=true ;;
+        --private-backup|--emergency-private-backup) PRIVATE_BACKUP=true ;;
+        --json) BACKUP_JSON=true ;;
+        --remote)
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo -e "${RED}ERROR: --remote requires a value.${RESET}"
+                exit 1
+            fi
+            BACKUP_REMOTE="$1"
+            ;;
+        --branch)
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo -e "${RED}ERROR: --branch requires a value.${RESET}"
+                exit 1
+            fi
+            BACKUP_BRANCH="$1"
+            ;;
+        --backup-ref-prefix)
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo -e "${RED}ERROR: --backup-ref-prefix requires a value.${RESET}"
+                exit 1
+            fi
+            BACKUP_REF_PREFIX="$1"
+            ;;
+        --max-tail-drains)
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo -e "${RED}ERROR: --max-tail-drains requires a value.${RESET}"
+                exit 1
+            fi
+            MAX_TAIL_DRAINS="$1"
+            ;;
+        --rescue-branch)
+            RESCUE_REF=true
+            RESCUE_BRANCH_ALIAS=true
+            ;;
+        --message)
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo -e "${RED}ERROR: --message requires a value.${RESET}"
+                exit 1
+            fi
+            MSG="$1"
+            ;;
+        --status)
+            echo -e "${CYAN}Pending changes:${RESET}"
+            git status --short | head -60
+            TOTAL=$(git status --short | wc -l | tr -d ' ')
+            echo -e "${DIM}--- $TOTAL files pending ---${RESET}"
+            exit 0
+            ;;
+        --help|-h)
+            echo "checkpoint — save current state to Git + push, or preserve to an internal rescue ref"
+            echo ""
+            echo "Usage:"
+            echo "  ./checkpoint              auto-timestamp message"
+            echo "  ./checkpoint \"my note\"    custom message"
+            echo "  ./checkpoint --message \"my note\""
+            echo "  ./checkpoint --dry-run    preview what would be saved"
+            echo "  ./checkpoint --status     compact pending summary"
+            echo "  ./checkpoint --force      skip safety warnings"
+            echo "  ./checkpoint --arbiter    allow broad main checkpoint despite active claims/resources"
+            echo "  ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\""
+            echo "                           write refs/aiw/rescue/dirty-tree/<run_id>; do not update main; do not push"
+            echo "  ./checkpoint --rescue-branch"
+            echo "                           alias for --rescue-ref; writes an internal rescue ref, not a checked-out branch and not refs/heads/*"
+            echo "  ./checkpoint --backup-status"
+            echo "                           show private GitHub backup health, recovery ref state, and uncovered local state"
+            echo "  ./checkpoint --private-backup --dry-run"
+            echo "                           plan emergency private preservation without writing commits, refs, or remote state"
+            echo "  ./checkpoint --private-backup --message \"backup: private emergency preserve\""
+            echo "                           verify private remote, checkpoint, preserve old remote tip, force-with-lease if needed, and verify"
+            exit 0
+            ;;
+        -*) echo -e "${RED}Unknown flag: $arg${RESET}"; exit 1 ;;
+        *)  MSG="$arg" ;;
+    esac
+    shift
+done
+
+checkpoint_guard_main_landing() {
+    if [[ "$DRY_RUN" == "true" || "$ARBITER" == "true" ]]; then
+        return 0
+    fi
+    if [[ ! -x "./repo-python" || ! -f "tools/meta/control/mission_transaction_preflight.py" ]]; then
+        return 0
+    fi
+    local summary
+    summary="$(./repo-python tools/meta/control/mission_transaction_preflight.py --landing-bankruptcy-summary 2>/dev/null || true)"
+    if [[ -z "$summary" ]]; then
+        return 0
+    fi
+    local decision
+    decision="$(python3 -c '
+import json, sys
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    raise SystemExit(0)
+claims = int(data.get("active_claim_count") or 0)
+leases = data.get("active_resource_lease_count")
+lease_count = -1 if leases is None else int(leases or 0)
+effective = int(data.get("effective_active_sessions") or 0)
+orphaned = int(data.get("orphaned_session_count") or 0)
+print(f"ACTIVE_CLAIMS={claims}")
+print(f"ACTIVE_RESOURCE_LEASES={lease_count}")
+print(f"EFFECTIVE_ACTIVE_SESSIONS={effective}")
+print(f"ORPHANED_SESSIONS={orphaned}")
+' <<< "$summary" 2>/dev/null || true)"
+    if [[ -z "$decision" ]]; then
+        return 0
+    fi
+    local ACTIVE_CLAIMS=0
+    local ACTIVE_RESOURCE_LEASES=-1
+    local EFFECTIVE_ACTIVE_SESSIONS=0
+    local ORPHANED_SESSIONS=0
+    eval "$decision"
+    if [[ "$ACTIVE_CLAIMS" -gt 0 || "$ACTIVE_RESOURCE_LEASES" -gt 0 ]]; then
+        echo -e "${RED}ERROR: broad checkpoint to main refused while active claims/resources exist.${RESET}"
+        echo -e "${YELLOW}Use ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\" or rerun as --arbiter.${RESET}"
+        echo -e "${DIM}active_claims=${ACTIVE_CLAIMS} active_resource_leases=${ACTIVE_RESOURCE_LEASES}${RESET}"
+        exit 1
+    fi
+    if [[ "$EFFECTIVE_ACTIVE_SESSIONS" -gt 0 || "$ORPHANED_SESSIONS" -gt 0 ]]; then
+        echo -e "${YELLOW}WARNING: effective_active_sessions=${EFFECTIVE_ACTIVE_SESSIONS}; orphaned_sessions=${ORPHANED_SESSIONS}.${RESET}"
+        echo -e "${DIM}Continuing because no active claims or measurable resource leases are blocking.${RESET}"
+    fi
+}
+
+# ── Safety: must be on main ──
+BRANCH=$(git branch --show-current)
+if [[ "$BRANCH" != "main" ]]; then
+    echo -e "${RED}ERROR: on branch '$BRANCH', not 'main'. Aborting.${RESET}"
+    exit 1
+fi
+
+if [[ "$BACKUP_STATUS" == "true" || "$PRIVATE_BACKUP" == "true" ]]; then
+    if [[ ! -x "./repo-python" || ! -f "tools/meta/control/checkpoint_private_backup.py" ]]; then
+        echo -e "${RED}ERROR: private backup support requires ./repo-python and tools/meta/control/checkpoint_private_backup.py.${RESET}"
+        exit 1
+    fi
+    if [[ "$BACKUP_STATUS" == "true" && "$PRIVATE_BACKUP" == "true" ]]; then
+        echo -e "${RED}ERROR: choose either --backup-status or --private-backup, not both.${RESET}"
+        exit 1
+    fi
+    MODE="status"
+    if [[ "$PRIVATE_BACKUP" == "true" ]]; then
+        MODE="private-backup"
+    fi
+    BACKUP_CMD=(./repo-python tools/meta/control/checkpoint_private_backup.py "$MODE" --repo-root "$REPO_ROOT" --remote "$BACKUP_REMOTE" --backup-ref-prefix "$BACKUP_REF_PREFIX" --max-tail-drains "$MAX_TAIL_DRAINS")
+    if [[ -n "$BACKUP_BRANCH" ]]; then
+        BACKUP_CMD+=(--branch "$BACKUP_BRANCH")
+    fi
+    if [[ -n "$MSG" ]]; then
+        BACKUP_CMD+=(--message "$MSG")
+    fi
+    if [[ "$DRY_RUN" == "true" ]]; then
+        BACKUP_CMD+=(--dry-run)
+    fi
+    if [[ "$BACKUP_JSON" == "true" ]]; then
+        BACKUP_CMD+=(--json)
+    fi
+    "${BACKUP_CMD[@]}"
+    exit $?
+fi
+
+if [[ "$RESCUE_REF" == "true" ]]; then
+    if [[ -z "$MSG" ]]; then
+        MSG="rescue: dirty-tree bankruptcy snapshot"
+    fi
+    if [[ "$RESCUE_BRANCH_ALIAS" == "true" ]]; then
+        echo -e "${YELLOW}--rescue-branch is an alias for --rescue-ref; writing an internal rescue ref, not refs/heads/*.${RESET}"
+    fi
+    if [[ ! -x "./repo-python" || ! -f "tools/meta/control/landing_bankruptcy.py" ]]; then
+        echo -e "${RED}ERROR: rescue-ref support requires ./repo-python and tools/meta/control/landing_bankruptcy.py.${RESET}"
+        exit 1
+    fi
+    RESCUE_CMD=(./repo-python tools/meta/control/landing_bankruptcy.py snapshot --repo-root "$REPO_ROOT" --message "$MSG")
+    if [[ "$DRY_RUN" == "true" ]]; then
+        RESCUE_CMD+=(--dry-run)
+    fi
+    "${RESCUE_CMD[@]}"
+    exit $?
+fi
+
+checkpoint_guard_main_landing
+
+# ── Safety: observe remote without mutating the dirty tree ──
+if git remote get-url origin &>/dev/null; then
+    HAS_REMOTE=true
+    git fetch origin main --quiet 2>/dev/null || true
+    REMOTE_BEHIND=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)
+else
+    HAS_REMOTE=false
+    REMOTE_BEHIND=0
+fi
+
+# ── Private index setup (concurrent-agent safety) ──
+# Stage and diff against a private GIT_INDEX_FILE so this script never mutates
+# the shared `.git/index`. This protects concurrent agent sessions whose own
+# staged state would otherwise be overwritten by `git add -A` on every dry-run
+# or warning-abort. The actual commit also uses `commit-tree` + `update-ref`
+# (HEAD CAS) so it never touches the shared index either. Same primitives as
+# tools/meta/control/scoped_commit.py; this is the bankruptcy-lane equivalent
+# that takes "every dirty path" instead of an explicit allowlist.
+PRIVATE_INDEX="$(mktemp -t checkpoint_index.XXXXXXXX)"
+REFRESH_PATHS="$(mktemp -t checkpoint_paths.XXXXXXXX)"
+trap 'rm -f "$PRIVATE_INDEX" "$REFRESH_PATHS"' EXIT INT TERM
+export GIT_INDEX_FILE="$PRIVATE_INDEX"
+git read-tree HEAD
+PARENT_SHA="$(git rev-parse HEAD)"
+
+# ── Stage everything (private index only) ──
+git add -A
+
+# ── Count changes ──
+DELETED=$(git diff --cached --name-only --diff-filter=D 2>/dev/null | wc -l | tr -d ' ')
+ADDED=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | wc -l | tr -d ' ')
+MODIFIED=$(git diff --cached --name-only --diff-filter=M 2>/dev/null | wc -l | tr -d ' ')
+TOTAL=$((DELETED + ADDED + MODIFIED))
+
+if [[ "$TOTAL" -eq 0 ]]; then
+    echo -e "${DIM}Nothing to save.${RESET}"
+    exit 0
+fi
+
+# ── Safety: warn on mass deletions ──
+if [[ "$DELETED" -gt 10 && "$FORCE" != "true" ]]; then
+    echo -e "${YELLOW}WARNING: $DELETED files being DELETED:${RESET}"
+    git diff --cached --name-only --diff-filter=D | head -20
+    if [[ "$DELETED" -gt 20 ]]; then
+        echo -e "${DIM}  ... and $((DELETED - 20)) more${RESET}"
+    fi
+    echo -e "${YELLOW}Use --force to proceed, or investigate.${RESET}"
+    echo -e "${DIM}(no staged changes were left in the shared index — re-run with --force when ready)${RESET}"
+    exit 1
+fi
+
+# ── Safety: warn on large new files ──
+LARGE_WARNING=""
+while IFS= read -r f; do
+    [[ -z "$f" ]] && continue
+    SIZE=$(wc -c < "$f" 2>/dev/null || echo 0)
+    if [[ "$SIZE" -gt 52428800 ]]; then  # 50MB
+        LARGE_WARNING="${LARGE_WARNING}  $f ($((SIZE / 1048576))MB)\n"
+    fi
+done < <(git diff --cached --name-only --diff-filter=A 2>/dev/null)
+
+if [[ -n "$LARGE_WARNING" && "$FORCE" != "true" ]]; then
+    echo -e "${YELLOW}WARNING: Large files being added (>50MB):${RESET}"
+    echo -e "$LARGE_WARNING"
+    echo -e "${YELLOW}Use --force to proceed.${RESET}"
+    echo -e "${DIM}(no staged changes were left in the shared index — re-run with --force when ready)${RESET}"
+    exit 1
+fi
+
+# ── Build message ──
+if [[ -z "$MSG" ]]; then
+    PHASE_PREFIX="$(detect_phase_prefix)"
+    MSG="checkpoint: $(date +"%Y-%m-%d %H:%M")"
+    if [[ -n "$PHASE_PREFIX" ]]; then
+        MSG="${PHASE_PREFIX} ${MSG}"
+    fi
+fi
+
+# ── Summary line ──
+SUMMARY="+${ADDED} ~${MODIFIED} -${DELETED}"
+
+# ── Dry run ──
+if [[ "$DRY_RUN" == "true" ]]; then
+    echo -e "${CYAN}DRY RUN — would save:${RESET}"
+    echo -e "  ${SUMMARY}"
+    echo -e "  message: ${MSG}"
+    if [[ "$HAS_REMOTE" == "true" && "$REMOTE_BEHIND" -gt 0 ]]; then
+        echo -e "  ${YELLOW}remote: origin/main is ${REMOTE_BEHIND} commits ahead; save can land locally before publication is reconciled${RESET}"
+    fi
+    echo ""
+    git diff --cached --stat | tail -5
+    echo -e "${DIM}(no staged changes were left in the shared index — dry run is non-mutating)${RESET}"
+    exit 0
+fi
+
+# ── Commit (private index → commit-tree → HEAD CAS, never touches shared .git/index) ──
+TREE_SHA="$(git write-tree)"
+# commit-tree must NOT see GIT_INDEX_FILE (it doesn't read the index, but explicit
+# unset is defense-in-depth in case future git versions do).
+COMMIT_SHA="$(GIT_INDEX_FILE= git commit-tree "$TREE_SHA" -p "$PARENT_SHA" -m "$MSG")"
+# CAS: only update refs/heads/main if HEAD still points at PARENT_SHA. If a
+# concurrent agent advanced main between our HEAD read and this update, the
+# update-ref fails and we report cleanly without rewriting their work.
+if ! GIT_INDEX_FILE= git update-ref refs/heads/main "$COMMIT_SHA" "$PARENT_SHA" 2>/dev/null; then
+    NEW_HEAD="$(GIT_INDEX_FILE= git rev-parse HEAD)"
+    echo -e "${RED}ERROR: HEAD CAS failed — main advanced from ${PARENT_SHA:0:8} to ${NEW_HEAD:0:8} during checkpoint.${RESET}"
+    echo -e "${YELLOW}Another agent committed first. Pull/rebase and retry checkpoint.${RESET}"
+    exit 1
+fi
+
+# ── Refresh shared index for committed paths only ──
+# After the private-index commit lands, the shared `.git/index` still reflects
+# the old HEAD for paths we just committed, so `git status` would falsely
+# report them as modified/deleted against the new HEAD. Drop the private-index
+# binding so subsequent git invocations target the shared index, then refresh
+# ONLY the paths this commit touched (path-scoped, not a global reset) so
+# concurrent agents' staging on UNTOUCHED paths survives.
+unset GIT_INDEX_FILE
+GIT_INDEX_FILE= git diff --name-only -z "$PARENT_SHA" "$COMMIT_SHA" > "$REFRESH_PATHS" 2>/dev/null || true
+if [[ -s "$REFRESH_PATHS" ]]; then
+    git reset -q HEAD --pathspec-from-file="$REFRESH_PATHS" --pathspec-file-nul >/dev/null 2>&1 || true
+fi
+git update-index -q --refresh >/dev/null 2>&1 || true
+
+# ── Push ──
+if [[ "$HAS_REMOTE" == "true" ]]; then
+    if GIT_INDEX_FILE= git push origin main --quiet 2>/dev/null; then
+        echo -e "${GREEN}Saved + pushed.${RESET} ${DIM}(${SUMMARY})${RESET} ${MSG}"
+    else
+        git fetch origin main --quiet 2>/dev/null || true
+        BEHIND_AFTER=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)
+        if [[ "$BEHIND_AFTER" -gt 0 ]]; then
+            echo -e "${GREEN}Saved locally.${RESET} ${YELLOW}Push blocked: origin/main is ${BEHIND_AFTER} commits ahead. Reconcile publication from a clean worktree.${RESET} ${DIM}(${SUMMARY})${RESET} ${MSG}"
+        else
+            echo -e "${GREEN}Saved locally.${RESET} ${YELLOW}Push failed (check network or remote permissions).${RESET} ${DIM}(${SUMMARY})${RESET} ${MSG}"
+        fi
+    fi
+else
+    echo -e "${GREEN}Saved locally.${RESET} ${DIM}(${SUMMARY}) No remote configured.${RESET} ${MSG}"
+fi

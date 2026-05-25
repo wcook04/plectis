@@ -1,0 +1,72 @@
+{
+  "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "checkpoint_lane_source_modules_import",
+  "module_count": 2,
+  "modules": [
+    {
+      "anchor_count": 6,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 17445,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 416,
+      "module_id": "checkpoint_script_body_import",
+      "required_anchors": [
+        "checkpoint \u2014 save-button Git",
+        "--private-backup",
+        "--rescue-ref",
+        "checkpoint_guard_main_landing",
+        "tools/meta/control/checkpoint_private_backup.py",
+        "git add -A"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_ref": "checkpoint",
+      "source_role": "save-button Git shell lane for scoped commits, broad checkpoints, rescue refs, and private backup delegation",
+      "source_sha256": "29cdb8c45bcfd5c32ac691cd0f6a792241d8110bb5be9270bb372076f4a5276d",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
+      "target_sha256": "29cdb8c45bcfd5c32ac691cd0f6a792241d8110bb5be9270bb372076f4a5276d"
+    },
+    {
+      "anchor_count": 6,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 28399,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 750,
+      "module_id": "checkpoint_private_backup_body_import",
+      "required_anchors": [
+        "Private backup lane behind ./checkpoint",
+        "AIW_PRIVATE_BACKUP_ASSUME_PRIVATE",
+        "def _github_privacy(",
+        "def _push_audit(",
+        "--force-with-lease=",
+        "used_force_with_lease"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_ref": "tools/meta/control/checkpoint_private_backup.py",
+      "source_role": "private backup planner and guarded push lane behind ./checkpoint, including privacy verification, exact old-tip capture, dry-run plans, and force-with-lease audit",
+      "source_sha256": "748533a4b1bb555209114284f61067bb0caac71593794cfeaf310101fd2448a8",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
+      "target_sha256": "748533a4b1bb555209114284f61067bb0caac71593794cfeaf310101fd2448a8"
+    }
+  ],
+  "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+  "schema_version": "mission_transaction_work_spine_checkpoint_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "validation_contract_ref": "checkpoint_lane_runtime_contract.json"
+}
