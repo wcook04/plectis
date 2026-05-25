@@ -67,7 +67,7 @@
     "secret_exclusion",
     "source_faithful_refactor"
   ],
-  "command": "microcosm work-landing-control-spine validate-control-bundle --input microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle --out microcosm-substrate/receipts/first_wave/work_landing_control_spine",
+  "command": "microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine",
   "contract_summary": {
     "authority_overclaim_count": 0,
     "authority_overclaim_flags": [],
@@ -160,7 +160,7 @@
   },
   "copied_macro_source_count": 5,
   "counts_as_real_substrate_progress": true,
-  "created_at": "2026-05-24T01:17:55+00:00",
+  "created_at": "2026-05-25T11:16:03+00:00",
   "error_codes": [],
   "finding_count": 0,
   "findings": [],
@@ -171,13 +171,13 @@
     "public_microcosm_runtime_contract": 1
   },
   "public_runtime_refs": [
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
-    "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json"
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+    "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json"
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
@@ -211,7 +211,7 @@
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
         "exists": true,
         "expected_line_count": 187,
         "expected_sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
@@ -226,7 +226,7 @@
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
         "exists": true,
         "expected_line_count": 3553,
         "expected_sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
@@ -241,37 +241,37 @@
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
         "exists": true,
-        "expected_line_count": 496,
-        "expected_sha256": "1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
-        "line_count": 496,
+        "expected_line_count": 500,
+        "expected_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "line_count": 500,
         "line_count_status": "match",
         "material_class": "public_macro_tool_body",
         "path": "source_modules/tools/meta/control/mission_transaction_preflight.py",
-        "sha256": "1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+        "sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
         "source_import_class": "copied_non_secret_macro_body",
         "source_ref": "tools/meta/control/mission_transaction_preflight.py"
       },
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
         "exists": true,
-        "expected_line_count": 8680,
-        "expected_sha256": "561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
-        "line_count": 8680,
+        "expected_line_count": 8757,
+        "expected_sha256": "c8d1433d2171d9ce985267c347baa78cfab3fe7812c37884f6ead65754c5d726",
+        "line_count": 8757,
         "line_count_status": "match",
         "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
-        "sha256": "561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+        "sha256": "c8d1433d2171d9ce985267c347baa78cfab3fe7812c37884f6ead65754c5d726",
         "source_import_class": "copied_non_secret_macro_body",
         "source_ref": "system/lib/mission_transaction_landing_preflight.py"
       },
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
         "exists": true,
         "expected_line_count": 1422,
         "expected_sha256": "8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
@@ -286,7 +286,7 @@
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/work_landing_control_runtime_contract.json",
         "exists": true,
         "expected_line_count": 33,
         "expected_sha256": "9bd105f7eac0acff03430eefb45da17f4d55b31dbeaae1e5d0e1f7055b5cb88f",
@@ -301,15 +301,15 @@
       {
         "body_in_receipt": false,
         "digest_status": "match",
-        "display_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
+        "display_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json",
         "exists": true,
         "expected_line_count": 55,
-        "expected_sha256": "75621eccb9db787e47265cb5e9e63bd2b070b2afe28e86f56cfdf84d967455ba",
+        "expected_sha256": "1189dfd502ede46cc7b4359b0e3ef69f6d9387da6a0fcf15f01497ec523986e4",
         "line_count": 55,
         "line_count_status": "match",
         "material_class": "public_microcosm_bundle_manifest",
         "path": "source_module_manifest.json",
-        "sha256": "75621eccb9db787e47265cb5e9e63bd2b070b2afe28e86f56cfdf84d967455ba",
+        "sha256": "1189dfd502ede46cc7b4359b0e3ef69f6d9387da6a0fcf15f01497ec523986e4",
         "source_import_class": "source_faithful_refactor",
         "source_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_module_manifest.json"
       }

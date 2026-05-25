@@ -28,7 +28,8 @@
     "agent_execution_trace_source_module_manifest.json",
     "agent_observability_source_module_manifest.json",
     "agent_observability_animation_source_module_manifest.json",
-    "agent_observability_classification_source_module_manifest.json"
+    "agent_observability_classification_source_module_manifest.json",
+    "agent_mission_status_source_module_manifest.json"
   ],
   "authority_ceiling": {
     "release_authorized": false,

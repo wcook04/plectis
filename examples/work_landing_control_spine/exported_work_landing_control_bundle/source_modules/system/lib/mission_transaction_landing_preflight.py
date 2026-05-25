@@ -3349,6 +3349,43 @@ def _sessionless_claim_identity_hint(
     }
 
 
+def _auto_session_id_resolution(
+    *,
+    requested_session_id: str,
+    path_collisions: Sequence[Mapping[str, Any]],
+    target_collisions: Sequence[Mapping[str, Any]],
+) -> tuple[str, dict[str, Any]]:
+    requested = str(requested_session_id or "").strip()
+    if requested.lower() != "auto":
+        if requested:
+            return requested, {"status": "explicit_session_id", "session_id": requested}
+        return "", {"status": "missing_session_id"}
+
+    collisions = [*path_collisions, *target_collisions]
+    hint = _sessionless_claim_identity_hint(collisions, session_id=None)
+    candidates = [
+        str(item or "").strip()
+        for item in hint.get("candidate_session_ids") or []
+        if str(item or "").strip()
+    ]
+    if len(candidates) == 1:
+        candidate = candidates[0]
+        return candidate, {
+            "status": "auto_bound_unique_relevant_claim_session",
+            "session_id": candidate,
+            "source": "unique_relevant_active_claim_session",
+            "path_collision_count_before_bind": len(path_collisions),
+            "subject_or_td_collision_count_before_bind": len(target_collisions),
+        }
+    return "", {
+        "status": "auto_bind_failed",
+        "reason": hint.get("reason") or "unique relevant active claim session not available",
+        "candidate_session_ids": candidates,
+        "path_collision_count_before_bind": len(path_collisions),
+        "subject_or_td_collision_count_before_bind": len(target_collisions),
+    }
+
+
 def _work_ledger_packet(
     repo_root: Path,
     requested_paths: Sequence[str],
@@ -3360,7 +3397,14 @@ def _work_ledger_packet(
     runtime_status = work_ledger_runtime.load_runtime_status(repo_root)
     overview = work_ledger_runtime.build_session_cohort_overview(runtime_status)
     counts = overview.get("counts") if isinstance(overview.get("counts"), Mapping) else {}
-    session_key = str(session_id or "").strip()
+    requested_session_id = str(session_id or "").strip()
+    initial_path_collisions = _path_claim_collisions(requested_paths, overview, session_id=None)
+    initial_target_collisions = _subject_or_td_claim_collisions(target_ids, overview, session_id=None)
+    session_key, session_id_resolution = _auto_session_id_resolution(
+        requested_session_id=requested_session_id,
+        path_collisions=initial_path_collisions,
+        target_collisions=initial_target_collisions,
+    )
     sessions = runtime_status.get("sessions") if isinstance(runtime_status.get("sessions"), Mapping) else {}
     session_row = sessions.get(session_key) if session_key else None
     session_payload = {
@@ -3375,24 +3419,26 @@ def _work_ledger_packet(
         "stale": bool(session_row.get("stale")) if isinstance(session_row, Mapping) else None,
         "stale_reason": session_row.get("stale_reason") if isinstance(session_row, Mapping) else None,
     }
-    path_collisions = _path_claim_collisions(requested_paths, overview, session_id=session_id)
-    target_collisions = _subject_or_td_claim_collisions(target_ids, overview, session_id=session_id)
+    path_collisions = _path_claim_collisions(requested_paths, overview, session_id=session_key)
+    target_collisions = _subject_or_td_claim_collisions(target_ids, overview, session_id=session_key)
     collisions = [*path_collisions, *target_collisions]
     sessionless_claim_identity_hint = _sessionless_claim_identity_hint(
         collisions,
-        session_id=session_id,
+        session_id=session_key,
     )
     matching_claims = _matching_request_claims(
         overview,
         requested_paths,
         target_ids,
-        session_id=session_id,
+        session_id=session_key,
     )
     status = "blocked" if collisions and require_exclusive else ("watch" if collisions else "clear")
     return {
         "status": status,
         "require_exclusive": bool(require_exclusive),
-        "session_id": str(session_id or "").strip() or None,
+        "session_id": session_key or None,
+        "requested_session_id": requested_session_id or None,
+        "session_id_resolution": session_id_resolution,
         "session": session_payload,
         "counts": {
             "active_sessions": counts.get("active_sessions", 0),
@@ -3818,6 +3864,7 @@ def _blocked_primary_primary_target(
 
 def _work_ledger_claim_collision_evidence(work_ledger: Mapping[str, Any]) -> dict[str, Any]:
     hint = work_ledger.get("sessionless_claim_identity_hint")
+    session_id_resolution = work_ledger.get("session_id_resolution")
     return {
         "source": "mission_transaction_landing_preflight.work_ledger",
         "reason": "work_ledger_claim_collision",
@@ -3834,7 +3881,23 @@ def _work_ledger_claim_collision_evidence(work_ledger: Mapping[str, Any]) -> dic
             if isinstance(row, Mapping)
         ][:COMPACT_PREVIEW_LIMIT],
         "sessionless_claim_identity_hint": dict(hint) if isinstance(hint, Mapping) else {},
+        "session_id_resolution": dict(session_id_resolution)
+        if isinstance(session_id_resolution, Mapping)
+        else {},
     }
+
+
+def _sessionless_binding_hint(work_ledger: Mapping[str, Any]) -> dict[str, Any] | None:
+    if str(work_ledger.get("session_id") or "").strip():
+        return None
+    if not _int_value(work_ledger.get("collision_count")):
+        return None
+    hint = work_ledger.get("sessionless_claim_identity_hint")
+    if not isinstance(hint, Mapping):
+        return None
+    if hint.get("status") != "candidate_session_id_available":
+        return None
+    return dict(hint)
 
 
 def _blocked_primary_receipt_requirement(
@@ -4561,6 +4624,17 @@ def _landing_decision(
     mission_claim_collisions = int(work_ledger.get("collision_count") or 0)
 
     if work_ledger.get("status") == "blocked" or mission_claim_collisions:
+        binding_hint = _sessionless_binding_hint(work_ledger)
+        if binding_hint:
+            return {
+                "status": "blocked",
+                "reason": "session_id_binding_required",
+                "legacy_reason": "work_ledger_claim_collision",
+                "recommended_lane": "rerun_preflight_with_candidate_session_id",
+                "session_id_hint": binding_hint,
+                "claim_or_collision_evidence": _work_ledger_claim_collision_evidence(work_ledger),
+                "blocker_classification": "missing_session_binding",
+            }
         receipt_requirement = _blocked_primary_receipt_requirement(
             primary_target=_blocked_primary_primary_target(
                 declared_paths=declared_paths,
@@ -5750,9 +5824,12 @@ def compact_mission_transaction_landing_preflight(
             "status": work_ledger.get("status"),
             "require_exclusive": work_ledger.get("require_exclusive"),
             "session_id": work_ledger.get("session_id"),
+            "requested_session_id": work_ledger.get("requested_session_id"),
+            "session_id_resolution": work_ledger.get("session_id_resolution", {}),
             "counts": work_ledger.get("counts", {}),
             "collision_count": work_ledger.get("collision_count", 0),
             "collisions": work_ledger.get("collisions", []),
+            "sessionless_claim_identity_hint": work_ledger.get("sessionless_claim_identity_hint", {}),
             "path_collision_count": work_ledger.get("path_collision_count", 0),
             "subject_or_td_collision_count": work_ledger.get("subject_or_td_collision_count", 0),
         },

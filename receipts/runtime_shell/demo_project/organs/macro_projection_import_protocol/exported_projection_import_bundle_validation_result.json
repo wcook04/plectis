@@ -20,7 +20,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
-  "created_at": "2026-05-25T10:50:21+00:00",
+  "created_at": "2026-05-25T11:16:16+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [],
@@ -39,7 +39,7 @@
     "secret"
   ],
   "input_mode": "exported_projection_import_bundle",
-  "macro_origin_ref_count": 178,
+  "macro_origin_ref_count": 181,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -86,24 +86,25 @@
     "next_best_lane": "real_substrate_import_path",
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 44,
+    "projection_cell_count": 45,
     "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-    "public_safe_body_import_count": 112,
+    "public_safe_body_import_count": 114,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 112
+      "verified_light_edit": 114
     },
-    "public_safe_body_material_count": 112,
+    "public_safe_body_material_count": 114,
     "release_authorized": false,
     "runtime_dependency_status": "pass",
     "runtime_severance_board_embedded": true,
     "runtime_severance_status": "pass"
   },
-  "projection_cell_count": 44,
+  "projection_cell_count": 45,
   "projection_cell_ids": [
     "active_execution_constellation_source_modules_import",
     "agent_entrypoint_audit_source_modules_import",
     "agent_execution_trace_refactor",
     "agent_execution_trace_source_modules_import",
+    "agent_mission_status_source_modules_import",
     "agent_observability_animation_source_modules_import",
     "agent_observability_classification_source_modules_import",
     "agent_observability_source_modules_import",
@@ -183,7 +184,7 @@
     },
     "blocked_cell_count": 0,
     "body_in_receipt": false,
-    "consumed_cell_count": 44,
+    "consumed_cell_count": 45,
     "expected_negative_case_count": 0,
     "forbidden_material_classes": [
       "credential",
@@ -198,7 +199,7 @@
     ],
     "headline": "Macro source refs become import candidates; verified non-secret macro bodies flow only with source-to-target evidence and claim floors.",
     "input_mode": "exported_projection_import_bundle",
-    "landed_cell_count": 44,
+    "landed_cell_count": 45,
     "missing_negative_cases": [],
     "negative_case_coverage_status": "pass",
     "next_best_lane": "real_substrate_import_path",
@@ -224,7 +225,7 @@
     "plan_id": "public_macro_projection_import_plan_v1",
     "policy_id": "verified_macro_projection_cleaning_policy_v1",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 44,
+    "projection_cell_count": 45,
     "projection_cells": [
       {
         "action_required": false,
@@ -2923,10 +2924,71 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
+      },
+      {
+        "action_required": false,
+        "authority_ceiling": "public agent mission-status reducer source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "blocking_reasons": [],
+        "body_copied": false,
+        "body_in_receipt": false,
+        "cell_id": "agent_mission_status_source_modules_import",
+        "cell_state": "consumed_verified_import",
+        "classification": [
+          "copied_non_secret_macro_body",
+          "source_faithful_refactor",
+          "real_runtime_receipt"
+        ],
+        "copy_policy": "verified_macro_body_with_claim_floor",
+        "landed_evidence_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+          "tests/test_command_output_projection_runtime.py"
+        ],
+        "missing_public_safe_body_material_ids": [],
+        "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+        "projection_status": "public_runtime_import_landed",
+        "public_safe_body_import_routes": [
+          "verified_light_edit"
+        ],
+        "public_safe_body_material_classes": [
+          "public_macro_tool_body"
+        ],
+        "public_safe_body_material_count": 2,
+        "public_safe_body_material_ids": [
+          "agent_mission_status_source_body_import",
+          "agent_mission_status_test_body_import"
+        ],
+        "ready_to_project": true,
+        "selected_pattern_ids": [
+          "agent_mission_status_noise_demotion_reducer",
+          "agent_self_observability_plane",
+          "macro_body_floor_import"
+        ],
+        "source_ref_count": 4,
+        "source_refs": [
+          "system/lib/agent_mission_status.py",
+          "system/server/tests/test_agent_mission_status.py",
+          "codex/doctrine/paper_modules/agent_observability.md",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
+        ],
+        "status_reason": "The agent-observability mission-status reducer now carries the exact copied non-secret reducer and server test source bodies inside the projection bundle, validated by digest/anchor checks, syntax compilation, and synthetic mission-status assertions without scanning live ~/.claude or ~/.codex sessions, calling providers, executing local CLIs, exporting trace/provider/tool-output bodies, Work Ledger runtime state, account/session state, hidden reasoning, browser/HUD live access, recipient-send state, generated state, or credential-equivalent material.",
+        "target_ref_count": 3,
+        "target_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
+        ],
+        "validation_ref_count": 3,
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
       }
     ],
     "projection_status_counts": {
-      "public_runtime_import_landed": 42,
+      "public_runtime_import_landed": 43,
       "runtime_bridge_landed": 1,
       "self_hosted_status_protocol_landed": 1
     },
@@ -2952,11 +3014,11 @@
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 106
+      "public_macro_tool_body": 108
     },
-    "public_safe_body_import_count": 112,
+    "public_safe_body_import_count": 114,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 112
+      "verified_light_edit": 114
     },
     "public_safe_body_imports": [
       {
@@ -4112,17 +4174,19 @@
           "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
         ],
         "body_copied": true,
-        "body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
+        "body_digest": "sha256:c8d1433d2171d9ce985267c347baa78cfab3fe7812c37884f6ead65754c5d726",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
-          "source_line_count": 8680,
+          "source_body_digest": "sha256:c8d1433d2171d9ce985267c347baa78cfab3fe7812c37884f6ead65754c5d726",
+          "source_line_count": 8757,
+          "source_ref": "system/lib/mission_transaction_landing_preflight.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:561ba2217cb514fa46716458ec31cbe498beb7a6484245861ff9d8492c681f76",
-          "target_line_count": 8680,
+          "target_body_digest": "sha256:c8d1433d2171d9ce985267c347baa78cfab3fe7812c37884f6ead65754c5d726",
+          "target_line_count": 8757,
+          "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
         },
@@ -4212,17 +4276,19 @@
           "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
         ],
         "body_copied": true,
-        "body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
+        "body_digest": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_work_landing_control_spine.py::test_work_landing_control_spine_accepts_copied_macro_sources",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
-          "source_line_count": 496,
+          "source_body_digest": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+          "source_line_count": 500,
+          "source_ref": "tools/meta/control/mission_transaction_preflight.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:1f667efb8852820b029892fed065b2ed33486c67c3ab6b900abf33ed5985f216",
-          "target_line_count": 496,
+          "target_body_digest": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+          "target_line_count": 500,
+          "target_ref": "examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
         },
@@ -8911,10 +8977,118 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_agent_mission_status_sources_into_public_projection_bundle",
+          "bind_mission_status_noise_demotion_reducer_to_macro_projection_body_floor",
+          "preserve_mission_status_reducer_without_exporting_live_trace_payloads_work_ledger_runtime_state_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:635391ff095bf9ee3cb4c6f3c0930c05c8d9d991c50a67ff7bb0f39289a0f256",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:635391ff095bf9ee3cb4c6f3c0930c05c8d9d991c50a67ff7bb0f39289a0f256",
+          "source_line_count": 458,
+          "source_ref": "system/lib/agent_mission_status.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:635391ff095bf9ee3cb4c6f3c0930c05c8d9d991c50a67ff7bb0f39289a0f256",
+          "target_line_count": 458,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public agent mission-status reducer source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "agent_mission_status_source_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+          "codex/doctrine/paper_modules/agent_observability.md",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/lib/agent_mission_status.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_agent_mission_status_sources_into_public_projection_bundle",
+          "bind_mission_status_noise_demotion_reducer_to_macro_projection_body_floor",
+          "preserve_mission_status_reducer_without_exporting_live_trace_payloads_work_ledger_runtime_state_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+          "source_line_count": 387,
+          "source_ref": "system/server/tests/test_agent_mission_status.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+          "target_line_count": 387,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public agent mission-status reducer source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "agent_mission_status_test_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+          "codex/doctrine/paper_modules/agent_observability.md",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/server/tests/test_agent_mission_status.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
       }
     ],
     "publication_authorized": false,
-    "ready_cell_count": 44,
+    "ready_cell_count": 45,
     "release_authorized": false,
     "schema_version": "macro_projection_import_intake_board_v1",
     "secret_exclusion_blocking_hit_count": 0
@@ -8946,6 +9120,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
@@ -8984,6 +9159,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation_coverage.py",
@@ -9028,6 +9204,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation_coverage.py",
@@ -9103,13 +9280,13 @@
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_digest_count": 112,
-  "public_safe_body_import_count": 112,
+  "public_safe_body_digest_count": 114,
+  "public_safe_body_import_count": 114,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 112
+    "verified_light_edit": 114
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 112,
+  "public_safe_body_material_count": 114,
   "public_safe_body_target_refs": [
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
@@ -9132,6 +9309,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation_coverage.py",
@@ -9176,6 +9354,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation_coverage.py",
@@ -9225,7 +9404,7 @@
     "src/microcosm_core/macro_tools/work_landing.py"
   ],
   "public_safe_body_target_status": "pass",
-  "ready_projection_cell_count": 44,
+  "ready_projection_cell_count": 45,
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
   ],
@@ -9285,7 +9464,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 178,
+    "macro_origin_ref_count": 181,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json",
@@ -9318,6 +9497,7 @@
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
@@ -9371,6 +9551,7 @@
       "system/lib/agent_bootstrap_projection.py",
       "system/lib/agent_entrypoint_audit.py",
       "system/lib/agent_execution_trace.py",
+      "system/lib/agent_mission_status.py",
       "system/lib/agent_observability.py",
       "system/lib/agent_observability_animation.py",
       "system/lib/agent_observability_animation_coverage.py",
@@ -9427,6 +9608,7 @@
       "system/server/tests/test_active_execution_constellation.py",
       "system/server/tests/test_agent_entrypoint_audit.py",
       "system/server/tests/test_agent_execution_trace.py",
+      "system/server/tests/test_agent_mission_status.py",
       "system/server/tests/test_agent_observability.py",
       "system/server/tests/test_agent_observability_animation.py",
       "system/server/tests/test_agent_observability_animation_coverage.py",
@@ -9482,19 +9664,19 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 44,
+    "projection_cell_count": 45,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 106
+      "public_macro_tool_body": 108
     },
-    "public_safe_body_import_count": 112,
+    "public_safe_body_import_count": 114,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 112
+      "verified_light_edit": 114
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 44,
+    "ready_projection_cell_count": 45,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -9656,6 +9838,20 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
         "status": "pass"
       },
       {
@@ -10083,6 +10279,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
       },
       {
@@ -10543,6 +10746,13 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
         "status": "pass"
@@ -10846,6 +11056,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
         "status": "pass"
       },
       {
@@ -11257,6 +11474,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
         "status": "pass"
@@ -11490,6 +11714,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
         "status": "pass"
       },
       {
@@ -11749,6 +11980,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
         "status": "pass"
       },
       {
@@ -12349,6 +12587,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
         "status": "pass"
@@ -12610,6 +12855,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
         "status": "pass"
       },
       {
@@ -12918,6 +13170,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
         "status": "pass"
       },
       {
@@ -13588,6 +13847,20 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -14015,6 +14288,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -14314,7 +14594,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 688,
+    "runtime_dependency_count": 702,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -14340,6 +14620,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
@@ -14378,6 +14659,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation_coverage.py",
@@ -14422,6 +14704,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation_coverage.py",
@@ -14493,6 +14776,8 @@
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
@@ -14554,6 +14839,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -14680,7 +14966,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 163,
+  "source_ref_count": 166,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -14844,10 +15130,13 @@
     "system/server/tests/test_agent_session_attribution.py",
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
     "system/lib/agent_observability_classification.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
+    "system/lib/agent_mission_status.py",
+    "system/server/tests/test_agent_mission_status.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
   ],
   "status": "pass",
-  "validation_ref_count": 132,
+  "validation_ref_count": 135,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -14873,6 +15162,8 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_execution_trace_sources_compile_and_preserve_privacy_boundary_contract",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
@@ -14935,6 +15226,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine",

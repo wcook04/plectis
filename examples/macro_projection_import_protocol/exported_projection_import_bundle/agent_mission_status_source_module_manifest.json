@@ -1,0 +1,79 @@
+{
+  "schema_version": "macro_projection_agent_mission_status_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "agent_mission_status_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_prompt_bodies_hidden_reasoning_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "exact_non_secret_agent_mission_status_reducer_and_test_sources_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic mission-status checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "public_runtime_policy": "public validation uses exact source digest, anchor checks, syntax compilation, and synthetic mission-status reducer assertions; copied source module is body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority.",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "prompt bodies",
+    "hidden reasoning",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "raw tool-result bodies",
+    "CLI subprocess execution payloads",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "agent_mission_status_source_body_import",
+      "source_ref": "system/lib/agent_mission_status.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_mission_status.py",
+      "source_role": "Macro mission-status reducer that composes agent observability events, Work Ledger state, session attribution, and telemetry-quality demotion into a public operator projection without exporting live trace or provider payload bodies.",
+      "required_anchors": [
+        "Mission-status reducer over the agent observability plane.",
+        "SCHEMA_VERSION = \"agent_mission_status_v0\"",
+        "KIND = \"agent_observability.mission_status\"",
+        "ACTIVITY_CANONICAL_TYPES",
+        "def build_agent_mission_status(",
+        "\"demoted_missions\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_sha256": "635391ff095bf9ee3cb4c6f3c0930c05c8d9d991c50a67ff7bb0f39289a0f256",
+      "target_sha256": "635391ff095bf9ee3cb4c6f3c0930c05c8d9d991c50a67ff7bb0f39289a0f256",
+      "sha256_match": true,
+      "line_count": 458,
+      "byte_count": 17324,
+      "anchor_count": 6
+    },
+    {
+      "module_id": "agent_mission_status_test_body_import",
+      "source_ref": "system/server/tests/test_agent_mission_status.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_mission_status.py",
+      "source_role": "Macro server test specimen for the mission-status reducer, including fake trace-store and Work Ledger fixtures that prove auth-failure-loop demotion and public projection shape without live session access.",
+      "required_anchors": [
+        "class _FakeStore",
+        "def test_build_agent_mission_status_acceptance_specimen(",
+        "def test_build_agent_mission_status_handles_empty_substrate(",
+        "test_classify_telemetry_quality_emits_noise_classes_and_projection_warnings",
+        "demote_reason"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_sha256": "c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+      "target_sha256": "c165503e287f98775b7a0c23aaecd7d30500dbe7d4578a0f8c84fef22faf5c8a",
+      "sha256_match": true,
+      "line_count": 387,
+      "byte_count": 15666,
+      "anchor_count": 5
+    }
+  ]
+}

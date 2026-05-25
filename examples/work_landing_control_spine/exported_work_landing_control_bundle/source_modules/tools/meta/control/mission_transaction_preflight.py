@@ -95,7 +95,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--session-id",
         default=None,
-        help="Current Work Ledger session id; matching active claims are treated as owned, not collisions.",
+        help=(
+            "Current Work Ledger session id; matching active claims are treated as owned, "
+            "not collisions. Use 'auto' to bind the single relevant active-claim session "
+            "when the requested target/path set has exactly one candidate owner."
+        ),
     )
     parser.add_argument(
         "--require-exclusive",

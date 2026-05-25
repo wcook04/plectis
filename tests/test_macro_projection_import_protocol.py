@@ -257,6 +257,10 @@ AGENT_OBSERVABILITY_ANIMATION_SOURCE_BODY_MATERIAL_IDS = [
 AGENT_OBSERVABILITY_CLASSIFICATION_SOURCE_BODY_MATERIAL_IDS = [
     "agent_observability_classification_source_body_import",
 ]
+AGENT_MISSION_STATUS_SOURCE_BODY_MATERIAL_IDS = [
+    "agent_mission_status_source_body_import",
+    "agent_mission_status_test_body_import",
+]
 
 
 def _copy_dependency_preflight_receipt(public_root: Path) -> Path:
@@ -404,13 +408,13 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["projection_cell_count"] == 44
-    assert result["ready_projection_cell_count"] == 44
+    assert result["projection_cell_count"] == 45
+    assert result["ready_projection_cell_count"] == 45
     assert result["blocked_projection_cell_count"] == 0
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 112
+    assert result["public_safe_body_material_count"] == 114
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -432,21 +436,21 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_board"]["next_best_lane"] == "real_substrate_import_path"
     assert result["projection_board"]["intake_board_ref"] == "projection_import_intake_board.json"
     assert result["projection_board"]["runtime_severance_board_embedded"] is True
-    assert result["projection_intake_board"]["ready_cell_count"] == 44
+    assert result["projection_intake_board"]["ready_cell_count"] == 45
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
-    assert result["projection_intake_board"]["landed_cell_count"] == 44
+    assert result["projection_intake_board"]["landed_cell_count"] == 45
     assert result["projection_intake_board"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 42,
+        "public_runtime_import_landed": 43,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 112
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 114
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
-        "verified_light_edit": 112
+        "verified_light_edit": 114
     }
     by_material = {
         row["material_id"]: row
@@ -1173,13 +1177,13 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["projection_cell_count"] == 44
-    assert result["projection_intake_board"]["ready_cell_count"] == 44
+    assert result["projection_cell_count"] == 45
+    assert result["projection_intake_board"]["ready_cell_count"] == 45
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 112
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 112
+    assert result["public_safe_body_material_count"] == 114
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 114
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1232,9 +1236,10 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *AGENT_OBSERVABILITY_SOURCE_BODY_MATERIAL_IDS,
         *AGENT_OBSERVABILITY_ANIMATION_SOURCE_BODY_MATERIAL_IDS,
         *AGENT_OBSERVABILITY_CLASSIFICATION_SOURCE_BODY_MATERIAL_IDS,
+        *AGENT_MISSION_STATUS_SOURCE_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 112
+    assert result["public_safe_body_digest_count"] == 114
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1348,7 +1353,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
     assert result["input_mode"] == "exported_projection_import_bundle"
-    assert result["projection_intake_board"]["ready_cell_count"] == 44
+    assert result["projection_intake_board"]["ready_cell_count"] == 45
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
@@ -1358,12 +1363,12 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 112
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 114
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 4,
-        "public_macro_tool_body": 106,
+        "public_macro_tool_body": 108,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -1385,7 +1390,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 112
+    assert result["public_safe_body_material_count"] == 114
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -2969,6 +2974,24 @@ def test_agent_observability_classification_source_modules_body_import_is_unifie
         public_root=public_root,
         material_ids=AGENT_OBSERVABILITY_CLASSIFICATION_SOURCE_BODY_MATERIAL_IDS,
         cell_id="agent_observability_classification_source_modules_import",
+    )
+
+
+def test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=AGENT_MISSION_STATUS_SOURCE_BODY_MATERIAL_IDS,
+        cell_id="agent_mission_status_source_modules_import",
     )
 
 

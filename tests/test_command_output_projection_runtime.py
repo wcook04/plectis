@@ -114,6 +114,9 @@ AGENT_OBSERVABILITY_ANIMATION_MANIFEST = (
 AGENT_OBSERVABILITY_CLASSIFICATION_MANIFEST = (
     BUNDLE_INPUT / "agent_observability_classification_source_module_manifest.json"
 )
+AGENT_MISSION_STATUS_MANIFEST = (
+    BUNDLE_INPUT / "agent_mission_status_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -2080,6 +2083,207 @@ def test_agent_observability_classification_source_compiles_and_preserves_auth_f
         "stream_gaps",
     }
     assert telemetry_quality["history_limit_used"] == 50
+
+
+def test_agent_mission_status_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_MISSION_STATUS_MANIFEST,
+        manifest_id="agent_mission_status_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract() -> None:
+    module_path = BUNDLE_INPUT / "source_modules/system/lib/agent_mission_status.py"
+    test_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_agent_mission_status.py"
+    )
+    source_text = module_path.read_text(encoding="utf-8")
+    test_text = test_path.read_text(encoding="utf-8")
+    compile(source_text, str(module_path), "exec")
+    compile(test_text, str(test_path), "exec")
+    assert "ACTIVITY_CANONICAL_TYPES" in source_text
+    assert "def build_agent_mission_status(" in source_text
+    assert '"demoted_missions"' in source_text
+    assert "class _FakeStore" in test_text
+    assert "test_build_agent_mission_status_acceptance_specimen" in test_text
+
+    spec = importlib.util.spec_from_file_location(
+        "microcosm_agent_mission_status_source_module",
+        module_path,
+    )
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    previous = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = previous
+
+    from datetime import datetime, timedelta, timezone
+
+    now = datetime(2026, 5, 25, 10, 30, tzinfo=timezone.utc)
+
+    def event(
+        seq: int,
+        *,
+        session_id: str,
+        source_runtime: str = "claude_code",
+        canonical_type: str = "tool.completed",
+        cwd: str | None = "/repo",
+        summary: str | None = None,
+    ) -> dict:
+        observed = now - timedelta(seconds=max(1, 60 - seq))
+        return {
+            "id": f"event-{seq}",
+            "seq": seq,
+            "source_runtime": source_runtime,
+            "canonical_type": canonical_type,
+            "session_id": session_id,
+            "observed_at": observed.isoformat(),
+            "occurred_at": observed.isoformat(),
+            "cwd": cwd,
+            "summary": summary or canonical_type,
+            "payload": {"content": summary or canonical_type},
+        }
+
+    def auth_failure_event(seq: int, *, session_id: str) -> dict:
+        return event(
+            seq,
+            session_id=session_id,
+            canonical_type="message.assistant",
+            cwd=f"/tmp/.claude-mem/observer-sessions/{session_id}.jsonl",
+            summary=(
+                "Failed to authenticate request: 401 authentication_error"
+            ),
+        )
+
+    events = [
+        *(auth_failure_event(seq, session_id="obs-noise") for seq in range(1, 5)),
+        event(100, session_id="claude-real", canonical_type="message.user"),
+        event(101, session_id="claude-real", canonical_type="tool.proposed"),
+        event(102, session_id="claude-real", canonical_type="tool.completed"),
+        event(
+            200,
+            session_id="codex-real",
+            source_runtime="codex_app",
+            canonical_type="turn.prompt",
+            cwd=None,
+            summary="codex prompt",
+        ),
+        event(
+            201,
+            session_id="codex-real",
+            source_runtime="codex_app",
+            canonical_type="tool.completed",
+            cwd=None,
+            summary="function_call_output",
+        ),
+    ]
+    status = {
+        "seq": 201,
+        "history_size": len(events),
+        "max_history": 2000,
+        "gap_count": 0,
+        "dropped_count": 0,
+        "persistence": {
+            "enabled": True,
+            "retry_in_s": 0.0,
+            "dropped_count": 0,
+            "error_count": 0,
+            "last_error": None,
+        },
+        "source_status": [
+            {
+                "source_runtime": "claude_code",
+                "last_observed_at": now.isoformat(),
+                "event_count": 7,
+                "last_canonical_type": "tool.completed",
+            },
+            {
+                "source_runtime": "codex_app",
+                "last_observed_at": now.isoformat(),
+                "event_count": 2,
+                "last_canonical_type": "tool.completed",
+            },
+            {
+                "source_runtime": "metabolism",
+                "last_observed_at": (now - timedelta(seconds=1200)).isoformat(),
+                "event_count": 1,
+                "last_canonical_type": "runtime.heartbeat",
+            },
+        ],
+        "active_sessions": [
+            {
+                "session_id": "obs-noise",
+                "source_runtime": "claude_code",
+                "last_observed_at": now.isoformat(),
+                "last_canonical_type": "message.assistant",
+                "cwd": "/tmp/.claude-mem/observer-sessions/obs-noise.jsonl",
+                "title": "Failed to authenticate. API Error: 401",
+                "activity_count": 4,
+                "touched_files": [],
+            },
+            {
+                "session_id": "claude-real",
+                "source_runtime": "claude_code",
+                "last_observed_at": now.isoformat(),
+                "last_canonical_type": "tool.completed",
+                "cwd": "/repo",
+                "title": "real claude session",
+                "activity_count": 3,
+                "touched_files": ["system/lib/agent_mission_status.py"],
+            },
+            {
+                "session_id": "codex-real",
+                "source_runtime": "codex_app",
+                "last_observed_at": now.isoformat(),
+                "last_canonical_type": "tool.completed",
+                "cwd": None,
+                "title": None,
+                "activity_count": 2,
+                "touched_files": [],
+            },
+        ],
+    }
+
+    class FakeStore:
+        def status(self) -> dict:
+            return dict(status)
+
+        def replay(self, *, limit: int = 100, **_kwargs) -> list:
+            return list(events[-limit:])
+
+    payload = module.build_agent_mission_status(
+        store=FakeStore(),
+        work_ledger_status={},
+        history_limit=200,
+        now=now,
+    )
+
+    assert payload["kind"] == module.KIND
+    assert payload["schema_version"] == module.SCHEMA_VERSION
+    mission_session_ids = {row["session_id"] for row in payload["missions"]}
+    assert "claude-real" in mission_session_ids
+    assert "codex-real" in mission_session_ids
+    assert "obs-noise" not in mission_session_ids
+    assert payload["raw_drilldown_refs"]["endpoint_events"] == (
+        "/api/agent-observability/events"
+    )
+    auth_class = next(
+        row
+        for row in payload["telemetry_quality"]["noise_classes"]
+        if row["class_id"] == "auth_failure_loop"
+    )
+    assert auth_class["affected_session_count"] == 1
+    assert auth_class["raw_refs"]
+    demoted = {row["session_id"]: row for row in payload["demoted_missions"]}
+    assert demoted["obs-noise"]["demote_reason"] == "auth_failure_loop"
+    assert "message.assistant" in payload["constants"]["activity_canonical_types"]
 
 
 def _load_trace_capsule_source_module():
