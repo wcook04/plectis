@@ -18,15 +18,15 @@ Or run the same product CLI directly from the checkout without installing the
 entry point:
 
 ```bash
-PYTHONPATH=src python -m microcosm_core.cli compile .
 PYTHONPATH=src python -m microcosm_core.cli tour .
+PYTHONPATH=src python -m microcosm_core.cli compile .
 ```
 
 After the console command is installed, the first-screen path is:
 
 ```bash
-microcosm compile .
 microcosm tour .
+microcosm compile .
 microcosm python-lens .
 microcosm explain . readme_onboarding_route
 microcosm evidence list .

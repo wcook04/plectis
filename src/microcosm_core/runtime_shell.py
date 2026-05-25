@@ -2017,8 +2017,8 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             "credential_equivalent_live_access_excluded": True,
         },
         "next_commands": [
-            "microcosm compile <project>",
             "microcosm tour <project>",
+            "microcosm compile <project>",
             "microcosm python-lens <project>",
             "microcosm explain <project> <route_id>",
             "microcosm serve <project> --host 127.0.0.1 --port 8765",

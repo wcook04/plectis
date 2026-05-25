@@ -559,6 +559,8 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["workingness"]["missing_failure_modes_count"] >= 1
     assert card["workingness"]["accepted_status_is_not_evidence_strength"] is True
     assert card["workingness"]["not_a_scorecard"] is True
+    assert card["next_commands"][0] == card["front_door"]["primary_command"]
+    assert "microcosm compile <project>" in card["next_commands"]
     assert "microcosm workingness" in card["next_commands"]
     assert card["authority_ceiling"]["release_authorized"] is False
     assert card["authority_ceiling"]["provider_calls_authorized"] is False
