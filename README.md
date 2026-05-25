@@ -49,10 +49,12 @@ when the project has a README. Open
 
 Use `microcosm status --card <project>` after `tour` or `compile` for the
 compressed first-screen lens over local `.microcosm/` route state plus the full
-runtime status. It includes the selected project route id, the `microcosm
-workingness` counts, and a small `gap_preview` of the first missing-standard or
-failure-mode rows and their target refs before opening the full organ-by-organ
-map; `microcosm status` remains the full JSON drilldown.
+runtime status. It includes the selected project route id,
+`front_door.route_explanation` with the compact route/work/event/evidence
+chain, `source_files_mutated=false`, the `microcosm workingness` counts, and a
+small `gap_preview` of the first missing-standard or failure-mode rows and
+their target refs before opening the full organ-by-organ map; `microcosm
+status` remains the full JSON drilldown.
 
 Read `front_door_status` before treating the tour's `status` as a blanket
 health claim. `blocking_surface_ids=[]` means the required first-screen path is

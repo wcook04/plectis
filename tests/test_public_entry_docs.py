@@ -348,6 +348,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "local project operating substrate" in normalized_text
     assert "repo -> .microcosm" in text
     assert "microcosm compile ." in text
+    assert "front_door.route_explanation" in text
+    assert "source_files_mutated=false" in text
     assert "std_python_microcosm_navigation_assay" in text
     assert "implementation_atlas.python_navigation_assay" in text
     assert "route_utility_curriculum" in text
@@ -450,11 +452,19 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "route_selection_rule"
     ]
     assert "microcosm evidence list <project>" in route["command_path"]
+    assert "microcosm status --card <project>" in route["command_path"]
+    assert "microcosm workingness" in route["command_path"]
+    assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in route[
+        "command_path"
+    ]
     assert ".microcosm/events.jsonl" in route["state_refs"]
     assert ".microcosm/evidence/" in route["state_refs"]
     assert ".microcosm/graph.json" in route["state_refs"]
+    assert "/" in route["observatory_endpoints"]
+    assert "/status" in route["observatory_endpoints"]
     assert "/tour" in route["observatory_endpoints"]
     assert "/workingness" in route["observatory_endpoints"]
+    assert "/proof-lab" in route["observatory_endpoints"]
     assert "/project/explain/<selected_route_id>" in route["observatory_endpoints"]
     assert "tour_front_door_status_route" in route["drilldown_routes"]
     assert "status_and_workingness_route" in route["drilldown_routes"]
@@ -481,6 +491,8 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         assert command in entry_packet["allowed_drilldowns"]
     for ref in route["state_refs"]:
         assert ref in entry_packet["allowed_drilldowns"]
+    for endpoint in route["observatory_endpoints"]:
+        assert endpoint in entry_packet["allowed_drilldowns"]
     assert "atlas/entry_packet.json::local_first_screen_route" in entry_packet[
         "allowed_drilldowns"
     ]
@@ -586,6 +598,14 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert workingness["status_card_command"] == "microcosm status --card <project>"
     assert workingness["workingness_command"] == "microcosm workingness"
     assert workingness["endpoint"] == "/workingness"
+    assert (
+        workingness["status_card_front_door_ref"]
+        == "microcosm status --card <project>::front_door"
+    )
+    assert (
+        workingness["status_card_route_explanation_ref"]
+        == "microcosm status --card <project>::front_door.route_explanation"
+    )
     assert workingness["tour_route_card_ref"] == (
         "microcosm tour <project>::status_and_workingness"
     )
@@ -597,6 +617,13 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         workingness["workingness_map_ref"]
         == "receipts/runtime_shell/workingness_failure_map.json"
     )
+    assert "front_door.project_state_status" in workingness["expected_fields"]
+    assert "front_door.selected_route_id" in workingness["expected_fields"]
+    assert "front_door.route_explanation" in workingness["expected_fields"]
+    assert (
+        "front_door.route_explanation.reader_drilldowns"
+        in workingness["expected_fields"]
+    )
     assert "map_generation_status" in workingness["expected_fields"]
     assert "failure_envelope_status" in workingness["expected_fields"]
     assert "top_level_status_rule" in workingness["expected_fields"]
@@ -606,7 +633,16 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert workingness["safe_to_show"]["score_based_progress_authority"] is False
     assert workingness["safe_to_show"]["proof_correctness_claim"] is False
     assert workingness["safe_to_show"]["release_authorized"] is False
+    assert workingness["safe_to_show"]["route_lineage_counts_visible"] is True
     assert workingness["status_card_command"] in entry_packet["allowed_drilldowns"]
+    assert (
+        workingness["status_card_front_door_ref"]
+        in entry_packet["allowed_drilldowns"]
+    )
+    assert (
+        workingness["status_card_route_explanation_ref"]
+        in entry_packet["allowed_drilldowns"]
+    )
     assert workingness["workingness_command"] in entry_packet["allowed_drilldowns"]
     assert workingness["tour_route_card_ref"] in entry_packet["allowed_drilldowns"]
     assert workingness["tour_receipt_ref"] in entry_packet["allowed_drilldowns"]
