@@ -132,6 +132,9 @@ PROMPT_SHELF_UPPROPAGATION_MANIFEST = (
 PROMPT_SHELF_UPPROPAGATION_DIGEST_MANIFEST = (
     BUNDLE_INPUT / "prompt_shelf_uppropagation_digest_source_module_manifest.json"
 )
+PROMPT_SHELF_RUNS_INDEX_MANIFEST = (
+    BUNDLE_INPUT / "prompt_shelf_runs_index_source_module_manifest.json"
+)
 BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
     BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
 )
@@ -2551,6 +2554,62 @@ def test_prompt_shelf_uppropagation_digest_sources_compile_and_preserve_digest_p
     assert "provider payload" not in source_text.lower()
     assert "def test_v3_run_indexes_into_digest_candidate_rows(" in test_text
     assert "def test_digest_counts_prompt_ledger_adoption_receipts(" in test_text
+
+
+def test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        PROMPT_SHELF_RUNS_INDEX_MANIFEST,
+        manifest_id="prompt_shelf_runs_index_source_modules_import",
+        module_count=3,
+    )
+    assert manifest["support_fixture_count"] == 1
+    fixture = manifest["support_fixtures"][0]
+    source = REPO_ROOT / fixture["source_ref"]
+    target_ref = str(fixture["target_ref"]).removeprefix("microcosm-substrate/")
+    target = MICROCOSM_ROOT / target_ref
+    assert source.is_file()
+    assert target.is_file()
+    assert hashlib.sha256(source.read_bytes()).hexdigest() == fixture["source_sha256"]
+    assert hashlib.sha256(target.read_bytes()).hexdigest() == fixture["target_sha256"]
+    assert fixture["source_sha256"] == fixture["target_sha256"]
+    assert fixture["counted_as_product_substrate"] is False
+
+
+def test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract() -> None:
+    source_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/observability/prompt_shelf_runs_index.py"
+    )
+    dependency_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/observability/b3_packet_lint.py"
+    )
+    test_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_prompt_shelf_runs_index.py"
+    )
+    fixture_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/fixtures/b3_packet_lint/"
+        "bad_role_and_evidence_packet.txt"
+    )
+    source_text = source_path.read_text(encoding="utf-8")
+    dependency_text = dependency_path.read_text(encoding="utf-8")
+    test_text = test_path.read_text(encoding="utf-8")
+    compile(source_text, str(source_path), "exec")
+    compile(dependency_text, str(dependency_path), "exec")
+    compile(test_text, str(test_path), "exec")
+    assert "SCHEMA_VERSION = \"1.1.0\"" in source_text
+    assert "DEFAULT_REQUIRED_COVERAGE_SLOTS = [\"A0\", \"B1\", \"B2\", \"B3\"]" in source_text
+    assert "def _b3_lint_from_raw_event(" in source_text
+    assert "def render_coverage(" in source_text
+    assert "metadata-only; raw prompt/provider bodies stay in source refs" in source_text
+    assert "SCHEMA_VERSION = \"b3_packet_lint_v0\"" in dependency_text
+    assert "def lint_packet_text(" in dependency_text
+    assert "def _lint_authority_projection(" in dependency_text
+    assert "def test_index_surfaces_b3_packet_lint_status_from_raw_event(" in test_text
+    assert "def test_metadata_only_index_stats_raw_event_without_reading_body(" in test_text
+    assert fixture_path.is_file()
 
 
 def test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources() -> None:

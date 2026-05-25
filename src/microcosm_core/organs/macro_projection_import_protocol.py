@@ -1590,6 +1590,49 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "prompt_shelf_runs_index_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The prompt-shelf runs-index lane now carries the exact copied "
+            "non-secret runs-index projector, B3 packet-lint dependency, "
+            "synthetic regression test source body, and validation-only "
+            "negative fixture inside the projection bundle, validated by "
+            "digest/anchor checks and syntax compilation without counting "
+            "the synthetic fixture as product substrate or exporting prompt "
+            "bodies, raw prompt-shelf event bodies, provider payloads, "
+            "account/session state, browser/HUD live access, generated "
+            "runs-index state, recipient-send state, runtime mutation "
+            "authority, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "prompt_shelf_runs_index_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "observability/prompt_shelf_runs_index.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "observability/b3_packet_lint.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_prompt_shelf_runs_index.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
     "bridge_runtime_continuity_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

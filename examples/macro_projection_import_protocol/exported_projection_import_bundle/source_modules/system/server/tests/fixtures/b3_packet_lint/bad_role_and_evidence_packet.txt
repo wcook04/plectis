@@ -1,0 +1,76 @@
+PACKET v=3.2
+thread: malformed B3 packet specimen
+scope: This intentionally malformed specimen exercises packet lint failures.
+last_valid_state_per_source: not_stated
+
+hot_path:
+  terminal_state: not_stated
+  produced_artifacts: not_stated
+  active_decision_axes: not_stated
+  primary_affordance_surfaces: not_stated
+  validation_boundary: not_stated
+  workspace_boundary: not_stated
+  residuals: not_stated
+
+state_capsule:
+  repo_head: not_stated
+  pushed: not_stated
+  committed_source_changes: not_stated
+  runtime_state_changes: not_stated
+  staged_index: not_stated
+  dirty_scope: not_stated
+  primary_workitems: not_stated
+  validation: not_stated
+  explicit_open_or_blocked: none
+  explicit_not_done: none
+
+produced_artifacts:
+  * Bad star bullet :: artifact_type=analysis :: mutation=no :: ref=none :: source=agent
+
+operator_intent_signals:
+  - signal=agent execution statement treated as operator intent :: preserved_as=bad role placement :: source=agent
+
+decision_axes: []
+
+source_stated_proposals:
+  - proposal=Kernel NEXT menu command :: status=not_stated :: boundary=source-stated_not_compactor-authored :: source=tool_output
+
+affordance_surface: []
+surface_topology: []
+change_envelope: []
+behavioral_arcs: []
+proof_boundary: []
+native_compaction_relation: []
+edit_anchors: []
+decided: []
+done_major: []
+
+validation_matrix:
+  - focused tests => pass :: exact_result=1 passed :: evidence= :: source=tool_output
+
+done_inspection: []
+authority_map: []
+
+workspace_state:
+  committed_owned: not_stated
+  staged_index: not_stated
+  owned_uncommitted: not_stated
+  preexisting_dirty: not_stated
+  post_commit_concurrent_dirty: not_stated
+  do_not_stage_scope: not_stated
+
+stated_open: []
+stated_blocked: []
+stated_risks: []
+stated_contradictions: []
+stated_freshness_or_staleness: []
+stated_postures: []
+verbatim_quotes: []
+facts_added: []
+
+evidence_pointers:
+  - claim=empty evidence specimen :: evidence=
+
+omitted: []
+
+END_PACKET

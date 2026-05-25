@@ -8899,6 +8899,159 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_sources_compile_and_preserve_digest_projection_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_prompt_shelf_runs_index_sources_into_public_projection_bundle",
+        "bind_prompt_shelf_runs_index_projection_to_macro_projection_body_floor",
+        "preserve_prompt_shelf_runs_index_metadata_only_boundary_without_exporting_prompt_bodies_raw_prompt_shelf_event_bodies_provider_payloads_account_session_state_browser_hud_live_access_generated_runs_index_state_or_credential_equivalent_material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:d3fee5dfba117ce47f4e823d7952be18c2a3bfd42e62832cb0c809218e7aa354",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:d3fee5dfba117ce47f4e823d7952be18c2a3bfd42e62832cb0c809218e7aa354",
+        "source_line_count": 852,
+        "source_ref": "tools/meta/observability/prompt_shelf_runs_index.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:d3fee5dfba117ce47f4e823d7952be18c2a3bfd42e62832cb0c809218e7aa354",
+        "target_line_count": 852,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_runs_index.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public prompt-shelf runs-index source-body import only; not live prompt-shelf raw-event body export, prompt-body export, provider calls, CLI subprocess authority outside public validation, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated runs-index state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "prompt_shelf_runs_index_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
+        "codex/doctrine/paper_modules/prompt_shelf.md",
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "codex/standards/std_prompt_ledger.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/observability/prompt_shelf_runs_index.py",
+      "source_refs": [
+        "tools/meta/observability/prompt_shelf_runs_index.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_runs_index.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_prompt_shelf_runs_index_sources_into_public_projection_bundle",
+        "bind_prompt_shelf_runs_index_projection_to_macro_projection_body_floor",
+        "preserve_prompt_shelf_runs_index_metadata_only_boundary_without_exporting_prompt_bodies_raw_prompt_shelf_event_bodies_provider_payloads_account_session_state_browser_hud_live_access_generated_runs_index_state_or_credential_equivalent_material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:008b04dba8f8d0fde0e627ef6e5124c9d2c3e67640921214d4128eca56178a45",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:008b04dba8f8d0fde0e627ef6e5124c9d2c3e67640921214d4128eca56178a45",
+        "source_line_count": 469,
+        "source_ref": "tools/meta/observability/b3_packet_lint.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:008b04dba8f8d0fde0e627ef6e5124c9d2c3e67640921214d4128eca56178a45",
+        "target_line_count": 469,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/b3_packet_lint.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public prompt-shelf runs-index source-body import only; not live prompt-shelf raw-event body export, prompt-body export, provider calls, CLI subprocess authority outside public validation, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated runs-index state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "b3_packet_lint_dependency_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
+        "codex/doctrine/paper_modules/prompt_shelf.md",
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "codex/standards/std_prompt_ledger.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/observability/b3_packet_lint.py",
+      "source_refs": [
+        "tools/meta/observability/b3_packet_lint.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/b3_packet_lint.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_prompt_shelf_runs_index_sources_into_public_projection_bundle",
+        "bind_prompt_shelf_runs_index_projection_to_macro_projection_body_floor",
+        "preserve_prompt_shelf_runs_index_metadata_only_boundary_without_exporting_prompt_bodies_raw_prompt_shelf_event_bodies_provider_payloads_account_session_state_browser_hud_live_access_generated_runs_index_state_or_credential_equivalent_material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:6facc0b96e8cc927e8df3f4210ecd7356ca2a3ba33a6eaba0fd814502c140eb5",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:6facc0b96e8cc927e8df3f4210ecd7356ca2a3ba33a6eaba0fd814502c140eb5",
+        "source_line_count": 694,
+        "source_ref": "system/server/tests/test_prompt_shelf_runs_index.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:6facc0b96e8cc927e8df3f4210ecd7356ca2a3ba33a6eaba0fd814502c140eb5",
+        "target_line_count": 694,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public prompt-shelf runs-index source-body import only; not live prompt-shelf raw-event body export, prompt-body export, provider calls, CLI subprocess authority outside public validation, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated runs-index state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "prompt_shelf_runs_index_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
+        "codex/doctrine/paper_modules/prompt_shelf.md",
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "codex/standards/std_prompt_ledger.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_prompt_shelf_runs_index.py",
+      "source_refs": [
+        "system/server/tests/test_prompt_shelf_runs_index.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -9093,7 +9246,12 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_uppropagation_digest.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_uppropagation_digest.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_runs_index.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/b3_packet_lint.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -9322,7 +9480,12 @@
     "codex/standards/std_prompt_ledger.json",
     "tools/meta/observability/prompt_shelf_uppropagation_digest.py",
     "system/server/tests/test_prompt_shelf_uppropagation_digest.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json",
+    "tools/meta/observability/prompt_shelf_runs_index.py",
+    "tools/meta/observability/b3_packet_lint.py",
+    "system/server/tests/test_prompt_shelf_runs_index.py",
+    "system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json"
   ],
   "steps": [
     {
@@ -9369,6 +9532,11 @@
       "action": "Import exact public-safe prompt-shelf uppropagation digest projector and synthetic regression test source bodies into the Microcosm projection bundle with hash and anchor verification.",
       "step_id": "prompt_shelf_uppropagation_digest_source_modules_import",
       "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_source_manifest_matches_exact_macro_sources"
+    },
+    {
+      "action": "Import exact public-safe prompt-shelf runs-index projector, B3 packet-lint dependency, synthetic regression test source bodies, and validation-only fixture into the Microcosm projection bundle with hash, anchor, metadata-boundary, and syntax checks.",
+      "step_id": "prompt_shelf_runs_index_source_modules_import",
+      "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources"
     }
   ],
   "validation_refs": [
@@ -9525,6 +9693,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_sources_compile_and_preserve_digest_projection_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }
