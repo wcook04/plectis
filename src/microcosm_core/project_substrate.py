@@ -214,9 +214,13 @@ def _walk_project(project: Path) -> list[dict[str, Any]]:
         rel = _project_relative(project, path)
         if any(part in IGNORE_DIRS for part in Path(rel).parts):
             continue
-        if path.is_dir():
-            continue
-        if path.is_symlink():
+        try:
+            if path.is_dir():
+                continue
+            if path.is_symlink():
+                continue
+            size = path.stat().st_size
+        except FileNotFoundError:
             continue
         rows.append(
             {
@@ -224,7 +228,7 @@ def _walk_project(project: Path) -> list[dict[str, Any]]:
                 "name": path.name,
                 "suffix": path.suffix,
                 "role": _classify_file(rel, Path(rel)),
-                "bytes": path.stat().st_size,
+                "bytes": size,
             }
         )
     return rows

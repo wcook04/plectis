@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+from typing import Any
 
 from microcosm_core import project_substrate
 from microcosm_core import cli
@@ -24,6 +25,40 @@ def _scratch_project(tmp_path: Path) -> Path:
         encoding="utf-8",
     )
     return project
+
+
+def test_project_index_skips_file_that_disappears_during_walk(
+    tmp_path: Path, monkeypatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    transient = (
+        project
+        / "receipts/runtime_shell/workingness_failure_map.json.disappearing"
+    )
+    transient.parent.mkdir(parents=True)
+    transient.write_text("{}", encoding="utf-8")
+    original_stat = Path.stat
+
+    def stat_with_disappearing_file(
+        self: Path, *args: Any, **kwargs: Any
+    ) -> os.stat_result:
+        if self == transient:
+            raise FileNotFoundError(self)
+        return original_stat(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "stat", stat_with_disappearing_file)
+
+    index_result = project_substrate.index_project(project)
+    catalog_paths = {
+        row["path"] for row in project_substrate.catalog_project(project)["files"]
+    }
+
+    assert index_result["status"] == "pass"
+    assert index_result["file_count"] == 4
+    assert (
+        "receipts/runtime_shell/workingness_failure_map.json.disappearing"
+        not in catalog_paths
+    )
 
 
 def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) -> None:
