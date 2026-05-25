@@ -29,6 +29,7 @@ def _walk_keys(payload: Any) -> list[str]:
 def _copy_public_entry_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "atlas", public_root / "atlas")
     shutil.copytree(MICROCOSM_ROOT / "paper_modules", public_root / "paper_modules")
     shutil.copytree(MICROCOSM_ROOT / "skills", public_root / "skills")
     shutil.copy2(MICROCOSM_ROOT / "README.md", public_root / "README.md")
@@ -116,6 +117,23 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         assert doc_claim["missing_organs"] == []
         assert doc_claim["unexpected_organs"] == []
         assert doc_claim["duplicate_organs"] == []
+    route_contract = receipt["entry_packet_route_contract"]
+    assert route_contract["status"] == "pass"
+    assert route_contract["source_ref"] == "atlas/entry_packet.json"
+    assert route_contract["first_command"] == "microcosm tour <project>"
+    assert route_contract["primary_first_screen_command"] == (
+        "microcosm tour <project>"
+    )
+    assert route_contract["missing_local_first_screen_commands"] == []
+    assert route_contract["missing_state_refs"] == []
+    assert route_contract["missing_observatory_endpoints"] == []
+    assert route_contract["missing_drilldown_routes"] == []
+    assert route_contract["missing_allowed_drilldowns"] == []
+    assert route_contract["command_mismatch"] == []
+    assert route_contract["missing_route_selection_rule"] is False
+    assert route_contract["unsafe_safe_to_show_flags"] == []
+    assert route_contract["cold_start_missing_phrases"] == []
+    assert route_contract["blocking_reasons"] == []
     assert receipt["deferred_organs"] == []
     assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
     assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -200,6 +218,37 @@ def test_public_entry_docs_block_runtime_spine_claim_mismatch(tmp_path: Path) ->
     assert receipt["entry_spine_claims"]["docs"]["AGENTS.md"]["missing_organs"] == [
         "certificate_kernel_execution_lab"
     ]
+
+
+def test_public_entry_docs_block_entry_packet_route_contract_drift(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    entry_packet_path = public_root / "atlas/entry_packet.json"
+    entry_packet = json.loads(entry_packet_path.read_text(encoding="utf-8"))
+    entry_packet["local_first_screen_route"]["command_path"].remove(
+        "microcosm status --card <project>"
+    )
+    entry_packet_path.write_text(
+        json.dumps(entry_packet, ensure_ascii=True, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH" in receipt["blocking_codes"]
+    assert receipt["entry_packet_route_contract"]["status"] == "blocked"
+    assert receipt["entry_packet_route_contract"][
+        "missing_local_first_screen_commands"
+    ] == ["microcosm status --card <project>"]
+    assert "missing_local_first_screen_commands" in receipt[
+        "entry_packet_route_contract"
+    ]["blocking_reasons"]
 
 
 def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
@@ -392,6 +441,18 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "proof-lab --out /tmp/microcosm-proof-lab" in cold_start
     assert "verifier-lab-kernel run-kernel-bundle" in cold_start
     assert "formal_prover_context_strategy_gate" in cold_start
+    assert "First-Screen Route Contract" in cold_start
+    assert "Bring a folder first" in cold_start
+    assert "microcosm evidence list <project>" in cold_start
+    assert "microcosm status --card <project>" in cold_start
+    assert "front_door.route_explanation" in cold_start
+    assert "microcosm workingness" in cold_start
+    assert (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765" in cold_start
+    )
+    assert "Receipts are evidence drilldowns after the behavior route is visible" in (
+        cold_start
+    )
     assert "atlas/entry_packet.json::local_first_screen_route" in cold_start
     assert "atlas/entry_packet.json::cold_clone_probe_route" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start

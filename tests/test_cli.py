@@ -25,6 +25,7 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 def _copy_public_entry_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "atlas", public_root / "atlas")
     shutil.copytree(MICROCOSM_ROOT / "paper_modules", public_root / "paper_modules")
     shutil.copytree(MICROCOSM_ROOT / "skills", public_root / "skills")
     shutil.copy2(MICROCOSM_ROOT / "README.md", public_root / "README.md")

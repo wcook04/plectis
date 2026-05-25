@@ -2,7 +2,36 @@
 
 Use this skill when entering `microcosm-substrate/` from a fresh public clone.
 
-## Fast Proof-Lab Route
+## First-Screen Route Contract
+
+Bring a folder first. The authoritative route card is
+`atlas/entry_packet.json::local_first_screen_route`; use it before the cold
+clone probe, paper modules, or raw receipt trees.
+
+The compact behavioral path is:
+
+1. `microcosm tour <project>` builds `.microcosm/` and emits the first-screen
+   route card.
+2. `microcosm compile <project>` rebuilds local state when you need an explicit
+   refresh.
+3. `microcosm python-lens <project>` opens the project navigation assay.
+4. `microcosm explain <project> <selected_route_id>` opens the route/work/event
+   and evidence chain selected by `tour` or `compile`.
+5. `microcosm evidence list <project>` lists project-local evidence refs.
+6. `microcosm status --card <project>` reads the compressed status and
+   `front_door.route_explanation` lens.
+7. `microcosm workingness` opens the bounded behavior/failure map.
+8. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
+   lab route.
+9. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
+   observatory; check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
+   `/project/python-lens`, and `/project/explain/<selected_route_id>`.
+
+Receipts are evidence drilldowns after the behavior route is visible, not the
+cockpit. Use the `selected_route_id` emitted by `tour` or `compile`;
+`readme_onboarding_route` exists only when the brought project has a README.
+
+## Proof-Lab Drilldown
 
 After install, the shortest proof-lab behavior check is:
 

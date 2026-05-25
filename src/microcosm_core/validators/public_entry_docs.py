@@ -20,6 +20,7 @@ FIXTURE_ID = "first_wave.public_entry_docs"
 REQUIRED_DOCS = [
     "README.md",
     "AGENTS.md",
+    "atlas/entry_packet.json",
     "paper_modules/pattern_binding_contract.md",
     "paper_modules/executable_doctrine_grammar.md",
     "paper_modules/proof_diagnostic_evidence_spine.md",
@@ -318,6 +319,15 @@ REQUIRED_PHRASES_BY_DOC = {
         "Do not treat prediction fixtures as trading or financial advice",
     ],
     "skills/cold_start_navigation.md": [
+        "First-Screen Route Contract",
+        "Bring a folder first",
+        "atlas/entry_packet.json::local_first_screen_route",
+        "microcosm tour <project>",
+        "microcosm status --card <project>",
+        "front_door.route_explanation",
+        "microcosm workingness",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "Receipts are evidence drilldowns after the behavior route is visible",
         "evidence_class",
         "`accepted_current_authority` is not an evidence-strength claim",
         "std_python_microcosm_navigation_assay",
@@ -414,6 +424,194 @@ def _bullet_code_list_between(text: str, start_heading: str, end_heading: str) -
         if stripped.startswith("- `") and stripped.endswith("`"):
             rows.append(stripped[3:-1])
     return rows
+
+
+def _string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [item for item in value if isinstance(item, str)]
+
+
+def _entry_packet_route_contract(
+    public_root: Path,
+    doc_text_by_rel: dict[str, str],
+) -> dict[str, Any]:
+    path = public_root / "atlas/entry_packet.json"
+    required_commands = [
+        "microcosm tour <project>",
+        "microcosm compile <project>",
+        "microcosm python-lens <project>",
+        "microcosm explain <project> <selected_route_id>",
+        "microcosm evidence list <project>",
+        "microcosm status --card <project>",
+        "microcosm workingness",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765",
+    ]
+    required_state_refs = [
+        ".microcosm/catalog.json",
+        ".microcosm/routes.json",
+        ".microcosm/work_items.json",
+        ".microcosm/events.jsonl",
+        ".microcosm/evidence/",
+        ".microcosm/graph.json",
+        ".microcosm/python_lens.json",
+    ]
+    required_observatory_endpoints = [
+        "/",
+        "/status",
+        "/tour",
+        "/workingness",
+        "/proof-lab",
+        "/project/python-lens",
+        "/project/explain/<selected_route_id>",
+    ]
+    required_drilldown_routes = [
+        "tour_front_door_status_route",
+        "status_and_workingness_route",
+        "python_navigation_route",
+        "route_explanation_chain_route",
+        "proof_lab_route",
+    ]
+    required_allowed_refs = [
+        "atlas/entry_packet.json::local_first_screen_route",
+        "atlas/entry_packet.json::cold_clone_probe_route",
+        "microcosm status --card <project>::front_door.route_explanation",
+        "/workingness",
+    ]
+    if not path.is_file():
+        return {
+            "status": "missing",
+            "source_ref": "atlas/entry_packet.json",
+            "blocking_reasons": ["missing_entry_packet"],
+            "authority": (
+                "entry-packet route parity only; not source, release, provider, "
+                "proof, or mutation authority"
+            ),
+        }
+    try:
+        payload = read_json_strict(path)
+    except Exception as exc:
+        return {
+            "status": "blocked",
+            "source_ref": "atlas/entry_packet.json",
+            "blocking_reasons": ["invalid_entry_packet_json"],
+            "parse_error": type(exc).__name__,
+            "authority": (
+                "entry-packet route parity only; not source, release, provider, "
+                "proof, or mutation authority"
+            ),
+        }
+    if not isinstance(payload, dict):
+        payload = {}
+    route = payload.get("local_first_screen_route")
+    route = route if isinstance(route, dict) else {}
+    safe_to_show = route.get("safe_to_show")
+    safe_to_show = safe_to_show if isinstance(safe_to_show, dict) else {}
+    command_path = _string_list(route.get("command_path"))
+    state_refs = _string_list(route.get("state_refs"))
+    observatory_endpoints = _string_list(route.get("observatory_endpoints"))
+    drilldown_routes = _string_list(route.get("drilldown_routes"))
+    allowed_drilldowns = _string_list(payload.get("allowed_drilldowns"))
+    missing_commands = [
+        command for command in required_commands if command not in command_path
+    ]
+    missing_state_refs = [ref for ref in required_state_refs if ref not in state_refs]
+    missing_endpoints = [
+        endpoint
+        for endpoint in required_observatory_endpoints
+        if endpoint not in observatory_endpoints
+    ]
+    missing_drilldown_routes = [
+        route_id for route_id in required_drilldown_routes if route_id not in drilldown_routes
+    ]
+    missing_allowed_drilldowns = [
+        ref
+        for ref in (
+            required_allowed_refs
+            + required_commands
+            + required_state_refs
+            + required_observatory_endpoints
+        )
+        if ref not in allowed_drilldowns
+    ]
+    first_command = str(payload.get("first_command") or "")
+    primary_command = str(route.get("primary_first_screen_command") or "")
+    command_mismatch = []
+    if first_command != "microcosm tour <project>":
+        command_mismatch.append("first_command")
+    if primary_command != first_command:
+        command_mismatch.append("primary_first_screen_command")
+    route_selection_rule = str(route.get("route_selection_rule") or "")
+    missing_route_selection_rule = (
+        "readme_onboarding_route is a generated route only" not in route_selection_rule
+    )
+    unsafe_flags = [
+        key
+        for key in [
+            "source_files_mutated",
+            "provider_calls_authorized",
+            "release_authorized",
+            "proof_correctness_claim",
+        ]
+        if safe_to_show.get(key) is not False
+    ]
+    cold_start_text = _normalized_text(
+        doc_text_by_rel.get("skills/cold_start_navigation.md", "")
+    )
+    cold_start_missing = [
+        phrase
+        for phrase in (
+            required_commands
+            + [
+                "atlas/entry_packet.json::local_first_screen_route",
+                "atlas/entry_packet.json::cold_clone_probe_route",
+                "atlas/entry_packet.json::status_and_workingness_route",
+                "atlas/entry_packet.json::proof_lab_route",
+                "Receipts are evidence drilldowns after the behavior route is visible",
+            ]
+        )
+        if phrase not in cold_start_text
+    ]
+    blocking_reasons: list[str] = []
+    if missing_commands:
+        blocking_reasons.append("missing_local_first_screen_commands")
+    if missing_state_refs:
+        blocking_reasons.append("missing_state_refs")
+    if missing_endpoints:
+        blocking_reasons.append("missing_observatory_endpoints")
+    if missing_drilldown_routes:
+        blocking_reasons.append("missing_drilldown_routes")
+    if missing_allowed_drilldowns:
+        blocking_reasons.append("missing_allowed_drilldowns")
+    if command_mismatch:
+        blocking_reasons.append("first_command_mismatch")
+    if missing_route_selection_rule:
+        blocking_reasons.append("missing_route_selection_rule")
+    if unsafe_flags:
+        blocking_reasons.append("unsafe_safe_to_show_flags")
+    if cold_start_missing:
+        blocking_reasons.append("cold_start_route_contract_missing")
+    return {
+        "status": PASS if not blocking_reasons else "blocked",
+        "source_ref": "atlas/entry_packet.json",
+        "first_command": first_command,
+        "primary_first_screen_command": primary_command,
+        "missing_local_first_screen_commands": missing_commands,
+        "missing_state_refs": missing_state_refs,
+        "missing_observatory_endpoints": missing_endpoints,
+        "missing_drilldown_routes": missing_drilldown_routes,
+        "missing_allowed_drilldowns": missing_allowed_drilldowns,
+        "command_mismatch": command_mismatch,
+        "missing_route_selection_rule": missing_route_selection_rule,
+        "unsafe_safe_to_show_flags": unsafe_flags,
+        "cold_start_missing_phrases": cold_start_missing,
+        "blocking_reasons": blocking_reasons,
+        "authority": (
+            "entry-packet route parity only; not source, release, provider, "
+            "proof, or mutation authority"
+        ),
+    }
 
 
 def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[str, Any]:
@@ -515,6 +713,7 @@ def validate_public_entry_docs(
     missing_required_phrases_by_doc: dict[str, list[str]] = {}
     forbidden_phrases_by_doc: dict[str, list[str]] = {}
     stale_first_slice_only_phrases: list[str] = []
+    doc_text_by_rel: dict[str, str] = {}
     doc_paths: list[Path] = []
     for rel in REQUIRED_DOCS:
         path = public_root / rel
@@ -523,6 +722,7 @@ def validate_public_entry_docs(
             missing_docs.append(rel)
             continue
         text = path.read_text(encoding="utf-8")
+        doc_text_by_rel[rel] = text
         normalized = _normalized_text(text)
         missing_phrases = [
             phrase
@@ -543,6 +743,10 @@ def validate_public_entry_docs(
 
     accepted = _accepted_organs(public_root)
     entry_spine_claims = _entry_spine_claims(public_root, accepted)
+    entry_packet_route_contract = _entry_packet_route_contract(
+        public_root,
+        doc_text_by_rel,
+    )
     missing_accepted_organs = [
         organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in accepted
     ]
@@ -573,6 +777,8 @@ def validate_public_entry_docs(
         blocking_codes.append("EVIDENCE_CLASS_REGISTRY_MISMATCH")
     if entry_spine_claims["status"] != PASS:
         blocking_codes.append("PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH")
+    if entry_packet_route_contract["status"] != PASS:
+        blocking_codes.append("ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH")
     if scan["blocking_hit_count"]:
         blocking_codes.append("SECRET_EXCLUSION_SCAN_BLOCKED")
 
@@ -591,6 +797,7 @@ def validate_public_entry_docs(
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
         "entry_spine_claims": entry_spine_claims,
+        "entry_packet_route_contract": entry_packet_route_contract,
         "evidence_class_registry": evidence_class_registry,
         "missing_accepted_organs": missing_accepted_organs,
         "unexpected_accepted_organs": unexpected_accepted_organs,
