@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import tempfile
 from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.pattern_binding_contract import validate as validate_pattern_binding
 from microcosm_core.receipts import base_receipt, write_receipt
-from microcosm_core.validators.private_state_scan import validate_scan
+from microcosm_core.validators.secret_exclusion_scan import validate_scan as validate_secret_exclusion_scan
 
 
 REQUIRED_INPUTS = [
@@ -39,7 +40,7 @@ def run_probe(root: str | Path, suite: str = "first-wave") -> dict[str, Any]:
         )
         return receipt
     try:
-        scan_receipt = validate_scan(root_path)
+        scan_receipt = validate_secret_exclusion_scan(root_path)
     except Exception as exc:
         receipt.update(
             {
@@ -50,20 +51,26 @@ def run_probe(root: str | Path, suite: str = "first-wave") -> dict[str, Any]:
         )
         return receipt
     if scan_receipt["status"] != "pass":
+        secret_scan = scan_receipt.get("secret_exclusion_scan", {"status": scan_receipt["status"]})
         receipt.update(
             {
-                "status": "blocked_private_state",
-                "blocked_dependency_codes": ["PRIVATE_STATE_SCAN_BLOCKED"],
-                "private_state_scan": scan_receipt["private_state_scan"],
+                "status": "blocked_secret_exclusion",
+                "blocked_dependency_codes": ["SECRET_EXCLUSION_SCAN_BLOCKED"],
+                "secret_exclusion_scan": secret_scan,
+                "private_state_scan": {
+                    "compatibility_alias_for": "secret_exclusion_scan",
+                    **secret_scan,
+                },
             }
         )
         return receipt
 
-    pattern_result = validate_pattern_binding(
-        root_path / "fixtures/first_wave/pattern_binding_contract/input",
-        root_path / "receipts/first_wave/pattern_binding_contract",
-        command="bootstrap pattern_binding_contract validate",
-    )
+    with tempfile.TemporaryDirectory(prefix="microcosm-cold-clone-pattern-") as tmp_dir:
+        pattern_result = validate_pattern_binding(
+            root_path / "fixtures/first_wave/pattern_binding_contract/input",
+            Path(tmp_dir) / "pattern_binding_contract",
+            command="bootstrap pattern_binding_contract validate",
+        )
     missing_receipts = [path for path in PATTERN_RECEIPTS if not (root_path / path).is_file()]
     if pattern_result["status"] != "pass" or missing_receipts:
         receipt.update(
@@ -79,7 +86,11 @@ def run_probe(root: str | Path, suite: str = "first-wave") -> dict[str, Any]:
     receipt.update(
         {
             "status": "pass",
-            "private_state_scan": scan_receipt["private_state_scan"],
+            "secret_exclusion_scan": scan_receipt["secret_exclusion_scan"],
+            "private_state_scan": {
+                "compatibility_alias_for": "secret_exclusion_scan",
+                **scan_receipt["secret_exclusion_scan"],
+            },
             "first_wave_receipts_observed": PATTERN_RECEIPTS,
             "receipt_paths": ["receipts/cold_clone_probe.json", *PATTERN_RECEIPTS],
         }
