@@ -8,7 +8,16 @@
     "core/standards_registry.json",
     "core/organ_registry.json",
     "core/acceptance/first_wave_acceptance.json",
-    "core/preflight_support/organ_fixture_validator_readiness_v1.json"
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "src/microcosm_core/organs/standards_meta_diagnostics.py",
+    "tests/test_standards_meta_diagnostics.py",
+    "fixtures/first_wave/standards_meta_diagnostics/input",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+    "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
+    "paper_modules/standards_meta_diagnostics.md"
   ],
   "relationships": {
     "used_by_organs": [
@@ -84,6 +93,35 @@
     "private_data_equivalence_claim": false,
     "whole_system_correctness_claim": false,
     "release_authorized": false
+  },
+  "standard_payload": {
+    "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, and secret-exclusion results.",
+    "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness.",
+    "anti_purpose": "A standards coverage board that points at registry rows and acceptance receipts while missing runtime contracts, negative-case rejection, public/private boundaries, or source-open validator evidence.",
+    "compression_bands": [
+      "accepted_organ",
+      "standard_mapping",
+      "runtime_contract",
+      "receipt_ref",
+      "diagnostic_policy",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "accepted organ admitted without a standards inventory row",
+      "accepted organ inventory row lacks standard_id, standard_ref, or registry_row_ref",
+      "accepted organ inventory row lacks current receipt refs",
+      "accepted organ lacks a runtime contract with CLI command and runtime step",
+      "standards coverage projection treated as standards registry authority",
+      "release, publication, provider-call, private-data equivalence, trading or financial advice, or whole-system correctness overclaim accepted",
+      "private source body, raw seed body, provider payload body, secret value, account/session state, browser/HUD live access, or credential-equivalent material exported through public diagnostics",
+      "secret-exclusion scan omitted or body material embedded in diagnostics receipts",
+      "synthetic receipt stand-in accepted instead of real runtime receipt refs",
+      "diagnostics bundle accepted without fixture, paper-module, standards inventory, runtime contract, and acceptance-receipt source refs",
+      "coverage map pass claimed as release readiness, product maturity, source mutation authorization, or whole-system correctness",
+      "receipt duplicates macro body text instead of carrying public refs, hashes, verdicts, and omission boundaries"
+    ]
   },
   "anti_claim": "Standards meta diagnostics summarizes public standards, organ, runtime, and receipt coverage only; it does not become registry authority, expose private sources, authorize release, or prove whole-system correctness."
 }
