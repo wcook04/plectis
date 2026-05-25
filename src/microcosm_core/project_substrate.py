@@ -87,7 +87,7 @@ def _project_python_lens_payload_boundary(command: str) -> dict[str, Any]:
         boundary_id=PROJECT_PYTHON_LENS_BOUNDARY_ID,
         command=command,
         surface_ref=f"{STATE_DIR}/{PYTHON_LENS_STATE}",
-        legacy_schema_compat_present=False,
+        input_payload_schema_normalized=False,
     )
 
 

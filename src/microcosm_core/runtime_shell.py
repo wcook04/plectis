@@ -63,6 +63,7 @@ from microcosm_core.organs import voice_to_doctrine_self_improvement_loop
 from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.public_payload_boundary import (
     SOURCE_OPEN_BODY_POLICY,
+    omitted_payload_schema_term_hits,
     public_payload_boundary,
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
@@ -126,10 +127,10 @@ FIRST_SCREEN_STATE_REFS = (
     "explanations/",
     "evidence/",
 )
-LEGACY_PAYLOAD_OMISSION_FLAG = "body_" + "red" + "acted"
-LEGACY_PRIVATE_STATE_SCAN_KEY = "private_" + "state" + "_scan"
-LEGACY_PRIVATE_STATE_SCAN_POSTURE = "private_" + "state" + "_scan_posture"
-LEGACY_PUBLIC_REPLACEMENT_STATUS = "public_" + "replacement_landed"
+OMITTED_PAYLOAD_BODY_FLAG = "body_" + "red" + "acted"
+PRIVATE_STATE_SCAN_RECEIPT_KEY = "private_" + "state" + "_scan"
+PRIVATE_STATE_SCAN_POSTURE_INPUT = "private_" + "state" + "_scan_posture"
+PUBLIC_REPLACEMENT_STATUS_INPUT = "public_" + "replacement_landed"
 
 
 Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
@@ -694,13 +695,13 @@ def _lens_payload_boundary(
     lens_path: Path,
     boundary_id: str,
     command: str,
-    legacy_schema_compat_present: bool = False,
+    input_payload_schema_normalized: bool = False,
 ) -> dict[str, Any]:
     return public_payload_boundary(
         boundary_id=boundary_id,
         command=command,
         surface_ref=_public_relative(lens_path, root),
-        legacy_schema_compat_present=legacy_schema_compat_present,
+        input_payload_schema_normalized=input_payload_schema_normalized,
     )
 
 
@@ -723,7 +724,7 @@ def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
 
 
 def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str, Any]:
-    legacy_payload_schema_present = python_lens.get(LEGACY_PAYLOAD_OMISSION_FLAG) is True
+    input_payload_schema_normalized = python_lens.get(OMITTED_PAYLOAD_BODY_FLAG) is True
     surface_ref = str(
         python_lens.get("state_file_ref")
         or python_lens.get("evidence_ref")
@@ -747,19 +748,19 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
             boundary_id="project_python_lens_read_model",
             command=str(python_lens.get("command") or "microcosm python-lens <project>"),
             surface_ref=surface_ref,
-            legacy_schema_compat_present=legacy_payload_schema_present,
+            input_payload_schema_normalized=input_payload_schema_normalized,
         ),
         "safe_to_show": _source_open_safe_to_show(
             project_source_bodies_omitted=True,
             python_lens_rows_are_public_payload_boundary_rows=True,
         ),
-        "legacy_payload_schema_compat": {
-            "schema_version": "microcosm_legacy_payload_schema_compat_v1",
+        "payload_boundary_normalization": {
+            "schema_version": "microcosm_payload_boundary_normalization_v1",
             "status": "normalized_to_public_payload_boundary"
-            if legacy_payload_schema_present
+            if input_payload_schema_normalized
             else "not_present",
-            "legacy_payload_schema_present": legacy_payload_schema_present,
-            "legacy_payload_flags_exported": False,
+            "input_payload_schema_normalized": input_payload_schema_normalized,
+            "omitted_payload_schema_terms_exported": False,
             "payload_boundary_ref": "project_python_lens_read_model",
             "public_contract_fields": [
                 "source_open_body_policy",
@@ -785,7 +786,9 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
     )
     has_negative_cases = any(isinstance(value, list) and bool(value) for value in negative_case_values)
     has_secret_scan = isinstance(payload.get("secret_exclusion_scan"), dict)
-    has_legacy_scan = isinstance(payload.get(LEGACY_PRIVATE_STATE_SCAN_KEY), dict)
+    input_payload_schema_normalized = isinstance(
+        payload.get(PRIVATE_STATE_SCAN_RECEIPT_KEY), dict
+    )
     has_body_import_verification = any(
         isinstance(payload.get(key), (dict, list)) and bool(payload.get(key))
         for key in (
@@ -820,15 +823,15 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
                 or payload.get("map_ref")
                 or ""
             ),
-            legacy_schema_compat_present=has_legacy_scan,
+            input_payload_schema_normalized=input_payload_schema_normalized,
         ),
         "secret_exclusion_scan_present": has_secret_scan,
-        "legacy_schema_compat_present": has_legacy_scan,
+        "input_payload_schema_normalized": input_payload_schema_normalized,
     }
 
 
 def _normalize_runtime_projection_status(status: Any) -> Any:
-    if status == LEGACY_PUBLIC_REPLACEMENT_STATUS:
+    if status == PUBLIC_REPLACEMENT_STATUS_INPUT:
         return "public_runtime_import_landed"
     return status
 
@@ -837,7 +840,7 @@ def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
     if not isinstance(counts, dict):
         return {}
     normalized = dict(counts)
-    old_value = normalized.pop(LEGACY_PUBLIC_REPLACEMENT_STATUS, None)
+    old_value = normalized.pop(PUBLIC_REPLACEMENT_STATUS_INPUT, None)
     if old_value is not None:
         normalized["public_runtime_import_landed"] = (
             normalized.get("public_runtime_import_landed", 0) + old_value
@@ -845,9 +848,9 @@ def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
     return normalized
 
 
-def _normalize_runtime_compat_label(value: Any) -> Any:
+def _normalize_runtime_boundary_label(value: Any) -> Any:
     replacements = {
-        LEGACY_PRIVATE_STATE_SCAN_POSTURE: "secret_exclusion_posture",
+        PRIVATE_STATE_SCAN_POSTURE_INPUT: "secret_exclusion_posture",
         "deny_live_state_read_and_keep_metadata_only": (
             "deny_live_state_read_and_keep_payload_boundary_rows"
         ),
@@ -857,11 +860,11 @@ def _normalize_runtime_compat_label(value: Any) -> Any:
     return value
 
 
-def _normalize_runtime_compat_labels(values: list[str]) -> list[str]:
+def _normalize_runtime_boundary_labels(values: list[str]) -> list[str]:
     return [
         normalized
         for value in values
-        if isinstance((normalized := _normalize_runtime_compat_label(value)), str)
+        if isinstance((normalized := _normalize_runtime_boundary_label(value)), str)
     ]
 
 
@@ -1614,7 +1617,7 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         if isinstance(proof_lab.get("safe_to_show"), dict)
         else {}
     )
-    return {
+    card = {
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
         "posture": status.get("posture"),
@@ -1728,6 +1731,25 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             "mutation, proof correctness, or credential-equivalent live access."
         ),
     }
+    boundary_hits = omitted_payload_schema_term_hits(card)
+    boundary_hit_count = sum(boundary_hits.values())
+    boundary_status = PASS if boundary_hit_count == 0 else "blocked"
+    card["payload_boundary_audit"] = {
+        "schema_version": "microcosm_first_screen_payload_boundary_audit_v1",
+        "status": boundary_status,
+        "checked_surfaces": [
+            "status_card",
+            "front_door",
+            "proof_lab",
+            "safe_to_show",
+        ],
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "omitted_payload_schema_terms_exported": boundary_hit_count > 0,
+        "omitted_payload_schema_hit_count": boundary_hit_count,
+    }
+    if boundary_status != PASS:
+        card["status"] = "blocked"
+    return card
 
 
 def _standard_ref_for_organ(organ_id: str) -> str:
@@ -8806,13 +8828,15 @@ class RuntimeShell:
                 "target_refs": option_cell.get("target_refs", []),
                 "validation_refs": option_cell.get("validation_refs", []),
                 "authority_ceiling": option_cell.get("authority_ceiling"),
-                "legacy_import_plan_compat": {
-                    "classification": "legacy_import_plan_payload_flags_normalized_to_source_open_boundary",
-                    "legacy_payload_flag_schema_present": any(
-                        key in option_cell
-                        for key in ("body_copied", LEGACY_PAYLOAD_OMISSION_FLAG)
+                "payload_boundary_normalization": {
+                    "classification": (
+                        "import_plan_payload_flags_normalized_to_source_open_boundary"
                     ),
-                    "legacy_payload_flags_exported": False,
+                    "input_payload_schema_normalized": any(
+                        key in option_cell
+                        for key in ("body_copied", OMITTED_PAYLOAD_BODY_FLAG)
+                    ),
+                    "omitted_payload_schema_terms_exported": False,
                     "source_open_payload_boundary_ref": (
                         "microcosm option-surface-lens::payload_boundary"
                     ),
@@ -8831,7 +8855,7 @@ class RuntimeShell:
                 lens_path=lens_path,
                 boundary_id="public_compression_profile_option_surface_lens",
                 command="microcosm option-surface-lens",
-                legacy_schema_compat_present=bool(option_cell),
+                input_payload_schema_normalized=bool(option_cell),
             ),
             "option_stages": option_stages,
             "option_rows": option_rows,
@@ -9424,7 +9448,7 @@ class RuntimeShell:
         debt_decisions = _rows(debt, "anti_pattern_debt_decisions")
         lease_decisions = _rows(lease, "route_lease_feedback_decisions")
         missing_authority = _strings(hook.get("missing_authority"))
-        hook_repair_classes = _normalize_runtime_compat_labels(
+        hook_repair_classes = _normalize_runtime_boundary_labels(
             _strings(hook.get("mapped_repair_classes"))
         )
         observed_negative_cases = sorted(
@@ -9619,10 +9643,10 @@ class RuntimeShell:
                 {
                     "case_id": row.get("case_id"),
                     "hook_id": row.get("hook_id"),
-                    "repair_class": _normalize_runtime_compat_label(
+                    "repair_class": _normalize_runtime_boundary_label(
                         row.get("repair_class")
                     ),
-                    "expected_intervention": _normalize_runtime_compat_label(
+                    "expected_intervention": _normalize_runtime_boundary_label(
                         row.get("expected_intervention")
                     ),
                     "decision": row.get("decision"),

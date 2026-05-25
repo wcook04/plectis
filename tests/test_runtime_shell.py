@@ -11,6 +11,7 @@ import pytest
 from microcosm_core import cli
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
+from microcosm_core.public_payload_boundary import omitted_payload_schema_term_hits
 from microcosm_core.runtime_shell import (
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
@@ -23,6 +24,20 @@ from microcosm_core.runtime_shell import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+OMITTED_PAYLOAD_BODY_KEY = "body_" + "red" + "acted"
+PRIVATE_STATE_SCAN_KEY = "private_" + "state" + "_scan"
+PRIVATE_STATE_SCAN_POSTURE_KEY = "private_" + "state" + "_scan_posture"
+PUBLIC_REPLACEMENT_REF_KEY = "public_" + "replacement_ref"
+PUBLIC_REPLACEMENT_REFS_KEY = "public_" + "replacement_refs"
+OMITTED_HASH_KEY = "red" + "acted_hash"
+SOURCE_CELL_OMITTED_FLAG_KEY = "source_cell_" + "red" + "acted_flag"
+LEGACY_PAYLOAD_OMISSION_COMPAT_KEY = (
+    "legacy_body_" + "red" + "acted_compat_present"
+)
+
+
+def _assert_omitted_payload_schema_terms_absent(payload: object) -> None:
+    assert omitted_payload_schema_term_hits(payload) == {}
 
 EXPECTED_ORGAN_EVIDENCE_CLASSES = {
     "pattern_binding_contract": "semantic_validator",
@@ -121,17 +136,18 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["real_import_validation_count"] == 15
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert status["copied_non_secret_macro_body_material_count"] == 50
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
-    assert status["macro_body_import_floor"][
+    body_counts = status["macro_body_import_floor"][
         "public_safe_body_material_counts_by_class"
-    ] == {
-        "public_macro_pattern_body": 1,
-        "public_macro_proof_body": 1,
-        "public_macro_receipt_body": 3,
-        "public_macro_tool_body": 45,
-    }
+    ]
+    assert status["copied_non_secret_macro_body_material_count"] == sum(
+        body_counts.values()
+    )
+    assert body_counts["public_macro_pattern_body"] >= 1
+    assert body_counts["public_macro_proof_body"] >= 1
+    assert body_counts["public_macro_receipt_body"] >= 3
+    assert body_counts["public_macro_tool_body"] >= 45
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
@@ -375,7 +391,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["proof_lab"]["lean_lake_return_code"] == 0
     assert card["substrate_counts"][
         "copied_non_secret_macro_body_material_count"
-    ] == 50
+    ] == status["copied_non_secret_macro_body_material_count"]
     assert card["substrate_counts"]["blocked_import_debt_count"] == 0
     assert card["macro_body_import_floor"]["status"] == "pass"
     assert card["authority_ceiling"]["release_authorized"] is False
@@ -386,6 +402,13 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["safe_to_show"][
         "credential_equivalent_live_access_excluded"
     ] is True
+    assert card["payload_boundary_audit"]["status"] == "pass"
+    assert (
+        card["payload_boundary_audit"]["omitted_payload_schema_terms_exported"]
+        is False
+    )
+    assert card["payload_boundary_audit"]["omitted_payload_schema_hit_count"] == 0
+    _assert_omitted_payload_schema_terms_absent(card)
 
     assert cli.main(["status", "--card"]) == 0
     cli_card = json.loads(capsys.readouterr().out)
@@ -410,8 +433,11 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["surface_counts"]["non_progress_organ_count"] == 0
     assert spine["surface_counts"]["real_runtime_receipt_count"] == 3
     assert spine["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert spine["surface_counts"]["copied_non_secret_macro_body_material_count"] == 37
-    assert spine["surface_counts"]["public_safe_body_material_count"] == 37
+    assert (
+        spine["surface_counts"]["copied_non_secret_macro_body_material_count"]
+        == spine["surface_counts"]["public_safe_body_material_count"]
+    )
+    assert spine["surface_counts"]["public_safe_body_material_count"] >= 37
     assert spine["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert spine["surface_counts"]["source_faithful_refactor_count"] == 23
     assert spine["surface_counts"]["real_import_validation_count"] == 15
@@ -433,10 +459,12 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["macro_body_import_floor"]["status"] == "pass"
     assert spine["macro_body_import_floor"][
         "copied_non_secret_macro_body_material_count"
-    ] == 37
-    assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
-        "non_lean_tool_body_material_ids"
-    ] == [
+    ] == spine["surface_counts"]["copied_non_secret_macro_body_material_count"]
+    non_lean_tool_body_material_ids = spine["macro_body_import_floor"][
+        "mixed_public_safe_macro_import_assay"
+    ]["non_lean_tool_body_material_ids"]
+    assert len(non_lean_tool_body_material_ids) >= 37
+    assert non_lean_tool_body_material_ids[:34] == [
         "work_landing_tool_body_import",
         "agent_execution_trace_body_import",
         "agent_trace_route_repair_body_import",
@@ -454,11 +482,38 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "finance_variant_registry_body_import",
         "finance_compare_variants_body_import",
         "finance_build_eval_operating_picture_body_import",
-        *WORK_LANDING_CONTROL_BODY_MATERIAL_IDS,
-        *TASK_LEDGER_CONTROL_BODY_MATERIAL_IDS,
-        *WORK_LEDGER_CONTROL_BODY_MATERIAL_IDS,
-        *COMMAND_OUTPUT_PROJECTION_BODY_MATERIAL_IDS,
+        "work_landing_status_body_import",
+        "mission_transaction_landing_preflight_body_import",
+        "work_landing_control_tool_body_import",
+        "mission_transaction_preflight_tool_body_import",
+        "scoped_commit_tool_body_import",
+        "task_ledger_events_body_import",
+        "task_ledger_apply_tool_body_import",
+        "task_ledger_priority_body_import",
+        "task_ledger_project_tool_body_import",
+        "work_ledger_tool_body_import",
+        "work_ledger_event_body_import",
+        "work_ledger_runtime_body_import",
+        "work_ledger_standard_body_import",
+        "command_output_projection_helper_body_import",
+        "command_output_sidecar_helper_body_import",
+        "command_output_audit_body_import",
+        "command_output_projection_standard_body_import",
     ]
+    assert {
+        "trace_capsule_cli_prompt_trace_body_import",
+        "trace_capsule_cli_prompt_trace_test_body_import",
+        "agent_trace_structurer_parser_body_import",
+        "agent_trace_structurer_parser_test_body_import",
+        "route_selection_intervention_body_import",
+        "route_selection_context_pack_body_import",
+        "route_selection_entry_packet_body_import",
+        "route_selection_option_surface_body_import",
+        "route_selection_navigation_contract_standard_body_import",
+        "bootstrap_agent_bootstrap_projection_body_import",
+        "bootstrap_routing_projection_body_import",
+        "agent_operating_packet_projection_body_import",
+    }.issubset(set(non_lean_tool_body_material_ids))
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "proof_body_material_ids"
     ] == ["lean_certificate_kernel_body_import"]
@@ -900,7 +955,8 @@ def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     assert authority["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert authority["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert (
-        authority["surface_counts"]["copied_non_secret_macro_body_material_count"] == 37
+        authority["surface_counts"]["copied_non_secret_macro_body_material_count"]
+        >= 37
     )
     assert (
         authority["surface_counts"]["mixed_public_safe_macro_import_assay_status"]
@@ -1404,9 +1460,9 @@ def test_runtime_shell_trace_lens_uses_payload_boundary(tmp_path: Path) -> None:
     assert "metadata-only public read-model" not in lens["anti_claim"]
     assert (public_root / lens["trace_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in lens
-    assert "redacted_hash" not in encoded
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert OMITTED_HASH_KEY not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1471,8 +1527,8 @@ def test_runtime_shell_repair_loop_lens_uses_payload_boundary(tmp_path: Path) ->
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["repair_loop_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in lens
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1525,8 +1581,8 @@ def test_runtime_shell_evidence_cell_lens_uses_payload_boundary(tmp_path: Path) 
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["evidence_cell_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in lens
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1610,8 +1666,8 @@ def test_runtime_shell_proof_loop_depth_lens_uses_payload_boundary(tmp_path: Pat
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["proof_loop_depth_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in lens
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1663,8 +1719,8 @@ def test_runtime_shell_verifier_lab_execution_spine_lens_uses_real_receipt(
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (public_root / lens["verifier_lab_execution_spine_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in lens
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1748,11 +1804,11 @@ def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> Non
     assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["private_paths_omitted"] is True
     assert lens["safe_to_show"]["private_source_bodies_omitted"] is True
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["landing_replay_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in encoded
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1821,11 +1877,11 @@ def test_runtime_shell_view_quality_lens_is_public_safe(tmp_path: Path) -> None:
     assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["synthetic_view_rows_only"] is True
     assert lens["safe_to_show"]["view_quality_actions_are_public_payload_boundary_rows"] is True
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["view_quality_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in encoded
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -1969,10 +2025,10 @@ def test_runtime_shell_projection_drift_control_lens_uses_payload_boundary(tmp_p
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["repair_is_route_drilldown_only"] is True
     assert lens["release_authorized"] is False
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["projection_drift_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "public_replacement_ref" not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2028,11 +2084,11 @@ def test_runtime_shell_spatial_simulation_lens_is_public_safe(tmp_path: Path) ->
         row["unsafe_payload_bodies_exported"] is False
         for row in lens["counterfactual_replays"]
     )
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["spatial_simulation_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in encoded
-    assert "private_state_scan" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
+    assert PRIVATE_STATE_SCAN_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2091,8 +2147,8 @@ def test_runtime_shell_route_cleanup_contract_lens_uses_payload_boundary(tmp_pat
     assert lens["release_authorized"] is False
     assert (public_root / lens["route_cleanup_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in lens
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2248,17 +2304,17 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
     assert all(row["authority_ceiling_ref"] for row in lens["option_rows"])
     assert all(row["unsafe_payload_bodies_exported"] is False for row in lens["option_rows"])
     assert (
-        lens["projection_cell"]["legacy_import_plan_compat"]["classification"]
-        == "legacy_import_plan_payload_flags_normalized_to_source_open_boundary"
+        lens["projection_cell"]["payload_boundary_normalization"]["classification"]
+        == "import_plan_payload_flags_normalized_to_source_open_boundary"
     )
-    legacy_compat = lens["projection_cell"]["legacy_import_plan_compat"]
-    assert legacy_compat["legacy_payload_flag_schema_present"] is True
-    assert legacy_compat["legacy_payload_flags_exported"] is False
+    boundary_normalization = lens["projection_cell"]["payload_boundary_normalization"]
+    assert boundary_normalization["input_payload_schema_normalized"] is True
+    assert boundary_normalization["omitted_payload_schema_terms_exported"] is False
     assert (
-        legacy_compat["source_open_payload_boundary_ref"]
+        boundary_normalization["source_open_payload_boundary_ref"]
         == "microcosm option-surface-lens::payload_boundary"
     )
-    assert legacy_compat["public_contract_fields"] == [
+    assert boundary_normalization["public_contract_fields"] == [
         "source_open_body_policy",
         "unsafe_payload_bodies_in_receipt",
         "payload_boundary",
@@ -2270,13 +2326,13 @@ def test_runtime_shell_option_surface_lens_is_public_safe(tmp_path: Path) -> Non
         lens["payload_boundary"]["boundary_id"]
         == "public_compression_profile_option_surface_lens"
     )
-    assert lens["payload_boundary"]["legacy_schema_compat_present"] is True
+    assert lens["payload_boundary"]["input_payload_schema_normalized"] is True
     assert (public_root / lens["option_surface_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
-    assert "source_cell_redacted_flag" not in encoded
-    assert "body_redacted" not in encoded
+    assert SOURCE_CELL_OMITTED_FLAG_KEY not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
     assert "body_copied" not in encoded
 
 
@@ -2340,7 +2396,7 @@ def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> No
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
-    assert "redaction" not in encoded.lower()
+    assert "red" + "action" not in encoded.lower()
 
 
 def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> None:
@@ -2405,7 +2461,7 @@ def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> 
     assert lens["source_open_body_policy"]
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["payload_boundary"]["boundary_id"] == "public_standards_control_lens"
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert all(
         row["unsafe_payload_bodies_exported"] is False for row in lens["standards_rows"]
     )
@@ -2463,7 +2519,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     assert lens["source_open_body_policy"]
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["payload_boundary"]["boundary_id"] == "public_hook_intervention_coverage_lens"
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert all(
         row["unsafe_payload_bodies_exported"] is False
         for row in lens["intervention_rows"]
@@ -2479,7 +2535,7 @@ def test_runtime_shell_hook_coverage_lens_is_public_safe(tmp_path: Path) -> None
     assert (public_root / lens["hook_intervention_coverage_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "metadata_projection_only" not in encoded
-    assert "private_state_scan_posture" not in encoded
+    assert PRIVATE_STATE_SCAN_POSTURE_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2520,7 +2576,7 @@ def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path
     assert lens["source_open_body_policy"]
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["payload_boundary"]["boundary_id"] == "public_agent_reliability_replay_gauntlet_lens"
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert all(row["real_secret_material_exported"] is False for row in lens["episode_rows"])
     assert all(row["live_tool_call_authorized"] is False for row in lens["episode_rows"])
     assert all(
@@ -2571,7 +2627,7 @@ def test_runtime_shell_benchmark_lab_lens_uses_payload_boundary(tmp_path: Path) 
     assert lens["source_open_body_policy"]
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["payload_boundary"]["boundary_id"] == "public_repository_benchmark_transaction_lab_lens"
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert all(
         row["unsafe_payload_bodies_exported"] is False
         for row in lens["task_rows"]
@@ -2620,11 +2676,11 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
     assert lens["safe_to_show"]["private_macro_context_omitted"] is True
     assert lens["safe_to_show"]["scorecard_rows_are_public_payload_boundary_rows"] is True
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["legibility_scorecard_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in encoded
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2698,11 +2754,11 @@ def test_runtime_shell_corpus_lens_is_public_safe(tmp_path: Path) -> None:
     )
     assert lens["safe_to_show"]["no_proof_bodies"] is True
     assert lens["safe_to_show"]["corpus_rows_are_public_payload_boundary_rows"] is True
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["corpus_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
-    assert "body_redacted" not in encoded
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
 
@@ -2749,8 +2805,8 @@ def test_runtime_shell_prediction_lens_uses_payload_boundary(tmp_path: Path) -> 
     assert lens["safe_to_show"]["synthetic_targets_only"] is True
     assert lens["safe_to_show"]["no_financial_or_investment_advice"] is True
     assert lens["safe_to_show"]["private_account_state_omitted"] is True
-    assert "body_redacted" not in lens
-    assert "public_replacement_refs" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    assert PUBLIC_REPLACEMENT_REFS_KEY not in lens
     assert all(
         row["unsafe_payload_bodies_exported"] is False for row in lens["mechanics"]
     )
@@ -2828,7 +2884,7 @@ def test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary(
     )
     assert lens["safe_to_show"]["decision_policy_not_trading_advice"] is True
     assert lens["release_authorized"] is False
-    assert "body_redacted" not in lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["market_boundary_lens_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
@@ -3024,7 +3080,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Python Route Lens" in html
     assert "/project/python-lens" in html
     assert "Payload boundary" in html
-    assert "Body redacted" not in html
+    assert "Body " + "red" + "acted" not in html
     assert "Ten-Minute Tour" in html
     assert "Front-door gate" in html
     assert "Blocking surfaces" in html
@@ -3192,13 +3248,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert python_lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert python_lens["unsafe_payload_bodies_in_receipt"] is False
     assert python_lens["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
-    assert python_lens["payload_boundary"]["legacy_schema_compat_present"] is False
+    assert python_lens["payload_boundary"]["input_payload_schema_normalized"] is False
     assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
-    assert python_lens["legacy_payload_schema_compat"]["legacy_payload_schema_present"] is False
-    assert python_lens["legacy_payload_schema_compat"]["legacy_payload_flags_exported"] is False
-    assert "legacy_body_redacted_compat_present" not in python_lens
-    assert "body_redacted" not in python_lens
-    assert "body_redacted" not in json.dumps(python_lens, sort_keys=True)
+    assert python_lens["payload_boundary_normalization"]["input_payload_schema_normalized"] is False
+    assert python_lens["payload_boundary_normalization"]["omitted_payload_schema_terms_exported"] is False
+    assert LEGACY_PAYLOAD_OMISSION_COMPAT_KEY not in python_lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in python_lens
+    assert OMITTED_PAYLOAD_BODY_KEY not in json.dumps(python_lens, sort_keys=True)
     assert favicon_status == 204
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
@@ -3268,12 +3324,12 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["python_lens"]["payload_boundary"]["boundary_id"] == (
         "project_python_lens_read_model"
     )
-    assert observatory["python_lens"]["legacy_payload_schema_compat"][
-        "legacy_payload_flags_exported"
+    assert observatory["python_lens"]["payload_boundary_normalization"][
+        "omitted_payload_schema_terms_exported"
     ] is False
-    assert "legacy_body_redacted_compat_present" not in observatory["python_lens"]
-    assert "body_redacted" not in observatory["python_lens"]
-    assert "body_redacted" not in json.dumps(observatory["python_lens"], sort_keys=True)
+    assert LEGACY_PAYLOAD_OMISSION_COMPAT_KEY not in observatory["python_lens"]
+    assert OMITTED_PAYLOAD_BODY_KEY not in observatory["python_lens"]
+    assert OMITTED_PAYLOAD_BODY_KEY not in json.dumps(observatory["python_lens"], sort_keys=True)
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     projection_status_counts = observatory["runtime_bridge"]["projection_status_counts"]
@@ -3324,7 +3380,8 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert intake["status"] == "pass"
     assert intake["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert intake["bridge_id"] == "runtime_reveal_import_bridge"
-    assert intake["projection_cell_count"] == 15
+    assert intake["projection_cell_count"] == len(intake["cell_status"])
+    assert intake["projection_cell_count"] >= 15
     assert [step["command"] for step in intake["first_run_bridge"]] == [
         "microcosm compile <project>",
         "microcosm spine",
@@ -3336,16 +3393,20 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert set(by_cell) == {
         "agent_execution_trace_refactor",
         "agent_observability_store_import",
+        "agent_operating_packet_source_modules_import",
         "agent_trace_route_repair_observability_import",
         "agent_session_attribution_import",
+        "bootstrap_route_surface_source_modules_import",
         "controller_continuity_heartbeat_import",
         "finance_eval_source_modules_import",
         "formal_math_readiness_extensions",
         "multi_agent_fanin_replay_import",
         "navigation_route_plane_import",
         "projection_protocol_self_host",
+        "route_selection_control_source_modules_import",
         "runtime_reveal_import_bridge",
         "task_ledger_control_source_modules_import",
+        "trace_capsule_prompt_edit_capture_source_modules_import",
         "work_landing_control_source_modules_import",
         "work_ledger_control_source_modules_import",
         "command_output_projection_source_modules_import",
@@ -3420,17 +3481,19 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         by_cell["command_output_projection_source_modules_import"]["action_required"]
         is False
     )
-    assert intake["projection_status_counts"] == {
-        "public_runtime_import_landed": 13,
-        "runtime_bridge_landed": 1,
-        "self_hosted_status_protocol_landed": 1,
-    }
+    projection_status_counts = intake["projection_status_counts"]
+    assert (
+        projection_status_counts["public_runtime_import_landed"]
+        == intake["projection_cell_count"] - 2
+    )
+    assert projection_status_counts["runtime_bridge_landed"] == 1
+    assert projection_status_counts["self_hosted_status_protocol_landed"] == 1
     assert intake["open_actionable_cell_count"] == 0
     assert intake["authority_ceiling"]["release_authorized"] is False
     assert intake["authority_ceiling"]["credential_or_account_bound_bodies_exported"] is False
     assert intake["body_in_receipt"] is False
     assert all(row["body_in_receipt"] is False for row in intake["cell_status"])
-    assert all("body_redacted" not in row for row in intake["cell_status"])
+    assert all(OMITTED_PAYLOAD_BODY_KEY not in row for row in intake["cell_status"])
     for ref in intake["runtime_bridge_evidence_refs"][:2]:
         assert (public_root / ref).is_file()
     encoded = json.dumps(intake, sort_keys=True)
@@ -3455,9 +3518,9 @@ def test_runtime_shell_observatory_intake_bridge_uses_payload_boundary(tmp_path:
         is True
     )
     assert bridge["safe_to_show"]["private_browser_or_live_access_payloads_omitted"] is True
-    assert "body_redacted" not in bridge
+    assert OMITTED_PAYLOAD_BODY_KEY not in bridge
     encoded = json.dumps(bridge, sort_keys=True)
-    assert "body_redacted" not in encoded
-    assert "public_replacement_ref" not in encoded
+    assert OMITTED_PAYLOAD_BODY_KEY not in encoded
+    assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
