@@ -110,6 +110,39 @@ def _print_json(payload: dict) -> int:
     return 0 if payload.get("status") == "pass" else 1
 
 
+def _public_ref(path_ref: str) -> str:
+    path = Path(path_ref)
+    try:
+        relative = path.resolve(strict=False).relative_to(MICROCOSM_ROOT)
+    except ValueError:
+        return path_ref
+    return relative.as_posix()
+
+
+def _proof_lab_command(input_path: str, out_dir: str) -> str:
+    display_input = _public_ref(input_path)
+    if display_input == _public_ref(str(DEFAULT_PROOF_LAB_INPUT)):
+        return f"microcosm proof-lab --out {out_dir}"
+    return f"microcosm proof-lab --input {display_input} --out {out_dir}"
+
+
+def _receipt_refs_for_out(result: dict, out_dir: str) -> list[str]:
+    refs: list[str] = []
+    base = str(out_dir)
+    trimmed_base = base.rstrip("/")
+    for receipt_path in result.get("receipt_paths") or []:
+        name = Path(str(receipt_path)).name
+        if not name:
+            continue
+        if trimmed_base:
+            refs.append(f"{trimmed_base}/{name}")
+        elif base.startswith("/"):
+            refs.append(f"/{name}")
+        else:
+            refs.append(name)
+    return refs
+
+
 def _proof_lab_first_screen_card(
     result: dict,
     *,
@@ -124,11 +157,11 @@ def _proof_lab_first_screen_card(
         "command": command,
         "expanded_command": (
             "microcosm verifier-lab-kernel run-kernel-bundle "
-            f"--input {input_path} --out {out_dir}"
+            f"--input {_public_ref(input_path)} --out {out_dir}"
         ),
-        "input_ref": input_path,
+        "input_ref": _public_ref(input_path),
         "out_ref": out_dir,
-        "receipt_refs": result.get("receipt_paths") or [],
+        "receipt_refs": _receipt_refs_for_out(result, out_dir),
         "proof_lab_route_id": result.get("proof_lab_route_id"),
         "proof_lab_route_component_count": result.get(
             "proof_lab_route_component_count"
@@ -659,7 +692,7 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append("--card")
         return runtime_shell.main(command_args)
     if args.command == "proof-lab":
-        command = f"microcosm proof-lab --input {args.input} --out {args.out}"
+        command = _proof_lab_command(args.input, args.out)
         result = verifier_lab_kernel.run_kernel_bundle(
             args.input,
             args.out,

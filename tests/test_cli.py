@@ -133,7 +133,13 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert status == 0
     assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
     assert payload["status"] == "pass"
-    assert payload["command"].startswith("microcosm proof-lab")
+    assert payload["command"] == f"microcosm proof-lab --out {out_dir}"
+    public_input_ref = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
+    assert payload["expanded_command"] == (
+        "microcosm verifier-lab-kernel run-kernel-bundle "
+        f"--input {public_input_ref} --out {out_dir}"
+    )
+    assert payload["input_ref"] == public_input_ref
     assert payload["proof_lab_route_id"] == "formal_prover_context_strategy_gate"
     assert payload["proof_lab_route_component_count"] == 9
     assert payload["lean_lake_return_code"] == 0
@@ -142,7 +148,9 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["safe_to_show"]["proof_bodies_exported"] is False
     assert payload["safe_to_show"]["provider_payloads_exported"] is False
     assert receipt.is_file()
-    assert str(receipt) in payload["receipt_refs"]
+    assert payload["receipt_refs"] == [str(receipt)]
+    assert str(MICROCOSM_ROOT) not in output
+    assert "/private/tmp" not in output
 
 
 def test_cli_pattern_route_readiness_accepts_exported_bundle(tmp_path: Path) -> None:
