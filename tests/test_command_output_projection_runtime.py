@@ -123,6 +123,9 @@ OPERATOR_HANDOFF_LINKAGE_MANIFEST = (
 BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
     BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
 )
+FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
+    BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -2467,6 +2470,68 @@ def test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_r
         "test_build_continuation_packet_for_pipeline_signal_includes_family_continuity"
         in continuation_test_text
     )
+
+
+def test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        FORMAL_MATH_PROOFLINE_SPINE_MANIFEST,
+        manifest_id="formal_math_proofline_spine_source_modules_import",
+        module_count=4,
+    )
+
+
+def test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract() -> None:
+    proofline_source = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/factory/build_formal_math_proofline_spine.py"
+    )
+    repair_lane_source = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/factory/build_formal_math_proof_repair_lane.py"
+    )
+    proofline_test = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_formal_math_proofline_spine.py"
+    )
+    repair_lane_test = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_formal_math_proof_repair_lane.py"
+    )
+
+    proofline_text = proofline_source.read_text(encoding="utf-8")
+    repair_lane_text = repair_lane_source.read_text(encoding="utf-8")
+    proofline_test_text = proofline_test.read_text(encoding="utf-8")
+    repair_lane_test_text = repair_lane_test.read_text(encoding="utf-8")
+
+    for source_path, text in [
+        (proofline_source, proofline_text),
+        (repair_lane_source, repair_lane_text),
+        (proofline_test, proofline_test_text),
+        (repair_lane_test, repair_lane_test_text),
+    ]:
+        compile(text, str(source_path), "exec")
+
+    assert 'SCHEMA_VERSION = "formal_math_proofline_spine_v0"' in proofline_text
+    assert "FORBIDDEN_BODY_KEYS = {" in proofline_text
+    assert "def build_spine(" in proofline_text
+    assert "def validate_spine(" in proofline_text
+    assert "ground_truth_proof" in proofline_text
+    assert "provider_output" in proofline_text
+    assert (
+        'INPUT_SCHEMA_VERSION = "formal_math_proof_repair_input_packet_v0"'
+        in repair_lane_text
+    )
+    assert "FORBIDDEN_INLINE_KEYS = {" in repair_lane_text
+    assert "def build_input_packet(" in repair_lane_text
+    assert "def validate_input_packet(" in repair_lane_text
+    assert "test_proofline_spine_classifies_lineage_without_body_leakage" in (
+        proofline_test_text
+    )
+    assert "test_proofline_check_flags_forbidden_body_keys" in proofline_test_text
+    assert "test_proof_repair_lane_lands_contract_without_dispatch" in (
+        repair_lane_test_text
+    )
+    assert "test_proof_repair_lane_check_flags_body_leakage" in repair_lane_test_text
 
 
 def _load_trace_capsule_source_module():

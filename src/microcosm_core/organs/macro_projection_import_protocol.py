@@ -1306,6 +1306,43 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "formal_math_proofline_spine_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The formal-math proofline spine now carries exact copied "
+            "non-secret proofline and repair-lane source bodies plus focused "
+            "validator source inside the projection bundle. The import is "
+            "validated by digest/anchor checks and syntax compilation while "
+            "excluding private proof receipts, proof bodies, ground-truth "
+            "answers, prompt payloads, provider outputs, hidden answers, "
+            "account/session state, browser/HUD live access, release, "
+            "publication, and benchmark-correctness authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "formal_math_proofline_spine_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "factory/build_formal_math_proofline_spine.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "factory/build_formal_math_proof_repair_lane.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
 }
 
 

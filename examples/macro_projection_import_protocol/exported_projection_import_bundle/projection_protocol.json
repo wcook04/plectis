@@ -179,7 +179,12 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
     "codex/doctrine/paper_modules/bridge_runtime.md",
     "codex/standards/std_continuation_packet.json",
-    "codex/standards/std_continuity_protocol.json"
+    "codex/standards/std_continuity_protocol.json",
+    "tools/meta/factory/build_formal_math_proofline_spine.py",
+    "tools/meta/factory/build_formal_math_proof_repair_lane.py",
+    "system/server/tests/test_formal_math_proofline_spine.py",
+    "system/server/tests/test_formal_math_proof_repair_lane.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -6749,6 +6754,210 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "formal_math_proofline_spine_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "tools/meta/factory/build_formal_math_proofline_spine.py",
+      "source_refs": [
+        "tools/meta/factory/build_formal_math_proofline_spine.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proofline_spine.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public formal-math proofline source-body import only; not private formal-math receipt export, ground-truth proof export, Lean proof-body export, prompt payload export, provider output export, hidden answer export, live provider calls, benchmark correctness claims, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_formal_math_proofline_source_bodies_into_public_projection_bundle",
+        "bind_body_safe_proofline_and_repair_lane_contracts_to_macro_projection_body_floor",
+        "preserve_formal_math_lineage_sources_without_exporting_private_proof_receipts_ground_truth_proofs_prompt_payloads_provider_outputs_or_hidden_answers"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:35c818f76657efcf9522ff7a804471b5ec74b565a43be362d8a29979b7e624cc",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "tools/meta/factory/build_formal_math_proofline_spine.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proofline_spine.py",
+        "source_body_digest": "sha256:35c818f76657efcf9522ff7a804471b5ec74b565a43be362d8a29979b7e624cc",
+        "target_body_digest": "sha256:35c818f76657efcf9522ff7a804471b5ec74b565a43be362d8a29979b7e624cc",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 1201,
+        "target_line_count": 1201,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "formal_math_proof_repair_lane_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "tools/meta/factory/build_formal_math_proof_repair_lane.py",
+      "source_refs": [
+        "tools/meta/factory/build_formal_math_proof_repair_lane.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proof_repair_lane.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public formal-math proofline source-body import only; not private formal-math receipt export, ground-truth proof export, Lean proof-body export, prompt payload export, provider output export, hidden answer export, live provider calls, benchmark correctness claims, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_formal_math_proofline_source_bodies_into_public_projection_bundle",
+        "bind_body_safe_proofline_and_repair_lane_contracts_to_macro_projection_body_floor",
+        "preserve_formal_math_lineage_sources_without_exporting_private_proof_receipts_ground_truth_proofs_prompt_payloads_provider_outputs_or_hidden_answers"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:891c63a49c8d7a5a6daee0adeedcd6d860c9763f7de68ba621e9ca6411dc005e",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "tools/meta/factory/build_formal_math_proof_repair_lane.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proof_repair_lane.py",
+        "source_body_digest": "sha256:891c63a49c8d7a5a6daee0adeedcd6d860c9763f7de68ba621e9ca6411dc005e",
+        "target_body_digest": "sha256:891c63a49c8d7a5a6daee0adeedcd6d860c9763f7de68ba621e9ca6411dc005e",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 646,
+        "target_line_count": 646,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "formal_math_proofline_spine_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "system/server/tests/test_formal_math_proofline_spine.py",
+      "source_refs": [
+        "system/server/tests/test_formal_math_proofline_spine.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proofline_spine.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public formal-math proofline source-body import only; not private formal-math receipt export, ground-truth proof export, Lean proof-body export, prompt payload export, provider output export, hidden answer export, live provider calls, benchmark correctness claims, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_formal_math_proofline_source_bodies_into_public_projection_bundle",
+        "bind_body_safe_proofline_and_repair_lane_contracts_to_macro_projection_body_floor",
+        "preserve_formal_math_lineage_sources_without_exporting_private_proof_receipts_ground_truth_proofs_prompt_payloads_provider_outputs_or_hidden_answers"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:afe9a25ff76040352392d668478619521cf0dd61dc30040bae52c0660c410c88",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_formal_math_proofline_spine.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proofline_spine.py",
+        "source_body_digest": "sha256:afe9a25ff76040352392d668478619521cf0dd61dc30040bae52c0660c410c88",
+        "target_body_digest": "sha256:afe9a25ff76040352392d668478619521cf0dd61dc30040bae52c0660c410c88",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 336,
+        "target_line_count": 336,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "formal_math_proof_repair_lane_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "system/server/tests/test_formal_math_proof_repair_lane.py",
+      "source_refs": [
+        "system/server/tests/test_formal_math_proof_repair_lane.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proof_repair_lane.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public formal-math proofline source-body import only; not private formal-math receipt export, ground-truth proof export, Lean proof-body export, prompt payload export, provider output export, hidden answer export, live provider calls, benchmark correctness claims, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_formal_math_proofline_source_bodies_into_public_projection_bundle",
+        "bind_body_safe_proofline_and_repair_lane_contracts_to_macro_projection_body_floor",
+        "preserve_formal_math_lineage_sources_without_exporting_private_proof_receipts_ground_truth_proofs_prompt_payloads_provider_outputs_or_hidden_answers"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:21ed34e8c060fc832d5735544b96e575e3e59e787a0a0c56e12296f081b77e03",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_formal_math_proof_repair_lane.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proof_repair_lane.py",
+        "source_body_digest": "sha256:21ed34e8c060fc832d5735544b96e575e3e59e787a0a0c56e12296f081b77e03",
+        "target_body_digest": "sha256:21ed34e8c060fc832d5735544b96e575e3e59e787a0a0c56e12296f081b77e03",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 108,
+        "target_line_count": 108,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -6892,7 +7101,11 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_classification.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proofline_spine.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proof_repair_lane.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proofline_spine.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proof_repair_lane.py"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -7015,7 +7228,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

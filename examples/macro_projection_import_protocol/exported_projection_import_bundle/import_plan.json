@@ -1751,6 +1751,48 @@
       "body_copied": false,
       "body_in_receipt": false,
       "next_runtime_surface": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources"
+    },
+    {
+      "cell_id": "formal_math_proofline_spine_source_modules_import",
+      "selected_pattern_ids": [
+        "formal_math_proofline_spine_body_safe_lineage",
+        "formal_proof_repair_one_row_reducer_gate"
+      ],
+      "source_refs": [
+        "tools/meta/factory/build_formal_math_proofline_spine.py",
+        "tools/meta/factory/build_formal_math_proof_repair_lane.py",
+        "system/server/tests/test_formal_math_proofline_spine.py",
+        "system/server/tests/test_formal_math_proof_repair_lane.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proofline_spine.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proof_repair_lane.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proofline_spine.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proof_repair_lane.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "formal_math_proofline_spine_body_import",
+        "formal_math_proof_repair_lane_body_import",
+        "formal_math_proofline_spine_test_body_import",
+        "formal_math_proof_repair_lane_test_body_import"
+      ],
+      "authority_ceiling": "verified_public_formal_math_proofline_source_bodies_not_private_proof_receipts_ground_truth_proofs_prompt_payloads_provider_outputs_or_benchmark_success_claims",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
     }
   ],
   "body_in_receipt": false
