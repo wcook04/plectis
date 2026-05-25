@@ -1,0 +1,76 @@
+{
+  "schema_version": "macro_projection_semantic_routing_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "semantic_routing_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_semantic_routing_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing semantic routing regression contract; copied source modules are body evidence, not authority to run live macro kernel state, refresh private route state, mutate route-evidence ledgers, access provider payloads, or claim private session state.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "semantic_routing_body_import",
+      "source_ref": "system/lib/semantic_routing.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/semantic_routing.py",
+      "source_role": "Semantic route graph control-plane builder and query engine that refreshes route nodes from standards, docs, raw seed, skills, and source surfaces; tracks staleness and drift; exposes activation ladders and route-evidence writes without exporting provider payloads or private session state.",
+      "required_anchors": [
+        "STANDARD_PATH = \"codex/standards/std_semantic_routing.json\"",
+        "STATE_DIR = \"state/semantic_routing\"",
+        "EVIDENCE_LEDGER_PATH = \"codex/ledger/semantic_routing/route_evidence.jsonl\"",
+        "def default_activation_ladder(",
+        "def refresh_routes(",
+        "def query_routes(",
+        "def confirm_route(",
+        "def append_operation_route_evidence("
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "a2b14b1df75e11e12e6114ae2f8572b29daad4c2b1005a6c1c8ffec214377aa5",
+      "target_sha256": "a2b14b1df75e11e12e6114ae2f8572b29daad4c2b1005a6c1c8ffec214377aa5",
+      "sha256_match": true,
+      "line_count": 2206,
+      "byte_count": 92904,
+      "anchor_count": 8
+    },
+    {
+      "module_id": "semantic_routing_test_body_import",
+      "source_ref": "system/server/tests/test_semantic_routing.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_semantic_routing.py",
+      "source_role": "Focused regression tests for semantic route refresh, stale-fallback query behavior, incremental graph pruning, drift recovery, evidence appends, and routing metabolism status receipts.",
+      "required_anchors": [
+        "test_refresh_routes_builds_deterministic_bounded_graph",
+        "test_incremental_refresh_tracks_changed_ids_and_impacted_neighbors",
+        "test_query_routes_falls_back_when_python_routes_are_stale",
+        "test_run_action_appends_operation_route_evidence_results",
+        "test_routing_metabolism_status_reports_digest_cache_and_runner_health"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "f94ed2080ea65799eee8dcf6dd3140107c2eaa00df8f99859c5c3219c9d1795f",
+      "target_sha256": "f94ed2080ea65799eee8dcf6dd3140107c2eaa00df8f99859c5c3219c9d1795f",
+      "sha256_match": true,
+      "line_count": 1284,
+      "byte_count": 54238,
+      "anchor_count": 5
+    }
+  ]
+}

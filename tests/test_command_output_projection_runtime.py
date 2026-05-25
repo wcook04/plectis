@@ -78,6 +78,9 @@ DYNAMIC_PAPER_LATTICE_MANIFEST = (
     BUNDLE_INPUT / "dynamic_paper_lattice_source_module_manifest.json"
 )
 KIND_ATLAS_MANIFEST = BUNDLE_INPUT / "kind_atlas_source_module_manifest.json"
+SEMANTIC_ROUTING_MANIFEST = (
+    BUNDLE_INPUT / "semantic_routing_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -824,6 +827,53 @@ def test_kind_atlas_sources_compile_and_carry_option_surface_contract() -> None:
     assert "test_kind_atlas_marks_supported_rows_and_projection_gaps" in test_text
     assert "test_kind_atlas_kernel_command_emits_json" in test_text
     assert "test_option_surface_kinds_alias_uses_kind_atlas" in test_text
+
+
+def test_semantic_routing_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        SEMANTIC_ROUTING_MANIFEST,
+        manifest_id="semantic_routing_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_semantic_routing_sources_compile_and_carry_route_contract() -> None:
+    routing_source = BUNDLE_INPUT / "source_modules/system/lib/semantic_routing.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_semantic_routing.py"
+    )
+
+    routing_text = routing_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(routing_text, str(routing_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert (
+        'STANDARD_PATH = "codex/standards/std_semantic_routing.json"'
+        in routing_text
+    )
+    assert 'STATE_DIR = "state/semantic_routing"' in routing_text
+    assert (
+        'EVIDENCE_LEDGER_PATH = "codex/ledger/semantic_routing/route_evidence.jsonl"'
+        in routing_text
+    )
+    assert "def default_activation_ladder(" in routing_text
+    assert "def refresh_routes(" in routing_text
+    assert "def query_routes(" in routing_text
+    assert "def confirm_route(" in routing_text
+    assert "def append_operation_route_evidence(" in routing_text
+    assert "test_refresh_routes_builds_deterministic_bounded_graph" in test_text
+    assert (
+        "test_incremental_refresh_tracks_changed_ids_and_impacted_neighbors"
+        in test_text
+    )
+    assert "test_query_routes_falls_back_when_python_routes_are_stale" in test_text
+    assert "test_run_action_appends_operation_route_evidence_results" in test_text
+    assert (
+        "test_routing_metabolism_status_reports_digest_cache_and_runner_health"
+        in test_text
+    )
 
 
 def _load_trace_capsule_source_module():
