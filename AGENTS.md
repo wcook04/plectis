@@ -94,9 +94,10 @@ adapter-backed organs and 4 drilldown-only regression surfaces.
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. The compressed product loop is `microcosm compile <project>`: repo -> `.microcosm`.
-   The ten-minute tour loop is `microcosm tour <project>`; it should compress
-   compile, Python lens, spine, authority, workingness, prediction, market boundary, corpus, trace repair,
+2. The compressed first-contact loop is `microcosm tour <project>`: repo -> `.microcosm`
+   plus the first-screen route card. The explicit rebuild loop is
+   `microcosm compile <project>`. The ten-minute tour should compress
+   compile state, Python lens, spine, authority, workingness, prediction, market boundary, corpus, trace repair,
    repair-loop curriculum, formal evidence cells, proof-loop depth, verifier-lab
    execution spine, work landing replay, durable agent work landing replay, view quality, projection safety, drift control,
    circuit attribution, route cleanup, projection import map, import projector, stripping guard,

@@ -83,8 +83,14 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert first_line == "usage: microcosm [-h] <command> ..."
     assert "{init,index" not in first_line
     assert "First-screen route:" in output
-    assert "microcosm compile <project>     build local .microcosm state" in output
-    assert "microcosm tour <project>        inspect route/work/event/evidence/proof refs" in output
+    assert (
+        "microcosm tour <project>        build .microcosm and inspect "
+        "route/work/event/evidence/proof refs"
+    ) in output
+    assert "microcosm compile <project>     rebuild local .microcosm state" in output
+    assert output.index("microcosm tour <project>") < output.index(
+        "microcosm compile <project>"
+    )
     assert "microcosm status --card         read the compressed runtime status lens" in output
     assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
     assert "microcosm serve <project>       open the local observatory" in output
@@ -544,6 +550,9 @@ def test_cli_tour_smoke(
         "microcosm_cold_reader_first_screen_v1"
     )
     assert payload["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert payload["first_screen"]["minimal_command_path"][0]["command"] == (
+        payload["first_screen"]["primary_command"]
+    )
     assert payload["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
     assert payload["first_screen"]["proof_surface"]["route_id"] == (
         "formal_prover_context_strategy_gate"

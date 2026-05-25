@@ -79,8 +79,8 @@ DEFAULT_PROOF_LAB_INPUT = (
 DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 
 FIRST_SCREEN_HELP = """First-screen route:
-  microcosm compile <project>     build local .microcosm state
-  microcosm tour <project>        inspect route/work/event/evidence/proof refs
+  microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
+  microcosm compile <project>     rebuild local .microcosm state
   microcosm status --card         read the compressed runtime status lens
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm serve <project>       open the local observatory

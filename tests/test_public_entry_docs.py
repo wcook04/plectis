@@ -407,8 +407,8 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert route["primary_first_screen_command"] == "microcosm tour <project>"
     assert route["primary_first_screen_command"] == entry_packet["first_command"]
     assert route["command_path"][:2] == [
-        "microcosm compile <project>",
         "microcosm tour <project>",
+        "microcosm compile <project>",
     ]
     assert "microcosm python-lens <project>" in route["command_path"]
     assert (

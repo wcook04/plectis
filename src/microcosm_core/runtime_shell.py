@@ -1052,10 +1052,24 @@ def _cold_reader_first_screen_card(
         "primary_command": "microcosm tour <project>",
         "minimal_command_path": [
             {
+                "step_id": "inspect_first_screen",
+                "command": "microcosm tour <project>",
+                "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+                "shows": [
+                    "repo -> .microcosm",
+                    "this first-screen card",
+                    "route cards",
+                    "authority ceiling",
+                    "proof-lab route",
+                    "evidence refs as drilldowns",
+                ],
+                "status": compile_status,
+            },
+            {
                 "step_id": "compile_project",
                 "command": "microcosm compile <project>",
                 "shows": [
-                    "repo -> .microcosm",
+                    "explicit .microcosm rebuild",
                     "project-local catalog",
                     "routes",
                     "work items",
@@ -1064,18 +1078,6 @@ def _cold_reader_first_screen_card(
                     "graph",
                 ],
                 "status": compile_status,
-            },
-            {
-                "step_id": "inspect_first_screen",
-                "command": "microcosm tour <project>",
-                "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
-                "shows": [
-                    "this first-screen card",
-                    "route cards",
-                    "authority ceiling",
-                    "proof-lab route",
-                    "evidence refs as drilldowns",
-                ],
             },
             {
                 "step_id": "inspect_status_and_workingness",
@@ -4073,7 +4075,7 @@ class RuntimeShell:
             },
             "public_claim": (
                 "Microcosm turns a repo into a local operating substrate and exposes the "
-                "whole first-run path as a ten-minute source-open tour: compile, inspect, "
+                "whole first-run path as a ten-minute source-open tour: tour, inspect, "
                 "bound authority, inspect prediction/corpus/formal repair lenses, inspect "
                 "the proof-lab route, reveal real-substrate receipt states, then drill receipts."
             ),

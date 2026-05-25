@@ -1461,12 +1461,15 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     )
     assert tour["first_screen"]["status"] == "pass"
     assert tour["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert tour["first_screen"]["minimal_command_path"][0]["command"] == (
+        tour["first_screen"]["primary_command"]
+    )
     assert tour["first_screen"]["local_first_screen_route"]["route_ref"] == (
         LOCAL_FIRST_SCREEN_ROUTE_REF
     )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
-        "compile_project",
         "inspect_first_screen",
+        "compile_project",
         "inspect_status_and_workingness",
         "inspect_python_routes",
         "inspect_route_causal_chain",

@@ -207,8 +207,8 @@ printf '[project]\nname = "scratch-project"\nversion = "0.1.0"\n' > /tmp/microco
 printf 'VALUE = 1\n' > /tmp/microcosm-scratch/src/app/__init__.py
 printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' > /tmp/microcosm-scratch/tests/test_app.py
 
-microcosm compile /tmp/microcosm-scratch
 microcosm tour /tmp/microcosm-scratch
+microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm evidence list /tmp/microcosm-scratch
