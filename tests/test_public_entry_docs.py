@@ -402,8 +402,10 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     )
 
     route = entry_packet["local_first_screen_route"]
+    assert entry_packet["first_command"] == "microcosm tour <project>"
     assert route["surface_id"] == "microcosm_local_first_screen"
     assert route["primary_first_screen_command"] == "microcosm tour <project>"
+    assert route["primary_first_screen_command"] == entry_packet["first_command"]
     assert route["command_path"][:2] == [
         "microcosm compile <project>",
         "microcosm tour <project>",
@@ -423,14 +425,18 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "tour_front_door_status_route" in route["drilldown_routes"]
     assert "status_and_workingness_route" in route["drilldown_routes"]
     assert "proof_lab_route" in route["drilldown_routes"]
-    assert route["cold_clone_validation_suite"] == entry_packet["first_command"]
+    assert (
+        route["cold_clone_validation_suite"]
+        == entry_packet["cold_clone_validation_command"]
+    )
     assert route["safe_to_show"]["source_files_mutated"] is False
     assert route["safe_to_show"]["provider_calls_authorized"] is False
     assert route["safe_to_show"]["release_authorized"] is False
     assert route["safe_to_show"]["proof_correctness_claim"] is False
 
     probe = entry_packet["cold_clone_probe_route"]
-    assert probe["command"] == entry_packet["first_command"]
+    assert probe["command"] == entry_packet["cold_clone_validation_command"]
+    assert probe["command"] in entry_packet["allowed_drilldowns"]
     assert probe["receipt_ref"] in entry_packet["allowed_drilldowns"]
     assert probe["receipt_ref"] in entry_packet["receipt_dependencies"]
     assert (

@@ -1,10 +1,12 @@
 {
   "schema_version": "entry_packet_v1",
   "surface_role": "source_open_public_entry",
-  "first_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+  "first_command": "microcosm tour <project>",
+  "cold_clone_validation_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
   "allowed_drilldowns": [
     "atlas/entry_packet.json::local_first_screen_route",
     "atlas/entry_packet.json::cold_clone_probe_route",
+    "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
     "receipts/cold_clone_probe.json",
     "microcosm compile <project>",
     "microcosm tour <project>",
