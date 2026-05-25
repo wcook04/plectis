@@ -14,7 +14,8 @@
     "agent_operating_packet_source_module_manifest.json",
     "active_execution_constellation_source_module_manifest.json",
     "navigation_coverage_matrix_source_module_manifest.json",
-    "navigation_metabolism_ledger_source_module_manifest.json"
+    "navigation_metabolism_ledger_source_module_manifest.json",
+    "navigation_surface_audit_source_module_manifest.json"
   ],
   "authority_ceiling": {
     "release_authorized": false,
