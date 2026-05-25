@@ -104,6 +104,10 @@ PUBLIC_SAFE_MACRO_BODY_CLASSES = frozenset(
         "public_macro_proof_body",
     }
 )
+STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT = 3
+STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT = 2
+STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT = 2
+STATUS_CARD_LATEST_SOURCE_REF_LIMIT = 3
 PROOF_LAB_BUNDLE_REF = (
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 )
@@ -120,6 +124,10 @@ VERIFIER_EXECUTION_BUNDLE_REF = (
 VERIFIER_EXECUTION_RECEIPT_REF = (
     "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/"
     "exported_verifier_lab_execution_spine_bundle_validation_result.json"
+)
+VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF = (
+    "receipts/first_wave/verifier_lab_execution_spine/"
+    "verifier_lab_execution_spine_validation_receipt.json"
 )
 VERIFIER_EXECUTION_LENS_COMMAND = "microcosm verifier-lab-execution-spine-lens"
 VERIFIER_EXECUTION_SOURCE_COMMAND = (
@@ -1893,7 +1901,7 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         compact_families = []
         for family in source_body_imports.get(
             "latest_verified_source_module_families", []
-        ):
+        )[-STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT:]:
             if not isinstance(family, dict):
                 continue
             compact_families.append(
@@ -1905,12 +1913,12 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
                         ref
                         for ref in family.get("source_refs", [])
                         if isinstance(ref, str)
-                    ][:3],
+                    ][:STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT],
                     "material_ids": [
                         material_id
                         for material_id in family.get("material_ids", [])
                         if isinstance(material_id, str)
-                    ][:3],
+                    ][:STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT],
                 }
             )
         source_body_imports = {
@@ -1922,10 +1930,19 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             "microcosm status::macro_body_import_floor."
             "source_body_import_lens.verified_source_module_families"
         )
+        source_body_imports["latest_family_preview_limit"] = (
+            STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT
+        )
+        source_body_imports["family_source_ref_preview_limit"] = (
+            STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT
+        )
+        source_body_imports["family_material_id_preview_limit"] = (
+            STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT
+        )
         if isinstance(source_body_imports.get("latest_source_refs"), list):
             source_body_imports["latest_source_refs"] = source_body_imports[
                 "latest_source_refs"
-            ][-3:]
+            ][-STATUS_CARD_LATEST_SOURCE_REF_LIMIT:]
         source_body_imports[
             "latest_verified_source_module_families"
         ] = compact_families
@@ -5212,13 +5229,19 @@ class RuntimeShell:
         return payload
 
     def verifier_lab_execution_spine_lens(self) -> dict[str, Any]:
-        source_receipt_path = self.root / VERIFIER_EXECUTION_RECEIPT_REF
+        source_receipt_ref = VERIFIER_EXECUTION_RECEIPT_REF
+        source_receipt_path = self.root / source_receipt_ref
         if not source_receipt_path.is_file():
-            verifier_lab_execution_spine.run_execution_bundle(
-                self.root / VERIFIER_EXECUTION_BUNDLE_REF,
-                source_receipt_path.parent,
-                VERIFIER_EXECUTION_SOURCE_COMMAND,
-            )
+            first_wave_receipt = self.root / VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF
+            if first_wave_receipt.is_file():
+                source_receipt_ref = VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF
+                source_receipt_path = first_wave_receipt
+            else:
+                verifier_lab_execution_spine.run_execution_bundle(
+                    self.root / VERIFIER_EXECUTION_BUNDLE_REF,
+                    source_receipt_path.parent,
+                    VERIFIER_EXECUTION_SOURCE_COMMAND,
+                )
         source_receipt = _read_json_if_exists(source_receipt_path)
         lens_path = (
             self.runtime_receipt_dir
@@ -5269,7 +5292,7 @@ class RuntimeShell:
                     "oracle_visible": row.get("oracle_visible") is True,
                     "provider_visible": row.get("provider_visible") is True,
                     "proof_body_exported": row.get("proof_body_exported") is True,
-                    "public_drilldown_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+                    "public_drilldown_ref": source_receipt_ref,
                     **_source_open_row_boundary(
                         "public_verifier_lab_execution_spine_lens::transition_rows"
                     ),
@@ -5309,7 +5332,7 @@ class RuntimeShell:
                     "provider_output_body_exported": (
                         row.get("provider_output_body_exported") is True
                     ),
-                    "public_drilldown_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+                    "public_drilldown_ref": source_receipt_ref,
                     **_source_open_row_boundary(
                         "public_verifier_lab_execution_spine_lens::cp2_rows"
                     ),
@@ -5338,7 +5361,7 @@ class RuntimeShell:
                         row.get("source_mutation_authorized") is True
                     ),
                     "contract_rejected": row.get("contract_rejected") is True,
-                    "public_drilldown_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+                    "public_drilldown_ref": source_receipt_ref,
                     **_source_open_row_boundary(
                         "public_verifier_lab_execution_spine_lens::evolve_rows"
                     ),
@@ -5429,7 +5452,7 @@ class RuntimeShell:
             "verifier_lab_execution_spine_lens_ref": _public_relative(
                 lens_path, self.root
             ),
-            "source_receipt_ref": VERIFIER_EXECUTION_RECEIPT_REF,
+            "source_receipt_ref": source_receipt_ref,
             "bundle_ref": VERIFIER_EXECUTION_BUNDLE_REF,
             "execution_spine_id": source_receipt.get("execution_spine_id"),
             "public_claim": (

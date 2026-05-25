@@ -26,6 +26,7 @@ from microcosm_core.runtime_shell import (
     RuntimeShell,
     SOURCE_OPEN_BODY_POLICY,
     VERIFIER_EXECUTION_LENS_COMMAND,
+    VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF,
     VERIFIER_EXECUTION_RECEIPT_REF,
 )
 
@@ -544,14 +545,19 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert source_body_card["body_text_exported_in_status"] is False
     assert source_body_card["body_text_exported_in_receipts"] is False
     assert source_body_card["verified_source_module_family_count"] >= 20
+    assert source_body_card["latest_family_preview_limit"] == 3
+    assert source_body_card["family_source_ref_preview_limit"] == 2
+    assert source_body_card["family_material_id_preview_limit"] == 2
     latest_families = source_body_card["latest_verified_source_module_families"]
-    assert 1 <= len(latest_families) <= 5
+    assert 1 <= len(latest_families) <= 3
     for family in latest_families:
         assert "validation_refs" not in family
         assert family["family_id"]
         assert family["module_count"] >= 1
         assert family["source_refs"]
+        assert len(family["source_refs"]) <= 2
         assert family["material_ids"]
+        assert len(family["material_ids"]) <= 2
     assert card["workingness"]["status"] == "pass"
     assert card["workingness"]["command"] == "microcosm workingness"
     assert card["workingness"]["endpoint"] == "/workingness"
@@ -2001,7 +2007,10 @@ def test_runtime_shell_verifier_lab_execution_spine_lens_uses_real_receipt(
     )
     assert lens["command"] == VERIFIER_EXECUTION_LENS_COMMAND
     assert lens["endpoint"] == "/verifier-lab-execution-spine"
-    assert lens["source_receipt_ref"] == VERIFIER_EXECUTION_RECEIPT_REF
+    assert lens["source_receipt_ref"] in {
+        VERIFIER_EXECUTION_RECEIPT_REF,
+        VERIFIER_EXECUTION_FIRST_WAVE_RECEIPT_REF,
+    }
     assert lens["execution_spine_id"] == "std_public_lean_transition_lab_v1"
     assert lens["execution_summary"]["transition_count"] == 6
     assert lens["execution_summary"]["accepted_transition_count"] == 4

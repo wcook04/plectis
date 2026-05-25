@@ -482,6 +482,7 @@ def _execute_transition(
         )
 
     source_path = project_dir / f"{transition_id}.lean"
+    source_path.parent.mkdir(parents=True, exist_ok=True)
     source_path.write_text(_lean_source_for_transition(row), encoding="utf-8")
     lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
     accepted = lean_run["return_code"] == 0
