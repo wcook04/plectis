@@ -475,6 +475,52 @@
       "body_copied": false,
       "body_in_receipt": false,
       "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+    },
+    {
+      "cell_id": "command_output_projection_source_modules_import",
+      "selected_pattern_ids": [
+        "command_output_projection_envelope_contract",
+        "command_output_sidecar_containment",
+        "command_output_projection_audit"
+      ],
+      "source_refs": [
+        "system/lib/command_output_projection.py",
+        "system/lib/command_output_sidecar.py",
+        "system/lib/command_output_audit.py",
+        "codex/standards/std_command_output_projection.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/command_output_projection.py",
+        "src/microcosm_core/macro_tools/command_output_sidecar.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_output_audit.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json",
+        "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_projection_macro_tool_emits_required_projection_envelope",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_sidecar_macro_tool_writes_bounded_receipt",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_output_projection_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "command_output_projection_helper_body_import",
+        "command_output_sidecar_helper_body_import",
+        "command_output_audit_body_import",
+        "command_output_projection_standard_body_import"
+      ],
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "authority_ceiling": "verified_public_command_output_projection_source_bodies_not_live_macro_kernel_provider_credential_account_session_browser_hud_recipient_send_task_ledger_work_ledger_git_private_index_release_publication_or_private_equivalence_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle"
     }
   ],
   "body_in_receipt": false

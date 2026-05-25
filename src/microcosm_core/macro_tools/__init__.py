@@ -4,6 +4,8 @@ __all__ = [
     "agent_execution_trace",
     "agent_session_attribution",
     "bridge_resume",
+    "command_output_projection",
+    "command_output_sidecar",
     "continuation_packet",
     "controller_heartbeat",
     "finance_eval_spine",

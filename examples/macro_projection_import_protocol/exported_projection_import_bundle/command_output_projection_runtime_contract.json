@@ -1,0 +1,31 @@
+{
+  "schema_version": "macro_projection_command_output_runtime_contract_v1",
+  "contract_id": "command_output_projection_source_modules_import",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "runtime_surface": "macro_projection_import_protocol projection cell plus microcosm_core.macro_tools command-output helper tests",
+  "runtime_consumers": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_projection_macro_tool_emits_required_projection_envelope",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_sidecar_macro_tool_writes_bounded_receipt",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_output_projection_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ],
+  "allowed_authority": [
+    "public envelope construction",
+    "public sidecar fixture write under caller supplied root",
+    "source digest verification",
+    "anchor presence verification",
+    "secret-exclusion scan over copied source bodies"
+  ],
+  "forbidden_authority": [
+    "live macro kernel execution from Microcosm",
+    "provider calls",
+    "credential or account/session export",
+    "browser/HUD live access",
+    "recipient send",
+    "release or publication authorization",
+    "private-root equivalence claim",
+    "shared-index mutation",
+    "live Task Ledger or Work Ledger mutation"
+  ],
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "body_in_public_source_tree_not_runtime_receipts"
+}

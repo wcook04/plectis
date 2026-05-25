@@ -454,6 +454,29 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
         ),
     },
+    "command_output_projection_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The command-output projection and sidecar substrate is landed as "
+            "exact copied non-secret macro source inside Microcosm, with the "
+            "standalone projection and sidecar helpers available as public "
+            "macro tools and the macro audit/standard bodies carried in the "
+            "projection bundle."
+        ),
+        "landed_evidence_refs": [
+            "src/microcosm_core/macro_tools/command_output_projection.py",
+            "src/microcosm_core/macro_tools/command_output_sidecar.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json",
+            "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm macro-projection-import-protocol plan --input "
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+        ),
+    },
 }
 
 

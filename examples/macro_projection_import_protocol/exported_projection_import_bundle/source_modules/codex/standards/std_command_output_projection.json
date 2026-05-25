@@ -1,0 +1,295 @@
+{
+  "kind": "standard",
+  "schema_version": "std_command_output_projection_v0",
+  "id": "std_command_output_projection",
+  "title": "Command Output Projection Standard",
+  "status": "candidate",
+  "artifact_kind": "kernel_command_output",
+  "authority_posture": "governed_runtime_projection",
+  "purpose": "Govern how kernel command outputs compress through substrate-derived projection rather than ad-hoc summarization, so command responses behave like reversible navigable context atoms instead of monolithic JSON.",
+  "scope": [
+    "kernel.py CLI command emissions",
+    "system/lib/kernel/commands/*.py command handlers",
+    "system/lib/command_output_projection.py runtime helper",
+    "command outputs that opt in via the projection envelope flag"
+  ],
+  "inherits_from": {
+    "root_contract": "codex/standards/std_agent_entry_surface.json::compression_via_projection_contract",
+    "root_principle": "pri_121_candidate_compression_via_substrate_projection",
+    "root_anchor": "par_phase_09_raw_seed__naming_a_structural_drift_signal_is_not_the_same_as_routing_it_017",
+    "rationale": "Command outputs are runtime projections, not artifact kinds. The compressed-entry-projection rule that governs AGENTS.md / CLAUDE.md / CODEX.md / AGENTS.override.md generalizes to command emissions: a command output that fits the budget by routing instead of authoring is the runtime equivalent of a Rosetta Stone entry-affordance row. This standard does not duplicate the root contract; it applies it to the command surface."
+  },
+  "related_authority": {
+    "navigation_math": "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+    "compression_skill": "codex/doctrine/skills/compression/profile_governed_compression.md",
+    "kind_atlas_standard": "codex/standards/std_kind_atlas.json",
+    "navigation_contract_standard": "codex/standards/std_navigation_contract.json",
+    "cybernetic_projection_feedback_candidate": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json::axiom_candidate_cybernetic_projection_feedback",
+    "phase_09_45_reversal_anchor": "par_phase_09_raw_seed__naming_a_structural_drift_signal_is_not_the_same_as_routing_it_003",
+    "compression_profile_registry": "codex/doctrine/compression_profiles.json"
+  },
+  "principles": [
+    "Command outputs compress by projection, not by ad-hoc summarization.",
+    "Bands are command-native or kind-native, not globally forced into one vocabulary.",
+    "A compact output must preserve drilldown, evidence, currentness, omission, and validation posture.",
+    "A compact output supports next-command selection, not source replacement.",
+    "Default output shapes are stable; projection is opt-in until a command's projected envelope has lived through real use.",
+    "Packet-scoped facts should be stated once and referenced by compact handles; repeat only row-local discriminators, safety-critical identity, or copy-out affordances.",
+    "Budget trimming of matrix or per-row command packets should preserve every routeable row whenever possible and drop repeated default-zero nested diagnostics before dropping rows.",
+    "Compression bands (context, deep, tape) require routed substrate; refuse the band when routing or population is incomplete (Phase 09.45 reversal)."
+  ],
+  "envelope_contract": {
+    "required_fields": [
+      "kind",
+      "command",
+      "band",
+      "row_id",
+      "summary",
+      "currentness",
+      "drilldown_command",
+      "evidence_command",
+      "omission_receipt",
+      "validation_contract"
+    ],
+    "optional_fields": [
+      "payload",
+      "sources",
+      "warnings",
+      "next",
+      "axes",
+      "selection",
+      "freshness_probe",
+      "packet_factoring_contract",
+      "path_table",
+      "command_templates",
+      "source_ref_table"
+    ],
+    "row_id_shape": "kernel:<command>:<selector>::<band>",
+    "row_id_examples": [
+      "kernel:phase:09_44::card",
+      "kernel:paper_module:raw_seed_substrate::card",
+      "kernel:info:bootstrap::flag",
+      "kernel:frontier:5::card"
+    ],
+    "kind_value": "kernel.command_output_projection"
+  },
+  "packet_factoring_contract": {
+    "name": "payload_economy_via_packet_level_semantic_factoring",
+    "inherits_from": "pri_121_candidate_compression_via_substrate_projection",
+    "rule": "Agent-consumed command packets state packet-scoped semantic facts once, then reference them by compact handles inside rows, payload blocks, next-step rows, sources, and command budgets.",
+    "packet_scoped_fact_classes": [
+      "generated_at/currentness timestamps",
+      "long paths and common path prefixes",
+      "command templates and drilldown variants",
+      "source refs and evidence refs",
+      "stable route/profile/standard refs",
+      "omission boilerplate shared by multiple rows"
+    ],
+    "allowed_repetition": [
+      "row-local discriminators such as id, band, status, and short titles",
+      "safety-critical identity needed to prevent misrouting",
+      "copy-out command affordances that must remain runnable when lifted out of the packet",
+      "peer-level required envelope fields until the envelope schema itself is revised"
+    ],
+    "recommended_handle_tables": [
+      "path_table",
+      "command_templates",
+      "source_ref_table",
+      "currentness header",
+      "standard_ref_table"
+    ],
+    "audit_command": "./repo-python kernel.py --command-output-duplication-audit",
+    "success_signal": "For at least one proof command, projected_size_bytes should be lower than default_size_bytes while drilldown/evidence/currentness/omission/validation remain present.",
+    "matrix_packet_trim_rule": "When a matrix-style command packet exceeds its requested context budget, first compact repeated packet-scoped defaults out of each row: omit zero-count diagnostics, null lifecycle slots, ambient-only pressure already summarized at packet level, and default hook status. Keep row ids, row counts, status, role, control boundary, and runnable coverage/drilldown commands so the compact packet remains routeable.",
+    "non_goals": [
+      "minifying keys blindly",
+      "deleting drilldowns",
+      "hiding currentness",
+      "making rows non-extractable",
+      "renaming paths without an expansion table"
+    ]
+  },
+  "diff_review_context_contract": {
+    "name": "tiered_diff_review_before_raw_patch",
+    "owner_surface": "tools/meta/control/git_state_snapshot.py --diff-review",
+    "runtime_helper": "system/lib/git_state_snapshot.py::diff_review_context",
+    "governed_packet_kind": "git_diff_review_context_packet",
+    "schema_version": "git_diff_review_context_packet_v0",
+    "rule": "Dirty-worktree review must pass through path/risk/byte metadata before a raw global patch body enters active context. Measuring raw diff bytes by subprocess capture is allowed; emitting the raw global patch body is not the default review route.",
+    "required_fields": [
+      "kind",
+      "schema_version",
+      "mode",
+      "repo_head",
+      "dirty_path_count",
+      "changed_path_count",
+      "raw_diff_bytes",
+      "ladder_output_bytes",
+      "raw_diff_suppressed",
+      "tier_byte_costs",
+      "changed_paths_by_status",
+      "top_paths_by_numstat",
+      "generated_or_runtime_paths",
+      "risk_paths",
+      "decision_adequacy",
+      "double_spend_guard",
+      "raw_patch_allowed_when",
+      "commands",
+      "omission_receipt"
+    ],
+    "admission_ladder": [
+      "./repo-git status --short",
+      "./repo-git diff --name-status",
+      "./repo-git diff --stat",
+      "./repo-git diff --numstat",
+      "./repo-python tools/meta/control/git_state_snapshot.py --diff-review --compact",
+      "./repo-git diff -- <path>"
+    ],
+    "raw_patch_admission": [
+      "specific path selected",
+      "semantic hunk review required",
+      "scoped commit preflight asks for patch proof",
+      "safety or authority review requires the patch body"
+    ],
+    "forbidden_patterns": [
+      "raw global git diff as first dirty-worktree review on a large mixed tree",
+      "full diff plus full-file reads for the same path without a selected review reason",
+      "persisted full diff file without a compact digest and explicit scoped reopen route"
+    ],
+    "success_signal": "A diff-review packet reports raw_diff_suppressed=true, measured raw_diff_bytes, ladder_output_bytes, path/risk summaries, recovery commands, and no raw patch body."
+  },
+  "compression_authoring_contract": {
+    "purpose": "Every projected command output must declare the compressed role it is serving so diagnostics can distinguish valid evidence size from low-band contract violation.",
+    "required_rungs": ["atom", "flag", "card"],
+    "required_navigation_fields": [
+      "stable_id",
+      "cluster_keys",
+      "when_to_open",
+      "when_not_to_open",
+      "safe_drilldown",
+      "contract_expectation"
+    ],
+    "field_budgets": {
+      "atom": {"max_words": 8},
+      "flag": {"max_chars": 220},
+      "card": {"max_chars": 1400}
+    },
+    "contract_expectation_enum": [
+      "contents_page",
+      "bounded_entry",
+      "evidence_or_substrate",
+      "known_unsafe_reference"
+    ],
+    "forbidden_low_band_fields": [
+      "wrapped default payload",
+      "full source lists",
+      "unfactored repeated paths",
+      "raw evidence bodies",
+      "large omission boilerplate repeated per row"
+    ],
+    "sufficiency_tests_required": true,
+    "projection_rule": "A command packet that is large is not automatically wrong; it is wrong when its authored contract_expectation is contents_page or bounded_entry and the emitted packet cannot support selective drilldown under budget."
+  },
+  "field_contracts": {
+    "band": {
+      "type": "string",
+      "rule": "Must be a band name declared by the command (command-native) or by the owning artifact kind (kind-native) per std_kind_atlas.json. Do not invent ungoverned band names.",
+      "command_native_examples": ["flag", "card", "full"],
+      "kind_native_examples": ["tldr", "evidence", "tape", "tiny", "word", "phrase", "module_docs", "symbol_capsule"]
+    },
+    "summary": {
+      "type": "object",
+      "rule": "One short stable map of selectors and counts that lets a reader decide the next command without opening the payload."
+    },
+    "currentness": {
+      "type": "object",
+      "rule": "Carry source mtime, generated_at, recommended_action (trust|review|repair), and reason. Stale projection must be visible, not hidden.",
+      "preferred_fields": ["status", "generated_at", "source_refs_checked", "source_mtimes", "recommended_action", "action_reason"]
+    },
+    "drilldown_command": {
+      "type": "string",
+      "rule": "A runnable command that emits the next-higher-band envelope or the underlying source for this row."
+    },
+    "evidence_command": {
+      "type": "string",
+      "rule": "A runnable command that opens the source authority backing this row. May equal drilldown_command when band:card already points at evidence."
+    },
+    "omission_receipt": {
+      "type": "object",
+      "rule": "Peer-level (not nested in payload). Names what was intentionally dropped, why, and how to recover it.",
+      "preferred_fields": ["omitted", "reason", "drilldown"]
+    },
+    "validation_contract": {
+      "type": "object",
+      "rule": "Names the standard, freshness probe, and known failure modes that prove the row is usable.",
+      "preferred_fields": ["standard", "freshness_probe", "schema_probe", "failure_modes"]
+    }
+  },
+  "forbidden_patterns": [
+    "lossy summary without omission_receipt",
+    "compact prose that hides stale source",
+    "band names not declared by the command or owning kind",
+    "context/deep/tape rows synthesized over unpopulated routed substrate",
+    "default output shape changes that break existing parsers without an opt-in flag",
+    "drilldown_command that does not actually run",
+    "omission_receipt nested inside payload instead of at peer level",
+    "declaring projection complete when the projected packet is larger than the default because it wraps the old payload without factoring repeated semantic objects"
+  ],
+  "back_compat_rule": {
+    "rule": "When projection would change the default emission shape of an existing command, expose projection through an opt-in flag (typically --output-band) and leave the default shape unchanged. Default shape change requires a separate decision and a release note.",
+    "rationale": "Other tooling, scripts, hooks, and docs may parse the existing JSON. Opt-in projection lets agents adopt the envelope at their own pace without breaking downstream callers."
+  },
+  "phase_09_45_routing_gate": {
+    "rule": "Compression bands (context, deep, tape, evidence beyond flag/card) over an artifact kind may only be emitted when the underlying option-surface adapter actually populates that band. If the band is declared but unpopulated, refuse honestly: emit a structured row_band_unavailable response with legal_bands, populated_bands, and next_safe_commands.",
+    "anchor": "par_phase_09_raw_seed__naming_a_structural_drift_signal_is_not_the_same_as_routing_it_003",
+    "v0_safety_rule": "If the band is not actually populated and emitted by the existing adapter, refuse. This satisfies the Phase 09.45 constraint without trying to solve routing-readiness globally."
+  },
+  "audit_contract": {
+    "audit_command": "./repo-python kernel.py --command-output-projection-audit",
+    "duplication_audit_command": "./repo-python kernel.py --command-output-duplication-audit",
+    "must_report": [
+      "projected commands and their declared bands",
+      "monolithic commands not yet projected",
+      "required-field coverage per projected command",
+      "whether default behavior is unchanged or projected by default",
+      "drilldown_command + evidence_command runnable presence (best effort)",
+      "repeated semantic strings/subtrees in representative packets",
+      "projected-vs-default byte posture for proof cases"
+    ],
+    "stale_signals": [
+      "projected command missing required envelope fields",
+      "default-projected command without an opt-in record (back-compat regression risk)",
+      "command claims a band the option-surface adapter does not populate",
+      "projected packet remains larger than default because packet-scoped facts were copied instead of factored"
+    ]
+  },
+  "validation_rules": [
+    "Every projected command emission must include the envelope_contract.required_fields.",
+    "row_id must follow row_id_shape and be stable for the same selector + band.",
+    "omission_receipt must live at peer level on the emitted dict.",
+    "drilldown_command and evidence_command must be runnable shell commands (best-effort lint at audit time).",
+    "Default emission shapes for existing commands must remain unchanged unless opt-in projection is requested via --output-band or an equivalent local flag.",
+    "Unpopulated bands must be refused with row_band_unavailable rather than synthesized.",
+    "Audit must report any projected command that violates the required-field set or back-compat rule.",
+    "Duplication audit must report repeated semantic objects and projected-vs-default byte posture for representative command packets before an emitter is declared payload-economical.",
+    "Diff/review context packets must suppress raw global patch bodies by default and provide scoped patch reopen commands."
+  ],
+  "related_surfaces": {
+    "runtime_helper": "system/lib/command_output_projection.py",
+    "audit_runtime": "system/lib/command_output_audit.py",
+    "audit_command": "kernel.py --command-output-projection-audit",
+    "duplication_audit_command": "kernel.py --command-output-duplication-audit",
+    "row_dispatcher": "kernel.py --row KIND:ID --band BAND",
+    "option_surface_adapter": "system/lib/standard_option_surface.py",
+    "kind_atlas_runtime": "system/lib/kind_atlas.py",
+    "kind_band_contract_audit": "system/lib/kind_band_contract_audit.py",
+    "compression_profiles": "codex/doctrine/compression_profiles.json"
+  },
+  "refresh_contract": {
+    "source_of_truth": "this file",
+    "audit": "./repo-python kernel.py --command-output-projection-audit",
+    "duplication_audit": "./repo-python kernel.py --command-output-duplication-audit",
+    "kind_band_audit": "./repo-python kernel.py --kind-band-contract-audit",
+    "kind_atlas_freshness": "./repo-python kernel.py --kind-atlas"
+  }
+}

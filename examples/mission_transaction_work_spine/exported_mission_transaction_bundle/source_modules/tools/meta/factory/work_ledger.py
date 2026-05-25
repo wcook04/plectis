@@ -19,6 +19,12 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from system.lib import agent_seed_handoffs, shared_worktree_guard, work_ledger, work_ledger_runtime
+from system.lib.work_ledger_commands import (
+    WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
+    WORK_LEDGER_REFRESH_CLAIMS_COMMAND,
+    WORK_LEDGER_SEED_SPEED_COMMAND,
+    WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
+)
 
 CODEX_STATE_DB = Path.home() / ".codex" / "state_5.sqlite"
 CLAUDE_IDE_DIR = Path.home() / ".claude" / "ide"
@@ -816,15 +822,9 @@ def _compact_session_claims_cards(snapshot: Mapping[str, Any], *, limit: int) ->
                 "./repo-python tools/meta/factory/work_ledger.py "
                 f"session-claims --limit {safe_limit} --full"
             ),
-            "refresh": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh",
-            "session_overview_cards": (
-                "./repo-python tools/meta/factory/work_ledger.py "
-                "session-status --overview --cards-only --limit 12"
-            ),
-            "seed_speed_status": (
-                "./repo-python tools/meta/factory/work_ledger.py "
-                "session-status --seed-speed --limit 12"
-            ),
+            "refresh": WORK_LEDGER_REFRESH_CLAIMS_COMMAND,
+            "session_overview_cards": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
+            "seed_speed_status": WORK_LEDGER_SEED_SPEED_COMMAND,
             "mutation_check": "./repo-python tools/meta/factory/work_ledger.py mutation-check --path <path> --require-exclusive",
         },
         "omission_receipt": {
@@ -1182,10 +1182,29 @@ def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, 
         grouped.values(),
         key=lambda card: (-int(card.get("active_claim_count") or 0), str(card.get("session_id") or "")),
     )
-    claim_collision_count = len(contention.get("claim_collisions") or [])
+    heartbeat_gap_claim_sessions = [
+        _seed_speed_heartbeat_gap_row(card)
+        for card in seed_claim_sessions
+        if str(card.get("heartbeat_source") or "") not in {"manual_cli", "hook"}
+    ]
+    claim_collision_rows = [
+        row
+        for row in list(contention.get("claim_collisions") or [])
+        if isinstance(row, Mapping)
+    ]
+    claim_collision_actions = [
+        _seed_speed_claim_collision_action_row(row)
+        for row in claim_collision_rows
+    ]
+    claim_collision_count = len(claim_collision_rows)
     projected_unknown_count = int(heartbeat.get("projected_unknown_count") or 0)
     if claim_collision_count:
-        first_action = "Resolve active claim collisions before starting or widening a seed."
+        first_action = (
+            "Resolve active claim collisions listed in claim_collision_actions before "
+            "starting or widening a seed."
+        )
+    elif heartbeat_gap_claim_sessions:
+        first_action = "Publish heartbeat for claim-owning seed sessions listed in heartbeat_gap_claim_sessions."
     elif projected_unknown_count:
         first_action = "Publish session-heartbeat for participating live seeds that can write."
     else:
@@ -1199,6 +1218,7 @@ def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, 
             "effective_active_sessions": counts.get("effective_active_sessions"),
             "active_claims": counts.get("active_claims"),
             "active_claim_session_count": len(seed_claim_sessions),
+            "claim_session_heartbeat_gap_count": len(heartbeat_gap_claim_sessions),
             "explicit_current_pass_sessions": heartbeat.get("explicit_current_pass_count", 0),
             "projected_unknown_sessions": projected_unknown_count,
             "orphaned_active_sessions": counts.get("orphaned_active_sessions"),
@@ -1210,13 +1230,18 @@ def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, 
             "signals": list(contention.get("signals") or []),
         },
         "first_action": first_action,
+        "claim_collision_actions": claim_collision_actions[:safe_limit],
+        "claim_collision_actions_omitted": max(
+            0, len(claim_collision_actions) - safe_limit
+        ),
         "seed_claim_sessions": seed_claim_sessions[:safe_limit],
         "seed_claim_sessions_omitted": max(0, len(seed_claim_sessions) - safe_limit),
+        "heartbeat_gap_claim_sessions": heartbeat_gap_claim_sessions[:safe_limit],
+        "heartbeat_gap_claim_sessions_omitted": max(
+            0, len(heartbeat_gap_claim_sessions) - safe_limit
+        ),
         "fast_paths": {
-            "claims": (
-                "./repo-python tools/meta/factory/work_ledger.py "
-                "session-claims --refresh --limit 50 --cards-only"
-            ),
+            "claims": WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
             "overview_cards": (
                 "./repo-python tools/meta/factory/work_ledger.py "
                 f"session-status --overview --cards-only --limit {safe_limit}"
@@ -1244,6 +1269,128 @@ def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, 
                 f"session-status --overview --cards-only --limit {safe_limit}"
             ),
         },
+    }
+
+
+def _seed_speed_heartbeat_gap_row(card: Mapping[str, Any]) -> Dict[str, Any]:
+    session_id = str(card.get("session_id") or "").strip()
+    scope_ref = _seed_speed_scope_ref(card)
+    return {
+        "session_id": session_id,
+        "actor": card.get("actor"),
+        "phase_id": card.get("phase_id"),
+        "active_claim_count": card.get("active_claim_count"),
+        "heartbeat_source": card.get("heartbeat_source"),
+        "freshness_state": card.get("freshness_state"),
+        "scope_ref": scope_ref,
+        "heartbeat_command": (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            f"session-heartbeat --session-id {shlex.quote(session_id)} --state <state> "
+            "--now '<public current pass>' --done '<public previous result>' "
+            f"--scope-ref {shlex.quote(scope_ref)}"
+        ),
+    }
+
+
+def _seed_speed_scope_ref(card: Mapping[str, Any]) -> str:
+    for key in ("paths_preview", "work_item_ids_preview", "td_ids_preview"):
+        rows = card.get(key)
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            text = str(row or "").strip()
+            if text:
+                return text
+    return "<path-or-claim>"
+
+
+def _seed_speed_claim_collision_failure_class(collision: Mapping[str, Any]) -> str:
+    claims = [claim for claim in collision.get("active_claims") or [] if isinstance(claim, Mapping)]
+    sessions = {str(claim.get("session_id") or "") for claim in claims if claim.get("session_id")}
+    if len(sessions) == 1 and len(claims) > 1:
+        return "duplicate_same_session_claim"
+    if collision.get("path"):
+        return "path_claim_collision"
+    if collision.get("work_item_id"):
+        return "work_item_claim_collision"
+    if collision.get("td_id"):
+        return "td_claim_collision"
+    return "claim_collision"
+
+
+def _seed_speed_claim_collision_command(
+    collision: Mapping[str, Any],
+    *,
+    failure_class: str,
+) -> str:
+    claims = [claim for claim in collision.get("active_claims") or [] if isinstance(claim, Mapping)]
+    sessions = sorted({str(claim.get("session_id") or "") for claim in claims if claim.get("session_id")})
+    claim_ids = [str(claim.get("claim_id") or "") for claim in claims if claim.get("claim_id")]
+    path = str(collision.get("path") or "").strip()
+    work_item_id = str(collision.get("work_item_id") or "").strip()
+    td_id = str(collision.get("td_id") or "").strip()
+    scope_kind = str(collision.get("scope_kind") or "").strip()
+    if failure_class == "duplicate_same_session_claim" and sessions and claim_ids:
+        return (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            f"session-release-claim --session-id {shlex.quote(sessions[0])} "
+            f"--claim-id {shlex.quote(claim_ids[-1])} "
+            "--reason duplicate_same_session_claim"
+        )
+    if path:
+        return (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            f"mutation-check --path {shlex.quote(path)} --require-exclusive"
+        )
+    if work_item_id:
+        return (
+            "./repo-python tools/meta/control/mission_transaction_preflight.py "
+            f"--subject-id {shlex.quote(work_item_id)} --control-summary"
+        )
+    if td_id:
+        return (
+            "./repo-python tools/meta/control/mission_transaction_preflight.py "
+            f"--subject-id {shlex.quote(td_id)} --control-summary"
+        )
+    return (
+        "./repo-python tools/meta/factory/work_ledger.py "
+        f"session-claims --refresh --limit 12 --full # scope_kind={shlex.quote(scope_kind)}"
+    )
+
+
+def _seed_speed_claim_collision_action_row(collision: Mapping[str, Any]) -> Dict[str, Any]:
+    failure_class = _seed_speed_claim_collision_failure_class(collision)
+    claims = [claim for claim in collision.get("active_claims") or [] if isinstance(claim, Mapping)]
+    return {
+        "failure_class": failure_class,
+        "scope_kind": collision.get("scope_kind"),
+        "scope_id": collision.get("scope_id"),
+        "td_id": collision.get("td_id"),
+        "path": collision.get("path"),
+        "work_item_id": collision.get("work_item_id"),
+        "claim_count": collision.get("claim_count"),
+        "actors": list(collision.get("actors") or []),
+        "session_ids": sorted(
+            {str(claim.get("session_id") or "") for claim in claims if claim.get("session_id")}
+        ),
+        "active_claims_preview": [
+            {
+                "claim_id": claim.get("claim_id"),
+                "session_id": claim.get("session_id"),
+                "actor": claim.get("actor"),
+                "phase_id": claim.get("phase_id"),
+                "scope_kind": claim.get("scope_kind"),
+                "path": claim.get("path"),
+                "work_item_id": claim.get("work_item_id"),
+                "td_id": claim.get("td_id"),
+                "leased_until": claim.get("leased_until"),
+            }
+            for claim in claims[:3]
+        ],
+        "safe_next_command": _seed_speed_claim_collision_command(
+            collision,
+            failure_class=failure_class,
+        ),
     }
 
 
