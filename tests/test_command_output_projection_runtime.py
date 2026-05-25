@@ -87,6 +87,9 @@ EMBEDDING_SUBSTRATE_MANIFEST = (
 NVIDIA_NIM_PROVIDER_BOUNDARY_MANIFEST = (
     BUNDLE_INPUT / "nvidia_nim_provider_boundary_source_module_manifest.json"
 )
+AGENT_PROVIDER_ROUTER_MANIFEST = (
+    BUNDLE_INPUT / "agent_provider_router_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -977,6 +980,90 @@ def test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_s
     }
     assert status["configured"]["api_key_present"] is True
     assert status["configured"]["chat_model"] == "z-ai/glm5"
+
+
+def test_agent_provider_router_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_PROVIDER_ROUTER_MANIFEST,
+        manifest_id="agent_provider_router_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_agent_provider_router_sources_compile_and_expose_no_live_probe_dispatch() -> None:
+    provider_source = BUNDLE_INPUT / "source_modules/system/lib/agent_providers.py"
+    openrouter_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/openrouter_free_runtime.py"
+    )
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+
+    provider_text = provider_source.read_text(encoding="utf-8")
+    openrouter_text = openrouter_source.read_text(encoding="utf-8")
+
+    compile(provider_text, str(provider_source), "exec")
+    compile(openrouter_text, str(openrouter_source), "exec")
+    assert "def resolve_provider_callable(" in provider_text
+    assert "def ask_openrouter(" in provider_text
+    assert "def runtime_status(" in openrouter_text
+    assert "DEFAULT_CHAT_MODEL = FREE_ROUTER_MODEL_ID = \"openrouter/free\"" in openrouter_text
+
+    code = f"""
+import json
+import sys
+
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib import agent_providers, openrouter_free_runtime
+
+status = openrouter_free_runtime.runtime_status(
+    config={{"api_key": "public-test-redacted"}},
+    probe_live=False,
+)
+resolved = {{
+    name: agent_providers.resolve_provider_callable(name).__name__
+    for name in ["claude", "codex", "nvidia", "openrouter-free"]
+}}
+paid_blocked = False
+try:
+    openrouter_free_runtime.chat_completion_packet(
+        "fixture",
+        config={{"api_key": "public-test-redacted", "model": "openai/gpt-4o"}},
+    )
+except RuntimeError as exc:
+    paid_blocked = "paid model call blocked" in str(exc)
+
+print(
+    json.dumps(
+        {{"status": status, "resolved": resolved, "paid_blocked": paid_blocked}},
+        sort_keys=True,
+    )
+)
+"""
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            code,
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    status = payload["status"]
+    assert status["live_probe"] == {
+        "status": "not_run",
+        "reason": "probe_live_disabled",
+    }
+    assert status["configured"]["api_key_present"] is True
+    assert status["policy"]["no_spend_default"] is True
+    assert status["policy"]["chat_completion"]["default_model"] == "openrouter/free"
+    assert payload["resolved"] == {
+        "claude": "ask_claude",
+        "codex": "ask_codex",
+        "nvidia": "ask_nvidia",
+        "openrouter-free": "ask_openrouter",
+    }
+    assert payload["paid_blocked"] is True
 
 
 def _load_trace_capsule_source_module():

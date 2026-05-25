@@ -919,6 +919,30 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "agent_provider_router_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The provider-router boundary now carries exact copied non-secret "
+            "agent_providers and guarded OpenRouter runtime source bodies inside "
+            "the projection bundle, validated by digest/anchor checks, syntax "
+            "compilation, resolver mapping, and a no-live-probe runtime-status "
+            "contract without calling providers, executing local CLIs, exporting "
+            "API-key values, provider request/response payload bodies, "
+            "account/session state, browser/HUD live access, recipient-send "
+            "state, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_provider_router_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_providers.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/openrouter_free_runtime.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 
