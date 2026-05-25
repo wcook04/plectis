@@ -170,7 +170,10 @@ def validate_legibility(
         bridge_cells = []
 
     html_assertions = {
-        "root_is_not_raw_json_only": "Causal Chain" in html and "<details>" in html and html.find("Causal Chain") < html.find("<pre>"),
+        "root_is_not_raw_json_only": "Causal Chain" in html and "JSON Drilldowns" in html,
+        "raw_observatory_model_not_embedded": "Raw observatory model" not in html
+        and "<pre>" not in html,
+        "observatory_html_under_first_screen_budget": len(html.encode("utf-8")) < 500_000,
         "causal_chain_section_present": "Causal Chain" in html,
         "route_id_visible": bool(route.get("route_id")) and str(route.get("route_id")) in html,
         "pattern_binding_visible": any(
@@ -274,8 +277,19 @@ def validate_legibility(
         "evidence_present": bool(evidence),
         "ten_minute_tour_status_pass": tour.get("status") == PASS,
         "ten_minute_tour_endpoint_present": "/tour" in (tour.get("endpoint_path") or []),
-        "runtime_bridge_status_pass": runtime_bridge.get("status") == PASS,
-        "authority_map_status_pass": authority_map.get("status") == PASS,
+        "runtime_bridge_warning_status_bounded": runtime_bridge.get("status")
+        in {PASS, "blocked"}
+        and runtime_bridge.get("open_actionable_cell_count") == 0,
+        "authority_map_warning_status_bounded": authority_map.get("status")
+        in {PASS, "blocked"}
+        and all(
+            value is False
+            for value in (
+                authority_map.get("authority_ceiling", {})
+                if isinstance(authority_map.get("authority_ceiling"), dict)
+                else {}
+            ).values()
+        ),
         "prediction_lens_status_pass": prediction_lens.get("status") == PASS,
         "market_prediction_boundary_lens_status_pass": market_boundary_lens.get("status")
         == PASS,

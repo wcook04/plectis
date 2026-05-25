@@ -13930,9 +13930,6 @@ class RuntimeShell:
             "",
         )
 
-        def dump(payload: Any) -> str:
-            return html.escape(json.dumps(payload, indent=2, sort_keys=True))
-
         def row(label: str, value: Any) -> str:
             return (
                 "<tr>"
@@ -15167,12 +15164,14 @@ class RuntimeShell:
     <section>
       <h2>JSON Drilldowns</h2>
       <div class="content">
-        <p class="muted">The endpoints remain stable for inspection, tests, and automation.</p>
+        <p class="muted">The browser first screen stays compact; full JSON remains behind stable endpoints for inspection, tests, and automation.</p>
+        <table>
+          {row("Model schema", model.get("schema_version"))}
+          {row("Model status", model.get("status"))}
+          {row("Selected route", model.get("selected_route_id"))}
+          {row("Endpoint count", len([endpoint for endpoint in (model.get("json_drilldowns") or {}).values() if endpoint]))}
+        </table>
         <ul>{endpoint_items}</ul>
-        <details>
-          <summary>Raw observatory model</summary>
-          <pre>{dump(model)}</pre>
-        </details>
       </div>
     </section>
   </main>

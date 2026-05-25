@@ -46,6 +46,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["status"] == "pass"
     assert receipt["blocking_codes"] == []
     assert receipt["html_assertions"]["root_is_not_raw_json_only"] is True
+    assert receipt["html_assertions"]["raw_observatory_model_not_embedded"] is True
+    assert receipt["html_assertions"]["observatory_html_under_first_screen_budget"] is True
     assert receipt["html_assertions"]["causal_chain_section_present"] is True
     assert receipt["html_assertions"]["pattern_binding_visible"] is True
     assert receipt["html_assertions"]["standard_binding_visible"] is True
@@ -81,7 +83,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["html_assertions"]["closed_intake_cells_visible"] is True
     assert receipt["html_assertions"]["release_ceiling_visible"] is True
     assert receipt["html_assertions"]["private_paths_absent"] is True
-    assert receipt["model_assertions"]["runtime_bridge_status_pass"] is True
+    assert receipt["model_assertions"]["runtime_bridge_warning_status_bounded"] is True
+    assert receipt["model_assertions"]["authority_map_warning_status_bounded"] is True
     assert receipt["model_assertions"]["ten_minute_tour_status_pass"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_status_pass"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_no_proof_authority"] is True
@@ -176,7 +179,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     )
     assert receipt["model_assertions"]["runtime_bridge_open_actionable_zero"] is True
     assert receipt["tour_proof"]["tour_id"] == "public_ten_minute_tour"
-    assert receipt["tour_proof"]["route_card_count"] == 8
+    assert receipt["tour_proof"]["route_card_count"] == 9
     assert receipt["verifier_trace_proof"]["lens_id"] == "public_verifier_trace_repair_lens"
     assert receipt["verifier_trace_proof"]["trace_attempt_count"] == 4
     assert receipt["verifier_trace_proof"]["formal_proof_authority"] is False
@@ -311,7 +314,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["runtime_bridge_proof"]["bridge_id"] == "intake_observatory_bridge"
     assert receipt["runtime_bridge_proof"]["open_actionable_cell_count"] == 0
     assert receipt["runtime_bridge_proof"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 12,
+        "public_runtime_import_landed": 20,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }

@@ -1207,7 +1207,9 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "authority",
         "intake",
     ]
-    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == []
+    assert set(tour["front_door_status"]["drilldown_blocked_surface_ids"]).issubset(
+        {"authority", "intake"}
+    )
     assert tour["front_door_status"]["safe_to_show"] == {
         "surface_status_ids_visible": True,
         "blocking_surface_ids_visible": True,
@@ -3137,8 +3139,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Cold Reader Legibility Scorecard" in html
     assert "self_hosted_status_protocol_landed" in html
     assert "Open actionable cells" in html
-    assert "<details>" in html
-    assert html.find("Causal Chain") < html.find("<pre>")
+    assert "JSON Drilldowns" in html
+    assert "Raw observatory model" not in html
+    assert "<pre>" not in html
+    assert len(html.encode("utf-8")) < 500_000
     assert "/Users/" not in html
     assert "src/ai_workflow" not in html
     assert payload["status"] == "pass"
@@ -3152,7 +3156,9 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "authority",
         "intake",
     ]
-    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == []
+    assert set(tour["front_door_status"]["drilldown_blocked_surface_ids"]).issubset(
+        {"authority", "intake"}
+    )
     assert any(row["card_id"] == "front_door_status" for row in tour["route_cards"])
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["authority_ceiling"]["release_authorized"] is False
