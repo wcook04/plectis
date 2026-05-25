@@ -20,7 +20,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-25T06:53:28+00:00",
+  "created_at": "2026-05-25T07:17:15+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [],
@@ -39,7 +39,7 @@
     "secret"
   ],
   "input_mode": "exported_projection_import_bundle",
-  "macro_origin_ref_count": 139,
+  "macro_origin_ref_count": 143,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -86,19 +86,19 @@
     "next_best_lane": "real_substrate_import_path",
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 33,
+    "projection_cell_count": 34,
     "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-    "public_safe_body_import_count": 81,
+    "public_safe_body_import_count": 84,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 81
+      "verified_light_edit": 84
     },
-    "public_safe_body_material_count": 81,
+    "public_safe_body_material_count": 84,
     "release_authorized": false,
     "runtime_dependency_status": "pass",
     "runtime_severance_board_embedded": true,
     "runtime_severance_status": "pass"
   },
-  "projection_cell_count": 33,
+  "projection_cell_count": 34,
   "projection_cell_ids": [
     "active_execution_constellation_source_modules_import",
     "agent_entrypoint_audit_source_modules_import",
@@ -114,6 +114,7 @@
     "command_output_projection_source_modules_import",
     "controller_continuity_heartbeat_import",
     "dynamic_paper_lattice_source_modules_import",
+    "embedding_substrate_source_modules_import",
     "entrypoint_health_source_modules_import",
     "finance_eval_source_modules_import",
     "formal_math_readiness_extensions",
@@ -172,7 +173,7 @@
     },
     "blocked_cell_count": 0,
     "body_in_receipt": false,
-    "consumed_cell_count": 33,
+    "consumed_cell_count": 34,
     "expected_negative_case_count": 0,
     "forbidden_material_classes": [
       "credential",
@@ -187,7 +188,7 @@
     ],
     "headline": "Macro source refs become import candidates; verified non-secret macro bodies flow only with source-to-target evidence and claim floors.",
     "input_mode": "exported_projection_import_bundle",
-    "landed_cell_count": 33,
+    "landed_cell_count": 34,
     "missing_negative_cases": [],
     "negative_case_coverage_status": "pass",
     "next_best_lane": "real_substrate_import_path",
@@ -213,7 +214,7 @@
     "plan_id": "public_macro_projection_import_plan_v1",
     "policy_id": "verified_macro_projection_cleaning_policy_v1",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 33,
+    "projection_cell_count": 34,
     "projection_cells": [
       {
         "action_required": false,
@@ -2215,10 +2216,75 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_sources_compile_and_carry_route_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_routing_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
+      },
+      {
+        "action_required": false,
+        "authority_ceiling": "verified_public_embedding_substrate_bodies_not_live_provider_cache_vector_private_state_embedding_provider_payload_browser_account_or_credential_authority",
+        "blocking_reasons": [],
+        "body_copied": false,
+        "body_in_receipt": false,
+        "cell_id": "embedding_substrate_source_modules_import",
+        "cell_state": "consumed_verified_import",
+        "classification": [
+          "copied_non_secret_macro_body",
+          "source_faithful_refactor",
+          "real_runtime_receipt"
+        ],
+        "copy_policy": "verified_macro_body_with_claim_floor",
+        "landed_evidence_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+          "tests/test_command_output_projection_runtime.py"
+        ],
+        "missing_public_safe_body_material_ids": [],
+        "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+        "projection_status": "public_runtime_import_landed",
+        "public_safe_body_import_routes": [
+          "verified_light_edit"
+        ],
+        "public_safe_body_material_classes": [
+          "public_macro_tool_body"
+        ],
+        "public_safe_body_material_count": 3,
+        "public_safe_body_material_ids": [
+          "embedding_substrate_body_import",
+          "embedding_sources_body_import",
+          "embedding_substrate_test_body_import"
+        ],
+        "ready_to_project": true,
+        "selected_pattern_ids": [
+          "embedding_substrate",
+          "faceted_vector_field_cache",
+          "activation_ladder_search",
+          "embedding_source_adapter_boundary"
+        ],
+        "source_ref_count": 4,
+        "source_refs": [
+          "system/lib/embedding_substrate.py",
+          "system/lib/embedding_sources.py",
+          "system/server/tests/test_embedding_substrate.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+        ],
+        "status_reason": "The faceted embedding substrate now carries exact copied non-secret cache, search, activation-ladder, alignment, source adapter, and focused regression-test bodies inside the projection bundle, validated by digest/anchor checks and syntax compilation without live provider calls, embedding cache/vector export, provider payload access, credential access, or private-state authority.",
+        "target_ref_count": 4,
+        "target_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+        ],
+        "validation_ref_count": 3,
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
       }
     ],
     "projection_status_counts": {
-      "public_runtime_import_landed": 31,
+      "public_runtime_import_landed": 32,
       "runtime_bridge_landed": 1,
       "self_hosted_status_protocol_landed": 1
     },
@@ -2244,11 +2310,11 @@
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 75
+      "public_macro_tool_body": 78
     },
-    "public_safe_body_import_count": 81,
+    "public_safe_body_import_count": 84,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 81
+      "verified_light_edit": 84
     },
     "public_safe_body_imports": [
       {
@@ -4597,18 +4663,18 @@
           "preserve_route_selection_source_without_claiming_live_macro_kernel_execution_in_microcosm"
         ],
         "body_copied": true,
-        "body_digest": "sha256:ac5d682426e340581fd31a105d548bf8f2547e65d225e2b6333938944b42e478",
+        "body_digest": "sha256:250f8c4673b1271614173235ec15378da9fcccdda52435bb1b90b4e878a10798",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:ac5d682426e340581fd31a105d548bf8f2547e65d225e2b6333938944b42e478",
-          "source_line_count": 15942,
+          "source_body_digest": "sha256:250f8c4673b1271614173235ec15378da9fcccdda52435bb1b90b4e878a10798",
+          "source_line_count": 16011,
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:ac5d682426e340581fd31a105d548bf8f2547e65d225e2b6333938944b42e478",
-          "target_line_count": 15942,
+          "target_body_digest": "sha256:250f8c4673b1271614173235ec15378da9fcccdda52435bb1b90b4e878a10798",
+          "target_line_count": 16011,
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
         },
@@ -6542,16 +6608,175 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_sources_compile_and_carry_route_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_routing_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_embedding_substrate_source_bodies_into_public_projection_bundle",
+          "bind_embedding_substrate_source_bodies_to_macro_projection_body_floor",
+          "preserve_embedding_sources_without_claiming_live_provider_cache_private_state_or_credential_authority_in_microcosm"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:b87e1a553ecf24fc28f7db8ba920910193072edd002d754c621d2ed0385c3417",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:b87e1a553ecf24fc28f7db8ba920910193072edd002d754c621d2ed0385c3417",
+          "source_line_count": 1188,
+          "source_ref": "system/lib/embedding_substrate.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:b87e1a553ecf24fc28f7db8ba920910193072edd002d754c621d2ed0385c3417",
+          "target_line_count": 1188,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public embedding substrate source-body import only; not live provider calls, embedding cache/vector export, private state/embeddings mutation, provider payload bodies, credential export, account/session state, browser/HUD live access, raw-seed body export, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "embedding_substrate_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/lib/embedding_substrate.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_embedding_substrate_source_bodies_into_public_projection_bundle",
+          "bind_embedding_substrate_source_bodies_to_macro_projection_body_floor",
+          "preserve_embedding_sources_without_claiming_live_provider_cache_private_state_or_credential_authority_in_microcosm"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:ed32d98568cf945146ba35db10375c9b597e873221d4ffb65fc4902bb4717fc3",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:ed32d98568cf945146ba35db10375c9b597e873221d4ffb65fc4902bb4717fc3",
+          "source_line_count": 1225,
+          "source_ref": "system/lib/embedding_sources.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:ed32d98568cf945146ba35db10375c9b597e873221d4ffb65fc4902bb4717fc3",
+          "target_line_count": 1225,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public embedding substrate source-body import only; not live provider calls, embedding cache/vector export, private state/embeddings mutation, provider payload bodies, credential export, account/session state, browser/HUD live access, raw-seed body export, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "embedding_sources_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/lib/embedding_sources.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_embedding_substrate_source_bodies_into_public_projection_bundle",
+          "bind_embedding_substrate_source_bodies_to_macro_projection_body_floor",
+          "preserve_embedding_sources_without_claiming_live_provider_cache_private_state_or_credential_authority_in_microcosm"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:f873083a4b6d702f0768309fe91dc430784502504c2c7a1d333cf9bb53f143d2",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:f873083a4b6d702f0768309fe91dc430784502504c2c7a1d333cf9bb53f143d2",
+          "source_line_count": 709,
+          "source_ref": "system/server/tests/test_embedding_substrate.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:f873083a4b6d702f0768309fe91dc430784502504c2c7a1d333cf9bb53f143d2",
+          "target_line_count": 709,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public embedding substrate source-body import only; not live provider calls, embedding cache/vector export, private state/embeddings mutation, provider payload bodies, credential export, account/session state, browser/HUD live access, raw-seed body export, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "embedding_substrate_test_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/server/tests/test_embedding_substrate.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
       }
     ],
     "publication_authorized": false,
-    "ready_cell_count": 33,
+    "ready_cell_count": 34,
     "release_authorized": false,
     "schema_version": "macro_projection_import_intake_board_v1",
     "secret_exclusion_blocking_hit_count": 0
   },
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 83,
+  "public_runtime_ref_count": 87,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -6584,6 +6809,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/dynamic_paper_lattice_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
@@ -6608,6 +6834,8 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_output_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/dynamic_paper_lattice.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
@@ -6629,6 +6857,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
@@ -6692,13 +6921,13 @@
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_digest_count": 81,
-  "public_safe_body_import_count": 81,
+  "public_safe_body_digest_count": 84,
+  "public_safe_body_import_count": 84,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 81
+    "verified_light_edit": 84
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 81,
+  "public_safe_body_material_count": 84,
   "public_safe_body_target_refs": [
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
@@ -6725,6 +6954,8 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_output_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/dynamic_paper_lattice.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
@@ -6746,6 +6977,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
@@ -6783,7 +7015,7 @@
     "src/microcosm_core/macro_tools/work_landing.py"
   ],
   "public_safe_body_target_status": "pass",
-  "ready_projection_cell_count": 33,
+  "ready_projection_cell_count": 34,
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
   ],
@@ -6843,7 +7075,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 139,
+    "macro_origin_ref_count": 143,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json",
@@ -6883,6 +7115,7 @@
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/dynamic_paper_lattice_source_module_manifest.json",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
@@ -6929,6 +7162,8 @@
       "system/lib/continuation_packet.py",
       "system/lib/controller_heartbeat.py",
       "system/lib/dynamic_paper_lattice.py",
+      "system/lib/embedding_sources.py",
+      "system/lib/embedding_substrate.py",
       "system/lib/entrypoint_health.py",
       "system/lib/kernel/commands/comprehension_snapshot.py",
       "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
@@ -6958,6 +7193,7 @@
       "system/server/tests/test_cli_prompt_trace_capsule.py",
       "system/server/tests/test_command_node_cache.py",
       "system/server/tests/test_dynamic_paper_lattice.py",
+      "system/server/tests/test_embedding_substrate.py",
       "system/server/tests/test_entrypoint_health.py",
       "system/server/tests/test_kind_atlas.py",
       "system/server/tests/test_navigation_clusterability.py",
@@ -7001,19 +7237,19 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 33,
+    "projection_cell_count": 34,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 75
+      "public_macro_tool_body": 78
     },
-    "public_safe_body_import_count": 81,
+    "public_safe_body_import_count": 84,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 81
+      "verified_light_edit": 84
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 33,
+    "ready_projection_cell_count": 34,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -7278,6 +7514,20 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -7532,6 +7782,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
       },
       {
@@ -7859,6 +8116,20 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "status": "pass"
@@ -8001,6 +8272,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
         "status": "pass"
       },
       {
@@ -8377,6 +8655,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
         "status": "pass"
@@ -8510,6 +8795,20 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "status": "pass"
@@ -8624,6 +8923,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
         "status": "pass"
       },
       {
@@ -9196,6 +9502,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
         "status": "pass"
@@ -9364,6 +9677,20 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
         "status": "pass"
@@ -9506,6 +9833,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
         "status": "pass"
       },
       {
@@ -10190,6 +10524,20 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -10442,6 +10790,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -10587,7 +10942,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 510,
+    "runtime_dependency_count": 527,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -10620,6 +10975,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_projection_runtime_contract.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/dynamic_paper_lattice_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
@@ -10644,6 +11000,8 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_output_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/dynamic_paper_lattice.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
@@ -10665,6 +11023,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_dynamic_paper_lattice.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
@@ -10738,6 +11097,8 @@
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_dynamic_paper_lattice_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_dynamic_paper_lattice_sources_compile_and_carry_lattice_contract",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
@@ -10775,6 +11136,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -10878,7 +11240,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 124,
+  "source_ref_count": 128,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -11003,10 +11365,14 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
     "system/lib/semantic_routing.py",
     "system/server/tests/test_semantic_routing.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json",
+    "system/lib/embedding_substrate.py",
+    "system/lib/embedding_sources.py",
+    "system/server/tests/test_embedding_substrate.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
   ],
   "status": "pass",
-  "validation_ref_count": 99,
+  "validation_ref_count": 102,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -11046,6 +11412,8 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_output_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_dynamic_paper_lattice_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_dynamic_paper_lattice_sources_compile_and_carry_lattice_contract",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
@@ -11084,6 +11452,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_continuation_packet_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_controller_heartbeat_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine",

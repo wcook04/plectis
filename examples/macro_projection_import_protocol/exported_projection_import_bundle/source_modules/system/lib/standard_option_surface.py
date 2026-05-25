@@ -7480,6 +7480,68 @@ def _microcosm_list(value: Any) -> list[Any]:
     return value if isinstance(value, list) else []
 
 
+def _microcosm_extracted_pattern_binding_index(repo_root: Path) -> dict[str, dict[str, Any]]:
+    try:
+        payload = _load_json(repo_root / MICROCOSM_EXTRACTED_PATTERN_BINDINGS)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    rows = payload.get("pattern_bindings")
+    if not isinstance(rows, list):
+        return {}
+    index: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        pattern_id = str(row.get("pattern_id") or "").strip()
+        if pattern_id:
+            index[pattern_id] = row
+    return index
+
+
+def _microcosm_extracted_pattern_binding_summary(
+    entry: dict[str, Any],
+    *,
+    binding_index: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    index = binding_index if isinstance(binding_index, Mapping) else {}
+    binding = index.get(entry["pattern_id"])
+    if not isinstance(binding, Mapping):
+        return {
+            "status": "missing_detailed_binding",
+            "binding_ref": str(MICROCOSM_EXTRACTED_PATTERN_BINDINGS),
+            "authority": (
+                "absence from the detailed binding sidecar is an import-readiness gap; "
+                "the extracted ledger row remains macro-side pattern evidence only"
+            ),
+        }
+    substrate = binding.get("substrate_bindings") if isinstance(binding.get("substrate_bindings"), Mapping) else {}
+    ref_counts = {
+        key: len(value)
+        for key, value in sorted(substrate.items())
+        if isinstance(value, list)
+    }
+    return {
+        "status": "detailed_binding_available",
+        "binding_ref": str(MICROCOSM_EXTRACTED_PATTERN_BINDINGS),
+        "grounding_status": str(binding.get("grounding_status") or ""),
+        "public_projection_posture": str(binding.get("public_projection_posture") or ""),
+        "missing_bindings": _string_list(binding.get("missing_bindings")),
+        "substrate_ref_counts": ref_counts,
+        "standard_refs": _string_list(substrate.get("standards"))[:6],
+        "code_owner_refs": _string_list(substrate.get("code_owners"))[:6],
+        "test_validator_receipt_refs": _string_list(substrate.get("tests_validators_proofs"))[:6],
+        "generated_artifact_receipt_refs": _string_list(substrate.get("generated_artifacts_receipts"))[:6],
+        "command_surfaces": _string_list(substrate.get("command_surfaces"))[:4],
+        "fixture_strategy": _truncate_words(str(binding.get("fixture_strategy") or ""), max_chars=520),
+        "anti_claim": _truncate_words(str(binding.get("anti_claim") or ""), max_chars=520),
+        "next_binding_action": _truncate_words(str(binding.get("next_binding_action") or ""), max_chars=520),
+        "authority": (
+            "detailed binding sidecar summary only; source files, standards, tests, "
+            "fixtures, receipts, and owner tools remain the underlying authorities"
+        ),
+    }
+
+
 def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[str, Any]:
     try:
         router = _load_json(repo_root / MICROCOSM_EXTRACTED_PATTERN_ROW_TO_ORGAN_ROUTER)
@@ -7674,6 +7736,7 @@ def _microcosm_extracted_pattern_card_row(
     *,
     repo_root: Path,
     route_readiness_index: Mapping[str, Any] | None = None,
+    binding_index: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     row = _microcosm_extracted_pattern_flag_row(entry, repo_root=repo_root)
     pattern = entry["pattern"]
@@ -7721,6 +7784,10 @@ def _microcosm_extracted_pattern_card_row(
             "route_readiness_membership": _microcosm_extracted_pattern_route_readiness_membership(
                 entry,
                 route_readiness_index=route_readiness_index,
+            ),
+            "substrate_binding_summary": _microcosm_extracted_pattern_binding_summary(
+                entry,
+                binding_index=binding_index,
             ),
             "evidence_commands": [
                 _microcosm_extracted_pattern_evidence_command(entry, repo_root=repo_root),
@@ -7806,11 +7873,13 @@ def build_microcosm_extracted_patterns_option_surface(
         rows = _microcosm_extracted_pattern_cluster_rows(rows_source)
     elif band == "card":
         route_readiness_index = _microcosm_extracted_pattern_route_readiness_index(repo_root)
+        binding_index = _microcosm_extracted_pattern_binding_index(repo_root)
         rows = [
             _microcosm_extracted_pattern_card_row(
                 entry,
                 repo_root=repo_root,
                 route_readiness_index=route_readiness_index,
+                binding_index=binding_index,
             )
             for entry in rows_source
         ]

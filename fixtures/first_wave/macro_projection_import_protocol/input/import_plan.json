@@ -1194,6 +1194,46 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "embedding_substrate_source_modules_import",
+      "selected_pattern_ids": [
+        "embedding_substrate",
+        "faceted_vector_field_cache",
+        "activation_ladder_search",
+        "embedding_source_adapter_boundary"
+      ],
+      "source_refs": [
+        "system/lib/embedding_substrate.py",
+        "system/lib/embedding_sources.py",
+        "system/server/tests/test_embedding_substrate.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_sources.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_embedding_substrate.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "embedding_substrate_body_import",
+        "embedding_sources_body_import",
+        "embedding_substrate_test_body_import"
+      ],
+      "authority_ceiling": "verified_public_embedding_substrate_bodies_not_live_provider_cache_vector_private_state_embedding_provider_payload_browser_account_or_credential_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

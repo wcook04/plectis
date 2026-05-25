@@ -81,6 +81,9 @@ KIND_ATLAS_MANIFEST = BUNDLE_INPUT / "kind_atlas_source_module_manifest.json"
 SEMANTIC_ROUTING_MANIFEST = (
     BUNDLE_INPUT / "semantic_routing_source_module_manifest.json"
 )
+EMBEDDING_SUBSTRATE_MANIFEST = (
+    BUNDLE_INPUT / "embedding_substrate_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -874,6 +877,51 @@ def test_semantic_routing_sources_compile_and_carry_route_contract() -> None:
         "test_routing_metabolism_status_reports_digest_cache_and_runner_health"
         in test_text
     )
+
+
+def test_embedding_substrate_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        EMBEDDING_SUBSTRATE_MANIFEST,
+        manifest_id="embedding_substrate_source_modules_import",
+        module_count=3,
+    )
+
+
+def test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract() -> None:
+    substrate_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/embedding_substrate.py"
+    )
+    sources_source = BUNDLE_INPUT / "source_modules/system/lib/embedding_sources.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_embedding_substrate.py"
+    )
+
+    substrate_text = substrate_source.read_text(encoding="utf-8")
+    sources_text = sources_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(substrate_text, str(substrate_source), "exec")
+    compile(sources_text, str(sources_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert 'SCHEMA_VERSION = "embedding_substrate_v2_faceted"' in substrate_text
+    assert 'OVERLAY_SCHEMA_VERSION = "embedding_substrate_overlay_v1"' in substrate_text
+    assert "class EmbeddingSubstrate:" in substrate_text
+    assert "def embed_texts_default(" in substrate_text
+    assert "def refresh(" in substrate_text
+    assert "def search_ladder(" in substrate_text
+    assert "def alignment(" in substrate_text
+    assert "class DoctrineSource(SourceAdapter):" in sources_text
+    assert "class PaperModuleSource(SourceAdapter):" in sources_text
+    assert "class RawSeedNavigationSource(SourceAdapter):" in sources_text
+    assert "def parse_std_python_atoms(" in sources_text
+    assert "class PythonHolographicSource(SourceAdapter):" in sources_text
+    assert "SOURCE_ADAPTERS: dict[str, type[SourceAdapter]] = {" in sources_text
+    assert "def build_adapter(" in sources_text
+    assert "test_refresh_embeds_all_facet_rows" in test_text
+    assert "test_search_ladder_narrows_via_activation_gradient" in test_text
+    assert "test_raw_seed_navigation_source_indexes_runtime_groups" in test_text
+    assert "test_std_python_atom_parser_splits_contract_atoms" in test_text
 
 
 def _load_trace_capsule_source_module():
