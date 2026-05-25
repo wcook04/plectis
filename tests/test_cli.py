@@ -193,6 +193,19 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert payload["front_door"]["route_explanation_command"] == (
         "microcosm explain <project> readme_onboarding_route"
     )
+    route_explanation = payload["front_door"]["route_explanation"]
+    assert route_explanation["status"] == "pass"
+    assert route_explanation["route_id"] == "readme_onboarding_route"
+    assert route_explanation["selected_work_status"] == "closed"
+    assert route_explanation["source_files_mutated"] is False
+    assert route_explanation["event_ref_count"] >= 1
+    assert route_explanation["evidence_ref_count"] >= 1
+    assert route_explanation["reader_drilldowns"] == [
+        ".microcosm/routes.json",
+        ".microcosm/work_items.json",
+        ".microcosm/events.jsonl",
+        ".microcosm/evidence/",
+    ]
     assert "readme_onboarding_route" in payload["front_door"][
         "available_project_route_ids"
     ]
@@ -273,6 +286,13 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["project_state_status"] == "pass"
     assert status_card["front_door"]["selected_route_id"] == "readme_onboarding_route"
     assert status_card["front_door"]["state_dir_exists"] is True
+    assert status_card["front_door"]["route_explanation"]["status"] == "pass"
+    assert status_card["front_door"]["route_explanation"][
+        "selected_work_status"
+    ] == "closed"
+    assert status_card["front_door"]["route_explanation"][
+        "source_files_mutated"
+    ] is False
     assert status_card["workingness"]["status"] == "actionable"
     assert status_card["proof_lab"]["status"] == "pass"
     assert status_card["macro_body_import_floor"]["source_body_imports"][

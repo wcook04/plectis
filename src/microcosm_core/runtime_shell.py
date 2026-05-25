@@ -1847,6 +1847,114 @@ def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _as_str_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str)]
+
+
+def _compact_project_route_explanation(
+    project: Path,
+    selected_route_id: str,
+) -> dict[str, Any]:
+    route_id = selected_route_id or "<selected_route_id>"
+    command = f"microcosm explain <project> {route_id}"
+    summary: dict[str, Any] = {
+        "schema_version": "microcosm_project_route_explanation_status_card_v1",
+        "status": "missing_route" if not selected_route_id else "missing_explanation",
+        "command": command,
+        "endpoint": f"/project/explain/{route_id}",
+        "route_id": selected_route_id or None,
+        "route_state_ref": (
+            f"{project_substrate.STATE_DIR}/routes.json::{selected_route_id}"
+            if selected_route_id
+            else None
+        ),
+        "explanation_ref": (
+            f"{project_substrate.STATE_DIR}/explanations/{selected_route_id}.json"
+            if selected_route_id
+            else None
+        ),
+        "evidence_ref": (
+            f"{project_substrate.STATE_DIR}/evidence/explain_{selected_route_id}.json"
+            if selected_route_id
+            else None
+        ),
+        "reader_action": (
+            "Run microcosm explain <project> <selected_route_id> after tour "
+            "or compile selects a route."
+            if not selected_route_id
+            else "Run the command for full route/work/event/evidence lineage."
+        ),
+    }
+    if not selected_route_id:
+        return summary
+
+    explanation = _read_project_state_payload(
+        project,
+        f"explanations/{selected_route_id}.json",
+    )
+    if not explanation:
+        return summary
+
+    proof = explanation.get("causal_chain_proof")
+    proof = proof if isinstance(proof, dict) else {}
+    causal_chain_status = (
+        proof.get("status") or explanation.get("status") or "missing_causal_chain"
+    )
+    pattern_binding_ids = _as_str_list(proof.get("pattern_binding_ids"))
+    standard_binding_ids = _as_str_list(proof.get("standard_binding_ids"))
+    work_ids = _as_str_list(proof.get("work_ids"))
+    event_refs = (
+        proof.get("event_refs")
+        if isinstance(proof.get("event_refs"), list)
+        else explanation.get("event_refs")
+        if isinstance(explanation.get("event_refs"), list)
+        else []
+    )
+    evidence_refs = (
+        proof.get("evidence_refs")
+        if isinstance(proof.get("evidence_refs"), list)
+        else explanation.get("evidence_refs")
+        if isinstance(explanation.get("evidence_refs"), list)
+        else []
+    )
+    summary.update(
+        {
+            "status": PASS if causal_chain_status == PASS else causal_chain_status,
+            "causal_chain_status": causal_chain_status,
+            "event_ref_count": proof.get("event_ref_count") or len(event_refs),
+            "evidence_ref_count": proof.get("evidence_ref_count")
+            or len(evidence_refs),
+            "pattern_binding_ids": pattern_binding_ids,
+            "pattern_binding_count": len(pattern_binding_ids),
+            "standard_binding_count": len(standard_binding_ids),
+            "standard_binding_ids_preview": standard_binding_ids[:6],
+            "work_ids": work_ids,
+            "selected_work_id": proof.get("selected_work_id"),
+            "selected_work_status": proof.get("selected_work_status"),
+            "state_history": _as_str_list(proof.get("state_history")),
+            "reader_drilldowns": _as_str_list(proof.get("reader_drilldowns")),
+            "source_files_mutated": (
+                proof.get("source_files_mutated") is True
+                or explanation.get("source_files_mutated") is True
+            ),
+            "authority_boundary": (
+                proof.get("authority_boundary")
+                or explanation.get("authority_boundary")
+                or "project_local_projection_not_source_authority"
+            ),
+            "proof_scope": proof.get("proof_scope"),
+            "anti_claim": (
+                "This summary is route lineage for navigation. It does not "
+                "authorize release, provider calls, source mutation, or proof "
+                "correctness."
+            ),
+        }
+    )
+    return summary
+
+
 def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     state_dir = project / project_substrate.STATE_DIR
@@ -1915,6 +2023,10 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
             f"microcosm explain <project> {selected_route_id}"
             if selected_route_id
             else "microcosm explain <project> <selected_route_id>"
+        ),
+        "route_explanation": _compact_project_route_explanation(
+            project,
+            selected_route_id,
         ),
         "route_selection_rule": (
             "derived from compiled .microcosm/routes.json; run microcosm "
@@ -2239,6 +2351,9 @@ def _runtime_status_card(
             card["front_door"]["selected_route_id"] = selected_route_id
             card["front_door"]["route_explanation_command"] = (
                 project_overlay.get("route_explanation_command")
+            )
+            card["front_door"]["route_explanation"] = project_overlay.get(
+                "route_explanation"
             )
         card["front_door"]["route_selection_rule"] = project_overlay.get(
             "route_selection_rule"
