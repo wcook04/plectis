@@ -1,0 +1,78 @@
+{
+  "schema_version": "macro_projection_agent_operating_packet_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "agent_operating_packet_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_agent_operating_packet_sidecar_and_owner_module_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, principle/axiom packet assertions, anchor checks, and syntax compilation into /tmp; copied source modules are body evidence, not authority to refresh live doctrine projections or inspect raw seed bodies",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "agent_operating_packet_sidecar_body_import",
+      "source_ref": "codex/doctrine/agent_operating_packet.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
+      "material_class": "public_macro_receipt_body",
+      "source_role": "Generated Type A agent operating packet sidecar carrying global runtime principle capsules, agent-principle rows, candidate axiom pressure, routing matrix, commands, and byte-budget metrics.",
+      "required_anchors": [
+        "\"kind\": \"agent_operating_packet\"",
+        "\"global_runtime_capsule\"",
+        "\"agent_principles\"",
+        "\"candidate_axiom_pressure\"",
+        "\"entry_strip_bytes\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "c9c9ac4363a4b3c2eb4883b325997d58bbab48b17c9768e04506c5781b71cbab",
+      "target_sha256": "c9c9ac4363a4b3c2eb4883b325997d58bbab48b17c9768e04506c5781b71cbab",
+      "sha256_match": true,
+      "line_count": 4633,
+      "byte_count": 220671,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "agent_operating_packet_projection_body_import",
+      "source_ref": "system/lib/agent_operating_packet.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_operating_packet.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Agent operating packet owner that selects active principles, builds agent-principle lenses, keeps axiom candidates as pressure-only rows, renders markdown, and emits the runtime strip consumed by entry surfaces.",
+      "required_anchors": [
+        "SCHEMA_VERSION = \"agent_operating_packet_v0\"",
+        "def build_agent_principle_lens(",
+        "def build_agent_operating_packet(",
+        "def build_agent_operating_packet_strip(",
+        "def render_agent_operating_packet_markdown("
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "a588a9762a3f7b7e405714dffe989b183e7f27f925c28d4fc317d38e575457b9",
+      "target_sha256": "a588a9762a3f7b7e405714dffe989b183e7f27f925c28d4fc317d38e575457b9",
+      "sha256_match": true,
+      "line_count": 1015,
+      "byte_count": 50137,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_sources_have_runtime_principle_packet",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

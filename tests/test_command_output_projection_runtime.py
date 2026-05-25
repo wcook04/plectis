@@ -38,6 +38,9 @@ ROUTE_SELECTION_CONTROL_MANIFEST = (
 BOOTSTRAP_ROUTE_SURFACE_MANIFEST = (
     BUNDLE_INPUT / "bootstrap_route_surface_source_module_manifest.json"
 )
+AGENT_OPERATING_PACKET_MANIFEST = (
+    BUNDLE_INPUT / "agent_operating_packet_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -222,6 +225,53 @@ def test_bootstrap_route_surface_projection_sources_have_route_rows() -> None:
     ):
         source_path = BUNDLE_INPUT / source_rel
         compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+
+def test_agent_operating_packet_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = json.loads(AGENT_OPERATING_PACKET_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["manifest_id"] == "agent_operating_packet_source_modules_import"
+    assert manifest["module_count"] == 2
+    assert manifest["public_runtime_policy"].startswith("public validation uses exact")
+    for row in manifest["modules"]:
+        source = REPO_ROOT / row["source_ref"]
+        target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+        assert source.is_file()
+        assert target.is_file()
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert source_digest == target_digest
+        target_text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in target_text
+
+
+def test_agent_operating_packet_sources_have_runtime_principle_packet() -> None:
+    packet = json.loads(
+        (
+            BUNDLE_INPUT
+            / "source_modules/codex/doctrine/agent_operating_packet.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert packet["kind"] == "agent_operating_packet"
+    assert packet["authority_posture"] == "generated_projection_not_source_authority"
+    assert len(packet["global_runtime_capsule"]["principles"]) >= 7
+    assert len(packet["agent_principles"]["rows"]) >= 16
+    assert packet["candidate_axiom_pressure"]["authority_posture"].startswith(
+        "candidate"
+    )
+    assert packet["budget_metrics"]["entry_strip_bytes"] > 0
+
+    source_path = (
+        BUNDLE_INPUT / "source_modules/system/lib/agent_operating_packet.py"
+    )
+    source_text = source_path.read_text(encoding="utf-8")
+    compile(source_text, str(source_path), "exec")
+    assert "def build_agent_operating_packet_strip(" in source_text
 
 
 def _load_trace_capsule_source_module():
