@@ -74,6 +74,9 @@ AGENT_ENTRYPOINT_AUDIT_MANIFEST = (
 NAVIGATION_FITNESS_MANIFEST = (
     BUNDLE_INPUT / "navigation_fitness_source_module_manifest.json"
 )
+DYNAMIC_PAPER_LATTICE_MANIFEST = (
+    BUNDLE_INPUT / "dynamic_paper_lattice_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -753,6 +756,44 @@ def test_navigation_fitness_sources_compile_and_carry_fitness_contract() -> None
         in test_text
     )
     assert "test_navigation_fitness_cli_and_semantic_modes_are_explicit" in test_text
+
+
+def test_dynamic_paper_lattice_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        DYNAMIC_PAPER_LATTICE_MANIFEST,
+        manifest_id="dynamic_paper_lattice_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_dynamic_paper_lattice_sources_compile_and_carry_lattice_contract() -> None:
+    lattice_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/dynamic_paper_lattice.py"
+    )
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_dynamic_paper_lattice.py"
+    )
+
+    lattice_text = lattice_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(lattice_text, str(lattice_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert 'DEFAULT_SLUG = "navigation_hologram_theory"' in lattice_text
+    assert "RAW_SEED_PATH = Path(" in lattice_text
+    assert "def build_dynamic_paper_lattice(" in lattice_text
+    assert '"schema_version": "dynamic_paper_lattice_v0"' in lattice_text
+    assert '"paper_module_profile_id": paper_contract.get("profile_id")' in lattice_text
+    assert (
+        "test_dynamic_paper_lattice_projects_source_anchored_affordance_rows"
+        in test_text
+    )
+    assert "test_dynamic_paper_lattice_cli_emits_budgeted_json" in test_text
+    assert (
+        "test_dynamic_paper_lattice_unsupported_slug_is_structured_exemplar_error"
+        in test_text
+    )
 
 
 def _load_trace_capsule_source_module():

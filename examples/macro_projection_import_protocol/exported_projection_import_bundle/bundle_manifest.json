@@ -22,7 +22,8 @@
     "annex_currentness_source_module_manifest.json",
     "entrypoint_health_source_module_manifest.json",
     "agent_entrypoint_audit_source_module_manifest.json",
-    "navigation_fitness_source_module_manifest.json"
+    "navigation_fitness_source_module_manifest.json",
+    "dynamic_paper_lattice_source_module_manifest.json"
   ],
   "authority_ceiling": {
     "release_authorized": false,
