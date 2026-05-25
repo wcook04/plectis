@@ -26,7 +26,8 @@ The compact behavioral path is:
    lab route.
 9. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
    observatory; check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
-   `/project/python-lens`, and `/project/explain/<selected_route_id>`.
+   `/project/python-lens`, `/project/observatory`, and
+   `/project/explain/<selected_route_id>`.
 
 Receipts are evidence drilldowns after the behavior route is visible, not the
 cockpit. Use the `selected_route_id` emitted by `tour` or `compile`;
@@ -72,6 +73,9 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    receipts when the question is whether the first screen is honest about
    missing standards, failure modes, source-open body imports, and bounded
    authority.
+   Open `atlas/entry_packet.json::observatory_route` when the question is how
+   the local browser/read-model ties route, work, evidence, graph, status, and
+   proof surfaces together.
 5. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
