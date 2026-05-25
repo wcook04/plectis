@@ -86,7 +86,10 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json",
     "system/lib/active_execution_constellation.py",
     "system/server/tests/test_active_execution_constellation.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
+    "system/lib/navigation_coverage_matrix.py",
+    "system/server/tests/test_navigation_coverage_matrix.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -2482,17 +2485,17 @@
         "source_authority_above_macro_contracts": false,
         "live_macro_source_authority": false
       },
-      "body_digest": "sha256:5c2b38bf6d972dc9da9dc5155a6f44dcf6e7cb09ec2333e3c150d96bfc9b4f55",
-      "body_line_count": 6896,
+      "body_digest": "sha256:4a5f9581c687de26ca3067a69022591b75d2f6733a6d32add70a7302811fdaf3",
+      "body_line_count": 6945,
       "body_in_receipt": false,
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "exact_source_digest_match",
-        "source_body_digest": "sha256:5c2b38bf6d972dc9da9dc5155a6f44dcf6e7cb09ec2333e3c150d96bfc9b4f55",
-        "target_body_digest": "sha256:5c2b38bf6d972dc9da9dc5155a6f44dcf6e7cb09ec2333e3c150d96bfc9b4f55",
+        "source_body_digest": "sha256:4a5f9581c687de26ca3067a69022591b75d2f6733a6d32add70a7302811fdaf3",
+        "target_body_digest": "sha256:4a5f9581c687de26ca3067a69022591b75d2f6733a6d32add70a7302811fdaf3",
         "source_to_target_relation": "exact_copy",
-        "source_line_count": 6896,
-        "target_line_count": 6896,
+        "source_line_count": 6945,
+        "target_line_count": 6945,
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
@@ -2612,17 +2615,17 @@
         "source_authority_above_macro_contracts": false,
         "live_macro_source_authority": false
       },
-      "body_digest": "sha256:caf222728e0a511c32000d2e5dd322eb29ed5dc3b9dc59c6d5a0cdaf08585d03",
-      "body_line_count": 15910,
+      "body_digest": "sha256:ac5d682426e340581fd31a105d548bf8f2547e65d225e2b6333938944b42e478",
+      "body_line_count": 15942,
       "body_in_receipt": false,
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "exact_source_digest_match",
-        "source_body_digest": "sha256:caf222728e0a511c32000d2e5dd322eb29ed5dc3b9dc59c6d5a0cdaf08585d03",
-        "target_body_digest": "sha256:caf222728e0a511c32000d2e5dd322eb29ed5dc3b9dc59c6d5a0cdaf08585d03",
+        "source_body_digest": "sha256:ac5d682426e340581fd31a105d548bf8f2547e65d225e2b6333938944b42e478",
+        "target_body_digest": "sha256:ac5d682426e340581fd31a105d548bf8f2547e65d225e2b6333938944b42e478",
         "source_to_target_relation": "exact_copy",
-        "source_line_count": 15910,
-        "target_line_count": 15910,
+        "source_line_count": 15942,
+        "target_line_count": 15942,
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
@@ -3134,6 +3137,136 @@
         ]
       },
       "body_digest": "sha256:800725b9f03c20e81ef73a93359fcede50bd8275bcb4506a1157fac71d0e44be"
+    },
+    {
+      "material_id": "navigation_coverage_matrix_projection_body_import",
+      "source_ref": "system/lib/navigation_coverage_matrix.py",
+      "source_refs": [
+        "system/lib/navigation_coverage_matrix.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_navigation_coverage_matrix_source_body_into_public_projection_bundle",
+        "bind_navigation_coverage_matrix_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_coverage_matrix_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_sources_compile_and_carry_coverage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public navigation coverage matrix source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "authority_ceiling": {
+        "live_kernel_execution_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "account_session_state_export_authorized": false,
+        "provider_payload_body_export_authorized": false,
+        "private_data_equivalence_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "body_line_count": 1220,
+      "body_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/navigation_coverage_matrix.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+        "source_body_digest": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+        "target_body_digest": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+        "source_line_count": 1220,
+        "target_line_count": 1220,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_sources_compile_and_carry_coverage_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "navigation_coverage_matrix_test_body_import",
+      "source_ref": "system/server/tests/test_navigation_coverage_matrix.py",
+      "source_refs": [
+        "system/server/tests/test_navigation_coverage_matrix.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_coverage_matrix.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_navigation_coverage_matrix_source_body_into_public_projection_bundle",
+        "bind_navigation_coverage_matrix_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_coverage_matrix_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_sources_compile_and_carry_coverage_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public navigation coverage matrix source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "authority_ceiling": {
+        "live_kernel_execution_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "provider_calls_authorized": false,
+        "credential_export_authorized": false,
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "account_session_state_export_authorized": false,
+        "provider_payload_body_export_authorized": false,
+        "private_data_equivalence_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_digest": "sha256:b5dd5a24eb0ade19887bb7cefdd09b010d3fc15904d960f960f44fcd3ed595c2",
+      "body_line_count": 396,
+      "body_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_navigation_coverage_matrix.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_coverage_matrix.py",
+        "source_body_digest": "sha256:b5dd5a24eb0ade19887bb7cefdd09b010d3fc15904d960f960f44fcd3ed595c2",
+        "target_body_digest": "sha256:b5dd5a24eb0ade19887bb7cefdd09b010d3fc15904d960f960f44fcd3ed595c2",
+        "source_line_count": 396,
+        "target_line_count": 396,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_sources_compile_and_carry_coverage_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -3217,7 +3350,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_coverage_matrix.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -3268,7 +3404,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_sources_compile_and_carry_coverage_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

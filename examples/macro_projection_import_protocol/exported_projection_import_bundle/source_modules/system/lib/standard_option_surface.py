@@ -5076,7 +5076,39 @@ def _standard_claim(data: dict[str, Any]) -> str:
     validation = data.get("validation_rules")
     if isinstance(validation, list) and validation:
         return _first_sentence(str(validation[0]))
+    flattened_validation = _standard_validation_rule_texts(data)
+    if flattened_validation:
+        return _first_sentence(flattened_validation[0])
     return ""
+
+
+def _standard_validation_rule_texts(data: Mapping[str, Any]) -> list[str]:
+    """Return validation rules from legacy list and structured rule-block standards."""
+    validation = data.get("validation_rules")
+    if isinstance(validation, list):
+        return [str(item).strip() for item in validation if str(item).strip()]
+    if not isinstance(validation, Mapping):
+        return []
+
+    preferred_keys = (
+        "hard_errors",
+        "errors",
+        "warnings",
+        "advisories",
+        "checks",
+    )
+    ordered_keys = [key for key in preferred_keys if key in validation]
+    ordered_keys.extend(str(key) for key in validation.keys() if str(key) not in set(ordered_keys))
+
+    rules: list[str] = []
+    for key in ordered_keys:
+        value = validation.get(key)
+        label = str(key).replace("_", " ").rstrip("s")
+        if isinstance(value, str) and value.strip():
+            rules.append(f"{label}: {value.strip()}")
+        elif isinstance(value, list):
+            rules.extend(f"{label}: {str(item).strip()}" for item in value if str(item).strip())
+    return rules
 
 
 def _navigation_contract_summary(data: dict[str, Any]) -> dict[str, Any] | None:
@@ -5511,7 +5543,7 @@ def _standard_card_row(row: dict[str, Any], *, repo_root: Path) -> dict[str, Any
     core_law = data.get("core_law") if isinstance(data.get("core_law"), dict) else {}
     available_shards = data.get("available_shards") if isinstance(data.get("available_shards"), list) else []
     naming_layers = data.get("naming_layers") if isinstance(data.get("naming_layers"), list) else []
-    validation_rules = data.get("validation_rules") if isinstance(data.get("validation_rules"), list) else []
+    validation_rules = _standard_validation_rule_texts(data)
     related_surfaces = data.get("related_surfaces") if isinstance(data.get("related_surfaces"), dict) else {}
     navigation_contract = _navigation_contract_summary(data)
     current_projection_fields = (

@@ -17,6 +17,7 @@ import re
 import subprocess
 import sys
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, MutableMapping, Sequence
@@ -32,6 +33,7 @@ from system.lib.standard_option_surface import (
     build_option_surface,
     candidate_runtime_pressure_rows,
     no_edit_pass_floor_card,
+    _standard_validation_rule_texts,
 )
 from system.lib.navigation_index_spine import build_navigation_index_spine
 from system.lib.python_target_resolution import (
@@ -380,31 +382,46 @@ TYPE_A_AUTONOMOUS_SEED_MATCH_STOP_TERMS = {
     "agent",
     "agents",
     "and",
+    "atlas",
     "autonomous",
+    "binding",
+    "bindings",
+    "body",
     "bundle",
     "bundles",
     "card",
     "continuation",
     "continuity",
+    "current",
+    "doctrine",
     "dogfood",
+    "floor",
     "framework",
+    "gap",
     "hardening",
     "into",
     "live",
     "loop",
     "loops",
     "owner",
+    "pattern",
+    "patterns",
     "prompt",
     "prompts",
     "receipt",
     "receipts",
     "rehydration",
     "replay",
+    "rewrite",
+    "routability",
     "route",
     "seed",
     "seeds",
     "selected",
+    "strongest",
     "the",
+    "trace",
+    "capsule",
     "type",
     "wake",
 }
@@ -1459,6 +1476,26 @@ def _type_a_autonomous_seed_matches_for_query(
     except Exception:
         return []
     rows = surface.get("rows") if isinstance(surface.get("rows"), list) else []
+    seed_identity_terms_by_id: dict[str, set[str]] = {}
+    seed_term_counts: Counter[str] = Counter()
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        seed_id = str(row.get("seed_id") or row.get("id") or "").strip()
+        if not seed_id:
+            continue
+        terms: set[str] = set()
+        for field in (
+            "seed_id",
+            "id",
+            "title",
+            "selection_label",
+            "selection_token",
+        ):
+            terms |= _autonomous_seed_match_terms(row.get(field))
+        seed_identity_terms_by_id[seed_id] = terms
+        seed_term_counts.update(terms)
+
     matches: list[dict[str, Any]] = []
     for row in rows:
         if not isinstance(row, Mapping):
@@ -1477,6 +1514,16 @@ def _type_a_autonomous_seed_matches_for_query(
         if len(seed_overlap) >= 2:
             score += 3.0 + min(len(seed_overlap), 4) * 0.35
             reason_bits.append("seed id term overlap: " + ", ".join(seed_overlap[:4]))
+        unique_seed_overlap = sorted(
+            term
+            for term in (query_terms & seed_identity_terms_by_id.get(seed_id, set()))
+            if seed_term_counts.get(term) == 1 and len(term) >= 8
+        )
+        if unique_seed_overlap:
+            score += min(len(unique_seed_overlap), 3) * 3.0
+            reason_bits.append(
+                "unique saved-seed term overlap: " + ", ".join(unique_seed_overlap[:4])
+            )
         metadata_overlap: set[str] = set()
         for field in (
             "title",
@@ -2847,7 +2894,7 @@ def _query_matched_standard_validation_rules(
     if not source_ref.endswith(".json"):
         return []
     payload = _load_json(repo_root / source_ref)
-    validation_rules = payload.get("validation_rules") if isinstance(payload.get("validation_rules"), list) else []
+    validation_rules = _standard_validation_rule_texts(payload)
     if not validation_rules:
         return []
     top_rules = {str(rule) for rule in row.get("top_validation_rules") or []}
@@ -5726,6 +5773,7 @@ def _budget_trim(
                         "evidence_command",
                         "selection_source_kind",
                         "selection_facet",
+                        "matched_validation_rules",
                         "next_safe_moves",
                         "route_summary",
                         "render_profile",
@@ -5799,6 +5847,7 @@ def _budget_trim(
                     "drilldown_command",
                     "evidence_command",
                     "selection_source_kind",
+                    "matched_validation_rules",
                 )
                 if row.get(key) not in (None, "", [], {})
             }

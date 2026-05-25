@@ -1,0 +1,78 @@
+{
+  "schema_version": "macro_projection_navigation_coverage_matrix_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "navigation_coverage_matrix_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_navigation_coverage_matrix_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing coverage-matrix CLI/test contract; copied source modules are body evidence, not authority to run the live macro kernel or inspect private state",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "navigation_coverage_matrix_projection_body_import",
+      "source_ref": "system/lib/navigation_coverage_matrix.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Read-only coverage-first navigation enforcement matrix owner that joins Kind Atlas, Navigation Metabolism debt, standard type-plane route resolution, route lifecycle, fast-path process-audit routing, and privacy-safe latency profiling.",
+      "required_anchors": [
+        "def build_coverage_enforcement_matrix(",
+        "\"schema_version\": \"coverage_enforcement_matrix_v0",
+        "process_audit_fast_path",
+        "type_plane_resolution",
+        "latency_profile"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "target_sha256": "9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "sha256_match": true,
+      "line_count": 1220,
+      "byte_count": 52459,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "navigation_coverage_matrix_test_body_import",
+      "source_ref": "system/server/tests/test_navigation_coverage_matrix.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_coverage_matrix.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Focused regression suite for the coverage matrix route-legality contract, high-cardinality coverage, budget row compaction, behavior fast paths, throughput routing, privacy-safe timings, and CLI JSON emission.",
+      "required_anchors": [
+        "test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only",
+        "test_coverage_enforcement_matrix_budget_trim_keeps_rows_routeable",
+        "test_coverage_enforcement_matrix_omits_rows_for_active_fast_path_query",
+        "test_coverage_enforcement_matrix_routes_speed_query_to_throughput_fast_path",
+        "test_coverage_enforcement_matrix_cli_emits_json"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "b5dd5a24eb0ade19887bb7cefdd09b010d3fc15904d960f960f44fcd3ed595c2",
+      "target_sha256": "b5dd5a24eb0ade19887bb7cefdd09b010d3fc15904d960f960f44fcd3ed595c2",
+      "sha256_match": true,
+      "line_count": 396,
+      "byte_count": 19595,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_coverage_matrix_sources_compile_and_carry_coverage_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}
