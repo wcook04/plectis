@@ -1152,6 +1152,38 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "agent_observability_classification_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent-observability telemetry-quality classifier now carries "
+            "the exact copied non-secret auth-failure-loop and stale-source "
+            "classification source body inside the projection bundle, "
+            "validated by digest/anchor checks, syntax compilation, and "
+            "synthetic classifier assertions without scanning live ~/.claude "
+            "or ~/.codex sessions, calling providers, executing local CLIs, "
+            "exporting prompt/provider/tool-output bodies, account/session "
+            "state, hidden reasoning, browser/HUD live access, recipient-send "
+            "state, generated state, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "agent_observability_classification_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "agent_observability_classification.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 

@@ -111,6 +111,9 @@ AGENT_OBSERVABILITY_MANIFEST = (
 AGENT_OBSERVABILITY_ANIMATION_MANIFEST = (
     BUNDLE_INPUT / "agent_observability_animation_source_module_manifest.json"
 )
+AGENT_OBSERVABILITY_CLASSIFICATION_MANIFEST = (
+    BUNDLE_INPUT / "agent_observability_classification_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1966,6 +1969,117 @@ print(json.dumps(payload, sort_keys=True))
         "proof_receipt_upsert",
         "quality_update",
     } <= set(payload["delta_ops"])
+
+
+def test_agent_observability_classification_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_OBSERVABILITY_CLASSIFICATION_MANIFEST,
+        manifest_id="agent_observability_classification_source_modules_import",
+        module_count=1,
+    )
+
+
+def test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract() -> None:
+    module_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/lib/agent_observability_classification.py"
+    )
+    source_text = module_path.read_text(encoding="utf-8")
+    compile(source_text, str(module_path), "exec")
+    assert "CLASS_ID_AUTH_FAILURE_LOOP" in source_text
+    assert "def classify_auth_failure_loop(" in source_text
+    assert "def classify_telemetry_quality(" in source_text
+
+    spec = importlib.util.spec_from_file_location(
+        "microcosm_agent_observability_classification_source_module",
+        module_path,
+    )
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    previous = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = previous
+
+    from datetime import datetime, timezone
+
+    def assistant_event(seq: int, *, session_id: str, cwd: str, source_runtime: str = "claude_code") -> dict:
+        return {
+            "seq": seq,
+            "canonical_type": "message.assistant",
+            "source_runtime": source_runtime,
+            "session_id": session_id,
+            "cwd": cwd,
+            "observed_at": f"2026-05-25T10:0{seq}:00+00:00",
+            "payload": {
+                "content": "Failed to authenticate request: 401 authentication_error"
+            },
+        }
+
+    events = [
+        assistant_event(
+            1,
+            session_id="observer-noise",
+            cwd="/tmp/.claude-mem/observer-sessions/run-a",
+        ),
+        assistant_event(
+            2,
+            session_id="observer-noise",
+            cwd="/tmp/.claude-mem/observer-sessions/run-a",
+        ),
+        assistant_event(
+            3,
+            session_id="infrastructure",
+            cwd="/tmp/.claude-mem/observer-sessions/run-b",
+            source_runtime="metabolism",
+        ),
+        {
+            "seq": 4,
+            "canonical_type": "message.assistant",
+            "source_runtime": "claude_code",
+            "session_id": "healthy",
+            "cwd": "/repo",
+            "payload": {"content": "401 appears in a normal discussion"},
+        },
+    ]
+
+    noise_class = module.classify_auth_failure_loop(events)
+    assert noise_class["class_id"] == module.CLASS_ID_AUTH_FAILURE_LOOP
+    assert noise_class["affected_session_count"] == 1
+    assert noise_class["event_count"] == 2
+    assert noise_class["raw_refs"] == ["agent_event:1", "agent_event:2"]
+    assert module.noisy_session_ids_from_classes([noise_class]) == {"observer-noise"}
+
+    now = datetime(2026, 5, 25, 10, 10, tzinfo=timezone.utc)
+    telemetry_quality = module.classify_telemetry_quality(
+        events=events,
+        source_status=[
+            {
+                "source_runtime": "claude_code",
+                "last_observed_at": "2026-05-25T10:00:00+00:00",
+                "event_count": 2,
+            }
+        ],
+        persistence_status={"error_count": 1, "last_error": "disk full"},
+        gap_count=1,
+        dropped_count=1,
+        history_limit_used=50,
+        now=now,
+        stale_source_after_s=60.0,
+    )
+    assert telemetry_quality["schema_version"] == "agent_observability_classification_v0"
+    assert telemetry_quality["noise_classes"] == [noise_class]
+    assert telemetry_quality["stale_sources"][0]["source_runtime"] == "claude_code"
+    assert {row["kind"] for row in telemetry_quality["projection_warnings"]} == {
+        "persistence_errors",
+        "events_dropped",
+        "stream_gaps",
+    }
+    assert telemetry_quality["history_limit_used"] == 50
 
 
 def _load_trace_capsule_source_module():

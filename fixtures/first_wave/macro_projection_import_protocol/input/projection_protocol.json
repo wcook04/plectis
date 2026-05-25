@@ -163,7 +163,9 @@
     "system/server/tests/test_agent_observability_animation.py",
     "system/server/tests/test_agent_observability_animation_coverage.py",
     "system/server/tests/test_agent_session_attribution.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json",
+    "system/lib/agent_observability_classification.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -6117,6 +6119,55 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "agent_observability_classification_source_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/lib/agent_observability_classification.py",
+      "source_refs": [
+        "system/lib/agent_observability_classification.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_classification.py",
+      "body_digest": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+      "claim_ceiling": "public agent-observability telemetry-quality classification source-body import only; not live ~/.claude or ~/.codex session scanning, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_agent_observability_classification_source_into_public_projection_bundle",
+        "bind_auth_failure_loop_classifier_to_macro_projection_body_floor",
+        "preserve_observability_classifier_source_without_exporting_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
+        "codex/doctrine/paper_modules/agent_observability.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/lib/agent_observability_classification.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_classification.py",
+        "source_body_digest": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+        "target_body_digest": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+        "source_line_count": 358,
+        "target_line_count": 358,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -6258,7 +6309,9 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_classification.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -6372,7 +6425,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_animation_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_observability_classification_source_compiles_and_preserves_auth_failure_loop_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

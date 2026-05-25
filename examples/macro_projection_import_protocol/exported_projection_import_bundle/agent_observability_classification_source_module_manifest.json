@@ -1,0 +1,55 @@
+{
+  "schema_version": "macro_projection_agent_observability_classification_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "agent_observability_classification_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_prompt_bodies_hidden_reasoning_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "exact_non_secret_agent_observability_classification_source_module_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic auth-failure-loop checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "public_runtime_policy": "public validation uses exact source digest, anchor checks, syntax compilation, and synthetic telemetry-quality classification checks; copied source module is body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority.",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "prompt bodies",
+    "hidden reasoning",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "raw tool-result bodies",
+    "CLI subprocess execution payloads",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "agent_observability_classification_source_body_import",
+      "source_ref": "system/lib/agent_observability_classification.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_classification.py",
+      "source_role": "Macro telemetry-quality classifier that demotes auth-failure observer loops and stale source runtimes without deleting canonical agent observability events or exporting live payload bodies.",
+      "required_anchors": [
+        "Pure telemetry-quality classification over the agent observability plane.",
+        "CLASS_ID_AUTH_FAILURE_LOOP",
+        "INFRASTRUCTURE_SOURCE_RUNTIMES_FOR_NOISE",
+        "def classify_auth_failure_loop(",
+        "def noisy_session_ids_from_classes(",
+        "def classify_telemetry_quality("
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
+      "source_sha256": "837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+      "target_sha256": "837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+      "sha256_match": true,
+      "line_count": 358,
+      "byte_count": 13537,
+      "anchor_count": 6
+    }
+  ]
+}
