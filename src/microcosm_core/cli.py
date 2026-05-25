@@ -68,6 +68,19 @@ from microcosm_core.validators import standards_registry
 from microcosm_core.validators import transaction_evidence_stability
 
 
+FIRST_SCREEN_HELP = """First-screen route:
+  microcosm compile <project>     build local .microcosm state
+  microcosm tour <project>        inspect route/work/event/evidence/proof refs
+  microcosm status --card         read the compressed runtime status lens
+  microcosm serve <project>       open the local observatory
+  microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+
+Boundaries: local-first only; no provider calls, source mutation, release,
+hosting, proof-correctness, or credential-equivalent live-access authority.
+Receipts are evidence drilldowns after the behavior route is visible.
+"""
+
+
 def _add_root_out(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--root", required=True)
     parser.add_argument("--out", required=True)
@@ -85,8 +98,16 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="microcosm")
-    subparsers = parser.add_subparsers(dest="command")
+    parser = argparse.ArgumentParser(
+        prog="microcosm",
+        description=(
+            "Local-first project substrate: repo -> .microcosm without provider "
+            "calls or source mutation."
+        ),
+        epilog=FIRST_SCREEN_HELP,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    subparsers = parser.add_subparsers(dest="command", metavar="<command>")
     init_parser = subparsers.add_parser("init")
     init_parser.add_argument("project")
     index_parser = subparsers.add_parser("index")
@@ -95,25 +116,40 @@ def main(argv: list[str] | None = None) -> int:
     catalog_parser.add_argument("project")
     architecture_parser = subparsers.add_parser("architecture")
     architecture_parser.add_argument("project")
-    compile_parser = subparsers.add_parser("compile")
+    compile_parser = subparsers.add_parser(
+        "compile",
+        help="build local .microcosm project state",
+    )
     compile_parser.add_argument("project")
-    python_lens_parser = subparsers.add_parser("python-lens")
+    python_lens_parser = subparsers.add_parser(
+        "python-lens",
+        help="inspect public Python route/readiness metadata",
+    )
     python_lens_parser.add_argument("project")
     graph_parser = subparsers.add_parser("graph")
     graph_parser.add_argument("project")
-    explain_parser = subparsers.add_parser("explain")
+    explain_parser = subparsers.add_parser(
+        "explain",
+        help="show route -> work -> event -> evidence chain",
+    )
     explain_parser.add_argument("project")
     explain_parser.add_argument("route_id")
-    status_parser = subparsers.add_parser("status")
+    status_parser = subparsers.add_parser(
+        "status",
+        help="show runtime status or compact first-screen card",
+    )
     status_parser.add_argument(
         "--card",
         action="store_true",
         help="emit the compact first-screen status lens",
     )
-    subparsers.add_parser("spine")
-    tour_parser = subparsers.add_parser("tour")
+    subparsers.add_parser("spine", help="show accepted public runtime spine")
+    tour_parser = subparsers.add_parser(
+        "tour",
+        help="run the compressed cold-reader route",
+    )
     tour_parser.add_argument("project", nargs="?")
-    subparsers.add_parser("authority")
+    subparsers.add_parser("authority", help="show authority ceilings and anti-claims")
     subparsers.add_parser("workingness")
     subparsers.add_parser("prediction-lens")
     subparsers.add_parser("market-boundary")
@@ -143,7 +179,10 @@ def main(argv: list[str] | None = None) -> int:
     subparsers.add_parser("reveal")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
-    serve_parser = subparsers.add_parser("serve")
+    serve_parser = subparsers.add_parser(
+        "serve",
+        help="serve the local observatory over project state",
+    )
     serve_parser.add_argument("project", nargs="?")
     serve_parser.add_argument("--host", default="127.0.0.1")
     serve_parser.add_argument("--port", type=int, default=8765)
@@ -162,7 +201,10 @@ def main(argv: list[str] | None = None) -> int:
     work_run_parser.add_argument("--work-id")
     observe_parser = subparsers.add_parser("observe")
     observe_parser.add_argument("project")
-    evidence_parser = subparsers.add_parser("evidence")
+    evidence_parser = subparsers.add_parser(
+        "evidence",
+        help="list or inspect evidence after behavior is visible",
+    )
     evidence_subparsers = evidence_parser.add_subparsers(dest="evidence_command")
     evidence_list_parser = evidence_subparsers.add_parser("list")
     evidence_list_parser.add_argument("project", nargs="?")
@@ -170,7 +212,7 @@ def main(argv: list[str] | None = None) -> int:
     evidence_inspect_parser.add_argument("--project")
     evidence_inspect_parser.add_argument("receipt_ref")
 
-    scan_parser = subparsers.add_parser("private-state-scan", help=argparse.SUPPRESS)
+    scan_parser = subparsers.add_parser("private-state-scan")
     scan_parser.add_argument("--root", required=True)
     scan_parser.add_argument("--out", required=True)
     scan_parser.add_argument("--policy")

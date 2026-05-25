@@ -71,103 +71,42 @@ def test_package_metadata_describes_runtime_spine() -> None:
     assert (MICROCOSM_ROOT / "LICENSE").read_text(encoding="utf-8").startswith("Apache License")
 
 
-def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixture[str]) -> None:
+def test_cli_help_routes_cold_readers_before_drilldown_commands(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     with pytest.raises(SystemExit) as excinfo:
         cli.main(["--help"])
 
     assert excinfo.value.code == 0
     output = capsys.readouterr().out
+    first_line = output.splitlines()[0]
+    assert first_line == "usage: microcosm [-h] <command> ..."
+    assert "{init,index" not in first_line
+    assert "First-screen route:" in output
+    assert "microcosm compile <project>     build local .microcosm state" in output
+    assert "microcosm tour <project>        inspect route/work/event/evidence/proof refs" in output
+    assert "microcosm status --card         read the compressed runtime status lens" in output
+    assert "microcosm serve <project>       open the local observatory" in output
+    assert "no provider calls, source mutation, release," in output
+    assert "Receipts are evidence drilldowns after the behavior route is visible." in output
     for command in [
-        "init",
-        "index",
-        "catalog",
         "compile",
         "python-lens",
-        "patterns",
-        "route",
-        "work",
-        "observe",
-        "evidence",
+        "explain",
+        "status",
         "spine",
         "tour",
         "authority",
-        "workingness",
-        "prediction-lens",
-        "market-boundary",
-        "corpus-lens",
-        "trace-lens",
-        "repair-loop",
-        "evidence-cells",
-        "proof-loop-depth",
-        "verifier-lab-execution-spine-lens",
-        "landing-replay",
-        "durable-agent-work-landing-replay",
-        "view-quality",
-        "projection-safety",
-        "drift-control",
-        "spatial-simulation",
-        "circuit-attribution",
-        "route-cleanup",
-        "projection-import-map",
-        "import-projector",
-        "option-surface-lens",
-        "stripping-guard",
-        "standards-control",
-        "hook-coverage",
-        "replay-gauntlet",
-        "benchmark-lab",
-        "legibility-scorecard",
-        "intake",
-        "secret-exclusion-scan",
-        "public-entry-docs",
-        "launch-compression",
-        "standards-registry",
-        "dependency-preflight",
-        "fixture-freshness",
-        "pattern-binding",
-        "pattern-route-readiness",
-        "finance-eval-spine",
-        "work-landing-control-spine",
-        "executable-doctrine-grammar",
-        "proof-diagnostic-evidence-spine",
-        "formal-math-readiness-gate",
-        "corpus-readiness-mathlib-absence-gate",
-        "mathematical-strategy-atlas-hypothesis-scorer",
-        "tactic-portfolio-availability-probe",
-        "target-shape-tactic-routing-gate",
-        "formal-math-lean-proof-witness",
-        "formal-math-premise-retrieval",
-        "formal-math-verifier-trace-repair-loop",
-        "verifier-lab-kernel",
-        "verifier-lab-execution-spine",
-        "certificate-kernel-execution-lab",
-        "formal-evidence-cell-anchor-resolver",
-        "undeclared-library-prior-symbol-classifier",
-        "provider-context-recipe-budget-policy",
-        "navigation-hologram-route-plane",
-        "mission-transaction-work-spine",
-        "agent-route-observability-runtime",
-        "pattern-assimilation-step",
-        "public-reveal-walkthrough",
-        "macro-projection-import-protocol",
-        "prediction-oracle-reconciliation",
-        "standards-meta-diagnostics",
-        "cold-reader-route-map",
-        "agent-monitor-redteam-falsification-replay",
-        "agent-sabotage-scheming-monitor-replay",
-        "agent-sandbox-policy-escape-replay",
-        "indirect-prompt-injection-information-flow-policy-replay",
-        "agentic-vulnerability-discovery-patch-proof-replay",
-        "agent-memory-temporal-conflict-replay",
-        "sleeper-memory-poisoning-quarantine-replay",
-        "mcp-tool-authority-replay",
-        "proof-derived-governed-mutation-authorization",
-        "belief-state-process-reward-replay",
-        "world-model-projection-drift-control-room",
-        "spatial-world-model-counterfactual-simulation-replay",
-        "mechanistic-interpretability-circuit-attribution-replay",
+        "serve",
+        "evidence",
     ]:
         assert command in output
+    for drilldown_command in [
+        "private-state-scan",
+        "macro-projection-import-protocol",
+        "agentic-vulnerability-discovery-patch-proof-replay",
+    ]:
+        assert drilldown_command not in output
 
 
 def test_cli_pattern_route_readiness_accepts_exported_bundle(tmp_path: Path) -> None:
