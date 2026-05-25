@@ -18,6 +18,12 @@
     "microcosm verifier-lab-execution-spine-lens",
     "microcosm tour <project>::front_door_status",
     "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
+    "microcosm status --card",
+    "microcosm workingness",
+    "microcosm tour <project>::status_and_workingness",
+    "/workingness",
+    "receipts/runtime_shell/public_ten_minute_tour.json::route_cards.status_and_workingness",
+    "receipts/runtime_shell/workingness_failure_map.json",
     "microcosm python-lens <project>",
     ".microcosm/python_lens.json",
     ".microcosm/python_lens.json::navigation_assay",
@@ -121,6 +127,40 @@
       "provider_calls_authorized": false
     },
     "authority": "tour status routing only, not source authority, release authority, provider authority, proof authority, or permission to hide blocked drilldowns"
+  },
+  "status_and_workingness_route": {
+    "surface_id": "microcosm_status_and_workingness",
+    "command": "microcosm status --card && microcosm workingness",
+    "status_card_command": "microcosm status --card",
+    "workingness_command": "microcosm workingness",
+    "endpoint": "/workingness",
+    "tour_route_card_ref": "microcosm tour <project>::status_and_workingness",
+    "tour_receipt_ref": "receipts/runtime_shell/public_ten_minute_tour.json::route_cards.status_and_workingness",
+    "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
+    "entry_role": "cold-reader honesty lens after tour status and before receipt drilldown",
+    "expected_fields": [
+      "mapped_organ_count",
+      "adapter_backed_organ_count",
+      "demoted_drilldown_count",
+      "missing_standard_count",
+      "missing_failure_modes_count",
+      "rows_with_failure_modes",
+      "rows_with_future_work_targets",
+      "accepted_status_is_not_evidence_strength",
+      "not_a_scorecard"
+    ],
+    "reader_action": "Use the status card for compressed first-screen state and workingness for per-organ failure envelopes; treat missing standards and failure modes as bounded debt, not as a score, maturity claim, release gate, or proof authority.",
+    "safe_to_show": {
+      "status_counts_visible": true,
+      "failure_envelope_counts_visible": true,
+      "receipt_refs_visible": true,
+      "release_authorized": false,
+      "provider_calls_authorized": false,
+      "source_mutation_authorized": false,
+      "score_based_progress_authority": false,
+      "proof_correctness_claim": false
+    },
+    "authority": "compressed status and workingness route only, not source authority, release authority, provider authority, proof authority, maturity scoring, or source mutation authority"
   },
   "proof_lab_route": {
     "surface_id": "first_screen_verifier_lab_kernel",
@@ -232,7 +272,7 @@
       "codex/standards/std_microcosm.json",
       "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
     ],
-    "selection_rule": "Use the proof_lab_route when the reader asks what is runnable or impressive; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route when the reader asks why a selected route exists or how route, work, events, and evidence connect; use standards and paper modules as drilldowns after the behavior is visible."
+    "selection_rule": "Use the proof_lab_route when the reader asks what is runnable or impressive; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route when the reader asks why a selected route exists or how route, work, events, and evidence connect; use standards and paper modules as drilldowns after the behavior is visible."
   },
   "doctrine_lattice_route": {
     "surface_id": "microcosm_doctrine_lattice",
@@ -333,6 +373,7 @@
     "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/runtime_shell/public_ten_minute_tour.json",
+    "receipts/runtime_shell/workingness_failure_map.json",
     "receipts/cold_clone_probe.json"
   ],
   "authority_ceiling": "entry packet routes public Microcosm navigation; it is not source, release, provider, proof, or mutation authority",

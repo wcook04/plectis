@@ -28,11 +28,14 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
 4. Run `microcosm tour <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to inspect
    the ten-minute public-safe route from compile through spine, authority,
-   prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
+   status/workingness, prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
    cells, proof-loop depth, verifier-lab execution spine, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
    drift control, route cleanup, hook intervention coverage, projection import map, import-projector contract, compression-profile option surface, stripping guard, standards
    control, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal, observatory, and evidence
    drilldowns.
+   Open `atlas/entry_packet.json::status_and_workingness_route` before raw
+   receipts when the question is whether the first screen is honest about
+   missing standards, failure modes, and bounded authority.
 5. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the

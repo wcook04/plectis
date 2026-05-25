@@ -391,6 +391,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "verifier-lab-kernel run-kernel-bundle" in cold_start
     assert "formal_prover_context_strategy_gate" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start
+    assert "atlas/entry_packet.json::status_and_workingness_route" in cold_start
 
 
 def test_public_entry_packet_routes_python_navigation_assay() -> None:
@@ -483,6 +484,38 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert front_door["safe_to_show"]["release_authorized"] is False
     assert front_door["safe_to_show"]["source_mutation_authorized"] is False
     assert "blocking_surface_ids" in front_door["top_level_status_rule"]
+
+    workingness = entry_packet["status_and_workingness_route"]
+    assert workingness["surface_id"] == "microcosm_status_and_workingness"
+    assert (
+        workingness["command"]
+        == "microcosm status --card && microcosm workingness"
+    )
+    assert workingness["status_card_command"] == "microcosm status --card"
+    assert workingness["workingness_command"] == "microcosm workingness"
+    assert workingness["endpoint"] == "/workingness"
+    assert workingness["tour_route_card_ref"] == (
+        "microcosm tour <project>::status_and_workingness"
+    )
+    assert workingness["tour_receipt_ref"] == (
+        "receipts/runtime_shell/public_ten_minute_tour.json::"
+        "route_cards.status_and_workingness"
+    )
+    assert (
+        workingness["workingness_map_ref"]
+        == "receipts/runtime_shell/workingness_failure_map.json"
+    )
+    assert "missing_standard_count" in workingness["expected_fields"]
+    assert "missing_failure_modes_count" in workingness["expected_fields"]
+    assert workingness["safe_to_show"]["score_based_progress_authority"] is False
+    assert workingness["safe_to_show"]["proof_correctness_claim"] is False
+    assert workingness["safe_to_show"]["release_authorized"] is False
+    assert workingness["status_card_command"] in entry_packet["allowed_drilldowns"]
+    assert workingness["workingness_command"] in entry_packet["allowed_drilldowns"]
+    assert workingness["tour_route_card_ref"] in entry_packet["allowed_drilldowns"]
+    assert workingness["tour_receipt_ref"] in entry_packet["allowed_drilldowns"]
+    assert workingness["workingness_map_ref"] in entry_packet["allowed_drilldowns"]
+    assert workingness["workingness_map_ref"] in entry_packet["receipt_dependencies"]
 
     doctrine_route = entry_packet["doctrine_navigation_route"]
     assert doctrine_route["surface_id"] == "microcosm_doctrine_navigation"
