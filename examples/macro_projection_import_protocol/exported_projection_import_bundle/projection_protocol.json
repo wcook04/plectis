@@ -9158,6 +9158,643 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+        "source_line_count": 13,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+        "target_line_count": 13,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_root_aggregate_report_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 13,
+      "artifact_id": "ring2_premise_retrieval_root_aggregate_report_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+        "source_line_count": 122,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+        "target_line_count": 122,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_premise_aggregate_report_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 122,
+      "artifact_id": "ring2_premise_retrieval_graph_aggregate_report_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+        "source_line_count": 203,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+        "target_line_count": 203,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_premise_cost_metrics_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 203,
+      "artifact_id": "ring2_premise_retrieval_cost_metrics_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+        "source_line_count": 28,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+        "target_line_count": 28,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_premise_graph_variant_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 28,
+      "artifact_id": "ring2_premise_retrieval_graph_variant_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "source_line_count": 801,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "target_line_count": 801,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_premise_run_summary_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 801,
+      "artifact_id": "ring2_premise_retrieval_run_summary_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "source_line_count": 45,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "target_line_count": 45,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_premise_failure_taxonomy_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 45,
+      "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+        "source_line_count": 61,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+        "target_line_count": 61,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_premise_graph_update_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 61,
+      "artifact_id": "ring2_premise_retrieval_graph_update_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+        "source_line_count": 109,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+        "target_line_count": 109,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_oracle_aggregate_report_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 109,
+      "artifact_id": "ring2_oracle_repair_aggregate_report_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+        "source_line_count": 203,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+        "target_line_count": 203,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_oracle_cost_metrics_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 203,
+      "artifact_id": "ring2_oracle_repair_cost_metrics_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+        "source_line_count": 19,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+        "target_line_count": 19,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_oracle_failure_taxonomy_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 19,
+      "artifact_id": "ring2_oracle_repair_failure_taxonomy_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+        "source_line_count": 33,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+        "target_line_count": 33,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_oracle_graph_update_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 33,
+      "artifact_id": "ring2_oracle_repair_graph_update_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
+        "source_line_count": 29,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
+        "target_line_count": 29,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_oracle_graph_variant_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 29,
+      "artifact_id": "ring2_oracle_repair_graph_variant_body_import"
+    },
+    {
+      "applied_edits": [
+        "exact_copy_ring2_diagnostic_runtime_artifact_into_proof_diagnostic_bundle",
+        "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input examples/proof_diagnostic_evidence_spine/exported_evidence_bundle --out receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine",
+          "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "source_line_count": 530,
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "target_line_count": 530,
+        "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "proof_diagnostic_ring2_oracle_run_summary_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+      ],
+      "target_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 530,
+      "artifact_id": "ring2_oracle_repair_run_summary_body_import"
     }
   ],
   "material_classes": [
@@ -9357,7 +9994,20 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/b3_packet_lint.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_runs_index.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -9592,7 +10242,15 @@
     "system/server/tests/test_prompt_shelf_runs_index.py",
     "system/server/tests/fixtures/b3_packet_lint/bad_role_and_evidence_packet.txt",
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_runs_index_source_module_manifest.json",
-    "system/server/tests/test_standard_option_surface.py"
+    "system/server/tests/test_standard_option_surface.py",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json"
   ],
   "steps": [
     {
@@ -9806,6 +10464,8 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
   ]
 }

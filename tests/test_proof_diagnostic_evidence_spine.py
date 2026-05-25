@@ -156,11 +156,13 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     )
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["copied_macro_body_artifact_count"] == 4
+    assert result["copied_macro_body_artifact_count"] == len(PUBLIC_RING2_ARTIFACT_IMPORTS)
     assert result["copied_macro_body_digest_status"] == "pass"
     assert result["copied_macro_body_missing_target_refs"] == []
     assert result["copied_macro_body_digest_mismatches"] == []
-    assert result["source_target_refs"][-4:] == PUBLIC_RING2_ARTIFACT_TARGET_REFS
+    assert result["source_target_refs"][-len(PUBLIC_RING2_ARTIFACT_TARGET_REFS) :] == (
+        PUBLIC_RING2_ARTIFACT_TARGET_REFS
+    )
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["authority_ceiling"]["formal_prover_execution_authorized"] is False
     assert result["receipt_paths"] == [

@@ -204,6 +204,29 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "fixtures/first_wave/formal_math_readiness_gate/input"
         ),
     },
+    "proof_diagnostic_evidence_spine_runtime_artifacts": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The proof-diagnostic evidence spine now carries exact copied public-safe "
+            "Ring2 diagnostic runtime artifact bodies with digest coupling, excluding "
+            "proof bodies, provider payload bodies, credentials, sessions, browser/HUD "
+            "live access, recipient-send state, and release authority."
+        ),
+        "landed_evidence_refs": [
+            "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+            "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs",
+            "standards/std_microcosm_proof_diagnostic_evidence_spine.json",
+            "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::"
+            "test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+        ),
+    },
     "projection_protocol_self_host": {
         "projection_status": "self_hosted_status_protocol_landed",
         "cell_state": "consumed_protocol_self_host",

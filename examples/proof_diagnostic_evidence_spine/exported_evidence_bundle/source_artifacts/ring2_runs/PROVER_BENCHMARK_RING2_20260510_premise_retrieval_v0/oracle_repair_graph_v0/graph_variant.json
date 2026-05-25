@@ -1,0 +1,29 @@
+{
+  "decomposition_settings": {
+    "repair_gate": "Lean stderr plus ideal skeleton allowed only after failed oracle check",
+    "repair_rounds": 1,
+    "subgoal_decomposition": "none"
+  },
+  "description": "statement -> direct Lean proof candidate -> Lean check -> oracle-gated repair -> Lean check -> quartet -> learning row",
+  "graph_variant_id": "oracle_repair_graph_v0",
+  "nodes": [
+    "prover_lab_direct_candidate",
+    "prover_oracle_lean_check",
+    "prover_oracle_repair_candidate",
+    "prover_oracle_repair_check",
+    "prover_oracle_statement_reconciliation",
+    "prover_oracle_critique",
+    "prover_oracle_ideal_packet",
+    "prover_evolve_learning_row"
+  ],
+  "provider": {
+    "provider_calls": 0,
+    "provider_or_nim_needed": false
+  },
+  "retrieval_settings": {
+    "mathlib": "not_used_lean_std_toolchain_only",
+    "premise_retrieval": "none",
+    "strategy_conditioned": false
+  },
+  "schema_version": "prover_graph_variant_v0"
+}

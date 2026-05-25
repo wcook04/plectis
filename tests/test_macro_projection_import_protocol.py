@@ -336,6 +336,21 @@ RING2_PREMISE_RETRIEVAL_BODY_MATERIAL_IDS = [
     "ring2_premise_retrieval_graph_variant_comparison_body_import",
     "ring2_premise_retrieval_problem_source_manifest_body_import",
 ]
+PROOF_DIAGNOSTIC_RING2_RUNTIME_BODY_MATERIAL_IDS = [
+    "proof_diagnostic_ring2_root_aggregate_report_body_import",
+    "proof_diagnostic_ring2_premise_aggregate_report_body_import",
+    "proof_diagnostic_ring2_premise_cost_metrics_body_import",
+    "proof_diagnostic_ring2_premise_graph_variant_body_import",
+    "proof_diagnostic_ring2_premise_run_summary_body_import",
+    "proof_diagnostic_ring2_premise_failure_taxonomy_body_import",
+    "proof_diagnostic_ring2_premise_graph_update_body_import",
+    "proof_diagnostic_ring2_oracle_aggregate_report_body_import",
+    "proof_diagnostic_ring2_oracle_cost_metrics_body_import",
+    "proof_diagnostic_ring2_oracle_failure_taxonomy_body_import",
+    "proof_diagnostic_ring2_oracle_graph_update_body_import",
+    "proof_diagnostic_ring2_oracle_graph_variant_body_import",
+    "proof_diagnostic_ring2_oracle_run_summary_body_import",
+]
 PROVIDER_CONTEXT_SOURCE_BODY_MATERIAL_IDS = [
     "provider_context_graph_benchmark_body_import",
     "provider_context_formal_ladder_eval_body_import",
@@ -416,6 +431,10 @@ def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
     shutil.copytree(
         MICROCOSM_ROOT / "examples/ring2_premise_retrieval_precision_recall_harness",
         public_root / "examples/ring2_premise_retrieval_precision_recall_harness",
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_diagnostic_evidence_spine",
+        public_root / "examples/proof_diagnostic_evidence_spine",
     )
     shutil.copytree(
         MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
@@ -1398,13 +1417,13 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["projection_cell_count"] == 60
-    assert result["projection_intake_board"]["ready_cell_count"] == 60
+    assert result["projection_cell_count"] == 61
+    assert result["projection_intake_board"]["ready_cell_count"] == 61
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 171
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 171
+    assert result["public_safe_body_material_count"] == 184
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 184
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1474,10 +1493,11 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *MECHANISTIC_ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
         *TARGET_SHAPE_TACTIC_ROUTING_BODY_MATERIAL_IDS,
         *RING2_PREMISE_RETRIEVAL_BODY_MATERIAL_IDS,
+        *PROOF_DIAGNOSTIC_RING2_RUNTIME_BODY_MATERIAL_IDS,
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 171
+    assert result["public_safe_body_digest_count"] == 184
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1591,7 +1611,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
     assert result["input_mode"] == "exported_projection_import_bundle"
-    assert result["projection_intake_board"]["ready_cell_count"] == 60
+    assert result["projection_intake_board"]["ready_cell_count"] == 61
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
@@ -1601,11 +1621,11 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 171
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 184
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 3,
         "public_macro_proof_body": 1,
-        "public_macro_receipt_body": 13,
+        "public_macro_receipt_body": 26,
         "public_macro_tool_body": 154,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
@@ -1628,7 +1648,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 171
+    assert result["public_safe_body_material_count"] == 184
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -3018,6 +3038,25 @@ def test_provider_context_source_modules_body_import_is_unified_under_macro_proj
         public_root=public_root,
         material_ids=PROVIDER_CONTEXT_SOURCE_BODY_MATERIAL_IDS,
         cell_id="provider_context_source_modules_import",
+    )
+
+
+def test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=PROOF_DIAGNOSTIC_RING2_RUNTIME_BODY_MATERIAL_IDS,
+        cell_id="proof_diagnostic_evidence_spine_runtime_artifacts",
+        expected_material_class="public_macro_receipt_body",
     )
 
 

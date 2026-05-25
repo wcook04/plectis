@@ -51,11 +51,29 @@ BODY_MATERIAL_STATUS = "real_ring2_diagnostic_receipt_refs"
 EVIDENCE_ANCHOR_STATUS = "real_ring2_failure_taxonomy_and_evidence_cell_receipt_refs"
 REAL_SUBSTRATE_REFS = [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/graph_variant.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
     "premise_retrieval_graph_v0/run_summary.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
     "premise_retrieval_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
     "premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/graph_variant.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
     "oracle_repair_graph_v0/run_summary.json",
 ]
@@ -84,12 +102,33 @@ AUTHORITY_CHAIN_RECEIPT_REFS = [
     "receipts/first_wave/proof_diagnostic_evidence_spine/proof_evidence_validation_receipt.json",
 ]
 SOURCE_DIGESTS = {
-    REAL_SUBSTRATE_REFS[0]: "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
-    REAL_SUBSTRATE_REFS[1]: "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
-    REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
-    REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+    REAL_SUBSTRATE_REFS[0]: "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+    REAL_SUBSTRATE_REFS[1]: "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+    REAL_SUBSTRATE_REFS[2]: "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+    REAL_SUBSTRATE_REFS[3]: "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+    REAL_SUBSTRATE_REFS[4]: "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    REAL_SUBSTRATE_REFS[5]: "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+    REAL_SUBSTRATE_REFS[6]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+    REAL_SUBSTRATE_REFS[7]: "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
+    REAL_SUBSTRATE_REFS[8]: "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
+    REAL_SUBSTRATE_REFS[9]: "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
+    REAL_SUBSTRATE_REFS[10]: "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
+    REAL_SUBSTRATE_REFS[11]: "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
+    REAL_SUBSTRATE_REFS[12]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
 }
 PUBLIC_RING2_ARTIFACT_TARGET_REFS = [
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/graph_variant.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
     "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
     "premise_retrieval_graph_v0/run_summary.json",
@@ -101,11 +140,26 @@ PUBLIC_RING2_ARTIFACT_TARGET_REFS = [
     "premise_retrieval_graph_v0/graph_update_candidates.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
     "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/aggregate_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/cost_metrics.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/graph_variant.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
     "oracle_repair_graph_v0/run_summary.json",
 ]
 PUBLIC_RING2_ARTIFACT_IMPORTS = [
     {
-        "artifact_id": "ring2_premise_retrieval_run_summary_body_import",
+        "artifact_id": "ring2_premise_retrieval_root_aggregate_report_body_import",
         "source_ref": REAL_SUBSTRATE_REFS[0],
         "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[0],
         "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[0]],
@@ -113,7 +167,7 @@ PUBLIC_RING2_ARTIFACT_IMPORTS = [
         "copy_policy": "exact_public_safe_runtime_artifact",
     },
     {
-        "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import",
+        "artifact_id": "ring2_premise_retrieval_graph_aggregate_report_body_import",
         "source_ref": REAL_SUBSTRATE_REFS[1],
         "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[1],
         "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[1]],
@@ -121,7 +175,7 @@ PUBLIC_RING2_ARTIFACT_IMPORTS = [
         "copy_policy": "exact_public_safe_runtime_artifact",
     },
     {
-        "artifact_id": "ring2_premise_retrieval_graph_update_body_import",
+        "artifact_id": "ring2_premise_retrieval_cost_metrics_body_import",
         "source_ref": REAL_SUBSTRATE_REFS[2],
         "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[2],
         "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[2]],
@@ -129,10 +183,82 @@ PUBLIC_RING2_ARTIFACT_IMPORTS = [
         "copy_policy": "exact_public_safe_runtime_artifact",
     },
     {
-        "artifact_id": "ring2_oracle_repair_run_summary_body_import",
+        "artifact_id": "ring2_premise_retrieval_graph_variant_body_import",
         "source_ref": REAL_SUBSTRATE_REFS[3],
         "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[3],
         "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[3]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_premise_retrieval_run_summary_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[4],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[4],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[4]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[5],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[5],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[5]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_premise_retrieval_graph_update_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[6],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[6],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[6]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_aggregate_report_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[7],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[7],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[7]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_cost_metrics_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[8],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[8],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[8]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_failure_taxonomy_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[9],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[9],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[9]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_graph_update_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[10],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[10],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[10]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_graph_variant_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[11],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[11],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[11]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_run_summary_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[12],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[12],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[12]],
         "body_copied": True,
         "copy_policy": "exact_public_safe_runtime_artifact",
     },

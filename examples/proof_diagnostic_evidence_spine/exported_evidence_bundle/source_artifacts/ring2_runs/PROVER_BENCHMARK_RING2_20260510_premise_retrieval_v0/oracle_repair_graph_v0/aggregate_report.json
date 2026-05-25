@@ -1,0 +1,109 @@
+{
+  "by_source": {
+    "lean_std_toolchain_premise_index_v0": {
+      "fail": 0,
+      "pass": 10,
+      "total": 10
+    }
+  },
+  "by_split": {
+    "dev": {
+      "fail": 0,
+      "pass": 3,
+      "total": 3
+    },
+    "test": {
+      "fail": 0,
+      "pass": 3,
+      "total": 3
+    },
+    "train": {
+      "fail": 0,
+      "pass": 4,
+      "total": 4
+    }
+  },
+  "cost_totals": {
+    "attempt_count": 20,
+    "context_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "lean_compile_ms": 40652,
+    "num_repair_rounds": 10,
+    "num_retrieved_premises": 0,
+    "num_subgoals": 10,
+    "problem_count": 10,
+    "proof_check_count": 20,
+    "provider_calls": 0,
+    "retrieval_candidates_considered": 0,
+    "source_index_size": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_time_ms": 40652
+  },
+  "fail_count": 0,
+  "failure_taxonomy": {
+    "DECOMPOSITION_BAD": 0,
+    "ENVIRONMENT_FAIL": 0,
+    "FORMALIZATION_MISMATCH": 0,
+    "LIBRARY_GAP": 0,
+    "NONE": 10,
+    "ORACLE_TIMEOUT": 0,
+    "PREMISE_RETRIEVAL_MISS": 0,
+    "PROOF_CORE_GAP": 0,
+    "PROOF_SYNTHESIS_FAIL": 0,
+    "REGISTRY_STATUS_MISMATCH": 0,
+    "SOLUTION_LEAKAGE": 0,
+    "STRATEGY_SELECTION_MISS": 0,
+    "TACTIC_SEARCH_FAIL": 0
+  },
+  "leakage_count": 0,
+  "pass_count": 10,
+  "pass_rate": 1.0,
+  "premise_retrieval_metrics": {
+    "candidate_premise_count": 0,
+    "hit_failure_problem_ids": [],
+    "hit_success_problem_ids": [],
+    "oracle_needed_premise_count": 0,
+    "premise_hit_count": 0,
+    "premise_miss_count": 0,
+    "premise_precision": 0,
+    "premise_recall": 0,
+    "proof_failure_despite_hit": 0,
+    "proof_success_given_hit": 0,
+    "retrieval_miss_problem_ids": [],
+    "schema_version": "premise_retrieval_metrics_v0"
+  },
+  "problem_count": 10,
+  "repair_attempt_count": 10,
+  "repair_success_count": 10,
+  "schema_version": "prover_benchmark_aggregate_report_v0",
+  "statement_mismatch_count": 0,
+  "strategy_control_metrics": {
+    "exercised_strategy_ids": [],
+    "oracle_repair_success_after_strategy_failure": 0,
+    "premise_recall_after_strategy_expansion": 0,
+    "premise_retrieval_metrics": {
+      "candidate_premise_count": 0,
+      "hit_failure_problem_ids": [],
+      "hit_success_problem_ids": [],
+      "oracle_needed_premise_count": 0,
+      "premise_hit_count": 0,
+      "premise_miss_count": 0,
+      "premise_precision": 0,
+      "premise_recall": 0,
+      "proof_failure_despite_hit": 0,
+      "proof_success_given_hit": 0,
+      "retrieval_miss_problem_ids": [],
+      "schema_version": "premise_retrieval_metrics_v0"
+    },
+    "proof_failure_despite_strategy_hit": 0,
+    "proof_success_given_strategy_hit": 0,
+    "schema_version": "strategy_control_metrics_v0",
+    "strategy_hit_problem_ids": [],
+    "strategy_miss_problem_ids": [],
+    "strategy_problem_count": 0,
+    "strategy_selection_accuracy": 0,
+    "strategy_selection_hit_count": 0,
+    "strategy_selection_miss_count": 0
+  }
+}
