@@ -6,6 +6,13 @@
   "authority_boundary": "public_cold_reader_route_map_projection_only",
   "source_refs": [
     "src/microcosm_core/organs/cold_reader_route_map.py",
+    "tests/test_cold_reader_route_map.py",
+    "fixtures/first_wave/cold_reader_route_map/input",
+    "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_result.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_board.json",
+    "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
+    "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
     "src/microcosm_core/runtime_shell.py",
     "core/acceptance/first_wave_acceptance.json",
     "paper_modules/cold_reader_route_map.md"
@@ -82,6 +89,38 @@
     "private_data_equivalence_claim": false,
     "whole_system_correctness_claim": false,
     "release_authorized": false
+  },
+  "standard_payload": {
+    "ontology": "A public cold-reader route-map organ that validates Microcosm first-run route order, command refs, docs refs, receipt refs, public runtime refs, negative cases, and authority ceilings without private macro context.",
+    "teleology": "Make the first ten minutes runnable and evidence-backed for a cold technical reader while keeping route maps projection-only and source-open without secrets, provider payloads, account/session material, browser/HUD live access, or release authority.",
+    "anti_purpose": "A glossy onboarding route list, status-card shortcut, or receipt archive that lacks runnable commands, receipt-backed route ids, first-run ordering, negative cases, public/private boundaries, or real runtime validation.",
+    "compression_bands": [
+      "route_card",
+      "first_run_sequence",
+      "command_ref",
+      "docs_ref",
+      "receipt_ref",
+      "public_runtime_ref",
+      "negative_case",
+      "secret_exclusion",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "route card admitted without a runnable command ref",
+      "route card admitted without public docs refs",
+      "required route id missing from the first-run route map",
+      "first-run sequence missing compile_project or no longer ordinal sorted",
+      "route id accepted without at least one evidence receipt ref",
+      "route receipt row exists but its receipt_refs are empty or disconnected from the route id",
+      "cold-reader route map accepted as route-registry authority",
+      "release, publication, provider-call, private-data equivalence, trading or financial advice, or whole-system correctness overclaim accepted",
+      "private macro source body, raw seed body, provider payload body, secret value, account/session state, browser/HUD live access, or credential-equivalent material exported through the route map",
+      "secret-exclusion scan omitted or body material embedded in route-map receipts",
+      "synthetic receipt stand-in accepted instead of real runtime receipt refs",
+      "exported route-map bundle accepted without route_map, route_receipts, route_policy, manifest, public runtime refs, and runtime validation receipt",
+      "cold-reader route map claims product progress from route-list metadata without validating the public first-run command chain",
+      "receipt duplicates route or macro body text instead of carrying public refs, verdicts, hashes, and omission boundaries"
+    ]
   },
   "anti_claim": "Cold-reader route maps validate public first-run route projection only; they do not become route registry authority, expose private sources, authorize release, call providers, mutate source projects, or prove whole-system correctness."
 }
