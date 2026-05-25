@@ -109,6 +109,11 @@ VERIFIER_EXECUTION_SOURCE_COMMAND = (
     f"--input {VERIFIER_EXECUTION_BUNDLE_REF} "
     "--out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine"
 )
+LOCAL_FIRST_SCREEN_ROUTE_ID = "local_first_screen_route"
+LOCAL_FIRST_SCREEN_ROUTE_REF = (
+    "atlas/entry_packet.json::local_first_screen_route"
+)
+LOCAL_FIRST_SCREEN_SURFACE_ID = "microcosm_local_first_screen"
 WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
 FIRST_SCREEN_STATE_REFS = (
     "project_manifest.json",
@@ -993,6 +998,14 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
     }
 
 
+def _local_first_screen_route_ref() -> dict[str, str]:
+    return {
+        "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
+        "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+        "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
+    }
+
+
 def _cold_reader_first_screen_card(
     *,
     project_ref: str,
@@ -1015,6 +1028,7 @@ def _cold_reader_first_screen_card(
         if proof_lab.get("status") == PASS and compile_status in {None, PASS}
         else "blocked",
         "card_id": "cold_reader_first_screen",
+        "local_first_screen_route": _local_first_screen_route_ref(),
         "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
         "project_ref": project_ref,
         "primary_command": "microcosm tour <project>",
@@ -1036,6 +1050,7 @@ def _cold_reader_first_screen_card(
             {
                 "step_id": "inspect_first_screen",
                 "command": "microcosm tour <project>",
+                "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "this first-screen card",
                     "route cards",
@@ -1047,6 +1062,7 @@ def _cold_reader_first_screen_card(
             {
                 "step_id": "inspect_status_and_workingness",
                 "command": "microcosm status --card && microcosm workingness",
+                "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "compressed first-screen status",
                     "workingness failure-envelope counts",
@@ -1645,6 +1661,11 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         "front_door": {
             "status": front_door.get("status"),
             "primary_command": front_door.get("primary_command"),
+            "local_first_screen_route": (
+                front_door.get("local_first_screen_route")
+                if isinstance(front_door.get("local_first_screen_route"), dict)
+                else _local_first_screen_route_ref()
+            ),
             "tour_front_door_status_ref": (
                 "microcosm tour <project>::front_door_status"
             ),
@@ -3493,6 +3514,7 @@ class RuntimeShell:
         front_door_status = {
             "schema_version": "microcosm_tour_front_door_status_v1",
             "status_scope": "required_behavioral_first_screen_surfaces",
+            "local_first_screen_route": _local_first_screen_route_ref(),
             "required_surface_ids": front_door_required_surface_ids,
             "blocking_surface_ids": blocking_surface_ids,
             "drilldown_warning_surface_ids": drilldown_warning_surface_ids,
@@ -3573,6 +3595,7 @@ class RuntimeShell:
                 "minute_budget": 0.5,
                 "command": "microcosm tour <project>",
                 "endpoint": "/tour",
+                "local_first_screen_route": _local_first_screen_route_ref(),
                 "shows": [
                     "front_door_status.blocking_surface_ids",
                     "front_door_status.drilldown_warning_surface_ids",
@@ -3862,6 +3885,7 @@ class RuntimeShell:
             "route_cards": route_cards,
             "surface_statuses": surface_statuses,
             "front_door_status": front_door_status,
+            "local_first_screen_route": _local_first_screen_route_ref(),
             "compile_summary": {
                 "headline": compiled.get("headline"),
                 "file_count": compiled.get("file_count"),
@@ -13458,6 +13482,7 @@ class RuntimeShell:
             "runtime_status": status,
             "tour": tour,
             "front_door_status": front_door_status,
+            "local_first_screen_route": _local_first_screen_route_ref(),
             "runtime_bridge": runtime_bridge,
             "authority_map": authority_map,
             "prediction_lens": prediction_lens,
@@ -13728,6 +13753,13 @@ class RuntimeShell:
             if isinstance(model.get("front_door_status"), dict)
             else tour.get("front_door_status", {})
             if isinstance(tour.get("front_door_status"), dict)
+            else {}
+        )
+        local_first_screen_route = (
+            model.get("local_first_screen_route", {})
+            if isinstance(model.get("local_first_screen_route"), dict)
+            else tour.get("local_first_screen_route", {})
+            if isinstance(tour.get("local_first_screen_route"), dict)
             else {}
         )
         tour_cards = tour.get("route_cards", []) if isinstance(tour.get("route_cards"), list) else []
@@ -14614,6 +14646,7 @@ class RuntimeShell:
           {row("Project ref", tour.get("project_ref"))}
           {row("Compile headline", (tour.get("compile_summary") or {}).get("headline") if isinstance(tour.get("compile_summary"), dict) else "")}
           {row("Selected route", (tour.get("compile_summary") or {}).get("selected_route_id") if isinstance(tour.get("compile_summary"), dict) else "")}
+          {row("Local first-screen route", local_first_screen_route.get("route_ref"))}
           {row("Tour ref", tour.get("tour_ref"))}
           {row("Front-door gate", front_door_status.get("top_level_status_rule"))}
           {row("Blocking surfaces", list_text(front_door_status.get("blocking_surface_ids")))}

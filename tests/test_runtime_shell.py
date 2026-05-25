@@ -13,6 +13,9 @@ from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
 from microcosm_core.public_payload_boundary import omitted_payload_schema_term_hits
 from microcosm_core.runtime_shell import (
+    LOCAL_FIRST_SCREEN_ROUTE_ID,
+    LOCAL_FIRST_SCREEN_ROUTE_REF,
+    LOCAL_FIRST_SCREEN_SURFACE_ID,
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
@@ -155,6 +158,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "microcosm_cold_reader_first_screen_v1"
     )
     assert status["front_door"]["primary_command"] == "microcosm tour <project>"
+    assert status["front_door"]["local_first_screen_route"] == {
+        "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
+        "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+        "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
+    }
     assert status["front_door"]["generated_state"]["state_dir"] == ".microcosm"
     assert ".microcosm/graph.json" in status["front_door"]["generated_state"]["refs"]
     assert status["front_door"]["behavior_surfaces"] == {
@@ -372,6 +380,11 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["card_command"] == "microcosm status --card"
     assert card["full_status_command"] == "microcosm status"
     assert card["front_door"]["primary_command"] == "microcosm tour <project>"
+    assert card["front_door"]["local_first_screen_route"] == {
+        "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
+        "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+        "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
+    }
     assert card["front_door"]["tour_front_door_status_ref"] == (
         "microcosm tour <project>::front_door_status"
     )
@@ -1216,6 +1229,16 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["front_door_status"]["status_scope"] == (
         "required_behavioral_first_screen_surfaces"
     )
+    assert tour["local_first_screen_route"] == {
+        "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
+        "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+        "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
+    }
+    assert tour["front_door_status"]["local_first_screen_route"] == {
+        "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
+        "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+        "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
+    }
     assert tour["front_door_status"]["blocking_surface_ids"] == []
     assert tour["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",
@@ -1297,6 +1320,9 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     )
     assert tour["first_screen"]["status"] == "pass"
     assert tour["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert tour["first_screen"]["local_first_screen_route"]["route_ref"] == (
+        LOCAL_FIRST_SCREEN_ROUTE_REF
+    )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "compile_project",
         "inspect_first_screen",
@@ -1336,6 +1362,9 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     route_cards_by_id = {row["card_id"]: row for row in tour["route_cards"]}
     assert route_cards_by_id["front_door_status"]["status"] == "pass"
     assert route_cards_by_id["front_door_status"]["endpoint"] == "/tour"
+    assert route_cards_by_id["front_door_status"]["local_first_screen_route"][
+        "route_ref"
+    ] == LOCAL_FIRST_SCREEN_ROUTE_REF
     assert route_cards_by_id["front_door_status"]["blocking_surface_ids"] == []
     assert route_cards_by_id["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",
@@ -3137,6 +3166,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Blocking surfaces" in html
     assert "Warning drilldowns" in html
     assert "front_door_status" in html
+    assert LOCAL_FIRST_SCREEN_ROUTE_REF in html
     assert "/tour" in html
     assert "Spine / Intake / Reveal Bridge" in html
     assert "/spine" in html
@@ -3320,7 +3350,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert favicon_status == 204
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
+    assert observatory["local_first_screen_route"]["route_ref"] == (
+        LOCAL_FIRST_SCREEN_ROUTE_REF
+    )
     assert observatory["tour"]["schema_version"] == "microcosm_public_ten_minute_tour_v1"
+    assert observatory["tour"]["local_first_screen_route"]["route_ref"] == (
+        LOCAL_FIRST_SCREEN_ROUTE_REF
+    )
     assert observatory["front_door_status"]["blocking_surface_ids"] == []
     assert observatory["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",
