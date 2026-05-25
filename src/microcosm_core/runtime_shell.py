@@ -2057,6 +2057,11 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         },
         "workingness": {
             "status": workingness.get("status"),
+            "map_generation_status": workingness.get("map_generation_status"),
+            "failure_envelope_status": workingness.get(
+                "failure_envelope_status"
+            ),
+            "top_level_status_rule": workingness.get("top_level_status_rule"),
             "command": workingness.get("command"),
             "endpoint": workingness.get("endpoint"),
             "workingness_map_ref": workingness.get("workingness_map_ref"),
@@ -2218,6 +2223,30 @@ def _workingness_gap_preview(
     }
 
 
+def _workingness_failure_envelope_status(
+    *,
+    map_generation_status: Any,
+    completeness_status: Any,
+    missing_standard_count: Any,
+    missing_failure_modes_count: Any,
+) -> str:
+    if map_generation_status != PASS:
+        return "blocked"
+
+    try:
+        missing_count = int(missing_standard_count or 0) + int(
+            missing_failure_modes_count or 0
+        )
+    except (TypeError, ValueError):
+        missing_count = 0
+
+    if missing_count:
+        return "actionable"
+    if completeness_status == "complete_failure_modes":
+        return "clear"
+    return "review"
+
+
 def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
     surface_counts = (
         workingness.get("surface_counts", {})
@@ -2229,13 +2258,29 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
         if isinstance(workingness.get("map_policy"), dict)
         else {}
     )
+    map_generation_status = workingness.get("status")
+    completeness_status = workingness.get("completeness_status")
+    missing_standard_count = surface_counts.get("missing_standard_count")
+    missing_failure_modes_count = surface_counts.get("missing_failure_modes_count")
+    failure_envelope_status = _workingness_failure_envelope_status(
+        map_generation_status=map_generation_status,
+        completeness_status=completeness_status,
+        missing_standard_count=missing_standard_count,
+        missing_failure_modes_count=missing_failure_modes_count,
+    )
     return {
         "schema_version": "microcosm_workingness_status_summary_v1",
-        "status": workingness.get("status"),
+        "status": failure_envelope_status,
+        "map_generation_status": map_generation_status,
+        "failure_envelope_status": failure_envelope_status,
+        "top_level_status_rule": (
+            "status describes bounded failure-envelope debt; "
+            "map_generation_status describes whether the workingness map ran"
+        ),
         "command": workingness.get("command"),
         "endpoint": workingness.get("endpoint"),
         "workingness_map_ref": workingness.get("workingness_map_ref"),
-        "completeness_status": workingness.get("completeness_status"),
+        "completeness_status": completeness_status,
         "mapped_organ_count": surface_counts.get("mapped_organ_count"),
         "adapter_backed_organ_count": surface_counts.get("adapter_backed_organ_count"),
         "demoted_drilldown_count": surface_counts.get("demoted_drilldown_count"),
@@ -2243,10 +2288,8 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
         "rows_with_future_work_targets": surface_counts.get(
             "rows_with_future_work_targets"
         ),
-        "missing_standard_count": surface_counts.get("missing_standard_count"),
-        "missing_failure_modes_count": surface_counts.get(
-            "missing_failure_modes_count"
-        ),
+        "missing_standard_count": missing_standard_count,
+        "missing_failure_modes_count": missing_failure_modes_count,
         "accepted_status_is_not_evidence_strength": map_policy.get(
             "accepted_status_is_not_evidence_strength"
         ),
@@ -2714,6 +2757,17 @@ class RuntimeShell:
                 "provider evaluation, or whole-system correctness claim."
             ),
         }
+        payload["map_generation_status"] = payload["status"]
+        payload["failure_envelope_status"] = _workingness_failure_envelope_status(
+            map_generation_status=payload["map_generation_status"],
+            completeness_status=payload["completeness_status"],
+            missing_standard_count=missing_standard_count,
+            missing_failure_modes_count=missing_failure_modes_count,
+        )
+        payload["top_level_status_rule"] = (
+            "status describes map generation; failure_envelope_status describes "
+            "bounded missing-standard or missing-failure-mode debt"
+        )
         if persist_receipt:
             write_json_atomic(self.root / WORKINGNESS_MAP_REF, payload)
         return payload
@@ -4022,7 +4076,16 @@ class RuntimeShell:
                     "missing standards and failure-mode gaps before receipts",
                     "not a score, maturity board, release signal, or release gate",
                 ],
-                "status": workingness.get("status"),
+                "status": workingness_summary.get("status"),
+                "map_generation_status": workingness_summary.get(
+                    "map_generation_status"
+                ),
+                "failure_envelope_status": workingness_summary.get(
+                    "failure_envelope_status"
+                ),
+                "top_level_status_rule": workingness_summary.get(
+                    "top_level_status_rule"
+                ),
                 "status_card_command": "microcosm status --card",
                 "workingness_command": "microcosm workingness",
                 "workingness_map_ref": workingness.get("workingness_map_ref"),

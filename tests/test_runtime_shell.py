@@ -558,7 +558,14 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         assert len(family["source_refs"]) <= 2
         assert family["material_ids"]
         assert len(family["material_ids"]) <= 2
-    assert card["workingness"]["status"] == "pass"
+    assert card["workingness"]["status"] == "actionable"
+    assert card["workingness"]["map_generation_status"] == "pass"
+    assert card["workingness"]["failure_envelope_status"] == "actionable"
+    assert (
+        card["workingness"]["top_level_status_rule"]
+        == "status describes bounded failure-envelope debt; "
+        "map_generation_status describes whether the workingness map ran"
+    )
     assert card["workingness"]["command"] == "microcosm workingness"
     assert card["workingness"]["endpoint"] == "/workingness"
     assert card["workingness"]["completeness_status"] == "partial_failure_modes"
@@ -1060,6 +1067,13 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
 
     assert workingness["schema_version"] == "microcosm_workingness_failure_map_v1"
     assert workingness["status"] == "pass"
+    assert workingness["map_generation_status"] == "pass"
+    assert workingness["failure_envelope_status"] == "actionable"
+    assert (
+        workingness["top_level_status_rule"]
+        == "status describes map generation; failure_envelope_status describes "
+        "bounded missing-standard or missing-failure-mode debt"
+    )
     assert workingness["completeness_status"] == "partial_failure_modes"
     assert workingness["command"] == "microcosm workingness"
     assert workingness["endpoint"] == "/workingness"
@@ -1567,7 +1581,20 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert route_cards_by_id["front_door_status"]["authority_ceiling"][
         "provider_calls_authorized"
     ] is False
-    assert route_cards_by_id["status_and_workingness"]["status"] == "pass"
+    assert route_cards_by_id["status_and_workingness"]["status"] == "actionable"
+    assert (
+        route_cards_by_id["status_and_workingness"]["map_generation_status"]
+        == "pass"
+    )
+    assert (
+        route_cards_by_id["status_and_workingness"]["failure_envelope_status"]
+        == "actionable"
+    )
+    assert (
+        route_cards_by_id["status_and_workingness"]["top_level_status_rule"]
+        == "status describes bounded failure-envelope debt; "
+        "map_generation_status describes whether the workingness map ran"
+    )
     assert route_cards_by_id["status_and_workingness"]["endpoint"] == "/workingness"
     assert route_cards_by_id["status_and_workingness"]["status_card_command"] == (
         "microcosm status --card"
@@ -1578,6 +1605,18 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert route_cards_by_id["status_and_workingness"]["workingness_summary"][
         "missing_failure_modes_count"
     ] >= 1
+    assert (
+        route_cards_by_id["status_and_workingness"]["workingness_summary"][
+            "map_generation_status"
+        ]
+        == "pass"
+    )
+    assert (
+        route_cards_by_id["status_and_workingness"]["workingness_summary"][
+            "failure_envelope_status"
+        ]
+        == "actionable"
+    )
     tour_gap_preview = route_cards_by_id["status_and_workingness"][
         "workingness_summary"
     ]["gap_preview"]

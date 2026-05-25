@@ -210,6 +210,9 @@
     "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
     "entry_role": "cold-reader honesty lens after tour status and before receipt drilldown",
     "expected_fields": [
+      "map_generation_status",
+      "failure_envelope_status",
+      "top_level_status_rule",
       "mapped_organ_count",
       "adapter_backed_organ_count",
       "demoted_drilldown_count",

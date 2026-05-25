@@ -597,6 +597,9 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         workingness["workingness_map_ref"]
         == "receipts/runtime_shell/workingness_failure_map.json"
     )
+    assert "map_generation_status" in workingness["expected_fields"]
+    assert "failure_envelope_status" in workingness["expected_fields"]
+    assert "top_level_status_rule" in workingness["expected_fields"]
     assert "missing_standard_count" in workingness["expected_fields"]
     assert "missing_failure_modes_count" in workingness["expected_fields"]
     assert "gap_preview" in workingness["expected_fields"]
