@@ -108,6 +108,9 @@ AGENT_EXECUTION_TRACE_MANIFEST = (
 AGENT_OBSERVABILITY_MANIFEST = (
     BUNDLE_INPUT / "agent_observability_source_module_manifest.json"
 )
+AGENT_OBSERVABILITY_ANIMATION_MANIFEST = (
+    BUNDLE_INPUT / "agent_observability_animation_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1721,6 +1724,248 @@ print(json.dumps(payload, sort_keys=True))
         "live_access_disallowed": True,
         "payload_compacted": True,
     }
+
+
+def test_agent_observability_animation_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_OBSERVABILITY_ANIMATION_MANIFEST,
+        manifest_id="agent_observability_animation_source_modules_import",
+        module_count=6,
+    )
+
+
+def test_agent_observability_animation_sources_compile_and_preserve_semantic_camera_contract() -> None:
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    source_refs = [
+        "system/lib/agent_observability_animation.py",
+        "system/lib/agent_observability_animation_coverage.py",
+        "system/lib/agent_session_attribution.py",
+        "system/server/tests/test_agent_observability_animation.py",
+        "system/server/tests/test_agent_observability_animation_coverage.py",
+        "system/server/tests/test_agent_session_attribution.py",
+    ]
+    source_text_by_ref = {}
+    for source_ref in source_refs:
+        source = source_modules_root / source_ref
+        text = source.read_text(encoding="utf-8")
+        compile(text, str(source), "exec")
+        source_text_by_ref[source_ref] = text
+
+    assert "def build_agent_observability_animation_scene(" in source_text_by_ref[
+        "system/lib/agent_observability_animation.py"
+    ]
+    assert "def build_agent_observability_animation_delta(" in source_text_by_ref[
+        "system/lib/agent_observability_animation.py"
+    ]
+    assert "def build_agent_observability_animation_coverage(" in source_text_by_ref[
+        "system/lib/agent_observability_animation_coverage.py"
+    ]
+    assert "def attribute_sessions(" in source_text_by_ref[
+        "system/lib/agent_session_attribution.py"
+    ]
+    assert "def identify_self_session(" in source_text_by_ref[
+        "system/lib/agent_session_attribution.py"
+    ]
+
+    code = f"""
+import json
+import sys
+from datetime import datetime, timezone
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, {str(source_modules_root)!r})
+
+from system.lib import agent_observability_animation as animation
+from system.lib import agent_observability_animation_coverage as coverage_mod
+from system.lib import agent_session_attribution as attribution
+
+now = datetime(2026, 5, 20, 22, 0, 10, tzinfo=timezone.utc)
+
+def event(seq, canonical_type, summary, tool_use_id=None, payload=None):
+    at = f"2026-05-20T22:00:{{seq:02d}}+00:00"
+    return {{
+        "id": f"ev-{{seq}}",
+        "seq": seq,
+        "schema": "1.0.0",
+        "trace_id": "s1",
+        "source_runtime": "claude_code",
+        "source_event_name": canonical_type,
+        "canonical_type": canonical_type,
+        "session_id": "s1",
+        "tool_use_id": tool_use_id,
+        "artifact_refs": [],
+        "observed_at": at,
+        "occurred_at": at,
+        "summary": summary,
+        "payload": payload or {{}},
+    }}
+
+events = [
+    event(
+        2,
+        "tool.started",
+        "Edit system/server/main.py",
+        "tool-edit",
+        {{"tool_name": "Edit", "tool_input": {{"file_path": "system/server/main.py"}}}},
+    ),
+    event(3, "tool.completed", "edit ok", "tool-edit"),
+    event(
+        4,
+        "tool.started",
+        "Bash: pytest system/server/tests/test_agent_observability_animation.py",
+        "tool-test",
+        {{
+            "tool_name": "Bash",
+            "tool_input": {{
+                "command": "pytest system/server/tests/test_agent_observability_animation.py"
+            }},
+        }},
+    ),
+    event(5, "tool.completed", "pytest passed", "tool-test"),
+]
+status = {{
+    "schema": "1.0.0",
+    "api_revision": "agent_observability_backend_v2",
+    "trace_path": "state/observability/agent_trace/events.jsonl",
+    "seq": 99,
+    "history_size": 99,
+    "max_history": 2000,
+    "dropped_count": 0,
+    "gap_count": 0,
+    "persistence": {{"enabled": True, "dropped_count": 0}},
+    "source_status": [],
+    "active_sessions": [
+        {{
+            "session_id": "s1",
+            "source_runtime": "claude_code",
+            "title": "Fix trace viewer",
+            "current_activity": "Bash: pytest",
+            "last_observed_at": "2026-05-20T22:00:05+00:00",
+            "last_canonical_type": "tool.completed",
+            "cwd": "/repo",
+            "lag_s": 5,
+            "touched_files": ["system/server/main.py"],
+        }}
+    ],
+    "canonical_counts": {{}},
+    "source_counts": {{}},
+}}
+mission_status = {{
+    "missions": [
+        {{
+            "session_id": "other-agent",
+            "active_claims": [
+                {{
+                    "claim_id": "claim-main",
+                    "path": "system/server/main.py",
+                    "scope_kind": "path",
+                }}
+            ],
+        }}
+    ],
+    "demoted_missions": [],
+}}
+
+scene = animation.build_agent_observability_animation_scene(
+    events=events,
+    status=status,
+    mission_status=mission_status,
+    now=now,
+    window_ms=60_000,
+)
+delta = animation.build_agent_observability_animation_delta(
+    events=events,
+    status=status,
+    mission_status=mission_status,
+    now=now,
+    window_ms=60_000,
+)
+coverage = coverage_mod.build_agent_observability_animation_coverage(
+    scene=scene,
+    delta=delta,
+)
+attribution_view = attribution.attribute_sessions(
+    ats_active_sessions=[
+        {{
+            "session_id": "s1",
+            "source_runtime": "claude_code",
+            "last_observed_at": "2026-05-20T22:00:05+00:00",
+            "last_activity_at": "2026-05-20T22:00:05+00:00",
+            "last_canonical_type": "tool.completed",
+            "title": "Fix trace viewer",
+            "current_activity": "Bash: pytest",
+            "cwd": "/repo",
+            "transcript_path": None,
+            "touched_files": ["system/server/main.py"],
+        }}
+    ],
+    work_ledger_status={{
+        "sessions": {{
+            "s1": {{
+                "session_id": "s1",
+                "actor": "claude_code",
+                "phase_id": "09_54_1",
+                "family_id": "microcosm_substrate_flagship_population",
+                "last_activity_at": "2026-05-20T22:00:04+00:00",
+                "stale": False,
+                "stale_reason": None,
+                "claims": [
+                    {{
+                        "scope_kind": "path",
+                        "path": "system/server/main.py",
+                        "claim_id": "claim-main",
+                    }}
+                ],
+                "touched_td_ids": ["cap_microcosm_truth_floor_body_import_09_54_1"],
+            }}
+        }}
+    }},
+    now=now,
+)
+payload = {{
+    "scene_kind": scene["kind"],
+    "scene_schema": scene["schema_version"],
+    "delta_kind": delta["kind"],
+    "coverage_ready": coverage["readiness"]["ready_for_first_live_visual_consumer"],
+    "frontend_heuristics_required": coverage["readiness"][
+        "frontend_string_heuristics_required"
+    ],
+    "matched_session_count": attribution_view["summary"]["by_attribution_status"][
+        "matched"
+    ],
+    "attributed_phase_id": attribution_view["sessions"][0]["phase_id"],
+    "span_count": scene["summary"]["span_count"],
+    "file_impact_count": scene["summary"]["file_impact_count"],
+    "proof_receipt_count": scene["summary"]["proof_receipt_count"],
+    "delta_ops": sorted({{op["op"] for op in delta["ops"]}}),
+}}
+print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [sys.executable, "-c", code],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload["scene_kind"] == "agent_observability.animation_scene"
+    assert payload["scene_schema"] == "agent_observability_animation_v0"
+    assert payload["delta_kind"] == "agent_observability.animation_delta"
+    assert payload["coverage_ready"] is True
+    assert payload["frontend_heuristics_required"] is False
+    assert payload["matched_session_count"] == 1
+    assert payload["attributed_phase_id"] == "09_54_1"
+    assert payload["span_count"] >= 4
+    assert payload["file_impact_count"] >= 1
+    assert payload["proof_receipt_count"] >= 1
+    assert {
+        "event_append",
+        "span_upsert",
+        "flow_upsert",
+        "file_impact_upsert",
+        "proof_receipt_upsert",
+        "quality_update",
+    } <= set(payload["delta_ops"])
 
 
 def _load_trace_capsule_source_module():
