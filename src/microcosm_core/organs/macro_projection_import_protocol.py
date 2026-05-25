@@ -895,6 +895,30 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "nvidia_nim_provider_boundary_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The NVIDIA NIM provider boundary now carries exact copied "
+            "non-secret hosted-provider adapter and model-profile registry "
+            "source bodies inside the projection bundle, validated by "
+            "digest/anchor checks, syntax compilation, and a no-live-probe "
+            "runtime-status contract without exporting API-key values, live "
+            "model visibility, provider request/response payload bodies, "
+            "account/session state, generated .env output, or credential "
+            "equivalent material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 

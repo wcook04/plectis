@@ -1234,6 +1234,40 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "nvidia_nim_provider_boundary_source_modules_import",
+      "selected_pattern_ids": [
+        "provider_context_recipe_budget_policy",
+        "embedding_substrate_provider_dependency"
+      ],
+      "source_refs": [
+        "system/lib/nvidia_nim.py",
+        "system/lib/model_profile_registry.py",
+        "codex/doctrine/compute/provider_registry.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "nvidia_nim_provider_adapter_body_import",
+        "nvidia_model_profile_registry_body_import"
+      ],
+      "authority_ceiling": "public NVIDIA NIM provider-boundary source-body import only; not live provider calls, API-key value export, provider request or response payload bodies, live account-scoped model visibility, generated .env output, credential-equivalent material, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

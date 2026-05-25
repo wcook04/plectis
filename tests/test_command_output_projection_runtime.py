@@ -84,6 +84,9 @@ SEMANTIC_ROUTING_MANIFEST = (
 EMBEDDING_SUBSTRATE_MANIFEST = (
     BUNDLE_INPUT / "embedding_substrate_source_module_manifest.json"
 )
+NVIDIA_NIM_PROVIDER_BOUNDARY_MANIFEST = (
+    BUNDLE_INPUT / "nvidia_nim_provider_boundary_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -922,6 +925,58 @@ def test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contrac
     assert "test_search_ladder_narrows_via_activation_gradient" in test_text
     assert "test_raw_seed_navigation_source_indexes_runtime_groups" in test_text
     assert "test_std_python_atom_parser_splits_contract_atoms" in test_text
+
+
+def test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        NVIDIA_NIM_PROVIDER_BOUNDARY_MANIFEST,
+        manifest_id="nvidia_nim_provider_boundary_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status() -> None:
+    nvidia_source = BUNDLE_INPUT / "source_modules/system/lib/nvidia_nim.py"
+    registry_source = BUNDLE_INPUT / "source_modules/system/lib/model_profile_registry.py"
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+
+    nvidia_text = nvidia_source.read_text(encoding="utf-8")
+    registry_text = registry_source.read_text(encoding="utf-8")
+
+    compile(nvidia_text, str(nvidia_source), "exec")
+    compile(registry_text, str(registry_source), "exec")
+    assert "def runtime_status(" in nvidia_text
+    assert "def chat_completion(" in nvidia_text
+    assert "def embed_texts(" in nvidia_text
+    assert "def rerank_passages(" in nvidia_text
+    assert "def nvidia_model_id(" in registry_text
+    assert "def build_free_claude_code_env(" in registry_text
+
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            (
+                "import json, sys; "
+                f"sys.path.insert(0, {str(source_modules_root)!r}); "
+                "from system.lib import nvidia_nim; "
+                "status = nvidia_nim.runtime_status("
+                "config={'api_key': 'public-test-redacted', 'model': 'glm5'}, "
+                "probe_live=False); "
+                "print(json.dumps(status, sort_keys=True))"
+            ),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    status = json.loads(probe.stdout)
+    assert status["live_probe"] == {
+        "status": "not_run",
+        "reason": "probe_live_disabled",
+    }
+    assert status["configured"]["api_key_present"] is True
+    assert status["configured"]["chat_model"] == "z-ai/glm5"
 
 
 def _load_trace_capsule_source_module():

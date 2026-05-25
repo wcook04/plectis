@@ -20,7 +20,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-25T07:17:15+00:00",
+  "created_at": "2026-05-25T07:42:31+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [],
@@ -39,7 +39,7 @@
     "secret"
   ],
   "input_mode": "exported_projection_import_bundle",
-  "macro_origin_ref_count": 143,
+  "macro_origin_ref_count": 147,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -86,19 +86,19 @@
     "next_best_lane": "real_substrate_import_path",
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 34,
+    "projection_cell_count": 35,
     "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-    "public_safe_body_import_count": 84,
+    "public_safe_body_import_count": 86,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 84
+      "verified_light_edit": 86
     },
-    "public_safe_body_material_count": 84,
+    "public_safe_body_material_count": 86,
     "release_authorized": false,
     "runtime_dependency_status": "pass",
     "runtime_severance_board_embedded": true,
     "runtime_severance_status": "pass"
   },
-  "projection_cell_count": 34,
+  "projection_cell_count": 35,
   "projection_cell_ids": [
     "active_execution_constellation_source_modules_import",
     "agent_entrypoint_audit_source_modules_import",
@@ -126,6 +126,7 @@
     "navigation_metabolism_ledger_source_modules_import",
     "navigation_route_plane_import",
     "navigation_surface_audit_source_modules_import",
+    "nvidia_nim_provider_boundary_source_modules_import",
     "projection_protocol_self_host",
     "route_selection_control_source_modules_import",
     "runtime_reveal_import_bridge",
@@ -173,7 +174,7 @@
     },
     "blocked_cell_count": 0,
     "body_in_receipt": false,
-    "consumed_cell_count": 34,
+    "consumed_cell_count": 35,
     "expected_negative_case_count": 0,
     "forbidden_material_classes": [
       "credential",
@@ -188,7 +189,7 @@
     ],
     "headline": "Macro source refs become import candidates; verified non-secret macro bodies flow only with source-to-target evidence and claim floors.",
     "input_mode": "exported_projection_import_bundle",
-    "landed_cell_count": 34,
+    "landed_cell_count": 35,
     "missing_negative_cases": [],
     "negative_case_coverage_status": "pass",
     "next_best_lane": "real_substrate_import_path",
@@ -214,7 +215,7 @@
     "plan_id": "public_macro_projection_import_plan_v1",
     "policy_id": "verified_macro_projection_cleaning_policy_v1",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 34,
+    "projection_cell_count": 35,
     "projection_cells": [
       {
         "action_required": false,
@@ -2281,10 +2282,69 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
+      },
+      {
+        "action_required": false,
+        "authority_ceiling": "public NVIDIA NIM provider-boundary source-body import only; not live provider calls, API-key value export, provider request or response payload bodies, live account-scoped model visibility, generated .env output, credential-equivalent material, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "blocking_reasons": [],
+        "body_copied": false,
+        "body_in_receipt": false,
+        "cell_id": "nvidia_nim_provider_boundary_source_modules_import",
+        "cell_state": "consumed_verified_import",
+        "classification": [
+          "copied_non_secret_macro_body",
+          "source_faithful_refactor",
+          "real_runtime_receipt"
+        ],
+        "copy_policy": "verified_macro_body_with_claim_floor",
+        "landed_evidence_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+          "tests/test_command_output_projection_runtime.py"
+        ],
+        "missing_public_safe_body_material_ids": [],
+        "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+        "projection_status": "public_runtime_import_landed",
+        "public_safe_body_import_routes": [
+          "verified_light_edit"
+        ],
+        "public_safe_body_material_classes": [
+          "public_macro_tool_body"
+        ],
+        "public_safe_body_material_count": 2,
+        "public_safe_body_material_ids": [
+          "nvidia_nim_provider_adapter_body_import",
+          "nvidia_model_profile_registry_body_import"
+        ],
+        "ready_to_project": true,
+        "selected_pattern_ids": [
+          "provider_context_recipe_budget_policy",
+          "embedding_substrate_provider_dependency"
+        ],
+        "source_ref_count": 3,
+        "source_refs": [
+          "system/lib/nvidia_nim.py",
+          "system/lib/model_profile_registry.py",
+          "codex/doctrine/compute/provider_registry.json"
+        ],
+        "status_reason": "The NVIDIA NIM provider boundary now carries exact copied non-secret hosted-provider adapter and model-profile registry source bodies inside the projection bundle, validated by digest/anchor checks, syntax compilation, and a no-live-probe runtime-status contract without exporting API-key values, live model visibility, provider request/response payload bodies, account/session state, generated .env output, or credential equivalent material.",
+        "target_ref_count": 3,
+        "target_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
+        ],
+        "validation_ref_count": 3,
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
       }
     ],
     "projection_status_counts": {
-      "public_runtime_import_landed": 32,
+      "public_runtime_import_landed": 33,
       "runtime_bridge_landed": 1,
       "self_hosted_status_protocol_landed": 1
     },
@@ -2310,11 +2370,11 @@
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 78
+      "public_macro_tool_body": 80
     },
-    "public_safe_body_import_count": 84,
+    "public_safe_body_import_count": 86,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 84
+      "verified_light_edit": 86
     },
     "public_safe_body_imports": [
       {
@@ -6767,10 +6827,116 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_nvidia_nim_provider_boundary_source_bodies_into_public_projection_bundle",
+          "bind_nvidia_nim_provider_boundary_source_bodies_to_macro_projection_body_floor",
+          "preserve_provider_adapter_source_without_exporting_nvidia_api_key_values_live_model_visibility_provider_request_or_response_payloads_account_session_state_generated_env_output_or_credential_equivalent_material"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
+          "source_line_count": 664,
+          "source_ref": "system/lib/nvidia_nim.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
+          "target_line_count": 664,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public NVIDIA NIM provider-boundary source-body import only; not live provider calls, API-key value export, provider request or response payload bodies, live account-scoped model visibility, generated .env output, credential-equivalent material, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "nvidia_nim_provider_adapter_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/lib/nvidia_nim.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      {
+        "applied_edits": [
+          "exact_copy_macro_nvidia_nim_provider_boundary_source_bodies_into_public_projection_bundle",
+          "bind_nvidia_nim_provider_boundary_source_bodies_to_macro_projection_body_floor",
+          "preserve_provider_adapter_source_without_exporting_nvidia_api_key_values_live_model_visibility_provider_request_or_response_payloads_account_session_state_generated_env_output_or_credential_equivalent_material"
+        ],
+        "body_copied": true,
+        "body_digest": "sha256:80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
+        "body_import_verification": {
+          "runtime_consumed_by": [
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+            "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+          ],
+          "source_body_digest": "sha256:80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
+          "source_line_count": 183,
+          "source_ref": "system/lib/model_profile_registry.py",
+          "source_to_target_relation": "exact_copy",
+          "target_body_digest": "sha256:80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
+          "target_line_count": 183,
+          "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+          "verification_mode": "exact_source_digest_match",
+          "verification_status": "verified"
+        },
+        "body_text_in_receipt": false,
+        "claim_ceiling": "public NVIDIA NIM provider-boundary source-body import only; not live provider calls, API-key value export, provider request or response payload bodies, live account-scoped model visibility, generated .env output, credential-equivalent material, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+        "classification": [
+          "copied_non_secret_macro_body"
+        ],
+        "classification_status": "pass",
+        "credential_exposure_risk": "low",
+        "error_codes": [],
+        "finding_count": 0,
+        "flow_allowed": true,
+        "material_class": "public_macro_tool_body",
+        "material_id": "nvidia_model_profile_registry_body_import",
+        "provenance_refs": [
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+          "codex/standards/std_microcosm.json#direct_import_with_verification"
+        ],
+        "public_safe_mode": "direct_verified_macro_body",
+        "route": "verified_light_edit",
+        "source_refs": [
+          "system/lib/model_profile_registry.py",
+          "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
+        ],
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
       }
     ],
     "publication_authorized": false,
-    "ready_cell_count": 34,
+    "ready_cell_count": 35,
     "release_authorized": false,
     "schema_version": "macro_projection_import_intake_board_v1",
     "secret_exclusion_blocking_hit_count": 0
@@ -6817,6 +6983,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_metabolism_ledger_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_surface_audit_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json",
@@ -6839,6 +7006,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
@@ -6847,6 +7015,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_route_intervention.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/routing_projection.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/semantic_routing.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
@@ -6921,13 +7090,13 @@
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_digest_count": 84,
-  "public_safe_body_import_count": 84,
+  "public_safe_body_digest_count": 86,
+  "public_safe_body_import_count": 86,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 84
+    "verified_light_edit": 86
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 84,
+  "public_safe_body_material_count": 86,
   "public_safe_body_target_refs": [
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
     "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
@@ -6959,6 +7128,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
@@ -6967,6 +7137,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_route_intervention.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/routing_projection.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/semantic_routing.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
@@ -7015,7 +7186,7 @@
     "src/microcosm_core/macro_tools/work_landing.py"
   ],
   "public_safe_body_target_status": "pass",
-  "ready_projection_cell_count": 34,
+  "ready_projection_cell_count": 35,
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/exported_projection_import_bundle_validation_result.json"
   ],
@@ -7075,12 +7246,13 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 143,
+    "macro_origin_ref_count": 147,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json",
       "codex/doctrine/agent_bootstrap_live.json::situation_routes",
       "codex/doctrine/agent_operating_packet.json",
+      "codex/doctrine/compute/provider_registry.json",
       "codex/doctrine/paper_modules/agent_execution_trace.md",
       "codex/doctrine/paper_modules/agent_observability.md",
       "codex/doctrine/paper_modules/agent_self_observability_plane.md",
@@ -7123,6 +7295,7 @@
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_metabolism_ledger_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_surface_audit_source_module_manifest.json",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
@@ -7169,6 +7342,7 @@
       "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
       "system/lib/kind_atlas.py",
       "system/lib/mission_transaction_landing_preflight.py",
+      "system/lib/model_profile_registry.py",
       "system/lib/navigation_clusterability.py",
       "system/lib/navigation_context_pack.py",
       "system/lib/navigation_context_pack.py::build_navigation_context_pack",
@@ -7178,6 +7352,7 @@
       "system/lib/navigation_route_intervention.py",
       "system/lib/navigation_surface_audit.py",
       "system/lib/navigation_surface_contracts.py",
+      "system/lib/nvidia_nim.py",
       "system/lib/routing_projection.py",
       "system/lib/semantic_routing.py",
       "system/lib/standard_option_surface.py",
@@ -7237,19 +7412,19 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 34,
+    "projection_cell_count": 35,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 78
+      "public_macro_tool_body": 80
     },
-    "public_safe_body_import_count": 84,
+    "public_safe_body_import_count": 86,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 84
+      "verified_light_edit": 86
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 34,
+    "ready_projection_cell_count": 35,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -7626,6 +7801,20 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -7852,6 +8041,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_surface_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_surface_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
       },
       {
@@ -8151,6 +8347,13 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "status": "pass"
@@ -8202,6 +8405,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
         "status": "pass"
       },
       {
@@ -8711,6 +8921,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
         "status": "pass"
@@ -8830,6 +9047,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "status": "pass"
@@ -8874,6 +9098,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
         "status": "pass"
       },
       {
@@ -9558,6 +9789,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "status": "pass"
@@ -9712,6 +9950,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "status": "pass"
@@ -9763,6 +10008,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
         "status": "pass"
       },
       {
@@ -10636,6 +10888,20 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
         "status": "pass"
@@ -10860,6 +11126,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -10942,7 +11215,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 527,
+    "runtime_dependency_count": 541,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -10983,6 +11256,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_metabolism_ledger_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_surface_audit_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json",
@@ -11005,6 +11279,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_pack.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
@@ -11013,6 +11288,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_route_intervention.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_surface_contracts.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/routing_projection.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/semantic_routing.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
@@ -11113,6 +11389,8 @@
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_metabolism_ledger_sources_compile_and_carry_metabolism_contract",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_surface_audit_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_surface_audit_sources_compile_and_carry_surface_contract",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_source_manifest_matches_exact_macro_sources",
@@ -11146,6 +11424,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_metabolism_ledger_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_surface_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_public_safe_macro_proof_body_is_importable_with_verification",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -11240,7 +11519,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 128,
+  "source_ref_count": 132,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -11369,10 +11648,14 @@
     "system/lib/embedding_substrate.py",
     "system/lib/embedding_sources.py",
     "system/server/tests/test_embedding_substrate.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+    "system/lib/nvidia_nim.py",
+    "system/lib/model_profile_registry.py",
+    "codex/doctrine/compute/provider_registry.json",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
   ],
   "status": "pass",
-  "validation_ref_count": 102,
+  "validation_ref_count": 105,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -11428,6 +11711,8 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_metabolism_ledger_sources_compile_and_carry_metabolism_contract",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_surface_audit_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_surface_audit_sources_compile_and_carry_surface_contract",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_source_manifest_matches_exact_macro_sources",
@@ -11462,6 +11747,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_metabolism_ledger_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_surface_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_routing_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",

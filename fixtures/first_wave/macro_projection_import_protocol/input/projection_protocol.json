@@ -130,7 +130,11 @@
     "system/lib/embedding_substrate.py",
     "system/lib/embedding_sources.py",
     "system/server/tests/test_embedding_substrate.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
+    "system/lib/nvidia_nim.py",
+    "system/lib/model_profile_registry.py",
+    "codex/doctrine/compute/provider_registry.json",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -4769,6 +4773,102 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_embedding_substrate_sources_compile_and_carry_faceted_embedding_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "nvidia_nim_provider_adapter_body_import",
+      "source_ref": "system/lib/nvidia_nim.py",
+      "source_refs": [
+        "system/lib/nvidia_nim.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_nvidia_nim_provider_boundary_source_bodies_into_public_projection_bundle",
+        "bind_nvidia_nim_provider_boundary_source_bodies_to_macro_projection_body_floor",
+        "preserve_provider_adapter_source_without_exporting_nvidia_api_key_values_live_model_visibility_provider_request_or_response_payloads_account_session_state_generated_env_output_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public NVIDIA NIM provider-boundary source-body import only; not live provider calls, API-key value export, provider request or response payload bodies, live account-scoped model visibility, generated .env output, credential-equivalent material, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/nvidia_nim.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_nim.py",
+        "source_body_digest": "sha256:88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
+        "target_body_digest": "sha256:88089d90e43c43cf5bf83e148fc82a51b2187b1c39c06a86d3627f1412f12aff",
+        "source_line_count": 664,
+        "target_line_count": 664,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "nvidia_model_profile_registry_body_import",
+      "source_ref": "system/lib/model_profile_registry.py",
+      "source_refs": [
+        "system/lib/model_profile_registry.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_nvidia_nim_provider_boundary_source_bodies_into_public_projection_bundle",
+        "bind_nvidia_nim_provider_boundary_source_bodies_to_macro_projection_body_floor",
+        "preserve_provider_adapter_source_without_exporting_nvidia_api_key_values_live_model_visibility_provider_request_or_response_payloads_account_session_state_generated_env_output_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public NVIDIA NIM provider-boundary source-body import only; not live provider calls, API-key value export, provider request or response payload bodies, live account-scoped model visibility, generated .env output, credential-equivalent material, account/session state, browser/HUD live access, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/model_profile_registry.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/model_profile_registry.py",
+        "source_body_digest": "sha256:80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
+        "target_body_digest": "sha256:80df494c9b97521ec99ccdb2bdd06c695c0d276f76c5eab0b081046daff21c79",
+        "source_line_count": 183,
+        "target_line_count": 183,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_nvidia_nim_provider_boundary_sources_compile_and_expose_no_live_probe_status",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_nvidia_nim_provider_boundary_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
     }
