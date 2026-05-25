@@ -1099,6 +1099,26 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert verifier["evaluation_comparison"]["accepted_status_is_not_evidence_strength"] is True
     assert verifier["observed_workingness"]["evidence_class"] == "semantic_validator"
 
+    proof_diagnostic = rows_by_id["proof_diagnostic_evidence_spine"]
+    assert proof_diagnostic["workingness_state"] == "evidence_backed_runtime_spine"
+    assert proof_diagnostic["needs_to_work"]["standard_ref"] == (
+        "standards/std_microcosm_proof_diagnostic_evidence_spine.json"
+    )
+    assert proof_diagnostic["needs_to_work"]["standard_status"] == "accepted"
+    assert {
+        "owning_standard_present",
+        "known_failure_modes_present",
+        "public_private_boundary_declared",
+    }.isdisjoint(proof_diagnostic["needs_to_work"]["missing_requirement_ids"])
+    assert "copied Ring2 artifact missing from public bundle" in proof_diagnostic[
+        "known_failure_modes"
+    ]
+    assert proof_diagnostic["failure_mode_count"] >= 8
+    assert all(
+        target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
+        for target in proof_diagnostic["future_work_targets"]
+    )
+
     monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
     assert monitor["workingness_state"] == "demoted_regression_drilldown"
     assert monitor["observed_workingness"]["evidence_class"] == "fixture_echo_smoke"

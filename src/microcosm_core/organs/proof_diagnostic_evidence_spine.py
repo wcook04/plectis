@@ -89,7 +89,56 @@ SOURCE_DIGESTS = {
     REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
     REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
 }
+PUBLIC_RING2_ARTIFACT_TARGET_REFS = [
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/run_summary.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/"
+    "ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+    "oracle_repair_graph_v0/run_summary.json",
+]
+PUBLIC_RING2_ARTIFACT_IMPORTS = [
+    {
+        "artifact_id": "ring2_premise_retrieval_run_summary_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[0],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[0],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[0]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[1],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[1],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[1]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_premise_retrieval_graph_update_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[2],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[2],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[2]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+    {
+        "artifact_id": "ring2_oracle_repair_run_summary_body_import",
+        "source_ref": REAL_SUBSTRATE_REFS[3],
+        "target_ref": PUBLIC_RING2_ARTIFACT_TARGET_REFS[3],
+        "sha256": SOURCE_DIGESTS[REAL_SUBSTRATE_REFS[3]],
+        "body_copied": True,
+        "copy_policy": "exact_public_safe_runtime_artifact",
+    },
+]
 PUBLIC_REPLACEMENT_REFS = [
+    *PUBLIC_RING2_ARTIFACT_TARGET_REFS,
     *REAL_SUBSTRATE_REFS,
     *RECEIPT_ANCHOR_REFS,
     *REFERENCE_CAPSULE_RECEIPT_REFS,
@@ -102,6 +151,7 @@ SOURCE_TARGET_REFS = [
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+    *PUBLIC_RING2_ARTIFACT_TARGET_REFS,
 ]
 
 EXPECTED_NEGATIVE_CASES = {
@@ -188,7 +238,7 @@ def _input_file_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in names]
 
 
-def _bundle_input_file_paths(input_dir: Path) -> list[Path]:
+def _bundle_input_file_paths(input_dir: Path, *, public_root: Path | None = None) -> list[Path]:
     names = (
         "bundle_manifest.json",
         "checks.json",
@@ -196,7 +246,10 @@ def _bundle_input_file_paths(input_dir: Path) -> list[Path]:
         "diagnostic_rows.json",
         "formal_prover_policy_reducer_packet.json",
     )
-    return [input_dir / name for name in names]
+    paths = [input_dir / name for name in names]
+    if public_root is not None:
+        paths.extend(public_root / ref for ref in PUBLIC_RING2_ARTIFACT_TARGET_REFS)
+    return paths
 
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
@@ -206,7 +259,11 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
-    return scan_paths(_bundle_input_file_paths(input_dir), forbidden_classes=policy, display_root=public_root)
+    return scan_paths(
+        _bundle_input_file_paths(input_dir, public_root=public_root),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
 
 
 def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
@@ -294,6 +351,108 @@ def _stable_hash(payload: dict[str, Any]) -> str:
         "utf-8"
     )
     return hashlib.sha256(encoded).hexdigest()
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def validate_copied_macro_body_artifacts(
+    bundle_manifest: object,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    declared = []
+    if isinstance(bundle_manifest, dict):
+        declared = [
+            row
+            for row in bundle_manifest.get("copied_macro_body_artifacts", [])
+            if isinstance(row, dict)
+        ]
+
+    expected_targets = set(PUBLIC_RING2_ARTIFACT_TARGET_REFS)
+    declared_targets = {str(row.get("target_ref") or "") for row in declared}
+    missing_declared_targets = sorted(expected_targets - declared_targets)
+    unexpected_declared_targets = sorted(declared_targets - expected_targets)
+    artifact_rows: list[dict[str, Any]] = []
+    missing_files: list[str] = []
+    digest_mismatches: list[dict[str, str]] = []
+
+    for row in declared:
+        source_ref = str(row.get("source_ref") or "")
+        target_ref = str(row.get("target_ref") or "")
+        expected_sha256 = str(row.get("sha256") or SOURCE_DIGESTS.get(source_ref) or "")
+        target_path = public_root / target_ref
+        file_present = target_path.is_file()
+        actual_sha256 = _sha256_file(target_path) if file_present else ""
+        source_digest = SOURCE_DIGESTS.get(source_ref, "")
+        digest_status = (
+            PASS
+            if file_present
+            and actual_sha256 == expected_sha256
+            and actual_sha256 == source_digest
+            and row.get("body_copied") is True
+            and row.get("copy_policy") == "exact_public_safe_runtime_artifact"
+            else "blocked"
+        )
+        if not file_present:
+            missing_files.append(target_ref)
+        if file_present and digest_status != PASS:
+            digest_mismatches.append(
+                {
+                    "artifact_id": str(row.get("artifact_id") or target_ref),
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "expected_sha256": expected_sha256,
+                    "actual_sha256": actual_sha256,
+                    "source_sha256": source_digest,
+                }
+            )
+        artifact_rows.append(
+            {
+                "artifact_id": str(row.get("artifact_id") or target_ref),
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "sha256": expected_sha256,
+                "actual_sha256": actual_sha256,
+                "body_copied": row.get("body_copied") is True,
+                "copy_policy": str(row.get("copy_policy") or ""),
+                "file_present": file_present,
+                "digest_status": digest_status,
+            }
+        )
+
+    status = (
+        PASS
+        if len(artifact_rows) == len(PUBLIC_RING2_ARTIFACT_TARGET_REFS)
+        and not missing_declared_targets
+        and not unexpected_declared_targets
+        and not missing_files
+        and not digest_mismatches
+        and all(row["digest_status"] == PASS for row in artifact_rows)
+        else "blocked"
+    )
+    return {
+        "status": status,
+        "copied_macro_body_artifacts": sorted(
+            artifact_rows,
+            key=lambda item: item["artifact_id"],
+        ),
+        "copied_macro_body_artifact_count": len(artifact_rows),
+        "expected_copied_macro_body_artifact_count": len(PUBLIC_RING2_ARTIFACT_TARGET_REFS),
+        "copied_macro_body_digest_status": status,
+        "copied_macro_body_missing_target_refs": missing_declared_targets,
+        "copied_macro_body_unexpected_target_refs": unexpected_declared_targets,
+        "copied_macro_body_missing_files": sorted(missing_files),
+        "copied_macro_body_digest_mismatches": sorted(
+            digest_mismatches,
+            key=lambda item: item["artifact_id"],
+        ),
+    }
 
 
 def validate_evidence_receipts(checks_payload: object) -> dict[str, Any]:
@@ -661,6 +820,14 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "bundle_id",
         "body_redacted",
         "public_replacement_refs",
+        "copied_macro_body_artifacts",
+        "copied_macro_body_artifact_count",
+        "expected_copied_macro_body_artifact_count",
+        "copied_macro_body_digest_status",
+        "copied_macro_body_missing_target_refs",
+        "copied_macro_body_unexpected_target_refs",
+        "copied_macro_body_missing_files",
+        "copied_macro_body_digest_mismatches",
         "upstream_reference_capsule_receipt_refs",
         "upstream_authority_chain_receipt_refs",
         "omission_reversal_inputs",
@@ -1051,6 +1218,10 @@ def run_evidence_bundle(
 
     proof_result = validate_evidence_receipts(payloads["checks"])
     provider_result = validate_provider_payload_policy(payloads["provider_payloads"])
+    artifact_result = validate_copied_macro_body_artifacts(
+        payloads["bundle_manifest"],
+        public_root=public_root,
+    )
     observed = _merge_observed(provider_result)
     all_findings = sorted(
         provider_result["findings"],
@@ -1071,6 +1242,7 @@ def run_evidence_bundle(
     status = (
         PASS
         if scan_result["status"] == PASS
+        and artifact_result["status"] == PASS
         and not all_findings
         and proof_result["accepted_check_ids"]
         and provider_calls == 0
@@ -1116,6 +1288,7 @@ def run_evidence_bundle(
             "provider_payload_policy": provider_result["payload_rows"],
             "advisory_payload_ids": provider_result["advisory_payload_ids"],
             "provider_policy_rejection_ids": provider_result["provider_policy_rejection_ids"],
+            **artifact_result,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "validator_version": "proof_diagnostic_evidence_spine_validator_v1",
             "diagnostic_row_count": len(diagnostic_rows),

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -8,6 +9,9 @@ from typing import Any
 from microcosm_core.organs.proof_diagnostic_evidence_spine import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    PUBLIC_RING2_ARTIFACT_IMPORTS,
+    PUBLIC_RING2_ARTIFACT_TARGET_REFS,
+    SOURCE_DIGESTS,
     run,
     run_evidence_bundle,
 )
@@ -83,6 +87,14 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
 def test_proof_diagnostic_evidence_spine_observes_required_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -144,6 +156,11 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     )
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
+    assert result["copied_macro_body_artifact_count"] == 4
+    assert result["copied_macro_body_digest_status"] == "pass"
+    assert result["copied_macro_body_missing_target_refs"] == []
+    assert result["copied_macro_body_digest_mismatches"] == []
+    assert result["source_target_refs"][-4:] == PUBLIC_RING2_ARTIFACT_TARGET_REFS
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["authority_ceiling"]["formal_prover_execution_authorized"] is False
     assert result["receipt_paths"] == [
@@ -158,6 +175,40 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     assert '"proof_body"' not in text
     assert '"provider_output_body"' not in text
     assert "provider output body" not in text
+
+
+def test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts(
+    tmp_path: Path,
+) -> None:
+    manifest = json.loads(
+        (PROOF_EXPORTED_BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+
+    assert manifest["copied_macro_body_artifacts"] == PUBLIC_RING2_ARTIFACT_IMPORTS
+    for artifact in manifest["copied_macro_body_artifacts"]:
+        target_ref = artifact["target_ref"]
+        target_path = MICROCOSM_ROOT / target_ref
+        source_ref = artifact["source_ref"]
+        assert target_ref in PUBLIC_RING2_ARTIFACT_TARGET_REFS
+        assert target_path.is_file()
+        assert artifact["body_copied"] is True
+        assert artifact["copy_policy"] == "exact_public_safe_runtime_artifact"
+        assert _sha256_file(target_path) == artifact["sha256"]
+        assert _sha256_file(target_path) == SOURCE_DIGESTS[source_ref]
+
+    result = run_evidence_bundle(
+        PROOF_EXPORTED_BUNDLE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    copied_by_id = {
+        row["artifact_id"]: row for row in result["copied_macro_body_artifacts"]
+    }
+    assert set(copied_by_id) == {
+        artifact["artifact_id"] for artifact in PUBLIC_RING2_ARTIFACT_IMPORTS
+    }
+    assert all(row["digest_status"] == "pass" for row in copied_by_id.values())
+    assert all(row["body_copied"] is True for row in copied_by_id.values())
 
 
 def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_body_free(
