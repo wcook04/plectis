@@ -50,6 +50,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH,
     EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH,
     EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH,
+    EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH,
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
@@ -61,6 +62,7 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     run_agent_observability_store_bundle,
     run_multi_agent_fanin_bundle,
     run_observability_bundle,
+    run_route_compliance_audit_bundle,
     run_session_attribution_bundle,
 )
 
@@ -70,6 +72,11 @@ OBS_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/agent_route_observabil
 OBS_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/exported_observability_bundle"
+)
+ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/agent_route_observability_runtime/"
+    "exported_route_compliance_audit_bundle"
 )
 COMPUTER_USE_FIXTURE_INPUT = (
     MICROCOSM_ROOT
@@ -314,6 +321,96 @@ def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
     assert payload["metadata_projection_not_live_telemetry_authority"] is True
     assert payload["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert payload["authority_ceiling"]["behavior_change_overclaims_allowed"] is False
+    assert "matched_excerpt" not in _walk_keys(payload)
+    assert "body" not in _walk_keys(payload)
+    for hit in payload["private_state_scan"]["hits"]:
+        assert hit["body_redacted"] is True
+        assert not Path(hit["path"]).is_absolute()
+
+
+def test_route_compliance_audit_bundle_validates_runtime_shape(
+    tmp_path: Path,
+) -> None:
+    result = run_route_compliance_audit_bundle(
+        ROUTE_COMPLIANCE_AUDIT_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_route_compliance_audit_bundle"
+    assert result["bundle_id"] == "public_route_compliance_audit_runtime_example"
+    assert result["trace_count"] == 5
+    assert result["accepted_decision_count"] == 2
+    assert result["rejected_decision_count"] == 3
+    assert result["actor_axis_mismatch_count"] == 1
+    assert result["authority_rejection_count"] == 1
+    assert result["duplicate_trace_event_ids"] == []
+    assert result["expected_summary_validation"]["actual_summary"][
+        "missing_route_lease_count"
+    ] == 1
+    assert result["expected_summary_validation"]["actual_summary"][
+        "behavior_change_overclaim_count"
+    ] == 1
+    assert set(result["observed_negative_cases"]) == {
+        "agent_trace_missing_route_lease",
+        "route_compliance_overclaims_behavior_change",
+        "wrong_actor_axis_and_evidence_only_telemetry",
+    }
+    assert result["missing_negative_cases"] == []
+    assert result["route_compliance_policy"]["projection_not_authority"] is True
+    assert result["authority_ceiling"]["live_process_audit_authority"] is False
+    assert result["authority_ceiling"]["provider_payload_read"] is False
+    assert result["authority_ceiling"]["browser_hud_cockpit_state_read"] is False
+    assert result["authority_ceiling"]["release_authorized"] is False
+    assert result["metadata_envelope_only"] is True
+    assert result["body_in_receipt"] is False
+
+
+def test_route_compliance_audit_bundle_receipt_is_public_safe(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+
+    result = run_route_compliance_audit_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_route_compliance_audit_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_paths"] == [
+        EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH
+    ]
+    receipt_file = public_root / EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH
+    assert receipt_file.is_file()
+    text = receipt_file.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert str(public_root) not in text
+    assert "/Users/" not in text
+    assert "/private/var" not in text
+    assert "src/ai_workflow" not in text
+    assert "matched_excerpt" not in text
+    assert '"body":' not in text
+    assert payload["status"] == "pass"
+    assert payload["input_mode"] == "exported_route_compliance_audit_bundle"
+    assert payload["metadata_envelope_only"] is True
+    assert payload["body_in_receipt"] is False
+    assert payload["live_process_audit_authority"] is False
+    assert payload["provider_payload_exported"] is False
+    assert payload["browser_hud_cockpit_state_exported"] is False
+    assert payload["raw_transcript_body_exported"] is False
+    assert payload["source_mutation_authorized"] is False
+    assert payload["release_authorized"] is False
+    assert payload["private_data_equivalence_claim"] is False
+    assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
     for hit in payload["private_state_scan"]["hits"]:

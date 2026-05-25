@@ -107,6 +107,9 @@ AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RESULT_NAME = (
 AGENT_OBSERVABILITY_STORE_BUNDLE_RESULT_NAME = (
     "exported_agent_observability_store_bundle_validation_result.json"
 )
+ROUTE_COMPLIANCE_AUDIT_BUNDLE_RESULT_NAME = (
+    "exported_route_compliance_audit_bundle_validation_result.json"
+)
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -149,6 +152,10 @@ EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH = (
 EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
     "exported_agent_observability_store_bundle_validation_result.json"
+)
+EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH = (
+    "receipts/first_wave/agent_route_observability_runtime/"
+    "exported_route_compliance_audit_bundle_validation_result.json"
 )
 
 EXPECTED_NEGATIVE_CASES = {
@@ -293,6 +300,7 @@ MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_FALSE = (
 
 SOURCE_PATTERN_IDS = [
     "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
     "agent_session_attribution",
     "agent_trace_to_route_repair_observability_compound",
     "route_lease_mode_control",
@@ -319,6 +327,12 @@ COMPUTER_USE_INPUT_NAMES = (
     "state_transition_receipts.json",
     "recovery_receipts.json",
     "cold_replay.json",
+)
+ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES = (
+    "bundle_manifest.json",
+    "route_events.json",
+    "expected_route_compliance_summary.json",
+    "route_compliance_policy.json",
 )
 SESSION_ATTRIBUTION_INPUT_NAMES = (
     "bundle_manifest.json",
@@ -479,6 +493,10 @@ def _observability_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _route_compliance_audit_bundle_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / name for name in ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES]
+
+
 def _computer_use_action_trace_paths(
     input_dir: Path,
     *,
@@ -547,6 +565,13 @@ def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
     }
 
 
+def _load_route_compliance_audit_bundle(input_dir: Path) -> dict[str, Any]:
+    return {
+        path.stem: read_json_strict(path)
+        for path in _route_compliance_audit_bundle_paths(input_dir)
+    }
+
+
 def _load_computer_use_action_trace_bundle(
     input_dir: Path,
     *,
@@ -612,6 +637,18 @@ def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
         _observability_bundle_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _scan_route_compliance_audit_inputs(
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        _route_compliance_audit_bundle_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -2007,6 +2044,122 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def validate_route_compliance_audit_policy(payload: object) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    policy = payload if isinstance(payload, dict) else {}
+    required_false_fields = (
+        "live_process_audit_authority",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "source_mutation_authorized",
+        "release_authorized",
+        "private_data_equivalence_claim",
+        "raw_transcript_body_exported",
+    )
+    if policy.get("projection_not_authority") is not True:
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_POLICY_PROJECTION_FLAG_MISSING",
+                "Route-compliance audit policy must declare projection_not_authority.",
+                subject_id=str(policy.get("policy_id") or "route_compliance_policy"),
+                subject_kind="route_compliance_policy",
+            )
+        )
+    for field in required_false_fields:
+        if policy.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_POLICY_FORBIDDEN_AUTHORITY",
+                    "Route-compliance audit policy cannot claim live process, provider, browser/HUD/cockpit, source mutation, release, private-equivalence, or raw transcript authority.",
+                    subject_id=field,
+                    subject_kind="route_compliance_policy",
+                )
+            )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "policy_id": policy.get("policy_id"),
+        "projection_not_authority": policy.get("projection_not_authority") is True,
+        "required_false_fields": {
+            field: policy.get(field) is False for field in required_false_fields
+        },
+        "body_redacted": policy.get("body_redacted") is True,
+    }
+
+
+def validate_route_compliance_expected_summary(
+    payload: object,
+    route_result: dict[str, Any],
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    expected = payload if isinstance(payload, dict) else {}
+    summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
+    decisions = route_result["route_compliance_decisions"]
+    actual = {
+        "trace_count": route_result["trace_count"],
+        "accepted_decision_count": sum(
+            1 for row in decisions if row.get("decision") == "accepted"
+        ),
+        "rejected_decision_count": sum(
+            1 for row in decisions if row.get("decision") == "rejected"
+        ),
+        "actor_axis_mismatch_count": route_result["actor_axis_mismatch_count"],
+        "authority_rejection_count": route_result["authority_rejection_count"],
+        "duplicate_trace_event_count": len(route_result["duplicate_trace_event_ids"]),
+        "observed_negative_case_count": len(route_result["observed_negative_cases"]),
+    }
+    code_counts = Counter(
+        code
+        for decision in decisions
+        for code in decision.get("error_codes", [])
+        if isinstance(code, str)
+    )
+    actual.update(
+        {
+            "missing_route_lease_count": code_counts["MISSING_ROUTE_LEASE"],
+            "no_behavior_change_evidence_count": code_counts[
+                "NO_BEHAVIOR_CHANGE_EVIDENCE"
+            ],
+            "behavior_change_overclaim_count": code_counts[
+                "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
+            ],
+        }
+    )
+    for field, actual_value in actual.items():
+        if field in summary and summary[field] != actual_value:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_EXPECTED_SUMMARY_MISMATCH",
+                    "Expected route-compliance summary must match recomputed route decisions.",
+                    subject_id=field,
+                    subject_kind="route_compliance_expected_summary",
+                )
+            )
+    expected_cases = sorted(
+        str(case_id)
+        for case_id in expected.get("expected_negative_cases", [])
+        if isinstance(case_id, str)
+    )
+    observed_cases = sorted(route_result["observed_negative_cases"])
+    if expected_cases and expected_cases != observed_cases:
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_EXPECTED_NEGATIVE_CASE_MISMATCH",
+                "Expected negative case ids must match observed route-compliance cases.",
+                subject_id="expected_negative_cases",
+                subject_kind="route_compliance_expected_summary",
+            )
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "expected_summary": summary,
+        "actual_summary": actual,
+        "expected_negative_cases": expected_cases,
+        "observed_negative_cases": observed_cases,
+    }
+
+
 def validate_hook_shadow(payload: object) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2510,6 +2663,79 @@ def _write_observability_bundle_receipt(
             ],
             "public_replacement_refs": validation_result["public_replacement_refs"],
             "fixture_regression_required_elsewhere": True,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def _write_route_compliance_audit_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: str | Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    public_root = Path(public_root).resolve(strict=False)
+    path = target / ROUTE_COMPLIANCE_AUDIT_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version=(
+            "agent_route_observability_runtime_exported_route_compliance_"
+            "audit_bundle_validation_v1"
+        ),
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "bundle_manifest_schema_version": validation_result[
+                "bundle_manifest_schema_version"
+            ],
+            "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "trace_count": validation_result["trace_count"],
+            "accepted_decision_count": validation_result["accepted_decision_count"],
+            "rejected_decision_count": validation_result["rejected_decision_count"],
+            "route_compliance_decisions": validation_result[
+                "route_compliance_decisions"
+            ],
+            "actor_axis_decisions": validation_result["actor_axis_decisions"],
+            "actor_axis_mismatch_count": validation_result[
+                "actor_axis_mismatch_count"
+            ],
+            "authority_rejection_count": validation_result[
+                "authority_rejection_count"
+            ],
+            "duplicate_trace_event_ids": validation_result[
+                "duplicate_trace_event_ids"
+            ],
+            "expected_summary_validation": validation_result[
+                "expected_summary_validation"
+            ],
+            "route_compliance_policy": validation_result[
+                "route_compliance_policy"
+            ],
+            "source_refs": validation_result["source_refs"],
+            "target_refs": validation_result["target_refs"],
+            "body_import_verification": validation_result[
+                "body_import_verification"
+            ],
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "live_process_audit_authority": False,
+            "provider_payload_exported": False,
+            "browser_hud_cockpit_state_exported": False,
+            "raw_transcript_body_exported": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+            "private_data_equivalence_claim": False,
+            "fixture_regression_required_elsewhere": False,
         }
     )
     write_json_atomic(path, payload)
@@ -3094,6 +3320,178 @@ def run_observability_bundle(
         }
     )
     receipt_path = _write_observability_bundle_receipt(out_dir, result, public_root=public_root)
+    result["receipt_paths"] = [receipt_path]
+    return result
+
+
+def run_route_compliance_audit_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    payloads = _load_route_compliance_audit_bundle(input_path)
+    scan_result = _scan_route_compliance_audit_inputs(input_path, public_root)
+    private_scan = dict(scan_result)
+    private_scan.pop("forbidden_output_fields", None)
+    private_scan["redacted_output_field_labels_omitted"] = True
+
+    manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
+    route_rows = _rows(payloads["route_events"], "route_events")
+    route_result = validate_route_compliance(route_rows)
+    expected_result = validate_route_compliance_expected_summary(
+        payloads["expected_route_compliance_summary"],
+        route_result,
+    )
+    policy_result = validate_route_compliance_audit_policy(
+        payloads["route_compliance_policy"]
+    )
+    structural_findings = sorted(
+        [
+            *expected_result["findings"],
+            *policy_result["findings"],
+        ],
+        key=lambda item: (
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    all_findings = sorted(
+        [*route_result["findings"], *structural_findings],
+        key=lambda item: (
+            str(item.get("negative_case_id") or ""),
+            str(item.get("subject_kind") or ""),
+            str(item.get("subject_id") or ""),
+            str(item.get("error_code") or ""),
+        ),
+    )
+    expected_cases = expected_result["expected_negative_cases"]
+    observed_cases = route_result["observed_negative_cases"]
+    missing_cases = sorted(set(expected_cases) - set(observed_cases))
+    decisions = route_result["route_compliance_decisions"]
+    bundle_id = str(
+        manifest.get("bundle_id")
+        or "agent_route_observability_runtime_exported_route_compliance_audit_bundle"
+    )
+    status = (
+        PASS
+        if scan_result["status"] == PASS
+        and not structural_findings
+        and route_rows
+        and not missing_cases
+        and expected_result["status"] == PASS
+        and policy_result["status"] == PASS
+        else "blocked"
+    )
+    bundle_fingerprint = _stable_hash(
+        {
+            "bundle_id": bundle_id,
+            "route_events": payloads["route_events"],
+            "expected_route_compliance_summary": payloads[
+                "expected_route_compliance_summary"
+            ],
+            "route_compliance_policy": payloads["route_compliance_policy"],
+        }
+    )
+    source_refs = _strings(manifest.get("source_refs")) or [
+        (
+            "microcosm-substrate/src/microcosm_core/organs/"
+            "agent_route_observability_runtime.py::validate_route_compliance"
+        )
+    ]
+    target_refs = _strings(manifest.get("target_refs")) or [
+        EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH
+    ]
+    body_import_verification = (
+        manifest.get("body_import_verification")
+        if isinstance(manifest.get("body_import_verification"), dict)
+        else {}
+    )
+
+    result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
+    result.update(
+        {
+            "status": status,
+            "validator_id": VALIDATOR_ID,
+            "input_mode": "exported_route_compliance_audit_bundle",
+            "bundle_id": bundle_id,
+            "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "anti_claim": (
+                "The exported route-compliance audit bundle validates synthetic "
+                "public route-event metadata against the live route-compliance "
+                "decision logic. It does not read process-audit bodies, provider "
+                "payloads, browser/HUD/cockpit state, raw transcripts, authorize "
+                "source mutation, or prove behavior change without evidence ids."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": (
+                    "public_route_compliance_audit_metadata_not_live_process_authority"
+                ),
+                "live_process_audit_authority": False,
+                "provider_payload_read": False,
+                "browser_hud_cockpit_state_read": False,
+                "raw_transcript_body_exported": False,
+                "source_mutation_authorized": False,
+                "release_authorized": False,
+                "private_data_equivalence_claim": False,
+            },
+            "expected_negative_cases": {
+                case_id: observed_cases.get(case_id, [])
+                for case_id in expected_cases
+            },
+            "observed_negative_cases": observed_cases,
+            "missing_negative_cases": missing_cases,
+            "error_codes": sorted(
+                {
+                    str(item.get("error_code") or "")
+                    for item in all_findings
+                    if str(item.get("error_code") or "")
+                }
+            ),
+            "findings": all_findings,
+            "private_state_scan": private_scan,
+            "source_pattern_ids": SOURCE_PATTERN_IDS,
+            "trace_count": route_result["trace_count"],
+            "accepted_decision_count": sum(
+                1 for row in decisions if row.get("decision") == "accepted"
+            ),
+            "rejected_decision_count": sum(
+                1 for row in decisions if row.get("decision") == "rejected"
+            ),
+            "route_compliance_decisions": decisions,
+            "actor_axis_decisions": route_result["actor_axis_decisions"],
+            "actor_axis_mismatch_count": route_result[
+                "actor_axis_mismatch_count"
+            ],
+            "authority_rejection_count": route_result[
+                "authority_rejection_count"
+            ],
+            "duplicate_trace_event_ids": route_result["duplicate_trace_event_ids"],
+            "expected_summary_validation": expected_result,
+            "route_compliance_policy": policy_result,
+            "source_refs": source_refs,
+            "target_refs": target_refs,
+            "body_import_verification": body_import_verification,
+            "metadata_envelope_only": True,
+            "body_in_receipt": False,
+            "bundle_fingerprint": bundle_fingerprint,
+            "public_replacement_refs": [
+                public_relative_path(path, display_root=public_root)
+                for path in _route_compliance_audit_bundle_paths(input_path)
+            ],
+            "receipt_paths": [EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH],
+        }
+    )
+    receipt_path = _write_route_compliance_audit_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
     result["receipt_paths"] = [receipt_path]
     return result
 
@@ -5113,6 +5511,11 @@ def main(argv: list[str] | None = None) -> int:
     bundle_parser = subparsers.add_parser("validate-observability-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    route_compliance_parser = subparsers.add_parser(
+        "validate-route-compliance-bundle"
+    )
+    route_compliance_parser.add_argument("--input", required=True)
+    route_compliance_parser.add_argument("--out", required=True)
     computer_use_parser = subparsers.add_parser("validate-computer-use-bundle")
     computer_use_parser.add_argument("--input", required=True)
     computer_use_parser.add_argument("--out", required=True)
@@ -5147,6 +5550,16 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-observability-bundle --input {args.input} --out {args.out}"
         )
         result = run_observability_bundle(args.input, args.out, command=command)
+    elif args.action == "validate-route-compliance-bundle":
+        command = (
+            "python -m microcosm_core.organs.agent_route_observability_runtime "
+            f"validate-route-compliance-bundle --input {args.input} --out {args.out}"
+        )
+        result = run_route_compliance_audit_bundle(
+            args.input,
+            args.out,
+            command=command,
+        )
     elif args.action == "validate-computer-use-bundle":
         command = (
             "python -m microcosm_core.organs.agent_route_observability_runtime "
@@ -5196,7 +5609,8 @@ def main(argv: list[str] | None = None) -> int:
     else:
         parser.error(
             "expected subcommand: run, validate-observability-bundle, or "
-            "validate-computer-use-bundle, validate-session-attribution-bundle, "
+            "validate-route-compliance-bundle, validate-computer-use-bundle, "
+            "validate-session-attribution-bundle, "
             "validate-multi-agent-fanin-bundle, or "
             "validate-bridge-dispatch-yield-resume-bundle, or "
             "validate-controller-heartbeat-bundle, or "

@@ -1,0 +1,20 @@
+{
+  "schema_version": "agent_route_observability_runtime_route_compliance_expected_summary_v1",
+  "expected_negative_cases": [
+    "agent_trace_missing_route_lease",
+    "route_compliance_overclaims_behavior_change",
+    "wrong_actor_axis_and_evidence_only_telemetry"
+  ],
+  "summary": {
+    "trace_count": 5,
+    "accepted_decision_count": 2,
+    "rejected_decision_count": 3,
+    "actor_axis_mismatch_count": 1,
+    "authority_rejection_count": 1,
+    "duplicate_trace_event_count": 0,
+    "observed_negative_case_count": 3,
+    "missing_route_lease_count": 1,
+    "no_behavior_change_evidence_count": 1,
+    "behavior_change_overclaim_count": 1
+  }
+}

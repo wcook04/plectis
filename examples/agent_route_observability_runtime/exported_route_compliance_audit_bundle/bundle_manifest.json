@@ -1,0 +1,46 @@
+{
+  "schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_v1",
+  "bundle_id": "public_route_compliance_audit_runtime_example",
+  "input_mode": "exported_route_compliance_audit_bundle",
+  "organ_id": "agent_route_observability_runtime",
+  "generated_at": "2026-05-25T20:29:00Z",
+  "source_pattern_ids": [
+    "agent_route_compliance_audit",
+    "agent_route_observability_runtime",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "trace_feedback_behavior_change_gate"
+  ],
+  "source_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "codex/standards/std_agent_execution_trace.json",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::agent_route_compliance_audit"
+  ],
+  "target_refs": [
+    "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_route_compliance_audit_bundle_validation_result.json",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape"
+  ],
+  "required_files": [
+    "bundle_manifest.json",
+    "route_events.json",
+    "expected_route_compliance_summary.json",
+    "route_compliance_policy.json"
+  ],
+  "body_import_verification": {
+    "verification_status": "verified",
+    "verification_mode": "source_faithful_public_refactor",
+    "source_to_target_relation": "public_synthetic_fixture_over_live_decision_logic",
+    "source_ref": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle",
+    "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "private_body_exported": false,
+    "body_in_receipt": false
+  },
+  "live_process_audit_authority": false,
+  "provider_payload_read": false,
+  "browser_hud_cockpit_state_read": false,
+  "raw_transcript_body_exported": false,
+  "source_mutation_authorized": false,
+  "release_authorized": false,
+  "private_data_equivalence_claim": false
+}

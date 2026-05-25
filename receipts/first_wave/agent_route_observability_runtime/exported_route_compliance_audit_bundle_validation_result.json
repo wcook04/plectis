@@ -1,0 +1,301 @@
+{
+  "accepted_decision_count": 2,
+  "actor_axis_decisions": [
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_route_compliance_accepts_seed3_doctrine_lane",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_route_compliance_accepts_bound_receipt",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_b_advisory",
+      "body_redacted": true,
+      "event_id": "trace_route_compliance_rejects_type_b_mutation_claim",
+      "mutation_authority_claim_rejected": true
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_route_compliance_rejects_missing_route_lease",
+      "mutation_authority_claim_rejected": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
+      "body_redacted": true,
+      "event_id": "trace_route_compliance_rejects_behavior_overclaim",
+      "mutation_authority_claim_rejected": false
+    }
+  ],
+  "actor_axis_mismatch_count": 1,
+  "anti_claim": "The exported route-compliance audit bundle validates synthetic public route-event metadata against the live route-compliance decision logic. It does not read process-audit bodies, provider payloads, browser/HUD/cockpit state, raw transcripts, authorize source mutation, or prove behavior change without evidence ids.",
+  "authority_ceiling": {
+    "authority_ceiling": "public_route_compliance_audit_metadata_not_live_process_authority",
+    "browser_hud_cockpit_state_read": false,
+    "live_process_audit_authority": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_transcript_body_exported": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "authority_rejection_count": 1,
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "private_body_exported": false,
+    "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "source_ref": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "source_to_target_relation": "public_synthetic_fixture_over_live_decision_logic",
+    "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle",
+    "verification_mode": "source_faithful_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "browser_hud_cockpit_state_exported": false,
+  "bundle_fingerprint": "f35a4438737d15475b0fca8321ad108d1444e719ad0721779d01690a62478736",
+  "bundle_id": "public_route_compliance_audit_runtime_example",
+  "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_v1",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "created_at": "2026-05-25T20:37:55+00:00",
+  "duplicate_trace_event_ids": [],
+  "error_codes": [
+    "ACTOR_AXIS_AUTHORITY_MISMATCH",
+    "MISSING_ROUTE_LEASE",
+    "NO_BEHAVIOR_CHANGE_EVIDENCE",
+    "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
+  ],
+  "expected_negative_cases": {
+    "agent_trace_missing_route_lease": [
+      "MISSING_ROUTE_LEASE"
+    ],
+    "route_compliance_overclaims_behavior_change": [
+      "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
+    ],
+    "wrong_actor_axis_and_evidence_only_telemetry": [
+      "ACTOR_AXIS_AUTHORITY_MISMATCH",
+      "NO_BEHAVIOR_CHANGE_EVIDENCE"
+    ]
+  },
+  "expected_summary_validation": {
+    "actual_summary": {
+      "accepted_decision_count": 2,
+      "actor_axis_mismatch_count": 1,
+      "authority_rejection_count": 1,
+      "behavior_change_overclaim_count": 1,
+      "duplicate_trace_event_count": 0,
+      "missing_route_lease_count": 1,
+      "no_behavior_change_evidence_count": 1,
+      "observed_negative_case_count": 3,
+      "rejected_decision_count": 3,
+      "trace_count": 5
+    },
+    "expected_negative_cases": [
+      "agent_trace_missing_route_lease",
+      "route_compliance_overclaims_behavior_change",
+      "wrong_actor_axis_and_evidence_only_telemetry"
+    ],
+    "expected_summary": {
+      "accepted_decision_count": 2,
+      "actor_axis_mismatch_count": 1,
+      "authority_rejection_count": 1,
+      "behavior_change_overclaim_count": 1,
+      "duplicate_trace_event_count": 0,
+      "missing_route_lease_count": 1,
+      "no_behavior_change_evidence_count": 1,
+      "observed_negative_case_count": 3,
+      "rejected_decision_count": 3,
+      "trace_count": 5
+    },
+    "findings": [],
+    "observed_negative_cases": [
+      "agent_trace_missing_route_lease",
+      "route_compliance_overclaims_behavior_change",
+      "wrong_actor_axis_and_evidence_only_telemetry"
+    ],
+    "status": "pass"
+  },
+  "findings": [
+    {
+      "body_redacted": true,
+      "error_code": "MISSING_ROUTE_LEASE",
+      "message": "Trace feedback row requires a route lease id.",
+      "negative_case_id": "agent_trace_missing_route_lease",
+      "subject_id": "trace_route_compliance_rejects_missing_route_lease",
+      "subject_kind": "agent_trace_event"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE",
+      "message": "Route compliance pass cannot claim behavior change without evidence ids.",
+      "negative_case_id": "route_compliance_overclaims_behavior_change",
+      "subject_id": "trace_route_compliance_rejects_behavior_overclaim",
+      "subject_kind": "agent_trace_event"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ACTOR_AXIS_AUTHORITY_MISMATCH",
+      "message": "Advisory trace cannot claim live mutation authority.",
+      "negative_case_id": "wrong_actor_axis_and_evidence_only_telemetry",
+      "subject_id": "trace_route_compliance_rejects_type_b_mutation_claim",
+      "subject_kind": "agent_trace_event"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "NO_BEHAVIOR_CHANGE_EVIDENCE",
+      "message": "Evidence-only telemetry cannot retire behavior debt.",
+      "negative_case_id": "wrong_actor_axis_and_evidence_only_telemetry",
+      "subject_id": "trace_route_compliance_rejects_type_b_mutation_claim",
+      "subject_kind": "agent_trace_event"
+    }
+  ],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "input_mode": "exported_route_compliance_audit_bundle",
+  "live_process_audit_authority": false,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observed_negative_cases": {
+    "agent_trace_missing_route_lease": [
+      "MISSING_ROUTE_LEASE"
+    ],
+    "route_compliance_overclaims_behavior_change": [
+      "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
+    ],
+    "wrong_actor_axis_and_evidence_only_telemetry": [
+      "ACTOR_AXIS_AUTHORITY_MISMATCH",
+      "NO_BEHAVIOR_CHANGE_EVIDENCE"
+    ]
+  },
+  "organ_id": "agent_route_observability_runtime",
+  "private_data_equivalence_claim": false,
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "hit_count": 0,
+    "hits": [],
+    "redacted_output_field_labels_omitted": true,
+    "scanned_path_count": 4,
+    "status": "pass"
+  },
+  "provider_payload_exported": false,
+  "raw_transcript_body_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/first_wave/agent_route_observability_runtime/exported_route_compliance_audit_bundle_validation_result.json"
+  ],
+  "rejected_decision_count": 3,
+  "release_authorized": false,
+  "route_compliance_decisions": [
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_route_compliance_accepts_seed3_doctrine_lane",
+      "route_lease_id": "lease_seed3_doctrine_routing"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "trace_route_compliance_accepts_bound_receipt",
+      "route_lease_id": "lease_route_observability_receipt"
+    },
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "ACTOR_AXIS_AUTHORITY_MISMATCH",
+        "NO_BEHAVIOR_CHANGE_EVIDENCE"
+      ],
+      "event_id": "trace_route_compliance_rejects_type_b_mutation_claim",
+      "route_lease_id": "lease_operator_bridge_advisory_route"
+    },
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "MISSING_ROUTE_LEASE"
+      ],
+      "event_id": "trace_route_compliance_rejects_missing_route_lease",
+      "route_lease_id": null
+    },
+    {
+      "body_redacted": true,
+      "decision": "rejected",
+      "error_codes": [
+        "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
+      ],
+      "event_id": "trace_route_compliance_rejects_behavior_overclaim",
+      "route_lease_id": "lease_behavior_claim_without_trace_route"
+    }
+  ],
+  "route_compliance_policy": {
+    "body_redacted": true,
+    "findings": [],
+    "policy_id": "public_route_compliance_audit_fixture_policy",
+    "projection_not_authority": true,
+    "required_false_fields": {
+      "browser_hud_cockpit_state_read": true,
+      "live_process_audit_authority": true,
+      "private_data_equivalence_claim": true,
+      "provider_payload_read": true,
+      "raw_transcript_body_exported": true,
+      "release_authorized": true,
+      "source_mutation_authorized": true
+    },
+    "status": "pass"
+  },
+  "schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_validation_v1",
+  "source_mutation_authorized": false,
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
+    "codex/standards/std_agent_execution_trace.json",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::agent_route_compliance_audit"
+  ],
+  "status": "pass",
+  "target_refs": [
+    "microcosm-substrate/receipts/first_wave/agent_route_observability_runtime/exported_route_compliance_audit_bundle_validation_result.json",
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape"
+  ],
+  "trace_count": 5,
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime"
+}

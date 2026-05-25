@@ -1,0 +1,13 @@
+{
+  "schema_version": "agent_route_observability_runtime_route_compliance_policy_v1",
+  "policy_id": "public_route_compliance_audit_fixture_policy",
+  "projection_not_authority": true,
+  "live_process_audit_authority": false,
+  "provider_payload_read": false,
+  "browser_hud_cockpit_state_read": false,
+  "source_mutation_authorized": false,
+  "release_authorized": false,
+  "private_data_equivalence_claim": false,
+  "raw_transcript_body_exported": false,
+  "body_redacted": true
+}
