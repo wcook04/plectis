@@ -2041,6 +2041,119 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
     }
 
 
+def _status_card_surface_is_nonblocking(status: Any) -> bool:
+    return status in {PASS, "clear", "actionable"}
+
+
+def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
+    front_door = (
+        card.get("front_door", {})
+        if isinstance(card.get("front_door"), dict)
+        else {}
+    )
+    route_explanation = (
+        front_door.get("route_explanation", {})
+        if isinstance(front_door.get("route_explanation"), dict)
+        else {}
+    )
+    workingness = (
+        card.get("workingness", {})
+        if isinstance(card.get("workingness"), dict)
+        else {}
+    )
+    surfaces: dict[str, Any] = {}
+
+    def add_surface(surface_id: str, status: Any) -> None:
+        if status is not None:
+            surfaces[surface_id] = status
+
+    add_surface("runtime_status", card.get("status"))
+    add_surface("project_state", front_door.get("project_state_status"))
+    add_surface("route_explanation", route_explanation.get("status"))
+    add_surface(
+        "macro_body_import_floor",
+        (card.get("macro_body_import_floor") or {}).get("status")
+        if isinstance(card.get("macro_body_import_floor"), dict)
+        else None,
+    )
+    add_surface(
+        "workingness_map_generation",
+        workingness.get("map_generation_status"),
+    )
+    add_surface(
+        "workingness_failure_envelope",
+        workingness.get("failure_envelope_status"),
+    )
+    add_surface(
+        "proof_lab",
+        (card.get("proof_lab") or {}).get("status")
+        if isinstance(card.get("proof_lab"), dict)
+        else None,
+    )
+    add_surface(
+        "payload_boundary_audit",
+        (card.get("payload_boundary_audit") or {}).get("status")
+        if isinstance(card.get("payload_boundary_audit"), dict)
+        else None,
+    )
+    blocking_surface_ids = [
+        surface_id
+        for surface_id, surface_status in surfaces.items()
+        if not _status_card_surface_is_nonblocking(surface_status)
+    ]
+    actionable_surface_ids = [
+        surface_id
+        for surface_id, surface_status in surfaces.items()
+        if surface_status == "actionable"
+    ]
+    return {
+        "schema_version": "microcosm_status_card_front_door_status_v1",
+        "status": PASS if not blocking_surface_ids else "blocked",
+        "status_scope": "status_card_first_screen_surfaces",
+        "local_first_screen_route": (
+            front_door.get("local_first_screen_route")
+            if isinstance(front_door.get("local_first_screen_route"), dict)
+            else _local_first_screen_route_ref()
+        ),
+        "required_surface_ids": list(surfaces),
+        "surface_statuses": surfaces,
+        "blocking_surface_ids": blocking_surface_ids,
+        "accepted_nonblocking_statuses": [PASS, "clear", "actionable"],
+        "actionable_surface_ids": actionable_surface_ids,
+        "actionable_surface_rule": "visible_debt_not_route_blocker",
+        "drilldown_warning_surface_ids": ["authority", "intake"],
+        "drilldown_blocked_surface_ids_status": (
+            "not_evaluated_in_status_card"
+        ),
+        "drilldown_blocked_surface_ids_ref": (
+            "microcosm tour <project>::front_door_status."
+            "drilldown_blocked_surface_ids"
+        ),
+        "full_tour_status_ref": "microcosm tour <project>::front_door_status",
+        "top_level_status_rule": (
+            "pass_when_required_surfaces_are_nonblocking; tour reports "
+            "authority/intake warning blockers"
+        ),
+        "safe_to_show": {
+            "surface_status_ids_visible": True,
+            "blocking_surface_ids_visible": True,
+            "drilldown_warning_surface_ids_visible": True,
+            "drilldown_blocked_surface_ids_visible_by_ref": True,
+            "source_files_mutated_visible": True,
+        },
+        "authority_ceiling": {
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "reader_action": (
+            "Use blocking_surface_ids here; run tour for exact "
+            "authority/intake warning blockers."
+        ),
+    }
+
+
 def _runtime_status_card(
     status: dict[str, Any],
     project_path: str | Path | None = None,
@@ -2161,6 +2274,11 @@ def _runtime_status_card(
         "scope": "compressed_first_screen_lens_over_full_microcosm_status",
         "card_command": "microcosm status --card",
         "full_status_command": "microcosm status",
+        "source_files_mutated": (
+            front_door_safe_to_show.get("source_files_mutated")
+            if front_door_safe_to_show.get("source_files_mutated") is not None
+            else False
+        ),
         "front_door": {
             "status": front_door.get("status"),
             "primary_command": front_door.get("primary_command"),
@@ -2404,6 +2522,9 @@ def _runtime_status_card(
         card["front_door"]["route_selection_rule"] = project_overlay.get(
             "route_selection_rule"
         )
+        card["source_files_mutated"] = project_overlay.get(
+            "source_files_mutated", False
+        )
     boundary_hits = omitted_payload_schema_term_hits(card)
     boundary_hit_count = sum(boundary_hits.values())
     boundary_status = PASS if boundary_hit_count == 0 else "blocked"
@@ -2421,6 +2542,12 @@ def _runtime_status_card(
         "omitted_payload_schema_hit_count": boundary_hit_count,
     }
     if boundary_status != PASS:
+        card["status"] = "blocked"
+    card["front_door_status"] = _status_card_front_door_status(card)
+    card["front_door"]["front_door_status_ref"] = (
+        f"{card['card_command']}::front_door_status"
+    )
+    if card["front_door_status"]["status"] != PASS:
         card["status"] = "blocked"
     return card
 

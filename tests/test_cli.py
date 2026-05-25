@@ -189,6 +189,25 @@ def test_cli_status_card_can_overlay_project_route_state(
     payload = json.loads(capsys.readouterr().out)
 
     assert payload["card_command"] == "microcosm status --card <project>"
+    assert payload["source_files_mutated"] is False
+    assert payload["front_door"]["front_door_status_ref"] == (
+        "microcosm status --card <project>::front_door_status"
+    )
+    front_door_status = payload["front_door_status"]
+    assert front_door_status["status"] == "pass"
+    assert front_door_status["blocking_surface_ids"] == []
+    assert front_door_status["actionable_surface_ids"] == []
+    assert front_door_status["surface_statuses"]["project_state"] == "pass"
+    assert front_door_status["surface_statuses"]["route_explanation"] == "pass"
+    assert (
+        front_door_status["surface_statuses"]["workingness_failure_envelope"]
+        == "clear"
+    )
+    assert (
+        front_door_status["drilldown_blocked_surface_ids_ref"]
+        == "microcosm tour <project>::front_door_status."
+        "drilldown_blocked_surface_ids"
+    )
     assert payload["front_door"]["project_state_status"] == "pass"
     assert payload["front_door"]["selected_route_id"] == "readme_onboarding_route"
     assert payload["front_door"]["route_explanation_command"] == (
@@ -298,6 +317,14 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert cli.main(["status", "--card", str(project)]) == 0
     status_card = json.loads(capsys.readouterr().out)
     assert status_card["status"] == "pass"
+    assert status_card["front_door_status"]["blocking_surface_ids"] == []
+    assert status_card["front_door_status"]["actionable_surface_ids"] == [
+        "workingness_failure_envelope"
+    ]
+    assert (
+        status_card["front_door_status"]["surface_statuses"]["project_state"]
+        == "pass"
+    )
     assert status_card["front_door"]["project_state_status"] == "pass"
     assert status_card["front_door"]["selected_route_id"] == "readme_onboarding_route"
     assert status_card["front_door"]["state_dir_exists"] is True
@@ -308,7 +335,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["route_explanation"][
         "source_files_mutated"
     ] is False
-    assert status_card["workingness"]["status"] == "clear"
+    assert status_card["workingness"]["status"] == "actionable"
     assert status_card["proof_lab"]["status"] == "pass"
     assert status_card["macro_body_import_floor"]["source_body_imports"][
         "verified_source_module_family_count"

@@ -484,6 +484,40 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         "authority",
         "intake",
     ]
+    assert card["front_door"]["front_door_status_ref"] == (
+        "microcosm status --card::front_door_status"
+    )
+    front_door_status = card["front_door_status"]
+    assert front_door_status["schema_version"] == (
+        "microcosm_status_card_front_door_status_v1"
+    )
+    assert front_door_status["status"] == "pass"
+    assert front_door_status["blocking_surface_ids"] == []
+    assert front_door_status["actionable_surface_ids"] == []
+    assert front_door_status["accepted_nonblocking_statuses"] == [
+        "pass",
+        "clear",
+        "actionable",
+    ]
+    assert front_door_status["surface_statuses"]["runtime_status"] == "pass"
+    assert (
+        front_door_status["surface_statuses"]["macro_body_import_floor"]
+        == "pass"
+    )
+    assert (
+        front_door_status["surface_statuses"]["workingness_failure_envelope"]
+        == "clear"
+    )
+    assert front_door_status["drilldown_warning_surface_ids"] == [
+        "authority",
+        "intake",
+    ]
+    assert (
+        front_door_status["drilldown_blocked_surface_ids_status"]
+        == "not_evaluated_in_status_card"
+    )
+    assert front_door_status["safe_to_show"]["blocking_surface_ids_visible"] is True
+    assert card["source_files_mutated"] is False
     assert card["front_door"]["route_state_ref"] == ".microcosm/routes.json"
     assert card["front_door"]["work_state_ref"] == ".microcosm/work_items.json"
     assert card["front_door"]["event_log_ref"] == ".microcosm/events.jsonl"
