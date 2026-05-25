@@ -172,7 +172,14 @@
     "tools/meta/observability/operator_handoff_linkage.py",
     "tools/meta/observability/prompt_shelf_fingerprints.py",
     "system/server/tests/test_operator_handoff_linkage.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+    "system/server/tests/test_bridge_resume.py",
+    "system/server/tests/test_controller_heartbeat.py",
+    "system/server/tests/test_continuation_packet.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+    "codex/doctrine/paper_modules/bridge_runtime.md",
+    "codex/standards/std_continuation_packet.json",
+    "codex/standards/std_continuity_protocol.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -6422,6 +6429,324 @@
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "bridge_resume_source_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "tools/meta/bridge/bridge_resume.py",
+      "source_refs": [
+        "tools/meta/bridge/bridge_resume.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
+      "body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+      "claim_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_bridge_runtime_continuity_sources_into_public_projection_bundle",
+        "bind_dispatch_yield_resume_and_controller_heartbeat_contracts_to_macro_projection_body_floor",
+        "preserve_bridge_continuity_sources_without_exporting_live_session_jsonl_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/bridge_resume_protocol.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "tools/meta/bridge/bridge_resume.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
+        "source_body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+        "target_body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+        "source_line_count": 1746,
+        "target_line_count": 1746,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "controller_heartbeat_source_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/lib/controller_heartbeat.py",
+      "source_refs": [
+        "system/lib/controller_heartbeat.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/controller_heartbeat.py",
+      "body_digest": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
+      "claim_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_bridge_runtime_continuity_sources_into_public_projection_bundle",
+        "bind_dispatch_yield_resume_and_controller_heartbeat_contracts_to_macro_projection_body_floor",
+        "preserve_bridge_continuity_sources_without_exporting_live_session_jsonl_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/bridge_resume_protocol.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/lib/controller_heartbeat.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/controller_heartbeat.py",
+        "source_body_digest": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
+        "target_body_digest": "sha256:28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
+        "source_line_count": 530,
+        "target_line_count": 530,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "continuation_packet_source_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/lib/continuation_packet.py",
+      "source_refs": [
+        "system/lib/continuation_packet.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/continuation_packet.py",
+      "body_digest": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+      "claim_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_bridge_runtime_continuity_sources_into_public_projection_bundle",
+        "bind_dispatch_yield_resume_and_controller_heartbeat_contracts_to_macro_projection_body_floor",
+        "preserve_bridge_continuity_sources_without_exporting_live_session_jsonl_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/bridge_resume_protocol.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/lib/continuation_packet.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/continuation_packet.py",
+        "source_body_digest": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+        "target_body_digest": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+        "source_line_count": 837,
+        "target_line_count": 837,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "bridge_resume_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/server/tests/test_bridge_resume.py",
+      "source_refs": [
+        "system/server/tests/test_bridge_resume.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_resume.py",
+      "body_digest": "sha256:1bf7307bf9bb2dca6810a9746699b15b0087a1c02420c6fe7c269db373a3c3bc",
+      "claim_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_bridge_runtime_continuity_sources_into_public_projection_bundle",
+        "bind_dispatch_yield_resume_and_controller_heartbeat_contracts_to_macro_projection_body_floor",
+        "preserve_bridge_continuity_sources_without_exporting_live_session_jsonl_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/bridge_resume_protocol.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/server/tests/test_bridge_resume.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_resume.py",
+        "source_body_digest": "sha256:1bf7307bf9bb2dca6810a9746699b15b0087a1c02420c6fe7c269db373a3c3bc",
+        "target_body_digest": "sha256:1bf7307bf9bb2dca6810a9746699b15b0087a1c02420c6fe7c269db373a3c3bc",
+        "source_line_count": 1245,
+        "target_line_count": 1245,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "controller_heartbeat_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/server/tests/test_controller_heartbeat.py",
+      "source_refs": [
+        "system/server/tests/test_controller_heartbeat.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_controller_heartbeat.py",
+      "body_digest": "sha256:b0f9157f49c9d2e9446e1579a62e3be8ffa7657d156cfc7bbe47a193d06e7526",
+      "claim_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_bridge_runtime_continuity_sources_into_public_projection_bundle",
+        "bind_dispatch_yield_resume_and_controller_heartbeat_contracts_to_macro_projection_body_floor",
+        "preserve_bridge_continuity_sources_without_exporting_live_session_jsonl_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/bridge_resume_protocol.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/server/tests/test_controller_heartbeat.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_controller_heartbeat.py",
+        "source_body_digest": "sha256:b0f9157f49c9d2e9446e1579a62e3be8ffa7657d156cfc7bbe47a193d06e7526",
+        "target_body_digest": "sha256:b0f9157f49c9d2e9446e1579a62e3be8ffa7657d156cfc7bbe47a193d06e7526",
+        "source_line_count": 97,
+        "target_line_count": 97,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "continuation_packet_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/server/tests/test_continuation_packet.py",
+      "source_refs": [
+        "system/server/tests/test_continuation_packet.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_continuation_packet.py",
+      "body_digest": "sha256:93e3d9b03ede2ff5ab2d710d15e0913fb1c12c5fd8c2370e5f79556bddb65119",
+      "claim_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_bridge_runtime_continuity_sources_into_public_projection_bundle",
+        "bind_dispatch_yield_resume_and_controller_heartbeat_contracts_to_macro_projection_body_floor",
+        "preserve_bridge_continuity_sources_without_exporting_live_session_jsonl_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "docs/bridge_resume_protocol.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/server/tests/test_continuation_packet.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_continuation_packet.py",
+        "source_body_digest": "sha256:93e3d9b03ede2ff5ab2d710d15e0913fb1c12c5fd8c2370e5f79556bddb65119",
+        "target_body_digest": "sha256:93e3d9b03ede2ff5ab2d710d15e0913fb1c12c5fd8c2370e5f79556bddb65119",
+        "source_line_count": 269,
+        "target_line_count": 269,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
     }

@@ -1264,6 +1264,48 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "bridge_runtime_continuity_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The bridge dispatch-yield-resume continuity lane now carries "
+            "the exact copied non-secret bridge-resume, controller-heartbeat, "
+            "continuation-packet, and focused synthetic validator source "
+            "bodies inside the projection bundle, validated by digest/anchor "
+            "checks and syntax compilation without reading live session jsonl "
+            "bodies, injecting into Claude Desktop, calling providers, "
+            "exporting prompt/provider/tool-output bodies, account/session "
+            "state, hidden reasoning, browser/HUD live access, recipient-send "
+            "state, generated state, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "bridge_runtime_continuity_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "bridge/bridge_resume.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "controller_heartbeat.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "continuation_packet.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 

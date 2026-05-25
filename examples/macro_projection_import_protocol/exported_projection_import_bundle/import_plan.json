@@ -1697,6 +1697,60 @@
       "body_copied": false,
       "body_in_receipt": false,
       "authority_ceiling": "public operator handoff linkage projector source-body import only; not live ~/.claude or ~/.codex session scanning, prompt-shelf raw-event export, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority"
+    },
+    {
+      "cell_id": "bridge_runtime_continuity_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "selected_pattern_ids": [
+        "bridge_runtime_dispatch_yield_resume",
+        "controller_continuity_heartbeat",
+        "continuation_packet_resume",
+        "macro_body_floor_import"
+      ],
+      "source_refs": [
+        "tools/meta/bridge/bridge_resume.py",
+        "system/lib/controller_heartbeat.py",
+        "system/lib/continuation_packet.py",
+        "system/server/tests/test_bridge_resume.py",
+        "system/server/tests/test_controller_heartbeat.py",
+        "system/server/tests/test_continuation_packet.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/controller_heartbeat.md",
+        "codex/standards/std_continuation_packet.json",
+        "codex/standards/std_controller_heartbeat.json",
+        "codex/standards/std_continuity_protocol.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/controller_heartbeat.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/continuation_packet.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_resume.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_controller_heartbeat.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_continuation_packet.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_runtime_continuity_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "bridge_resume_source_body_import",
+        "controller_heartbeat_source_body_import",
+        "continuation_packet_source_body_import",
+        "bridge_resume_test_body_import",
+        "controller_heartbeat_test_body_import",
+        "continuation_packet_test_body_import"
+      ],
+      "authority_ceiling": "public bridge dispatch-yield-resume source-body import only; not live ~/.claude or ~/.codex session scanning, Claude Desktop injection, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources"
     }
   ],
   "body_in_receipt": false

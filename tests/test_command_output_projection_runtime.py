@@ -120,6 +120,9 @@ AGENT_MISSION_STATUS_MANIFEST = (
 OPERATOR_HANDOFF_LINKAGE_MANIFEST = (
     BUNDLE_INPUT / "operator_handoff_linkage_source_module_manifest.json"
 )
+BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
+    BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -2393,6 +2396,77 @@ def test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_c
     assert len(links) == 1
     assert links[0]["surface_label"] == "Codex"
     assert links[0]["confidence_band"] == "strong"
+
+
+def test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        BRIDGE_RUNTIME_CONTINUITY_MANIFEST,
+        manifest_id="bridge_runtime_continuity_source_modules_import",
+        module_count=6,
+    )
+
+
+def test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_resume_contract() -> None:
+    bridge_source = BUNDLE_INPUT / "source_modules/tools/meta/bridge/bridge_resume.py"
+    heartbeat_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/controller_heartbeat.py"
+    )
+    continuation_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/continuation_packet.py"
+    )
+    bridge_test = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_bridge_resume.py"
+    )
+    heartbeat_test = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_controller_heartbeat.py"
+    )
+    continuation_test = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_continuation_packet.py"
+    )
+
+    bridge_text = bridge_source.read_text(encoding="utf-8")
+    heartbeat_text = heartbeat_source.read_text(encoding="utf-8")
+    continuation_text = continuation_source.read_text(encoding="utf-8")
+    bridge_test_text = bridge_test.read_text(encoding="utf-8")
+    heartbeat_test_text = heartbeat_test.read_text(encoding="utf-8")
+    continuation_test_text = continuation_test.read_text(encoding="utf-8")
+
+    for source_path, text in [
+        (bridge_source, bridge_text),
+        (heartbeat_source, heartbeat_text),
+        (continuation_source, continuation_text),
+        (bridge_test, bridge_test_text),
+        (heartbeat_test, heartbeat_test_text),
+        (continuation_test, continuation_test_text),
+    ]:
+        compile(text, str(source_path), "exec")
+
+    assert 'RESUME_SCHEMA_VERSION = "1.1.0"' in bridge_text
+    assert 'DEFAULT_SENTINEL_PREFIX = "[bridge resume]"' in bridge_text
+    assert "Raw bridge transcripts NEVER hit the chat" in bridge_text
+    assert "class BridgeResumeManager:" in bridge_text
+    assert "def bridge_dispatch_and_yield(" in bridge_text
+    assert (
+        'CONTROLLER_HEARTBEAT_SCHEMA_VERSION = "controller_heartbeat_v1"'
+        in heartbeat_text
+    )
+    assert "class ControllerHeartbeatDeduper:" in heartbeat_text
+    assert "def build_controller_heartbeat(" in heartbeat_text
+    assert 'CONTINUATION_PACKET_KIND = "continuation_packet"' in continuation_text
+    assert "WAIT_KINDS = frozenset(" in continuation_text
+    assert "def build_continuation_packet(" in continuation_text
+    assert "test_bridge_dispatch_and_yield_happy_path" in bridge_test_text
+    assert "test_assess_session_activity_foreign_user_blocks" in bridge_test_text
+    assert (
+        "test_build_controller_heartbeat_emits_exactly_five_sentences_per_field"
+        in heartbeat_test_text
+    )
+    assert (
+        "test_build_continuation_packet_for_pipeline_signal_includes_family_continuity"
+        in continuation_test_text
+    )
 
 
 def _load_trace_capsule_source_module():
