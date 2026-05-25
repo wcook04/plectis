@@ -78,6 +78,24 @@ MACRO_PROJECTION_PROTOCOL_REF = Path(
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
     "projection_protocol.json"
 )
+MACRO_PROJECTION_IMPORT_PLAN_REF = Path(
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+    "import_plan.json"
+)
+MACRO_PROJECTION_FIXTURE_INPUT_REF = Path(
+    "fixtures/first_wave/macro_projection_import_protocol/input"
+)
+MACRO_PROJECTION_RUNTIME_RECEIPT_REF = Path(
+    "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol"
+)
+MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF = (
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::"
+    "macro_projection_import_protocol_public_membrane"
+)
+MACRO_PROJECTION_BODY_FLOOR_PATTERN_LEDGER_REF = (
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::"
+    "macro_projection_import_protocol"
+)
 PUBLIC_SAFE_MACRO_BODY_CLASSES = frozenset(
     {
         "public_macro_pattern_body",
@@ -1558,10 +1576,72 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     material_count = sum(class_counts.values())
     mixed_assay_status = PASS if tool_ids and proof_ids and not defects else "blocked"
     status = PASS if material_count and mixed_assay_status == PASS else "blocked"
+    owner_refs = {
+        "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
+        "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "paper_module_ref": "paper_modules/macro_projection_import_protocol.md",
+    }
+    routing_refs = {
+        "pattern_binding_ref": MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF,
+        "pattern_ledger_ref": MACRO_PROJECTION_BODY_FLOOR_PATTERN_LEDGER_REF,
+        "projection_protocol_ref": MACRO_PROJECTION_PROTOCOL_REF.as_posix(),
+        "import_plan_ref": MACRO_PROJECTION_IMPORT_PLAN_REF.as_posix(),
+        "fixture_input_ref": MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix(),
+        "runtime_receipt_ref": MACRO_PROJECTION_RUNTIME_RECEIPT_REF.as_posix(),
+    }
+    validation_hooks = [
+        {
+            "hook_id": "fixture_protocol_acceptance",
+            "command": (
+                "microcosm macro-projection-import-protocol run --input "
+                f"{MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix()} --out "
+                "receipts/first_wave/macro_projection_import_protocol"
+            ),
+            "asserts": [
+                "projection_protocol_cleaning_policy",
+                "negative_projection_boundary_cases",
+                "body_digest_and_secret_exclusion_checks",
+            ],
+        },
+        {
+            "hook_id": "runtime_bundle_projection",
+            "command": (
+                "microcosm macro-projection-import-protocol run-projection-bundle "
+                f"--input {MACRO_PROJECTION_IMPORT_PLAN_REF.parent.as_posix()} "
+                f"--out {MACRO_PROJECTION_RUNTIME_RECEIPT_REF.as_posix()}"
+            ),
+            "asserts": [
+                "standalone_runtime_dependency_guard",
+                "public_relative_receipts",
+                "body_text_absent_from_receipts",
+            ],
+        },
+        {
+            "hook_id": "pattern_binding_checker",
+            "command": (
+                "./repo-python tools/meta/factory/"
+                "build_extracted_pattern_substrate_bindings.py --check --json"
+            ),
+            "asserts": [
+                "pattern_binding_refs_resolve",
+                "route_readiness_contract_stays_bound",
+            ],
+        },
+    ]
     return {
         "schema_version": "microcosm_macro_body_import_floor_v1",
         "status": status,
         "source_ref": MACRO_PROJECTION_PROTOCOL_REF.as_posix(),
+        "owner_refs": owner_refs,
+        "routing_refs": routing_refs,
+        "route_readiness": {
+            "status": "routed_to_organ_bundle",
+            "readiness_id": "root_binding_and_executable_grammar",
+            "route_card_id": "route_card_root_binding_and_grammar",
+            "selection_posture": "root_substrate",
+        },
+        "validation_hooks": validation_hooks,
         "classification": "copied_non_secret_macro_body_material_floor",
         "copied_non_secret_macro_body_material_count": material_count,
         "public_safe_body_material_count": material_count,
@@ -1721,6 +1801,28 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         "macro_body_import_floor": {
             "status": body_floor.get("status"),
             "source_ref": body_floor.get("source_ref"),
+            "owner_refs": body_floor.get("owner_refs", {}),
+            "pattern_binding_ref": (
+                body_floor.get("routing_refs", {}).get("pattern_binding_ref")
+                if isinstance(body_floor.get("routing_refs"), dict)
+                else None
+            ),
+            "import_plan_ref": (
+                body_floor.get("routing_refs", {}).get("import_plan_ref")
+                if isinstance(body_floor.get("routing_refs"), dict)
+                else None
+            ),
+            "fixture_input_ref": (
+                body_floor.get("routing_refs", {}).get("fixture_input_ref")
+                if isinstance(body_floor.get("routing_refs"), dict)
+                else None
+            ),
+            "route_readiness": body_floor.get("route_readiness", {}),
+            "validation_commands": [
+                hook.get("command")
+                for hook in body_floor.get("validation_hooks", [])
+                if isinstance(hook, dict) and hook.get("command")
+            ],
             "public_safe_body_material_counts_by_class": body_floor.get(
                 "public_safe_body_material_counts_by_class", {}
             ),

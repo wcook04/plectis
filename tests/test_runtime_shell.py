@@ -16,6 +16,10 @@ from microcosm_core.runtime_shell import (
     LOCAL_FIRST_SCREEN_ROUTE_ID,
     LOCAL_FIRST_SCREEN_ROUTE_REF,
     LOCAL_FIRST_SCREEN_SURFACE_ID,
+    MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF,
+    MACRO_PROJECTION_FIXTURE_INPUT_REF,
+    MACRO_PROJECTION_IMPORT_PLAN_REF,
+    MACRO_PROJECTION_RUNTIME_RECEIPT_REF,
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
@@ -141,6 +145,36 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
+    assert status["macro_body_import_floor"]["owner_refs"] == {
+        "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
+        "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "paper_module_ref": "paper_modules/macro_projection_import_protocol.md",
+    }
+    assert status["macro_body_import_floor"]["routing_refs"][
+        "pattern_binding_ref"
+    ] == MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF
+    assert status["macro_body_import_floor"]["routing_refs"][
+        "import_plan_ref"
+    ] == MACRO_PROJECTION_IMPORT_PLAN_REF.as_posix()
+    assert status["macro_body_import_floor"]["routing_refs"][
+        "fixture_input_ref"
+    ] == MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix()
+    assert status["macro_body_import_floor"]["route_readiness"] == {
+        "status": "routed_to_organ_bundle",
+        "readiness_id": "root_binding_and_executable_grammar",
+        "route_card_id": "route_card_root_binding_and_grammar",
+        "selection_posture": "root_substrate",
+    }
+    validation_hook_ids = [
+        hook["hook_id"]
+        for hook in status["macro_body_import_floor"]["validation_hooks"]
+    ]
+    assert validation_hook_ids == [
+        "fixture_protocol_acceptance",
+        "runtime_bundle_projection",
+        "pattern_binding_checker",
+    ]
     body_counts = status["macro_body_import_floor"][
         "public_safe_body_material_counts_by_class"
     ]
@@ -409,6 +443,46 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     ] == status["copied_non_secret_macro_body_material_count"]
     assert card["substrate_counts"]["blocked_import_debt_count"] == 0
     assert card["macro_body_import_floor"]["status"] == "pass"
+    assert card["macro_body_import_floor"]["owner_refs"] == {
+        "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
+        "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
+        "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json",
+        "paper_module_ref": "paper_modules/macro_projection_import_protocol.md",
+    }
+    assert (
+        card["macro_body_import_floor"]["pattern_binding_ref"]
+        == MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF
+    )
+    assert (
+        card["macro_body_import_floor"]["import_plan_ref"]
+        == MACRO_PROJECTION_IMPORT_PLAN_REF.as_posix()
+    )
+    assert (
+        card["macro_body_import_floor"]["fixture_input_ref"]
+        == MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix()
+    )
+    assert card["macro_body_import_floor"]["route_readiness"] == {
+        "status": "routed_to_organ_bundle",
+        "readiness_id": "root_binding_and_executable_grammar",
+        "route_card_id": "route_card_root_binding_and_grammar",
+        "selection_posture": "root_substrate",
+    }
+    assert card["macro_body_import_floor"]["validation_commands"] == [
+        (
+            "microcosm macro-projection-import-protocol run --input "
+            f"{MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix()} --out "
+            "receipts/first_wave/macro_projection_import_protocol"
+        ),
+        (
+            "microcosm macro-projection-import-protocol run-projection-bundle "
+            f"--input {MACRO_PROJECTION_IMPORT_PLAN_REF.parent.as_posix()} "
+            f"--out {MACRO_PROJECTION_RUNTIME_RECEIPT_REF.as_posix()}"
+        ),
+        (
+            "./repo-python tools/meta/factory/"
+            "build_extracted_pattern_substrate_bindings.py --check --json"
+        ),
+    ]
     assert card["workingness"]["status"] == "pass"
     assert card["workingness"]["command"] == "microcosm workingness"
     assert card["workingness"]["endpoint"] == "/workingness"
