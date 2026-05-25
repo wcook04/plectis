@@ -32,10 +32,10 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 10,
-    "missing_standard_count": 3,
-    "rows_with_failure_modes": 36,
-    "rows_with_future_work_targets": 37,
+    "missing_failure_modes_count": 9,
+    "missing_standard_count": 2,
+    "rows_with_failure_modes": 37,
+    "rows_with_future_work_targets": 36,
     "thing_count": 46
   },
   "thing_failure_map": [
@@ -1826,49 +1826,63 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_contract",
-          "target_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
-          "why": "workingness cannot be bounded without an owning standard"
-        },
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 14,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "route projection row treated as control-entry authority",
+        "banned first-contact route accepted without replacement",
+        "source coupling digest stale or overclaimed as current",
+        "route card missing omission receipt for compacted authority",
+        "route card exports private body material or matched excerpts",
+        "duplicate route identifiers collapse route selection",
+        "entry payload drops non-negotiable control fields",
+        "affordance passport anti-trigger ignored during route selection",
+        "copied source module missing from public bundle",
+        "copied source module digest does not match macro source digest",
+        "copied source module lacks required navigation/control anchor",
+        "receipt duplicates full source body instead of refs, hashes, and verdicts",
+        "provider payload, browser/HUD live-access, account/session, credential, or recipient-send state exported",
+        "public route-plane pass claimed as release, source mutation, whole-system correctness, or live macro-kernel authority"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
-        "anti_purpose": null,
-        "authority_boundary": null,
-        "authority_ceiling": {},
+        "anti_purpose": "A card-only route index, a stale source pointer, or a route receipt that passes while copied source modules are missing, stale, or leaking private/session payloads.",
+        "authority_boundary": "public_navigation_route_plane_runtime_and_copied_source_body_validator_not_live_source_authority",
+        "authority_ceiling": {
+          "account_session_state_exported": false,
+          "browser_hud_live_access_authorized": false,
+          "credential_exported": false,
+          "live_macro_kernel_execution_authorized": false,
+          "provider_calls_authorized": false,
+          "publication_authorized": false,
+          "recipient_work_authorized": false,
+          "release_authorized": false,
+          "source_authority_claim": false,
+          "source_mutation_authorized": false,
+          "standard_authority": "public_route_plane_runtime_and_source_body_digest_contract_only",
+          "status": "pass",
+          "whole_system_correctness_claim": false
+        },
         "generated_receipt_count": 7,
-        "missing_requirement_ids": [
-          "owning_standard_present",
-          "known_failure_modes_present",
-          "public_private_boundary_declared"
-        ],
-        "ontology": null,
-        "receipt_expectation_count": 0,
-        "required_field_count": 0,
+        "missing_requirement_ids": [],
+        "ontology": "A public-safe navigation control-plane organ that validates route projections, route leases, entry-payload floors, affordance selection, omission boundaries, and exact copied non-secret source modules without treating projections as live source authority.",
+        "receipt_expectation_count": 2,
+        "required_field_count": 12,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
-          "owning_standard_present": false,
-          "public_private_boundary_declared": false,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
           "validator_command_present": true
         },
         "standard_ref": "standards/std_microcosm_navigation_hologram_route_plane.json",
-        "standard_status": null,
-        "teleology": null,
-        "validation_rule_count": 0
+        "standard_status": "draft",
+        "teleology": "Give a cold reader the real route/control-plane body needed to inspect how Microcosm decides first-contact navigation while preserving the boundary between public runtime evidence and live macro authority.",
+        "validation_rule_count": 6
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",

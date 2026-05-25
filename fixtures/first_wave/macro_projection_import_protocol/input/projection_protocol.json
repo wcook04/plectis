@@ -450,6 +450,331 @@
     },
     {
       "applied_edits": [
+        "exact_copy_macro_navigation_route_plane_source_module_into_public_route_plane_bundle",
+        "bind_route_plane_control_source_body_to_macro_projection_body_floor",
+        "preserve navigation control source without claiming live macro kernel execution in Microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "source_line_count": 348,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "target_line_count": 348,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 348,
+      "claim_ceiling": "public navigation route-plane control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_route_plane_intervention_source_body_import",
+      "provenance_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "standards/std_microcosm_navigation_hologram_route_plane.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "source_refs": [
+        "system/lib/navigation_route_intervention.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_route_plane_source_module_into_public_route_plane_bundle",
+        "bind_route_plane_control_source_body_to_macro_projection_body_floor",
+        "preserve navigation control source without claiming live macro kernel execution in Microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:f795eee3827632e5e5fec1a025e1ec81239732c763e5c45b9e0253df289aa1ba",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:f795eee3827632e5e5fec1a025e1ec81239732c763e5c45b9e0253df289aa1ba",
+        "source_line_count": 6962,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:f795eee3827632e5e5fec1a025e1ec81239732c763e5c45b9e0253df289aa1ba",
+        "target_line_count": 6962,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 6962,
+      "claim_ceiling": "public navigation route-plane control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_route_plane_context_pack_source_body_import",
+      "provenance_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "standards/std_microcosm_navigation_hologram_route_plane.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/navigation_context_pack.py",
+      "source_refs": [
+        "system/lib/navigation_context_pack.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_route_plane_source_module_into_public_route_plane_bundle",
+        "bind_route_plane_control_source_body_to_macro_projection_body_floor",
+        "preserve navigation control source without claiming live macro kernel execution in Microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:e1c5a3c54041d8408837643e0a92c4e57744ffa24f9cbc88b8e0b22bed6db7cf",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:e1c5a3c54041d8408837643e0a92c4e57744ffa24f9cbc88b8e0b22bed6db7cf",
+        "source_line_count": 7791,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:e1c5a3c54041d8408837643e0a92c4e57744ffa24f9cbc88b8e0b22bed6db7cf",
+        "target_line_count": 7791,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 7791,
+      "claim_ceiling": "public navigation route-plane control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_route_plane_entry_packet_source_body_import",
+      "provenance_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "standards/std_microcosm_navigation_hologram_route_plane.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+      "source_refs": [
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_route_plane_source_module_into_public_route_plane_bundle",
+        "bind_route_plane_control_source_body_to_macro_projection_body_floor",
+        "preserve navigation control source without claiming live macro kernel execution in Microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
+        "source_line_count": 16018,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
+        "target_line_count": 16018,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 16018,
+      "claim_ceiling": "public navigation route-plane control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_route_plane_option_surface_source_body_import",
+      "provenance_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "standards/std_microcosm_navigation_hologram_route_plane.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/standard_option_surface.py",
+      "source_refs": [
+        "system/lib/standard_option_surface.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_route_plane_source_module_into_public_route_plane_bundle",
+        "bind_route_plane_control_source_body_to_macro_projection_body_floor",
+        "preserve navigation control source without claiming live macro kernel execution in Microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:c770e577a12246df17c2c9ba85889822004d5c69b4d770446d2d658d267b84c9",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:c770e577a12246df17c2c9ba85889822004d5c69b4d770446d2d658d267b84c9",
+        "source_line_count": 134,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:c770e577a12246df17c2c9ba85889822004d5c69b4d770446d2d658d267b84c9",
+        "target_line_count": 134,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 134,
+      "claim_ceiling": "public navigation route-plane control source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_route_plane_navigation_contract_source_body_import",
+      "provenance_refs": [
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "standards/std_microcosm_navigation_hologram_route_plane.json",
+        "codex/standards/std_navigation_contract.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_navigation_contract.json",
+      "source_refs": [
+        "codex/standards/std_navigation_contract.json",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
         "replace macro-root family and mutation-governance imports with deterministic public metadata packet builders",
         "preserve wait kinds, continuation packet path contract, prompt rendering, fingerprinting, and authority ceiling shape",
         "consume it through agent_route_observability_runtime exported_multi_agent_fanin_replay_bundle"
@@ -7757,7 +8082,14 @@
     "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
     "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle",
     "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle_validation_result.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -7961,7 +8293,9 @@
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
-    "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+    "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+    "standards/std_microcosm_navigation_hologram_route_plane.json"
   ],
   "steps": [
     {
@@ -8133,6 +8467,8 @@
     "microcosm-substrate/tests/test_ring2_premise_retrieval_precision_recall_harness.py::test_ring2_precision_recall_exported_bundle_validates_runtime_shape",
     "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
     "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape"
   ]
 }

@@ -384,10 +384,13 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
         "action_required": False,
         "status_reason": (
             "The navigation route plane now carries copied non-secret macro route rows "
-            "inside Microcosm and validates them through the route-plane runtime consumer."
+            "and exact route/control source modules inside Microcosm, then validates "
+            "them through the route-plane runtime consumer."
         ),
         "landed_evidence_refs": [
             "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+            "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+            "standards/std_microcosm_navigation_hologram_route_plane.json",
             "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
             "src/microcosm_core/organs/navigation_hologram_route_plane.py",
         ],

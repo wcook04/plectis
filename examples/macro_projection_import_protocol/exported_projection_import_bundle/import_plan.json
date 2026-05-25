@@ -292,12 +292,17 @@
       ]
     },
     {
-      "authority_ceiling": "copied_public_route_rows_not_live_route_freshness_or_source_authority",
+      "authority_ceiling": "copied_public_route_rows_and_exact_source_modules_not_live_route_freshness_or_source_authority",
       "body_copied": false,
       "body_in_receipt": false,
       "cell_id": "navigation_route_plane_import",
       "public_safe_body_material_ids": [
-        "navigation_route_plane_body_import"
+        "navigation_route_plane_body_import",
+        "navigation_route_plane_intervention_source_body_import",
+        "navigation_route_plane_context_pack_source_body_import",
+        "navigation_route_plane_entry_packet_source_body_import",
+        "navigation_route_plane_option_surface_source_body_import",
+        "navigation_route_plane_navigation_contract_source_body_import"
       ],
       "selected_pattern_ids": [
         "navigation_hologram_unified_route_plane",
@@ -307,16 +312,30 @@
         "codex/doctrine/agent_bootstrap_live.json::situation_routes",
         "codex/doctrine/routing_hologram.json::situation_rows",
         "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
-        "system/lib/navigation_context_pack.py::build_navigation_context_pack"
+        "system/lib/navigation_context_pack.py::build_navigation_context_pack",
+        "system/lib/navigation_route_intervention.py",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/lib/standard_option_surface.py",
+        "codex/standards/std_navigation_contract.json"
       ],
       "target_refs": [
         "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
         "src/microcosm_core/organs/navigation_hologram_route_plane.py",
-        "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json"
+        "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
       ],
       "validation_refs": [
         "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe",
-        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine"
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_route_plane_body_import_is_unified_under_macro_projection_spine",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape"
       ]
     },
     {

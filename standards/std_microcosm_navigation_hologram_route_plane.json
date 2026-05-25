@@ -1,0 +1,160 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_navigation_hologram_route_plane",
+  "kind_id": "navigation_hologram_route_plane",
+  "kind_name": "Navigation hologram route plane",
+  "status": "draft",
+  "first_wave_required": true,
+  "authority_boundary": "public_navigation_route_plane_runtime_and_copied_source_body_validator_not_live_source_authority",
+  "source_refs": [
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/navigation_hologram_route_plane/input",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+      "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+      "role": "copied_public_macro_source_body_manifest"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#navigation_hologram_route_plane",
+    "used_by_organs": [
+      "navigation_hologram_route_plane"
+    ],
+    "source_pattern_id_sample": [
+      "navigation_hologram_unified_route_plane",
+      "agent_entry_surfaces_canonical_first_move",
+      "omission_receipt_reversible_projection_boundary",
+      "semantic_routing_plane",
+      "system_atlas_source_coupling_gate",
+      "entry_payload_admission_nonnegotiable_floor",
+      "affordance_passport_selection_gate"
+    ]
+  },
+  "required_fields": [
+    "bundle_id",
+    "route_rows",
+    "option_surface_contract",
+    "source_coupling_manifest",
+    "source_module_manifest",
+    "route_lease_policy",
+    "entry_packet_floor",
+    "affordance_passports",
+    "code_architecture_projection_packet",
+    "body_import_verification",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require public route rows to remain projections and not control-entry authority",
+    "require route-source coupling digests, route counts, and copied source-module digests to match declared values",
+    "require copied source modules to carry exact source-to-target digest matches and required anchor checks",
+    "reject banned first-contact routes, stale source claims, missing omission receipts, private body leaks, duplicate route ids, dropped entry floors, and affordance anti-trigger bypasses",
+    "reject source authority upgrades, live macro kernel authority, provider calls, account/session state export, browser/HUD live access, recipient work, publication, release, and whole-system correctness claims",
+    "require secret-exclusion scanning over route bundle files and copied source modules with body text omitted from receipts"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.navigation_hologram_route_plane",
+    "receipt must cite route row count, source coupling, route lease, entry admission, affordance selection, code architecture packet, source module digest/anchor status, secret-exclusion scan, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "validator_id": "validator.microcosm.organs.navigation_hologram_route_plane",
+    "command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
+    "runtime_bundle_command": "python -m microcosm_core.organs.navigation_hologram_route_plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+    "expected_negative_cases": [
+      "stale_source_and_banned_first_contact",
+      "route_packet_missing_omission_receipt",
+      "atlas_projection_claims_control_entry_authority",
+      "route_card_private_body_leak",
+      "route_summary_overclaims_freshness",
+      "duplicate_route_id_conflict",
+      "entry_admission_dropped_control_floor",
+      "affordance_passport_antitrigger_ignored"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.navigation_hologram_route_plane",
+    "must_record": [
+      "route_row_count",
+      "selected_row_ids",
+      "source_coupling_status",
+      "source_module_manifest_status",
+      "source_module_digest_status",
+      "source_module_anchor_status",
+      "secret_exclusion_scan",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_route_plane_runtime_with_exact_copied_non_secret_source_modules",
+    "allowed_public_inputs": [
+      "public route rows",
+      "public option-surface contracts",
+      "public route lease policy",
+      "entry-packet control floor metadata",
+      "affordance passport metadata",
+      "code architecture projection metadata",
+      "exact copied non-secret macro navigation source modules",
+      "source refs, hashes, and anchor checks",
+      "synthetic negative cases around public route behavior"
+    ],
+    "forbidden_public_inputs": [
+      "keys",
+      "credentials",
+      "cookies",
+      "account/session state",
+      "provider payload bodies",
+      "browser/HUD live-access material",
+      "operator thread bodies",
+      "recipient-send state",
+      "live macro kernel execution authority",
+      "private-root equivalence claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "public_route_plane_runtime_and_source_body_digest_contract_only",
+    "source_authority_claim": false,
+    "live_macro_kernel_execution_authorized": false,
+    "source_mutation_authorized": false,
+    "provider_calls_authorized": false,
+    "browser_hud_live_access_authorized": false,
+    "account_session_state_exported": false,
+    "credential_exported": false,
+    "recipient_work_authorized": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "whole_system_correctness_claim": false
+  },
+  "standard_payload": {
+    "ontology": "A public-safe navigation control-plane organ that validates route projections, route leases, entry-payload floors, affordance selection, omission boundaries, and exact copied non-secret source modules without treating projections as live source authority.",
+    "teleology": "Give a cold reader the real route/control-plane body needed to inspect how Microcosm decides first-contact navigation while preserving the boundary between public runtime evidence and live macro authority.",
+    "anti_purpose": "A card-only route index, a stale source pointer, or a route receipt that passes while copied source modules are missing, stale, or leaking private/session payloads.",
+    "failure_modes": [
+      "route projection row treated as control-entry authority",
+      "banned first-contact route accepted without replacement",
+      "source coupling digest stale or overclaimed as current",
+      "route card missing omission receipt for compacted authority",
+      "route card exports private body material or matched excerpts",
+      "duplicate route identifiers collapse route selection",
+      "entry payload drops non-negotiable control fields",
+      "affordance passport anti-trigger ignored during route selection",
+      "copied source module missing from public bundle",
+      "copied source module digest does not match macro source digest",
+      "copied source module lacks required navigation/control anchor",
+      "receipt duplicates full source body instead of refs, hashes, and verdicts",
+      "provider payload, browser/HUD live-access, account/session, credential, or recipient-send state exported",
+      "public route-plane pass claimed as release, source mutation, whole-system correctness, or live macro-kernel authority"
+    ]
+  },
+  "anti_claim": "This standard governs a public route-plane runtime and exact copied non-secret navigation source bodies. It does not authorize live macro-kernel execution, source mutation, provider calls, browser/HUD access, account/session export, recipient work, publication, release, private-root equivalence, or whole-system correctness."
+}

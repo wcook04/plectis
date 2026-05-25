@@ -49,6 +49,7 @@ EXPORTED_ROUTE_PLANE_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/navigation_hologram_route_plane/"
     "exported_route_plane_bundle_validation_result.json"
 )
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 
 EXPECTED_NEGATIVE_CASES = {
     "stale_source_and_banned_first_contact": [
@@ -142,12 +143,29 @@ def _route_plane_bundle_paths(input_dir: Path) -> list[Path]:
         "route_rows.json",
         "option_surface_contract.json",
         "source_coupling_manifest.json",
+        SOURCE_MODULE_MANIFEST_NAME,
         "entry_packet_floor.json",
         "route_lease_policy.json",
         "affordance_passports.json",
         "code_architecture_projection_packet.json",
     )
     return [input_dir / name for name in names]
+
+
+def _source_module_paths(input_dir: Path, manifest_payload: object | None = None) -> list[Path]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else None
+    if manifest is None and manifest_path.is_file():
+        manifest = read_json_strict(manifest_path)
+    if not isinstance(manifest, dict):
+        return []
+    paths: list[Path] = []
+    for module in _rows(manifest, "modules"):
+        target_ref = str(module.get("target_ref") or "")
+        if not target_ref or Path(target_ref).is_absolute() or ".." in Path(target_ref).parts:
+            continue
+        paths.append(input_dir.parent.parent.parent / target_ref)
+    return paths
 
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
@@ -161,8 +179,10 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    manifest_payload = read_json_strict(manifest_path) if manifest_path.is_file() else None
     return scan_secret_paths(
-        _route_plane_bundle_paths(input_dir),
+        [*_route_plane_bundle_paths(input_dir), *_source_module_paths(input_dir, manifest_payload)],
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -516,6 +536,149 @@ def validate_exported_source_coupling(
         "observed_sha256": observed_sha,
         "source_coupling_status": PASS if not findings else "blocked",
         "authority_allowed": False,
+    }
+
+
+def validate_source_module_manifest(
+    manifest_payload: object,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    expected_count = int(manifest.get("module_count") or 0)
+
+    if manifest.get("classification") != "copied_non_secret_macro_body":
+        findings.append(
+            _finding(
+                "ROUTE_PLANE_SOURCE_MODULE_CLASSIFICATION_MISSING",
+                "Source-module manifest must classify copied public macro body material.",
+                case_id="source_module_manifest_contract",
+                subject_id=str(manifest.get("manifest_id") or "source_module_manifest"),
+                subject_kind="source_module_manifest",
+            )
+        )
+    if expected_count != len(modules):
+        findings.append(
+            _finding(
+                "ROUTE_PLANE_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source-module manifest module_count does not match module rows.",
+                case_id="source_module_manifest_contract",
+                subject_id=str(manifest.get("manifest_id") or "source_module_manifest"),
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    module_results: list[dict[str, Any]] = []
+    digest_status = PASS
+    anchor_status = PASS
+    for module in modules:
+        module_id = str(module.get("module_id") or "module")
+        target_ref = str(module.get("target_ref") or "")
+        target_path = public_root / target_ref
+        module_findings: list[dict[str, Any]] = []
+        if not target_ref or Path(target_ref).is_absolute() or ".." in Path(target_ref).parts:
+            module_findings.append(
+                _finding(
+                    "ROUTE_PLANE_SOURCE_MODULE_TARGET_REF_UNSAFE",
+                    "Source-module target ref must be public-root relative.",
+                    case_id="source_module_manifest_contract",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not target_path.is_file():
+            module_findings.append(
+                _finding(
+                    "ROUTE_PLANE_SOURCE_MODULE_MISSING",
+                    "Copied source module is missing from the public route-plane bundle.",
+                    case_id="source_module_manifest_contract",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+
+        observed_sha = ""
+        missing_anchors: list[str] = []
+        if target_path.is_file():
+            body = target_path.read_text(encoding="utf-8")
+            observed_sha = hashlib.sha256(target_path.read_bytes()).hexdigest()
+            expected_sha = str(module.get("target_sha256") or "")
+            source_sha = str(module.get("source_sha256") or "")
+            if expected_sha != observed_sha or source_sha != observed_sha:
+                digest_status = "blocked"
+                module_findings.append(
+                    _finding(
+                        "ROUTE_PLANE_SOURCE_MODULE_DIGEST_MISMATCH",
+                        "Copied source module digest does not match source/target manifest digests.",
+                        case_id="source_module_manifest_contract",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            missing_anchors = [
+                str(anchor)
+                for anchor in module.get("required_anchors", [])
+                if str(anchor) not in body
+            ]
+            if missing_anchors:
+                anchor_status = "blocked"
+                module_findings.append(
+                    _finding(
+                        "ROUTE_PLANE_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Copied source module does not contain all required navigation/control anchors.",
+                        case_id="source_module_manifest_contract",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+
+        if module.get("body_copied") is not True or module.get("body_in_receipt") is not False:
+            module_findings.append(
+                _finding(
+                    "ROUTE_PLANE_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Copied source module must be body_copied=true and body_in_receipt=false.",
+                    case_id="source_module_manifest_contract",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        findings.extend(module_findings)
+        module_results.append(
+            {
+                "module_id": module_id,
+                "source_ref": module.get("source_ref"),
+                "target_ref": target_ref,
+                "material_class": module.get("material_class"),
+                "sha256_match": not any(
+                    finding["error_code"] == "ROUTE_PLANE_SOURCE_MODULE_DIGEST_MISMATCH"
+                    for finding in module_findings
+                ),
+                "anchor_status": PASS if not missing_anchors else "blocked",
+                "missing_anchor_count": len(missing_anchors),
+                "body_copied": module.get("body_copied") is True,
+                "body_in_receipt": module.get("body_in_receipt") is True,
+                "observed_sha256": observed_sha,
+            }
+        )
+
+    if findings:
+        digest_status = "blocked" if any("DIGEST" in str(item.get("error_code")) for item in findings) else digest_status
+        anchor_status = "blocked" if any("ANCHOR" in str(item.get("error_code")) for item in findings) else anchor_status
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "manifest_id": manifest.get("manifest_id"),
+        "manifest_ref": public_relative_path(
+            input_dir / SOURCE_MODULE_MANIFEST_NAME,
+            display_root=public_root,
+        ),
+        "source_module_count": len(modules),
+        "source_module_digest_status": digest_status,
+        "source_module_anchor_status": anchor_status,
+        "source_module_results": module_results,
     }
 
 
@@ -1229,6 +1392,18 @@ def _write_route_plane_bundle_receipt(
             "observed_sha256": validation_result["observed_sha256"],
             "source_coupling_status": validation_result["source_coupling_status"],
             "authority_allowed": validation_result["authority_allowed"],
+            "source_module_manifest_status": validation_result[
+                "source_module_manifest_status"
+            ],
+            "source_module_manifest_ref": validation_result["source_module_manifest_ref"],
+            "source_module_count": validation_result["source_module_count"],
+            "source_module_digest_status": validation_result[
+                "source_module_digest_status"
+            ],
+            "source_module_anchor_status": validation_result[
+                "source_module_anchor_status"
+            ],
+            "source_module_results": validation_result["source_module_results"],
             "route_lease": validation_result["route_lease"],
             "entry_payload_admission": validation_result["entry_payload_admission"],
             "affordance_passport_selection": validation_result[
@@ -1268,6 +1443,11 @@ def run_route_plane_bundle(
         payloads["source_coupling_manifest"],
         payloads["route_rows"],
     )
+    source_module_result = validate_source_module_manifest(
+        payloads["source_module_manifest"],
+        input_dir=input_path,
+        public_root=public_root,
+    )
     lease_result = validate_exported_route_lease_policy(payloads["route_lease_policy"])
     entry_result = validate_exported_entry_packet_floor(payloads["entry_packet_floor"])
     affordance_result = validate_exported_affordance_passports(
@@ -1281,6 +1461,7 @@ def run_route_plane_bundle(
         [
             *route_result["findings"],
             *source_result["findings"],
+            *source_module_result["findings"],
             *lease_result["findings"],
             *entry_result["findings"],
             *affordance_result["findings"],
@@ -1296,6 +1477,7 @@ def run_route_plane_bundle(
         if scan_result["status"] == PASS
         and not all_findings
         and route_result["selected_row_ids"]
+        and source_module_result["status"] == PASS
         and lease_result["status"] == PASS
         and entry_result["status"] == PASS
         and affordance_result["status"] == PASS
@@ -1321,9 +1503,9 @@ def run_route_plane_bundle(
             "validator_id": VALIDATOR_ID,
             "anti_claim": (
                 "The exported route-plane bundle validates copied non-secret route substrate "
-                "and public route projection behavior. It does not grant source authority, "
-                "prove live route freshness, publish live operator state, authorize release, "
-                "or complete later organs."
+                "and exact copied non-secret route/control source modules. It does not grant "
+                "source authority, prove live route freshness, publish live operator state, "
+                "authorize release, or complete later organs."
             ),
             "authority_ceiling": {
                 "status": PASS,
@@ -1354,13 +1536,26 @@ def run_route_plane_bundle(
             "observed_sha256": source_result["observed_sha256"],
             "source_coupling_status": source_result["source_coupling_status"],
             "authority_allowed": source_result["authority_allowed"],
+            "source_module_manifest_status": source_module_result["status"],
+            "source_module_manifest_ref": source_module_result["manifest_ref"],
+            "source_module_count": source_module_result["source_module_count"],
+            "source_module_digest_status": source_module_result[
+                "source_module_digest_status"
+            ],
+            "source_module_anchor_status": source_module_result[
+                "source_module_anchor_status"
+            ],
+            "source_module_results": source_module_result["source_module_results"],
             "route_lease": lease_result,
             "entry_payload_admission": entry_result,
             "affordance_passport_selection": affordance_result,
             "code_architecture_projection_packet": code_arch_result,
             "real_substrate_refs": [
                 public_relative_path(path, display_root=public_root)
-                for path in _route_plane_bundle_paths(input_path)
+                for path in [
+                    *_route_plane_bundle_paths(input_path),
+                    *_source_module_paths(input_path, payloads["source_module_manifest"]),
+                ]
             ],
         }
     )

@@ -88,6 +88,14 @@ ROUTE_PLANE_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/navigation_hologram_route_plane/exported_route_plane_bundle"
 )
+ROUTE_PLANE_BODY_MATERIAL_IDS = [
+    "navigation_route_plane_body_import",
+    "navigation_route_plane_intervention_source_body_import",
+    "navigation_route_plane_context_pack_source_body_import",
+    "navigation_route_plane_entry_packet_source_body_import",
+    "navigation_route_plane_option_surface_source_body_import",
+    "navigation_route_plane_navigation_contract_source_body_import",
+]
 FINANCE_EVAL_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
@@ -413,9 +421,9 @@ def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
         MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
         public_root / "examples/agent_route_observability_runtime",
     )
-    _copy_public_file(
-        public_root,
-        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/navigation_hologram_route_plane",
+        public_root / "examples/navigation_hologram_route_plane",
     )
     shutil.copytree(
         MICROCOSM_ROOT / "examples/finance_forecast_evaluation_spine",
@@ -472,7 +480,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 144
+    assert result["public_safe_body_material_count"] == 149
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -506,10 +514,10 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 144
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 149
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
         "direct_verified_public": 3,
-        "verified_light_edit": 141,
+        "verified_light_edit": 146,
     }
     by_material = {
         row["material_id"]: row
@@ -804,7 +812,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         "verified_macro_body_with_claim_floor"
     )
     assert by_cell["navigation_route_plane_import"]["public_safe_body_material_ids"] == [
-        "navigation_route_plane_body_import"
+        *ROUTE_PLANE_BODY_MATERIAL_IDS
     ]
     assert by_cell["finance_eval_source_modules_import"]["copy_policy"] == (
         "verified_macro_body_with_claim_floor"
@@ -1304,8 +1312,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 144
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 144
+    assert result["public_safe_body_material_count"] == 149
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 149
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1323,7 +1331,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         "continuation_packet_body_import",
         "bridge_resume_body_import",
         "controller_heartbeat_body_import",
-        "navigation_route_plane_body_import",
+        *ROUTE_PLANE_BODY_MATERIAL_IDS,
         *FINANCE_EVAL_BODY_MATERIAL_IDS,
         *WORK_LANDING_CONTROL_BODY_MATERIAL_IDS,
         *TASK_LEDGER_CONTROL_BODY_MATERIAL_IDS,
@@ -1369,7 +1377,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 144
+    assert result["public_safe_body_digest_count"] == 149
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1493,12 +1501,12 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 144
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 149
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 13,
-        "public_macro_tool_body": 129,
+        "public_macro_tool_body": 134,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -1520,7 +1528,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 144
+    assert result["public_safe_body_material_count"] == 149
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -1998,6 +2006,9 @@ def test_navigation_route_plane_body_import_is_unified_under_macro_projection_sp
     target = public_root / route_row["target_ref"]
     digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
     route_payload = json.loads((ROUTE_PLANE_BUNDLE_INPUT / "route_rows.json").read_text())
+    source_manifest = json.loads(
+        (ROUTE_PLANE_BUNDLE_INPUT / "source_module_manifest.json").read_text()
+    )
 
     assert target.is_file()
     assert route_row["material_class"] == "public_macro_receipt_body"
@@ -2010,10 +2021,26 @@ def test_navigation_route_plane_body_import_is_unified_under_macro_projection_sp
         "copied_non_secret_macro_route_substrate_with_provenance"
     )
     assert route_payload["row_count"] == 41
+    for module in source_manifest["modules"]:
+        material = by_material[module["module_id"]]
+        source_target = public_root / material["target_ref"]
+        module_digest = f"sha256:{hashlib.sha256(source_target.read_bytes()).hexdigest()}"
+
+        assert source_target.is_file()
+        assert material["material_class"] == "public_macro_tool_body"
+        assert material["body_digest"] == module_digest
+        assert material["body_import_verification"]["source_body_digest"] == module_digest
+        assert material["body_import_verification"]["target_body_digest"] == module_digest
+        assert material["body_import_verification"]["verification_mode"] == (
+            "exact_source_digest_match"
+        )
     by_cell = {
         row["cell_id"]: row
         for row in result["projection_intake_board"]["projection_cells"]
     }
+    assert by_cell["navigation_route_plane_import"]["public_safe_body_material_ids"] == (
+        ROUTE_PLANE_BODY_MATERIAL_IDS
+    )
     assert by_cell["navigation_route_plane_import"]["projection_status"] == (
         "public_runtime_import_landed"
     )

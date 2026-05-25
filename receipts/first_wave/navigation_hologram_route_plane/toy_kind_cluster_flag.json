@@ -7,7 +7,6 @@
     "route_lease_source_authority_rejected": true,
     "status": "pass"
   },
-  "bundle_id": null,
   "clusters": [
     {
       "cluster_id": "grammar",
@@ -43,7 +42,7 @@
     }
   ],
   "command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
-  "created_at": "2026-05-20T16:07:29+00:00",
+  "created_at": "2026-05-25T16:08:17+00:00",
   "drilldown_commands": [
     "microcosm option-surface toy --cluster grammar",
     "microcosm option-surface toy --cluster proof",
@@ -211,7 +210,6 @@
     }
   ],
   "fixture_id": "first_wave.navigation_hologram_route_plane",
-  "input_mode": null,
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "affordance_passport_antitrigger_ignored": [
@@ -268,6 +266,9 @@
     "work": 1
   },
   "schema_version": "navigation_hologram_route_plane_toy_kind_cluster_flag_v1",
+  "secret_exclusion_scan": {
+    "status": "not_run"
+  },
   "source_coupling_status": "toy_fixture_current",
   "source_pattern_ids": [
     "navigation_hologram_unified_route_plane",

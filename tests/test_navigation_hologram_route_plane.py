@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -15,11 +16,20 @@ from microcosm_core.organs.navigation_hologram_route_plane import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MACRO_ROOT = MICROCOSM_ROOT.parent
 NAV_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/navigation_hologram_route_plane/input"
 NAV_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/navigation_hologram_route_plane/exported_route_plane_bundle"
 )
+SOURCE_MODULE_MANIFEST = NAV_BUNDLE_INPUT / "source_module_manifest.json"
+ROUTE_PLANE_SOURCE_MODULE_IDS = [
+    "navigation_route_plane_intervention_source_body_import",
+    "navigation_route_plane_context_pack_source_body_import",
+    "navigation_route_plane_entry_packet_source_body_import",
+    "navigation_route_plane_option_surface_source_body_import",
+    "navigation_route_plane_navigation_contract_source_body_import",
+]
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/preflight/navigation_hologram_route_plane.json": [
         "schema_version",
@@ -294,6 +304,15 @@ def test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape
     assert result["body_material_status"] == (
         "copied_non_secret_macro_route_substrate_with_provenance"
     )
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_digest_status"] == "pass"
+    assert result["source_module_anchor_status"] == "pass"
+    assert result["source_module_count"] == len(ROUTE_PLANE_SOURCE_MODULE_IDS)
+    assert [
+        row["module_id"] for row in result["source_module_results"]
+    ] == ROUTE_PLANE_SOURCE_MODULE_IDS
+    assert all(row["sha256_match"] for row in result["source_module_results"])
+    assert all(row["anchor_status"] == "pass" for row in result["source_module_results"])
     assert result["route_row_count"] == 41
     assert result["selected_row_ids"] == ["entry_control_packet"]
     assert result["route_lease"]["selected_lane_id"] == "public_runtime_option_surface"
@@ -309,6 +328,35 @@ def test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert "private_state_scan" not in result
     assert all(not Path(path).is_absolute() for path in result["real_substrate_refs"])
+    assert any(
+        path.endswith("source_modules/system/lib/navigation_context_pack.py")
+        for path in result["real_substrate_refs"]
+    )
+
+
+def test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    modules = manifest["modules"]
+
+    assert manifest["classification"] == "copied_non_secret_macro_body"
+    assert manifest["module_count"] == len(ROUTE_PLANE_SOURCE_MODULE_IDS)
+    assert [module["module_id"] for module in modules] == ROUTE_PLANE_SOURCE_MODULE_IDS
+    for module in modules:
+        source = MACRO_ROOT / module["source_ref"]
+        target = MICROCOSM_ROOT / module["target_ref"]
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_text = target.read_text(encoding="utf-8")
+
+        assert source.is_file()
+        assert target.is_file()
+        assert target.read_bytes() == source.read_bytes()
+        assert module["source_sha256"] == digest
+        assert module["target_sha256"] == digest
+        assert module["sha256_match"] is True
+        assert module["body_copied"] is True
+        assert module["body_in_receipt"] is False
+        for anchor in module["required_anchors"]:
+            assert anchor in target_text
 
 
 def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
@@ -345,6 +393,11 @@ def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
     assert payload["body_material_status"] == (
         "copied_non_secret_macro_route_substrate_with_provenance"
     )
+    assert payload["source_module_manifest_status"] == "pass"
+    assert payload["source_module_count"] == len(ROUTE_PLANE_SOURCE_MODULE_IDS)
+    assert [
+        row["module_id"] for row in payload["source_module_results"]
+    ] == ROUTE_PLANE_SOURCE_MODULE_IDS
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert "private_state_scan" not in payload

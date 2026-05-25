@@ -33,7 +33,7 @@
     "selection_decision": "select_compatible_passport_after_demotion",
     "status": "pass"
   },
-  "anti_claim": "The exported route-plane bundle validates copied non-secret route substrate and public route projection behavior. It does not grant source authority, prove live route freshness, publish live operator state, authorize release, or complete later organs.",
+  "anti_claim": "The exported route-plane bundle validates copied non-secret route substrate and exact copied non-secret route/control source modules. It does not grant source authority, prove live route freshness, publish live operator state, authorize release, or complete later organs.",
   "authority_allowed": false,
   "authority_ceiling": {
     "atlas_projection_control_entry_rejected": true,
@@ -44,7 +44,7 @@
   },
   "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
   "bundle_id": "public_navigation_hologram_route_plane_runtime_example",
-  "bundle_manifest_schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v2",
+  "bundle_manifest_schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_v3",
   "card": {
     "anti_claim": "Navigation route-plane receipts validate public route projections and regression fixtures; they do not prove live route freshness, grant source authority, authorize later organs, or certify whole Wave 1.",
     "band_payload": {
@@ -228,8 +228,8 @@
       "fixture-regression-negative-cases"
     ]
   },
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-23T12:56:53+00:00",
+  "command": "python -m microcosm_core.organs.navigation_hologram_route_plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle --out receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane",
+  "created_at": "2026-05-25T16:08:35+00:00",
   "entry_payload_admission": {
     "after_bytes": 11200,
     "before_bytes": 14500,
@@ -266,10 +266,16 @@
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/option_surface_contract.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_coupling_manifest.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/entry_packet_floor.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_lease_policy.json",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/affordance_passports.json",
-    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/code_architecture_projection_packet.json"
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/code_architecture_projection_packet.json",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
+    "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
   ],
   "receipt_id": "navigation_hologram_route_plane_exported_route_plane_bundle_validation_v1",
   "receipt_paths": [
@@ -317,7 +323,7 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 8,
+    "scanned_path_count": 14,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -325,6 +331,73 @@
     "entry_control_packet"
   ],
   "source_coupling_status": "pass",
+  "source_module_anchor_status": "pass",
+  "source_module_count": 5,
+  "source_module_digest_status": "pass",
+  "source_module_manifest_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_module_results": [
+    {
+      "anchor_status": "pass",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_tool_body",
+      "missing_anchor_count": 0,
+      "module_id": "navigation_route_plane_intervention_source_body_import",
+      "observed_sha256": "80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+      "sha256_match": true,
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py"
+    },
+    {
+      "anchor_status": "pass",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_tool_body",
+      "missing_anchor_count": 0,
+      "module_id": "navigation_route_plane_context_pack_source_body_import",
+      "observed_sha256": "f795eee3827632e5e5fec1a025e1ec81239732c763e5c45b9e0253df289aa1ba",
+      "sha256_match": true,
+      "source_ref": "system/lib/navigation_context_pack.py",
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py"
+    },
+    {
+      "anchor_status": "pass",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_tool_body",
+      "missing_anchor_count": 0,
+      "module_id": "navigation_route_plane_entry_packet_source_body_import",
+      "observed_sha256": "e1c5a3c54041d8408837643e0a92c4e57744ffa24f9cbc88b8e0b22bed6db7cf",
+      "sha256_match": true,
+      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
+    },
+    {
+      "anchor_status": "pass",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_tool_body",
+      "missing_anchor_count": 0,
+      "module_id": "navigation_route_plane_option_surface_source_body_import",
+      "observed_sha256": "fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
+      "sha256_match": true,
+      "source_ref": "system/lib/standard_option_surface.py",
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"
+    },
+    {
+      "anchor_status": "pass",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_tool_body",
+      "missing_anchor_count": 0,
+      "module_id": "navigation_route_plane_navigation_contract_source_body_import",
+      "observed_sha256": "c770e577a12246df17c2c9ba85889822004d5c69b4d770446d2d658d267b84c9",
+      "sha256_match": true,
+      "source_ref": "codex/standards/std_navigation_contract.json",
+      "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/codex/standards/std_navigation_contract.json"
+    }
+  ],
   "source_pattern_ids": [
     "navigation_hologram_unified_route_plane",
     "agent_entry_surfaces_canonical_first_move",
