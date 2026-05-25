@@ -86,6 +86,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "microcosm compile <project>     build local .microcosm state" in output
     assert "microcosm tour <project>        inspect route/work/event/evidence/proof refs" in output
     assert "microcosm status --card         read the compressed runtime status lens" in output
+    assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
     assert "microcosm serve <project>       open the local observatory" in output
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
     assert "no provider calls, source mutation, release," in output

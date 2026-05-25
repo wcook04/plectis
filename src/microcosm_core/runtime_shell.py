@@ -1602,6 +1602,11 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         if isinstance(status.get("truth_accounting"), dict)
         else {}
     )
+    workingness = (
+        status.get("workingness_summary", {})
+        if isinstance(status.get("workingness_summary"), dict)
+        else {}
+    )
     authority_ceiling = (
         front_door.get("authority_ceiling", {})
         if isinstance(front_door.get("authority_ceiling"), dict)
@@ -1695,6 +1700,31 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
                 else None
             ),
         },
+        "workingness": {
+            "status": workingness.get("status"),
+            "command": workingness.get("command"),
+            "endpoint": workingness.get("endpoint"),
+            "workingness_map_ref": workingness.get("workingness_map_ref"),
+            "completeness_status": workingness.get("completeness_status"),
+            "mapped_organ_count": workingness.get("mapped_organ_count"),
+            "adapter_backed_organ_count": workingness.get(
+                "adapter_backed_organ_count"
+            ),
+            "demoted_drilldown_count": workingness.get("demoted_drilldown_count"),
+            "rows_with_failure_modes": workingness.get("rows_with_failure_modes"),
+            "rows_with_future_work_targets": workingness.get(
+                "rows_with_future_work_targets"
+            ),
+            "missing_standard_count": workingness.get("missing_standard_count"),
+            "missing_failure_modes_count": workingness.get(
+                "missing_failure_modes_count"
+            ),
+            "accepted_status_is_not_evidence_strength": workingness.get(
+                "accepted_status_is_not_evidence_strength"
+            ),
+            "not_a_scorecard": workingness.get("not_a_scorecard"),
+            "reader_action": workingness.get("reader_action"),
+        },
         "authority_ceiling": {
             "release_authorized": authority_ceiling.get("release_authorized"),
             "hosted_public_authorized": authority_ceiling.get(
@@ -1726,6 +1756,7 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             "microcosm explain <project> <route_id>",
             "microcosm serve <project> --host 127.0.0.1 --port 8765",
             PROOF_LAB_FIRST_SCREEN_COMMAND,
+            "microcosm workingness",
             "microcosm status",
         ],
         "anti_claim": (
@@ -1753,6 +1784,47 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
     if boundary_status != PASS:
         card["status"] = "blocked"
     return card
+
+
+def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
+    surface_counts = (
+        workingness.get("surface_counts", {})
+        if isinstance(workingness.get("surface_counts"), dict)
+        else {}
+    )
+    map_policy = (
+        workingness.get("map_policy", {})
+        if isinstance(workingness.get("map_policy"), dict)
+        else {}
+    )
+    return {
+        "schema_version": "microcosm_workingness_status_summary_v1",
+        "status": workingness.get("status"),
+        "command": workingness.get("command"),
+        "endpoint": workingness.get("endpoint"),
+        "workingness_map_ref": workingness.get("workingness_map_ref"),
+        "completeness_status": workingness.get("completeness_status"),
+        "mapped_organ_count": surface_counts.get("mapped_organ_count"),
+        "adapter_backed_organ_count": surface_counts.get("adapter_backed_organ_count"),
+        "demoted_drilldown_count": surface_counts.get("demoted_drilldown_count"),
+        "rows_with_failure_modes": surface_counts.get("rows_with_failure_modes"),
+        "rows_with_future_work_targets": surface_counts.get(
+            "rows_with_future_work_targets"
+        ),
+        "missing_standard_count": surface_counts.get("missing_standard_count"),
+        "missing_failure_modes_count": surface_counts.get(
+            "missing_failure_modes_count"
+        ),
+        "accepted_status_is_not_evidence_strength": map_policy.get(
+            "accepted_status_is_not_evidence_strength"
+        ),
+        "not_a_scorecard": map_policy.get("not_a_scorecard"),
+        "reader_action": (
+            "Use microcosm workingness for per-organ failure modes and future "
+            "work targets; treat missing standards or failure modes as bounded "
+            "debt, not as release blockers or progress scores."
+        ),
+    }
 
 
 def _standard_ref_for_organ(organ_id: str) -> str:
@@ -2231,6 +2303,7 @@ class RuntimeShell:
         standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
         proof_lab = _proof_lab_first_screen_card(self.root)
         body_import_floor = _macro_projection_body_import_floor(self.root)
+        workingness_summary = _workingness_status_summary(self.workingness_map())
         front_door = _cold_reader_first_screen_card(
             project_ref="<project>",
             proof_lab=proof_lab,
@@ -2430,6 +2503,7 @@ class RuntimeShell:
             "front_door": front_door,
             "first_screen_proof_lab": proof_lab,
             "macro_body_import_floor": body_import_floor,
+            "workingness_summary": workingness_summary,
             "organ_count": len(organs),
             "adapter_backed_organ_count": len(adapter_backed),
             "adapter_backed_count_is_product_progress": False,

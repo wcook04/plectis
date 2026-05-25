@@ -81,6 +81,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm compile <project>     build local .microcosm state
   microcosm tour <project>        inspect route/work/event/evidence/proof refs
   microcosm status --card         read the compressed runtime status lens
+  microcosm workingness           inspect behavior evidence and failure gaps
   microcosm serve <project>       open the local observatory
   microcosm proof-lab --out /tmp/microcosm-proof-lab
 

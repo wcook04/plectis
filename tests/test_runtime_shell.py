@@ -396,6 +396,18 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     ] == status["copied_non_secret_macro_body_material_count"]
     assert card["substrate_counts"]["blocked_import_debt_count"] == 0
     assert card["macro_body_import_floor"]["status"] == "pass"
+    assert card["workingness"]["status"] == "pass"
+    assert card["workingness"]["command"] == "microcosm workingness"
+    assert card["workingness"]["endpoint"] == "/workingness"
+    assert card["workingness"]["completeness_status"] == "partial_failure_modes"
+    assert card["workingness"]["mapped_organ_count"] == 46
+    assert card["workingness"]["adapter_backed_organ_count"] == 42
+    assert card["workingness"]["demoted_drilldown_count"] == 4
+    assert card["workingness"]["missing_standard_count"] >= 1
+    assert card["workingness"]["missing_failure_modes_count"] >= 1
+    assert card["workingness"]["accepted_status_is_not_evidence_strength"] is True
+    assert card["workingness"]["not_a_scorecard"] is True
+    assert "microcosm workingness" in card["next_commands"]
     assert card["authority_ceiling"]["release_authorized"] is False
     assert card["authority_ceiling"]["provider_calls_authorized"] is False
     assert card["authority_ceiling"]["source_mutation_authorized"] is False
