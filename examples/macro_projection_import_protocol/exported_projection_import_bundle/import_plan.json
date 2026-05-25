@@ -2157,11 +2157,23 @@
       ]
     },
     {
+      "authority_ceiling": "verified_public_prompt_shelf_movement_source_bodies_not_prompt_bodies_raw_prompt_shelf_events_browser_hud_live_access_provider_payloads_account_sessions_or_movement_promotion_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
       "cell_id": "prompt_shelf_movement_source_modules_import",
       "classification": [
         "copied_non_secret_macro_body",
         "source_faithful_refactor",
         "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "prompt_shelf_movement_index_body_import",
+        "prompt_shelf_movement_index_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "prompt_shelf_movement_terminal_cluster_parser",
+        "prompt_shelf_raw_event_projection_boundary"
       ],
       "source_refs": [
         "tools/meta/observability/prompt_shelf_movement_index.py",
@@ -2179,26 +2191,26 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_sources_compile_and_preserve_terminal_cluster_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "selected_pattern_ids": [
-        "prompt_shelf_movement_terminal_cluster_parser",
-        "prompt_shelf_raw_event_projection_boundary"
-      ],
-      "public_safe_body_material_ids": [
-        "prompt_shelf_movement_index_body_import",
-        "prompt_shelf_movement_index_test_body_import"
-      ],
-      "body_copied": false,
-      "body_in_receipt": false,
-      "authority_ceiling": "verified_public_prompt_shelf_movement_source_bodies_not_prompt_bodies_raw_prompt_shelf_events_browser_hud_live_access_provider_payloads_account_sessions_or_movement_promotion_authority",
-      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_movement_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_movement_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     },
     {
+      "authority_ceiling": "verified_public_prompt_shelf_uppropagation_source_bodies_not_prompt_bodies_raw_prompt_shelf_events_browser_hud_live_access_provider_payloads_account_sessions_or_uppropagation_promotion_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
       "cell_id": "prompt_shelf_uppropagation_source_modules_import",
       "classification": [
         "copied_non_secret_macro_body",
         "source_faithful_refactor",
         "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "prompt_shelf_uppropagation_index_body_import",
+        "prompt_shelf_uppropagation_index_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "prompt_shelf_uppropagation_versioned_block_parser",
+        "prompt_shelf_raw_event_projection_boundary"
       ],
       "source_refs": [
         "tools/meta/observability/prompt_shelf_uppropagation_index.py",
@@ -2216,19 +2228,44 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_sources_compile_and_preserve_versioned_block_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_source_modules_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "selected_pattern_ids": [
-        "prompt_shelf_uppropagation_versioned_block_parser",
-        "prompt_shelf_raw_event_projection_boundary"
-      ],
-      "public_safe_body_material_ids": [
-        "prompt_shelf_uppropagation_index_body_import",
-        "prompt_shelf_uppropagation_index_test_body_import"
-      ],
+      ]
+    },
+    {
+      "authority_ceiling": "verified_public_prompt_shelf_uppropagation_digest_source_bodies_not_prompt_bodies_raw_prompt_shelf_events_generated_digest_state_browser_hud_live_access_provider_payloads_account_sessions_or_digest_candidate_promotion_authority",
       "body_copied": false,
       "body_in_receipt": false,
-      "authority_ceiling": "verified_public_prompt_shelf_uppropagation_source_bodies_not_prompt_bodies_raw_prompt_shelf_events_browser_hud_live_access_provider_payloads_account_sessions_or_uppropagation_promotion_authority",
-      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      "cell_id": "prompt_shelf_uppropagation_digest_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "prompt_shelf_uppropagation_digest_body_import",
+        "prompt_shelf_uppropagation_digest_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "prompt_shelf_uppropagation_digest_candidate_projection",
+        "prompt_shelf_schema_loose_distillation_boundary"
+      ],
+      "source_refs": [
+        "tools/meta/observability/prompt_shelf_uppropagation_digest.py",
+        "system/server/tests/test_prompt_shelf_uppropagation_digest.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json",
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "codex/standards/std_prompt_ledger.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_uppropagation_digest.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_uppropagation_digest.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/prompt_shelf_uppropagation_digest_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_uppropagation_digest_sources_compile_and_preserve_digest_projection_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_uppropagation_digest_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"

@@ -129,6 +129,9 @@ PROMPT_SHELF_MOVEMENT_MANIFEST = (
 PROMPT_SHELF_UPPROPAGATION_MANIFEST = (
     BUNDLE_INPUT / "prompt_shelf_uppropagation_source_module_manifest.json"
 )
+PROMPT_SHELF_UPPROPAGATION_DIGEST_MANIFEST = (
+    BUNDLE_INPUT / "prompt_shelf_uppropagation_digest_source_module_manifest.json"
+)
 BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
     BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
 )
@@ -2518,6 +2521,36 @@ def test_prompt_shelf_uppropagation_sources_compile_and_preserve_versioned_block
     assert "provider payload" not in source_text.lower()
     assert "def test_v3_block_parses_new_fields_and_rollups(" in test_text
     assert "def test_quarantined_raw_event_does_not_count(" in test_text
+
+
+def test_prompt_shelf_uppropagation_digest_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        PROMPT_SHELF_UPPROPAGATION_DIGEST_MANIFEST,
+        manifest_id="prompt_shelf_uppropagation_digest_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_prompt_shelf_uppropagation_digest_sources_compile_and_preserve_digest_projection_contract() -> None:
+    source_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/observability/prompt_shelf_uppropagation_digest.py"
+    )
+    test_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_prompt_shelf_uppropagation_digest.py"
+    )
+    source_text = source_path.read_text(encoding="utf-8")
+    test_text = test_path.read_text(encoding="utf-8")
+    compile(source_text, str(source_path), "exec")
+    compile(test_text, str(test_path), "exec")
+    assert "ARTIFACT_KIND = \"prompt_shelf_uppropagation_digest\"" in source_text
+    assert "ADOPTION_STATES = (" in source_text
+    assert "def _candidate_rows(" in source_text
+    assert "def _build_schema_loose_distillation_section(" in source_text
+    assert "provider payload" not in source_text.lower()
+    assert "def test_v3_run_indexes_into_digest_candidate_rows(" in test_text
+    assert "def test_digest_counts_prompt_ledger_adoption_receipts(" in test_text
 
 
 def test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources() -> None:
