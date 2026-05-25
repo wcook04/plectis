@@ -529,8 +529,11 @@ available for automation and deeper inspection.
 
 ## Internal Runtime Spine
 
-The public package now carries forty-three adapter-backed runtime organs behind
-the local substrate loop:
+The public package now carries 46 accepted public runtime organs behind the
+local substrate loop. The first-screen status card separates the 42
+product-spine adapter-backed organs from 4 runnable drilldown-only regression
+surfaces; this list is the public entry claim that must stay aligned with
+`core/organ_registry.json` and `core/organ_evidence_classes.json`.
 
 1. `pattern_binding_contract`
 2. `executable_doctrine_grammar`
@@ -550,31 +553,34 @@ the local substrate loop:
 16. `provider_context_recipe_budget_policy`
 17. `formal_math_lean_proof_witness`
 18. `verifier_lab_kernel`
-19. `navigation_hologram_route_plane`
-20. `mission_transaction_work_spine`
-21. `durable_agent_work_landing_replay`
-22. `research_replication_rubric_artifact_replay`
-23. `world_model_projection_drift_control_room`
-24. `spatial_world_model_counterfactual_simulation_replay`
-25. `mechanistic_interpretability_circuit_attribution_replay`
-26. `agent_route_observability_runtime`
-27. `pattern_assimilation_step`
-28. `public_reveal_walkthrough`
-29. `macro_projection_import_protocol`
-30. `prediction_oracle_reconciliation`
-31. `standards_meta_diagnostics`
-32. `cold_reader_route_map`
-33. `agent_monitor_redteam_falsification_replay`
-34. `agent_sabotage_scheming_monitor_replay`
-35. `agent_memory_temporal_conflict_replay`
-36. `sleeper_memory_poisoning_quarantine_replay`
-37. `mcp_tool_authority_replay`
-38. `proof_derived_governed_mutation_authorization`
-39. `belief_state_process_reward_replay`
-40. `agent_sandbox_policy_escape_replay`
-41. `indirect_prompt_injection_information_flow_policy_replay`
-42. `agentic_vulnerability_discovery_patch_proof_replay`
-43. `materials_chemistry_closed_loop_lab_safety_replay`
+19. `verifier_lab_execution_spine`
+20. `navigation_hologram_route_plane`
+21. `mission_transaction_work_spine`
+22. `durable_agent_work_landing_replay`
+23. `research_replication_rubric_artifact_replay`
+24. `world_model_projection_drift_control_room`
+25. `spatial_world_model_counterfactual_simulation_replay`
+26. `materials_chemistry_closed_loop_lab_safety_replay`
+27. `mechanistic_interpretability_circuit_attribution_replay`
+28. `agent_route_observability_runtime`
+29. `pattern_assimilation_step`
+30. `public_reveal_walkthrough`
+31. `macro_projection_import_protocol`
+32. `prediction_oracle_reconciliation`
+33. `standards_meta_diagnostics`
+34. `cold_reader_route_map`
+35. `agent_monitor_redteam_falsification_replay`
+36. `agent_sabotage_scheming_monitor_replay`
+37. `agent_memory_temporal_conflict_replay`
+38. `sleeper_memory_poisoning_quarantine_replay`
+39. `mcp_tool_authority_replay`
+40. `proof_derived_governed_mutation_authorization`
+41. `belief_state_process_reward_replay`
+42. `agent_sandbox_policy_escape_replay`
+43. `indirect_prompt_injection_information_flow_policy_replay`
+44. `agentic_vulnerability_discovery_patch_proof_replay`
+45. `certificate_kernel_execution_lab`
+46. `voice_to_doctrine_self_improvement_loop`
 
 `pattern_binding_contract` is the real pattern-ledger root: it validates the
 373-row public macro pattern ledger, the substrate-binding sidecar, and now the

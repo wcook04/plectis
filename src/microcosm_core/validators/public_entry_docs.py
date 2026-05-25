@@ -372,6 +372,95 @@ def _accepted_organs(public_root: Path) -> list[str]:
     ]
 
 
+def _duplicates(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    duplicated: set[str] = set()
+    for value in values:
+        if value in seen:
+            duplicated.add(value)
+        seen.add(value)
+    return sorted(duplicated)
+
+
+def _ordered_code_list_after_heading(text: str, heading: str) -> list[str]:
+    if heading not in text:
+        return []
+    rows: list[str] = []
+    started = False
+    for line in text.split(heading, 1)[1].splitlines():
+        stripped = line.strip()
+        if started and stripped.startswith("## "):
+            break
+        if stripped and stripped[0].isdigit() and ". `" in stripped and "`" in stripped:
+            parts = stripped.split("`")
+            if len(parts) >= 3:
+                rows.append(parts[1])
+                started = True
+                continue
+        if started and stripped and not stripped[0].isdigit():
+            break
+    return rows
+
+
+def _bullet_code_list_between(text: str, start_heading: str, end_heading: str) -> list[str]:
+    if start_heading not in text:
+        return []
+    section = text.split(start_heading, 1)[1]
+    if end_heading in section:
+        section = section.split(end_heading, 1)[0]
+    rows: list[str] = []
+    for line in section.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- `") and stripped.endswith("`"):
+            rows.append(stripped[3:-1])
+    return rows
+
+
+def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[str, Any]:
+    expected_set = set(expected_organs)
+    docs: dict[str, dict[str, Any]] = {}
+    doc_specs = {
+        "README.md": (
+            _ordered_code_list_after_heading,
+            ("## Internal Runtime Spine",),
+        ),
+        "AGENTS.md": (
+            _bullet_code_list_between,
+            ("## Accepted Public Runtime Spine", "## Rules"),
+        ),
+    }
+    for rel, (extractor, args) in doc_specs.items():
+        path = public_root / rel
+        text = path.read_text(encoding="utf-8") if path.is_file() else ""
+        claimed = extractor(text, *args)
+        claimed_set = set(claimed)
+        missing = [organ_id for organ_id in expected_organs if organ_id not in claimed_set]
+        unexpected = sorted(organ_id for organ_id in claimed if organ_id not in expected_set)
+        duplicates = _duplicates(claimed)
+        docs[rel] = {
+            "claimed_count": len(claimed),
+            "expected_count": len(expected_organs),
+            "missing_organs": missing,
+            "unexpected_organs": unexpected,
+            "duplicate_organs": duplicates,
+            "status": PASS
+            if not missing and not unexpected and not duplicates
+            else "blocked",
+        }
+    blocked_docs = [rel for rel, row in docs.items() if row["status"] != PASS]
+    return {
+        "status": PASS if not blocked_docs else "blocked",
+        "expected_source": "core/organ_registry.json::implemented_organs[status=accepted_current_authority]",
+        "expected_organ_count": len(expected_organs),
+        "docs": docs,
+        "blocked_docs": blocked_docs,
+        "authority": (
+            "public entry spine claim alignment only; status card remains the "
+            "runtime count lens"
+        ),
+    }
+
+
 def _evidence_class_registry_summary(public_root: Path) -> dict[str, Any]:
     path = public_root / "core/organ_evidence_classes.json"
     if not path.is_file():
@@ -453,6 +542,7 @@ def validate_public_entry_docs(
             stale_first_slice_only_phrases.append(rel)
 
     accepted = _accepted_organs(public_root)
+    entry_spine_claims = _entry_spine_claims(public_root, accepted)
     missing_accepted_organs = [
         organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in accepted
     ]
@@ -481,6 +571,8 @@ def validate_public_entry_docs(
         blocking_codes.append("ACCEPTED_ORGAN_REGISTRY_MISMATCH")
     if evidence_class_registry["status"] != PASS:
         blocking_codes.append("EVIDENCE_CLASS_REGISTRY_MISMATCH")
+    if entry_spine_claims["status"] != PASS:
+        blocking_codes.append("PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH")
     if scan["blocking_hit_count"]:
         blocking_codes.append("SECRET_EXCLUSION_SCAN_BLOCKED")
 
@@ -498,6 +590,7 @@ def validate_public_entry_docs(
         "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
+        "entry_spine_claims": entry_spine_claims,
         "evidence_class_registry": evidence_class_registry,
         "missing_accepted_organs": missing_accepted_organs,
         "unexpected_accepted_organs": unexpected_accepted_organs,

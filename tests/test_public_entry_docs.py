@@ -105,6 +105,17 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         "duplicate_organs": [],
         "fail_closed_no_default": True,
     }
+    assert receipt["entry_spine_claims"]["status"] == "pass"
+    assert receipt["entry_spine_claims"]["expected_organ_count"] == 46
+    assert receipt["entry_spine_claims"]["blocked_docs"] == []
+    for rel in ("README.md", "AGENTS.md"):
+        doc_claim = receipt["entry_spine_claims"]["docs"][rel]
+        assert doc_claim["status"] == "pass"
+        assert doc_claim["claimed_count"] == 46
+        assert doc_claim["expected_count"] == 46
+        assert doc_claim["missing_organs"] == []
+        assert doc_claim["unexpected_organs"] == []
+        assert doc_claim["duplicate_organs"] == []
     assert receipt["deferred_organs"] == []
     assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
     assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -165,6 +176,32 @@ def test_public_entry_docs_block_missing_evidence_class_registry(tmp_path: Path)
     assert receipt["evidence_class_registry"]["fail_closed_no_default"] is False
 
 
+def test_public_entry_docs_block_runtime_spine_claim_mismatch(tmp_path: Path) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    agents = public_root / "AGENTS.md"
+    agents.write_text(
+        agents.read_text(encoding="utf-8").replace(
+            "- `certificate_kernel_execution_lab`\n",
+            "",
+        ),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH" in receipt["blocking_codes"]
+    assert receipt["entry_spine_claims"]["status"] == "blocked"
+    assert receipt["entry_spine_claims"]["blocked_docs"] == ["AGENTS.md"]
+    assert receipt["entry_spine_claims"]["docs"]["AGENTS.md"]["missing_organs"] == [
+        "certificate_kernel_execution_lab"
+    ]
+
+
 def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     text = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
@@ -175,6 +212,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Accepted Public Runtime Spine" in agents
     assert "Real Substrate Posture" in text
     assert "Real Substrate Posture" in agents
+    assert "46 accepted public runtime organs" in text
+    assert "46 accepted public runtime organ records" in agents
     assert "Microcosm is the public repo form of the macro system" in text
     assert "Microcosm is the public repo form of the macro system" in agents
     assert "not a synthetic safety proxy" in text
@@ -219,6 +258,9 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "cold_reader_route_map" in text
     assert "proof_derived_governed_mutation_authorization" in text
     assert "belief_state_process_reward_replay" in text
+    assert "verifier_lab_execution_spine" in text
+    assert "certificate_kernel_execution_lab" in text
+    assert "voice_to_doctrine_self_improvement_loop" in text
     assert "formal-math-premise-retrieval" in text
     assert "ring2-premise-retrieval-precision-recall-harness" in text
     assert "provider-context-recipe-budget-policy" in text
@@ -268,6 +310,9 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "cold_reader_route_map" in agents
     assert "proof_derived_governed_mutation_authorization" in agents
     assert "belief_state_process_reward_replay" in agents
+    assert "verifier_lab_execution_spine" in agents
+    assert "materials_chemistry_closed_loop_lab_safety_replay" in agents
+    assert "certificate_kernel_execution_lab" in agents
     assert "formal-math-premise-retrieval" in agents
     assert "ring2-premise-retrieval-precision-recall-harness" in agents
     assert "provider-context-recipe-budget-policy" in agents

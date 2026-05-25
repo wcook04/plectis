@@ -38,6 +38,11 @@ imported macro body.
 
 ## Accepted Public Runtime Spine
 
+This list is the public entry claim over `core/organ_registry.json` and
+`core/organ_evidence_classes.json`: 46 accepted public runtime organ records.
+The runtime status card is the count lens for the 42 product-spine
+adapter-backed organs and 4 drilldown-only regression surfaces.
+
 - `pattern_binding_contract`
 - `executable_doctrine_grammar`
 - `proof_diagnostic_evidence_spine`
@@ -56,12 +61,14 @@ imported macro body.
 - `provider_context_recipe_budget_policy`
 - `formal_math_lean_proof_witness`
 - `verifier_lab_kernel`
+- `verifier_lab_execution_spine`
 - `navigation_hologram_route_plane`
 - `mission_transaction_work_spine`
 - `durable_agent_work_landing_replay`
 - `research_replication_rubric_artifact_replay`
 - `world_model_projection_drift_control_room`
 - `spatial_world_model_counterfactual_simulation_replay`
+- `materials_chemistry_closed_loop_lab_safety_replay`
 - `mechanistic_interpretability_circuit_attribution_replay`
 - `agent_route_observability_runtime`
 - `pattern_assimilation_step`
@@ -81,6 +88,7 @@ imported macro body.
 - `agent_sandbox_policy_escape_replay`
 - `indirect_prompt_injection_information_flow_policy_replay`
 - `agentic_vulnerability_discovery_patch_proof_replay`
+- `certificate_kernel_execution_lab`
 
 ## Rules
 
