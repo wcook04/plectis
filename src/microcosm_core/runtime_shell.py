@@ -1485,6 +1485,108 @@ def _sha256_file_digest(path: Path) -> str:
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
+def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, Any]:
+    family_order: list[str] = []
+    families: dict[str, dict[str, Any]] = {}
+    latest_source_refs: list[str] = []
+
+    def display_ref(ref: str) -> str:
+        prefix = "microcosm-substrate/"
+        return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+    def manifest_ref(source_refs: list[str]) -> str:
+        for ref in source_refs:
+            ref_name = Path(ref).name
+            if ref_name.endswith("_source_module_manifest.json"):
+                return display_ref(ref)
+            if ref_name == "source_module_manifest.json":
+                return display_ref(ref)
+        return ""
+
+    def family_id_from_ref(ref: str) -> str:
+        path = Path(ref)
+        name = path.name
+        if name == "source_module_manifest.json":
+            return path.parent.name
+        if name.endswith("_source_module_manifest.json"):
+            return name[: -len("_source_module_manifest.json")]
+        if name.endswith(".json"):
+            return path.stem
+        return ref
+
+    for row in imports:
+        if row.get("status") != PASS:
+            continue
+        if row.get("material_class") != "public_macro_tool_body":
+            continue
+        if row.get("verification_mode") != "exact_source_digest_match":
+            continue
+        if row.get("source_to_target_relation") != "exact_copy":
+            continue
+        if row.get("target_digest_matches") is not True:
+            continue
+        if row.get("body_text_in_receipt") is True:
+            continue
+
+        source_refs = [
+            display_ref(ref)
+            for ref in _strings(row.get("source_refs"))
+            if not Path(ref).name.endswith("_source_module_manifest.json")
+            and Path(ref).name != "source_module_manifest.json"
+        ]
+        if not source_refs:
+            continue
+        ref = manifest_ref(_strings(row.get("source_refs")))
+        if not ref:
+            continue
+        family_id = family_id_from_ref(ref)
+        if family_id not in families:
+            family_order.append(family_id)
+            families[family_id] = {
+                "family_id": family_id,
+                "status": PASS,
+                "manifest_ref": ref,
+                "module_count": 0,
+                "source_refs": [],
+                "material_ids": [],
+                "validation_refs": [],
+                "body_text_in_receipt": False,
+                "verification_mode": "exact_source_digest_match",
+            }
+
+        family = families[family_id]
+        family["module_count"] += 1
+        material_id = str(row.get("material_id") or "")
+        if material_id:
+            family["material_ids"].append(material_id)
+        for source_ref in source_refs:
+            if source_ref not in family["source_refs"]:
+                family["source_refs"].append(source_ref)
+            if source_ref not in latest_source_refs:
+                latest_source_refs.append(source_ref)
+        for validation_ref in _strings(row.get("validation_refs")):
+            validation_ref = display_ref(validation_ref)
+            if validation_ref not in family["validation_refs"]:
+                family["validation_refs"].append(validation_ref)
+
+    latest_families = [families[family_id] for family_id in family_order[-5:]]
+    return {
+        "schema_version": "microcosm_macro_source_body_import_lens_v1",
+        "status": PASS if families else "blocked",
+        "verified_source_module_family_count": len(families),
+        "latest_verified_source_module_families": latest_families,
+        "latest_source_refs": latest_source_refs[-10:],
+        "body_text_exported_in_status": False,
+        "body_text_exported_in_receipts": False,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "reader_use": (
+            "Use this as a compact first-screen proof of which exact "
+            "source-open macro modules are in the bundle; drill into the "
+            "manifest refs for hashes, anchors, and copied source bodies."
+        ),
+    }
+
+
 def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
     protocol = _read_json_if_exists(protocol_path)
@@ -1646,6 +1748,7 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
         "copied_non_secret_macro_body_material_count": material_count,
         "public_safe_body_material_count": material_count,
         "public_safe_body_material_counts_by_class": dict(sorted(class_counts.items())),
+        "source_body_import_lens": _macro_body_source_import_lens(imports),
         "non_lean_tool_body_material_count": len(tool_ids),
         "proof_body_material_count": len(proof_ids),
         "mixed_public_safe_macro_import_assay": {
@@ -1731,6 +1834,33 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         if isinstance(proof_lab.get("safe_to_show"), dict)
         else {}
     )
+    source_body_imports = (
+        body_floor.get("source_body_import_lens", {})
+        if isinstance(body_floor.get("source_body_import_lens"), dict)
+        else {}
+    )
+    if source_body_imports:
+        compact_families = []
+        for family in source_body_imports.get(
+            "latest_verified_source_module_families", []
+        ):
+            if not isinstance(family, dict):
+                continue
+            compact_families.append(
+                {
+                    key: value
+                    for key, value in family.items()
+                    if key != "validation_refs"
+                }
+            )
+        source_body_imports = {
+            key: value
+            for key, value in source_body_imports.items()
+            if key != "reader_use"
+        }
+        source_body_imports[
+            "latest_verified_source_module_families"
+        ] = compact_families
     card = {
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
@@ -1826,6 +1956,7 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             "public_safe_body_material_counts_by_class": body_floor.get(
                 "public_safe_body_material_counts_by_class", {}
             ),
+            "source_body_imports": source_body_imports,
             "mixed_public_safe_macro_import_assay_status": (
                 body_floor.get("mixed_public_safe_macro_import_assay", {}).get(
                     "status"

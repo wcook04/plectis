@@ -115,6 +115,20 @@ COMMAND_OUTPUT_PROJECTION_BODY_MATERIAL_IDS = [
     "command_output_audit_body_import",
     "command_output_projection_standard_body_import",
 ]
+OBSERVE_RUNTIME_SOURCE_REFS = [
+    "system/lib/codex_paths.py",
+    "system/lib/markdown_routing.py",
+    "system/lib/observe_memory.py",
+    "system/lib/observe_surfaces.py",
+    "system/lib/observe_runtime.py",
+]
+OBSERVE_RUNTIME_BODY_MATERIAL_IDS = [
+    "codex_paths_body_import",
+    "markdown_routing_body_import",
+    "observe_memory_body_import",
+    "observe_surfaces_body_import",
+    "observe_runtime_body_import",
+]
 
 
 def _copy_runtime_root(tmp_path: Path) -> Path:
@@ -185,6 +199,43 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert body_counts["public_macro_proof_body"] >= 1
     assert body_counts["public_macro_receipt_body"] >= 3
     assert body_counts["public_macro_tool_body"] >= 45
+    source_body_lens = status["macro_body_import_floor"]["source_body_import_lens"]
+    assert source_body_lens["status"] == "pass"
+    assert source_body_lens["body_text_exported_in_status"] is False
+    assert source_body_lens["body_text_exported_in_receipts"] is False
+    assert source_body_lens["verified_source_module_family_count"] >= 20
+    source_families = {
+        row["family_id"]: row
+        for row in source_body_lens["latest_verified_source_module_families"]
+    }
+    assert source_families["observe_runtime"] == {
+        "family_id": "observe_runtime",
+        "status": "pass",
+        "manifest_ref": (
+            "examples/macro_projection_import_protocol/"
+            "exported_projection_import_bundle/"
+            "observe_runtime_source_module_manifest.json"
+        ),
+        "module_count": 5,
+        "source_refs": OBSERVE_RUNTIME_SOURCE_REFS,
+        "material_ids": OBSERVE_RUNTIME_BODY_MATERIAL_IDS,
+        "validation_refs": [
+            (
+                "tests/test_command_output_projection_runtime.py::"
+                "test_observe_runtime_source_manifest_matches_exact_macro_sources"
+            ),
+            (
+                "tests/test_command_output_projection_runtime.py::"
+                "test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract"
+            ),
+            (
+                "tests/test_macro_projection_import_protocol.py::"
+                "test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+            ),
+        ],
+        "body_text_in_receipt": False,
+        "verification_mode": "exact_source_digest_match",
+    }
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
     assert status["release_authorized"] is False
@@ -483,6 +534,20 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
             "build_extracted_pattern_substrate_bindings.py --check --json"
         ),
     ]
+    source_body_card = card["macro_body_import_floor"]["source_body_imports"]
+    assert source_body_card["status"] == "pass"
+    assert source_body_card["body_text_exported_in_status"] is False
+    assert source_body_card["body_text_exported_in_receipts"] is False
+    assert source_body_card["verified_source_module_family_count"] >= 20
+    card_families = {
+        row["family_id"]: row
+        for row in source_body_card["latest_verified_source_module_families"]
+    }
+    assert card_families["observe_runtime"]["module_count"] == 5
+    assert card_families["observe_runtime"]["source_refs"] == OBSERVE_RUNTIME_SOURCE_REFS
+    assert card_families["observe_runtime"]["material_ids"] == (
+        OBSERVE_RUNTIME_BODY_MATERIAL_IDS
+    )
     assert card["workingness"]["status"] == "pass"
     assert card["workingness"]["command"] == "microcosm workingness"
     assert card["workingness"]["endpoint"] == "/workingness"
