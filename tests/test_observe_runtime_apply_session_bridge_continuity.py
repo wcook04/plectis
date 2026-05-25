@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import bridge_phase_continuity_runtime as bridge_runtime
+
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = MICROCOSM_ROOT.parent
@@ -181,3 +183,17 @@ def test_observe_apply_fixture_public_boundary_excludes_private_payload_content(
     assert fixture["anti_claim"].startswith(
         "This fixture makes observe_runtime_apply_session executable"
     )
+
+
+def test_observe_apply_fixture_is_consumed_by_bridge_acceptance_runner(tmp_path: Path) -> None:
+    result = bridge_runtime.run(FIXTURE.parent, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["observed_pattern_id"] == "observe_runtime_apply_session"
+    assert result["synthetic_fixture_gate_status"]["runner_scope"] == (
+        "observe_apply_fixture_consumption_only"
+    )
+    assert result["continuation_packet_status"]["continue_mode"] == "resume_pending"
+    assert result["resume_once_status"]["resume_success_overclaims_work_landed"] is False
+    assert result["resource_pressure_decision"]["dispatch_allowed"] is False
+    assert result["receipt_paths"] == bridge_runtime.EXPECTED_RECEIPT_PATHS

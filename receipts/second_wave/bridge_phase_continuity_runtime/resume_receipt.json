@@ -1,0 +1,252 @@
+{
+  "acceptance_scope": "observe_apply_fixture_consumption_only",
+  "anti_claim": "This runner consumes the public-safe observe/apply synthetic fixture through the bridge_phase_continuity_runtime owner and writes acceptance receipts. It does not run live bridge transport, call providers, read operator HUD/browser/phase runtime state, prove provider or UI uptime, land work, or authorize release.",
+  "authority_ceiling": {
+    "acceptance_scope": "observe_apply_fixture_consumption_only",
+    "authority_ceiling": "synthetic_observe_apply_bridge_fixture_acceptance_not_live_bridge_runtime_health",
+    "live_bridge_transport_authorized": false,
+    "live_phase_runtime_state_read": false,
+    "operator_hud_or_browser_state_read": false,
+    "prompt_shelf_or_private_memory_body_read": false,
+    "provider_payload_read": false,
+    "public_write_authorized": false,
+    "release_authorized": false,
+    "status": "pass",
+    "work_landing_claim_authorized": false
+  },
+  "checker_id": "checker.microcosm.organs.bridge_phase_continuity_runtime.synthetic_fixture_acceptance",
+  "claim_ref": "synthetic_observe_apply_claim",
+  "closeout_transition_path": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+  "command": "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input microcosm-substrate/fixtures/second_wave/bridge_phase_continuity_runtime/input --out microcosm-substrate/receipts/second_wave/bridge_phase_continuity_runtime",
+  "continuation_packet_status": {
+    "consumed": false,
+    "continue_mode": "resume_pending",
+    "observe_id": "OBS_SYNTHETIC_BRIDGE_CONTINUITY_001",
+    "packet_status": "synthetic_resume_pending",
+    "pending_group_labels": [
+      "apply_target_review"
+    ],
+    "status": "pass",
+    "target_job_id": "APPLY_SYNTHETIC_BRIDGE_CONTINUITY_001"
+  },
+  "created_at": "2026-05-25T09:51:11+00:00",
+  "dependency_preflight_receipt_ref": "not_required_for_observe_apply_fixture_consumption_only",
+  "duplicate_resume_rejection": {
+    "duplicate_resume_authorized": false,
+    "error_code": "CONTINUATION_PACKET_ALREADY_CONSUMED",
+    "status": "pass"
+  },
+  "error_codes": [
+    "BRIDGE_PACKET_PRIVATE_HUD_BODY",
+    "CONTINUATION_PACKET_ALREADY_CONSUMED",
+    "HEARTBEAT_NOT_RESUME_AUTHORITY",
+    "MISSING_CONTINUATION_PACKET",
+    "MISSING_CONTINUATION_PACKET_FIELDS",
+    "OBSERVE_APPLY_VALIDATION_FAILED",
+    "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+    "RESUME_PASS_OVERCLAIMS_WORK_LANDED",
+    "STALE_HEARTBEAT_LIVENESS_CLAIM"
+  ],
+  "expected_negative_cases": [
+    "missing_packet_duplicate_resume_and_resource_block",
+    "continuation_packet_missing_required_fields",
+    "heartbeat_claims_resume_authority",
+    "bridge_packet_private_hud_body",
+    "stale_heartbeat_overclaims_liveness",
+    "resume_success_overclaims_work_landed",
+    "apply_validation_failure_rolls_back_observe_promotion"
+  ],
+  "findings": [],
+  "fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
+  "heartbeat_status": {
+    "fresh_count": 0,
+    "heartbeat_not_resume_authority": true,
+    "live_state_read": false,
+    "stale_count": 0,
+    "status": "pass"
+  },
+  "manifest_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+  "missing_negative_cases": [],
+  "negative_case_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::negative_cases[organ_id=bridge_phase_continuity_runtime]",
+  "observed_fixture_id": "observe_runtime_apply_session_bridge_continuity_v0",
+  "observed_negative_cases": {
+    "apply_validation_failure_rolls_back_observe_promotion": {
+      "error_codes": [
+        "OBSERVE_APPLY_VALIDATION_FAILED"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    },
+    "bridge_packet_private_hud_body": {
+      "error_codes": [
+        "BRIDGE_PACKET_PRIVATE_HUD_BODY"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    },
+    "continuation_packet_missing_required_fields": {
+      "error_codes": [
+        "MISSING_CONTINUATION_PACKET_FIELDS"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    },
+    "heartbeat_claims_resume_authority": {
+      "error_codes": [
+        "HEARTBEAT_NOT_RESUME_AUTHORITY"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    },
+    "missing_packet_duplicate_resume_and_resource_block": {
+      "error_codes": [
+        "MISSING_CONTINUATION_PACKET",
+        "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+        "CONTINUATION_PACKET_ALREADY_CONSUMED"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    },
+    "resume_success_overclaims_work_landed": {
+      "error_codes": [
+        "RESUME_PASS_OVERCLAIMS_WORK_LANDED"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    },
+    "stale_heartbeat_overclaims_liveness": {
+      "error_codes": [
+        "STALE_HEARTBEAT_LIVENESS_CLAIM"
+      ],
+      "evidence_source": "synthetic_fixture_expected_negative_cases",
+      "status": "pass"
+    }
+  },
+  "observed_pattern_id": "observe_runtime_apply_session",
+  "organ_id": "bridge_phase_continuity_runtime",
+  "private_state_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields_omitted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 1,
+    "status": "pass"
+  },
+  "readiness_contract_ref": "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json::future_organ_readiness_gate_contract_v1.future_organ_gates[organ_id=bridge_phase_continuity_runtime]",
+  "receipt_id": "bridge_phase_continuity_runtime_resume_receipt_receipt_v1",
+  "receipt_path": "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+  "receipt_path_map": {
+    "closeout_transition": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+    "continuation_packet": "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+    "heartbeat": "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+    "resource_pressure": "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+    "resume_receipt": "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json"
+  },
+  "receipt_paths": [
+    "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+  ],
+  "receipt_role": "resume_receipt",
+  "required_parent_acceptance_refs": [
+    "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+    "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+  ],
+  "resource_pressure_decision": {
+    "blocked_reason": "observe_apply_fixture_consumption_only_no_live_dispatch",
+    "dispatch_allowed": false,
+    "resource_pressure_not_exercised": true,
+    "status": "pass"
+  },
+  "resume_once_status": {
+    "resume_authority": "synthetic_status_packet_only",
+    "resume_success_overclaims_work_landed": false,
+    "status": "pass"
+  },
+  "schema_version": "bridge_phase_continuity_runtime_acceptance_receipt_v1",
+  "secret_exclusion_scan": {
+    "blocking_hit_count": 0,
+    "body_redacted": true,
+    "forbidden_output_fields_omitted": true,
+    "hit_count": 0,
+    "hits": [],
+    "scanned_path_count": 1,
+    "status": "pass"
+  },
+  "source_module_digest_results": [
+    {
+      "sha256_match": true,
+      "status": "pass",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/codex_paths.py"
+    },
+    {
+      "sha256_match": true,
+      "status": "pass",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py"
+    },
+    {
+      "sha256_match": true,
+      "status": "pass",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_memory.py"
+    },
+    {
+      "sha256_match": true,
+      "status": "pass",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_surfaces.py"
+    },
+    {
+      "sha256_match": true,
+      "status": "pass",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_runtime.py"
+    }
+  ],
+  "source_pattern_ids": [
+    "bridge_runtime_dispatch_yield_resume",
+    "controller_continuity_heartbeat",
+    "continuation_packet_resume",
+    "phase_dock_harbor_deposit_full",
+    "continuous_runtime_layer",
+    "system_control_orchestration_composition_root",
+    "bridge_window_identity",
+    "phase_runtime_library",
+    "phase_orchestration_dock_harbor_deposit",
+    "orchestration_state_events",
+    "meta_mission_queue_runtime",
+    "plan_substrate",
+    "preview_campaign_lifecycle",
+    "observe_runtime_apply_session",
+    "resource_typed_capacity",
+    "reactions_typed_events",
+    "compute_resource_pressure_command_budget_guidance",
+    "worker_run_fingerprint_dedup_cache_gate",
+    "worker_skip_veto_deduped_receipt",
+    "preflight_cache_skip_window_organ",
+    "sidecar_continuation_candidate_lifecycle_gate"
+  ],
+  "status": "pass",
+  "synthetic_fixture_gate_status": {
+    "fixture_ref": "microcosm-substrate/fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
+    "manifest_scope": "fake_transport_continuation_fixture_acceptance_only",
+    "runner_scope": "observe_apply_fixture_consumption_only",
+    "source_module_manifest_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+    "status": "pass"
+  },
+  "synthetic_input_refs": [
+    "microcosm-substrate/fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
+    "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
+    "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json",
+    "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_rows.jsonl",
+    "fixtures/second_wave/bridge_phase_continuity_runtime/input/resource_pressure.json",
+    "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
+    "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json"
+  ],
+  "transition_status": "closed_with_receipts",
+  "validator_id": "validator.microcosm.organs.bridge_phase_continuity_runtime",
+  "worker_skip_receipt_ref": "not_applicable_for_observe_apply_fixture_consumption_only"
+}

@@ -19,6 +19,7 @@ from microcosm_core.organs import (
     agentic_vulnerability_discovery_patch_proof_replay,
 )
 from microcosm_core.organs import belief_state_process_reward_replay
+from microcosm_core.organs import bridge_phase_continuity_runtime
 from microcosm_core.organs import certificate_kernel_execution_lab
 from microcosm_core.organs import cold_reader_route_map
 from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
@@ -674,6 +675,10 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(observability_parser)
 
+    bridge_continuity_parser = subparsers.add_parser("bridge-phase-continuity-runtime")
+    bridge_continuity_parser.add_argument("action", choices=["run"])
+    _add_input_out(bridge_continuity_parser)
+
     assimilation_parser = subparsers.add_parser("pattern-assimilation-step")
     assimilation_parser.add_argument("action", nargs="?", choices=["run", "validate-assimilation-bundle"], default="run")
     _add_input_out(assimilation_parser)
@@ -1157,6 +1162,10 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "agent-route-observability-runtime":
         return agent_route_observability_runtime.main(
+            [args.action, "--input", args.input, "--out", args.out]
+        )
+    if args.command == "bridge-phase-continuity-runtime":
+        return bridge_phase_continuity_runtime.main(
             [args.action, "--input", args.input, "--out", args.out]
         )
     if args.command == "voice-to-doctrine-self-improvement-loop":
