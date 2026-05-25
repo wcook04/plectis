@@ -44,6 +44,9 @@ AGENT_OPERATING_PACKET_MANIFEST = (
 ACTIVE_EXECUTION_CONSTELLATION_MANIFEST = (
     BUNDLE_INPUT / "active_execution_constellation_source_module_manifest.json"
 )
+TASK_LEDGER_STARTUP_PRESSURE_MANIFEST = (
+    BUNDLE_INPUT / "task_ledger_startup_pressure_source_module_manifest.json"
+)
 NAVIGATION_COVERAGE_MATRIX_MANIFEST = (
     BUNDLE_INPUT / "navigation_coverage_matrix_source_module_manifest.json"
 )
@@ -402,6 +405,30 @@ def test_active_execution_constellation_sources_compile_and_carry_liveness_contr
     assert "\"demotion_guard\"" in projection_text
     assert "\"claim_topology\"" in projection_text
     assert "test_pulse_snapshot_includes_active_execution_constellation" in test_text
+
+
+def test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = json.loads(TASK_LEDGER_STARTUP_PRESSURE_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["manifest_id"] == "task_ledger_startup_pressure_source_modules_import"
+    assert manifest["module_count"] == 4
+    assert manifest["public_runtime_policy"].startswith("public validation uses exact")
+    for row in manifest["modules"]:
+        source = REPO_ROOT / row["source_ref"]
+        target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+        assert source.is_file()
+        assert target.is_file()
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert source_digest == target_digest
+        target_text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in target_text
+        if target.suffix == ".py":
+            compile(target_text, str(target), "exec")
 
 
 def test_navigation_coverage_matrix_source_manifest_matches_exact_macro_sources() -> None:

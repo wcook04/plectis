@@ -21,7 +21,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-25T12:21:27+00:00",
+  "created_at": "2026-05-25T12:50:21+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -104,7 +104,7 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 197,
+  "macro_origin_ref_count": 204,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "negative_case_coverage_status": "pass",
@@ -145,7 +145,7 @@
   "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
   "policy_id": "verified_macro_projection_cleaning_policy_v1",
-  "projection_cell_count": 48,
+  "projection_cell_count": 49,
   "projection_cell_ids": [
     "active_execution_constellation_source_modules_import",
     "agent_entrypoint_audit_source_modules_import",
@@ -192,13 +192,14 @@
     "runtime_reveal_import_bridge",
     "semantic_routing_source_modules_import",
     "task_ledger_control_source_modules_import",
+    "task_ledger_startup_pressure_source_modules_import",
     "trace_capsule_prompt_edit_capture_source_modules_import",
     "work_landing_control_source_modules_import",
     "work_ledger_control_source_modules_import"
   ],
   "projection_intake_board_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 116,
+  "public_runtime_ref_count": 121,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -259,6 +260,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
@@ -287,6 +289,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
@@ -310,6 +313,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/semantic_routing.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
@@ -340,6 +344,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_surface_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_semantic_routing.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
@@ -348,6 +353,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
@@ -400,13 +406,13 @@
     "src/microcosm_core/organs/navigation_hologram_route_plane.py",
     "standards/std_microcosm_macro_projection_import_protocol.json"
   ],
-  "public_safe_body_import_count": 127,
+  "public_safe_body_import_count": 131,
   "public_safe_body_import_routes": {
-    "verified_light_edit": 127
+    "verified_light_edit": 131
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 127,
-  "ready_projection_cell_count": 48,
+  "public_safe_body_material_count": 131,
+  "ready_projection_cell_count": 49,
   "receipt_id": "macro_projection_import_protocol_validation_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
@@ -473,7 +479,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 197,
+    "macro_origin_ref_count": 204,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "codex/doctrine/agent_bootstrap_live.json",
@@ -491,6 +497,8 @@
       "codex/doctrine/routing_hologram.json::situation_rows",
       "codex/doctrine/skills/bridge_runtime/dispatch_yield.md",
       "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+      "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+      "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md::Startup pressure lane rule",
       "codex/standards/std_agent_execution_trace.json",
       "codex/standards/std_command_output_projection.json",
       "codex/standards/std_continuation_packet.json",
@@ -540,6 +548,7 @@
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_selection_control_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_routing_source_module_manifest.json",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
       "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/bundle_manifest.json",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
@@ -562,6 +571,7 @@
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#durable_agent_work_landing_replay_compound",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_proofline_spine_body_safe_lineage",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#formal_math_verifier_trace_repair_loop_compound",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
       "system/lib/active_execution_constellation.py",
       "system/lib/agent_bootstrap_projection.py",
       "system/lib/agent_entrypoint_audit.py",
@@ -590,6 +600,7 @@
       "system/lib/entrypoint_health.py",
       "system/lib/kernel/commands/comprehension_snapshot.py",
       "system/lib/kernel/commands/comprehension_snapshot.py::build_entry_packet",
+      "system/lib/kernel/commands/navigate.py",
       "system/lib/kernel/config.py",
       "system/lib/kernel/state.py",
       "system/lib/kind_atlas.py",
@@ -617,6 +628,7 @@
       "system/lib/standards_registry.py",
       "system/lib/task_ledger_events.py",
       "system/lib/task_ledger_priority.py",
+      "system/lib/task_ledger_priority.py::priority_constellation",
       "system/lib/work_landing_status.py",
       "system/lib/work_ledger.py",
       "system/lib/work_ledger_runtime.py",
@@ -650,6 +662,7 @@
       "system/server/tests/test_navigation_surface_audit.py",
       "system/server/tests/test_operator_handoff_linkage.py",
       "system/server/tests/test_semantic_routing.py",
+      "system/server/tests/test_task_ledger_priority_scheduler.py",
       "tools/agent_trace_structurer/parser.mjs",
       "tools/agent_trace_structurer/parser.test.mjs",
       "tools/finance/admit_forecasts.py",
@@ -689,19 +702,19 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 48,
+    "projection_cell_count": 49,
     "public_safe_body_import_classes": {
       "public_macro_pattern_body": 1,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 4,
-      "public_macro_tool_body": 121
+      "public_macro_tool_body": 125
     },
-    "public_safe_body_import_count": 127,
+    "public_safe_body_import_count": 131,
     "public_safe_body_import_routes": {
-      "verified_light_edit": 127
+      "verified_light_edit": 131
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 48,
+    "ready_projection_cell_count": 49,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -1302,6 +1315,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
         "status": "pass"
@@ -1638,6 +1658,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -1780,6 +1807,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
         "status": "pass"
       },
       {
@@ -1981,6 +2015,13 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
         "status": "pass"
@@ -2137,6 +2178,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
         "status": "pass"
       },
       {
@@ -2347,6 +2395,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_semantic_routing.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_semantic_routing.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
         "status": "pass"
       },
       {
@@ -3052,6 +3107,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
         "status": "pass"
@@ -3173,6 +3235,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
         "status": "pass"
       },
       {
@@ -3346,6 +3415,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
         "status": "pass"
@@ -3390,6 +3466,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
         "status": "pass"
       },
       {
@@ -4088,6 +4171,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "status": "pass"
@@ -4284,6 +4374,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
         "status": "pass"
@@ -4440,6 +4537,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
         "status": "pass"
       },
       {
@@ -4655,6 +4759,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
         "status": "pass"
@@ -4706,6 +4817,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
         "status": "pass"
       },
       {
@@ -5649,6 +5767,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
         "ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
         "status": "pass"
@@ -5964,6 +6089,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -6025,7 +6157,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 760,
+    "runtime_dependency_count": 777,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -6086,6 +6218,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
@@ -6114,6 +6247,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/embedding_substrate.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
@@ -6137,6 +6271,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/semantic_routing.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_execution_trace.py",
@@ -6167,6 +6302,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_surface_audit.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_semantic_routing.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
@@ -6175,6 +6311,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
@@ -6285,6 +6422,7 @@
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_sources_compile_and_carry_route_contract",
+      "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
       "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources",
       "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
@@ -6333,6 +6471,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_routing_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -6422,7 +6561,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 182,
+  "source_ref_count": 186,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -6605,11 +6744,15 @@
     "tools/meta/factory/build_formal_math_proof_repair_lane.py",
     "system/server/tests/test_formal_math_proofline_spine.py",
     "system/server/tests/test_formal_math_proof_repair_lane.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+    "system/lib/kernel/commands/navigate.py",
+    "system/server/tests/test_task_ledger_priority_scheduler.py",
+    "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
   ],
   "standalone_dependency_leaks_rejected": true,
   "status": "pass",
-  "validation_ref_count": 144,
+  "validation_ref_count": 146,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -6697,6 +6840,7 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_routing_sources_compile_and_carry_route_contract",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
@@ -6744,6 +6888,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_routing_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",

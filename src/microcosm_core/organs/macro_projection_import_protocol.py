@@ -585,6 +585,47 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "task_ledger_startup_pressure_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The Task Ledger startup-pressure lane split now carries exact "
+            "copied non-secret scheduler, kernel-navigation, doctrine, and "
+            "focused regression-test bodies inside the projection bundle, "
+            "validated by digest/anchor checks and syntax compilation without "
+            "exporting live Task Ledger rows, Work Ledger claims, kernel "
+            "mutation authority, provider payloads, browser/HUD live access, "
+            "account/session state, credentials, or private-state authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "task_ledger_startup_pressure_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "task_ledger_priority.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "kernel/commands/navigate.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/server/"
+                "tests/test_task_ledger_priority_scheduler.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "navigation_coverage_matrix_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

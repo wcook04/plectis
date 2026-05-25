@@ -1,0 +1,127 @@
+{
+  "schema_version": "macro_projection_task_ledger_startup_pressure_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "task_ledger_startup_pressure_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_task_ledger_startup_pressure_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live Task Ledger rows, Work Ledger claims, provider payloads, browser/HUD state, or credentials",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, and syntax compilation; copied source modules are body evidence, not authority to mutate the live Task Ledger, Work Ledger, kernel routes, or private state",
+  "module_count": 4,
+  "modules": [
+    {
+      "module_id": "task_ledger_priority_scheduler_body_import",
+      "source_ref": "system/lib/task_ledger_priority.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "source_role": "Read-only Task Ledger priority constellation compiler that preserves schedulable, unlock-pressure, global-pressure, and dependency-blocked lanes for startup/pulse/entry surfaces.",
+      "required_anchors": [
+        "def priority_constellation(",
+        "top_schedulable_unlock_pressure_workitems",
+        "top_global_unlock_pressure_workitems",
+        "top_dependency_blocked_workitem",
+        "selector_explanation"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
+      "source_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+      "target_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+      "sha256_match": true,
+      "line_count": 596,
+      "byte_count": 22688,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "task_ledger_navigation_command_body_import",
+      "source_ref": "system/lib/kernel/commands/navigate.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+      "source_role": "Kernel navigation command group carrying pulse, phase, context, option-surface, and first-contact command dispatch that consumes Task Ledger and Work Ledger control packets.",
+      "required_anchors": [
+        "def cmd_pulse(",
+        "WORK_LEDGER_SEED_SPEED_COMMAND",
+        "def cmd_phase(",
+        "def cmd_context(",
+        "def cmd_orient_task("
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
+      "source_sha256": "6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
+      "target_sha256": "6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
+      "sha256_match": true,
+      "line_count": 20438,
+      "byte_count": 933185,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "task_ledger_priority_scheduler_test_body_import",
+      "source_ref": "system/server/tests/test_task_ledger_priority_scheduler.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+      "source_role": "Focused regression tests proving terminal rows cannot win pressure lanes and entry-admission hard compaction preserves the four scheduler lanes under budget.",
+      "required_anchors": [
+        "test_priority_constellation_keeps_scheduler_lanes_separate",
+        "test_active_execution_entry_admission_preserves_scheduler_lanes_under_budget",
+        "cap_terminal_pressure",
+        "schedulable_unlock_pressure",
+        "ENTRY_PACKET_INLINE_TARGET_BYTES"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
+      "source_sha256": "6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80",
+      "target_sha256": "6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80",
+      "sha256_match": true,
+      "line_count": 243,
+      "byte_count": 8764,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "task_ledger_cap_reflex_playbook_body_import",
+      "source_ref": "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+      "source_role": "Task Ledger cap-reflex doctrine that names the startup pressure lane rule and prevents collapse into one fake top task.",
+      "required_anchors": [
+        "Startup pressure lane rule:",
+        "schedulable_now",
+        "schedulable_unlock_pressure",
+        "global_unlock_pressure",
+        "Terminal rows may remain evidence"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
+      "source_sha256": "84eaadb19314e1a9824a50129da1c25492ac53ab8d84e379bc533d2ac5388793",
+      "target_sha256": "84eaadb19314e1a9824a50129da1c25492ac53ab8d84e379bc533d2ac5388793",
+      "sha256_match": true,
+      "line_count": 133,
+      "byte_count": 23052,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "system/server/tests/test_task_ledger_priority_scheduler.py::test_priority_constellation_keeps_scheduler_lanes_separate",
+    "system/server/tests/test_task_ledger_priority_scheduler.py::test_active_execution_entry_admission_preserves_scheduler_lanes_under_budget",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

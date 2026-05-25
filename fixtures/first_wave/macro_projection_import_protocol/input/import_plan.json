@@ -1793,6 +1793,49 @@
         "real_runtime_receipt"
       ],
       "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+    },
+    {
+      "cell_id": "task_ledger_startup_pressure_source_modules_import",
+      "selected_pattern_ids": [
+        "task_ledger_startup_pressure_lane_split",
+        "task_ledger_workitem_spine",
+        "active_execution_constellation"
+      ],
+      "source_refs": [
+        "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md::Startup pressure lane rule",
+        "system/lib/task_ledger_priority.py::priority_constellation",
+        "system/lib/active_execution_constellation.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/lib/kernel/commands/navigate.py",
+        "system/server/tests/test_task_ledger_priority_scheduler.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "task_ledger_priority_scheduler_body_import",
+        "task_ledger_navigation_command_body_import",
+        "task_ledger_priority_scheduler_test_body_import",
+        "task_ledger_cap_reflex_playbook_body_import"
+      ],
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "authority_ceiling": "verified_public_task_ledger_startup_pressure_source_bodies_not_live_task_ledger_rows_work_ledger_claims_kernel_mutation_provider_credential_release_publication_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py microcosm-substrate/tests/test_macro_projection_import_protocol.py"
     }
   ],
   "body_in_receipt": false

@@ -184,7 +184,11 @@
     "tools/meta/factory/build_formal_math_proof_repair_lane.py",
     "system/server/tests/test_formal_math_proofline_spine.py",
     "system/server/tests/test_formal_math_proof_repair_lane.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/formal_math_proofline_spine_source_module_manifest.json",
+    "system/lib/kernel/commands/navigate.py",
+    "system/server/tests/test_task_ledger_priority_scheduler.py",
+    "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -6958,6 +6962,202 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "task_ledger_priority_scheduler_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "system/lib/task_ledger_priority.py",
+      "source_refs": [
+        "system/lib/task_ledger_priority.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public Task Ledger startup-pressure source-body import only; not live Task Ledger row export, Work Ledger claim export, live kernel mutation, provider payload export, browser/HUD state export, credential export, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_task_ledger_startup_pressure_source_bodies_into_public_projection_bundle",
+        "bind_scheduler_lane_split_to_macro_projection_body_floor",
+        "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/task_ledger_priority.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+        "source_body_digest": "sha256:0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+        "target_body_digest": "sha256:0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 596,
+        "target_line_count": 596,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "task_ledger_navigation_command_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "system/lib/kernel/commands/navigate.py",
+      "source_refs": [
+        "system/lib/kernel/commands/navigate.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public Task Ledger startup-pressure source-body import only; not live Task Ledger row export, Work Ledger claim export, live kernel mutation, provider payload export, browser/HUD state export, credential export, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_task_ledger_startup_pressure_source_bodies_into_public_projection_bundle",
+        "bind_scheduler_lane_split_to_macro_projection_body_floor",
+        "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/kernel/commands/navigate.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+        "source_body_digest": "sha256:6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
+        "target_body_digest": "sha256:6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 20438,
+        "target_line_count": 20438,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "task_ledger_priority_scheduler_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "system/server/tests/test_task_ledger_priority_scheduler.py",
+      "source_refs": [
+        "system/server/tests/test_task_ledger_priority_scheduler.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public Task Ledger startup-pressure source-body import only; not live Task Ledger row export, Work Ledger claim export, live kernel mutation, provider payload export, browser/HUD state export, credential export, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_task_ledger_startup_pressure_source_bodies_into_public_projection_bundle",
+        "bind_scheduler_lane_split_to_macro_projection_body_floor",
+        "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_task_ledger_priority_scheduler.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+        "source_body_digest": "sha256:6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80",
+        "target_body_digest": "sha256:6d650567b798eb6aa581e88438f0fa4b61dc58e14343cd3a3cba9327d06afc80",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 243,
+        "target_line_count": 243,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "task_ledger_cap_reflex_playbook_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "source_ref": "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+      "source_refs": [
+        "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "credential_exposure_risk": "low",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": "public Task Ledger startup-pressure source-body import only; not live Task Ledger row export, Work Ledger claim export, live kernel mutation, provider payload export, browser/HUD state export, credential export, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_task_ledger_startup_pressure_source_bodies_into_public_projection_bundle",
+        "bind_scheduler_lane_split_to_macro_projection_body_floor",
+        "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:84eaadb19314e1a9824a50129da1c25492ac53ab8d84e379bc533d2ac5388793",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+        "source_body_digest": "sha256:84eaadb19314e1a9824a50129da1c25492ac53ab8d84e379bc533d2ac5388793",
+        "target_body_digest": "sha256:84eaadb19314e1a9824a50129da1c25492ac53ab8d84e379bc533d2ac5388793",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 133,
+        "target_line_count": 133,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -7105,7 +7305,12 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proofline_spine.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/build_formal_math_proof_repair_lane.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proofline_spine.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proof_repair_lane.py"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_formal_math_proof_repair_lane.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -7231,7 +7436,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
@@ -7253,6 +7460,11 @@
       "step_id": "operator_handoff_linkage_source_modules_import",
       "action": "Import exact public-safe operator handoff linkage projector, prompt fingerprint dependency, and synthetic-only test source bodies into the Microcosm projection bundle with hash and anchor verification.",
       "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources"
+    },
+    {
+      "step_id": "task_ledger_startup_pressure_source_modules_import",
+      "action": "Import exact public-safe Task Ledger startup-pressure scheduler, navigation, doctrine, and regression-test source bodies into the Microcosm projection bundle with hash and anchor verification.",
+      "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources"
     }
   ],
   "authority_ceiling": {
