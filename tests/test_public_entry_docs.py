@@ -396,6 +396,36 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "atlas/entry_packet.json::status_and_workingness_route" in cold_start
 
 
+def test_public_entry_docs_keep_tour_before_compile() -> None:
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+    assert entry_packet["first_command"] == "microcosm tour <project>"
+
+    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
+    first_run = readme.split("## First Run", 1)[1]
+    no_install_block = first_run.split(
+        "The same commands work without installing the console script:", 1
+    )[1].split("```", 2)[1]
+    assert no_install_block.index(
+        "PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch"
+    ) < no_install_block.index(
+        "PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch"
+    )
+
+    cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
+        encoding="utf-8"
+    )
+    assert cold_start.index("3. Run `microcosm tour <project>`") < cold_start.index(
+        "4. Run `microcosm compile <project>`"
+    )
+    assert cold_start.index(
+        "`PYTHONPATH=src python3 -m microcosm_core.cli tour <project>`"
+    ) < cold_start.index(
+        "`PYTHONPATH=src python3 -m microcosm_core.cli compile <project>`"
+    )
+
+
 def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")

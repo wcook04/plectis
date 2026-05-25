@@ -221,8 +221,8 @@ microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 The same commands work without installing the console script:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch

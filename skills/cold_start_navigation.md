@@ -26,12 +26,13 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    machine-readable card for the bring-a-folder path; `first_command` and
    `atlas/entry_packet.json::cold_clone_probe_route` are the validation suite
    after first-screen behavior is visible.
-3. Run `microcosm compile <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` to create
-   `.microcosm/` over a folder you bring.
-4. Run `microcosm tour <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to inspect
-   the ten-minute public-safe route from compile through spine, authority,
+3. Run `microcosm tour <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to build
+   `.microcosm/` over a folder you bring and inspect the first-screen card.
+4. Run `microcosm compile <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
+   want an explicit `.microcosm/` rebuild after the first screen is visible.
+   The tour card still covers compile state, spine, authority,
    status/workingness, prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
    cells, proof-loop depth, verifier-lab execution spine, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
    drift control, route cleanup, hook intervention coverage, projection import map, import-projector contract, compression-profile option surface, stripping guard, standards
