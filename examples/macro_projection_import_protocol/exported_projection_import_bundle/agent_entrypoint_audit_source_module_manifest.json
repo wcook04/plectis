@@ -1,0 +1,78 @@
+{
+  "schema_version": "macro_projection_agent_entrypoint_audit_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "agent_entrypoint_audit_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_agent_entrypoint_audit_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing agent entrypoint audit regression contract; copied source modules are body evidence, not authority to run live macro kernel routing state or mutate generated entrypoint files.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "agent_entrypoint_audit_body_import",
+      "source_ref": "system/lib/agent_entrypoint_audit.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
+      "source_role": "Agent entrypoint anti-drift audit, axis coverage, generated-block drift comparison, and per-entrypoint summary builder used by kernel entrypoint routes and entrypoint-health diagnostics.",
+      "required_anchors": [
+        "GENERATED_BLOCK_MARKERS = (",
+        "def build_agent_entrypoint_audit(",
+        "def write_agent_entrypoint_audit(",
+        "def load_agent_entrypoint_audit(",
+        "\"kind\": \"agent_entrypoint_audit\""
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "c08a930effb000c7952c7d40c2eef9e4f70e7d9f5f5c32683dc4bf5cfa342d1c",
+      "target_sha256": "c08a930effb000c7952c7d40c2eef9e4f70e7d9f5f5c32683dc4bf5cfa342d1c",
+      "sha256_match": true,
+      "line_count": 2087,
+      "byte_count": 96172,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "agent_entrypoint_audit_test_body_import",
+      "source_ref": "system/server/tests/test_agent_entrypoint_audit.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
+      "source_role": "Focused regression tests for agent entrypoint axis coverage, kernel audit routes, generated-block drift comparison, and route-pointer quality checks.",
+      "required_anchors": [
+        "test_kernel_route_emits_audit_shape",
+        "test_generated_block_drift_compares_against_rendered_projection",
+        "test_generated_block_drift_uses_system_facts_projection_context",
+        "test_pri_json_pattern_is_flagged_as_incoherent_authority",
+        "test_derived_facts_axis_passes_from_shared_projection_bucket"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "8226261c25eef18147790e331c0eb071f6d3bb7c7da53bd9098c3cbaf81d60c1",
+      "target_sha256": "8226261c25eef18147790e331c0eb071f6d3bb7c7da53bd9098c3cbaf81d60c1",
+      "sha256_match": true,
+      "line_count": 763,
+      "byte_count": 32055,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

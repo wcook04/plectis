@@ -760,6 +760,28 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "agent_entrypoint_audit_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent entrypoint audit now carries exact copied non-secret "
+            "axis-coverage, generated-region drift, and entrypoint route "
+            "audit bodies inside the projection bundle, validated by "
+            "digest/anchor checks and syntax compilation without live macro "
+            "kernel execution, generated entrypoint mutation, provider "
+            "payload access, or private-state authority."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 

@@ -68,6 +68,9 @@ ANNEX_CURRENTNESS_MANIFEST = (
 ENTRYPOINT_HEALTH_MANIFEST = (
     BUNDLE_INPUT / "entrypoint_health_source_module_manifest.json"
 )
+AGENT_ENTRYPOINT_AUDIT_MANIFEST = (
+    BUNDLE_INPUT / "agent_entrypoint_audit_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -687,6 +690,34 @@ def test_entrypoint_health_sources_compile_and_carry_entrypoint_contract() -> No
         "test_entry_surface_diagnostic_first_contact_uses_fast_source_coupling_receipt"
         in test_text
     )
+
+
+def test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_ENTRYPOINT_AUDIT_MANIFEST,
+        manifest_id="agent_entrypoint_audit_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract() -> None:
+    audit_source = BUNDLE_INPUT / "source_modules/system/lib/agent_entrypoint_audit.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_agent_entrypoint_audit.py"
+    )
+
+    audit_text = audit_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(audit_text, str(audit_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "GENERATED_BLOCK_MARKERS = (" in audit_text
+    assert "def build_agent_entrypoint_audit(" in audit_text
+    assert "def write_agent_entrypoint_audit(" in audit_text
+    assert '"kind": "agent_entrypoint_audit"' in audit_text
+    assert "test_kernel_route_emits_audit_shape" in test_text
+    assert "test_generated_block_drift_compares_against_rendered_projection" in test_text
 
 
 def _load_trace_capsule_source_module():
