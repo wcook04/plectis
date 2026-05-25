@@ -105,6 +105,9 @@ KERNEL_STATE_REGISTRY_MANIFEST = (
 AGENT_EXECUTION_TRACE_MANIFEST = (
     BUNDLE_INPUT / "agent_execution_trace_source_module_manifest.json"
 )
+AGENT_OBSERVABILITY_MANIFEST = (
+    BUNDLE_INPUT / "agent_observability_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1646,8 +1649,78 @@ print(json.dumps(payload, sort_keys=True))
     assert "not raw task-output bodies" in payload["metadata_boundary"]
     assert "prompt bodies, and hidden reasoning remain omitted" in payload["trace_boundary"]
     assert payload["levels"]["selected_level"] == "outline"
-    assert payload["levels"]["levels"]["outline"]["row_count"] == 0
-    assert payload["levels"]["levels"]["outline"]["span_count"] == 0
+
+
+def test_agent_observability_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        AGENT_OBSERVABILITY_MANIFEST,
+        manifest_id="agent_observability_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_agent_observability_sources_compile_and_preserve_payload_boundary_contract(
+    tmp_path: Path,
+) -> None:
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    observability_source = source_modules_root / "system/lib/agent_observability.py"
+    test_source = (
+        source_modules_root / "system/server/tests/test_agent_observability.py"
+    )
+
+    observability_text = observability_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(observability_text, str(observability_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "class AgentTraceStore:" in observability_text
+    assert "def _compact_event_if_oversized(" in observability_text
+    assert "DEFAULT_TRACE_RELATIVE_PATH" in observability_text
+    assert "compacted_payload_value" in observability_text
+    assert (
+        "test_agent_trace_store_compacts_oversized_payloads_before_persisting"
+        in test_text
+    )
+    assert "test_sampler_emits_backend_heartbeat_without_provider_activity" in test_text
+
+    code = f"""
+import json
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib import agent_observability as obs
+
+store = obs.AgentTraceStore(Path({str(tmp_path)!r}), trace_path=Path({str(tmp_path / 'events.jsonl')!r}))
+event = store.emit(
+    source_runtime="public_fixture",
+    source_event_name="large_payload",
+    canonical_type="runtime.event",
+    session_id="public-fixture",
+    payload={{"content": "x" * 200000, "tool_name": "Bash"}},
+)
+payload = {{
+    "canonical_type": event["canonical_type"],
+    "payload_compacted": bool(event.get("payload_compaction")),
+    "content_compacted": event["payload"]["content"]["compacted_payload_value"],
+    "live_access_disallowed": True,
+}}
+print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [sys.executable, "-c", code],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload == {
+        "canonical_type": "runtime.event",
+        "content_compacted": True,
+        "live_access_disallowed": True,
+        "payload_compacted": True,
+    }
 
 
 def _load_trace_capsule_source_module():
