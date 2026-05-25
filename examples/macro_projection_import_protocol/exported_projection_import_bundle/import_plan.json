@@ -687,6 +687,42 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "active_execution_constellation_source_modules_import",
+      "selected_pattern_ids": [
+        "active_execution_constellation",
+        "work_ledger_claim_liveness_overlay",
+        "phase_anchor_demotion_guard"
+      ],
+      "source_refs": [
+        "system/lib/active_execution_constellation.py",
+        "system/server/tests/test_active_execution_constellation.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "active_execution_constellation_projection_body_import",
+        "active_execution_constellation_test_body_import"
+      ],
+      "authority_ceiling": "verified_public_active_execution_constellation_bodies_not_live_task_ledger_work_ledger_kernel_provider_browser_account_or_private_state_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

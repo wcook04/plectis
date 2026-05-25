@@ -1,0 +1,56 @@
+{
+  "schema_version": "macro_projection_source_module_manifest_v1",
+  "manifest_id": "active_execution_constellation_source_modules_import",
+  "module_count": 2,
+  "public_runtime_policy": "public validation uses exact copied active-execution constellation source bodies with digest and anchor checks; live Work Ledger, Task Ledger, provider, browser, account/session, and private-state authority are not exported.",
+  "modules": [
+    {
+      "module_id": "active_execution_constellation_projection_body_import",
+      "source_ref": "system/lib/active_execution_constellation.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Active execution constellation owner that composes phase anchors, orchestration state, Task Ledger priority, Work Ledger claims, heartbeat gaps, demotion guards, and entry/pulse liveness overlays.",
+      "required_anchors": [
+        "SCHEMA_VERSION = \"active_execution_constellation_v0\"",
+        "def build_active_execution_constellation(",
+        "def compact_active_execution_constellation_for_entry(",
+        "\"demotion_guard\"",
+        "\"claim_topology\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "6a6a1aee22c27e0af2b98406d3e1fe0b6ee0dd326c32f9bd8323d7da7e03c3fd",
+      "target_sha256": "6a6a1aee22c27e0af2b98406d3e1fe0b6ee0dd326c32f9bd8323d7da7e03c3fd",
+      "sha256_match": true,
+      "line_count": 1629,
+      "byte_count": 67240,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "active_execution_constellation_test_body_import",
+      "source_ref": "system/server/tests/test_active_execution_constellation.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Focused active-execution constellation regression suite covering dormant anchors, Work Ledger pass-awareness cards, claim topology, entry routing, phase overlay behavior, and pulse integration.",
+      "required_anchors": [
+        "test_projection_marks_static_phase_dormant_when_runtime_has_no_active_phase",
+        "test_projection_carries_work_ledger_pass_awareness_cards",
+        "test_claim_topology_classifies_phase_claim_disposition",
+        "test_entry_packet_routes_subphase_liveness_to_active_execution_constellation",
+        "test_pulse_snapshot_includes_active_execution_constellation"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "800725b9f03c20e81ef73a93359fcede50bd8275bcb4506a1157fac71d0e44be",
+      "target_sha256": "800725b9f03c20e81ef73a93359fcede50bd8275bcb4506a1157fac71d0e44be",
+      "sha256_match": true,
+      "line_count": 680,
+      "byte_count": 28541,
+      "anchor_count": 5
+    }
+  ]
+}

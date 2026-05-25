@@ -83,7 +83,10 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bootstrap_route_surface_source_module_manifest.json",
     "codex/doctrine/agent_operating_packet.json",
     "system/lib/agent_operating_packet.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json",
+    "system/lib/active_execution_constellation.py",
+    "system/server/tests/test_active_execution_constellation.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -3037,6 +3040,100 @@
         ]
       },
       "body_digest": "sha256:a588a9762a3f7b7e405714dffe989b183e7f27f925c28d4fc317d38e575457b9"
+    },
+    {
+      "material_id": "active_execution_constellation_projection_body_import",
+      "source_ref": "system/lib/active_execution_constellation.py",
+      "source_refs": [
+        "system/lib/active_execution_constellation.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_active_execution_constellation_source_body_into_public_projection_bundle",
+        "bind_active_execution_constellation_source_body_to_macro_projection_body_floor",
+        "preserve_active_execution_projection_without_claiming_live_task_or_work_ledger_authority"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public active-execution constellation source-body import only; not live Task Ledger mutation, live Work Ledger mutation, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, private-state export, source mutation, phase demotion authority, or release authority",
+      "body_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/active_execution_constellation.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
+        "source_body_digest": "sha256:6a6a1aee22c27e0af2b98406d3e1fe0b6ee0dd326c32f9bd8323d7da7e03c3fd",
+        "target_body_digest": "sha256:6a6a1aee22c27e0af2b98406d3e1fe0b6ee0dd326c32f9bd8323d7da7e03c3fd",
+        "source_line_count": 1629,
+        "target_line_count": 1629,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_digest": "sha256:6a6a1aee22c27e0af2b98406d3e1fe0b6ee0dd326c32f9bd8323d7da7e03c3fd"
+    },
+    {
+      "material_id": "active_execution_constellation_test_body_import",
+      "source_ref": "system/server/tests/test_active_execution_constellation.py",
+      "source_refs": [
+        "system/server/tests/test_active_execution_constellation.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_active_execution_constellation_test_body_into_public_projection_bundle",
+        "bind_active_execution_constellation_test_body_to_macro_projection_body_floor",
+        "preserve_active_execution_regression_body_without_claiming_live_task_or_work_ledger_authority"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public active-execution constellation source-body import only; not live Task Ledger mutation, live Work Ledger mutation, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, private-state export, source mutation, phase demotion authority, or release authority",
+      "body_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_active_execution_constellation.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
+        "source_body_digest": "sha256:800725b9f03c20e81ef73a93359fcede50bd8275bcb4506a1157fac71d0e44be",
+        "target_body_digest": "sha256:800725b9f03c20e81ef73a93359fcede50bd8275bcb4506a1157fac71d0e44be",
+        "source_line_count": 680,
+        "target_line_count": 680,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "body_digest": "sha256:800725b9f03c20e81ef73a93359fcede50bd8275bcb4506a1157fac71d0e44be"
     }
   ],
   "cleaned_material": [
@@ -3117,7 +3214,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/bootstrap_route_surface_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_operating_packet.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_operating_packet_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/active_execution_constellation.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_active_execution_constellation.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/active_execution_constellation_source_module_manifest.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -3165,7 +3265,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_operating_packet_sources_have_runtime_principle_packet",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_operating_packet_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_active_execution_constellation_sources_compile_and_carry_liveness_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_active_execution_constellation_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
