@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -55,6 +56,7 @@ SOURCE_DIGESTS = {
     REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
 }
 BODY_MATERIAL_STATUS = "real_ring2_target_shape_routing_refs"
+SOURCE_ARTIFACT_STATUS = "copied_ring2_target_shape_routing_source_bodies"
 ROUTING_EVIDENCE_STATUS = "real_ring2_problem_domain_failure_class_route_refs"
 BODY_IN_RECEIPT = False
 
@@ -137,7 +139,78 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    return [input_dir / name for name in names] + _source_artifact_paths(input_dir)
+
+
+def _source_artifact_rel_path(source_ref: str) -> Path:
+    return Path("source_artifacts") / source_ref
+
+
+def _source_artifact_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / _source_artifact_rel_path(ref) for ref in REAL_SUBSTRATE_REFS]
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
+
+
+def _source_artifact_imports(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> list[dict[str, Any]]:
+    imports: list[dict[str, Any]] = []
+    for source_ref in REAL_SUBSTRATE_REFS:
+        target = input_dir / _source_artifact_rel_path(source_ref)
+        body_copied = target.is_file()
+        actual_digest = _sha256(target) if body_copied else None
+        expected_digest = SOURCE_DIGESTS[source_ref]
+        imports.append(
+            {
+                "source_ref": source_ref,
+                "target_ref": _display(target, public_root=public_root),
+                "body_copied": body_copied,
+                "body_in_receipt": BODY_IN_RECEIPT,
+                "expected_digest": expected_digest,
+                "actual_digest": actual_digest,
+                "digest_matches": actual_digest == expected_digest,
+                "source_artifact_status": SOURCE_ARTIFACT_STATUS,
+            }
+        )
+    return imports
+
+
+def _source_artifact_findings(
+    source_artifact_imports: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    for row in source_artifact_imports:
+        source_ref = row["source_ref"]
+        if not row["body_copied"]:
+            findings.append(
+                _finding(
+                    "TARGET_SHAPE_SOURCE_ARTIFACT_MISSING",
+                    "Required Ring2 target-shape source artifact was not copied into the public substrate input.",
+                    case_id="source_artifact_import",
+                    subject_id=source_ref,
+                    subject_kind="source_ref",
+                )
+            )
+        elif not row["digest_matches"]:
+            findings.append(
+                _finding(
+                    "TARGET_SHAPE_SOURCE_ARTIFACT_DIGEST_MISMATCH",
+                    "Copied Ring2 target-shape source artifact digest differs from the macro source digest.",
+                    case_id="source_artifact_import",
+                    subject_id=source_ref,
+                    subject_kind="source_ref",
+                )
+            )
+    return findings
 
 
 def _strings(value: Any) -> list[str]:
@@ -521,10 +594,13 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "shape_admissibility_before_search": True,
             "unavailable_tactics_rejected": True,
             "unprobed_tactics_rejected": True,
+            "source_artifact_digest_verification_required": True,
+            "source_artifacts_copied": result["source_artifacts_pass"],
             "proof_bodies_excluded": True,
             "lean_lake_not_run": True,
             "body_in_receipt": BODY_IN_RECEIPT,
             "body_material_status": BODY_MATERIAL_STATUS,
+            "source_artifact_status": SOURCE_ARTIFACT_STATUS,
         },
         "routing_projection": {
             "tactic_count": result["tactic_count"],
@@ -539,6 +615,11 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
         },
         "secret_exclusion_scan": secret_scan,
         "body_material_status": BODY_MATERIAL_STATUS,
+        "source_artifact_status": SOURCE_ARTIFACT_STATUS,
+        "source_artifact_count": result["source_artifact_count"],
+        "copied_source_artifact_count": result["copied_source_artifact_count"],
+        "source_artifacts_pass": result["source_artifacts_pass"],
+        "source_artifact_imports": result["source_artifact_imports"],
         "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
         "real_substrate_refs": REAL_SUBSTRATE_REFS,
         "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
@@ -572,6 +653,11 @@ def _common_receipt(
         "findings",
         "secret_exclusion_scan",
         "body_material_status",
+        "source_artifact_status",
+        "source_artifact_count",
+        "copied_source_artifact_count",
+        "source_artifacts_pass",
+        "source_artifact_imports",
         "routing_evidence_status",
         "body_in_receipt",
         "real_substrate_refs",
@@ -636,6 +722,17 @@ def _build_result(
         for row in _route_cases(payloads["target_shape_routes"])
     ]
     route_findings = _route_integrity_findings(scored_cases)
+    source_artifact_imports = _source_artifact_imports(
+        input_dir,
+        public_root=public_root,
+    )
+    source_artifact_findings = _source_artifact_findings(source_artifact_imports)
+    copied_source_artifact_count = sum(
+        1
+        for row in source_artifact_imports
+        if row["body_copied"] and row["digest_matches"]
+    )
+    source_artifacts_pass = copied_source_artifact_count == len(REAL_SUBSTRATE_REFS)
     negative = _negative_findings(
         negative_payloads,
         known=known,
@@ -644,13 +741,14 @@ def _build_result(
     observed = negative["observed_negative_cases"]
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*route_findings, *negative["findings"]]
+    findings = [*route_findings, *negative["findings"], *source_artifact_findings]
     error_codes = sorted({finding["error_code"] for finding in findings})
     all_expectations_met = all(row["expectation_met"] for row in scored_cases)
     status = (
         PASS
         if not missing
         and not route_findings
+        and not source_artifact_findings
         and all_expectations_met
         and not secret_scan["blocking_hit_count"]
         else "blocked"
@@ -681,6 +779,11 @@ def _build_result(
         "findings": findings,
         "secret_exclusion_scan": secret_scan,
         "body_material_status": BODY_MATERIAL_STATUS,
+        "source_artifact_status": SOURCE_ARTIFACT_STATUS,
+        "source_artifact_imports": source_artifact_imports,
+        "source_artifact_count": len(source_artifact_imports),
+        "copied_source_artifact_count": copied_source_artifact_count,
+        "source_artifacts_pass": source_artifacts_pass,
         "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
         "body_in_receipt": BODY_IN_RECEIPT,
         "real_substrate_refs": REAL_SUBSTRATE_REFS,
@@ -873,6 +976,7 @@ def _parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument("--acceptance-out")
     bundle_parser = subparsers.add_parser("run-routing-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
@@ -882,7 +986,7 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out)
+        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
     elif args.action == "run-routing-bundle":
         result = run_routing_bundle(args.input, args.out)
     else:

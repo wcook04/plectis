@@ -11,17 +11,29 @@
         "target_shape_tactic_routing_gate"
       ],
       "source_refs": [
-        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
       ],
       "target_refs": [
         "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
-        "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json"
+        "fixtures/first_wave/formal_math_readiness_gate/input/tactic_portfolio_availability.json",
+        "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle"
       ],
       "validation_refs": [
-        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
+        "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json",
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+        "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
       ],
       "public_safe_body_material_ids": [
-        "lean_certificate_kernel_body_import"
+        "lean_certificate_kernel_body_import",
+        "target_shape_ring2_premise_run_summary_body_import",
+        "target_shape_ring2_failure_taxonomy_body_import",
+        "target_shape_ring2_graph_update_candidates_body_import",
+        "target_shape_ring2_oracle_repair_summary_body_import"
       ],
       "authority_ceiling": "fixture_receipt_and_import_refs_only",
       "body_copied": false,

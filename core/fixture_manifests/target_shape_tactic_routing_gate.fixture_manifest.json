@@ -4,6 +4,9 @@
   "organ_id": "target_shape_tactic_routing_gate",
   "purpose": "Validate real Ring2 target-shape tactic admissibility refs without running Lean/Lake, calling providers, or exposing proof bodies.",
   "body_material_status": "real_ring2_target_shape_routing_refs",
+  "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+  "source_artifact_count": 4,
+  "source_artifact_digest_verification_required": true,
   "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
   "real_substrate_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
@@ -25,6 +28,10 @@
   "inputs": [
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/tactic_portfolio_availability.json", "role": "real Ring2 Lean/Std tactic route portfolio"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/target_shape_routes.json", "role": "real Ring2 problem-domain and failure-class route cases"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json", "role": "copied Ring2 premise-retrieval route source body"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json", "role": "copied Ring2 failure taxonomy source body"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json", "role": "copied Ring2 graph-update candidate source body"},
+    {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json", "role": "copied Ring2 oracle repair route source body"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unavailable_tactic_admitted.json", "role": "negative case: unavailable tactic admitted"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/unprobed_tactic_allowed.json", "role": "negative case: unprobed tactic admitted"},
     {"path": "fixtures/first_wave/target_shape_tactic_routing_gate/input/proof_body_leakage.json", "role": "negative case: proof body leakage"},

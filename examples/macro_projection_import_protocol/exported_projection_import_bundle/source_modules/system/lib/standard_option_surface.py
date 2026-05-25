@@ -7552,6 +7552,7 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
 
     by_pattern_id: dict[str, dict[str, Any]] = {}
     organ_to_cards: dict[str, list[dict[str, Any]]] = {}
+    pattern_to_cards: dict[str, list[dict[str, Any]]] = {}
     organ_to_readiness: dict[str, list[dict[str, Any]]] = {}
 
     for card in _microcosm_list(cards.get("route_cards")):
@@ -7559,10 +7560,15 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
             continue
         for organ_id in _string_list(card.get("organ_ids")):
             organ_to_cards.setdefault(organ_id, []).append(dict(card))
+        for pattern_id in _string_list(card.get("anchor_pattern_ids")):
+            pattern_to_cards.setdefault(pattern_id, []).append(dict(card))
 
     for readiness in _microcosm_list(audit.get("organ_readiness")):
         if not isinstance(readiness, Mapping):
             continue
+        readiness_id = str(readiness.get("readiness_id") or "").strip()
+        if readiness_id:
+            organ_to_readiness.setdefault(readiness_id, []).append(dict(readiness))
         for organ_id in _string_list(readiness.get("route_to_organ_ids")):
             organ_to_readiness.setdefault(organ_id, []).append(dict(readiness))
 
@@ -7608,7 +7614,8 @@ def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[
                 membership["selection_postures"].append(str(router_row.get("selection_posture") or "").strip())
             if str(router_row.get("standalone_posture") or "").strip():
                 membership["standalone_postures"].append(str(router_row.get("standalone_posture") or "").strip())
-            for card in organ_to_cards.get(route_to, []):
+            cards_for_route = [*organ_to_cards.get(route_to, []), *pattern_to_cards.get(pattern_id, [])]
+            for card in cards_for_route:
                 if str(card.get("card_id") or "").strip():
                     membership["route_card_ids"].append(str(card.get("card_id") or "").strip())
                 if str(card.get("selection_posture") or "").strip():

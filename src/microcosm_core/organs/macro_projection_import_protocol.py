@@ -3289,6 +3289,7 @@ def _parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument("--acceptance-out")
     bundle_parser = subparsers.add_parser("run-projection-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
@@ -3300,7 +3301,7 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out)
+        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
     elif args.action == "plan":
         result = preview_import_plan(args.input)
     else:

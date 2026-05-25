@@ -291,6 +291,12 @@ FORMAL_MATH_PROOFLINE_SPINE_SOURCE_BODY_MATERIAL_IDS = [
     "formal_math_proofline_spine_test_body_import",
     "formal_math_proof_repair_lane_test_body_import",
 ]
+TARGET_SHAPE_TACTIC_ROUTING_BODY_MATERIAL_IDS = [
+    "target_shape_ring2_premise_run_summary_body_import",
+    "target_shape_ring2_failure_taxonomy_body_import",
+    "target_shape_ring2_graph_update_candidates_body_import",
+    "target_shape_ring2_oracle_repair_summary_body_import",
+]
 
 
 def _copy_dependency_preflight_receipt(public_root: Path) -> Path:
@@ -344,6 +350,10 @@ def _copy_macro_projection_public_tree(tmp_path: Path) -> Path:
     shutil.copytree(
         MICROCOSM_ROOT / "examples/macro_projection_import_protocol",
         public_root / "examples/macro_projection_import_protocol",
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/target_shape_tactic_routing_gate",
+        public_root / "examples/target_shape_tactic_routing_gate",
     )
     _copy_public_file(
         public_root,
@@ -444,7 +454,7 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 134
+    assert result["public_safe_body_material_count"] == 138
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -478,10 +488,10 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 134
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 138
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
         "direct_verified_public": 3,
-        "verified_light_edit": 131
+        "verified_light_edit": 135
     }
     by_material = {
         row["material_id"]: row
@@ -634,6 +644,13 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         assert by_material[material_id]["body_import_verification"][
             "verification_mode"
         ] == "exact_source_digest_match"
+    for material_id in TARGET_SHAPE_TACTIC_ROUTING_BODY_MATERIAL_IDS:
+        assert by_material[material_id]["material_class"] == "public_macro_receipt_body"
+        assert by_material[material_id]["classification_status"] == "pass"
+        assert by_material[material_id]["body_text_in_receipt"] is False
+        assert by_material[material_id]["body_import_verification"][
+            "verification_mode"
+        ] == "exact_source_digest_match"
     for material_id in NAVIGATION_COVERAGE_MATRIX_BODY_MATERIAL_IDS:
         assert by_material[material_id]["material_class"] == "public_macro_tool_body"
         assert by_material[material_id]["classification_status"] == "pass"
@@ -694,7 +711,8 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         "verified_macro_body_with_claim_floor"
     )
     assert by_cell["formal_math_readiness_extensions"]["public_safe_body_material_ids"] == [
-        "lean_certificate_kernel_body_import"
+        "lean_certificate_kernel_body_import",
+        *TARGET_SHAPE_TACTIC_ROUTING_BODY_MATERIAL_IDS,
     ]
     assert by_cell["projection_protocol_self_host"]["projection_status"] == (
         "self_hosted_status_protocol_landed"
@@ -1260,8 +1278,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 134
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 134
+    assert result["public_safe_body_material_count"] == 138
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 138
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1319,10 +1337,11 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *OPERATOR_HANDOFF_LINKAGE_SOURCE_BODY_MATERIAL_IDS,
         *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
         *FORMAL_MATH_PROOFLINE_SPINE_SOURCE_BODY_MATERIAL_IDS,
+        *TARGET_SHAPE_TACTIC_ROUTING_BODY_MATERIAL_IDS,
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 134
+    assert result["public_safe_body_digest_count"] == 138
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1446,11 +1465,11 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 134
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 138
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
-        "public_macro_receipt_body": 5,
+        "public_macro_receipt_body": 9,
         "public_macro_tool_body": 127,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
@@ -1473,7 +1492,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 134
+    assert result["public_safe_body_material_count"] == 138
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False

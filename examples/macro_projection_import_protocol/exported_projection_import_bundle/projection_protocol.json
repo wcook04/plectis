@@ -192,7 +192,11 @@
     "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
     "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
     "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -2722,17 +2726,17 @@
         "source_authority_above_macro_contracts": false,
         "live_macro_source_authority": false
       },
-      "body_digest": "sha256:250f8c4673b1271614173235ec15378da9fcccdda52435bb1b90b4e878a10798",
+      "body_digest": "sha256:fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
       "body_line_count": 15942,
       "body_in_receipt": false,
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "exact_source_digest_match",
-        "source_body_digest": "sha256:250f8c4673b1271614173235ec15378da9fcccdda52435bb1b90b4e878a10798",
-        "target_body_digest": "sha256:250f8c4673b1271614173235ec15378da9fcccdda52435bb1b90b4e878a10798",
+        "source_body_digest": "sha256:fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
+        "target_body_digest": "sha256:fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
         "source_to_target_relation": "exact_copy",
-        "source_line_count": 16011,
-        "target_line_count": 16011,
+        "source_line_count": 16018,
+        "target_line_count": 16018,
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
@@ -7309,6 +7313,190 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "target_shape_ring2_premise_run_summary_body_import",
+      "material_class": "public_macro_receipt_body",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      ],
+      "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "provenance_refs": [
+        "standards/std_microcosm_target_shape_tactic_routing_gate.json",
+        "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+        "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "claim_ceiling": "copied_ring2_target_shape_route_artifact_not_proof_or_release_authority",
+      "classification": "copied_non_secret_macro_body",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+        "source_body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "target_body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 801,
+        "target_line_count": 801,
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.target_shape_tactic_routing_gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+          "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+        ]
+      },
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "applied_edits": [
+        "exact copy Ring2 target-shape source artifact into public source_artifacts bundle",
+        "bind copied artifact to target-shape routing validator digest checks",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ]
+    },
+    {
+      "material_id": "target_shape_ring2_failure_taxonomy_body_import",
+      "material_class": "public_macro_receipt_body",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+      ],
+      "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "provenance_refs": [
+        "standards/std_microcosm_target_shape_tactic_routing_gate.json",
+        "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+        "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "claim_ceiling": "copied_ring2_target_shape_route_artifact_not_proof_or_release_authority",
+      "classification": "copied_non_secret_macro_body",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+        "source_body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "target_body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 45,
+        "target_line_count": 45,
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.target_shape_tactic_routing_gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+          "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+        ]
+      },
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "applied_edits": [
+        "exact copy Ring2 target-shape source artifact into public source_artifacts bundle",
+        "bind copied artifact to target-shape routing validator digest checks",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ]
+    },
+    {
+      "material_id": "target_shape_ring2_graph_update_candidates_body_import",
+      "material_class": "public_macro_receipt_body",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "provenance_refs": [
+        "standards/std_microcosm_target_shape_tactic_routing_gate.json",
+        "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+        "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "claim_ceiling": "copied_ring2_target_shape_route_artifact_not_proof_or_release_authority",
+      "classification": "copied_non_secret_macro_body",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+        "source_body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+        "target_body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 61,
+        "target_line_count": 61,
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.target_shape_tactic_routing_gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+          "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+        ]
+      },
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "applied_edits": [
+        "exact copy Ring2 target-shape source artifact into public source_artifacts bundle",
+        "bind copied artifact to target-shape routing validator digest checks",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ]
+    },
+    {
+      "material_id": "target_shape_ring2_oracle_repair_summary_body_import",
+      "material_class": "public_macro_receipt_body",
+      "source_refs": [
+        "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+      ],
+      "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "provenance_refs": [
+        "standards/std_microcosm_target_shape_tactic_routing_gate.json",
+        "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+        "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "claim_ceiling": "copied_ring2_target_shape_route_artifact_not_proof_or_release_authority",
+      "classification": "copied_non_secret_macro_body",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+        "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+        "source_body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "target_body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 530,
+        "target_line_count": 530,
+        "runtime_consumed_by": [
+          "python -m microcosm_core.organs.target_shape_tactic_routing_gate run-routing-bundle --input examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle --out receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+          "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+          "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
+        ]
+      },
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "applied_edits": [
+        "exact copy Ring2 target-shape source artifact into public source_artifacts bundle",
+        "bind copied artifact to target-shape routing validator digest checks",
+        "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
+      ]
     }
   ],
   "cleaned_material": [
@@ -7599,7 +7787,10 @@
     "receipts/first_wave/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle_validation_result.json",
     "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+    "microcosm-substrate/tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_receipts_use_real_substrate_contract",
+    "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json"
   ],
   "steps": [
     {

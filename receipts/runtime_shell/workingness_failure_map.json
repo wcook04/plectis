@@ -32,9 +32,9 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 13,
+    "missing_failure_modes_count": 12,
     "missing_standard_count": 3,
-    "rows_with_failure_modes": 33,
+    "rows_with_failure_modes": 34,
     "rows_with_future_work_targets": 37,
     "thing_count": 46
   },
@@ -687,23 +687,27 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
+      "failure_mode_count": 8,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_target_shape_tactic_routing_gate.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "strengthen_projection_evidence",
           "target_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle",
           "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "copied Ring2 target-shape source artifact is missing from the public fixture or bundle",
+        "copied Ring2 target-shape source artifact digest differs from the macro source digest",
+        "route admits a tactic absent from the public probe portfolio",
+        "route admits a tactic marked unavailable by the public probe",
+        "route case is selected after Lean/proof execution evidence exists",
+        "proof body, provider payload, or Lean source body appears in public output",
+        "graph-update candidate is treated as theorem proof authority",
+        "release, provider, or Lean execution authority is implied by pre-execution routing metadata"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "do not treat copied route artifacts as theorem proof authority, provider payload authority, release authority, or private macro equivalence",
         "authority_boundary": {
           "allowed_claim": "Public target-shape route cases can admit only tactics that were both probed and available before proof execution.",
           "forbidden_claims": [
@@ -722,18 +726,16 @@
           "release_authorized": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
-        "receipt_expectation_count": 4,
+        "missing_requirement_ids": [],
+        "ontology": "target-shape tactic routing is a pre-execution Ring2 route gate backed by copied non-secret macro run artifacts plus public fixture decisions",
+        "receipt_expectation_count": 5,
         "required_field_count": 5,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -741,8 +743,8 @@
         },
         "standard_ref": "standards/std_microcosm_target_shape_tactic_routing_gate.json",
         "standard_status": "accepted",
-        "teleology": null,
-        "validation_rule_count": 5
+        "teleology": "raise the body floor by making the actual Ring2 target-shape run summaries, failure taxonomy, and graph-update candidates present and digest-checked in Microcosm before routing claims are accepted",
+        "validation_rule_count": 7
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",

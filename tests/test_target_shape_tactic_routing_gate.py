@@ -63,6 +63,18 @@ def test_target_shape_tactic_routing_gate_observes_negative_cases(
     assert result["all_expectations_met"] is True
     assert result["body_material_status"] == "real_ring2_target_shape_routing_refs"
     assert (
+        result["source_artifact_status"]
+        == "copied_ring2_target_shape_routing_source_bodies"
+    )
+    assert result["source_artifact_count"] == 4
+    assert result["copied_source_artifact_count"] == 4
+    assert result["source_artifacts_pass"] is True
+    assert all(row["body_copied"] for row in result["source_artifact_imports"])
+    assert all(row["digest_matches"] for row in result["source_artifact_imports"])
+    assert result["source_artifact_imports"][0]["expected_digest"].startswith(
+        "sha256:"
+    )
+    assert (
         result["routing_evidence_status"]
         == "real_ring2_problem_domain_failure_class_route_refs"
     )
@@ -92,6 +104,13 @@ def test_target_shape_tactic_routing_gate_accepts_exported_bundle(
     assert result["error_codes"] == []
     assert result["route_case_count"] == 5
     assert result["body_material_status"] == "real_ring2_target_shape_routing_refs"
+    assert (
+        result["source_artifact_status"]
+        == "copied_ring2_target_shape_routing_source_bodies"
+    )
+    assert result["source_artifact_count"] == 4
+    assert result["copied_source_artifact_count"] == 4
+    assert result["source_artifacts_pass"] is True
     assert (
         result["routing_evidence_status"]
         == "real_ring2_problem_domain_failure_class_route_refs"
@@ -130,6 +149,13 @@ def test_target_shape_tactic_routing_receipts_use_real_substrate_contract(
         payload = json.loads(text)
         assert payload["status"] == "pass"
         assert payload["body_material_status"] == "real_ring2_target_shape_routing_refs"
+        assert (
+            payload["source_artifact_status"]
+            == "copied_ring2_target_shape_routing_source_bodies"
+        )
+        assert payload["source_artifact_count"] == 4
+        assert payload["copied_source_artifact_count"] == 4
+        assert payload["source_artifacts_pass"] is True
         assert (
             payload["routing_evidence_status"]
             == "real_ring2_problem_domain_failure_class_route_refs"

@@ -30,6 +30,9 @@
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4"
   },
   "body_material_status": "real_ring2_target_shape_routing_refs",
+  "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+  "source_artifact_count": 4,
+  "source_artifact_digest_verification_required": true,
   "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
   "relationships": {
     "organ_id": "target_shape_tactic_routing_gate",
@@ -55,6 +58,8 @@
     "Every allowed tactic id must exist in the public tactic portfolio.",
     "Every allowed tactic id must be marked available before proof execution.",
     "Every route case must be pre_execution.",
+    "Every required Ring2 target-shape source artifact must be copied into source_artifacts under the fixture or bundle input.",
+    "Every copied Ring2 target-shape source artifact sha256 digest must match source_digests.",
     "Proof, provider, and Lean source body fields are forbidden.",
     "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected."
   ],
@@ -62,7 +67,8 @@
     "result receipt with scored route decisions",
     "board receipt with public contract and routing projection",
     "validation receipt with negative-case coverage",
-    "fixture acceptance receipt"
+    "fixture acceptance receipt",
+    "source artifact import rows with copied-body and digest-match status"
   ],
   "validator_contract": {
     "module": "microcosm_core.organs.target_shape_tactic_routing_gate",
@@ -73,20 +79,49 @@
     "result": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
     "board": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
     "validation": "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_validation_receipt.json",
-    "acceptance": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
+    "acceptance": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
+    "required_public_fields": [
+      "source_artifact_status",
+      "source_artifact_count",
+      "copied_source_artifact_count",
+      "source_artifacts_pass",
+      "source_artifact_imports"
+    ]
   },
   "public_private_boundary": {
     "private_source_bodies_included": false,
+    "non_secret_macro_source_bodies_included": true,
     "proof_bodies_included": false,
     "provider_payloads_included": false,
     "oracle_labels_included": false,
-    "fixture_kind": "real_ring2_problem_domain_failure_class_route_refs"
+    "fixture_kind": "real_ring2_problem_domain_failure_class_route_refs_with_copied_source_bodies"
   },
   "authority_ceiling": {
     "lean_lake_execution_authorized": false,
     "formal_proof_authority": false,
     "provider_calls_authorized": false,
     "release_authorized": false
+  },
+  "standard_payload": {
+    "ontology": "target-shape tactic routing is a pre-execution Ring2 route gate backed by copied non-secret macro run artifacts plus public fixture decisions",
+    "teleology": "raise the body floor by making the actual Ring2 target-shape run summaries, failure taxonomy, and graph-update candidates present and digest-checked in Microcosm before routing claims are accepted",
+    "anti_purpose": "do not treat copied route artifacts as theorem proof authority, provider payload authority, release authority, or private macro equivalence",
+    "compression_bands": [
+      "source_artifacts are copied body evidence and must be digest-checked",
+      "route cases are public projections over the copied Ring2 source bodies",
+      "receipts may name source artifacts and digests but must not echo proof/provider/private bodies"
+    ],
+    "failure_modes": [
+      "copied Ring2 target-shape source artifact is missing from the public fixture or bundle",
+      "copied Ring2 target-shape source artifact digest differs from the macro source digest",
+      "route admits a tactic absent from the public probe portfolio",
+      "route admits a tactic marked unavailable by the public probe",
+      "route case is selected after Lean/proof execution evidence exists",
+      "proof body, provider payload, or Lean source body appears in public output",
+      "graph-update candidate is treated as theorem proof authority",
+      "release, provider, or Lean execution authority is implied by pre-execution routing metadata"
+    ],
+    "rebuild_action": "PYTHONPATH=src ../repo-python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate --acceptance-out receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
   },
   "anti_claim": "This standard governs real Ring2 target-shape routing refs only; it does not certify theorem correctness, tactic success, provider output, release readiness, or private macro equivalence."
 }

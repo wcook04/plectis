@@ -21,8 +21,9 @@
   "body_in_receipt": false,
   "body_material_status": "real_ring2_target_shape_routing_refs",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input microcosm-substrate/fixtures/first_wave/target_shape_tactic_routing_gate/input --out microcosm-substrate/receipts/first_wave/target_shape_tactic_routing_gate",
-  "created_at": "2026-05-23T06:08:28+00:00",
+  "command": "python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate",
+  "copied_source_artifact_count": 4,
+  "created_at": "2026-05-25T14:44:24+00:00",
   "error_codes": [
     "TARGET_SHAPE_POST_EXECUTION_ROUTE_FORBIDDEN",
     "TARGET_SHAPE_PROOF_BODY_FORBIDDEN",
@@ -112,6 +113,9 @@
     "proof_bodies_excluded": true,
     "routing_pre_execution": true,
     "shape_admissibility_before_search": true,
+    "source_artifact_digest_verification_required": true,
+    "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+    "source_artifacts_copied": true,
     "unavailable_tactics_rejected": true,
     "unprobed_tactics_rejected": true
   },
@@ -503,7 +507,7 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 7,
+    "scanned_path_count": 11,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -516,6 +520,51 @@
     "rfl",
     "simp_all"
   ],
+  "source_artifact_count": 4,
+  "source_artifact_imports": [
+    {
+      "actual_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "digest_matches": true,
+      "expected_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+    },
+    {
+      "actual_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "digest_matches": true,
+      "expected_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json"
+    },
+    {
+      "actual_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "digest_matches": true,
+      "expected_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+    },
+    {
+      "actual_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "digest_matches": true,
+      "expected_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "target_ref": "fixtures/first_wave/target_shape_tactic_routing_gate/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+    }
+  ],
+  "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
+  "source_artifacts_pass": true,
   "source_digests": {
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
