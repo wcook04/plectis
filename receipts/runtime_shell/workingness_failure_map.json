@@ -32,10 +32,10 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 7,
+    "missing_failure_modes_count": 6,
     "missing_standard_count": 1,
-    "rows_with_failure_modes": 39,
-    "rows_with_future_work_targets": 35,
+    "rows_with_failure_modes": 40,
+    "rows_with_future_work_targets": 34,
     "thing_count": 46
   },
   "thing_failure_map": [
@@ -2318,18 +2318,17 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 4,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "generated video treated as sufficient spatial authority without scene-state refs, transition diffs, oracle checks, and limitation labels",
+        "private video bodies, raw sensor payloads, GPS traces, or account/session-bound inputs leak into public replay rows or receipts",
+        "simulator product, benchmark score, or geographic accuracy claims exceed the public replay validator authority ceiling",
+        "source-module manifest names macro Station geometry files without exact copied target bodies, digest checks, required anchors, and body_in_receipt=false"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "A generated-video demo, simulator benchmark, real-world geographic oracle, private sensor export, or source-module pointer manifest without copied digest-checked bodies.",
         "authority_boundary": "source_open_spatial_counterfactual_payload_boundary_not_simulator_or_operation_authority",
         "authority_ceiling": {
           "benchmark_score_claim_authorized": false,
@@ -2346,10 +2345,8 @@
           "trained_simulator_claim_authorized": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A source-open spatial world-model replay validator that checks scene states, action traces, predicted states, transition diffs, oracle checks, limitation labels, public payload boundaries, and exact copied Station geometry guardrail source modules without becoming simulator or live-operation authority.",
         "receipt_expectation_count": 2,
         "required_field_count": 18,
         "required_substrate": {
@@ -2357,16 +2354,16 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
           "validator_command_present": true
         },
         "standard_ref": "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
-        "standard_status": "draft",
-        "teleology": null,
-        "validation_rule_count": 3
+        "standard_status": "active_source_body_import",
+        "teleology": "Preserve inspectable public spatial replay semantics and imported Station geometry guardrail bodies while keeping private video, raw sensor, generated-media-only, simulator-product, benchmark, and release claims outside the public authority ceiling.",
+        "validation_rule_count": 4
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",

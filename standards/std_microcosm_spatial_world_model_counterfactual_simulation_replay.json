@@ -1,5 +1,10 @@
 {
   "anti_claim": "This standard governs source-open synthetic spatial counterfactual replay rows under the Microcosm public payload boundary. It does not authorize simulator-product claims, private video export, raw sensor export, live robot or AV operation, real-world geography claims, benchmark scores, provider calls, publication, or release.",
+  "anti_purpose": [
+    "Do not count generated video, visual demos, or manifest pointers as spatial world-model authority.",
+    "Do not infer real-world location accuracy, benchmark performance, or live operation safety from public replay metadata.",
+    "Do not embed source module body text in receipts; exact copied bodies live in source_modules with digest checks."
+  ],
   "authority_boundary": "source_open_spatial_counterfactual_payload_boundary_not_simulator_or_operation_authority",
   "authority_ceiling": {
     "benchmark_score_claim_authorized": false,
@@ -15,9 +20,56 @@
     "status": "pass",
     "trained_simulator_claim_authorized": false
   },
+  "failure_mode_catalog": [
+    {
+      "description": "A replay presents generated media as sufficient authority without scene-state refs, transition diffs, and oracle-state checks.",
+      "detected_by": "SPATIAL_GENERATED_VIDEO_ONLY_AUTHORITY_FORBIDDEN",
+      "failure_mode_id": "generated_video_only_authority",
+      "replacement_criteria": "Carry source-open replay rows with predicted-state refs, transition-diff refs, oracle-state-check refs, limitation labels, and payload-boundary refs."
+    },
+    {
+      "description": "Private video bodies, raw sensor payloads, GPS trace bodies, or equivalent account/session-bound inputs enter public replay rows or receipts.",
+      "detected_by": "SPATIAL_PRIVATE_OR_RAW_BODY_FORBIDDEN plus secret_exclusion_scan",
+      "failure_mode_id": "private_video_or_raw_sensor_body_leak",
+      "replacement_criteria": "Use public relative refs and limitation labels; keep private/raw bodies omitted from source modules and receipts."
+    },
+    {
+      "description": "The organ is treated as a trained simulator product, benchmark score proof, or geographic accuracy oracle.",
+      "detected_by": "SPATIAL_SIMULATOR_PRODUCT_CLAIM_FORBIDDEN, SPATIAL_BENCHMARK_SCORE_REQUIRES_STATE_DIFF, and SPATIAL_GEOGRAPHIC_ACCURACY_FORBIDDEN",
+      "failure_mode_id": "simulator_or_benchmark_overclaim",
+      "replacement_criteria": "Constrain claims to source-open replay validation and cite transition diffs before any benchmark-like summary appears."
+    },
+    {
+      "description": "A source-module manifest names macro spatial guardrail files without carrying exact copied target bodies or digest/anchor verification.",
+      "detected_by": "source_module_summary.status must be pass and every module must match source_sha256, target_sha256, required anchors, and body_in_receipt=false",
+      "failure_mode_id": "source_module_pointer_theater",
+      "replacement_criteria": "Copy the non-secret macro source body under source_modules, keep receipts body-free, and validate with the spatial source-module test plus macro projection exact-import test."
+    }
+  ],
+  "failure_modes": [
+    "generated video treated as sufficient spatial authority without scene-state refs, transition diffs, oracle checks, and limitation labels",
+    "private video bodies, raw sensor payloads, GPS traces, or account/session-bound inputs leak into public replay rows or receipts",
+    "simulator product, benchmark score, or geographic accuracy claims exceed the public replay validator authority ceiling",
+    "source-module manifest names macro Station geometry files without exact copied target bodies, digest checks, required anchors, and body_in_receipt=false"
+  ],
   "first_wave_required": true,
   "kind_id": "spatial_world_model_counterfactual_simulation_replay",
   "kind_name": "Spatial world-model counterfactual simulation replay",
+  "ontology": {
+    "non_authorities": [
+      "trained simulator product",
+      "real-world geographic accuracy oracle",
+      "private video or raw sensor corpus",
+      "live robot or autonomous-vehicle control plane"
+    ],
+    "real_body_floor": [
+      "public replay metadata validator",
+      "negative-case rejection matrix",
+      "payload-boundary receipt writer",
+      "exact copied Station geometry guardrail source modules"
+    ],
+    "thing_kind": "source_open_spatial_world_model_replay_validator"
+  },
   "public_private_boundary": {
     "allowed_public_inputs": [
       "scene state refs",
@@ -54,7 +106,9 @@
       "payload_boundary",
       "secret_exclusion_scan",
       "authority_ceiling",
-      "anti_claim"
+      "anti_claim",
+      "source_module_import_status",
+      "source_module_summary"
     ],
     "receipt_id": "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
     "required": true
@@ -105,14 +159,41 @@
       "field": "runtime_example",
       "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
+      "role": "exact_station_geometry_macro_source_body_manifest"
+    },
+    {
+      "field": "macro_projection_manifest",
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json",
+      "role": "macro_projection_body_floor_manifest"
     }
   ],
   "standard_id": "std_microcosm_spatial_world_model_counterfactual_simulation_replay",
-  "status": "draft",
+  "standard_payload": {
+    "anti_purpose": "A generated-video demo, simulator benchmark, real-world geographic oracle, private sensor export, or source-module pointer manifest without copied digest-checked bodies.",
+    "failure_modes": [
+      "generated video treated as sufficient spatial authority without scene-state refs, transition diffs, oracle checks, and limitation labels",
+      "private video bodies, raw sensor payloads, GPS traces, or account/session-bound inputs leak into public replay rows or receipts",
+      "simulator product, benchmark score, or geographic accuracy claims exceed the public replay validator authority ceiling",
+      "source-module manifest names macro Station geometry files without exact copied target bodies, digest checks, required anchors, and body_in_receipt=false"
+    ],
+    "ontology": "A source-open spatial world-model replay validator that checks scene states, action traces, predicted states, transition diffs, oracle checks, limitation labels, public payload boundaries, and exact copied Station geometry guardrail source modules without becoming simulator or live-operation authority.",
+    "teleology": "Preserve inspectable public spatial replay semantics and imported Station geometry guardrail bodies while keeping private video, raw sensor, generated-media-only, simulator-product, benchmark, and release claims outside the public authority ceiling."
+  },
+  "status": "active_source_body_import",
+  "teleology": [
+    "Preserve source-open spatial replay semantics as inspectable rows rather than media or simulator claims.",
+    "Bind counterfactual scene-state diffs to public payload boundaries and explicit limitation labels.",
+    "Let Microcosm carry the real Station geometry guardrail body that governs spatial UI layout before accepting replay receipts as product substrate."
+  ],
   "validation_rules": [
     "require every replay row to cite scene-state, action-trace, predicted-state, transition-diff, oracle-check, and source-open public sensor-packet refs",
     "reject private video export, raw sensor export, live robot or AV operation, real-world location claims, simulator-product claims, generated-video-only authority, geographic accuracy claims, benchmark score overclaims, and release authority",
-    "require metadata authority ceilings and source-open payload-boundary fixture rows"
+    "require metadata authority ceilings and source-open payload-boundary fixture rows",
+    "require source-module manifests, when present, to carry exact copied public macro tool bodies with matching source/target sha256 digests, required anchors, and no body text in receipts"
   ],
   "validator_contract": {
     "command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",

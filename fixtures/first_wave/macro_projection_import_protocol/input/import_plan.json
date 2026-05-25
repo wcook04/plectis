@@ -2055,6 +2055,58 @@
         "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_route_repair_authorized": false,
+        "live_source_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": false,
+      "body_in_receipt": false,
+      "body_included": false,
+      "cell_id": "spatial_world_model_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py microcosm-substrate/tests/test_macro_projection_import_protocol.py",
+      "public_safe_body_material_ids": [
+        "station_geometry_checker_source_body_import",
+        "station_geometry_checker_test_body_import",
+        "station_geometry_build_wiring_source_body_import"
+      ],
+      "selected_pattern_ids": [
+        "spatial_world_model_counterfactual_simulation_replay_compound",
+        "station_geometry_token_guardrail"
+      ],
+      "source_refs": [
+        "tools/meta/factory/check_station_geometry.py",
+        "system/server/tests/test_station_geometry_check.py",
+        "system/server/ui/package.json"
+      ],
+      "target_refs": [
+        "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"

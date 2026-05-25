@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -23,6 +24,15 @@ BUNDLE_INPUT = (
     / "examples/spatial_world_model_counterfactual_simulation_replay/"
     "exported_spatial_world_model_simulation_bundle"
 )
+SPATIAL_SOURCE_BODY_MATERIAL_IDS = [
+    "station_geometry_checker_source_body_import",
+    "station_geometry_checker_test_body_import",
+    "station_geometry_build_wiring_source_body_import",
+]
+
+
+def _sha256_ref(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -73,6 +83,7 @@ def test_spatial_world_model_counterfactual_replay_observes_negative_cases(
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert result["unsafe_payload_bodies_in_receipt"] is False
+    assert result["source_module_import_status"] == "not_present"
     assert (
         result["payload_boundary"]["boundary_id"]
         == "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
@@ -150,9 +161,51 @@ def test_spatial_world_model_counterfactual_exported_bundle_validates_runtime_sh
     assert result["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert result["unsafe_payload_bodies_in_receipt"] is False
     assert (
+        result["source_module_import_status"]
+        == "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_module_summary"]["status"] == "pass"
+    assert result["source_module_summary"]["module_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert result["source_module_summary"]["public_safe_body_material_ids"] == (
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
         result["payload_boundary"]["boundary_id"]
         == "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
     )
     encoded = json.dumps(result, sort_keys=True)
     assert "body_redacted" not in encoded
     assert "private_state_scan" not in encoded
+
+
+def test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports(
+    tmp_path: Path,
+) -> None:
+    result = run_simulation_bundle(
+        BUNDLE_INPUT,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "spatial_world_model_counterfactual_simulation_replay",
+        command="pytest",
+    )
+
+    modules = {
+        row["module_id"]: row
+        for row in result["source_module_summary"]["modules"]
+    }
+    assert set(modules) == set(SPATIAL_SOURCE_BODY_MATERIAL_IDS)
+    for material_id in SPATIAL_SOURCE_BODY_MATERIAL_IDS:
+        row = modules[material_id]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
+        source = MICROCOSM_ROOT.parent / row["source_ref"]
+        assert source.is_file()
+        assert target.is_file()
+        assert row["status"] == "pass"
+        assert row["material_class"] == "public_macro_tool_body"
+        assert row["classification"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["target_body_digest"] == _sha256_ref(target)
+        assert _sha256_ref(source) == _sha256_ref(target)

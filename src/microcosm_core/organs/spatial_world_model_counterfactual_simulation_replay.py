@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -37,6 +38,7 @@ ACCEPTANCE_RECEIPT_REL = (
     "spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_spatial_world_model_simulation_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 PAYLOAD_BOUNDARY_ID = (
     "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
 )
@@ -49,6 +51,7 @@ INPUT_NAMES = (
     "replay_policy.json",
     "scene_states.json",
     "counterfactual_replays.json",
+    SOURCE_MODULE_MANIFEST_NAME,
 )
 NEGATIVE_INPUT_NAMES = (
     "private_video_export.json",
@@ -140,6 +143,8 @@ ANTI_CLAIM = (
     "geographic accuracy, sell a simulator product, use generated video as sole "
     "authority, report benchmark scores, or authorize release."
 )
+SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
+BODY_DIGEST_PREFIX = "sha256:"
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -170,11 +175,168 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    paths = [input_dir / name for name in names]
+    paths = [input_dir / name for name in names if (input_dir / name).is_file()]
     manifest = input_dir / "bundle_manifest.json"
     if manifest.is_file():
         paths.append(manifest)
     return paths
+
+
+def _target_path_for_ref(target_ref: str, *, public_root: Path) -> Path:
+    target = target_ref.removeprefix("microcosm-substrate/")
+    return public_root / target
+
+
+def _source_file_candidates(source_ref: str, *, public_root: Path) -> list[Path]:
+    rel = Path(source_ref.split("::", 1)[0])
+    if rel.is_absolute() or ".." in rel.parts:
+        return []
+    candidates = [public_root / rel, public_root.parent / rel, Path.cwd() / rel]
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = str(candidate.resolve(strict=False))
+        if key not in seen:
+            seen.add(key)
+            unique.append(candidate)
+    return unique
+
+
+def _first_existing_source(source_ref: str, *, public_root: Path) -> Path | None:
+    for candidate in _source_file_candidates(source_ref, public_root=public_root):
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _sha256_hex(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _sha256_ref(path: Path) -> str:
+    return f"{BODY_DIGEST_PREFIX}{_sha256_hex(path)}"
+
+
+def _line_count(path: Path) -> int:
+    return len(path.read_text(encoding="utf-8").splitlines())
+
+
+def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list[Path]:
+    if not isinstance(manifest_payload, dict):
+        return []
+    paths: list[Path] = []
+    for row in _rows(manifest_payload, "modules"):
+        target_ref = row.get("target_ref")
+        if isinstance(target_ref, str) and target_ref:
+            target = _target_path_for_ref(target_ref, public_root=public_root)
+            if target.is_file():
+                paths.append(target)
+    return paths
+
+
+def _source_module_manifest_result(
+    manifest_payload: object,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    if not isinstance(manifest_payload, dict):
+        return {
+            "status": "not_present",
+            "body_import_status": "not_present",
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "public_safe_body_material_ids": [],
+            "body_text_in_receipt": False,
+            "findings": [],
+        }
+
+    findings: list[dict[str, Any]] = []
+    module_results: list[dict[str, Any]] = []
+    for row in _rows(manifest_payload, "modules"):
+        module_id = str(row.get("module_id") or "source_module")
+        source_ref = str(row.get("source_ref") or "")
+        target_ref = str(row.get("target_ref") or "")
+        target = _target_path_for_ref(target_ref, public_root=public_root)
+        row_findings: list[str] = []
+
+        if row.get("classification") != "copied_non_secret_macro_body":
+            row_findings.append("classification_must_be_copied_non_secret_macro_body")
+        if row.get("material_class") != "public_macro_tool_body":
+            row_findings.append("material_class_must_be_public_macro_tool_body")
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            row_findings.append("body_must_be_copied_without_receipt_body_text")
+        if not target.is_file():
+            row_findings.append("target_ref_missing")
+
+        target_digest = _sha256_hex(target) if target.is_file() else ""
+        if target_digest and row.get("target_sha256") != target_digest:
+            row_findings.append("target_sha256_mismatch")
+        if target_digest and row.get("source_sha256") != target_digest:
+            row_findings.append("source_target_sha256_mismatch")
+        if row.get("sha256_match") is not True:
+            row_findings.append("sha256_match_must_be_true")
+
+        required_anchors = _strings(row.get("required_anchors"))
+        target_text = target.read_text(encoding="utf-8") if target.is_file() else ""
+        missing_anchors = [anchor for anchor in required_anchors if anchor not in target_text]
+        if missing_anchors:
+            row_findings.append("required_anchor_missing")
+
+        source = _first_existing_source(source_ref, public_root=public_root)
+        if source is not None:
+            source_digest = _sha256_hex(source)
+            if source_digest != target_digest:
+                row_findings.append("available_source_digest_mismatch")
+            if row.get("line_count") != _line_count(source):
+                row_findings.append("source_line_count_mismatch")
+
+        if row_findings:
+            findings.append(
+                {
+                    "error_code": "SPATIAL_SOURCE_MODULE_IMPORT_INVALID",
+                    "module_id": module_id,
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "missing_anchors": missing_anchors,
+                    "reasons": row_findings,
+                }
+            )
+        module_results.append(
+            {
+                "module_id": module_id,
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "material_class": row.get("material_class"),
+                "classification": row.get("classification"),
+                "body_copied": row.get("body_copied"),
+                "body_in_receipt": row.get("body_in_receipt"),
+                "source_sha256": row.get("source_sha256"),
+                "target_sha256": row.get("target_sha256"),
+                "target_body_digest": _sha256_ref(target) if target.is_file() else "",
+                "line_count": row.get("line_count"),
+                "anchor_count": row.get("anchor_count"),
+                "required_anchors": required_anchors,
+                "status": PASS if not row_findings else "blocked",
+            }
+        )
+
+    status = PASS if module_results and not findings else "blocked"
+    return {
+        "status": status,
+        "body_import_status": SOURCE_MODULE_IMPORT_STATUS
+        if status == PASS
+        else "blocked",
+        "manifest_id": manifest_payload.get("manifest_id"),
+        "bundle_id": manifest_payload.get("bundle_id"),
+        "module_count": len(module_results),
+        "verified_module_count": sum(1 for row in module_results if row["status"] == PASS),
+        "module_ids": [row["module_id"] for row in module_results],
+        "public_safe_body_material_ids": [row["module_id"] for row in module_results],
+        "modules": module_results,
+        "body_text_in_receipt": False,
+        "findings": findings,
+    }
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -398,6 +560,10 @@ def _build_result(
     replay_policy = payloads.get("replay_policy", {})
     scene_states = _rows(payloads.get("scene_states", {}), "scene_states")
     replays = _rows(payloads.get("counterfactual_replays", {}), "counterfactual_replays")
+    source_module_summary = _source_module_manifest_result(
+        payloads.get("source_module_manifest"),
+        public_root=public_root,
+    )
     observed_negative_codes: dict[str, set[str]] = defaultdict(set)
     positive_findings: list[dict[str, Any]] = []
 
@@ -498,10 +664,17 @@ def _build_result(
         and all(row.get("generated_video_only_authority") is False for row in replays)
         and all(row.get("geographic_accuracy_claim") is False for row in replays)
         and all(row.get("release_authorized") is False for row in replays)
+        and source_module_summary["status"] != "blocked"
     )
 
     scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        [
+            *_input_paths(input_dir, include_negative=include_negative),
+            *_source_module_paths(
+                payloads.get("source_module_manifest"),
+                public_root=public_root,
+            ),
+        ],
         forbidden_classes=load_forbidden_classes(
             public_root / "core/private_state_forbidden_classes.json"
         ),
@@ -559,6 +732,8 @@ def _build_result(
         "finding_count": len(positive_findings),
         "positive_findings": positive_findings,
         "negative_case_findings": negative_findings,
+        "source_module_import_status": source_module_summary["body_import_status"],
+        "source_module_summary": source_module_summary,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -609,6 +784,10 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         else 0,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "source_module_import_status": result.get("source_module_import_status"),
+        "source_module_count": (result.get("source_module_summary") or {}).get(
+            "module_count", 0
+        ),
     }
 
 
@@ -648,6 +827,10 @@ def _write_receipts(
         ),
         "observed_negative_case_count": (result.get("negative_case_summary") or {}).get(
             "observed_negative_case_count"
+        ),
+        "source_module_import_status": result.get("source_module_import_status"),
+        "source_module_count": (result.get("source_module_summary") or {}).get(
+            "module_count", 0
         ),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,

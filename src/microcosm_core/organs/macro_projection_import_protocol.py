@@ -713,6 +713,54 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "spatial_world_model_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The spatial world-model replay organ now carries exact copied "
+            "non-secret Station geometry checker, regression-test, and UI "
+            "build-wiring bodies inside public source-module bundles, "
+            "validated by digest, anchor, source-module manifest, payload "
+            "boundary, and secret-exclusion checks without exporting browser/"
+            "HUD live access, account/session state, provider payloads, "
+            "credential-equivalent material, private video, raw sensor bodies, "
+            "or simulator-product authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/spatial_world_model_counterfactual_simulation_replay/"
+                "exported_spatial_world_model_simulation_bundle/source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "spatial_world_model_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "factory/check_station_geometry.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/server/"
+                "tests/test_station_geometry_check.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/server/"
+                "ui/package.json"
+            ),
+            "tests/test_spatial_world_model_counterfactual_simulation_replay.py",
+            "tests/test_macro_projection_import_protocol.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/"
+            "test_spatial_world_model_counterfactual_simulation_replay.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "navigation_coverage_matrix_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

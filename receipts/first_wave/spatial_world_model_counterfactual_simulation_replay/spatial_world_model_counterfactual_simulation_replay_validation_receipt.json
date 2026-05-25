@@ -19,7 +19,7 @@
     "trained_simulator_claim_authorized": false
   },
   "board_ref": "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_board.json",
-  "created_at": "2026-05-22T03:18:42+00:00",
+  "created_at": "2026-05-25T17:42:59+00:00",
   "expected_negative_case_count": 8,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "observed_negative_case_count": 8,
@@ -33,6 +33,8 @@
   "replay_count": 6,
   "result_ref": "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_result.json",
   "schema_version": "spatial_world_model_counterfactual_simulation_replay_validation_receipt_v1",
+  "source_module_count": 0,
+  "source_module_import_status": "not_present",
   "status": "pass",
   "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
 }
