@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+from pathlib import Path
 
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
@@ -68,12 +70,18 @@ from microcosm_core.validators import standards_registry
 from microcosm_core.validators import transaction_evidence_stability
 
 
+MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PROOF_LAB_INPUT = (
+    MICROCOSM_ROOT / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
+)
+DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
+
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm compile <project>     build local .microcosm state
   microcosm tour <project>        inspect route/work/event/evidence/proof refs
   microcosm status --card         read the compressed runtime status lens
   microcosm serve <project>       open the local observatory
-  microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+  microcosm proof-lab --out /tmp/microcosm-proof-lab
 
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
@@ -95,6 +103,63 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--readiness", required=True)
     parser.add_argument("--negative-matrix", required=True)
     parser.add_argument("--out", required=True)
+
+
+def _print_json(payload: dict) -> int:
+    print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
+    return 0 if payload.get("status") == "pass" else 1
+
+
+def _proof_lab_first_screen_card(
+    result: dict,
+    *,
+    input_path: str,
+    out_dir: str,
+    command: str,
+) -> dict:
+    metrics = result.get("proof_lab_component_metrics") or {}
+    return {
+        "schema_version": "microcosm_proof_lab_first_screen_card_v1",
+        "status": result.get("status"),
+        "command": command,
+        "expanded_command": (
+            "microcosm verifier-lab-kernel run-kernel-bundle "
+            f"--input {input_path} --out {out_dir}"
+        ),
+        "input_ref": input_path,
+        "out_ref": out_dir,
+        "receipt_refs": result.get("receipt_paths") or [],
+        "proof_lab_route_id": result.get("proof_lab_route_id"),
+        "proof_lab_route_component_count": result.get(
+            "proof_lab_route_component_count"
+        ),
+        "lean_lake_return_code": result.get("lean_lake_return_code"),
+        "lean_compiled_declaration_count": result.get(
+            "lean_compiled_declaration_count"
+        ),
+        "component_metrics": {
+            "corpus_count": metrics.get("corpus_count"),
+            "retrieval_query_count": metrics.get("retrieval_query_count"),
+            "ring2_mean_precision_at_k": metrics.get("ring2_mean_precision_at_k"),
+            "proof_diagnostic_accepted_count": metrics.get(
+                "proof_diagnostic_accepted_count"
+            ),
+        },
+        "safe_to_show": {
+            "body_in_receipt": result.get("body_in_receipt"),
+            "proof_bodies_exported": False,
+            "provider_payloads_exported": False,
+            "credential_equivalent_payloads_exported": False,
+            "receipt_refs_visible": True,
+        },
+        "authority_ceiling": result.get("authority_ceiling"),
+        "anti_claim": result.get("anti_claim"),
+        "next_commands": [
+            "microcosm status --card",
+            "microcosm proof-loop-depth",
+            "microcosm evidence list",
+        ],
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -142,6 +207,20 @@ def main(argv: list[str] | None = None) -> int:
         "--card",
         action="store_true",
         help="emit the compact first-screen status lens",
+    )
+    proof_lab_parser = subparsers.add_parser(
+        "proof-lab",
+        help="run the first-screen verifier proof lab",
+    )
+    proof_lab_parser.add_argument(
+        "--input",
+        default=str(DEFAULT_PROOF_LAB_INPUT),
+        help="exported verifier lab bundle",
+    )
+    proof_lab_parser.add_argument(
+        "--out",
+        default=DEFAULT_PROOF_LAB_OUT,
+        help="directory for proof-lab receipts",
     )
     subparsers.add_parser("spine", help="show accepted public runtime spine")
     tour_parser = subparsers.add_parser(
@@ -579,6 +658,21 @@ def main(argv: list[str] | None = None) -> int:
         if args.card:
             command_args.append("--card")
         return runtime_shell.main(command_args)
+    if args.command == "proof-lab":
+        command = f"microcosm proof-lab --input {args.input} --out {args.out}"
+        result = verifier_lab_kernel.run_kernel_bundle(
+            args.input,
+            args.out,
+            command=command,
+        )
+        return _print_json(
+            _proof_lab_first_screen_card(
+                result,
+                input_path=args.input,
+                out_dir=args.out,
+                command=command,
+            )
+        )
     if args.command == "spine":
         return runtime_shell.main(["spine"])
     if args.command == "tour":

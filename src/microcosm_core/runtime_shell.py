@@ -94,10 +94,7 @@ PROOF_LAB_RECEIPT_REF = (
     "receipts/first_wave/verifier_lab_kernel/"
     "exported_verifier_lab_kernel_bundle_validation_result.json"
 )
-PROOF_LAB_FIRST_SCREEN_COMMAND = (
-    "microcosm verifier-lab-kernel run-kernel-bundle "
-    f"--input {PROOF_LAB_BUNDLE_REF} --out /tmp/microcosm-proof-lab"
-)
+PROOF_LAB_FIRST_SCREEN_COMMAND = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
 VERIFIER_EXECUTION_BUNDLE_REF = (
     "examples/verifier_lab_execution_spine/"
     "exported_verifier_lab_execution_spine_bundle"
@@ -2292,7 +2289,7 @@ class RuntimeShell:
                     "microcosm formal-math-lean-proof-witness run-witness-bundle",
                     "microcosm formal-math-premise-retrieval run-retrieval-bundle",
                     "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle",
-                    "microcosm verifier-lab-kernel run-kernel-bundle",
+                    PROOF_LAB_FIRST_SCREEN_COMMAND,
                     "microcosm verifier-lab-execution-spine run-execution-bundle",
                     "microcosm certificate-kernel-execution-lab run-certificate-bundle",
                     "microcosm formal-evidence-cell-anchor-resolver run-anchor-bundle",

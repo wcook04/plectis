@@ -87,6 +87,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "microcosm tour <project>        inspect route/work/event/evidence/proof refs" in output
     assert "microcosm status --card         read the compressed runtime status lens" in output
     assert "microcosm serve <project>       open the local observatory" in output
+    assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
     assert "no provider calls, source mutation, release," in output
     assert "Receipts are evidence drilldowns after the behavior route is visible." in output
     for command in [
@@ -94,6 +95,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "python-lens",
         "explain",
         "status",
+        "proof-lab",
         "spine",
         "tour",
         "authority",
@@ -104,9 +106,43 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     for drilldown_command in [
         "private-state-scan",
         "macro-projection-import-protocol",
+        "verifier-lab-kernel",
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_proof_lab_alias_prints_first_screen_card(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    out_dir = tmp_path / "proof-lab"
+    status = cli.main(
+        [
+            "proof-lab",
+            "--input",
+            str(MICROCOSM_ROOT / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"),
+            "--out",
+            str(out_dir),
+        ]
+    )
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+    receipt = out_dir / "exported_verifier_lab_kernel_bundle_validation_result.json"
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["command"].startswith("microcosm proof-lab")
+    assert payload["proof_lab_route_id"] == "formal_prover_context_strategy_gate"
+    assert payload["proof_lab_route_component_count"] == 9
+    assert payload["lean_lake_return_code"] == 0
+    assert payload["lean_compiled_declaration_count"] == 8
+    assert payload["safe_to_show"]["body_in_receipt"] is False
+    assert payload["safe_to_show"]["proof_bodies_exported"] is False
+    assert payload["safe_to_show"]["provider_payloads_exported"] is False
+    assert receipt.is_file()
+    assert str(receipt) in payload["receipt_refs"]
 
 
 def test_cli_pattern_route_readiness_accepts_exported_bundle(tmp_path: Path) -> None:
@@ -261,7 +297,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 33
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 63
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
@@ -977,7 +1013,7 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert payload["bridge_id"] == "runtime_reveal_import_bridge"
-    assert payload["projection_cell_count"] == 14
+    assert payload["projection_cell_count"] == 24
     by_cell = {row["cell_id"]: row for row in payload["cell_status"]}
     assert by_cell["agent_observability_store_import"]["projection_status"] == (
         "public_runtime_import_landed"
@@ -1020,7 +1056,7 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 14
+    assert payload["projection_intake_board"]["ready_cell_count"] == 24
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"

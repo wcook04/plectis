@@ -266,10 +266,9 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "microcosm formal-math-verifier-trace-repair-loop run-loop-bundle"
         in status["runtime_surface"]["commands"]
     )
-    assert (
-        "microcosm verifier-lab-kernel run-kernel-bundle"
-        in status["runtime_surface"]["commands"]
-    )
+    assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in status[
+        "runtime_surface"
+    ]["commands"]
     assert (
         "microcosm verifier-lab-execution-spine run-execution-bundle"
         in status["runtime_surface"]["commands"]

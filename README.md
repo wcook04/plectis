@@ -16,7 +16,7 @@ microcosm python-lens .
 microcosm explain . readme_onboarding_route
 microcosm evidence list .
 microcosm status --card
-microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm serve . --host 127.0.0.1 --port 8765
 ```
@@ -44,14 +44,15 @@ evidence-strength claim.
 The first proof-lab route is runnable from a clean clone:
 
 ```bash
-microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+microcosm proof-lab --out /tmp/microcosm-proof-lab
 ```
 
 It is backed by
 `receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json`
 and route metadata at
 `examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json`.
-That receipt validates route `formal_prover_context_strategy_gate` with 9 route
+The command prints a compact proof-lab card and writes that receipt; the receipt
+validates route `formal_prover_context_strategy_gate` with 9 route
 components, Lean/Lake return code `0`, 8 compiled declarations, retrieval
 recall `1.0`, Ring2 precision/recall `0.36`/`0.9`, 5 target-shape cases, and 5
 verifier attempts. It does not export proof bodies, provider payloads,
@@ -193,7 +194,7 @@ microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm evidence list /tmp/microcosm-scratch
 microcosm status
-microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 ```
@@ -207,6 +208,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli status
+PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 ```
 
 The older organ-adapter demo still exists for internal evidence and regression:
@@ -986,7 +988,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli provider-context-recipe-budget-poli
 PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness
 PYTHONPATH=src python3 -m microcosm_core.cli formal-math-lean-proof-witness run-witness-bundle --input examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle --out receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness
 PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel
-PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_kernel
+PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out receipts/runtime_shell/demo_project/organs/verifier_lab_kernel
 PYTHONPATH=src python3 -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough
 PYTHONPATH=src python3 -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol
 PYTHONPATH=src python3 -m microcosm_core.cli macro-projection-import-protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol
