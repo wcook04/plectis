@@ -6,6 +6,10 @@
     "core/pattern_binding_contract.json",
     "core/fixture_manifests/pattern_binding_contract.fixture_manifest.json",
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_route_readiness_audit.json",
+    "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_organ_route_cards.json",
+    "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
     "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
@@ -73,6 +77,46 @@
       "release_authorized": false
     },
     "authority": "receipt-backed verifier-lab route projection, not theorem proof authority, provider authority, release authority, or source mutation authority"
+  },
+  "pattern_route_readiness_route": {
+    "surface_id": "pattern_route_readiness_selector_admission",
+    "organ_id": "pattern_binding_contract",
+    "command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "compatibility_command": "microcosm pattern-binding validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "route_ref": "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_route_readiness_audit.json",
+    "receipt_ref": "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
+    "standard_refs": [
+      "codex/standards/std_extracted_pattern_route_readiness.json",
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "standards/std_microcosm_pattern_binding_contract.json"
+    ],
+    "paper_module_ref": "paper_modules/pattern_binding_contract.md",
+    "entry_role": "selector admission gate before mined pattern rows can route into public organs",
+    "expected_receipt_fields": [
+      "route_readiness_summary",
+      "selection_contract",
+      "source_manifest",
+      "source_validation_report_summary",
+      "authority_ceiling",
+      "secret_exclusion_scan"
+    ],
+    "selector_must_open": [
+      "row_to_organ_router",
+      "organ_route_cards",
+      "organ_fixture_specs",
+      "route_readiness_audit"
+    ],
+    "safe_to_show": {
+      "route_metadata_visible": true,
+      "receipt_refs_visible": true,
+      "overlay_bodies_exported": true,
+      "individual_pattern_row_selection_authorized": false,
+      "public_leaf_authority": false,
+      "release_authorized": false,
+      "publication_authorized": false,
+      "private_data_equivalence_claim": false
+    },
+    "authority": "selector-readiness validation only, not standalone pattern-leaf authority, source authority, release authority, or publication authority"
   },
   "doctrine_navigation_route": {
     "surface_id": "microcosm_doctrine_navigation",
@@ -149,6 +193,9 @@
       "codex/standards/std_standard_type_plane.json",
       "codex/standards/std_kind_atlas.json",
       "codex/standards/std_uppropagation_intake.json",
+      "codex/standards/std_extracted_pattern_route_readiness.json",
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "microcosm-substrate/standards/std_microcosm_pattern_binding_contract.json",
       "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json"
     ],
     "paper_module_refs": [
@@ -183,7 +230,7 @@
         "command": "./repo-python kernel.py --option-surface axiom_candidates --band flag"
       }
     ],
-    "selection_rule": "Start from proof_lab_route for visible behavior, then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns; do not treat candidate axioms as active law.",
+    "selection_rule": "Start from proof_lab_route for visible behavior; use pattern_route_readiness_route before treating imported pattern rows as selectable; then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns. Do not treat candidate axioms as active law.",
     "authority": "navigation lattice only, not source authority, release authority, proof authority, doctrine-promotion authority, or candidate-axiom promotion authority"
   },
   "banned_routes": [
@@ -199,6 +246,7 @@
   "receipt_dependencies": [
     "receipts/first_wave/public_entry_docs_validation.json",
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/cold_clone_probe.json"
   ],

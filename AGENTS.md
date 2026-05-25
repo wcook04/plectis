@@ -108,6 +108,11 @@ imported macro body.
    runtime organs, first-run command path, counts, evidence policy, explicit
    `evidence_class` rows, and
    secret-only boundary without forcing a cold reader into raw receipts first.
+   The pattern route-readiness loop is `microcosm pattern-route-readiness
+   validate-bundle`; it should validate the exported route-readiness selector
+   overlays before any mined pattern row is treated as selectable. It keeps
+   pattern selection organ-first and fixture-bound, with no standalone public
+   leaf, release, publication, or private-data equivalence authority.
    The workingness map is `microcosm workingness`; it should compare each
    organ's required substrate against observed evidence and owning-standard
    failure modes.

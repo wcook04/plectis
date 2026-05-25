@@ -19,6 +19,7 @@ microcosm workingness
 microcosm proof-loop-depth
 microcosm verifier-lab-execution-spine-lens
 microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
+microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm reveal
 microcosm legibility-scorecard
 microcosm market-boundary
@@ -58,6 +59,11 @@ components, Lean/Lake return code `0`, 8 compiled declarations, retrieval
 recall `1.0`, Ring2 precision/recall `0.36`/`0.9`, 5 target-shape cases, and 5
 verifier attempts. It does not export proof bodies, provider payloads,
 credentials, account/session state, or release authority.
+
+Pattern rows become routable only through their organ and fixture overlays. The
+route-readiness command validates the exported selector bundle and writes
+`exported_route_readiness_bundle_validation_result.json`; it does not make any
+mined pattern row a standalone public leaf.
 
 ## Real Substrate Posture
 
@@ -198,6 +204,7 @@ microcosm repair-loop
 microcosm evidence-cells
 microcosm proof-loop-depth
 microcosm verifier-lab-execution-spine-lens
+microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm landing-replay
 microcosm durable-agent-work-landing-replay run-work-landing-bundle --input examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay
 microcosm work-landing-control-spine validate-control-bundle --input examples/work_landing_control_spine/exported_work_landing_control_bundle --out receipts/first_wave/work_landing_control_spine

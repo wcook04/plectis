@@ -125,6 +125,7 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "dependency-preflight",
         "fixture-freshness",
         "pattern-binding",
+        "pattern-route-readiness",
         "finance-eval-spine",
         "work-landing-control-spine",
         "executable-doctrine-grammar",
@@ -167,6 +168,37 @@ def test_cli_help_lists_public_runtime_spine_commands(capsys: pytest.CaptureFixt
         "mechanistic-interpretability-circuit-attribution-replay",
     ]:
         assert command in output
+
+
+def test_cli_pattern_route_readiness_accepts_exported_bundle(tmp_path: Path) -> None:
+    out_dir = tmp_path / "pattern-route-readiness"
+    status = cli.main(
+        [
+            "pattern-route-readiness",
+            "validate-bundle",
+            "--input",
+            str(MICROCOSM_ROOT / "examples/pattern_binding_contract/exported_route_readiness_bundle"),
+            "--out",
+            str(out_dir),
+        ]
+    )
+
+    result = json.loads(
+        (out_dir / "exported_route_readiness_bundle_validation_result.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert status == 0
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_route_readiness_bundle"
+    assert result["route_readiness_summary"]["status"] == "ok"
+    assert result["selection_contract"]["selector_must_open"] == [
+        "row_to_organ_router",
+        "organ_route_cards",
+        "organ_fixture_specs",
+        "route_readiness_audit",
+    ]
+    assert result["authority_ceiling"]["public_leaf_authority"] is False
 
 
 def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:

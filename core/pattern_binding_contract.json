@@ -31,15 +31,36 @@
     "receipts/first_wave/pattern_binding_contract/source_capsules.json",
     "receipts/first_wave/pattern_binding_contract/omission_receipt.json",
     "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
-    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json"
+    "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json",
+    "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json"
   ],
   "input_modes": [
     "first_wave_fixture_regression",
-    "exported_substrate_bundle"
+    "exported_substrate_bundle",
+    "exported_route_readiness_bundle"
   ],
   "runtime_adapter_outputs": [
-    "receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json"
+    "receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json",
+    "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json"
   ],
+  "route_readiness_admission": {
+    "input_mode": "exported_route_readiness_bundle",
+    "public_command": "microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "compatibility_command": "microcosm pattern-binding validate-route-readiness-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness",
+    "governing_standard_refs": [
+      "codex/standards/std_extracted_pattern_route_readiness.json",
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "microcosm-substrate/standards/std_microcosm_pattern_binding_contract.json"
+    ],
+    "receipt_output": "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
+    "selector_must_open": [
+      "row_to_organ_router",
+      "organ_route_cards",
+      "organ_fixture_specs",
+      "route_readiness_audit"
+    ],
+    "authority": "selector admission only; mined rows remain organ-first and fixture-bound, not standalone public leaves"
+  },
   "authority_ceiling": "binding validation is a contract check over source-available pattern rows, not source authority or public leaf readiness",
   "anti_claim": "Pattern binding accepts source-available substrate-shaped rows and fixture regression rows; it never accepts source bodies as authority."
 }

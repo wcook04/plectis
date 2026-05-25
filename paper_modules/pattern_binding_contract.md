@@ -24,6 +24,12 @@ matrix, dependency DAG, internal routing graph, and copied macro validation
 report. This closes the old gap where a mined pattern row could look selectable
 without opening the organ bundle that owns it.
 
+Cold readers should use `microcosm pattern-route-readiness validate-bundle`
+against `examples/pattern_binding_contract/exported_route_readiness_bundle/`
+when the question is selector admission rather than generic pattern binding.
+The older `pattern-binding validate-route-readiness-bundle` action remains a
+compatibility route to the same validator.
+
 ## Receipt Expectations
 
 The primary receipt is
@@ -35,7 +41,8 @@ receipts must expose `secret_exclusion_scan`, `body_in_receipt`,
 `synthetic_receipt_standin_allowed: false`. The substrate-bundle receipt must
 also expose `real_pattern_route_readiness_consumed`,
 `route_readiness_summary`, `selection_contract`, `source_manifest`, and
-`route_readiness_error_rules`.
+`route_readiness_error_rules`. The standalone route-readiness receipt is
+`receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json`.
 
 ## Anti-Claim
 

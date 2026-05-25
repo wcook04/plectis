@@ -213,6 +213,9 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     _add_input_out(organ_parser)
+    route_readiness_parser = subparsers.add_parser("pattern-route-readiness")
+    route_readiness_parser.add_argument("action", choices=["validate-bundle"])
+    _add_input_out(route_readiness_parser)
 
     finance_eval_parser = subparsers.add_parser("finance-eval-spine")
     finance_eval_parser.add_argument("action", choices=["validate-finance-eval-bundle"])
@@ -697,6 +700,16 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "pattern-binding":
         return pattern_binding_contract.main([args.action, "--input", args.input, "--out", args.out])
+    if args.command == "pattern-route-readiness":
+        return pattern_binding_contract.main(
+            [
+                "validate-route-readiness-bundle",
+                "--input",
+                args.input,
+                "--out",
+                args.out,
+            ]
+        )
     if args.command == "finance-eval-spine":
         return finance_eval_spine.main(
             [args.action, "--input", args.input, "--out", args.out]
