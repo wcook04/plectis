@@ -96,6 +96,9 @@ BRIDGE_ROUTE_CONFIG_MANIFEST = (
 KERNEL_BRIDGE_CONFIG_MANIFEST = (
     BUNDLE_INPUT / "kernel_bridge_config_source_module_manifest.json"
 )
+OBSERVE_RUNTIME_MANIFEST = (
+    BUNDLE_INPUT / "observe_runtime_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1275,6 +1278,180 @@ with tempfile.TemporaryDirectory() as tmp:
         "workers_auto": "auto",
         "workers_two": "2",
     }
+
+
+def test_observe_runtime_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        OBSERVE_RUNTIME_MANIFEST,
+        manifest_id="observe_runtime_source_modules_import",
+        module_count=5,
+    )
+
+
+def test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract() -> None:
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    source_paths = [
+        source_modules_root / "system/lib/codex_paths.py",
+        source_modules_root / "system/lib/markdown_routing.py",
+        source_modules_root / "system/lib/observe_memory.py",
+        source_modules_root / "system/lib/observe_surfaces.py",
+        source_modules_root / "system/lib/observe_runtime.py",
+    ]
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    observe_runtime_text = source_paths[-1].read_text(encoding="utf-8")
+    observe_surfaces_text = source_paths[-2].read_text(encoding="utf-8")
+    assert "def resolve_group_evidence_contract(" in observe_runtime_text
+    assert "def grouped_runtime_status_payload(" in observe_runtime_text
+    assert "def request_grouped_runtime_cancel(" in observe_runtime_text
+    assert "def build_observe_resume_surface(" in observe_surfaces_text
+
+    code = f"""
+import json
+import sys
+import tempfile
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib import observe_runtime, observe_surfaces
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    (root / "master_config.json").write_text(
+        json.dumps({{
+            "observe": {{
+                "max_recommended_prompt_chars": {{"value": 12345}},
+                "max_hard_prompt_chars": {{"value": 45678}},
+            }},
+            "execution": {{"max_workers": {{"value": 4}}}},
+        }}),
+        encoding="utf-8",
+    )
+    budget = observe_runtime.resolve_bridge_prompt_budget(root)
+    workers = observe_runtime.resolve_effective_workers(
+        repo_root=root,
+        requested_workers="auto",
+        launch_profile="safe",
+        wave_size=10,
+    )
+    evidence = observe_runtime.resolve_group_evidence_contract(
+        root,
+        plan_context_files=["docs/plan.md", "src/app.py"],
+        group_context_files=["docs/group.md"],
+        targets=[{{"file": "src/app.py", "scope": "full"}}],
+    )
+    waves, wave_by_label = observe_runtime.grouped_observe_waves([
+        {{"label": "first"}},
+        {{"label": "second", "depends_on": ["first"]}},
+    ])
+    history_dir = root / "tools/meta/apply/observe_history"
+    history_entry = history_dir / "entries/OBS_PUBLIC.json"
+    history_entry.parent.mkdir(parents=True, exist_ok=True)
+    history_entry.write_text(
+        json.dumps({{
+            "observe_id": "OBS_PUBLIC",
+            "result_note": {{"path": "obsidian/results/final.md"}},
+            "continuation": {{"read_paths": ["obsidian/results/final.md"]}},
+            "groups": [
+                {{
+                    "label": "done",
+                    "role": "probe",
+                    "response_file": "responses/done.md",
+                    "response_status": "success",
+                }}
+            ],
+        }}),
+        encoding="utf-8",
+    )
+    observe_runtime.write_grouped_runtime_manifest(
+        history_dir,
+        {{
+            "kind": "grouped_observe",
+            "observe_id": "OBS_PUBLIC",
+            "state": "dispatching",
+            "launch_profile": "safe",
+            "requested_workers": "auto",
+            "effective_workers": 2,
+            "wave_index": 0,
+            "wave_total": 1,
+            "total_groups": 2,
+            "completed_groups": 1,
+            "pid": None,
+            "updated_at": "2026-05-25T00:00:00+00:00",
+            "groups": [
+                {{"label": "done", "runtime_state": "success", "response_status": "success"}},
+                {{"label": "pending", "runtime_state": "running"}},
+            ],
+            "artifacts": {{
+                "history_entry": "tools/meta/apply/observe_history/entries/OBS_PUBLIC.json",
+                "latest_stable_artifact": "obsidian/results/final.md",
+            }},
+        }},
+    )
+    status = observe_runtime.grouped_runtime_status_payload(root, history_dir, "OBS_PUBLIC")
+    continuation = observe_surfaces.build_grouped_observe_continuation(
+        result_note_rel="obsidian/results/final.md",
+        synthesis_summary={{"path": "obsidian/results/_synthesis.md"}},
+        groups_payload=[
+            {{
+                "label": "done",
+                "response_surface_file": "responses/done.surface.json",
+                "response_file": "responses/done.md",
+            }}
+        ],
+    )
+    payload = {{
+        "budget": budget,
+        "workers": workers,
+        "evidence": evidence,
+        "waves": waves,
+        "wave_by_label": wave_by_label,
+        "status": status,
+        "continuation": continuation,
+    }}
+    print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            code,
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload["budget"] == {
+        "recommended_prompt_chars": 12345,
+        "hard_prompt_chars": 45678,
+    }
+    assert payload["workers"]["effective_workers"] == 4
+    assert payload["workers"]["launch_profile"] == "safe"
+    assert payload["evidence"]["effective_context_files"] == [
+        "docs/plan.md",
+        "docs/group.md",
+    ]
+    assert payload["evidence"]["context_target_overlaps"] == ["src/app.py"]
+    assert payload["waves"] == [["first"], ["second"]]
+    assert payload["wave_by_label"] == {"first": 0, "second": 1}
+    assert payload["status"]["state"] == "dispatching"
+    assert payload["status"]["latest_stable_artifact"] == "obsidian/results/final.md"
+    assert payload["status"]["can_continue"] is True
+    assert payload["status"]["continue_mode"] == "resume_pending"
+    assert payload["status"]["pending_group_labels"] == ["pending"]
+    assert payload["status"]["progress"]["percent_complete"] == 50
+    assert payload["status"]["resume_surface"]["preferred_artifact"] == (
+        "obsidian/results/final.md"
+    )
+    assert payload["continuation"]["read_paths"] == [
+        "obsidian/results/final.md",
+        "obsidian/results/_synthesis.md",
+        "responses/done.surface.json",
+        "responses/done.md",
+    ]
 
 
 def _load_trace_capsule_source_module():

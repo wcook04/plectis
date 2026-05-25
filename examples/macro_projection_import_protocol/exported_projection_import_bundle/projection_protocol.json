@@ -144,7 +144,13 @@
     "system/lib/kernel/config.py",
     "system/lib/kernel/state.py",
     "system/server/tests/test_master_config_loader_parity.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json",
+    "system/lib/codex_paths.py",
+    "system/lib/markdown_routing.py",
+    "system/lib/observe_memory.py",
+    "system/lib/observe_surfaces.py",
+    "system/lib/observe_runtime.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -5217,6 +5223,246 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "codex_paths_body_import",
+      "source_ref": "system/lib/codex_paths.py",
+      "source_refs": [
+        "system/lib/codex_paths.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/codex_paths.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_observe_runtime_source_bodies_into_public_projection_bundle",
+        "bind_observe_runtime_source_bodies_to_macro_projection_body_floor",
+        "preserve_observe_runtime_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public observe runtime source-body import only; not live bridge dispatch, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:14b0f119df8935b004504d5c1fe594f82da307170fa523eaa7420d6ca53ff43d",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/codex_paths.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/codex_paths.py",
+        "source_body_digest": "sha256:14b0f119df8935b004504d5c1fe594f82da307170fa523eaa7420d6ca53ff43d",
+        "target_body_digest": "sha256:14b0f119df8935b004504d5c1fe594f82da307170fa523eaa7420d6ca53ff43d",
+        "source_line_count": 218,
+        "target_line_count": 218,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "markdown_routing_body_import",
+      "source_ref": "system/lib/markdown_routing.py",
+      "source_refs": [
+        "system/lib/markdown_routing.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_observe_runtime_source_bodies_into_public_projection_bundle",
+        "bind_observe_runtime_source_bodies_to_macro_projection_body_floor",
+        "preserve_observe_runtime_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public observe runtime source-body import only; not live bridge dispatch, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:c703f12a7e7d5b88529bb608b2901df450eb97f0c5347cb982d4a2edb7cfbd2e",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/markdown_routing.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py",
+        "source_body_digest": "sha256:c703f12a7e7d5b88529bb608b2901df450eb97f0c5347cb982d4a2edb7cfbd2e",
+        "target_body_digest": "sha256:c703f12a7e7d5b88529bb608b2901df450eb97f0c5347cb982d4a2edb7cfbd2e",
+        "source_line_count": 1257,
+        "target_line_count": 1257,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "observe_memory_body_import",
+      "source_ref": "system/lib/observe_memory.py",
+      "source_refs": [
+        "system/lib/observe_memory.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_memory.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_observe_runtime_source_bodies_into_public_projection_bundle",
+        "bind_observe_runtime_source_bodies_to_macro_projection_body_floor",
+        "preserve_observe_runtime_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public observe runtime source-body import only; not live bridge dispatch, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:452a29dd687e27bf05887543d3abc8b673a7e435651f00e3fba80994a60ccc84",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/observe_memory.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_memory.py",
+        "source_body_digest": "sha256:452a29dd687e27bf05887543d3abc8b673a7e435651f00e3fba80994a60ccc84",
+        "target_body_digest": "sha256:452a29dd687e27bf05887543d3abc8b673a7e435651f00e3fba80994a60ccc84",
+        "source_line_count": 717,
+        "target_line_count": 717,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "observe_surfaces_body_import",
+      "source_ref": "system/lib/observe_surfaces.py",
+      "source_refs": [
+        "system/lib/observe_surfaces.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_surfaces.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_observe_runtime_source_bodies_into_public_projection_bundle",
+        "bind_observe_runtime_source_bodies_to_macro_projection_body_floor",
+        "preserve_observe_runtime_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public observe runtime source-body import only; not live bridge dispatch, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:1ef83fc131c9f3d0b648203d2c226e7916362518f74e3086881f4a6742b9247d",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/observe_surfaces.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_surfaces.py",
+        "source_body_digest": "sha256:1ef83fc131c9f3d0b648203d2c226e7916362518f74e3086881f4a6742b9247d",
+        "target_body_digest": "sha256:1ef83fc131c9f3d0b648203d2c226e7916362518f74e3086881f4a6742b9247d",
+        "source_line_count": 612,
+        "target_line_count": 612,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "observe_runtime_body_import",
+      "source_ref": "system/lib/observe_runtime.py",
+      "source_refs": [
+        "system/lib/observe_runtime.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_runtime.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_observe_runtime_source_bodies_into_public_projection_bundle",
+        "bind_observe_runtime_source_bodies_to_macro_projection_body_floor",
+        "preserve_observe_runtime_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public observe runtime source-body import only; not live bridge dispatch, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:c9d746a8bec2b886133fdc03beb5315d3dc0d9f5c3d6ff17a1fda54132ab3636",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/observe_runtime.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_runtime.py",
+        "source_body_digest": "sha256:c9d746a8bec2b886133fdc03beb5315d3dc0d9f5c3d6ff17a1fda54132ab3636",
+        "target_body_digest": "sha256:c9d746a8bec2b886133fdc03beb5315d3dc0d9f5c3d6ff17a1fda54132ab3636",
+        "source_line_count": 1686,
+        "target_line_count": 1686,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -5345,7 +5591,13 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_master_config_loader_parity.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/codex_paths.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/markdown_routing.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_memory.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_surfaces.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_runtime.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -5447,7 +5699,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_bridge_config_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_bridge_config_sources_compile_and_preserve_master_config_runtime_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_observe_runtime_sources_compile_and_preserve_grouped_runtime_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
