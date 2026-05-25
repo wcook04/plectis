@@ -1,0 +1,101 @@
+{
+  "schema_version": "macro_projection_kernel_bridge_config_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "kernel_bridge_config_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access",
+  "body_storage_policy": "exact_non_secret_kernel_bridge_config_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and local config behavior checks but never duplicate full source bodies, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "CLI subprocess execution payloads",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and local tmpdir master_config behavior checks; copied source modules are body evidence, not authority to call providers, execute local CLIs, access browser/HUD state, emit provider payload bodies, write generated state, mutate private state, or claim release authority.",
+  "module_count": 3,
+  "modules": [
+    {
+      "module_id": "kernel_bridge_config_body_import",
+      "source_ref": "system/lib/kernel/config.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
+      "source_role": "Kernel master_config and bridge runtime configuration resolver that loads configuration tolerantly, derives bridge timeouts, coerces worker counts, and resolves provider/route settings without starting providers or managing bridge processes.",
+      "required_anchors": [
+        "def load_master_config_at(",
+        "def default_bridge_timeout_s(",
+        "def resolve_bridge_runtime_config(",
+        "def coerce_bridge_workers_arg(",
+        "from system.lib.kernel import state",
+        "Non-goal: Does not start or manage bridge processes."
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_or_account_session_state",
+      "source_sha256": "59d4f06c7bd6d6dfbe75bcb9ad2ad10b99433510addca77c479c9cc0f220a45c",
+      "target_sha256": "59d4f06c7bd6d6dfbe75bcb9ad2ad10b99433510addca77c479c9cc0f220a45c",
+      "sha256_match": true,
+      "line_count": 239,
+      "byte_count": 11757,
+      "anchor_count": 6
+    },
+    {
+      "module_id": "kernel_bridge_state_body_import",
+      "source_ref": "system/lib/kernel/state.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
+      "source_role": "Kernel shared-state path and constant registry that supplies REPO_ROOT, bridge timeout defaults, stable command groups, and bootstrap-time path derivations consumed by the config resolver.",
+      "required_anchors": [
+        "KERNEL_VERSION = \"1.0.0\"",
+        "DEFAULT_BRIDGE_TIMEOUT_S = 1500.0",
+        "STABLE_COMMANDS = {",
+        "def init(repo_root: Path) -> None:",
+        "from system.lib.observe_assets import observe_asset_paths",
+        "def repo_root_resolved() -> Path:"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_or_account_session_state",
+      "source_sha256": "cd824f3fe81a1ae16271b260d9d94d26f0757e27c7d596b3fc893fc70b9264d4",
+      "target_sha256": "cd824f3fe81a1ae16271b260d9d94d26f0757e27c7d596b3fc893fc70b9264d4",
+      "sha256_match": true,
+      "line_count": 337,
+      "byte_count": 16007,
+      "anchor_count": 6
+    },
+    {
+      "module_id": "kernel_bridge_config_parity_test_body_import",
+      "source_ref": "system/server/tests/test_master_config_loader_parity.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_master_config_loader_parity.py",
+      "source_role": "Focused characterization test body for master_config loader parity across missing, empty, malformed, non-object, partial, and full configuration inputs without mutating live repository config.",
+      "required_anchors": [
+        "EXPECTED_MATRIX",
+        "def _call_loader(name: str, tmp_path: Path, monkeypatch: pytest.MonkeyPatch)",
+        "def test_master_config_loader_parity(",
+        "kernel_canonical",
+        "No test mutates the live repository config."
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_or_account_session_state",
+      "source_sha256": "fc13c97b09d4651f600cc1646ec0fcfa5562b870980fbda834b290ef7abc58b9",
+      "target_sha256": "fc13c97b09d4651f600cc1646ec0fcfa5562b870980fbda834b290ef7abc58b9",
+      "sha256_match": true,
+      "line_count": 176,
+      "byte_count": 7444,
+      "anchor_count": 5
+    }
+  ]
+}

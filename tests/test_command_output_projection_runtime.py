@@ -93,6 +93,9 @@ AGENT_PROVIDER_ROUTER_MANIFEST = (
 BRIDGE_ROUTE_CONFIG_MANIFEST = (
     BUNDLE_INPUT / "bridge_route_config_source_module_manifest.json"
 )
+KERNEL_BRIDGE_CONFIG_MANIFEST = (
+    BUNDLE_INPUT / "kernel_bridge_config_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1161,6 +1164,117 @@ print(json.dumps(payload, sort_keys=True))
     assert payload["timings"]["transport_retry_sleep"]["value"] == 0.75
     assert payload["timeout"] == 2400.0
     assert payload["original_post_paste_sleep"] == 1.5
+
+
+def test_kernel_bridge_config_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        KERNEL_BRIDGE_CONFIG_MANIFEST,
+        manifest_id="kernel_bridge_config_source_modules_import",
+        module_count=3,
+    )
+
+
+def test_kernel_bridge_config_sources_compile_and_preserve_master_config_runtime_contract() -> None:
+    config_source = BUNDLE_INPUT / "source_modules/system/lib/kernel/config.py"
+    state_source = BUNDLE_INPUT / "source_modules/system/lib/kernel/state.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_master_config_loader_parity.py"
+    )
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+
+    config_text = config_source.read_text(encoding="utf-8")
+    state_text = state_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(config_text, str(config_source), "exec")
+    compile(state_text, str(state_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "def load_master_config_at(" in config_text
+    assert "def resolve_bridge_runtime_config(" in config_text
+    assert "def coerce_bridge_workers_arg(" in config_text
+    assert "DEFAULT_BRIDGE_TIMEOUT_S = 1500.0" in state_text
+    assert "def init(repo_root: Path) -> None:" in state_text
+    assert "test_master_config_loader_parity" in test_text
+
+    code = f"""
+import json
+import sys
+import tempfile
+from pathlib import Path
+
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib.kernel import config as kernel_config
+from system.lib.kernel import state as kernel_state
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    kernel_state.REPO_ROOT = root
+    (root / "master_config.json").write_text(
+        json.dumps({{
+            "bridge": {{
+                "default_target": {{"value": "gemini"}},
+                "monitor_timeout_s": {{"value": 1200}},
+                "routes": {{
+                    "kernel_probe": {{
+                        "default_target": {{"value": "codex"}},
+                        "monitor_timeout_s": {{"value": 44}},
+                        "timings": {{"post_paste_sleep": {{"value": 1.25}}}},
+                    }}
+                }},
+            }}
+        }}),
+        encoding="utf-8",
+    )
+    runtime_config, provider = kernel_config.resolve_bridge_runtime_config(
+        provider="",
+        timeout_s=33,
+        bridge_route="kernel_probe",
+    )
+    invalid_workers = "not_checked"
+    try:
+        kernel_config.coerce_bridge_workers_arg("0")
+    except ValueError:
+        invalid_workers = "rejected"
+    payload = {{
+        "loaded_default_target": kernel_config.load_master_config()["bridge"]["default_target"]["value"],
+        "missing_fallback": kernel_config.config_value(None, "fallback"),
+        "workers_auto": kernel_config.coerce_bridge_workers_arg("auto"),
+        "workers_two": kernel_config.coerce_bridge_workers_arg("2"),
+        "invalid_workers": invalid_workers,
+        "route_timeout": kernel_config.default_bridge_timeout_s(bridge_route="kernel_probe"),
+        "provider": provider,
+        "runtime_platform": runtime_config["platform"],
+        "runtime_timeout": runtime_config["bridge"]["monitor_timeout_s"],
+        "route_name": runtime_config["bridge_route"],
+        "route_timing": runtime_config["bridge"]["timings"]["post_paste_sleep"]["value"],
+    }}
+    print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            code,
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload == {
+        "invalid_workers": "rejected",
+        "loaded_default_target": "gemini",
+        "missing_fallback": "fallback",
+        "provider": "codex",
+        "route_name": "kernel_probe",
+        "route_timeout": 44.0,
+        "route_timing": 1.25,
+        "runtime_platform": "codex",
+        "runtime_timeout": 33,
+        "workers_auto": "auto",
+        "workers_two": "2",
+    }
 
 
 def _load_trace_capsule_source_module():

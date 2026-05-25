@@ -967,6 +967,31 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "kernel_bridge_config_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The kernel bridge-runtime config boundary now carries exact copied "
+            "non-secret master_config resolver, kernel state, and parity-test "
+            "source bodies inside the projection bundle, validated by digest/"
+            "anchor checks, syntax compilation, and tmpdir config behavior "
+            "assertions without calling providers, executing local CLIs, "
+            "exporting API-key values, provider request/response payload bodies, "
+            "account/session state, browser/HUD live access, recipient-send "
+            "state, generated state, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/config.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_master_config_loader_parity.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 
