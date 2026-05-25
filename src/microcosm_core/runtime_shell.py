@@ -8709,7 +8709,7 @@ class RuntimeShell:
                 "release_authorized": False,
             },
             {
-                "guard_row_id": "raw_private_path_redaction",
+                "guard_row_id": "private_path_payload_boundary",
                 "source_risk": "absolute private paths can leak operator identity and host layout",
                 "public_drilldown": "root-relative public refs or stable command ids",
                 "strip_rule": "reject absolute private paths and private-root identifiers from public JSON",

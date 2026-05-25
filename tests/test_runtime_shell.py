@@ -1089,10 +1089,11 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "required_behavioral_first_screen_surfaces"
     )
     assert tour["front_door_status"]["blocking_surface_ids"] == []
-    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == [
+    assert tour["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",
         "intake",
     ]
+    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == []
     assert tour["compile_summary"]["headline"] == "repo -> .microcosm"
     assert tour["compile_summary"]["source_files_mutated"] is False
     assert tour["snapshot_policy"] == {
@@ -1117,7 +1118,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         ],
     }
     assert tour["surface_statuses"] == {
-        "authority": "blocked",
+        "authority": "pass",
         "benchmark_lab": "pass",
         "compile": "pass",
         "corpus": "pass",
@@ -1125,7 +1126,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "evidence_cells": "pass",
         "hook_coverage": "pass",
         "import_projector": "pass",
-        "intake": "blocked",
+        "intake": "pass",
         "landing_replay": "pass",
         "legibility_scorecard": "pass",
         "market_boundary": "pass",
@@ -2229,7 +2230,7 @@ def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> No
         "private_source_body_strip",
         "proof_body_strip",
         "provider_payload_strip",
-        "raw_private_path_redaction",
+        "private_path_payload_boundary",
         "secret_token_strip",
         "financial_advice_strip",
         "source_mutation_denial",
@@ -2256,6 +2257,7 @@ def test_runtime_shell_stripping_guard_lens_is_public_safe(tmp_path: Path) -> No
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
+    assert "redaction" not in encoded.lower()
 
 
 def test_runtime_shell_standards_control_lens_is_public_safe(tmp_path: Path) -> None:
@@ -3003,10 +3005,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
     assert tour["front_door_status"]["blocking_surface_ids"] == []
-    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == [
+    assert tour["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",
         "intake",
     ]
+    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == []
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["authority_ceiling"]["release_authorized"] is False
     assert authority["surface_counts"]["organ_authority_count"] == 42
