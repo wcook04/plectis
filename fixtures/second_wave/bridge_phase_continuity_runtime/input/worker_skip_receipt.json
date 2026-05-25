@@ -1,0 +1,15 @@
+{
+  "schema_version": "microcosm_bridge_fake_transport_worker_skip_receipts_v1",
+  "fixture_scope": "synthetic_bridge_continuity_base_manifest",
+  "skip_receipts": [
+    {
+      "receipt_id": "skip_receipt_deduped_veto",
+      "job_id": "synthetic_detached_job_002",
+      "worker_fingerprint": "fp_synthetic_bridge_worker_001",
+      "veto_reason": "fingerprint_cache_hit",
+      "dedup_status": "deduped",
+      "claim_closeout_authorized": false
+    }
+  ],
+  "anti_claim": "A skip receipt is a veto/dedup record only and cannot silently close claimed work."
+}

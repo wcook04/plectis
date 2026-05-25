@@ -36,6 +36,8 @@ REQUIRED_RECEIPT_FIELDS = {
     "dependency_preflight_receipt_ref",
     "synthetic_input_refs",
     "synthetic_fixture_gate_status",
+    "fake_transport_fixture_summary",
+    "worker_skip_receipt_status",
     "private_state_scan",
     "anti_claim",
     "authority_ceiling",
@@ -76,6 +78,7 @@ def test_bridge_phase_continuity_runner_consumes_observe_apply_fixture(tmp_path:
     assert set(result["expected_negative_cases"]) == set(bridge_runtime.EXPECTED_NEGATIVE_CASES)
     assert result["private_state_scan"]["status"] == "pass"
     assert result["private_state_scan"]["blocking_hit_count"] == 0
+    assert result["private_state_scan"]["scanned_path_count"] == 7
     assert result["authority_ceiling"]["live_bridge_transport_authorized"] is False
 
     for receipt_rel in bridge_runtime.EXPECTED_RECEIPT_PATHS:
@@ -85,6 +88,69 @@ def test_bridge_phase_continuity_runner_consumes_observe_apply_fixture(tmp_path:
         assert receipt["receipt_path"] == receipt_rel
         assert receipt["receipt_paths"] == bridge_runtime.EXPECTED_RECEIPT_PATHS
         assert receipt["private_state_scan"]["forbidden_output_fields_omitted"] is True
+
+
+def test_bridge_phase_continuity_runner_consumes_manifest_fake_transport_files(
+    tmp_path: Path,
+) -> None:
+    out_dir = tmp_path / "bridge_phase_continuity_runtime"
+    result = bridge_runtime.run(FIXTURE_INPUT, out_dir, command="pytest bridge continuity")
+    summary = result["fake_transport_fixture_summary"]
+
+    assert summary["status"] == "pass"
+    assert summary["input_file_count"] == 6
+    assert summary["detached_job_count"] == 4
+    assert summary["continuation_packet_count"] == 3
+    assert summary["heartbeat_row_count"] == 3
+    assert summary["resource_pressure_row_count"] == 2
+    assert summary["worker_skip_receipt_count"] == 1
+    assert summary["valid_job"] == {
+        "status": "pass",
+        "job_id": "synthetic_detached_job_001",
+        "packet_id": "synthetic_packet_001",
+        "transport": "fake_transport",
+    }
+    assert summary["missing_packet_rejected"] is True
+    assert summary["missing_required_fields_rejected"] is True
+    assert summary["duplicate_resume_rejected"] is True
+    assert summary["heartbeat_fresh_count"] == 2
+    assert summary["heartbeat_stale_count"] == 1
+    assert summary["heartbeat_resume_authority_rejected"] is True
+    assert summary["stale_heartbeat_rejected"] is True
+    assert summary["resource_pressure_blocked"] is True
+    assert summary["worker_skip_deduped_no_closeout"] is True
+    assert summary["forbidden_class_ids_only"] is True
+    assert set(summary["error_codes"]) >= {
+        "CONTINUATION_PACKET_ALREADY_CONSUMED",
+        "HEARTBEAT_NOT_RESUME_AUTHORITY",
+        "MISSING_CONTINUATION_PACKET",
+        "MISSING_CONTINUATION_PACKET_FIELDS",
+        "RESOURCE_PRESSURE_DISPATCH_BLOCKED",
+        "STALE_HEARTBEAT_LIVENESS_CLAIM",
+    }
+
+    continuation = _load_json(out_dir / "continuation_packet.json")
+    heartbeat = _load_json(out_dir / "heartbeat.json")
+    pressure = _load_json(out_dir / "resource_pressure.json")
+    closeout = _load_json(out_dir / "closeout_transition.json")
+
+    assert continuation["continuation_packet_status"]["fake_transport_job_id"] == (
+        "synthetic_detached_job_001"
+    )
+    assert continuation["continuation_packet_status"]["missing_packet_rejected"] is True
+    assert continuation["continuation_packet_status"][
+        "missing_required_fields_rejected"
+    ] is True
+    assert heartbeat["heartbeat_status"]["fresh_count"] == 2
+    assert heartbeat["heartbeat_status"]["stale_count"] == 1
+    assert pressure["resource_pressure_decision"]["blocked_reason"] == (
+        "capacity_budget_exceeded"
+    )
+    assert closeout["worker_skip_receipt_status"] == {
+        "status": "pass",
+        "claim_closeout_authorized": False,
+        "deduped_noop_receipt": True,
+    }
 
 
 def test_bridge_phase_continuity_receipts_stay_public_safe(tmp_path: Path) -> None:

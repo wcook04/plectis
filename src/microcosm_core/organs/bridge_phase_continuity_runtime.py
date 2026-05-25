@@ -22,11 +22,23 @@ VALIDATOR_ID = "validator.microcosm.organs.bridge_phase_continuity_runtime"
 CHECKER_ID = "checker.microcosm.organs.bridge_phase_continuity_runtime.synthetic_fixture_acceptance"
 
 INPUT_NAME = "observe_apply_session_fixture.json"
+DETACHED_JOB_NAME = "detached_job.json"
 CONTINUATION_PACKET_NAME = "continuation_packet.json"
+HEARTBEAT_ROWS_NAME = "heartbeat_rows.jsonl"
 HEARTBEAT_NAME = "heartbeat.json"
 RESOURCE_PRESSURE_NAME = "resource_pressure.json"
+WORKER_SKIP_RECEIPT_NAME = "worker_skip_receipt.json"
+PRIVATE_STATE_FORBIDDEN_TERMS_NAME = "private_state_forbidden_terms.json"
 RESUME_RECEIPT_NAME = "resume_receipt.json"
 CLOSEOUT_TRANSITION_NAME = "closeout_transition.json"
+EXPECTED_FAKE_TRANSPORT_INPUTS = {
+    DETACHED_JOB_NAME,
+    CONTINUATION_PACKET_NAME,
+    HEARTBEAT_ROWS_NAME,
+    RESOURCE_PRESSURE_NAME,
+    WORKER_SKIP_RECEIPT_NAME,
+    PRIVATE_STATE_FORBIDDEN_TERMS_NAME,
+}
 
 EXPECTED_RECEIPT_PATHS = [
     f"receipts/second_wave/{ORGAN_ID}/{CONTINUATION_PACKET_NAME}",
@@ -158,11 +170,311 @@ def _read_required_json(
     return payload
 
 
+def _read_required_jsonl(
+    path: Path,
+    *,
+    subject: str,
+    findings: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    if not path.is_file():
+        findings.append(
+            {
+                "error_code": "BRIDGE_CONTINUITY_INPUT_MISSING",
+                "subject": subject,
+                "path": path.as_posix(),
+                "body_redacted": True,
+            }
+        )
+        return []
+    rows: list[dict[str, Any]] = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError as exc:
+        findings.append(
+            {
+                "error_code": "BRIDGE_CONTINUITY_INPUT_INVALID_JSONL",
+                "subject": subject,
+                "path": path.as_posix(),
+                "message": str(exc),
+                "body_redacted": True,
+            }
+        )
+        return []
+    for line_no, line in enumerate(lines, start=1):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        try:
+            row = json.loads(stripped)
+        except ValueError as exc:
+            findings.append(
+                {
+                    "error_code": "BRIDGE_CONTINUITY_INPUT_INVALID_JSONL",
+                    "subject": subject,
+                    "path": path.as_posix(),
+                    "line": line_no,
+                    "message": str(exc),
+                    "body_redacted": True,
+                }
+            )
+            continue
+        if not isinstance(row, dict):
+            findings.append(
+                {
+                    "error_code": "BRIDGE_CONTINUITY_INPUT_JSONL_ROW_NOT_OBJECT",
+                    "subject": subject,
+                    "path": path.as_posix(),
+                    "line": line_no,
+                    "body_redacted": True,
+                }
+            )
+            continue
+        rows.append(row)
+    return rows
+
+
 def _safe_scan(scan_result: dict[str, Any]) -> dict[str, Any]:
     safe = dict(scan_result)
     safe.pop("forbidden_output_fields", None)
     safe["forbidden_output_fields_omitted"] = True
     return safe
+
+
+def _manifest_synthetic_input_paths(
+    manifest: dict[str, Any],
+    *,
+    public_root: Path,
+) -> list[tuple[str, Path]]:
+    paths: list[tuple[str, Path]] = []
+    manifest_inputs = manifest.get("synthetic_input_files", [])
+    if not isinstance(manifest_inputs, list):
+        return paths
+    for row in manifest_inputs:
+        if not isinstance(row, dict) or not row.get("path"):
+            continue
+        ref = str(row["path"])
+        paths.append((ref, _resolve_ref(ref, public_root=public_root)))
+    return paths
+
+
+def _read_fake_transport_inputs(
+    manifest: dict[str, Any],
+    *,
+    public_root: Path,
+    findings: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    inputs: dict[str, dict[str, Any]] = {}
+    for ref, path in _manifest_synthetic_input_paths(manifest, public_root=public_root):
+        if path.suffix == ".jsonl":
+            payload: Any = _read_required_jsonl(path, subject=path.name, findings=findings)
+        else:
+            payload = _read_required_json(path, subject=path.name, findings=findings)
+        inputs[path.name] = {
+            "ref": ref,
+            "path": path,
+            "payload": payload,
+        }
+
+    missing_names = sorted(EXPECTED_FAKE_TRANSPORT_INPUTS - set(inputs))
+    for name in missing_names:
+        findings.append(
+            {
+                "error_code": "BRIDGE_CONTINUITY_FAKE_TRANSPORT_INPUT_UNLISTED",
+                "input_name": name,
+                "body_redacted": True,
+            }
+        )
+    return inputs
+
+
+def _object_rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if isinstance(payload, dict) and isinstance(payload.get(key), list):
+        return [row for row in payload[key] if isinstance(row, dict)]
+    if isinstance(payload, list):
+        return [row for row in payload if isinstance(row, dict)]
+    return []
+
+
+def _by_id(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, Any]]:
+    return {str(row[key]): row for row in rows if row.get(key)}
+
+
+def _validate_fake_transport_contract(
+    fake_inputs: dict[str, dict[str, Any]],
+    *,
+    findings: list[dict[str, Any]],
+) -> dict[str, Any]:
+    local_findings: list[dict[str, Any]] = []
+
+    def add(error_code: str, **extra: Any) -> None:
+        row = {"error_code": error_code, "body_redacted": True}
+        row.update(extra)
+        local_findings.append(row)
+
+    jobs = _object_rows(fake_inputs.get(DETACHED_JOB_NAME, {}).get("payload"), "jobs")
+    packets = _object_rows(
+        fake_inputs.get(CONTINUATION_PACKET_NAME, {}).get("payload"), "packets"
+    )
+    heartbeats = _object_rows(
+        fake_inputs.get(HEARTBEAT_ROWS_NAME, {}).get("payload"), "heartbeat_rows"
+    )
+    pressure_rows = _object_rows(
+        fake_inputs.get(RESOURCE_PRESSURE_NAME, {}).get("payload"), "pressures"
+    )
+    skip_rows = _object_rows(
+        fake_inputs.get(WORKER_SKIP_RECEIPT_NAME, {}).get("payload"), "skip_receipts"
+    )
+    forbidden_terms = fake_inputs.get(PRIVATE_STATE_FORBIDDEN_TERMS_NAME, {}).get("payload")
+    forbidden_terms = forbidden_terms if isinstance(forbidden_terms, dict) else {}
+
+    jobs_by_id = _by_id(jobs, "job_id")
+    packets_by_id = _by_id(packets, "packet_id")
+    pressures_by_id = _by_id(pressure_rows, "pressure_id")
+    heartbeats_by_id = _by_id(heartbeats, "heartbeat_id")
+
+    observed_error_codes: set[str] = set()
+    good_job = jobs_by_id.get("synthetic_detached_job_001", {})
+    good_packet_id = str(good_job.get("continuation_packet_id") or "")
+    good_packet = packets_by_id.get(good_packet_id, {})
+    valid_job_pass = (
+        good_job.get("state") == "yielded_to_disk"
+        and good_job.get("transport") == "fake_transport"
+        and good_job.get("payload_body_included") is False
+        and good_packet.get("target_job_id") == good_job.get("job_id")
+        and good_packet.get("consumed") is False
+    )
+    if not valid_job_pass:
+        add("BRIDGE_CONTINUITY_FAKE_TRANSPORT_VALID_JOB_INVALID")
+
+    missing_packet_job = jobs_by_id.get("synthetic_detached_job_missing_packet", {})
+    missing_packet_id = str(missing_packet_job.get("continuation_packet_id") or "")
+    missing_packet_rejected = (
+        missing_packet_job.get("expected_error_code") == "MISSING_CONTINUATION_PACKET"
+        and missing_packet_id
+        and missing_packet_id not in packets_by_id
+    )
+    if missing_packet_rejected:
+        observed_error_codes.add("MISSING_CONTINUATION_PACKET")
+    else:
+        add("MISSING_CONTINUATION_PACKET")
+
+    missing_fields_packet = packets_by_id.get("synthetic_packet_missing_fields", {})
+    missing_required_fields_rejected = (
+        missing_fields_packet.get("required_fields_present") is False
+        and missing_fields_packet.get("expected_error_code")
+        == "MISSING_CONTINUATION_PACKET_FIELDS"
+        and bool(missing_fields_packet.get("missing_fields"))
+    )
+    if missing_required_fields_rejected:
+        observed_error_codes.add("MISSING_CONTINUATION_PACKET_FIELDS")
+    else:
+        add("MISSING_CONTINUATION_PACKET_FIELDS")
+
+    duplicate_packet = packets_by_id.get("synthetic_packet_002", {})
+    duplicate_resume_rejected = (
+        duplicate_packet.get("consumed") is True
+        and duplicate_packet.get("expected_error_code")
+        == "CONTINUATION_PACKET_ALREADY_CONSUMED"
+    )
+    if duplicate_resume_rejected:
+        observed_error_codes.add("CONTINUATION_PACKET_ALREADY_CONSUMED")
+    else:
+        add("CONTINUATION_PACKET_ALREADY_CONSUMED")
+
+    fresh_heartbeat = heartbeats_by_id.get("heartbeat_fresh", {})
+    fresh_heartbeat_count = sum(
+        1
+        for row in heartbeats
+        if str(row.get("status")) == "alive" and int(row.get("age_seconds", 999999)) <= 60
+    )
+    stale_heartbeat_count = sum(
+        1
+        for row in heartbeats
+        if str(row.get("status")) == "stale" or int(row.get("age_seconds", 0)) > 300
+    )
+    heartbeat_claim = heartbeats_by_id.get("heartbeat_claims_resume_authority", {})
+    heartbeat_resume_authority_rejected = (
+        fresh_heartbeat.get("claims_resume_authority") is False
+        and heartbeat_claim.get("claims_resume_authority") is True
+        and heartbeat_claim.get("expected_error_code") == "HEARTBEAT_NOT_RESUME_AUTHORITY"
+    )
+    if heartbeat_resume_authority_rejected:
+        observed_error_codes.add("HEARTBEAT_NOT_RESUME_AUTHORITY")
+    else:
+        add("HEARTBEAT_NOT_RESUME_AUTHORITY")
+
+    stale_heartbeat = heartbeats_by_id.get("heartbeat_stale", {})
+    stale_heartbeat_rejected = (
+        stale_heartbeat.get("expected_error_code") == "STALE_HEARTBEAT_LIVENESS_CLAIM"
+        and int(stale_heartbeat.get("age_seconds", 0)) > 300
+    )
+    if stale_heartbeat_rejected:
+        observed_error_codes.add("STALE_HEARTBEAT_LIVENESS_CLAIM")
+    else:
+        add("STALE_HEARTBEAT_LIVENESS_CLAIM")
+
+    pressure_blocked = pressures_by_id.get("pressure_blocked", {})
+    resource_pressure_blocked = (
+        pressure_blocked.get("dispatch_allowed") is False
+        and pressure_blocked.get("blocked_reason") == "capacity_budget_exceeded"
+        and pressure_blocked.get("expected_error_code")
+        == "RESOURCE_PRESSURE_DISPATCH_BLOCKED"
+    )
+    if resource_pressure_blocked:
+        observed_error_codes.add("RESOURCE_PRESSURE_DISPATCH_BLOCKED")
+    else:
+        add("RESOURCE_PRESSURE_DISPATCH_BLOCKED")
+
+    skip_receipt = skip_rows[0] if skip_rows else {}
+    worker_skip_deduped_no_closeout = (
+        bool(skip_receipt.get("worker_fingerprint"))
+        and bool(skip_receipt.get("veto_reason"))
+        and skip_receipt.get("dedup_status") == "deduped"
+        and skip_receipt.get("claim_closeout_authorized") is False
+    )
+    if not worker_skip_deduped_no_closeout:
+        add("BRIDGE_CONTINUITY_WORKER_SKIP_RECEIPT_INVALID")
+
+    forbidden_class_ids = forbidden_terms.get("forbidden_private_state_classes", [])
+    forbidden_class_ids_only = (
+        isinstance(forbidden_class_ids, list)
+        and bool(forbidden_class_ids)
+        and forbidden_terms.get("payload_bodies_included") is False
+    )
+    if not forbidden_class_ids_only:
+        add("BRIDGE_CONTINUITY_PRIVATE_CLASS_FIXTURE_INVALID")
+
+    findings.extend(local_findings)
+    return {
+        "status": PASS if not local_findings else "blocked",
+        "manifest_input_refs": [
+            str(row.get("ref")) for row in fake_inputs.values() if row.get("ref")
+        ],
+        "input_file_count": len(fake_inputs),
+        "detached_job_count": len(jobs),
+        "continuation_packet_count": len(packets),
+        "heartbeat_row_count": len(heartbeats),
+        "resource_pressure_row_count": len(pressure_rows),
+        "worker_skip_receipt_count": len(skip_rows),
+        "valid_job": {
+            "status": PASS if valid_job_pass else "blocked",
+            "job_id": good_job.get("job_id"),
+            "packet_id": good_packet_id,
+            "transport": good_job.get("transport"),
+        },
+        "missing_packet_rejected": missing_packet_rejected,
+        "missing_required_fields_rejected": missing_required_fields_rejected,
+        "duplicate_resume_rejected": duplicate_resume_rejected,
+        "heartbeat_fresh_count": fresh_heartbeat_count,
+        "heartbeat_stale_count": stale_heartbeat_count,
+        "heartbeat_resume_authority_rejected": heartbeat_resume_authority_rejected,
+        "stale_heartbeat_rejected": stale_heartbeat_rejected,
+        "resource_pressure_blocked": resource_pressure_blocked,
+        "worker_skip_deduped_no_closeout": worker_skip_deduped_no_closeout,
+        "forbidden_class_ids_only": forbidden_class_ids_only,
+        "error_codes": sorted(observed_error_codes),
+        "findings": local_findings,
+    }
 
 
 def _expected_negative_cases(
@@ -358,6 +670,7 @@ def _component_payloads(
     manifest_ref: str,
     source_manifest_ref: str,
     source_summary: dict[str, Any],
+    fake_transport_summary: dict[str, Any],
     private_state_scan: dict[str, Any],
     command: str | None,
     out_dir: Path,
@@ -378,7 +691,9 @@ def _component_payloads(
         for case_id, row in observed_cases.items()
         if row.get("status") != PASS
     ]
-    error_codes = _error_codes(observed_cases)
+    error_codes = sorted(
+        set(_error_codes(observed_cases)) | set(fake_transport_summary.get("error_codes", []))
+    )
     receipt_paths = _receipt_paths()
     receipt_path_values = list(receipt_paths.values())
     status = PASS if not findings and private_state_scan.get("status") == PASS and not missing_cases else "blocked"
@@ -428,8 +743,12 @@ def _component_payloads(
                 else None,
                 "runner_scope": "observe_apply_fixture_consumption_only",
             },
+            "fake_transport_fixture_summary": fake_transport_summary,
             "continuation_packet_status": {
-                "status": PASS if status_packet.get("can_continue") is True else "blocked",
+                "status": PASS
+                if status_packet.get("can_continue") is True
+                and fake_transport_summary.get("valid_job", {}).get("status") == PASS
+                else "blocked",
                 "observe_id": observe_manifest.get("observe_id")
                 if isinstance(observe_manifest, dict)
                 else None,
@@ -438,19 +757,41 @@ def _component_payloads(
                 "packet_status": "synthetic_resume_pending",
                 "consumed": False,
                 "target_job_id": finalizer.get("apply_session_id"),
+                "fake_transport_job_id": fake_transport_summary.get("valid_job", {}).get(
+                    "job_id"
+                ),
+                "fake_transport_packet_id": fake_transport_summary.get("valid_job", {}).get(
+                    "packet_id"
+                ),
+                "missing_packet_rejected": fake_transport_summary.get(
+                    "missing_packet_rejected"
+                ),
+                "missing_required_fields_rejected": fake_transport_summary.get(
+                    "missing_required_fields_rejected"
+                ),
             },
             "heartbeat_status": {
-                "status": PASS,
-                "heartbeat_not_resume_authority": True,
-                "fresh_count": 0,
-                "stale_count": 0,
+                "status": PASS
+                if fake_transport_summary.get("heartbeat_resume_authority_rejected")
+                and fake_transport_summary.get("stale_heartbeat_rejected")
+                else "blocked",
+                "heartbeat_not_resume_authority": fake_transport_summary.get(
+                    "heartbeat_resume_authority_rejected"
+                ),
+                "fresh_count": fake_transport_summary.get("heartbeat_fresh_count", 0),
+                "stale_count": fake_transport_summary.get("heartbeat_stale_count", 0),
                 "live_state_read": False,
             },
             "resource_pressure_decision": {
-                "status": PASS,
+                "status": PASS
+                if fake_transport_summary.get("resource_pressure_blocked")
+                else "blocked",
                 "dispatch_allowed": False,
-                "blocked_reason": "observe_apply_fixture_consumption_only_no_live_dispatch",
-                "resource_pressure_not_exercised": True,
+                "blocked_reason": "capacity_budget_exceeded",
+                "resource_pressure_not_exercised": False,
+                "blocked_decision_recorded": fake_transport_summary.get(
+                    "resource_pressure_blocked"
+                ),
             },
             "resume_once_status": {
                 "status": PASS if status_packet.get("continue_mode") == "resume_pending" else "blocked",
@@ -458,7 +799,9 @@ def _component_payloads(
                 "resume_success_overclaims_work_landed": False,
             },
             "duplicate_resume_rejection": {
-                "status": PASS,
+                "status": PASS
+                if fake_transport_summary.get("duplicate_resume_rejected")
+                else "blocked",
                 "duplicate_resume_authorized": False,
                 "error_code": "CONTINUATION_PACKET_ALREADY_CONSUMED",
             },
@@ -473,6 +816,15 @@ def _component_payloads(
             "source_module_digest_results": source_summary["source_digest_results"],
             "observed_fixture_id": fixture.get("fixture_id"),
             "observed_pattern_id": fixture.get("pattern_id"),
+            "worker_skip_receipt_status": {
+                "status": PASS
+                if fake_transport_summary.get("worker_skip_deduped_no_closeout")
+                else "blocked",
+                "claim_closeout_authorized": False,
+                "deduped_noop_receipt": fake_transport_summary.get(
+                    "worker_skip_deduped_no_closeout"
+                ),
+            },
             "private_state_scan": private_state_scan,
             "secret_exclusion_scan": private_state_scan,
             "authority_ceiling": AUTHORITY_CEILING,
@@ -519,13 +871,26 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         subject="source_module_manifest",
         findings=findings,
     )
+    fake_transport_inputs = _read_fake_transport_inputs(
+        manifest,
+        public_root=public_root,
+        findings=findings,
+    )
+    fake_transport_summary = _validate_fake_transport_contract(
+        fake_transport_inputs,
+        findings=findings,
+    )
 
     private_state_policy = load_forbidden_classes(
         public_root / "core/private_state_forbidden_classes.json"
     )
+    scan_input_paths = [fixture_path]
+    scan_input_paths.extend(
+        row["path"] for row in fake_transport_inputs.values() if isinstance(row.get("path"), Path)
+    )
     private_state_scan = _safe_scan(
         scan_paths(
-            [fixture_path],
+            scan_input_paths,
             forbidden_classes=private_state_policy,
             source_context="target",
             display_root=public_root,
@@ -547,6 +912,7 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
         manifest_ref=manifest_ref,
         source_manifest_ref=source_manifest_ref,
         source_summary=source_summary,
+        fake_transport_summary=fake_transport_summary,
         private_state_scan=private_state_scan,
         command=command,
         out_dir=output_root,

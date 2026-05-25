@@ -1,0 +1,43 @@
+{
+  "schema_version": "microcosm_bridge_fake_transport_detached_jobs_v1",
+  "fixture_scope": "synthetic_bridge_continuity_base_manifest",
+  "jobs": [
+    {
+      "job_id": "synthetic_detached_job_001",
+      "state": "yielded_to_disk",
+      "transport": "fake_transport",
+      "claim_ref": "claim_synthetic_001",
+      "continuation_packet_id": "synthetic_packet_001",
+      "payload_body_included": false,
+      "authority_ceiling": "synthetic_job_metadata_only_not_live_bridge_payload"
+    },
+    {
+      "job_id": "synthetic_detached_job_missing_packet",
+      "state": "claimed_resumable",
+      "transport": "fake_transport",
+      "claim_ref": "claim_synthetic_missing_packet",
+      "continuation_packet_id": "synthetic_packet_missing_packet",
+      "payload_body_included": false,
+      "expected_error_code": "MISSING_CONTINUATION_PACKET"
+    },
+    {
+      "job_id": "synthetic_detached_job_missing_fields",
+      "state": "yielded_to_disk",
+      "transport": "fake_transport",
+      "claim_ref": "claim_synthetic_missing_fields",
+      "continuation_packet_id": "synthetic_packet_missing_fields",
+      "payload_body_included": false,
+      "expected_error_code": "MISSING_CONTINUATION_PACKET_FIELDS"
+    },
+    {
+      "job_id": "synthetic_detached_job_002",
+      "state": "resume_attempted",
+      "transport": "fake_transport",
+      "claim_ref": "claim_synthetic_002",
+      "continuation_packet_id": "synthetic_packet_002",
+      "payload_body_included": false,
+      "expected_error_code": "CONTINUATION_PACKET_ALREADY_CONSUMED"
+    }
+  ],
+  "anti_claim": "These detached jobs are synthetic metadata-only rows. They do not contain bridge payloads, provider payloads, operator thread text, browser state, or live runtime state."
+}

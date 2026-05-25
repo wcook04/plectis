@@ -1,0 +1,22 @@
+{
+  "schema_version": "microcosm_bridge_fake_transport_private_state_class_refs_v1",
+  "fixture_scope": "synthetic_bridge_continuity_base_manifest",
+  "payload_bodies_included": false,
+  "forbidden_private_state_classes": [
+    "real_bridge_payload",
+    "provider_payload_body",
+    "operator_thread_content",
+    "browser_hud_state",
+    "live_phase_runtime_state",
+    "prompt_shelf_body",
+    "private_memory_body",
+    "website_surface"
+  ],
+  "allowed_evidence": [
+    "class ids",
+    "synthetic fixture ids",
+    "receipt paths",
+    "validator commands"
+  ],
+  "anti_claim": "This file carries class references only. It intentionally omits live payload bodies and scanner sentinel tokens."
+}

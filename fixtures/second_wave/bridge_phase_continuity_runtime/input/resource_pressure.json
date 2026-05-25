@@ -1,0 +1,18 @@
+{
+  "schema_version": "microcosm_bridge_fake_transport_resource_pressure_v1",
+  "fixture_scope": "synthetic_bridge_continuity_base_manifest",
+  "pressures": [
+    {
+      "pressure_id": "pressure_clear",
+      "dispatch_allowed": true,
+      "reason": "synthetic_capacity_available"
+    },
+    {
+      "pressure_id": "pressure_blocked",
+      "dispatch_allowed": false,
+      "blocked_reason": "capacity_budget_exceeded",
+      "expected_error_code": "RESOURCE_PRESSURE_DISPATCH_BLOCKED"
+    }
+  ],
+  "anti_claim": "Resource pressure rows are synthetic command-budget decisions, not live bridge capacity readings."
+}

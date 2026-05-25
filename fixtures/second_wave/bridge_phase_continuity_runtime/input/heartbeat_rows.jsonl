@@ -1,0 +1,3 @@
+{"heartbeat_id":"heartbeat_fresh","job_id":"synthetic_detached_job_001","age_seconds":15,"status":"alive","claims_resume_authority":false,"claims_provider_or_ui_uptime":false}
+{"heartbeat_id":"heartbeat_stale","job_id":"synthetic_detached_job_002","age_seconds":9999,"status":"stale","claims_live_bridge_health":true,"expected_error_code":"STALE_HEARTBEAT_LIVENESS_CLAIM"}
+{"heartbeat_id":"heartbeat_claims_resume_authority","job_id":"synthetic_detached_job_003","age_seconds":12,"status":"alive","claims_resume_authority":true,"expected_error_code":"HEARTBEAT_NOT_RESUME_AUTHORITY"}
