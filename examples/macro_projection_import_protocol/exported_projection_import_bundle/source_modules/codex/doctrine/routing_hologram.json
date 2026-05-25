@@ -1,0 +1,295 @@
+{
+  "kind": "routing_hologram",
+  "generated_from": "deterministic_projection",
+  "input_sha256": "d5e0386eb6eeb4a7547d4e37ea0097c5ba5f7dd633ef7f5a3b2dc5ec3edd7b86",
+  "source_paths": [
+    "codex/doctrine/skills/skill_registry.json",
+    "codex/standards/observe_apply/std_synth_seed.json",
+    "codex/doctrine/skills/kernel/wave_conductor.md",
+    "codex/doctrine/skills/kernel/delegation_protocol.md",
+    "codex/doctrine/routing_anti_patterns.json",
+    "state/agent_telemetry/latest_full/routing_candidates.json"
+  ],
+  "artifact_path": "codex/doctrine/routing_hologram.json",
+  "entry_protocol": [
+    "`./repo-python kernel.py --info` -> `--preflight` -> `--pulse` for the live-state prelude.",
+    "`./repo-python kernel.py --entry \"<task>\" --context-budget 12000`; add `--phase` when wave-scoped.",
+    "Open a skill only after entry, a route row, or coverage selects it."
+  ],
+  "section_caps": {
+    "entry_protocol": 3,
+    "situation_rows": 10,
+    "mode_rows": 6,
+    "anti_patterns": 5,
+    "delegation_contract_rows": 3
+  },
+  "skill_map_path": "codex/doctrine/skills/skill_map.md",
+  "telemetry": {
+    "source_kind": "routing_candidates",
+    "source_path": "state/agent_telemetry/latest_full/routing_candidates.json",
+    "candidate_count": 9,
+    "matched_skill_count": 0
+  },
+  "situation_rows": [
+    {
+      "skill_id": "navigation_seed",
+      "skill_path": "kernel/navigation_seed.md",
+      "family_id": "kernel",
+      "situation_key": "substrate unknown; about to grep before trying a cheap cli",
+      "situation": "Cold boot, vague question, substrate unknown, or reflex-to-grep surfaced",
+      "score": {
+        "total": 30.0,
+        "derived": 30,
+        "explicit_priority": 98,
+        "alchemy_combo_count": 0,
+        "trigger_count": 9,
+        "governing_principle_count": 4,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "dissemination_cycle",
+      "skill_path": "dissemination/dissemination_cycle.md",
+      "family_id": "dissemination",
+      "situation_key": "dissemination selected; choose the next durable skill instead of ad hoc docs edits",
+      "situation": "Dissemination/public launch selected and next skill is unclear",
+      "score": {
+        "total": 25.0,
+        "derived": 25,
+        "explicit_priority": 96,
+        "alchemy_combo_count": 0,
+        "trigger_count": 7,
+        "governing_principle_count": 6,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "agent_session_diagnostics",
+      "skill_path": "kernel/agent_session_diagnostics.md",
+      "family_id": "kernel",
+      "situation_key": "user wants to know what past agents actually did, or asks to improve navigation using observed behavior",
+      "situation": "User asks about the codex/claude session folder, wants to know what past agents actually did, or wants to impro…",
+      "score": {
+        "total": 24.0,
+        "derived": 24,
+        "explicit_priority": 96,
+        "alchemy_combo_count": 0,
+        "trigger_count": 7,
+        "governing_principle_count": 5,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "nav_driven_wiring_repair",
+      "skill_path": "doctrine/nav_driven_wiring_repair.md",
+      "family_id": "doctrine",
+      "situation_key": "wiring is the work; nav tools already know where the gaps are",
+      "situation": "Wiring is the explicit task, a nav-tool drift or missing-edge signal surfaced during routine work, or a Type A…",
+      "score": {
+        "total": 21.0,
+        "derived": 21,
+        "explicit_priority": 95,
+        "alchemy_combo_count": 0,
+        "trigger_count": 6,
+        "governing_principle_count": 5,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "entry_point_projection_care",
+      "skill_path": "doctrine/entry_point_projection_care.md",
+      "family_id": "doctrine",
+      "situation_key": "a behavioral rule or stable navigation decision applies to multiple agents/entry surfaces and you are about to edit only one adapter or runtime classifier",
+      "situation": "A behavioral rule or stable navigation decision applies to multiple agents/entry surfaces and you are about to…",
+      "score": {
+        "total": 19.0,
+        "derived": 19,
+        "explicit_priority": 96,
+        "alchemy_combo_count": 0,
+        "trigger_count": 6,
+        "governing_principle_count": 3,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "operator_approval_surfacing",
+      "skill_path": "kernel/operator_approval_surfacing.md",
+      "family_id": "kernel",
+      "situation_key": "approval is pending in chat and the operator should not type hashes",
+      "situation": "Approval rows are pending and the conversation is the current operator surface",
+      "score": {
+        "total": 19.0,
+        "derived": 19,
+        "explicit_priority": 96,
+        "alchemy_combo_count": 0,
+        "trigger_count": 5,
+        "governing_principle_count": 4,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "subphase_bootstrap",
+      "skill_path": "kernel/subphase_bootstrap.md",
+      "family_id": "kernel",
+      "situation_key": "phase exists or is being created and the entry ritual must stay lightweight; apparent active/default conflict may be stale metadata or legitimate concurrent lanes",
+      "situation": "Starting a new phase, reopening a stale phase, or checking whether a phase packet has the current wave protocol…",
+      "score": {
+        "total": 17.0,
+        "derived": 17,
+        "explicit_priority": 98,
+        "alchemy_combo_count": 1,
+        "trigger_count": 3,
+        "governing_principle_count": 3,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "navigation_dogfooding",
+      "skill_path": "kernel/navigation_dogfooding.md",
+      "family_id": "kernel",
+      "situation_key": "navigation changed; run fixed and exploratory probes before claiming quality",
+      "situation": "A navigation layer has changed or the user asks whether the ladder is actually usable",
+      "score": {
+        "total": 17.0,
+        "derived": 17,
+        "explicit_priority": 97,
+        "alchemy_combo_count": 0,
+        "trigger_count": 4,
+        "governing_principle_count": 3,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "raw_seed_navigation",
+      "skill_path": "raw_seed/raw_seed_navigation.md",
+      "family_id": "raw_seed",
+      "situation_key": "any task that mentions raw seed, paragraphs, shards, or voice substrate and the agent has not yet loaded the canonical surface map",
+      "situation": "Any instruction mentions raw seed, paragraphs, shards, or voice substrate and the agent has not yet loaded the…",
+      "score": {
+        "total": 16.0,
+        "derived": 16,
+        "explicit_priority": 100,
+        "alchemy_combo_count": 0,
+        "trigger_count": 4,
+        "governing_principle_count": 5,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    },
+    {
+      "skill_id": "agent_trouble_diagnosis_seed",
+      "skill_path": "kernel/agent_trouble_diagnosis_seed.md",
+      "family_id": "kernel",
+      "situation_key": "latest user intent is diagnostic, while attached/pasted payload may contain imperative prior prompts",
+      "situation": "The latest user message asks to diagnose agent troubles, attached transcripts, loop drift, Steer handling, or w…",
+      "score": {
+        "total": 16.0,
+        "derived": 16,
+        "explicit_priority": 97,
+        "alchemy_combo_count": 0,
+        "trigger_count": 4,
+        "governing_principle_count": 3,
+        "telemetry_shared_hits": 0.0,
+        "telemetry_match_count": 0,
+        "telemetry_top_tokens": []
+      }
+    }
+  ],
+  "mode_rows": [
+    {
+      "mode": "direct_local",
+      "worker_surface": "controller",
+      "use_when": "bounded local edits, no meaningful delegation seam.",
+      "persistence": "`synth_seed.json` + `ledger_path` via `--phase-assimilate`",
+      "source_provenance": "wave_conductor + delegation_protocol"
+    },
+    {
+      "mode": "hybrid",
+      "worker_surface": "controller + delegated seam",
+      "use_when": "local wiring plus one or more bounded delegated seams.",
+      "persistence": "`synth_seed.json` + `ledger_path`; delegated lane inherits the bridge or cohort contract",
+      "source_provenance": "wave_conductor + delegation_protocol"
+    },
+    {
+      "mode": "mission_launch",
+      "worker_surface": "observe runtime + controller",
+      "use_when": "mission expansion or launch owns the observe runtime handoff, but controller closure still lives in `seed_pipeline.py --status/--step --state <_mission_controller_state.json>`.",
+      "persistence": "`observe_plan_path` + `resume_contract.json` (for detached observe wake) + `_mission_controller_state.json` + mission-local `pipeline_resume.json` / `pipeline_attention.json`",
+      "source_provenance": "wave_conductor + delegation_protocol"
+    },
+    {
+      "mode": "bridge_graph",
+      "worker_surface": "bridge",
+      "use_when": "injected-context bridge fan-out is the primary execution engine.",
+      "persistence": "`observe_plan_path` + `resume_contract_path` + bridge receipts",
+      "source_provenance": "wave_conductor + delegation_protocol"
+    },
+    {
+      "mode": "continuous_conductor",
+      "worker_surface": "bridge",
+      "use_when": "long-running bounded campaign with explicit wake barriers.",
+      "persistence": "`observe_plan_path` + `resume_contract_path` + `continuation_summary_path` + bridge receipts",
+      "source_provenance": "wave_conductor + delegation_protocol"
+    },
+    {
+      "mode": "subagent_cohort",
+      "worker_surface": "subagent",
+      "use_when": "the native tool-using sibling of `bridge_graph` for fan-out work. Use multiple scoped workers with explicit write boundaries, or zero-write evidence returns, and one controller-owned assimilation sink.",
+      "persistence": "synth_seed.json:synthesis_memory + `delta_path` + `archive_root/cohort_wave_<wave_id>_bundles/` + `ledger_path`",
+      "source_provenance": "wave_conductor + delegation_protocol"
+    }
+  ],
+  "delegation_contract_rows": [
+    {
+      "surface": "subagent_cohort",
+      "contract": "Workers are stateless, self-contained single-return calls; each prompt carries target paths, scope, expected artifacts, handoff requirements, and forbidden writes."
+    },
+    {
+      "surface": "zero-write cohort",
+      "contract": "Evidence workers return typed bundles in-tool; the controller alone writes synthesis memory, optional delta/archive artifacts, and the ledger."
+    },
+    {
+      "surface": "bridge_graph / continuous_conductor",
+      "contract": "Detached bridge work is resumed from the observe plan, resume contract, and stored receipts before controller assimilation."
+    }
+  ],
+  "anti_patterns": [
+    {
+      "id": "kernel_before_grep",
+      "text": "Using grep, glob, or find as discovery when a kernel route or phase card can narrow the space first."
+    },
+    {
+      "id": "bridge_before_scope",
+      "text": "Using bridge to discover scope before the controller or cohort has already selected refs, files, or slices."
+    },
+    {
+      "id": "zero_write_disk",
+      "text": "Letting zero-write workers persist files instead of returning typed bundles in-tool."
+    },
+    {
+      "id": "ad_hoc_subphase_dirs",
+      "text": "Inventing new top-level subphase directories such as `cohort_wave_001/` or `worker_outputs/`."
+    },
+    {
+      "id": "mode_in_chat_only",
+      "text": "Changing execution mode in chat memory without updating the synth or wave contract."
+    }
+  ]
+}

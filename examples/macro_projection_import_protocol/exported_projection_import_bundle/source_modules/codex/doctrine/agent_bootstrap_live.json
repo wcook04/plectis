@@ -1,0 +1,3652 @@
+{
+  "kind": "agent_bootstrap_live",
+  "schema_version": "agent_bootstrap_live_v0",
+  "generated_at": "2026-05-24T12:21:21.439097+00:00",
+  "source_event": "codex_microcosm_entry_lattice_split",
+  "live_bindings": {
+    "pipeline_state_rel": null,
+    "pipeline_stage": null,
+    "controller_phase": null,
+    "phase_dir": null,
+    "family_dir": null,
+    "active_family_dir": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine",
+    "active_family_number": "09",
+    "active_phase_id": "09_54_1",
+    "active_phase_number": "09.54.1",
+    "active_phase_title": "Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import",
+    "active_phase_dir": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/09.54 - Phase 09.54 - Monday Dissemination Rollout Readiness, Public-Safe Proof Bundle, and Recipient Packet Execution/09.54.1 - Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import",
+    "cycle": null,
+    "orchestration_state_rel": "tools/meta/control/orchestration_state.json",
+    "orchestration_active_driver": "no_active_runtime_phase",
+    "orchestration_gate_reason": "no_active_runtime_phase",
+    "orchestration_event_log_rel": "tools/meta/control/orchestration_events.jsonl",
+    "orchestration_latest_event_id": "orch_20260521T174607_222922_0000_164f9d1e01",
+    "orchestration_current_owner": "control_room_manager",
+    "orchestration_next_handoff": "human_operator",
+    "active_directive_path": null,
+    "active_directive_summary": null,
+    "system_view_rel": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/09.54 - Phase 09.54 - Monday Dissemination Rollout Readiness, Public-Safe Proof Bundle, and Recipient Packet Execution/system_view.json",
+    "system_view_file_count": 0,
+    "documentation_route_focus_rel": "tools/meta/control/documentation_route_focus.json",
+    "documentation_route_focus_active_preset": "neutral",
+    "system_map_generated_at": "2026-05-22T20:39:52.671335+00:00",
+    "doctrine_runtime_mtime_iso": "2026-04-15T15:18:29.361722+00:00",
+    "extracted_shards_rel": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/extracted_shards.json",
+    "extracted_shard_count": 1309,
+    "factory_state_rel": "tools/meta/factory/factory_state.json",
+    "factory_stage": "stage_apply_failed",
+    "factory_last_run": "2026-03-25T02:01:06.404686+00:00",
+    "factory_last_event_at": "2026-04-27T07:44:10.226050+00:00",
+    "factory_stage_observed_at": "2026-03-25T02:01:06.404686+00:00",
+    "factory_state_age_days": 60,
+    "factory_state_freshness": "stale_historical_snapshot",
+    "factory_state_role": "historical_snapshot",
+    "factory_state_live": false,
+    "factory_stage_is_current": false
+  },
+  "per_agent_rows": [
+    {
+      "agent": "Claude / Claude Code",
+      "read_first": "CLAUDE.md adapter, then AGENTS.md hub",
+      "primary_delta": "Thin Claude adapter: hooks, session/subagent semantics, and Claude-specific yield/resume deltas after the mandatory AGENTS handoff."
+    },
+    {
+      "agent": "Codex",
+      "read_first": "CODEX.md adapter, then AGENTS.md hub",
+      "primary_delta": "Thin Codex adapter: controller continuity, watcher/app-control behavior, and Codex-specific detached-wake posture after the mandatory AGENTS handoff."
+    }
+  ],
+  "minimum_read_sets": {
+    "sit_config_authority_plane": {
+      "paths": [
+        "codex/standards/std_config_authority_registry.json",
+        "codex/doctrine/paper_modules/federated_config_plane.md",
+        "system/lib/config_authority_registry.py",
+        "tools/meta/factory/build_config_authority_registry.py",
+        "codex/derived/config_authority_registry.json",
+        "system/server/main.py",
+        "system/server/ui/src/pages/Settings.tsx",
+        "system/server/ui/src/components/views/ConfigsBoard.tsx",
+        "system/lib/system_surface_registry.py"
+      ],
+      "purpose": "Federated config authority plane: read the standard, paper module, registry builder, projection, API routes, Settings projection, ConfigsBoard config_ref consumer, and system registry link before changing config behavior."
+    },
+    "sit_task_conditioned_context_pack_entry": {
+      "paths": [
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_metabolism_ledger.py",
+        "system/lib/standard_option_surface.py",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md"
+      ],
+      "purpose": "Normal cold-agent task entry: build a mixed-band context packet before opening bespoke search/open routes. Navigation/system-health complaints route to navigation-metabolism."
+    },
+    "sit_navigation_enforcement": {
+      "paths": [
+        "system/lib/navigation_metabolism_ledger.py",
+        "system/lib/navigation_coverage_matrix.py",
+        "system/lib/entrypoint_health.py",
+        "system/lib/navigation_route_intervention.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/concepts/con_038_routing_as_semantic_relation_graph.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/skills/kernel/navigation_seed.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+      ],
+      "purpose": "Navigation enforcement and route repair: classify behavior debt, coverage-permission boundaries, entrypoint health, route lifecycle, and process-audit route failures before editing standards or runtime code."
+    },
+    "sit_publication_lane_push_recovery": {
+      "paths": [
+        "tools/meta/control/publication_lane.py",
+        "tools/meta/control/mission_transaction_preflight.py",
+        "system/lib/mission_transaction_landing_preflight.py",
+        "system/lib/shared_worktree_guard.py",
+        "tools/meta/control/scoped_commit.py",
+        "run_git.py",
+        "repo-git",
+        "system/server/tests/test_mission_transaction_landing_preflight.py"
+      ],
+      "purpose": "Publication-lane push recovery: diagnose a blocked direct push, select clean local commits, replay them on a detached clean worktree from origin/main, and publish only after the github push bloat gate is clear."
+    },
+    "sit_type_b_to_type_a_continuation_handoff": {
+      "paths": [
+        "codex/doctrine/paper_modules/operational_work_item_spine.md",
+        "obsidian/prompt_shelf/items/instantiation.md",
+        "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/mission_transaction_landing_preflight.py",
+        "tools/meta/control/mission_transaction_preflight.py"
+      ],
+      "purpose": "Type A/B actor-axis and continuation handoff: resolve Type A/B through con_016::actor_axes, prepare operator-carried Type B asks when requested, parse operator-pasted bridge/HUD responses as advisory synthesis plus directed Type A continuation prompts, then verify live repo state before acting."
+    },
+    "sit_dissemination_agent_entry": {
+      "paths": [
+        "codex/doctrine/skills/dissemination/dissemination_cycle.md",
+        "codex/doctrine/skills/dissemination/dissemination_understanding.md",
+        "codex/doctrine/skills/dissemination/dissemination_research_prompting.md",
+        "codex/doctrine/skills/dissemination/dissemination_research_assimilation.md",
+        "codex/doctrine/paper_modules/dissemination_strategy.md",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "codex/standards/std_agent_entry_surface.json",
+        "docs/dissemination/README.md",
+        "docs/dissemination/holographic_research_snapshot.md",
+        "tools/meta/dissemination/build_holographic_research_bundle.py"
+      ],
+      "purpose": "Dissemination agent entry: route public launch, public-safe projection, outreach, recognition-grade positioning, holographic research, and returned-research assimilation through the dissemination skill family and public/private boundary before browsing the full docs directory."
+    },
+    "sit_task_ledger_dependency_unlocks": {
+      "paths": [
+        "codex/standards/std_task_ledger.json",
+        "codex/doctrine/skills/task_ledger/task_ledger.md",
+        "codex/doctrine/skills/task_ledger/cap_reflex_improvement.md",
+        "system/lib/task_ledger_events.py",
+        "system/lib/standard_option_surface.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/server/ui/src/api.ts",
+        "system/server/ui/src/components/world/VantageLens.tsx",
+        "state/task_ledger/views/dependency_graph.json",
+        "state/task_ledger/views/dependency_blocked.json",
+        "state/task_ledger/views/unlocks_by_rank.json"
+      ],
+      "purpose": "Task Ledger dependency and unlock graph: read the standard projection contract, Task Ledger skill, cap-reflex skill, projector, option-surface adapter, Vantage compactor, UI type/render consumer, and generated dependency views before changing dependency-sensitive planning."
+    },
+    "sit_mechanism_workitem_affinity": {
+      "paths": [
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/standards/std_task_ledger.json",
+        "codex/standards/principles/std_mechanism.json",
+        "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "system/lib/standard_option_surface.py",
+        "state/task_ledger/views/cluster_index.json",
+        "state/task_ledger/ledger.json"
+      ],
+      "purpose": "Mechanism to WorkItem affinity clustering: preserve the mechanism/WorkItem authority split while using mechanism pressure as a read-only Task Ledger cluster lens."
+    },
+    "sit_system_state_axis_overview": {
+      "paths": [
+        "codex/standards/std_derived_fact.json",
+        "codex/hologram/facts/navigation_cache.json",
+        "system/lib/derived_fact_hologram.py",
+        "system/lib/kernel/commands/navigate.py",
+        "codex/doctrine/skills/kernel/navigation_seed.md"
+      ],
+      "purpose": "Generated state-axis artifact route: cross-kind state adjectives as fact rows plus compressed tag/facet/family indexes."
+    },
+    "sit_russian_doll_option_surface_entry": {
+      "paths": [
+        "codex/standards/std_kind_atlas.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "system/lib/kind_atlas.py",
+        "system/lib/standard_option_surface.py",
+        "system/lib/navigation_context_rosetta.py"
+      ],
+      "purpose": "Russian-doll drilldown lane (not cold-start first move): after --entry selects a kind or operator explicitly browses, scan the live compressed option surface across artifact kinds, then drill into the matching kind. Per pri_128 and std_agent_entry_surface.json::first_move_contract, --entry is the cold-start first move; --kind-atlas/--option-surface are labelled drilldowns. Bespoke trigger flags (--paper-module, --skill-find, --annex-inspiration, --docs-route) are lower-level drilldowns below this lane."
+    },
+    "sit_documentation_plane_orientation": {
+      "paths": [
+        "AGENTS.md",
+        "docs/agent_instruction_router.md",
+        "docs/documentation_plane_map.md"
+      ],
+      "purpose": "Cold-start documentation / How-layer routing: land on theory index, registry, and doc-plane map without rereading the whole repo."
+    },
+    "mrs_artifact_agent_telemetry": {
+      "paths": [
+        "docs/agent_telemetry.md",
+        "docs/runtime_backend_registry.md",
+        "codex/doctrine/paper_modules/host_agent_external_surfaces.md",
+        "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md",
+        "tools/meta/agent_telemetry/extract.py",
+        "tools/meta/agent_telemetry/host_surface_probe.py",
+        "tools/meta/agent_telemetry/coverage.py"
+      ],
+      "purpose": "Observed agent-navigation diagnostics from local Claude/Codex rollouts and host records: docs, paper-module ontology, safe probes, and the coverage analyzer that turns behavior into routing fixes."
+    },
+    "mrs_agent_session_diagnostics": {
+      "paths": [
+        "codex/doctrine/skills/kernel/agent_session_diagnostics.md",
+        "codex/doctrine/skills/kernel/navigation_seed.md",
+        "codex/doctrine/skills/doctrine/nav_driven_wiring_repair.md",
+        "tools/meta/observability/session_analyzer.py",
+        "state/session_diagnostics/"
+      ],
+      "purpose": "Out-of-repo Claude/Codex session diagnostics as a navigation-training loop: read the skill, analyzer, session stores, and generated diagnostic snapshots before changing route or skill behavior."
+    },
+    "sit_human_ai_brainstorming": {
+      "paths": [
+        "codex/doctrine/skills/doctrine/human_ai_brainstorming.md",
+        "codex/standards/std_paper_module.json",
+        "codex/doctrine/compression_profiles.json",
+        "codex/standards/std_system_term.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/skills/doctrine/paper_module_authoring.md",
+        "codex/doctrine/skills/doctrine/principles_curation.md",
+        "codex/doctrine/skills/raw_seed/agent_seed_authoring.md"
+      ],
+      "purpose": "Human-to-AI thinking loop: keep the active theory artifact open, ask substrate-changing questions, contribute synthesis, and route stable learnings into the owning plane."
+    },
+    "sit_type_a_judgment_metabolism": {
+      "paths": [
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "codex/standards/std_system_term.json",
+        "codex/doctrine/skills/doctrine/human_ai_brainstorming.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/skills/doctrine/axiom_up_propagation.md",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json"
+      ],
+      "purpose": "Type A judgment and thinking-trait metabolism: start from governed vocabulary, system-term standard, brainstorming/local-to-general skills, and entry-surface boundaries before treating critic posture as local style."
+    },
+    "sit_type_a_operating_register": {
+      "paths": [
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "CODEX.md",
+        "CLAUDE.md",
+        ".claude/follow_on/passion.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json"
+      ],
+      "purpose": "Type A operating register: resolve care, passion, common sense, and judgment as governed vocabulary before widening into adapters or raw style lore."
+    },
+    "sit_system_axiom_candidates": {
+      "paths": [
+        "codex/standards/principles/std_system_axiom_candidate.json",
+        "codex/doctrine/skills/doctrine/system_axiom_candidate_curation.md",
+        "codex/doctrine/skills/doctrine/axiom_up_propagation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
+        "docs/raw_seed_principles_curation.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+      ],
+      "purpose": "System axiom candidate lane: candidate axioms stay below active doctrine and route through the standard, curation skills, active ledger, and principle curation lane."
+    },
+    "sit_local_to_general_propagation": {
+      "paths": [
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/mechanisms/mech_034_failure_class_propagation_packet.json",
+        "codex/standards/std_uppropagation_intake.json",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/paper_modules/workitem_spine_operating_practice.md",
+        "codex/doctrine/skills/doctrine/peer_propagation.md",
+        "codex/doctrine/skills/doctrine/principles_curation.md",
+        "codex/doctrine/skills/raw_seed/agent_seed_authoring.md",
+        "docs/raw_seed_principles_curation.md"
+      ],
+      "purpose": "Local-to-general propagation and lattice transposition: close a local task by routing reusable learning to the owning plane, and run generalise-uppropagate when a local reusable addition must reach sibling surfaces, durable intake, generated entry, unified self-description, and WorkItem residual capture."
+    },
+    "sit_durable_closeout_propagation": {
+      "paths": [
+        "codex/standards/std_uppropagation_intake.json",
+        "tools/meta/factory/uppropagate.py",
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "codex/doctrine/paper_modules/workitem_spine_operating_practice.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        ".agents/skills/prompt-shelf-prompt-wiring/SKILL.md"
+      ],
+      "purpose": "Durable closeout propagation: raw aiw footers are visible only on capture surfaces; ordinary Type A closeout routes through up-propagation intake, Task Ledger capture, Prompt Ledger linkage, Work Ledger closeout, or a deferred capture packet."
+    },
+    "mrs_artifact_prompt_shelf_uppropagation_digest": {
+      "paths": [
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "state/prompt_shelf/uppropagation_digest.md",
+        "state/prompt_shelf/uppropagation_digest.json",
+        "state/prompt_shelf/uppropagation_index.json",
+        "tools/meta/observability/prompt_shelf_uppropagation_digest.py",
+        "tools/meta/observability/prompt_shelf_uppropagation_index.py",
+        ".agents/skills/prompt-shelf-prompt-wiring/SKILL.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+      ],
+      "purpose": "Prompt-shelf up-propagation digest: compact self-observation surface for lesson, self_prompting_idea, information_demand, prompt friction, and candidate-row telemetry before prompt, doctrine, standard, principle, or axiom promotion."
+    },
+    "mrs_artifact_aiw_movement_sidecar": {
+      "paths": [
+        "codex/standards/std_aiw_movement_v1.json",
+        "tools/meta/observability/prompt_shelf_movement_index.py",
+        "state/prompt_shelf/movement_index.json",
+        "system/server/tests/test_prompt_shelf_movement_index.py",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/standards/std_bridge_info_request_v1.json"
+      ],
+      "purpose": "AIW movement sidecar: movement-index telemetry for prompt-shelf prompt/response traces and bridge info-request pressure before propagation or routing promotion."
+    },
+    "sit_peer_propagation": {
+      "paths": [
+        "codex/doctrine/skills/doctrine/peer_propagation.md",
+        "codex/doctrine/peer_propagation/README.md",
+        "codex/doctrine/peer_propagation/peer_ledger.json",
+        "codex/standards/std_peer_propagation_record.json",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/compression_profiles.json"
+      ],
+      "purpose": "PEER propagation: source-linked peer-to-peer candidate receipts for reusable Type A agent lessons that should help future Codex/Claude peers without becoming operator voice or active doctrine."
+    },
+    "sit_system_microcosm_probe": {
+      "paths": [
+        "codex/doctrine/skills/doctrine/system_microcosm_probe.md",
+        "codex/standards/std_paper_module.json",
+        "codex/doctrine/compression_profiles.json",
+        "codex/standards/std_system_term.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/standards/observe/mission_templates/meta_missions/system_microcosm_probe/mission.json",
+        "codex/standards/observe/mission_templates/meta_missions/system_microcosm_probe/params.example.json",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/skills/raw_seed/agent_seed_authoring.md"
+      ],
+      "purpose": "Theory-first self-hosted or disposable system laboratory probe: test candidate grammar across rows, lenses, skills, principles, packets, receipts, provider jobs, UI views, and autonomy loops before live migration. The minimum-read-set id remains sit_system_microcosm_probe for compatibility."
+    },
+    "sit_microcosm_public_substrate": {
+      "paths": [
+        "codex/doctrine/paper_modules/microcosm_substrate.md",
+        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "codex/standards/std_microcosm.json",
+        "microcosm-substrate/README.md",
+        "microcosm-substrate/AGENTS.md",
+        "microcosm-substrate/atlas/entry_packet.json",
+        "microcosm-substrate/skills/cold_start_navigation.md",
+        "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json",
+        "codex/doctrine/paper_modules/prime_directives.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/standards/std_standard_type_plane.json",
+        "codex/standards/std_kind_atlas.json"
+      ],
+      "purpose": "Public Microcosm product/substrate entry: source-open repo -> .microcosm loop, proof-lab first screen, doctrine lattice, and Atlas drilldowns. Use this instead of sit_system_microcosm_probe for public Microcosm product tasks."
+    },
+    "sit_orchestration_control_plane": {
+      "paths": [
+        "docs/orchestration_state.md",
+        "tools/meta/control/orchestration_state.json",
+        "AGENTS.md"
+      ],
+      "purpose": "Runtime ownership: read orchestration docs and live snapshot authority before driving pipeline or control room."
+    },
+    "sit_always_on_metabolism_governor": {
+      "paths": [
+        "codex/doctrine/paper_modules/continuous_runtime_layer.md",
+        "docs/metabolismd.md",
+        "codex/doctrine/paper_modules/inference_tier_ladder.md",
+        "codex/doctrine/paper_modules/overnight_autonomous_operation.md",
+        "codex/doctrine/paper_modules/openrouter_metadata_probe.md"
+      ],
+      "purpose": "Always-on runtime gas pedal: read daemon, governor, provider pressure, market clock, and free-throughput posture before changing resident metabolism."
+    },
+    "sit_bridge_graph_authoring": {
+      "paths": [
+        "codex/doctrine/paper_modules/bridge_campaign_orchestration.md",
+        "codex/doctrine/skills/bridge_runtime/graph_authoring.md",
+        "codex/doctrine/concepts/con_029_bridge_graph_delegation_economics.json",
+        "codex/doctrine/skills/bridge_runtime/context_injection.md",
+        "codex/doctrine/skills/kernel/observe_plan_authoring.md",
+        "codex/standards/std_continuity_protocol.json"
+      ],
+      "purpose": "Bridge graph delegation economics and authoring: dispatch vs direct, runtime choice, task shapes, payload and budget policy, dependency wiring, synthesis discipline."
+    },
+    "sit_artifact_ontology": {
+      "paths": [
+        "codex/standards/std_artifact_ontology.json",
+        "codex/standards/core_authority_index.json",
+        "codex/standards/standards_registry.json"
+      ],
+      "purpose": "Artifact ontology: families, authority hierarchy, invariants, doctrine ordering. The reference frame for all other standards."
+    },
+    "sit_continuity_protocol": {
+      "paths": [
+        "codex/standards/std_continuity_protocol.json",
+        "codex/doctrine/skills/bridge_runtime/resume_contract.md",
+        "codex/doctrine/skills/bridge_runtime/overnight_autonomy.md"
+      ],
+      "purpose": "Continuity protocol: lifecycle states, modes (gate_bounded / open_conductor), required yield artifacts, routing outcomes, transition rules."
+    },
+    "sit_mission_launch_handoff": {
+      "paths": [
+        "codex/doctrine/skills/kernel/mission_launch.md",
+        "codex/standards/std_continuity_protocol.json",
+        "docs/pipeline_step_runbook.md",
+        "docs/bridge_operating_system.md"
+      ],
+      "purpose": "Mission launch lane: canonical observe handoff, mission-scoped controller bootstrap, and explicit state-scoped resume / closure commands."
+    },
+    "sit_meta_mission_system": {
+      "paths": [
+        "docs/meta_missions.md",
+        "codex/standards/observe/mission_templates/meta_mission_registry.json",
+        "codex/standards/observe/mission_templates/std_meta_mission_workspace.json",
+        "codex/doctrine/skills/doctrine/meta_mission_authoring.md"
+      ],
+      "purpose": "Meta-mission authority: registry, pack contract, career workspace, and the doctrine skill for creating or repairing a mission end-to-end."
+    },
+    "sit_type_a_autonomous_seed_framework": {
+      "paths": [
+        "codex/doctrine/skills/kernel/type_a_autonomous_seed_loop.md",
+        "codex/standards/observe/mission_templates/meta_missions/type_a_autonomous_seed_loop/README.md",
+        "codex/standards/observe/mission_templates/meta_missions/type_a_autonomous_seed_loop/mission.json",
+        "codex/standards/observe/mission_templates/meta_missions/type_a_autonomous_seed_loop/seed_template.json",
+        "docs/meta_missions.md",
+        "codex/standards/observe/mission_templates/meta_mission_registry.json"
+      ],
+      "purpose": "Type A autonomous-seed framework: the controller-local mission pack, seed template, and execution skill for repeated bounded waves resumed from a durable seed."
+    },
+    "sit_autonomous_seed_prompt_author": {
+      "paths": [
+        "codex/doctrine/skills/doctrine/autonomous_seed_prompt_author.md",
+        "codex/doctrine/paper_modules/autonomous_seed_anatomy.md",
+        "codex/standards/std_autonomous_seed_prompt.json",
+        "codex/doctrine/skills/kernel/agent_session_diagnostics.md",
+        "codex/doctrine/skills/kernel/type_a_autonomous_seed_loop.md",
+        "codex/doctrine/skills/raw_seed/distillation_rubric.md",
+        "tools/meta/observability/session_analyzer.py"
+      ],
+      "purpose": "Claude-authored autonomous-seed wake prompt composition: the skill, paper-module anatomy, standard, session-diagnostics grounding CLI, loop executor, and distillation rubric that together let Claude compose paste-ready wake prompts in Will's register."
+    },
+    "sit_obsidian_substrate_viewer": {
+      "paths": [
+        "codex/doctrine/skills/kernel/phase_note_lifecycle.md",
+        "codex/doctrine/skills/kernel/subphase_bootstrap.md",
+        "system/lib/autonomous_seed.py",
+        "system/lib/obsidian_observe.py",
+        "tools/meta/observability/obsidian_observe.py",
+        "codex/standards/observe_apply/std_autonomous_seed.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/autonomous_seed.md"
+      ],
+      "purpose": "Obsidian fallback substrate viewer: generated autonomous_seed projection, phase note lifecycle protocol, and saved Type A seed selector."
+    },
+    "sit_lab_oracle_evolve_pipeline": {
+      "paths": [
+        "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+        "codex/doctrine/missions/lab.md",
+        "codex/doctrine/missions/oracle.md",
+        "codex/doctrine/missions/evolve.md",
+        "codex/doctrine/missions/feeds.md",
+        "codex/substrate/contracts/schema_cp1.json",
+        "codex/substrate/contracts/schema_cp2.json",
+        "codex/substrate/contracts/schema_prediction_reconciliation.json",
+        "codex/substrate/contracts/schema_evolve_delta.json"
+      ],
+      "purpose": "Lab/Oracle/Evolve market-learning loop: CP1/CP2 temporal contract, subject/truth Oracle grading, feed-readiness gates, and review-gated Evolve mutation boundaries."
+    },
+    "sit_controller_continuity": {
+      "paths": [
+        "docs/controller_continuity.md",
+        "codex/standards/std_continuity_protocol.json",
+        "docs/bridge_operating_system.md",
+        "tools/meta/control/orchestration_state.json"
+      ],
+      "purpose": "Shared IDE-controller continuity: durable resume artifacts, detached-work wake conditions, and the rule that the controller should yield instead of idling in-thread."
+    },
+    "sit_codex_control_surface": {
+      "paths": [
+        "docs/codex_control_surface.md",
+        "CODEX.md",
+        "docs/controller_continuity.md",
+        "docs/codex_resume_protocol.md"
+      ],
+      "purpose": "Codex-specific control surface: the compact access note, the shared continuity contract, the Codex resume protocol, and the canonical runtime seam for driver, handoff, and watcher code."
+    },
+    "mrs_artifact_self_description_campaign": {
+      "paths": [
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.md",
+        "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.md",
+        "state/system_atlas/system_packet_status.json",
+        "state/system_atlas/type_b_grounding_packet_status.json",
+        "codex/doctrine/paper_modules/raw_seed_substrate.md",
+        "codex/doctrine/paper_modules/doctrine_apply_lanes.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/paper_modules/hologram_substrate_navigation.md",
+        "codex/doctrine/paper_modules/system_lib_directory_index.md",
+        "codex/doctrine/paper_modules/operational_work_item_spine.md",
+        "codex/doctrine/paper_modules/task_ledger.md",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/workingness_instrument.md",
+        "codex/doctrine/paper_modules/frontend_navigation_plane.md",
+        "codex/doctrine/paper_modules/frontend_station_cockpit.md",
+        "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+        "docs/self_description_campaign_bootstrap.md",
+        "codex/doctrine/skills/doctrine/self_description.md",
+        "codex/doctrine/skills/kernel/autonomous_campaign.md",
+        "docs/raw_seed_holographic_world_model.md",
+        "codex/doctrine/paper_modules/private_system_crystal.md",
+        "docs/dissemination/holographic_research_snapshot.md",
+        "tools/meta/dissemination/build_holographic_research_bundle.py"
+      ],
+      "purpose": "Broad self-comprehension convergence work: canonical root first, then whole-system branch map, compatibility campaign/projection surfaces, private crystal, and holographic private proof bundle drilldowns."
+    },
+    "sit_hologram_substrate_navigation": {
+      "paths": [
+        "codex/doctrine/paper_modules/hologram_substrate_navigation.md",
+        "codex/hologram/system/inventory.json",
+        "codex/standards/std_python_scope_index.json",
+        "tools/meta/builder.py"
+      ],
+      "purpose": "Hologram substrate rebuild/status and navigation browse artifacts."
+    },
+    "mrs_artifact_paper_modules": {
+      "paths": [
+        "codex/standards/std_paper_module.json",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/paper_modules/README.md",
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/doctrine/paper_modules/_validation_report.json",
+        "codex/doctrine/paper_modules/_route_coverage.json",
+        "codex/doctrine/paper_modules/paper_module_candidates.json",
+        "codex/doctrine/skills/doctrine/paper_module_lookup.md",
+        "codex/doctrine/skills/doctrine/paper_module_authoring.md",
+        "codex/doctrine/skills/doctrine/paper_module_coverage.md",
+        "tools/meta/factory/build_paper_module_index.py",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/README.md",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/mission.json",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/params.example.json",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/rubric.md",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/schema_contract.json",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/voice_patterns.md",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/gold_examples.jsonl"
+      ],
+      "purpose": "Subsystem quick-lookup surface: schema authority, candidates backlog, machine index, explicit action queues, metadata route coverage, the root paper, the three lifecycle skills, the --paper-module lookup substrate, builder/validator, and the hardened paper-module authoring meta-mission scaffold."
+    },
+    "sit_private_system_crystal": {
+      "paths": [
+        "codex/doctrine/paper_modules/private_system_crystal.md",
+        "docs/system_crystal/README.md",
+        "docs/system_crystal/system_crystal_one_page.generated.md",
+        "docs/system_crystal/system_crystal.generated.md",
+        "docs/system_crystal/system_crystal_five_page.generated.md",
+        "tools/meta/factory/build_system_crystal.py",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "system/server/tests/test_system_crystal.py"
+      ],
+      "purpose": "Private generated system self-model: access note, dense renders, builder/check, upstream self-comprehension root, and focused tests. Runtime JSON under state/system_crystal/ is ignored private state and remains projection, not authority."
+    },
+    "mrs_artifact_raw_seed_substrate": {
+      "paths": [
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_meta.md",
+        "docs/raw_seed_doctrine_derivation.md"
+      ],
+      "purpose": "Family blackboard and registry: house view then machine substrate."
+    },
+    "sit_doctrine_population": {
+      "paths": [
+        "codex/doctrine/skills/doctrine/doctrine_derivation.md",
+        "codex/doctrine/paper_modules/doctrine_population_loop.md",
+        "codex/doctrine/skills/doctrine/shard_cluster_assimilation.md",
+        "codex/doctrine/skills/doctrine/principles_curation.md",
+        "codex/doctrine/skills/doctrine/concept_mechanism_curation.md",
+        "codex/doctrine/skills/doctrine/paper_module_authoring.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "docs/raw_seed_doctrine_derivation.md"
+      ],
+      "purpose": "Doctrine population and crystallization: bounded raw-seed/system evidence, target-plane classification, owning curator/apply lane, projection refresh, and local-to-general closeout."
+    },
+    "mrs_artifact_raw_seed_shard_neighborhood_routing": {
+      "paths": [
+        "codex/doctrine/skills/kernel/shard_neighborhood_routing.md",
+        "codex/doctrine/paper_modules/raw_seed_shard_neighborhood_routing.md",
+        "codex/doctrine/skills/raw_seed/raw_seed_navigation.md",
+        "system/lib/shard_browser.py",
+        "tools/meta/factory/shard_browser.py"
+      ],
+      "purpose": "Raw-seed shard-neighborhood packet routing: deterministic retrieval first, review-plane hints second, selector-safe handoff third."
+    },
+    "sit_raw_seed_projection_derivation": {
+      "paths": [
+        "codex/doctrine/concepts/con_030_raw_seed_projection_and_derivation.json",
+        "codex/standards/observe_apply/std_raw_seed.json",
+        "codex/standards/observe_apply/std_raw_seed_backprop.json",
+        "tools/meta/factory/enrich_raw_seed.py",
+        "system/lib/raw_seed_registry.py"
+      ],
+      "purpose": "Raw-seed projection and derivation: enrichment rules, doctrine-target routing, extraction tracking, and backprop surfaces."
+    },
+    "mrs_artifact_principles_graph": {
+      "paths": [
+        "docs/raw_seed_principles_curation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json"
+      ],
+      "purpose": "Principle authoring + curated pri_* graph: curation discipline, axiom up-propagation, system axiom candidate lane, peer propagation, agent seed authoring, and the standards governing principle/axiom files."
+    },
+    "mrs_artifact_doctrine_lattice": {
+      "paths": [
+        "docs/raw_seed_principles_curation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
+        "codex/standards/standards_registry.json",
+        "codex/standards/core_authority_index.json",
+        "codex/standards/principles/std_raw_seed_principles.json",
+        "codex/standards/principles/std_system_axiom_candidate.json",
+        "codex/standards/principles/std_agent_bootstrap.json",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/paper_modules/codex_markdown_doctrine.md"
+      ],
+      "purpose": "Source-backed doctrine lattice for shared agent context: active family principles, axiom-candidate governance, standards registry, bootstrap standard, and constitution/markdown theory drilldowns."
+    },
+    "mrs_artifact_doctrine_con_mech": {
+      "paths": [
+        "codex/doctrine/doctrine_registry.json",
+        "docs/doctrine_concepts_mechanisms_curation.md"
+      ],
+      "purpose": "Doctrine concepts and mechanisms under registry."
+    },
+    "mrs_artifact_standards": {
+      "paths": [
+        "codex/standards/standards_registry.json",
+        "docs/standards_authoring_foundation_up.md"
+      ],
+      "purpose": "Standards registry and foundation-up authoring."
+    },
+    "mrs_artifact_runtime_control": {
+      "paths": [
+        "docs/orchestration_state.md",
+        "tools/meta/control/orchestration_state.json",
+        "system/control/orchestration.py"
+      ],
+      "purpose": "Canonical orchestration snapshot and control-plane code."
+    },
+    "mrs_artifact_bridge_os": {
+      "paths": [
+        "docs/bridge_operating_system.md",
+        "docs/raw_seed_problem_1_two_intelligences_protocol_gap.md",
+        "pipeline_signal_watcher.py"
+      ],
+      "purpose": "Measured bridge contract plus session continuity surfaces: bridge OS note, Problem 1 async contract, and the current watcher launch path."
+    },
+    "mrs_artifact_router_bootstrap": {
+      "paths": [
+        "AGENTS.md",
+        "docs/agent_instruction_router.md"
+      ],
+      "purpose": "Multi-agent entry and trigger routing."
+    },
+    "sit_type_a_entry_experience": {
+      "paths": [
+        "codex/doctrine/agent_bootstrap.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "codex/doctrine/paper_modules/codex_markdown_doctrine.md",
+        "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "codex/doctrine/paper_modules/system_lib_directory_index.md",
+        "docs/agent_telemetry.md",
+        "codex/doctrine/skills/doctrine/nav_driven_wiring_repair.md"
+      ],
+      "purpose": "Type A entry-experience and cold-comprehension guard: shared markdown adapters, compact entry-surface propagation, host-agent dotfiles, observed telemetry, and Python substrate must all be in view before whole-system claims."
+    },
+    "sit_semantic_naming": {
+      "paths": [
+        "codex/standards/std_semantic_naming.json",
+        "codex/doctrine/paper_modules/semantic_naming_grammar.md",
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json"
+      ],
+      "purpose": "Semantic naming: start from the compressed naming standard, paper module, vocabulary row, and axiom-candidate context before changing storage paths."
+    },
+    "sit_profile_governed_compression": {
+      "paths": [
+        "codex/doctrine/skills/compression/profile_governed_compression.md",
+        "codex/doctrine/compression_profiles.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/paper_modules/holographic_navigation_compression.md",
+        "codex/doctrine/system_vocabulary/term_registry.json"
+      ],
+      "purpose": "Profile-governed compression: route compression through profiles, standards, bands, drilldowns, and vocabulary before local summary or worker population."
+    },
+    "sit_living_system_posture": {
+      "paths": [
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "state/meta_missions/system_microcosm_probe/ledgers/navigation_hologram_microcosm/wave_035/auditor_tightening_and_kernel_rewire_receipt.md"
+      ],
+      "purpose": "Living system posture: read artifacts, receipts, generated surfaces, raw voice, and doctrine as currentness-bearing rather than timeless authority."
+    },
+    "mrs_artifact_annex": {
+      "paths": [
+        "annexes/annex_catalog.json",
+        "annexes/<slug>/annex_contents.json",
+        "docs/annex_registry.md",
+        "annexes/README.md"
+      ],
+      "purpose": "Imported pattern and annex substrate."
+    },
+    "mrs_artifact_external_reference_routing": {
+      "paths": [
+        "codex/doctrine/skills/bridge_runtime/bridge_research_probe.md",
+        "codex/doctrine/paper_modules/bridge_research_probe.md",
+        "codex/standards/observe/mission_templates/meta_missions/bridge_research_probe/mission.json",
+        "codex/doctrine/skills/doctrine/substrate_reference_mining.md",
+        "codex/doctrine/skills/annex/external_adoption_routing.md",
+        "annexes/annex_catalog.json",
+        "docs/annex_registry.md"
+      ],
+      "purpose": "Plane-wide external-reference routing: probe-only bridge research, substrate-reference routing, adoption-lane gate, and annex browse entry."
+    },
+    "sit_annex_bridge_navigation": {
+      "paths": [
+        "codex/doctrine/paper_modules/codex_annex_substrate.md",
+        "codex/doctrine/paper_modules/unified_navigation_layer.md",
+        "codex/doctrine/skills/annex/annex_system_improvement_loop.md",
+        "codex/doctrine/skills/annex/annex_pattern_transfer.md",
+        "annexes/annex_distillation_index.json",
+        "docs/annex_registry.md"
+      ],
+      "purpose": "Annex bridge into documentation, navigation, and control-plane surfaces: start from the annex substrate module, the unified navigation roof, and the controller-owned annex improvement skill before editing route or catalog code."
+    },
+    "mrs_filetype_python_kernel": {
+      "paths": [
+        "codex/standards/std_python.py",
+        "codex/doctrine/doctrine_registry.json"
+      ],
+      "purpose": "Python under system/, tools/, or repo entrypoint scripts."
+    },
+    "sit_python_runtime_architecture": {
+      "paths": [
+        "codex/doctrine/paper_modules/system_lib_directory_index.md",
+        "codex/doctrine/paper_modules/kernel_entry_paths.md",
+        "codex/doctrine/paper_modules/system_core_execution_kernel.md",
+        "codex/standards/std_python.py",
+        "codex/hologram/system/scope_tree.json"
+      ],
+      "purpose": "Python runtime architecture: system/lib routing index, kernel entry path, system-core packet, Python standard, and hologram browse root."
+    },
+    "mrs_filetype_frontend_station_ui": {
+      "paths": [
+        "codex/doctrine/paper_modules/frontend_station_cockpit.md",
+        "docs/frontend_world_model_gap_audit.md",
+        "system/server/ui/README.md"
+      ],
+      "purpose": "Station frontend TypeScript, Vite, and cockpit component surfaces."
+    },
+    "mrs_sit_frontend_page_meta_contract": {
+      "paths": [
+        "codex/doctrine/paper_modules/frontend_page_meta_contract.md",
+        "codex/doctrine/paper_modules/frontend_station_cockpit.md",
+        "codex/doctrine/paper_modules/frontend_navigation_plane.md",
+        "codex/doctrine/paper_modules/frontend_substrate_projection_theory.md",
+        "system/server/ui/src/components/world/PageHeader.tsx",
+        "system/server/ui/src/components/world/PageIdentityBadge.tsx",
+        "system/server/ui/src/navigation/surfaces.ts"
+      ],
+      "purpose": "Frontend page-meta contract: the five-facet self-description shape every Station lens carries (purpose, principles, decisions, navigation, overwhelm control), with each facet's owning surface and verification seam."
+    },
+    "mrs_filetype_doctrine_json": {
+      "paths": [
+        "codex/doctrine/doctrine_registry.json",
+        "docs/doctrine_concepts_mechanisms_curation.md"
+      ],
+      "purpose": "con_*.json / mech_*.json doctrine files."
+    },
+    "mrs_filetype_standards_json": {
+      "paths": [
+        "codex/standards/standards_registry.json"
+      ],
+      "purpose": "std_*.json and standards authority indexes."
+    },
+    "mrs_filetype_raw_seed_family": {
+      "paths": [
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_meta.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json"
+      ],
+      "purpose": "Family raw_seed.md / raw_seed.json / index / principles."
+    },
+    "mrs_filetype_phase_synth": {
+      "paths": [
+        "codex/standards/observe_apply/observe_apply_authority_index.json",
+        "docs/raw_seed_subphase_execution_loop.md"
+      ],
+      "purpose": "synth_seed.json, cycle artifacts, observe-apply authority."
+    },
+    "mrs_filetype_control_meta": {
+      "paths": [
+        "docs/orchestration_state.md",
+        "system/control/orchestration.py"
+      ],
+      "purpose": "tools/meta/control orchestration artifacts."
+    },
+    "mrs_filetype_docs_access": {
+      "paths": [
+        "docs/README.md",
+        "docs/documentation_plane_map.md"
+      ],
+      "purpose": "docs/*.md access notes — route upward to authorities."
+    },
+    "mrs_filetype_annex_md": {
+      "paths": [
+        "annexes/annex_catalog.json",
+        "annexes/<slug>/annex_contents.json",
+        "docs/annex_registry.md"
+      ],
+      "purpose": "docs/*_annex.md summaries."
+    },
+    "mrs_filetype_repo_skill_md": {
+      "paths": [
+        "codex/doctrine/skills/skill_map.md",
+        "docs/skills_kernel_and_doc_layers.md",
+        "codex/doctrine/skills/skill_registry.json"
+      ],
+      "purpose": "Repo-local skill markdown: use the generated skill browse map and instruction-pack doctrine before reading the individual skill body."
+    },
+    "mrs_filetype_ideas_vault": {
+      "paths": [
+        "docs/raw_seed_ideas_vault_and_documentation_substrate.md",
+        "docs/documentation_plane_map.md"
+      ],
+      "purpose": "obsidian/idea example corpus and vault discipline."
+    },
+    "mrs_actor_codex": {
+      "paths": [
+        "AGENTS.override.md",
+        "CODEX.md",
+        "AGENTS.md",
+        "docs/controller_continuity.md",
+        "CLAUDE.md"
+      ],
+      "purpose": "Codex fresh-session stack: compact discovery seed first, then Codex delta, deep shared hub, and full kernel depth."
+    },
+    "mrs_actor_claude_code": {
+      "paths": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "docs/controller_continuity.md"
+      ],
+      "purpose": "Claude Code fresh-session stack: shared repo contract, then Claude-specific repo depth."
+    },
+    "mrs_actor_bridge_worker": {
+      "paths": [
+        "codex/doctrine/agent_bootstrap_injection_strip.json",
+        "codex/doctrine/system_map.json",
+        "tools/meta/control/orchestration_state.json"
+      ],
+      "purpose": "Bridge worker frame: compact bootstrap, holographic system view, then live orchestration state."
+    },
+    "mrs_actor_human_operator": {
+      "paths": [
+        "docs/orchestration_state.md",
+        "tools/meta/control/orchestration_state.json",
+        "AGENTS.md"
+      ],
+      "purpose": "Human operator review stack: orchestration doc, live runtime snapshot, then shared repo contract."
+    },
+    "mrs_actor_control_room_manager": {
+      "paths": [
+        "tools/meta/control/orchestration_state.json",
+        "tools/meta/control/documentation_route_focus.json",
+        "docs/orchestration_state.md"
+      ],
+      "purpose": "Control-room manager frame: live orchestration selector, docs-route focus config, and active directive surface."
+    },
+    "sit_unified_navigation_layer": {
+      "paths": [
+        "codex/doctrine/paper_modules/unified_navigation_layer.md",
+        "docs/unified_navigation_layer_build_spec.md",
+        "codex/doctrine/skills/kernel/navigation_seed.md",
+        "codex/doctrine/skills/doctrine/nav_driven_wiring_repair.md",
+        "codex/doctrine/paper_modules/semantic_routing_plane.md",
+        "codex/doctrine/paper_modules/embedding_substrate.md"
+      ],
+      "purpose": "Unified navigation-layer integration: route broad navigation/routing/wiring failures and embedding-freshness diagnostics to the paper module, build spec, navigation seed, embedding substrate, and semantic route-plane loci before raw search."
+    },
+    "sit_standards_authoring_foundation_up": {
+      "paths": [
+        "docs/standards_authoring_foundation_up.md",
+        "codex/standards/standards_registry.json",
+        "codex/standards/core_authority_index.json"
+      ],
+      "purpose": "Standards-authoring: open the registry, grouped authority index, and foundation-up discipline doc before editing any standard."
+    },
+    "sit_entry_control_packet": {
+      "paths": [
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_metabolism_ledger.py",
+        "system/lib/standard_option_surface.py",
+        "codex/standards/std_agent_entry_surface.json"
+      ],
+      "purpose": "Canonical cold-agent first move: compile the task into one selected route/lane, next legal action, banned routes, proof, and drilldown/debug policy before opening lower-level option surfaces or bespoke flags."
+    },
+    "sit_frontend_capability_discovery": {
+      "paths": [
+        "codex/doctrine/skills/frontend/capability_lanes.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/skills/frontend/frontend_design.md",
+        "codex/doctrine/skills/frontend/frontend_audit.md",
+        "codex/doctrine/skills/frontend/frontend_visual_verification.md",
+        "codex/doctrine/skills/frontend/frontend_runtime_cockpit.md"
+      ],
+      "purpose": "Frontend capability discovery: read the federated capability lanes projection, the std_agent_entry_surface federation contract, and the relevant repo frontend doctrine skill cards before treating frontend work as resolvable from a single skill."
+    }
+  },
+  "bootstrap_sequence": [
+    {
+      "step_id": "kernel_info",
+      "command": "./repo-python kernel.py --info",
+      "why": "Load the bootstrap HUD and command surfaces before widening search."
+    },
+    {
+      "step_id": "kernel_preflight",
+      "command": "./repo-python kernel.py --preflight",
+      "why": "Read the compact agent-start card: active phase, runtime posture, freshness risks, next safe command, and do-not warnings."
+    },
+    {
+      "step_id": "kernel_pulse",
+      "command": "./repo-python kernel.py --pulse",
+      "why": "Drill into the fuller live runtime state when the preflight card is not enough."
+    },
+    {
+      "step_id": "entry",
+      "command": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "why": "Canonical first-contact control compiler: emits one selected lane, next legal action, banned routes, proof, and drilldown/debug policy."
+    },
+    {
+      "step_id": "context_pack",
+      "command": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+      "why": "Entry subcompiler / compatibility first-contact packet: selected rows are context-only, not route authority."
+    },
+    {
+      "step_id": "navigation_metabolism",
+      "command": "./repo-python kernel.py --navigation-metabolism \"<task>\" --context-budget 12000",
+      "why": "Use when the task is about navigation, compression, route behavior, context bloat, layer sprawl, or agent-path repair."
+    },
+    {
+      "step_id": "kind_atlas",
+      "command": "./repo-python kernel.py --kind-atlas",
+      "why": "Per pri_128: enter through a control packet first; drill into --option-surface <kind_id> --band flag/card only after entry selects the kind or the operator explicitly asks to browse. Bespoke trigger flags (--paper-module / --skill-find --debug / --annex-inspiration / --docs-route) are drilldowns, not first moves."
+    },
+    {
+      "step_id": "navigation_context_rosetta",
+      "command": "./repo-python kernel.py --navigation-context-rosetta",
+      "why": "Freshness verifier for the canonical option-surface route and compressed route-token projection."
+    },
+    {
+      "step_id": "paper_modules_route",
+      "command": "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+      "why": "If context-pack or kind atlas points at paper_modules, browse clusters before row expansion; --paper-lattice is only a supported stable-slug drilldown and --paper-module <slug> is evidence."
+    },
+    {
+      "step_id": "docs_route",
+      "command": "./repo-python kernel.py --docs-route documentation",
+      "why": "Docs-plane drilldown only after kind_atlas indicates documentation-plane work. Per pri_128, --docs-route is a bespoke trigger flag (drilldown, not first move)."
+    },
+    {
+      "step_id": "system_map",
+      "command": "./repo-python kernel.py --system-map",
+      "why": "Open the holographic index only after the bootstrap HUD and docs route have narrowed the space."
+    },
+    {
+      "step_id": "frontier_sync",
+      "command": "./repo-python kernel.py --frontier 5",
+      "why": "Sync the freshest markdown frontier before re-entering active planning or doctrine work."
+    }
+  ],
+  "situation_routes": [
+    {
+      "situation_id": "entry_control_packet",
+      "route_command": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "label": "Entry control packet",
+      "use_when": "Canonical cold-agent first move for any task: compile one selected lane, next legal action, banned routes, proof, and drilldown/debug policy before opening context-pack, kind-atlas, option-surface rows, docs-route, skill-find, paper-module, or source evidence.",
+      "route_id": "sit_entry_control_packet",
+      "fallback_command": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+      "freshness_command": "./repo-python kernel.py --navigation-metabolism \"<task>\" --context-budget 12000",
+      "principle_anchor": "pri_128",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
+        "./repo-python kernel.py --option-surface <kind_id> --band card --ids <id>"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_agent_entry_surface.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Agent Entry Surface Standard"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+          "role": "control_entry_compiler",
+          "relation": "implements",
+          "label": "Entry control packet compiler",
+          "command": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_128",
+          "role": "principle_anchor",
+          "relation": "governs",
+          "label": "Live Projections Must Be Entry Routes"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "./repo-python kernel.py --entry \"<task>\"",
+          "--context-budget 12000"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "normal task entry smoke",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "kernel.entry_packet",
+          "CONTROL_ENTRY"
+        ]
+      },
+      "minimum_read_set_id": "sit_entry_control_packet",
+      "canonical_next_read": "system/lib/kernel/commands/comprehension_snapshot.py",
+      "minimum_read_paths": [
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_metabolism_ledger.py",
+        "system/lib/standard_option_surface.py",
+        "codex/standards/std_agent_entry_surface.json"
+      ]
+    },
+    {
+      "situation_id": "frontend_capability_discovery",
+      "route_command": "./repo-python kernel.py --option-surface skills --band cluster_flag",
+      "label": "Frontend capability discovery",
+      "use_when": "Any frontend task: UI polish, dashboard clarity, layout, interaction design, prototype, visual hierarchy, accessibility, a11y, keyboard usability, screen reader, ARIA, semantic HTML, contrast, WCAG, LCP, INP, CLS, layout shift, Core Web Vitals, hydration, browser console errors, network debugging, devtools, screenshot, visual verification, before/after diff, design system handoff, UX copy, design critique, design exploration, React page audit, React component review, hi-fi prototype, mobile app mockup, motion demo, anti-AI-slop visual polish.",
+      "route_id": "sit_frontend_capability_discovery",
+      "fallback_command": "./repo-python kernel.py --option-surface skills --band card --ids frontend_design,frontend_audit,frontend_visual_verification,frontend_runtime_cockpit",
+      "freshness_command": "./repo-python kernel.py --option-surface skills --band cluster_flag",
+      "principle_anchor": "pri_049",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --option-surface skills --band cluster_flag",
+        "./repo-python kernel.py --option-surface skills --band card --ids frontend_design,frontend_audit,frontend_visual_verification,frontend_runtime_cockpit,frontend_lens_taxonomy,frontend_world_model,frontend_capture_integration,frontend_reference_mining",
+        "./repo-python kernel.py --paper-module frontend_station_cockpit"
+      ],
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Frontend capability discovery is broad and availability-dependent; cold start should expose the route id and capability-token scent, while task-conditioned context-pack and capability projections select the concrete design, accessibility, runtime-debug, visual-verification, or research-copy lane.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "frontend_capability_discovery",
+          "design-authoring",
+          "accessibility-audit",
+          "runtime-debug-performance",
+          "visual-verification",
+          "research-copy-handoff"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "Audit this React page for accessibility and keyboard usability",
+          "--context-budget",
+          "8000"
+        ],
+        "smoke_expected_tokens": [
+          "frontend_capability_discovery"
+        ]
+      },
+      "minimum_read_set_id": "sit_frontend_capability_discovery",
+      "canonical_next_read": "codex/doctrine/skills/frontend/capability_lanes.json",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/frontend/capability_lanes.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/skills/frontend/frontend_design.md",
+        "codex/doctrine/skills/frontend/frontend_audit.md",
+        "codex/doctrine/skills/frontend/frontend_visual_verification.md",
+        "codex/doctrine/skills/frontend/frontend_runtime_cockpit.md"
+      ]
+    },
+    {
+      "situation_id": "config_authority_plane",
+      "route_command": "./repo-python kernel.py --docs-route \"master_config settings config authority registry config_ref effective config\"",
+      "label": "Federated config authority plane",
+      "use_when": "Any task about master_config, settings, config_ref, effective config, configurable authority, config mutation safety, or frontend/API config surface routing.",
+      "route_id": "sit_config_authority_plane",
+      "fallback_command": "./repo-python kernel.py --option-surface config_authorities --band cluster_flag",
+      "freshness_command": "./repo-python tools/meta/factory/build_config_authority_registry.py --check",
+      "principle_anchor": "pri_049",
+      "standard_anchor": "codex/standards/std_config_authority_registry.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --docs-route \"master_config settings config authority registry config_ref effective config\"",
+        "./repo-python kernel.py --option-surface config_authorities --band cluster_flag",
+        "./repo-python kernel.py --option-surface config_authorities --band card --ids master_config.bridge",
+        "./repo-python tools/meta/factory/build_config_authority_registry.py --check"
+      ],
+      "match_tokens": [
+        "config plane",
+        "federated config plane",
+        "config authority",
+        "config authority registry",
+        "configuration authority",
+        "master config",
+        "master_config",
+        "effective config",
+        "settings config",
+        "config_ref",
+        "config surface",
+        "config mutation safety",
+        "configurable authority",
+        "row-level config authority"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_config_authority_registry.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Config Authority Registry Standard"
+        },
+        {
+          "kind": "paper_module",
+          "ref": "federated_config_plane",
+          "role": "theory_roof",
+          "relation": "evidences",
+          "label": "Federated Config Plane",
+          "command": "./repo-python kernel.py --option-surface paper_modules --band card --ids federated_config_plane"
+        },
+        {
+          "kind": "option_surface",
+          "ref": "config_authorities",
+          "role": "row_surface",
+          "relation": "routes_to",
+          "label": "Config Authorities",
+          "command": "./repo-python kernel.py --option-surface config_authorities --band cluster_flag"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "tools/meta/factory/build_config_authority_registry.py",
+          "role": "freshness_checker",
+          "relation": "validates",
+          "label": "Config Authority Registry Builder",
+          "command": "./repo-python tools/meta/factory/build_config_authority_registry.py --check"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_config_authority_registry.json",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "config_authorities",
+          "std_config_authority_registry",
+          "federated_config_plane"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--option-surface",
+          "config_authorities",
+          "--band",
+          "cluster_flag"
+        ],
+        "smoke_expected_tokens": [
+          "config_authorities",
+          "root_effective_config"
+        ],
+        "smoke_negative_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "which standard owns Task Ledger cap execution and signoff authority?",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_forbidden_tokens": [
+          "config_authority_plane"
+        ]
+      },
+      "minimum_read_set_id": "sit_config_authority_plane",
+      "canonical_next_read": "codex/doctrine/paper_modules/federated_config_plane.md",
+      "minimum_read_paths": [
+        "codex/standards/std_config_authority_registry.json",
+        "codex/doctrine/paper_modules/federated_config_plane.md",
+        "system/lib/config_authority_registry.py",
+        "tools/meta/factory/build_config_authority_registry.py",
+        "codex/derived/config_authority_registry.json",
+        "system/server/main.py",
+        "system/server/ui/src/pages/Settings.tsx",
+        "system/server/ui/src/components/views/ConfigsBoard.tsx",
+        "system/lib/system_surface_registry.py"
+      ]
+    },
+    {
+      "situation_id": "task_conditioned_context_pack_entry",
+      "route_command": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+      "label": "Task-conditioned context-pack entry",
+      "use_when": "Normal task entry, route miss, doctrine/system questions, or any moment before opening bespoke trigger flags.",
+      "route_id": "sit_task_conditioned_context_pack_entry",
+      "fallback_command": "./repo-python kernel.py --kind-atlas",
+      "freshness_command": "./repo-python kernel.py --navigation-metabolism \"<task>\" --context-budget 12000",
+      "principle_anchor": "pri_128",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
+        "./repo-python kernel.py --option-surface <kind_id> --band card --ids <id>"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_agent_entry_surface.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Agent Entry Surface Standard"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/navigation_context_pack.py",
+          "role": "context_compiler",
+          "relation": "implements",
+          "label": "Navigation Context Pack",
+          "command": "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000"
+        },
+        {
+          "kind": "option_surface",
+          "ref": "kind_atlas",
+          "role": "fallback_index",
+          "relation": "routes_to",
+          "label": "Kind Atlas",
+          "command": "./repo-python kernel.py --kind-atlas"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_128",
+          "role": "principle_anchor",
+          "relation": "governs",
+          "label": "Live Projections Must Be Entry Routes"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "./repo-python kernel.py --context-pack \"<task>\" --context-budget 12000"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--context-pack",
+          "normal task entry smoke",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "navigation_context_pack",
+          "CONTROL_ENTRY"
+        ]
+      },
+      "minimum_read_set_id": "sit_task_conditioned_context_pack_entry",
+      "canonical_next_read": "system/lib/navigation_context_pack.py",
+      "minimum_read_paths": [
+        "system/lib/navigation_context_pack.py",
+        "system/lib/navigation_metabolism_ledger.py",
+        "system/lib/standard_option_surface.py",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md"
+      ]
+    },
+    {
+      "situation_id": "navigation_enforcement",
+      "route_command": "./repo-python kernel.py --navigation-metabolism \"<task>\" --metabolism-profile quick --context-budget 12000",
+      "label": "Navigation enforcement and route repair",
+      "use_when": "Navigation, compression, route behavior, first-contact coverage, entrypoint health, context bloat, layer sprawl, command latency, hook steering, process-audit route failures, or agent-path repair.",
+      "route_id": "sit_navigation_enforcement",
+      "fallback_command": "./repo-python kernel.py --coverage-enforcement-matrix \"<task>\" --context-budget 12000",
+      "freshness_command": "./repo-python kernel.py --coverage-enforcement-matrix \"<task>\" --context-budget 12000",
+      "principle_anchor": "pri_128",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json::typed_route_target_contract",
+      "drilldown_chain": [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --navigation-metabolism \"<task>\" --metabolism-profile quick --context-budget 12000",
+        "./repo-python kernel.py --coverage-enforcement-matrix \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface standards --band cluster_flag",
+        "./repo-python kernel.py --option-surface paper_modules --band cluster_flag"
+      ],
+      "match_tokens": [
+        "navigation enforcement",
+        "navigation control boundary",
+        "route behavior",
+        "route repair",
+        "routing repair",
+        "routing concept",
+        "what routing means",
+        "routing as semantic relation graph",
+        "routed routing",
+        "first-contact route behavior",
+        "coverage enforcement",
+        "coverage enforcement matrix",
+        "entrypoint health",
+        "context bloat",
+        "route bloat",
+        "layer sprawl",
+        "process audit navigation failure",
+        "agent path repair",
+        "hook steering",
+        "command latency",
+        "command path economy",
+        "command economy",
+        "command paths",
+        "slow commands",
+        "process bottlenecks",
+        "process-bottlenecks",
+        "process diagnostics",
+        "command spans",
+        "output bytes",
+        "stale diagnostics",
+        "advisory process rows",
+        "command surface inventory",
+        "wait tax"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_agent_entry_surface.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Agent Entry Surface Standard",
+          "match_tokens": [
+            "std_agent_entry_surface",
+            "agent entry surface standard"
+          ]
+        },
+        {
+          "kind": "concept",
+          "ref": "con_038",
+          "role": "concept_anchor",
+          "relation": "explains",
+          "label": "Routing As Semantic Relation Graph",
+          "command": "./repo-python kernel.py --option-surface concepts --band card --ids con_038",
+          "match_tokens": [
+            "routing concept",
+            "what routing means",
+            "routing as semantic relation graph",
+            "routed routing"
+          ]
+        },
+        {
+          "kind": "skill",
+          "ref": "navigation_metabolism",
+          "role": "repair_classifier",
+          "relation": "routes_to",
+          "label": "Navigation Metabolism",
+          "command": "./repo-python kernel.py --navigation-metabolism \"<task>\" --metabolism-profile quick --context-budget 12000",
+          "match_tokens": [
+            "navigation metabolism",
+            "route debt",
+            "behavior debt"
+          ]
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/navigation_coverage_matrix.py",
+          "role": "coverage_closure",
+          "relation": "audits",
+          "label": "Coverage Enforcement Matrix",
+          "command": "./repo-python kernel.py --coverage-enforcement-matrix \"<task>\" --context-budget 12000",
+          "match_tokens": [
+            "coverage enforcement matrix",
+            "coverage is not permission"
+          ]
+        },
+        {
+          "kind": "paper_module",
+          "ref": "navigation_hologram_theory",
+          "role": "theory_roof",
+          "relation": "evidences",
+          "label": "Navigation Hologram Theory",
+          "command": "./repo-python kernel.py --option-surface paper_modules --band card --ids navigation_hologram_theory"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_049",
+          "role": "principle_anchor",
+          "relation": "governs",
+          "label": "Minimum Sufficient Read Graph For Orientation"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_128",
+          "role": "principle_anchor",
+          "relation": "governs",
+          "label": "Live Projections Must Be Entry Routes"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::typed_route_target_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "navigation_enforcement",
+          "--navigation-metabolism",
+          "--coverage-enforcement-matrix"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "fix first-contact route behavior and coverage enforcement",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "navigation_enforcement",
+          "coverage-enforcement-matrix"
+        ],
+        "smoke_negative_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "commit this normal code change with a scoped commit",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_forbidden_tokens": [
+          "navigation_enforcement"
+        ]
+      },
+      "minimum_read_set_id": "sit_navigation_enforcement",
+      "canonical_next_read": "system/lib/navigation_metabolism_ledger.py",
+      "minimum_read_paths": [
+        "system/lib/navigation_metabolism_ledger.py",
+        "system/lib/navigation_coverage_matrix.py",
+        "system/lib/entrypoint_health.py",
+        "system/lib/navigation_route_intervention.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/concepts/con_038_routing_as_semantic_relation_graph.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/skills/kernel/navigation_seed.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+      ]
+    },
+    {
+      "situation_id": "active_execution_constellation",
+      "route_command": "./repo-python kernel.py --entry \"active execution constellation <task>\" --context-budget 12000",
+      "label": "Active Execution Constellation",
+      "use_when": "Any task asks what work is actually live across a static active phase, stale or stagnant subphase, Task Ledger campaigns, Work Ledger claims, parallel missions, Type A/B concurrency, or whether 09_54 can be demoted.",
+      "route_id": "sit_active_execution_constellation",
+      "fallback_command": "./repo-python kernel.py --pulse",
+      "freshness_command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 50 --cards-only",
+      "principle_anchor": "pri_147",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json::runtime_route_projection_contract",
+      "drilldown_chain": [
+        "./repo-python kernel.py --entry \"active execution constellation <task>\" --context-budget 12000",
+        "./repo-python kernel.py --pulse",
+        "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 50 --cards-only",
+        "./repo-python kernel.py --phase 09_54 --full",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
+      ],
+      "match_tokens": [
+        "active execution constellation",
+        "active work constellation",
+        "active execution",
+        "active work",
+        "current work",
+        "static subphase",
+        "stagnant subphase",
+        "stale subphase",
+        "subphase pointer",
+        "subphase liveness",
+        "work ledger concurrency",
+        "workitem work ledger",
+        "parallel missions",
+        "concurrency robust",
+        "09_54 demotion guard"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_agent_entry_surface.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Agent Entry Runtime Route Projection Contract"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_142",
+          "role": "projection_governance",
+          "relation": "governs",
+          "label": "Generated Projections Are Operational Interfaces"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_147",
+          "role": "subphase_boundary",
+          "relation": "governs",
+          "label": "Subphases Are Hierarchical Transaction Supervision Scopes"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/active_execution_constellation.py",
+          "role": "projection_builder",
+          "relation": "implements",
+          "label": "Active Execution Constellation Builder"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+          "role": "entry_compiler",
+          "relation": "routes_to",
+          "label": "Entry Packet Compiler",
+          "command": "./repo-python kernel.py --entry \"active execution constellation <task>\" --context-budget 12000"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/kernel/commands/navigate.py",
+          "role": "pulse_projection",
+          "relation": "projects",
+          "label": "Kernel Pulse"
+        },
+        {
+          "kind": "option_surface",
+          "ref": "task_ledger",
+          "role": "campaign_source",
+          "relation": "routes_to",
+          "label": "Task Ledger WorkItems",
+          "command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "tools/meta/factory/work_ledger.py",
+          "role": "claim_freshness_checker",
+          "relation": "validates",
+          "label": "Work Ledger Claim Snapshot",
+          "command": "./repo-python tools/meta/factory/work_ledger.py session-claims --refresh --limit 50 --cards-only"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::runtime_route_projection_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "active_execution_constellation",
+          "active execution constellation",
+          "system/lib/active_execution_constellation.py"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "active execution constellation v1 governed projection and 09_54 demotion guard",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "active_execution_constellation",
+          "demotion_guard"
+        ],
+        "smoke_negative_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "commit this normal code change with a scoped commit",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_forbidden_tokens": [
+          "active_execution_constellation"
+        ]
+      },
+      "minimum_read_set_id": "sit_active_execution_constellation",
+      "canonical_next_read": "system/lib/active_execution_constellation.py"
+    },
+    {
+      "situation_id": "publication_lane_push_recovery",
+      "route_command": "./repo-python tools/meta/control/publication_lane.py plan --repo-root .",
+      "label": "Push fix",
+      "use_when": "Push failed or github_push_bloat_gate blocks push.",
+      "route_id": "sit_publication_lane_push_recovery",
+      "fallback_command": "./repo-python tools/meta/control/mission_transaction_preflight.py --github-push-bloat-gate",
+      "principle_anchor": "pri_049",
+      "drilldown_chain": [
+        "./repo-python tools/meta/control/publication_lane.py plan --repo-root .",
+        "./repo-python tools/meta/control/mission_transaction_preflight.py --github-push-bloat-gate",
+        "./repo-python tools/meta/control/publication_lane.py prepare --repo-root . --commit <clean_commit> --worktree-dir <detached-clean-worktree-dir> --message <message>",
+        "./repo-python tools/meta/control/publication_lane.py publish --repo-root <detached-clean-worktree-dir> --target-ref refs/heads/main --confirm-push"
+      ],
+      "match_tokens": [
+        "did not push",
+        "didn't push",
+        "push failed",
+        "push failure",
+        "commit did not push",
+        "commit didn't push",
+        "checkpoint did not push",
+        "remote ref did not move",
+        "remote ref mismatch",
+        "target remote ref",
+        "publication lane",
+        "publication recovery",
+        "clean publication recovery",
+        "clean worktree publication",
+        "contaminated local publication range",
+        "github_push_bloat_gate",
+        "detached clean ref publish",
+        "detached clean worktree",
+        "blocked local publication range"
+      ],
+      "route_targets": [
+        {
+          "kind": "runtime_surface",
+          "ref": "tools/meta/control/publication_lane.py",
+          "role": "owner_runtime",
+          "relation": "implements",
+          "label": "Publication Lane",
+          "command": "./repo-python tools/meta/control/publication_lane.py plan --repo-root ."
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "tools/meta/control/mission_transaction_preflight.py",
+          "role": "gate_checker",
+          "relation": "validates",
+          "label": "Mission Transaction Preflight",
+          "command": "./repo-python tools/meta/control/mission_transaction_preflight.py --github-push-bloat-gate"
+        },
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_agent_entry_surface.json",
+          "role": "delivery_contract",
+          "relation": "governs",
+          "label": "Agent Entry Surface Standard"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_049",
+          "role": "principle_anchor",
+          "relation": "governs",
+          "label": "Minimum Sufficient Read Graph For Orientation"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "publication_lane_push_recovery",
+          "./repo-python tools/meta/control/publication_lane.py plan --repo-root .",
+          "./repo-python tools/meta/control/mission_transaction_preflight.py --github-push-bloat-gate"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "the commit did not push and we need a clean worktree publication recovery",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "publication_lane_push_recovery",
+          "publication_lane.py plan --repo-root ."
+        ],
+        "smoke_negative_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "commit this normal code change with a scoped commit and keep the tree clean",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_forbidden_tokens": [
+          "publication_lane_push_recovery"
+        ]
+      },
+      "minimum_read_set_id": "sit_publication_lane_push_recovery",
+      "canonical_next_read": "tools/meta/control/publication_lane.py",
+      "minimum_read_paths": [
+        "tools/meta/control/publication_lane.py",
+        "tools/meta/control/mission_transaction_preflight.py",
+        "system/lib/mission_transaction_landing_preflight.py",
+        "system/lib/shared_worktree_guard.py",
+        "tools/meta/control/scoped_commit.py",
+        "run_git.py",
+        "repo-git",
+        "system/server/tests/test_mission_transaction_landing_preflight.py"
+      ]
+    },
+    {
+      "situation_id": "type_b_to_type_a_continuation_handoff",
+      "route_command": "./repo-python kernel.py --entry \"type b to type a continuation handoff <task>\" --context-budget 12000",
+      "label": "Type B to Type A continuation handoff",
+      "use_when": "The operator asks the current Type A repo agent to classify Type A/B, ask Type B, or consume a full Type B/bridge/operator-HUD response, continuation delta, final-call decision memo, or paste-ready Type A continuation prompt and expects the current Type A repo agent to execute or verify the directed continuation rather than classify the paste by incidental public/dissemination/prior-art terms.",
+      "route_id": "sit_type_b_to_type_a_continuation_handoff",
+      "fallback_command": "./repo-python kernel.py --context-pack \"type b to type a continuation handoff <task>\" --context-budget 12000",
+      "freshness_command": "./repo-python kernel.py --navigation-metabolism \"type b to type a continuation handoff\" --context-budget 12000",
+      "principle_anchor": "pri_049",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --entry \"<operator-pasted Type B response>\" --context-budget 12000",
+        "./repo-python kernel.py --context-pack \"<extracted Type A continuation prompt>\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+        "./repo-python tools/meta/control/mission_transaction_preflight.py --subject-id <cap_id> --control-summary"
+      ],
+      "match_tokens": [
+        "Type A/B actor axes",
+        "actor_axes",
+        "con_016::actor_axes",
+        "ask Type B",
+        "ask type b",
+        "Type B ask",
+        "operator-mediated Type B",
+        "operator HUD Type B",
+        "paste-ready Type A continuation prompt",
+        "Type A continuation prompt",
+        "Type A must verify exact current repo state",
+        "deliverable_type: continuation delta",
+        "authority_boundary: I can decide",
+        "full response from Type B",
+        "Type B continuation response"
+      ],
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "The compact shared entry surfaces already expose the Type A/B axis and prompt-shelf handoff row; this specialized route is primarily a runtime framing guard that prevents pasted bridge responses from being classified by incidental content.",
+        "source": "codex/standards/std_agent_entry_surface.json::runtime_route_projection_contract"
+      },
+      "minimum_read_set_id": "sit_type_b_to_type_a_continuation_handoff",
+      "canonical_next_read": "codex/doctrine/paper_modules/operational_work_item_spine.md",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/operational_work_item_spine.md",
+        "obsidian/prompt_shelf/items/instantiation.md",
+        "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/lib/navigation_context_pack.py",
+        "system/lib/mission_transaction_landing_preflight.py",
+        "tools/meta/control/mission_transaction_preflight.py"
+      ]
+    },
+    {
+      "situation_id": "dissemination_agent_entry",
+      "route_command": "./repo-python kernel.py --entry \"dissemination <task>\" --context-budget 12000",
+      "label": "Dissemination agent-entry route",
+      "use_when": "Task enters dissemination, public launch, public-safe projection, recognition-grade positioning, outreach, holographic research, public successor framing, or returned dissemination research; route through the dissemination skill family before browsing docs/dissemination or treating entry as generic navigation.",
+      "route_id": "sit_dissemination_agent_entry",
+      "fallback_command": "./repo-python kernel.py --context-pack \"dissemination <task>\" --context-budget 12000",
+      "freshness_command": "./repo-python kernel.py --navigation-metabolism \"dissemination agent entry\" --context-budget 12000",
+      "principle_anchor": "pri_121_candidate",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --entry \"dissemination <task>\" --context-budget 12000",
+        "./repo-python kernel.py --context-pack \"dissemination <task>\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface skills --band card --ids dissemination_cycle,dissemination_understanding",
+        "./repo-python kernel.py --docs-route \"dissemination agent entry\""
+      ],
+      "match_tokens": [
+        "dissemination",
+        "agent entry into dissemination",
+        "dissemination agent entry",
+        "public launch",
+        "public-safe projection",
+        "public-safe slice",
+        "public projection bundle",
+        "recognition-grade",
+        "recognition grade",
+        "holographic research",
+        "holographic bundle",
+        "outreach",
+        "public successor",
+        "returned research assimilation"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_agent_entry_surface.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Agent Entry Surface Standard"
+        },
+        {
+          "kind": "skill",
+          "ref": "dissemination_cycle",
+          "role": "workflow_skill",
+          "relation": "routes_to",
+          "label": "Dissemination Cycle",
+          "command": "./repo-python kernel.py --option-surface skills --band card --ids dissemination_cycle"
+        },
+        {
+          "kind": "paper_module",
+          "ref": "dissemination_strategy",
+          "role": "theory_roof",
+          "relation": "evidences",
+          "label": "Dissemination Strategy",
+          "command": "./repo-python kernel.py --option-surface paper_modules --band card --ids dissemination_strategy"
+        },
+        {
+          "kind": "principle",
+          "ref": "pri_121",
+          "role": "principle_anchor",
+          "relation": "governs",
+          "label": "Compression Via Substrate-Derived Projection"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "dissemination_agent_entry",
+          "./repo-python kernel.py --entry \"dissemination <task>\"",
+          "codex/doctrine/skills/dissemination/dissemination_cycle.md"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "agent entry into dissemination using the holographic research bundle pattern",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "dissemination_agent_entry",
+          "CONTROL_ENTRY"
+        ],
+        "smoke_negative_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "generalize route/projection unification so runtime classifiers, compressed entry surfaces, docs-route, routing hologram, standards, and tests cannot drift apart",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_forbidden_tokens": [
+          "dissemination_agent_entry"
+        ]
+      },
+      "minimum_read_set_id": "sit_dissemination_agent_entry",
+      "canonical_next_read": "codex/doctrine/skills/dissemination/dissemination_cycle.md",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/dissemination/dissemination_cycle.md",
+        "codex/doctrine/skills/dissemination/dissemination_understanding.md",
+        "codex/doctrine/skills/dissemination/dissemination_research_prompting.md",
+        "codex/doctrine/skills/dissemination/dissemination_research_assimilation.md",
+        "codex/doctrine/paper_modules/dissemination_strategy.md",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "codex/standards/std_agent_entry_surface.json",
+        "docs/dissemination/README.md",
+        "docs/dissemination/holographic_research_snapshot.md",
+        "tools/meta/dissemination/build_holographic_research_bundle.py"
+      ]
+    },
+    {
+      "situation_id": "task_ledger_dependency_unlocks",
+      "route_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+      "label": "Task Ledger dependency and unlock graph",
+      "use_when": "Any task asks which caps depend on others, which caps unlock downstream work, what blocks a WorkItem, how to choose cap order by dependency, or how upstream_dependency_edges/downstream_unlock_edges are projected.",
+      "route_id": "sit_task_ledger_dependency_unlocks",
+      "fallback_command": "./repo-python kernel.py --option-surface task_ledger --band card --ids <work_item_id>",
+      "freshness_command": "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+      "principle_anchor": "pri_049",
+      "standard_anchor": "codex/standards/std_task_ledger.json::work_item_spine_contract.dependency_status_projection",
+      "drilldown_chain": [
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+        "./repo-python kernel.py --option-surface task_ledger --band card --ids <work_item_id>",
+        "jq '.items[] | select(.id==\"<work_item_id>\")' state/task_ledger/views/dependency_graph.json",
+        "jq '.items[] | select(.id==\"<work_item_id>\")' state/task_ledger/views/unlocks_by_rank.json",
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate"
+      ],
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Dependency/unlock edge details are task-conditioned; cold start only needs the entry recognizer and generated situation route, then card/view drilldowns carry the edge fields.",
+        "source": "codex/standards/std_task_ledger.json::work_item_spine_contract.dependency_status_projection"
+      },
+      "minimum_read_set_id": "sit_task_ledger_dependency_unlocks",
+      "canonical_next_read": "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "minimum_read_paths": [
+        "codex/standards/std_task_ledger.json",
+        "codex/doctrine/skills/task_ledger/task_ledger.md",
+        "codex/doctrine/skills/task_ledger/cap_reflex_improvement.md",
+        "system/lib/task_ledger_events.py",
+        "system/lib/standard_option_surface.py",
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "system/server/ui/src/api.ts",
+        "system/server/ui/src/components/world/VantageLens.tsx",
+        "state/task_ledger/views/dependency_graph.json",
+        "state/task_ledger/views/dependency_blocked.json",
+        "state/task_ledger/views/unlocks_by_rank.json"
+      ]
+    },
+    {
+      "situation_id": "mechanism_workitem_affinity",
+      "route_command": "./repo-python kernel.py --context-pack \"mechanism WorkItem affinity <task>\" --context-budget 12000",
+      "label": "Mechanism to WorkItem affinity clustering",
+      "use_when": "Operator asks whether mechanisms and WorkItems should merge, says mechanisms are describing WorkItems, wants WorkItems clustered by mechanism pressure, or needs the mechanism lens that groups executable rows without turning mechanisms into backlog authority.",
+      "route_id": "sit_mechanism_workitem_affinity",
+      "fallback_command": "./repo-python kernel.py --context-pack \"mechanism WorkItem affinity <task>\" --context-budget 12000",
+      "freshness_command": "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+      "principle_anchor": "pri_128",
+      "standard_anchor": "codex/standards/std_agent_entry_surface.json::cross_authority_affinity_route_contract",
+      "drilldown_chain": [
+        "./repo-python kernel.py --option-surface mechanisms --band flag",
+        "./repo-python kernel.py --option-surface mechanisms --band card --ids <mech_id>",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag --ids mechanism:<mech_id>",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag --ids mechanism:unclassified_pressure",
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate"
+      ],
+      "match_tokens": [
+        "mechanisms and WorkItems",
+        "mechanisms describe WorkItems",
+        "merge mechanisms with workitems",
+        "mechanism WorkItem affinity",
+        "mechanism pressure",
+        "mechanisms cluster WorkItems",
+        "mechanism backlog",
+        "atlas contours into governed WorkItems"
+      ],
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Cold start needs the boundary route and drilldowns, not the full Task Ledger or mechanism bodies.",
+        "source": "codex/standards/std_agent_entry_surface.json::cross_authority_affinity_route_contract"
+      },
+      "minimum_read_set_id": "sit_mechanism_workitem_affinity",
+      "canonical_next_read": "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "minimum_read_paths": [
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/standards/std_task_ledger.json",
+        "codex/standards/principles/std_mechanism.json",
+        "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "system/lib/standard_option_surface.py",
+        "state/task_ledger/views/cluster_index.json",
+        "state/task_ledger/ledger.json"
+      ]
+    },
+    {
+      "situation_id": "system_state_axis_overview",
+      "route_command": "./repo-python kernel.py --facts --band cluster_flag",
+      "label": "System state-axis overview",
+      "use_when": "Operator asks what state axes exist, what states things can be in, show the compressed state universe, or asks adjective-shaped state questions after entry selects state-axis territory.",
+      "route_id": "sit_system_state_axis_overview",
+      "fallback_command": "./repo-python kernel.py --fact-audit",
+      "freshness_command": "./repo-python tools/meta/factory/build_fact_hologram.py --check",
+      "principle_anchor": "projection_closure_ratchet",
+      "standard_anchor": "codex/standards/std_derived_fact.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --facts --band cluster_flag",
+        "./repo-python kernel.py --facts --facts-tag <tag> --band flag",
+        "./repo-python kernel.py --facts --facts-facet <facet> --band flag",
+        "./repo-python kernel.py --fact-audit"
+      ],
+      "route_targets": [
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_derived_fact.json",
+          "role": "owner_standard",
+          "relation": "governs",
+          "label": "Derived Fact Standard"
+        },
+        {
+          "kind": "generated_projection",
+          "ref": "codex/hologram/facts/navigation_cache.json",
+          "role": "state_axis_cache",
+          "relation": "projects",
+          "label": "Fact Navigation Cache"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "system/lib/derived_fact_hologram.py",
+          "role": "fact_projection_runtime",
+          "relation": "implements",
+          "label": "Derived Fact Hologram"
+        },
+        {
+          "kind": "runtime_surface",
+          "ref": "tools/meta/factory/build_fact_hologram.py",
+          "role": "freshness_checker",
+          "relation": "validates",
+          "label": "Fact Hologram Builder",
+          "command": "./repo-python tools/meta/factory/build_fact_hologram.py --check"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "deliver_to_cold_start",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "State adjectives route through facts",
+          "--facts --band cluster_flag",
+          "--facts --facts-tag",
+          "--facts --facts-facet",
+          "context-pack/System Atlas",
+          "--navigation-metabolism"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "what state axes exist in this system?",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "system_state_axis_overview",
+          "--facts --band cluster_flag"
+        ]
+      },
+      "minimum_read_set_id": "sit_system_state_axis_overview",
+      "canonical_next_read": "codex/hologram/facts/navigation_cache.json",
+      "minimum_read_paths": [
+        "codex/standards/std_derived_fact.json",
+        "codex/hologram/facts/navigation_cache.json",
+        "system/lib/derived_fact_hologram.py",
+        "system/lib/kernel/commands/navigate.py",
+        "codex/doctrine/skills/kernel/navigation_seed.md"
+      ]
+    },
+    {
+      "situation_id": "russian_doll_option_surface_entry",
+      "route_command": "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
+      "label": "Russian-doll option surface drilldown (per pri_128, after --entry)",
+      "use_when": "After --entry has emitted a control packet that selects an artifact-kind browse, or when an operator explicitly browses the option surface. Not the cold-start first move — std_agent_entry_surface.json::first_move_contract demoted --kind-atlas as cold entry; --entry is the cold-start first move and bans atlas_as_control_entry.",
+      "route_id": "sit_russian_doll_option_surface_entry",
+      "fallback_command": "./repo-python kernel.py --kind-atlas --band flag",
+      "freshness_command": "./repo-python kernel.py --navigation-context-rosetta",
+      "principle_anchor": "pri_128",
+      "standard_anchor": "codex/standards/std_kind_atlas.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --kind-atlas",
+        "./repo-python kernel.py --option-surface <kind_id> --band cluster_flag",
+        "./repo-python kernel.py --option-surface <kind_id> --band flag",
+        "./repo-python kernel.py --option-surface <kind_id> --band card --ids <id>"
+      ],
+      "actor_delivery": {
+        "decision": "drilldown_only",
+        "reason": "Option-surface browsing is a post-entry or explicit-operator drilldown; cold start receives the entry/context route instead.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_russian_doll_option_surface_entry",
+      "canonical_next_read": "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+      "minimum_read_paths": [
+        "codex/standards/std_kind_atlas.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "system/lib/kind_atlas.py",
+        "system/lib/standard_option_surface.py",
+        "system/lib/navigation_context_rosetta.py"
+      ]
+    },
+    {
+      "situation_id": "documentation_plane",
+      "route_command": "./repo-python kernel.py --docs-route documentation",
+      "label": "Documentation plane orientation",
+      "use_when": "Fresh-session or ambiguous documentation questions: what do I read first, which authority owns this docs change, or which surface should I open for a repo path.",
+      "route_id": "sit_documentation_plane_orientation",
+      "fallback_command": "./repo-python kernel.py --orient-task documentation",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Documentation routing is selected by entry/context-pack for docs-shaped tasks; docs-route itself remains a lower drilldown.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_documentation_plane_orientation",
+      "canonical_next_read": "docs/documentation_plane_map.md",
+      "minimum_read_paths": [
+        "AGENTS.md",
+        "docs/agent_instruction_router.md",
+        "docs/documentation_plane_map.md"
+      ]
+    },
+    {
+      "situation_id": "agent_telemetry_navigation_diagnostics",
+      "route_command": "./repo-python kernel.py --docs-route \"agent telemetry\"",
+      "label": "Agent telemetry and navigation diagnostics",
+      "use_when": "The task is about how Claude/Codex actually navigate this repo: bash verbs, kernel adoption, command patterns, hot paths, or mining local logs into routing improvements.",
+      "route_id": "sit_agent_telemetry_navigation_diagnostics",
+      "fallback_command": "./repo-python tools/meta/agent_telemetry/extract.py --sample 5",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Telemetry diagnostics are useful after a navigation/behavior task is selected; raw diagnostics are too detailed for cold start.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_agent_telemetry",
+      "canonical_next_read": "docs/agent_telemetry.md",
+      "minimum_read_paths": [
+        "docs/agent_telemetry.md",
+        "docs/runtime_backend_registry.md",
+        "codex/doctrine/paper_modules/host_agent_external_surfaces.md",
+        "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md",
+        "tools/meta/agent_telemetry/extract.py",
+        "tools/meta/agent_telemetry/host_surface_probe.py",
+        "tools/meta/agent_telemetry/coverage.py"
+      ]
+    },
+    {
+      "situation_id": "agent_session_diagnostics_training_loop",
+      "route_command": "./repo-python kernel.py --docs-route \"session storage\"",
+      "label": "Agent session diagnostics training loop",
+      "use_when": "The task is about out-of-repo Codex/Claude session storage, what the model actually did, chat metadata, past agent behavior, navigation dogfooding, telemetry routing follow-up, or using session traces to improve navigation.",
+      "route_id": "sit_agent_session_diagnostics_training_loop",
+      "fallback_command": "./repo-python kernel.py --session-diagnostics --lens all --last 30 --store both --json",
+      "actor_delivery": {
+        "decision": "private_root_only",
+        "reason": "Session traces point at host-local Codex/Claude records and should be reached only through explicit diagnostics tasks.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_agent_session_diagnostics",
+      "canonical_next_read": "codex/doctrine/skills/kernel/agent_session_diagnostics.md",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/kernel/agent_session_diagnostics.md",
+        "codex/doctrine/skills/kernel/navigation_seed.md",
+        "codex/doctrine/skills/doctrine/nav_driven_wiring_repair.md",
+        "tools/meta/observability/session_analyzer.py",
+        "state/session_diagnostics/"
+      ]
+    },
+    {
+      "situation_id": "runtime_control",
+      "route_command": "python3 kernel.py --docs-route system/control/orchestration.py",
+      "label": "Runtime control plane",
+      "use_when": "The task is about orchestration ownership, proof/approval gates, control room, overnight selectors, or runtime/event-log state.",
+      "route_id": "sit_orchestration_control_plane",
+      "fallback_command": "python3 run_control_room.py",
+      "actor_delivery": {
+        "decision": "private_root_only",
+        "reason": "Runtime control and event-log state are operational/private surfaces, not general cold-start route content.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_orchestration_control_plane",
+      "canonical_next_read": "docs/orchestration_state.md",
+      "minimum_read_paths": [
+        "docs/orchestration_state.md",
+        "tools/meta/control/orchestration_state.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "situation_id": "always_on_metabolism_governor",
+      "route_command": "./repo-python kernel.py --docs-route \"always-on metabolism gas pedal\"",
+      "label": "Always-on metabolism governor",
+      "use_when": "The task is about always-on metabolism, overnight/day gas pedal, provider/free-throughput budgets, market open/close feeds, or keeping background work running without minting a second daemon.",
+      "route_id": "sit_always_on_metabolism_governor",
+      "fallback_command": "./metabolism governor status --json",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Always-on governor state is selected for runtime/metabolism tasks and is volatile enough to keep out of startup.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_always_on_metabolism_governor",
+      "canonical_next_read": "codex/doctrine/paper_modules/continuous_runtime_layer.md",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/continuous_runtime_layer.md",
+        "docs/metabolismd.md",
+        "codex/doctrine/paper_modules/inference_tier_ladder.md",
+        "codex/doctrine/paper_modules/overnight_autonomous_operation.md",
+        "codex/doctrine/paper_modules/openrouter_metadata_probe.md"
+      ]
+    },
+    {
+      "situation_id": "self_description_campaign",
+      "route_command": "./repo-python kernel.py --docs-route \"what is this system\"",
+      "label": "Self-comprehension convergence root",
+      "use_when": "The task is broad objective self-description, self-comprehension, whole-system convergence, entire-system map, doctrine-to-substrate ontology, standards/axioms/principles/concepts/mechanisms/paper-module convergence, fixed-private-proof, proof-bundle, projection-ladder, or drift-visible paper-surface work.",
+      "route_id": "sit_system_self_description_identity",
+      "fallback_command": "./repo-python kernel.py --context-pack \"system self-comprehension root\" --context-budget 12000",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Self-comprehension convergence is selected by context-pack and docs-route; sibling campaign/projection surfaces are drilldowns under the root, not actor boot rows.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_self_description_campaign",
+      "canonical_next_read": "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "dist/type_b/AI_WORKFLOW_SYSTEM_PACKET.md",
+        "dist/type_b/TYPE_B_SYSTEM_GROUNDING_PACKET.md",
+        "state/system_atlas/system_packet_status.json",
+        "state/system_atlas/type_b_grounding_packet_status.json",
+        "codex/doctrine/paper_modules/raw_seed_substrate.md",
+        "codex/doctrine/paper_modules/doctrine_apply_lanes.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/paper_modules/hologram_substrate_navigation.md",
+        "codex/doctrine/paper_modules/system_lib_directory_index.md",
+        "codex/doctrine/paper_modules/operational_work_item_spine.md",
+        "codex/doctrine/paper_modules/task_ledger.md",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/workingness_instrument.md",
+        "codex/doctrine/paper_modules/frontend_navigation_plane.md",
+        "codex/doctrine/paper_modules/frontend_station_cockpit.md",
+        "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+        "docs/self_description_campaign_bootstrap.md",
+        "codex/doctrine/skills/doctrine/self_description.md",
+        "codex/doctrine/skills/kernel/autonomous_campaign.md",
+        "docs/raw_seed_holographic_world_model.md",
+        "codex/doctrine/paper_modules/private_system_crystal.md",
+        "docs/dissemination/holographic_research_snapshot.md",
+        "tools/meta/dissemination/build_holographic_research_bundle.py"
+      ]
+    },
+    {
+      "situation_id": "external_reference_prior_art",
+      "route_command": "python3 kernel.py --docs-route \"look online bridge research probe\"",
+      "label": "External reference / prior-art routing",
+      "use_when": "The task is to look online, find repos, find GitHubs, run cited bridge research, probe videos/transcripts/APIs/tools, or route broad prior-art requests before adoption widens.",
+      "route_id": "sit_external_reference_prior_art",
+      "fallback_command": "./repo-python annex_import.py route --problem \"<problem statement>\" --json",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Prior-art routing depends on an online/research task class and should be selected by context before use.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_external_reference_routing",
+      "canonical_next_read": "codex/doctrine/skills/bridge_runtime/bridge_research_probe.md",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/bridge_runtime/bridge_research_probe.md",
+        "codex/doctrine/paper_modules/bridge_research_probe.md",
+        "codex/standards/observe/mission_templates/meta_missions/bridge_research_probe/mission.json",
+        "codex/doctrine/skills/doctrine/substrate_reference_mining.md",
+        "codex/doctrine/skills/annex/external_adoption_routing.md",
+        "annexes/annex_catalog.json",
+        "docs/annex_registry.md"
+      ]
+    },
+    {
+      "situation_id": "annex_bridge_navigation",
+      "route_command": "python3 kernel.py --docs-route \"annex control plane navigation\"",
+      "label": "Annex bridge into navigation/control/docs",
+      "use_when": "The task is about connecting annex prior-patterns, distillation rows, or annex inspiration into docs-route, unified navigation, control-plane, or paper-module surfaces.",
+      "route_id": "sit_annex_bridge_navigation",
+      "fallback_command": "python3 kernel.py --annex-inspiration \"<problem shape>\"",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Annex bridge patterns are selected when annex/control/navigation tasks are in scope; they are not first-contact rules.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_annex_bridge_navigation",
+      "canonical_next_read": "codex/doctrine/paper_modules/codex_annex_substrate.md",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/codex_annex_substrate.md",
+        "codex/doctrine/paper_modules/unified_navigation_layer.md",
+        "codex/doctrine/skills/annex/annex_system_improvement_loop.md",
+        "codex/doctrine/skills/annex/annex_pattern_transfer.md",
+        "annexes/annex_distillation_index.json",
+        "docs/annex_registry.md"
+      ]
+    },
+    {
+      "situation_id": "private_system_crystal",
+      "route_command": "./repo-python kernel.py --docs-route \"system crystal\"",
+      "label": "Private System Crystal / generated self-model",
+      "use_when": "The task asks for the System Crystal, cap-of-caps, ultimate distillation, densest private self-model, or the generated internal one-point explanation artifact.",
+      "route_id": "sit_private_system_crystal",
+      "fallback_command": "./repo-python tools/meta/factory/build_system_crystal.py --check",
+      "actor_delivery": {
+        "decision": "private_root_only",
+        "reason": "The crystal is an internal private projection with public-release hold; it should be selected for explicit crystal/self-model tasks, not promoted as a public or cold-start release packet.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_private_system_crystal",
+      "canonical_next_read": "codex/doctrine/paper_modules/private_system_crystal.md",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/private_system_crystal.md",
+        "docs/system_crystal/README.md",
+        "docs/system_crystal/system_crystal_one_page.generated.md",
+        "docs/system_crystal/system_crystal.generated.md",
+        "docs/system_crystal/system_crystal_five_page.generated.md",
+        "tools/meta/factory/build_system_crystal.py",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "system/server/tests/test_system_crystal.py"
+      ]
+    },
+    {
+      "situation_id": "paper_modules_surface",
+      "route_command": "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+      "label": "Paper modules / subsystem projections",
+      "use_when": "The task is to understand an existing subsystem quickly, recover a one-file system view, avoid re-deriving it, or check whether a cold-readable subsystem module already exists before widening into code or subagents.",
+      "route_id": "sit_paper_modules_surface",
+      "fallback_command": "./repo-python kernel.py --paper-module \"<subsystem query>\"",
+      "principle_anchor": "pri_128",
+      "drilldown_chain": [
+        "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids <slug>",
+        "./repo-python kernel.py --paper-module <slug>"
+      ],
+      "actor_delivery": {
+        "decision": "drilldown_only",
+        "reason": "Paper modules are known-artifact drilldowns after entry/context selects a stable module or kind.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_paper_modules",
+      "canonical_next_read": "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+      "minimum_read_paths": [
+        "codex/standards/std_paper_module.json",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/paper_modules/README.md",
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/doctrine/paper_modules/_validation_report.json",
+        "codex/doctrine/paper_modules/_route_coverage.json",
+        "codex/doctrine/paper_modules/paper_module_candidates.json",
+        "codex/doctrine/skills/doctrine/paper_module_lookup.md",
+        "codex/doctrine/skills/doctrine/paper_module_authoring.md",
+        "codex/doctrine/skills/doctrine/paper_module_coverage.md",
+        "tools/meta/factory/build_paper_module_index.py",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/README.md",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/mission.json",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/params.example.json",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/rubric.md",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/schema_contract.json",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/voice_patterns.md",
+        "codex/standards/observe/mission_templates/meta_missions/paper_module_authoring/gold_examples.jsonl"
+      ]
+    },
+    {
+      "situation_id": "microcosm_public_substrate",
+      "route_command": "./repo-python kernel.py --paper-module microcosm_substrate",
+      "label": "Public Microcosm substrate and source-open entry",
+      "use_when": "The task is about the public Microcosm product primitive, microcosm-substrate, repo -> .microcosm, source-open Microcosm entry, public runtime substrate, proof-lab first screen, Microcosm doctrine lattice, open-source cold-reader entry, or routing principles/axioms/concepts/mechanisms/standards/paper modules into the Microcosm entry point.",
+      "route_id": "sit_microcosm_public_substrate",
+      "fallback_command": "./repo-python kernel.py --option-surface standards --band card --ids std_microcosm",
+      "principle_anchor": "pri_128",
+      "standard_anchor": "codex/standards/std_microcosm.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --paper-module microcosm_substrate",
+        "./repo-python kernel.py --option-surface standards --band card --ids std_microcosm",
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_substrate",
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_entry_lattice",
+        "./repo-python kernel.py --option-surface microcosm_extracted_patterns --band cluster_flag",
+        "./repo-python kernel.py --option-surface system_microcosm --band flag"
+      ],
+      "match_tokens": [
+        "microcosm public substrate",
+        "public microcosm",
+        "microcosm-substrate",
+        "repo -> .microcosm",
+        "source-open microcosm",
+        "open-source microcosm",
+        "proof-lab first screen",
+        "microcosm doctrine lattice",
+        "microcosm entry point",
+        "microcosm atlas navigability"
+      ],
+      "route_targets": [
+        {
+          "kind": "paper_module",
+          "ref": "codex/doctrine/paper_modules/microcosm_substrate.md",
+          "role": "product_doctrine_roof",
+          "relation": "governs",
+          "label": "Microcosm Substrate"
+        },
+        {
+          "kind": "paper_module",
+          "ref": "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+          "role": "public_entry_lattice_owner",
+          "relation": "routes",
+          "label": "Microcosm Entry Lattice"
+        },
+        {
+          "kind": "standard",
+          "ref": "codex/standards/std_microcosm.json",
+          "role": "product_boundary_standard",
+          "relation": "governs",
+          "label": "Microcosm Definition Standard"
+        },
+        {
+          "kind": "public_entry_packet",
+          "ref": "microcosm-substrate/atlas/entry_packet.json::doctrine_lattice_route",
+          "role": "public_entry_lattice",
+          "relation": "routes",
+          "label": "Microcosm doctrine lattice"
+        },
+        {
+          "kind": "atlas_option_surface",
+          "ref": "system_microcosm",
+          "role": "legacy_laboratory_compatibility_view",
+          "relation": "bounds",
+          "label": "System Microcosm compatibility view"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Public Microcosm entry is selected for product/substrate/open-source tasks and must expose the product route before the legacy Laboratory compatibility route.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "microcosm_public_substrate",
+          "microcosm_substrate",
+          "microcosm_entry_lattice",
+          "std_microcosm",
+          "doctrine_lattice_route",
+          "proof_lab_route"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "Microcosm public substrate proof-lab cold entry",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "microcosm_public_substrate",
+          "microcosm_substrate"
+        ]
+      },
+      "minimum_read_set_id": "sit_microcosm_public_substrate",
+      "canonical_next_read": "microcosm-substrate/atlas/entry_packet.json",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/microcosm_substrate.md",
+        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "codex/standards/std_microcosm.json",
+        "microcosm-substrate/README.md",
+        "microcosm-substrate/AGENTS.md",
+        "microcosm-substrate/atlas/entry_packet.json",
+        "microcosm-substrate/skills/cold_start_navigation.md",
+        "microcosm-substrate/standards/std_microcosm_verifier_lab_kernel.json",
+        "codex/doctrine/paper_modules/prime_directives.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/standards/std_standard_type_plane.json",
+        "codex/standards/std_kind_atlas.json"
+      ]
+    },
+    {
+      "situation_id": "bridge_session_continuity",
+      "route_command": "python3 kernel.py --docs-route bridge",
+      "label": "Bridge OS and session continuity",
+      "use_when": "The task is about bridge provider caps, prompt manifests, validator rules, watcher launches, Claude Code Remote Control, SessionStart hooks, scheduled tasks, or how to stop polling in-thread.",
+      "route_id": "art_bridge_operating_system",
+      "fallback_command": "python3 kernel.py --bridge-capabilities",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Bridge continuity is relevant for bridge/session tasks and stays behind context selection.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_bridge_os",
+      "canonical_next_read": "docs/bridge_operating_system.md",
+      "minimum_read_paths": [
+        "docs/bridge_operating_system.md",
+        "docs/raw_seed_problem_1_two_intelligences_protocol_gap.md",
+        "pipeline_signal_watcher.py"
+      ]
+    },
+    {
+      "situation_id": "controller_continuity",
+      "route_command": "python3 kernel.py --docs-route \"controller continuity\"",
+      "label": "IDE controller continuity",
+      "use_when": "The task is about controller pause/resume, wake conditions, detached work completion, or how an IDE agent should stop idling in-thread while bridge or other detached work runs.",
+      "route_id": "sit_controller_continuity",
+      "fallback_command": "python3 kernel.py --docs-route bridge",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Controller continuity is task-specific runtime guidance selected by context-pack.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_controller_continuity",
+      "canonical_next_read": "docs/controller_continuity.md",
+      "minimum_read_paths": [
+        "docs/controller_continuity.md",
+        "codex/standards/std_continuity_protocol.json",
+        "docs/bridge_operating_system.md",
+        "tools/meta/control/orchestration_state.json"
+      ]
+    },
+    {
+      "situation_id": "codex_control_surface",
+      "route_command": "python3 kernel.py --docs-route \"codex control surface\"",
+      "label": "Codex control surface",
+      "use_when": "The task is about Codex desktop control, the CDP driver, same-thread resume policy, pipeline Codex handoff, watcher-driven Codex wake, or designing the Codex autonomy surface without falling back to raw directory spelunking.",
+      "route_id": "sit_codex_control_surface",
+      "fallback_command": "python3 kernel.py --compile tools/meta/bridge/codex_driver.py tools/meta/bridge/codex_resume.py pipeline_codex_handoff.py pipeline_signal_watcher.py",
+      "actor_delivery": {
+        "decision": "private_root_only",
+        "reason": "Codex desktop/CDP control details are host-control surfaces and should not be promoted broadly to cold start.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_codex_control_surface",
+      "canonical_next_read": "docs/codex_control_surface.md",
+      "minimum_read_paths": [
+        "docs/codex_control_surface.md",
+        "CODEX.md",
+        "docs/controller_continuity.md",
+        "docs/codex_resume_protocol.md"
+      ]
+    },
+    {
+      "situation_id": "type_a_convergence",
+      "route_command": "./repo-python kernel.py --docs-route \"agent telemetry\"",
+      "label": "Type A convergence and host-record feedback",
+      "use_when": "The task is about keeping Codex, Claude Code, AGENTS.md, and host-agent behavior aligned without drift, especially when mining .codex/.claude records or reconciling adapter differences.",
+      "route_id": "sit_type_a_convergence",
+      "fallback_command": "./repo-python tools/meta/agent_telemetry/host_surface_probe.py --since <ISO8601>",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Type A convergence is selected for adapter/host-record alignment tasks, not every cold-start task.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_agent_telemetry",
+      "canonical_next_read": "docs/agent_telemetry.md",
+      "minimum_read_paths": [
+        "docs/agent_telemetry.md",
+        "docs/runtime_backend_registry.md",
+        "codex/doctrine/paper_modules/host_agent_external_surfaces.md",
+        "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md",
+        "tools/meta/agent_telemetry/extract.py",
+        "tools/meta/agent_telemetry/host_surface_probe.py",
+        "tools/meta/agent_telemetry/coverage.py"
+      ]
+    },
+    {
+      "situation_id": "type_a_entry_experience",
+      "route_command": "./repo-python kernel.py --docs-route \"agent entry surfaces\"",
+      "label": "Type A entry experience and cold-comprehension guard",
+      "use_when": "The task is about Claude/Codex entry points, AGENTS.override.md, agent entry surfaces, .claude/.codex adapter drift, compressed entry propagation, Type A common-sense/care/judgment operating packets, or a cold agent claiming whole-system understanding without touching host adapters and Python substrate.",
+      "route_id": "sit_type_a_entry_experience",
+      "fallback_command": "./repo-python kernel.py --paper-module \"agent entry surfaces\"",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Entry-experience doctrine is selected when entry surfaces are the task; compact essentials are already projected elsewhere.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_type_a_entry_experience",
+      "canonical_next_read": "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+      "minimum_read_paths": [
+        "codex/doctrine/agent_bootstrap.json",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "codex/doctrine/paper_modules/codex_markdown_doctrine.md",
+        "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "codex/doctrine/paper_modules/system_lib_directory_index.md",
+        "docs/agent_telemetry.md",
+        "codex/doctrine/skills/doctrine/nav_driven_wiring_repair.md"
+      ]
+    },
+    {
+      "situation_id": "type_a_operating_register",
+      "route_command": "./repo-python kernel.py --docs-route \"type a operating register\"",
+      "label": "Type A operating register and useful-finding readout",
+      "use_when": "The task is about common sense, care, passion, going above and beyond, Type A judgment, useful findings, critic posture, judgment traits, Type A judgment metabolism, or making live judgment/up-propagation routeable from cold boot.",
+      "route_id": "sit_type_a_operating_register",
+      "fallback_command": "./repo-python kernel.py --term type_a_operating_register --term-band context",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Operating-register vocabulary is selected for judgment-trait tasks and is too broad for every startup.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_type_a_operating_register",
+      "canonical_next_read": "codex/doctrine/system_vocabulary/term_registry.json",
+      "minimum_read_paths": [
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "CODEX.md",
+        "CLAUDE.md",
+        ".claude/follow_on/passion.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json"
+      ]
+    },
+    {
+      "situation_id": "type_a_judgment_metabolism",
+      "route_command": "./repo-python kernel.py --docs-route \"critic posture\"",
+      "label": "Type A judgment, common sense, and thinking traits",
+      "use_when": "The task is about critic posture, thinking traits, judgment traits, or Type A judgment metabolism as an expandable trait surface rather than a closed care/passion pair.",
+      "route_id": "sit_type_a_judgment_metabolism",
+      "fallback_command": "./repo-python kernel.py --term type_a_judgment --term-band context",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Judgment-metabolism trait work is task-conditioned vocabulary/doctrine, not a cold-start route requirement.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_type_a_judgment_metabolism",
+      "canonical_next_read": "codex/doctrine/system_vocabulary/term_registry.json",
+      "minimum_read_paths": [
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "codex/standards/std_system_term.json",
+        "codex/doctrine/skills/doctrine/human_ai_brainstorming.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/skills/doctrine/axiom_up_propagation.md",
+        "codex/standards/std_agent_entry_surface.json",
+        "codex/doctrine/paper_modules/agent_entry_surfaces.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json"
+      ]
+    },
+    {
+      "situation_id": "system_axiom_candidates",
+      "route_command": "./repo-python kernel.py --docs-route \"axiom candidate\"",
+      "label": "System axiom candidates and constitutional pressure",
+      "use_when": "The task is about axiom candidates, common-sense-up-propagates, principle-grade pressure, or deciding whether a useful finding belongs in principles curation rather than an ordinary skill, standard, paper module, PEER, raw seed, or agent seed plane.",
+      "route_id": "sit_system_axiom_candidates",
+      "fallback_command": "./repo-python kernel.py --term axiom --term-band context",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Axiom candidates are candidate doctrine selected by context; they are not active startup authority.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_system_axiom_candidates",
+      "canonical_next_read": "codex/doctrine/skills/doctrine/axiom_up_propagation.md",
+      "minimum_read_paths": [
+        "codex/standards/principles/std_system_axiom_candidate.json",
+        "codex/doctrine/skills/doctrine/system_axiom_candidate_curation.md",
+        "codex/doctrine/skills/doctrine/axiom_up_propagation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
+        "docs/raw_seed_principles_curation.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+      ]
+    },
+    {
+      "situation_id": "semantic_naming",
+      "route_command": "./repo-python kernel.py --docs-route \"semantic naming option surface\"",
+      "label": "Semantic naming and reference-preserving rename",
+      "use_when": "The task is about file naming systems, semantic filenames, bad or confusing names, path handles, naming shards, reference-preserving rename, or option surfaces before guessed naming queries.",
+      "route_id": "sit_semantic_naming",
+      "fallback_command": "./repo-python kernel.py --term semantic_naming --term-band context",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Naming doctrine is selected for naming/rename tasks and remains context-pack scoped.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_semantic_naming",
+      "canonical_next_read": "codex/standards/std_semantic_naming.json",
+      "minimum_read_paths": [
+        "codex/standards/std_semantic_naming.json",
+        "codex/doctrine/paper_modules/semantic_naming_grammar.md",
+        "codex/doctrine/system_vocabulary/term_registry.json",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json"
+      ]
+    },
+    {
+      "situation_id": "local_to_general_propagation",
+      "route_command": "./repo-python kernel.py --docs-route \"lattice transposition generalized up-propagation\"",
+      "label": "Local-to-general propagation and lattice transposition",
+      "use_when": "The task is about up-propagating a local lesson into the generalized system, generalise-uppropagate, lattice transposition, portable invariants, refined vs nothing_to_refine closeout, failure-class propagation packets, or choosing the plane home for a reusable lesson.",
+      "route_id": "sit_local_to_general_propagation",
+      "fallback_command": "./repo-python kernel.py --row skills:local_to_general_propagation --band card",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Closeout propagation is a recurring habit selected for propagation tasks and closeout, not a startup row for all tasks.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_local_to_general_propagation",
+      "canonical_next_read": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/mechanisms/mech_034_failure_class_propagation_packet.json",
+        "codex/standards/std_uppropagation_intake.json",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/paper_modules/workitem_spine_operating_practice.md",
+        "codex/doctrine/skills/doctrine/peer_propagation.md",
+        "codex/doctrine/skills/doctrine/principles_curation.md",
+        "codex/doctrine/skills/raw_seed/agent_seed_authoring.md",
+        "docs/raw_seed_principles_curation.md"
+      ]
+    },
+    {
+      "situation_id": "durable_closeout_propagation",
+      "route_command": "./repo-python kernel.py --docs-route \"durable closeout up-propagation intake\"",
+      "label": "Durable closeout propagation and visible-footer transport",
+      "use_when": "The task is about closeout propagation, aiw footer visibility, up-propagation intake, noticed residual capture, prompt-shelf footer transport, or ordinary chat receiving raw machine blocks.",
+      "route_id": "sit_durable_closeout_propagation",
+      "fallback_command": "./repo-python tools/meta/factory/uppropagate.py validate",
+      "principle_anchor": "D8",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Durable closeout transport is selected for closeout/uppropagation work and stays out of cold-start prose.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_durable_closeout_propagation",
+      "canonical_next_read": "codex/standards/std_uppropagation_intake.json",
+      "minimum_read_paths": [
+        "codex/standards/std_uppropagation_intake.json",
+        "tools/meta/factory/uppropagate.py",
+        "codex/doctrine/paper_modules/prompt_shelf_uppropagation_ledger.md",
+        "codex/doctrine/paper_modules/workitem_spine_operating_practice.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        ".agents/skills/prompt-shelf-prompt-wiring/SKILL.md"
+      ]
+    },
+    {
+      "situation_id": "peer_propagation",
+      "route_command": "./repo-python kernel.py --docs-route \"peer propagation tribal knowledge\"",
+      "label": "PEER propagation and tribal knowledge receipts",
+      "use_when": "The task is about PEER propagation, tribal knowledge, peer-to-peer agent lessons, or reusable Type A judgment for future Codex/Claude peers that is not ready for direct doctrine mutation.",
+      "route_id": "sit_peer_propagation",
+      "fallback_command": "./repo-python kernel.py --entry \"peer propagation tribal knowledge\" --context-budget 12000",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "PEER propagation is selected for peer-lesson tasks and remains candidate/doctrine scoped.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_peer_propagation",
+      "canonical_next_read": "codex/doctrine/skills/doctrine/peer_propagation.md",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/doctrine/peer_propagation.md",
+        "codex/doctrine/peer_propagation/README.md",
+        "codex/doctrine/peer_propagation/peer_ledger.json",
+        "codex/standards/std_peer_propagation_record.json",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "codex/doctrine/compression_profiles.json"
+      ]
+    },
+    {
+      "situation_id": "raw_seed_substrate",
+      "route_command": "python3 kernel.py --docs-route \"raw_seed substrate\"",
+      "label": "Family raw-seed substrate",
+      "use_when": "The task is about blackboard intent, family voice, paragraph anchors, or raw-seed-to-doctrine derivation.",
+      "route_id": "art_raw_seed_substrate",
+      "fallback_command": "python3 kernel.py --sync-raw-seed 09 --live",
+      "actor_delivery": {
+        "decision": "private_root_only",
+        "reason": "Raw-seed family voice is source-authority material with explicit mutation lanes, not broad cold-start content.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_raw_seed_substrate",
+      "canonical_next_read": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_meta.md",
+      "minimum_read_paths": [
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_meta.md",
+        "docs/raw_seed_doctrine_derivation.md"
+      ]
+    },
+    {
+      "situation_id": "doctrine_population",
+      "route_command": "./repo-python kernel.py --context-pack \"populate doctrine from raw seed\" --context-budget 12000",
+      "label": "Doctrine population and crystallization",
+      "use_when": "The task asks to populate, refine, merge, route, or author doctrine from raw seed across concepts, mechanisms, principles, paper modules, skills, standards, caps, traces, failures, or live workflows; or asks for a durable new thought, highest-leverage missing doctrine object, split divergent generalizations, crystallization gate, or dogfooded authored doctrine.",
+      "route_id": "sit_doctrine_population",
+      "fallback_command": "./repo-python kernel.py --option-surface skills --band card --ids doctrine_derivation",
+      "freshness_command": "./repo-python tools/meta/factory/build_skill_catalog_projection.py --check",
+      "principle_anchor": "pri_152",
+      "standard_anchor": "codex/standards/std_skill.json",
+      "drilldown_chain": [
+        "./repo-python kernel.py --context-pack \"populate doctrine from raw seed\" --context-budget 12000",
+        "./repo-python kernel.py --option-surface skills --band card --ids doctrine_derivation",
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids doctrine_population_loop",
+        "./repo-python kernel.py --raw-seed-ideas 09 --query \"doctrine population missing rediscovered crystallize\""
+      ],
+      "match_tokens": [
+        "doctrine population",
+        "doctrine derivation",
+        "doctrine authorship",
+        "populate concepts mechanisms principles paper modules",
+        "raw seed to doctrine",
+        "autonomous seed doctrine authorship",
+        "highest leverage missing doctrine object",
+        "durable new thought",
+        "split divergent generalizations",
+        "split before package",
+        "crystallize doctrine object",
+        "dogfood authored doctrine"
+      ],
+      "route_targets": [
+        {
+          "kind": "skill",
+          "ref": "doctrine_derivation",
+          "role": "entry_skill",
+          "relation": "implements",
+          "label": "Doctrine Derivation",
+          "command": "./repo-python kernel.py --option-surface skills --band card --ids doctrine_derivation"
+        },
+        {
+          "kind": "paper_module",
+          "ref": "doctrine_population_loop",
+          "role": "theory_roof",
+          "relation": "evidences",
+          "label": "Doctrine Population Loop",
+          "command": "./repo-python kernel.py --option-surface paper_modules --band card --ids doctrine_population_loop"
+        },
+        {
+          "kind": "skill",
+          "ref": "local_to_general_propagation",
+          "role": "closeout_skill",
+          "relation": "closes",
+          "label": "Local-to-General Propagation",
+          "command": "./repo-python kernel.py --option-surface skills --band card --ids local_to_general_propagation"
+        }
+      ],
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Doctrine population is selected for raw-seed-grounded authoring tasks and should expose the doctrine_derivation lane without adding the full loop to every cold start.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract",
+        "required_actor_ids": [
+          "codex",
+          "claude_code"
+        ],
+        "required_tokens": [
+          "doctrine_derivation",
+          "doctrine_population_loop",
+          "pri_152",
+          "crystallization gate",
+          "split before package",
+          "local-to-general"
+        ],
+        "smoke_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "autonomous seed doctrine authorship: select the highest leverage missing doctrine object and dogfood authored doctrine",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_expected_tokens": [
+          "doctrine_population",
+          "doctrine_derivation"
+        ],
+        "smoke_negative_command": [
+          "./repo-python",
+          "kernel.py",
+          "--entry",
+          "dogfood autonomous seed navigation layer and fix broken agent entry",
+          "--context-budget",
+          "12000"
+        ],
+        "smoke_forbidden_tokens": [
+          "\"recognized_situation\": \"doctrine_population\""
+        ]
+      },
+      "minimum_read_set_id": "sit_doctrine_population",
+      "canonical_next_read": "codex/doctrine/skills/doctrine/doctrine_derivation.md",
+      "minimum_read_paths": [
+        "codex/doctrine/skills/doctrine/doctrine_derivation.md",
+        "codex/doctrine/paper_modules/doctrine_population_loop.md",
+        "codex/doctrine/skills/doctrine/shard_cluster_assimilation.md",
+        "codex/doctrine/skills/doctrine/principles_curation.md",
+        "codex/doctrine/skills/doctrine/concept_mechanism_curation.md",
+        "codex/doctrine/skills/doctrine/paper_module_authoring.md",
+        "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+        "docs/raw_seed_doctrine_derivation.md"
+      ]
+    },
+    {
+      "situation_id": "doctrine_and_standards",
+      "route_command": "python3 kernel.py --docs-route \"standards registry\"",
+      "label": "Doctrine and standards IO",
+      "use_when": "The task is about con_*.json, mech_*.json, std_*.json, or contract/governance surfaces rather than family voice.",
+      "route_id": "art_standards_schemas",
+      "fallback_command": "python3 kernel.py --standards",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Standards and doctrine IO is selected for governance tasks through context-pack and standards drilldowns.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_standards",
+      "canonical_next_read": "codex/standards/standards_registry.json",
+      "minimum_read_paths": [
+        "codex/standards/standards_registry.json",
+        "docs/standards_authoring_foundation_up.md"
+      ]
+    },
+    {
+      "situation_id": "doctrine_lattice_context",
+      "route_command": "./repo-python kernel.py --docs-route \"raw_seed_principles standards axioms\"",
+      "label": "Doctrine lattice context",
+      "use_when": "The task is about axioms, principles, standards, compression doctrine, or making Claude/Codex/shared agents receive the same source-backed context without adapter drift.",
+      "route_id": "sit_doctrine_lattice_context",
+      "fallback_command": "./repo-python kernel.py --paper-module system_self_comprehension_root",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Doctrine lattice context is selected for doctrine/compression tasks and is too broad for cold start.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_artifact_doctrine_lattice",
+      "canonical_next_read": "docs/raw_seed_principles_curation.md",
+      "minimum_read_paths": [
+        "docs/raw_seed_principles_curation.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
+        "codex/standards/standards_registry.json",
+        "codex/standards/core_authority_index.json",
+        "codex/standards/principles/std_raw_seed_principles.json",
+        "codex/standards/principles/std_system_axiom_candidate.json",
+        "codex/standards/principles/std_agent_bootstrap.json",
+        "codex/doctrine/paper_modules/system_self_comprehension_root.md",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/paper_modules/codex_markdown_doctrine.md"
+      ]
+    },
+    {
+      "situation_id": "python_runtime_surface",
+      "route_command": "python3 kernel.py --docs-route <repo-relative .py path>",
+      "label": "Python runtime surface",
+      "use_when": "The task is localized to a Python file under system/, tools/, or a repo-root launcher and you need the governing contract before reading code line-by-line.",
+      "route_id": "file_python_kernel",
+      "fallback_command": "python3 kernel.py --compile <repo-relative .py path>",
+      "actor_delivery": {
+        "decision": "drilldown_only",
+        "reason": "Python file contracts are opened after a concrete path or runtime task is selected.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "mrs_filetype_python_kernel",
+      "canonical_next_read": "codex/standards/std_python.py",
+      "minimum_read_paths": [
+        "codex/standards/std_python.py",
+        "codex/doctrine/doctrine_registry.json"
+      ]
+    },
+    {
+      "situation_id": "python_runtime_architecture",
+      "route_command": "python3 kernel.py --docs-route \"Python runtime\"",
+      "label": "Python runtime architecture",
+      "use_when": "The task is a freeform Python runtime, Python architecture, system/lib, or Python substrate question rather than a known single .py path.",
+      "route_id": "sit_python_runtime_architecture",
+      "fallback_command": "python3 kernel.py --paper-module \"system lib directory index\"",
+      "actor_delivery": {
+        "decision": "context_pack_only",
+        "reason": "Python architecture context is task-selected for runtime questions, not every actor boot.",
+        "source": "codex/standards/std_agent_entry_surface.json::actor_delivery_contract"
+      },
+      "minimum_read_set_id": "sit_python_runtime_architecture",
+      "canonical_next_read": "codex/doctrine/paper_modules/system_lib_directory_index.md",
+      "minimum_read_paths": [
+        "codex/doctrine/paper_modules/system_lib_directory_index.md",
+        "codex/doctrine/paper_modules/kernel_entry_paths.md",
+        "codex/doctrine/paper_modules/system_core_execution_kernel.md",
+        "codex/standards/std_python.py",
+        "codex/hologram/system/scope_tree.json"
+      ]
+    }
+  ],
+  "actor_context_surfaces": [
+    {
+      "actor_id": "codex",
+      "label": "Codex IDE agent",
+      "read_order": [
+        "AGENTS.override.md",
+        "CODEX.md",
+        "AGENTS.md",
+        "docs/controller_continuity.md",
+        "CLAUDE.md"
+      ],
+      "primary_commands": [
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "minimum_read_set_id": "mrs_actor_codex",
+      "minimum_read_paths": [
+        "AGENTS.override.md",
+        "CODEX.md",
+        "AGENTS.md",
+        "docs/controller_continuity.md",
+        "CLAUDE.md"
+      ],
+      "runtime_surface_id": "surface_docs_route"
+    },
+    {
+      "actor_id": "claude_code",
+      "label": "Claude Code IDE agent",
+      "read_order": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "docs/controller_continuity.md"
+      ],
+      "primary_commands": [
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "minimum_read_set_id": "mrs_actor_claude_code",
+      "minimum_read_paths": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "docs/controller_continuity.md"
+      ],
+      "runtime_surface_id": "surface_docs_route"
+    },
+    {
+      "actor_id": "bridge_worker",
+      "label": "Bridge worker",
+      "read_order": [
+        "codex/doctrine/agent_bootstrap_injection_strip.json",
+        "codex/doctrine/system_map.json",
+        "tools/meta/control/orchestration_state.json"
+      ],
+      "primary_commands": [
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --docs-route documentation"
+      ],
+      "minimum_read_set_id": "mrs_actor_bridge_worker",
+      "minimum_read_paths": [
+        "codex/doctrine/agent_bootstrap_injection_strip.json",
+        "codex/doctrine/system_map.json",
+        "tools/meta/control/orchestration_state.json"
+      ],
+      "runtime_surface_id": "surface_runtime_control_plane"
+    },
+    {
+      "actor_id": "human_operator",
+      "label": "Human operator",
+      "read_order": [
+        "docs/orchestration_state.md",
+        "tools/meta/control/orchestration_state.json",
+        "AGENTS.md"
+      ],
+      "primary_commands": [
+        "./repo-python run_control_room.py",
+        "./repo-python kernel.py --pulse"
+      ],
+      "minimum_read_set_id": "mrs_actor_human_operator",
+      "minimum_read_paths": [
+        "docs/orchestration_state.md",
+        "tools/meta/control/orchestration_state.json",
+        "AGENTS.md"
+      ],
+      "runtime_surface_id": "surface_control_room"
+    },
+    {
+      "actor_id": "control_room_manager",
+      "label": "Control-room manager",
+      "read_order": [
+        "tools/meta/control/orchestration_state.json",
+        "tools/meta/control/documentation_route_focus.json",
+        "obsidian/<active phase>/focus_directive.json"
+      ],
+      "primary_commands": [
+        "python3 run_control_room.py",
+        "python3 kernel.py --pulse",
+        "python3 kernel.py --docs-route system/control/orchestration.py"
+      ],
+      "minimum_read_set_id": "mrs_actor_control_room_manager",
+      "minimum_read_paths": [
+        "tools/meta/control/orchestration_state.json",
+        "tools/meta/control/documentation_route_focus.json",
+        "docs/orchestration_state.md"
+      ],
+      "runtime_surface_id": "surface_control_room"
+    }
+  ],
+  "actor_bootstrap_packets": [
+    {
+      "actor_id": "codex",
+      "label": "Codex IDE agent",
+      "identity_source": "flat_file_bootstrap",
+      "context_files": [
+        {
+          "order": 1,
+          "path": "AGENTS.override.md",
+          "source": "read_order"
+        },
+        {
+          "order": 2,
+          "path": "CODEX.md",
+          "source": "read_order"
+        },
+        {
+          "order": 3,
+          "path": "AGENTS.md",
+          "source": "read_order"
+        },
+        {
+          "order": 4,
+          "path": "docs/controller_continuity.md",
+          "source": "read_order"
+        },
+        {
+          "order": 5,
+          "path": "CLAUDE.md",
+          "source": "read_order"
+        }
+      ],
+      "primary_commands": [
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "first_read": "AGENTS.override.md",
+      "minimum_read_set_id": "mrs_actor_codex",
+      "runtime_surface_id": "surface_docs_route",
+      "entry_command": "./repo-python kernel.py --info"
+    },
+    {
+      "actor_id": "claude_code",
+      "label": "Claude Code IDE agent",
+      "identity_source": "flat_file_bootstrap",
+      "context_files": [
+        {
+          "order": 1,
+          "path": "CLAUDE.md",
+          "source": "read_order"
+        },
+        {
+          "order": 2,
+          "path": "AGENTS.md",
+          "source": "read_order"
+        },
+        {
+          "order": 3,
+          "path": "docs/controller_continuity.md",
+          "source": "read_order"
+        }
+      ],
+      "primary_commands": [
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "first_read": "CLAUDE.md",
+      "minimum_read_set_id": "mrs_actor_claude_code",
+      "runtime_surface_id": "surface_docs_route",
+      "entry_command": "./repo-python kernel.py --info"
+    },
+    {
+      "actor_id": "bridge_worker",
+      "label": "Bridge worker",
+      "identity_source": "flat_file_bootstrap",
+      "context_files": [
+        {
+          "order": 1,
+          "path": "codex/doctrine/agent_bootstrap_injection_strip.json",
+          "source": "read_order"
+        },
+        {
+          "order": 2,
+          "path": "codex/doctrine/system_map.json",
+          "source": "read_order"
+        },
+        {
+          "order": 3,
+          "path": "tools/meta/control/orchestration_state.json",
+          "source": "read_order"
+        }
+      ],
+      "primary_commands": [
+        "./repo-python kernel.py --pulse",
+        "./repo-python kernel.py --docs-route documentation"
+      ],
+      "first_read": "codex/doctrine/agent_bootstrap_injection_strip.json",
+      "minimum_read_set_id": "mrs_actor_bridge_worker",
+      "runtime_surface_id": "surface_runtime_control_plane",
+      "entry_command": "./repo-python kernel.py --pulse"
+    },
+    {
+      "actor_id": "human_operator",
+      "label": "Human operator",
+      "identity_source": "flat_file_bootstrap",
+      "context_files": [
+        {
+          "order": 1,
+          "path": "docs/orchestration_state.md",
+          "source": "read_order"
+        },
+        {
+          "order": 2,
+          "path": "tools/meta/control/orchestration_state.json",
+          "source": "read_order"
+        },
+        {
+          "order": 3,
+          "path": "AGENTS.md",
+          "source": "read_order"
+        }
+      ],
+      "primary_commands": [
+        "./repo-python run_control_room.py",
+        "./repo-python kernel.py --pulse"
+      ],
+      "first_read": "docs/orchestration_state.md",
+      "minimum_read_set_id": "mrs_actor_human_operator",
+      "runtime_surface_id": "surface_control_room",
+      "entry_command": "./repo-python run_control_room.py"
+    },
+    {
+      "actor_id": "control_room_manager",
+      "label": "Control-room manager",
+      "identity_source": "flat_file_bootstrap",
+      "context_files": [
+        {
+          "order": 1,
+          "path": "tools/meta/control/orchestration_state.json",
+          "source": "read_order"
+        },
+        {
+          "order": 2,
+          "path": "tools/meta/control/documentation_route_focus.json",
+          "source": "read_order"
+        },
+        {
+          "order": 3,
+          "path": "obsidian/<active phase>/focus_directive.json",
+          "source": "read_order"
+        },
+        {
+          "order": 4,
+          "path": "docs/orchestration_state.md",
+          "source": "minimum_read_set"
+        }
+      ],
+      "primary_commands": [
+        "python3 run_control_room.py",
+        "python3 kernel.py --pulse",
+        "python3 kernel.py --docs-route system/control/orchestration.py"
+      ],
+      "first_read": "tools/meta/control/orchestration_state.json",
+      "minimum_read_set_id": "mrs_actor_control_room_manager",
+      "runtime_surface_id": "surface_control_room",
+      "entry_command": "python3 run_control_room.py"
+    }
+  ],
+  "runtime_control_plane": {
+    "snapshot_path": "tools/meta/control/orchestration_state.json",
+    "event_log_path": "tools/meta/control/orchestration_events.jsonl",
+    "brief_json_path": "tools/meta/control/orchestration_brief.json",
+    "brief_markdown_path": "tools/meta/control/orchestration_brief.md",
+    "control_room_command": "python3 run_control_room.py",
+    "overnight_status_command": "python3 overnight_control.py --status",
+    "overnight_write_command": "python3 overnight_control.py --write",
+    "pulse_command": "python3 kernel.py --pulse",
+    "docs_route_command": "python3 kernel.py --docs-route system/control/orchestration.py",
+    "docs_route_focus_path": "tools/meta/control/documentation_route_focus.json"
+  },
+  "compact_command_surface": {
+    "max_flags_per_group": 6,
+    "group_entrypoints": {
+      "navigate": {
+        "command": "./repo-python kernel.py --orient-task \"<topic>\"",
+        "why": "Turn a vague task into a bounded working set before opening raw files."
+      },
+      "planning": {
+        "command": "./repo-python kernel.py --phase [<phase>]",
+        "why": "Recover the active phase packet and current wave contract."
+      },
+      "observe": {
+        "command": "./repo-python kernel.py --launch-observe --plan <plan.json> --bridge --provider chatgpt --bridge-workers 3 --detach",
+        "why": "Launch a detached observe run only after the controller has already chosen the groups."
+      },
+      "apply": {
+        "command": "./repo-python kernel.py --apply <ops.json> [--live]",
+        "why": "Route bounded mutations through the governed apply surface."
+      },
+      "infrastructure": {
+        "command": "./repo-python kernel.py --build status",
+        "why": "Check derived-surface freshness before trusting generated artifacts."
+      }
+    }
+  },
+  "instruction_discovery": {
+    "provider": "codex",
+    "official_source": "https://developers.openai.com/codex/guides/agents-md#how-codex-discovers-guidance",
+    "markdown_target": "AGENTS.override.md",
+    "seed_path": "AGENTS.override.md",
+    "deep_hub_path": "AGENTS.md",
+    "adapter_paths": [
+      "CODEX.md",
+      "CLAUDE.md"
+    ],
+    "project_doc_max_bytes_default": 36045,
+    "compact_seed_budget_bytes": 17600,
+    "effective_root_instruction_path": "AGENTS.override.md",
+    "override_active": true,
+    "files": [
+      {
+        "path": "AGENTS.override.md",
+        "exists": true,
+        "non_empty": true,
+        "bytes": 15536,
+        "budget_bytes": 17600,
+        "budget_status": "within_budget"
+      },
+      {
+        "path": "AGENTS.md",
+        "exists": true,
+        "non_empty": true,
+        "bytes": 35272,
+        "budget_bytes": 36045,
+        "budget_status": "within_budget"
+      },
+      {
+        "path": "CODEX.md",
+        "exists": true,
+        "non_empty": true,
+        "bytes": 34660,
+        "budget_bytes": 36045,
+        "budget_status": "within_budget"
+      },
+      {
+        "path": "CLAUDE.md",
+        "exists": true,
+        "non_empty": true,
+        "bytes": 35958,
+        "budget_bytes": 36045,
+        "budget_status": "within_budget"
+      }
+    ],
+    "oversized_paths": [],
+    "begin_marker": "<!-- BEGIN instruction_discovery_live -->",
+    "end_marker": "<!-- END instruction_discovery_live -->"
+  },
+  "system_facts_at_a_glance": {
+    "authority_posture": "generated_control_plane_projection_not_source_authority",
+    "facts": [
+      {
+        "agent_entry_use": "Open atlas rows only after task entry or context-pack selects the relevant kind.",
+        "id": "projection_not_authority",
+        "label": "Projection, not authority",
+        "operator_ui_use": "Use counts and warnings as orientation, then jump to the cited drilldown.",
+        "source_refs": [
+          "codex/standards/std_system_atlas.json",
+          "state/system_atlas/system_atlas.graph.json"
+        ],
+        "summary": "System Atlas rows are harvested control-plane projections; source files, event ledgers, generated sidecars, and owner tools remain authority.",
+        "type_b_use": "Use the atlas as the compact map. Ask Type A for cited evidence when exact private state would change the answer."
+      },
+      {
+        "agent_entry_use": "Route actor ontology claims through con_016::actor_axes and operational_work_item_spine.",
+        "id": "actor_axes",
+        "label": "Type A/B axes",
+        "operator_ui_use": "Read Type B prompt output as shape guidance unless Type A has verified the substrate.",
+        "source_refs": [
+          "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+          "codex/doctrine/paper_modules/operational_work_item_spine.md"
+        ],
+        "summary": "Type A/B is substrate authority, not intelligence level. Class tier, surface, delegation role, context mode, lane, and thinking budget are independent axes.",
+        "type_b_use": "Do not classify subagents as Type B just because they are delegated; do not treat provider lanes as globally low-class."
+      },
+      {
+        "agent_entry_use": "Start with ./repo-python kernel.py --entry \"<task>\" --context-budget 12000 (canonical front door per std_agent_entry_surface.json::canonical_option_surface_routes.first_move_contract); --context-pack is the downstream cross-kind packet route after entry selects it; drill into option surfaces with --kind-atlas and --option-surface.",
+        "id": "availability_ladder",
+        "label": "Availability ladder",
+        "operator_ui_use": "Prefer the existing route/button/atlas row when it already covers the need.",
+        "source_refs": [
+          "AGENTS.override.md",
+          "codex/doctrine/paper_modules/navigation_hologram_theory.md"
+        ],
+        "summary": "Before greenfield authoring, check local option surfaces, half-built or uncommitted substrate, raw-seed/operator anchors, annex prior art, then public research.",
+        "type_b_use": "Convert missing-capability claims into ASK_TYPE_A evidence requests or explicit reuse/finish/import/research/build-new branches."
+      },
+      {
+        "agent_entry_use": "Use ./repo-python kernel.py --pulse, --entry, --phase, --context-pack, and builder --check commands.",
+        "id": "dynamic_facts_live_elsewhere",
+        "label": "Dynamic facts live elsewhere",
+        "operator_ui_use": "Refresh Station or the owning builder before trusting a stale count.",
+        "source_refs": [
+          "AGENTS.override.md",
+          "codex/doctrine/agent_bootstrap_live.json"
+        ],
+        "summary": "Volatile current state belongs in kernel output, builder-owned regions, JSON sidecars, and runtime ledgers, not prose.",
+        "type_b_use": "Treat pasted counts and old summaries as dated unless the paste includes fresh command output."
+      },
+      {
+        "agent_entry_use": "Use generated summaries and evidence paths; do not paste private bodies into public-safe artifacts.",
+        "id": "private_state_boundary",
+        "label": "Private state boundary",
+        "operator_ui_use": "Use disclosure class and risk level before sharing, recording, or demoing.",
+        "source_refs": [
+          "docs/system_atlas/generated_system_atlas_snapshot.md",
+          "docs/system_atlas/substrate_inventory_register.md"
+        ],
+        "summary": "Raw seed, Task Ledger, provider/browser outputs, feed artifacts, and ignored state are private-root evidence unless redacted or synthetic.",
+        "type_b_use": "Do not infer private state beyond provided traces; request Type A evidence or keep claims at method level."
+      },
+      {
+        "agent_entry_use": "Capture residuals through task-ledger/apply/up-propagation lanes rather than chat-only memory.",
+        "id": "work_and_learning_spines",
+        "label": "Work and learning spines",
+        "operator_ui_use": "Use Prompt Shelf digest before editing prompts and WorkItem views before ranking work.",
+        "source_refs": [
+          "codex/doctrine/paper_modules/operational_work_item_spine.md",
+          "state/prompt_shelf/uppropagation_digest.md"
+        ],
+        "summary": "Durable work belongs in WorkItems/Task Ledger; prompt lessons belong in Prompt Ledger or up-propagation intake; reusable doctrine lessons propagate to the owning standard, skill, or paper module.",
+        "type_b_use": "Return WorkItem contours, ASK_TYPE_A packets, or prompt-patch contours instead of loose TODOs."
+      }
+    ],
+    "generated_at": "2026-05-17T12:41:58Z",
+    "generated_by": "tools/meta/factory/build_system_atlas.py",
+    "kind": "system_facts_at_a_glance",
+    "prompt_insert": {
+      "source_json": "state/system_atlas/system_facts_at_a_glance.json",
+      "source_markdown": "docs/system_atlas/generated_system_facts_at_a_glance.md",
+      "text": "System facts at-a-glance: treat docs/system_atlas/generated_system_facts_at_a_glance.md and state/system_atlas/system_facts_at_a_glance.json as the compact projected map, not source authority. Carry these defaults unless newer evidence overrides them: Type A/B is substrate authority, not quality; missing-capability claims walk the availability ladder before greenfielding; dynamic facts live in kernel output and builder-owned sidecars; raw seed, WorkItems, provider/browser/feed state, and ignored state are private-root evidence; durable residuals route through WorkItem, Prompt Ledger, up-propagation, or the owning doctrine artifact. When exact private state changes the decision, ask Type A for ./repo-python kernel.py --context-pack \"<task>\" or ./repo-python kernel.py --option-surface system_atlas --band card --ids <entity_id>.",
+      "title": "System facts at-a-glance"
+    },
+    "schema_version": "system_facts_at_a_glance_v1",
+    "source_refs": [
+      "codex/standards/std_system_atlas.json",
+      "state/system_atlas/system_atlas.graph.json",
+      "tools/meta/factory/build_system_atlas.py"
+    ],
+    "summary": {
+      "annex_distillation_patterns": 834,
+      "entity_count": 1453,
+      "finding_count": 44,
+      "frontend_components": 181,
+      "frontend_views": 48,
+      "paper_module_count": 208,
+      "provider_lane_count": 13,
+      "source_input_count": 26,
+      "standard_count": 191,
+      "task_ledger_views": 36,
+      "task_ledger_work_items": 2504
+    }
+  },
+  "agent_operating_packet": {
+    "kind": "agent_operating_packet_strip",
+    "schema_version": "agent_operating_packet_strip_v0",
+    "status": "available",
+    "source_ref": "codex/doctrine/agent_operating_packet.json",
+    "authority_posture": "generated_projection_not_source_authority",
+    "global_principle_ids": [
+      "pri_121",
+      "pri_128",
+      "pri_093",
+      "pri_001",
+      "pri_115",
+      "pri_125",
+      "pri_127"
+    ],
+    "agent_principle_ids": [
+      "pri_134",
+      "pri_136",
+      "pri_137",
+      "pri_138",
+      "pri_139",
+      "pri_140",
+      "pri_141",
+      "pri_142",
+      "pri_151",
+      "pri_143",
+      "pri_144",
+      "pri_116",
+      "pri_145",
+      "pri_146",
+      "pri_147",
+      "pri_153",
+      "pri_133"
+    ],
+    "global_principles": [
+      {
+        "id": "pri_121",
+        "tiny": "Compression Via Substrate-Derived Projection (Rosetta Stone)",
+        "flag": "When an artifact is over its compression budget, refine the standard governing it so the artifact carries less hand-authored content and more substrate-derived projection; the c..."
+      },
+      {
+        "id": "pri_128",
+        "tiny": "Live Projections Must Be Entry Routes",
+        "flag": "When a live compressed projection already exists over a substrate, cold-agent entry surfaces must route to that projection before naming lower-level bespoke search, read, or tri..."
+      },
+      {
+        "id": "pri_093",
+        "tiny": "Agents Need A Structural Right To Dissent",
+        "flag": "Agents must be structurally allowed to report doubt, low confidence, or suspected data-integrity problems instead of being forced into high-confidence completion."
+      },
+      {
+        "id": "pri_001",
+        "tiny": "JSON Is Contract, Markdown Is Projection",
+        "flag": "JSON is the contract; markdown is a human projection of it."
+      },
+      {
+        "id": "pri_115",
+        "tiny": "Principles Are Activation-Grade Compressions Of Cognition",
+        "flag": "Principles should compress generalized cognition into activation-grade forms that the reader completes in present context; they are generative substrates for extrapolation, not..."
+      },
+      {
+        "id": "pri_125",
+        "tiny": "Enabling Substrate Priority",
+        "flag": "When a substrate improvement enables faster or cheaper execution of many downstream tasks, and the improvement effort is low-hanging fruit, that improvement should be prioritize..."
+      },
+      {
+        "id": "pri_127",
+        "tiny": "Lossless Compression Requires Full System Context",
+        "flag": "Any shard or compressed artifact in isolation is semantically incomplete — it only becomes fully interpretable when the surrounding system context (its principles, paper modules..."
+      }
+    ],
+    "candidate_axiom_policy": "candidate_pressure_only_not_active_law",
+    "metrics": {
+      "global_principle_count": 7,
+      "agent_principle_count": 17,
+      "frequent_principle_count": 12,
+      "axiom_candidate_glance_count": 14,
+      "entry_strip_bytes": 2682,
+      "global_runtime_capsule_bytes": 13742,
+      "compact_full_packet_bytes": 180038
+    },
+    "route": "./repo-python kernel.py --agent-operating-packet --band card",
+    "agent_principles_route": "./repo-python kernel.py --agent-principles --band card"
+  },
+  "type_a_convergence_contract": {
+    "summary": "Codex and Claude Code converge through the shared hub first, then adapter deltas, with observed host records used as feedback on how agents actually navigate and mutate this repo.",
+    "route_command": "./repo-python kernel.py --docs-route \"agent telemetry\"",
+    "canonical_next_read": "docs/agent_telemetry.md",
+    "coverage_command": "./repo-python tools/meta/agent_telemetry/coverage.py --symbolic-only",
+    "source_surfaces": [
+      {
+        "id": "shared_entry_hub",
+        "label": "Shared Type A entry hub",
+        "path": "AGENTS.md + CODEX.md + CLAUDE.md",
+        "role": "what agents should read and believe",
+        "authority": "codex/doctrine/agent_bootstrap.json"
+      },
+      {
+        "id": "repo_host_dotfiles",
+        "label": "Repo host-agent config",
+        "path": ".codex/ + .claude/",
+        "role": "how hosts boot, spawn, and rehydrate",
+        "authority": "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md"
+      },
+      {
+        "id": "home_operational_records",
+        "label": "Home-dir operational records",
+        "path": "~/.codex/ + ~/.claude/",
+        "role": "what Codex and Claude actually did",
+        "authority": "codex/doctrine/paper_modules/host_agent_external_surfaces.md"
+      }
+    ],
+    "probe_commands": [
+      {
+        "id": "jsonl_behavior",
+        "command": "./repo-python tools/meta/agent_telemetry/extract.py --since <ISO8601>",
+        "purpose": "Mine Claude/Codex JSONL rollouts for real navigation, tool, file, and command patterns."
+      },
+      {
+        "id": "host_record_probe",
+        "command": "./repo-python tools/meta/agent_telemetry/host_surface_probe.py --since <ISO8601>",
+        "purpose": "Read Codex SQLite state/logs and Claude host records without writing into home-directory surfaces."
+      },
+      {
+        "id": "routing_coverage",
+        "command": "./repo-python tools/meta/agent_telemetry/coverage.py --symbolic-only",
+        "purpose": "Turn observed search and command behavior into one bounded routing or skill coverage fix."
+      }
+    ],
+    "comprehension_gate": {
+      "summary": "A Type A agent may only report whole-system understanding after citing evidence from both control surfaces and Python substrate. Missing buckets mean the report is partial, even if the control plane felt coherent.",
+      "route_command": "./repo-python kernel.py --docs-route \"agent entry points\"",
+      "failure_mode": "If any bucket is missing, say partial comprehension and name the missing bucket instead of claiming whole-system understanding.",
+      "required_evidence_buckets": [
+        {
+          "id": "shared_markdown_adapters",
+          "must_cite": "AGENTS.md + CLAUDE.md/CODEX.md live adapter projection",
+          "authority": "codex/doctrine/paper_modules/codex_markdown_doctrine.md"
+        },
+        {
+          "id": "repo_host_dotfiles",
+          "must_cite": ".claude/ + .codex/ host-agent configuration plane",
+          "authority": "codex/doctrine/paper_modules/host_agent_dotfile_surfaces.md"
+        },
+        {
+          "id": "python_substrate",
+          "must_cite": "system/lib Python routing index plus kernel entry packet",
+          "authority": "codex/doctrine/paper_modules/system_lib_directory_index.md + codex/doctrine/paper_modules/kernel_entry_paths.md"
+        },
+        {
+          "id": "derived_facts_anti_drift",
+          "must_cite": "`python3 kernel.py --facts`, `python3 kernel.py --fact-audit`, and `python3 kernel.py --paper-module-facts <slug>` before trusting volatile numeric claims",
+          "authority": "codex/standards/std_derived_fact.json + codex/hologram/facts"
+        },
+        {
+          "id": "raw_seed_projection_coverage",
+          "must_cite": "`python3 kernel.py --raw-seed-projection-theme <theme>`, `python3 kernel.py --raw-seed-projection-coverage`, or `python3 kernel.py --raw-seed-projection-gap-audit` when investigating raw-seed projection, coverage, or drift",
+          "authority": "codex/standards/observe_apply/std_raw_seed_projection_coverage.json + codex/hologram/raw_seed_projection"
+        },
+        {
+          "id": "agent_execution_trace_visibility",
+          "must_cite": "`python3 kernel.py --process-audit`, `python3 kernel.py --process-patterns`, or `python3 kernel.py --process-trace latest` when observed agent behavior is part of the claim",
+          "authority": "codex/standards/std_agent_execution_trace.json + codex/hologram/process"
+        },
+        {
+          "id": "active_phase_control",
+          "must_cite": "current phase card and pulse/orchestration state",
+          "authority": "./repo-python kernel.py --phase <active> + ./repo-python kernel.py --pulse"
+        },
+        {
+          "id": "doctrine_or_raw_seed_authority",
+          "must_cite": "governing doctrine/raw-seed authority for the task being summarized",
+          "authority": "./repo-python kernel.py --docs-route <task> or ./repo-python kernel.py --shards --shards-query <topic>"
+        }
+      ]
+    },
+    "feedback_loop": [
+      "probe a bounded recent window",
+      "compare Codex vs Claude divergence",
+      "patch shared AGENTS/bootstrap before adapter prose when the behavior applies to all Type A agents",
+      "regenerate projections",
+      "run focused tests and freshness checks"
+    ],
+    "invariants": [
+      "home-directory probes are read-only and never read private auth bodies",
+      "shared behavior lands in AGENTS/agent_bootstrap before CODEX.md or CLAUDE.md deltas",
+      "adapter files stay thin and point back to the shared hub",
+      "telemetry output becomes a bounded routing or skill fix, not a permanent side quest",
+      "durable closeout propagation routes through std_uppropagation_intake, Task Ledger, Prompt Ledger, or Work Ledger; visible raw aiw footer blocks appear only on explicit capture surfaces",
+      "every substantive pass leaves a durable non-null yield: patch, proof, capture, signoff, propagation record, deferred capture packet, or explicit no-op verdict proving no residual remains",
+      "noticed residuals, future slices, low-hanging sibling fixes, peer-propagation opportunities, repeated friction, sidebar TODO pressure, and while-we-are-here improvements are handled now, captured through Task Ledger quick-capture / WorkItems, or retired with reason",
+      "reusable additions run generalise-uppropagate before closeout: owner artifact, sibling surfaces, generated entry when behavior changed, unified self-description when system shape changed, durable intake, then WorkItem residual capture"
+    ]
+  }
+}

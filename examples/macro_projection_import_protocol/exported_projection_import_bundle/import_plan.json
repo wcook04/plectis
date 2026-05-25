@@ -608,6 +608,49 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "bootstrap_route_surface_source_modules_import",
+      "selected_pattern_ids": [
+        "entry_control_packet",
+        "navigation_hologram_route_plane",
+        "agent_bootstrap_projection",
+        "routing_hologram_projection"
+      ],
+      "source_refs": [
+        "codex/doctrine/agent_bootstrap_live.json",
+        "codex/doctrine/routing_hologram.json",
+        "system/lib/agent_bootstrap_projection.py",
+        "system/lib/routing_projection.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bootstrap_route_surface_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/routing_projection.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/bootstrap_route_surface_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_projection_sources_have_route_rows",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "bootstrap_agent_bootstrap_live_body_import",
+        "bootstrap_routing_hologram_body_import",
+        "bootstrap_agent_bootstrap_projection_body_import",
+        "bootstrap_routing_projection_body_import"
+      ],
+      "authority_ceiling": "verified_public_bootstrap_route_surface_bodies_not_live_macro_kernel_provider_browser_account_or_private_state_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

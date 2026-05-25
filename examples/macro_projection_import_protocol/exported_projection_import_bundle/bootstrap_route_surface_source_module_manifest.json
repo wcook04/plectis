@@ -1,0 +1,126 @@
+{
+  "schema_version": "macro_projection_bootstrap_route_surface_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "bootstrap_route_surface_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_bootstrap_route_surface_generated_sidecars_and_projection_owner_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, route-row assertions, anchor checks, and syntax compilation into /tmp; copied source modules are body evidence, not authority to refresh live bootstrap projections or inspect private state",
+  "module_count": 4,
+  "modules": [
+    {
+      "module_id": "bootstrap_agent_bootstrap_live_body_import",
+      "source_ref": "codex/doctrine/agent_bootstrap_live.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
+      "material_class": "public_macro_receipt_body",
+      "source_role": "Generated Codex bootstrap control-plane sidecar carrying situation routes, instruction discovery, actor packets, live bindings, and agent operating packet strips.",
+      "required_anchors": [
+        "\"kind\": \"agent_bootstrap_live\"",
+        "\"situation_routes\"",
+        "\"entry_control_packet\"",
+        "\"instruction_discovery\"",
+        "\"actor_delivery\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "f016b1b2a0d330b6fc6fcb4c9dfae5e613a84d5a7c38eb604383b387007db1b3",
+      "target_sha256": "f016b1b2a0d330b6fc6fcb4c9dfae5e613a84d5a7c38eb604383b387007db1b3",
+      "sha256_match": true,
+      "line_count": 3652,
+      "byte_count": 185144,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "bootstrap_routing_hologram_body_import",
+      "source_ref": "codex/doctrine/routing_hologram.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
+      "material_class": "public_macro_receipt_body",
+      "source_role": "Generated routing hologram sidecar carrying situation rows, entry protocol, mode rows, delegation rows, and section caps.",
+      "required_anchors": [
+        "\"kind\": \"routing_hologram\"",
+        "\"situation_rows\"",
+        "\"entry_protocol\"",
+        "\"mode_rows\"",
+        "\"section_caps\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "586b4e5ecc68f61bd9f9b8947c3465b3ca9ecfe6cebebace290f5488df6f571b",
+      "target_sha256": "586b4e5ecc68f61bd9f9b8947c3465b3ca9ecfe6cebebace290f5488df6f571b",
+      "sha256_match": true,
+      "line_count": 295,
+      "byte_count": 12313,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "bootstrap_agent_bootstrap_projection_body_import",
+      "source_ref": "system/lib/agent_bootstrap_projection.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_bootstrap_projection.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Agent bootstrap projection owner that normalizes route rows, resolves instruction-discovery live facts, renders managed markdown regions, and writes the bootstrap sidecars.",
+      "required_anchors": [
+        "def normalize_situation_routes(",
+        "def resolve_instruction_discovery_facts(",
+        "def build_live_payload(",
+        "def render_instruction_discovery_markdown(",
+        "def run_projection("
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "d1abd6cf79a3e96eda5c8d90b7f891a00a720182cb948f9e60b837427b339728",
+      "target_sha256": "d1abd6cf79a3e96eda5c8d90b7f891a00a720182cb948f9e60b837427b339728",
+      "sha256_match": true,
+      "line_count": 2945,
+      "byte_count": 139344,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "bootstrap_routing_projection_body_import",
+      "source_ref": "system/lib/routing_projection.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/routing_projection.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Routing hologram projection owner that builds entry protocol rows, situation rows, mode rows, telemetry affinities, and managed markdown routing regions.",
+      "required_anchors": [
+        "DEFAULT_OUTPUT_REL = \"codex/doctrine/routing_hologram.json\"",
+        "def _build_situation_rows(",
+        "def _validate_payload(",
+        "def build_routing_payload(",
+        "def run_projection("
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "c8678aaccf2510c6984839574272953aac17fa8cea1296feee2708ffb40d642b",
+      "target_sha256": "c8678aaccf2510c6984839574272953aac17fa8cea1296feee2708ffb40d642b",
+      "sha256_match": true,
+      "line_count": 1079,
+      "byte_count": 44487,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_projection_sources_have_route_rows",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}
