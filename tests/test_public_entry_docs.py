@@ -342,6 +342,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "implementation_atlas.python_navigation_assay" in cold_start
     assert "route_utility_curriculum" in cold_start
     assert "route_utility_curriculum.ratchet" in cold_start
+    assert "proof-lab --out /tmp/microcosm-proof-lab" in cold_start
     assert "verifier-lab-kernel run-kernel-bundle" in cold_start
     assert "formal_prover_context_strategy_gate" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start
@@ -398,6 +399,15 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     proof_lab = entry_packet["proof_lab_route"]
     assert proof_lab["surface_id"] == "first_screen_verifier_lab_kernel"
     assert proof_lab["organ_id"] == "verifier_lab_kernel"
+    assert proof_lab["command"] == "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    assert proof_lab["expanded_command"] == (
+        "microcosm verifier-lab-kernel run-kernel-bundle --input "
+        "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out "
+        "/tmp/microcosm-proof-lab"
+    )
+    assert proof_lab["endpoint"] == "/proof-lab"
+    assert proof_lab["alias_endpoints"] == ["/verifier-lab-kernel"]
+    assert proof_lab["source_lens_endpoint"] == "/proof-loop-depth"
     assert proof_lab["route_id"] == "formal_prover_context_strategy_gate"
     assert proof_lab["route_component_count"] == 9
     assert proof_lab["route_ref"] == (
@@ -412,6 +422,7 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert proof_lab["route_ref"] in entry_packet["allowed_drilldowns"]
     assert proof_lab["receipt_ref"] in entry_packet["allowed_drilldowns"]
     assert proof_lab["command"] in entry_packet["allowed_drilldowns"]
+    assert proof_lab["expanded_command"] in entry_packet["allowed_drilldowns"]
     assert proof_lab["receipt_ref"] in entry_packet["receipt_dependencies"]
 
     front_door = entry_packet["tour_front_door_status_route"]

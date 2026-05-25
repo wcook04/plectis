@@ -10,6 +10,7 @@
     "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_route_readiness_audit.json",
     "examples/pattern_binding_contract/exported_route_readiness_bundle/extracted_pattern_organ_route_cards.json",
     "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
+    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
     "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
@@ -124,7 +125,13 @@
   "proof_lab_route": {
     "surface_id": "first_screen_verifier_lab_kernel",
     "organ_id": "verifier_lab_kernel",
-    "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+    "expanded_command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "endpoint": "/proof-lab",
+    "alias_endpoints": [
+      "/verifier-lab-kernel"
+    ],
+    "source_lens_endpoint": "/proof-loop-depth",
     "supporting_lens_commands": [
       "microcosm proof-loop-depth",
       "microcosm verifier-lab-execution-spine-lens"
