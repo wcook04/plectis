@@ -35,6 +35,9 @@ TRACE_CAPSULE_MANIFEST = BUNDLE_INPUT / "trace_capsule_source_module_manifest.js
 ROUTE_SELECTION_CONTROL_MANIFEST = (
     BUNDLE_INPUT / "route_selection_control_source_module_manifest.json"
 )
+NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
+    BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
+)
 BOOTSTRAP_ROUTE_SURFACE_MANIFEST = (
     BUNDLE_INPUT / "bootstrap_route_surface_source_module_manifest.json"
 )
@@ -275,6 +278,69 @@ def test_route_selection_control_source_manifest_matches_exact_macro_sources() -
         target_text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in target_text
+
+
+def test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = json.loads(NAVIGATION_CONTEXT_ROSETTA_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["manifest_id"] == "navigation_context_rosetta_source_modules_import"
+    assert manifest["module_count"] == 5
+    assert manifest["public_runtime_policy"].startswith("public validation uses exact")
+    for row in manifest["modules"]:
+        source = REPO_ROOT / row["source_ref"]
+        target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+        assert source.is_file()
+        assert target.is_file()
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert source_digest == target_digest
+        target_text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in target_text
+
+
+def test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract() -> None:
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    rosetta_source = source_modules_root / "system/lib/navigation_context_rosetta.py"
+    audit_source = source_modules_root / "system/lib/kind_band_contract_audit.py"
+    test_source = (
+        source_modules_root / "system/server/tests/test_navigation_context_rosetta.py"
+    )
+    standard_source = (
+        source_modules_root / "codex/standards/std_navigation_rosetta_grammar.json"
+    )
+    paper_source = (
+        source_modules_root
+        / "codex/doctrine/paper_modules/navigation_rosetta_math.md"
+    )
+
+    rosetta_text = rosetta_source.read_text(encoding="utf-8")
+    audit_text = audit_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+    standard = json.loads(standard_source.read_text(encoding="utf-8"))
+    paper_text = paper_source.read_text(encoding="utf-8")
+
+    compile(rosetta_text, str(rosetta_source), "exec")
+    compile(audit_text, str(audit_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "def build_navigation_context_rosetta(" in rosetta_text
+    assert "\"schema_version\": \"navigation_context_rosetta_packet_v0\"" in rosetta_text
+    assert "semantic_grammar" in rosetta_text
+    assert "def build_kind_band_contract_audit(" in audit_text
+    assert "axis_split_declared" in audit_text
+    assert (
+        "test_rosetta_packet_covers_all_kind_atlas_rows_before_query"
+        in test_text
+    )
+    assert standard["id"] == "std_navigation_rosetta_grammar"
+    assert "context_atom_shape" in standard
+    assert "relation_verb_shape" in standard
+    assert "proof_obligations" in standard
+    assert "Coverage before depth" in paper_text
+    assert "## Mathematical Core" in paper_text
 
 
 def test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources() -> None:

@@ -37,14 +37,15 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy"
         ],
         "source_body_digest": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "source_line_count": 373,
         "source_to_target_relation": "exact_copy",
         "target_body_digest": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "target_line_count": 373,
         "verification_mode": "exact_source_digest_match",
-        "verification_status": "verified",
-        "source_line_count": 373,
-        "target_line_count": 373
+        "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 373,
       "claim_ceiling": "public macro pattern ledger body import only; not live state authority, private-root equivalence, release, publication, or recipient work authorization",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_pattern_body",
@@ -61,8 +62,7 @@
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
       "validation_refs": [
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy"
-      ],
-      "body_line_count": 373
+      ]
     },
     {
       "body_copied": false,
@@ -2949,6 +2949,336 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_intervention_source_module_builds_public_route_repair_suggestion",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_selection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_rosetta_source_module_into_public_projection_bundle",
+        "bind_navigation_rosetta_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_rosetta_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:19ffb1278941ae546949c210561118acf459ba13d1d84e9ecfbe5734edce5f37",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:19ffb1278941ae546949c210561118acf459ba13d1d84e9ecfbe5734edce5f37",
+        "source_line_count": 695,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:19ffb1278941ae546949c210561118acf459ba13d1d84e9ecfbe5734edce5f37",
+        "target_line_count": 695,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 695,
+      "claim_ceiling": "public navigation Rosetta source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_context_rosetta_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/navigation_context_rosetta.py",
+      "source_refs": [
+        "system/lib/navigation_context_rosetta.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_rosetta.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_rosetta_source_module_into_public_projection_bundle",
+        "bind_navigation_rosetta_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_rosetta_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:b0afafb17678990d631aaf11a5324f44a8954b0b02fb646b3b0f5c4fbbe08dc0",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:b0afafb17678990d631aaf11a5324f44a8954b0b02fb646b3b0f5c4fbbe08dc0",
+        "source_line_count": 491,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:b0afafb17678990d631aaf11a5324f44a8954b0b02fb646b3b0f5c4fbbe08dc0",
+        "target_line_count": 491,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 491,
+      "claim_ceiling": "public navigation Rosetta source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "kind_band_contract_audit_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/kind_band_contract_audit.py",
+      "source_refs": [
+        "system/lib/kind_band_contract_audit.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_band_contract_audit.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_rosetta_source_module_into_public_projection_bundle",
+        "bind_navigation_rosetta_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_rosetta_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:5bbf7f61552703c9f211d863574a4fc2790979c122f619eac27c6713e319da6a",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:5bbf7f61552703c9f211d863574a4fc2790979c122f619eac27c6713e319da6a",
+        "source_line_count": 256,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:5bbf7f61552703c9f211d863574a4fc2790979c122f619eac27c6713e319da6a",
+        "target_line_count": 256,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 256,
+      "claim_ceiling": "public navigation Rosetta source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_context_rosetta_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_navigation_context_rosetta.py",
+      "source_refs": [
+        "system/server/tests/test_navigation_context_rosetta.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_context_rosetta.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_rosetta_source_module_into_public_projection_bundle",
+        "bind_navigation_rosetta_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_rosetta_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:51083ffbe00bf5ba396d778edbc4539003f58302c2dc3283cb7338744b9f0dd9",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:51083ffbe00bf5ba396d778edbc4539003f58302c2dc3283cb7338744b9f0dd9",
+        "source_line_count": 969,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:51083ffbe00bf5ba396d778edbc4539003f58302c2dc3283cb7338744b9f0dd9",
+        "target_line_count": 969,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 969,
+      "claim_ceiling": "public navigation Rosetta source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_rosetta_grammar_standard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_navigation_rosetta_grammar.json",
+      "source_refs": [
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_rosetta_grammar.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_navigation_rosetta_source_module_into_public_projection_bundle",
+        "bind_navigation_rosetta_source_body_to_macro_projection_body_floor",
+        "preserve_navigation_rosetta_source_without_claiming_live_macro_kernel_execution_in_microcosm"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:8c2d2ee3c0c9a4c0beaecc9cdbfe0b9544e10a3cf5d108c1959befa7cb1b1a8d",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:8c2d2ee3c0c9a4c0beaecc9cdbfe0b9544e10a3cf5d108c1959befa7cb1b1a8d",
+        "source_line_count": 346,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:8c2d2ee3c0c9a4c0beaecc9cdbfe0b9544e10a3cf5d108c1959befa7cb1b1a8d",
+        "target_line_count": 346,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 346,
+      "claim_ceiling": "public navigation Rosetta source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_rosetta_math_paper_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bundle_manifest.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+      "source_refs": [
+        "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/navigation_rosetta_math.md",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
     },
     {
@@ -9081,6 +9411,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 16169,
       "body_text_in_receipt": false,
       "claim_ceiling": "public standard option-surface source-body import only; not generated option-surface output authority, Task Ledger mutation authority, provider calls, provider payload export, raw seed body export, prompt-body export, account/session state, cookies, browser/HUD live access, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
       "classification": "copied_non_secret_macro_body",
@@ -9105,8 +9436,7 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 16169
+      ]
     },
     {
       "applied_edits": [
@@ -9165,6 +9495,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_root_aggregate_report_body_import",
       "body_copied": true,
       "body_digest": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
       "body_import_verification": {
@@ -9184,6 +9515,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 13,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9204,9 +9536,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 13,
-      "artifact_id": "ring2_premise_retrieval_root_aggregate_report_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9214,6 +9544,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_graph_aggregate_report_body_import",
       "body_copied": true,
       "body_digest": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
       "body_import_verification": {
@@ -9233,6 +9564,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 122,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9253,9 +9585,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 122,
-      "artifact_id": "ring2_premise_retrieval_graph_aggregate_report_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9263,6 +9593,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_cost_metrics_body_import",
       "body_copied": true,
       "body_digest": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
       "body_import_verification": {
@@ -9282,6 +9613,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 203,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9302,9 +9634,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 203,
-      "artifact_id": "ring2_premise_retrieval_cost_metrics_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9312,6 +9642,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_graph_variant_body_import",
       "body_copied": true,
       "body_digest": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
       "body_import_verification": {
@@ -9331,6 +9662,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 28,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9351,9 +9683,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 28,
-      "artifact_id": "ring2_premise_retrieval_graph_variant_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9361,6 +9691,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_run_summary_body_import",
       "body_copied": true,
       "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
       "body_import_verification": {
@@ -9380,6 +9711,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 801,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9400,9 +9732,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 801,
-      "artifact_id": "ring2_premise_retrieval_run_summary_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9410,6 +9740,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import",
       "body_copied": true,
       "body_digest": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
       "body_import_verification": {
@@ -9429,6 +9760,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 45,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9449,9 +9781,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 45,
-      "artifact_id": "ring2_premise_retrieval_failure_taxonomy_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9459,6 +9789,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_premise_retrieval_graph_update_body_import",
       "body_copied": true,
       "body_digest": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
       "body_import_verification": {
@@ -9478,6 +9809,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 61,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9498,9 +9830,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 61,
-      "artifact_id": "ring2_premise_retrieval_graph_update_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9508,6 +9838,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_oracle_repair_aggregate_report_body_import",
       "body_copied": true,
       "body_digest": "sha256:9b3a4d8918b241ac5c29258574125c550736638fd49ef91fd0c50c76d56261a6",
       "body_import_verification": {
@@ -9527,6 +9858,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 109,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9547,9 +9879,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 109,
-      "artifact_id": "ring2_oracle_repair_aggregate_report_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9557,6 +9887,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_oracle_repair_cost_metrics_body_import",
       "body_copied": true,
       "body_digest": "sha256:faefd8c8e7e1384bcb3d01f0649005d58dd21afed68f8fe164012492de13be99",
       "body_import_verification": {
@@ -9576,6 +9907,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 203,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9596,9 +9928,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 203,
-      "artifact_id": "ring2_oracle_repair_cost_metrics_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9606,6 +9936,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_oracle_repair_failure_taxonomy_body_import",
       "body_copied": true,
       "body_digest": "sha256:7d30aa6ba8a5ce77dbdf855229c3e26bba0be7e814e02cdfcbba9fcbfee24ab8",
       "body_import_verification": {
@@ -9625,6 +9956,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 19,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9645,9 +9977,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 19,
-      "artifact_id": "ring2_oracle_repair_failure_taxonomy_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9655,6 +9985,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_oracle_repair_graph_update_body_import",
       "body_copied": true,
       "body_digest": "sha256:4e2576708439023a72267f5fab2e609e62813991890c8321ab272a0221a9136a",
       "body_import_verification": {
@@ -9674,6 +10005,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 33,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9694,9 +10026,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 33,
-      "artifact_id": "ring2_oracle_repair_graph_update_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9704,6 +10034,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_oracle_repair_graph_variant_body_import",
       "body_copied": true,
       "body_digest": "sha256:4e111e38a6ee3c1ef1d0beea98465daf09b91fad7a37a00795753cd128d3eb1d",
       "body_import_verification": {
@@ -9723,6 +10054,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 29,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9743,9 +10075,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 29,
-      "artifact_id": "ring2_oracle_repair_graph_variant_body_import"
+      ]
     },
     {
       "applied_edits": [
@@ -9753,6 +10083,7 @@
         "bind_copied_artifact_to_proof_diagnostic_evidence_spine_digest_contract",
         "exclude proof bodies, provider payloads, account/session state, browser/HUD live access, recipient-send state, and credential-equivalent material"
       ],
+      "artifact_id": "ring2_oracle_repair_run_summary_body_import",
       "body_copied": true,
       "body_digest": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
       "body_import_verification": {
@@ -9772,6 +10103,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
+      "body_line_count": 530,
       "body_text_in_receipt": false,
       "claim_ceiling": "public proof-diagnostic Ring2 runtime artifact body import only; not theorem correctness, proof authority, provider payload, live macro source authority, release, publication, or recipient-send authority",
       "classification": "copied_non_secret_macro_body",
@@ -9792,9 +10124,7 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
-      ],
-      "body_line_count": 530,
-      "artifact_id": "ring2_oracle_repair_run_summary_body_import"
+      ]
     }
   ],
   "material_classes": [
@@ -10007,7 +10337,13 @@
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
     "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
-    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_context_rosetta_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_rosetta.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_band_contract_audit.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_context_rosetta.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_rosetta_grammar.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/navigation_rosetta_math.md"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -10250,7 +10586,12 @@
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+    "system/lib/navigation_context_rosetta.py",
+    "system/lib/kind_band_contract_audit.py",
+    "system/server/tests/test_navigation_context_rosetta.py",
+    "codex/standards/std_navigation_rosetta_grammar.json",
+    "codex/doctrine/paper_modules/navigation_rosetta_math.md"
   ],
   "steps": [
     {
@@ -10466,6 +10807,9 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

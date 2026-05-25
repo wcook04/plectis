@@ -1,0 +1,969 @@
+{
+  "id": "std_navigation_rosetta_grammar",
+  "kind": "standard",
+  "schema_version": "navigation_rosetta_grammar_standard_v0",
+  "title": "Navigation Rosetta Grammar Standard",
+  "status": "candidate",
+  "summary": "Standard for writing and reading the smallest grammar that lets navigation packets compress context across artifact kinds: context atoms, nouns, relation verbs, complex relation phrases, selector policies, impact axes, and evidence/drilldown posture.",
+  "purpose": "Make the Rosetta layer standard-owned instead of ad hoc prose. A context packet can use this grammar to expose what kind of thing is being compressed, which context atom was selected, what relation or impact flows across edges, what selector policy chose it, what band was selected, what was omitted, and where source authority lives.",
+  "core_law": {
+    "flag": "Navigation grammar tokens are context atoms, not vibes: every selected noun, verb, complex relation, selector policy, and impact axis must have a write shape and a read shape.",
+    "card": "The grammar compresses context by naming selected context atoms, legal relation verbs, selector policy, impact vector, confidence/provenance, authority/freshness posture, selected band, omissions, and evidence command before source is opened."
+  },
+  "grammar_token_kinds": [
+    "context_atom",
+    "noun",
+    "relation_verb",
+    "complex_relation",
+    "selector_policy",
+    "impact_axis",
+    "band_selector",
+    "omission_rule",
+    "evidence_command"
+  ],
+  "context_atom_shape": {
+    "required_fields": [
+      "atom_id",
+      "kind_id",
+      "row_ref",
+      "scope",
+      "facet",
+      "band",
+      "selector_policy_id",
+      "summary",
+      "source_authority",
+      "population_mode",
+      "currentness",
+      "confidence",
+      "extraction_mode",
+      "cost",
+      "utility",
+      "evidence_command",
+      "omission_receipt"
+    ],
+    "population_mode_enum": [
+      "authored",
+      "compiled",
+      "live_computed",
+      "unpopulated"
+    ],
+    "extraction_mode_enum": [
+      "authored",
+      "deterministic_extractor",
+      "llm0_extractor_with_validation",
+      "live_probe",
+      "operator_seed",
+      "candidate_inference"
+    ],
+    "confidence_shape": {
+      "required_fields": [
+        "score",
+        "tier",
+        "reason",
+        "scorer_status"
+      ],
+      "tier_enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ],
+      "rule": "Confidence is about the atom's selection and projection quality, not about source truth. Source authority remains in source_authority and evidence_command."
+    },
+    "rule": "A context atom is the actual unit a packet can spend budget on. It is a noun plus band/scope/facet, population/currentness/confidence, and evidence posture."
+  },
+  "noun_shape": {
+    "required_fields": [
+      "noun_id",
+      "noun_kind",
+      "written_as",
+      "read_as",
+      "expansion_rule",
+      "source_authority",
+      "examples"
+    ],
+    "noun_kind_enum": [
+      "artifact_kind",
+      "row",
+      "scope",
+      "facet",
+      "band",
+      "edge",
+      "evidence_ref",
+      "profile_gap"
+    ],
+    "rule": "A noun names the thing that can be selected or expanded. It must tell the navigator what it denotes and how to drill down without guessing a keyword."
+  },
+  "relation_verb_shape": {
+    "required_fields": [
+      "verb_id",
+      "phrase",
+      "source_noun_kind",
+      "target_noun_kind",
+      "reverse_phrase",
+      "forward_read",
+      "reverse_read",
+      "impact_axes",
+      "authority_flow",
+      "evidence_requirement",
+      "compression_policy",
+      "examples"
+    ],
+    "base_verbs": [
+      "feeds",
+      "blocks",
+      "governs",
+      "evidences",
+      "populates",
+      "invalidates",
+      "compresses",
+      "routes_to",
+      "audits",
+      "supersedes"
+    ],
+    "rule": "A verb is a typed relation with direction and reverse reading. If a relation cannot explain what flows across it from both ends, it is not a navigation edge."
+  },
+  "edge_instance_shape": {
+    "required_fields": [
+      "edge_id",
+      "source_atom_ref",
+      "target_atom_ref",
+      "verb_id",
+      "reverse_verb",
+      "forward_read",
+      "reverse_read",
+      "impact_vector",
+      "confidence",
+      "reason",
+      "extraction_mode",
+      "authority_flow",
+      "validity",
+      "evidence_ref",
+      "drilldown_ref",
+      "same_graph_contract"
+    ],
+    "validity_shape": {
+      "required_fields": [
+        "valid_from",
+        "valid_until",
+        "invalidated_by",
+        "currentness_posture"
+      ],
+      "rule": "Edges may be durable, stale, superseded, or candidate. Old edges stay evidence but do not automatically remain current authority."
+    },
+    "same_graph_contract": "When two extraction lanes emit the same semantic edge class, they should use the same id, verb, confidence scale, and evidence posture or explicitly report parity drift.",
+    "rule": "A relation vocabulary entry is not enough for navigation. A selected edge instance must carry confidence, reason, extraction mode, validity/currentness, and bidirectional local reads."
+  },
+  "complex_relation_shape": {
+    "required_fields": [
+      "complex_verb_id",
+      "base_verb",
+      "qualifier",
+      "phrase",
+      "expanded_read",
+      "allowed_when",
+      "forbidden_when"
+    ],
+    "examples": [
+      "feeds_when_fresh",
+      "blocks_until_validated",
+      "governs_without_populating",
+      "evidences_but_does_not_authorize",
+      "populates_then_requires_receipt",
+      "invalidates_generated_projection",
+      "compresses_with_omission_receipt",
+      "routes_to_source_evidence",
+      "standard_uppropagates",
+      "projects_into_standard",
+      "requires_standard_gap",
+      "routes_to_owner_standard",
+      "blocks_until_owner_accepts"
+    ],
+    "rule": "Complex relation phrases are allowed when the qualifier changes authority, freshness, validation, or population behavior. They should be decomposable into a base verb plus a qualifier."
+  },
+  "impact_axis_shape": {
+    "required_fields": [
+      "axis_id",
+      "meaning",
+      "range",
+      "read_rule",
+      "write_rule"
+    ],
+    "default_axes": {
+      "semantic_flow": "How much meaning or task signal moves across the relation.",
+      "authority_flow": "Whether permission, standard legality, or doctrine constraint moves across the relation.",
+      "freshness_risk": "How likely the target becomes wrong if the source changes.",
+      "mutation_risk": "How dangerous it is to act from the compressed row without opening evidence.",
+      "coverage_value": "How many otherwise-hidden artifact classes become visible through this relation."
+    },
+    "range_rule": "Use a bounded numeric score 0.0-1.0 when a deterministic scorer exists; otherwise write qualitative low|medium|high and mark scorer_status=draft."
+  },
+  "selector_policy_shape": {
+    "required_fields": [
+      "policy_id",
+      "name",
+      "use_when",
+      "forbidden_when",
+      "inputs",
+      "output_shape",
+      "budget_behavior",
+      "evidence_requirement",
+      "annex_pattern_refs"
+    ],
+    "rule": "A selector policy says how atoms enter the packet. Direct enumeration is preferred when the option surface fits the budget; calibrated slate, beam traversal, dependency order, or collapsed-tree search are only justified by scale or graph shape."
+  },
+  "selector_policies": [
+    {
+      "policy_id": "direct_enumeration",
+      "name": "Direct Enumeration",
+      "use_when": "The option surface can expose all relevant rows at the cheapest band within budget.",
+      "forbidden_when": "The row set is too large or the task requires ranking unseen branches.",
+      "inputs": [
+        "kind_atlas",
+        "option_surface"
+      ],
+      "output_shape": "all candidate context atoms at cheapest band, with drilldown commands",
+      "budget_behavior": "coverage-first; no model ranking needed",
+      "evidence_requirement": "option-surface source refs and currentness posture",
+      "annex_pattern_refs": [
+        "PageIndex:get_document_structure",
+        "Corpus2Skill:SKILL.md/INDEX.md navigation",
+        "RIG:evidence-backed flat JSON map"
+      ]
+    },
+    {
+      "policy_id": "dependency_ordered",
+      "name": "Dependency-Ordered Traversal",
+      "use_when": "Meaning flows through graph direction and lower-level summaries should be folded upward before callers/parents are read.",
+      "forbidden_when": "Edges are missing, cyclic without a cycle policy, or summaries are unvalidated.",
+      "inputs": [
+        "typed_edge_graph",
+        "role_priors",
+        "topological_or_cycle_policy"
+      ],
+      "output_shape": "atoms ordered leaves-to-roots or dependency-to-dependent, with cycle receipts",
+      "budget_behavior": "prefer direct dependencies and validated one-hop summaries before raw transitive source",
+      "evidence_requirement": "edge evidence, confidence, and summary provenance",
+      "annex_pattern_refs": [
+        "PROCONSUL:callee summaries in topological order",
+        "DocAgent:AST dependency order",
+        "RepoAgent:changed-object plus caller propagation"
+      ]
+    },
+    {
+      "policy_id": "calibrated_slate",
+      "name": "Calibrated Slate",
+      "use_when": "The option surface is too large for direct enumeration but candidate groups can be scored against the task.",
+      "forbidden_when": "A deterministic complete option surface already fits the budget.",
+      "inputs": [
+        "candidate_slate",
+        "local_relevance_scores",
+        "calibration_state"
+      ],
+      "output_shape": "ranked atoms with comparable calibrated scores and omitted-slate receipt",
+      "budget_behavior": "spend remaining budget by calibrated relevance density after coverage floor",
+      "evidence_requirement": "scoring prompt/schema, score reason, and calibration receipt",
+      "annex_pattern_refs": [
+        "LATTICE:calibrated beam/slate relevance",
+        "Graphiti:hybrid retrieval recipes",
+        "SocratiCode:RRF fusion"
+      ]
+    },
+    {
+      "policy_id": "beam_telescope",
+      "name": "Beam Telescope",
+      "use_when": "A semantic tree or lattice must be traversed through multiple expansion decisions under a tight budget.",
+      "forbidden_when": "The selected row/facet/source can be opened directly or the tree is only a lossy view over a typed graph.",
+      "inputs": [
+        "frontier",
+        "beam_state",
+        "path_relevance",
+        "drilldown_edges"
+      ],
+      "output_shape": "frontier atoms, expanded path, omitted branch counts, and source drilldowns",
+      "budget_behavior": "preserve path evidence and downshift non-selected branches",
+      "evidence_requirement": "path score, branch omissions, and source authority at leaves",
+      "annex_pattern_refs": [
+        "LATTICE:frontier/beam/path relevance",
+        "RAPTOR:recursive summary tree",
+        "PageIndex:tree structure before page content"
+      ]
+    },
+    {
+      "policy_id": "impact_before_mutation",
+      "name": "Impact Before Mutation",
+      "use_when": "A proposed edit/action targets a symbol, row, standard, or generated surface whose dependents may change.",
+      "forbidden_when": "No mutation or action is being considered.",
+      "inputs": [
+        "target_atom",
+        "blast_radius_edges",
+        "tests_or_validators",
+        "authority_ceiling"
+      ],
+      "output_shape": "target atom plus first-order impact atoms, validator atoms, and omission counts",
+      "budget_behavior": "reserve budget for impacted neighbors before source detail",
+      "evidence_requirement": "impact edge reasons, confidence, validators, and rollback command",
+      "annex_pattern_refs": [
+        "GitNexus:impact-before-edit",
+        "RIG:build/test evidence map",
+        "SCIP:definitions/references protocol"
+      ]
+    }
+  ],
+  "context_role_priors": {
+    "rule": "Role priors are task-family defaults, not universal authority. They bias atom selection before evidence is opened and must be overridden by source authority, currentness, or explicit task constraints.",
+    "code_understanding_default": [
+      {"role": "direct_dependency_or_callee", "priority": 1, "reason": "PROCONSUL found direct callees dominate function understanding; their summaries fold transitive detail cheaply."},
+      {"role": "owning_scope_or_class", "priority": 2, "reason": "Class/module skeletons orient without full sibling bodies."},
+      {"role": "callers_or_usages", "priority": 3, "reason": "Usages explain external contract and mutation blast radius."},
+      {"role": "external_domain_knowledge", "priority": 4, "reason": "Useful when names/source assume domain facts not present in code."},
+      {"role": "file_or_sibling_context", "priority": 5, "reason": "Often useful but noisier than direct dependencies."},
+      {"role": "project_readme_or_global_docs", "priority": 6, "reason": "Project-level context helps framing but is rarely the first local proof."},
+      {"role": "global_variables_or_config", "priority": 7, "reason": "Open when signatures or dependencies point at stateful configuration."}
+    ]
+  },
+  "context_packet_shape": {
+    "required_fields": [
+      "selected_atoms",
+      "selected_nouns",
+      "selected_relations",
+      "selector_policies",
+      "impact_vectors",
+      "selected_bands",
+      "budget",
+      "omission_receipt",
+      "evidence_commands"
+    ],
+    "rule": "A Rosetta context packet is valid only if it names both the selected grammar and the omitted grammar. Coverage gaps and unpopulated bands must remain visible."
+  },
+  "mathematical_model": {
+    "name": "coverage_first_information_density_knapsack_v1",
+    "sets": {
+      "K": "Artifact kinds visible in the Kind Atlas.",
+      "U_k": "Legal row units for kind k, where a unit is a valid scope/facet/band selection under that kind's navigation contract.",
+      "B_k": "Kind-native ordered bands for kind k.",
+      "E": "Typed relation edges between row units.",
+      "X": "Selected context packet rows under the current context budget."
+    },
+    "variables": {
+      "x_u_b": "Binary selector: 1 when unit u is emitted at band b.",
+      "c_u_b": "Estimated context cost of unit u at band b.",
+      "I_u_b": "Estimated useful information preserved by unit u at band b.",
+      "impact_vector_e": "Vector over semantic_flow, authority_flow, freshness_risk, mutation_risk, and coverage_value.",
+      "r_u_t": "Task-family role prior for unit u under task t.",
+      "q_u": "Confidence/provenance multiplier for unit u.",
+      "p": "Selector policy used to admit or rank the unit."
+    },
+    "budget_constraint": "sum_{u,b} c(u,b) * x(u,b) <= context_budget",
+    "coverage_function": "coverage(X)=|{k in K: exists u in U_k,b in B_k with x(u,b)=1}| / |K|",
+    "information_density_function": "density(X)=sum_{u,b} x(u,b) * I(u,b) / max(1,c(u,b))",
+    "edge_need_function": "need(edge,task)=dot(task_weights(task), impact_vector(edge))*authority_factor(edge)*freshness_factor(edge)*confidence(edge)*role_prior(edge,task)/max(1,cost(edge_band))",
+    "objective_order": [
+      "coverage_floor",
+      "information_density",
+      "risk_reduction",
+      "omission_and_evidence_clarity"
+    ],
+    "rule": "Select the cheapest useful row for every relevant kind before upgrading any one kind deeply; use direct enumeration when it fits, dependency order when graph direction carries meaning, calibrated slate/beam only when the option surface is too large, then spend remaining budget on rows or edge neighborhoods with highest impact-to-cost ratio."
+  },
+  "annex_pattern_crosswalk": [
+    {
+      "annex": "repo-intelligence-graph",
+      "local_lesson": "Deterministic evidence-backed maps shift failures from structural misunderstanding to reasoning over correct structure."
+    },
+    {
+      "annex": "gitnexus",
+      "local_lesson": "Precomputed communities, process traces, blast radius, confidence tiers, and same-graph parity are context atoms, not afterthoughts."
+    },
+    {
+      "annex": "pageindex",
+      "local_lesson": "Expose structure with text stripped first; fetch evidence only after narrowing."
+    },
+    {
+      "annex": "corpus2skill",
+      "local_lesson": "Compiled navigation files and a document store separate browse summaries from source authority."
+    },
+    {
+      "annex": "lattice",
+      "local_lesson": "Use calibrated slates and beam traversal when direct enumeration no longer fits the budget."
+    },
+    {
+      "annex": "raptor",
+      "local_lesson": "Recursive summaries are useful compression baselines, but traversal policy must not become blind embedding search."
+    },
+    {
+      "annex": "proconsul-project-context-for-code-summarization-with-llms",
+      "local_lesson": "Inject resolved dependency summaries, not raw transitive source; validate that injected context actually helps."
+    },
+    {
+      "annex": "sourcegraph-scip",
+      "local_lesson": "A protocol can bind semantic symbols and relationships without pretending to be the query engine."
+    },
+    {
+      "annex": "graphiti",
+      "local_lesson": "Facts and edges need temporal validity and invalidation posture; stale relations remain evidence, not authority."
+    },
+    {
+      "annex": "understand-anything",
+      "local_lesson": "Recoverable schema drift should surface structured issues rather than silently failing or pretending strict validity."
+    }
+  ],
+  "layer_depth_policy": {
+    "rule": "A kind earns another band, scope, or facet only when the extra layer supports a distinct safe decision.",
+    "depth_increases_with": [
+      "entropy_of_valid_row_choices",
+      "number_of_legal_scopes_and_facets",
+      "authority_and_freshness_complexity",
+      "mutation_risk_from_compressed_rows",
+      "evidence_fan_out",
+      "bidirectional_edge_neighborhood_complexity"
+    ],
+    "depth_decreases_with": [
+      "transaction_like_row_shape",
+      "few_legal_actions",
+      "adjacent_layers_supporting_the_same_decision",
+      "missing_emitters_or_unpopulated_bands"
+    ],
+    "examples": {
+      "system_terms": "Six lexical bands are justified because word, phrase, flag, card, context, and deep each support different decisions.",
+      "receipts": "A receipt may need only summary and detail; forcing flag/card/context/evidence can create fake structure.",
+      "python_scopes": "Python uses structural scopes and facets because signatures, bodies, call graph, tests, and source spans carry different decision content."
+    }
+  },
+  "proof_obligations": [
+    {
+      "id": "coverage_before_depth",
+      "claim": "A packet must make relevant artifact kinds visible before spending large budget on any one kind.",
+      "violation": "Deep source from one kind hides a whole artifact class that would have changed the decision."
+    },
+    {
+      "id": "source_authority_survives_compression",
+      "claim": "Every selected compressed row must preserve evidence or drilldown authority.",
+      "violation": "A summary becomes the only visible authority."
+    },
+    {
+      "id": "population_honesty",
+      "claim": "Declared but unpopulated units must stay visible as gaps and must not raise authority.",
+      "violation": "A navigation contract claims support for a band no emitter populates."
+    },
+    {
+      "id": "bidirectional_relation_readability",
+      "claim": "Relation rows must carry forward and reverse reads plus authority posture.",
+      "violation": "A one-way edge forces the agent to infer why the relation matters from the wrong side."
+    },
+    {
+      "id": "selector_policy_honesty",
+      "claim": "The packet must say how atoms were selected: direct enumeration, dependency order, calibrated slate, beam telescope, or impact-before-mutation.",
+      "violation": "A packet presents a ranked subset without exposing whether the rank came from exhaustive enumeration, model scoring, graph dependency, or mutation impact."
+    },
+    {
+      "id": "context_atom_provenance",
+      "claim": "Every selected atom carries population mode, confidence, extraction mode, currentness, and evidence command.",
+      "violation": "A compressed row is injected because it sounds useful, but its emitter, confidence, and source authority are invisible."
+    },
+    {
+      "id": "no_query_dependency",
+      "claim": "The primary entry path is atlas -> option surface -> selected row -> telescope/source, not keyword guessing.",
+      "violation": "A cold agent must know the magic phrase before it can discover a kind or row."
+    },
+    {
+      "id": "currentness_and_omission",
+      "claim": "Currentness posture, omitted classes, and drilldown commands must remain visible at compressed bands.",
+      "violation": "Old receipt claims, stale sidecars, or omitted neighborhoods are treated as current truth."
+    }
+  ],
+  "read_write_rules": [
+    "Write base verbs in simple active voice unless a qualifier changes authority or freshness semantics.",
+    "Read a relation from both ends: forward_read explains why the target matters from the source; reverse_read explains why the source matters from the target.",
+    "Do not use a verb as authority unless authority_flow explicitly says authority moves across the edge.",
+    "Do not hide missing population behind a plausible verb. Use profile_gap or unpopulated population policy.",
+    "Prefer a decomposable complex relation over a vague base verb when validation or authority would otherwise be ambiguous.",
+    "Every grammar token used in a packet should have source authority, examples, and a validation or evidence command.",
+    "When multiple base verbs are semantically plausible for a single source\u2192target edge, route the choice through operator_semantics + dominance_rules. The route graph stores the dominant operator (the relation that controls default traversal and downstream worker behavior); secondary plausible verbs may be recorded in receipts but are not the canonical edge."
+  ],
+  "validation_probe": [
+    "Every selected relation has verb_id, reverse_phrase, forward_read, reverse_read, and impact_axes.",
+    "Every selected noun has noun_kind, expansion_rule, and source_authority.",
+    "Complex relations decompose into a base verb plus qualifier.",
+    "Impact axes are bounded or explicitly qualitative with scorer_status=draft.",
+    "Every selected atom has population_mode, confidence, extraction_mode, currentness, and evidence_command.",
+    "Every packet names selector_policy_id for each selected atom or for the packet as a whole.",
+    "Omission receipt names skipped relation classes and drilldown commands."
+  ],
+  "dominance_context": {
+    "primary": "default_route_graph_traversal_and_worker_dependency_behavior",
+    "means": "What later workers must respect when deciding valid context, mutation safety, refresh priority, dependency traversal, and routing priority.",
+    "not_primary": "All semantically true relations between source and target.",
+    "rule": "When multiple base verbs are plausible for a single source-target edge, the canonical relation stored in the route graph is the operator that should govern default traversal and downstream consumption. Secondary plausible relations may be tracked in receipts and postmortems, but they are not promoted into the canonical route graph.",
+    "future_extension": {
+      "consumer_specific_dominant": "Future versions may project per-consumer dominant verbs (authority_validation -> governs, provenance_trace -> populates, documentation_support -> evidences). v1 keeps a single canonical dominant operator and records secondaries only in receipts."
+    }
+  },
+  "relation_families": {
+    "authority": ["governs"],
+    "material_flow": ["feeds", "populates"],
+    "support": ["evidences"],
+    "review": ["audits"],
+    "projection": ["compresses"],
+    "navigation": ["routes_to"],
+    "conflict_or_gate": ["invalidates", "supersedes", "blocks"]
+  },
+  "operator_semantics": {
+    "governs": {
+      "family": "authority",
+      "definition": "Source imposes a normative constraint, authority rule, standard, policy, or required shape on target.",
+      "graph_behavior": {
+        "target_must_conform_to_source": true,
+        "source_change_requires_target_review": true,
+        "target_is_materialized_from_source": false,
+        "source_supports_belief_in_target": false,
+        "source_checks_target_readiness": false
+      },
+      "positive_tests": [
+        "Source is a standard, principle, axiom, policy, scope rule, or authority surface.",
+        "Target should conform to source.",
+        "Source limits or directs valid target shape."
+      ],
+      "negative_tests": [
+        "Source merely provides content used inside target.",
+        "Source merely proves target exists.",
+        "Source merely records a check of target."
+      ],
+      "common_confusions": ["populates", "evidences"]
+    },
+    "populates": {
+      "family": "material_flow",
+      "definition": "Source supplies material content, rows, fields, entries, or extracted data that are materialized into target.",
+      "graph_behavior": {
+        "target_is_materialized_from_source": true,
+        "source_change_may_require_target_regeneration": true,
+        "target_must_conform_to_source": false,
+        "source_checks_target_readiness": false
+      },
+      "positive_tests": [
+        "Target contains or is filled by source-derived data.",
+        "Source is an input corpus, ledger, seed, extraction substrate, or source of rows or fields."
+      ],
+      "negative_tests": [
+        "Source constrains target without supplying target content.",
+        "Source evaluates target rather than filling it."
+      ],
+      "common_confusions": ["governs", "feeds", "evidences"]
+    },
+    "feeds": {
+      "family": "material_flow",
+      "definition": "Source supplies runtime input, dependency, implementation behavior, provider path, API surface, or executable material consumed by target.",
+      "graph_behavior": {
+        "target_consumes_source_at_runtime_or_execution": true,
+        "source_change_may_break_target_execution": true,
+        "target_is_materialized_from_source": false,
+        "target_must_conform_to_source": false
+      },
+      "positive_tests": [
+        "Target imports, calls, wraps, consumes, or depends on source.",
+        "Source is runtime code, provider adapter, API implementation, or executable path."
+      ],
+      "negative_tests": [
+        "Source merely provides static content; use populates.",
+        "Source merely supports belief in target; use evidences.",
+        "Source constrains target normatively; use governs."
+      ],
+      "common_confusions": ["populates", "evidences", "governs"]
+    },
+    "evidences": {
+      "family": "support",
+      "definition": "Source provides proof, rationale, documentation, implementation trace, or support for believing target is valid or exists.",
+      "graph_behavior": {
+        "source_supports_belief_in_target": true,
+        "target_must_conform_to_source": false,
+        "source_checks_target_readiness": false,
+        "target_is_materialized_from_source": false
+      },
+      "positive_tests": [
+        "Source is prose, code, receipt, or implementation evidence for target.",
+        "Target is a claim, standard, module, or config being supported."
+      ],
+      "negative_tests": [
+        "Source checks, caveats, validates, or qualifies target; use audits.",
+        "Source imposes normative shape; use governs."
+      ],
+      "common_confusions": ["governs", "audits", "populates"]
+    },
+    "audits": {
+      "family": "review",
+      "definition": "Source checks, reviews, caveats, validates, qualifies, or reports readiness, drift, failure, or promotion posture of target.",
+      "graph_behavior": {
+        "source_checks_target_readiness": true,
+        "source_may_block_or_condition_promotion": true,
+        "source_supports_belief_in_target": true,
+        "target_must_conform_to_source": false
+      },
+      "positive_tests": [
+        "Source contains caveats, promotion rules, validation, test results, review posture, readiness checks, or failure modes.",
+        "Source is about whether target is safe, correct, current, proven, or promoted."
+      ],
+      "negative_tests": [
+        "Source merely proves target exists; use evidences.",
+        "Source configures or supplies target; use feeds or populates.",
+        "Source imposes normative shape; use governs."
+      ],
+      "common_confusions": ["evidences", "blocks", "invalidates"]
+    },
+    "compresses": {
+      "family": "projection",
+      "definition": "Source is summarized, projected, reduced, carded, packetized, or compressed into target, with possible projection loss.",
+      "graph_behavior": {
+        "target_is_projection_of_source": true,
+        "projection_loss_should_be_audited": true,
+        "source_supports_belief_in_target": true
+      },
+      "positive_tests": [
+        "Target is a summary, digest, card, packet, compressed view, or lower-information projection of source.",
+        "Source is the larger or richer artifact being reduced."
+      ],
+      "negative_tests": [
+        "Source merely supports target without projection; use evidences.",
+        "Source supplies rows or fields to target without compression; use populates."
+      ],
+      "common_confusions": ["evidences", "populates"]
+    },
+    "routes_to": {
+      "family": "navigation",
+      "definition": "Source provides navigation, pointer, path selection, route options, or attention direction toward target.",
+      "graph_behavior": {
+        "source_guides_navigation_to_target": true,
+        "source_selects_attention_or_route": true,
+        "source_does_not_itself_validate_target_truth": true
+      },
+      "positive_tests": [
+        "Source is an index, manifest, router, navigation map, or route selection surface.",
+        "Source tells workers where to go or what to inspect."
+      ],
+      "negative_tests": [
+        "Source supplies runtime content; use feeds.",
+        "Source imposes normative constraints; use governs.",
+        "Source proves target; use evidences."
+      ],
+      "common_confusions": ["feeds", "governs", "evidences"]
+    },
+    "invalidates": {
+      "family": "conflict_or_gate",
+      "definition": "Source shows target is wrong, stale, unsafe, contradicted, deprecated, or no longer valid.",
+      "graph_behavior": {
+        "source_invalidates_target": true,
+        "target_should_not_be_used_without_review": true,
+        "conflict_controls_before_support": true
+      },
+      "positive_tests": [
+        "Source states target is stale, wrong, unsafe, contradicted, or invalid.",
+        "Source provides failure evidence that should prevent normal use of target."
+      ],
+      "negative_tests": [
+        "Source replaces target without contradiction; use supersedes.",
+        "Source blocks target temporarily; use blocks.",
+        "Source merely audits target without invalidating; use audits."
+      ],
+      "common_confusions": ["supersedes", "blocks", "audits"]
+    },
+    "supersedes": {
+      "family": "conflict_or_gate",
+      "definition": "Source replaces target as newer, preferred, canonical, or successor authority or artifact.",
+      "graph_behavior": {
+        "source_replaces_target": true,
+        "target_is_older_or_deprecated_relative_to_source": true,
+        "traversal_should_prefer_source_over_target": true
+      },
+      "positive_tests": [
+        "Source is a newer successor.",
+        "Target is deprecated, replaced, or an older version."
+      ],
+      "negative_tests": [
+        "Source merely contradicts target; use invalidates.",
+        "Source temporarily prevents target; use blocks."
+      ],
+      "common_confusions": ["invalidates", "blocks"]
+    },
+    "blocks": {
+      "family": "conflict_or_gate",
+      "definition": "Source prevents, gates, or halts target from proceeding, being promoted, being used, or being considered valid under current conditions.",
+      "graph_behavior": {
+        "source_blocks_target": true,
+        "target_requires_resolution_before_progress": true,
+        "source_may_be_audit_or_failure_gate": true
+      },
+      "positive_tests": [
+        "Source is a blocker, gate, unresolved condition, failed check, or stop condition.",
+        "Target cannot proceed until source condition is resolved."
+      ],
+      "negative_tests": [
+        "Source merely audits target without blocking; use audits.",
+        "Source permanently invalidates target; use invalidates.",
+        "Source replaces target; use supersedes."
+      ],
+      "common_confusions": ["audits", "invalidates", "supersedes"]
+    }
+  },
+  "verb_definitions": {
+    "rule": "Flat per-verb definition strings, projected from operator_semantics for prompt-injection convenience. The authoritative shape is operator_semantics; this surface is a compressed read.",
+    "governs": "Source imposes a normative constraint, authority rule, standard, policy, or required shape on target.",
+    "populates": "Source supplies material content, rows, fields, entries, or extracted data that are materialized into target.",
+    "feeds": "Source supplies runtime input, dependency, implementation behavior, provider path, API surface, or executable material consumed by target.",
+    "evidences": "Source provides proof, rationale, documentation, implementation trace, or support for believing target is valid or exists.",
+    "audits": "Source checks, reviews, caveats, validates, qualifies, or reports readiness, drift, failure, or promotion posture of target.",
+    "compresses": "Source is summarized, projected, reduced, carded, packetized, or compressed into target, with possible projection loss.",
+    "routes_to": "Source provides navigation, pointer, path selection, route options, or attention direction toward target.",
+    "invalidates": "Source shows target is wrong, stale, unsafe, contradicted, deprecated, or no longer valid.",
+    "supersedes": "Source replaces target as newer, preferred, canonical, or successor authority or artifact.",
+    "blocks": "Source prevents, gates, or halts target from proceeding, being promoted, being used, or being considered valid under current conditions."
+  },
+  "contrastive_boundaries": [
+    {
+      "boundary": "governs_vs_populates",
+      "choose_governs_when": "Source constrains what target may be or do.",
+      "choose_populates_when": "Source material is copied, extracted, filled, or materialized into target.",
+      "anti_pattern": "Do not choose populates merely because source influenced target."
+    },
+    {
+      "boundary": "governs_vs_evidences",
+      "choose_governs_when": "Source is authority target must follow.",
+      "choose_evidences_when": "Source is proof, rationale, or support for target but target is not obligated to conform.",
+      "anti_pattern": "Do not choose governs merely because source is architectural prose."
+    },
+    {
+      "boundary": "audits_vs_evidences",
+      "choose_audits_when": "Source evaluates, caveats, checks, validates, gates, or sets promotion conditions.",
+      "choose_evidences_when": "Source supports existence or correctness without review or check posture.",
+      "anti_pattern": "Do not choose evidences when source is specifically reviewing readiness or promotion safety."
+    },
+    {
+      "boundary": "feeds_vs_populates",
+      "choose_feeds_when": "Target consumes source at runtime, execution, or provider path.",
+      "choose_populates_when": "Target is filled or materialized with source-derived content.",
+      "anti_pattern": "Do not use feeds for static materialization without runtime consumption."
+    },
+    {
+      "boundary": "invalidates_vs_supersedes_vs_blocks",
+      "choose_invalidates_when": "Source shows target is wrong, stale, or unsafe.",
+      "choose_supersedes_when": "Source replaces target as newer or preferred.",
+      "choose_blocks_when": "Source gates or prevents progress until resolved.",
+      "anti_pattern": "Do not collapse all conflict or gating relations into invalidates."
+    },
+    {
+      "boundary": "compresses_vs_evidences",
+      "choose_compresses_when": "Target is a digest, card, packet, or projection of source with possible loss.",
+      "choose_evidences_when": "Source supports target without projection.",
+      "anti_pattern": "Do not call generic prose support a projection."
+    },
+    {
+      "boundary": "routes_to_vs_feeds",
+      "choose_routes_to_when": "Source is a navigation, manifest, or pointer surface guiding workers toward target.",
+      "choose_feeds_when": "Target consumes source content at runtime rather than navigating to it.",
+      "anti_pattern": "Do not call a manifest a runtime feed."
+    }
+  ],
+  "dominance_rules": [
+    {
+      "id": "authority_over_materialization",
+      "if": [
+        "source authority_plane in ['raw_seed_principle', 'axiom', 'standard', 'policy', 'scope_rule', 'authority_surface']",
+        "target artifact_role in ['synth_seed', 'manifest', 'implementation', 'packet', 'derived_artifact']",
+        "latent_plausible_verbs contains both 'governs' and one of ['populates', 'evidences']"
+      ],
+      "prefer": "governs",
+      "over": ["populates", "evidences"],
+      "reason": "Authority flow controls valid target shape; material contribution or support is secondary."
+    },
+    {
+      "id": "standard_over_theory",
+      "if": [
+        "source authority_plane in ['paper_module', 'theory', 'rationale', 'doctrine_explanation']",
+        "target authority_plane in ['standard', 'grammar']",
+        "latent_plausible_verbs contains both 'evidences' and 'governs'"
+      ],
+      "prefer": "evidences",
+      "over": ["governs"],
+      "reason": "Paper modules support standards; standards own normative authority unless explicitly delegated."
+    },
+    {
+      "id": "audit_over_evidence",
+      "if": [
+        "source contains one of ['caveat', 'readiness', 'validation', 'promotion rule', 'failure mode', 'review result', 'known caveats', 'not yet proven']",
+        "target artifact_role in ['config', 'implementation', 'provider_path', 'runtime_surface']",
+        "latent_plausible_verbs contains both 'audits' and 'evidences'"
+      ],
+      "prefer": "audits",
+      "over": ["evidences"],
+      "reason": "Review or check posture is more specific than proof or support."
+    },
+    {
+      "id": "runtime_feed_over_support",
+      "if": [
+        "source is implementation, runtime code, or provider adapter",
+        "target imports, calls, wraps, executes, or consumes source",
+        "latent_plausible_verbs contains both 'feeds' and 'evidences'"
+      ],
+      "prefer": "feeds",
+      "over": ["evidences"],
+      "reason": "Runtime consumption controls execution behavior; proof or support is secondary."
+    },
+    {
+      "id": "projection_over_evidence",
+      "if": [
+        "target is a compressed, summarized, card, packet, digest, or projection artifact",
+        "source is the larger artifact being reduced",
+        "latent_plausible_verbs contains both 'compresses' and 'evidences'"
+      ],
+      "prefer": "compresses",
+      "over": ["evidences"],
+      "reason": "Projection or loss behavior matters more than generic support."
+    },
+    {
+      "id": "conflict_over_support",
+      "if": [
+        "source states target is stale, wrong, deprecated, superseded, blocked, unsafe, or invalid",
+        "latent_plausible_verbs contains one of ['invalidates', 'supersedes', 'blocks'] and one of ['evidences', 'feeds', 'populates']"
+      ],
+      "prefer_family": "conflict_or_gate",
+      "reason": "Conflict or gating edges control safety and freshness before support or provenance edges."
+    }
+  ],
+  "authority_plane_defaults": [
+    {
+      "source_authority_plane": "standard",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "governs",
+      "secondary_biases": ["evidences"],
+      "rationale": "A standard governs the runtime implementations that must conform to it."
+    },
+    {
+      "source_authority_plane": "standard",
+      "target_authority_plane": "artifact",
+      "default_relation_bias": "governs",
+      "secondary_biases": ["evidences"],
+      "rationale": "A standard governs derived artifacts that must conform to it."
+    },
+    {
+      "source_authority_plane": "paper_module",
+      "target_authority_plane": "standard",
+      "default_relation_bias": "evidences",
+      "forbidden_without_evidence": ["governs"],
+      "rationale": "Paper modules support standards; they do not own normative authority unless explicitly delegated."
+    },
+    {
+      "source_authority_plane": "paper_module",
+      "target_authority_plane": "paper_module",
+      "default_relation_bias": "evidences",
+      "secondary_biases": ["compresses"],
+      "rationale": "Theory cross-references typically support, not govern."
+    },
+    {
+      "source_authority_plane": "paper_module",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "evidences",
+      "secondary_biases": ["governs"],
+      "rationale": "A paper module describes runtime behavior; it governs only when the standard delegates authority."
+    },
+    {
+      "source_authority_plane": "raw_seed_projection",
+      "target_authority_plane": "artifact",
+      "default_relation_bias": "governs",
+      "secondary_biases": ["populates", "evidences"],
+      "rationale": "Raw-seed principles, axioms, and policies (projected) govern the synth artifacts derived from them."
+    },
+    {
+      "source_authority_plane": "raw_seed_projection",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "governs",
+      "secondary_biases": ["evidences"],
+      "rationale": "Raw-seed authority projections govern runtime implementations that must conform."
+    },
+    {
+      "source_authority_plane": "runtime",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "feeds",
+      "secondary_biases": ["evidences"],
+      "rationale": "Runtime modules consume each other's runtime APIs."
+    },
+    {
+      "source_authority_plane": "annex_review",
+      "target_authority_plane": "artifact",
+      "default_relation_bias": "audits",
+      "secondary_biases": ["evidences"],
+      "rationale": "Annex reviews audit the configs and artifacts they qualify."
+    },
+    {
+      "source_authority_plane": "annex_review",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "audits",
+      "secondary_biases": ["evidences"],
+      "rationale": "Annex reviews audit runtime modules they qualify."
+    },
+    {
+      "source_authority_plane": "skill",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "routes_to",
+      "secondary_biases": ["governs", "evidences"],
+      "rationale": "Skills are navigation surfaces that route work toward runtime modules."
+    },
+    {
+      "source_authority_plane": "state_receipt",
+      "target_authority_plane": "runtime",
+      "default_relation_bias": "evidences",
+      "secondary_biases": ["audits"],
+      "rationale": "Receipts evidence runtime behavior; some receipts also audit promotion posture."
+    }
+  ],
+  "adjudication_output_shape": {
+    "rule": "Operator-court workers emit relation_label_decisions[] entries plus an optional ambiguous_cases[]. Each decision must surface latent plausible verbs, a single dominant verb, the relation family, the dominance rule applied, a graph_behavior vector, runner-up verbs, and evidence used. The shape exists so the route graph can preserve secondary plausible verbs in receipts without promoting them.",
+    "top_level_required_fields": ["relation_label_decisions"],
+    "top_level_optional_fields": ["ambiguous_cases"],
+    "decision_required_fields": [
+      "pair_id",
+      "source",
+      "target",
+      "latent_plausible_verbs",
+      "relation_family",
+      "dominant_rosetta_verb",
+      "dominance_rule_applied",
+      "graph_behavior",
+      "runner_up_verbs",
+      "evidence_used",
+      "confidence",
+      "needs_more_evidence",
+      "needs_new_rule"
+    ],
+    "decision_optional_fields": ["why_not_runner_up"],
+    "graph_behavior_keys": [
+      "target_must_conform_to_source",
+      "source_change_requires_target_review",
+      "target_is_materialized_from_source",
+      "source_supports_belief_in_target",
+      "source_checks_target_readiness",
+      "source_guides_navigation_to_target",
+      "source_replaces_target",
+      "source_invalidates_target",
+      "source_blocks_target"
+    ],
+    "ambiguous_case_required_fields": ["pair_id", "reason", "candidate_verbs"]
+  },
+  "adjudication_failure_levels": {
+    "0_invalid_verb": "Verb is not in the legal allowlist.",
+    "1_expected_absent_from_latent": "Expected verb is missing from latent_plausible_verbs and dominant_rosetta_verb. Model is blind to the relation; deepest semantic failure.",
+    "2_wrong_family": "Expected verb is in latent_plausible_verbs but the dominant verb is from the wrong relation_family. Family-level perception failure.",
+    "3_expected_latent_wrong_dominant": "Expected verb is latent and family is right, but dominance choice is wrong. Dominance-policy failure (the model perceives the relation but lacks the dominance law).",
+    "4_expected_dominant": "Expected verb is the chosen dominant verb. Success.",
+    "rule": "Failure levels are diagnostic, not penalty weights. They separate semantic blindness (1) from family perception failure (2) from dominance perception failure (3). A scoreboard reporting only verb_accuracy_given_pair hides whether the gap is ontology, family law, or dominance law."
+  },
+  "related_surfaces": {
+    "navigation_contract": "codex/standards/std_navigation_contract.json",
+    "kind_atlas": "codex/standards/std_kind_atlas.json",
+    "navigation_theory": "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+    "navigation_rosetta_math": "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+    "rosetta_probe": "system/lib/navigation_context_rosetta.py"
+  },
+  "non_goals": [
+    "Do not replace artifact-kind native standards.",
+    "Do not make keyword search the primary interface.",
+    "Do not imply a production graph scorer exists before tests and populated rows exist."
+  ]
+}
