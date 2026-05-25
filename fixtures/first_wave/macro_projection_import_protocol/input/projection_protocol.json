@@ -109,12 +109,12 @@
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy"
       ],
       "claim_ceiling": "public macro pattern ledger body import only; not live state authority, private-root equivalence, release, publication, or recipient work authorization",
-      "body_digest": "sha256:414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+      "body_digest": "sha256:f447fddc9cca18b99648e24331d38f69a42f42bcfb4539df0e463ec4bf8247ba",
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "exact_source_digest_match",
-        "source_body_digest": "sha256:414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
-        "target_body_digest": "sha256:414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+        "source_body_digest": "sha256:f447fddc9cca18b99648e24331d38f69a42f42bcfb4539df0e463ec4bf8247ba",
+        "target_body_digest": "sha256:f447fddc9cca18b99648e24331d38f69a42f42bcfb4539df0e463ec4bf8247ba",
         "source_to_target_relation": "exact_copy",
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_pattern_ledger_body_is_imported_as_exact_copy"
@@ -1825,16 +1825,16 @@
         "source_authority_above_macro_contracts": false,
         "live_macro_source_authority": false
       },
-      "body_digest": "sha256:477a772cc76b4e57d57f92cd88bf50e6d81b202c92079cd1d814da181b43e2f4",
-      "body_line_count": 4848,
+      "body_digest": "sha256:3f7c5c813212bce45caa27dd86edde65c2964f4d2f4cff36b82cd201b1ca5799",
+      "body_line_count": 5187,
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "exact_source_digest_match",
-        "source_body_digest": "sha256:477a772cc76b4e57d57f92cd88bf50e6d81b202c92079cd1d814da181b43e2f4",
-        "target_body_digest": "sha256:477a772cc76b4e57d57f92cd88bf50e6d81b202c92079cd1d814da181b43e2f4",
+        "source_body_digest": "sha256:3f7c5c813212bce45caa27dd86edde65c2964f4d2f4cff36b82cd201b1ca5799",
+        "target_body_digest": "sha256:3f7c5c813212bce45caa27dd86edde65c2964f4d2f4cff36b82cd201b1ca5799",
         "source_to_target_relation": "exact_copy",
-        "source_line_count": 4848,
-        "target_line_count": 4848,
+        "source_line_count": 5187,
+        "target_line_count": 5187,
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"

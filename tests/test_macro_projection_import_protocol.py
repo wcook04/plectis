@@ -894,7 +894,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 1,
-        "public_macro_tool_body": 34,
+        "public_macro_tool_body": 38,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
