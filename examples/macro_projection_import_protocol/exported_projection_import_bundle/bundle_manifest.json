@@ -32,6 +32,7 @@
     "agent_mission_status_source_module_manifest.json",
     "operator_handoff_linkage_source_module_manifest.json",
     "prompt_shelf_movement_source_module_manifest.json",
+    "prompt_shelf_uppropagation_source_module_manifest.json",
     "bridge_runtime_continuity_source_module_manifest.json",
     "formal_math_proofline_spine_source_module_manifest.json"
   ],

@@ -1,0 +1,83 @@
+{
+  "schema_version": "macro_projection_prompt_shelf_uppropagation_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "prompt_shelf_uppropagation_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_account_sessions_cookies_provider_payload_bodies_browser_hud_live_access_prompt_bodies_raw_prompt_shelf_events_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "exact_non_secret_prompt_shelf_uppropagation_index_source_and_synthetic_regression_test_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic validation checks but never duplicate full source bodies, prompt bodies, raw prompt-shelf events, provider request or response payload bodies, account/session material, browser/HUD live access, generated state output, recipient-send state, or credential-equivalent payloads",
+  "public_runtime_policy": "public validation uses exact source digest, anchor checks, syntax compilation, and synthetic uppropagation-index assertions; copied source module is body evidence, not authority to read live prompt-shelf raw events, export prompt bodies, access browser/HUD state, call providers, write generated state, promote uppropagation rows, mutate private state, or claim release authority.",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "prompt bodies",
+    "raw prompt-shelf events",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "browser/HUD live-access material",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "prompt_shelf_uppropagation_index_body_import",
+      "source_ref": "tools/meta/observability/prompt_shelf_uppropagation_index.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_uppropagation_index.py",
+      "source_role": "Macro prompt-shelf uppropagation parser that extracts versioned terminal aiw:uppropagation blocks from raw prompt-shelf events into a queryable projection without promotion or prompt-body export.",
+      "required_anchors": [
+        "Up-propagation index",
+        "SCHEMA_VERSION = \"1.0.0\"",
+        "ARTIFACT_KIND = \"prompt_shelf_uppropagation_index\"",
+        "BLOCK_SCHEMA_VERSION = \"v1_v2_v3\"",
+        "FIELD_NAMES_BY_VERSION = {",
+        "def parse_block_body(",
+        "def _canonical_assistant_block_matches(",
+        "def extract_record(",
+        "def build_index(",
+        "def main() -> int:"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_prompt_body_raw_event_provider_payload_browser_hud_live_access_generated_state_account_session_or_credential_equivalent_material",
+      "source_sha256": "6c0617b3ce6fe58f038d8bd3833f6de5ea261ff2890d65e4aee63bb2d638739c",
+      "target_sha256": "6c0617b3ce6fe58f038d8bd3833f6de5ea261ff2890d65e4aee63bb2d638739c",
+      "sha256_match": true,
+      "line_count": 324,
+      "byte_count": 12375,
+      "anchor_count": 10
+    },
+    {
+      "module_id": "prompt_shelf_uppropagation_index_test_body_import",
+      "source_ref": "system/server/tests/test_prompt_shelf_uppropagation_index.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_prompt_shelf_uppropagation_index.py",
+      "source_role": "Macro synthetic-only regression suite for prompt-shelf uppropagation indexing, covering v1/v2/v3 parsing, final-block selection, quoted/code exclusions, provenance refusals, and quarantined raw-event skips.",
+      "required_anchors": [
+        "Tests for prompt_shelf_uppropagation_index.",
+        "def test_v1_block_parses_for_backward_compatibility(",
+        "def test_v3_block_parses_new_fields_and_rollups(",
+        "def test_multiple_blocks_last_block_wins(",
+        "def test_final_quoted_code_block_is_not_indexed(",
+        "def test_raw_event_provenance_can_refuse_indexing(",
+        "def test_quarantined_raw_event_does_not_count(",
+        "def test_v2_transition_block_parses_expected_fields("
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_prompt_body_raw_event_provider_payload_browser_hud_live_access_generated_state_account_session_or_credential_equivalent_material",
+      "source_sha256": "d507d23e54e1bbc7c843016d896050014a5c609d9eb03769167f2e79a0c663d3",
+      "target_sha256": "d507d23e54e1bbc7c843016d896050014a5c609d9eb03769167f2e79a0c663d3",
+      "sha256_match": true,
+      "line_count": 321,
+      "byte_count": 10500,
+      "anchor_count": 8
+    }
+  ]
+}

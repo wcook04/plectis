@@ -126,6 +126,9 @@ OPERATOR_HANDOFF_LINKAGE_MANIFEST = (
 PROMPT_SHELF_MOVEMENT_MANIFEST = (
     BUNDLE_INPUT / "prompt_shelf_movement_source_module_manifest.json"
 )
+PROMPT_SHELF_UPPROPAGATION_MANIFEST = (
+    BUNDLE_INPUT / "prompt_shelf_uppropagation_source_module_manifest.json"
+)
 BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
     BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
 )
@@ -2485,6 +2488,36 @@ def test_prompt_shelf_movement_sources_compile_and_preserve_terminal_cluster_con
     assert "prompt bodies" not in source_text.lower()
     assert "def test_v3_uppropagation_index_unchanged_by_movement_pipeline(" in test_text
     assert "def test_validate_since_after_historical_capture_passes(" in test_text
+
+
+def test_prompt_shelf_uppropagation_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        PROMPT_SHELF_UPPROPAGATION_MANIFEST,
+        manifest_id="prompt_shelf_uppropagation_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_prompt_shelf_uppropagation_sources_compile_and_preserve_versioned_block_contract() -> None:
+    source_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/observability/prompt_shelf_uppropagation_index.py"
+    )
+    test_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_prompt_shelf_uppropagation_index.py"
+    )
+    source_text = source_path.read_text(encoding="utf-8")
+    test_text = test_path.read_text(encoding="utf-8")
+    compile(source_text, str(source_path), "exec")
+    compile(test_text, str(test_path), "exec")
+    assert "ARTIFACT_KIND = \"prompt_shelf_uppropagation_index\"" in source_text
+    assert "BLOCK_SCHEMA_VERSION = \"v1_v2_v3\"" in source_text
+    assert "FIELD_NAMES_BY_VERSION = {" in source_text
+    assert "def _canonical_assistant_block_matches(" in source_text
+    assert "provider payload" not in source_text.lower()
+    assert "def test_v3_block_parses_new_fields_and_rollups(" in test_text
+    assert "def test_quarantined_raw_event_does_not_count(" in test_text
 
 
 def test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources() -> None:
