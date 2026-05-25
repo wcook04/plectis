@@ -703,6 +703,64 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     return [row for row in value if isinstance(row, dict)]
 
 
+def _compact_observatory_payload(
+    payload: dict[str, Any],
+    *,
+    keep_keys: tuple[str, ...] = (),
+) -> dict[str, Any]:
+    always_keep = {
+        "schema_version",
+        "status",
+        "lens_id",
+        "surface_id",
+        "command",
+        "endpoint",
+        "route_id",
+        "selected_route_id",
+        "selected_pattern_id",
+        "selected_pattern_ids",
+        "source_pattern_ids",
+        "release_authorized",
+        "source_open_body_policy",
+        "unsafe_payload_bodies_in_receipt",
+        "payload_boundary",
+        "safe_to_show",
+        "authority_ceiling",
+    }
+    summary_keys = {
+        "action_summary",
+        "boundary_summary",
+        "cleanup_summary",
+        "corpus_summary",
+        "coverage_summary",
+        "drift_summary",
+        "guard_summary",
+        "map_summary",
+        "option_surface_summary",
+        "projection_summary",
+        "projector_summary",
+        "proof_loop_summary",
+        "repair_loop_summary",
+        "scorecard",
+        "standards_summary",
+        "surface_counts",
+    }
+    compact: dict[str, Any] = {}
+    for key, value in payload.items():
+        if (
+            key in always_keep
+            or key in summary_keys
+            or key in keep_keys
+            or key.endswith("_ref")
+        ):
+            compact[key] = value
+    compact["embedded_payload_policy"] = (
+        "compact_first_screen_summary; full payload remains at the matching "
+        "json_drilldowns endpoint"
+    )
+    return compact
+
+
 def _first_string(value: Any) -> str | None:
     if isinstance(value, str) and value:
         return value
@@ -14536,7 +14594,26 @@ class RuntimeShell:
             else {}
         )
         runtime_bridge = self.observatory_intake_bridge(persist_receipt=persist_receipts)
-        authority_map = self.authority(persist_receipts=persist_receipts)
+        authority_map = {
+            "schema_version": "microcosm_public_authority_map_v2",
+            "status": status.get("status", PASS),
+            "command": "microcosm authority",
+            "endpoint": "/authority",
+            "surface_counts": {
+                "adapter_backed_organ_count": status.get("adapter_backed_organ_count", 0),
+                "product_path_demoted_organ_count": status.get(
+                    "product_path_demoted_organ_count", 0
+                ),
+            },
+            "authority_ceiling": {
+                "release_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+            },
+            "embedded_payload_policy": (
+                "compact_first_screen_summary; full payload remains at /authority"
+            ),
+        }
         prediction_lens = self.prediction_lens()
         market_boundary_lens = self.market_boundary()
         corpus_lens = self.corpus_lens()
@@ -14565,35 +14642,94 @@ class RuntimeShell:
         model: dict[str, Any] = {
             "schema_version": "microcosm_project_observatory_v1",
             "status": PASS,
-            "runtime_status": status,
+            "observatory_payload_policy": {
+                "schema_version": "microcosm_observatory_payload_policy_v1",
+                "embedded_lens_payloads": "compact_first_screen_summaries",
+                "full_payloads": "json_drilldowns",
+                "reason": (
+                    "The observatory is the first-screen cockpit; receipt-sized "
+                    "payloads stay behind stable drilldown endpoints."
+                ),
+            },
+            "runtime_status": _compact_observatory_payload(
+                status,
+                keep_keys=(
+                    "adapter_backed_organ_count",
+                    "product_path_demoted_organ_count",
+                    "status_card",
+                ),
+            ),
             "tour": tour,
             "front_door_status": front_door_status,
             "status_card_ref": "microcosm status --card <project>",
             "source_open_body_import_floor": source_open_body_import_floor,
             "local_first_screen_route": _local_first_screen_route_ref(),
-            "runtime_bridge": runtime_bridge,
+            "runtime_bridge": _compact_observatory_payload(
+                runtime_bridge,
+                keep_keys=(
+                    "bridge_id",
+                    "closed_cell_count",
+                    "evidence_refs",
+                    "open_actionable_cell_count",
+                    "projection_status_counts",
+                    "reveal_summary",
+                    "cell_status",
+                ),
+            ),
             "authority_map": authority_map,
-            "prediction_lens": prediction_lens,
-            "market_boundary_lens": market_boundary_lens,
-            "corpus_lens": corpus_lens,
-            "trace_lens": trace_lens,
-            "repair_loop_lens": repair_loop_lens,
-            "evidence_cell_lens": evidence_cell_lens,
-            "proof_loop_depth_lens": proof_loop_depth_lens,
-            "landing_replay_lens": landing_replay_lens,
-            "view_quality_lens": view_quality_lens,
-            "projection_safety_lens": projection_safety_lens,
-            "projection_drift_lens": projection_drift_lens,
-            "route_cleanup_lens": route_cleanup_lens,
-            "projection_import_map_lens": projection_import_map_lens,
-            "import_projector_lens": import_projector_lens,
-            "option_surface_lens": option_surface_lens,
-            "stripping_guard_lens": stripping_guard_lens,
-            "standards_control_lens": standards_control_lens,
-            "hook_coverage_lens": hook_coverage_lens,
-            "replay_gauntlet_lens": replay_gauntlet_lens,
-            "benchmark_lab_lens": benchmark_lab_lens,
-            "legibility_scorecard_lens": legibility_scorecard_lens,
+            "prediction_lens": _compact_observatory_payload(prediction_lens),
+            "market_boundary_lens": _compact_observatory_payload(
+                market_boundary_lens,
+                keep_keys=("boundary_rows",),
+            ),
+            "corpus_lens": _compact_observatory_payload(corpus_lens),
+            "trace_lens": _compact_observatory_payload(
+                trace_lens,
+                keep_keys=("negative_case_ids",),
+            ),
+            "repair_loop_lens": _compact_observatory_payload(repair_loop_lens),
+            "evidence_cell_lens": _compact_observatory_payload(evidence_cell_lens),
+            "proof_loop_depth_lens": _compact_observatory_payload(proof_loop_depth_lens),
+            "landing_replay_lens": _compact_observatory_payload(landing_replay_lens),
+            "view_quality_lens": _compact_observatory_payload(view_quality_lens),
+            "projection_safety_lens": _compact_observatory_payload(projection_safety_lens),
+            "projection_drift_lens": _compact_observatory_payload(projection_drift_lens),
+            "route_cleanup_lens": _compact_observatory_payload(
+                route_cleanup_lens,
+                keep_keys=("cleanup_rows",),
+            ),
+            "projection_import_map_lens": _compact_observatory_payload(
+                projection_import_map_lens,
+                keep_keys=("map_rows",),
+            ),
+            "import_projector_lens": _compact_observatory_payload(
+                import_projector_lens,
+                keep_keys=("projector_rows",),
+            ),
+            "option_surface_lens": _compact_observatory_payload(
+                option_surface_lens,
+                keep_keys=("option_rows",),
+            ),
+            "stripping_guard_lens": _compact_observatory_payload(
+                stripping_guard_lens,
+                keep_keys=("guard_rows",),
+            ),
+            "standards_control_lens": _compact_observatory_payload(
+                standards_control_lens,
+                keep_keys=("control_rows",),
+            ),
+            "hook_coverage_lens": _compact_observatory_payload(
+                hook_coverage_lens,
+                keep_keys=("missing_authority_case_ids",),
+            ),
+            "replay_gauntlet_lens": _compact_observatory_payload(
+                replay_gauntlet_lens,
+                keep_keys=("negative_case_ids",),
+            ),
+            "benchmark_lab_lens": _compact_observatory_payload(benchmark_lab_lens),
+            "legibility_scorecard_lens": _compact_observatory_payload(
+                legibility_scorecard_lens
+            ),
             "kernel": kernel,
             "release_authorized": False,
             "provider_calls_authorized": False,
@@ -14894,8 +15030,14 @@ class RuntimeShell:
         )
         return model
 
-    def _observatory_html(self, project_path: Path | None) -> str:
-        model = self.project_observatory(project_path, persist_receipts=False)
+    def _observatory_html(
+        self,
+        project_path: Path | None,
+        *,
+        model: dict[str, Any] | None = None,
+    ) -> str:
+        if model is None:
+            model = self.project_observatory(project_path, persist_receipts=False)
         project_summary = model.get("project_summary", {})
         causal = model.get("causal_chain", {})
         route = causal.get("route", {}) if isinstance(causal.get("route"), dict) else {}
@@ -16574,6 +16716,27 @@ class RuntimeShell:
     def serve(self, host: str, port: int, project: str | Path | None = None) -> ThreadingHTTPServer:
         shell = self
         project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
+        observatory_cache: dict[str, Any] = {}
+
+        def cached_observatory_model() -> dict[str, Any]:
+            model = observatory_cache.get("model")
+            if isinstance(model, dict):
+                return model
+            model = shell.project_observatory(project_path, persist_receipts=False)
+            observatory_cache["model"] = model
+            return model
+
+        def cached_observatory_html() -> str:
+            body = observatory_cache.get("html")
+            if isinstance(body, str):
+                return body
+            model = cached_observatory_model()
+            body = shell._observatory_html(project_path, model=model)
+            observatory_cache["html"] = body
+            return body
+
+        if project_path is not None:
+            cached_observatory_html()
 
         class Handler(BaseHTTPRequestHandler):
             def _send(self, status_code: int, payload: dict[str, Any] | list[dict[str, Any]]) -> None:
@@ -16605,7 +16768,7 @@ class RuntimeShell:
                 if path == "/favicon.ico":
                     self._send_empty(204)
                 elif path == "/":
-                    self._send_html(200, shell._observatory_html(project_path))
+                    self._send_html(200, cached_observatory_html())
                 elif path == "/status":
                     self._send(200, shell.status())
                 elif path == "/spine":
@@ -16709,7 +16872,7 @@ class RuntimeShell:
                 elif path == "/project/evidence" and project_path is not None:
                     self._send(200, project_substrate.list_evidence(project_path))
                 elif path == "/project/observatory" and project_path is not None:
-                    self._send(200, shell.project_observatory(project_path))
+                    self._send(200, cached_observatory_model())
                 elif path.startswith("/project/explain/") and project_path is not None:
                     self._send(200, project_substrate.explain_route(project_path, unquote(path.removeprefix("/project/explain/"))))
                 elif path == "/organs":
@@ -16733,7 +16896,9 @@ class RuntimeShell:
                     self._send(200, shell.run_demo())
                     return
                 if path == "/project/work/run" and project_path is not None:
-                    self._send(200, project_substrate.run_work(project_path))
+                    result = project_substrate.run_work(project_path)
+                    observatory_cache.clear()
+                    self._send(200, result)
                     return
                 self._send(404, {"status": "not_found", "path": path})
 

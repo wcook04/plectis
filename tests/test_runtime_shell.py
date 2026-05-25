@@ -3916,6 +3916,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert OMITTED_PAYLOAD_BODY_KEY not in json.dumps(python_lens, sort_keys=True)
     assert favicon_status == 204
     assert observatory["status"] == "pass"
+    assert observatory["observatory_payload_policy"]["embedded_lens_payloads"] == (
+        "compact_first_screen_summaries"
+    )
+    assert len(json.dumps(observatory, sort_keys=True).encode("utf-8")) < 500_000
     assert observatory["selected_route_id"] == "readme_onboarding_route"
     route_proof = observatory["first_screen_route_proof"]
     assert route_proof["schema_version"] == (
