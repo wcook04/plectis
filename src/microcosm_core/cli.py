@@ -884,9 +884,10 @@ def main(argv: list[str] | None = None) -> int:
         command_args = ["status"]
         if args.card:
             shell = runtime_shell.RuntimeShell()
-            return _print_json(
-                _attach_status_card_front_door_refs(shell.status_card(args.project))
-            )
+            payload = shell.status_card(args.project)
+            if args.project:
+                payload = _attach_status_card_front_door_refs(payload)
+            return _print_json(payload)
         if args.project:
             command_args.append(args.project)
         return runtime_shell.main(command_args)

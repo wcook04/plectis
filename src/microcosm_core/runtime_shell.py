@@ -109,6 +109,7 @@ STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT = 3
 STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT = 2
 STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT = 2
 STATUS_CARD_LATEST_SOURCE_REF_LIMIT = 3
+STATUS_CARD_DEFECT_PREVIEW_LIMIT = 3
 PROOF_LAB_BUNDLE_REF = (
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 )
@@ -2115,6 +2116,59 @@ def _status_card_surface_is_nonblocking(status: Any) -> bool:
     return status in {PASS, "clear", "actionable"}
 
 
+def _compact_body_import_defects(
+    body_floor: dict[str, Any],
+    *,
+    limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
+) -> list[dict[str, Any]]:
+    defects = body_floor.get("defects", [])
+    if not isinstance(defects, list):
+        return []
+
+    imports_by_material_id = {
+        str(row.get("material_id")): row
+        for row in body_floor.get("body_imports", [])
+        if isinstance(row, dict) and row.get("material_id")
+    }
+    preview: list[dict[str, Any]] = []
+    for defect in defects:
+        if not isinstance(defect, dict):
+            continue
+        material_id = defect.get("material_id")
+        import_row = imports_by_material_id.get(str(material_id))
+        import_row = import_row if isinstance(import_row, dict) else {}
+        defect_codes = defect.get("defect_codes", [])
+        if not isinstance(defect_codes, list):
+            defect_codes = []
+        source_refs = import_row.get("source_refs", [])
+        if not isinstance(source_refs, list):
+            source_refs = []
+        validation_refs = import_row.get("validation_refs", [])
+        if not isinstance(validation_refs, list):
+            validation_refs = []
+        preview.append(
+            {
+                "material_id": material_id,
+                "material_class": defect.get("material_class"),
+                "target_ref": defect.get("target_ref"),
+                "defect_codes": [
+                    str(code) for code in defect_codes if isinstance(code, str)
+                ],
+                "source_refs": [
+                    str(ref) for ref in source_refs if isinstance(ref, str)
+                ][:STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT],
+                "validation_refs": [
+                    str(ref) for ref in validation_refs if isinstance(ref, str)
+                ][:STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT],
+                "verification_mode": import_row.get("verification_mode"),
+                "body_text_in_receipt": defect.get("body_in_receipt") is True,
+            }
+        )
+        if len(preview) >= limit:
+            break
+    return preview
+
+
 def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
     front_door = (
         card.get("front_door", {})
@@ -2182,6 +2236,50 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
         for surface_id, surface_status in surfaces.items()
         if surface_status == "actionable"
     ]
+    blocking_surface_details: dict[str, dict[str, Any]] = {}
+    for surface_id in blocking_surface_ids:
+        detail: dict[str, Any] = {"status": surfaces.get(surface_id)}
+        if surface_id == "runtime_status":
+            detail.update(
+                {
+                    "reason": (
+                        "Top-level runtime status mirrors blocking "
+                        "first-screen surfaces; inspect the named detail rows."
+                    ),
+                    "derived_blocking_surface_ids": [
+                        item for item in blocking_surface_ids if item != surface_id
+                    ],
+                }
+            )
+        elif surface_id == "macro_body_import_floor":
+            body_floor = (
+                card.get("macro_body_import_floor", {})
+                if isinstance(card.get("macro_body_import_floor"), dict)
+                else {}
+            )
+            detail.update(
+                {
+                    "defect_count": body_floor.get("defect_count"),
+                    "defect_preview": body_floor.get("defect_preview", []),
+                    "defect_preview_limit": body_floor.get(
+                        "defect_preview_limit",
+                        STATUS_CARD_DEFECT_PREVIEW_LIMIT,
+                    ),
+                    "full_status_ref": body_floor.get(
+                        "full_status_ref",
+                        "microcosm status::macro_body_import_floor",
+                    ),
+                    "full_defects_ref": body_floor.get(
+                        "full_defects_ref",
+                        "microcosm status::macro_body_import_floor.defects",
+                    ),
+                }
+            )
+        else:
+            detail["reader_action"] = (
+                "Open the matching status card surface or full status drilldown."
+            )
+        blocking_surface_details[surface_id] = detail
     return {
         "schema_version": "microcosm_status_card_front_door_status_v1",
         "status": PASS if not blocking_surface_ids else "blocked",
@@ -2194,6 +2292,7 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
         "required_surface_ids": list(surfaces),
         "surface_statuses": surfaces,
         "blocking_surface_ids": blocking_surface_ids,
+        "blocking_surface_details": blocking_surface_details,
         "accepted_nonblocking_statuses": [PASS, "clear", "actionable"],
         "actionable_surface_ids": actionable_surface_ids,
         "actionable_surface_rule": "visible_debt_not_route_blocker",
@@ -2213,6 +2312,7 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
         "safe_to_show": {
             "surface_status_ids_visible": True,
             "blocking_surface_ids_visible": True,
+            "blocking_surface_details_visible": True,
             "drilldown_warning_surface_ids_visible": True,
             "drilldown_blocked_surface_ids_visible_by_ref": True,
             "source_files_mutated_visible": True,
@@ -2343,6 +2443,7 @@ def _runtime_status_card(
         source_body_imports[
             "latest_verified_source_module_families"
         ] = compact_families
+    body_floor_defect_preview = _compact_body_import_defects(body_floor)
     card = {
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
@@ -2423,9 +2524,9 @@ def _runtime_status_card(
                 ),
                 "reader_action": (
                     "Use this compact floor to see real source-open body "
-                    "imports before opening receipts; open "
-                    "macro_body_import_floor for validators and family "
-                    "drilldowns."
+                    "imports and any blocking defect preview before opening "
+                    "receipts; open macro_body_import_floor for validators, "
+                    "full defects, and family drilldowns."
                 ),
             },
         },
@@ -2574,6 +2675,15 @@ def _runtime_status_card(
             "mutation, proof correctness, or credential-equivalent live access."
         ),
     }
+    if body_floor.get("defect_count") or body_floor_defect_preview:
+        defect_summary = {
+            "defect_count": body_floor.get("defect_count"),
+            "defect_preview": body_floor_defect_preview,
+            "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
+            "full_defects_ref": "microcosm status::macro_body_import_floor.defects",
+        }
+        card["front_door"]["source_open_body_import_floor"].update(defect_summary)
+        card["macro_body_import_floor"].update(defect_summary)
     if project_path is not None:
         project_overlay = _project_status_overlay(project_path)
         selected_route_id = project_overlay.get("selected_route_id")

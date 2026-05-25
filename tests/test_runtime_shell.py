@@ -677,6 +677,157 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert runtime_card == card
 
 
+def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
+    card = runtime_shell._runtime_status_card(
+        {
+            "status": "blocked",
+            "posture": "executable_research_prototype",
+            "front_door": {
+                "status": "pass",
+                "primary_command": "microcosm tour <project>",
+                "generated_state": {"state_dir": ".microcosm"},
+                "behavior_surfaces": {
+                    "route_state_ref": ".microcosm/routes.json",
+                    "work_state_ref": ".microcosm/work_items.json",
+                    "event_log_ref": ".microcosm/events.jsonl",
+                    "evidence_dir_ref": ".microcosm/evidence/",
+                    "graph_ref": ".microcosm/graph.json",
+                },
+                "authority_ceiling": {
+                    "release_authorized": False,
+                    "provider_calls_authorized": False,
+                    "source_mutation_authorized": False,
+                    "proof_correctness_claim": False,
+                },
+                "safe_to_show": {"source_files_mutated": False},
+            },
+            "first_screen_proof_lab": {
+                "status": "pass",
+                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+                "endpoint": "/proof-lab",
+                "alias_endpoints": ["/verifier-lab-kernel"],
+                "source_lens_endpoint": "/proof-loop-depth",
+                "route_id": "formal_prover_context_strategy_gate",
+                "route_component_count": 9,
+                "lean_lake_return_code": 0,
+                "lean_compiled_declaration_count": 8,
+                "route_ref": PROOF_LAB_ROUTE_REF,
+                "receipt_ref": PROOF_LAB_RECEIPT_REF,
+                "safe_to_show": {"route_metadata_visible": True},
+            },
+            "macro_body_import_floor": {
+                "status": "blocked",
+                "source_ref": (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/projection_protocol.json"
+                ),
+                "routing_refs": {
+                    "pattern_binding_ref": (
+                        MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF
+                    ),
+                    "import_plan_ref": MACRO_PROJECTION_IMPORT_PLAN_REF.as_posix(),
+                    "fixture_input_ref": MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix(),
+                },
+                "public_safe_body_material_count": 170,
+                "public_safe_body_material_counts_by_class": {
+                    "public_macro_tool_body": 169,
+                    "public_macro_proof_body": 1,
+                },
+                "defect_count": 1,
+                "defects": [
+                    {
+                        "material_id": "route_selection_option_surface_body_import",
+                        "material_class": "public_macro_tool_body",
+                        "target_ref": (
+                            "examples/macro_projection_import_protocol/"
+                            "exported_projection_import_bundle/source_modules/"
+                            "system/lib/standard_option_surface.py"
+                        ),
+                        "defect_codes": [
+                            "body_digest_mismatch",
+                            "target_digest_mismatch",
+                        ],
+                        "body_in_receipt": False,
+                    }
+                ],
+                "body_imports": [
+                    {
+                        "material_id": "route_selection_option_surface_body_import",
+                        "source_refs": ["system/lib/standard_option_surface.py"],
+                        "validation_refs": [
+                            "microcosm-substrate/tests/"
+                            "test_macro_projection_import_protocol.py::"
+                            "test_standard_option_surface_body_import"
+                        ],
+                        "verification_mode": "exact_source_digest_match",
+                    }
+                ],
+                "source_body_import_lens": {
+                    "status": "pass",
+                    "body_text_exported_in_status": False,
+                    "body_text_exported_in_receipts": False,
+                    "latest_source_refs": ["system/lib/standard_option_surface.py"],
+                    "verified_source_module_family_count": 49,
+                    "latest_verified_source_module_families": [],
+                },
+            },
+            "workingness_summary": {
+                "status": "clear",
+                "map_generation_status": "pass",
+                "failure_envelope_status": "clear",
+            },
+        }
+    )
+
+    front_door_status = card["front_door_status"]
+
+    assert card["status"] == "blocked"
+    assert front_door_status["blocking_surface_ids"] == [
+        "runtime_status",
+        "macro_body_import_floor",
+    ]
+    assert (
+        front_door_status["blocking_surface_details"]["runtime_status"][
+            "derived_blocking_surface_ids"
+        ]
+        == ["macro_body_import_floor"]
+    )
+    macro_detail = front_door_status["blocking_surface_details"][
+        "macro_body_import_floor"
+    ]
+    assert macro_detail["defect_count"] == 1
+    assert macro_detail["full_defects_ref"] == (
+        "microcosm status::macro_body_import_floor.defects"
+    )
+    assert macro_detail["defect_preview"] == [
+        {
+            "material_id": "route_selection_option_surface_body_import",
+            "material_class": "public_macro_tool_body",
+            "target_ref": (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "standard_option_surface.py"
+            ),
+            "defect_codes": [
+                "body_digest_mismatch",
+                "target_digest_mismatch",
+            ],
+            "source_refs": ["system/lib/standard_option_surface.py"],
+            "validation_refs": [
+                "microcosm-substrate/tests/"
+                "test_macro_projection_import_protocol.py::"
+                "test_standard_option_surface_body_import"
+            ],
+            "verification_mode": "exact_source_digest_match",
+            "body_text_in_receipt": False,
+        }
+    ]
+    assert card["front_door"]["source_open_body_import_floor"][
+        "defect_preview"
+    ] == macro_detail["defect_preview"]
+    assert card["macro_body_import_floor"]["defect_count"] == 1
+
+
 def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     shell = RuntimeShell(MICROCOSM_ROOT)
 
