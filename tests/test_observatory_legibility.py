@@ -54,6 +54,20 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["html_assertions"]["work_state_history_visible"] is True
     assert receipt["html_assertions"]["evidence_marked_drilldown"] is True
     assert receipt["html_assertions"]["ten_minute_tour_section_present"] is True
+    assert (
+        receipt["html_assertions"][
+            "source_open_body_import_floor_section_present"
+        ]
+        is True
+    )
+    assert (
+        receipt["html_assertions"]["source_open_body_material_count_visible"]
+        is True
+    )
+    assert (
+        receipt["html_assertions"]["source_open_body_text_exclusion_visible"]
+        is True
+    )
     assert receipt["html_assertions"]["runtime_bridge_section_present"] is True
     assert receipt["html_assertions"]["verifier_trace_lens_section_present"] is True
     assert receipt["html_assertions"]["verifier_repair_loop_lens_section_present"] is True
@@ -86,6 +100,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["model_assertions"]["runtime_bridge_warning_status_bounded"] is True
     assert receipt["model_assertions"]["authority_map_warning_status_bounded"] is True
     assert receipt["model_assertions"]["ten_minute_tour_status_pass"] is True
+    assert receipt["model_assertions"]["source_open_body_import_floor_present"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_status_pass"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_no_proof_authority"] is True
     assert receipt["model_assertions"]["verifier_repair_loop_lens_status_pass"] is True
@@ -179,7 +194,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     )
     assert receipt["model_assertions"]["runtime_bridge_open_actionable_zero"] is True
     assert receipt["tour_proof"]["tour_id"] == "public_ten_minute_tour"
-    assert receipt["tour_proof"]["route_card_count"] == 9
+    assert receipt["tour_proof"]["route_card_count"] == 10
     assert receipt["verifier_trace_proof"]["lens_id"] == "public_verifier_trace_repair_lens"
     assert receipt["verifier_trace_proof"]["trace_attempt_count"] == 4
     assert receipt["verifier_trace_proof"]["formal_proof_authority"] is False

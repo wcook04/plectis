@@ -3496,6 +3496,12 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Warning drilldowns" in html
     assert "front_door_status" in html
     assert LOCAL_FIRST_SCREEN_ROUTE_REF in html
+    assert "Source-Open Body Import Floor" in html
+    assert "Public-Safe Body Materials" in html
+    assert "source_open_body_import_floor" in html
+    assert "Body text exported in status" in html
+    assert "Body text exported in receipts" in html
+    assert "microcosm status --card" in html
     assert "/tour" in html
     assert "Spine / Intake / Reveal Bridge" in html
     assert "/spine" in html
@@ -3694,6 +3700,24 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["front_door_status"]["authority_ceiling"][
         "provider_calls_authorized"
     ] is False
+    observatory_body_floor = observatory["source_open_body_import_floor"]
+    status_body_floor = payload["status_card"]["front_door"][
+        "source_open_body_import_floor"
+    ]
+    assert observatory_body_floor["status"] == "pass"
+    assert (
+        observatory_body_floor["public_safe_body_material_count"]
+        == status_body_floor["public_safe_body_material_count"]
+    )
+    assert (
+        observatory_body_floor["public_safe_body_material_counts_by_class"]
+        == status_body_floor["public_safe_body_material_counts_by_class"]
+    )
+    assert observatory_body_floor["verified_source_module_family_count"] >= 20
+    assert observatory_body_floor["latest_source_refs"]
+    assert observatory_body_floor["body_text_exported_in_status"] is False
+    assert observatory_body_floor["body_text_exported_in_receipts"] is False
+    assert "release" in observatory_body_floor["authority_boundary"]
     assert observatory["authority_map"]["schema_version"] == "microcosm_public_authority_map_v2"
     assert observatory["prediction_lens"]["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert observatory["corpus_lens"]["schema_version"] == "microcosm_public_corpus_readiness_lens_v1"

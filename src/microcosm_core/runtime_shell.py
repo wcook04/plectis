@@ -14200,6 +14200,21 @@ class RuntimeShell:
             if isinstance(tour.get("front_door_status"), dict)
             else {}
         )
+        status_card = (
+            status.get("status_card", {})
+            if isinstance(status.get("status_card"), dict)
+            else _runtime_status_card(status)
+        )
+        status_card_front_door = (
+            status_card.get("front_door", {})
+            if isinstance(status_card.get("front_door"), dict)
+            else {}
+        )
+        source_open_body_import_floor = (
+            status_card_front_door.get("source_open_body_import_floor", {})
+            if isinstance(status_card_front_door.get("source_open_body_import_floor"), dict)
+            else {}
+        )
         runtime_bridge = self.observatory_intake_bridge(persist_receipt=persist_receipts)
         authority_map = self.authority(persist_receipts=persist_receipts)
         prediction_lens = self.prediction_lens()
@@ -14233,6 +14248,8 @@ class RuntimeShell:
             "runtime_status": status,
             "tour": tour,
             "front_door_status": front_door_status,
+            "status_card_ref": "microcosm status --card <project>",
+            "source_open_body_import_floor": source_open_body_import_floor,
             "local_first_screen_route": _local_first_screen_route_ref(),
             "runtime_bridge": runtime_bridge,
             "authority_map": authority_map,
@@ -14511,6 +14528,11 @@ class RuntimeShell:
             if isinstance(model.get("local_first_screen_route"), dict)
             else tour.get("local_first_screen_route", {})
             if isinstance(tour.get("local_first_screen_route"), dict)
+            else {}
+        )
+        source_open_body_import_floor = (
+            model.get("source_open_body_import_floor", {})
+            if isinstance(model.get("source_open_body_import_floor"), dict)
             else {}
         )
         tour_cards = tour.get("route_cards", []) if isinstance(tour.get("route_cards"), list) else []
@@ -14863,6 +14885,13 @@ class RuntimeShell:
             if not values:
                 return "none"
             return ", ".join(str(value) for value in values)
+
+        def dict_text(values: Any) -> str:
+            if not isinstance(values, dict):
+                return ""
+            if not values:
+                return "none"
+            return ", ".join(f"{key}: {value}" for key, value in sorted(values.items()))
 
         def binding_rows(rows: list[Any], id_key: str) -> str:
             if not rows:
@@ -15345,6 +15374,7 @@ class RuntimeShell:
           <div class="node"><strong>Drift Control</strong><span><code>/drift-control</code> · {html.escape(_safe_text(len(projection_drift_rows)))} rows</span></div>
           <div class="node"><strong>Route Cleanup</strong><span><code>/route-cleanup</code> · {html.escape(_safe_text(len(route_cleanup_rows)))} rows</span></div>
           <div class="node"><strong>Import Map</strong><span><code>/projection-import-map</code> · {html.escape(_safe_text(len(projection_import_rows)))} rows</span></div>
+          <div class="node"><strong>Source-Open Body Floor</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("public_safe_body_material_count")))} public-safe materials · <code>/status</code></span></div>
           <div class="node"><strong>Stripping Guard</strong><span><code>/stripping-guard</code> · {html.escape(_safe_text(len(stripping_guard_rows)))} guards</span></div>
           <div class="node"><strong>Standards Control</strong><span><code>/standards-control</code> · {html.escape(_safe_text(len(standards_control_rows)))} rows</span></div>
           <div class="node"><strong>Hook Coverage</strong><span><code>/hook-coverage</code> · {html.escape(_safe_text(len(hook_interventions)))} interventions</span></div>
@@ -15380,6 +15410,31 @@ class RuntimeShell:
           {row("Open actionable intake cells", runtime_bridge.get("open_actionable_cell_count"))}
         </table>
         <p class="ceiling">Evidence is drilldown. Receipts explain what happened after the chain is visible; they are not the cockpit. Release remains unauthorized.</p>
+      </div>
+    </section>
+
+    <section class="wide">
+      <h2>Source-Open Body Import Floor</h2>
+      <div class="content">
+        <div class="chain">
+          <div class="node"><strong>Command</strong><span><code>microcosm status --card &lt;project&gt;</code></span></div>
+          <div class="node"><strong>Public-Safe Body Materials</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("public_safe_body_material_count")))}</span></div>
+          <div class="node"><strong>Verified Families</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("verified_source_module_family_count")))}</span></div>
+          <div class="node"><strong>Body Text</strong><span>status={html.escape(_safe_text(source_open_body_import_floor.get("body_text_exported_in_status")))} · receipts={html.escape(_safe_text(source_open_body_import_floor.get("body_text_exported_in_receipts")))}</span></div>
+        </div>
+        <table>
+          {row("Status", source_open_body_import_floor.get("status"))}
+          {row("Model ref", "source_open_body_import_floor")}
+          {row("Summary ref", source_open_body_import_floor.get("summary_ref"))}
+          {row("Full status ref", source_open_body_import_floor.get("full_status_ref"))}
+          {row("Counts by class", dict_text(source_open_body_import_floor.get("public_safe_body_material_counts_by_class")))}
+          {row("Latest source refs", list_text(source_open_body_import_floor.get("latest_source_refs")))}
+          {row("Body text exported in status", source_open_body_import_floor.get("body_text_exported_in_status"))}
+          {row("Body text exported in receipts", source_open_body_import_floor.get("body_text_exported_in_receipts"))}
+          {row("Authority boundary", source_open_body_import_floor.get("authority_boundary"))}
+          {row("Reader action", source_open_body_import_floor.get("reader_action"))}
+        </table>
+        <p class="ceiling">This is a count-and-route lens over verified non-secret macro body imports. It does not export source bodies, provider payloads, credential-equivalent live access, release authority, or private-root equivalence.</p>
       </div>
     </section>
 

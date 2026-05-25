@@ -55,6 +55,11 @@ def validate_legibility(
     causal = model.get("causal_chain", {}) if isinstance(model.get("causal_chain"), dict) else {}
     runtime_bridge = model.get("runtime_bridge", {}) if isinstance(model.get("runtime_bridge"), dict) else {}
     tour = model.get("tour", {}) if isinstance(model.get("tour"), dict) else {}
+    source_open_body_import_floor = (
+        model.get("source_open_body_import_floor", {})
+        if isinstance(model.get("source_open_body_import_floor"), dict)
+        else {}
+    )
     authority_map = model.get("authority_map", {}) if isinstance(model.get("authority_map"), dict) else {}
     prediction_lens = (
         model.get("prediction_lens", {}) if isinstance(model.get("prediction_lens"), dict) else {}
@@ -193,6 +198,22 @@ def validate_legibility(
         and any(str(row.get("evidence_ref")) in html for row in evidence if isinstance(row, dict)),
         "evidence_marked_drilldown": "Evidence is drilldown" in html,
         "ten_minute_tour_section_present": "Ten-Minute Tour" in html,
+        "source_open_body_import_floor_section_present": (
+            "Source-Open Body Import Floor" in html
+            and "source_open_body_import_floor" in html
+        ),
+        "source_open_body_material_count_visible": (
+            source_open_body_import_floor.get("public_safe_body_material_count")
+            is not None
+            and str(
+                source_open_body_import_floor.get("public_safe_body_material_count")
+            )
+            in html
+        ),
+        "source_open_body_text_exclusion_visible": (
+            "Body text exported in status" in html
+            and "Body text exported in receipts" in html
+        ),
         "runtime_bridge_section_present": "Spine / Intake / Reveal Bridge" in html,
         "market_prediction_boundary_lens_section_present": "Market Prediction Boundary Lens"
         in html,
@@ -265,6 +286,15 @@ def validate_legibility(
     }
     model_assertions = {
         "model_status_pass": model.get("status") == PASS,
+        "source_open_body_import_floor_present": (
+            source_open_body_import_floor.get("status") == PASS
+            and source_open_body_import_floor.get("public_safe_body_material_count", 0)
+            > 0
+            and source_open_body_import_floor.get("body_text_exported_in_status")
+            is False
+            and source_open_body_import_floor.get("body_text_exported_in_receipts")
+            is False
+        ),
         "route_pattern_refs_present": bool(route.get("pattern_refs")),
         "route_standard_refs_present": bool(route.get("standard_pressure_refs")),
         "pattern_bindings_resolve": bool(pattern_bindings)
