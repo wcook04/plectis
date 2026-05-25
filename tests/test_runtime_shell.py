@@ -8,7 +8,9 @@ from urllib.request import urlopen
 
 import pytest
 
+from microcosm_core import cli
 from microcosm_core import project_substrate
+from microcosm_core import runtime_shell
 from microcosm_core.runtime_shell import (
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
@@ -119,7 +121,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["truth_accounting"]["real_import_validation_count"] == 15
     assert status["truth_accounting"]["regression_negative_fixture_count"] == 0
     assert status["truth_accounting"]["adapter_backed_count_is_product_progress"] is False
-    assert status["copied_non_secret_macro_body_material_count"] == 37
+    assert status["copied_non_secret_macro_body_material_count"] == 50
     assert status["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert status["macro_body_import_floor"]["status"] == "pass"
     assert status["macro_body_import_floor"][
@@ -127,8 +129,8 @@ def test_runtime_shell_status_is_product_centered() -> None:
     ] == {
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
-        "public_macro_receipt_body": 1,
-        "public_macro_tool_body": 34,
+        "public_macro_receipt_body": 3,
+        "public_macro_tool_body": 45,
     }
     assert status["product_path_demoted_organ_count"] == 4
     assert status["fixture_runner_backed_organ_count"] == 0
@@ -172,6 +174,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert "microcosm explain <project> <route_id>" in status["runtime_surface"]["commands"]
     assert "microcosm evidence list <project>" in status["runtime_surface"]["commands"]
     assert "microcosm tour <project>" in status["runtime_surface"]["commands"]
+    assert "microcosm status --card" in status["runtime_surface"]["commands"]
     assert "microcosm spine" in status["runtime_surface"]["commands"]
     assert "microcosm authority" in status["runtime_surface"]["commands"]
     assert "microcosm prediction-lens" in status["runtime_surface"]["commands"]
@@ -334,8 +337,63 @@ def test_runtime_shell_status_is_product_centered() -> None:
         in status["runtime_surface"]["commands"]
     )
     assert status["runtime_surface"]["receipts_are_drilldown_evidence"] is True
+    assert "run microcosm status --card" in status["next_actions"]
     assert status["posture"] == "executable_research_prototype"
     assert status["kernel_primitive_count"] >= 10
+
+
+def test_runtime_shell_status_card_is_compact_first_screen_lens(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+
+    status = shell.status()
+    card = shell.status_card()
+
+    assert card == status["status_card"]
+    assert len(json.dumps(card, sort_keys=True)) < 12000
+    assert card["schema_version"] == "microcosm_runtime_status_card_v1"
+    assert card["status"] == "pass"
+    assert card["card_command"] == "microcosm status --card"
+    assert card["full_status_command"] == "microcosm status"
+    assert card["front_door"]["primary_command"] == "microcosm tour <project>"
+    assert card["front_door"]["tour_front_door_status_ref"] == (
+        "microcosm tour <project>::front_door_status"
+    )
+    assert card["front_door"]["tour_warning_drilldowns"] == [
+        "authority",
+        "intake",
+    ]
+    assert card["front_door"]["route_state_ref"] == ".microcosm/routes.json"
+    assert card["front_door"]["work_state_ref"] == ".microcosm/work_items.json"
+    assert card["front_door"]["event_log_ref"] == ".microcosm/events.jsonl"
+    assert card["front_door"]["evidence_dir_ref"] == ".microcosm/evidence/"
+    assert card["front_door"]["graph_ref"] == ".microcosm/graph.json"
+    assert card["proof_lab"]["status"] == "pass"
+    assert card["proof_lab"]["route_id"] == "formal_prover_context_strategy_gate"
+    assert card["proof_lab"]["route_component_count"] == 9
+    assert card["proof_lab"]["lean_lake_return_code"] == 0
+    assert card["substrate_counts"][
+        "copied_non_secret_macro_body_material_count"
+    ] == 50
+    assert card["substrate_counts"]["blocked_import_debt_count"] == 0
+    assert card["macro_body_import_floor"]["status"] == "pass"
+    assert card["authority_ceiling"]["release_authorized"] is False
+    assert card["authority_ceiling"]["provider_calls_authorized"] is False
+    assert card["authority_ceiling"]["source_mutation_authorized"] is False
+    assert card["authority_ceiling"]["proof_correctness_claim"] is False
+    assert card["safe_to_show"]["receipts_are_drilldown_evidence"] is True
+    assert card["safe_to_show"][
+        "credential_equivalent_live_access_excluded"
+    ] is True
+
+    assert cli.main(["status", "--card"]) == 0
+    cli_card = json.loads(capsys.readouterr().out)
+    assert cli_card == card
+    assert "accepted_adapter_backed_organs" not in cli_card
+    assert runtime_shell.main(["status", "--card"]) == 0
+    runtime_card = json.loads(capsys.readouterr().out)
+    assert runtime_card == card
 
 
 def test_runtime_shell_spine_is_cold_reader_xray() -> None:

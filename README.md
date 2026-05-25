@@ -15,7 +15,7 @@ microcosm tour .
 microcosm python-lens .
 microcosm explain . readme_onboarding_route
 microcosm evidence list .
-microcosm status
+microcosm status --card
 microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm serve . --host 127.0.0.1 --port 8765
@@ -27,11 +27,15 @@ observatory command, the proof-lab command, and the authority ceiling. Open
 `http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
 
+Use `microcosm status --card` for the compressed first-screen lens over the
+full runtime status; `microcosm status` remains the full JSON drilldown.
+
 Read `front_door_status` before treating the tour's `status` as a blanket
 health claim. `blocking_surface_ids=[]` means the required first-screen path is
-green; `drilldown_blocked_surface_ids=["authority","intake"]` means those
-surfaces remain visible bounded warnings to inspect, not hidden failures or
-release authority.
+green. `drilldown_warning_surface_ids=["authority","intake"]` means those
+surfaces remain visible bounded warnings to inspect; if one is non-pass, it is
+reported under `drilldown_blocked_surface_ids`, not hidden as release
+authority.
 
 Use `microcosm authority` before trusting any organ label. It shows each
 organ's explicit `evidence_class`, and `accepted_current_authority` is not an

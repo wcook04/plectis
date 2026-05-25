@@ -104,7 +104,12 @@ def main(argv: list[str] | None = None) -> int:
     explain_parser = subparsers.add_parser("explain")
     explain_parser.add_argument("project")
     explain_parser.add_argument("route_id")
-    subparsers.add_parser("status")
+    status_parser = subparsers.add_parser("status")
+    status_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen status lens",
+    )
     subparsers.add_parser("spine")
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument("project", nargs="?")
@@ -528,7 +533,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "explain":
         return project_substrate.main(["explain", args.project, args.route_id])
     if args.command == "status":
-        return runtime_shell.main(["status"])
+        command_args = ["status"]
+        if args.card:
+            command_args.append("--card")
+        return runtime_shell.main(command_args)
     if args.command == "spine":
         return runtime_shell.main(["spine"])
     if args.command == "tour":

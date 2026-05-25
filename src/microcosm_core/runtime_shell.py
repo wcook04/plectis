@@ -1568,6 +1568,168 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     }
 
 
+def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
+    front_door = (
+        status.get("front_door", {})
+        if isinstance(status.get("front_door"), dict)
+        else {}
+    )
+    generated_state = (
+        front_door.get("generated_state", {})
+        if isinstance(front_door.get("generated_state"), dict)
+        else {}
+    )
+    behavior_surfaces = (
+        front_door.get("behavior_surfaces", {})
+        if isinstance(front_door.get("behavior_surfaces"), dict)
+        else {}
+    )
+    proof_lab = (
+        status.get("first_screen_proof_lab", {})
+        if isinstance(status.get("first_screen_proof_lab"), dict)
+        else {}
+    )
+    body_floor = (
+        status.get("macro_body_import_floor", {})
+        if isinstance(status.get("macro_body_import_floor"), dict)
+        else {}
+    )
+    truth_accounting = (
+        status.get("truth_accounting", {})
+        if isinstance(status.get("truth_accounting"), dict)
+        else {}
+    )
+    authority_ceiling = (
+        front_door.get("authority_ceiling", {})
+        if isinstance(front_door.get("authority_ceiling"), dict)
+        else {}
+    )
+    front_door_safe_to_show = (
+        front_door.get("safe_to_show", {})
+        if isinstance(front_door.get("safe_to_show"), dict)
+        else {}
+    )
+    proof_safe_to_show = (
+        proof_lab.get("safe_to_show", {})
+        if isinstance(proof_lab.get("safe_to_show"), dict)
+        else {}
+    )
+    return {
+        "schema_version": "microcosm_runtime_status_card_v1",
+        "status": status.get("status"),
+        "posture": status.get("posture"),
+        "scope": "compressed_first_screen_lens_over_full_microcosm_status",
+        "card_command": "microcosm status --card",
+        "full_status_command": "microcosm status",
+        "front_door": {
+            "status": front_door.get("status"),
+            "primary_command": front_door.get("primary_command"),
+            "tour_front_door_status_ref": (
+                "microcosm tour <project>::front_door_status"
+            ),
+            "tour_warning_drilldowns": ["authority", "intake"],
+            "warning_rule": (
+                "warning drilldowns remain visible for inspection; they do "
+                "not become first-screen blockers unless listed in "
+                "front_door_status.blocking_surface_ids"
+            ),
+            "state_dir": generated_state.get("state_dir"),
+            "route_state_ref": behavior_surfaces.get("route_state_ref"),
+            "work_state_ref": behavior_surfaces.get("work_state_ref"),
+            "event_log_ref": behavior_surfaces.get("event_log_ref"),
+            "evidence_dir_ref": behavior_surfaces.get("evidence_dir_ref"),
+            "graph_ref": behavior_surfaces.get("graph_ref"),
+            "observatory_command": behavior_surfaces.get("observatory_command"),
+        },
+        "proof_lab": {
+            "status": proof_lab.get("status"),
+            "command": proof_lab.get("command"),
+            "route_id": proof_lab.get("route_id"),
+            "route_component_count": proof_lab.get("route_component_count"),
+            "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
+            "lean_compiled_declaration_count": proof_lab.get(
+                "lean_compiled_declaration_count"
+            ),
+            "route_ref": proof_lab.get("route_ref"),
+            "receipt_ref": proof_lab.get("receipt_ref"),
+        },
+        "substrate_counts": {
+            "adapter_backed_organ_count": status.get("adapter_backed_organ_count"),
+            "adapter_backed_count_is_product_progress": status.get(
+                "adapter_backed_count_is_product_progress"
+            ),
+            "real_substrate_progress_count": status.get(
+                "real_substrate_progress_count"
+            ),
+            "non_progress_organ_count": status.get("non_progress_organ_count"),
+            "blocked_import_debt_count": truth_accounting.get(
+                "blocked_import_debt_count", 0
+            ),
+            "copied_non_secret_macro_body_material_count": status.get(
+                "copied_non_secret_macro_body_material_count"
+            ),
+            "macro_body_defect_count": body_floor.get("defect_count"),
+            "route_count": status.get("route_count"),
+            "workitem_count": status.get("workitem_count"),
+            "evidence_count": status.get("evidence_count"),
+        },
+        "macro_body_import_floor": {
+            "status": body_floor.get("status"),
+            "source_ref": body_floor.get("source_ref"),
+            "public_safe_body_material_counts_by_class": body_floor.get(
+                "public_safe_body_material_counts_by_class", {}
+            ),
+            "mixed_public_safe_macro_import_assay_status": (
+                body_floor.get("mixed_public_safe_macro_import_assay", {}).get(
+                    "status"
+                )
+                if isinstance(
+                    body_floor.get("mixed_public_safe_macro_import_assay"), dict
+                )
+                else None
+            ),
+        },
+        "authority_ceiling": {
+            "release_authorized": authority_ceiling.get("release_authorized"),
+            "hosted_public_authorized": authority_ceiling.get(
+                "hosted_public_authorized"
+            ),
+            "provider_calls_authorized": authority_ceiling.get(
+                "provider_calls_authorized"
+            ),
+            "source_mutation_authorized": authority_ceiling.get(
+                "source_mutation_authorized"
+            ),
+            "credential_equivalent_payloads_exported": authority_ceiling.get(
+                "credential_equivalent_payloads_exported"
+            ),
+            "proof_correctness_claim": authority_ceiling.get(
+                "proof_correctness_claim"
+            ),
+        },
+        "safe_to_show": {
+            "front_door_safe_to_show": front_door_safe_to_show,
+            "proof_lab_safe_to_show": proof_safe_to_show,
+            "receipts_are_drilldown_evidence": True,
+            "credential_equivalent_live_access_excluded": True,
+        },
+        "next_commands": [
+            "microcosm compile <project>",
+            "microcosm tour <project>",
+            "microcosm python-lens <project>",
+            "microcosm explain <project> <route_id>",
+            "microcosm serve <project> --host 127.0.0.1 --port 8765",
+            PROOF_LAB_FIRST_SCREEN_COMMAND,
+            "microcosm status",
+        ],
+        "anti_claim": (
+            "This card is a compressed read model over runtime status. It does "
+            "not authorize release, hosting, provider execution, source "
+            "mutation, proof correctness, or credential-equivalent live access."
+        ),
+    }
+
+
 def _standard_ref_for_organ(organ_id: str) -> str:
     return f"standards/std_microcosm_{organ_id}.json"
 
@@ -2048,7 +2210,7 @@ class RuntimeShell:
             project_ref="<project>",
             proof_lab=proof_lab,
         )
-        return {
+        payload = {
             "schema_version": "microcosm_runtime_status_v1",
             "status": PASS
             if len(adapter_backed) == len(product_steps)
@@ -2074,6 +2236,7 @@ class RuntimeShell:
                     "microcosm evidence list <project>",
                     "microcosm tour <project>",
                     "microcosm status",
+                    "microcosm status --card",
                     "microcosm spine",
                     "microcosm authority",
                     "microcosm workingness",
@@ -2281,6 +2444,7 @@ class RuntimeShell:
                 "run microcosm compile <project>",
                 "run microcosm python-lens <project>",
                 "run microcosm tour <project>",
+                "run microcosm status --card",
                 "run microcosm explain <project> <route_id>",
                 "run microcosm spine",
                 "run microcosm authority",
@@ -2324,6 +2488,11 @@ class RuntimeShell:
                 "open evidence only when drilldown is needed",
             ],
         }
+        payload["status_card"] = _runtime_status_card(payload)
+        return payload
+
+    def status_card(self) -> dict[str, Any]:
+        return _runtime_status_card(self.status())
 
     def spine(self) -> dict[str, Any]:
         organs = self.organs()
@@ -15162,7 +15331,12 @@ def _print_json(payload: Any) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="microcosm-runtime")
     subparsers = parser.add_subparsers(dest="command")
-    subparsers.add_parser("status")
+    status_parser = subparsers.add_parser("status")
+    status_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen status lens",
+    )
     subparsers.add_parser("spine")
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
@@ -15224,7 +15398,7 @@ def main(argv: list[str] | None = None) -> int:
     shell = RuntimeShell()
 
     if args.command == "status":
-        return _print_json(shell.status())
+        return _print_json(shell.status_card() if args.card else shell.status())
     if args.command == "spine":
         return _print_json(shell.spine())
     if args.command == "tour":
