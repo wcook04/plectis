@@ -19,7 +19,8 @@ The compact behavioral path is:
    and evidence chain selected by `tour` or `compile`.
 5. `microcosm evidence list <project>` lists project-local evidence refs.
 6. `microcosm status --card <project>` reads the compressed status and
-   `front_door.route_explanation` lens.
+   `front_door.route_explanation` lens plus
+   `front_door.source_open_body_import_floor`.
 7. `microcosm workingness` opens the bounded behavior/failure map.
 8. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
    lab route.
@@ -69,7 +70,8 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    drilldowns.
    Open `atlas/entry_packet.json::status_and_workingness_route` before raw
    receipts when the question is whether the first screen is honest about
-   missing standards, failure modes, and bounded authority.
+   missing standards, failure modes, source-open body imports, and bounded
+   authority.
 5. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the

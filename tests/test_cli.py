@@ -211,6 +211,20 @@ def test_cli_status_card_can_overlay_project_route_state(
         "available_project_route_ids"
     ]
     assert payload["front_door"]["project_state"]["state_dir_exists"] is True
+    body_floor = payload["front_door"]["source_open_body_import_floor"]
+    assert body_floor["status"] == "pass"
+    assert body_floor["summary_ref"] == (
+        "microcosm status --card::macro_body_import_floor"
+    )
+    assert (
+        body_floor["public_safe_body_material_count"]
+        == payload["substrate_counts"][
+            "copied_non_secret_macro_body_material_count"
+        ]
+    )
+    assert body_floor["verified_source_module_family_count"] >= 20
+    assert body_floor["body_text_exported_in_status"] is False
+    assert body_floor["body_text_exported_in_receipts"] is False
 
 
 def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(

@@ -477,6 +477,8 @@ def _entry_packet_route_contract(
         "atlas/entry_packet.json::local_first_screen_route",
         "atlas/entry_packet.json::cold_clone_probe_route",
         "microcosm status --card <project>::front_door.route_explanation",
+        "microcosm status --card <project>::front_door.source_open_body_import_floor",
+        "microcosm status --card <project>::macro_body_import_floor",
         "/workingness",
     ]
     if not path.is_file():
@@ -568,6 +570,7 @@ def _entry_packet_route_contract(
                 "atlas/entry_packet.json::cold_clone_probe_route",
                 "atlas/entry_packet.json::status_and_workingness_route",
                 "atlas/entry_packet.json::proof_lab_route",
+                "front_door.source_open_body_import_floor",
                 "Receipts are evidence drilldowns after the behavior route is visible",
             ]
         )

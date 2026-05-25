@@ -667,6 +667,14 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         workingness["status_card_route_explanation_ref"]
         == "microcosm status --card <project>::front_door.route_explanation"
     )
+    assert (
+        workingness["status_card_front_door_body_import_ref"]
+        == "microcosm status --card <project>::front_door.source_open_body_import_floor"
+    )
+    assert (
+        workingness["status_card_body_import_floor_ref"]
+        == "microcosm status --card <project>::macro_body_import_floor"
+    )
     assert workingness["tour_route_card_ref"] == (
         "microcosm tour <project>::status_and_workingness"
     )
@@ -685,6 +693,20 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         "front_door.route_explanation.reader_drilldowns"
         in workingness["expected_fields"]
     )
+    assert "front_door.source_open_body_import_floor" in workingness["expected_fields"]
+    assert (
+        "front_door.source_open_body_import_floor.public_safe_body_material_count"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "front_door.source_open_body_import_floor.body_text_exported_in_status"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "front_door.source_open_body_import_floor.body_text_exported_in_receipts"
+        in workingness["expected_fields"]
+    )
+    assert "macro_body_import_floor.source_body_imports" in workingness["expected_fields"]
     assert "map_generation_status" in workingness["expected_fields"]
     assert "failure_envelope_status" in workingness["expected_fields"]
     assert "top_level_status_rule" in workingness["expected_fields"]
@@ -695,6 +717,9 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert workingness["safe_to_show"]["proof_correctness_claim"] is False
     assert workingness["safe_to_show"]["release_authorized"] is False
     assert workingness["safe_to_show"]["route_lineage_counts_visible"] is True
+    assert workingness["safe_to_show"]["source_open_body_import_counts_visible"] is True
+    assert workingness["safe_to_show"]["body_text_exported_in_status"] is False
+    assert workingness["safe_to_show"]["body_text_exported_in_receipts"] is False
     assert workingness["status_card_command"] in entry_packet["allowed_drilldowns"]
     assert (
         workingness["status_card_front_door_ref"]
@@ -702,6 +727,14 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     )
     assert (
         workingness["status_card_route_explanation_ref"]
+        in entry_packet["allowed_drilldowns"]
+    )
+    assert (
+        workingness["status_card_front_door_body_import_ref"]
+        in entry_packet["allowed_drilldowns"]
+    )
+    assert (
+        workingness["status_card_body_import_floor_ref"]
         in entry_packet["allowed_drilldowns"]
     )
     assert workingness["workingness_command"] in entry_packet["allowed_drilldowns"]

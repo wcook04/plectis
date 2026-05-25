@@ -2188,6 +2188,52 @@ def _runtime_status_card(
             "evidence_dir_ref": behavior_surfaces.get("evidence_dir_ref"),
             "graph_ref": behavior_surfaces.get("graph_ref"),
             "observatory_command": behavior_surfaces.get("observatory_command"),
+            "source_open_body_import_floor": {
+                "status": body_floor.get("status"),
+                "summary_ref": (
+                    "microcosm status --card::macro_body_import_floor"
+                ),
+                "full_status_ref": "microcosm status::macro_body_import_floor",
+                "source_ref": body_floor.get("source_ref"),
+                "public_safe_body_material_count": body_floor.get(
+                    "public_safe_body_material_count"
+                ),
+                "public_safe_body_material_counts_by_class": body_floor.get(
+                    "public_safe_body_material_counts_by_class", {}
+                ),
+                "verified_source_module_family_count": (
+                    source_body_imports.get(
+                        "verified_source_module_family_count"
+                    )
+                    if isinstance(source_body_imports, dict)
+                    else None
+                ),
+                "latest_source_refs": (
+                    source_body_imports.get("latest_source_refs", [])
+                    if isinstance(source_body_imports, dict)
+                    else []
+                ),
+                "body_text_exported_in_status": (
+                    source_body_imports.get("body_text_exported_in_status")
+                    if isinstance(source_body_imports, dict)
+                    else None
+                ),
+                "body_text_exported_in_receipts": (
+                    source_body_imports.get("body_text_exported_in_receipts")
+                    if isinstance(source_body_imports, dict)
+                    else None
+                ),
+                "authority_boundary": (
+                    "verified_non_secret_macro_body_floor_not_release_"
+                    "provider_source_mutation_or_private_equivalence_authority"
+                ),
+                "reader_action": (
+                    "Use this compact floor to see real source-open body "
+                    "imports before opening receipts; open "
+                    "macro_body_import_floor for validators and family "
+                    "drilldowns."
+                ),
+            },
         },
         "proof_lab": {
             "status": proof_lab.get("status"),

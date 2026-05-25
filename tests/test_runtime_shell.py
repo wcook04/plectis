@@ -488,6 +488,29 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["front_door"]["event_log_ref"] == ".microcosm/events.jsonl"
     assert card["front_door"]["evidence_dir_ref"] == ".microcosm/evidence/"
     assert card["front_door"]["graph_ref"] == ".microcosm/graph.json"
+    body_floor_front_door = card["front_door"]["source_open_body_import_floor"]
+    assert body_floor_front_door["status"] == "pass"
+    assert body_floor_front_door["summary_ref"] == (
+        "microcosm status --card::macro_body_import_floor"
+    )
+    assert (
+        body_floor_front_door["full_status_ref"]
+        == "microcosm status::macro_body_import_floor"
+    )
+    assert body_floor_front_door["public_safe_body_material_count"] == status[
+        "copied_non_secret_macro_body_material_count"
+    ]
+    assert (
+        body_floor_front_door["public_safe_body_material_counts_by_class"]
+        == status["macro_body_import_floor"][
+            "public_safe_body_material_counts_by_class"
+        ]
+    )
+    assert body_floor_front_door["verified_source_module_family_count"] >= 20
+    assert body_floor_front_door["latest_source_refs"]
+    assert body_floor_front_door["body_text_exported_in_status"] is False
+    assert body_floor_front_door["body_text_exported_in_receipts"] is False
+    assert "release" in body_floor_front_door["authority_boundary"]
     assert card["proof_lab"]["status"] == "pass"
     assert card["proof_lab"]["endpoint"] == "/proof-lab"
     assert card["proof_lab"]["alias_endpoints"] == ["/verifier-lab-kernel"]
@@ -572,7 +595,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["workingness"]["mapped_organ_count"] == 46
     assert card["workingness"]["adapter_backed_organ_count"] == 42
     assert card["workingness"]["demoted_drilldown_count"] == 4
-    assert card["workingness"]["missing_standard_count"] >= 1
+    assert card["workingness"]["missing_standard_count"] == 0
     assert card["workingness"]["missing_failure_modes_count"] >= 1
     gap_preview = card["workingness"]["gap_preview"]
     assert gap_preview["status"] == "actionable"
