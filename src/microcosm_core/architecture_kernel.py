@@ -349,6 +349,38 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _dedupe_strings(items: list[Any]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for item in items:
+        value = str(item or "")
+        if not value or value in seen:
+            continue
+        seen.add(value)
+        out.append(value)
+    return out
+
+
+def _dedupe_event_refs(items: list[Any]) -> list[dict[str, Any]]:
+    seen: set[str] = set()
+    out: list[dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        event_id = str(item.get("event_id") or "")
+        if not event_id or event_id in seen:
+            continue
+        seen.add(event_id)
+        out.append(
+            {
+                "event_id": event_id,
+                "span": item.get("span"),
+                "status": item.get("status"),
+            }
+        )
+    return out
+
+
 def load_kernel_manifest(root: str | Path | None = None) -> dict[str, Any]:
     root_path = Path(root).resolve(strict=False) if root is not None else public_root()
     manifest = read_json_if_exists(root_path / "core/architecture_kernel.json")
@@ -858,6 +890,57 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         for row in events
         if row.get("span") in {"project.route", "project.explain", "work.create", "work.run"}
     ][-12:]
+    work_event_refs = _dedupe_event_refs(
+        [
+            item
+            for work in work_items
+            for item in (
+                work.get("event_refs", [])
+                if isinstance(work.get("event_refs"), list)
+                else []
+            )
+        ]
+    )
+    work_evidence_refs = _dedupe_strings(
+        [
+            item
+            for work in work_items
+            for item in (
+                work.get("evidence_refs", [])
+                if isinstance(work.get("evidence_refs"), list)
+                else []
+            )
+        ]
+    )
+    explanation_evidence_refs = _dedupe_strings(
+        [
+            ".microcosm/evidence/routes.json",
+            f".microcosm/evidence/explain_{route.get('route_id')}.json",
+            *work_evidence_refs,
+        ]
+    )
+    causal_event_refs = _dedupe_event_refs([*event_refs, *work_event_refs])
+    selected_work = work_items[-1] if work_items else {}
+    selected_state_history = (
+        [
+            str(row.get("state"))
+            for row in selected_work.get("state_history", [])
+            if isinstance(row, dict) and row.get("state")
+        ]
+        if isinstance(selected_work, dict)
+        and isinstance(selected_work.get("state_history"), list)
+        else []
+    )
+    causal_chain_status = (
+        PASS
+        if route
+        and all(row.get("resolved") is True for row in pattern_bindings)
+        and all(row.get("resolved") is True for row in standard_bindings)
+        and bool(work_items)
+        and bool(causal_event_refs)
+        and bool(explanation_evidence_refs)
+        else "partial"
+    )
     explanation = {
         **_base(project, "microcosm_route_explanation_v1"),
         "route_id": route.get("route_id"),
@@ -876,7 +959,15 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
             pattern_surface.get("evidence_ref", ".microcosm/evidence/patterns.json"),
         ],
         "detected_patterns": patterns,
-        "kernel_primitives": ["catalog", "pattern", "route", "work", "event", "evidence", "explanation"],
+        "kernel_primitives": [
+            "catalog",
+            "pattern",
+            "route",
+            "work",
+            "event",
+            "evidence",
+            "explanation",
+        ],
         "standard_pressure_surface": standard_pressure_contract(),
         "standard_pressure_refs": standard_pressure_refs_for_route(route),
         "standard_bindings": standard_bindings,
@@ -893,10 +984,47 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
             "matching_work_items": work_items,
         },
         "event_refs": event_refs,
-        "evidence_refs": [
-            ".microcosm/evidence/routes.json",
-            f".microcosm/evidence/explain_{route.get('route_id')}.json",
-        ],
+        "evidence_refs": explanation_evidence_refs,
+        "causal_chain_proof": {
+            "status": causal_chain_status,
+            "proof_scope": "project_local_state_lineage_not_correctness_authority",
+            "route_id": route.get("route_id"),
+            "route_ref": f".microcosm/routes.json::{route.get('route_id')}",
+            "pattern_binding_ids": [
+                row.get("pattern_id") for row in pattern_bindings if isinstance(row, dict)
+            ],
+            "standard_binding_ids": [
+                row.get("standard_id") for row in standard_bindings if isinstance(row, dict)
+            ],
+            "work_ids": [
+                row.get("work_id")
+                for row in work_items
+                if isinstance(row, dict) and row.get("work_id")
+            ],
+            "selected_work_id": (
+                selected_work.get("work_id") if isinstance(selected_work, dict) else None
+            ),
+            "selected_work_status": (
+                selected_work.get("status") if isinstance(selected_work, dict) else None
+            ),
+            "state_history": selected_state_history,
+            "event_refs": causal_event_refs,
+            "event_ref_count": len(causal_event_refs),
+            "evidence_refs": explanation_evidence_refs,
+            "evidence_ref_count": len(explanation_evidence_refs),
+            "source_files_mutated": any(
+                row.get("source_files_mutated") is True
+                for row in work_items
+                if isinstance(row, dict)
+            ),
+            "reader_drilldowns": [
+                ".microcosm/routes.json",
+                ".microcosm/work_items.json",
+                ".microcosm/events.jsonl",
+                ".microcosm/evidence/",
+            ],
+            "authority_boundary": "causal_chain_lineage_not_release_or_proof_correctness_authority",
+        },
         "next_reversible_action": {
             "command": f"microcosm work create <project> --route {route.get('route_id')}",
             "source_mutation": False,

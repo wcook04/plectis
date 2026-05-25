@@ -38,6 +38,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     explanation = project_substrate.explain_route(project, "readme_onboarding_route")
     created = project_substrate.create_work(project)
     run = project_substrate.run_work(project, str(created["work_id"]))
+    post_run_explanation = project_substrate.explain_route(project, "readme_onboarding_route")
     observed = project_substrate.observe_project(project)
     graph = project_substrate.state_graph(project)
     evidence = project_substrate.list_evidence(project)
@@ -231,9 +232,38 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "explanation",
     ]
     assert explanation["authority_boundary"] == "project_local_projection_not_source_authority"
+    assert explanation["causal_chain_proof"]["status"] == "partial"
     assert created["work_id"] == "work_0001"
     assert run["transaction_status"] == "pass"
     assert run["state_machine"] == ["created", "selected", "planned", "executed_simulation", "closed"]
+    causal_proof = post_run_explanation["causal_chain_proof"]
+    assert causal_proof["status"] == "pass"
+    assert causal_proof["proof_scope"] == (
+        "project_local_state_lineage_not_correctness_authority"
+    )
+    assert causal_proof["route_id"] == "readme_onboarding_route"
+    assert causal_proof["route_ref"] == ".microcosm/routes.json::readme_onboarding_route"
+    assert causal_proof["pattern_binding_ids"] == ["repo_has_readme"]
+    assert "reversible_work_transaction" in causal_proof["standard_binding_ids"]
+    assert causal_proof["work_ids"] == ["work_0001"]
+    assert causal_proof["selected_work_id"] == "work_0001"
+    assert causal_proof["selected_work_status"] == "closed"
+    assert causal_proof["state_history"] == [
+        "created",
+        "selected",
+        "planned",
+        "executed_simulation",
+        "closed",
+    ]
+    assert causal_proof["event_ref_count"] >= 4
+    assert causal_proof["evidence_ref_count"] >= 4
+    assert causal_proof["source_files_mutated"] is False
+    assert ".microcosm/work_items.json" in causal_proof["reader_drilldowns"]
+    assert ".microcosm/evidence/work_create_work_0001.json" in causal_proof["evidence_refs"]
+    assert ".microcosm/evidence/work_run_work_0001.json" in causal_proof["evidence_refs"]
+    assert causal_proof["authority_boundary"] == (
+        "causal_chain_lineage_not_release_or_proof_correctness_authority"
+    )
     rerun = project_substrate.run_work(project, str(created["work_id"]))
     assert rerun["transaction_status"] == "pass"
     assert rerun["idempotent_replay"] is True
@@ -308,6 +338,12 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     }
     for rel in state_files:
         assert (project / rel).is_file()
+    saved_explanation = json.loads(
+        (project / ".microcosm/explanations/readme_onboarding_route.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert saved_explanation["causal_chain_proof"]["selected_work_id"] == "work_0001"
 
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in sorted((project / ".microcosm").rglob("*.json")))
     assert tmp_path.as_posix() not in state_text
@@ -429,3 +465,7 @@ def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
         assert cli.main(argv) == 0
         payload = json.loads(capsys.readouterr().out)
         assert payload["status"] == "pass"
+        if argv[0] == "explain":
+            assert payload["causal_chain_proof"]["status"] == "pass"
+            assert payload["causal_chain_proof"]["selected_work_id"] == "work_0001"
+            assert payload["causal_chain_proof"]["event_ref_count"] >= 4

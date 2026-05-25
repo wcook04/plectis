@@ -1860,8 +1860,41 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
         evidence_ref=f"{STATE_DIR}/{EVIDENCE_DIR}/explain_{route_id}.json",
     )
     _append_event(project, event)
-    evidence_ref = _write_evidence(project, f"explain_{route_id}", {**explanation, "event_id": event["event_id"]})
+    event_row = {
+        "event_id": event["event_id"],
+        "span": event["span"],
+        "status": event["status"],
+    }
+    expected_evidence_ref = f"{STATE_DIR}/{EVIDENCE_DIR}/explain_{route_id}.json"
     explanation["event_id"] = event["event_id"]
+    explanation["evidence_ref"] = expected_evidence_ref
+    if isinstance(explanation.get("event_refs"), list) and not any(
+        isinstance(row, dict) and row.get("event_id") == event["event_id"]
+        for row in explanation["event_refs"]
+    ):
+        explanation["event_refs"].append(event_row)
+    if (
+        isinstance(explanation.get("evidence_refs"), list)
+        and expected_evidence_ref not in explanation["evidence_refs"]
+    ):
+        explanation["evidence_refs"].append(expected_evidence_ref)
+    proof = explanation.get("causal_chain_proof")
+    if isinstance(proof, dict):
+        proof_events = proof.get("event_refs")
+        if isinstance(proof_events, list) and not any(
+            isinstance(row, dict) and row.get("event_id") == event["event_id"]
+            for row in proof_events
+        ):
+            proof_events.append(event_row)
+            proof["event_ref_count"] = len(proof_events)
+        proof_evidence_refs = proof.get("evidence_refs")
+        if (
+            isinstance(proof_evidence_refs, list)
+            and expected_evidence_ref not in proof_evidence_refs
+        ):
+            proof_evidence_refs.append(expected_evidence_ref)
+            proof["evidence_ref_count"] = len(proof_evidence_refs)
+    evidence_ref = _write_evidence(project, f"explain_{route_id}", explanation)
     explanation["evidence_ref"] = evidence_ref
     write_json_atomic(_state_dir(project) / "explanations" / f"{route_id}.json", explanation)
     architecture_kernel.write_project_architecture(project)
@@ -1913,8 +1946,8 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         route_rows[0] if route_rows else {},
     )
     route_id = str(selected_route.get("route_id") or "")
-    explanation = explain_route(project, route_id) if route_id else {}
     work_result = run_work(project)
+    explanation = explain_route(project, route_id) if route_id else {}
     observed = observe_project(project)
     graph = state_graph(project)
     evidence = list_evidence(project)
@@ -1939,8 +1972,8 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
             f"projected Python lens over {python_projection.get('python_file_count', 0)} Python files",
             f"detected {patterns.get('passing_pattern_count', 0)} passing patterns",
             f"opened {routes.get('route_count', 0)} routes",
-            f"explained {route_id}" if route_id else "no route available to explain",
             f"ran {work_id}" if work_id else "no work item available",
+            f"explained route/work chain for {route_id}" if route_id else "no route available to explain",
             f"emitted {observed.get('event_count', 0)} events",
             f"wrote {evidence.get('evidence_count', 0)} evidence refs",
         ],
