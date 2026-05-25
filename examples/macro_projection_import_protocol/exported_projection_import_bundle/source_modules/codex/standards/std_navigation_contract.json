@@ -1,0 +1,134 @@
+{
+  "id": "std_navigation_contract",
+  "kind": "standard",
+  "schema_version": "navigation_contract_standard_v1",
+  "title": "Navigation Contract Standard",
+  "status": "candidate",
+  "summary": "Reusable field contract for standards that declare how their artifact kind is read through native bands, scopes, facets, source authority, currentness, edge neighborhoods, and validation.",
+  "purpose": "Turn the Kind Atlas from a list of artifact kinds into a ladder-aware map where each kind's governing standard or profile says how a row can be compressed, scoped, faceted, drilled, populated, and verified.",
+  "required_contract_fields": [
+    "profile_id",
+    "artifact_kind",
+    "navigable_bands",
+    "band_contracts",
+    "navigable_scopes",
+    "navigable_facets",
+    "population_policy",
+    "creator_skill_id",
+    "navigator_skill_id",
+    "source_authority",
+    "currentness_policy",
+    "dependency_neighborhood_policy",
+    "edge_compression_policy",
+    "validation_probe"
+  ],
+  "compatibility_fields": [
+    "telescope_facets"
+  ],
+  "field_contracts": {
+    "profile_id": "Stable contract/profile id for this artifact kind's navigation ladder.",
+    "artifact_kind": "Kind id from the Kind Atlas or a narrower sub-kind governed by the standard.",
+    "navigable_bands": "Ordered density levels over the same conceptual object, cheapest to deepest. Band names are kind-native, not globally fixed.",
+    "band_contracts": "Object keyed by band name. Each band declares purpose, minimum_payload, forbidden, and drilldown_to.",
+    "navigable_scopes": "Structural zoom units for this kind, such as module, section, class, function, source_span, or term. Empty only when the artifact is truly scope-atomic.",
+    "navigable_facets": "Aspect/section classes inside one scope, such as gap, code_loci, relationships, evidence, signature, body, or aliases.",
+    "telescope_facets": "Compatibility alias from v0. New contracts should split entries into navigable_scopes and navigable_facets instead of adding mixed scope/facet terms here.",
+    "population_policy": "Per emitted unit or selector, declares populated_by as authored, compiled, live_computed, or unpopulated, plus emitter/source/freshness details when known.",
+    "creator_skill_id": "Skill or builder surface that produces or refreshes rows under this contract.",
+    "navigator_skill_id": "Skill or kernel surface that reads/traverses rows under this contract.",
+    "source_authority": "Where truth lives when a compressed row is insufficient.",
+    "currentness_policy": "How the row exposes freshness, source fingerprints, generated-at posture, or live validation.",
+    "dependency_neighborhood_policy": "How inbound/outbound edges, dependencies, or surrounding context are selected, downshifted, or omitted.",
+    "edge_compression_policy": "Rules for compressing relationships as rows with source, target, verb, reverse verb, forward/reverse gloss, authority, evidence, drilldown, and decay posture.",
+    "validation_probe": "Checks that tell whether a row or standard has satisfied the contract."
+  },
+  "population_modes": {
+    "authored": "Written directly in the source artifact or curated registry row.",
+    "compiled": "Deterministically built from source into a generated projection and therefore freshness-bearing.",
+    "live_computed": "Derived at read time from live source without persisted projection authority.",
+    "unpopulated": "Contract exists but no emitter or populated content exists yet; navigators must report a profile gap."
+  },
+  "edge_row_shape": {
+    "required_fields": [
+      "edge_id",
+      "source_ref",
+      "target_ref",
+      "verb",
+      "reverse_verb",
+      "forward_gloss",
+      "reverse_gloss",
+      "authority_posture",
+      "confidence",
+      "reason",
+      "extraction_mode",
+      "validity",
+      "evidence_ref",
+      "drilldown_ref",
+      "band",
+      "neighborhood_order"
+    ],
+    "optional_fields": [
+      "same_graph_contract",
+      "selector_policy_id",
+      "impact_vector",
+      "role_prior"
+    ],
+    "rule": "Every edge must explain why it matters from both ends and how much to trust the emitted relation. A one-way id link without confidence, reason, extraction mode, validity/currentness, and source evidence is not a navigable edge."
+  },
+  "neighborhood_decay_contract": {
+    "selected_node": {
+      "band": "requested",
+      "rule": "Read the requested row/scope/facet at the requested band."
+    },
+    "first_order": {
+      "band": "card_or_context",
+      "rule": "Expose direct inbound/outbound edges at card or context band when they affect the decision."
+    },
+    "second_order": {
+      "band": "flag",
+      "rule": "Downshift neighbors-of-neighbors to flag unless the task explicitly needs deeper context."
+    },
+    "beyond_second_order": {
+      "band": "omitted",
+      "rule": "Omit with counts, reasons, and drilldown refs rather than silently dropping context."
+    }
+  },
+  "standard_type_plane_profile": {
+    "governing_standard": "codex/standards/std_standard_type_plane.json",
+    "rule": "A navigation contract is the per-type read ladder inside the standards type plane. It declares how a type is browsed, faceted, drilled, populated, and validated; it does not itself make a generated projection authoritative.",
+    "required_for_type_plane_support": [
+      "artifact_kind matches a type_id or governed sub-kind",
+      "navigable_bands provide a cheap browse band before source authority opens",
+      "source_authority points at authored or generated authority with currentness policy",
+      "validation_probe proves the row still matches its standard and projection",
+      "edge_compression_policy names bidirectional gloss and evidence requirements"
+    ],
+    "handoff_to_kind_atlas": "Kind Atlas reports support_status and profile_gap for each type; std_navigation_contract defines the shape of the missing or present profile.",
+    "handoff_to_system_atlas": "System Atlas may ingest the profile as derived_projection evidence, but mutation and contract changes route back to the governing standard."
+  },
+  "validation_rules": [
+    "navigable_bands must be ordered cheapest-to-deepest and every band must have a band_contracts entry.",
+    "Every band contract should include purpose, minimum_payload, forbidden, and drilldown_to.",
+    "navigable_scopes and navigable_facets must not conflate structural zoom with aspect/section selection.",
+    "population_policy must mark each declared emitted unit as authored, compiled, live_computed, or unpopulated.",
+    "Band names do not have to match flag/card/context/deep, but the first band must be cheap enough to browse a row set.",
+    "A declared navigation_contract does not imply an option-surface adapter exists. Adapter support remains reported by the Kind Atlas support_status.",
+    "If source_authority points at generated surfaces, currentness_policy must explain how source freshness is checked.",
+    "Edges that appear in card/context/evidence bands must carry bidirectional local glosses or be reported as thin_reverse_gloss/profile_gap.",
+    "Any compressed packet that emits a computed quality_signal bottleneck must preserve at least one active drilldown row for that bottleneck within the packet, or explicitly mark why no active row exists."
+  ],
+  "related_surfaces": {
+    "standard_type_plane": "codex/standards/std_standard_type_plane.json",
+    "kind_atlas_standard": "codex/standards/std_kind_atlas.json",
+    "compression_profiles": "codex/doctrine/compression_profiles.json",
+    "navigation_theory": "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+    "option_surface_builder": "system/lib/standard_option_surface.py",
+    "kind_band_contract_audit": "system/lib/kind_band_contract_audit.py"
+  },
+  "non_goals": [
+    "Do not implement a generic row reader.",
+    "Do not implement a production telescope command from the standard alone.",
+    "Do not force one global band ladder across all artifact kinds.",
+    "Do not promote candidate contracts into support_status=option_surface_supported without an adapter and tests."
+  ]
+}

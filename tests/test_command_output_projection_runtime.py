@@ -32,6 +32,9 @@ BUNDLE_INPUT = (
     / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
 )
 TRACE_CAPSULE_MANIFEST = BUNDLE_INPUT / "trace_capsule_source_module_manifest.json"
+ROUTE_SELECTION_CONTROL_MANIFEST = (
+    BUNDLE_INPUT / "route_selection_control_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -140,6 +143,28 @@ def test_trace_capsule_source_manifest_matches_exact_macro_sources() -> None:
             assert anchor in target_text
 
 
+def test_route_selection_control_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = json.loads(ROUTE_SELECTION_CONTROL_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["manifest_id"] == "route_selection_control_source_modules_import"
+    assert manifest["module_count"] == 5
+    assert manifest["public_runtime_policy"].startswith("public validation uses exact")
+    for row in manifest["modules"]:
+        source = REPO_ROOT / row["source_ref"]
+        target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+        assert source.is_file()
+        assert target.is_file()
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert source_digest == target_digest
+        target_text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in target_text
+
+
 def _load_trace_capsule_source_module():
     module_path = (
         BUNDLE_INPUT
@@ -153,7 +178,34 @@ def _load_trace_capsule_source_module():
     assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
+    previous = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = previous
+    return module
+
+
+def _load_route_selection_intervention_source_module():
+    module_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/lib/navigation_route_intervention.py"
+    )
+    spec = importlib.util.spec_from_file_location(
+        "microcosm_route_selection_intervention_source_module",
+        module_path,
+    )
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    previous = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = previous
     return module
 
 
@@ -208,6 +260,20 @@ def test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture() -
     assert meta["terminal_validation_pass_count"] == 1
     assert meta["closeout_present"] is True
     assert "/Users/" not in text
+
+
+def test_route_selection_intervention_source_module_builds_public_route_repair_suggestion() -> None:
+    module = _load_route_selection_intervention_source_module()
+
+    suggestion = module.route_repair_for(
+        anti_pattern_id="anti_pattern_grep_before_kernel"
+    )
+
+    assert suggestion is not None
+    payload = suggestion.to_dict()
+    assert payload["repair_class"] == "hook_steering_plus_context_pack_first_contact"
+    assert payload["suggested_sequence"][0].startswith("./repo-python kernel.py --entry")
+    assert "skills:navigation_metabolism" in payload["expected_artifacts"]
 
 
 def test_agent_trace_structurer_parser_source_module_runs_node_fixture_tests() -> None:
