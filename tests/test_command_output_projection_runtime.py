@@ -65,6 +65,9 @@ ANNEX_ROUTING_COVERAGE_MANIFEST = (
 ANNEX_CURRENTNESS_MANIFEST = (
     BUNDLE_INPUT / "annex_currentness_source_module_manifest.json"
 )
+ENTRYPOINT_HEALTH_MANIFEST = (
+    BUNDLE_INPUT / "entrypoint_health_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -651,6 +654,39 @@ def test_annex_currentness_sources_compile_and_carry_currentness_contract() -> N
     assert "annex_sync_digest" in currentness_text
     assert "movement_to_row_job" in currentness_text
     assert "test_kernel_annex_currentness_cli_emits_packet" in test_text
+
+
+def test_entrypoint_health_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        ENTRYPOINT_HEALTH_MANIFEST,
+        manifest_id="entrypoint_health_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_entrypoint_health_sources_compile_and_carry_entrypoint_contract() -> None:
+    entrypoint_source = BUNDLE_INPUT / "source_modules/system/lib/entrypoint_health.py"
+    test_source = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_entrypoint_health.py"
+    )
+
+    entrypoint_text = entrypoint_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(entrypoint_text, str(entrypoint_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert '"schema_version": "entrypoint_health_v0"' in entrypoint_text
+    assert "def build_entrypoint_health(" in entrypoint_text
+    assert "def project_entry_surface_diagnostics(" in entrypoint_text
+    assert "FORBIDDEN_ROUTE_PATTERNS" in entrypoint_text
+    assert (
+        "test_repo_entrypoint_health_is_budget_safe_and_route_clean"
+        in test_text
+    )
+    assert (
+        "test_entry_surface_diagnostic_first_contact_uses_fast_source_coupling_receipt"
+        in test_text
+    )
 
 
 def _load_trace_capsule_source_module():

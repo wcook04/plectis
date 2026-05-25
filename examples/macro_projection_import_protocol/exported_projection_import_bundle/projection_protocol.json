@@ -108,7 +108,10 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json",
     "system/lib/annex_currentness.py",
     "system/server/tests/test_annex_currentness.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json",
+    "system/lib/entrypoint_health.py",
+    "system/server/tests/test_entrypoint_health.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -4029,6 +4032,102 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "entrypoint_health_body_import",
+      "source_ref": "system/lib/entrypoint_health.py",
+      "source_refs": [
+        "system/lib/entrypoint_health.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_entrypoint_health_source_bodies_into_public_projection_bundle",
+        "bind_entrypoint_health_source_bodies_to_macro_projection_body_floor",
+        "preserve_entrypoint_health_sources_without_claiming_live_macro_kernel_execution_or_generated_entrypoint_mutation_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public entrypoint health source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/entrypoint_health.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
+        "source_body_digest": "sha256:db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
+        "target_body_digest": "sha256:db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
+        "source_line_count": 1073,
+        "target_line_count": 1073,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "entrypoint_health_test_body_import",
+      "source_ref": "system/server/tests/test_entrypoint_health.py",
+      "source_refs": [
+        "system/server/tests/test_entrypoint_health.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_entrypoint_health_source_bodies_into_public_projection_bundle",
+        "bind_entrypoint_health_source_bodies_to_macro_projection_body_floor",
+        "preserve_entrypoint_health_sources_without_claiming_live_macro_kernel_execution_or_generated_entrypoint_mutation_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public entrypoint health source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_entrypoint_health.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
+        "source_body_digest": "sha256:29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
+        "target_body_digest": "sha256:29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
+        "source_line_count": 516,
+        "target_line_count": 516,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -4131,7 +4230,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_routing_coverage.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_currentness.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -4203,7 +4305,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

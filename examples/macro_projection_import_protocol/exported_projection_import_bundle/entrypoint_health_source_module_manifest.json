@@ -1,0 +1,78 @@
+{
+  "schema_version": "macro_projection_entrypoint_health_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "entrypoint_health_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_entrypoint_health_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing entrypoint health regression contract; copied source modules are body evidence, not authority to run live macro kernel routing state or mutate generated entrypoint files.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "entrypoint_health_body_import",
+      "source_ref": "system/lib/entrypoint_health.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/entrypoint_health.py",
+      "source_role": "Entrypoint budget, generated-region, stale-route, and first-contact diagnostics used by navigation metabolism, context packs, and entry-surface health projection.",
+      "required_anchors": [
+        "def build_entrypoint_health(",
+        "def project_entry_surface_diagnostics(",
+        "FORBIDDEN_ROUTE_PATTERNS",
+        "GENERATED_ENTRYPOINT_GLOBS",
+        "\"schema_version\": \"entrypoint_health_v0\""
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
+      "target_sha256": "db290656b59a1c0b0f6cad19673c33d3f139ef58e03bd35fcd378c49b31173d5",
+      "sha256_match": true,
+      "line_count": 1073,
+      "byte_count": 47774,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "entrypoint_health_test_body_import",
+      "source_ref": "system/server/tests/test_entrypoint_health.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
+      "source_role": "Focused regression tests for entrypoint budget safety, stale first-contact route detection, generated-region drift surfacing, and fast source-coupling diagnostics.",
+      "required_anchors": [
+        "test_repo_entrypoint_health_is_budget_safe_and_route_clean",
+        "test_entrypoint_health_reports_over_budget_and_stale_routes",
+        "test_entry_surface_diagnostic_marks_dirty_routing_source_as_visible_debt",
+        "test_entry_surface_diagnostic_first_contact_uses_fast_source_coupling_receipt",
+        "test_entrypoint_health_can_skip_generated_targets_for_quick_callers"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
+      "target_sha256": "29b783f7372de9e7612b7a37758990d610fdb926e303330409764a65979a6e2f",
+      "sha256_match": true,
+      "line_count": 516,
+      "byte_count": 19474,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_entrypoint_health_sources_compile_and_carry_entrypoint_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}
